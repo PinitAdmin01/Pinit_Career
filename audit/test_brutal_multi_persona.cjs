@@ -96,8 +96,7 @@ const assert = require('assert');
     // 3. Direct deep link into /passport (Public redirect)
     console.log('   Testing Unauthenticated Visitor accessing /passport...');
     await incognitoPage.goto('http://localhost:3000/passport');
-    await incognitoPage.waitForURL('**/university/portfolio/**', { timeout: 10000 });
-    assert(incognitoPage.url().includes('/university/portfolio/'), '/passport must redirect directly to public portfolio');
+    await incognitoPage.waitForFunction(() => window.location.pathname.includes('/university/portfolio/'), { timeout: 10000 });
     console.log(`   ✅ /passport smoothly routed to: ${incognitoPage.url()}`);
 
     await incognitoContext.close();

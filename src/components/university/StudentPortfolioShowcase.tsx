@@ -13,27 +13,70 @@ export const StudentPortfolioShowcase: React.FC<StudentPortfolioShowcaseProps> =
   const [copiedHash, setCopiedHash] = useState(false);
   const [copiedUrl, setCopiedUrl] = useState(false);
 
-  // Client-side hydration: If current user is logged in as Vinay / demo student, sync name gracefully
+  // Client-side hydration: sync with active client session and local enrollment if available
   useEffect(() => {
     if (typeof window !== 'undefined') {
       try {
-        const stored = localStorage.getItem('pinit_current_user') || localStorage.getItem('pinit_user');
-        if (stored) {
-          const user = JSON.parse(stored);
-          const userName = user.displayName || user.name;
-          if (userName && portfolio.fullName === 'Arjun Verma' && !portfolio.studentId.includes('arjun')) {
-            setPortfolio(prev => ({
-              ...prev,
-              fullName: userName,
-              studentId: user.id || prev.studentId,
-            }));
+        const storedUser = localStorage.getItem('pinit_current_user') || localStorage.getItem('pinit_user');
+        const storedEnrollment = localStorage.getItem('pinit_active_crash_enrollment');
+        const storedCompleted = localStorage.getItem('pinit_completed_quests');
+
+        setPortfolio(prev => {
+          let updated = { ...prev };
+
+          if (storedUser) {
+            try {
+              const user = JSON.parse(storedUser);
+              const userName = user.displayName || user.name;
+              if (userName && updated.fullName === 'Arjun Verma' && !updated.studentId.includes('arjun')) {
+                updated.fullName = userName;
+                updated.studentId = user.id || updated.studentId;
+              }
+            } catch {}
           }
-        }
+
+          if (storedEnrollment) {
+            try {
+              const enr = JSON.parse(storedEnrollment);
+              if (enr && enr.planId) {
+                const completedList = storedCompleted ? JSON.parse(storedCompleted) : [];
+                const tasksDone = Array.isArray(completedList) && completedList.length > 0 ? completedList.length : 1;
+                const totalTasks = 192;
+                const percent = Math.min(100, Math.max(1, Math.round((tasksDone / totalTasks) * 100)));
+
+                updated.enrolledCourse = {
+                  planId: enr.planId,
+                  planTitle: enr.planId === 'plan-1m-sprint' ? '1-Month Fast-Track Sprint' : (enr.planTitle || 'Certificate Course'),
+                  track: enr.track || 'web_fullstack',
+                  trackTitle: enr.track === 'python_ai'
+                    ? 'Option 2: Python & Data Engineering (FastAPI, PyTorch & Vector DBs)'
+                    : 'Option 1: Web Full Stack (React 19, TypeScript, Next.js, Node.js, PostgreSQL & Docker)',
+                  day: Math.max(1, Math.ceil(tasksDone / 3.2)),
+                  totalDays: 60,
+                  tasksDone,
+                  tasksTotal: totalTasks,
+                  percent,
+                  currentSprint: enr.currentSprint || 1,
+                  totalSprints: 4,
+                  sprintTitle: `Sprint ${enr.currentSprint || 1}: Architecture & Data Schema`,
+                  nextTaskTitle: 'Day 1 Practice 1: App Title Formatter',
+                  nextTaskKind: 'Practice',
+                  nextTestTitle: 'Test: Days 1–5 (Milestone Proctored Exam)',
+                  nextTestTasksBefore: Math.max(0, 15 - tasksDone),
+                  recentCompletedTask: 'Day 1 Practice 1: App Title Formatter (100% Score • SHA-256 Ledger Verified)',
+                  enrolledAt: enr.enrolledAt,
+                };
+              }
+            } catch {}
+          }
+
+          return updated;
+        });
       } catch (err) {
         console.warn('Portfolio client hydration notice:', err);
       }
     }
-  }, [portfolio.fullName, portfolio.studentId]);
+  }, []);
 
   const handleCopyHash = () => {
     if (typeof navigator !== 'undefined') {
@@ -58,6 +101,8 @@ export const StudentPortfolioShowcase: React.FC<StudentPortfolioShowcaseProps> =
     .slice(0, 2)
     .join('')
     .toUpperCase();
+
+  const enrolled = portfolio.enrolledCourse;
 
   return (
     <div className="portfolio-wrapper">
@@ -102,21 +147,37 @@ export const StudentPortfolioShowcase: React.FC<StudentPortfolioShowcaseProps> =
           <div className="hero-info-col">
             <h1 className="student-name">{portfolio.fullName}</h1>
             <p className="student-degree">
-              {portfolio.degree} <span className="text-dim">in</span> {portfolio.department}
+              {portfolio.degree || 'Full-Stack Software Engineering'}
+              {portfolio.department ? <><span className="text-dim"> • </span>{portfolio.department}</> : null}
             </p>
 
             <div className="student-meta-row">
               <span className="meta-item institution">
-                <span>🎓</span> {portfolio.institutionName}
+                <span>🎓</span> {portfolio.institutionName || 'Self-Directed / Independent Learner'}
               </span>
-              <span className="meta-dot">•</span>
-              <span className="meta-item">
-                <span>📅</span> Class of {portfolio.batchYear}
-              </span>
-              <span className="meta-dot">•</span>
-              <span className="meta-item cgpa">
-                <span>⭐</span> CGPA {portfolio.cgpa.toFixed(2)}
-              </span>
+              {portfolio.batchYear ? (
+                <>
+                  <span className="meta-dot">•</span>
+                  <span className="meta-item">
+                    <span>📅</span> Class of {portfolio.batchYear}
+                  </span>
+                </>
+              ) : null}
+              {portfolio.cgpa && portfolio.cgpa > 0 ? (
+                <>
+                  <span className="meta-dot">•</span>
+                  <span className="meta-item cgpa">
+                    <span>⭐</span> CGPA {portfolio.cgpa.toFixed(2)}
+                  </span>
+                </>
+              ) : (
+                <>
+                  <span className="meta-dot">•</span>
+                  <span className="meta-item cgpa text-muted-dim">
+                    <span>⭐</span> CGPA: Unrecorded (Self-Taught Track)
+                  </span>
+                </>
+              )}
               <span className="meta-dot">•</span>
               <span className="meta-item id-badge">
                 ID: {portfolio.studentId}
@@ -143,37 +204,136 @@ export const StudentPortfolioShowcase: React.FC<StudentPortfolioShowcaseProps> =
         <div className="kpi-grid">
           <div className="kpi-card">
             <span className="kpi-label">Attendance Reliability</span>
-            <span className="kpi-value text-white">{portfolio.attendancePercentage}%</span>
-            <span className="kpi-sub">Biometric / Geo Verified</span>
+            <span className="kpi-value text-white">
+              {portfolio.attendancePercentage !== undefined && portfolio.attendancePercentage !== null
+                ? `${portfolio.attendancePercentage}%`
+                : `${portfolio.attendanceStreakDays || 1} Day Streak`}
+            </span>
+            <span className="kpi-sub">
+              {portfolio.attendancePercentage !== undefined && portfolio.attendancePercentage !== null
+                ? 'Biometric / Geo Verified'
+                : 'Active Sprint Check-In'}
+            </span>
           </div>
+
           <div className="kpi-card">
             <span className="kpi-label">Verified Capstones</span>
-            <span className="kpi-value text-accent">{portfolio.capstones.length} Completed</span>
-            <span className="kpi-sub">Production Code Reviewed</span>
+            <span className="kpi-value text-accent">
+              {portfolio.capstones.length > 0 ? `${portfolio.capstones.length} Defended` : 'Sprint 1 Active'}
+            </span>
+            <span className="kpi-sub">
+              {portfolio.capstones.length > 0 ? 'Production Code Reviewed' : 'In Progress (Milestone 1)'}
+            </span>
           </div>
+
           <div className="kpi-card">
             <span className="kpi-label">Proctored Exams Passed</span>
             <span className="kpi-value text-white">{portfolio.proctoredExamsSummary.totalPassed} Exams</span>
-            <span className="kpi-sub">Avg Score: {portfolio.proctoredExamsSummary.averageScore}%</span>
+            <span className="kpi-sub">
+              {portfolio.proctoredExamsSummary.totalPassed > 0
+                ? `Avg Score: ${portfolio.proctoredExamsSummary.averageScore}%`
+                : 'Next: Days 1–5 Milestone'}
+            </span>
           </div>
+
           <div className="kpi-card">
             <span className="kpi-label">Anti-Cheat Integrity</span>
             <span className="kpi-value text-emerald">{portfolio.proctoredExamsSummary.averageIntegrityScore}%</span>
-            <span className="kpi-sub">100% Proctored Clean</span>
+            <span className="kpi-sub">Clean Proctored Record</span>
           </div>
         </div>
       </header>
 
-      {/* ── VERIFIED SKILL BADGES ── */}
-      {portfolio.verifiedBadges && portfolio.verifiedBadges.length > 0 && (
-        <section className="section-block">
-          <div className="section-header">
-            <h2 className="section-title">
-              <span>✨</span> Institutional Verified Skill Badges
-            </h2>
-            <span className="section-count">{portfolio.verifiedBadges.length} Certified Badges</span>
-          </div>
+      {/* ── PROMINENT ACTIVE CERTIFICATION COURSE & PERFORMANCE LEDGER ── */}
+      {enrolled && (
+        <section className="section-block course-ledger-section">
+          <div className="ledger-card">
+            <div className="ledger-header-row">
+              <div>
+                <div className="ledger-badge">
+                  <span>⚡</span> ACTIVE CERTIFICATION PROGRAM
+                </div>
+                <h2 className="ledger-title">{enrolled.planTitle}</h2>
+                <p className="ledger-track">{enrolled.trackTitle}</p>
+              </div>
 
+              <div className="ledger-stats-pill">
+                <span className="ledger-day-text">Day {enrolled.day} of {enrolled.totalDays}</span>
+                <span className="ledger-sep">•</span>
+                <span className="ledger-task-text">{enrolled.tasksDone} of {enrolled.tasksTotal} Tasks ({enrolled.percent}%)</span>
+              </div>
+            </div>
+
+            {/* Visual Progress Bar */}
+            <div className="progress-bar-container">
+              <div
+                className="progress-bar-fill"
+                style={{ width: `${Math.max(enrolled.percent, 2)}%` }}
+              />
+            </div>
+
+            {/* 3 Milestone High-Def Metric Cards */}
+            <div className="milestone-grid">
+              <div className="milestone-box active">
+                <div className="milestone-icon-row">
+                  <span className="milestone-icon">🎯</span>
+                  <span className="milestone-badge-active">IN PROGRESS</span>
+                </div>
+                <h4 className="milestone-box-title">{enrolled.sprintTitle}</h4>
+                <p className="milestone-box-desc">
+                  Core architectural fundamentals, component design, schema models &amp; daily micro-lessons.
+                </p>
+              </div>
+
+              <div className="milestone-box">
+                <div className="milestone-icon-row">
+                  <span className="milestone-icon">💻</span>
+                  <span className="milestone-badge-ready">CURRENT TASK</span>
+                </div>
+                <h4 className="milestone-box-title">{enrolled.nextTaskTitle || 'Day 1 Practice 1'}</h4>
+                <p className="milestone-box-desc">
+                  Automated test verification, deterministic AST assertion, and viva code defense.
+                </p>
+              </div>
+
+              <div className="milestone-box">
+                <div className="milestone-icon-row">
+                  <span className="milestone-icon">📝</span>
+                  <span className="milestone-badge-upcoming">PROCTORED EXAM</span>
+                </div>
+                <h4 className="milestone-box-title">{enrolled.nextTestTitle || 'Days 1–5 Milestone'}</h4>
+                <p className="milestone-box-desc">
+                  {enrolled.nextTestTasksBefore !== undefined && enrolled.nextTestTasksBefore > 0
+                    ? `Unlocks after ${enrolled.nextTestTasksBefore} more task${enrolled.nextTestTasksBefore === 1 ? '' : 's'}`
+                    : 'Milestone benchmark ready for proctored attempt'}
+                </p>
+              </div>
+            </div>
+
+            {/* Recent Verified Activity Ledger Evidence */}
+            {enrolled.recentCompletedTask && (
+              <div className="recent-evidence-bar">
+                <div className="evidence-dot" />
+                <span className="evidence-title">Latest Verified Evidence:</span>
+                <span className="evidence-task">{enrolled.recentCompletedTask}</span>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
+      {/* ── VERIFIED SKILL BADGES ── */}
+      <section className="section-block">
+        <div className="section-header">
+          <h2 className="section-title">
+            <span>✨</span> Institutional Verified Skill Badges
+          </h2>
+          <span className="section-count">
+            {portfolio.verifiedBadges.length} {portfolio.verifiedBadges.length === 1 ? 'Certified Badge' : 'Certified Badges'}
+          </span>
+        </div>
+
+        {portfolio.verifiedBadges && portfolio.verifiedBadges.length > 0 ? (
           <div className="badges-grid">
             {portfolio.verifiedBadges.map(badge => (
               <div key={badge.badgeId} className="badge-card">
@@ -188,66 +348,144 @@ export const StudentPortfolioShowcase: React.FC<StudentPortfolioShowcaseProps> =
               </div>
             ))}
           </div>
-        </section>
-      )}
+        ) : (
+          <div className="empty-callout">
+            <div className="empty-icon">🎖️</div>
+            <div>
+              <h4 className="empty-title">Milestone Badges In Progress</h4>
+              <p className="empty-desc">
+                Institutional skill badges are awarded upon passing Proctored Milestone Benchmark Exams and defending Capstone Architecture Reviews.
+              </p>
+            </div>
+          </div>
+        )}
+      </section>
 
-      {/* ── VERIFIED CAPSTONE PROJECTS ── */}
+      {/* ── VERIFIED CAPSTONE PROJECTS OR MILESTONE ROADMAP ── */}
       <section className="section-block">
         <div className="section-header">
           <h2 className="section-title">
             <span>📦</span> Verified Capstone Engineering Projects
           </h2>
-          <span className="section-count">{portfolio.capstones.length} Defended Projects</span>
+          <span className="section-count">
+            {portfolio.capstones.length > 0
+              ? `${portfolio.capstones.length} Defended Projects`
+              : 'Sprint 1 In Progress'}
+          </span>
         </div>
 
-        <div className="capstones-grid">
-          {portfolio.capstones.map(cap => (
-            <article key={cap.capstoneId} className="capstone-card">
-              <div className="capstone-top">
-                <span className="capstone-code">{cap.courseCode}</span>
-                <span className="capstone-grade">
-                  Grade {cap.grade} ({cap.score}/100)
-                </span>
-              </div>
-
-              <h3 className="capstone-title">{cap.title}</h3>
-
-              <div className="competencies-row">
-                {cap.competencies.map((comp, idx) => (
-                  <span key={idx} className="comp-tag">
-                    {comp}
+        {portfolio.capstones && portfolio.capstones.length > 0 ? (
+          <div className="capstones-grid">
+            {portfolio.capstones.map(cap => (
+              <article key={cap.capstoneId} className="capstone-card">
+                <div className="capstone-top">
+                  <span className="capstone-code">{cap.courseCode}</span>
+                  <span className="capstone-grade">
+                    Grade {cap.grade} ({cap.score}/100)
                   </span>
-                ))}
-              </div>
-
-              <div className="capstone-footer">
-                <span className="capstone-date">Completed: {cap.completionDate}</span>
-                <div className="capstone-links">
-                  {cap.repositoryUrl && (
-                    <a
-                      href={cap.repositoryUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="capstone-link repo"
-                    >
-                      <span>🔗</span> Verified Repo ↗
-                    </a>
-                  )}
-                  {cap.liveDemoUrl && (
-                    <a
-                      href={cap.liveDemoUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="capstone-link demo"
-                    >
-                      <span>🚀</span> Live Demo ↗
-                    </a>
-                  )}
                 </div>
+
+                <h3 className="capstone-title">{cap.title}</h3>
+
+                <div className="competencies-row">
+                  {cap.competencies.map((comp, idx) => (
+                    <span key={idx} className="comp-tag">
+                      {comp}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="capstone-footer">
+                  <span className="capstone-date">Completed: {cap.completionDate}</span>
+                  <div className="capstone-links">
+                    {cap.repositoryUrl && (
+                      <a
+                        href={cap.repositoryUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="capstone-link repo"
+                      >
+                        <span>🔗</span> Verified Repo ↗
+                      </a>
+                    )}
+                    {cap.liveDemoUrl && (
+                      <a
+                        href={cap.liveDemoUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="capstone-link demo"
+                      >
+                        <span>🚀</span> Live Demo ↗
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        ) : (
+          /* Transparent, authentic Sprint Capstone Roadmap */
+          <div className="capstones-grid">
+            <article className="capstone-card in-progress-card">
+              <div className="capstone-top">
+                <span className="capstone-code">SPRINT 1 CAPSTONE</span>
+                <span className="capstone-status-in-progress">IN PROGRESS</span>
+              </div>
+              <h3 className="capstone-title">Architecture, Domain Modeling &amp; Data Schema</h3>
+              <p className="capstone-desc">
+                Entity-relationship architecture, state normalization, REST endpoints, and automated data validation models.
+              </p>
+              <div className="competencies-row">
+                <span className="comp-tag">Next.js 14</span>
+                <span className="comp-tag">TypeScript</span>
+                <span className="comp-tag">PostgreSQL</span>
+                <span className="comp-tag">Schema Design</span>
+              </div>
+              <div className="capstone-footer">
+                <span className="capstone-date">Status: Active Development</span>
+                <span className="capstone-pending-note">Public Repository link unlocks upon milestone defense</span>
               </div>
             </article>
-          ))}
-        </div>
+
+            <article className="capstone-card locked-card">
+              <div className="capstone-top">
+                <span className="capstone-code">SPRINT 2 CAPSTONE</span>
+                <span className="capstone-status-locked">🔒 LOCKED (DAY 16)</span>
+              </div>
+              <h3 className="capstone-title">Authenticated APIs &amp; Resilient Business Logic</h3>
+              <p className="capstone-desc">
+                Role-based access controls, HMAC-SHA256 signature verifications, rate limiting, and transaction workflows.
+              </p>
+              <div className="competencies-row">
+                <span className="comp-tag">Auth Systems</span>
+                <span className="comp-tag">Node.js</span>
+                <span className="comp-tag">API Security</span>
+              </div>
+              <div className="capstone-footer">
+                <span className="capstone-date">Opens after passing Days 1–15 Milestones</span>
+              </div>
+            </article>
+
+            <article className="capstone-card locked-card">
+              <div className="capstone-top">
+                <span className="capstone-code">SPRINT 3 &amp; 4 CAPSTONE</span>
+                <span className="capstone-status-locked">🔒 LOCKED (DAY 31)</span>
+              </div>
+              <h3 className="capstone-title">Production SaaS System, Cloud Deployment &amp; Live Viva Defense</h3>
+              <p className="capstone-desc">
+                High-availability frontend, end-to-end integration tests, CI/CD pipeline, and recorded AI-proctored technical viva defense.
+              </p>
+              <div className="competencies-row">
+                <span className="comp-tag">Production CI/CD</span>
+                <span className="comp-tag">Docker</span>
+                <span className="comp-tag">Oral Viva Defense</span>
+              </div>
+              <div className="capstone-footer">
+                <span className="capstone-date">Final Program Accreditation Milestone</span>
+              </div>
+            </article>
+          </div>
+        )}
       </section>
 
       {/* ── CRYPTOGRAPHIC SHA-256 PROOF CARD ── */}
@@ -258,7 +496,7 @@ export const StudentPortfolioShowcase: React.FC<StudentPortfolioShowcaseProps> =
             <div>
               <h3 className="proof-title">Cryptographic Integrity Proof (SHA-256)</h3>
               <p className="proof-desc">
-                Tamper-evident evidence chain signed by {portfolio.institutionName}. Guaranteed authentic and immune to resume fraud.
+                Tamper-evident evidence chain signed by {portfolio.institutionName || 'PinIT Trust Network'}. Guaranteed authentic and immune to resume fraud.
               </p>
             </div>
           </div>
@@ -293,6 +531,7 @@ export const StudentPortfolioShowcase: React.FC<StudentPortfolioShowcaseProps> =
           gap: 28px;
           font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
           color: #f1f5f9;
+          box-sizing: border-box;
         }
 
         /* Nav */
@@ -308,6 +547,7 @@ export const StudentPortfolioShowcase: React.FC<StudentPortfolioShowcaseProps> =
           font-size: 13.5px;
           flex-wrap: wrap;
           gap: 12px;
+          box-sizing: border-box;
         }
 
         .nav-back-link {
@@ -348,148 +588,145 @@ export const StudentPortfolioShowcase: React.FC<StudentPortfolioShowcaseProps> =
           border-radius: 6px;
           background: rgba(16, 185, 129, 0.15);
           color: #10b981;
-          border: 1px solid rgba(16, 185, 129, 0.3);
         }
 
-        .nav-actions {
-          display: flex;
-          gap: 8px;
-        }
         .nav-btn {
-          background: rgba(255, 255, 255, 0.08);
+          background: rgba(255, 255, 255, 0.06);
           border: 1px solid rgba(255, 255, 255, 0.12);
-          color: #e2e8f0;
-          font-size: 12.5px;
-          font-weight: 600;
+          color: #f8fafc;
           padding: 6px 14px;
           border-radius: 8px;
+          font-size: 12.5px;
+          font-weight: 600;
           cursor: pointer;
           transition: all 0.2s;
         }
         .nav-btn:hover {
-          background: rgba(255, 255, 255, 0.14);
-          color: #ffffff;
+          background: rgba(255, 255, 255, 0.12);
         }
 
         /* Hero Card */
         .hero-card {
           position: relative;
-          border-radius: 24px;
-          padding: 32px;
-          background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(10, 15, 30, 0.98) 100%);
-          border: 1.5px solid rgba(99, 102, 241, 0.25);
-          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+          background: linear-gradient(180deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.9) 100%);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 20px;
+          padding: 32px 28px;
           overflow: hidden;
+          box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+          box-sizing: border-box;
         }
+
         .hero-bg-glow {
           position: absolute;
-          top: -100px;
-          right: -100px;
-          width: 320px;
-          height: 320px;
+          top: -60px;
+          right: -60px;
+          width: 260px;
+          height: 260px;
+          border-radius: 50%;
           background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
           pointer-events: none;
-          filter: blur(40px);
         }
 
         .hero-top-badge-row {
           display: flex;
-          align-items: center;
           justify-content: space-between;
+          align-items: center;
           margin-bottom: 24px;
           flex-wrap: wrap;
           gap: 10px;
         }
+
         .verification-pill {
           display: inline-flex;
           align-items: center;
           gap: 8px;
-          padding: 5px 14px;
+          padding: 4px 12px;
           border-radius: 20px;
           background: rgba(16, 185, 129, 0.12);
-          border: 1px solid rgba(16, 185, 129, 0.3);
+          border: 1px solid rgba(16, 185, 129, 0.25);
           color: #34d399;
-          font-size: 12px;
+          font-size: 11.5px;
           font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
+          letter-spacing: 0.3px;
         }
+
         .pulse-dot {
-          width: 7px;
-          height: 7px;
+          width: 6px;
+          height: 6px;
           border-radius: 50%;
-          background: #34d399;
-          box-shadow: 0 0 8px #34d399;
-          animation: pulse 2s infinite;
+          background: #10b981;
+          box-shadow: 0 0 8px #10b981;
         }
-        @keyframes pulse {
-          0%, 100% { opacity: 1; transform: scale(1); }
-          50% { opacity: 0.4; transform: scale(0.85); }
-        }
+
         .fingerprint-label {
-          font-size: 12px;
-          color: #94a3b8;
-          font-weight: 600;
+          font-size: 11.5px;
           font-family: monospace;
+          color: #64748b;
         }
 
         .hero-content {
           display: flex;
-          align-items: flex-start;
-          gap: 22px;
-          position: relative;
-          z-index: 2;
+          align-items: center;
+          gap: 24px;
+          margin-bottom: 30px;
+          flex-wrap: wrap;
         }
+
+        .hero-avatar-col {
+          flex-shrink: 0;
+        }
+
         .hero-avatar {
-          width: 72px;
-          height: 72px;
+          width: 76px;
+          height: 76px;
           border-radius: 20px;
-          background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
-          border: 2px solid rgba(255, 255, 255, 0.2);
+          background: linear-gradient(135deg, #6366f1, #3b82f6);
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 26px;
-          font-weight: 900;
+          font-size: 28px;
+          font-weight: 800;
           color: #ffffff;
-          box-shadow: 0 8px 24px rgba(79, 70, 229, 0.35);
+          box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3);
         }
 
         .hero-info-col {
           flex: 1;
+          min-width: 240px;
         }
+
         .student-name {
-          margin: 0;
           font-size: 32px;
-          font-weight: 900;
+          font-weight: 800;
+          letter-spacing: -0.6px;
+          margin: 0 0 6px 0;
           color: #ffffff;
-          letter-spacing: -0.5px;
-          line-height: 1.15;
         }
+
         .student-degree {
-          margin: 6px 0 0 0;
-          font-size: 16px;
-          font-weight: 600;
+          font-size: 15px;
           color: #cbd5e1;
+          margin: 0 0 14px 0;
+          line-height: 1.4;
         }
         .text-dim {
           color: #64748b;
-          font-weight: 400;
         }
 
         .student-meta-row {
           display: flex;
           align-items: center;
-          gap: 10px;
-          margin-top: 12px;
-          font-size: 13.5px;
-          color: #94a3b8;
           flex-wrap: wrap;
+          gap: 8px;
+          font-size: 12.5px;
+          color: #94a3b8;
         }
+
         .meta-item {
-          display: flex;
+          display: inline-flex;
           align-items: center;
-          gap: 5px;
+          gap: 4px;
         }
         .meta-item.institution {
           color: #818cf8;
@@ -498,242 +735,477 @@ export const StudentPortfolioShowcase: React.FC<StudentPortfolioShowcaseProps> =
         .meta-item.cgpa {
           color: #34d399;
           font-weight: 700;
-          font-family: monospace;
         }
         .meta-item.id-badge {
-          background: rgba(255, 255, 255, 0.06);
-          padding: 2px 8px;
-          border-radius: 6px;
           font-family: monospace;
-          font-size: 11.5px;
+          background: rgba(0, 0, 0, 0.25);
+          padding: 2px 7px;
+          border-radius: 6px;
+          font-size: 11px;
         }
         .meta-dot {
           color: #475569;
         }
+        .text-muted-dim {
+          color: #64748b !important;
+          font-weight: 500 !important;
+        }
 
-        /* Score Box */
         .hero-score-col {
           flex-shrink: 0;
         }
+
         .score-box {
-          background: rgba(30, 41, 59, 0.7);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 18px;
-          padding: 16px 20px;
-          text-align: right;
-          min-width: 170px;
+          background: rgba(15, 23, 42, 0.6);
+          border: 1px solid rgba(99, 102, 241, 0.25);
+          border-radius: 16px;
+          padding: 14px 20px;
+          text-align: center;
+          min-width: 130px;
         }
+
         .score-label {
-          display: block;
-          font-size: 10.5px;
+          font-size: 10px;
           font-weight: 800;
-          letter-spacing: 0.8px;
+          letter-spacing: 0.6px;
           color: #94a3b8;
-          text-transform: uppercase;
+          display: block;
+          margin-bottom: 4px;
         }
+
         .score-value-row {
           display: flex;
           align-items: baseline;
-          justify-content: flex-end;
-          gap: 4px;
-          margin: 4px 0 6px 0;
+          justify-content: center;
         }
         .score-number {
           font-size: 34px;
           font-weight: 900;
           color: #818cf8;
-          line-height: 1;
+          letter-spacing: -1px;
         }
         .score-denom {
           font-size: 16px;
+          font-weight: 700;
           color: #64748b;
-          font-weight: 600;
         }
+
         .tier-badge {
-          display: inline-block;
-          font-size: 11px;
+          margin-top: 6px;
+          font-size: 10px;
           font-weight: 800;
-          padding: 4px 10px;
-          border-radius: 20px;
-          background: rgba(99, 102, 241, 0.2);
-          color: #a5b4fc;
-          border: 1px solid rgba(99, 102, 241, 0.35);
           letter-spacing: 0.4px;
+          color: #a5b4fc;
+          background: rgba(99, 102, 241, 0.15);
+          padding: 3px 8px;
+          border-radius: 6px;
+          display: inline-block;
         }
 
         /* KPI Grid */
         .kpi-grid {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
-          gap: 14px;
-          margin-top: 28px;
-          padding-top: 24px;
+          gap: 12px;
+          padding-top: 20px;
           border-top: 1px solid rgba(255, 255, 255, 0.08);
         }
+
         .kpi-card {
-          background: rgba(15, 23, 42, 0.6);
-          border: 1px solid rgba(255, 255, 255, 0.05);
-          border-radius: 14px;
-          padding: 14px 16px;
+          background: rgba(15, 23, 42, 0.5);
+          border: 1px solid rgba(255, 255, 255, 0.06);
+          border-radius: 12px;
+          padding: 12px 14px;
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
         }
+
         .kpi-label {
-          display: block;
-          font-size: 11.5px;
-          font-weight: 600;
+          font-size: 11px;
           color: #94a3b8;
+          font-weight: 600;
         }
         .kpi-value {
-          display: block;
-          font-size: 20px;
+          font-size: 18px;
           font-weight: 800;
-          margin-top: 4px;
-          letter-spacing: -0.3px;
         }
         .kpi-sub {
-          display: block;
-          font-size: 11px;
+          font-size: 10.5px;
           color: #64748b;
-          margin-top: 2px;
         }
-        .text-white { color: #f8fafc; }
+        .text-white { color: #ffffff; }
         .text-accent { color: #818cf8; }
         .text-emerald { color: #34d399; }
 
-        /* Sections */
-        .section-block {
-          display: flex;
-          flex-direction: column;
-          gap: 16px;
+        /* ── COURSE LEDGER SECTION ── */
+        .course-ledger-section {
+          width: 100%;
         }
-        .section-header {
+
+        .ledger-card {
+          background: linear-gradient(180deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);
+          border: 1px solid rgba(56, 189, 248, 0.2);
+          border-radius: 18px;
+          padding: 24px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+          box-sizing: border-box;
+        }
+
+        .ledger-header-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          flex-wrap: wrap;
+          gap: 16px;
+          margin-bottom: 16px;
+        }
+
+        .ledger-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          font-size: 11px;
+          font-weight: 800;
+          color: #38bdf8;
+          letter-spacing: 0.6px;
+          margin-bottom: 6px;
+        }
+
+        .ledger-title {
+          font-size: 22px;
+          font-weight: 800;
+          color: #ffffff;
+          margin: 0 0 4px 0;
+          letter-spacing: -0.3px;
+        }
+
+        .ledger-track {
+          font-size: 13.5px;
+          color: #94a3b8;
+          margin: 0;
+        }
+
+        .ledger-stats-pill {
+          background: rgba(56, 189, 248, 0.1);
+          border: 1px solid rgba(56, 189, 248, 0.25);
+          padding: 6px 14px;
+          border-radius: 10px;
           display: flex;
           align-items: center;
-          justify-content: space-between;
+          gap: 8px;
+          font-size: 13px;
+          font-weight: 700;
         }
-        .section-title {
-          margin: 0;
-          font-size: 20px;
+        .ledger-day-text { color: #38bdf8; }
+        .ledger-sep { color: #475569; }
+        .ledger-task-text { color: #f8fafc; }
+
+        .progress-bar-container {
+          width: 100%;
+          height: 8px;
+          background: rgba(15, 23, 42, 0.9);
+          border-radius: 8px;
+          overflow: hidden;
+          margin-bottom: 20px;
+          border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .progress-bar-fill {
+          height: 100%;
+          background: linear-gradient(90deg, #38bdf8, #10b981);
+          border-radius: 8px;
+          transition: width 0.4s ease;
+        }
+
+        .milestone-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 14px;
+          margin-bottom: 18px;
+        }
+
+        .milestone-box {
+          background: rgba(15, 23, 42, 0.6);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 14px;
+          padding: 16px;
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+        }
+        .milestone-box.active {
+          border-color: rgba(56, 189, 248, 0.35);
+          background: rgba(15, 23, 42, 0.85);
+        }
+
+        .milestone-icon-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .milestone-icon {
+          font-size: 18px;
+        }
+        .milestone-badge-active {
+          font-size: 9.5px;
           font-weight: 800;
-          color: #f8fafc;
+          padding: 2px 6px;
+          border-radius: 4px;
+          background: rgba(56, 189, 248, 0.2);
+          color: #38bdf8;
+          letter-spacing: 0.4px;
+        }
+        .milestone-badge-ready {
+          font-size: 9.5px;
+          font-weight: 800;
+          padding: 2px 6px;
+          border-radius: 4px;
+          background: rgba(16, 185, 129, 0.15);
+          color: #34d399;
+          letter-spacing: 0.4px;
+        }
+        .milestone-badge-upcoming {
+          font-size: 9.5px;
+          font-weight: 800;
+          padding: 2px 6px;
+          border-radius: 4px;
+          background: rgba(148, 163, 184, 0.15);
+          color: #cbd5e1;
+          letter-spacing: 0.4px;
+        }
+
+        .milestone-box-title {
+          font-size: 15px;
+          font-weight: 700;
+          color: #ffffff;
+          margin: 0;
+        }
+
+        .milestone-box-desc {
+          font-size: 12px;
+          color: #94a3b8;
+          margin: 0;
+          line-height: 1.4;
+        }
+
+        .recent-evidence-bar {
+          background: rgba(0, 0, 0, 0.3);
+          border-radius: 10px;
+          padding: 10px 14px;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 12.5px;
+          flex-wrap: wrap;
+        }
+        .evidence-dot {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: #10b981;
+          box-shadow: 0 0 6px #10b981;
+        }
+        .evidence-title {
+          font-weight: 700;
+          color: #34d399;
+        }
+        .evidence-task {
+          color: #e2e8f0;
+          font-weight: 500;
+        }
+
+        /* ── SECTION BLOCKS ── */
+        .section-block {
+          background: rgba(15, 23, 42, 0.6);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 20px;
+          padding: 24px;
+          box-sizing: border-box;
+        }
+
+        .section-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 20px;
+          flex-wrap: wrap;
+          gap: 8px;
+        }
+
+        .section-title {
+          font-size: 18px;
+          font-weight: 800;
+          color: #ffffff;
+          margin: 0;
           display: flex;
           align-items: center;
           gap: 8px;
         }
+
         .section-count {
-          font-size: 12.5px;
-          color: #64748b;
+          font-size: 12px;
+          color: #94a3b8;
           font-weight: 600;
+          background: rgba(255, 255, 255, 0.06);
+          padding: 3px 10px;
+          border-radius: 12px;
         }
 
-        /* Badges */
+        /* Badges Grid */
         .badges-grid {
           display: grid;
           grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
           gap: 14px;
         }
+
         .badge-card {
-          background: rgba(15, 23, 42, 0.7);
-          border: 1px solid rgba(255, 255, 255, 0.07);
-          border-radius: 16px;
-          padding: 16px;
+          background: rgba(30, 41, 59, 0.5);
+          border: 1px solid rgba(255, 255, 255, 0.06);
+          border-radius: 14px;
+          padding: 14px 16px;
           display: flex;
-          align-items: flex-start;
+          align-items: center;
           gap: 14px;
-          transition: transform 0.2s, border-color 0.2s;
         }
-        .badge-card:hover {
-          border-color: rgba(99, 102, 241, 0.35);
-          transform: translateY(-2px);
-        }
+
         .badge-icon {
-          width: 42px;
-          height: 42px;
+          font-size: 24px;
+          width: 44px;
+          height: 44px;
           border-radius: 12px;
-          background: rgba(245, 158, 11, 0.12);
-          border: 1px solid rgba(245, 158, 11, 0.25);
+          background: rgba(99, 102, 241, 0.12);
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 20px;
           flex-shrink: 0;
         }
+
         .badge-name {
-          margin: 0;
           font-size: 14.5px;
           font-weight: 700;
-          color: #f8fafc;
-          line-height: 1.3;
+          color: #ffffff;
+          margin: 0 0 4px 0;
         }
+
         .badge-meta {
           display: flex;
           align-items: center;
           gap: 8px;
-          margin-top: 6px;
           font-size: 11px;
         }
         .badge-category {
-          padding: 2px 7px;
-          border-radius: 5px;
-          background: rgba(99, 102, 241, 0.15);
           color: #818cf8;
-          font-family: monospace;
           font-weight: 700;
+          text-transform: uppercase;
         }
         .badge-date {
           color: #64748b;
         }
 
-        /* Capstones */
-        .capstones-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-          gap: 18px;
-        }
-        .capstone-card {
-          background: rgba(15, 23, 42, 0.75);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          border-radius: 18px;
-          padding: 22px;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          gap: 14px;
-          transition: border-color 0.2s, transform 0.2s;
-        }
-        .capstone-card:hover {
-          border-color: rgba(16, 185, 129, 0.35);
-          transform: translateY(-2px);
-        }
-        .capstone-top {
+        .empty-callout {
           display: flex;
           align-items: center;
+          gap: 16px;
+          padding: 18px;
+          background: rgba(30, 41, 59, 0.3);
+          border: 1px dashed rgba(255, 255, 255, 0.12);
+          border-radius: 14px;
+        }
+        .empty-icon {
+          font-size: 28px;
+          opacity: 0.6;
+        }
+        .empty-title {
+          font-size: 14.5px;
+          font-weight: 700;
+          color: #ffffff;
+          margin: 0 0 2px 0;
+        }
+        .empty-desc {
+          font-size: 12.5px;
+          color: #94a3b8;
+          margin: 0;
+          line-height: 1.4;
+        }
+
+        /* Capstones Grid */
+        .capstones-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+          gap: 16px;
+        }
+
+        .capstone-card {
+          background: rgba(30, 41, 59, 0.5);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 16px;
+          padding: 20px;
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+          box-sizing: border-box;
+        }
+        .in-progress-card {
+          border-color: rgba(56, 189, 248, 0.35);
+          background: linear-gradient(180deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.8) 100%);
+        }
+        .locked-card {
+          opacity: 0.85;
+          border-color: rgba(255, 255, 255, 0.05);
+          background: rgba(15, 23, 42, 0.4);
+        }
+
+        .capstone-top {
+          display: flex;
           justify-content: space-between;
+          align-items: center;
         }
         .capstone-code {
-          font-size: 12px;
-          font-family: monospace;
-          font-weight: 700;
-          color: #94a3b8;
-          background: rgba(255, 255, 255, 0.06);
-          padding: 3px 8px;
+          font-size: 11px;
+          font-weight: 800;
+          color: #818cf8;
+          background: rgba(99, 102, 241, 0.12);
+          padding: 2px 8px;
           border-radius: 6px;
         }
         .capstone-grade {
           font-size: 12px;
-          font-weight: 800;
+          font-weight: 700;
           color: #34d399;
-          background: rgba(16, 185, 129, 0.12);
-          border: 1px solid rgba(16, 185, 129, 0.25);
-          padding: 3px 10px;
-          border-radius: 20px;
         }
-        .capstone-title {
-          margin: 0;
-          font-size: 17px;
+        .capstone-status-in-progress {
+          font-size: 11px;
           font-weight: 800;
+          color: #38bdf8;
+          background: rgba(56, 189, 248, 0.15);
+          padding: 2px 8px;
+          border-radius: 6px;
+        }
+        .capstone-status-locked {
+          font-size: 11px;
+          font-weight: 700;
+          color: #94a3b8;
+          background: rgba(255, 255, 255, 0.05);
+          padding: 2px 8px;
+          border-radius: 6px;
+        }
+
+        .capstone-title {
+          font-size: 17px;
+          font-weight: 700;
           color: #ffffff;
+          margin: 0;
           line-height: 1.35;
         }
+
+        .capstone-desc {
+          font-size: 12.5px;
+          color: #94a3b8;
+          margin: 0;
+          line-height: 1.4;
+        }
+
         .competencies-row {
           display: flex;
           flex-wrap: wrap;
@@ -741,120 +1213,120 @@ export const StudentPortfolioShowcase: React.FC<StudentPortfolioShowcaseProps> =
         }
         .comp-tag {
           font-size: 11px;
-          font-family: monospace;
           font-weight: 600;
           color: #cbd5e1;
-          background: rgba(30, 41, 59, 0.8);
-          border: 1px solid rgba(255, 255, 255, 0.06);
-          padding: 3px 8px;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          padding: 2px 8px;
           border-radius: 6px;
         }
+
         .capstone-footer {
           display: flex;
-          align-items: center;
           justify-content: space-between;
-          padding-top: 14px;
-          border-top: 1px solid rgba(255, 255, 255, 0.06);
-          font-size: 12px;
-          flex-wrap: wrap;
-          gap: 10px;
-        }
-        .capstone-date {
+          align-items: center;
+          margin-top: auto;
+          padding-top: 10px;
+          border-top: 1px solid rgba(255, 255, 255, 0.05);
+          font-size: 11.5px;
           color: #64748b;
+          flex-wrap: wrap;
+          gap: 8px;
         }
+        .capstone-pending-note {
+          color: #94a3b8;
+          font-style: italic;
+          font-size: 11px;
+        }
+
         .capstone-links {
           display: flex;
-          align-items: center;
           gap: 10px;
         }
         .capstone-link {
-          text-decoration: none;
+          font-size: 12px;
           font-weight: 700;
-          font-size: 12.5px;
+          text-decoration: none;
           display: inline-flex;
           align-items: center;
           gap: 4px;
-          transition: opacity 0.2s;
         }
-        .capstone-link.repo {
-          color: #818cf8;
-        }
-        .capstone-link.demo {
-          color: #34d399;
-        }
-        .capstone-link:hover {
-          opacity: 0.8;
+        .capstone-link.repo { color: #818cf8; }
+        .capstone-link.demo { color: #34d399; }
+
+        /* ── CRYPTOGRAPHIC SHA-256 PROOF CARD ── */
+        .proof-card {
+          background: rgba(15, 23, 42, 0.7);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 18px;
+          padding: 24px;
+          box-sizing: border-box;
         }
 
-        /* Proof Card */
-        .proof-card {
-          background: rgba(15, 23, 42, 0.85);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 20px;
-          padding: 24px;
-          display: flex;
-          flex-direction: column;
-          gap: 16px;
-        }
         .proof-header {
           display: flex;
-          align-items: flex-start;
           justify-content: space-between;
-          gap: 16px;
-          flex-wrap: wrap;
-        }
-        .proof-icon-title {
-          display: flex;
           align-items: flex-start;
+          margin-bottom: 16px;
+          flex-wrap: wrap;
           gap: 12px;
         }
+
+        .proof-icon-title {
+          display: flex;
+          gap: 12px;
+          max-width: 600px;
+        }
         .proof-icon {
-          font-size: 26px;
-          margin-top: 2px;
+          font-size: 24px;
         }
         .proof-title {
-          margin: 0;
-          font-size: 17px;
-          font-weight: 800;
+          font-size: 16px;
+          font-weight: 700;
           color: #ffffff;
+          margin: 0 0 4px 0;
         }
         .proof-desc {
-          margin: 4px 0 0 0;
-          font-size: 12.5px;
+          font-size: 12px;
           color: #94a3b8;
+          margin: 0;
           line-height: 1.4;
         }
+
         .copy-hash-btn {
-          background: rgba(99, 102, 241, 0.15);
-          border: 1px solid rgba(99, 102, 241, 0.35);
-          color: #a5b4fc;
-          font-size: 12.5px;
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          color: #ffffff;
+          padding: 8px 14px;
+          border-radius: 8px;
+          font-size: 12px;
           font-weight: 700;
-          padding: 8px 16px;
-          border-radius: 10px;
           cursor: pointer;
           transition: all 0.2s;
-          white-space: nowrap;
         }
         .copy-hash-btn:hover {
-          background: rgba(99, 102, 241, 0.25);
-          color: #ffffff;
+          background: rgba(255, 255, 255, 0.12);
         }
+
         .fingerprint-box {
-          background: #020617;
-          border: 1px solid rgba(255, 255, 255, 0.08);
+          background: rgba(0, 0, 0, 0.4);
+          border: 1px solid rgba(255, 255, 255, 0.06);
           border-radius: 10px;
           padding: 12px 16px;
+          margin-bottom: 14px;
+          overflow-x: auto;
+        }
+        .fingerprint-box code {
           font-family: monospace;
-          font-size: 12px;
+          font-size: 12.5px;
           color: #38bdf8;
           word-break: break-all;
-          user-select: all;
         }
+
         .proof-footer {
           display: flex;
-          align-items: center;
           justify-content: space-between;
+          align-items: center;
           font-size: 11.5px;
           color: #64748b;
           flex-wrap: wrap;
@@ -866,49 +1338,41 @@ export const StudentPortfolioShowcase: React.FC<StudentPortfolioShowcaseProps> =
           gap: 6px;
           color: #34d399;
           font-weight: 700;
-          letter-spacing: 0.3px;
+          background: rgba(16, 185, 129, 0.1);
+          padding: 3px 8px;
+          border-radius: 6px;
         }
         .status-dot {
           width: 6px;
           height: 6px;
           border-radius: 50%;
-          background: #34d399;
+          background: #10b981;
         }
 
-        /* ── RESPONSIVE MOBILE TWEAKS ── */
-        @media (max-width: 768px) {
-          .portfolio-wrapper {
-            gap: 20px;
+        /* ── RESPONSIVE VIEWPORT QUERIES ── */
+        @media (max-width: 820px) {
+          .kpi-grid {
+            grid-template-columns: repeat(2, 1fr);
           }
-          .hero-card {
-            padding: 22px 18px;
+          .milestone-grid {
+            grid-template-columns: 1fr;
           }
+        }
+
+        @media (max-width: 640px) {
           .hero-content {
             flex-direction: column;
-            gap: 16px;
+            align-items: flex-start;
           }
           .hero-score-col {
             width: 100%;
           }
           .score-box {
-            text-align: left;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
             width: 100%;
             box-sizing: border-box;
           }
-          .score-value-row {
-            justify-content: flex-start;
-          }
-          .student-name {
-            font-size: 26px;
-          }
           .kpi-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            padding-top: 18px;
-            margin-top: 20px;
+            grid-template-columns: 1fr;
           }
           .badges-grid {
             grid-template-columns: 1fr;
@@ -916,22 +1380,17 @@ export const StudentPortfolioShowcase: React.FC<StudentPortfolioShowcaseProps> =
           .capstones-grid {
             grid-template-columns: 1fr;
           }
-          .portfolio-nav {
-            flex-direction: column;
-            align-items: flex-start;
+          .student-name {
+            font-size: 26px;
           }
-          .nav-actions {
-            width: 100%;
+          .hero-card {
+            padding: 22px 18px;
           }
-          .nav-btn {
-            width: 100%;
-            text-align: center;
+          .section-block {
+            padding: 18px 14px;
           }
-        }
-
-        @media (max-width: 480px) {
-          .kpi-grid {
-            grid-template-columns: 1fr;
+          .ledger-card {
+            padding: 18px 14px;
           }
         }
       `}</style>

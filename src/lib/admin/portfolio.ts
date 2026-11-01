@@ -34,36 +34,59 @@ export interface VerifiedExamResult {
 
 export interface StudentAcademicProfile {
   studentId: string;
-  institutionId: string;
+  institutionId?: string;
+  institutionName?: string;
   fullName: string;
-  rollNumber: string;
-  email: string;
+  rollNumber?: string;
+  email?: string;
   phone?: string; // Private PII - must be redacted for public showcase
-  department: string;
-  degree: string;
-  batchYear: number;
-  cgpa: number;
-  attendancePercentage: number;
+  department?: string;
+  degree?: string;
+  batchYear?: number;
+  cgpa?: number; // Optional! Undefined if student never provided CGPA
+  attendancePercentage?: number; // Optional! Undefined if not recorded
+  attendanceStreakDays?: number;
   feeBalanceDue?: number; // Private PII - must be redacted
   internalDisciplinaryNotes?: string[]; // Private PII - must be redacted
   completedQuestsCount: number;
   capstones: VerifiedCapstone[];
   exams: VerifiedExamResult[];
   employabilityScore: number; // 0-100
-  tier: 'TIER_1_PRODUCT' | 'TIER_2_UNICORN' | 'TIER_3_ENTERPRISE' | 'DEVELOPMENT_NEEDED';
+  tier: 'TIER_1_PRODUCT' | 'TIER_2_UNICORN' | 'TIER_3_ENTERPRISE' | 'CADET_IN_TRAINING' | 'DEVELOPMENT_NEEDED' | string;
+  enrolledCourse?: {
+    planId: string;
+    planTitle: string;
+    track: string;
+    trackTitle: string;
+    day: number;
+    totalDays: number;
+    tasksDone: number;
+    tasksTotal: number;
+    percent: number;
+    currentSprint: number;
+    totalSprints: number;
+    sprintTitle: string;
+    nextTaskTitle?: string;
+    nextTaskKind?: string;
+    nextTestTitle?: string;
+    nextTestTasksBefore?: number;
+    recentCompletedTask?: string;
+    enrolledAt?: string;
+  };
 }
 
 export interface PublicVerifiablePortfolio {
   portfolioId: string;
-  institutionId: string;
-  institutionName: string;
+  institutionId?: string;
+  institutionName?: string;
   studentId: string;
   fullName: string;
-  department: string;
-  degree: string;
-  batchYear: number;
-  cgpa: number;
-  attendancePercentage: number;
+  department?: string;
+  degree?: string;
+  batchYear?: number;
+  cgpa?: number;
+  attendancePercentage?: number;
+  attendanceStreakDays?: number;
   verifiedBadges: {
     badgeId: string;
     name: string;
@@ -77,7 +100,27 @@ export interface PublicVerifiablePortfolio {
     averageIntegrityScore: number;
   };
   employabilityScore: number;
-  tier: 'TIER_1_PRODUCT' | 'TIER_2_UNICORN' | 'TIER_3_ENTERPRISE' | 'DEVELOPMENT_NEEDED';
+  tier: 'TIER_1_PRODUCT' | 'TIER_2_UNICORN' | 'TIER_3_ENTERPRISE' | 'CADET_IN_TRAINING' | 'DEVELOPMENT_NEEDED' | string;
+  enrolledCourse?: {
+    planId: string;
+    planTitle: string;
+    track: string;
+    trackTitle: string;
+    day: number;
+    totalDays: number;
+    tasksDone: number;
+    tasksTotal: number;
+    percent: number;
+    currentSprint: number;
+    totalSprints: number;
+    sprintTitle: string;
+    nextTaskTitle?: string;
+    nextTaskKind?: string;
+    nextTestTitle?: string;
+    nextTestTasksBefore?: number;
+    recentCompletedTask?: string;
+    enrolledAt?: string;
+  };
   cryptographicProof: {
     sha256Fingerprint: string;
     issuedTimestamp: string;
@@ -87,13 +130,15 @@ export interface PublicVerifiablePortfolio {
 }
 
 /**
- * Derives verified skill badges based on completed capstones and exam scores
+ * Derives verified skill badges based on actual completed capstones, exam scores, and course progress
  */
 export function deriveVerifiedBadges(
   capstones: VerifiedCapstone[],
-  exams: VerifiedExamResult[]
+  exams: VerifiedExamResult[],
+  profile?: Partial<StudentAcademicProfile>
 ): PublicVerifiablePortfolio['verifiedBadges'] {
   const badges: PublicVerifiablePortfolio['verifiedBadges'] = [];
+  const today = new Date().toISOString().split('T')[0];
 
   const hasHighSystems = capstones.some(
     c => c.competencies.some(comp => comp.toLowerCase().includes('distributed') || comp.toLowerCase().includes('kernel'))
@@ -103,7 +148,7 @@ export function deriveVerifiedBadges(
       badgeId: 'badge-dist-sys-01',
       name: 'Distributed Systems Architect',
       category: 'SYSTEMS',
-      issuedDate: new Date().toISOString().split('T')[0],
+      issuedDate: today,
     });
   }
 
@@ -113,7 +158,7 @@ export function deriveVerifiedBadges(
       badgeId: 'badge-algo-02',
       name: 'Algorithmic Problem Solver (Top 5%)',
       category: 'ALGORITHMS',
-      issuedDate: new Date().toISOString().split('T')[0],
+      issuedDate: today,
     });
   }
 
@@ -123,7 +168,26 @@ export function deriveVerifiedBadges(
       badgeId: 'badge-anti-cheat-03',
       name: 'Exemplary Academic Integrity (100% Proctored Clean)',
       category: 'SECURITY',
-      issuedDate: new Date().toISOString().split('T')[0],
+      issuedDate: today,
+    });
+  }
+
+  // Authentic badges for enrolled scholars and early milestones
+  if (profile?.enrolledCourse) {
+    badges.push({
+      badgeId: 'badge-enrolled-sprint-01',
+      name: `Enrolled Candidate — ${profile.enrolledCourse.planTitle}`,
+      category: 'FULLSTACK',
+      issuedDate: profile.enrolledCourse.enrolledAt ? profile.enrolledCourse.enrolledAt.split('T')[0] : today,
+    });
+  }
+
+  if (profile?.completedQuestsCount && profile.completedQuestsCount >= 1) {
+    badges.push({
+      badgeId: 'badge-day1-starter-02',
+      name: 'Sprint 1 Foundations Starter',
+      category: 'FULLSTACK',
+      issuedDate: today,
     });
   }
 
@@ -135,14 +199,19 @@ export function deriveVerifiedBadges(
  */
 export function compilePublicPortfolio(
   profile: StudentAcademicProfile,
-  institutionName: string = 'Apex Institute of Technology'
+  institutionName?: string | null
 ): PublicVerifiablePortfolio {
-  if (!profile.studentId || !profile.institutionId) {
+  if (!profile.studentId) {
     throw new Error('MISSING_STUDENT_IDENTITY');
   }
 
-  const portfolioId = `port_${profile.institutionId}_${profile.studentId}`;
-  const badges = deriveVerifiedBadges(profile.capstones, profile.exams);
+  const effectiveInstitutionId = profile.institutionId || 'inst-self-directed';
+  const effectiveInstitutionName = institutionName !== undefined
+    ? (institutionName || undefined)
+    : (profile.institutionName || undefined);
+
+  const portfolioId = `port_${effectiveInstitutionId}_${profile.studentId}`;
+  const badges = deriveVerifiedBadges(profile.capstones, profile.exams, profile);
 
   // Compute proctored exams summary
   const passedExams = profile.exams.filter(e => e.passed);
@@ -160,9 +229,9 @@ export function compilePublicPortfolio(
   // Generate SHA-256 cryptographic proof
   const rawPayload = JSON.stringify({
     portfolioId,
-    institutionId: profile.institutionId,
+    institutionId: effectiveInstitutionId,
     studentId: profile.studentId,
-    cgpa: profile.cgpa,
+    cgpa: profile.cgpa ?? null,
     employabilityScore: profile.employabilityScore,
     capstonesCount: profile.capstones.length,
     examsPassed: passedExams.length,
@@ -170,12 +239,12 @@ export function compilePublicPortfolio(
   });
 
   const sha256Fingerprint = createHash('sha256').update(rawPayload).digest('hex');
-  const verificationUrl = `/university/portfolio/${profile.studentId}?inst=${profile.institutionId}&proof=${sha256Fingerprint.slice(0, 16)}`;
+  const verificationUrl = `/university/portfolio/${profile.studentId}?inst=${effectiveInstitutionId}&proof=${sha256Fingerprint.slice(0, 16)}`;
 
   return {
     portfolioId,
-    institutionId: profile.institutionId,
-    institutionName,
+    institutionId: effectiveInstitutionId,
+    institutionName: effectiveInstitutionName,
     studentId: profile.studentId,
     fullName: profile.fullName,
     department: profile.department,
@@ -183,11 +252,13 @@ export function compilePublicPortfolio(
     batchYear: profile.batchYear,
     cgpa: profile.cgpa,
     attendancePercentage: profile.attendancePercentage,
+    attendanceStreakDays: profile.attendanceStreakDays,
     verifiedBadges: badges,
     capstones: profile.capstones,
     proctoredExamsSummary: examsSummary,
     employabilityScore: profile.employabilityScore,
     tier: profile.tier,
+    enrolledCourse: profile.enrolledCourse,
     cryptographicProof: {
       sha256Fingerprint,
       issuedTimestamp,
@@ -205,9 +276,9 @@ export function verifyPortfolioProof(portfolio: PublicVerifiablePortfolio): bool
   
   const reconstructedPayload = JSON.stringify({
     portfolioId,
-    institutionId,
+    institutionId: institutionId || 'inst-self-directed',
     studentId,
-    cgpa,
+    cgpa: cgpa ?? null,
     employabilityScore,
     capstonesCount: capstones.length,
     examsPassed: proctoredExamsSummary.totalPassed,
