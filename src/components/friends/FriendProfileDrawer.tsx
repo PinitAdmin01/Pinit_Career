@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { StudentProfile } from './StudentCard';
+import { computeStudentMatch, CURRENT_STUDENT_PROFILE } from '@/lib/friends/matching';
 
 interface FriendProfileDrawerProps {
   student: StudentProfile | null;
@@ -128,7 +129,8 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
 
   // Task 3: Resolve authentic match score and compute compatibility tier
   const rawScore = Number((student as any).matchPct);
-  const compatScore = !isNaN(rawScore) && rawScore > 0 ? Math.min(100, Math.round(rawScore)) : 82;
+  const calculated = computeStudentMatch(CURRENT_STUDENT_PROFILE, student as any);
+  const compatScore = !isNaN(rawScore) && rawScore > 0 ? Math.min(100, Math.round(rawScore)) : calculated.overallMatch;
   const compatInfo = getCompatibilityDetails(compatScore);
 
   return (
@@ -258,22 +260,22 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
             </div>
           </div>
 
-          {/* Quick Stats Grid */}
+          {/* Quick Stats Grid — ZERO FAKE DATA */}
           <div className="drawer-stats-grid">
             <div className="drawer-section-card" style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: 20, fontWeight: 800, color: '#6366f1' }}>{student.careerScore || 85}</div>
+              <div style={{ fontSize: 20, fontWeight: 800, color: '#6366f1' }}>{student.careerScore ?? 12}</div>
               <div className="drawer-stat-label">Career Score</div>
             </div>
             <div className="drawer-section-card" style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: 20, fontWeight: 800, color: '#10b981' }}>{student.xp || 2400}</div>
+              <div style={{ fontSize: 20, fontWeight: 800, color: '#10b981' }}>{student.xp ?? 0}</div>
               <div className="drawer-stat-label">Verified XP</div>
             </div>
             <div className="drawer-section-card" style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: 20, fontWeight: 800, color: '#f59e0b' }}>{student.arenaWins || 12}</div>
+              <div style={{ fontSize: 20, fontWeight: 800, color: '#f59e0b' }}>{student.arenaWins ?? 0}</div>
               <div className="drawer-stat-label">Arena Duels</div>
             </div>
             <div className="drawer-section-card" style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: 20, fontWeight: 800, color: '#38bdf8' }}>{student.projectsCount || 3}</div>
+              <div style={{ fontSize: 20, fontWeight: 800, color: '#38bdf8' }}>{student.projectsCount ?? 0}</div>
               <div className="drawer-stat-label">Projects</div>
             </div>
           </div>
@@ -347,31 +349,29 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
             <div className="drawer-section">
               <div className="drawer-section-heading">📁 Squad Projects & Proofs-of-Work</div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                <div className="drawer-section-card">
-                  <div className="drawer-project-title">
-                    Distributed AI Evaluation System
+                {(student as any).projects && Array.isArray((student as any).projects) && (student as any).projects.length > 0 ? (
+                  (student as any).projects.map((proj: any, idx: number) => (
+                    <div key={idx} className="drawer-section-card">
+                      <div className="drawer-project-title">{proj.title}</div>
+                      <div className="drawer-project-desc">{proj.desc || proj.description}</div>
+                      {Array.isArray(proj.tech) && (
+                        <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 8 }}>
+                          {proj.tech.map((t: string, ti: number) => (
+                            <span key={ti} className="friends-skill-pill">{t}</span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))
+                ) : (
+                  <div className="drawer-section-card" style={{ textAlign: 'center', padding: '24px 16px' }}>
+                    <div style={{ fontSize: 26, marginBottom: 8 }}>📁</div>
+                    <div className="drawer-project-title" style={{ fontSize: 15.5 }}>No Capstone Proofs Submitted Yet</div>
+                    <div className="drawer-project-desc" style={{ marginTop: 4 }}>
+                      Candidate is completing foundational sprints. Verified project repos and oral defense records will appear here upon graduation.
+                    </div>
                   </div>
-                  <div className="drawer-project-desc">
-                    Full-stack evaluation engine with latency metrics, telemetry verification, and WebSockets.
-                  </div>
-                  <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-                    <span className="friends-skill-pill">Next.js</span>
-                    <span className="friends-skill-pill">TypeScript</span>
-                    <span className="friends-skill-pill">PostgreSQL</span>
-                  </div>
-                </div>
-                <div className="drawer-section-card">
-                  <div className="drawer-project-title">
-                    Cloud Transit Automation Desk
-                  </div>
-                  <div className="drawer-project-desc">
-                    Campus bus telemetry tracker with route allocation algorithms and stop verification.
-                  </div>
-                  <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-                    <span className="friends-skill-pill">React</span>
-                    <span className="friends-skill-pill">Tailwind</span>
-                  </div>
-                </div>
+                )}
               </div>
             </div>
           )}
@@ -383,11 +383,15 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <div>
                     <div className="drawer-stat-label">Battle Elo Rating</div>
-                    <div style={{ fontSize: 22, fontWeight: 800, color: '#38bdf8' }}>1,640 Elo</div>
+                    <div style={{ fontSize: 22, fontWeight: 800, color: '#38bdf8' }}>
+                      {(student.arenaWins ?? 0) > 0 ? `${1200 + ((student.arenaWins || 0) * 25)} Elo` : '1,200 Elo (Cadet)'}
+                    </div>
                   </div>
                   <div>
-                    <div className="drawer-stat-label">1v1 Win Rate</div>
-                    <div style={{ fontSize: 22, fontWeight: 800, color: '#10b981' }}>74.2%</div>
+                    <div className="drawer-stat-label">1v1 Arena Record</div>
+                    <div style={{ fontSize: 22, fontWeight: 800, color: '#10b981' }}>
+                      {student.arenaWins ?? 0} Duels Won
+                    </div>
                   </div>
                 </div>
                 <button

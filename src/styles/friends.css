@@ -2090,3 +2090,114 @@
 [data-theme='light'] .drawer-compat-sub {
   color: #64748b;
 }
+
+
+/* Network & Request Cards Styles */
+.friends-network-header-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+}
+.network-header-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+}
+.network-header-sub {
+  font-size: 13px;
+  color: #94a3b8;
+  margin: 4px 0 0;
+}
+.friends-network-card {
+  padding: 16px;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: all 0.2s ease;
+}
+.network-card-name {
+  font-size: 15.5px;
+  font-weight: 700;
+  color: #ffffff;
+}
+.friends-request-card {
+  padding: 16px;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: all 0.2s ease;
+}
+
+/* Mobile Responsiveness for Centered Profile Modal */
+@media (max-width: 560px) {
+  .friends-drawer-backdrop {
+    padding: 12px 8px;
+  }
+  .friends-profile-drawer {
+    max-height: 94vh;
+    border-radius: 16px;
+  }
+  .drawer-stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+  .drawer-compatibility-card {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+  }
+  .drawer-compat-badge {
+    align-self: flex-start !important;
+  }
+  .drawer-hero-card {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+  .drawer-actions-row {
+    justify-content: center !important;
+  }
+}
+
+/* Light Mode Overrides for Network & Request cards */
+:root.light .friends-network-header-box,
+[data-theme='light'] .friends-network-header-box {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+:root.light .network-header-title,
+[data-theme='light'] .network-header-title {
+  color: #0f172a;
+}
+:root.light .network-header-sub,
+[data-theme='light'] .network-header-sub {
+  color: #64748b;
+}
+:root.light .friends-network-card,
+[data-theme='light'] .friends-network-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+:root.light .network-card-name,
+[data-theme='light'] .network-card-name {
+  color: #0f172a;
+}
+:root.light .friends-request-card,
+[data-theme='light'] .friends-request-card {
+  background: #ffffff;
+  border: 1px solid #c7d2fe;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.08);
+}
