@@ -593,7 +593,7 @@ function LessonPageRouter() {
 function LessonPageContent({ questId, questData, overrideUser, isTestMode = false }: { questId: string; questData: any; overrideUser?: any; isTestMode?: boolean }) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const teacherId = searchParams.get('teacherId') || 'kashyap';
+  const teacherId = searchParams.get('teacherId') || (typeof window !== 'undefined' ? localStorage.getItem('pinit_selected_teacher_id') || localStorage.getItem('pinit_preferred_teaching_avatar') : null) || 'kashyap';
   const { user: authUser } = useAuth();
   const user = overrideUser || authUser;
   const { addCompletedQuest } = useCareerOS();

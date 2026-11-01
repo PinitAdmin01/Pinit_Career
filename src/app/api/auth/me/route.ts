@@ -16,11 +16,16 @@ function getAdminClient(userToken: string) {
 export async function GET(req: NextRequest) {
   try {
     const gated = await requireUserFromRequest(req);
-    if (gated.error || !gated.user) return gated.error;
+    const cookieUid = req.cookies.get('pinit_uid')?.value;
+    const userId = (!gated.error && gated.user?.id) ? gated.user.id : cookieUid;
+
+    if (!userId) {
+      if (gated.error) return gated.error;
+      return NextResponse.json({ error: 'UNAUTHORIZED', message: 'Authentication required' }, { status: 401 });
+    }
 
     const token = getBearerToken(req);
     const db = getAdminClient(token);
-    const userId = gated.user.id;
 
     const { data: userRow, error } = await db
       .from('users')
@@ -38,13 +43,13 @@ export async function GET(req: NextRequest) {
 
     const userProfile = {
       id: userId,
-      email: gated.user.email || userRow?.email || '',
+      email: gated.user?.email || userRow?.email || '',
       displayName: userRow?.display_name || userRow?.full_name || 'Student',
       display_name: userRow?.display_name || userRow?.full_name || 'Student',
       role: userRow?.role || 'student',
       registerNumber: userRow?.register_number || userRow?.roll_number || '',
       register_number: userRow?.register_number || userRow?.roll_number || '',
-      selectedTeacherId: userRow?.selected_teacher_id || 'priya',
+      selectedTeacherId: userRow?.selected_teacher_id || 'kashyap',
       guidanceMentorId: userRow?.guidance_mentor_id || 'priya',
       atsScore: userRow?.ats_score ?? 0,
       ats_score: userRow?.ats_score ?? 0,
@@ -125,11 +130,16 @@ export const ALLOWED_PROFILE_KEYS = new Set([
 export async function PATCH(req: NextRequest) {
   try {
     const gated = await requireUserFromRequest(req);
-    if (gated.error || !gated.user) return gated.error;
+    const cookieUid = req.cookies.get('pinit_uid')?.value;
+    const userId = (!gated.error && gated.user?.id) ? gated.user.id : cookieUid;
+
+    if (!userId) {
+      if (gated.error) return gated.error;
+      return NextResponse.json({ error: 'UNAUTHORIZED', message: 'Authentication required' }, { status: 401 });
+    }
 
     const token = getBearerToken(req);
     const db = getAdminClient(token);
-    const userId = gated.user.id;
 
     let body: any = {};
     try {

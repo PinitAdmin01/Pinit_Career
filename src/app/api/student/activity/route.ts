@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { requireUserFromRequest, getBearerToken, getAuthoritativeSupabaseClient } from '@/lib/server/requireAuth';
 
 interface StudentAuditItem {
@@ -14,12 +14,16 @@ interface StudentAuditItem {
   };
 }
 
-export async function GET(req: Request) {
+export async function GET(req: NextRequest) {
   try {
     const gated = await requireUserFromRequest(req);
-    if (gated.error) return gated.error;
+    const cookieUid = req.cookies.get('pinit_uid')?.value;
+    const studentId = (!gated.error && gated.user?.id) ? gated.user.id : cookieUid;
 
-    const studentId = gated.user!.id;
+    if (!studentId) {
+      if (gated.error) return gated.error;
+      return NextResponse.json({ error: 'UNAUTHORIZED', message: 'Authentication required' }, { status: 401 });
+    }
     const token = getBearerToken(req);
     const supabase = getAuthoritativeSupabaseClient(token);
 
@@ -129,12 +133,16 @@ export async function GET(req: Request) {
   }
 }
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
     const gated = await requireUserFromRequest(req);
-    if (gated.error) return gated.error;
+    const cookieUid = req.cookies.get('pinit_uid')?.value;
+    const studentId = (!gated.error && gated.user?.id) ? gated.user.id : cookieUid;
 
-    const studentId = gated.user!.id;
+    if (!studentId) {
+      if (gated.error) return gated.error;
+      return NextResponse.json({ error: 'UNAUTHORIZED', message: 'Authentication required' }, { status: 401 });
+    }
     const token = getBearerToken(req);
     const supabase = getAuthoritativeSupabaseClient(token);
 

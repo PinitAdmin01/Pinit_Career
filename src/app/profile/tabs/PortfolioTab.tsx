@@ -253,11 +253,17 @@ export default function PortfolioTab({ user, cOS, passportSkills: propPassportSk
         </div>
       )}
 
-      {view === 'resume' && (
+      {view === 'resume' && (() => {
+        const rawResumeDisp = typeof user?.displayName === 'string' ? user.displayName : (typeof user?.name === 'string' ? user.name : '');
+        const rawResumeReal = (user as any)?.fullName || (user as any)?.full_name || (user as any)?.candidateName || (user as any)?.onboardingAnswers?.candidateName || (user as any)?.onboardingAnswers?.fullName;
+        const resumeRealName = typeof rawResumeReal === 'string' ? rawResumeReal : '';
+        const resumeStudentName = (rawResumeDisp && !rawResumeDisp.startsWith('usr_') && rawResumeDisp.toLowerCase() !== 'student') ? rawResumeDisp : (resumeRealName || rawResumeDisp || 'Student Candidate');
+
+        return (
         <div style={{ ...sectionCard, maxWidth: 720, margin: '0 auto', width: '100%', padding: 28 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12, marginBottom: 16 }}>
             <div>
-              <h3 style={{ fontSize: 22, fontWeight: 800, color: 'var(--t1)', margin: '0 0 4px 0' }}>{user?.displayName || 'Student Candidate'}</h3>
+              <h3 style={{ fontSize: 22, fontWeight: 800, color: 'var(--t1)', margin: '0 0 4px 0' }}>{resumeStudentName}</h3>
               <p style={{ fontSize: 13, color: 'var(--t3)', margin: 0, fontFamily: 'var(--font-mono)' }}>{user?.email || ''}</p>
             </div>
             <span style={{ fontSize: 11, padding: '3px 8px', borderRadius: 6, background: 'var(--accent-light)', color: 'var(--accent)', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>
@@ -319,7 +325,8 @@ export default function PortfolioTab({ user, cOS, passportSkills: propPassportSk
             </button>
           </div>
         </div>
-      )}
+        );
+      })()}
 
       {view === 'verify' && isStaff && (
         <div style={CS.card}>

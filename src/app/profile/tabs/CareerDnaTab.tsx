@@ -133,8 +133,8 @@ function WeeklyVelocityHeatmap({ completedQuests = [], completedMissions = [], t
   const getLevelColor = (level: number) => {
     switch (level) {
       case 3: return themeColor;
-      case 2: return `${themeColor}cc`;
-      case 1: return `${themeColor}66`;
+      case 2: return `color-mix(in srgb, ${themeColor} 70%, transparent)`;
+      case 1: return `color-mix(in srgb, ${themeColor} 35%, transparent)`;
       default: return 'var(--bg3)';
     }
   };
@@ -151,8 +151,8 @@ function WeeklyVelocityHeatmap({ completedQuests = [], completedMissions = [], t
         <div style={{ display: 'flex', gap: 4, alignItems: 'center', fontSize: 11, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
           <span>Less</span>
           <span style={{ width: 8, height: 8, borderRadius: 2, background: 'var(--bg3)', border: '1px solid var(--border)' }} />
-          <span style={{ width: 8, height: 8, borderRadius: 2, background: `${themeColor}66` }} />
-          <span style={{ width: 8, height: 8, borderRadius: 2, background: `${themeColor}cc` }} />
+          <span style={{ width: 8, height: 8, borderRadius: 2, background: `color-mix(in srgb, ${themeColor} 35%, transparent)` }} />
+          <span style={{ width: 8, height: 8, borderRadius: 2, background: `color-mix(in srgb, ${themeColor} 70%, transparent)` }} />
           <span style={{ width: 8, height: 8, borderRadius: 2, background: themeColor }} />
           <span>More</span>
         </div>

@@ -124,12 +124,14 @@ export function usePortfolioData(user: any) {
           console.warn('[usePortfolioData] Error fetching portfolio_items from Supabase:', error.message);
         }
 
+        let hasPitchInDb = false;
         if (data && data.length > 0 && isMounted) {
           data.forEach(row => {
             const val = row.item_data;
             if (!val) return;
             switch (row.item_type) {
               case 'pitch':
+                hasPitchInDb = true;
                 if (typeof val === 'string') {
                   setPitch(val);
                   setTempPitch(val);
@@ -183,6 +185,16 @@ export function usePortfolioData(user: any) {
           }
           if (obAny?.portfolio_recommendations || user?.recommendations) {
             setRecommendations(obAny?.portfolio_recommendations || user?.recommendations || []);
+          }
+        }
+
+        // Always check profile bio/pitch fallback if not explicitly loaded from portfolio_items
+        if (!hasPitchInDb && isMounted) {
+          const obAny = user?.onboardingAnswers as any;
+          const fallbackPitch = user?.bio || obAny?.bio || (user as any)?.bio || obAny?.pitch || (user as any)?.pitch;
+          if (typeof fallbackPitch === 'string' && fallbackPitch.trim()) {
+            setPitch(fallbackPitch.trim());
+            setTempPitch(fallbackPitch.trim());
           }
         }
       } catch (err) {

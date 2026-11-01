@@ -318,19 +318,21 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
   const safePins = Number.isFinite(Number(pins)) ? Math.max(0, Number(pins)) : 0;
   const safeUnread = Number.isFinite(Number(unread)) ? Math.max(0, Number(unread)) : 0;
 
-  const rawDisp = user?.displayName || user?.name || '';
-  const realName =
+  const rawDisp = typeof user?.displayName === 'string' ? user.displayName : (typeof user?.name === 'string' ? user.name : '');
+  const rawReal =
     (user as any)?.fullName ||
     (user as any)?.full_name ||
     (user as any)?.candidateName ||
     (user as any)?.onboardingAnswers?.candidateName ||
     (user as any)?.onboardingAnswers?.fullName ||
     (user as any)?.onboardingAnswers?.name;
+  const realName = typeof rawReal === 'string' ? rawReal : '';
+  const rawUsername = typeof user?.username === 'string' ? user.username : '';
 
   const displayName =
     (rawDisp && !rawDisp.startsWith('usr_') && rawDisp.toLowerCase() !== 'student')
       ? rawDisp
-      : (realName || rawDisp || (user?.username && !user.username.startsWith('usr_') ? user.username : '') || (typeof user?.email === 'string' ? user.email.split('@')[0] : '') || (isStudent ? 'Student' : 'Member'));
+      : (realName || rawDisp || (rawUsername && !rawUsername.startsWith('usr_') ? rawUsername : '') || (typeof user?.email === 'string' ? user.email.split('@')[0] : '') || (isStudent ? 'Student' : 'Member'));
   const avatarInitial = (displayName.trim()[0] || 'S').toUpperCase();
   const roleLabel = user?.role || (isStudent ? 'student' : 'member');
 

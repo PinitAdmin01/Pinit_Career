@@ -188,7 +188,12 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
   const celebTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const spokenCelebRef = useRef<any>(null);
 
-  const teacherId = profile?.guidanceMentorId || 'priya';
+  const teacherId =
+    profile?.guidanceMentorId ||
+    (user as any)?.guidanceMentorId ||
+    (user as any)?.guidance_mentor_id ||
+    (typeof window !== 'undefined' ? localStorage.getItem('pinit_selected_mentor_id') : null) ||
+    'priya';
   const teacher = TEACHER_CONFIG[teacherId] || TEACHER_CONFIG.priya;
   const teacherIdRef = useRef(teacherId);
   teacherIdRef.current = teacherId;

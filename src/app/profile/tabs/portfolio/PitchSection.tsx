@@ -46,7 +46,13 @@ export function PitchSection({
           </button>
         </div>
       ) : (
-        <p style={{ fontSize: 15.5, color: 'var(--t2)', lineHeight: 1.6, margin: 0 }}>"{typeof pitch === 'string' ? pitch : (pitch as any)?.text ? String((pitch as any).text) : ''}"</p>
+        <p style={{ fontSize: 15.5, color: 'var(--t2)', lineHeight: 1.6, margin: 0 }}>
+          {(() => {
+            const raw = typeof pitch === 'string' ? pitch : (pitch as any)?.text ? String((pitch as any).text) : '';
+            const clean = raw.trim();
+            return clean ? `"${clean}"` : <span style={{ color: 'var(--t3)', fontStyle: 'italic' }}>"Add a short professional pitch about your skills and goals."</span>;
+          })()}
+        </p>
       )}
     </div>
   );

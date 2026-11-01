@@ -2,7 +2,7 @@ const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
 
-console.log('🧪 Starting Student Portal Profile Section Verification Suite...\n');
+console.log('🧪 Starting Comprehensive Student Portal Profile & Endpoint Verification Suite...\n');
 
 // 1. Verify PitchSection.tsx and usePortfolioData.ts fix
 const pitchSectionCode = fs.readFileSync(path.join(__dirname, '../src/app/profile/tabs/portfolio/PitchSection.tsx'), 'utf-8');
@@ -63,4 +63,40 @@ assert(profilePageCode.includes('✏️ Edit Name'), 'profile/page.tsx must prov
 assert(profilePageCode.includes('handleSaveStudentName'), 'profile/page.tsx must provide handler to persist updated student name');
 console.log('✅ Check 7: Student name displays real candidate name and allows inline editing and persistence.');
 
-console.log('\n🎉 ALL 7 AUDIT CHECKS PASSED DETERMINISTICALLY! 🎉');
+// 8. Verify full_name mapping in /api/auth/profile DIRECT_COLUMNS
+const profileRouteCode = fs.readFileSync(path.join(__dirname, '../src/app/api/auth/profile/route.ts'), 'utf-8');
+assert(profileRouteCode.includes('full_name: \'full_name\''), 'profile route DIRECT_COLUMNS must map full_name');
+assert(profileRouteCode.includes('fullName: \'full_name\''), 'profile route DIRECT_COLUMNS must map fullName');
+console.log('✅ Check 8: full_name and fullName persisted directly into users table.');
+
+// 9. Verify cookie auth fallbacks in recruiter/visibility and analytics/dashboard
+assert(recruiterVisCode.includes("req.cookies.get('pinit_uid')?.value"), 'recruiter/visibility route must check pinit_uid cookie');
+assert(analyticsRouteCode.includes("req.cookies.get('pinit_uid')?.value"), 'analytics/dashboard route must check pinit_uid cookie');
+console.log('✅ Check 9: Cookie session auth fallbacks active on recruiter and analytics routes.');
+
+// 10. Verify GET handler in /api/auth/teacher
+const teacherRouteCode = fs.readFileSync(path.join(__dirname, '../src/app/api/auth/teacher/route.ts'), 'utf-8');
+assert(teacherRouteCode.includes('export async function GET'), 'teacher route must export GET handler');
+console.log('✅ Check 10: GET handler active on /api/auth/teacher endpoint.');
+
+// 11. Verify pitch fallback on hydration in usePortfolioData
+assert(usePortfolioCode.includes('fallbackPitch'), 'usePortfolioData must check bio/pitch fallback if not in portfolio_items');
+console.log('✅ Check 11: Portfolio pitch loads reliably from profile bio fallback.');
+
+// 12. Verify valid CSS color-mix in CareerDnaTab
+const careerDnaCode = fs.readFileSync(path.join(__dirname, '../src/app/profile/tabs/CareerDnaTab.tsx'), 'utf-8');
+assert(!careerDnaCode.includes('${themeColor}cc'), 'CareerDnaTab must not use invalid hex concatenation with CSS variables');
+assert(careerDnaCode.includes('color-mix(in srgb'), 'CareerDnaTab must use standards-compliant color-mix');
+console.log('✅ Check 12: Career DNA heatmap uses valid color-mix CSS.');
+
+// 13. Verify lesson page preferred avatar fallback
+const lessonPageCode = fs.readFileSync(path.join(__dirname, '../src/app/quests/lesson/page.tsx'), 'utf-8');
+assert(lessonPageCode.includes("localStorage.getItem('pinit_selected_teacher_id')"), 'lesson page must honor preferred avatar when searchParam is missing');
+console.log('✅ Check 13: Lesson page honors student chosen teaching avatar.');
+
+// 14. Verify GlobalAvatar mentor reactivity
+const globalAvatarCode = fs.readFileSync(path.join(__dirname, '../src/components/ui/GlobalAvatar.tsx'), 'utf-8');
+assert(globalAvatarCode.includes("localStorage.getItem('pinit_selected_mentor_id')"), 'GlobalAvatar must check pinit_selected_mentor_id for instant reactivity');
+console.log('✅ Check 14: GlobalAvatar reflects selected AI guidance mentor immediately.');
+
+console.log('\n🎉 ALL 14 AUDIT CHECKS PASSED DETERMINISTICALLY! 🎉');

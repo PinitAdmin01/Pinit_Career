@@ -12,6 +12,10 @@ export async function GET(req: NextRequest) {
       }
     } catch {}
 
+    if (!studentId) {
+      studentId = req.cookies.get('pinit_uid')?.value || null;
+    }
+
     const admin = getSupabaseAdmin();
 
     // Honest baseline stats - No fake 78/82/88/85% placeholders

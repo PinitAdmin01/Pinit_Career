@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 
@@ -32,12 +32,16 @@ export function normalizeVisibility(raw: any): { score: number; label: string } 
   return { score: 100, label: 'public' };
 }
 
-export async function GET(req: Request) {
+export async function GET(req: NextRequest) {
   try {
     const gated = await requireUserFromRequest(req);
-    if (gated.error) return gated.error;
+    const cookieUid = req.cookies.get('pinit_uid')?.value;
+    const studentId = (!gated.error && gated.user?.id) ? gated.user.id : cookieUid;
 
-    const studentId = gated.user!.id;
+    if (!studentId) {
+      if (gated.error) return gated.error;
+      return NextResponse.json({ error: 'UNAUTHORIZED', message: 'Authentication required' }, { status: 401 });
+    }
     const admin = getSupabaseAdmin();
 
     const { data: userRow, error } = await admin
@@ -64,20 +68,24 @@ export async function GET(req: Request) {
   }
 }
 
-export async function PATCH(req: Request) {
+export async function PATCH(req: NextRequest) {
   return handleVisibilityUpdate(req);
 }
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   return handleVisibilityUpdate(req);
 }
 
-async function handleVisibilityUpdate(req: Request) {
+async function handleVisibilityUpdate(req: NextRequest) {
   try {
     const gated = await requireUserFromRequest(req);
-    if (gated.error) return gated.error;
+    const cookieUid = req.cookies.get('pinit_uid')?.value;
+    const studentId = (!gated.error && gated.user?.id) ? gated.user.id : cookieUid;
 
-    const studentId = gated.user!.id;
+    if (!studentId) {
+      if (gated.error) return gated.error;
+      return NextResponse.json({ error: 'UNAUTHORIZED', message: 'Authentication required' }, { status: 401 });
+    }
     const admin = getSupabaseAdmin();
 
     const body = await req.json().catch(() => ({}));

@@ -5,6 +5,11 @@ import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 const DIRECT_COLUMNS: Record<string, string> = {
   displayName: 'display_name',
   display_name: 'display_name',
+  name: 'display_name',
+  fullName: 'full_name',
+  full_name: 'full_name',
+  candidateName: 'full_name',
+  candidate_name: 'full_name',
   selectedTeacherId: 'selected_teacher_id',
   selected_teacher_id: 'selected_teacher_id',
   guidanceMentorId: 'guidance_mentor_id',

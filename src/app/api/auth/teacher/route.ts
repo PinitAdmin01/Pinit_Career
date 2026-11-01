@@ -59,6 +59,45 @@ async function handleTeacherUpdate(req: NextRequest) {
   });
 }
 
+export async function GET(req: NextRequest) {
+  const gated = await requireUserFromRequest(req);
+  const cookieUid = req.cookies.get('pinit_uid')?.value;
+  const userId = (!gated.error && gated.user?.id) ? gated.user.id : cookieUid;
+
+  if (!userId) {
+    return NextResponse.json({ error: 'UNAUTHORIZED', message: 'Authentication required' }, { status: 401 });
+  }
+
+  const admin = getSupabaseAdmin();
+  if (admin) {
+    try {
+      const { data } = await admin
+        .from('users')
+        .select('selected_teacher_id, guidance_mentor_id')
+        .eq('id', userId)
+        .maybeSingle();
+
+      if (data) {
+        return NextResponse.json({
+          ok: true,
+          teacherId: data.selected_teacher_id || 'kashyap',
+          selectedTeacherId: data.selected_teacher_id || 'kashyap',
+          guidanceMentorId: data.guidance_mentor_id || 'priya',
+        });
+      }
+    } catch (err: any) {
+      console.warn('[/api/auth/teacher] GET warning:', err?.message || err);
+    }
+  }
+
+  return NextResponse.json({
+    ok: true,
+    teacherId: 'kashyap',
+    selectedTeacherId: 'kashyap',
+    guidanceMentorId: 'priya',
+  });
+}
+
 export async function PATCH(req: NextRequest) {
   return handleTeacherUpdate(req);
 }
