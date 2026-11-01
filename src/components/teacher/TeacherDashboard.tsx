@@ -802,7 +802,7 @@ export default function TeacherDashboard({ teacher, onLogout }: TeacherDashboard
             </div>
           )}
 
-          {activeNav === 'students' && <TeacherStudentDetailsTab />}
+          {activeNav === 'students' && <TeacherStudentDetailsTab initialSearch={headerStudentQuery} />}
           {activeNav === 'events-audit' && <TeacherEventsAuditTab />}
           {activeNav === 'inbox' && <TeacherInboxManager teacherId={teacher?.id || 'priya'} teacherName={displayName} />}
           {activeNav === 'courses' && <CourseManager />}

@@ -3,11 +3,17 @@
 import React, { useState, useEffect } from 'react';
 import { teacherStudentService, StudentInstitutionalProfile } from '@/lib/services/teacherStudentService';
 
-export default function TeacherStudentDetailsTab() {
+export default function TeacherStudentDetailsTab({ initialSearch = '' }: { initialSearch?: string } = {}) {
   const [students, setStudents] = useState<StudentInstitutionalProfile[]>([]);
   const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(initialSearch);
   const [statusFilter, setStatusFilter] = useState('all');
+
+  useEffect(() => {
+    if (initialSearch !== undefined) {
+      setSearch(initialSearch);
+    }
+  }, [initialSearch]);
   const [selectedStudent, setSelectedStudent] = useState<StudentInstitutionalProfile | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [editForm, setEditForm] = useState<Partial<StudentInstitutionalProfile>>({});
