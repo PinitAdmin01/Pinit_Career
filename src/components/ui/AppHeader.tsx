@@ -13,7 +13,7 @@ export interface AppHeaderProps {
   isGroupDiscussionCall: boolean;
   isRoleplayActive: boolean;
   effectiveFocusMode: boolean;
-  toggleFocusMode: () => void;
+  toggleFocusMode?: () => void;
   mobileOpen: boolean;
   setMobileOpen: React.Dispatch<React.SetStateAction<boolean>>;
   pageTitle: string;

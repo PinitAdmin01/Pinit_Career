@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useMemo, Suspense } from 'react';
+import React, { useState, useEffect, useMemo, useRef, Suspense } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
@@ -55,7 +55,7 @@ function LeaderboardContent() {
   const [activeTab, setActiveTab] = useState<TabMode>(initialMode);
   const [selectedLeague, setSelectedLeague] = useState<LeagueTier>('browns');
   const [currentUserLeague, setCurrentUserLeague] = useState<LeagueTier>('browns');
-  const [hasManuallySelected, setHasManuallySelected] = useState(false);
+  const hasManuallySelectedRef = useRef(false);
   const [domainFilter, setDomainFilter] = useState<'all' | 'tech' | 'data' | 'ai'>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -117,7 +117,7 @@ function LeaderboardContent() {
           if (data.currentUserLeague) {
             const userTier = normalizeLeagueTier(data.currentUserLeague);
             setCurrentUserLeague(userTier);
-            if (!hasManuallySelected && userTier !== 'browns') {
+            if (!hasManuallySelectedRef.current && userTier !== 'browns') {
               setSelectedLeague(userTier);
             }
           }
@@ -332,7 +332,7 @@ function LeaderboardContent() {
               return (
                 <button
                   key={tier}
-                  onClick={() => { setSelectedLeague(tier); setHasManuallySelected(true); }}
+                  onClick={() => { setSelectedLeague(tier); hasManuallySelectedRef.current = true; }}
                   style={{
                     display: 'flex',
                     alignItems: 'center',

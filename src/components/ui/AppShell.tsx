@@ -392,7 +392,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     let lastShiftSpaceTime = 0;
 
     const handleFullscreenChange = () => {
-      const active = Boolean(document.fullscreenElement);
+      const active = Boolean(document.fullscreenElement || (document as any).webkitFullscreenElement);
       if (active) {
         setShowGamingPill(true);
         const timer = setTimeout(() => setShowGamingPill(false), 3000);
@@ -418,11 +418,21 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             e.preventDefault();
             lastShiftSpaceTime = 0;
             try {
-              if (document.fullscreenElement) {
-                if (document.exitFullscreen) await document.exitFullscreen();
+              const docAny = document as any;
+              const elAny = document.documentElement as any;
+              if (document.fullscreenElement || docAny.webkitFullscreenElement) {
+                if (document.exitFullscreen) {
+                  await document.exitFullscreen();
+                } else if (docAny.webkitExitFullscreen) {
+                  await docAny.webkitExitFullscreen();
+                }
               } else {
-                if (document.documentElement.requestFullscreen) {
-                  await document.documentElement.requestFullscreen();
+                if (elAny.requestFullscreen) {
+                  await elAny.requestFullscreen();
+                } else if (elAny.webkitRequestFullscreen) {
+                  await elAny.webkitRequestFullscreen();
+                } else if (elAny.mozRequestFullScreen) {
+                  await elAny.mozRequestFullScreen();
                 }
               }
             } catch (_err) {
@@ -437,17 +447,24 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
       // Escape to exit fullscreen if active
       if (e.code === 'Escape' || e.key === 'Escape') {
-        if (document.fullscreenElement && document.exitFullscreen) {
-          document.exitFullscreen().catch(() => {});
+        const docAny = document as any;
+        if (document.fullscreenElement || docAny.webkitFullscreenElement) {
+          if (document.exitFullscreen) {
+            document.exitFullscreen().catch(() => {});
+          } else if (docAny.webkitExitFullscreen) {
+            docAny.webkitExitFullscreen();
+          }
         }
       }
     };
 
     window.addEventListener('keydown', handleGlobalKeyDown);
     document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
     return () => {
       window.removeEventListener('keydown', handleGlobalKeyDown);
       document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
     };
   }, []);
 
