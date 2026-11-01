@@ -152,6 +152,10 @@ export default function CareerBuilderPage() {
   const [selectedTrajectoryId, setSelectedTrajectoryId] = useState<string>('fullstack-developer');
   const [expandedStageIndex, setExpandedStageIndex] = useState<number | null>(0);
 
+  // Candidate Profile Customizer State
+  const [customCandidate, setCustomCandidate] = useState<Partial<StudentProfileInput>>({});
+  const [showProfileEditor, setShowProfileEditor] = useState(false);
+
   // Configuration States
   const [experienceLevel, setExperienceLevel] = useState<'beginner' | 'intermediate' | 'advanced'>('beginner');
   const [studyPace, setStudyPace] = useState<number>(2); // 1, 2, or 3 quests/day
@@ -260,27 +264,51 @@ export default function CareerBuilderPage() {
       }
     }
     loadStudentData();
+
+    if (typeof window !== 'undefined') {
+      const savedCustom = localStorage.getItem(`pinit_${userId}_custom_resume_profile`);
+      if (savedCustom) {
+        try {
+          setCustomCandidate(JSON.parse(savedCustom));
+        } catch {}
+      }
+    }
   }, [userId]);
 
-  // Initial synthesized resume data
+  const updateCustomCandidateField = (field: keyof StudentProfileInput, val: string) => {
+    setCustomCandidate(prev => {
+      const next = { ...prev, [field]: val };
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.setItem(`pinit_${userId}_custom_resume_profile`, JSON.stringify(next));
+        } catch {}
+      }
+      return next;
+    });
+  };
+
+  // Initial synthesized resume data with direct user customization capability
   const candidateInput = useMemo<StudentProfileInput>(() => {
-    const rawName = user?.name || (typeof user?.email === 'string' ? user.email.split('@')[0] : 'Engineering Student');
+    const defaultName = user?.name || (typeof user?.email === 'string' ? user.email.split('@')[0] : 'Arya Dev');
     const roleStr = selectedTrajectory?.roleTitle || 'Full-Stack Software Developer';
+    const fullName = customCandidate.fullName ?? defaultName;
+    const cleanId = fullName.toLowerCase().replace(/[^a-z0-9]/g, '') || 'candidate';
+
     return {
-      fullName: rawName,
-      email: user?.email || 'student@pinit.os',
-      phone: '+91 98765 43210',
-      address: 'Bengaluru, Karnataka, India',
-      linkedin: `linkedin.com/in/${rawName.toLowerCase().replace(/[^a-z0-9]/g, '')}`,
-      github: `github.com/${rawName.toLowerCase().replace(/[^a-z0-9]/g, '')}`,
-      portfolio: `https://${rawName.toLowerCase().replace(/[^a-z0-9]/g, '')}.dev`,
-      degree: onboardingAnswers?.education || 'Bachelor of Technology (B.Tech)',
-      institution: onboardingAnswers?.collegeName || 'National Institute of Technology',
-      graduationYear: '2023 - 2027',
-      gpa: '8.8 / 10.0 CGPA',
-      targetRole: roleStr,
+      fullName,
+      email: customCandidate.email ?? (user?.email || 'arya.dev@pinit.os'),
+      phone: customCandidate.phone ?? '+91 98765 43210',
+      address: customCandidate.address ?? 'Bengaluru, Karnataka, India',
+      linkedin: customCandidate.linkedin ?? `linkedin.com/in/${cleanId}`,
+      github: customCandidate.github ?? `github.com/${cleanId}`,
+      portfolio: customCandidate.portfolio ?? `https://${cleanId}.dev`,
+      degree: customCandidate.degree ?? (onboardingAnswers?.education || 'Bachelor of Technology (B.Tech)'),
+      institution: customCandidate.institution ?? (onboardingAnswers?.collegeName || 'National Institute of Technology'),
+      graduationYear: customCandidate.graduationYear ?? '2023 - 2027',
+      gpa: customCandidate.gpa ?? '8.8 / 10.0 CGPA',
+      targetRole: customCandidate.targetRole ?? roleStr,
     };
-  }, [user, selectedTrajectory, onboardingAnswers]);
+  }, [user, selectedTrajectory, onboardingAnswers, customCandidate]);
 
   // Track resolution
   const resolvedTrack = useMemo(() => {
@@ -435,14 +463,42 @@ export default function CareerBuilderPage() {
     }
   };
 
-  // Commit and unlock Quests page
+  // Commit and unlock Quests page with full course synchronicity
   const handleActivateRoadmap = () => {
+    const courseId = selectedTrajectory.primaryCourseId;
+
+    if (cOS.setActiveCourseId) {
+      cOS.setActiveCourseId(courseId);
+    }
+    if (cOS.setActiveCourseIds) {
+      cOS.setActiveCourseIds([courseId]);
+    }
+
+    if (typeof window !== 'undefined') {
+      try {
+        const toSave = previewModules.length > 0 ? previewModules : selectedTrajectory.nodes.map((node, i) => ({
+          id: `${courseId}-stage-${i + 1}`,
+          courseId: courseId,
+          title: `Phase ${i + 1}: ${node.title}`,
+          desc: node.shortDesc,
+          difficulty: i === 0 ? 'Beginner' : i === 1 ? 'Intermediate' : 'Advanced',
+          estimatedWeeks: 2,
+          quests: []
+        }));
+        localStorage.setItem(`pinit_${userId}_roadmap_modules`, JSON.stringify(toSave));
+        localStorage.setItem(`pinit_${userId}_roadmap_modules_${courseId}`, JSON.stringify(toSave));
+        localStorage.setItem(`pinit_${userId}_active_course_id`, courseId);
+      } catch (e) {
+        console.warn(e);
+      }
+    }
+
     cOS.setRoadmapGenerated(true);
     if (onboardingStep < 4) {
       cOS.setOnboardingStep(4);
     }
-    toast.success('Quest Roadmap Activated! 🗺️', 'Redirecting to Quests playground.');
-    router.push('/quests');
+    toast.success('Quest Roadmap Activated! 🗺️', `Switching to ${selectedTrajectory.roleTitle} in Quests Playground.`);
+    router.push(`/quests?course=${courseId}`);
   };
 
   // Export PDF / Print
@@ -1550,6 +1606,26 @@ export default function CareerBuilderPage() {
 
               <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                 <button
+                  onClick={() => setShowProfileEditor(!showProfileEditor)}
+                  style={{
+                    padding: '8px 14px',
+                    borderRadius: 8,
+                    border: showProfileEditor ? '1.5px solid var(--accent)' : '1px solid var(--border)',
+                    background: showProfileEditor ? 'rgba(99, 102, 241, 0.15)' : 'var(--bg3)',
+                    color: showProfileEditor ? 'var(--accent)' : 'var(--t1)',
+                    fontSize: 12,
+                    fontFamily: 'var(--font-mono)',
+                    fontWeight: 800,
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 6
+                  }}
+                >
+                  ✏️ {showProfileEditor ? 'Close Profile Editor' : 'Edit Resume Details'}
+                </button>
+
+                <button
                   onClick={handleCopyPlainText}
                   style={{
                     padding: '8px 14px',
@@ -1609,6 +1685,196 @@ export default function CareerBuilderPage() {
                   📄 Download .txt
                 </button>
               </div>
+
+              {/* Inline Resume Profile Customizer Drawer */}
+              {showProfileEditor && (
+                <div style={{
+                  background: 'var(--bg3)',
+                  padding: 16,
+                  borderRadius: 12,
+                  border: '1px solid var(--border)',
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                  gap: 12,
+                  boxShadow: 'var(--shadow-sm)'
+                }}>
+                  <div>
+                    <label style={{ fontSize: 11, fontWeight: 800, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>
+                      FULL CANDIDATE NAME
+                    </label>
+                    <input
+                      type="text"
+                      value={candidateInput.fullName}
+                      onChange={e => updateCustomCandidateField('fullName', e.target.value)}
+                      style={{
+                        width: '100%',
+                        padding: '7px 10px',
+                        borderRadius: 6,
+                        background: 'var(--bg2)',
+                        border: '1px solid var(--border)',
+                        color: 'var(--t1)',
+                        fontSize: 12.5,
+                        fontFamily: 'var(--font-mono)',
+                        outline: 'none'
+                      }}
+                    />
+                  </div>
+
+                  <div>
+                    <label style={{ fontSize: 11, fontWeight: 800, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>
+                      TARGET ROLE TITLE
+                    </label>
+                    <input
+                      type="text"
+                      value={candidateInput.targetRole}
+                      onChange={e => updateCustomCandidateField('targetRole', e.target.value)}
+                      style={{
+                        width: '100%',
+                        padding: '7px 10px',
+                        borderRadius: 6,
+                        background: 'var(--bg2)',
+                        border: '1px solid var(--border)',
+                        color: 'var(--t1)',
+                        fontSize: 12.5,
+                        fontFamily: 'var(--font-mono)',
+                        outline: 'none'
+                      }}
+                    />
+                  </div>
+
+                  <div>
+                    <label style={{ fontSize: 11, fontWeight: 800, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>
+                      EMAIL ADDRESS
+                    </label>
+                    <input
+                      type="email"
+                      value={candidateInput.email}
+                      onChange={e => updateCustomCandidateField('email', e.target.value)}
+                      style={{
+                        width: '100%',
+                        padding: '7px 10px',
+                        borderRadius: 6,
+                        background: 'var(--bg2)',
+                        border: '1px solid var(--border)',
+                        color: 'var(--t1)',
+                        fontSize: 12.5,
+                        fontFamily: 'var(--font-mono)',
+                        outline: 'none'
+                      }}
+                    />
+                  </div>
+
+                  <div>
+                    <label style={{ fontSize: 11, fontWeight: 800, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>
+                      PHONE NUMBER
+                    </label>
+                    <input
+                      type="text"
+                      value={candidateInput.phone}
+                      onChange={e => updateCustomCandidateField('phone', e.target.value)}
+                      style={{
+                        width: '100%',
+                        padding: '7px 10px',
+                        borderRadius: 6,
+                        background: 'var(--bg2)',
+                        border: '1px solid var(--border)',
+                        color: 'var(--t1)',
+                        fontSize: 12.5,
+                        fontFamily: 'var(--font-mono)',
+                        outline: 'none'
+                      }}
+                    />
+                  </div>
+
+                  <div>
+                    <label style={{ fontSize: 11, fontWeight: 800, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>
+                      LOCATION / CITY
+                    </label>
+                    <input
+                      type="text"
+                      value={candidateInput.address}
+                      onChange={e => updateCustomCandidateField('address', e.target.value)}
+                      style={{
+                        width: '100%',
+                        padding: '7px 10px',
+                        borderRadius: 6,
+                        background: 'var(--bg2)',
+                        border: '1px solid var(--border)',
+                        color: 'var(--t1)',
+                        fontSize: 12.5,
+                        fontFamily: 'var(--font-mono)',
+                        outline: 'none'
+                      }}
+                    />
+                  </div>
+
+                  <div>
+                    <label style={{ fontSize: 11, fontWeight: 800, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>
+                      COLLEGE / INSTITUTION
+                    </label>
+                    <input
+                      type="text"
+                      value={candidateInput.institution}
+                      onChange={e => updateCustomCandidateField('institution', e.target.value)}
+                      style={{
+                        width: '100%',
+                        padding: '7px 10px',
+                        borderRadius: 6,
+                        background: 'var(--bg2)',
+                        border: '1px solid var(--border)',
+                        color: 'var(--t1)',
+                        fontSize: 12.5,
+                        fontFamily: 'var(--font-mono)',
+                        outline: 'none'
+                      }}
+                    />
+                  </div>
+
+                  <div>
+                    <label style={{ fontSize: 11, fontWeight: 800, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>
+                      DEGREE & SPECIALIZATION
+                    </label>
+                    <input
+                      type="text"
+                      value={candidateInput.degree}
+                      onChange={e => updateCustomCandidateField('degree', e.target.value)}
+                      style={{
+                        width: '100%',
+                        padding: '7px 10px',
+                        borderRadius: 6,
+                        background: 'var(--bg2)',
+                        border: '1px solid var(--border)',
+                        color: 'var(--t1)',
+                        fontSize: 12.5,
+                        fontFamily: 'var(--font-mono)',
+                        outline: 'none'
+                      }}
+                    />
+                  </div>
+
+                  <div>
+                    <label style={{ fontSize: 11, fontWeight: 800, color: 'var(--t2)', display: 'block', marginBottom: 4 }}>
+                      CGPA / GRADE
+                    </label>
+                    <input
+                      type="text"
+                      value={candidateInput.gpa}
+                      onChange={e => updateCustomCandidateField('gpa', e.target.value)}
+                      style={{
+                        width: '100%',
+                        padding: '7px 10px',
+                        borderRadius: 6,
+                        background: 'var(--bg2)',
+                        border: '1px solid var(--border)',
+                        color: 'var(--t1)',
+                        fontSize: 12.5,
+                        fontFamily: 'var(--font-mono)',
+                        outline: 'none'
+                      }}
+                    />
+                  </div>
+                </div>
+              )}
 
               {resumeMode === 'markdown' ? (
                 <pre style={{
