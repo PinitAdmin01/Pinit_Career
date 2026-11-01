@@ -1,7 +1,8 @@
 import * as THREE from 'three';
 // D-03 FIX: shared avatar-voice analyser tap used to drive real lip sync.
 // streamingAudioQueue imports nothing from components, so there is no cycle.
-import { getExistingAvatarAnalyser } from '@/lib/audio/streamingAudioQueue';
+import { getExistingAvatarAnalyser, getAvatarActiveSpeechClass } from '@/lib/audio/streamingAudioQueue';
+import { mapSpeechClassToVRoidMorphs } from '@/lib/avatar/visemeTypes';
 
 export type AnimState = 'idle' | 'listening' | 'thinking' | 'talking' | 'wave' | 'nod' | 'shrug';
 
@@ -136,7 +137,7 @@ export class VRoidAvatarEngine {
   vowelTimer = 0;
   nextVowelTime = 0.11;
   currentVowel = 'silence';
-  currentInfluences: Record<string, number> = { A: 0, I: 0, U: 0, E: 0, O: 0 };
+  currentInfluences: Record<string, number> = { A: 0, I: 0, U: 0, E: 0, O: 0, close: 0, small: 0, down: 0, up: 0 };
   proceduralMouth?: THREE.Mesh;
 
   // Audio-driven Lip Sync
@@ -593,6 +594,20 @@ export class VRoidAvatarEngine {
                   return false;
                 });
                 if (foundKey) meshMorphMap[v] = dict[foundKey];
+              });
+
+              // Bilabial & Articulation Morphs
+              const extraMorphs = ['close', 'small', 'down', 'up'];
+              extraMorphs.forEach(m => {
+                const foundKey = Object.keys(dict).find(k => {
+                  const kl = k.toLowerCase();
+                  if (m === 'close' && (kl.includes('close') || kl === 'fcl_mth_close' || kl === 'mouth_close')) return true;
+                  if (m === 'small' && (kl.includes('small') || kl === 'fcl_mth_small' || kl === 'mouth_small')) return true;
+                  if (m === 'down' && (kl.includes('down') || kl === 'fcl_mth_down' || kl === 'mouth_down')) return true;
+                  if (m === 'up' && (kl.includes('up') || kl === 'fcl_mth_up' || kl === 'mouth_up')) return true;
+                  return false;
+                });
+                if (foundKey) meshMorphMap[m] = dict[foundKey];
               });
               this.morphMaps.set(mesh, meshMorphMap);
 
@@ -1315,7 +1330,28 @@ export class VRoidAvatarEngine {
       }
     }
 
-    // Audio-driven lip sync if Web Audio API Analyser is connected
+    // Priority 1: Check Rig-Aware Viseme Timeline (Exact phoneme-to-morph articulation)
+    const activeViseme = isTalking ? getAvatarActiveSpeechClass() : null;
+    if (isTalking && activeViseme) {
+      const weights = mapSpeechClassToVRoidMorphs(activeViseme.speechClass, activeViseme.weight);
+      const targets: Record<string, number> = {
+        A: weights.A,
+        I: weights.I,
+        U: weights.U,
+        E: weights.E,
+        O: weights.O,
+        close: weights.close,
+        small: weights.small,
+        down: weights.down,
+        up: weights.up,
+      };
+      ['A', 'I', 'U', 'E', 'O', 'close', 'small', 'down', 'up'].forEach(k => {
+        const tgt = targets[k] || 0;
+        const cur = this.currentInfluences[k] || 0;
+        const lambda = tgt > cur ? 28 : 12;
+        this.currentInfluences[k] = THREE.MathUtils.damp(cur, tgt, lambda, dt);
+      });
+    } else // Audio-driven lip sync if Web Audio API Analyser is connected
     if (isTalking && this.audioAnalyser) {
       const binCount = this.audioAnalyser.frequencyBinCount;
       if (!this.audioDataArray || this.audioDataArray.length !== binCount) {
@@ -1421,13 +1457,13 @@ export class VRoidAvatarEngine {
     }
 
     if (this.faceMeshes.length > 0) {
-      const vowels = ['A', 'I', 'U', 'E', 'O'];
-      vowels.forEach(v => {
-        const newVal = this.currentInfluences[v] || 0;
+      const allSpeechMorphs = ['A', 'I', 'U', 'E', 'O', 'close', 'small', 'down', 'up'];
+      allSpeechMorphs.forEach(k => {
+        const newVal = this.currentInfluences[k] || 0;
         this.faceMeshes.forEach(mesh => {
           const meshMorphMap = this.morphMaps.get(mesh);
           if (meshMorphMap) {
-            const idx = meshMorphMap[v];
+            const idx = meshMorphMap[k];
             if (idx !== undefined && mesh.morphTargetInfluences) {
               mesh.morphTargetInfluences[idx] = newVal;
             }

@@ -350,6 +350,7 @@ export async function speakWithAvatar(
      * ms, speak with WebSpeech instead and discard the late neural result.
      */
     startDeadlineMs?: number;
+    allowWebSpeechFallback?: boolean;
   }
 ) {
   if (isStoryTourAudioLocked() && !options?.force) {
@@ -461,8 +462,8 @@ export async function speakWithAvatar(
           clearTimeout(streamDeadlineTimer);
           streamDeadlineTimer = null;
         }
-        console.warn('[PinIT Voice] Streaming audio queue error, falling back directly to WebSpeech:', streamErr);
-        if (mySpeechId === currentSpeechId) {
+        console.warn('[PinIT Voice] Streaming audio queue error:', streamErr);
+        if (options?.allowWebSpeechFallback && mySpeechId === currentSpeechId) {
           fallbackWebSpeech(
             cleanSpeechText,
             teacherId,
@@ -474,6 +475,11 @@ export async function speakWithAvatar(
             speedMultiplier,
             dynamicMaxDurationMs
           );
+        } else {
+          // Protected humanoid identity: never blurt out surprise robotic voices
+          if (mySpeechId === currentSpeechId) {
+            safeOnEnd();
+          }
         }
         return;
       }
@@ -486,19 +492,23 @@ export async function speakWithAvatar(
       startDeadlineTimer = setTimeout(() => {
         startDeadlineTimer = null;
         if (mySpeechId !== currentSpeechId) return;
-        handedToWebSpeech = true;
-        console.warn(`[PinIT Voice] Neural audio not ready after ${startDeadlineMs}ms, speaking with WebSpeech instead.`);
-        fallbackWebSpeech(
-          cleanSpeechText,
-          teacherId,
-          onStart,
-          () => finishAfterFloor(Date.now()),
-          detectVibe(cleanSpeechText),
-          mySpeechId,
-          difficulty,
-          speedMultiplier,
-          dynamicMaxDurationMs
-        );
+        if (options?.allowWebSpeechFallback) {
+          handedToWebSpeech = true;
+          console.warn(`[PinIT Voice] Neural audio not ready after ${startDeadlineMs}ms, speaking with WebSpeech fallback.`);
+          fallbackWebSpeech(
+            cleanSpeechText,
+            teacherId,
+            onStart,
+            () => finishAfterFloor(Date.now()),
+            detectVibe(cleanSpeechText),
+            mySpeechId,
+            difficulty,
+            speedMultiplier,
+            dynamicMaxDurationMs
+          );
+        } else {
+          console.warn(`[PinIT Voice] Neural audio not ready after ${startDeadlineMs}ms. Maintaining avatar persona.`);
+        }
       }, startDeadlineMs);
     }
     const clearStartDeadline = () => {

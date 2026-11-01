@@ -8,6 +8,7 @@
 
 import { sanitizeForSpeech } from '../sanitizeLLM';
 import { synthesizeVoice } from '../smartVoiceRouter';
+import { SpeechClass, VisemeEvent } from '../avatar/visemeTypes';
 
 export const TTS_STREAMING_VERSION = 'v1.0';
 export const MAX_IN_FLIGHT_TTS = 2;
@@ -154,6 +155,7 @@ export class SentenceAudioQueuePlayer {
     console.log(`[AudioQueue] 🛑 stopAll() invoked: aborting playId ${this.currentPlayId}, activeSources=${this.activeSources.length}`);
     this.isCancelled = true;
     this.currentPlayId++;
+    clearAvatarVisemeTimeline();
     this.abortController.abort();
     this.abortController = new AbortController();
 
@@ -223,9 +225,10 @@ export class SentenceAudioQueuePlayer {
     };
 
     // Helper: Fetches and decodes a single sentence chunk
-    const fetchChunk = async (index: number): Promise<void> => {
+    const MAX_CHUNK_RETRIES = 2;
+    const fetchChunk = async (index: number, attempt = 0): Promise<void> => {
       if (this.isCancelled || playId !== this.currentPlayId) return;
-      inFlightCount++;
+      if (attempt === 0) inFlightCount++;
 
       try {
         const sentenceText = sentences[index];
@@ -246,12 +249,15 @@ export class SentenceAudioQueuePlayer {
         decodedBuffers[index] = audioBuf;
       } catch (err: any) {
         if (!this.isCancelled) {
-          console.warn(`[SentenceAudioQueuePlayer] Error fetching chunk #${index}:`, err?.message);
+          console.warn(`[SentenceAudioQueuePlayer] Error fetching chunk #${index} (attempt ${attempt + 1}/${MAX_CHUNK_RETRIES + 1}):`, err?.message);
         }
-        // Mark as failed so scheduleReadyChunks skips it and checkAllDone counts correctly
+        if (attempt < MAX_CHUNK_RETRIES && !this.isCancelled && playId === this.currentPlayId) {
+          await new Promise(r => setTimeout(r, 200 * Math.pow(2, attempt)));
+          return fetchChunk(index, attempt + 1);
+        }
         decodedBuffers[index] = false;
       } finally {
-        inFlightCount--;
+        if (attempt === 0) inFlightCount--;
       }
     };
 
@@ -284,10 +290,13 @@ export class SentenceAudioQueuePlayer {
         nextChunkToSchedule++;
 
         if (buf === false) {
-          // Chunk failed — skip but count as "done" so we don't hang
-          completedSentencesCount++;
-          checkAllDone();
-          continue;
+          // CRITICAL RELIABILITY FIX: Never silently drop content or play out of order.
+          // Pause queue, notify error callback, and cleanly terminate this playback session.
+          console.error(`[SentenceAudioQueuePlayer] Chunk #${idx} failed after retries. Halting playback to prevent content loss.`);
+          this.isPlaying = false;
+          callbacks?.onError?.(new Error(`Sentence #${idx + 1} failed to load. Playback paused.`));
+          this.stopAll();
+          return;
         }
 
         totalScheduled++;
@@ -425,4 +434,36 @@ export function getGlobalAudioQueue(): SentenceAudioQueuePlayer {
     _globalAudioQueue = new SentenceAudioQueuePlayer();
   }
   return _globalAudioQueue;
+}
+
+
+// ── Active Avatar Viseme Timeline Synchronization ──────────────────────────
+let _activeVisemeEvents: VisemeEvent[] = [];
+let _activePlaybackStartTime = 0;
+let _activeAudioCtx: AudioContext | null = null;
+
+export function setAvatarVisemeTimeline(events: VisemeEvent[], playbackStartTime: number, ctx?: AudioContext): void {
+  _activeVisemeEvents = events || [];
+  _activePlaybackStartTime = playbackStartTime;
+  if (ctx) _activeAudioCtx = ctx;
+}
+
+export function clearAvatarVisemeTimeline(): void {
+  _activeVisemeEvents = [];
+  _activePlaybackStartTime = 0;
+}
+
+export function getAvatarActiveSpeechClass(mediaTimeSeconds?: number): { speechClass: SpeechClass; weight: number } | null {
+  if (!_activeVisemeEvents || _activeVisemeEvents.length === 0) return null;
+
+  let currentTime = mediaTimeSeconds;
+  if (currentTime === undefined) {
+    if (!_activeAudioCtx || _activePlaybackStartTime === 0) return null;
+    currentTime = Math.max(0, _activeAudioCtx.currentTime - _activePlaybackStartTime);
+  }
+
+  const active = _activeVisemeEvents.find(ev => currentTime! >= ev.start_s && currentTime! <= ev.end_s);
+  if (!active) return null;
+
+  return { speechClass: active.speechClass, weight: active.weight };
 }
