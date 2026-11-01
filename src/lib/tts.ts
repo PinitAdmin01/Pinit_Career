@@ -275,46 +275,44 @@ function fallbackWebSpeech(
 export async function generateTTSAudio(text: string, teacherId: string, vibe = 'neutral', difficulty?: 'easy' | 'normal' | 'hard', speedMultiplier = 1.0): Promise<{ buffer: Float32Array; sampleRate: number }> {
   const baseSpeed = difficulty === 'easy' ? 0.95 : difficulty === 'hard' ? 1.3 : 1.1;
   const targetSpeed = baseSpeed * speedMultiplier;
-
-  const voice = KOKORO_VOICE_MAP[teacherId.toLowerCase()] || 'af_heart';
-  const controller = new AbortController();
-  // Increased to 8 s so Render free-tier cold-start doesn't abort prematurely
-  const timeoutId = setTimeout(() => controller.abort(), 8000);
+  const voice = KOKORO_VOICE_MAP[teacherId.toLowerCase()] || 'af_bella';
 
   try {
+    const result = await synthesizeVoice({
+      text,
+      voice,
+      speed: targetSpeed,
+    });
+    const ctx = getAudioContext();
+    if (ctx.state === 'suspended') {
+      await ctx.resume().catch(() => {});
+    }
+    const audioBuf = await ctx.decodeAudioData(result.audioBuffer.slice(0));
+    const buffer = audioBuf.getChannelData(0);
+    return { buffer, sampleRate: audioBuf.sampleRate };
+  } catch (err) {
+    console.warn('[PinIT TTS] Primary synthesizeVoice failed in generateTTSAudio, attempting /api/tts proxy fallback:', err);
     const response = await fetch('/api/tts', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        // X-Pinit-Direct:1 tells the fetch interceptor to pass this through
-        // directly to the Next.js route instead of routing via the Firestore client.
         'X-Pinit-Direct': '1',
       },
       body: JSON.stringify({
         text,
         voice,
-        language: 'en',
         speed: targetSpeed,
         emotion: vibe,
-        context: 'avatar',
-        version: 'v2.0',
       }),
-      signal: controller.signal,
     });
-    clearTimeout(timeoutId);
-
     if (!response.ok) {
-      throw new Error(`TTS route returned status ${response.status}`);
+      throw new Error(`TTS fallback returned status ${response.status}`);
     }
-
     const arrayBuffer = await response.arrayBuffer();
     const ctx = getAudioContext();
     const audioBuf = await ctx.decodeAudioData(arrayBuffer);
     const buffer = audioBuf.getChannelData(0);
     return { buffer, sampleRate: audioBuf.sampleRate };
-  } catch (err) {
-    clearTimeout(timeoutId);
-    throw err;
   }
 }
 

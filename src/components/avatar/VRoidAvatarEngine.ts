@@ -1331,8 +1331,9 @@ export class VRoidAvatarEngine {
     }
 
     // Priority 1: Check Rig-Aware Viseme Timeline (Exact phoneme-to-morph articulation)
-    const activeViseme = isTalking ? getAvatarActiveSpeechClass() : null;
-    if (isTalking && activeViseme) {
+    const activeViseme = getAvatarActiveSpeechClass();
+    const isSpeakingActive = isTalking || Boolean(activeViseme);
+    if (isSpeakingActive && activeViseme) {
       const weights = mapSpeechClassToVRoidMorphs(activeViseme.speechClass, activeViseme.weight);
       const targets: Record<string, number> = {
         A: weights.A,
@@ -1352,7 +1353,11 @@ export class VRoidAvatarEngine {
         this.currentInfluences[k] = THREE.MathUtils.damp(cur, tgt, lambda, dt);
       });
     } else // Audio-driven lip sync if Web Audio API Analyser is connected
-    if (isTalking && this.audioAnalyser) {
+    if (isSpeakingActive && this.audioAnalyser) {
+      ['close', 'small', 'down', 'up'].forEach(k => {
+        const cur = this.currentInfluences[k] || 0;
+        this.currentInfluences[k] = THREE.MathUtils.damp(cur, 0, 14, dt);
+      });
       const binCount = this.audioAnalyser.frequencyBinCount;
       if (!this.audioDataArray || this.audioDataArray.length !== binCount) {
         this.audioDataArray = new Float32Array(binCount);
@@ -1450,7 +1455,7 @@ export class VRoidAvatarEngine {
         this.currentInfluences[v] = THREE.MathUtils.damp(currentVal, targetValue, lambda, dt);
       });
     } else {
-      ['A', 'I', 'U', 'E', 'O'].forEach(v => {
+      ['A', 'I', 'U', 'E', 'O', 'close', 'small', 'down', 'up'].forEach(v => {
         const currentVal = this.currentInfluences[v] || 0;
         this.currentInfluences[v] = THREE.MathUtils.damp(currentVal, 0, 10, dt);
       });

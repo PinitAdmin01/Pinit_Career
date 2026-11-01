@@ -14,8 +14,15 @@ const CDN_URL = process.env.NEXT_PUBLIC_CDN_VOICE_URL || '';
 
 export async function POST(req: NextRequest) {
   try {
-    const gated = await requireUserFromRequest(req);
-    if (gated.error) return gated.error;
+    // Optional auth: inspect bearer token if provided, but permit guest onboarding
+    const authHeader = req.headers.get('authorization') || req.headers.get('Authorization');
+    let userId = 'guest_user';
+    if (authHeader) {
+      const gated = await requireUserFromRequest(req);
+      if (gated.user) {
+        userId = gated.user.id;
+      }
+    }
 
     const body = await req.json();
     const {
@@ -34,7 +41,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Text is required.' }, { status: 400 });
     }
 
-    console.log(`[/api/tts] Incoming proxy request -> user=${gated.user.id} | voice=${voice} | textLen=${text.length} | context=${context}`);
+    console.log(`[/api/tts] Incoming proxy request -> user=${userId} | voice=${voice} | textLen=${text.length} | context=${context}`);
 
     if (CDN_URL && cacheKey) {
       const cdnUrl = `${CDN_URL}/${language}/${cacheKey}.mp3`;
@@ -60,7 +67,7 @@ export async function POST(req: NextRequest) {
     }
 
     const ttsStart = Date.now();
-    const backendUrl = `${BACKEND_URL}/api/tts`;
+    const backendUrl = `${BACKEND_URL}/api/v1/tts`;
     console.log(`[/api/tts] Forwarding to Python Backend: ${backendUrl}`);
 
     const backendRes = await fetch(backendUrl, {
@@ -90,16 +97,25 @@ export async function POST(req: NextRequest) {
 
     console.log(`[/api/tts] Backend Response SUCCESS (${roundtripMs}ms) -> Status: ${cacheStatus} | Engine: ${engine} | Bytes: ${audioBuffer.byteLength}`);
 
+    const visemesHeader = backendRes.headers.get('X-Visemes');
+    const durationHeader = backendRes.headers.get('X-Audio-Duration') || duration;
+    const responseHeaders: Record<string, string> = {
+      'Content-Type': contentType,
+      'X-Cache-Status': cacheStatus,
+      'X-Cache-Key': returnedKey,
+      'X-Engine': engine,
+      'X-Voice-Engine': engine,
+      'X-Duration': durationHeader,
+      'X-Audio-Duration': durationHeader,
+      'Cache-Control': 'private, max-age=3600',
+    };
+    if (visemesHeader) {
+      responseHeaders['X-Visemes'] = visemesHeader;
+    }
+
     return new NextResponse(audioBuffer, {
       status: 200,
-      headers: {
-        'Content-Type': contentType,
-        'X-Cache-Status': cacheStatus,
-        'X-Cache-Key': returnedKey,
-        'X-Engine': engine,
-        'X-Duration': duration,
-        'Cache-Control': 'private, max-age=3600',
-      },
+      headers: responseHeaders,
     });
   } catch (err: any) {
     const isTimeout = err?.name === 'TimeoutError' || err?.name === 'AbortError';

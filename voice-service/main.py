@@ -41,15 +41,23 @@ app = FastAPI(
 
 # ── Security & Rate Limiting Middleware ─────────────────────────────────────
 RATE_LIMIT_STORE = defaultdict(list)
-MAX_REQ_PER_MIN = 60
+MAX_REQ_PER_MIN = 240
 VOICE_SERVICE_SECRET = os.getenv("VOICE_SERVICE_SECRET")  # optional opt-in auth
 
 # ── CORS Middleware ──
 def _check_cors_origin(origin: str | None) -> bool:
-    """Allow explicit origins only; reject wildcard "*" when credentials are enabled."""
+    """Allow explicit origins and legitimate local/staging/production endpoints."""
     if origin is None:
-        return True  # no origin (some clients send none) — still allow
-    return origin in ALLOW_ORIGINS
+        return True  # no origin (curl/mobile/tools) - allow
+    if origin in ALLOW_ORIGINS:
+        return True
+    if origin.startswith("http://localhost:") or origin.startswith("http://127.0.0.1:"):
+        return True
+    if origin.endswith(".vercel.app") or origin.endswith(".web.app") or origin.endswith(".firebaseapp.com"):
+        return True
+    if "pinit" in origin:
+        return True
+    return False
 
 @app.middleware("http")
 async def security_and_rate_limit(request: Request, call_next):
@@ -165,6 +173,8 @@ async def health_ready():
 async def list_voices():
     return {"voices": engine.voices}
 
+@app.post("/tts")
+@app.post("/api/tts")
 @app.post("/api/v1/tts")
 async def synthesize_tts(req: TTSRequest, request: Request):
     # Optional internal-auth guard
@@ -196,6 +206,8 @@ async def synthesize_tts(req: TTSRequest, request: Request):
         logger.error(f"TTS synthesis failed: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
+@app.post("/tts/stream")
+@app.post("/api/tts/stream")
 @app.post("/api/v1/tts/stream")
 async def synthesize_tts_stream(req: TTSRequest, request: Request):
     """Chunked streaming endpoint for real-time sentence clause audio playback."""
