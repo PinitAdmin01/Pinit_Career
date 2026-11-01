@@ -55,6 +55,7 @@ function LeaderboardContent() {
   const [activeTab, setActiveTab] = useState<TabMode>(initialMode);
   const [selectedLeague, setSelectedLeague] = useState<LeagueTier>('browns');
   const [currentUserLeague, setCurrentUserLeague] = useState<LeagueTier>('browns');
+  const [hasManuallySelected, setHasManuallySelected] = useState(false);
   const [domainFilter, setDomainFilter] = useState<'all' | 'tech' | 'data' | 'ai'>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -114,7 +115,11 @@ function LeaderboardContent() {
             setRemainingMs(data.remainingMs);
           }
           if (data.currentUserLeague) {
-            setCurrentUserLeague(normalizeLeagueTier(data.currentUserLeague));
+            const userTier = normalizeLeagueTier(data.currentUserLeague);
+            setCurrentUserLeague(userTier);
+            if (!hasManuallySelected && userTier !== 'browns') {
+              setSelectedLeague(userTier);
+            }
           }
           if (data.leagueCounts) {
             setLeagueCounts(data.leagueCounts);
@@ -129,7 +134,7 @@ function LeaderboardContent() {
 
     fetchLeaderboard();
     return () => { isMounted = false; };
-  }, [activeTab, selectedLeague]);
+  }, [activeTab, selectedLeague, user?.id]);
 
   // Current user's entry in the leaderboard
   const currentUserEntry = useMemo(() => {
@@ -327,7 +332,7 @@ function LeaderboardContent() {
               return (
                 <button
                   key={tier}
-                  onClick={() => setSelectedLeague(tier)}
+                  onClick={() => { setSelectedLeague(tier); setHasManuallySelected(true); }}
                   style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -346,7 +351,7 @@ function LeaderboardContent() {
                   <div style={{ overflow: 'hidden' }}>
                     <div style={{ fontSize: 14.5, fontWeight: 900, color: isSelected ? meta.color : 'var(--t1)', display: 'flex', alignItems: 'center', gap: 6 }}>
                       {meta.title}
-                      {isUserTier && <span style={{ fontSize: 10, padding: '1px 5px', borderRadius: 4, background: meta.color, color: '#fff', fontWeight: 900 }}>YOU</span>}
+                      {isUserTier && <span style={{ fontSize: 10, padding: '1px 5px', borderRadius: 4, background: meta.color, color: (tier === 'silver' || tier === 'gold') ? '#0f172a' : '#ffffff', fontWeight: 900 }}>YOU</span>}
                     </div>
                     <div style={{ fontSize: 11.5, color: 'var(--t3)', marginTop: 2 }}>
                       {count} {count === 1 ? 'Student' : 'Students'}

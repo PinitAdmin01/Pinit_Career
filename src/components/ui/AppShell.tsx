@@ -414,7 +414,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         );
         if (!isInputField) {
           const now = Date.now();
-          if (now - lastShiftSpaceTime < 500) {
+          if (now - lastShiftSpaceTime < 700) {
             e.preventDefault();
             lastShiftSpaceTime = 0;
             try {

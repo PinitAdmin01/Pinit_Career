@@ -111,7 +111,12 @@ export async function GET(req: Request) {
         ).or('role.eq.student,role.is.null');
 
         if (mode === 'weekly_leagues') {
-          query = query.eq('league_tier', activeLeague).order('weekly_xp', { ascending: false }).order('xp_total', { ascending: false });
+          if (activeLeague === 'browns') {
+            query = query.or('league_tier.eq.browns,league_tier.is.null');
+          } else {
+            query = query.eq('league_tier', activeLeague);
+          }
+          query = query.order('weekly_xp', { ascending: false }).order('xp_total', { ascending: false });
         } else if (mode === 'code_wars') {
           query = query.order('arena_elo', { ascending: false }).order('xp_total', { ascending: false });
         } else {
@@ -238,7 +243,66 @@ export async function GET(req: Request) {
       entries.forEach((e, i) => { e.rank = i + 1; });
     }
 
-    const currentUserEntry = entries.find(e => e.isCurrentUser) || null;
+    let currentUserEntry = entries.find(e => e.isCurrentUser) || null;
+
+    // If current user is outside top limit, resolve their exact position so Cockpit never says "Unranked"
+    if (!currentUserEntry && currentUserId && admin) {
+      try {
+        const { data: myProfile } = await admin
+          .from('users')
+          .select('id, display_name, avatar_url, college, target_role, ats_score, trust_score, xp_total, weekly_xp, league_tier, completed_quests, arena_elo')
+          .eq('id', currentUserId)
+          .maybeSingle();
+
+        if (myProfile) {
+          const myTier = (myProfile.league_tier && validLeagues.has(myProfile.league_tier.toLowerCase() as LeagueTier))
+            ? (myProfile.league_tier.toLowerCase() as LeagueTier)
+            : 'browns';
+
+          if (myTier === activeLeague) {
+            let rankQuery = admin
+              .from('users')
+              .select('id', { count: 'exact', head: true })
+              .or('role.eq.student,role.is.null');
+
+            if (activeLeague === 'browns') {
+              rankQuery = rankQuery.or('league_tier.eq.browns,league_tier.is.null');
+            } else {
+              rankQuery = rankQuery.eq('league_tier', activeLeague);
+            }
+            rankQuery = rankQuery.gt('weekly_xp', myProfile.weekly_xp || 0);
+
+            const { count: higherCount } = await rankQuery;
+            const myRank = (higherCount || 0) + 1;
+            const myWeeklyXp = Number(myProfile.weekly_xp) || 0;
+            const myTotalXp = Number(myProfile.xp_total) || 0;
+            const myDefense = Math.min(100, Math.max(0, Number(myProfile.ats_score) || 0));
+
+            currentUserEntry = {
+              rank: myRank,
+              studentId: myProfile.id,
+              name: myProfile.display_name || 'Student Candidate',
+              avatarUrl: myProfile.avatar_url || `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(myProfile.display_name || 'Student')}`,
+              college: myProfile.college || 'PinIT Career OS Academy',
+              programTitle: myProfile.target_role ? `${myProfile.target_role} Track` : 'Software Engineering Track',
+              verifiedSkillsCount: 0,
+              demonstratedSkillsCount: Array.isArray(myProfile.completed_quests) ? myProfile.completed_quests.length : 0,
+              defenseScore: myDefense,
+              readinessStatus: myDefense >= 80 ? 'ready_for_interview' : 'exploring',
+              learningGainPoints: Math.max(0, Math.round(myTotalXp / 50)),
+              eloRating: Number(myProfile.arena_elo) || (1200 + Math.round(myTotalXp / 8)),
+              leagueTier: myTier,
+              weeklyXp: myWeeklyXp,
+              totalXp: myTotalXp,
+              zone: myRank <= promotionCutoffRank ? 'promotion' : (activeLeague !== 'browns' && myRank >= demotionCutoffRank ? 'demotion' : 'safe'),
+              isCurrentUser: true,
+            };
+          }
+        }
+      } catch (err) {
+        console.warn('[Leaderboard] Failed to resolve off-cohort rank:', err);
+      }
+    }
     const sprintEndsAt = getNextMonday1AmIst();
     const remainingMs = Math.max(0, sprintEndsAt.getTime() - Date.now());
 
