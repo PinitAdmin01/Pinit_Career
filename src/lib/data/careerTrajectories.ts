@@ -30,6 +30,106 @@ export interface CareerTrajectory {
 }
 
 export const CANONICAL_TRAJECTORIES: Record<string, CareerTrajectory> = {
+  'react-basic-to-advance': {
+    roleId: 'react-basic-to-advance',
+    roleTitle: 'React Frontend SDE (Basic to Advance)',
+    icon: '⚛️',
+    description: 'Master modern responsive user interfaces, React state machines, Next.js SSR, and client data flows.',
+    averageSalaryRange: '₹8–20 LPA',
+    targetTotalDays: 120,
+    nodes: [
+      {
+        nodeId: 'r1',
+        courseId: 'course-react-web',
+        title: 'HTML, CSS & JavaScript Foundations',
+        shortDesc: 'DOM manipulation, ES6+ syntax, async fetch, and responsive layouts',
+        icon: '🌐',
+        skillsLearned: ['HTML5/CSS3', 'JavaScript ES6+', 'DOM API', 'Fetch API'],
+        careerImpact: '+20% Web Core',
+        estimatedDays: 30
+      },
+      {
+        nodeId: 'r2',
+        courseId: 'course-react-web',
+        title: 'React Core Components & State Management',
+        shortDesc: 'JSX, useState, useEffect, props, custom hooks, and context API',
+        icon: '⚛️',
+        skillsLearned: ['React Hooks', 'State & Props', 'Component Architecture', 'Context API'],
+        careerImpact: '+25% React Mastery',
+        estimatedDays: 30
+      },
+      {
+        nodeId: 'r3',
+        courseId: 'course-fullstack-js',
+        title: 'Next.js, Server Components & Routing',
+        shortDesc: 'App router, SSR/SSG prerendering, API routes, and Tailwind styling',
+        icon: '⚡',
+        skillsLearned: ['Next.js 14', 'App Router', 'Server Actions', 'API Routes'],
+        careerImpact: '+25% Next.js Power',
+        estimatedDays: 30
+      },
+      {
+        nodeId: 'r4',
+        courseId: 'course-fullstack-js',
+        title: 'High-Performance Full-Stack Web Architecture',
+        shortDesc: 'Node.js Express backend, database ORMs, authentication, and Vercel deployment',
+        icon: '🚀',
+        skillsLearned: ['Node.js/Express', 'PostgreSQL/Prisma', 'JWT Auth', 'Vercel Deployment'],
+        careerImpact: '+30% Full-Stack Pro',
+        estimatedDays: 30
+      }
+    ]
+  },
+  'excel-basic-to-advance': {
+    roleId: 'excel-basic-to-advance',
+    roleTitle: 'Excel & Business Data Specialist (Basic to Advance)',
+    icon: '📊',
+    description: 'Ultra-beginner to pro mastery covering formulas, XLOOKUP, Pivot Tables, Power BI, and executive dashboards.',
+    averageSalaryRange: '₹6–16 LPA',
+    targetTotalDays: 120,
+    nodes: [
+      {
+        nodeId: 'e1',
+        courseId: 'course-excel-data-viz',
+        title: 'Excel Grid Mechanics & Math Formulas',
+        shortDesc: 'Cells, ranges, SUM, AVERAGE, and absolute vs relative references',
+        icon: '📊',
+        skillsLearned: ['Excel Basics', 'Grid Mechanics', 'Math Functions', 'Cell Referencing'],
+        careerImpact: '+20% Excel Core',
+        estimatedDays: 30
+      },
+      {
+        nodeId: 'e2',
+        courseId: 'course-excel-data-viz',
+        title: 'Logical Formulas & Advanced Lookups',
+        shortDesc: 'IF/AND/OR logic, VLOOKUP, XLOOKUP, and INDEX/MATCH',
+        icon: '⚡',
+        skillsLearned: ['Logical IF Statements', 'XLOOKUP', 'INDEX/MATCH', 'Data Validation'],
+        careerImpact: '+25% Analytical Logic',
+        estimatedDays: 30
+      },
+      {
+        nodeId: 'e3',
+        courseId: 'course-business-analytics',
+        title: 'Pivot Tables & Data Summarization',
+        shortDesc: 'Grouping, filtering, calculated fields, and multi-sheet summaries',
+        icon: '🔢',
+        skillsLearned: ['Pivot Tables', 'Data Cleaning', 'Calculated Fields', 'Power Query'],
+        careerImpact: '+25% Data Wrangling',
+        estimatedDays: 30
+      },
+      {
+        nodeId: 'e4',
+        courseId: 'course-excel-data-viz',
+        title: 'Dynamic Executive Dashboards & KPI Reporting',
+        shortDesc: 'Interactive charts, KPI scorecards, Power BI integration, and automated reports',
+        icon: '🚀',
+        skillsLearned: ['Executive Dashboards', 'Power BI', 'KPI Metrics', 'Report Automation'],
+        careerImpact: '+30% Executive Reporting',
+        estimatedDays: 30
+      }
+    ]
+  },
   'fullstack-developer': {
     roleId: 'fullstack-developer',
     roleTitle: 'Full-Stack Software Developer',
@@ -641,7 +741,8 @@ export const CANONICAL_TRAJECTORIES: Record<string, CareerTrajectory> = {
         }
       }
     ]
-  }
+  },
+
 };
 
 /**

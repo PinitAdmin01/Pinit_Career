@@ -99,3 +99,42 @@ test('Career Builder Resume Studio: Generates structured resume and printable HT
   assert.ok(html.includes('Arya Dev'), 'HTML output must contain candidate name');
   assert.ok(html.includes('<!DOCTYPE html>'), 'HTML output must be valid document');
 });
+
+
+test('Career Builder: Custom candidate details override and 6-vendor ATS simulation profiles reflect accurately', () => {
+  const customProfile = {
+    fullName: 'Priya Sharma',
+    email: 'priya.sharma@iitb.ac.in',
+    phone: '+91 99887 76655',
+    address: 'Mumbai, Maharashtra, India',
+    linkedin: 'linkedin.com/in/priyasharma',
+    github: 'github.com/priyasharma',
+    portfolio: 'https://priyasharma.tech',
+    degree: 'B.Tech Electrical & Computer Engineering',
+    institution: 'Indian Institute of Technology Bombay',
+    graduationYear: '2024 - 2028',
+    gpa: '9.6 / 10.0 CGPA',
+    targetRole: 'React Frontend SDE (Basic to Advance)',
+  };
+
+  const synthesized = generateStructuredResume(customProfile, [], TRACKS.frontend);
+  assert.ok(synthesized.plainText.toLowerCase().includes('priya sharma'), 'Must reflect custom candidate name');
+  assert.ok(synthesized.plainText.includes('Indian Institute of Technology Bombay'), 'Must reflect custom college');
+  assert.ok(synthesized.plainText.includes('9.6 / 10.0 CGPA'), 'Must reflect custom GPA');
+
+  const report = auditResumeATS(synthesized.plainText, {
+    targetRole: synthesized.targetRoleCategory,
+  });
+
+  assert.ok(report.vendorProfiles, 'Must generate vendor profiles');
+  assert.ok(typeof report.vendorProfiles.greenhouseInspired === 'number', 'Greenhouse simulation required');
+  assert.ok(typeof report.vendorProfiles.workdayInspired === 'number', 'Workday simulation required');
+  assert.ok(typeof report.vendorProfiles.leverInspired === 'number', 'Lever simulation required');
+  assert.ok(typeof report.vendorProfiles.taleoInspired === 'number', 'Taleo simulation required');
+  assert.ok(typeof report.vendorProfiles.icimsInspired === 'number', 'iCIMS simulation required');
+  assert.ok(typeof report.vendorProfiles.ashbyInspired === 'number', 'Ashby simulation required');
+
+  const reactTraj = CANONICAL_TRAJECTORIES['react-basic-to-advance'];
+  assert.ok(reactTraj, 'react-basic-to-advance must exist');
+  assert.strictEqual(reactTraj.nodes[0].courseId, 'course-react-web', 'Primary course must be course-react-web');
+});

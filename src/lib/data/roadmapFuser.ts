@@ -196,17 +196,32 @@ export function generateDynamicStudentRoadmap(params: DynamicRoadmapParams): Dyn
   const courseCount = roadmapCourses.length;
   const modules: DynamicRoadmapModule[] = [];
   let moduleCount = 1;
+  const PHASE_MILESTONES = [
+    'Foundations, Core Syntax & Mental Models',
+    'Architecture, State Patterns & Deep Logic',
+    'Production APIs, Concurrency & Integration',
+    'Enterprise Hardening, Testing & Capstone Verification',
+  ];
 
   for (const course of roadmapCourses) {
     const courseQuests = adaptedQuests.filter((q) => q.sourceCourseId === course.id);
     const questsPerModule = Math.max(10, Math.ceil(courseQuests.length / 4));
     for (let start = 0; start < courseQuests.length; start += questsPerModule) {
       const chunk = courseQuests.slice(start, start + questsPerModule).map(({ sourceCourseId: _source, ...q }) => q);
+      const phaseIndex = (moduleCount - 1) % 4;
+      const milestoneTheme = PHASE_MILESTONES[phaseIndex] || `Milestone ${moduleCount}`;
+      const cleanCourseTitle = course.title.split('(')[0].trim();
+      const firstQuestTitle = chunk[0]?.title ? chunk[0].title.replace(/^(Learning|Coding|Exam|Assignment):\s*/i, '').trim() : '';
+      const lastQuestTitle = chunk[chunk.length - 1]?.title ? chunk[chunk.length - 1].title.replace(/^(Learning|Coding|Exam|Assignment):\s*/i, '').trim() : '';
+      const questRangeSummary = firstQuestTitle && lastQuestTitle && firstQuestTitle !== lastQuestTitle
+        ? ` (${firstQuestTitle} → ${lastQuestTitle})`
+        : (firstQuestTitle ? ` (${firstQuestTitle})` : '');
+
       modules.push({
         id: `${course.id}-dynamic-mod-${moduleCount}`,
         courseId: course.id,
-        title: `Phase ${moduleCount}: ${targetRole} — ${course.title.split('(')[0].trim()}`,
-        desc: `${isMixedGoal ? '🔀 Fused Goal Trajectory: ' : ''}Personalized ${durationDays}-Day Roadmap for "${targetRole}"${courseCount > 1 ? ` across ${courseCount} courses` : ''}. Paced at ${dailyPace} quests/day. Tailored for ${archetype} archetype with QT1: ${qt1}/100 & QT2: ${qt2}/100.`,
+        title: `Phase ${moduleCount}: ${cleanCourseTitle} — ${milestoneTheme}`,
+        desc: `${isMixedGoal ? '🔀 Fused Goal Trajectory: ' : ''}${milestoneTheme} covering ${chunk.length} calibrated quests${questRangeSummary}. Tailored for ${targetRole} (${archetype} archetype with QT1: ${qt1}/100 & QT2: ${qt2}/100).`,
         difficulty: isHighKnowledge ? 'Advanced' : isLowKnowledge ? 'Foundational' : 'Intermediate',
         estimatedWeeks: Math.max(1, Math.ceil(chunk.length / (effectivePace * 7))),
         personalizedPaceTag: allocationsTag || (isMixedGoal ? `🎯 Target Goal: ${targetRole}` : mindsetTag),
