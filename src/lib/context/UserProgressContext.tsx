@@ -16,6 +16,7 @@ import {
   PendingQuestCompletion
 } from '@/lib/storage/careerStorage';
 import { generateDynamicStudentRoadmap } from '@/lib/data/roadmapFuser';
+import { resolveTrackFromGoal } from '@/lib/onboarding/trackResolver';
 
 export interface OnboardingAnswers {
   role?: string;
@@ -631,7 +632,7 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
     const answers = answersRef.current;
     const targetRole = answers.role || 'Full Stack Engineer';
     const experienceLevel = answers.experience || 'beginner';
-    const effectiveCourseId = courseId || 'course-java-logic';
+    const effectiveCourseId = courseId || (targetRole ? resolveTrackFromGoal(targetRole).courseId : 'course-java-logic');
 
     const persistRoadmapModules = (mods: any[]) => {
       commitAnswers({ ...answersRef.current, roadmap_modules: mods });

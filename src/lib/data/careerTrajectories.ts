@@ -641,7 +641,21 @@ export const CANONICAL_TRAJECTORIES: Record<string, CareerTrajectory> = {
         }
       }
     ]
-  }
+  },
+  'react-basic-to-advance': {
+    roleId: 'react-basic-to-advance',
+    roleTitle: 'React & Web Developer (Basic to Advance)',
+    icon: '⚛️',
+    description: 'Ultra-beginner to pro mastery roadmap covering HTML/CSS/JS, React Components, Next.js, and Full-Stack APIs.',
+    averageSalaryRange: '₹8–20 LPA',
+    targetTotalDays: 120,
+    nodes: [
+      { nodeId: 'r1', courseId: 'course-react-web', title: 'HTML, CSS & JavaScript Foundations', shortDesc: 'DOM manipulation, ES6+ syntax, async fetch, and responsive layouts', icon: '🌐', skillsLearned: ['HTML5/CSS3', 'JavaScript ES6+', 'DOM API', 'Fetch API'], careerImpact: '+20% Web Core', estimatedDays: 30 },
+      { nodeId: 'r2', courseId: 'course-react-web', title: 'React Core Components & State Management', shortDesc: 'JSX, useState, useEffect, props, custom hooks, and context API', icon: '⚛️', skillsLearned: ['React Hooks', 'State & Props', 'Component Architecture', 'Context API'], careerImpact: '+25% React Mastery', estimatedDays: 30 },
+      { nodeId: 'r3', courseId: 'course-fullstack-js', title: 'Next.js, Server Components & Routing', shortDesc: 'App router, SSR/SSG prerendering, API routes, and Tailwind styling', icon: '⚡', skillsLearned: ['Next.js 14', 'App Router', 'Server Actions', 'API Routes'], careerImpact: '+25% Next.js Power', estimatedDays: 30 },
+      { nodeId: 'r4', courseId: 'course-fullstack-js', title: 'High-Performance Full-Stack Web Architecture', shortDesc: 'Node.js Express backend, database ORMs, authentication, and Vercel deployment', icon: '🚀', skillsLearned: ['Node.js/Express', 'PostgreSQL/Prisma', 'JWT Auth', 'Vercel Deployment'], careerImpact: '+30% Full-Stack Pro', estimatedDays: 30, gate: { minCourseCompletionPct: 100, requireProjectVerification: true, minAtsScore: 80 } }
+    ]
+  },
 };
 
 /**
