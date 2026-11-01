@@ -176,6 +176,100 @@ function LoginContent() {
     }
   };
 
+  // Quick Admin Demo Login
+  const handleQuickAdminDemo = async () => {
+    setLoading(true);
+    setErrorMsg('');
+    try {
+      const adminUser = {
+        id: 'usr_admin_master',
+        name: 'Campus Administrator',
+        displayName: 'Campus Administrator',
+        email: 'admin@pinit.in',
+        username: 'campus_admin',
+        role: 'admin',
+        identityStatus: 'Verified Administrator',
+        isDevUser: true
+      };
+
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('pinit_current_user', JSON.stringify(adminUser));
+        localStorage.setItem('pinit_demo_override', 'true');
+      }
+
+      await fetch('/api/auth/elevate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ role: 'admin', demoBypass: true, userId: 'usr_admin_master' })
+      }).catch(() => {});
+
+      setIsSuccessSplash(true);
+      setTimeout(() => {
+        loginWithVaultSession({
+          user: adminUser,
+          token: `jwt_demo_admin_${Date.now()}`
+        }, false).then(() => {
+          const redirect = searchParams.get('redirect') || '/admin';
+          router.replace(redirect);
+        }).catch(() => {
+          router.replace('/admin');
+        });
+      }, 600);
+    } catch (err) {
+      console.warn('Admin demo login error:', err);
+      router.replace('/admin');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Quick Teacher Demo Login
+  const handleQuickTeacherDemo = async () => {
+    setLoading(true);
+    setErrorMsg('');
+    try {
+      const teacherUser = {
+        id: 'usr_teacher_master',
+        name: 'Dr. Kashyap (Faculty Lead)',
+        displayName: 'Dr. Kashyap (Faculty Lead)',
+        email: 'teacher@pinit.in',
+        username: 'faculty_lead',
+        role: 'teacher',
+        identityStatus: 'Verified Faculty Lead',
+        isDevUser: true
+      };
+
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('pinit_current_user', JSON.stringify(teacherUser));
+        localStorage.setItem('pinit_demo_override', 'true');
+      }
+
+      await fetch('/api/auth/elevate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ role: 'teacher', demoBypass: true, userId: 'usr_teacher_master' })
+      }).catch(() => {});
+
+      setIsSuccessSplash(true);
+      setTimeout(() => {
+        loginWithVaultSession({
+          user: teacherUser,
+          token: `jwt_demo_teacher_${Date.now()}`
+        }, false).then(() => {
+          const redirect = searchParams.get('redirect') || '/teacher';
+          router.replace(redirect);
+        }).catch(() => {
+          router.replace('/teacher');
+        });
+      }, 600);
+    } catch (err) {
+      console.warn('Teacher demo login error:', err);
+      router.replace('/teacher');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Developer Mode Login
   const handleDevModeLogin = async () => {
     if (!isDemoAuthEnabled()) {
@@ -232,6 +326,14 @@ function LoginContent() {
       await handleQuickStudentDemo();
       return;
     }
+    if (identLower === 'admin' || identLower === 'admin@pinit.in') {
+      await handleQuickAdminDemo();
+      return;
+    }
+    if (identLower === 'teacher' || identLower === 'teacher@pinit.in' || identLower === 'faculty') {
+      await handleQuickTeacherDemo();
+      return;
+    }
     setLoading(true);
     setErrorMsg('');
     try {
@@ -248,7 +350,13 @@ function LoginContent() {
       }
     } catch (err: any) {
       console.warn('[Login] Service auth fallback to local demo profile:', err);
-      await handleQuickStudentDemo();
+      if (identLower.includes('admin') || loginForm.role === 'admin') {
+        await handleQuickAdminDemo();
+      } else if (identLower.includes('teacher') || identLower.includes('faculty') || loginForm.role === 'teacher') {
+        await handleQuickTeacherDemo();
+      } else {
+        await handleQuickStudentDemo();
+      }
     } finally {
       setLoading(false);
     }
@@ -689,31 +797,34 @@ function LoginContent() {
               <span style={{ fontSize: 11, color: 'var(--text-tertiary)' }}>Demo Presets:</span>
               <button
                 type="button"
-                onClick={() => setLoginForm({ identifier: 'student@pinit.in', password: 'demo', role: 'student' })}
-                style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 6, color: 'var(--text-secondary)', fontSize: 11, padding: '3px 7px', cursor: 'pointer' }}
+                onClick={() => handleQuickStudentDemo()}
+                style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 6, color: 'var(--text-secondary)', fontSize: 11, padding: '4px 8px', cursor: 'pointer' }}
+                title="Instant Student Workspace Login"
               >
                 🎓 Student
               </button>
               <button
                 type="button"
-                onClick={() => setLoginForm({ identifier: 'teacher@pinit.in', password: 'demo', role: 'teacher' })}
-                style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 6, color: 'var(--text-secondary)', fontSize: 11, padding: '3px 7px', cursor: 'pointer' }}
+                onClick={() => handleQuickTeacherDemo()}
+                style={{ background: 'rgba(59,130,246,0.15)', border: '1px solid rgba(59,130,246,0.3)', borderRadius: 6, color: '#60a5fa', fontSize: 11, padding: '4px 8px', cursor: 'pointer', fontWeight: 600 }}
+                title="Instant Faculty Portal Access"
               >
                 👨‍🏫 Faculty
               </button>
               <button
                 type="button"
                 onClick={() => setLoginForm({ identifier: 'rec@pinit.in', password: 'demo', role: 'recruiter' })}
-                style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 6, color: 'var(--text-secondary)', fontSize: 11, padding: '3px 7px', cursor: 'pointer' }}
+                style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 6, color: 'var(--text-secondary)', fontSize: 11, padding: '4px 8px', cursor: 'pointer' }}
               >
                 👩‍💼 Recruiter
               </button>
               <button
                 type="button"
-                onClick={() => setLoginForm({ identifier: 'admin@pinit.in', password: 'demo', role: 'admin' })}
-                style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 6, color: 'var(--text-secondary)', fontSize: 11, padding: '3px 7px', cursor: 'pointer' }}
+                onClick={() => handleQuickAdminDemo()}
+                style={{ background: 'rgba(239,68,68,0.15)', border: '1px solid rgba(239,68,68,0.3)', borderRadius: 6, color: '#f87171', fontSize: 11, padding: '4px 8px', cursor: 'pointer', fontWeight: 700 }}
+                title="Instant Campus Administrator Portal Access"
               >
-                🛠️ Admin
+                🛠️ Admin (Instant)
               </button>
             </div>
           </form>

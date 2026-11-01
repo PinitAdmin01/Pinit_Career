@@ -1,0 +1,214 @@
+{
+  "courseRates": [
+    {
+      "id": "tech_fullstack",
+      "title": "Full-Stack Software Engineering Masterclass",
+      "category": "Tech",
+      "originalPriceInr": 3999,
+      "discountedPriceInr": 1999,
+      "priceInPins": 300,
+      "certFeeInr": 599,
+      "active": true,
+      "lastUpdated": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "tech_ai_ml",
+      "title": "AI & Applied Machine Learning Studio",
+      "category": "AI & Data",
+      "originalPriceInr": 4499,
+      "discountedPriceInr": 2499,
+      "priceInPins": 350,
+      "certFeeInr": 699,
+      "active": true,
+      "lastUpdated": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "tech_cloud_devops",
+      "title": "Cloud Architecture & DevOps Systems",
+      "category": "Tech",
+      "originalPriceInr": 3499,
+      "discountedPriceInr": 1799,
+      "priceInPins": 280,
+      "certFeeInr": 499,
+      "active": true,
+      "lastUpdated": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "tech_cyber_sec",
+      "title": "Cybersecurity Defense & Ethical Hacking",
+      "category": "Tech",
+      "originalPriceInr": 3999,
+      "discountedPriceInr": 1999,
+      "priceInPins": 300,
+      "certFeeInr": 599,
+      "active": true,
+      "lastUpdated": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "iot_net",
+      "title": "IoT Embedded Systems & Industrial Networks",
+      "category": "IoT",
+      "originalPriceInr": 3499,
+      "discountedPriceInr": 1699,
+      "priceInPins": 260,
+      "certFeeInr": 499,
+      "active": true,
+      "lastUpdated": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "bcom_acc",
+      "title": "Accounting & Forensic Bookkeeping Enterprise",
+      "category": "Commerce",
+      "originalPriceInr": 2999,
+      "discountedPriceInr": 1499,
+      "priceInPins": 220,
+      "certFeeInr": 399,
+      "active": true,
+      "lastUpdated": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "bcom_fin",
+      "title": "Corporate Finance & Capital Markets",
+      "category": "Commerce",
+      "originalPriceInr": 3499,
+      "discountedPriceInr": 1799,
+      "priceInPins": 260,
+      "certFeeInr": 499,
+      "active": true,
+      "lastUpdated": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "bcom_aud",
+      "title": "Statutory Audit & Assurance Standards",
+      "category": "Commerce",
+      "originalPriceInr": 2999,
+      "discountedPriceInr": 1499,
+      "priceInPins": 220,
+      "certFeeInr": 399,
+      "active": true,
+      "lastUpdated": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "bcom_ban",
+      "title": "Banking, Treasury & Credit Operations",
+      "category": "Commerce",
+      "originalPriceInr": 3299,
+      "discountedPriceInr": 1599,
+      "priceInPins": 240,
+      "certFeeInr": 449,
+      "active": true,
+      "lastUpdated": "2026-11-01T10:00:00Z"
+    }
+  ],
+  "pinsEconomy": {
+    "inrPerPin": 10,
+    "dailyLoginBonusPins": 5,
+    "questCompleteBonusPins": 25,
+    "tournamentEntryBasePins": 50,
+    "packs": [
+      {
+        "id": "pack_starter",
+        "name": "Starter Stash",
+        "pinsAmount": 50,
+        "priceInr": 499,
+        "bonusPins": 0
+      },
+      {
+        "id": "pack_growth",
+        "name": "Growth Bundle",
+        "pinsAmount": 150,
+        "priceInr": 1299,
+        "bonusPins": 15,
+        "popular": true
+      },
+      {
+        "id": "pack_pro",
+        "name": "Pro Vault",
+        "pinsAmount": 500,
+        "priceInr": 3999,
+        "bonusPins": 75
+      },
+      {
+        "id": "pack_institutional",
+        "name": "Campus Cohort Pack",
+        "pinsAmount": 1500,
+        "priceInr": 9999,
+        "bonusPins": 300
+      }
+    ],
+    "lastUpdated": "2026-11-01T10:00:00Z"
+  },
+  "pinGrants": [
+    {
+      "id": "grant_001",
+      "studentId": "usr_demo_student_01",
+      "studentName": "Alex Chen",
+      "studentEmail": "alex.chen@student.pinit.edu",
+      "amount": 250,
+      "reason": "Top 1% Finisher in National Code Sprint",
+      "category": "Hackathon",
+      "grantedBy": "Campus Admin",
+      "grantedAt": "2026-10-30T14:30:00Z",
+      "status": "completed"
+    },
+    {
+      "id": "grant_002",
+      "studentId": "usr_demo_student_02",
+      "studentName": "Rohan Sharma",
+      "studentEmail": "rohan.sharma@campus.pinit.edu",
+      "amount": 100,
+      "reason": "Exemplary Peer Mentorship and Lab Assistance",
+      "category": "Merit",
+      "grantedBy": "Campus Admin",
+      "grantedAt": "2026-10-29T11:15:00Z",
+      "status": "completed"
+    }
+  ],
+  "tournaments": [
+    {
+      "id": "tourn_001",
+      "title": "PinIT National Code Wars: Algorithmic Duel",
+      "domain": "Tech",
+      "entryFeePins": 20,
+      "prizePoolPins": 1000,
+      "status": "live",
+      "startDate": "2026-11-01T12:00:00Z",
+      "durationMinutes": 120,
+      "participantsCount": 48,
+      "maxParticipants": 200,
+      "rules": "1v1 speed debugging, time-complexity constraints, and automated sandbox validation.",
+      "createdBy": "admin@pinit.in",
+      "createdAt": "2026-10-28T09:00:00Z"
+    },
+    {
+      "id": "tourn_002",
+      "title": "Full-Stack Architecture Sprint 2026",
+      "domain": "Full-Stack",
+      "entryFeePins": 50,
+      "prizePoolPins": 2500,
+      "status": "upcoming",
+      "startDate": "2026-11-05T15:00:00Z",
+      "durationMinutes": 180,
+      "participantsCount": 19,
+      "maxParticipants": 150,
+      "rules": "Design and deploy production-ready serverless microservices with automated verification.",
+      "createdBy": "admin@pinit.in",
+      "createdAt": "2026-10-29T10:00:00Z"
+    },
+    {
+      "id": "tourn_003",
+      "title": "AI & Machine Learning Model Hackathon",
+      "domain": "AI & Data",
+      "entryFeePins": 0,
+      "prizePoolPins": 1500,
+      "status": "upcoming",
+      "startDate": "2026-11-08T10:00:00Z",
+      "durationMinutes": 240,
+      "participantsCount": 62,
+      "maxParticipants": 300,
+      "rules": "Fine-tune an open-source classifier on unseen benchmark data with strict latency limits.",
+      "createdBy": "admin@pinit.in",
+      "createdAt": "2026-10-30T16:00:00Z"
+    }
+  ]
+}

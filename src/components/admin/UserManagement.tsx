@@ -85,8 +85,8 @@ export default function UserManagement() {
   });
 
   async function toggleStatus(id: string) {
-    if (!isSuperAdmin) {
-      alert('🔒 Security Guard: Only SuperAdmins can suspend or reactivate accounts.');
+    if (!isAdmin) {
+      alert('🔒 Security Guard: Administrator access required to suspend or reactivate accounts.');
       return;
     }
     const target = users.find(u => u.id === id);
@@ -101,6 +101,16 @@ export default function UserManagement() {
       setUsers(users.map(u => u.id === id ? { ...u, status: nextStatus } : u));
     } catch {
       setUsers(users.map(u => u.id === id ? { ...u, status: nextStatus } : u));
+    }
+  }
+
+  async function handleChangeRole(id: string, newRole: any) {
+    if (!isAdmin) return;
+    try {
+      await api.patch(`/api/admin/users/${id}/role`, { role: newRole }).catch(() => {});
+      setUsers(users.map(u => u.id === id ? { ...u, role: newRole } : u));
+    } catch {
+      setUsers(users.map(u => u.id === id ? { ...u, role: newRole } : u));
     }
   }
 
@@ -274,19 +284,42 @@ export default function UserManagement() {
                     <div style={{ fontSize: 13, color: 'var(--t3)' }}>{u.email}</div>
                   </td>
                   <td style={{ padding: 12 }}>
-                    <span
-                      style={{
-                        padding: '2px 8px',
-                        borderRadius: 4,
-                        fontSize: 13,
-                        fontWeight: 600,
-                        textTransform: 'capitalize',
-                        background: u.role === 'admin' || u.role === 'superadmin' ? '#fef3c7' : u.role === 'teacher' ? '#f3e8ff' : '#dbeafe',
-                        color: u.role === 'admin' || u.role === 'superadmin' ? '#92400e' : u.role === 'teacher' ? '#6b21a8' : '#1e40af',
-                      }}
-                    >
-                      {u.role}
-                    </span>
+                    {isAdmin ? (
+                      <select
+                        value={u.role}
+                        onChange={e => handleChangeRole(u.id, e.target.value)}
+                        style={{
+                          padding: '3px 8px',
+                          borderRadius: 6,
+                          fontSize: 12.5,
+                          fontWeight: 650,
+                          textTransform: 'capitalize',
+                          border: '1px solid var(--border)',
+                          background: u.role === 'admin' || u.role === 'superadmin' ? '#fef3c7' : u.role === 'teacher' ? '#f3e8ff' : '#dbeafe',
+                          color: u.role === 'admin' || u.role === 'superadmin' ? '#92400e' : u.role === 'teacher' ? '#6b21a8' : '#1e40af',
+                          cursor: 'pointer'
+                        }}
+                      >
+                        <option value="student">student</option>
+                        <option value="teacher">teacher</option>
+                        <option value="admin">admin</option>
+                        <option value="superadmin">superadmin</option>
+                      </select>
+                    ) : (
+                      <span
+                        style={{
+                          padding: '2px 8px',
+                          borderRadius: 4,
+                          fontSize: 13,
+                          fontWeight: 600,
+                          textTransform: 'capitalize',
+                          background: u.role === 'admin' || u.role === 'superadmin' ? '#fef3c7' : u.role === 'teacher' ? '#f3e8ff' : '#dbeafe',
+                          color: u.role === 'admin' || u.role === 'superadmin' ? '#92400e' : u.role === 'teacher' ? '#6b21a8' : '#1e40af',
+                        }}
+                      >
+                        {u.role}
+                      </span>
+                    )}
                   </td>
                   <td style={{ padding: 12, fontWeight: 700, color: u.trustScore > 80 ? 'var(--success)' : '#d97706' }}>
                     {u.trustScore} / 100
@@ -298,7 +331,7 @@ export default function UserManagement() {
                   </td>
                   <td style={{ padding: 12, textAlign: 'right' }}>
                     <div style={{ display: 'inline-flex', gap: 6 }}>
-                      {isSuperAdmin && (
+                      {isAdmin && (
                         <button
                           onClick={() => { setShowOverrideModal(u); setOverrideValue(u.trustScore); }}
                           style={{ padding: '4px 10px', fontSize: 13, borderRadius: 6, border: '1px solid var(--border)', background: 'var(--card)', color: 'var(--t1)', cursor: 'pointer' }}
@@ -308,16 +341,16 @@ export default function UserManagement() {
                       )}
                       <button
                         onClick={() => toggleStatus(u.id)}
-                        disabled={!isSuperAdmin}
+                        disabled={!isAdmin}
                         style={{
                           padding: '4px 10px',
                           fontSize: 13,
                           borderRadius: 6,
                           border: 'none',
-                          background: !isSuperAdmin ? 'var(--border)' : (u.status === 'active' ? '#fee2e2' : '#dcfce7'),
-                          color: !isSuperAdmin ? 'var(--t3)' : (u.status === 'active' ? '#b91c1c' : '#15803d'),
+                          background: !isAdmin ? 'var(--border)' : (u.status === 'active' ? '#fee2e2' : '#dcfce7'),
+                          color: !isAdmin ? 'var(--t3)' : (u.status === 'active' ? '#b91c1c' : '#15803d'),
                           fontWeight: 600,
-                          cursor: !isSuperAdmin ? 'not-allowed' : 'pointer',
+                          cursor: !isAdmin ? 'not-allowed' : 'pointer',
                         }}
                       >
                         {u.status === 'active' ? 'Suspend' : 'Reactivate'}

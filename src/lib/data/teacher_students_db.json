@@ -1,0 +1,58 @@
+{
+  "students": [
+    {
+      "studentId": "usr_demo_student_01",
+      "studentName": "Alex Chen",
+      "email": "alex.chen@student.pinit.edu",
+      "collegeName": "National Institute of Technology",
+      "university": "State Technical University",
+      "rollNumber": "21CS042",
+      "department": "Computer Science & Engineering",
+      "batch": "2022-2026",
+      "semester": 6,
+      "gpa": 8.85,
+      "phone": "+91 98765 43210",
+      "guardianPhone": "+91 98765 43211",
+      "verificationStatus": "verified",
+      "verifiedBy": "Dr. Kashyap",
+      "notes": "Top student in distributed systems lab. Ready for Tier-1 placements.",
+      "updatedAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "studentId": "usr_demo_student_02",
+      "studentName": "Rohan Sharma",
+      "email": "rohan.sharma@campus.pinit.edu",
+      "collegeName": "College of Engineering & Technology",
+      "university": "Apex Central University",
+      "rollNumber": "22EC018",
+      "department": "Electronics & Communication",
+      "batch": "2022-2026",
+      "semester": 6,
+      "gpa": 8.20,
+      "phone": "+91 98765 43220",
+      "guardianPhone": "+91 98765 43221",
+      "verificationStatus": "verified",
+      "verifiedBy": "Dr. Priya",
+      "notes": "Excellent peer mentor. Working on embedded IoT telemetry capstone.",
+      "updatedAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "studentId": "usr_demo_student_03",
+      "studentName": "Aanya Verma",
+      "email": "aanya.verma@tech.pinit.edu",
+      "collegeName": "Institute of Information Technology",
+      "university": "Autonomous Tech Consortium",
+      "rollNumber": "21AI009",
+      "department": "Artificial Intelligence & Data",
+      "batch": "2022-2026",
+      "semester": 6,
+      "gpa": 9.15,
+      "phone": "+91 98765 43230",
+      "guardianPhone": "+91 98765 43231",
+      "verificationStatus": "verified",
+      "verifiedBy": "Dr. Kashyap",
+      "notes": "Published NLP benchmark paper in IEEE student conference.",
+      "updatedAt": "2026-11-01T10:00:00Z"
+    }
+  ]
+}

@@ -7,6 +7,8 @@ import ExamGradingManager from './ExamGradingManager';
 import AttendanceTracker from './AttendanceTracker';
 import BatchAnalyticsView from './BatchAnalyticsView';
 import TeacherInboxManager from './TeacherInboxManager';
+import TeacherStudentDetailsTab from './tabs/TeacherStudentDetailsTab';
+import TeacherEventsAuditTab from './tabs/TeacherEventsAuditTab';
 import { portalService } from '@/lib/services/portalService';
 
 export interface FacultyStudioItem {
@@ -348,8 +350,9 @@ interface TeacherDashboardProps {
 
 export default function TeacherDashboard({ teacher, onLogout }: TeacherDashboardProps) {
   const [activeNav, setActiveNav] = useState<
-    'overview' | 'studios' | 'inbox' | 'courses' | 'exams' | 'attendance' | 'analytics'
+    'overview' | 'students' | 'events-audit' | 'studios' | 'inbox' | 'courses' | 'exams' | 'attendance' | 'analytics'
   >('overview');
+  const [headerStudentQuery, setHeaderStudentQuery] = useState('');
   const [studioSearch, setStudioSearch] = useState('');
   const [studioCategory, setStudioCategory] = useState<string>('all');
 
@@ -409,21 +412,64 @@ export default function TeacherDashboard({ teacher, onLogout }: TeacherDashboard
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <span style={{ fontSize: 26.5 }}>👩‍🏫</span>
           <div>
-            <h1 style={{ margin: 0, fontSize: 20, fontWeight: 700 }}>Faculty & Teacher Portal</h1>
-            <span style={{ fontSize: 13, color: 'var(--t3, #64748b)' }}>Campus OS • {teacher?.department || 'Academic Department'}</span>
+            <h1 style={{ margin: 0, fontSize: 18, fontWeight: 700 }}>Faculty & Teacher Studio</h1>
+            <span style={{ fontSize: 12.5, color: 'var(--t3, #64748b)' }}>Campus OS • {teacher?.department || 'Academic Department'}</span>
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+        {/* Global Student Lookup Search Bar */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1, maxWidth: 360, margin: '0 16px' }}>
+          <input
+            type="text"
+            placeholder="🔍 Search student profile by name or roll no..."
+            value={headerStudentQuery}
+            onChange={e => {
+              setHeaderStudentQuery(e.target.value);
+              setActiveNav('students');
+            }}
+            style={{
+              width: '100%',
+              padding: '7px 12px',
+              borderRadius: 8,
+              border: '1px solid var(--border)',
+              background: 'var(--bg3)',
+              color: 'var(--t1)',
+              fontSize: 13,
+              outline: 'none'
+            }}
+          />
+        </div>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <button
+            onClick={() => window.location.href = '/admin'}
+            style={{
+              padding: '6px 12px',
+              fontSize: 13,
+              borderRadius: 6,
+              border: '1px solid var(--border)',
+              background: 'var(--card, #fff)',
+              color: 'var(--t1)',
+              cursor: 'pointer',
+              fontWeight: 600,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 6
+            }}
+            title="Open Campus Admin Portal"
+          >
+            <span>🏛️</span> Admin View
+          </button>
+
           <div style={{ textAlign: 'right' }}>
-            <div style={{ fontSize: 15.5, fontWeight: 600 }}>{displayName}</div>
-            <div style={{ fontSize: 12, color: '#16a34a', fontWeight: 600 }}>● Active Faculty</div>
+            <div style={{ fontSize: 14, fontWeight: 700 }}>{displayName}</div>
+            <div style={{ fontSize: 11, color: '#16a34a', fontWeight: 600 }}>● Active Faculty</div>
           </div>
           <button
             onClick={onLogout || (() => window.location.href = '/login')}
             style={{
-              padding: '6px 14px',
-              fontSize: 14.5,
+              padding: '6px 12px',
+              fontSize: 13,
               borderRadius: 6,
               border: '1px solid var(--border, #cbd5e1)',
               background: 'transparent',
@@ -450,6 +496,8 @@ export default function TeacherDashboard({ teacher, onLogout }: TeacherDashboard
         }}>
           {[
             { id: 'overview', icon: '📊', label: 'Overview' },
+            { id: 'students', icon: '🎓', label: 'Student Records & College', badge: 'Active' },
+            { id: 'events-audit', icon: '🎪', label: 'Events Audit & Starter', badge: 'Live' },
             { id: 'studios', icon: '🏛️', label: 'Faculty Studios (All 34)' },
             { id: 'inbox', icon: '💬', label: 'Student Messages & Inbox' },
             { id: 'courses', icon: '📚', label: 'Course Materials' },
@@ -463,7 +511,7 @@ export default function TeacherDashboard({ teacher, onLogout }: TeacherDashboard
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: 10,
+                justifyContent: 'space-between',
                 padding: '10px 14px',
                 borderRadius: 8,
                 border: 'none',
@@ -476,8 +524,22 @@ export default function TeacherDashboard({ teacher, onLogout }: TeacherDashboard
                 fontSize: 13.5
               }}
             >
-              <span>{item.icon}</span>
-              <span>{item.label}</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <span>{item.icon}</span>
+                <span>{item.label}</span>
+              </div>
+              {item.badge && (
+                <span style={{
+                  fontSize: 10,
+                  fontWeight: 750,
+                  padding: '2px 6px',
+                  borderRadius: 4,
+                  background: item.badge === 'Live' ? '#fee2e2' : '#dcfce7',
+                  color: item.badge === 'Live' ? '#dc2626' : '#15803d'
+                }}>
+                  {item.badge}
+                </span>
+              )}
             </button>
           ))}
 
@@ -740,6 +802,8 @@ export default function TeacherDashboard({ teacher, onLogout }: TeacherDashboard
             </div>
           )}
 
+          {activeNav === 'students' && <TeacherStudentDetailsTab initialSearch={headerStudentQuery} />}
+          {activeNav === 'events-audit' && <TeacherEventsAuditTab />}
           {activeNav === 'inbox' && <TeacherInboxManager teacherId={teacher?.id || 'priya'} teacherName={displayName} />}
           {activeNav === 'courses' && <CourseManager />}
           {activeNav === 'exams' && <ExamGradingManager />}
