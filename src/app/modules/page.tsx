@@ -70,7 +70,7 @@ const MODULES_LIST: ModuleItem[] = [
     { id: '2', name: 'AI Socratic Voice Mentor', category: 'student', icon: '👩‍🏫', desc: '24/7 spoken tutoring with 0 jargon and empathetic recovery ladders.', route: '/quests/lesson', status: 'live' },
     { id: '3', name: 'Code Wars Multiplayer Arena', category: 'student', icon: '⚔️', desc: 'Real-time algorithmic battles with Elo ranking and global leaderboards.', route: '/arena?tab=code_wars', status: 'roadmap' },
     { id: '4', name: 'AI Mock Interview Studio', category: 'student', icon: '🎙️', desc: 'Spoken technical mock interviews with speech confidence and BLUF analysis.', route: '/interview', status: 'live' },
-    { id: '5', name: 'Verifiable Skill Passport', category: 'student', icon: '🛡️', desc: 'Cryptographic tamper-proof skill badges with SHA-256 hash proofs.', route: '/quests?tab=passport', status: 'pilot' },
+    { id: '5', name: 'Verifiable Skill Passport', category: 'student', icon: '🛡️', desc: 'Cryptographic tamper-proof skill badges with SHA-256 hash proofs.', route: '/passport', status: 'pilot' },
     { id: '6', name: 'Career DNA & Psychometrics', category: 'student', icon: '🧬', desc: 'Multidimensional cognitive profiling for optimal career trajectory.', route: '/career-dna', status: 'live' },
     { id: '7', name: 'Attention Span & Focus Trainer', category: 'student', icon: '🎯', desc: 'Gamified cognitive reflex exercises to build deep technical focus.', route: '/attention-span', status: 'live' },
     { id: '8', name: 'AI Resume & Portfolio Builder', category: 'student', icon: '📄', desc: 'Auto-generate audited proof-of-work portfolios from completed quests.', route: '/portfolio', status: 'live' },

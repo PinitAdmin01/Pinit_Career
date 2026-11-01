@@ -213,7 +213,7 @@ export const TEACHER_NAV: NavSection[] = [
     { href: '/portfolio', icon: '👤', label: 'Student Portfolio' },
     { href: '/internships', icon: '🏢', label: 'Internships Review' },
     { href: '/projects', icon: '💼', label: 'Industry Projects & Squads' },
-    { href: '/quests?tab=passport', icon: '🎫', label: 'Skill Passport & Transcript' }
+    { href: '/passport', icon: '🎫', label: 'Skill Passport & Transcript' }
   ]}
 ];
 
@@ -318,12 +318,19 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
   const safePins = Number.isFinite(Number(pins)) ? Math.max(0, Number(pins)) : 0;
   const safeUnread = Number.isFinite(Number(unread)) ? Math.max(0, Number(unread)) : 0;
 
+  const rawDisp = user?.displayName || user?.name || '';
+  const realName =
+    (user as any)?.fullName ||
+    (user as any)?.full_name ||
+    (user as any)?.candidateName ||
+    (user as any)?.onboardingAnswers?.candidateName ||
+    (user as any)?.onboardingAnswers?.fullName ||
+    (user as any)?.onboardingAnswers?.name;
+
   const displayName =
-    user?.displayName ||
-    user?.name ||
-    user?.username ||
-    (typeof user?.email === 'string' ? user.email.split('@')[0] : '') ||
-    (isStudent ? 'Student' : 'Member');
+    (rawDisp && !rawDisp.startsWith('usr_') && rawDisp.toLowerCase() !== 'student')
+      ? rawDisp
+      : (realName || rawDisp || (user?.username && !user.username.startsWith('usr_') ? user.username : '') || (typeof user?.email === 'string' ? user.email.split('@')[0] : '') || (isStudent ? 'Student' : 'Member'));
   const avatarInitial = (displayName.trim()[0] || 'S').toUpperCase();
   const roleLabel = user?.role || (isStudent ? 'student' : 'member');
 

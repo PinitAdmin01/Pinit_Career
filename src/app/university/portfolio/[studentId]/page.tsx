@@ -19,7 +19,9 @@ export default async function StudentPortfolioPage({
   const studentId = decodeURIComponent(rawId).trim();
 
   // Baseline honest defaults — NO FAKE DUMMY INSTITUTIONS OR FAKE SCORES
-  let candidateName = 'Vinay';
+  let candidateName = (studentId === '658a3417-8e3d-4c8c-b80f-b477d7dcbb3c' || studentId === 'usr_demo_student_01')
+    ? 'Vinay'
+    : 'Candidate #' + studentId.slice(0, 8).toUpperCase();
   let institutionName: string | undefined = undefined;
   let degreeName = 'Software Engineering & Computer Applications';
   let departmentName = 'Full-Stack Web Development Track';
@@ -99,7 +101,7 @@ export default async function StudentPortfolioPage({
       const supabase = getSupabaseAdmin();
       const { data: userRow } = await supabase
         .from('users')
-        .select('id, display_name, name, department, branch, cgpa, attendance, onboarding_answers, batch_year')
+        .select('id, display_name, name, department, branch, cgpa, attendance, onboarding_answers, batch_year, completed_quests')
         .eq('id', studentId)
         .maybeSingle();
 
@@ -124,6 +126,19 @@ export default async function StudentPortfolioPage({
         }
         if (ob.degree) {
           degreeName = ob.degree;
+        }
+
+        const quests = Array.isArray(userRow.completed_quests) ? userRow.completed_quests : [];
+        if (quests.length > 0) {
+          completedQuestsCount = quests.length;
+          enrolledCourse.tasksDone = quests.length;
+          enrolledCourse.percent = Math.min(100, Math.round((enrolledCourse.tasksDone / enrolledCourse.tasksTotal) * 100));
+          enrolledCourse.day = Math.max(1, Math.ceil(enrolledCourse.tasksDone / 3.2));
+        } else {
+          completedQuestsCount = 0;
+          enrolledCourse.tasksDone = 0;
+          enrolledCourse.percent = 0;
+          enrolledCourse.recentCompletedTask = undefined as any;
         }
       }
 

@@ -352,7 +352,7 @@ export default function DashboardHeaderHUD({
           </div>
 
           <Link
-            href="/quests?tab=passport"
+            href="/passport"
             style={{
               fontSize: 11.5,
               fontFamily: 'var(--font-mono)',

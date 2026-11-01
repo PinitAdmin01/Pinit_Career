@@ -134,7 +134,7 @@ const ROUTE_VOCABULARY: RouteEntry[] = [
     ],
   },
   {
-    path: '/quests?tab=passport',
+    path: '/passport',
     displayName: 'Skill Passport & Transcript',
     synonyms: [
       'skill passport', 'passport tab', 'verified skills', 'skill credentials',

@@ -423,8 +423,13 @@ export async function GET(
       // Ignore
     }
 
-    // 4. Fallback for demo/active student session
-    if (credentialId === 'demo_student_user' || credentialId.startsWith('user_') || credentialId.length > 8) {
+    // 4. Fallback for recognized demo student sessions (sandbox/offline mode)
+    const isKnownDemoUser =
+      credentialId === 'demo_student_user' ||
+      credentialId === 'usr_demo_student_01' ||
+      credentialId === '658a3417-8e3d-4c8c-b80f-b477d7dcbb3c';
+
+    if (isKnownDemoUser) {
       return NextResponse.json({
         valid: true,
         status: 'VERIFIED_ENROLLED',
