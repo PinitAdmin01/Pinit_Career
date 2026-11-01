@@ -62,7 +62,7 @@ const PAGE_TITLES: Record<string, string> = {
   '/reset-password':'Reset Password',
 };
 
-const PUBLIC_PATHS = ['/', '/login', '/signup', '/reset-password', '/qr-login', '/qr-confirm', '/onboarding', '/privacy', '/terms', '/contact', '/admissions', '/about', '/pricing', '/problem', '/identity', '/how-it-works', '/modules', '/campus-demo', '/university', '/services', '/verify', '/quests/lesson'];
+const PUBLIC_PATHS = ['/', '/login', '/signup', '/reset-password', '/qr-login', '/qr-confirm', '/onboarding', '/privacy', '/terms', '/contact', '/admissions', '/about', '/pricing', '/problem', '/identity', '/how-it-works', '/modules', '/campus-demo', '/university', '/services', '/verify', '/passport', '/quests/lesson'];
 
 function DsaiAcademicTabWrapper({ tab, student, onStartExam, examCheckLoading }: any) {
   if (!tab) return null;
@@ -473,7 +473,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     return () => window.removeEventListener('pageshow', handlePageShow);
   }, [isPublic]);
 
-  const PUBLIC_SHOWCASE_PATHS = ['/', '/problem', '/identity', '/how-it-works', '/modules', '/pricing', '/campus-demo', '/about', '/contact', '/privacy', '/terms', '/university', '/admissions', '/verify'];
+  const PUBLIC_SHOWCASE_PATHS = ['/', '/problem', '/identity', '/how-it-works', '/modules', '/pricing', '/campus-demo', '/about', '/contact', '/privacy', '/terms', '/university', '/admissions', '/verify', '/passport'];
   const isPublicShowcase = PUBLIC_SHOWCASE_PATHS.some(p => pathname === p || (p !== '/' && pathname.startsWith(p)));
   const isLandingPage = isPublicShowcase || ['/login', '/signup', '/reset-password', '/qr-login', '/qr-confirm', '/onboarding', '/quests/lesson'].some(p => pathname === p || (p !== '/' && pathname.startsWith(p)));
   if (isPublicShowcase) return <PublicEffectsShell>{children}</PublicEffectsShell>;

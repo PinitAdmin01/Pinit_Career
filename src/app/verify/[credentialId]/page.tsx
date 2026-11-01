@@ -342,18 +342,44 @@ export default function PublicVerifyCredentialPage() {
               )}
 
               {/* Action Buttons */}
-              <div style={{ display: 'flex', gap: 12, justifyContent: 'center', marginTop: 12 }}>
+              <div style={{ display: 'flex', gap: 12, justifyContent: 'center', marginTop: 16, flexWrap: 'wrap' }}>
                 <Link
                   href={`/university/portfolio/${encodeURIComponent(credentialId)}`}
-                  style={{ padding: '10px 20px', borderRadius: 8, background: 'linear-gradient(135deg, #10b981, #059669)', color: '#ffffff', fontSize: 14.5, textDecoration: 'none', fontWeight: 800 }}
+                  style={{
+                    padding: '12px 22px',
+                    borderRadius: 10,
+                    background: 'linear-gradient(135deg, #10b981, #059669)',
+                    color: '#ffffff',
+                    fontSize: 14.5,
+                    textDecoration: 'none',
+                    fontWeight: 800,
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 8,
+                    boxShadow: '0 4px 14px rgba(16, 185, 129, 0.35)'
+                  }}
                 >
-                  🌐 View Verified Public Portfolio & Projects →
+                  <span>🎓</span>
+                  <span>View Verifiable Skill Passport & Portfolio →</span>
                 </Link>
                 <Link
-                  href="/quests?tab=passport"
-                  style={{ padding: '10px 20px', borderRadius: 8, background: 'linear-gradient(135deg, #4f46e5, #7c3aed)', color: 'var(--text)', fontSize: 14.5, textDecoration: 'none', fontWeight: 700 }}
+                  href="/dashboard"
+                  style={{
+                    padding: '12px 20px',
+                    borderRadius: 10,
+                    background: 'rgba(255,255,255,0.06)',
+                    border: '1px solid rgba(255,255,255,0.12)',
+                    color: 'var(--text)',
+                    fontSize: 14,
+                    textDecoration: 'none',
+                    fontWeight: 700,
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 6
+                  }}
                 >
-                  View Career Passport →
+                  <span>🏠</span>
+                  <span>Student Dashboard</span>
                 </Link>
               </div>
             </div>

@@ -406,6 +406,33 @@ export const QrModal: React.FC<QrModalProps> = ({
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <a
+            href={typeof window !== 'undefined' ? `${window.location.origin}/university/portfolio/${userId}` : `/university/portfolio/${userId}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-testid="btn-open-public-portfolio"
+            style={{
+              width: '100%',
+              padding: '11px',
+              borderRadius: 8,
+              background: 'linear-gradient(135deg, #10b981, #059669)',
+              border: 'none',
+              color: '#ffffff',
+              fontSize: 14.5,
+              fontWeight: 800,
+              cursor: 'pointer',
+              textDecoration: 'none',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 8,
+              boxShadow: '0 4px 14px rgba(16, 185, 129, 0.35)',
+              boxSizing: 'border-box'
+            }}
+          >
+            <span>🌐</span> Open Public Skill Passport ↗
+          </a>
+
           <button
             data-testid="btn-copy-verify-url"
             onClick={onCopyLink}

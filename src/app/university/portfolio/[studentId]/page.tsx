@@ -1,34 +1,73 @@
 import React from 'react';
 import { StudentPortfolioShowcase } from '@/components/university/StudentPortfolioShowcase';
 import { compilePublicPortfolio, StudentAcademicProfile } from '@/lib/admin/portfolio';
+import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 
 export const metadata = {
   title: 'Verifiable Student Portfolio | PinIT University Network',
   description: 'Cryptographically certified student academic portfolio and engineering capstone showcase',
 };
 
-export default function StudentPortfolioPage({
+export default async function StudentPortfolioPage({
   params
 }: {
   params: { studentId: string }
 }) {
-  const studentId = params?.studentId || 'stu-arjun-01';
+  const rawId = params?.studentId || 'usr_demo_student_01';
+  const studentId = decodeURIComponent(rawId).trim();
 
-  // Seed academic profile
-  const mockProfile: StudentAcademicProfile = {
+  // Try looking up real student from Supabase users table
+  let candidateName = 'Vinay';
+  let institutionName = 'Apex Institute of Technology';
+  let degreeName = 'B.Tech in Artificial Intelligence & Software Systems';
+  let departmentName = 'Computer Science & Engineering';
+  let batchYear = 2026;
+  let cgpa = 8.92;
+  let attendance = 85.0;
+  let employabilityScore = 92;
+
+  if (studentId.toLowerCase().includes('arjun') || studentId === 'stu-arjun-01') {
+    candidateName = 'Arjun Verma';
+    degreeName = 'B.Tech in Artificial Intelligence & Data Science';
+    cgpa = 9.42;
+    attendance = 96.5;
+    employabilityScore = 94;
+  } else {
+    try {
+      const supabase = getSupabaseAdmin();
+      const { data: userRow } = await supabase
+        .from('users')
+        .select('id, display_name, name, department, branch, cgpa, attendance, onboarding_answers, batch_year')
+        .eq('id', studentId)
+        .maybeSingle();
+
+      if (userRow) {
+        candidateName = userRow.display_name || userRow.name || candidateName;
+        departmentName = userRow.department || userRow.branch || departmentName;
+        if (userRow.cgpa) cgpa = Number(userRow.cgpa);
+        if (userRow.attendance) attendance = Number(userRow.attendance);
+        if (userRow.batch_year) batchYear = Number(userRow.batch_year);
+        const ob = (userRow.onboarding_answers || {}) as Record<string, any>;
+        if (ob.college || ob.university) institutionName = ob.college || ob.university;
+        if (ob.degree) degreeName = ob.degree;
+      }
+    } catch {
+      // Fallback to demo profile
+    }
+  }
+
+  // Seed verified academic profile
+  const academicProfile: StudentAcademicProfile = {
     studentId,
     institutionId: 'inst-apex-001',
-    fullName: 'Arjun Verma',
+    fullName: candidateName,
     rollNumber: 'CS2026-089',
-    email: 'arjun.v@apex.edu.in',
-    phone: '+91 98765 43210', // Will be redacted
-    department: 'Computer Science & Engineering',
-    degree: 'B.Tech in Artificial Intelligence & Data Science',
-    batchYear: 2026,
-    cgpa: 9.42,
-    attendancePercentage: 96.5,
-    feeBalanceDue: 0, // Will be redacted
-    internalDisciplinaryNotes: [], // Will be redacted
+    email: `${candidateName.toLowerCase().replace(/\s+/g, '.')}@apex.edu.in`,
+    department: departmentName,
+    degree: degreeName,
+    batchYear,
+    cgpa,
+    attendancePercentage: attendance,
     completedQuestsCount: 48,
     capstones: [
       {
@@ -52,6 +91,17 @@ export default function StudentPortfolioPage({
         repositoryUrl: 'https://github.com/apex-students/quant-lob-engine',
         competencies: ['Low Latency', 'C++20', 'Cache Alignment', 'Lock-Free Queues'],
       },
+      {
+        capstoneId: 'cap-web-03',
+        title: 'Enterprise Micro-Sachet Financial Gateway & AI Ledger',
+        courseCode: 'CS409',
+        grade: 'A',
+        score: 94,
+        completionDate: '2026-10-25',
+        repositoryUrl: 'https://github.com/apex-students/sachet-ledger-gateway',
+        liveDemoUrl: 'https://careeros.pinit.in',
+        competencies: ['Next.js 14', 'TypeScript', 'HMAC-SHA256', 'PostgreSQL'],
+      },
     ],
     exams: [
       {
@@ -71,15 +121,27 @@ export default function StudentPortfolioPage({
         proctoredDate: '2026-09-30',
       },
     ],
-    employabilityScore: 94,
+    employabilityScore,
     tier: 'TIER_1_PRODUCT',
   };
 
-  const publicPortfolio = compilePublicPortfolio(mockProfile, 'Apex Institute of Technology');
+  const publicPortfolio = compilePublicPortfolio(academicProfile, institutionName);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 p-6 md:p-12">
+    <main
+      data-testid="student-portfolio-page"
+      style={{
+        minHeight: '100vh',
+        background: 'radial-gradient(ellipse at 50% 0%, #0d1527 0%, #060913 100%)',
+        color: '#f8fafc',
+        padding: '36px 16px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'flex-start'
+      }}
+    >
       <StudentPortfolioShowcase portfolio={publicPortfolio} />
-    </div>
+    </main>
   );
 }
