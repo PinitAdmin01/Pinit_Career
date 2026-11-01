@@ -29,14 +29,25 @@ export type RenderTier = "free" | "premium";
 export const CURRENT_RENDER_TIER: RenderTier =
   (process.env.NEXT_PUBLIC_RENDER_TIER as RenderTier) || "free";
 
-const DEFAULT_CLOUD_ENDPOINT =
-  process.env.NEXT_PUBLIC_TTS_API_URL ||
-  "https://pinit-voice-service.onrender.com/api/v1/tts";
+export function normalizeTtsEndpoint(rawEndpoint?: string): string {
+  const fallback = "https://pinit-voice-service.onrender.com/api/v1/tts";
+  if (!rawEndpoint || !rawEndpoint.trim()) return fallback;
+  const trimmed = rawEndpoint.trim().replace(/\/+$/, '');
+  if (trimmed.endsWith("/api/v1/tts") || trimmed.endsWith("/api/tts") || trimmed.endsWith("/tts")) {
+    return trimmed;
+  }
+  return `${trimmed}/api/v1/tts`;
+}
 
-function healthUrlFromTts(endpoint: string): string {
-  const base = (endpoint || "https://pinit-voice-service.onrender.com").replace(/\/api(\/v\d+)?\/tts\/?$/i, '');
+export function healthUrlFromTts(endpoint: string): string {
+  const base = (endpoint || "https://pinit-voice-service.onrender.com")
+    .replace(/\/+$/, '')
+    .replace(/\/api(\/v\d+)?\/tts\/?$/i, '')
+    .replace(/\/tts\/?$/i, '');
   return `${base}/api/v1/health`;
 }
+
+const DEFAULT_CLOUD_ENDPOINT = normalizeTtsEndpoint(process.env.NEXT_PUBLIC_TTS_API_URL);
 
 let isServerWarming = false;
 let isServerWarm = false;
@@ -214,10 +225,11 @@ async function fetchCloudFastAPI(
   }
 
   const cloudPromise = (async () => {
-    const targetUrl =
+    const targetUrl = normalizeTtsEndpoint(
       endpoint && endpoint.startsWith("http")
         ? endpoint
-        : DEFAULT_CLOUD_ENDPOINT;
+        : DEFAULT_CLOUD_ENDPOINT
+    );
 
     const timeoutMs =
       CURRENT_RENDER_TIER === "free" ? FREE_TIER_TIMEOUT_MS : PREMIUM_TIMEOUT_MS;

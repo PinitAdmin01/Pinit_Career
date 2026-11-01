@@ -19,6 +19,7 @@ import {
   generateEstimatedVisemes
 } from '../src/lib/audio/streamingAudioQueue';
 import { computeVoiceCacheKey } from '../src/lib/voiceCacheDB';
+import { normalizeTtsEndpoint, healthUrlFromTts } from '../src/lib/smartVoiceRouter';
 
 describe('Avatar Voice Reliability & Rig-Aware Articulation Test Suite', () => {
 
@@ -276,6 +277,46 @@ describe('Avatar Voice Reliability & Rig-Aware Articulation Test Suite', () => {
 
       assert.notStrictEqual(keyPriya, keyAnish);
       assert.notStrictEqual(keyPriya, keyFast);
+    });
+  });
+
+  describe('9. Cloud Endpoint Normalization & Reverse-Proxy Path Resolution', () => {
+    it('should normalize bare domain, trailing slashes, and explicit endpoints to /api/v1/tts', () => {
+      assert.strictEqual(
+        normalizeTtsEndpoint('https://pinit-voice-service.onrender.com'),
+        'https://pinit-voice-service.onrender.com/api/v1/tts'
+      );
+      assert.strictEqual(
+        normalizeTtsEndpoint('https://pinit-voice-service.onrender.com/'),
+        'https://pinit-voice-service.onrender.com/api/v1/tts'
+      );
+      assert.strictEqual(
+        normalizeTtsEndpoint('https://pinit-voice-service.onrender.com/api/v1/tts'),
+        'https://pinit-voice-service.onrender.com/api/v1/tts'
+      );
+      assert.strictEqual(
+        normalizeTtsEndpoint('https://pinit-voice-service.onrender.com/api/tts'),
+        'https://pinit-voice-service.onrender.com/api/tts'
+      );
+      assert.strictEqual(
+        normalizeTtsEndpoint('https://pinit-voice-service.onrender.com/tts'),
+        'https://pinit-voice-service.onrender.com/tts'
+      );
+    });
+
+    it('should construct clean /api/v1/health probe URL from any TTS endpoint format', () => {
+      assert.strictEqual(
+        healthUrlFromTts('https://pinit-voice-service.onrender.com/api/v1/tts'),
+        'https://pinit-voice-service.onrender.com/api/v1/health'
+      );
+      assert.strictEqual(
+        healthUrlFromTts('https://pinit-voice-service.onrender.com/tts'),
+        'https://pinit-voice-service.onrender.com/api/v1/health'
+      );
+      assert.strictEqual(
+        healthUrlFromTts('https://pinit-voice-service.onrender.com/'),
+        'https://pinit-voice-service.onrender.com/api/v1/health'
+      );
     });
   });
 });
