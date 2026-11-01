@@ -324,33 +324,18 @@ function FriendsContent() {
     if (!selectedStudent) return null;
     const isFriend = friendsNetwork.some(f => f.id === selectedStudent.id) || selectedStudent.relationship === 'friends';
     const isSent = Boolean(sentRequests[selectedStudent.id]) || selectedStudent.relationship === 'sent';
+    const calculatedMatch = computeStudentMatch(CURRENT_STUDENT_PROFILE, selectedStudent as any);
     return {
       ...selectedStudent,
-      relationship: (isFriend ? 'friends' : isSent ? 'sent' : selectedStudent.relationship || 'none') as 'friends' | 'sent' | 'none' | 'received'
+      relationship: (isFriend ? 'friends' : isSent ? 'sent' : selectedStudent.relationship || 'none') as 'friends' | 'sent' | 'none' | 'received',
+      matchPct: (selectedStudent as any).matchPct ?? calculatedMatch.overallMatch,
+      matchReason: selectedStudent.matchReason || calculatedMatch.reasonTag,
     };
   }, [selectedStudent, friendsNetwork, sentRequests]);
 
   return (
     <div className="friends-container">
-      {/* ── Top Header / Branding ── */}
-      <div className="friends-top-header">
-        <div>
-          <h2 className="friends-title">Friends & Campus Network</h2>
-          <p className="friends-subtitle">
-            Find peers, match by skills, collaborate on squad projects, and compete in the arena.
-          </p>
-        </div>
-
-        <div className="friends-header-actions">
-          <button
-            className="friends-icon-btn"
-            title="Privacy Settings"
-            onClick={() => setShowPrivacyModal(true)}
-          >
-            🔒 Privacy
-          </button>
-        </div>
-      </div>
+      {/* Top 2 redundant lines removed per Task 1 to maximize vertical viewport space */}
 
       {/* ── Main Two-Column Layout ── */}
       <div className="friends-main-layout">
@@ -423,6 +408,29 @@ function FriendsContent() {
             >
               <span>👥</span> Group Projects
             </button>
+            <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', paddingRight: 4 }}>
+              <button
+                className="friends-icon-btn"
+                title="Privacy Settings"
+                onClick={() => setShowPrivacyModal(true)}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  padding: '7px 14px',
+                  borderRadius: 10,
+                  fontSize: 13,
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  border: '1px solid var(--border, rgba(255,255,255,0.1))',
+                  background: 'var(--bg2, rgba(15,23,42,0.6))',
+                  color: 'var(--t2, #94a3b8)',
+                  whiteSpace: 'nowrap'
+                }}
+              >
+                🔒 Privacy
+              </button>
+            </div>
           </div>
 
           {/* ── TAB 1: DISCOVER ── */}

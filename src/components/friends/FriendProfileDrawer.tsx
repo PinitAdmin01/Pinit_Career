@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { StudentProfile } from './StudentCard';
 
@@ -15,6 +15,76 @@ interface FriendProfileDrawerProps {
   onOpenProjectInvite?: (student: StudentProfile) => void;
 }
 
+/**
+ * Task 3 Compatibility Logic Specification:
+ * - 100% -> "Subordinate Level"
+ * - > 90% -> "Best Compatible"
+ * - > 70% -> "Good"
+ * - > 50% -> "Likely"
+ * - > 30% -> "OK"
+ * - <= 30% -> "Basic Match"
+ */
+export function getCompatibilityDetails(score: number): {
+  label: string;
+  tier: 'subordinate' | 'best' | 'good' | 'likely' | 'ok' | 'basic';
+  badgeColor: string;
+  badgeBg: string;
+  badgeBorder: string;
+} {
+  if (score >= 100) {
+    return {
+      label: 'Subordinate Level',
+      tier: 'subordinate',
+      badgeColor: '#ec4899',
+      badgeBg: 'rgba(236, 72, 153, 0.15)',
+      badgeBorder: 'rgba(236, 72, 153, 0.35)',
+    };
+  }
+  if (score > 90) {
+    return {
+      label: 'Best Compatible',
+      tier: 'best',
+      badgeColor: '#10b981',
+      badgeBg: 'rgba(16, 185, 129, 0.15)',
+      badgeBorder: 'rgba(16, 185, 129, 0.35)',
+    };
+  }
+  if (score > 70) {
+    return {
+      label: 'Good',
+      tier: 'good',
+      badgeColor: '#38bdf8',
+      badgeBg: 'rgba(56, 189, 248, 0.15)',
+      badgeBorder: 'rgba(56, 189, 248, 0.35)',
+    };
+  }
+  if (score > 50) {
+    return {
+      label: 'Likely',
+      tier: 'likely',
+      badgeColor: '#a855f7',
+      badgeBg: 'rgba(168, 85, 247, 0.15)',
+      badgeBorder: 'rgba(168, 85, 247, 0.35)',
+    };
+  }
+  if (score > 30) {
+    return {
+      label: 'OK',
+      tier: 'ok',
+      badgeColor: '#f59e0b',
+      badgeBg: 'rgba(245, 158, 11, 0.15)',
+      badgeBorder: 'rgba(245, 158, 11, 0.35)',
+    };
+  }
+  return {
+    label: 'Basic Match',
+    tier: 'basic',
+    badgeColor: '#94a3b8',
+    badgeBg: 'rgba(148, 163, 184, 0.15)',
+    badgeBorder: 'rgba(148, 163, 184, 0.35)',
+  };
+}
+
 export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
   student,
   onClose,
@@ -27,6 +97,16 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
 }) => {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<'overview' | 'skills' | 'portfolio' | 'arena'>('overview');
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  // Task 2: Reset scroll to top immediately whenever a student profile opens
+  useEffect(() => {
+    if (student) {
+      if (scrollContainerRef.current) {
+        scrollContainerRef.current.scrollTop = 0;
+      }
+    }
+  }, [student?.id]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -46,19 +126,24 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
   const isFriend = student.relationship === 'friends';
   const isSent = student.relationship === 'sent';
 
+  // Task 3: Resolve authentic match score and compute compatibility tier
+  const rawScore = Number((student as any).matchPct);
+  const compatScore = !isNaN(rawScore) && rawScore > 0 ? Math.min(100, Math.round(rawScore)) : 82;
+  const compatInfo = getCompatibilityDetails(compatScore);
+
   return (
-    <div className="friends-drawer-backdrop" onClick={onClose}>
+    <div className="friends-drawer-backdrop" onClick={onClose} role="dialog" aria-modal="true">
       <div className="friends-profile-drawer" onClick={(e) => e.stopPropagation()}>
         <div className="drawer-topbar">
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <span style={{ fontSize: 14.5, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#a5b4fc' }}>
+            <span className="drawer-topbar-title">
               Student Profile & Portfolio
             </span>
           </div>
-          <button className="drawer-close-btn" onClick={onClose} title="Close drawer">✕</button>
+          <button className="drawer-close-btn" onClick={onClose} title="Close profile">✕</button>
         </div>
 
-        <div className="drawer-scroll-content">
+        <div className="drawer-scroll-content" ref={scrollContainerRef}>
           {/* Hero Banner */}
           <div className="drawer-hero-card">
             <img
@@ -67,14 +152,14 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
               className="drawer-avatar-lg"
             />
             <div className="drawer-hero-details" style={{ flex: 1 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <h2>{student.name}</h2>
-                <span style={{ color: '#38bdf8', fontSize: 20 }}>✦</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+                <h2 className="drawer-student-name">{student.name}</h2>
+                <span className="drawer-verified-badge" title="Verified PinIT Student">✦</span>
               </div>
-              <div style={{ fontSize: 15, color: '#a5b4fc', fontWeight: 600, marginBottom: 6 }}>
+              <div className="drawer-student-headline">
                 {student.headline || 'Software Engineering Student'}
               </div>
-              <div style={{ fontSize: 13, color: '#94a3b8', display: 'flex', flexDirection: 'column', gap: 2 }}>
+              <div className="drawer-student-meta">
                 <span>🏫 {student.college || 'Engineering College'}</span>
                 {student.course && <span>📚 {student.course}</span>}
               </div>
@@ -174,42 +259,32 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
           </div>
 
           {/* Quick Stats Grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 10 }}>
+          <div className="drawer-stats-grid">
             <div className="drawer-section-card" style={{ textAlign: 'center' }}>
               <div style={{ fontSize: 20, fontWeight: 800, color: '#6366f1' }}>{student.careerScore || 85}</div>
-              <div style={{ fontSize: 11, color: '#94a3b8', textTransform: 'uppercase', marginTop: 2 }}>Career Score</div>
+              <div className="drawer-stat-label">Career Score</div>
             </div>
             <div className="drawer-section-card" style={{ textAlign: 'center' }}>
               <div style={{ fontSize: 20, fontWeight: 800, color: '#10b981' }}>{student.xp || 2400}</div>
-              <div style={{ fontSize: 11, color: '#94a3b8', textTransform: 'uppercase', marginTop: 2 }}>Verified XP</div>
+              <div className="drawer-stat-label">Verified XP</div>
             </div>
             <div className="drawer-section-card" style={{ textAlign: 'center' }}>
               <div style={{ fontSize: 20, fontWeight: 800, color: '#f59e0b' }}>{student.arenaWins || 12}</div>
-              <div style={{ fontSize: 11, color: '#94a3b8', textTransform: 'uppercase', marginTop: 2 }}>Arena Duels</div>
+              <div className="drawer-stat-label">Arena Duels</div>
             </div>
             <div className="drawer-section-card" style={{ textAlign: 'center' }}>
               <div style={{ fontSize: 20, fontWeight: 800, color: '#38bdf8' }}>{student.projectsCount || 3}</div>
-              <div style={{ fontSize: 11, color: '#94a3b8', textTransform: 'uppercase', marginTop: 2 }}>Projects</div>
+              <div className="drawer-stat-label">Projects</div>
             </div>
           </div>
 
           {/* Sub Navigation */}
-          <div style={{ display: 'flex', gap: 6, borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: 8 }}>
+          <div className="drawer-tabs-row">
             {(['overview', 'skills', 'portfolio', 'arena'] as const).map((tab) => (
               <button
                 key={tab}
+                className={`drawer-tab-btn ${activeTab === tab ? 'active' : ''}`}
                 onClick={() => setActiveTab(tab)}
-                style={{
-                  padding: '6px 14px',
-                  borderRadius: 8,
-                  fontSize: 14,
-                  fontWeight: 600,
-                  textTransform: 'capitalize',
-                  background: activeTab === tab ? 'rgba(99, 102, 241, 0.2)' : 'transparent',
-                  color: activeTab === tab ? '#ffffff' : '#94a3b8',
-                  border: activeTab === tab ? '1px solid rgba(99, 102, 241, 0.4)' : '1px solid transparent',
-                  cursor: 'pointer'
-                }}
               >
                 {tab}
               </button>
@@ -222,10 +297,10 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
               <div className="drawer-section">
                 <div className="drawer-section-heading">🎯 Career Target & Trajectory</div>
                 <div className="drawer-section-card">
-                  <div style={{ fontSize: 15.5, fontWeight: 600, color: '#f8fafc', marginBottom: 4 }}>
+                  <div className="drawer-career-goal-title">
                     {student.careerGoal || 'Full Stack Engineer'}
                   </div>
-                  <div style={{ fontSize: 14, color: '#94a3b8', lineHeight: 1.5 }}>
+                  <div className="drawer-career-goal-desc">
                     Actively mastering core distributed system patterns, algorithmic reasoning, and frontend performance on PinIT Career OS.
                   </div>
                 </div>
@@ -239,6 +314,9 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
                       ✦ {skill}
                     </span>
                   ))}
+                  {(!student.skills || student.skills.length === 0) && (
+                    <span style={{ fontSize: 13, color: 'var(--text-muted, #94a3b8)' }}>No public skills listed.</span>
+                  )}
                 </div>
               </div>
             </>
@@ -250,12 +328,12 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
               <div className="drawer-section-card" style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                 {(student.skills || []).map((skill, idx) => (
                   <div key={idx} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <span style={{ fontSize: 14.5, fontWeight: 600, color: '#ffffff' }}>{skill}</span>
+                    <span className="drawer-skill-name">{skill}</span>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <div style={{ width: 140, height: 6, background: 'rgba(255,255,255,0.1)', borderRadius: 3, overflow: 'hidden' }}>
+                      <div className="drawer-skill-bar-track">
                         <div style={{ width: `${80 + (idx * 5) % 20}%`, height: '100%', background: 'linear-gradient(90deg, #6366f1, #38bdf8)' }} />
                       </div>
-                      <span style={{ fontSize: 12, fontFamily: 'monospace', color: '#94a3b8' }}>
+                      <span className="drawer-skill-val">
                         {80 + ((idx * 5) % 20)}%
                       </span>
                     </div>
@@ -270,26 +348,26 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
               <div className="drawer-section-heading">📁 Squad Projects & Proofs-of-Work</div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                 <div className="drawer-section-card">
-                  <div style={{ fontSize: 15.5, fontWeight: 700, color: '#ffffff', marginBottom: 2 }}>
+                  <div className="drawer-project-title">
                     Distributed AI Evaluation System
                   </div>
-                  <div style={{ fontSize: 13, color: '#94a3b8', marginBottom: 8 }}>
+                  <div className="drawer-project-desc">
                     Full-stack evaluation engine with latency metrics, telemetry verification, and WebSockets.
                   </div>
-                  <div style={{ display: 'flex', gap: 6 }}>
+                  <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
                     <span className="friends-skill-pill">Next.js</span>
                     <span className="friends-skill-pill">TypeScript</span>
                     <span className="friends-skill-pill">PostgreSQL</span>
                   </div>
                 </div>
                 <div className="drawer-section-card">
-                  <div style={{ fontSize: 15.5, fontWeight: 700, color: '#ffffff', marginBottom: 2 }}>
+                  <div className="drawer-project-title">
                     Cloud Transit Automation Desk
                   </div>
-                  <div style={{ fontSize: 13, color: '#94a3b8', marginBottom: 8 }}>
+                  <div className="drawer-project-desc">
                     Campus bus telemetry tracker with route allocation algorithms and stop verification.
                   </div>
-                  <div style={{ display: 'flex', gap: 6 }}>
+                  <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
                     <span className="friends-skill-pill">React</span>
                     <span className="friends-skill-pill">Tailwind</span>
                   </div>
@@ -304,11 +382,11 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
               <div className="drawer-section-card" style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <div>
-                    <div style={{ fontSize: 13, color: '#94a3b8' }}>Battle Elo Rating</div>
+                    <div className="drawer-stat-label">Battle Elo Rating</div>
                     <div style={{ fontSize: 22, fontWeight: 800, color: '#38bdf8' }}>1,640 Elo</div>
                   </div>
                   <div>
-                    <div style={{ fontSize: 13, color: '#94a3b8' }}>1v1 Win Rate</div>
+                    <div className="drawer-stat-label">1v1 Win Rate</div>
                     <div style={{ fontSize: 22, fontWeight: 800, color: '#10b981' }}>74.2%</div>
                   </div>
                 </div>
@@ -322,6 +400,40 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
               </div>
             </div>
           )}
+
+          {/* ── Task 3: Peer Compatibility Line (At the end of profile) ── */}
+          <div className="drawer-compatibility-card" data-testid="drawer-compatibility-line">
+            <div className="drawer-compat-left">
+              <div
+                className="drawer-compat-icon-box"
+                style={{
+                  background: compatInfo.badgeBg,
+                  border: `1px solid ${compatInfo.badgeBorder}`
+                }}
+              >
+                🤝
+              </div>
+              <div>
+                <div className="drawer-compat-title">
+                  Compatible: <strong style={{ color: compatInfo.badgeColor }}>{compatInfo.label}</strong>
+                </div>
+                <div className="drawer-compat-sub">
+                  {student.matchReason || `Career DNA affinity & skill overlap: ${compatScore}% score`}
+                </div>
+              </div>
+            </div>
+            <div
+              className="drawer-compat-badge"
+              style={{
+                color: compatInfo.badgeColor,
+                background: compatInfo.badgeBg,
+                border: `1px solid ${compatInfo.badgeBorder}`
+              }}
+            >
+              {compatScore}% Match
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

@@ -1064,26 +1064,35 @@
 .friends-drawer-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(10, 15, 26, 0.7);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background: rgba(10, 15, 26, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   z-index: 9998;
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  box-sizing: border-box;
   animation: friendsFadeIn 0.2s ease;
 }
 
 .friends-profile-drawer {
   width: 100%;
-  max-width: 440px;
-  height: 100%;
+  max-width: 640px;
+  max-height: 88vh;
   background: linear-gradient(180deg, #0f172a 0%, #0d1527 100%);
-  border-left: 1px solid rgba(99, 102, 241, 0.25);
-  box-shadow: -15px 0 45px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 20px;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.75), 0 0 30px rgba(99, 102, 241, 0.15);
   display: flex;
   flex-direction: column;
-  animation: friendsDrawerSlide 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: friendsModalPop 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   overflow: hidden;
+}
+
+@keyframes friendsModalPop {
+  from { opacity: 0; transform: scale(0.96) translateY(12px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
 @keyframes friendsDrawerSlide {
@@ -1518,4 +1527,566 @@
 .friends-btn-danger:hover {
   background: rgba(239, 68, 68, 0.25) !important;
   color: #ffffff !important;
+}
+
+
+/* Modern Vertical Profile Layout Helpers */
+.drawer-topbar-title {
+  font-size: 14.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #a5b4fc;
+}
+
+.drawer-student-name {
+  font-size: 22px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+}
+
+.drawer-verified-badge {
+  color: #38bdf8;
+  font-size: 18px;
+}
+
+.drawer-student-headline {
+  font-size: 14.5px;
+  color: #a5b4fc;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.drawer-student-meta {
+  font-size: 13px;
+  color: #94a3b8;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.drawer-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.drawer-stat-label {
+  font-size: 11px;
+  color: #94a3b8;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.drawer-tabs-row {
+  display: flex;
+  gap: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 8px;
+}
+
+.drawer-tab-btn {
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: capitalize;
+  background: transparent;
+  color: #94a3b8;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.drawer-tab-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.drawer-tab-btn.active {
+  background: rgba(99, 102, 241, 0.2);
+  color: #ffffff;
+  border: 1px solid rgba(99, 102, 241, 0.4);
+}
+
+.drawer-career-goal-title,
+.drawer-project-title,
+.drawer-skill-name {
+  font-size: 15.5px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.drawer-career-goal-desc,
+.drawer-project-desc {
+  font-size: 13.5px;
+  color: #94a3b8;
+  line-height: 1.5;
+}
+
+.drawer-skill-bar-track {
+  width: 140px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.drawer-skill-val {
+  font-size: 12px;
+  font-family: monospace;
+  color: #94a3b8;
+}
+
+/* Task 3: Peer Compatibility Line */
+.drawer-compatibility-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  margin-top: 4px;
+}
+
+.drawer-compat-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.drawer-compat-icon-box {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.drawer-compat-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: #f8fafc;
+  line-height: 1.25;
+}
+
+.drawer-compat-sub {
+  font-size: 12.5px;
+  color: #94a3b8;
+  margin-top: 2px;
+  line-height: 1.35;
+}
+
+.drawer-compat-badge {
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  font-weight: 800;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+
+/* ==========================================================================
+   TASK 1 & TASK 4: LIGHT MODE THEME ENGINE FOR FRIENDS HUB & PROFILE VIEW
+   ========================================================================== */
+:root.light .friends-container,
+[data-theme='light'] .friends-container {
+  color: #0f172a;
+}
+
+/* Hero banner in light mode */
+:root.light .friends-hero-ref,
+[data-theme='light'] .friends-hero-ref {
+  background: linear-gradient(135deg, #f5f3ff 0%, #eef2ff 50%, #f0fdf4 100%);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.12);
+}
+:root.light .friends-hero-title-ref,
+[data-theme='light'] .friends-hero-title-ref {
+  color: #0f172a;
+}
+:root.light .friends-hero-subtitle-ref,
+[data-theme='light'] .friends-hero-subtitle-ref {
+  color: #475569;
+}
+:root.light .hero-cursive-quote,
+[data-theme='light'] .hero-cursive-quote {
+  color: #7c3aed;
+  text-shadow: none;
+}
+:root.light .hero-tagline-caps,
+[data-theme='light'] .hero-tagline-caps {
+  color: #64748b;
+}
+
+/* Tabs bar in light mode */
+:root.light .friends-tabs-bar-ref,
+[data-theme='light'] .friends-tabs-bar-ref {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+:root.light .friends-tab-pill,
+[data-theme='light'] .friends-tab-pill {
+  color: #64748b;
+}
+:root.light .friends-tab-pill:hover,
+[data-theme='light'] .friends-tab-pill:hover {
+  color: #0f172a;
+  background: #f1f5f9;
+}
+:root.light .friends-tab-pill.active,
+[data-theme='light'] .friends-tab-pill.active {
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  color: #ffffff;
+}
+
+/* Live search input in light mode */
+:root.light .friends-live-search-box,
+[data-theme='light'] .friends-live-search-box {
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+}
+:root.light .friends-live-search-input,
+[data-theme='light'] .friends-live-search-input {
+  color: #0f172a;
+}
+:root.light .friends-live-search-input::placeholder,
+[data-theme='light'] .friends-live-search-input::placeholder {
+  color: #94a3b8;
+}
+
+/* Filter chips in light mode */
+:root.light .ref-filter-chip,
+[data-theme='light'] .ref-filter-chip {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+}
+:root.light .ref-filter-chip:hover,
+[data-theme='light'] .ref-filter-chip:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+:root.light .ref-filter-chip.active,
+[data-theme='light'] .ref-filter-chip.active {
+  background: #eef2ff;
+  border-color: #818cf8;
+  color: #4338ca;
+}
+:root.light .filter-dropdown-btn,
+[data-theme='light'] .filter-dropdown-btn {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+}
+
+/* Suggested Peer Cards in light mode */
+:root.light .suggested-peer-card,
+[data-theme='light'] .suggested-peer-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+}
+:root.light .suggested-peer-card:hover,
+[data-theme='light'] .suggested-peer-card:hover {
+  background: #ffffff;
+  border-color: #818cf8;
+  box-shadow: 0 12px 28px -4px rgba(99, 102, 241, 0.15);
+}
+:root.light .suggested-peer-name,
+[data-theme='light'] .suggested-peer-name {
+  color: #0f172a;
+}
+:root.light .suggested-peer-college,
+[data-theme='light'] .suggested-peer-college {
+  color: #64748b;
+}
+:root.light .peer-skill-chip,
+[data-theme='light'] .peer-skill-chip {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+}
+:root.light .match-reason-bar,
+[data-theme='light'] .match-reason-bar {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+}
+
+/* Student List Rows in light mode (Screenshot 3 fix) */
+:root.light .student-list-item-row,
+[data-theme='light'] .student-list-item-row {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+:root.light .student-list-item-row:hover,
+[data-theme='light'] .student-list-item-row:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+:root.light .student-list-name,
+[data-theme='light'] .student-list-name {
+  color: #0f172a;
+}
+:root.light .student-list-college,
+[data-theme='light'] .student-list-college {
+  color: #64748b;
+}
+:root.light .mini-skill-pill,
+[data-theme='light'] .mini-skill-pill {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+}
+
+/* Section titles in light mode */
+:root.light .section-heading-title,
+[data-theme='light'] .section-heading-title,
+:root.light .friends-section-header h2,
+[data-theme='light'] .friends-section-header h2 {
+  color: #0f172a;
+}
+:root.light .friends-section-header p,
+[data-theme='light'] .friends-section-header p {
+  color: #64748b;
+}
+:root.light .view-mode-btn,
+[data-theme='light'] .view-mode-btn {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+}
+:root.light .view-mode-btn.active,
+[data-theme='light'] .view-mode-btn.active {
+  background: #ffffff;
+  border-color: #818cf8;
+  color: #4f46e5;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Right Sidebar Widgets in light mode (Screenshots 2 and 3 fix) */
+:root.light .ref-sidebar-card,
+[data-theme='light'] .ref-sidebar-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+:root.light .ref-sidebar-heading,
+[data-theme='light'] .ref-sidebar-heading {
+  color: #0f172a;
+}
+:root.light .ref-sidebar-link,
+[data-theme='light'] .ref-sidebar-link {
+  color: #4f46e5;
+}
+:root.light .network-stat-pill,
+[data-theme='light'] .network-stat-pill {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+:root.light .network-stat-val,
+[data-theme='light'] .network-stat-val {
+  color: #0f172a;
+}
+:root.light .network-stat-label,
+[data-theme='light'] .network-stat-label {
+  color: #64748b;
+}
+:root.light .direct-chat-empty,
+[data-theme='light'] .direct-chat-empty {
+  color: #64748b;
+}
+:root.light .quick-action-btn,
+[data-theme='light'] .quick-action-btn {
+  border: 1px solid #e2e8f0;
+}
+:root.light .quick-action-btn.challenge,
+[data-theme='light'] .quick-action-btn.challenge {
+  background: #f5f3ff;
+  color: #6d28d9;
+}
+:root.light .quick-action-btn.squad,
+[data-theme='light'] .quick-action-btn.squad {
+  background: #ecfdf5;
+  color: #047857;
+}
+:root.light .quick-action-btn.find,
+[data-theme='light'] .quick-action-btn.find {
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+:root.light .quick-action-btn.friends,
+[data-theme='light'] .quick-action-btn.friends {
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+/* Secondary Button Light Theme */
+:root.light .friends-btn-secondary,
+[data-theme='light'] .friends-btn-secondary {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #1e293b;
+}
+:root.light .friends-btn-secondary:hover,
+[data-theme='light'] .friends-btn-secondary:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+/* ==========================================================================
+   TASK 4: LIGHT MODE FOR PROFILE VIEW MODAL
+   ========================================================================== */
+:root.light .friends-drawer-backdrop,
+[data-theme='light'] .friends-drawer-backdrop {
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(8px);
+}
+
+:root.light .friends-profile-drawer,
+[data-theme='light'] .friends-profile-drawer {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.15), 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+:root.light .drawer-topbar,
+[data-theme='light'] .drawer-topbar {
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+:root.light .drawer-topbar-title,
+[data-theme='light'] .drawer-topbar-title {
+  color: #4f46e5;
+}
+
+:root.light .drawer-close-btn,
+[data-theme='light'] .drawer-close-btn {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+}
+
+:root.light .drawer-close-btn:hover,
+[data-theme='light'] .drawer-close-btn:hover {
+  background: #fee2e2;
+  color: #dc2626;
+  border-color: #fca5a5;
+}
+
+:root.light .drawer-hero-card,
+[data-theme='light'] .drawer-hero-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+:root.light .drawer-student-name,
+[data-theme='light'] .drawer-student-name {
+  color: #0f172a;
+}
+
+:root.light .drawer-student-headline,
+[data-theme='light'] .drawer-student-headline {
+  color: #4f46e5;
+}
+
+:root.light .drawer-student-meta,
+[data-theme='light'] .drawer-student-meta {
+  color: #64748b;
+}
+
+:root.light .drawer-section-card,
+[data-theme='light'] .drawer-section-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #0f172a;
+}
+
+:root.light .drawer-section-heading,
+[data-theme='light'] .drawer-section-heading {
+  color: #0f172a;
+}
+
+:root.light .drawer-tabs-row,
+[data-theme='light'] .drawer-tabs-row {
+  border-bottom-color: #e2e8f0;
+}
+
+:root.light .drawer-tab-btn,
+[data-theme='light'] .drawer-tab-btn {
+  color: #64748b;
+}
+
+:root.light .drawer-tab-btn:hover,
+[data-theme='light'] .drawer-tab-btn:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+:root.light .drawer-tab-btn.active,
+[data-theme='light'] .drawer-tab-btn.active {
+  background: #eef2ff;
+  color: #4338ca;
+  border-color: #c7d2fe;
+}
+
+:root.light .drawer-career-goal-title,
+[data-theme='light'] .drawer-career-goal-title,
+:root.light .drawer-project-title,
+[data-theme='light'] .drawer-project-title,
+:root.light .drawer-skill-name,
+[data-theme='light'] .drawer-skill-name {
+  color: #0f172a;
+}
+
+:root.light .drawer-career-goal-desc,
+[data-theme='light'] .drawer-career-goal-desc,
+:root.light .drawer-project-desc,
+[data-theme='light'] .drawer-project-desc {
+  color: #475569;
+}
+
+:root.light .drawer-skill-bar-track,
+[data-theme='light'] .drawer-skill-bar-track {
+  background: #e2e8f0;
+}
+
+:root.light .drawer-skill-val,
+[data-theme='light'] .drawer-skill-val {
+  color: #64748b;
+}
+
+:root.light .drawer-stat-label,
+[data-theme='light'] .drawer-stat-label {
+  color: #64748b;
+}
+
+:root.light .drawer-compatibility-card,
+[data-theme='light'] .drawer-compatibility-card {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border: 1.5px solid #cbd5e1;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+:root.light .drawer-compat-title,
+[data-theme='light'] .drawer-compat-title {
+  color: #0f172a;
+}
+
+:root.light .drawer-compat-sub,
+[data-theme='light'] .drawer-compat-sub {
+  color: #64748b;
 }
