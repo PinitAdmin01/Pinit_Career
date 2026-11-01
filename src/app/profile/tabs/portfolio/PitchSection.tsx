@@ -39,14 +39,14 @@ export function PitchSection({
             style={{ width: '100%', background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 10, padding: 10, color: 'var(--t1)', fontSize: 14.5, resize: 'vertical' }}
           />
           <button
-            onClick={savePitch}
+            onClick={() => savePitch()}
             style={{ alignSelf: 'flex-start', padding: '6px 16px', fontSize: 13, fontWeight: 800, background: 'var(--accent)', color: 'var(--text)', border: 'none', borderRadius: 8, cursor: 'pointer' }}
           >
             Save Pitch
           </button>
         </div>
       ) : (
-        <p style={{ fontSize: 15.5, color: 'var(--t2)', lineHeight: 1.6, margin: 0 }}>"{pitch}"</p>
+        <p style={{ fontSize: 15.5, color: 'var(--t2)', lineHeight: 1.6, margin: 0 }}>"{typeof pitch === 'string' ? pitch : (pitch as any)?.text ? String((pitch as any).text) : ''}"</p>
       )}
     </div>
   );

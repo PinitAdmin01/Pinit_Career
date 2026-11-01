@@ -1274,7 +1274,14 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
 
                       {item.questId && (
                         <button
-                          onClick={() => router.push(`/quests/teacher-select?questId=${item.questId}`)}
+                          onClick={() => {
+                            const preferred = (typeof window !== 'undefined' ? localStorage.getItem('pinit_selected_teacher_id') || localStorage.getItem('pinit_preferred_teaching_avatar') : null);
+                            if (preferred && ['kashyap', 'karthic', 'maya', 'divya'].includes(preferred)) {
+                              router.push(`/quests/lesson?questId=${item.questId}&teacherId=${preferred}`);
+                            } else {
+                              router.push(`/quests/teacher-select?questId=${item.questId}`);
+                            }
+                          }}
                           style={{
                             padding: '6px 12px',
                             borderRadius: 8,

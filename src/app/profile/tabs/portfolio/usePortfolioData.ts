@@ -133,7 +133,7 @@ export function usePortfolioData(user: any) {
                 if (typeof val === 'string') {
                   setPitch(val);
                   setTempPitch(val);
-                } else if (val.text) {
+                } else if (val && typeof val.text === 'string') {
                   setPitch(val.text);
                   setTempPitch(val.text);
                 }
@@ -199,12 +199,13 @@ export function usePortfolioData(user: any) {
     };
   }, [user?.id, user?.onboardingAnswers, user?.projects, user?.certifications, user?.timeline, user?.achievements, user?.recommendations]);
 
-  const savePitch = useCallback(async (customText?: string) => {
-    const textToSave = customText !== undefined ? customText : tempPitch;
-    setPitch(textToSave);
+  const savePitch = useCallback(async (customText?: unknown) => {
+    const textToSave = typeof customText === 'string' ? customText : tempPitch;
+    const cleanText = String(textToSave || '').trim();
+    setPitch(cleanText);
     setEditingPitch(false);
-    await persistToSupabase('pitch', { text: textToSave });
-    api.patch('/api/auth/profile', { bio: textToSave }).catch(() => {});
+    await persistToSupabase('pitch', { text: cleanText });
+    api.patch('/api/auth/profile', { bio: cleanText }).catch(() => {});
     toast.success('Pitch Updated', 'Your profile pitch has been saved to Supabase cloud.');
   }, [tempPitch, persistToSupabase]);
 

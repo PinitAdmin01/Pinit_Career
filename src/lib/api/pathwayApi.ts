@@ -334,7 +334,7 @@ export class PathwayApiService {
           score,
           level: comp.level,
         });
-      } else {
+      } else if (Boolean((status as any)?.claimed || (status as any)?.isClaimed)) {
         profile.claimed.push({
           id: comp.id,
           name: comp.title,

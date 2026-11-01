@@ -13,7 +13,7 @@ export function normalizeVisibility(raw: any): { score: number; label: string } 
     return { score: 100, label: 'public' };
   }
   if (raw === 'recruiters_only' || raw === true || raw === 'true' || raw === 80 || raw === '80') {
-    return { score: 80, label: 'recruiters_only' };
+    return { score: 100, label: 'public' };
   }
   if (typeof raw === 'number' && !isNaN(raw)) {
     const clamped = Math.min(100, Math.max(0, Math.round(raw)));
@@ -29,7 +29,7 @@ export function normalizeVisibility(raw: any): { score: number; label: string } 
       label: num === 0 ? 'private' : num === 100 ? 'public' : num === 50 ? 'institution_only' : 'recruiters_only',
     };
   }
-  return { score: 80, label: 'recruiters_only' };
+  return { score: 100, label: 'public' };
 }
 
 export async function GET(req: Request) {
@@ -50,7 +50,7 @@ export async function GET(req: Request) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    const currentScore = userRow?.recruiter_visibility ?? 80;
+    const currentScore = userRow?.recruiter_visibility ?? 100;
     const { label } = normalizeVisibility(currentScore);
 
     return NextResponse.json({

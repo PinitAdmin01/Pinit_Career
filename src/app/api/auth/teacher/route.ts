@@ -2,7 +2,14 @@ import { NextRequest, NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 
-const VALID_TEACHERS = new Set(['priya', 'arjun', 'vikram', 'ananya', 'rohan', 'kavya', 'meera', 'sanjay', 'anish']);
+const VALID_TEACHERS = new Set([
+  // Course Teaching Avatars
+  'kashyap', 'karthic', 'maya', 'divya',
+  // AI Guidance Mentors
+  'priya', 'anish',
+  // Legacy / alternate personas
+  'arjun', 'vikram', 'ananya', 'rohan', 'kavya', 'meera', 'sanjay'
+]);
 
 async function handleTeacherUpdate(req: NextRequest) {
   let body: any = {};
@@ -12,7 +19,7 @@ async function handleTeacherUpdate(req: NextRequest) {
     return NextResponse.json({ error: 'INVALID_JSON', message: 'Invalid JSON body' }, { status: 400 });
   }
 
-  const teacherId = String(body.teacherId || body.selectedTeacherId || 'priya').trim().toLowerCase();
+  const teacherId = String(body.teacherId || body.selectedTeacherId || 'kashyap').trim().toLowerCase();
   if (!teacherId) {
     return NextResponse.json({ error: 'INVALID_TEACHER', message: 'teacherId is required' }, { status: 400 });
   }
@@ -25,17 +32,20 @@ async function handleTeacherUpdate(req: NextRequest) {
     return NextResponse.json({ error: 'UNAUTHORIZED', message: 'Authentication required' }, { status: 401 });
   }
 
-  const safeTeacherId = VALID_TEACHERS.has(teacherId) ? teacherId : 'priya';
+  const safeTeacherId = VALID_TEACHERS.has(teacherId) ? teacherId : 'kashyap';
 
   const admin = getSupabaseAdmin();
   if (admin) {
     try {
+      const updates: Record<string, any> = {
+        selected_teacher_id: safeTeacherId,
+      };
+      if (body.guidanceMentorId && VALID_TEACHERS.has(String(body.guidanceMentorId).toLowerCase())) {
+        updates.guidance_mentor_id = String(body.guidanceMentorId).toLowerCase();
+      }
       await admin
         .from('users')
-        .update({
-          selected_teacher_id: safeTeacherId,
-          guidance_mentor_id: safeTeacherId,
-        })
+        .update(updates)
         .eq('id', userId);
     } catch (err: any) {
       console.warn('[/api/auth/teacher] Non-fatal DB update warning:', err?.message || err);

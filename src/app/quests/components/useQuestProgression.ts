@@ -954,7 +954,12 @@ export function useQuestProgression() {
 
 
     if (quest.requiresAvatar || quest.type === 'lecture' || quest.type === 'interactive') {
-      router.push(`/quests/teacher-select?questId=${quest.id}`);
+      const preferred = (typeof window !== 'undefined' ? localStorage.getItem('pinit_selected_teacher_id') || localStorage.getItem('pinit_preferred_teaching_avatar') : null) || (onboardingAnswers as any)?.selectedTeacherId;
+      if (preferred && ['kashyap', 'karthic', 'maya', 'divya'].includes(preferred)) {
+        router.push(`/quests/lesson?questId=${quest.id}&teacherId=${preferred}`);
+      } else {
+        router.push(`/quests/teacher-select?questId=${quest.id}`);
+      }
     } else {
       router.push(`/quests/${quest.id}`);
     }

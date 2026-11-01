@@ -645,8 +645,20 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
               <div style={{ width: 50, height: 50, borderRadius: '50%', background: 'linear-gradient(135deg, var(--accent), var(--purple))', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 8px', fontSize: 22, color: 'white', border: '2px solid var(--bg-sidebar)', boxShadow: '0 2px 10px color-mix(in srgb, var(--accent) 20%, transparent)', overflow: 'hidden' }}>
                 👤
               </div>
-              <div style={{ fontSize: 14.5, fontWeight: 700, marginBottom: 2, color: 'var(--t1)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user?.displayName || 'Student'}</div>
-              <div style={{ fontSize: 11, color: 'var(--t3)', marginBottom: 6, fontFamily: 'var(--font-mono)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user?.username || user?.registerNumber || 'Student'}</div>
+              {(() => {
+                const rawDisp = typeof user?.displayName === 'string' ? user.displayName : (typeof user?.name === 'string' ? user.name : '');
+                const rawReal = (user as any)?.fullName || (user as any)?.full_name || (user as any)?.candidateName || (user as any)?.onboardingAnswers?.candidateName || (user as any)?.onboardingAnswers?.fullName;
+                const realName = typeof rawReal === 'string' ? rawReal : '';
+                const studentName = (rawDisp && !rawDisp.startsWith('usr_') && rawDisp.toLowerCase() !== 'student') ? rawDisp : (realName || rawDisp || 'Student');
+                const rawUName = typeof user?.username === 'string' ? user.username : '';
+                const handleOrRoll = (rawUName && !rawUName.startsWith('usr_')) ? rawUName : (user?.registerNumber || (typeof user?.email === 'string' ? user.email.split('@')[0] : ''));
+                return (
+                  <>
+                    <div style={{ fontSize: 14.5, fontWeight: 700, marginBottom: 2, color: 'var(--t1)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{studentName}</div>
+                    {handleOrRoll && <div style={{ fontSize: 11, color: 'var(--t3)', marginBottom: 6, fontFamily: 'var(--font-mono)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{handleOrRoll}</div>}
+                  </>
+                );
+              })()}
               {(() => {
                 const batchName = (user as any)?.batch || 'General Batch';
                 const rawColor = colorMap[batchName] || 'var(--brand)';

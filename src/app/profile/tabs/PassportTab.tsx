@@ -275,7 +275,7 @@ export default function PassportTab({ user, cOS, initialView = 'skills' }: Passp
             </div>
           </div>
 
-          {claimedList.length > 0 && (
+          {claimedList.length > 0 ? (
             <div style={CS.card}>
               {sectionTitle('⚪ Claimed skills')}
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
@@ -285,6 +285,11 @@ export default function PassportTab({ user, cOS, initialView = 'skills' }: Passp
                   </span>
                 ))}
               </div>
+            </div>
+          ) : (
+            <div style={CS.card}>
+              {sectionTitle('⚪ Claimed skills')}
+              {emptyBox('No self-claimed skills yet. Skills appear here when you log self-reported topics or select career interests.')}
             </div>
           )}
         </div>

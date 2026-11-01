@@ -74,6 +74,16 @@ function TeacherSelectPageContent() {
   const [selected, setSelected] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
 
+  useEffect(() => {
+    const force = searchParams.get('force') === 'true';
+    if (!force) {
+      const preferred = (typeof window !== 'undefined' ? localStorage.getItem('pinit_selected_teacher_id') || localStorage.getItem('pinit_preferred_teaching_avatar') : null) || (onboardingAnswers as any)?.selectedTeacherId;
+      if (preferred && ['kashyap', 'karthic', 'maya', 'divya'].includes(preferred)) {
+        router.replace(`/quests/lesson?questId=${encodeURIComponent(questId)}&teacherId=${encodeURIComponent(preferred)}`);
+      }
+    }
+  }, [questId, searchParams, router, onboardingAnswers]);
+
   const handleChooseTeacher = async (teacherId: string) => {
     setSelected(teacherId);
     setSaving(true);
