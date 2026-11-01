@@ -131,6 +131,30 @@ function LoginContent() {
           weakAreas: ['System Design', 'Dynamic Programming'],
         }));
         localStorage.setItem('pinit:pins_balance:usr_demo_student_01', '450');
+        localStorage.setItem('pinit_active_crash_enrollment', JSON.stringify({
+          enrollmentId: 'enr_demo_student_01',
+          userId: 'usr_demo_student_01',
+          planId: 'fast_track_1m',
+          track: 'web_fullstack',
+          amountPaid: 2999,
+          paymentId: 'pay_demo_seeded_01',
+          paymentMethod: 'sandbox',
+          status: 'active',
+          enrolledAt: new Date(Date.now() - 7 * 86400000).toISOString(),
+          currentSprint: 1,
+          dailyLearningHoursTarget: 1,
+          milestoneProgress: {
+            sprint1Approved: true,
+            sprint2Approved: false,
+            sprint3RepoUrl: 'https://github.com/apex-students/raft-consensus-engine',
+            sprint3LiveUrl: 'https://raft.apex.edu.in',
+            sprint4DefenseScore: 98
+          },
+          certificatesIssued: {
+            projectCertHash: '402c5bf826c8df73a9876543210fedcba9876543210fedcba9876543210fedcb',
+            issuedAt: new Date().toISOString()
+          }
+        }));
       }
 
       setIsSuccessSplash(true);

@@ -395,30 +395,33 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-              {activeEnrollment && showMoreDetails ? (
+              {activeEnrollment ? (
                 <>
-                  <button
-                    onClick={() => setShowCapstonePortal(true)}
-                    style={{
-                      fontSize: 13,
-                      fontWeight: 800,
-                      padding: '8px 16px',
-                      borderRadius: 10,
-                      background: 'rgba(99, 102, 241, 0.15)',
-                      border: '1.5px solid #6366f1',
-                      color: '#ffffff',
-                      cursor: 'pointer',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 6,
-                      boxShadow: '0 4px 14px rgba(99, 102, 241, 0.25)'
-                    }}
-                  >
-                    <span>🏢</span> {INTERNSHIP_AVAILABLE ? 'Internship Portal' : 'Capstone Desk'}
-                  </button>
+                  {showMoreDetails && (
+                    <button
+                      onClick={() => setShowCapstonePortal(true)}
+                      style={{
+                        fontSize: 13,
+                        fontWeight: 800,
+                        padding: '8px 16px',
+                        borderRadius: 10,
+                        background: 'rgba(99, 102, 241, 0.15)',
+                        border: '1.5px solid #6366f1',
+                        color: '#ffffff',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 6,
+                        boxShadow: '0 4px 14px rgba(99, 102, 241, 0.25)'
+                      }}
+                    >
+                      <span>🏢</span> {INTERNSHIP_AVAILABLE ? 'Internship Portal' : 'Capstone Desk'}
+                    </button>
+                  )}
 
                   <button
                     onClick={() => setShowQrModal(true)}
+                    data-testid="btn-share-qr"
                     style={{
                       fontSize: 13,
                       color: 'var(--text)',
