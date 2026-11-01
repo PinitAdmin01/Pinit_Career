@@ -64,27 +64,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
         ☰
       </button>
 
-      {/* If focusMode is active, allow returning with a floating action bar brand */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-        {effectiveFocusMode && (
-          <div
-            onClick={toggleFocusMode}
-            title="Exit Focus Mode"
-            aria-label="Exit Focus Mode"
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') toggleFocusMode(); }}
-            style={{
-              width: 24, height: 24, borderRadius: 6,
-              background: 'linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: 11, fontWeight: 800, color: 'white', cursor: 'pointer',
-              fontFamily: 'var(--font-display)', marginRight: 6
-            }}
-          >
-            Pi
-          </div>
-        )}
         <div className="topbar-title">{pageTitle}</div>
       </div>
 
@@ -151,25 +131,6 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
         {/* ⚙️ Universal Preferences & Ambience Hub */}
         <GearAudioHub theme={theme === 'light' ? 'light' : 'dark'} size="sm" />
 
-        {/* Focus Mode Toggle Button (Invisible Mode) - Only for students */}
-        {isStudent && (
-          <button
-            onClick={toggleFocusMode}
-            title={effectiveFocusMode ? 'Deactivate Focus Mode' : 'Activate Focus Mode'}
-            aria-label={effectiveFocusMode ? 'Deactivate Focus Mode' : 'Activate Focus Mode'}
-            style={{
-              background: effectiveFocusMode ? 'rgba(220,38,38,0.1)' : 'var(--bg3)',
-              border: effectiveFocusMode ? '1px solid rgba(220,38,38,0.3)' : '1px solid var(--border)',
-              borderRadius: 20, padding: '3px 12px', display: 'flex',
-              alignItems: 'center', gap: 4, cursor: 'pointer',
-              fontSize: 11.5, fontWeight: 700, fontFamily: 'var(--font-mono)',
-              color: effectiveFocusMode ? 'var(--coral)' : 'var(--t2)', outline: 'none',
-              transition: 'all 0.15s ease'
-            }}
-          >
-            <span aria-hidden="true">🤫</span> {!effectiveFocusMode && <span style={{ fontSize: 11 }}>Focus</span>}
-          </button>
-        )}
       </div>
 
       {/* WS dot */}
