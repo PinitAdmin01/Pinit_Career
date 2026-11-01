@@ -57,11 +57,11 @@ export default async function StudentPortfolioPage({
 
   if (studentId.toLowerCase().includes('arjun') || studentId === 'stu-arjun-01') {
     candidateName = 'Arjun Verma';
-    institutionName = 'Apex Institute of Technology';
+    institutionName = undefined;
     degreeName = 'B.Tech in Artificial Intelligence & Data Science';
     departmentName = 'Computer Science & Engineering';
-    cgpa = 9.42;
-    attendancePercentage = 96.5;
+    cgpa = undefined;
+    attendancePercentage = undefined;
     attendanceStreakDays = 42;
     completedQuestsCount = 48;
     exams = [

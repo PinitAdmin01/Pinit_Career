@@ -259,7 +259,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
           }}
         >
           <span style={{ fontSize: 20 }}>🏆</span>
-          <span>Certification &amp; Skill Passport</span>
+          <span>Certification Programs</span>
         </button>
 
         {/* Tab 2: Custom Roadmap */}

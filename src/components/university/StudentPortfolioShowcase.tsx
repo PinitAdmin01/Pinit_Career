@@ -27,10 +27,17 @@ export const StudentPortfolioShowcase: React.FC<StudentPortfolioShowcaseProps> =
           if (storedUser) {
             try {
               const user = JSON.parse(storedUser);
-              const userName = user.displayName || user.name;
-              if (userName && updated.fullName === 'Arjun Verma' && !updated.studentId.includes('arjun')) {
+              const userName = user.displayName || user.name || user.fullName;
+              if (userName) {
                 updated.fullName = userName;
-                updated.studentId = user.id || updated.studentId;
+                if (user.id) updated.studentId = user.id;
+              }
+              const userCollege = user.college || user.university || user.onboardingAnswers?.college || user.onboardingAnswers?.university;
+              if (userCollege) {
+                updated.institutionName = userCollege;
+              }
+              if (user.cgpa && Number(user.cgpa) > 0) {
+                updated.cgpa = Number(user.cgpa);
               }
             } catch {}
           }
@@ -170,14 +177,7 @@ export const StudentPortfolioShowcase: React.FC<StudentPortfolioShowcaseProps> =
                     <span>⭐</span> CGPA {portfolio.cgpa.toFixed(2)}
                   </span>
                 </>
-              ) : (
-                <>
-                  <span className="meta-dot">•</span>
-                  <span className="meta-item cgpa text-muted-dim">
-                    <span>⭐</span> CGPA: Unrecorded (Self-Taught Track)
-                  </span>
-                </>
-              )}
+              ) : null}
               <span className="meta-dot">•</span>
               <span className="meta-item id-badge">
                 ID: {portfolio.studentId}

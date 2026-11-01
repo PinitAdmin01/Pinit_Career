@@ -200,10 +200,10 @@ export function generateStructuredResume(
     {
       id: 'edu-1',
       degree: profile.degree || 'Bachelor of Technology in Computer Science & Engineering',
-      institution: profile.institution || 'Apex Institute of Technology & Engineering',
+      institution: profile.institution || 'Self-Directed Software Engineering Track',
       year: profile.graduationYear || '2020 - 2024',
       description: 'Coursework: Data Structures & Algorithms, Database Systems, Cloud Computing, Operating Systems, Software Architecture.',
-      gpa: profile.gpa || '8.8 / 10.0 CGPA',
+      gpa: profile.gpa || undefined,
     },
   ];
 

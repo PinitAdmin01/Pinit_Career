@@ -1,9 +1,11 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { ambientAudio } from '@/lib/audio/ambientAudioEngine';
 
 export default function AmbientAudioToggle() {
+  const pathname = usePathname();
   const [isMuted, setIsMuted] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -21,6 +23,15 @@ export default function AmbientAudioToggle() {
   }, []);
 
   if (!mounted) return null;
+
+  // Never render floating audio widget on portfolio, verify, or passport pages where it obstructs cards on mobile
+  if (
+    pathname?.startsWith('/university') ||
+    pathname?.startsWith('/verify') ||
+    pathname?.startsWith('/passport')
+  ) {
+    return null;
+  }
 
   const toggleMute = () => {
     const nextState = !isMuted;
