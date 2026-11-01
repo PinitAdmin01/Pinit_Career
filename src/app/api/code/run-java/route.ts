@@ -32,7 +32,7 @@ async function persistJavaCompletionServerSide(uid: string, questId: string, xpA
   try {
     const { data: profile, error: fetchErr } = await admin
       .from('users')
-      .select('completed_quests, xp_total')
+      .select('completed_quests, xp_total, weekly_xp')
       .eq('id', uid)
       .single();
     if (fetchErr || !profile) {
@@ -43,9 +43,10 @@ async function persistJavaCompletionServerSide(uid: string, questId: string, xpA
     if (current.includes(questId)) return; // idempotent
     const newCompleted = [...current, questId];
     const newXp = (profile.xp_total || 0) + xpAmount;
+    const newWeeklyXp = (profile.weekly_xp || 0) + xpAmount;
     const { error: updateErr } = await admin
       .from('users')
-      .update({ completed_quests: newCompleted, xp_total: newXp })
+      .update({ completed_quests: newCompleted, xp_total: newXp, weekly_xp: newWeeklyXp })
       .eq('id', uid);
     if (updateErr) console.warn('[run-java] persistJavaCompletionServerSide update failed:', updateErr.message);
   } catch (e: any) {

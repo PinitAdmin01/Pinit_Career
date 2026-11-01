@@ -57,7 +57,7 @@ export async function POST(req: Request) {
     // Step 1: Fetch user profile
     const { data: profile, error: fetchErr } = await supabase
       .from('users')
-      .select('id, completed_quests, xp_total, onboarding_answers, pins')
+      .select('id, completed_quests, xp_total, weekly_xp, onboarding_answers, pins')
       .eq('id', userId)
       .single();
 
@@ -105,6 +105,7 @@ export async function POST(req: Request) {
     // Step 3: Atomic write with clamped XP and Pins
     const safePins = registeredQuest.pins || (isExam ? 6 : 5);
     let nextXp = (profile.xp_total || 0) + safeXp;
+    let nextWeeklyXp = (profile.weekly_xp || 0) + safeXp;
     let nextPins = (profile.pins || 0) + safePins;
 
     // Try authoritative increment_xp RPC first if available
@@ -114,8 +115,9 @@ export async function POST(req: Request) {
         p_amount: safeXp,
         p_reason: `quest:${questId}`,
       });
-      if (!rpcErr && rpcRes?.ok && typeof rpcRes.new_xp === 'number') {
-        nextXp = rpcRes.new_xp;
+      if (!rpcErr && rpcRes?.ok) {
+        if (typeof rpcRes.new_xp === 'number') nextXp = rpcRes.new_xp;
+        if (typeof rpcRes.new_weekly_xp === 'number') nextWeeklyXp = rpcRes.new_weekly_xp;
       }
     } catch {
       // Graceful fallback to direct calculation
@@ -149,6 +151,7 @@ export async function POST(req: Request) {
       .update({
         completed_quests: nextCompleted,
         xp_total: nextXp,
+        weekly_xp: nextWeeklyXp,
         pins: nextPins,
         onboarding_answers: nextAnswers,
       })
@@ -162,6 +165,7 @@ export async function POST(req: Request) {
       ok: true,
       completedQuests: nextCompleted,
       xpTotal: nextXp,
+      weeklyXp: nextWeeklyXp,
       pinsTotal: nextPins,
       pinsAwarded: safePins,
       dailyCompletionsCount: todayCompletions.length + 1,

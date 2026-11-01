@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { useAuth } from '@/lib/context/AuthContext';
+import { supabase } from '@/lib/supabaseClient';
 import LeagueBadge, { LeagueTier, LEAGUE_CONFIGS, normalizeLeagueTier } from '@/components/pins/LeagueBadge';
 import PinCoin from '@/components/pins/PinCoin';
 
@@ -89,7 +90,20 @@ function LeaderboardContent() {
           league: selectedLeague,
         });
 
-        const res = await fetch(`/api/leaderboard?${params.toString()}`);
+        let authHeader: Record<string, string> = {};
+        try {
+          const { data: { session } } = await supabase.auth.getSession();
+          if (session?.access_token) {
+            authHeader = { Authorization: `Bearer ${session.access_token}` };
+          }
+        } catch {}
+
+        const res = await fetch(`/api/leaderboard?${params.toString()}`, {
+          headers: {
+            ...authHeader,
+          },
+          cache: 'no-store',
+        });
         const data = await res.json();
 
         if (data.ok && isMounted) {
@@ -144,17 +158,17 @@ function LeaderboardContent() {
     <div style={{ background: 'transparent', color: 'var(--text)', maxWidth: 1340, margin: '0 auto', padding: '0 0 40px', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
 
       {/* ── Header Bar ─────────────────────────────────────────────────── */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24, borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: 16, flexWrap: 'wrap', gap: 14 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24, borderBottom: '1px solid var(--border)', paddingBottom: 16, flexWrap: 'wrap', gap: 14 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
           <LeagueBadge tier={currentUserLeague} size="sm" glow animate />
           <div>
-            <h1 style={{ margin: 0, fontSize: 26.5, fontWeight: 900, letterSpacing: '-0.5px', display: 'flex', alignItems: 'center', gap: 10 }}>
+            <h1 style={{ margin: 0, fontSize: 26.5, fontWeight: 900, letterSpacing: '-0.5px', display: 'flex', alignItems: 'center', gap: 10, color: 'var(--t1)' }}>
               Competency & Weekly Leagues
-              <span style={{ fontSize: 12, padding: '3px 10px', borderRadius: 20, background: userLeagueMeta.bgGradient, color: userLeagueMeta.color, border: `1px solid ${userLeagueMeta.color}40`, fontWeight: 800 }}>
+              <span style={{ fontSize: 12, padding: '3px 10px', borderRadius: 20, background: userLeagueMeta.bgGradient, color: userLeagueMeta.color, border: `1.5px solid ${userLeagueMeta.color}60`, fontWeight: 800 }}>
                 {userLeagueMeta.title}
               </span>
             </h1>
-            <p style={{ margin: '4px 0 0', fontSize: 14.5, color: 'var(--text-muted)' }}>
+            <p style={{ margin: '4px 0 0', fontSize: 14.5, color: 'var(--t2)' }}>
               7-Day Duolingo-Style Sprints · Top 10% Promote · Bottom 10% Demote · Resets Mondays at 1:00 AM IST
             </p>
           </div>
@@ -169,7 +183,7 @@ function LeaderboardContent() {
           </Link>
           <Link
             href="/pins"
-            style={{ padding: '8px 16px', borderRadius: 10, background: 'rgba(245,158,11,0.12)', color: '#fbbf24', fontSize: 14.5, textDecoration: 'none', border: '1px solid rgba(245,158,11,0.3)', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: 6 }}
+            style={{ padding: '8px 16px', borderRadius: 10, background: 'rgba(217,119,6,0.12)', color: '#d97706', fontSize: 14.5, textDecoration: 'none', border: '1px solid rgba(217,119,6,0.35)', boxShadow: 'var(--shadow-sm)', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: 6 }}
           >
             <PinCoin size={16} glow /> Pins Wallet
           </Link>
@@ -203,9 +217,9 @@ function LeaderboardContent() {
               borderRadius: 10,
               border: activeTab === tab.id ? '1.5px solid var(--accent)' : '1px solid transparent',
               background: activeTab === tab.id
-                ? 'linear-gradient(135deg, rgba(99,102,241,0.22), rgba(168,85,247,0.15))'
+                ? 'var(--accent-light)'
                 : 'transparent',
-              color: activeTab === tab.id ? 'var(--text)' : 'var(--t2)',
+              color: activeTab === tab.id ? 'var(--accent-hover, var(--brand-bright, #4f46e5))' : 'var(--t2)',
               fontWeight: 800,
               fontSize: 14.5,
               cursor: 'pointer',
@@ -230,9 +244,9 @@ function LeaderboardContent() {
           gap: 16,
           padding: '20px 24px',
           borderRadius: 20,
-          background: 'linear-gradient(135deg, rgba(15,23,42,0.85) 0%, rgba(30,41,59,0.7) 100%)',
-          border: `1.5px solid ${userLeagueMeta.color}35`,
-          boxShadow: `0 16px 40px rgba(0,0,0,0.4), inset 0 1px 0 ${userLeagueMeta.color}30`,
+          background: 'linear-gradient(135deg, var(--card) 0%, var(--bg3) 100%)',
+          border: `1.5px solid ${userLeagueMeta.color}45`,
+          boxShadow: `var(--shadow-md), 0 0 24px ${userLeagueMeta.color}15`,
           marginBottom: 24,
         }}>
           {/* Card 1: Active League & Rank Status */}
@@ -257,7 +271,7 @@ function LeaderboardContent() {
               Current Sprint Position
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 4 }}>
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 26.5, fontWeight: 900, color: '#fbbf24' }}>
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 26.5, fontWeight: 900, color: '#d97706' }}>
                 {currentUserEntry ? `#${currentUserEntry.rank}` : 'Unranked'}
               </span>
               <span style={{ fontSize: 14.5, color: 'var(--t2)', fontFamily: 'var(--font-mono)' }}>
@@ -267,15 +281,15 @@ function LeaderboardContent() {
 
             <div style={{ marginTop: 6 }}>
               {currentUserEntry?.zone === 'promotion' ? (
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(16,185,129,0.2)', border: '1px solid #10b981', color: '#10b981', fontSize: 12, fontWeight: 800 }}>
+                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(16,185,129,0.15)', border: '1px solid #10b981', color: '#059669', fontSize: 12, fontWeight: 800 }}>
                   ⬆️ In Promotion Zone! Advance to {userLeagueMeta.nextTier ? LEAGUE_CONFIGS[userLeagueMeta.nextTier].title : 'Champions'}
                 </span>
               ) : currentUserEntry?.zone === 'demotion' ? (
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(239,68,68,0.2)', border: '1px solid #ef4444', color: '#ef4444', fontSize: 12, fontWeight: 800 }}>
+                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(239,68,68,0.15)', border: '1px solid #ef4444', color: '#dc2626', fontSize: 12, fontWeight: 800 }}>
                   ⬇️ In Demotion Zone! Earn XP to remain in {userLeagueMeta.title}
                 </span>
               ) : (
-                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(99,102,241,0.15)', border: '1px solid #6366f1', color: '#818cf8', fontSize: 12, fontWeight: 800 }}>
+                <span style={{ padding: '4px 10px', borderRadius: 8, background: 'rgba(99,102,241,0.15)', border: '1px solid #6366f1', color: '#4f46e5', fontSize: 12, fontWeight: 800 }}>
                   ⏸️ Safe Zone — Remaining in {userLeagueMeta.title}
                 </span>
               )}
@@ -287,10 +301,10 @@ function LeaderboardContent() {
             <div style={{ fontSize: 12, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--t3)' }}>
               ⏳ Weekly Sprint Ends (Monday 1:00 AM IST)
             </div>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: 24, fontWeight: 900, color: remainingMs < 86400000 ? '#ef4444' : '#60a5fa', marginTop: 4 }}>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: 24, fontWeight: 900, color: remainingMs < 86400000 ? '#dc2626' : 'var(--blue, #2563eb)', marginTop: 4 }}>
               {formatCountdown(remainingMs)}
             </div>
-            <div style={{ fontSize: 12, color: 'var(--t4)', marginTop: 4 }}>
+            <div style={{ fontSize: 12, color: 'var(--t3)', marginTop: 4 }}>
               Top 10% promote ⬆️ · Bottom 10% demote ⬇️
             </div>
           </div>
@@ -320,9 +334,9 @@ function LeaderboardContent() {
                     gap: 12,
                     padding: '10px 14px',
                     borderRadius: 14,
-                    border: isSelected ? `2px solid ${meta.color}` : '1px solid rgba(255,255,255,0.08)',
-                    background: isSelected ? meta.bgGradient : 'rgba(255,255,255,0.02)',
-                    boxShadow: isSelected ? `0 4px 20px ${meta.glowColor}` : 'none',
+                    border: isSelected ? `2px solid ${meta.color}` : '1px solid var(--border)',
+                    background: isSelected ? meta.bgGradient : 'var(--card)',
+                    boxShadow: isSelected ? `0 4px 16px ${meta.glowColor}` : 'var(--shadow-sm)',
                     cursor: 'pointer',
                     textAlign: 'left',
                     transition: 'all 0.15s ease',
@@ -332,7 +346,7 @@ function LeaderboardContent() {
                   <div style={{ overflow: 'hidden' }}>
                     <div style={{ fontSize: 14.5, fontWeight: 900, color: isSelected ? meta.color : 'var(--t1)', display: 'flex', alignItems: 'center', gap: 6 }}>
                       {meta.title}
-                      {isUserTier && <span style={{ fontSize: 10, padding: '1px 5px', borderRadius: 4, background: meta.color, color: '#000', fontWeight: 900 }}>YOU</span>}
+                      {isUserTier && <span style={{ fontSize: 10, padding: '1px 5px', borderRadius: 4, background: meta.color, color: '#fff', fontWeight: 900 }}>YOU</span>}
                     </div>
                     <div style={{ fontSize: 11.5, color: 'var(--t3)', marginTop: 2 }}>
                       {count} {count === 1 ? 'Student' : 'Students'}
@@ -358,9 +372,10 @@ function LeaderboardContent() {
                 fontSize: 13,
                 fontWeight: 700,
                 textTransform: 'uppercase',
-                background: domainFilter === d ? 'var(--brand)' : 'rgba(255,255,255,0.04)',
-                border: 'none',
-                color: 'var(--text)',
+                background: domainFilter === d ? 'var(--brand)' : 'var(--card)',
+                border: domainFilter === d ? '1px solid var(--brand)' : '1px solid var(--border)',
+                color: domainFilter === d ? '#ffffff' : 'var(--t2)',
+                boxShadow: 'var(--shadow-sm)',
                 cursor: 'pointer',
                 transition: 'all 0.15s ease',
               }}
@@ -378,9 +393,10 @@ function LeaderboardContent() {
           style={{
             padding: '8px 16px',
             borderRadius: 10,
-            background: 'rgba(255,255,255,0.04)',
-            border: '1px solid rgba(255,255,255,0.12)',
-            color: 'var(--text)',
+            background: 'var(--card)',
+            border: '1px solid var(--border)',
+            color: 'var(--t1)',
+            boxShadow: 'var(--shadow-sm)',
             fontSize: 14.5,
             width: 300,
             outline: 'none',
@@ -389,10 +405,10 @@ function LeaderboardContent() {
       </div>
 
       {/* ── Leaderboard Table with Cutoff Dividers ─────────────────────── */}
-      <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 18, overflow: 'hidden' }}>
+      <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 18, overflow: 'hidden', boxShadow: 'var(--shadow-sm)' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: 14.5 }}>
           <thead>
-            <tr style={{ background: 'rgba(255,255,255,0.04)', borderBottom: '1px solid rgba(255,255,255,0.08)', color: 'var(--text-muted)', fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+            <tr style={{ background: 'var(--bg3)', borderBottom: '1px solid var(--border)', color: 'var(--t2)', fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
               <th style={{ padding: '14px 20px', width: 70 }}>Rank</th>
               <th style={{ padding: '14px 20px' }}>Student Candidate</th>
               <th style={{ padding: '14px 20px' }}>Program Track</th>
@@ -442,19 +458,19 @@ function LeaderboardContent() {
                   <React.Fragment key={entry.studentId}>
                     <tr
                       style={{
-                        borderBottom: '1px solid rgba(255,255,255,0.04)',
+                        borderBottom: '1px solid var(--border)',
                         background: entry.isCurrentUser
-                          ? 'rgba(99, 102, 241, 0.14)'
+                          ? 'rgba(99, 102, 241, 0.12)'
                           : isPromoting
-                          ? 'rgba(16, 185, 129, 0.04)'
+                          ? 'rgba(16, 185, 129, 0.05)'
                           : isDemoting
-                          ? 'rgba(239, 68, 68, 0.04)'
+                          ? 'rgba(239, 68, 68, 0.05)'
                           : 'transparent',
                         transition: 'background 0.15s ease',
                       }}
                     >
                       {/* Rank */}
-                      <td style={{ padding: '16px 20px', fontWeight: 900, fontSize: isTop3 ? 17.5 : 14.5, color: entry.rank === 1 ? '#fbbf24' : entry.rank === 2 ? '#cbd5e1' : entry.rank === 3 ? '#d97706' : '#94a3b8' }}>
+                      <td style={{ padding: '16px 20px', fontWeight: 900, fontSize: isTop3 ? 17.5 : 14.5, color: entry.rank === 1 ? '#d97706' : entry.rank === 2 ? '#64748b' : entry.rank === 3 ? '#b45309' : 'var(--t3)' }}>
                         {rankIcon}
                       </td>
 
@@ -470,13 +486,13 @@ function LeaderboardContent() {
                               width: 38,
                               height: 38,
                               borderRadius: 19,
-                              border: entry.isCurrentUser ? '2.5px solid #6366f1' : isPromoting ? '2px solid #10b981' : '1px solid rgba(255,255,255,0.1)',
+                              border: entry.isCurrentUser ? '2.5px solid #4f46e5' : isPromoting ? '2px solid #10b981' : '1px solid var(--border)',
                               objectFit: 'cover'
                             }}
                             unoptimized
                           />
                           <div>
-                            <div style={{ fontWeight: 800, color: entry.isCurrentUser ? '#a5b4fc' : '#f8fafc', display: 'flex', alignItems: 'center', gap: 6 }}>
+                            <div style={{ fontWeight: 800, color: entry.isCurrentUser ? '#4f46e5' : 'var(--t1)', display: 'flex', alignItems: 'center', gap: 6 }}>
                               {entry.name}
                               {entry.isCurrentUser && (
                                 <span style={{ fontSize: 10.5, padding: '2px 7px', borderRadius: 5, background: '#4f46e5', color: '#fff', fontWeight: 900 }}>
@@ -484,13 +500,13 @@ function LeaderboardContent() {
                                 </span>
                               )}
                             </div>
-                            <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>{entry.college}</div>
+                            <div style={{ fontSize: 12, color: 'var(--t3)' }}>{entry.college}</div>
                           </div>
                         </div>
                       </td>
 
                       {/* Track */}
-                      <td style={{ padding: '16px 20px', color: 'var(--text-muted)' }}>
+                      <td style={{ padding: '16px 20px', color: 'var(--t2)' }}>
                         {entry.programTitle}
                       </td>
 
@@ -498,21 +514,21 @@ function LeaderboardContent() {
                       <td style={{ padding: '16px 20px' }}>
                         {activeTab === 'weekly_leagues' ? (
                           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 15.5, fontWeight: 900, color: '#fbbf24' }}>
+                            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 15.5, fontWeight: 900, color: '#d97706' }}>
                               +{entry.weeklyXp.toLocaleString()}
                             </span>
                             <span style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 700 }}>XP</span>
                           </div>
                         ) : activeTab === 'code_wars' ? (
-                          <span style={{ padding: '4px 8px', borderRadius: 6, background: 'rgba(239,68,68,0.15)', color: '#ef4444', fontWeight: 800, fontSize: 13 }}>
+                          <span style={{ padding: '4px 8px', borderRadius: 6, background: 'rgba(239,68,68,0.12)', color: '#dc2626', fontWeight: 800, fontSize: 13, border: '1px solid rgba(239,68,68,0.25)' }}>
                             ⚔️ {entry.eloRating} ELO
                           </span>
                         ) : (
                           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                            <span style={{ padding: '4px 8px', borderRadius: 6, background: 'rgba(16,185,129,0.15)', color: '#10b981', fontWeight: 800, fontSize: 13 }}>
+                            <span style={{ padding: '4px 8px', borderRadius: 6, background: 'rgba(16,185,129,0.12)', color: '#059669', fontWeight: 800, fontSize: 13, border: '1px solid rgba(16,185,129,0.25)' }}>
                               🛡️ {entry.verifiedSkillsCount} Verified
                             </span>
-                            <span style={{ fontSize: 12, color: 'var(--text-dim)' }}>
+                            <span style={{ fontSize: 12, color: 'var(--t3)' }}>
                               ({entry.demonstratedSkillsCount} dem.)
                             </span>
                           </div>
@@ -523,15 +539,15 @@ function LeaderboardContent() {
                       <td style={{ padding: '16px 20px' }}>
                         {activeTab === 'weekly_leagues' ? (
                           isPromoting ? (
-                            <span style={{ padding: '4px 10px', borderRadius: 6, background: 'rgba(16,185,129,0.18)', color: '#10b981', fontWeight: 800, fontSize: 12.5, display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                            <span style={{ padding: '4px 10px', borderRadius: 6, background: 'rgba(16,185,129,0.15)', color: '#059669', fontWeight: 800, fontSize: 12.5, display: 'inline-flex', alignItems: 'center', gap: 4, border: '1px solid rgba(16,185,129,0.3)' }}>
                               ⬆️ Promoting
                             </span>
                           ) : isDemoting ? (
-                            <span style={{ padding: '4px 10px', borderRadius: 6, background: 'rgba(239,68,68,0.18)', color: '#ef4444', fontWeight: 800, fontSize: 12.5, display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                            <span style={{ padding: '4px 10px', borderRadius: 6, background: 'rgba(239,68,68,0.15)', color: '#dc2626', fontWeight: 800, fontSize: 12.5, display: 'inline-flex', alignItems: 'center', gap: 4, border: '1px solid rgba(239,68,68,0.3)' }}>
                               ⬇️ Demoting
                             </span>
                           ) : (
-                            <span style={{ padding: '4px 10px', borderRadius: 6, background: 'rgba(255,255,255,0.06)', color: 'var(--t3)', fontWeight: 700, fontSize: 12.5 }}>
+                            <span style={{ padding: '4px 10px', borderRadius: 6, background: 'var(--bg3)', color: 'var(--t2)', fontWeight: 700, fontSize: 12.5, border: '1px solid var(--border)' }}>
                               ⏸️ Safe Zone
                             </span>
                           )
@@ -554,8 +570,8 @@ function LeaderboardContent() {
                           fontSize: 12,
                           fontWeight: 700,
                           textTransform: 'uppercase',
-                          background: entry.readinessStatus === 'ready_for_interview' ? 'rgba(16,185,129,0.15)' : entry.readinessStatus === 'ready_for_internship' ? 'rgba(56,189,248,0.15)' : 'rgba(234, 179, 8, 0.15)',
-                          color: entry.readinessStatus === 'ready_for_interview' ? '#10b981' : entry.readinessStatus === 'ready_for_internship' ? '#38bdf8' : '#facc15'
+                          background: entry.readinessStatus === 'ready_for_interview' ? 'rgba(16,185,129,0.15)' : entry.readinessStatus === 'ready_for_internship' ? 'rgba(2,132,199,0.15)' : 'rgba(217,119,6,0.15)',
+                          color: entry.readinessStatus === 'ready_for_interview' ? '#059669' : entry.readinessStatus === 'ready_for_internship' ? '#0284c7' : '#b45309'
                         }}>
                           {entry.readinessStatus.replace(/_/g, ' ')}
                         </span>
@@ -566,7 +582,7 @@ function LeaderboardContent() {
                     {renderPromotionDivider && (
                       <tr>
                         <td colSpan={6} style={{ padding: '0', background: 'rgba(16,185,129,0.12)', borderTop: '2px solid #10b981', borderBottom: '2px solid #10b981' }}>
-                          <div style={{ padding: '6px 20px', fontSize: 12, fontWeight: 800, color: '#10b981', display: 'flex', alignItems: 'center', justifyContent: 'space-between', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+                          <div style={{ padding: '6px 20px', fontSize: 12, fontWeight: 800, color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'space-between', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
                             <span>⬆️ PROMOTION ZONE (Top 10%) — Advance to {activeLeagueMeta.nextTier ? LEAGUE_CONFIGS[activeLeagueMeta.nextTier].title : 'Champions'}</span>
                             <span>Monday 1:00 AM IST</span>
                           </div>
@@ -578,7 +594,7 @@ function LeaderboardContent() {
                     {renderDemotionDivider && (
                       <tr>
                         <td colSpan={6} style={{ padding: '0', background: 'rgba(239,68,68,0.12)', borderTop: '2px solid #ef4444', borderBottom: '2px solid #ef4444' }}>
-                          <div style={{ padding: '6px 20px', fontSize: 12, fontWeight: 800, color: '#ef4444', display: 'flex', alignItems: 'center', justifyContent: 'space-between', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+                          <div style={{ padding: '6px 20px', fontSize: 12, fontWeight: 800, color: '#dc2626', display: 'flex', alignItems: 'center', justifyContent: 'space-between', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
                             <span>⬇️ DEMOTION ZONE (Bottom 10%) — Risk of falling back to {activeLeagueMeta.prevTier ? LEAGUE_CONFIGS[activeLeagueMeta.prevTier].title : 'Base'}</span>
                             <span>Monday 1:00 AM IST</span>
                           </div>

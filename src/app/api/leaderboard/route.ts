@@ -53,10 +53,22 @@ export async function GET(req: Request) {
     const rl = checkRateLimit(`leaderboard_${ip}`, { limit: 60, windowMs: 60_000 });
     if (!rl.allowed) return NextResponse.json({ error: 'RATE_LIMIT' }, { status: 429 });
 
-    // Students' names, colleges and scores: signed-in users only.
-    const gated = await requireUserFromRequest(req);
-    if (gated.error) return gated.error;
-    const currentUserId = gated.user?.id;
+        // Identify current user if signed in (bearer token or cookie fallback)
+    let currentUserId: string | null = null;
+    try {
+      const gated = await requireUserFromRequest(req);
+      if (!gated.error && gated.user?.id) {
+        currentUserId = gated.user.id;
+      }
+    } catch {}
+
+    if (!currentUserId) {
+      const cookieHeader = req.headers.get('cookie') || '';
+      const uidMatch = cookieHeader.match(/pinit_uid=([^;]+)/);
+      if (uidMatch && uidMatch[1]) {
+        currentUserId = decodeURIComponent(uidMatch[1].trim());
+      }
+    }
 
     const url = new URL(req.url);
     const mode = url.searchParams.get('mode') || 'weekly_leagues';
@@ -270,6 +282,12 @@ export async function GET(req: Request) {
       sprintEndsAt: sprintEndsAt.toISOString(),
       remainingMs,
       leagueCounts,
+    }, {
+      headers: {
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+      }
     });
   } catch (err: any) {
     console.error('[Leaderboard] Server Error:', err);
