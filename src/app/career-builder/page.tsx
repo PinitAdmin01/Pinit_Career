@@ -172,7 +172,6 @@ export default function CareerBuilderPage() {
   const trajectoryCatalog = useMemo<TrajectoryCatalogItem[]>(() => {
     const list: TrajectoryCatalogItem[] = [];
 
-    // Map each canonical trajectory
     for (const [key, traj] of Object.entries(CANONICAL_TRAJECTORIES)) {
       let cat: DomainCategory = 'engineering';
       let catLabel = 'Engineering & SDE';
@@ -354,7 +353,11 @@ export default function CareerBuilderPage() {
     setAtsScore(finalScore);
     setAtsGaps(detectedGaps);
 
-    toast.success('ATS Analysis Complete! 🎯', `Matched ${finalScore}% compatibility across ${jdRequired.length} detected JD competencies.`);
+    if (jdRequired.length === 0 && detectedGaps.length === 0) {
+      toast.info('Low Keyword Match', 'No recognizable technical skills found in this text. Try a technical job posting.');
+    } else {
+      toast.success('ATS Analysis Complete! 🎯', `Matched ${finalScore}% compatibility across ${jdRequired.length} detected JD competencies.`);
+    }
   }, [jdText, synthesizedResume, skillProfile, selectedTrajectory]);
 
   // Consented Roadmap Addition
@@ -369,7 +372,6 @@ export default function CareerBuilderPage() {
       localStorage.setItem(`pinit_${userId}_consented_ats_gaps`, JSON.stringify(pendingTerms));
     }
 
-    // Regenerate roadmap with new gap competencies
     setLoading(true);
     try {
       const skills = selectedTrajectory?.skills || [];
@@ -397,7 +399,6 @@ export default function CareerBuilderPage() {
     const primaryCourse = selectedTrajectory.primaryCourseId;
 
     try {
-      // Synchronize onboarding context answers first
       cOS.setOnboarding({
         role: targetLabel,
         education: onboardingAnswers?.education || 'B.Tech Computer Science',
@@ -407,7 +408,6 @@ export default function CareerBuilderPage() {
         roadmapDailyPace: studyPace,
       });
 
-      // Pass the trajectory's exact primary courseId and duration
       const res = await cOS.generateFusedRoadmap(
         selectedTrajectory.skills,
         ['System Design', 'Enterprise Security'],
@@ -458,14 +458,30 @@ export default function CareerBuilderPage() {
 
   // Download plain text ATS resume
   const handleDownloadTxt = () => {
-    const element = document.createElement('a');
-    const file = new Blob([synthesizedResume.plainText], { type: 'text/plain' });
-    element.href = URL.createObjectURL(file);
-    element.download = `${candidateInput.fullName.replace(/\s+/g, '_')}_ATS_Resume.txt`;
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
-    toast.success('Downloaded Plain Text ATS Resume! 📄');
+    try {
+      const element = document.createElement('a');
+      const file = new Blob([synthesizedResume.plainText], { type: 'text/plain' });
+      element.href = URL.createObjectURL(file);
+      element.download = `${candidateInput.fullName.replace(/\s+/g, '_')}_ATS_Resume.txt`;
+      document.body.appendChild(element);
+      element.click();
+      document.body.removeChild(element);
+      toast.success('Downloaded Plain Text ATS Resume! 📄');
+    } catch (err) {
+      console.error(err);
+      toast.error('Download Failed', 'Could not initiate file download.');
+    }
+  };
+
+  // Safe clipboard copy
+  const handleCopyPlainText = () => {
+    if (navigator?.clipboard?.writeText) {
+      navigator.clipboard.writeText(synthesizedResume.plainText)
+        .then(() => toast.success('Copied Plain Text Resume! 📋'))
+        .catch(() => toast.info('Clipboard Copy', 'Please select text and use Ctrl+C / Cmd+C.'));
+    } else {
+      toast.info('Clipboard Copy', 'Please select text and use Ctrl+C / Cmd+C.');
+    }
   };
 
   return (
@@ -582,7 +598,7 @@ export default function CareerBuilderPage() {
 
       {/* ── TAB 1: CUSTOM ROADMAP FUSER ─────────────────────────────────── */}
       {activeView === 'roadmap' ? (
-        <div style={{ display: 'grid', gridTemplateColumns: previewModules.length > 0 ? '1fr 1.25fr' : '1fr', gap: 28 }}>
+        <div className="career-builder-layout-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1.25fr', gap: 28 }}>
           {/* Left Panel: Target Trajectory Selection & Settings */}
           <section style={{ display: 'flex', flexDirection: 'column', gap: 22 }}>
             <div style={{
@@ -882,242 +898,332 @@ export default function CareerBuilderPage() {
             </div>
           </section>
 
-          {/* Right Panel: Module & Quest Interactive Preview */}
-          {previewModules.length > 0 && (
-            <section style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-              {/* Header with Stage Count and Activation Button */}
-              <div style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                flexWrap: 'wrap',
-                gap: 12
-              }}>
-                <div>
-                  <h2 style={{ fontSize: 18, fontWeight: 900, color: 'var(--t1)', margin: '0 0 2px' }}>
-                    Compiled Quest Trajectory ({previewModules.length} Stages)
-                  </h2>
-                  <span style={{ fontSize: 12, color: 'var(--t2)', fontFamily: 'var(--font-mono)' }}>
-                    Total Estimated Duration: ~{previewModules.reduce((acc, m) => acc + (m.estimatedWeeks || 2), 0)} Weeks
-                  </span>
+          {/* Right Panel: Module & Quest Interactive Preview or Blueprint Preview */}
+          <section style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+            {previewModules.length > 0 ? (
+              <>
+                {/* Header with Stage Count and Activation Button */}
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  flexWrap: 'wrap',
+                  gap: 12
+                }}>
+                  <div>
+                    <h2 style={{ fontSize: 18, fontWeight: 900, color: 'var(--t1)', margin: '0 0 2px' }}>
+                      Compiled Quest Trajectory ({previewModules.length} Stages)
+                    </h2>
+                    <span style={{ fontSize: 12, color: 'var(--t2)', fontFamily: 'var(--font-mono)' }}>
+                      Total Estimated Duration: ~{previewModules.reduce((acc, m) => acc + (m.estimatedWeeks || 2), 0)} Weeks
+                    </span>
+                  </div>
+
+                  <button
+                    onClick={handleActivateRoadmap}
+                    style={{
+                      padding: '10px 20px',
+                      borderRadius: 10,
+                      border: 'none',
+                      background: 'var(--green)',
+                      color: '#fff',
+                      fontWeight: 900,
+                      fontSize: 13.5,
+                      cursor: 'pointer',
+                      boxShadow: '0 4px 14px rgba(16, 185, 129, 0.35)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 8,
+                      transition: 'all 0.15s ease'
+                    }}
+                  >
+                    Activate & Enter Playground ➔
+                  </button>
                 </div>
 
-                <button
-                  onClick={handleActivateRoadmap}
-                  style={{
-                    padding: '10px 20px',
-                    borderRadius: 10,
-                    border: 'none',
-                    background: 'var(--green)',
-                    color: '#fff',
-                    fontWeight: 900,
-                    fontSize: 13.5,
-                    cursor: 'pointer',
-                    boxShadow: '0 4px 14px rgba(16, 185, 129, 0.35)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 8,
-                    transition: 'all 0.15s ease'
-                  }}
-                >
-                  Activate & Enter Playground ➔
-                </button>
-              </div>
+                {/* Timeline Tree Layout */}
+                <div style={{ position: 'relative', paddingLeft: 30 }}>
+                  <div style={{
+                    position: 'absolute',
+                    top: 14,
+                    bottom: 14,
+                    left: 10,
+                    width: 3,
+                    background: 'linear-gradient(180deg, var(--accent) 0%, #10b981 100%)',
+                    opacity: 0.4,
+                    borderRadius: 2
+                  }} />
 
-              {/* Timeline Tree Layout */}
-              <div style={{ position: 'relative', paddingLeft: 30 }}>
-                {/* Vertical Gradient Connector */}
-                <div style={{
-                  position: 'absolute',
-                  top: 14,
-                  bottom: 14,
-                  left: 10,
-                  width: 3,
-                  background: 'linear-gradient(180deg, var(--accent) 0%, #10b981 100%)',
-                  opacity: 0.4,
-                  borderRadius: 2
-                }} />
+                  {previewModules.map((mod, modIdx) => {
+                    const isExpanded = expandedStageIndex === modIdx;
+                    return (
+                      <div key={mod.id || modIdx} style={{ marginBottom: 24, position: 'relative' }}>
+                        <div style={{
+                          position: 'absolute',
+                          left: -27,
+                          top: 6,
+                          width: 16,
+                          height: 16,
+                          borderRadius: '50%',
+                          background: 'var(--bg1)',
+                          border: '3px solid var(--accent)',
+                          boxShadow: '0 0 10px var(--accent)',
+                          zIndex: 2
+                        }} />
 
-                {previewModules.map((mod, modIdx) => {
-                  const isExpanded = expandedStageIndex === modIdx;
-                  return (
-                    <div key={mod.id || modIdx} style={{ marginBottom: 24, position: 'relative' }}>
-                      {/* Timeline Dot Node */}
-                      <div style={{
-                        position: 'absolute',
-                        left: -27,
-                        top: 6,
-                        width: 16,
-                        height: 16,
-                        borderRadius: '50%',
-                        background: 'var(--bg1)',
-                        border: '3px solid var(--accent)',
-                        boxShadow: '0 0 10px var(--accent)',
-                        zIndex: 2
-                      }} />
+                        <div style={{
+                          background: 'var(--bg2)',
+                          border: '1px solid var(--border)',
+                          borderRadius: 16,
+                          padding: 18,
+                          boxShadow: 'var(--shadow-sm)'
+                        }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+                            <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                              <span style={{
+                                fontSize: 11,
+                                background: 'rgba(99, 102, 241, 0.15)',
+                                color: 'var(--accent)',
+                                border: '1px solid rgba(99, 102, 241, 0.3)',
+                                padding: '2px 10px',
+                                borderRadius: 12,
+                                fontWeight: 800,
+                                fontFamily: 'var(--font-mono)'
+                              }}>
+                                STAGE {modIdx + 1}
+                              </span>
+                              <span style={{
+                                fontSize: 11,
+                                background: 'var(--bg3)',
+                                color: 'var(--t2)',
+                                padding: '2px 8px',
+                                borderRadius: 8,
+                                fontWeight: 700
+                              }}>
+                                {mod.difficulty || 'Intermediate'}
+                              </span>
+                            </div>
 
-                      {/* Stage Card */}
-                      <div style={{
-                        background: 'var(--bg2)',
-                        border: '1px solid var(--border)',
-                        borderRadius: 16,
-                        padding: 18,
-                        boxShadow: 'var(--shadow-sm)'
-                      }}>
-                        {/* Stage Badges Row */}
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-                          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                            <span style={{
-                              fontSize: 11,
-                              background: 'rgba(99, 102, 241, 0.15)',
-                              color: 'var(--accent)',
-                              border: '1px solid rgba(99, 102, 241, 0.3)',
-                              padding: '2px 10px',
-                              borderRadius: 12,
-                              fontWeight: 800,
-                              fontFamily: 'var(--font-mono)'
-                            }}>
-                              STAGE {modIdx + 1}
-                            </span>
-                            <span style={{
-                              fontSize: 11,
-                              background: 'var(--bg3)',
-                              color: 'var(--t2)',
-                              padding: '2px 8px',
-                              borderRadius: 8,
-                              fontWeight: 700
-                            }}>
-                              {mod.difficulty || 'Intermediate'}
+                            <span style={{ fontSize: 12, fontFamily: 'var(--font-mono)', color: 'var(--t2)', fontWeight: 700 }}>
+                              ⏳ {mod.estimatedWeeks || 2} Weeks
                             </span>
                           </div>
 
-                          <span style={{ fontSize: 12, fontFamily: 'var(--font-mono)', color: 'var(--t2)', fontWeight: 700 }}>
-                            ⏳ {mod.estimatedWeeks || 2} Weeks
-                          </span>
-                        </div>
+                          <h3 style={{ fontSize: 16, fontWeight: 900, color: 'var(--t1)', margin: '0 0 6px', letterSpacing: '-0.2px' }}>
+                            {mod.title}
+                          </h3>
+                          <p style={{ fontSize: 13, color: 'var(--t2)', margin: '0 0 12px', lineHeight: 1.5 }}>
+                            {mod.desc}
+                          </p>
 
-                        {/* Title and Scope Description */}
-                        <h3 style={{ fontSize: 16, fontWeight: 900, color: 'var(--t1)', margin: '0 0 6px', letterSpacing: '-0.2px' }}>
-                          {mod.title}
-                        </h3>
-                        <p style={{ fontSize: 13, color: 'var(--t2)', margin: '0 0 12px', lineHeight: 1.5 }}>
-                          {mod.desc}
-                        </p>
-
-                        {/* Industry Gate Requirement Notice */}
-                        <div style={{
-                          padding: '8px 12px',
-                          borderRadius: 8,
-                          background: 'rgba(16, 185, 129, 0.08)',
-                          border: '1px solid rgba(16, 185, 129, 0.25)',
-                          fontSize: 12,
-                          color: 'var(--green)',
-                          fontFamily: 'var(--font-mono)',
-                          fontWeight: 700,
-                          marginBottom: 12,
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: 6
-                        }}>
-                          <span>🔒 Milestone Gate:</span> Requires 100% stage quest completion + verified capstone challenge.
-                        </div>
-
-                        {/* Expandable Quest Inspector Button */}
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <button
-                            onClick={() => setExpandedStageIndex(isExpanded ? null : modIdx)}
-                            style={{
-                              padding: '6px 12px',
-                              borderRadius: 8,
-                              border: '1px solid var(--border)',
-                              background: 'var(--bg3)',
-                              color: 'var(--t1)',
-                              fontSize: 12,
-                              fontFamily: 'var(--font-mono)',
-                              fontWeight: 700,
-                              cursor: 'pointer',
-                              display: 'flex',
-                              alignItems: 'center',
-                              gap: 6
-                            }}
-                          >
-                            <span>{isExpanded ? '▲ Hide Quests' : '▼ View Quests'}</span> ({mod.quests?.length || 0} quests)
-                          </button>
-
-                          <span style={{ fontSize: 11, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
-                            {mod.personalizedPaceTag || '🎯 Calibrated'}
-                          </span>
-                        </div>
-
-                        {/* Expanded Quests List */}
-                        {isExpanded && mod.quests && mod.quests.length > 0 && (
                           <div style={{
-                            marginTop: 14,
-                            paddingTop: 14,
-                            borderTop: '1px solid var(--border)',
+                            padding: '8px 12px',
+                            borderRadius: 8,
+                            background: 'rgba(16, 185, 129, 0.08)',
+                            border: '1px solid rgba(16, 185, 129, 0.25)',
+                            fontSize: 12,
+                            color: 'var(--green)',
+                            fontFamily: 'var(--font-mono)',
+                            fontWeight: 700,
+                            marginBottom: 12,
                             display: 'flex',
-                            flexDirection: 'column',
-                            gap: 8
+                            alignItems: 'center',
+                            gap: 6
                           }}>
-                            {mod.quests.map((q, qIdx) => (
-                              <div
-                                key={q.id || qIdx}
-                                style={{
-                                  padding: '10px 12px',
-                                  borderRadius: 8,
-                                  background: 'var(--bg3)',
-                                  border: '1px solid var(--border)',
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  justifyContent: 'space-between',
-                                  gap: 12
-                                }}
-                              >
-                                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                                  <span style={{ fontSize: 16 }}>
-                                    {q.category === 'exam' ? '🏆' : q.category === 'assignment' ? '📝' : q.type === 'coding' ? '💻' : '📖'}
-                                  </span>
-                                  <div>
-                                    <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--t1)' }}>
-                                      {q.title}
-                                    </div>
-                                    {q.personalizedHint && (
-                                      <div style={{ fontSize: 11, color: 'var(--accent)', fontFamily: 'var(--font-mono)', marginTop: 2 }}>
-                                        {q.personalizedHint}
+                            <span>🔒 Milestone Gate:</span> Requires 100% stage quest completion + verified capstone challenge.
+                          </div>
+
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <button
+                              onClick={() => setExpandedStageIndex(isExpanded ? null : modIdx)}
+                              style={{
+                                padding: '6px 12px',
+                                borderRadius: 8,
+                                border: '1px solid var(--border)',
+                                background: 'var(--bg3)',
+                                color: 'var(--t1)',
+                                fontSize: 12,
+                                fontFamily: 'var(--font-mono)',
+                                fontWeight: 700,
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: 6
+                              }}
+                            >
+                              <span>{isExpanded ? '▲ Hide Quests' : '▼ View Quests'}</span> ({mod.quests?.length || 0} quests)
+                            </button>
+
+                            <span style={{ fontSize: 11, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
+                              {mod.personalizedPaceTag || '🎯 Calibrated'}
+                            </span>
+                          </div>
+
+                          {isExpanded && mod.quests && mod.quests.length > 0 && (
+                            <div style={{
+                              marginTop: 14,
+                              paddingTop: 14,
+                              borderTop: '1px solid var(--border)',
+                              display: 'flex',
+                              flexDirection: 'column',
+                              gap: 8
+                            }}>
+                              {mod.quests.map((q, qIdx) => (
+                                <div
+                                  key={q.id || qIdx}
+                                  style={{
+                                    padding: '10px 12px',
+                                    borderRadius: 8,
+                                    background: 'var(--bg3)',
+                                    border: '1px solid var(--border)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'space-between',
+                                    gap: 12
+                                  }}
+                                >
+                                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                                    <span style={{ fontSize: 16 }}>
+                                      {q.category === 'exam' ? '🏆' : q.category === 'assignment' ? '📝' : q.type === 'coding' ? '💻' : '📖'}
+                                    </span>
+                                    <div>
+                                      <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--t1)' }}>
+                                        {q.title}
                                       </div>
-                                    )}
+                                      {q.personalizedHint && (
+                                        <div style={{ fontSize: 11, color: 'var(--accent)', fontFamily: 'var(--font-mono)', marginTop: 2 }}>
+                                          {q.personalizedHint}
+                                        </div>
+                                      )}
+                                    </div>
+                                  </div>
+
+                                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                                    <span style={{
+                                      fontSize: 10.5,
+                                      textTransform: 'uppercase',
+                                      padding: '2px 6px',
+                                      borderRadius: 4,
+                                      background: 'var(--bg2)',
+                                      color: 'var(--t2)',
+                                      fontFamily: 'var(--font-mono)',
+                                      fontWeight: 700
+                                    }}>
+                                      {q.category || q.type || 'Quest'}
+                                    </span>
                                   </div>
                                 </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </>
+            ) : (
+              /* Initial Trajectory Architecture Blueprint Preview */
+              <div style={{
+                background: 'var(--bg2)',
+                border: '1px solid var(--border)',
+                borderRadius: 18,
+                padding: 24,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 18,
+                boxShadow: 'var(--shadow-sm)'
+              }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border)', paddingBottom: 14 }}>
+                  <div>
+                    <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                      CANONICAL ARCHITECTURE BLUEPRINT
+                    </span>
+                    <h3 style={{ fontSize: 18, fontWeight: 900, color: 'var(--t1)', margin: '4px 0 2px' }}>
+                      {selectedTrajectory.roleTitle} Trajectory
+                    </h3>
+                    <span style={{ fontSize: 12, color: 'var(--t2)', fontFamily: 'var(--font-mono)' }}>
+                      Industry Benchmark: {selectedTrajectory.averageSalaryRange} &middot; Total Timeline: {selectedTrajectory.targetTotalDays} Days
+                    </span>
+                  </div>
 
-                                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                                  <span style={{
-                                    fontSize: 10.5,
-                                    textTransform: 'uppercase',
-                                    padding: '2px 6px',
-                                    borderRadius: 4,
-                                    background: 'var(--bg2)',
-                                    color: 'var(--t2)',
-                                    fontFamily: 'var(--font-mono)',
-                                    fontWeight: 700
-                                  }}>
-                                    {q.category || q.type || 'Quest'}
-                                  </span>
-                                </div>
-                              </div>
-                            ))}
+                  <span style={{ fontSize: 32 }}>{selectedTrajectory.icon}</span>
+                </div>
+
+                <div style={{
+                  padding: 12,
+                  borderRadius: 10,
+                  background: 'rgba(99, 102, 241, 0.08)',
+                  border: '1px solid rgba(99, 102, 241, 0.25)',
+                  fontSize: 12.5,
+                  color: 'var(--t1)',
+                  lineHeight: 1.5
+                }}>
+                  ⚡ <strong>Interactive Preview Mode:</strong> This blueprint previews the 4 progressive milestones for <strong>{selectedTrajectory.roleTitle}</strong>. Click the <em>&ldquo;⚡ Synthesize Custom AI Roadmap&rdquo;</em> button to calibrate these stages against your diagnostic profile scores.
+                </div>
+
+                {/* Milestone Node Blueprint List */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+                  {selectedTrajectory.nodes.map((node, nIdx) => (
+                    <div
+                      key={node.nodeId || nIdx}
+                      style={{
+                        padding: 14,
+                        borderRadius: 12,
+                        background: 'var(--bg3)',
+                        border: '1px solid var(--border)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 8
+                      }}
+                    >
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                          <span style={{ fontSize: 18 }}>{node.icon || '📌'}</span>
+                          <div>
+                            <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)' }}>
+                              Stage {nIdx + 1}: {node.title}
+                            </div>
+                            <div style={{ fontSize: 12, color: 'var(--t2)', marginTop: 2 }}>
+                              {node.shortDesc}
+                            </div>
                           </div>
-                        )}
+                        </div>
+
+                        <span style={{ fontSize: 11.5, fontFamily: 'var(--font-mono)', color: 'var(--green)', fontWeight: 800 }}>
+                          {node.careerImpact}
+                        </span>
+                      </div>
+
+                      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 4 }}>
+                        {node.skillsLearned.map((sk, sIdx) => (
+                          <span
+                            key={sIdx}
+                            style={{
+                              fontSize: 10.5,
+                              padding: '2px 6px',
+                              borderRadius: 4,
+                              background: 'var(--bg2)',
+                              color: 'var(--t2)',
+                              border: '1px solid var(--border)',
+                              fontFamily: 'var(--font-mono)',
+                              fontWeight: 700
+                            }}
+                          >
+                            {sk}
+                          </span>
+                        ))}
                       </div>
                     </div>
-                  );
-                })}
+                  ))}
+                </div>
               </div>
-            </section>
-          )}
+            )}
+          </section>
         </div>
       ) : (
         /* ── TAB 2: AI RESUME & ATS GAP LOOP ───────────────────────────── */
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.25fr', gap: 28 }}>
+        <div className="career-builder-layout-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1.25fr', gap: 28 }}>
           {/* Left Panel: Target Job Description Scanner */}
           <section style={{ display: 'flex', flexDirection: 'column', gap: 22 }}>
             <div style={{
@@ -1225,7 +1331,6 @@ export default function CareerBuilderPage() {
                   flexDirection: 'column',
                   gap: 14
                 }}>
-                  {/* Overall Score Header */}
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div>
                       <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--t2)' }}>
@@ -1246,7 +1351,6 @@ export default function CareerBuilderPage() {
                     </span>
                   </div>
 
-                  {/* Vendor Simulation Profiles Breakdown */}
                   {atsAuditReport?.vendorProfiles && (
                     <div style={{
                       background: 'var(--bg2)',
@@ -1283,7 +1387,6 @@ export default function CareerBuilderPage() {
                     </div>
                   )}
 
-                  {/* Gaps List */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                     <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--t2)', textTransform: 'uppercase' }}>
                       Detected Taxonomy & Skill Match:
@@ -1335,7 +1438,6 @@ export default function CareerBuilderPage() {
                     )}
                   </div>
 
-                  {/* Consented Gap Addition Action */}
                   {atsGaps.some(g => !g.isSatisfied) && (
                     <button
                       onClick={handleAcceptGaps}
@@ -1376,7 +1478,6 @@ export default function CareerBuilderPage() {
               gap: 18,
               boxShadow: 'var(--shadow-sm)'
             }}>
-              {/* Header and Style Selector */}
               <div style={{
                 display: 'flex',
                 justifyContent: 'space-between',
@@ -1395,7 +1496,6 @@ export default function CareerBuilderPage() {
                   </span>
                 </div>
 
-                {/* View Format Switcher */}
                 <div style={{ display: 'flex', gap: 6 }}>
                   <button
                     onClick={() => setResumeMode('modern_visual')}
@@ -1448,13 +1548,9 @@ export default function CareerBuilderPage() {
                 </div>
               </div>
 
-              {/* Action Buttons Row */}
               <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                 <button
-                  onClick={() => {
-                    navigator.clipboard.writeText(synthesizedResume.plainText);
-                    toast.success('Copied Plain Text Resume! 📋');
-                  }}
+                  onClick={handleCopyPlainText}
                   style={{
                     padding: '8px 14px',
                     borderRadius: 8,
@@ -1514,7 +1610,6 @@ export default function CareerBuilderPage() {
                 </button>
               </div>
 
-              {/* Resume Preview Box */}
               {resumeMode === 'markdown' ? (
                 <pre style={{
                   background: 'var(--bg3)',
@@ -1532,7 +1627,6 @@ export default function CareerBuilderPage() {
                   {synthesizedResume.plainText}
                 </pre>
               ) : resumeMode === 'ats_clean' ? (
-                /* Strict Clean Single-Column ATS Format */
                 <div style={{
                   background: '#ffffff',
                   color: '#111827',
@@ -1591,7 +1685,6 @@ export default function CareerBuilderPage() {
                   ))}
                 </div>
               ) : (
-                /* Modern Visual Preview with Proof Badges */
                 <div style={{
                   background: 'var(--bg3)',
                   padding: 20,
@@ -1604,7 +1697,6 @@ export default function CareerBuilderPage() {
                   maxHeight: 520,
                   overflowY: 'auto'
                 }}>
-                  {/* Candidate Header */}
                   <div style={{ borderBottom: '1px solid var(--border)', paddingBottom: 12, marginBottom: 14 }}>
                     <div style={{ fontSize: 18, fontWeight: 900, color: 'var(--accent)' }}>
                       {candidateInput.fullName}
@@ -1617,7 +1709,6 @@ export default function CareerBuilderPage() {
                     </div>
                   </div>
 
-                  {/* Summary */}
                   <div style={{ marginBottom: 14 }}>
                     <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', marginBottom: 4 }}>
                       Executive Summary:
@@ -1627,7 +1718,6 @@ export default function CareerBuilderPage() {
                     </div>
                   </div>
 
-                  {/* Verified Technical Competencies */}
                   <div style={{ marginBottom: 14 }}>
                     <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--green)', textTransform: 'uppercase', marginBottom: 6, display: 'flex', alignItems: 'center', gap: 6 }}>
                       <span>🛡️</span> VERIFIED TECHNICAL COMPETENCIES (SHA-256 VALIDATED):
@@ -1650,7 +1740,6 @@ export default function CareerBuilderPage() {
                     )}
                   </div>
 
-                  {/* Experience & Residency */}
                   <div style={{ marginBottom: 14 }}>
                     <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', marginBottom: 6 }}>
                       💼 Professional Experience & Residency:
@@ -1663,7 +1752,6 @@ export default function CareerBuilderPage() {
                     ))}
                   </div>
 
-                  {/* Education */}
                   <div>
                     <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--accent)', textTransform: 'uppercase', marginBottom: 4 }}>
                       🎓 Academic Education:
@@ -1682,6 +1770,12 @@ export default function CareerBuilderPage() {
       <style jsx>{`
         @keyframes spin {
           to { transform: rotate(360deg); }
+        }
+        @media (max-width: 900px) {
+          :global(.career-builder-layout-grid) {
+            grid-template-columns: 1fr !important;
+            gap: 20px !important;
+          }
         }
       `}</style>
     </div>
