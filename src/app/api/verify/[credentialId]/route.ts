@@ -412,7 +412,7 @@ export async function GET(
           studentProfile: {
             studentId: userRow.id,
             studentName: userRow.display_name || 'PinIT Engineering Fellow',
-            institution: ob.college || ob.university || 'PinIT Technical Institute',
+            institution: ob.college || ob.university || 'Self-Directed / Independent Learner',
             targetRole: ob.role || 'Full-Stack Software Engineer',
             enrolledTrack: 'Industrial Certification & Corporate Fellowship',
             status: 'Active Candidate in Good Standing'
@@ -431,8 +431,8 @@ export async function GET(
         type: 'candidate_in_training',
         studentProfile: {
           studentId: credentialId,
-          studentName: 'PinIT Engineering Fellow',
-          institution: 'PinIT Career OS Academy',
+          studentName: 'Vinay',
+          institution: 'Self-Directed / Independent Learner',
           targetRole: 'Full-Stack Software Engineer',
           enrolledTrack: 'Industrial Certification & Corporate Fellowship',
           status: 'Active Candidate in Good Standing'
