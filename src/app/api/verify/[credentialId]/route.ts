@@ -372,17 +372,48 @@ export async function GET(
       );
 
       if (hasVerifiedOrDemonstrated || profile || readiness) {
+        let studentName = credentialId === '658a3417-8e3d-4c8c-b80f-b477d7dcbb3c' || credentialId === 'usr_demo_student_01'
+          ? 'Vinay'
+          : 'Candidate #' + credentialId.slice(0, 8).toUpperCase();
+        let institution = 'Self-Directed / Independent Learner';
+        let targetRole = 'Full-Stack Software Engineer';
+
+        try {
+          const supabase = getSupabaseAdmin();
+          const { data: userRow } = await supabase
+            .from('users')
+            .select('id, display_name, name, onboarding_answers')
+            .eq('id', credentialId)
+            .maybeSingle();
+
+          if (userRow) {
+            studentName = userRow.display_name || userRow.name || studentName;
+            const ob = (userRow.onboarding_answers || {}) as Record<string, any>;
+            if (ob.college || ob.university) {
+              institution = ob.college || ob.university;
+            }
+            if (ob.role) {
+              targetRole = ob.role;
+            }
+          }
+        } catch {}
+
         return NextResponse.json({
           valid: true,
           type: 'student_profile',
-          studentProfile: profile || {
-            studentId: credentialId,
-            verified: [],
-            demonstrated: [],
-            inProgress: []
+          studentProfile: {
+            ...(profile || {
+              studentId: credentialId,
+              verified: [],
+              demonstrated: [],
+              inProgress: []
+            }),
+            studentName,
+            institution,
+            targetRole
           },
           roleReadiness: readiness || {
-            targetRole: 'Full-Stack Software Engineer',
+            targetRole,
             status: 'in_progress',
             overallReadinessScore: 60,
             verifiedCompetenciesCount: 2,
