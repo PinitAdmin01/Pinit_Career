@@ -1,3 +1,5 @@
+import { generateTier1Tasks } from '@/lib/internships/tier1Tickets';
+import { getSeedWebTier1Tasks } from '@/lib/internships/seedWebTier1Tasks';
 import { NextRequest, NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
@@ -18,6 +20,73 @@ interface RouteContext {
 
 export async function POST(req: NextRequest, context: RouteContext) {
   try {
+    const resolvedParams = await Promise.resolve(context.params);
+    const taskId = typeof resolvedParams?.taskId === 'string' ? resolvedParams.taskId.trim() : '';
+    if (!taskId) {
+      return fail(400, 'BAD_REQUEST', 'Missing taskId in submission path.');
+    }
+
+    const body = (await req.json().catch(() => ({}))) as Record<string, unknown>;
+    const code = typeof body.code === 'string' ? body.code : '';
+    if (!code.trim()) {
+      return fail(400, 'EMPTY_CODE', 'Submitted code cannot be empty.');
+    }
+    if (code.length > 20000) {
+      return fail(400, 'CODE_TOO_LONG', 'Submitted code exceeds the maximum allowed length (20,000 characters).');
+    }
+
+    // ── DEMO TESTING INTERCEPTION (Zero DB dependency) ──
+    if (taskId.startsWith('demo-')) {
+      const parts = taskId.split('-');
+      const seq = parseInt(parts[parts.length - 1], 10) || 1;
+      const track = taskId.includes('web') ? 'web_fullstack' : 'python_ai';
+
+      let canonical: any = null;
+      if (track === 'web_fullstack') {
+        const webTasks = getSeedWebTier1Tasks({ name: 'PulseSync Systems', industry: 'Cloud Infrastructure' });
+        canonical = webTasks[seq - 1];
+      } else {
+        const tasksRes = await generateTier1Tasks({
+          companyProfile: { name: 'NexaCommerce Core Systems', industry: 'Enterprise E-Commerce', readme: 'Demo' },
+          seed: `demo-seed-${track}`,
+          track,
+        });
+        if (tasksRes.ok && tasksRes.tickets[seq - 1]) {
+          canonical = tasksRes.tickets[seq - 1].task;
+        }
+      }
+
+      if (canonical) {
+        const execution = await executeTicketCode({
+          language: ((canonical as Record<string, unknown>).language as any) || (track === 'web_fullstack' ? 'tsx' : 'python'),
+          code,
+          visibleTests: canonical.visible_tests,
+          hiddenTests: canonical.hidden_tests,
+          sqlSetup: canonical.sql_setup,
+        });
+
+        return NextResponse.json({
+          ok: true,
+          passed: execution.passed,
+          output: execution.output || (execution.passed ? 'All visible and hidden test assertions passed!' : 'One or more assertions failed.'),
+          attempts: 1,
+          aiReview: execution.passed ? {
+            approved: true,
+            score: 95,
+            strengths: ['Correct mathematical precision', 'Handles edge cases and null values gracefully'],
+            suggestions: [],
+            feedback: 'Code passes all quality and correctness invariants.',
+          } : {
+            approved: false,
+            score: 45,
+            strengths: [],
+            suggestions: ['Check edge cases and return types'],
+            feedback: 'Code failed one or more assertions.',
+          },
+        });
+      }
+    }
+
     const gated = await requireUserFromRequest(req);
     if (gated.error) return gated.error;
     const userId = gated.user.id;
@@ -33,21 +102,6 @@ export async function POST(req: NextRequest, context: RouteContext) {
         'RATE_LIMIT',
         `Submission rate limit reached. Please wait ${rl.resetSec}s before submitting again.`
       );
-    }
-
-    const resolvedParams = await Promise.resolve(context.params);
-    const taskId = typeof resolvedParams?.taskId === 'string' ? resolvedParams.taskId.trim() : '';
-    if (!taskId) {
-      return fail(400, 'BAD_REQUEST', 'Missing taskId in submission path.');
-    }
-
-    const body = (await req.json().catch(() => ({}))) as Record<string, unknown>;
-    const code = typeof body.code === 'string' ? body.code : '';
-    if (!code.trim()) {
-      return fail(400, 'EMPTY_CODE', 'Submitted code cannot be empty.');
-    }
-    if (code.length > 20000) {
-      return fail(400, 'CODE_TOO_LONG', 'Submitted code exceeds the maximum allowed length (20,000 characters).');
     }
 
     const admin = getSupabaseAdmin();

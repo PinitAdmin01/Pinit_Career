@@ -38,12 +38,29 @@ const fail = (status: number, error: string, message: string) =>
 
 export async function POST(req: NextRequest) {
   try {
+    const body = (await req.json().catch(() => ({}))) as Record<string, unknown>;
+    const enrollmentId = typeof body.enrollmentId === 'string' ? body.enrollmentId.trim() : '';
+
+    // ── DEMO CERTIFICATE INTERCEPTION ──
+    if (enrollmentId === 'demo-enrollment-id' || enrollmentId.startsWith('demo-')) {
+      return NextResponse.json({
+        ok: true,
+        certificate: {
+          id: 'PINIT-DEMO-CERT-' + Date.now().toString(36).toUpperCase(),
+          title: 'Python Job Simulation (1 Month)',
+          role: 'Junior Backend & Systems Engineer',
+          courseId: 'python_ai',
+          projectName: 'NexaCommerce Core Systems',
+          interviewScore: 95,
+          issuedAt: new Date().toISOString(),
+          verifyPath: '/verify/demo',
+        },
+      });
+    }
+
     const gated = await requireUserFromRequest(req);
     if (gated.error) return gated.error;
     const studentId = gated.user.id;
-
-    const body = (await req.json().catch(() => ({}))) as Record<string, unknown>;
-    const enrollmentId = typeof body.enrollmentId === 'string' ? body.enrollmentId.trim() : '';
 
     const admin = getSupabaseAdmin();
 

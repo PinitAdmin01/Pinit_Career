@@ -931,6 +931,20 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
             >
               👨‍🏫 Teacher
             </Link>
+            <span style={{ opacity: 0.4 }}>•</span>
+            <Link
+              href="/internship-demo"
+              style={{
+                color: 'var(--t2)',
+                textDecoration: 'none',
+                fontWeight: 600,
+                padding: '2px 4px',
+                borderRadius: 4,
+              }}
+              title="Job Simulation Interactive Demo"
+            >
+              🧪 Demo
+            </Link>
             {roleLabel !== 'student' && (
               <>
                 <span style={{ opacity: 0.4 }}>•</span>

@@ -13,6 +13,26 @@ const fail = (status: number, error: string, message: string) =>
 
 export async function POST(req: NextRequest) {
   try {
+    const body = (await req.json().catch(() => ({}))) as Record<string, unknown>;
+    const reportText = typeof body.report === 'string' ? body.report.trim() : '';
+    let enrollmentId = typeof body.enrollmentId === 'string' ? body.enrollmentId.trim() : '';
+
+    // ── DEMO REPORT INTERCEPTION ──
+    if (enrollmentId === 'demo-enrollment-id' || enrollmentId.startsWith('demo-')) {
+      const lenCheck = validateReportLength(reportText);
+      if (!lenCheck.ok) {
+        return fail(
+          400,
+          'INVALID_REPORT_LENGTH',
+          `Report must be between 100 and 300 words. Current count: ${lenCheck.wordCount} words.`
+        );
+      }
+      return NextResponse.json({
+        ok: true,
+        message: 'Demo stand-up report accepted! Simulation successfully completed.',
+      });
+    }
+
     const gated = await requireUserFromRequest(req);
     if (gated.error) return gated.error;
     const userId = gated.user.id;
@@ -29,10 +49,6 @@ export async function POST(req: NextRequest) {
         `Report submission rate limit reached. Please wait ${rl.resetSec}s before trying again.`
       );
     }
-
-    const body = (await req.json().catch(() => ({}))) as Record<string, unknown>;
-    const reportText = typeof body.report === 'string' ? body.report.trim() : '';
-    let enrollmentId = typeof body.enrollmentId === 'string' ? body.enrollmentId.trim() : '';
 
     const admin = getSupabaseAdmin();
 

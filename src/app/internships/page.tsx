@@ -124,7 +124,27 @@ export default function InternshipsPage() {
           </p>
         </div>
 
-        <button
+        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+          <Link
+            href="/internship-demo"
+            style={{
+              padding: '10px 18px',
+              borderRadius: 10,
+              border: '1px solid #10b981',
+              background: 'rgba(16, 185, 129, 0.15)',
+              color: '#10b981',
+              fontWeight: 800,
+              fontSize: 14,
+              textDecoration: 'none',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 6,
+            }}
+            title="Launch interactive testing sandbox"
+          >
+            🧪 Test Internship Demo →
+          </Link>
+          <button
           onClick={() => setShowLogModal(true)}
           style={{
             padding: '10px 18px',
@@ -144,6 +164,7 @@ export default function InternshipsPage() {
         >
           + Log Internship Record
         </button>
+        </div>
       </div>
 
       {/* Navigation Quick-Bridge to Placement Predictor */}
