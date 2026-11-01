@@ -61,25 +61,29 @@ def _check_cors_origin(origin: str | None) -> bool:
 
 @app.middleware("http")
 async def security_and_rate_limit(request: Request, call_next):
-    # Handle preflight OPTIONS requests cleanly
+    # Handle preflight OPTIONS requests cleanly with full CORS negotiation headers
     if request.method == "OPTIONS":
         origin = request.headers.get("origin")
         if _check_cors_origin(origin):
-            return Response(
-                "ok",
-                headers={
-                    "Access-Control-Allow-Origin": origin or "*",
-                    "Vary": "Origin",
-                },
-            )
+            headers = {
+                "Access-Control-Allow-Origin": origin or "*",
+                "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Request-ID, X-Internal-Secret, X-Bypass-Cache",
+                "Access-Control-Allow-Credentials": "true",
+                "Access-Control-Max-Age": "86400",
+                "Vary": "Origin",
+            }
+            return Response("ok", headers=headers)
         return Response("origin not allowed", status_code=403)
 
-    client_ip = request.client.host if request.client else "unknown"
+    # Honor X-Forwarded-For when running behind reverse proxy (Render / Cloudflare / Nginx)
+    forwarded = request.headers.get("x-forwarded-for")
+    client_ip = forwarded.split(",")[0].strip() if forwarded else (request.client.host if request.client else "unknown")
     now = time.time()
     RATE_LIMIT_STORE[client_ip] = [t for t in RATE_LIMIT_STORE[client_ip] if now - t < 60]
 
     if len(RATE_LIMIT_STORE[client_ip]) >= MAX_REQ_PER_MIN:
-        raise HTTPException(status_code=429, detail="Rate limit exceeded (60 req/min).")
+        raise HTTPException(status_code=429, detail=f"Rate limit exceeded ({MAX_REQ_PER_MIN} req/min).")
 
     RATE_LIMIT_STORE[client_ip].append(now)
     request_id = request.headers.get("X-Request-ID", str(uuid.uuid4()))
@@ -95,14 +99,16 @@ async def security_and_rate_limit(request: Request, call_next):
     origin = request.headers.get("origin")
     if _check_cors_origin(origin):
         response.headers["Access-Control-Allow-Origin"] = origin or "*"
+        response.headers["Access-Control-Allow-Credentials"] = "true"
     response.headers["Vary"] = "Origin"
 
     return response
 
-# ── CORS allows credentials only to explicit origins — no wildcard ──────────
+# ── CORS allows credentials with explicit origins + wildcard regex for preview domains ──
 app.add_middleware(
     CORSMiddleware,
     allow_origins=ALLOW_ORIGINS,  # no "*"
+    allow_origin_regex=r"https://.*\.vercel\.app|https://.*\.web\.app|https://.*\.firebaseapp\.com|http://localhost:\d+|http://127\.0\.0\.1:\d+|https://.*pinit.*",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

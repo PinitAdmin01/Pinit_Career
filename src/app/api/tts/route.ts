@@ -7,9 +7,12 @@ import { requireUserFromRequest } from '@/lib/server/requireAuth';
  * Auth is required. Guest synthesis is not allowed (prevents open proxy abuse).
  */
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_TTS_API_URL
-  ? process.env.NEXT_PUBLIC_TTS_API_URL.replace(/\/api\/.*$/, '')
-  : 'https://pinit-voice-service.onrender.com';
+function getBackendUrl(): string {
+  const raw = process.env.NEXT_PUBLIC_TTS_API_URL || 'https://pinit-voice-service.onrender.com';
+  const clean = raw.trim().replace(/\/+$/, '').replace(/\/api(\/v\d+)?\/tts\/?$/i, '').replace(/\/tts\/?$/i, '');
+  return `${clean}/api/v1/tts`;
+}
+
 const CDN_URL = process.env.NEXT_PUBLIC_CDN_VOICE_URL || '';
 
 export async function POST(req: NextRequest) {
@@ -67,7 +70,7 @@ export async function POST(req: NextRequest) {
     }
 
     const ttsStart = Date.now();
-    const backendUrl = `${BACKEND_URL}/api/v1/tts`;
+    const backendUrl = getBackendUrl();
     console.log(`[/api/tts] Forwarding to Python Backend: ${backendUrl}`);
 
     const backendRes = await fetch(backendUrl, {

@@ -1,5 +1,5 @@
 // TTS Library & Audio Engine (WebSpeech Native API + Persona Vocal Signatures)
-import { synthesizeVoice } from "./smartVoiceRouter";
+import { synthesizeVoice, CURRENT_RENDER_TIER } from "./smartVoiceRouter";
 import { sanitizeForSpeech, SANITIZER_VERSION } from "./sanitizeLLM";
 import {
   splitIntoSentences,
@@ -470,7 +470,7 @@ export async function speakWithAvatar(
     if (sentences.length > 1) {
       const startedAt = Date.now();
       let streamSucceeded = false;
-      const streamDeadlineMs = options?.startDeadlineMs ?? 3500;
+      const streamDeadlineMs = options?.startDeadlineMs ?? (CURRENT_RENDER_TIER === 'free' ? 35_000 : 15_000);
       let streamDeadlineTimer: any = null;
 
       try {
@@ -549,7 +549,7 @@ export async function speakWithAvatar(
 
     let handedToWebSpeech = false;
     let startDeadlineTimer: ReturnType<typeof setTimeout> | null = null;
-    const startDeadlineMs = options?.startDeadlineMs ?? 3500;
+    const startDeadlineMs = options?.startDeadlineMs ?? (CURRENT_RENDER_TIER === 'free' ? 35_000 : 15_000);
     if (startDeadlineMs > 0) {
       startDeadlineTimer = setTimeout(() => {
         startDeadlineTimer = null;
