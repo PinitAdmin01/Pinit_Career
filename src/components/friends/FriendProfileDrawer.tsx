@@ -106,8 +106,14 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
       if (scrollContainerRef.current) {
         scrollContainerRef.current.scrollTop = 0;
       }
+      const raf = requestAnimationFrame(() => {
+        if (scrollContainerRef.current) {
+          scrollContainerRef.current.scrollTop = 0;
+        }
+      });
+      return () => cancelAnimationFrame(raf);
     }
-  }, [student?.id]);
+  }, [student]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -263,7 +269,7 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
           {/* Quick Stats Grid — ZERO FAKE DATA */}
           <div className="drawer-stats-grid">
             <div className="drawer-section-card" style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: 20, fontWeight: 800, color: '#6366f1' }}>{student.careerScore ?? 12}</div>
+              <div style={{ fontSize: 20, fontWeight: 800, color: '#6366f1' }}>{student.careerScore ?? 0}</div>
               <div className="drawer-stat-label">Career Score</div>
             </div>
             <div className="drawer-section-card" style={{ textAlign: 'center' }}>

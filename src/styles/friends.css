@@ -807,17 +807,17 @@
 }
 
 .friends-btn-secondary {
-  background: rgba(255, 255, 255, 0.06) !important;
+  background: rgba(255, 255, 255, 0.06);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.14) !important;
-  color: #f8fafc !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #f8fafc;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .friends-btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.12) !important;
-  border-color: rgba(255, 255, 255, 0.28) !important;
-  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.28);
+  color: #ffffff;
   transform: translateY(-1px);
 }
 
@@ -1071,15 +1071,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px 16px;
+  padding: 20px 16px;
   box-sizing: border-box;
+  overflow-y: auto;
   animation: friendsFadeIn 0.2s ease;
 }
 
 .friends-profile-drawer {
+  margin: auto;
   width: 100%;
-  max-width: 640px;
-  max-height: 88vh;
+  max-width: 620px;
+  max-height: min(92vh, 820px);
   background: linear-gradient(180deg, #0f172a 0%, #0d1527 100%);
   border: 1px solid rgba(99, 102, 241, 0.3);
   border-radius: 20px;
@@ -1088,6 +1090,7 @@
   flex-direction: column;
   animation: friendsModalPop 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   overflow: hidden;
+  position: relative;
 }
 
 @keyframes friendsModalPop {
@@ -1883,67 +1886,121 @@
   border: 1px solid #e2e8f0;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
 }
+:root.light .ref-sidebar-header,
+[data-theme='light'] .ref-sidebar-header,
 :root.light .ref-sidebar-heading,
 [data-theme='light'] .ref-sidebar-heading {
-  color: #0f172a;
+  color: #0f172a !important;
 }
 :root.light .ref-sidebar-link,
 [data-theme='light'] .ref-sidebar-link {
-  color: #4f46e5;
+  color: #4f46e5 !important;
 }
+:root.light .network-stat-box,
+[data-theme='light'] .network-stat-box,
 :root.light .network-stat-pill,
 [data-theme='light'] .network-stat-pill {
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
 }
+:root.light .network-stat-num,
+[data-theme='light'] .network-stat-num,
 :root.light .network-stat-val,
 [data-theme='light'] .network-stat-val {
-  color: #0f172a;
+  color: #0f172a !important;
 }
+:root.light .network-stat-text,
+[data-theme='light'] .network-stat-text,
 :root.light .network-stat-label,
 [data-theme='light'] .network-stat-label {
-  color: #64748b;
+  color: #64748b !important;
 }
 :root.light .direct-chat-empty,
 [data-theme='light'] .direct-chat-empty {
-  color: #64748b;
+  color: #64748b !important;
 }
-:root.light .quick-action-btn,
-[data-theme='light'] .quick-action-btn {
-  border: 1px solid #e2e8f0;
+:root.light .recent-msg-item:hover,
+[data-theme='light'] .recent-msg-item:hover {
+  background: #f1f5f9 !important;
 }
-:root.light .quick-action-btn.challenge,
-[data-theme='light'] .quick-action-btn.challenge {
-  background: #f5f3ff;
-  color: #6d28d9;
+:root.light .recent-msg-author,
+[data-theme='light'] .recent-msg-author {
+  color: #0f172a !important;
 }
-:root.light .quick-action-btn.squad,
-[data-theme='light'] .quick-action-btn.squad {
-  background: #ecfdf5;
-  color: #047857;
+:root.light .recent-msg-snippet,
+[data-theme='light'] .recent-msg-snippet {
+  color: #64748b !important;
 }
-:root.light .quick-action-btn.find,
-[data-theme='light'] .quick-action-btn.find {
-  background: #eff6ff;
-  color: #1d4ed8;
-}
-:root.light .quick-action-btn.friends,
-[data-theme='light'] .quick-action-btn.friends {
-  background: #fff7ed;
-  color: #c2410c;
+:root.light .recent-msg-time,
+[data-theme='light'] .recent-msg-time {
+  color: #4f46e5 !important;
 }
 
-/* Secondary Button Light Theme */
+/* 2x2 Quick Actions in Light Mode */
+:root.light .quick-action-tile,
+[data-theme='light'] .quick-action-tile {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+}
+:root.light .quick-action-tile.purple,
+[data-theme='light'] .quick-action-tile.purple {
+  background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%) !important;
+  border-color: #ddd6fe !important;
+}
+:root.light .quick-action-tile.green,
+[data-theme='light'] .quick-action-tile.green {
+  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%) !important;
+  border-color: #a7f3d0 !important;
+}
+:root.light .quick-action-tile.blue,
+[data-theme='light'] .quick-action-tile.blue {
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%) !important;
+  border-color: #bfdbfe !important;
+}
+:root.light .quick-action-tile.amber,
+[data-theme='light'] .quick-action-tile.amber {
+  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%) !important;
+  border-color: #fde68a !important;
+}
+:root.light .tile-label,
+[data-theme='light'] .tile-label {
+  color: #0f172a !important;
+}
+:root.light .tile-arrow,
+[data-theme='light'] .tile-arrow {
+  color: #64748b !important;
+}
+
+/* Secondary Button Light Theme (with !important to guarantee dark text) */
 :root.light .friends-btn-secondary,
 [data-theme='light'] .friends-btn-secondary {
-  background: #f1f5f9;
-  border: 1px solid #cbd5e1;
-  color: #1e293b;
+  background: #f1f5f9 !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #1e293b !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
 }
 :root.light .friends-btn-secondary:hover,
 [data-theme='light'] .friends-btn-secondary:hover {
-  background: #e2e8f0;
-  color: #0f172a;
+  background: #e2e8f0 !important;
+  border-color: #94a3b8 !important;
+  color: #0f172a !important;
+}
+
+/* Mini and Highlight Skill Pills */
+:root.light .mini-skill-pill,
+[data-theme='light'] .mini-skill-pill,
+:root.light .friends-skill-pill,
+[data-theme='light'] .friends-skill-pill {
+  background: #f1f5f9 !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #475569 !important;
+}
+:root.light .friends-skill-pill.match-highlight,
+[data-theme='light'] .friends-skill-pill.match-highlight {
+  background: #eef2ff !important;
+  border-color: #c7d2fe !important;
+  color: #4338ca !important;
+  font-weight: 600 !important;
 }
 
 /* ==========================================================================

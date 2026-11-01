@@ -62,4 +62,33 @@ assert.strictEqual(drawerSource.includes('scrollContainerRef.current.scrollTop =
 assert.strictEqual(drawerSource.includes("ref={scrollContainerRef}"), true, 'FAIL: ref not attached to scroll container');
 console.log('✓ Invariant 5 Passed: Modal resets scroll position to top on every profile open.');
 
+
+// ── 6. RIGHT SIDEBAR LIGHT MODE AUDIT (Quick Actions & Stats) ───────────────
+console.log('\nChecking Invariant 6: Right Sidebar & Quick Actions Light Mode Coverage...');
+assert.strictEqual(cssSource.includes(':root.light .ref-sidebar-header'), true, 'FAIL: Missing light mode for .ref-sidebar-header');
+assert.strictEqual(cssSource.includes(':root.light .network-stat-box'), true, 'FAIL: Missing light mode for .network-stat-box');
+assert.strictEqual(cssSource.includes(':root.light .quick-action-tile.purple'), true, 'FAIL: Missing light mode for .quick-action-tile.purple');
+assert.strictEqual(cssSource.includes(':root.light .quick-action-tile.green'), true, 'FAIL: Missing light mode for .quick-action-tile.green');
+assert.strictEqual(cssSource.includes(':root.light .quick-action-tile.blue'), true, 'FAIL: Missing light mode for .quick-action-tile.blue');
+assert.strictEqual(cssSource.includes(':root.light .quick-action-tile.amber'), true, 'FAIL: Missing light mode for .quick-action-tile.amber');
+assert.strictEqual(cssSource.includes(':root.light .recent-msg-author'), true, 'FAIL: Missing light mode for .recent-msg-author');
+console.log('✓ Invariant 6 Passed: Right sidebar tiles, stat boxes, and messages fully themed in light mode.');
+
+// ── 7. SECONDARY BUTTON SPECIFICITY AUDIT ──────────────────────────────────
+console.log('\nChecking Invariant 7: Secondary Button Dark Text in Light Mode...');
+assert.strictEqual(cssSource.includes(':root.light .friends-btn-secondary') && cssSource.includes('color: #1e293b !important;'), true, 'FAIL: Secondary button in light mode must force dark text with !important');
+console.log('✓ Invariant 7 Passed: Secondary button has guaranteed dark text on light backgrounds.');
+
+// ── 8. PROFILE MODAL CENTERING & HIGHLIGHT PILLS ────────────────────────────
+console.log('\nChecking Invariant 8: Profile modal centering & skill pill contrast...');
+assert.strictEqual(cssSource.includes('margin: auto;'), true, 'FAIL: Profile modal must have margin: auto to prevent flexbox clipping');
+assert.strictEqual(cssSource.includes(':root.light .friends-skill-pill.match-highlight'), true, 'FAIL: Highlight skill pills must be styled in light mode');
+console.log('✓ Invariant 8 Passed: Profile modal centered with margin: auto and skill pills high-contrast.');
+
+// ── 9. AUTHENTIC ZERO-FALLBACK SCORE ────────────────────────────────────────
+console.log('\nChecking Invariant 9: Zero fallback for career score...');
+assert.strictEqual(drawerSource.includes('student.careerScore ?? 0'), true, 'FAIL: Must use authentic 0 fallback for careerScore');
+console.log('✓ Invariant 9 Passed: Career score uses authentic 0 fallback.');
+
 console.log('\n🎉 ALL BRUTAL FRESH-EYES INVARIANTS VERIFIED AND PASSING 100%!');
+

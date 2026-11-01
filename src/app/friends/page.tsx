@@ -869,7 +869,7 @@ function FriendsContent() {
           {activeTab === 'requests' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
               <div>
-                <h3 style={{ fontSize: 17.5, fontWeight: 700, color: '#ffffff', marginBottom: 12 }}>
+                <h3 style={{ fontSize: 17.5, fontWeight: 700, color: 'var(--t1, #ffffff)', marginBottom: 12 }}>
                   Incoming Friend Requests ({incomingRequestsList.length})
                 </h3>
                 {incomingRequestsList.length === 0 ? (
@@ -893,7 +893,7 @@ function FriendsContent() {
                           />
                           <div>
                             <div
-                              style={{ fontSize: 15.5, fontWeight: 700, color: '#ffffff', cursor: 'pointer' }}
+                              style={{ fontSize: 15.5, fontWeight: 700, color: 'var(--t1, #ffffff)', cursor: 'pointer' }}
                               onClick={() => handleNavigateToProfile(req.studentId)}
                             >
                               {req.name}

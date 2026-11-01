@@ -68,6 +68,8 @@ export const useAppStore = create<AppState>((set) => ({
   setTheme:       (theme) => {
     if (typeof window !== 'undefined') {
       document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.classList.toggle('light', theme === 'light');
+      document.documentElement.classList.toggle('dark', theme === 'dark');
       try { localStorage.setItem('pc_theme', theme); } catch {}
       window.dispatchEvent(new CustomEvent('pc_theme_toggled', { detail: { theme, time: Date.now() } }));
     }
@@ -77,6 +79,8 @@ export const useAppStore = create<AppState>((set) => ({
     const nextTheme = s.theme === 'light' ? 'dark' : 'light';
     if (typeof window !== 'undefined') {
       document.documentElement.setAttribute('data-theme', nextTheme);
+      document.documentElement.classList.toggle('light', nextTheme === 'light');
+      document.documentElement.classList.toggle('dark', nextTheme === 'dark');
       try { localStorage.setItem('pc_theme', nextTheme); } catch {}
       window.dispatchEvent(new CustomEvent('pc_theme_toggled', { detail: { theme: nextTheme, time: Date.now() } }));
     }
