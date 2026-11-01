@@ -211,6 +211,8 @@ assert "SKU-2" in idx
 
 def build_catalog_index(catalog_list):
     index = {}
+    if not catalog_list or not isinstance(catalog_list, list):
+        return index
     for item in catalog_list:
         if isinstance(item, dict) and "item_id" in item:
             index[item["item_id"]] = item
@@ -310,7 +312,9 @@ def calculate_subtotal(items):
     return total.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
 
 def apply_tiered_promotion(subtotal, is_vip=False, promo_code=None):
-    if not promo_code or promo_code != "TIERED": return Decimal("0.00")
+    if not promo_code or not isinstance(promo_code, str): return Decimal("0.00")
+    code = promo_code.strip().upper()
+    if code != "TIERED": return Decimal("0.00")
     threshold = Decimal("500.00")
     rate = Decimal("0.15") if (is_vip and subtotal >= threshold) else \\
            Decimal("0.10") if subtotal >= threshold else \\
@@ -382,7 +386,9 @@ def calculate_subtotal(items):
     return total.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
 
 def apply_tiered_promotion(subtotal, is_vip=False, promo_code=None):
-    if not promo_code or promo_code != "TIERED": return Decimal("0.00")
+    if not promo_code or not isinstance(promo_code, str): return Decimal("0.00")
+    code = promo_code.strip().upper()
+    if code != "TIERED": return Decimal("0.00")
     threshold = Decimal("500.00")
     rate = Decimal("0.15") if (is_vip and subtotal >= threshold) else \\
            Decimal("0.10") if subtotal >= threshold else \\
@@ -500,7 +506,7 @@ export async function generateTier1Tasks(
     kind: TIER1_TICKET_KINDS[idx],
     task: {
       ...template,
-      brief: template.brief.replace(/NexaCommerce/g, companyName),
+      brief: template.brief.replace(/NexaCommerce/g, () => companyName),
     },
     model: 'curated-milestone-engine-v1',
   }));

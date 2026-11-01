@@ -105,4 +105,67 @@ test('Tier 1 Python 14-Day 5-Milestone Suite', async (t) => {
       assert.match(taskB.brief, /BetaLogistics/);
     }
   });
+
+  await t.test('special characters and regex tokens in company profile name do not corrupt the brief', async () => {
+    const specialNames = [
+      'Apex $100 Bargains',
+      'Tech & Co ($& Specials)',
+      "O'Reilly & Sons ($1)",
+      'Super $$$ Mega Store',
+    ];
+
+    for (const name of specialNames) {
+      const res = await generateTier1Tasks({
+        companyProfile: { name, industry: 'Retail', readme: 'Special chars test' },
+        seed: 'seed-special',
+        track: 'python_ai',
+      });
+
+      assert.equal(res.ok, true);
+      if (!res.ok) continue;
+
+      for (const ticket of res.tickets) {
+        assert.equal(ticket.task.brief.includes(name), true, `Brief must contain exact name "${name}" without regex corruption`);
+      }
+    }
+  });
+
+  await t.test('Milestone 5 preloaded apply_tiered_promotion matches Milestone 2 case-insensitivity contract', async () => {
+    const res = await generateTier1Tasks({
+      companyProfile: { name: 'TestCo', industry: 'Retail', readme: 'Test' },
+      seed: 'seed-test',
+      track: 'python_ai',
+    });
+    assert.equal(res.ok, true);
+    if (!res.ok) return;
+
+    const m5Task = res.tickets[4].task;
+    const testSnippet = `
+${m5Task.starter_code}
+res = apply_tiered_promotion(Decimal("600.00"), is_vip=False, promo_code="tiered")
+assert res == Decimal("60.00"), f"Expected 60.00 but got {res}"
+`;
+    const runRes = await runPythonInSandbox({ code: testSnippet, timeoutMs: 3000 });
+    assert.equal(runRes.passed, true, 'Milestone 5 starter code helper must accept lowercase "tiered"');
+  });
+
+  await t.test('Milestone 3 build_catalog_index handles None and invalid input gracefully', async () => {
+    const res = await generateTier1Tasks({
+      companyProfile: { name: 'TestCo', industry: 'Retail', readme: 'Test' },
+      seed: 'seed-test',
+      track: 'python_ai',
+    });
+    assert.equal(res.ok, true);
+    if (!res.ok) return;
+
+    const m3Task = res.tickets[2].task;
+    const testSnippet = `
+${m3Task.reference_solution}
+assert build_catalog_index(None) == {}
+assert build_catalog_index("not_a_list") == {}
+assert build_catalog_index([]) == {}
+`;
+    const runRes = await runPythonInSandbox({ code: testSnippet, timeoutMs: 3000 });
+    assert.equal(runRes.passed, true, 'Milestone 3 build_catalog_index must handle None and non-list gracefully');
+  });
 });
