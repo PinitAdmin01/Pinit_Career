@@ -133,3 +133,16 @@ export async function POST(req: NextRequest) {
 export async function GET() {
   return NextResponse.json({ status: 'PinIT TTS route active', auth: 'required' });
 }
+
+
+export async function OPTIONS() {
+  return new NextResponse(null, {
+    status: 204,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Request-ID, X-Internal-Secret, X-Bypass-Cache',
+      'Access-Control-Max-Age': '86400',
+    },
+  });
+}
