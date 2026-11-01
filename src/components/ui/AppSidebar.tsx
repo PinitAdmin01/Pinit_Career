@@ -887,6 +887,70 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
           </div>
         )}
 
+        {/* Quick Portal Switcher for Multi-Role & Institutional Evaluation */}
+        {!isCompact && (
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '4px 8px',
+              marginTop: 4,
+              borderRadius: 6,
+              background: 'var(--bg2, rgba(255, 255, 255, 0.03))',
+              border: '1px solid var(--border)',
+              fontSize: 11,
+              color: 'var(--t3)',
+            }}
+          >
+            <span style={{ fontWeight: 650, color: 'var(--t3)' }}>Portal:</span>
+            <Link
+              href="/admin"
+              style={{
+                color: roleLabel === 'admin' ? 'var(--accent)' : 'var(--t2)',
+                textDecoration: 'none',
+                fontWeight: roleLabel === 'admin' ? 700 : 500,
+                padding: '2px 4px',
+                borderRadius: 4,
+              }}
+              title="Campus Administration Portal"
+            >
+              🏛️ Admin
+            </Link>
+            <span style={{ opacity: 0.4 }}>•</span>
+            <Link
+              href="/teacher"
+              style={{
+                color: roleLabel === 'teacher' ? 'var(--accent)' : 'var(--t2)',
+                textDecoration: 'none',
+                fontWeight: roleLabel === 'teacher' ? 700 : 500,
+                padding: '2px 4px',
+                borderRadius: 4,
+              }}
+              title="Faculty & Teacher Portal"
+            >
+              👨‍🏫 Teacher
+            </Link>
+            {roleLabel !== 'student' && (
+              <>
+                <span style={{ opacity: 0.4 }}>•</span>
+                <Link
+                  href="/dashboard"
+                  style={{
+                    color: 'var(--t2)',
+                    textDecoration: 'none',
+                    padding: '2px 4px',
+                    borderRadius: 4,
+                  }}
+                  title="Student Workspace"
+                >
+                  🎓 Student
+                </Link>
+              </>
+            )}
+          </div>
+        )}
+
         {/* Expand toggle when collapsed */}
         {isCompact && !effectiveFocusMode && (
           <button

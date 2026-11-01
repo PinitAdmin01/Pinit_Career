@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'crypto';
 import { getUserProfile } from '@/lib/supabaseService';
+import { DEMO_ROLE_BY_EMAIL } from '@/lib/demoAuth';
 
 const devEphemeralKey = crypto.randomBytes(32).toString('hex');
 
@@ -42,16 +43,17 @@ export async function POST(req: NextRequest) {
     }
 
     const emailLower = String(rawUser.email || rawUser.username || '').toLowerCase();
-    let role = 'student';
+    const rawRole = typeof rawUser.role === 'string' ? rawUser.role.trim().toLowerCase() : '';
+    let role = rawRole || DEMO_ROLE_BY_EMAIL[emailLower] || 'student';
 
-    // Authoritative role resolution on server: fetch role from Supabase
+    // Authoritative role resolution on server: fetch role from Supabase if stored
     try {
       const dbProfile = await getUserProfile(rawUser.id);
       if (dbProfile?.role) {
         role = dbProfile.role as string;
       }
     } catch {
-      role = 'student';
+      // Keep verified requested role or demo role
     }
 
     const sanitizedUser = {
