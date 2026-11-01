@@ -1,0 +1,645 @@
+{
+  "schema_version": 1,
+  "asset_id": "priya_step2",
+  "voice_id": "priya",
+  "timebase": "media_seconds",
+  "duration_s": 8.688,
+  "events": [
+    {
+      "start_s": 0.05,
+      "end_s": 0.129,
+      "speechClass": "DENTAL_NARROW",
+      "weight": 0.85
+    },
+    {
+      "start_s": 0.129,
+      "end_s": 0.208,
+      "speechClass": "VOWEL_WIDE",
+      "weight": 0.85
+    },
+    {
+      "start_s": 0.208,
+      "end_s": 0.287,
+      "speechClass": "DENTAL_NARROW",
+      "weight": 0.85
+    },
+    {
+      "start_s": 0.287,
+      "end_s": 0.366,
+      "speechClass": "VOWEL_WIDE",
+      "weight": 0.85
+    },
+    {
+      "start_s": 0.366,
+      "end_s": 0.416,
+      "speechClass": "REST_NEUTRAL",
+      "weight": 0
+    },
+    {
+      "start_s": 0.416,
+      "end_s": 0.492,
+      "speechClass": "DENTAL_NARROW",
+      "weight": 0.85
+    },
+    {
+      "start_s": 0.492,
+      "end_s": 0.568,
+      "speechClass": "REST_NEUTRAL",
+      "weight": 0
+    },
+    {
+      "start_s": 0.568,
+      "end_s": 0.644,
+      "speechClass": "VOWEL_ROUND",
+      "weight": 0.85
+    },
+    {
+      "start_s": 0.644,
+      "end_s": 0.72,
+      "speechClass": "VOWEL_WIDE",
+      "weight": 0.85
+    },
+    {
+      "start_s": 0.72,
+      "end_s": 0.796,
+      "speechClass": "DENTAL_NARROW",
+      "weight": 0.85
+    },
+    {
+      "start_s": 0.796,
+      "end_s": 0.872,
+      "speechClass": "VOWEL_WIDE",
+      "weight": 0.85
+    },
+    {
+      "start_s": 0.872,
+      "end_s": 0.922,
+      "speechClass": "REST_NEUTRAL",
+      "weight": 0
+    },
+    {
+      "start_s": 0.922,
+      "end_s": 1.004,
+      "speechClass": "VOWEL_ROUND",
+      "weight": 0.85
+    },
+    {
+      "start_s": 1.004,
+      "end_s": 1.086,
+      "speechClass": "REST_NEUTRAL",
+      "weight": 0
+    },
+    {
+      "start_s": 1.086,
+      "end_s": 1.168,
+      "speechClass": "VOWEL_WIDE",
+      "weight": 0.85
+    },
+    {
+      "start_s": 1.168,
+      "end_s": 1.217,
+      "speechClass": "REST_NEUTRAL",
+      "weight": 0
+    },
+    {
+      "start_s": 1.217,
+      "end_s": 1.299,
+      "speechClass": "DENTAL_NARROW",
+      "weight": 0.85
+    },
+    {
+      "start_s": 1.299,
+      "end_s": 1.381,
+      "speechClass": "VOWEL_WIDE",
+      "weight": 0.85
+    },
+    {
+      "start_s": 1.381,
+      "end_s": 1.463,
+      "speechClass": "DENTAL_NARROW",
+      "weight": 0.85
+    },
+    {
+      "start_s": 1.463,
+      "end_s": 1.512,
+      "speechClass": "REST_NEUTRAL",
+      "weight": 0
+    },
+    {
+      "start_s": 1.512,
+      "end_s": 1.594,
+      "speechClass": "VOWEL_WIDE",
+      "weight": 0.85
+    },
+    {
+      "start_s": 1.594,
+      "end_s": 1.758,
+      "speechClass": "VOWEL_ROUND",
+      "weight": 0.85
+    },
+    {
+      "start_s": 1.758,
+      "end_s": 1.807,
+      "speechClass": "REST_NEUTRAL",
+      "weight": 0
+    },
+    {
+      "start_s": 1.807,
+      "end_s": 1.886,
+      "speechClass": "DENTAL_NARROW",
+      "weight": 0.85
+    },
+    {
+      "start_s": 1.886,
+      "end_s": 1.965,
+      "speechClass": "VOWEL_ROUND",
+      "weight": 0.85
+    },
+    {
+      "start_s": 1.965,
+      "end_s": 2.045,
+      "speechClass": "VOWEL_WIDE",
+      "weight": 0.85
+    },
+    {
+      "start_s": 2.045,
+      "end_s": 2.124,
+      "speechClass": "DENTAL_NARROW",
+      "weight": 0.85
+    },
+    {
+      "start_s": 2.124,
+      "end_s": 2.173,
+      "speechClass": "REST_NEUTRAL",
+      "weight": 0
+    },
+    {
+      "start_s": 2.173,
+      "end_s": 2.25,
+      "speechClass": "DENTAL_NARROW",
+      "weight": 0.85
+    },
+    {
+      "start_s": 2.25,
+      "end_s": 2.327,
+      "speechClass": "VOWEL_ROUND",
+      "weight": 0.85
+    },
+    {
+      "start_s": 2.327,
+      "end_s": 2.405,
+      "speechClass": "DENTAL_NARROW",
+      "weight": 0.85
+    },
+    {
+      "start_s": 2.405,
+      "end_s": 2.482,
+      "speechClass": "VOWEL_OPEN",
+      "weight": 0.85
+    },
+    {
+      "start_s": 2.482,
+      "end_s": 2.559,
+      "speechClass": "VOWEL_WIDE",
+      "weight": 0.85
+    },
+    {
+      "start_s": 2.559,
+      "end_s": 2.609,
+      "speechClass": "REST_NEUTRAL",
+      "weight": 0
+    },
+    {
+      "start_s": 2.609,
+      "end_s": 2.691,
+      "speechClass": "VOWEL_OPEN",
+      "weight": 0.85
+    },
+    {
+      "start_s": 2.691,
+      "end_s": 2.773,
+      "speechClass": "DENTAL_NARROW",
+      "weight": 0.85
+    },
+    {
+      "start_s": 2.773,
+      "end_s": 2.855,
+      "speechClass": "VOWEL_WIDE",
+      "weight": 0.85
+    },
+    {
+      "start_s": 2.855,
+      "end_s": 2.904,
+      "speechClass": "REST_NEUTRAL",
+      "weight": 0
+    },
+    {
+      "start_s": 2.904,
+      "end_s": 2.986,
+      "speechClass": "VOWEL_WIDE",
+      "weight": 0.85
+    },
+    {
+      "start_s": 2.986,
+      "end_s": 3.15,
+      "speechClass": "VOWEL_ROUND",
+      "weight": 0.85
+    },
+    {
+      "start_s": 3.15,
+      "end_s": 3.199,
+      "speechClass": "REST_NEUTRAL",
+      "weight": 0
+    },
+    {
+      "start_s": 3.199,
+      "end_s": 3.274,
+      "speechClass": "DENTAL_NARROW",
+      "weight": 0.85
+    },
+    {
+      "start_s": 3.274,
+      "end_s": 3.425,
+      "speechClass": "VOWEL_ROUND",
+      "weight": 0.85
+    },
+    {
+      "start_s": 3.425,
+      "end_s": 3.5,
+      "speechClass": "DENTAL_NARROW",
+      "weight": 0.85
+    },
+    {
+      "start_s": 3.5,
+      "end_s": 3.576,
+      "speechClass": "VOWEL_WIDE",
+      "weight": 0.85
+    },
+    {
+      "start_s": 3.576,
+      "end_s": 3.726,
+      "speechClass": "DENTAL_NARROW",
+      "weight": 0.85
+    },
+    {
+      "start_s": 3.726,
+      "end_s": 3.775,
+      "speechClass": "REST_NEUTRAL",
+      "weight": 0
+    },
+    {
+      "start_s": 3.775,
+      "end_s": 3.857,
+      "speechClass": "LABIODENTAL",
+      "weight": 0.85
+    },
+    {
+      "start_s": 3.857,
+      "end_s": 3.939,
+      "speechClass": "VOWEL_ROUND",
+      "weight": 0.85
+    },
+    {
+      "start_s": 3.939,
+      "end_s": 4.021,
+      "speechClass": "DENTAL_NARROW",
+      "weight": 0.85
+    },
+    {
+      "start_s": 4.021,
+      "end_s": 4.071,
+      "speechClass": "REST_NEUTRAL",
+      "weight": 0
+    },
+    {
+      "start_s": 4.071,
+      "end_s": 4.176,
+      "speechClass": "VOWEL_OPEN",
+      "weight": 0.85
+    },
+    {
+      "start_s": 4.176,
+      "end_s": 4.225,
+      "speechClass": "REST_NEUTRAL",
+      "weight": 0
+    },
+    {
+      "start_s": 4.225,
+      "end_s": 4.307,
+      "speechClass": "DENTAL_NARROW",
+      "weight": 0.85
+    },
+    {
+      "start_s": 4.307,
+      "end_s": 4.389,
+      "speechClass": "VOWEL_ROUND",
+      "weight": 0.85
+    },
+    {
+      "start_s": 4.389,
+      "end_s": 4.471,
+      "speechClass": "BILABIAL_CLOSE",
+      "weight": 1
+    },
+    {
+      "start_s": 4.471,
+      "end_s": 4.521,
+      "speechClass": "REST_NEUTRAL",
+      "weight": 0
+    },
+    {
+      "start_s": 4.521,
+      "end_s": 4.596,
+      "speechClass": "VOWEL_ROUND",
+      "weight": 0.85
+    },
+    {
+      "start_s": 4.596,
+      "end_s": 4.671,
+      "speechClass": "VOWEL_OPEN",
+      "weight": 0.85
+    },
+    {
+      "start_s": 4.671,
+      "end_s": 4.822,
+      "speechClass": "DENTAL_NARROW",
+      "weight": 0.85
+    },
+    {
+      "start_s": 4.822,
+      "end_s": 4.897,
+      "speechClass": "VOWEL_WIDE",
+      "weight": 0.85
+    },
+    {
+      "start_s": 4.897,
+      "end_s": 5.048,
+      "speechClass": "DENTAL_NARROW",
+      "weight": 0.85
+    },
+    {
+      "start_s": 5.048,
+      "end_s": 5.097,
+      "speechClass": "REST_NEUTRAL",
+      "weight": 0
+    },
+    {
+      "start_s": 5.097,
+      "end_s": 5.185,
+      "speechClass": "DENTAL_NARROW",
+      "weight": 0.85
+    },
+    {
+      "start_s": 5.185,
+      "end_s": 5.273,
+      "speechClass": "VOWEL_ROUND",
+      "weight": 0.85
+    },
+    {
+      "start_s": 5.273,
+      "end_s": 5.322,
+      "speechClass": "REST_NEUTRAL",
+      "weight": 0
+    },
+    {
+      "start_s": 5.322,
+      "end_s": 5.399,
+      "speechClass": "DENTAL_NARROW",
+      "weight": 0.85
+    },
+    {
+      "start_s": 5.399,
+      "end_s": 5.476,
+      "speechClass": "VOWEL_WIDE",
+      "weight": 0.85
+    },
+    {
+      "start_s": 5.476,
+      "end_s": 5.554,
+      "speechClass": "VOWEL_OPEN",
+      "weight": 0.85
+    },
+    {
+      "start_s": 5.554,
+      "end_s": 5.708,
+      "speechClass": "DENTAL_NARROW",
+      "weight": 0.85
+    },
+    {
+      "start_s": 5.708,
+      "end_s": 5.758,
+      "speechClass": "REST_NEUTRAL",
+      "weight": 0
+    },
+    {
+      "start_s": 5.758,
+      "end_s": 5.84,
+      "speechClass": "DENTAL_NARROW",
+      "weight": 0.85
+    },
+    {
+      "start_s": 5.84,
+      "end_s": 5.922,
+      "speechClass": "VOWEL_WIDE",
+      "weight": 0.85
+    },
+    {
+      "start_s": 5.922,
+      "end_s": 6.004,
+      "speechClass": "VOWEL_ROUND",
+      "weight": 0.85
+    },
+    {
+      "start_s": 6.004,
+      "end_s": 6.053,
+      "speechClass": "REST_NEUTRAL",
+      "weight": 0
+    },
+    {
+      "start_s": 6.053,
+      "end_s": 6.205,
+      "speechClass": "DENTAL_NARROW",
+      "weight": 0.85
+    },
+    {
+      "start_s": 6.205,
+      "end_s": 6.281,
+      "speechClass": "VOWEL_WIDE",
+      "weight": 0.85
+    },
+    {
+      "start_s": 6.281,
+      "end_s": 6.51,
+      "speechClass": "DENTAL_NARROW",
+      "weight": 0.85
+    },
+    {
+      "start_s": 6.51,
+      "end_s": 6.559,
+      "speechClass": "REST_NEUTRAL",
+      "weight": 0
+    },
+    {
+      "start_s": 6.559,
+      "end_s": 6.647,
+      "speechClass": "VOWEL_ROUND",
+      "weight": 0.85
+    },
+    {
+      "start_s": 6.647,
+      "end_s": 6.735,
+      "speechClass": "DENTAL_NARROW",
+      "weight": 0.85
+    },
+    {
+      "start_s": 6.735,
+      "end_s": 6.784,
+      "speechClass": "REST_NEUTRAL",
+      "weight": 0
+    },
+    {
+      "start_s": 6.784,
+      "end_s": 6.858,
+      "speechClass": "BILABIAL_CLOSE",
+      "weight": 1
+    },
+    {
+      "start_s": 6.858,
+      "end_s": 6.932,
+      "speechClass": "DENTAL_NARROW",
+      "weight": 0.85
+    },
+    {
+      "start_s": 6.932,
+      "end_s": 7.006,
+      "speechClass": "VOWEL_WIDE",
+      "weight": 0.85
+    },
+    {
+      "start_s": 7.006,
+      "end_s": 7.081,
+      "speechClass": "BILABIAL_CLOSE",
+      "weight": 1
+    },
+    {
+      "start_s": 7.081,
+      "end_s": 7.155,
+      "speechClass": "VOWEL_OPEN",
+      "weight": 0.85
+    },
+    {
+      "start_s": 7.155,
+      "end_s": 7.229,
+      "speechClass": "DENTAL_NARROW",
+      "weight": 0.85
+    },
+    {
+      "start_s": 7.229,
+      "end_s": 7.303,
+      "speechClass": "VOWEL_WIDE",
+      "weight": 0.85
+    },
+    {
+      "start_s": 7.303,
+      "end_s": 7.452,
+      "speechClass": "DENTAL_NARROW",
+      "weight": 0.85
+    },
+    {
+      "start_s": 7.452,
+      "end_s": 7.501,
+      "speechClass": "REST_NEUTRAL",
+      "weight": 0
+    },
+    {
+      "start_s": 7.501,
+      "end_s": 7.583,
+      "speechClass": "LABIODENTAL",
+      "weight": 0.85
+    },
+    {
+      "start_s": 7.583,
+      "end_s": 7.665,
+      "speechClass": "VOWEL_ROUND",
+      "weight": 0.85
+    },
+    {
+      "start_s": 7.665,
+      "end_s": 7.747,
+      "speechClass": "DENTAL_NARROW",
+      "weight": 0.85
+    },
+    {
+      "start_s": 7.747,
+      "end_s": 7.796,
+      "speechClass": "REST_NEUTRAL",
+      "weight": 0
+    },
+    {
+      "start_s": 7.796,
+      "end_s": 7.884,
+      "speechClass": "VOWEL_OPEN",
+      "weight": 0.85
+    },
+    {
+      "start_s": 7.884,
+      "end_s": 7.972,
+      "speechClass": "DENTAL_NARROW",
+      "weight": 0.85
+    },
+    {
+      "start_s": 7.972,
+      "end_s": 8.021,
+      "speechClass": "REST_NEUTRAL",
+      "weight": 0
+    },
+    {
+      "start_s": 8.021,
+      "end_s": 8.095,
+      "speechClass": "VOWEL_WIDE",
+      "weight": 0.85
+    },
+    {
+      "start_s": 8.095,
+      "end_s": 8.244,
+      "speechClass": "DENTAL_NARROW",
+      "weight": 0.85
+    },
+    {
+      "start_s": 8.244,
+      "end_s": 8.318,
+      "speechClass": "VOWEL_WIDE",
+      "weight": 0.85
+    },
+    {
+      "start_s": 8.318,
+      "end_s": 8.392,
+      "speechClass": "DENTAL_NARROW",
+      "weight": 0.85
+    },
+    {
+      "start_s": 8.392,
+      "end_s": 8.466,
+      "speechClass": "LABIODENTAL",
+      "weight": 0.85
+    },
+    {
+      "start_s": 8.466,
+      "end_s": 8.615,
+      "speechClass": "VOWEL_WIDE",
+      "weight": 0.85
+    },
+    {
+      "start_s": 8.615,
+      "end_s": 8.689,
+      "speechClass": "VOWEL_ROUND",
+      "weight": 0.85
+    },
+    {
+      "start_s": 8.689,
+      "end_s": 8.738,
+      "speechClass": "REST_NEUTRAL",
+      "weight": 0
+    }
+  ]
+}

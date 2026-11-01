@@ -6,8 +6,12 @@ import {
   getGlobalAudioQueue,
   getAvatarVoiceVolume,
   setAvatarVoiceVolume,
-  getAvatarGainNode
+  getAvatarGainNode,
+  setAvatarVisemeTimeline,
+  clearAvatarVisemeTimeline,
+  generateEstimatedVisemes
 } from "./audio/streamingAudioQueue";
+import { VisemeEvent } from "./avatar/visemeTypes";
 export { getAvatarVoiceVolume, setAvatarVoiceVolume };
 let currentSpeechId = 0;
 let activeSource: AudioBufferSourceNode | null = null;
@@ -387,6 +391,66 @@ export async function speakWithAvatar(
   const minDurationMs = Math.max(0, options?.minDurationMs || 0);
   const dynamicMaxDurationMs = Math.max(maxDurationMs, minDurationMs, Math.max(12000, cleanSpeechText.length * 150));
 
+  // Attempt Static Tier 0 asset playback for canonical diagnostic/onboarding questions
+  const staticKey = normalizeKeyForStatic(cleanSpeechText);
+  const staticFilename = STATIC_AUDIO_MAPPING[staticKey];
+  if (staticFilename) {
+    const teacher = (teacherId || 'priya').toLowerCase();
+    const audioUrl = `/audio/${teacher}/${staticFilename}`;
+    const visemesUrl = `/audio/${teacher}/${staticFilename.replace('.wav', '.visemes.json')}`;
+
+    try {
+      const [audioRes, visemesRes] = await Promise.all([
+        fetch(audioUrl),
+        fetch(visemesUrl).catch(() => null),
+      ]);
+
+      if (audioRes.ok && mySpeechId === currentSpeechId) {
+        const arrayBuf = await audioRes.arrayBuffer();
+        let companionVisemes: VisemeEvent[] | null = null;
+        if (visemesRes && visemesRes.ok) {
+          try {
+            const data = await visemesRes.json();
+            companionVisemes = data.events || data;
+          } catch {}
+        }
+
+        const ctx = getAudioContext();
+        if (ctx.state === 'suspended') {
+          await ctx.resume().catch(() => {});
+        }
+        const audioBuf = await ctx.decodeAudioData(arrayBuf);
+        if (mySpeechId !== currentSpeechId) return;
+
+        const source = ctx.createBufferSource();
+        source.buffer = audioBuf;
+        const gainNode = getAvatarGainNode(ctx);
+        source.connect(gainNode);
+        activeSource = source;
+
+        const visemes = companionVisemes || generateEstimatedVisemes(cleanSpeechText, audioBuf.duration);
+        setAvatarVisemeTimeline(visemes, ctx.currentTime, ctx);
+
+        let ended = false;
+        const finish = () => {
+          if (ended) return;
+          ended = true;
+          clearAvatarVisemeTimeline();
+          if (activeSource === source) activeSource = null;
+          safeOnEnd();
+        };
+
+        source.onended = finish;
+        onStart();
+        source.start(0);
+        return;
+      }
+    } catch (staticErr) {
+      console.warn('[PinIT TTS] Static audio load failed, falling back to neural router:', staticErr);
+    }
+  }
+
+
   const finishAfterFloor = (startedAt: number) => {
     if (mySpeechId !== currentSpeechId) return;
     const elapsed = Date.now() - startedAt;
@@ -544,6 +608,9 @@ export async function speakWithAvatar(
         source.connect(gainNode);
         activeSource = source;
 
+        const visemes = result.visemes || generateEstimatedVisemes(spokenText, audioBuf.duration);
+        setAvatarVisemeTimeline(visemes, ctx.currentTime, ctx);
+
         let maxDurationTimer: ReturnType<typeof setTimeout> | null = null;
         let ended = false;
         const startedAt = Date.now();
@@ -551,6 +618,7 @@ export async function speakWithAvatar(
           if (ended) return;
           ended = true;
           if (maxDurationTimer) clearTimeout(maxDurationTimer);
+          clearAvatarVisemeTimeline();
           if (activeSource === source) activeSource = null;
           finishAfterFloor(startedAt);
         };
@@ -570,17 +638,22 @@ export async function speakWithAvatar(
       clearStartDeadline();
       console.warn('[PinIT Voice] Neural TTS unavailable, executing instant WebSpeech fallback:', err);
       if (mySpeechId === currentSpeechId) {
-        fallbackWebSpeech(
-          cleanSpeechText,
-          teacherId,
-          onStart,
-          () => finishAfterFloor(Date.now()),
-          detectVibe(cleanSpeechText),
-          mySpeechId,
-          difficulty,
-          speedMultiplier,
-          dynamicMaxDurationMs
-        );
+        if (options?.allowWebSpeechFallback) {
+          fallbackWebSpeech(
+            cleanSpeechText,
+            teacherId,
+            onStart,
+            () => finishAfterFloor(Date.now()),
+            detectVibe(cleanSpeechText),
+            mySpeechId,
+            difficulty,
+            speedMultiplier,
+            dynamicMaxDurationMs
+          );
+        } else {
+          // Protected humanoid persona: never blurt out surprise robotic voices
+          safeOnEnd();
+        }
       }
       return;
     }
@@ -588,7 +661,8 @@ export async function speakWithAvatar(
 
   // Fallback to WebSpeech if neural synthesis was bypassed or disabled
   if (mySpeechId === currentSpeechId) {
-    fallbackWebSpeech(
+    if (options?.allowWebSpeechFallback) {
+      fallbackWebSpeech(
       cleanSpeechText,
       teacherId,
       onStart,
@@ -598,7 +672,10 @@ export async function speakWithAvatar(
       difficulty,
       speedMultiplier,
       dynamicMaxDurationMs
-    );
+      );
+    } else {
+      safeOnEnd();
+    }
   }
 }
 

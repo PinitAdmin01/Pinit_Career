@@ -199,6 +199,7 @@ export class SentenceAudioQueuePlayer {
 
     // Buffer map to hold synthesized AudioBuffers; null = pending, false = failed
     const decodedBuffers: (AudioBuffer | null | false)[] = new Array(sentences.length).fill(null);
+    const chunkVisemes: (VisemeEvent[] | undefined)[] = new Array(sentences.length).fill(undefined);
     let nextChunkToFetch = 0;
     let nextChunkToSchedule = 0;
     let inFlightCount = 0;
@@ -247,6 +248,7 @@ export class SentenceAudioQueuePlayer {
 
         const audioBuf = await ctx.decodeAudioData(res.audioBuffer.slice(0));
         decodedBuffers[index] = audioBuf;
+        chunkVisemes[index] = res.visemes;
       } catch (err: any) {
         if (!this.isCancelled) {
           console.warn(`[SentenceAudioQueuePlayer] Error fetching chunk #${index} (attempt ${attempt + 1}/${MAX_CHUNK_RETRIES + 1}):`, err?.message);
@@ -312,6 +314,9 @@ export class SentenceAudioQueuePlayer {
         const startTime = Math.max(now + 0.03, this.scheduledPlaybackTime);
         const duration = buf.duration;
         this.scheduledPlaybackTime = startTime + duration;
+
+        const visemes = chunkVisemes[idx] || generateEstimatedVisemes(sentences[idx], duration);
+        appendAvatarVisemeTimeline(visemes, startTime, ctx);
 
         const source = ctx.createBufferSource();
         source.buffer = buf;
@@ -466,4 +471,110 @@ export function getAvatarActiveSpeechClass(mediaTimeSeconds?: number): { speechC
   if (!active) return null;
 
   return { speechClass: active.speechClass, weight: active.weight };
+}
+
+
+export function appendAvatarVisemeTimeline(events: VisemeEvent[], chunkStartTime: number, ctx?: AudioContext): void {
+  if (ctx) _activeAudioCtx = ctx;
+  if (_activePlaybackStartTime === 0) {
+    _activePlaybackStartTime = chunkStartTime;
+  }
+  const offset = chunkStartTime - _activePlaybackStartTime;
+  const shiftedEvents: VisemeEvent[] = (events || []).map(ev => ({
+    start_s: parseFloat(Math.max(0, ev.start_s + offset).toFixed(3)),
+    end_s: parseFloat(Math.max(0, ev.end_s + offset).toFixed(3)),
+    speechClass: ev.speechClass,
+    weight: ev.weight ?? 1.0,
+  }));
+  _activeVisemeEvents = [..._activeVisemeEvents, ...shiftedEvents];
+}
+
+export function generateEstimatedVisemes(text: string, durationSec: number): VisemeEvent[] {
+  const safeDuration = Math.max(0.1, durationSec);
+  const words = text
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, '')
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean);
+
+  if (words.length === 0) {
+    return [{ start_s: 0, end_s: safeDuration, speechClass: 'REST_NEUTRAL', weight: 0 }];
+  }
+
+  const totalLetters = words.reduce((acc, w) => acc + w.length + 1.2, 0);
+  const timePerLetter = safeDuration / totalLetters;
+
+  const rawEvents: VisemeEvent[] = [];
+  let currentTime = 0.03;
+
+  for (let wIdx = 0; wIdx < words.length; wIdx++) {
+    const word = words[wIdx];
+    const wordDuration = (word.length + 0.5) * timePerLetter;
+    const charDuration = wordDuration / word.length;
+
+    for (let cIdx = 0; cIdx < word.length; cIdx++) {
+      const ch = word[cIdx];
+      const nextCh = word[cIdx + 1];
+      let speechClass: SpeechClass = 'REST_NEUTRAL';
+      let weight = 0.85;
+
+      if (ch === 'p' || ch === 'b' || ch === 'm') {
+        speechClass = 'BILABIAL_CLOSE';
+        weight = 1.0;
+      } else if (ch === 'f' || ch === 'v') {
+        speechClass = 'LABIODENTAL';
+      } else if (ch === 'w' || ch === 'u' || (ch === 'o' && nextCh === 'o')) {
+        speechClass = 'VOWEL_ROUND';
+      } else if (ch === 'o') {
+        speechClass = 'VOWEL_ROUND';
+      } else if (ch === 'a') {
+        speechClass = 'VOWEL_OPEN';
+      } else if (ch === 'e' || ch === 'i' || ch === 'y') {
+        speechClass = 'VOWEL_WIDE';
+      } else if ('tdsznrlcjkg'.includes(ch)) {
+        speechClass = 'DENTAL_NARROW';
+      }
+
+      const start = parseFloat(currentTime.toFixed(3));
+      const end = parseFloat((currentTime + charDuration).toFixed(3));
+      currentTime += charDuration;
+
+      rawEvents.push({
+        start_s: start,
+        end_s: end,
+        speechClass,
+        weight: speechClass === 'REST_NEUTRAL' ? 0.0 : weight,
+      });
+    }
+
+    const gapDuration = 0.7 * timePerLetter;
+    rawEvents.push({
+      start_s: parseFloat(currentTime.toFixed(3)),
+      end_s: parseFloat((currentTime + gapDuration).toFixed(3)),
+      speechClass: 'REST_NEUTRAL',
+      weight: 0.0,
+    });
+    currentTime += gapDuration;
+  }
+
+  const coalesced: VisemeEvent[] = [];
+  for (const ev of rawEvents) {
+    if (coalesced.length === 0) {
+      coalesced.push({ ...ev });
+      continue;
+    }
+    const last = coalesced[coalesced.length - 1];
+    if (last.speechClass === ev.speechClass) {
+      last.end_s = ev.end_s;
+    } else {
+      coalesced.push({ ...ev });
+    }
+  }
+
+  if (coalesced.length > 0) {
+    coalesced[coalesced.length - 1].end_s = Math.max(coalesced[coalesced.length - 1].end_s, safeDuration);
+  }
+
+  return coalesced;
 }

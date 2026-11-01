@@ -18,18 +18,24 @@ class TTSRequest(BaseModel):
 async def generate_tts(req: TTSRequest):
     t0 = time.time()
     try:
-        wav_bytes, duration = await engine.generate_audio_async(req.text, req.voice, req.speed)
+        wav_bytes, duration, visemes = await engine.generate_audio_async(req.text, req.voice, req.speed)
         latency_ms = (time.time() - t0) * 1000
-        
+
+        import json
+        headers = {
+            "X-Audio-Duration": f"{duration:.2f}",
+            "X-Inference-Latency-MS": f"{latency_ms:.1f}",
+            "X-Cache-Status": "BYPASS" if req.bypass_cache else "SYNTHESIZED",
+            "X-Voice-Engine": "kokoro-onnx" if engine.kokoro is not None else "edge-tts",
+            "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0" if req.bypass_cache else "public, max-age=86400"
+        }
+        if visemes:
+            headers["X-Visemes"] = json.dumps(visemes)
+
         return Response(
             content=wav_bytes,
             media_type="audio/mpeg" if wav_bytes.startswith(b'\xff\xfb') or wav_bytes.startswith(b'ID3') else "audio/wav",
-            headers={
-                "X-Audio-Duration": f"{duration:.2f}",
-                "X-Inference-Latency-MS": f"{latency_ms:.1f}",
-                "X-Cache-Status": "BYPASS" if req.bypass_cache else "SYNTHESIZED",
-                "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0" if req.bypass_cache else "public, max-age=86400"
-            }
+            headers=headers
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -61,7 +67,7 @@ def audio_chunk_generator(
     try:
         for clause in clauses:
             try:
-                wav_bytes, _duration = loop.run_until_complete(
+                wav_bytes, _duration, _visemes = loop.run_until_complete(
                     engine.generate_audio_async(clause, voice, speed)
                 )
                 if wav_bytes:

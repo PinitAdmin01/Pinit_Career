@@ -81,6 +81,7 @@ async def security_and_rate_limit(request: Request, call_next):
     response.headers["X-Content-Type-Options"] = "nosniff"
     response.headers["X-Frame-Options"] = "DENY"
     response.headers["X-RateLimit-Limit"] = str(MAX_REQ_PER_MIN)
+    response.headers["Access-Control-Expose-Headers"] = "X-Audio-Duration, X-Inference-Latency-MS, X-Cache-Status, X-Request-ID, X-Visemes, X-Voice-Engine, X-Engine"
 
     # CORS headers on every response
     origin = request.headers.get("origin")
@@ -97,7 +98,7 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
-    expose_headers=["X-Audio-Duration", "X-Inference-Latency-MS", "X-Cache-Status", "X-Request-ID"],
+    expose_headers=["X-Audio-Duration", "X-Inference-Latency-MS", "X-Cache-Status", "X-Request-ID", "X-Visemes", "X-Voice-Engine", "X-Engine"],
 )
 
 # ── Compression Middleware ──
@@ -172,18 +173,24 @@ async def synthesize_tts(req: TTSRequest, request: Request):
 
     t0 = time.time()
     try:
-        wav_bytes, duration = await engine.generate_audio_async(req.text, req.voice, req.speed)
+        wav_bytes, duration, visemes = await engine.generate_audio_async(req.text, req.voice, req.speed)
         latency_ms = (time.time() - t0) * 1000
+
+        import json
+        headers = {
+            "X-Audio-Duration": f"{duration:.2f}",
+            "X-Inference-Latency-MS": f"{latency_ms:.1f}",
+            "X-Cache-Status": "BYPASS" if req.bypass_cache else "SYNTHESIZED",
+            "X-Voice-Engine": "kokoro-onnx" if engine.kokoro is not None else "edge-tts",
+            "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0" if req.bypass_cache else "public, max-age=86400"
+        }
+        if visemes:
+            headers["X-Visemes"] = json.dumps(visemes)
 
         return Response(
             content=wav_bytes,
             media_type="audio/mpeg" if wav_bytes.startswith(b'\xff\xfb') or wav_bytes.startswith(b'ID3') else "audio/wav",
-            headers={
-                "X-Audio-Duration": f"{duration:.2f}",
-                "X-Inference-Latency-MS": f"{latency_ms:.1f}",
-                "X-Cache-Status": "BYPASS" if req.bypass_cache else "SYNTHESIZED",
-                "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0" if req.bypass_cache else "public, max-age=86400"
-            }
+            headers=headers
         )
     except Exception as e:
         logger.error(f"TTS synthesis failed: {e}")

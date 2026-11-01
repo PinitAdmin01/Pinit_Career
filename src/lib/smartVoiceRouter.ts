@@ -4,6 +4,7 @@
  */
 
 import { voiceCacheDB, computeVoiceCacheKey } from "./voiceCacheDB";
+import { VisemeEvent } from "./avatar/visemeTypes";
 
 export interface VoiceSynthesizeOptions {
   text: string;
@@ -21,6 +22,7 @@ export interface VoiceSynthesizeResult {
   durationSec: number;
   cacheKey: string;
   engine?: string;
+  visemes?: VisemeEvent[];
 }
 
 export type RenderTier = "free" | "premium";
@@ -41,7 +43,7 @@ let isServerWarm = false;
 let isCloudDisabled = false;
 let lastWarmAt = 0;
 let activeWakePromise: Promise<boolean> | null = null;
-const inFlightCloudRequests = new Map<string, Promise<{ audioBuffer: ArrayBuffer; durationSec: number; engine?: string }>>();
+const inFlightCloudRequests = new Map<string, Promise<{ audioBuffer: ArrayBuffer; durationSec: number; engine?: string; visemes?: VisemeEvent[] }>>();
 
 /** Free-tier Render sleeps after ~15m inactivity — cold instance boot takes 15-25s. */
 const FREE_TIER_TIMEOUT_MS = 25_000;
@@ -142,19 +144,20 @@ export async function synthesizeVoice(
   const cacheKey = await computeVoiceCacheKey(text, voice, speed);
 
   if (!options.bypassCache) {
-    const cachedBuffer = await voiceCacheDB.getAudio(cacheKey);
-    if (cachedBuffer && cachedBuffer.byteLength > 800) {
+    const cachedEntry = await voiceCacheDB.getAudioEntry(cacheKey);
+    if (cachedEntry && cachedEntry.audioBuffer && cachedEntry.audioBuffer.byteLength > 800) {
       const latencyMs = Math.round(performance.now() - startTime);
       console.log(
         `[SmartVoiceRouter] IndexedDB HIT key=${cacheKey.slice(0, 8)}... (${latencyMs}ms)`
       );
       return {
-        audioBuffer: cachedBuffer,
+        audioBuffer: cachedEntry.audioBuffer,
         source: "INDEXED_DB_CACHE",
         latencyMs,
         durationSec: estimateDuration(text, speed),
         cacheKey,
         engine: "cache",
+        visemes: cachedEntry.visemes,
       };
     }
   } else {
@@ -173,7 +176,7 @@ export async function synthesizeVoice(
     const latencyMs = Math.round(performance.now() - startTime);
 
     if (!options.bypassCache && cloudResult.audioBuffer && cloudResult.audioBuffer.byteLength > 800) {
-      await voiceCacheDB.saveAudio(cacheKey, text, voice, speed, cloudResult.audioBuffer);
+      await voiceCacheDB.saveAudio(cacheKey, text, voice, speed, cloudResult.audioBuffer, cloudResult.visemes);
     }
 
     console.log(
@@ -186,6 +189,7 @@ export async function synthesizeVoice(
       durationSec: cloudResult.durationSec,
       cacheKey,
       engine: cloudResult.engine,
+      visemes: cloudResult.visemes,
     };
   } catch (renderError) {
     console.warn('[SmartVoiceRouter] Render Cloud TTS failed:', renderError);
@@ -203,7 +207,7 @@ async function fetchCloudFastAPI(
   voice: string,
   speed: number,
   bypassCache?: boolean
-): Promise<{ audioBuffer: ArrayBuffer; durationSec: number; engine?: string }> {
+): Promise<{ audioBuffer: ArrayBuffer; durationSec: number; engine?: string; visemes?: VisemeEvent[] }> {
   const requestKey = `${endpoint}::${voice}::${speed}::${text}::bypass=${Boolean(bypassCache)}`;
   if (inFlightCloudRequests.has(requestKey)) {
     return await inFlightCloudRequests.get(requestKey)!;
@@ -243,6 +247,15 @@ async function fetchCloudFastAPI(
         const durationHeader =
           response.headers.get("X-Audio-Duration") || response.headers.get("X-Duration");
         const engine = response.headers.get("X-Voice-Engine") || response.headers.get("X-Engine") || undefined;
+        const visemesHeader = response.headers.get("X-Visemes");
+        let visemes: VisemeEvent[] | undefined;
+        if (visemesHeader) {
+          try {
+            visemes = JSON.parse(visemesHeader);
+          } catch (e) {
+            console.warn("[SmartVoiceRouter] Failed to parse X-Visemes header:", e);
+          }
+        }
         const durationSec = durationHeader
           ? parseFloat(durationHeader)
           : estimateDuration(text, speed);
@@ -254,7 +267,7 @@ async function fetchCloudFastAPI(
         console.log(`[SmartVoiceRouter] Cloud TTS Success -> Bytes: ${audioBuffer.byteLength} | Duration: ${durationSec.toFixed(1)}s | Engine: ${engine || 'kokoro'}`);
         isServerWarm = true;
         lastWarmAt = Date.now();
-        return { audioBuffer, durationSec, engine };
+        return { audioBuffer, durationSec, engine, visemes };
       } catch (e) {
         clearTimeout(timer);
         throw e;

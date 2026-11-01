@@ -8,6 +8,96 @@ import urllib.request
 
 logger = logging.getLogger("voice_service.kokoro_engine")
 
+def phoneme_to_speech_class(phoneme: str) -> str:
+    p = phoneme.lower().strip()
+    if not p or p in ("sil", "sp", "pau", "", "_"):
+        return "REST_NEUTRAL"
+    if p in ("p", "b", "m"):
+        return "BILABIAL_CLOSE"
+    if p in ("f", "v"):
+        return "LABIODENTAL"
+    if p in ("t", "d", "s", "z", "th", "dh", "sh", "zh", "ch", "jh", "n", "l", "r", "j", "k", "g"):
+        return "DENTAL_NARROW"
+    if p in ("aa", "ae", "ah", "ao", "a", "ɑ", "ʌ", "æ"):
+        return "VOWEL_OPEN"
+    if p in ("uw", "uh", "ow", "u", "w", "o", "ʊ", "u:", "oʊ", "ɔ"):
+        return "VOWEL_ROUND"
+    if p in ("iy", "ih", "ey", "eh", "i", "e", "i:", "ɪ", "eɪ", "ɛ"):
+        return "VOWEL_WIDE"
+    return "REST_NEUTRAL"
+
+
+def generate_estimated_visemes(text: str, duration_sec: float) -> list[dict]:
+    safe_duration = max(0.1, duration_sec)
+    cleaned = "".join(c for c in text.lower() if c.isalnum() or c.isspace())
+    words = cleaned.strip().split()
+    if not words:
+        return [{"start_s": 0.0, "end_s": safe_duration, "speechClass": "REST_NEUTRAL", "weight": 0.0}]
+
+    total_units = sum(len(w) + 1.2 for w in words)
+    time_per_letter = safe_duration / total_units
+
+    raw_events = []
+    current_time = 0.03
+
+    for word in words:
+        word_dur = (len(word) + 0.5) * time_per_letter
+        char_dur = word_dur / len(word)
+        for i, ch in enumerate(word):
+            next_ch = word[i + 1] if i + 1 < len(word) else ""
+            speech_class = "REST_NEUTRAL"
+            weight = 0.85
+            if ch in ("p", "b", "m"):
+                speech_class = "BILABIAL_CLOSE"
+                weight = 1.0
+            elif ch in ("f", "v"):
+                speech_class = "LABIODENTAL"
+            elif ch in ("w", "u") or (ch == "o" and next_ch == "o"):
+                speech_class = "VOWEL_ROUND"
+            elif ch == "o":
+                speech_class = "VOWEL_ROUND"
+            elif ch == "a":
+                speech_class = "VOWEL_OPEN"
+            elif ch in ("e", "i", "y"):
+                speech_class = "VOWEL_WIDE"
+            elif ch in "tdsznrlcjkg":
+                speech_class = "DENTAL_NARROW"
+
+            start_s = round(current_time, 3)
+            end_s = round(current_time + char_dur, 3)
+            current_time += char_dur
+            raw_events.append({
+                "start_s": start_s,
+                "end_s": end_s,
+                "speechClass": speech_class,
+                "weight": 0.0 if speech_class == "REST_NEUTRAL" else weight
+            })
+
+        gap_dur = 0.7 * time_per_letter
+        raw_events.append({
+            "start_s": round(current_time, 3),
+            "end_s": round(current_time + gap_dur, 3),
+            "speechClass": "REST_NEUTRAL",
+            "weight": 0.0
+        })
+        current_time += gap_dur
+
+    coalesced = []
+    for ev in raw_events:
+        if not coalesced:
+            coalesced.append(dict(ev))
+            continue
+        if coalesced[-1]["speechClass"] == ev["speechClass"]:
+            coalesced[-1]["end_s"] = ev["end_s"]
+        else:
+            coalesced.append(dict(ev))
+
+    if coalesced:
+        coalesced[-1]["end_s"] = max(coalesced[-1]["end_s"], safe_duration)
+
+    return coalesced
+
+
 try:
     from kokoro_onnx import Kokoro
     HAS_KOKORO = True
@@ -92,7 +182,7 @@ class NeuralTTSEngine:
             except Exception as e:
                 logger.error(f"Failed to download Kokoro voices: {e}")
 
-    async def generate_audio_async(self, text: str, voice: str = "priya", speed: float = 1.1) -> tuple[bytes, float]:
+    async def generate_audio_async(self, text: str, voice: str = "priya", speed: float = 1.1) -> tuple[bytes, float, list[dict]]:
         """Synthesizes speech using Kokoro ONNX Neural Engine with automatic speed boost."""
         t_start = time.time()
 
@@ -125,21 +215,50 @@ class NeuralTTSEngine:
 
         if self.kokoro is not None:
             try:
-                samples, sample_rate = self.kokoro.create(
-                    text,
-                    voice=kokoro_voice,
-                    speed=speed,
-                    lang=lang
-                )
-                
+                samples = None
+                sample_rate = self.sample_rate
+                visemes = []
+
+                if hasattr(self.kokoro, "create_timed"):
+                    try:
+                        samples, sample_rate, timings = await asyncio.to_thread(
+                            self.kokoro.create_timed,
+                            text,
+                            voice=kokoro_voice,
+                            speed=speed,
+                            lang=lang
+                        )
+                        for t in timings:
+                            sc = phoneme_to_speech_class(getattr(t, "phoneme", ""))
+                            visemes.append({
+                                "start_s": round(getattr(t, "start", 0.0), 3),
+                                "end_s": round(getattr(t, "end", 0.0), 3),
+                                "speechClass": sc,
+                                "weight": 1.0 if sc == "BILABIAL_CLOSE" else 0.85
+                            })
+                    except Exception as timed_err:
+                        logger.warning(f"Kokoro create_timed failed, falling back to create: {timed_err}")
+
+                if samples is None:
+                    samples, sample_rate = await asyncio.to_thread(
+                        self.kokoro.create,
+                        text,
+                        voice=kokoro_voice,
+                        speed=speed,
+                        lang=lang
+                    )
+
                 buffer = io.BytesIO()
                 sf.write(buffer, samples, sample_rate, format='WAV', subtype='PCM_16')
                 wav_bytes = buffer.getvalue()
                 
                 duration_sec = len(samples) / float(sample_rate)
+                if not visemes:
+                    visemes = generate_estimated_visemes(text, duration_sec)
+
                 latency_ms = (time.time() - t_start) * 1000
                 logger.info(f"Kokoro ONNX synthesized '{text[:30]}...' in {latency_ms:.1f}ms using voice={kokoro_voice} speed={speed}")
-                return wav_bytes, duration_sec
+                return wav_bytes, duration_sec, visemes
             except Exception as e:
                 logger.error(f"Kokoro ONNX synthesis error: {e}")
 
@@ -177,9 +296,10 @@ class NeuralTTSEngine:
                 buffer.write(chunk["data"])
         wav_bytes = buffer.getvalue()
         duration_sec = max(0.5, len(text) / 15.0)
-        return wav_bytes, duration_sec
+        visemes = generate_estimated_visemes(text, duration_sec)
+        return wav_bytes, duration_sec, visemes
 
-    def generate_audio(self, text: str, voice: str = "priya", speed: float = 1.1) -> tuple[bytes, float]:
+    def generate_audio(self, text: str, voice: str = "priya", speed: float = 1.1) -> tuple[bytes, float, list[dict]]:
         try:
             loop = asyncio.get_event_loop()
             if loop.is_running():

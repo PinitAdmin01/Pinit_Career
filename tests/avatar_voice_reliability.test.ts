@@ -1,18 +1,24 @@
 // tests/avatar_voice_reliability.test.ts
 import { describe, it } from 'node:test';
 import assert from 'node:assert';
+import fs from 'node:fs';
+import path from 'node:path';
 import {
   mapSpeechClassToVRoidMorphs,
   phonemeToSpeechClass,
   SpeechClass,
-  VisemeEvent
+  VisemeEvent,
+  VisemeTimelinePayload
 } from '../src/lib/avatar/visemeTypes';
 import {
   splitIntoSentences,
   setAvatarVisemeTimeline,
   clearAvatarVisemeTimeline,
-  getAvatarActiveSpeechClass
+  appendAvatarVisemeTimeline,
+  getAvatarActiveSpeechClass,
+  generateEstimatedVisemes
 } from '../src/lib/audio/streamingAudioQueue';
+import { computeVoiceCacheKey } from '../src/lib/voiceCacheDB';
 
 describe('Avatar Voice Reliability & Rig-Aware Articulation Test Suite', () => {
 
@@ -143,6 +149,133 @@ describe('Avatar Voice Reliability & Rig-Aware Articulation Test Suite', () => {
       assert.ok(sentences[0].includes('Mr. Anish'), 'Must retain Mr. Anish intact');
       assert.ok(sentences[0].includes('node.js'), 'Must retain node.js intact');
       assert.strictEqual(sentences[1], 'Next sentence.');
+    });
+  });
+
+  describe('5. Client-Side Deterministic Estimated Visemes Generator', () => {
+    it('should produce contiguous visemes bounded by duration', () => {
+      const text = 'Welcome to PinIT Careers, the platform for professional growth.';
+      const duration = 3.5;
+      const events = generateEstimatedVisemes(text, duration);
+
+      assert.ok(events.length > 5, 'Should generate fine-grained events');
+      assert.strictEqual(events[0].start_s <= 0.05, true, 'First event should start near zero');
+      assert.ok(events[events.length - 1].end_s >= duration, 'Last event must reach or exceed duration');
+
+      // Must contain BILABIAL_CLOSE for P/B/M ("Welcome", "PinIT", "platform", "professional")
+      const bilabials = events.filter(e => e.speechClass === 'BILABIAL_CLOSE');
+      assert.ok(bilabials.length >= 3, 'Must detect multiple bilabials in text with M, P, and B');
+      for (const b of bilabials) {
+        assert.strictEqual(b.weight, 1.0, 'Bilabials must have full weight for lip seal');
+      }
+
+      // Check continuity
+      for (let i = 0; i < events.length - 1; i++) {
+        assert.strictEqual(events[i].end_s, events[i + 1].start_s, `Event ${i} end must match event ${i + 1} start`);
+      }
+    });
+
+    it('should return safe neutral pose for empty or whitespace text', () => {
+      const events = generateEstimatedVisemes('   ', 2.0);
+      assert.strictEqual(events.length, 1);
+      assert.strictEqual(events[0].speechClass, 'REST_NEUTRAL');
+      assert.strictEqual(events[0].end_s, 2.0);
+    });
+  });
+
+  describe('6. Pipelined Viseme Timeline Appending & Chunk Offsets', () => {
+    it('should offset consecutive chunk visemes on the unified playback timeline', () => {
+      clearAvatarVisemeTimeline();
+
+      const chunk0Events: VisemeEvent[] = [
+        { start_s: 0.0, end_s: 1.0, speechClass: 'VOWEL_OPEN', weight: 0.9 },
+        { start_s: 1.0, end_s: 2.0, speechClass: 'BILABIAL_CLOSE', weight: 1.0 }
+      ];
+
+      const chunk1Events: VisemeEvent[] = [
+        { start_s: 0.0, end_s: 0.8, speechClass: 'VOWEL_ROUND', weight: 0.85 },
+        { start_s: 0.8, end_s: 1.5, speechClass: 'LABIODENTAL', weight: 0.9 }
+      ];
+
+      // Chunk 0 starts at media time 10.0
+      appendAvatarVisemeTimeline(chunk0Events, 10.0);
+      // Chunk 1 starts at media time 12.0
+      appendAvatarVisemeTimeline(chunk1Events, 12.0);
+
+      // Within chunk 0 (relative offset 0 -> 1.5s is media time 1.5 relative to chunk0 start)
+      const evAt1_5 = getAvatarActiveSpeechClass(1.5);
+      assert.ok(evAt1_5);
+      assert.strictEqual(evAt1_5?.speechClass, 'BILABIAL_CLOSE');
+
+      // Within chunk 1 (relative offset 2.0 -> 2.5s is media time 0.5 into chunk 1)
+      const evAt2_5 = getAvatarActiveSpeechClass(2.5);
+      assert.ok(evAt2_5);
+      assert.strictEqual(evAt2_5?.speechClass, 'VOWEL_ROUND');
+
+      // Second part of chunk 1 (relative offset 2.0 + 1.0 = 3.0s)
+      const evAt3_0 = getAvatarActiveSpeechClass(3.0);
+      assert.ok(evAt3_0);
+      assert.strictEqual(evAt3_0?.speechClass, 'LABIODENTAL');
+
+      clearAvatarVisemeTimeline();
+    });
+  });
+
+  describe('7. Static Diagnostic Companion Viseme Verification', () => {
+    const teachers = ['priya', 'anish', 'kashyap', 'karthic'];
+
+    teachers.forEach(teacher => {
+      it(`should have valid companion viseme JSON files for ${teacher} steps 0 through 6`, () => {
+        for (let step = 0; step <= 6; step++) {
+          const jsonPath = path.join(__dirname, '..', 'public', 'audio', teacher, `step${step}.visemes.json`);
+          assert.ok(fs.existsSync(jsonPath), `Missing companion viseme file: ${jsonPath}`);
+
+          const raw = fs.readFileSync(jsonPath, 'utf-8');
+          const data: VisemeTimelinePayload = JSON.parse(raw);
+
+          assert.strictEqual(data.schema_version, 1, 'Schema version must be 1');
+          assert.strictEqual(data.voice_id, teacher, `Voice ID must match teacher ${teacher}`);
+          assert.strictEqual(data.timebase, 'media_seconds', 'Timebase must be media_seconds');
+          assert.ok(data.duration_s > 5.0, `Duration must exceed 5 seconds, got ${data.duration_s}`);
+          assert.ok(data.events.length > 20, `Events count must be > 20, got ${data.events.length}`);
+
+          // Verify every event has valid speechClass and monotonically increasing time
+          for (let i = 0; i < data.events.length; i++) {
+            const ev = data.events[i];
+            assert.ok(ev.start_s <= ev.end_s, `Event ${i} start_s (${ev.start_s}) > end_s (${ev.end_s})`);
+            assert.ok(
+              [
+                'BILABIAL_CLOSE',
+                'LABIODENTAL',
+                'DENTAL_NARROW',
+                'VOWEL_OPEN',
+                'VOWEL_ROUND',
+                'VOWEL_WIDE',
+                'REST_NEUTRAL'
+              ].includes(ev.speechClass),
+              `Invalid speech class: ${ev.speechClass}`
+            );
+          }
+        }
+      });
+    });
+  });
+
+  describe('8. Deterministic Voice Cache Key Generation', () => {
+    it('should generate identical keys for identical input across repeated calls', async () => {
+      const key1 = await computeVoiceCacheKey('Welcome to PinIT Careers', 'af_bella', 1.0);
+      const key2 = await computeVoiceCacheKey('Welcome to PinIT Careers', 'af_bella', 1.0);
+      assert.strictEqual(key1, key2);
+      assert.ok(key1.length > 10);
+    });
+
+    it('should generate different keys for different voices or speeds', async () => {
+      const keyPriya = await computeVoiceCacheKey('Hello World', 'priya', 1.0);
+      const keyAnish = await computeVoiceCacheKey('Hello World', 'anish', 1.0);
+      const keyFast = await computeVoiceCacheKey('Hello World', 'priya', 1.2);
+
+      assert.notStrictEqual(keyPriya, keyAnish);
+      assert.notStrictEqual(keyPriya, keyFast);
     });
   });
 });

@@ -10,6 +10,8 @@
  */
 
 // ── Canonical DB constants (must match voiceCache.ts) ─────────────────────────
+import { VisemeEvent } from "./avatar/visemeTypes";
+
 export const DB_NAME    = 'PinIT_VoiceCacheDB';
 const DB_VERSION        = 2; // bumped from 1 because store name changed
 export const STORE_NAME = 'audio_blobs';
@@ -26,6 +28,7 @@ export interface CachedAudioEntry {
   createdAt:   number;
   hitCount:    number;
   byteSize:    number;
+  visemes?:    VisemeEvent[];
 }
 
 // ── Cache Key ─────────────────────────────────────────────────────────────────
@@ -130,6 +133,37 @@ class VoiceCacheDB {
       return null;
     }
   }
+  /**
+   * Retrieves audio buffer and cached companion visemes from IndexedDB.
+   */
+  async getAudioEntry(cacheKey: string): Promise<{ audioBuffer: ArrayBuffer; visemes?: VisemeEvent[] } | null> {
+    try {
+      const db = await this.getDB();
+      return new Promise((resolve) => {
+        const tx = db.transaction(STORE_NAME, 'readonly');
+        const store = tx.objectStore(STORE_NAME);
+        const getReq = store.get(cacheKey);
+
+        getReq.onsuccess = () => {
+          const entry: CachedAudioEntry | undefined = getReq.result;
+          if (entry && entry.audioBuffer && entry.audioBuffer.byteLength > 800) {
+            const returnBuf = entry.audioBuffer.slice(0);
+            this._incrementHit(db, entry).catch(() => {});
+            resolve({ audioBuffer: returnBuf, visemes: entry.visemes });
+          } else {
+            if (entry) this._delete(db, cacheKey).catch(() => {});
+            resolve(null);
+          }
+        };
+
+        getReq.onerror = () => resolve(null);
+      });
+    } catch {
+      return null;
+    }
+  }
+
+
 
   private _incrementHit(db: IDBDatabase, entry: CachedAudioEntry): Promise<void> {
     return new Promise((resolve) => {
@@ -166,6 +200,7 @@ class VoiceCacheDB {
     voice:       string,
     speed:       number,
     audioBuffer: ArrayBuffer,
+    visemes?:    VisemeEvent[],
   ): Promise<void> {
     try {
       const db = await this.getDB();
@@ -183,6 +218,7 @@ class VoiceCacheDB {
           createdAt: Date.now(),
           hitCount:  1,
           byteSize:  audioBuffer.byteLength,
+          visemes,
         };
 
         const putReq      = store.put(entry);
