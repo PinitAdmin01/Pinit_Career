@@ -770,12 +770,12 @@ function FriendsContent() {
           {/* ── TAB 2: MY FRIENDS ── */}
           {activeTab === 'network' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 20px', background: 'rgba(15, 23, 42, 0.7)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: 14 }}>
+              <div className="friends-network-header-box">
                 <div>
-                  <h2 style={{ fontSize: 20, fontWeight: 800, color: '#ffffff', margin: 0 }}>
+                  <h2 className="network-header-title">
                     My Friends ({friendsNetwork.length})
                   </h2>
-                  <p style={{ fontSize: 13, color: '#94a3b8', margin: '4px 0 0' }}>
+                  <p className="network-header-sub">
                     Active campus connections for collaboration, practice duels, and squad builds.
                   </p>
                 </div>
@@ -802,7 +802,7 @@ function FriendsContent() {
               ) : (
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 }}>
                   {friendsNetwork.map((friend) => (
-                    <div key={friend.id} style={{ padding: 16, background: 'rgba(15, 23, 42, 0.8)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: 14, display: 'flex', flexDirection: 'column', gap: 12 }}>
+                    <div key={friend.id} className="friends-network-card">
                       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                         <div
                           style={{ position: 'relative', width: 44, height: 44, flexShrink: 0, cursor: 'pointer' }}
@@ -813,7 +813,7 @@ function FriendsContent() {
                         </div>
                         <div style={{ minWidth: 0, flex: 1 }}>
                           <div
-                            style={{ fontSize: 15.5, fontWeight: 700, color: '#ffffff', cursor: 'pointer' }}
+                            className="network-card-name" style={{ cursor: 'pointer' }}
                             onClick={() => handleNavigateToProfile(friend.id)}
                           >
                             {friend.name}
@@ -883,7 +883,7 @@ function FriendsContent() {
                 ) : (
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 14 }}>
                     {incomingRequestsList.map((req) => (
-                      <div key={req.id} style={{ padding: 16, background: 'rgba(15, 23, 42, 0.8)', border: '1px solid rgba(99, 102, 241, 0.3)', borderRadius: 14, display: 'flex', flexDirection: 'column', gap: 12 }}>
+                      <div key={req.id} className="friends-request-card">
                         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                           <img
                             src={req.avatar}

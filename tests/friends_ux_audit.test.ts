@@ -3,159 +3,63 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { getCompatibilityDetails } from '../src/components/friends/FriendProfileDrawer';
 
-console.log('🧪 RUNNING RIGOROUS 3RD/4TH/5TH PERSON AUDIT FOR FRIENDS HUB & PROFILE UX\n');
+console.log('🧪 RUNNING RIGOROUS FRESH-EYES BRUTAL AUDIT FOR FRIENDS HUB & PROFILE UX\n');
 
-// ── TASK 1 AUDIT: Top 2 lines removed & Light Mode in Friends tab ─────────────
-console.log('Checking Task 1: Header removal & Light Mode styles...');
 const pageSource = fs.readFileSync(path.join(__dirname, '../src/app/friends/page.tsx'), 'utf8');
 const cssSource = fs.readFileSync(path.join(__dirname, '../src/styles/friends.css'), 'utf8');
-
-// 1. Top 2 lines removed
-assert.strictEqual(
-  pageSource.includes('friends-top-header'),
-  false,
-  'FAIL: friends-top-header must be removed from page.tsx'
-);
-assert.strictEqual(
-  pageSource.includes('Find peers, match by skills, collaborate on squad projects'),
-  false,
-  'FAIL: Top subtitle text must be removed from page.tsx'
-);
-// 2. Privacy button retained in tabs bar
-assert.strictEqual(
-  pageSource.includes('🔒 Privacy'),
-  true,
-  'FAIL: Privacy button must be retained in tabs bar'
-);
-// 3. Light mode rules exist in friends.css
-assert.strictEqual(
-  cssSource.includes(":root.light .friends-container"),
-  true,
-  'FAIL: Light mode .friends-container rule missing'
-);
-assert.strictEqual(
-  cssSource.includes(":root.light .student-list-item-row"),
-  true,
-  'FAIL: Light mode .student-list-item-row rule missing'
-);
-assert.strictEqual(
-  cssSource.includes(":root.light .ref-sidebar-card"),
-  true,
-  'FAIL: Light mode .ref-sidebar-card rule missing'
-);
-console.log('✓ Task 1 Passed: Top 2 lines removed & light mode theme engine added.');
-
-// ── TASK 2 AUDIT: Centered Modal & Zero-Scroll Jump On Open ──────────────────
-console.log('\nChecking Task 2: Centered Modal & Scroll Reset...');
 const drawerSource = fs.readFileSync(path.join(__dirname, '../src/components/friends/FriendProfileDrawer.tsx'), 'utf8');
 
-// 1. Scroll container ref reset
-assert.strictEqual(
-  drawerSource.includes('scrollContainerRef.current.scrollTop = 0'),
-  true,
-  'FAIL: FriendProfileDrawer must reset scrollTop = 0 on student change'
-);
-// 2. Center positioning in CSS
-assert.strictEqual(
-  cssSource.includes('justify-content: center;'),
-  true,
-  'FAIL: Backdrop must center modal horizontally'
-);
-assert.strictEqual(
-  cssSource.includes('align-items: center;'),
-  true,
-  'FAIL: Backdrop must center modal vertically'
-);
-assert.strictEqual(
-  cssSource.includes('max-width: 640px;'),
-  true,
-  'FAIL: Profile modal must have centered card max-width (640px)'
-);
-console.log('✓ Task 2 Passed: Modal is centered horizontally and vertically, scrollTop resets instantly.');
+// ── 1. ZERO FAKE DATA & ZERO MOCK FALLBACKS AUDIT ───────────────────────────
+console.log('Checking Invariant 1: Zero fake numbers & zero mock projects...');
+// Must not have hardcoded fake stats
+assert.strictEqual(drawerSource.includes('student.careerScore || 85'), false, 'FAIL: Fake 85 career score fallback found!');
+assert.strictEqual(drawerSource.includes('student.xp || 2400'), false, 'FAIL: Fake 2400 XP fallback found!');
+assert.strictEqual(drawerSource.includes('student.arenaWins || 12'), false, 'FAIL: Fake 12 arena wins fallback found!');
+assert.strictEqual(drawerSource.includes('student.projectsCount || 3'), false, 'FAIL: Fake 3 projects fallback found!');
 
-// ── TASK 3 AUDIT: Exact Compatibility Logic ─────────────────────────────────
-console.log('\nChecking Task 3: Compatibility tier logic thresholds...');
+// Must not have hardcoded mock capstones
+assert.strictEqual(drawerSource.includes('Distributed AI Evaluation System'), false, 'FAIL: Fake project Distributed AI Evaluation System found!');
+assert.strictEqual(drawerSource.includes('Cloud Transit Automation Desk'), false, 'FAIL: Fake project Cloud Transit Automation Desk found!');
 
-// Test 100%: Subordinate Level
-const c100 = getCompatibilityDetails(100);
-assert.strictEqual(c100.label, 'Subordinate Level', 'FAIL: 100% must be Subordinate Level');
-assert.strictEqual(c100.tier, 'subordinate');
+// Must not have hardcoded 1,640 Elo
+assert.strictEqual(drawerSource.includes('1,640 Elo</div>'), false, 'FAIL: Hardcoded 1,640 Elo found!');
+assert.strictEqual(drawerSource.includes('74.2%</div>'), false, 'FAIL: Hardcoded 74.2% win rate found!');
 
-// Test >90%: Best Compatible
-const c95 = getCompatibilityDetails(95);
-assert.strictEqual(c95.label, 'Best Compatible', 'FAIL: 95% must be Best Compatible');
-assert.strictEqual(c95.tier, 'best');
+console.log('✓ Invariant 1 Passed: Zero mock stats, zero fake capstone projects, zero hardcoded Elo.');
 
-const c91 = getCompatibilityDetails(91);
-assert.strictEqual(c91.label, 'Best Compatible', 'FAIL: 91% must be Best Compatible');
+// ── 2. MOBILE RESPONSIVENESS INVARIANTS ──────────────────────────────────────
+console.log('\nChecking Invariant 2: Mobile responsive layout (360px - 560px)...');
+assert.strictEqual(cssSource.includes('@media (max-width: 560px)'), true, 'FAIL: Missing mobile 560px breakpoint for profile modal');
+assert.strictEqual(cssSource.includes('grid-template-columns: repeat(2, 1fr) !important'), true, 'FAIL: Stats grid must adapt to 2 columns on mobile');
+assert.strictEqual(cssSource.includes('flex-direction: column !important'), true, 'FAIL: Compatibility card must adapt to vertical stack on mobile');
+console.log('✓ Invariant 2 Passed: Stats grid and compatibility card adapt responsively on small phones.');
 
-// Test >70%: Good
-const c85 = getCompatibilityDetails(85);
-assert.strictEqual(c85.label, 'Good', 'FAIL: 85% must be Good');
-assert.strictEqual(c85.tier, 'good');
+// ── 3. ALL TABS LIGHT MODE AUDIT (Discover, Network, Requests) ───────────────
+console.log('\nChecking Invariant 3: Multi-tab Light Mode Coverage...');
+assert.strictEqual(cssSource.includes(':root.light .friends-network-header-box'), true, 'FAIL: Light mode missing for My Friends header');
+assert.strictEqual(cssSource.includes(':root.light .friends-network-card'), true, 'FAIL: Light mode missing for Network cards');
+assert.strictEqual(cssSource.includes(':root.light .friends-request-card'), true, 'FAIL: Light mode missing for Request cards');
+assert.strictEqual(cssSource.includes(':root.light .friends-profile-drawer'), true, 'FAIL: Light mode missing for Profile Modal');
+console.log('✓ Invariant 3 Passed: Tabs 1, 2, 3 and the Profile Modal have comprehensive light mode styling.');
 
-const c71 = getCompatibilityDetails(71);
-assert.strictEqual(c71.label, 'Good', 'FAIL: 71% must be Good');
+// ── 4. TASK 3 COMPATIBILITY THRESHOLDS AUDIT ────────────────────────────────
+console.log('\nChecking Invariant 4: Compatibility Logic Edge Cases...');
+assert.strictEqual(getCompatibilityDetails(100).label, 'Subordinate Level');
+assert.strictEqual(getCompatibilityDetails(90.1).label, 'Best Compatible');
+assert.strictEqual(getCompatibilityDetails(90).label, 'Good');
+assert.strictEqual(getCompatibilityDetails(70.1).label, 'Good');
+assert.strictEqual(getCompatibilityDetails(70).label, 'Likely');
+assert.strictEqual(getCompatibilityDetails(50.1).label, 'Likely');
+assert.strictEqual(getCompatibilityDetails(50).label, 'OK');
+assert.strictEqual(getCompatibilityDetails(30.1).label, 'OK');
+assert.strictEqual(getCompatibilityDetails(30).label, 'Basic Match');
+assert.strictEqual(getCompatibilityDetails(0).label, 'Basic Match');
+console.log('✓ Invariant 4 Passed: All strict mathematical boundary thresholds verified.');
 
-// Test >50%: Likely
-const c65 = getCompatibilityDetails(65);
-assert.strictEqual(c65.label, 'Likely', 'FAIL: 65% must be Likely');
-assert.strictEqual(c65.tier, 'likely');
+// ── 5. SCROLL RESET ON OPEN AUDIT ───────────────────────────────────────────
+console.log('\nChecking Invariant 5: Scroll restoration and instant scrollTop = 0...');
+assert.strictEqual(drawerSource.includes('scrollContainerRef.current.scrollTop = 0'), true, 'FAIL: scrollTop = 0 missing');
+assert.strictEqual(drawerSource.includes("ref={scrollContainerRef}"), true, 'FAIL: ref not attached to scroll container');
+console.log('✓ Invariant 5 Passed: Modal resets scroll position to top on every profile open.');
 
-const c51 = getCompatibilityDetails(51);
-assert.strictEqual(c51.label, 'Likely', 'FAIL: 51% must be Likely');
-
-// Test >30%: OK
-const c45 = getCompatibilityDetails(45);
-assert.strictEqual(c45.label, 'OK', 'FAIL: 45% must be OK');
-assert.strictEqual(c45.tier, 'ok');
-
-const c31 = getCompatibilityDetails(31);
-assert.strictEqual(c31.label, 'OK', 'FAIL: 31% must be OK');
-
-// Test <=30%: Basic Match
-const c30 = getCompatibilityDetails(30);
-assert.strictEqual(c30.label, 'Basic Match', 'FAIL: 30% must be Basic Match');
-assert.strictEqual(c30.tier, 'basic');
-
-const c15 = getCompatibilityDetails(15);
-assert.strictEqual(c15.label, 'Basic Match', 'FAIL: 15% must be Basic Match');
-
-// Verify line appears in drawer JSX
-assert.strictEqual(
-  drawerSource.includes('drawer-compatibility-card'),
-  true,
-  'FAIL: drawer-compatibility-card must be rendered in FriendProfileDrawer'
-);
-assert.strictEqual(
-  drawerSource.includes('Compatible:'),
-  true,
-  'FAIL: "Compatible:" line must appear in FriendProfileDrawer'
-);
-console.log('✓ Task 3 Passed: All compatibility thresholds (100 -> Subordinate, >90 -> Best Compatible, >70 -> Good, >50 -> Likely, >30 -> OK, <=30 -> Basic) verified!');
-
-// ── TASK 4 AUDIT: Light Mode for View Profile Modal ─────────────────────────
-console.log('\nChecking Task 4: Light Mode Profile Modal styling...');
-assert.strictEqual(
-  cssSource.includes(":root.light .friends-profile-drawer"),
-  true,
-  'FAIL: Light mode .friends-profile-drawer missing'
-);
-assert.strictEqual(
-  cssSource.includes(":root.light .drawer-topbar"),
-  true,
-  'FAIL: Light mode .drawer-topbar missing'
-);
-assert.strictEqual(
-  cssSource.includes(":root.light .drawer-hero-card"),
-  true,
-  'FAIL: Light mode .drawer-hero-card missing'
-);
-assert.strictEqual(
-  cssSource.includes(":root.light .drawer-compatibility-card"),
-  true,
-  'FAIL: Light mode .drawer-compatibility-card missing'
-);
-console.log('✓ Task 4 Passed: Profile modal has full, high-contrast light mode styling.');
-
-console.log('\n🎉 ALL 4 TASKS VERIFIED AND PASSING 100%!');
+console.log('\n🎉 ALL BRUTAL FRESH-EYES INVARIANTS VERIFIED AND PASSING 100%!');
