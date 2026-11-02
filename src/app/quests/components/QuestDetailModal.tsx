@@ -116,7 +116,7 @@ export const CareerGateModal: React.FC<CareerGateModalProps> = ({
           {/* 1. Technical Quests */}
           <div data-testid="gate-check-tech" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 16px', background: 'var(--bg3)', borderRadius: 12, fontSize: 14.5 }}>
             <div>
-              <div style={{ fontWeight: 700, color: 'var(--t1)' }}>📚 Technical Quests Completion</div>
+              <div style={{ fontWeight: 700, color: 'var(--t1)' }}>Technical Quests Completion</div>
               <div style={{ fontSize: 12, color: 'var(--t3)' }}>
                 {clearedQuests} of {totalQuests} quests completed (Required: {requiredCompletionPct}%)
               </div>
@@ -129,7 +129,7 @@ export const CareerGateModal: React.FC<CareerGateModalProps> = ({
           {/* 2. Soft Skills */}
           <div data-testid="gate-check-comm" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 16px', background: 'var(--bg3)', borderRadius: 12, fontSize: 14.5 }}>
             <div>
-              <div style={{ fontWeight: 700, color: 'var(--t1)' }}>🗣️ Soft Skills / Communication Lab</div>
+              <div style={{ fontWeight: 700, color: 'var(--t1)' }}>Soft Skills / Communication Lab</div>
               <div style={{ fontSize: 12, color: 'var(--t3)' }}>
                 Required score: ≥ {requiredCommScore}%
               </div>
@@ -142,7 +142,7 @@ export const CareerGateModal: React.FC<CareerGateModalProps> = ({
           {/* 3. ATS Resume */}
           <div data-testid="gate-check-ats" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 16px', background: 'var(--bg3)', borderRadius: 12, fontSize: 14.5 }}>
             <div>
-              <div style={{ fontWeight: 700, color: 'var(--t1)' }}>📄 ATS Resume Match Score</div>
+              <div style={{ fontWeight: 700, color: 'var(--t1)' }}>ATS Resume Match Score</div>
               <div style={{ fontSize: 12, color: 'var(--t3)' }}>
                 Target role threshold: ≥ {requiredAtsScore}%
               </div>
@@ -155,13 +155,13 @@ export const CareerGateModal: React.FC<CareerGateModalProps> = ({
           {/* 4. Capstone */}
           <div data-testid="gate-check-capstone" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 16px', background: 'var(--bg3)', borderRadius: 12, fontSize: 14.5 }}>
             <div>
-              <div style={{ fontWeight: 700, color: 'var(--t1)' }}>💻 Verified Capstone Project</div>
+              <div style={{ fontWeight: 700, color: 'var(--t1)' }}>Verified Capstone Project</div>
               <div style={{ fontSize: 12, color: 'var(--t3)' }}>
                 {requiredCapstone ? 'Requires automated code and integrity audit' : 'Optional for this stage'}
               </div>
             </div>
             <span style={{ color: isCapstonePassed ? 'var(--green)' : 'var(--amber)', fontWeight: 800 }}>
-              {isCapstonePassed ? '✓ Code Verified' : '⏳ Verification Pending'}
+              {isCapstonePassed ? '✓ Code Verified' : 'Verification Pending'}
             </span>
           </div>
         </div>
@@ -448,7 +448,7 @@ export const QrModal: React.FC<QrModalProps> = ({
               cursor: 'pointer'
             }}
           >
-            {copiedLink ? '✓ Copied to Clipboard!' : '🔗 Copy Verification URL'}
+            {copiedLink ? '✓ Copied to Clipboard!' : 'Copy Verification URL'}
           </button>
 
           <button
@@ -572,15 +572,15 @@ export const CustomRoadmapModal: React.FC<CustomRoadmapModalProps> = ({
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10, maxWidth: 420, margin: '20px auto 0 auto' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', background: generationStep >= 1 ? 'rgba(var(--success-rgb),0.1)' : 'var(--bg3)', borderRadius: 10, border: '1px solid var(--border)', fontSize: 14, color: 'var(--t1)' }}>
-                <span>{generationStep > 1 ? '✅' : '🧠'}</span>
+                <span>{generationStep > 1 ? '✓' : '1'}</span>
                 <span>Step 1: Analyzing Target Role & Skill Gap</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', background: generationStep >= 2 ? 'rgba(var(--success-rgb),0.1)' : 'var(--bg3)', borderRadius: 10, border: '1px solid var(--border)', fontSize: 14, color: 'var(--t1)' }}>
-                <span>{generationStep > 2 ? '✅' : '📅'}</span>
+                <span>{generationStep > 2 ? '✓' : '2'}</span>
                 <span>Step 2: Structuring {selectedDuration}-Day Day-by-Day Milestone Plan</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', background: generationStep >= 3 ? 'rgba(var(--success-rgb),0.1)' : 'var(--bg3)', borderRadius: 10, border: '1px solid var(--border)', fontSize: 14, color: 'var(--t1)' }}>
-                <span>{generationStep >= 3 ? '⚡' : '⏳'}</span>
+                <span>{generationStep >= 3 ? '✓' : '3'}</span>
                 <span>Step 3: Compiling Socratic Lectures, Coding Quests & Vivas</span>
               </div>
             </div>
@@ -605,11 +605,11 @@ export const CustomRoadmapModal: React.FC<CustomRoadmapModalProps> = ({
                 <span style={{ color: 'var(--success)' }}>{qt1}/100</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                <span style={{ color: 'var(--t4)' }}>🧠 Mindset:</span>
+                <span style={{ color: 'var(--t4)' }}>Mindset:</span>
                 <span style={{ color: 'var(--purple)' }}>{archetype}</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                <span style={{ color: 'var(--t4)' }}>🎓 Active Course:</span>
+                <span style={{ color: 'var(--t4)' }}>Active Course:</span>
                 <span style={{ color: 'var(--t1)' }}>{activeCourseTitle}</span>
               </div>
             </div>
@@ -623,7 +623,7 @@ export const CustomRoadmapModal: React.FC<CustomRoadmapModalProps> = ({
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
                 <label style={{ fontSize: 14.5, fontWeight: 900, color: 'var(--success)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                  🎯 Target Career Goal & Mixed Specialization (Editable)
+                  Target Career Goal & Mixed Specialization (Editable)
                 </label>
                 <span style={{ fontSize: 11, fontWeight: 800, padding: '3px 8px', borderRadius: 8, background: 'var(--success)', color: 'var(--text)' }}>
                   ⭐ High-Priority Input
@@ -661,7 +661,7 @@ export const CustomRoadmapModal: React.FC<CustomRoadmapModalProps> = ({
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
                 <label style={{ fontSize: 14, fontWeight: 800, color: 'var(--text)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                  📅 Roadmap Duration (Min 30 Days - Max 1 Year)
+                  Roadmap Duration (Min 30 Days - Max 1 Year)
                 </label>
                 <span style={{ fontSize: 15.5, fontWeight: 900, color: 'var(--success-bright)', fontFamily: 'var(--font-mono)' }}>
                   {selectedDuration} Days ({selectedDuration === 365 ? '1 Year' : `${Math.round(selectedDuration / 30 * 10) / 10} Months`})
@@ -723,7 +723,7 @@ export const CustomRoadmapModal: React.FC<CustomRoadmapModalProps> = ({
                 marginTop: 8
               }}
             >
-              🚀 Generate {selectedDuration}-Day AI Roadmap Now ➔
+              Generate {selectedDuration}-Day AI Roadmap Now ➔
             </button>
           </div>
         )}

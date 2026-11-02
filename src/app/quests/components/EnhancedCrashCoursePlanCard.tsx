@@ -267,7 +267,7 @@ export const EnhancedCrashCoursePlanCard: React.FC<EnhancedCrashCoursePlanCardPr
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                  <span style={{ fontSize: 13 }}>{m.icon || '📘'}</span>
+                  <span style={{ width: 7, height: 7, borderRadius: '50%', background: hc, flexShrink: 0, display: 'inline-block' }} />
                   <span style={{ fontWeight: 800, flex: 1, color: 'var(--t1)', fontSize: 12 }}>{m.title}</span>
                   {Array.isArray(m.skills) && (
                     <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>

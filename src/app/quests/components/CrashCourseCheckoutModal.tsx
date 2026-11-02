@@ -39,17 +39,17 @@ const TRACK_LABELS: Record<'web_fullstack' | 'python_ai', string> = {
 };
 
 const ALL_DELIVERABLES = [
-  { icon: '🎓', label: 'Verifiable Certificate', sub: 'SHA-256 signed credential' },
-  { icon: '🏢', label: 'Industry Internship', sub: 'Live real-time supervisor grading' },
-  { icon: '💼', label: 'Campus Placement Prep', sub: '1-on-1 AI mock interviews' },
-  { icon: '🌐', label: 'Corporate Languages', sub: 'Technical English & documentation' },
+  { icon: '✓', label: 'Verifiable Certificate', sub: 'SHA-256 signed credential' },
+  { icon: '✓', label: 'Industry Internship', sub: 'Live real-time supervisor grading' },
+  { icon: '✓', label: 'Campus Placement Prep', sub: '1-on-1 AI mock interviews' },
+  { icon: '✓', label: 'Corporate Languages', sub: 'Technical English & documentation' },
 ];
 const DELIVERABLES = ALL_DELIVERABLES.filter((d) => INTERNSHIP_AVAILABLE || !/internship/i.test(d.label));
 
 const PAYMENT_METHODS = [
   {
     id: 'razorpay',
-    icon: '💳',
+    iconText: 'UPI',
     title: 'Razorpay Live UPI',
     subtitle: 'Google Pay • PhonePe • Cards',
     description: 'Instant secure checkout via UPI or NetBanking',
@@ -57,7 +57,7 @@ const PAYMENT_METHODS = [
   },
   {
     id: 'pins',
-    icon: '🪙',
+    iconText: 'PINS',
     title: 'PinIT Vault Coins',
     subtitle: 'Pay with earned Pins',
     description: 'Debit directly from your PinIT student wallet',
@@ -65,7 +65,7 @@ const PAYMENT_METHODS = [
   },
   {
     id: 'sandbox',
-    icon: '🧪',
+    iconText: 'TEST',
     title: 'Instant Sandbox Demo',
     subtitle: 'Offline Verification Testing',
     description: 'Simulate verified enrollment without live payment keys',
@@ -433,8 +433,8 @@ Thank you for enrolling with PinIT Career OS!
         alignItems: 'center',
         justifyContent: 'center',
         zIndex: 99999,
-        padding: 16,
-        overflow: 'hidden',
+        padding: '24px 16px',
+        overflowY: 'auto',
       }}
       aria-modal="true"
       role="dialog"
@@ -445,7 +445,8 @@ Thank you for enrolling with PinIT Career OS!
           position: 'relative',
           width: '100%',
           maxWidth: 820,
-          maxHeight: 'min(92vh, 620px)',
+          maxHeight: 'min(90vh, 700px)',
+          margin: 'auto',
           display: 'flex',
           flexDirection: 'column',
           background: 'var(--card)',
@@ -469,7 +470,6 @@ Thank you for enrolling with PinIT Career OS!
           flexShrink: 0,
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <span style={{ fontSize: 22 }}>🚀</span>
             <div>
               <h2 style={{ fontSize: 18, fontWeight: 900, margin: 0, fontFamily: 'var(--font-display)', color: 'var(--t1)', lineHeight: 1.2 }}>
                 {paymentState === 'success' ? 'Enrollment Confirmed!' : `Enroll in ${plan.title}`}
@@ -553,7 +553,7 @@ Thank you for enrolling with PinIT Career OS!
                   color: 'var(--t1)', fontSize: 13.5, fontWeight: 700, cursor: 'pointer',
                 }}
               >
-                📄 Download Receipt
+                Download Receipt
               </button>
               <button
                 data-testid="btn-launch-workspace"
@@ -567,7 +567,7 @@ Thank you for enrolling with PinIT Career OS!
                   opacity: isLaunchingWorkspace ? 0.6 : 1,
                 }}
               >
-                {isLaunchingWorkspace ? '⏳ Launching...' : '🚀 Launch Program Workspace →'}
+                {isLaunchingWorkspace ? 'Launching...' : 'Launch Program Workspace →'}
               </button>
             </div>
           </div>
@@ -718,9 +718,9 @@ Thank you for enrolling with PinIT Career OS!
                           width: 34, height: 34, borderRadius: 8,
                           background: method.gradient, display: 'flex',
                           alignItems: 'center', justifyContent: 'center',
-                          fontSize: 17, flexShrink: 0,
+                          fontSize: 11, fontWeight: 900, color: '#ffffff', flexShrink: 0,
                         }}>
-                          {method.icon}
+                          {(method as any).iconText || 'PAY'}
                         </span>
 
                         <div style={{ flex: 1, minWidth: 0 }}>
@@ -758,13 +758,13 @@ Thank you for enrolling with PinIT Career OS!
                 {paymentState === 'processing' ? (
                   <div style={{ padding: '12px', textAlign: 'center', background: 'rgba(99, 102, 241, 0.08)', borderRadius: 10, marginBottom: 8 }}>
                     <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--accent)' }}>
-                      ⏳ {processingMessage || 'Authorizing enrollment...'}
+                      {processingMessage || 'Authorizing enrollment...'}
                     </div>
                   </div>
                 ) : (
                   <>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 11, color: 'var(--t4)', marginBottom: 8 }}>
-                      <span>🔒</span>
+                      
                       <span>256-bit encrypted checkout. Instant enrollment confirmation.</span>
                     </div>
 
@@ -786,7 +786,7 @@ Thank you for enrolling with PinIT Career OS!
                       onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.transform = 'translateY(0)'; }}
                     >
                       {selectedMethod === 'sandbox'
-                        ? '🧪 Instant Demo Enroll (Free Sandbox)'
+                        ? 'Instant Demo Enroll (Free Sandbox)'
                         : selectedMethod === 'pins'
                         ? `Pay with ${plan.pinsPrice} Pins →`
                         : `Pay & Enroll — ${formatINR(finalPayable)} →`}

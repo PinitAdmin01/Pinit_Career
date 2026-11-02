@@ -182,6 +182,9 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
     setCheckoutPlan(plan);
     setActiveTrack(track);
     setCheckoutModalOpen(true);
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   // The server already recorded this enrollment and charged/credited pins when the
@@ -194,6 +197,9 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
     crashCourseEnrollmentService.cacheEnrollment(enrollment);
     if (typeof newPinBalance === 'number') setPins(newPinBalance);
     setCheckoutModalOpen(false);
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   const handleSelectCrashPlan = (planId: string, track: 'web_fullstack' | 'python_ai', courseIdToActivate: string) => {
@@ -654,7 +660,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                         transition: 'all 0.15s ease',
                       }}
                     >
-                      📅 Multi-Semester Timeline
+                      Multi-Semester Timeline
                     </button>
                     <button
                       onClick={() => setPassportView('matrix')}
@@ -670,7 +676,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                         transition: 'all 0.15s ease',
                       }}
                     >
-                      📊 Full Competency Evidence Matrix
+                      Full Competency Evidence Matrix
                     </button>
                   </div>
 
@@ -944,7 +950,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
               <span style={{ fontSize: 12, fontWeight: 900, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                📍 My Active Roadmaps ({count}/3):
+                My Active Roadmaps ({count}/3):
               </span>
 
               {myActiveCourseIds.map(id => {
@@ -1026,7 +1032,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
               </button>
             ) : (
               <span style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--t4)' }}>
-                📌 Max 3 Active Tracks Enrolled
+                Max 3 Active Tracks Enrolled
               </span>
             )}
           </div>
@@ -1038,7 +1044,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
         <div className="animate-fade-in">
           <div style={{ marginBottom: 24 }}>
             <h2 style={{ fontSize: 22, fontWeight: 900, color: 'var(--t1)', fontFamily: 'var(--font-display)' }}>
-              📚 All 20 Industry Learning Tracks
+              All 20 Industry Learning Tracks
             </h2>
             <p style={{ fontSize: 14.5, color: 'var(--t3)', marginTop: 4 }}>
               Browse standalone 30-day curriculum tracks. Learning any course automatically updates your career skill heatmap!
@@ -1110,7 +1116,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                           cursor: 'pointer'
                         }}
                       >
-                        📖 Notes
+                        Notes
                       </button>
                       <span style={{ fontSize: 13, color: 'var(--accent)', fontWeight: 800 }}>
                         {isActive ? 'Active Track ➔' : 'Select Track ➔'}
@@ -1149,7 +1155,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
               className="btn-emerald-glow"
               style={{ padding: '14px 28px', fontSize: 15.5, fontWeight: 800, cursor: 'pointer' }}
             >
-              ✨ Generate Custom AI Roadmap ➔
+              Generate Custom AI Roadmap ➔
             </button>
 
             <button
@@ -1165,7 +1171,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                 cursor: 'pointer'
               }}
             >
-              📚 Browse Course Library
+              Browse Course Library
             </button>
           </div>
         </div>

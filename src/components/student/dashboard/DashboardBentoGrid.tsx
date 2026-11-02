@@ -5,11 +5,11 @@ import DashboardAttendanceMarker from './DashboardAttendanceMarker';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 
 const EVO_STAGES = [
-  { stage: 1, icon: '🌱', name: 'Syntax & Logic Novice', minScore: 0, desc: 'Variables, loops & conditional logic' },
-  { stage: 2, icon: '⚙️', name: 'Algorithmic Problem Solver', minScore: 21, desc: 'Data structures, complexity & clean OOP' },
-  { stage: 3, icon: '🚀', name: 'Full-Stack Developer', minScore: 41, desc: 'React, Node.js & relational schemas' },
-  { stage: 4, icon: '⚡', name: 'Systems Architect', minScore: 61, desc: 'Microservices, caching & cloud pipelines' },
-  { stage: 5, icon: '🏆', name: 'Placement Ready Engineer', minScore: 81, desc: 'Interview-cleared & high-scale ready' },
+  { stage: 1, icon: '1', name: 'Syntax & Logic Novice', minScore: 0, desc: 'Variables, loops & conditional logic' },
+  { stage: 2, icon: '2', name: 'Algorithmic Problem Solver', minScore: 21, desc: 'Data structures, complexity & clean OOP' },
+  { stage: 3, icon: '3', name: 'Full-Stack Developer', minScore: 41, desc: 'React, Node.js & relational schemas' },
+  { stage: 4, icon: '4', name: 'Systems Architect', minScore: 61, desc: 'Microservices, caching & cloud pipelines' },
+  { stage: 5, icon: '5', name: 'Placement Ready Engineer', minScore: 81, desc: 'Interview-cleared & high-scale ready' },
 ];
 
 interface Props {
@@ -79,9 +79,9 @@ export default function DashboardBentoGrid({
       <div className="db-glass" style={{ padding: '18px 24px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8, marginBottom: 14 }}>
           <div>
-            <span className="db-label">🧬 ENGINEERING GROWTH TRACK</span>
+            <span className="db-label">ENGINEERING GROWTH TRACK</span>
             <h3 style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', margin: '2px 0 0', fontFamily: 'var(--font-display)' }}>
-              Stage: <span style={{ color: 'var(--accent)' }}>{EVO_STAGES[activeStageIndex]?.icon} {EVO_STAGES[activeStageIndex]?.name}</span> &middot; Level {activeStageIndex + 1} of 5
+              Stage: <span style={{ color: 'var(--accent)' }}>{EVO_STAGES[activeStageIndex]?.name}</span> &middot; Level {activeStageIndex + 1} of 5
             </h3>
           </div>
           <div style={{ fontSize: 12, fontFamily: 'var(--font-mono)', color: 'var(--t2)', background: 'var(--bg3)', padding: '4px 10px', borderRadius: 8, border: '1px solid var(--border)' }}>
@@ -138,7 +138,7 @@ export default function DashboardBentoGrid({
       <div className="db-glass" style={{ padding: 22 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10, marginBottom: 12 }}>
           <div>
-            <span className="db-label">📊 SOCRATIC COMPETENCIES RADAR</span>
+            <span className="db-label">SOCRATIC COMPETENCIES RADAR</span>
             <h3 style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', margin: '2px 0 0', fontFamily: 'var(--font-display)' }}>
               Multi-Dimensional Competency Matrix
             </h3>
@@ -191,7 +191,7 @@ export default function DashboardBentoGrid({
         <div className="db-glass" style={{ padding: 20 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
             <div>
-              <span className="db-label">⚠️ AI MISTAKES &amp; REMEDIATION</span>
+              <span className="db-label">AI MISTAKES &amp; REMEDIATION</span>
               <h3 style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)', margin: '2px 0 0' }}>Unresolved Knowledge Gaps</h3>
             </div>
             <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--coral-mid)', background: 'var(--coral-light)', padding: '2px 8px', borderRadius: 8 }}>

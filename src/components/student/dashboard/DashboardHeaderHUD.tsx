@@ -282,7 +282,7 @@ export default function DashboardHeaderHUD({
               boxShadow: '0 2px 10px rgba(16,185,129,0.12)',
             }}
           >
-            <span style={{ fontSize: 15 }}>🛡️</span>
+            
             <span>Trust</span>
           </Link>
 
@@ -309,7 +309,7 @@ export default function DashboardHeaderHUD({
                   outline: 'none',
                 }}
               >
-                {t === 'sde' ? '💻 SDE Software' : '🔌 IoT Hardware'}
+                {t === 'sde' ? 'SDE Software' : 'IoT Hardware'}
               </button>
             ))}
           </div>

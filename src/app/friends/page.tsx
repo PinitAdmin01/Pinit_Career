@@ -400,13 +400,13 @@ function FriendsContent() {
               className={`friends-tab-pill ${activeTab === 'challenges' ? 'active' : ''}`}
               onClick={() => setActiveTab('challenges')}
             >
-              <span>🏆</span> Challenges
+              Challenges
             </button>
             <button
               className={`friends-tab-pill ${activeTab === 'projects' ? 'active' : ''}`}
               onClick={() => setActiveTab('projects')}
             >
-              <span>👥</span> Group Projects
+              Group Projects
             </button>
             <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', paddingRight: 4 }}>
               <button
@@ -428,7 +428,7 @@ function FriendsContent() {
                   whiteSpace: 'nowrap'
                 }}
               >
-                🔒 Privacy
+                Privacy
               </button>
             </div>
           </div>
@@ -1056,7 +1056,7 @@ function FriendsContent() {
                 onClick={() => setChallengeStudent(suggestedStudents[0] || null)}
               >
                 <div className="tile-icon-title">
-                  <span className="tile-icon">🏆</span>
+                  
                   <span className="tile-label">Invite to<br />Challenge</span>
                 </div>
                 <span className="tile-arrow">›</span>
@@ -1067,7 +1067,7 @@ function FriendsContent() {
                 onClick={() => setProjectStudent(suggestedStudents[0] || null)}
               >
                 <div className="tile-icon-title">
-                  <span className="tile-icon">👥</span>
+                  
                   <span className="tile-label">Invite to<br />Project</span>
                 </div>
                 <span className="tile-arrow">›</span>
@@ -1081,7 +1081,7 @@ function FriendsContent() {
                 }}
               >
                 <div className="tile-icon-title">
-                  <span className="tile-icon">👤+</span>
+                  
                   <span className="tile-label">Find<br />Friends</span>
                 </div>
                 <span className="tile-arrow">›</span>
@@ -1092,7 +1092,7 @@ function FriendsContent() {
                 onClick={() => setActiveTab('network')}
               >
                 <div className="tile-icon-title">
-                  <span className="tile-icon">👥</span>
+                  
                   <span className="tile-label">View<br />My Friends</span>
                 </div>
                 <span className="tile-arrow">›</span>
@@ -1189,9 +1189,8 @@ export default function FriendsPage() {
   return (
     <Suspense
       fallback={
-        <div style={{ maxWidth: 1200, margin: '60px auto', padding: '0 24px', textAlign: 'center', color: '#94a3b8' }}>
-          <div style={{ fontSize: 35, marginBottom: 12 }}>⚡</div>
-          <div style={{ fontSize: 17.5, fontWeight: 700, color: '#f8fafc' }}>Loading Campus Network...</div>
+        <div style={{ maxWidth: 1200, margin: '60px auto', padding: '0 24px', textAlign: 'center', color: 'var(--t2)' }}>
+          <div style={{ fontSize: 17.5, fontWeight: 700, color: 'var(--t1)' }}>Loading Campus Network...</div>
         </div>
       }
     >

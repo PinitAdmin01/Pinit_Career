@@ -111,7 +111,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                 transition: 'all 0.2s'
               }}
             >
-              📜 View Entire Detailed Journey ➔
+              View Entire Detailed Journey ➔
             </button>
             <span style={{ fontSize: 12, background: 'rgba(var(--success-deep-rgb),0.1)', color: 'var(--green)', padding: '6px 12px', borderRadius: 20, fontWeight: 700 }}>
               ✓ Single-Click Active Node Execution
@@ -350,7 +350,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                   justifyContent: 'center',
                   fontSize: 22
                 }}>
-                  🚀
+                  
                 </div>
                 <span style={{ fontSize: 12, fontWeight: 900, color: 'var(--danger)', background: 'rgba(255,255,255,0.9)', padding: '4px 10px', borderRadius: 20, boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
                   START
@@ -379,17 +379,17 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                           courseId: activeCourseId || activeCourseObj.id,
                           title: m.title.replace(/^.*—\s*Stage\s*\d+:\s*/i, '').trim() || m.title,
                           shortDesc: m.desc,
-                          icon: i === 0 ? '🌱' : i === 1 ? '⚡' : i === 2 ? '🚀' : '🏆',
+                          icon: `S${i + 1}`,
                           skillsLearned: [],
                           careerImpact: '+15% Mastery',
                           estimatedDays: (m.estimatedWeeks || 1) * 7,
                         }))
-                      : [activeCourseObj].map((c) => ({
+                      : [activeCourseObj].map((c, idx) => ({
                           nodeId: c.id,
                           courseId: c.id,
                           title: c.title,
                           shortDesc: c.desc,
-                          icon: c.icon || '🎯',
+                          icon: `N${idx + 1}`,
                           skillsLearned: [],
                           careerImpact: '+25% Career Impact',
                           estimatedDays: 30,
@@ -428,7 +428,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                         whiteSpace: 'nowrap',
                         marginBottom: 2
                       }}>
-                        YOU ARE HERE 📍
+                        YOU ARE HERE
                       </div>
                       <div style={{
                         width: 36,
@@ -442,7 +442,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                         justifyContent: 'center',
                         fontSize: 17.5
                       }}>
-                        🧑‍💻
+                        
                       </div>
                     </div>
 
@@ -511,7 +511,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                             flexShrink: 0,
                             transition: 'all 0.3s ease'
                           }}>
-                            {isFullyCompleted ? '✓' : (node.icon || '🎯')}
+                            {isFullyCompleted ? '✓' : (node.icon || '•')}
                           </div>
 
                           {/* Crisp Horizontal White Pill Card */}
@@ -573,7 +573,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                   justifyContent: 'center',
                   fontSize: 22
                 }}>
-                  🎉
+                  ✓
                 </div>
               </div>
 
@@ -595,7 +595,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
               marginBottom: -6
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{ fontSize: 17.5 }}>🔒</span>
+                <span style={{ fontSize: 11, fontWeight: 900, color: 'var(--accent)', background: 'rgba(var(--accent-rgb, 99, 102, 241), 0.12)', padding: '2px 6px', borderRadius: 4 }}>GATE</span>
                 <div>
                   <div style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--t1)' }}>
                     Authoritative Curriculum Progression
@@ -632,7 +632,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                   return prevCleared < prevQuests.length && prevQuests.length > 0;
                 })();
                 const nextQuestInStage = stageQuests.find(q => !completedQuests.includes(q.id)) || stageQuests[0];
-                const stepColors = ['var(--danger)', 'var(--warning)', 'var(--success)', 'var(--accent-cyan)', '#0d9488', 'var(--reward)', '#ec4899', 'var(--warning)'];
+                const stepColors = ['var(--accent)', 'var(--teal)', 'var(--purple)', 'var(--blue)', 'var(--success)', 'var(--warning)', 'var(--reward)', '#ec4899'];
                 const currentColor = stepColors[idx % stepColors.length];
 
                 return (
@@ -643,7 +643,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                         width: 64,
                         height: 64,
                         borderRadius: '50%',
-                        background: `linear-gradient(135deg, ${currentColor}, #090d16)`,
+                        background: `linear-gradient(135deg, ${currentColor}, var(--bg3))`,
                         border: `3px solid ${currentColor}`,
                         boxShadow: `0 0 20px ${currentColor}55`,
                         display: 'flex',
@@ -663,11 +663,11 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                       <div
                         onClick={() => {
                           if (isLocked) {
-                            toast.warning('Prerequisite Stage Locked 🔒', 'Please complete the previous stage quests before advancing to this stage.');
+                            toast.warning('Prerequisite Stage Locked', 'Please complete the previous stage quests before advancing to this stage.');
                             return;
                           }
                           if (isStageCompleted) {
-                            toast.warning('Stage Completed 🔒', 'All classes in this stage have been completed. Previous classes cannot be re-accessed.');
+                            toast.warning('Stage Completed', 'All classes in this stage have been completed. Previous classes cannot be re-accessed.');
                             return;
                           }
                           if (nextQuestInStage) {
@@ -709,7 +709,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                               fontSize: 22,
                               flexShrink: 0
                             }}>
-                              {isStageCompleted ? '✓' : isLocked ? '🔒' : (idx === 0 ? '🌱' : idx === 1 ? '⚡' : idx === 2 ? '🚀' : '🏆')}
+                              {isStageCompleted ? '✓' : isLocked ? 'L' : `${idx + 1}`}
                             </div>
                             <div>
                               <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
@@ -750,7 +750,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                                 cursor: isLocked ? 'not-allowed' : 'pointer'
                               }}
                             >
-                              {isStageCompleted ? 'Completed ✓' : isLocked ? 'Locked 🔒' : 'Continue Stage ➔'}
+                              {isStageCompleted ? 'Completed ✓' : isLocked ? 'Locked' : 'Continue Stage ➔'}
                             </button>
                           </div>
                         </div>
@@ -762,7 +762,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                               const isQDone = completedQuests.includes(q.id);
                               const isExam = q.category === 'exam' || q.type === 'interactive' || q.id.includes('exam');
                               const isCode = q.type === 'coding';
-                              const catIcon = isExam ? '📝' : isCode ? '💻' : '🎓';
+                              const catIcon = isExam ? 'TEST' : isCode ? 'CODE' : 'CORE';
                               const catLabel = isExam ? 'Exam' : isCode ? 'Coding' : 'Learn';
                               const isPrevQuestDone = qIdx === 0 || completedQuests.includes(stageQuests[qIdx - 1].id);
                               const isQuestLocked = isLocked || (!isQDone && !isPrevQuestDone);
@@ -775,10 +775,10 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                                     e.stopPropagation();
                                     if (isQuestLocked) {
                                       if (isLocked) {
-                                        toast.warning('Prerequisite Stage Locked 🔒', 'Complete previous stage quests first.');
+                                        toast.warning('Prerequisite Stage Locked', 'Complete previous stage quests first.');
                                       } else {
                                         const prevQ = stageQuests[qIdx - 1];
-                                        toast.warning('Prerequisite Quest Locked 🔒', `Complete "${prevQ?.title || 'previous quest'}" first.`);
+                                        toast.warning('Prerequisite Quest Locked', `Complete "${prevQ?.title || 'previous quest'}" first.`);
                                       }
                                       return;
                                     }
@@ -801,7 +801,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                                   }}
                                   className={isQuestLocked ? '' : 'card-hover'}
                                 >
-                                  <span>{isQDone ? '✓' : isQuestLocked ? '🔒' : catIcon}</span>
+                                  <span>{isQDone ? '✓' : isQuestLocked ? '•' : catIcon}</span>
                                   <span style={{ fontSize: 11, opacity: 0.8, textTransform: 'uppercase' }}>[{catLabel}]</span>
                                   <span>{q.title.replace(/^Day \d+[:\s-]*/i, '').replace(/Challenge:?\s*/i, '').replace(/Assignment:?\s*/i, '').slice(0, 36)}</span>
                                 </button>
@@ -823,7 +823,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                 borderRadius: 20,
                 margin: '20px 0'
               }}>
-                <div style={{ fontSize: 44, marginBottom: 12 }}>🧭</div>
+                
                 <h3 style={{ fontSize: 20, fontWeight: 800, color: 'var(--t1)' }}>Personalized Roadmap Initializing</h3>
                 <p style={{ fontSize: 14.5, color: 'var(--t3)', maxWidth: 440, margin: '8px auto 20px', lineHeight: 1.5 }}>
                   We are crafting your stage-by-stage learning path tailored to your archetype and career goals.
@@ -859,7 +859,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                 );
 
                 const nextQuestInNode = nodeQuests.find(q => !completedQuests.includes(q.id)) || nodeQuests[0];
-                const stepColors = ['var(--danger)', 'var(--warning)', 'var(--success)', 'var(--accent-cyan)', '#0d9488', 'var(--reward)', '#ec4899', 'var(--warning)'];
+                const stepColors = ['var(--accent)', 'var(--teal)', 'var(--purple)', 'var(--blue)', 'var(--success)', 'var(--warning)', 'var(--reward)', '#ec4899'];
                 const currentColor = stepColors[idx % stepColors.length];
 
                 return (
@@ -911,7 +911,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                         width: 64,
                         height: 64,
                         borderRadius: '50%',
-                        background: `linear-gradient(135deg, ${currentColor}, #090d16)`,
+                        background: `linear-gradient(135deg, ${currentColor}, var(--bg3))`,
                         border: `3px solid ${currentColor}`,
                         boxShadow: `0 0 20px ${currentColor}55`,
                         display: 'flex',
@@ -931,11 +931,11 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                       <div
                         onClick={() => {
                           if (isLocked) {
-                            toast.warning('Prerequisite Stage Locked 🔒', 'Please complete the previous stage quests before advancing to this stage.');
+                            toast.warning('Prerequisite Stage Locked', 'Please complete the previous stage quests before advancing to this stage.');
                             return;
                           }
                           if (isNodeCompleted) {
-                            toast.warning('Milestone Completed 🔒', 'All classes in this milestone have been completed. Previous classes cannot be re-accessed.');
+                            toast.warning('Milestone Completed', 'All classes in this milestone have been completed. Previous classes cannot be re-accessed.');
                             return;
                           }
                           if (nextQuestInNode) {
@@ -976,7 +976,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                           fontSize: 24,
                           flexShrink: 0
                         }}>
-                          {isNodeCompleted ? '✓' : isLocked ? '🔒' : node.icon}
+                          {isNodeCompleted ? '✓' : isLocked ? 'L' : (node.icon || '•')}
                         </div>
 
                         {/* Info Text */}
@@ -990,7 +990,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                                 if (i === 0) return { label: 'Level 0: Zero Basics', color: 'var(--success)' };
                                 if (i === 1) return { label: 'Level 1: Foundations', color: 'var(--accent-cyan)' };
                                 if (i === 2) return { label: 'Level 2: Core Engineering', color: 'var(--info)' };
-                                return { label: '🔥 Level 3: Pro Mastery', color: '#ec4899' };
+                                return { label: 'Level 3: Pro Mastery', color: '#ec4899' };
                               };
                               const badge = getLevelBadge(idx);
                               return (
@@ -1042,7 +1042,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                               cursor: isLocked ? 'not-allowed' : 'pointer'
                             }}
                           >
-                            {isNodeCompleted ? 'Completed ✓' : isLocked ? 'Locked 🔒' : 'Continue Quest ➔'}
+                            {isNodeCompleted ? 'Completed ✓' : isLocked ? 'Locked' : 'Continue Quest ➔'}
                           </button>
                         </div>
 
@@ -1074,7 +1074,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20, flexWrap: 'wrap', gap: 16 }}>
             <div>
               <h3 style={{ fontSize: 20, fontWeight: 900, color: 'var(--t1)', margin: 0, display: 'flex', alignItems: 'center', gap: 10, fontFamily: 'var(--font-display)' }}>
-                <span>📜</span> Quest Completion & Learning Activity History
+                Quest Completion & Learning Activity History
               </h3>
               <span style={{ fontSize: 14, color: 'var(--t3)', marginTop: 4, display: 'block' }}>
                 Verified record of completed syllabus lectures, passed coding exams, and earned reward milestones.
@@ -1099,7 +1099,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                     +{totalXp} XP Accumulated
                   </div>
                   <div style={{ padding: '8px 14px', borderRadius: 12, background: 'rgba(var(--warning-rgb),0.1)', border: '1px solid rgba(var(--warning-rgb),0.25)', fontSize: 13, fontWeight: 800, color: 'var(--warning-bright)' }}>
-                    🪙 +{totalPins} Pins Bonus
+                    +{totalPins} Pins Bonus
                   </div>
                 </div>
               );
@@ -1110,8 +1110,8 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
           <div style={{ display: 'flex', gap: 10, marginBottom: 20, borderBottom: '1px solid var(--border)', paddingBottom: 12 }}>
             {[
               { id: 'all', label: `All Activity (${completedQuests.length + (pinsHistory?.length || 0)})` },
-              { id: 'quests', label: `🎓 Quests & Exams (${completedQuests.length})` },
-              { id: 'pins', label: `🪙 Pins & Rewards (${pinsHistory?.length || 0})` }
+              { id: 'quests', label: `Quests & Exams (${completedQuests.length})` },
+              { id: 'pins', label: `Pins & Rewards (${pinsHistory?.length || 0})` }
             ].map(tab => (
               <button
                 key={tab.id}
@@ -1172,7 +1172,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                 xp: authQuest?.xp ?? foundQuest?.xp ?? 150,
                 pins: authQuest?.pins ?? foundQuest?.pins ?? 5,
                 questId: qId,
-                icon: (authQuest?.category === 'exam' || qId.includes('exam')) ? '🏆' : '🎓'
+                icon: (authQuest?.category === 'exam' || qId.includes('exam')) ? 'TEST' : 'QUEST'
               };
             });
 
@@ -1187,7 +1187,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
               xp: 0,
               pins: p.amount,
               questId: null,
-              icon: '🪙'
+              icon: 'PINS'
             }));
 
             let displayItems = [];
@@ -1204,7 +1204,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                   borderRadius: 16,
                   border: '1px dashed var(--border)'
                 }}>
-                  <div style={{ fontSize: 35, marginBottom: 8 }}>📜</div>
+                  
                   <h4 style={{ fontSize: 16.5, fontWeight: 800, color: 'var(--t1)', margin: '0 0 4px 0' }}>No Activity History Recorded Yet</h4>
                   <p style={{ fontSize: 14, color: 'var(--t3)', margin: 0 }}>
                     Complete your first quest or pass a syllabus exam above to build your permanent learning history!
