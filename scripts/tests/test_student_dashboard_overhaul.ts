@@ -51,9 +51,11 @@ test('Task 3 Verification: Auto Attendance, Top Trust Button, Dynamic Greetings 
   const hudPath = path.join(ROOT, 'src/components/student/dashboard/DashboardHeaderHUD.tsx');
   const hudCode = fs.readFileSync(hudPath, 'utf8');
 
-  // Top Trust button
+  // Top Trust button and page
   assert.ok(hudCode.includes('href="/trust"'), 'Top Trust button must link to /trust');
   assert.ok(hudCode.includes('btn-trust-top'), 'Top Trust button must have testid');
+  const trustPagePath = path.join(ROOT, 'src/app/trust/page.tsx');
+  assert.ok(fs.existsSync(trustPagePath), 'Trust dashboard page at /trust must exist');
 
   // Dynamic greeting logic
   assert.ok(hudCode.includes('pinit_last_dashboard_visit'), 'Must check last dashboard visit');

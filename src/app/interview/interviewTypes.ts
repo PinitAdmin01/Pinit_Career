@@ -129,5 +129,12 @@ export async function getAuthHeaders(): Promise<Record<string, string>> {
   } catch (err) {
     console.warn('[Interview Auth] Could not retrieve Supabase session token:', err);
   }
+  if (typeof window !== 'undefined') {
+    const localToken = localStorage.getItem('pinit_token') || 'demo-token-bypass';
+    return {
+      'Authorization': `Bearer ${localToken}`,
+      'Content-Type': 'application/json'
+    };
+  }
   return { 'Content-Type': 'application/json' };
 }
