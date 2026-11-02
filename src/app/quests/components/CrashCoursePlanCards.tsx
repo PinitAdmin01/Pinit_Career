@@ -158,7 +158,7 @@ export const CrashCoursePlanCards: React.FC<CrashCoursePlanCardsProps> = ({
                   padding: '1px 6px',
                   borderRadius: 4,
                   background: activeTrack === 'web_fullstack' ? 'var(--accent)' : 'var(--bg3)',
-                  color: activeTrack === 'web_fullstack' ? 'var(--t1)' : 'var(--t2)',
+                  color: activeTrack === 'web_fullstack' ? '#ffffff' : 'var(--t2)',
                   fontWeight: 800,
                 }}
               >
@@ -196,7 +196,7 @@ export const CrashCoursePlanCards: React.FC<CrashCoursePlanCardsProps> = ({
                   padding: '1px 6px',
                   borderRadius: 4,
                   background: activeTrack === 'python_ai' ? 'var(--green)' : 'var(--bg3)',
-                  color: activeTrack === 'python_ai' ? 'var(--t1)' : 'var(--t2)',
+                  color: activeTrack === 'python_ai' ? '#ffffff' : 'var(--t2)',
                   fontWeight: 800,
                 }}
               >
