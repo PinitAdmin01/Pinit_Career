@@ -239,7 +239,7 @@ describe('ADVERSARIAL SENIOR QA & UI/UX DESIGN AUDIT', () => {
       assert.ok(checkoutHtml.includes('PINIT2026'));
       assert.ok(checkoutHtml.includes('Razorpay Live'));
       assert.ok(checkoutHtml.includes('PinIT Vault Coins'));
-      assert.ok(checkoutHtml.includes('Instant Demo Checkout'));
+      assert.ok(checkoutHtml.includes('Instant Sandbox Demo'));
     });
   });
 

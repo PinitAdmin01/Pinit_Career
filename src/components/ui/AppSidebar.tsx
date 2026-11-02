@@ -887,8 +887,8 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
           </div>
         )}
 
-        {/* Quick Portal Switcher for Multi-Role & Institutional Evaluation */}
-        {!isCompact && (
+        {/* Quick Portal Switcher: Strictly hidden in Student Portal */}
+        {!isCompact && !isStudent && roleLabel !== 'student' && ['admin', 'superadmin', 'teacher', 'faculty'].includes(roleLabel) && (
           <div
             style={{
               display: 'flex',

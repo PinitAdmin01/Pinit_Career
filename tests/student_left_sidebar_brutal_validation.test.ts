@@ -261,6 +261,11 @@ describe('BRUTAL VALIDATION — FULL SSR RENDERING OF APPSIDEBAR', () => {
     assert.ok(html.includes('350'), 'Safe pins count must be displayed');
     assert.ok(html.includes('Aarav Patel'), 'Student display name must be rendered');
     assert.ok(html.includes('student') && html.includes('Profile'), 'Role badge must be rendered');
+
+    // Invariant Task 1: Student portal must NEVER render portal switcher or admin/teacher access buttons
+    assert.ok(!html.includes('Portal:'), 'Student sidebar must NEVER render the Portal switcher');
+    assert.ok(!html.includes('href="/admin"'), 'Student sidebar must NEVER render admin portal link');
+    assert.ok(!html.includes('href="/teacher"'), 'Student sidebar must NEVER render teacher portal link');
   });
 
   it('renders student sidebar in compact mode without breaking or leaking labels', () => {
