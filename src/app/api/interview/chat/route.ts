@@ -102,7 +102,7 @@ function extractCandidateKeyContext(text: string): { phrase: string; keyTerm: st
   if (!clean || clean.length < 5) return { phrase: 'your initial approach', keyTerm: 'approach', type: 'general' };
 
   // Check for metrics or scale: e.g. "40%", "10x", "500ms", "3 team members", "millions of users"
-  const metricMatch = clean.match(/(\d+%\s*(?:latency|improvement|reduction|increase|drop)|10x|5x|\d+\s*(?:ms|seconds|minutes|hours|users|req\/s|rps|nodes|servers|instances))/i);
+  const metricMatch = clean.match(/(\d+%\s*(?:latency\s*(?:drop|reduction|increase)?|improvement|reduction|increase|drop)|10x|5x|\d+\s*(?:ms|seconds|minutes|hours|users|req\/s|rps|nodes|servers|instances))/i);
   if (metricMatch) {
     return { phrase: `achieving ${metricMatch[1]}`, keyTerm: metricMatch[1], type: 'metric' };
   }

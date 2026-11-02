@@ -357,14 +357,32 @@ export async function speakWithAvatar(
 ) {
   if (isStoryTourAudioLocked() && !options?.force) {
     console.log('[PinIT TTS] 🛡️ speakWithAvatar() suppressed: Story Tour narration owns the audio channel');
+    try { onEnd(); } catch {}
     return;
   }
   stopSpeaking(true);
   const mySpeechId = currentSpeechId;
-  if (isMuted || !text) return;
+  if (!text) {
+    try { onEnd(); } catch {}
+    return;
+  }
 
   const cleanSpeechText = sanitizeForSpeech(text);
-  if (!cleanSpeechText) return;
+  if (!cleanSpeechText) {
+    try { onEnd(); } catch {}
+    return;
+  }
+
+  if (isMuted) {
+    try { onStart(); } catch {}
+    const simulatedReadingMs = Math.min(3500, Math.max(1200, cleanSpeechText.length * 35));
+    setTimeout(() => {
+      if (mySpeechId === currentSpeechId) {
+        try { onEnd(); } catch {}
+      }
+    }, simulatedReadingMs);
+    return;
+  }
 
   let ended = false;
   const safeOnEnd = () => {

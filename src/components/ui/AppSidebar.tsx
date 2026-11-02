@@ -247,7 +247,8 @@ export function isPathActive(pathname: string, href: string, currentSearch = '')
 
   if (hrefPath === '/') return cleanPathname === '/';
 
-  const searchStr = currentSearch.startsWith('?') ? currentSearch.slice(1) : currentSearch;
+  const rawSearch = currentSearch || (pathname && pathname.includes('?') ? pathname.split('?')[1] : '');
+  const searchStr = rawSearch.startsWith('?') ? rawSearch.slice(1) : rawSearch;
 
   if (hrefQuery) {
     if (cleanPathname !== hrefPath) return false;
