@@ -27,7 +27,7 @@ export const CodeReviewCard: React.FC<CodeReviewCardProps> = ({ review }) => {
       data-testid="code-review-card"
       style={{
         borderRadius: 14,
-        background: 'rgba(15, 23, 42, 0.75)',
+        background: 'var(--card)',
         border: '1.5px solid rgba(99, 102, 241, 0.35)',
         padding: '18px 20px',
         display: 'flex',

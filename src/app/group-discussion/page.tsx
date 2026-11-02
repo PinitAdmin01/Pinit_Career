@@ -237,14 +237,16 @@ export default function GroupDiscussionPage({ embedded = false }: { embedded?: b
 
   return (
     <div className="gd-boardroom-container animate-fade-in">
-      {/* Header banner */}
-      <div className="gd-header-banner">
-        <div>
-          <h1 style={{ fontSize: 17.5, fontWeight: 900, color: 'var(--t1)', display: 'flex', alignItems: 'center', gap: 8, margin: 0 }}>
-            🗣️ Group Discussion Practice
-          </h1>
-          <p style={{ fontSize: 12, color: 'var(--t3)', margin: '2px 0 0' }}>Practice clear, collaborative discussion with a timed host and a diverse panel.</p>
-        </div>
+      {/* Header banner (Suppressed title when embedded in /interview) */}
+      <div className="gd-header-banner" style={embedded ? { marginTop: 0, marginBottom: 12, justifyContent: 'flex-end' } : undefined}>
+        {!embedded && (
+          <div>
+            <h1 style={{ fontSize: 17.5, fontWeight: 900, color: 'var(--t1)', display: 'flex', alignItems: 'center', gap: 8, margin: 0 }}>
+              🗣️ Group Discussion Practice
+            </h1>
+            <p style={{ fontSize: 12, color: 'var(--t3)', margin: '2px 0 0' }}>Practice clear, collaborative discussion with a timed host and a diverse panel.</p>
+          </div>
+        )}
         {step !== 'call_grid' && (
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <button

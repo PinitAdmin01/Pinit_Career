@@ -132,9 +132,14 @@ function MirrorPageInner() {
           <CareerBuilderPage embedded={true} />
         </div>
       )}
-      {(activeTab === 'twin' || activeTab === 'roadmap') && (
-        <div data-testid="mirror-view-learning">
-          <LearningPage />
+      {activeTab === 'twin' && (
+        <div data-testid="mirror-view-learning-twin">
+          <LearningPage initialTab="twin" embedded={true} />
+        </div>
+      )}
+      {activeTab === 'roadmap' && (
+        <div data-testid="mirror-view-learning-roadmap">
+          <LearningPage initialTab="roadmap" embedded={true} />
         </div>
       )}
     </div>

@@ -108,7 +108,7 @@ export const Tier2Desk: React.FC<Tier2DeskProps> = ({
         style={{
           borderRadius: 16,
           padding: 22,
-          background: 'rgba(15, 23, 42, 0.65)',
+          background: 'var(--card)',
           border: '1.5px solid rgba(99, 102, 241, 0.25)',
           display: 'flex',
           flexDirection: 'column',
@@ -138,7 +138,7 @@ export const Tier2Desk: React.FC<Tier2DeskProps> = ({
               style={{
                 flex: 1,
                 minWidth: 240,
-                background: '#0f172a',
+                background: 'var(--bg2)',
                 border: '1px solid #475569',
                 borderRadius: 8,
                 padding: '8px 12px',

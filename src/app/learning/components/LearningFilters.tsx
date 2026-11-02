@@ -65,7 +65,20 @@ export function LearningFilters({
       )}
 
       {(activeRole === 'student' || !canAccessFaculty) && (
-        <div style={{ display: 'flex', gap: 4, background: 'var(--bg3)', padding: 4, borderRadius: 12, border: '1px solid var(--border)', width: 'fit-content', marginBottom: 24 }}>
+        <div
+          data-testid="learning-subtabs"
+          style={{
+            display: 'flex',
+            gap: 4,
+            background: 'var(--bg3)',
+            padding: embedded ? '3px 4px' : 4,
+            borderRadius: embedded ? 10 : 12,
+            border: '1px solid var(--border)',
+            width: 'fit-content',
+            marginBottom: embedded ? 16 : 24,
+            flexWrap: 'wrap'
+          }}
+        >
           {[
             { id: 'mistakes', label: '⚠️ Mistakes & Remediation' },
             { id: 'roadmap', label: '📖 Growth Roadmap' },
@@ -75,12 +88,13 @@ export function LearningFilters({
           ].map(t => (
             <button
               key={t.id}
+              data-testid={`subtab-${t.id}`}
               onClick={() => handleTabChange(t.id as any)}
               style={{
-                padding: '8px 18px',
+                padding: embedded ? '6px 14px' : '8px 18px',
                 border: 'none',
                 borderRadius: 8,
-                fontSize: 14,
+                fontSize: embedded ? 13 : 14,
                 fontWeight: 800,
                 cursor: 'pointer',
                 background: activeTab === t.id ? 'var(--bg2)' : 'transparent',

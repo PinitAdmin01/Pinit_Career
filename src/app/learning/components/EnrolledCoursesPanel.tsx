@@ -399,7 +399,7 @@ export function EnrolledCoursesPanel({
                     {/* Bottom Actions */}
                     <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginTop: 8 }}>
                       <Link
-                        href="/practice"
+                        href="/quests"
                         style={{
                           padding: '6px 12px',
                           fontSize: 12,

@@ -21,18 +21,18 @@ export interface LibraryBook {
 export function deriveShelfLocation(genre: string = ''): string {
   const g = (genre || '').toLowerCase();
   if (g.includes('computer') || g.includes('software') || /\bcs\b/.test(g) || /\bai\b/.test(g) || g.includes('machine learning') || g.includes('data') || g.includes('programming')) {
-    return 'Aisle 3 · Rack CS-04';
+    return 'Aisle 3 • Rack CS-04';
   }
   if (g.includes('business') || g.includes('management') || g.includes('marketing') || g.includes('leadership')) {
-    return 'Aisle 2 · Rack MG-12';
+    return 'Aisle 2 • Rack MG-12';
   }
   if (g.includes('finance') || g.includes('fintech') || g.includes('commerce') || g.includes('economics') || g.includes('accounting')) {
-    return 'Aisle 1 · Rack FC-08';
+    return 'Aisle 1 • Rack FC-08';
   }
   if (g.includes('math') || g.includes('science') || g.includes('physics') || g.includes('engineering')) {
-    return 'Aisle 5 · Rack EN-02';
+    return 'Aisle 5 • Rack EN-02';
   }
-  return 'Aisle 4 · Rack GN-01';
+  return 'Aisle 4 • Rack GN-01';
 }
 
 export interface LibraryBorrowing {

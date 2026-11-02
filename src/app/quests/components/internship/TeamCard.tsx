@@ -47,7 +47,7 @@ export const TeamCard: React.FC<TeamCardProps> = ({
       style={{
         borderRadius: 16,
         padding: 22,
-        background: 'rgba(15, 23, 42, 0.65)',
+        background: 'var(--card)',
         border: '1.5px solid rgba(99, 102, 241, 0.25)',
         boxShadow: '0 8px 30px rgba(0, 0, 0, 0.35)',
         display: 'flex',
@@ -158,7 +158,7 @@ export const TeamCard: React.FC<TeamCardProps> = ({
               value={repoInput}
               onChange={(e) => setRepoInput(e.target.value)}
               style={{
-                background: '#0f172a',
+                background: 'var(--bg2)',
                 border: '1px solid #475569',
                 borderRadius: 6,
                 padding: '4px 8px',

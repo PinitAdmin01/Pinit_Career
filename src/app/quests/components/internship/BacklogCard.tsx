@@ -22,7 +22,7 @@ export const BacklogCard: React.FC<BacklogCardProps> = ({ brief, stories }) => {
       style={{
         borderRadius: 16,
         padding: 22,
-        background: 'rgba(15, 23, 42, 0.65)',
+        background: 'var(--card)',
         border: '1.5px solid rgba(99, 102, 241, 0.25)',
         boxShadow: '0 8px 30px rgba(0, 0, 0, 0.35)',
         display: 'flex',
@@ -149,7 +149,7 @@ export const BacklogCard: React.FC<BacklogCardProps> = ({ brief, stories }) => {
                       fontFamily: 'monospace',
                       fontSize: 11,
                       color: '#cbd5e1',
-                      background: 'rgba(15, 23, 42, 0.5)',
+                      background: 'var(--bg2)',
                       padding: '2px 6px',
                       borderRadius: 4,
                     }}

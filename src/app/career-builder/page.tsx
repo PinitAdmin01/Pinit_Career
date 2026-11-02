@@ -542,7 +542,8 @@ export default function CareerBuilderPage({ embedded = false }: { embedded?: boo
 
   return (
     <div style={{ maxWidth: 1280, margin: '0 auto', paddingBottom: 80, paddingLeft: 16, paddingRight: 16 }} className="animate-fade-in">
-      {/* ── Page Header Bar ─────────────────────────────────────────────── */}
+      {/* ── Page Header Bar (Suppressed when embedded in /mirror) ───────── */}
+      {!embedded && (
       <div style={{
         display: 'flex',
         justifyContent: 'space-between',
@@ -605,6 +606,7 @@ export default function CareerBuilderPage({ embedded = false }: { embedded?: boo
           </div>
         </div>
       </div>
+      )}
 
       {/* ── Main Tab Switcher ───────────────────────────────────────────── */}
       <div style={{ display: 'flex', gap: 12, marginBottom: 26 }}>

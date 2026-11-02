@@ -86,7 +86,7 @@ export const CompanyProfileCard: React.FC<CompanyProfileCardProps> = ({ profile 
             fontSize: 13,
             lineHeight: 1.6,
             color: 'var(--t2)',
-            background: 'rgba(15, 23, 42, 0.5)',
+            background: 'var(--bg2)',
             border: '1px solid var(--border)',
             borderRadius: 10,
             padding: '12px 14px',

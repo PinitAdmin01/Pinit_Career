@@ -72,7 +72,7 @@ export const QUESTS: Quest[] = [
     color: 'var(--accent)',
     reward: { badge: '"Frontend Pro" Badge', xp: 2000, boost: 'Get featured to top recruiters' },
     stages: [
-      { title: 'Resume Optimisation',   desc: 'Get your resume ATS score above 60.',             href: '/resume', icon: '📄', isComplete: cOS => cOS?.vaultItems?.some((itm: any) => itm.used_in_resume) ?? false },
+      { title: 'Resume Optimisation',   desc: 'Get your resume ATS score above 60.',             href: '/mirror?tab=career-builder', icon: '📄', isComplete: cOS => cOS?.vaultItems?.some((itm: any) => itm.used_in_resume) ?? false },
       { title: 'React Challenge',       desc: 'Complete React Fundamentals mission.',           href: '/missions', icon: '⚛',  isComplete: cOS => cOS?.completedMissions?.includes('react_loops') ?? false },
       { title: 'Mock STAR Interview',   desc: 'Practice with AI and complete STAR preparation.', href: '/missions', icon: '🎙', isComplete: cOS => cOS?.completedMissions?.includes('star_video') ?? false },
       { title: 'Portfolio Upload',      desc: 'Deploy living portfolio website.',                href: '/profile?tab=portfolio', icon: '🚀', isComplete: cOS => cOS?.vaultItems?.some((itm: any) => itm.used_in_portfolio) ?? false },
@@ -88,7 +88,7 @@ export const QUESTS: Quest[] = [
     color: 'var(--teal)',
     reward: { badge: '"Data Pro" Badge', xp: 2200, boost: 'Priority visibility to data recruiters' },
     stages: [
-      { title: 'Resume Optimisation',  desc: 'Generate career assets with AI.',                href: '/resume', icon: '📄', isComplete: cOS => cOS?.vaultItems?.some((itm: any) => itm.used_in_resume) ?? false },
+      { title: 'Resume Optimisation',  desc: 'Generate career assets with AI.',                href: '/mirror?tab=career-builder', icon: '📄', isComplete: cOS => cOS?.vaultItems?.some((itm: any) => itm.used_in_resume) ?? false },
       { title: 'Python Foundation',    desc: 'Pass the Python Fundamentals mission.',          href: '/missions',     icon: '🐍', isComplete: cOS => cOS?.completedMissions?.includes('python_loops') ?? false },
       { title: 'SQL Mastery',          desc: 'Upload evidence of database projects.',          href: '/vault',        icon: '🗄', isComplete: cOS => cOS?.vaultItems?.some((itm: any) => itm.skill_tags?.some((s: string) => s.toLowerCase().includes('sql') || s.toLowerCase().includes('database'))) ?? false },
       { title: 'Data Vault',           desc: 'Upload a data project to your Vault.',           href: '/vault',        icon: '📁', isComplete: cOS => (cOS?.vaultItems?.length || 0) >= 2 },

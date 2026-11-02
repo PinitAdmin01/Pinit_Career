@@ -78,7 +78,7 @@ export const StandupModal: React.FC<StandupModalProps> = ({
     >
       <div
         style={{
-          background: '#0f172a',
+          background: 'var(--card)',
           border: '1.5px solid rgba(99, 102, 241, 0.4)',
           borderRadius: 20,
           width: '100%',
@@ -92,10 +92,10 @@ export const StandupModal: React.FC<StandupModalProps> = ({
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
-            <h3 style={{ margin: 0, fontSize: 18, fontWeight: 900, color: '#ffffff' }}>
+            <h3 style={{ margin: 0, fontSize: 18, fontWeight: 900, color: 'var(--t1)' }}>
               📝 Week {week} Asynchronous Stand-Up
             </h3>
-            <span style={{ fontSize: 12.5, color: '#94a3b8' }}>
+            <span style={{ fontSize: 12.5, color: 'var(--t2)' }}>
               Keep your squad in sync (done, next, blockers · 30–200 words)
             </span>
           </div>
@@ -108,7 +108,7 @@ export const StandupModal: React.FC<StandupModalProps> = ({
               background: 'transparent',
               border: 'none',
               fontSize: 22,
-              color: '#94a3b8',
+              color: 'var(--t2)',
               cursor: 'pointer',
             }}
           >
@@ -118,7 +118,7 @@ export const StandupModal: React.FC<StandupModalProps> = ({
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
           <div>
-            <label style={{ display: 'block', fontSize: 12, fontWeight: 800, color: '#c7d2fe', marginBottom: 4 }}>
+            <label style={{ display: 'block', fontSize: 12, fontWeight: 800, color: 'var(--accent)', marginBottom: 4 }}>
               What did you complete this week? (Done)
             </label>
             <textarea
@@ -129,12 +129,12 @@ export const StandupModal: React.FC<StandupModalProps> = ({
               placeholder="Completed patient intake validation function and wrote PostgreSQL table migration..."
               style={{
                 width: '100%',
-                background: '#1e293b',
-                border: '1px solid #475569',
+                background: 'var(--bg2)',
+                border: '1px solid var(--border)',
                 borderRadius: 8,
                 padding: '8px 10px',
                 fontSize: 13,
-                color: '#fff',
+                color: 'var(--t1)',
                 fontFamily: 'inherit',
                 boxSizing: 'border-box',
               }}
@@ -142,7 +142,7 @@ export const StandupModal: React.FC<StandupModalProps> = ({
           </div>
 
           <div>
-            <label style={{ display: 'block', fontSize: 12, fontWeight: 800, color: '#c7d2fe', marginBottom: 4 }}>
+            <label style={{ display: 'block', fontSize: 12, fontWeight: 800, color: 'var(--accent)', marginBottom: 4 }}>
               What are you building next? (Next)
             </label>
             <textarea
@@ -153,12 +153,12 @@ export const StandupModal: React.FC<StandupModalProps> = ({
               placeholder="Will work on appointment booking conflicts check and submit PR to squad repository..."
               style={{
                 width: '100%',
-                background: '#1e293b',
-                border: '1px solid #475569',
+                background: 'var(--bg2)',
+                border: '1px solid var(--border)',
                 borderRadius: 8,
                 padding: '8px 10px',
                 fontSize: 13,
-                color: '#fff',
+                color: 'var(--t1)',
                 fontFamily: 'inherit',
                 boxSizing: 'border-box',
               }}
@@ -166,7 +166,7 @@ export const StandupModal: React.FC<StandupModalProps> = ({
           </div>
 
           <div>
-            <label style={{ display: 'block', fontSize: 12, fontWeight: 800, color: '#c7d2fe', marginBottom: 4 }}>
+            <label style={{ display: 'block', fontSize: 12, fontWeight: 800, color: 'var(--accent)', marginBottom: 4 }}>
               Any blockers or technical hurdles? (Blockers)
             </label>
             <input
@@ -177,12 +177,12 @@ export const StandupModal: React.FC<StandupModalProps> = ({
               placeholder="None, tests passing smoothly."
               style={{
                 width: '100%',
-                background: '#1e293b',
-                border: '1px solid #475569',
+                background: 'var(--bg2)',
+                border: '1px solid var(--border)',
                 borderRadius: 8,
                 padding: '8px 10px',
                 fontSize: 13,
-                color: '#fff',
+                color: 'var(--t1)',
                 fontFamily: 'inherit',
                 boxSizing: 'border-box',
               }}
@@ -214,8 +214,8 @@ export const StandupModal: React.FC<StandupModalProps> = ({
                 padding: '8px 16px',
                 borderRadius: 8,
                 background: 'transparent',
-                border: '1px solid #475569',
-                color: '#94a3b8',
+                border: '1px solid var(--border)',
+                color: 'var(--t2)',
                 fontSize: 13,
                 cursor: 'pointer',
               }}
@@ -230,7 +230,7 @@ export const StandupModal: React.FC<StandupModalProps> = ({
                 padding: '8px 20px',
                 borderRadius: 8,
                 background: isValidLength ? '#4f46e5' : '#334155',
-                color: '#ffffff',
+                color: 'var(--t1)',
                 border: 'none',
                 fontSize: 13,
                 fontWeight: 800,

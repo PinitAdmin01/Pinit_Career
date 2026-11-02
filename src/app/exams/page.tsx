@@ -229,7 +229,7 @@ export default function StudentExams() {
         .overlay {
           position: fixed;
           top: 0; left: 0; right: 0; bottom: 0;
-          background: rgba(15, 23, 42, 0.4);
+          background: rgba(0, 0, 0, 0.5);
           backdrop-filter: blur(4px);
           display: flex;
           align-items: center;
@@ -242,7 +242,7 @@ export default function StudentExams() {
           width: 100%;
           max-width: 540px;
           padding: 30px;
-          box-shadow: 0 20px 50px rgba(15, 23, 42, 0.15);
+          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
         }
         .ticket-body {
           border: 2px dashed var(--border2);
@@ -264,7 +264,7 @@ export default function StudentExams() {
           transform: translate(-50%, -50%) rotate(-30deg);
           font-size: 53px;
           font-weight: 900;
-          color: rgba(15, 23, 42, 0.03);
+          color: var(--t3); opacity: 0.15;
           pointer-events: none;
           white-space: nowrap;
           text-transform: uppercase;
