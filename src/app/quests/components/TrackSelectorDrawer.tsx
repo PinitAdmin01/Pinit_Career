@@ -1139,7 +1139,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
           background: 'linear-gradient(135deg, rgba(var(--success-rgb),0.04), rgba(var(--brand-rgb),0.03))'
         }}>
           <div style={{ width: 64, height: 64, borderRadius: 20, background: 'rgba(var(--success-rgb),0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 35, margin: '0 auto 16px auto', boxShadow: '0 8px 24px rgba(var(--success-rgb),0.2)' }}>
-            🎯
+            
           </div>
 
           <h2 style={{ fontSize: 24, fontWeight: 900, color: 'var(--t1)', marginBottom: 8, fontFamily: 'var(--font-display)' }}>

@@ -10,7 +10,7 @@ interface TodayCourseCardProps {
   onOpenProject: () => void;
 }
 
-const KIND_ICON: Record<string, string> = { Lesson: '🎓', Practice: '💻', Test: '📝' };
+const KIND_ICON: Record<string, string> = { Lesson: '', Practice: '', Test: '' };
 
 /** The first thing an enrolled student sees: the next task, progress, next test and final project. */
 export function TodayCourseCard({ planTitle, summary, onStart, onOpenProject }: TodayCourseCardProps) {
@@ -67,7 +67,7 @@ export function TodayCourseCard({ planTitle, summary, onStart, onOpenProject }: 
         </div>
       ) : (
         <h3 id="today-course-title" style={{ fontSize: 19, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
-          🎉 All lessons, practice and tests are done
+          All lessons, practice and tests are done
         </h3>
       )}
 
@@ -90,7 +90,7 @@ export function TodayCourseCard({ planTitle, summary, onStart, onOpenProject }: 
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 10 }}>
         <div data-testid="today-next-test-card" style={{ padding: '10px 14px', borderRadius: 12, background: 'var(--bg1)', border: '1px solid var(--border)' }}>
-          <div style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--t3)' }}>📝 Next test</div>
+          <div style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--t3)' }}>Next test</div>
           <div style={{ fontSize: 14.5, color: 'var(--t1)', marginTop: 2 }}>
             {nextTest
               ? nextTest.tasksBefore === 0
@@ -100,7 +100,7 @@ export function TodayCourseCard({ planTitle, summary, onStart, onOpenProject }: 
           </div>
         </div>
         <div data-testid="today-final-project-card" style={{ padding: '10px 14px', borderRadius: 12, background: 'var(--bg1)', border: '1px solid var(--border)' }}>
-          <div style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--t3)' }}>🚀 Final project</div>
+          <div style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--t3)' }}>Final project</div>
           {project === 'locked' ? (
             <div style={{ fontSize: 14.5, color: 'var(--t1)', marginTop: 2 }}>
               Opens after all tasks ({tasksLeftBeforeProject} left)

@@ -87,7 +87,7 @@ export const PracticeTestReportModal: React.FC<PracticeTestReportModalProps> = (
         {/* Header */}
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
-            <span style={{ fontSize: 22 }}>📊</span>
+            
             <span style={{ fontSize: 12, fontWeight: 900, color: '#818cf8', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
               Immediate Diagnostic Assessment Report
             </span>

@@ -31,7 +31,7 @@ export function RoadmapCompleteBanner({ progress, onStartProject }: RoadmapCompl
     >
       <div>
         <div style={{ fontSize: 17.5, fontWeight: 900, color: 'var(--t1)', fontFamily: 'var(--font-display)' }}>
-          🎓 Roadmap complete: {progress.completed}/{progress.total} quests done
+          Roadmap complete: {progress.completed}/{progress.total} quests done
         </div>
         <div style={{ fontSize: 14.5, color: 'var(--t3)', marginTop: 4 }}>
           Next step: build your capstone project from what this roadmap taught you.

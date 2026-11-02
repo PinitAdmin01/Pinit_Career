@@ -553,7 +553,7 @@ export default function InterviewPage() {
     if (!isCapstoneRun && !cOS.isItemUnlocked(itemKey)) {
       const unlocked = await cOS.unlockItem(itemKey, 'interview', `AI Interview: ${topic}`);
       if (!unlocked) {
-        toast.error('Insufficient Pins 🔒', 'You need Pins to start this corporate interview session. Complete quests to earn Pins!');
+        toast.error('Insufficient Pins', 'You need Pins to start this corporate interview session. Complete quests to earn Pins!');
         return;
       }
     }
@@ -1046,7 +1046,7 @@ export default function InterviewPage() {
         });
         const data = await res.json().catch(() => ({}));
         if (res.ok && data?.approved) {
-          toast.success('Capstone complete 🎓', 'Your defense is recorded. Get your certificate from your course page.');
+          toast.success('Capstone complete', 'Your defense is recorded. Get your certificate from your course page.');
         } else if (res.ok) {
           toast.info('Capstone defense recorded', data?.message || 'Not passed yet. You can take the defense again.');
         } else {
@@ -1177,7 +1177,7 @@ export default function InterviewPage() {
               transition: 'all 0.18s ease'
             }}
           >
-            <span>🎙️</span>
+            
             <span>1v1 Mock Interview</span>
           </button>
           <button
@@ -1199,7 +1199,7 @@ export default function InterviewPage() {
               transition: 'all 0.18s ease'
             }}
           >
-            <span>💬</span>
+            
             <span>GD Practice (Group Discussion)</span>
           </button>
         </div>

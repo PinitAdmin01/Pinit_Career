@@ -89,13 +89,13 @@ export const StudentCard: React.FC<StudentCardProps> = ({
       <div className="friends-card-body">
         {student.matchReason && (
           <div className="match-reason-badge" style={{ marginBottom: 10 }}>
-            <span>⚡</span> {student.matchReason}
+            <span>{student.matchReason}</span>
           </div>
         )}
 
         {student.careerGoal && (
           <div className="friends-career-goal">
-            <span>🎯</span>
+            
             <div>
               <strong>Target:</strong> {student.careerGoal}
             </div>
@@ -130,21 +130,21 @@ export const StudentCard: React.FC<StudentCardProps> = ({
               onClick={() => onOpenMessage?.(student)}
               title="Direct message"
             >
-              💬 Message
+              Message
             </button>
             <button
               className="friends-btn friends-btn-secondary friends-btn-icon-only"
               onClick={() => onOpenChallenge?.(student)}
               title="Challenge in Arena"
             >
-              ⚔️
+              Duel
             </button>
             <button
               className="friends-btn friends-btn-secondary friends-btn-icon-only"
               onClick={() => onOpenProjectInvite?.(student)}
               title="Invite to Squad Project"
             >
-              📁
+              Squad
             </button>
           </>
         ) : isSent ? (

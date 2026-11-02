@@ -117,10 +117,10 @@ export const PrivacySettingsModal: React.FC<PrivacySettingsModalProps> = ({
         {/* Header */}
         <div className="modal-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <span style={{ fontSize: 22 }}>🛡️</span>
+            
             <div>
-              <h3 style={{ margin: 0, fontSize: 18.5, color: '#ffffff' }}>Safety & Privacy Center</h3>
-              <span style={{ fontSize: 12, color: '#94a3b8' }}>Control who can discover and reach you</span>
+              <h3 style={{ margin: 0, fontSize: 18.5, color: 'var(--t1)' }}>Safety & Privacy Center</h3>
+              <span style={{ fontSize: 12, color: 'var(--t3)' }}>Control who can discover and reach you</span>
             </div>
           </div>
           <button className="drawer-close-btn" onClick={onClose}>✕</button>
@@ -146,7 +146,7 @@ export const PrivacySettingsModal: React.FC<PrivacySettingsModalProps> = ({
               cursor: 'pointer'
             }}
           >
-            ⚙️ Networking Privacy
+            Networking Privacy
           </button>
           <button
             onClick={() => setActiveTab('blocked')}
@@ -164,7 +164,7 @@ export const PrivacySettingsModal: React.FC<PrivacySettingsModalProps> = ({
               gap: 6
             }}
           >
-            🚫 Blocked Accounts
+            Blocked Accounts
             {blockedUsers.length > 0 && (
               <span style={{
                 background: 'rgba(239, 68, 68, 0.2)',
@@ -216,13 +216,13 @@ export const PrivacySettingsModal: React.FC<PrivacySettingsModalProps> = ({
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 padding: '12px 14px',
-                background: 'rgba(30, 41, 59, 0.4)',
+                background: 'var(--bg2)',
                 borderRadius: 10,
-                border: '1px solid rgba(255, 255, 255, 0.06)'
+                border: '1px solid var(--border)'
               }}>
                 <div>
-                  <div style={{ fontSize: 14.5, fontWeight: 600, color: '#f8fafc' }}>Show Active Status Beacon</div>
-                  <div style={{ fontSize: 12, color: '#94a3b8' }}>Display green indicator when you are online on campus</div>
+                  <div style={{ fontSize: 14.5, fontWeight: 600, color: 'var(--t1)' }}>Show Active Status Beacon</div>
+                  <div style={{ fontSize: 12, color: 'var(--t3)' }}>Display green indicator when you are online on campus</div>
                 </div>
                 <input
                   type="checkbox"
@@ -238,13 +238,13 @@ export const PrivacySettingsModal: React.FC<PrivacySettingsModalProps> = ({
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 padding: '12px 14px',
-                background: 'rgba(30, 41, 59, 0.4)',
+                background: 'var(--bg2)',
                 borderRadius: 10,
-                border: '1px solid rgba(255, 255, 255, 0.06)'
+                border: '1px solid var(--border)'
               }}>
                 <div>
-                  <div style={{ fontSize: 14.5, fontWeight: 600, color: '#f8fafc' }}>Suggest Me to Other Students</div>
-                  <div style={{ fontSize: 12, color: '#94a3b8' }}>Appear in "Suggested for you" algorithms based on common skills</div>
+                  <div style={{ fontSize: 14.5, fontWeight: 600, color: 'var(--t1)' }}>Suggest Me to Other Students</div>
+                  <div style={{ fontSize: 12, color: 'var(--t3)' }}>Appear in "Suggested for you" algorithms based on common skills</div>
                 </div>
                 <input
                   type="checkbox"
@@ -260,13 +260,13 @@ export const PrivacySettingsModal: React.FC<PrivacySettingsModalProps> = ({
                 <div style={{
                   padding: '40px 20px',
                   textAlign: 'center',
-                  background: 'rgba(15, 23, 42, 0.4)',
-                  border: '1px dashed rgba(255, 255, 255, 0.1)',
+                  background: 'var(--bg2)',
+                  border: '1px dashed var(--border)',
                   borderRadius: 12
                 }}>
-                  <span style={{ fontSize: 35, opacity: 0.6 }}>🛡️</span>
-                  <div style={{ fontSize: 15.5, fontWeight: 700, color: '#ffffff', marginTop: 10 }}>No Blocked Students</div>
-                  <p style={{ fontSize: 13, color: '#94a3b8', margin: '4px 0 0' }}>
+                  <div style={{ width: 44, height: 44, borderRadius: '50%', background: 'var(--bg3)', border: '1px solid var(--border)', margin: '0 auto 12px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--t3)', fontWeight: 800 }}>0</div>
+                  <div style={{ fontSize: 15.5, fontWeight: 700, color: 'var(--t1)', marginTop: 10 }}>No Blocked Students</div>
+                  <p style={{ fontSize: 13, color: 'var(--t3)', margin: '4px 0 0' }}>
                     Students you block cannot send you messages, invitations, or see your activity.
                   </p>
                 </div>
@@ -290,7 +290,7 @@ export const PrivacySettingsModal: React.FC<PrivacySettingsModalProps> = ({
                           <img src={b.studentAvatar} alt={b.studentName} style={{ width: 34, height: 34, borderRadius: '50%', objectFit: 'cover' }} />
                         )}
                         <div>
-                          <div style={{ fontSize: 14.5, fontWeight: 700, color: '#f8fafc' }}>{b.studentName}</div>
+                          <div style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--t1)' }}>{b.studentName}</div>
                           <div style={{ fontSize: 12, color: '#64748b' }}>Blocked on {new Date(b.blockedAt).toLocaleDateString()}</div>
                         </div>
                       </div>

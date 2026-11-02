@@ -376,7 +376,7 @@ function FriendsContent() {
               className={`friends-tab-pill ${activeTab === 'network' ? 'active' : ''}`}
               onClick={() => setActiveTab('network')}
             >
-              <span>👥</span> My Friends
+              My Friends
               {networkStats.friendsCount > 0 && (
                 <span className="tab-counter-badge">{networkStats.friendsCount}</span>
               )}
@@ -394,7 +394,7 @@ function FriendsContent() {
               className={`friends-tab-pill ${activeTab === 'messages' ? 'active' : ''}`}
               onClick={() => setActiveTab('messages')}
             >
-              <span>💬</span> Messages
+              Messages
             </button>
             <button
               className={`friends-tab-pill ${activeTab === 'challenges' ? 'active' : ''}`}
@@ -534,7 +534,7 @@ function FriendsContent() {
 
                 {isLoading ? (
                   <div style={{ padding: '40px', textAlign: 'center', color: '#94a3b8' }}>
-                    <div style={{ fontSize: 31, marginBottom: 10 }}>⚡</div>
+                    
                     <div>Querying Supabase campus directory...</div>
                   </div>
                 ) : activeSuggested.length === 0 ? (
@@ -598,7 +598,7 @@ function FriendsContent() {
                         </div>
 
                         <div className="suggested-match-reason">
-                          <span>{peer.matchDetails || '⚡ High skill synergy'}</span>
+                          <span>{peer.matchDetails || 'High skill synergy'}</span>
                         </div>
 
                         <div className="suggested-card-btn-row">
@@ -786,7 +786,7 @@ function FriendsContent() {
 
               {friendsNetwork.length === 0 ? (
                 <div className="friends-empty-state-card">
-                  <span className="empty-state-icon">👥</span>
+                  
                   <h3 className="empty-state-title">No Friends Connected Yet</h3>
                   <p className="empty-state-desc">
                     Your campus circle is just getting started. Explore the Discover tab to send requests to classmates, project partners, and arena rivals.
@@ -834,21 +834,21 @@ function FriendsContent() {
                           style={{ fontSize: 12.5, padding: '7px' }}
                           onClick={() => { setActiveChatFriendId(friend.id); setActiveTab('messages'); }}
                         >
-                          💬 Chat
+                          Chat
                         </button>
                         <button
                           className="friends-btn friends-btn-secondary"
                           style={{ fontSize: 12.5, padding: '7px' }}
                           onClick={() => setChallengeStudent(friend)}
                         >
-                          ⚔️ Duel
+                          Duel
                         </button>
                         <button
                           className="friends-btn friends-btn-secondary"
                           style={{ fontSize: 12.5, padding: '7px' }}
                           onClick={() => setProjectStudent(friend)}
                         >
-                          👥 Project
+                          Project
                         </button>
                         <button
                           className="friends-btn friends-btn-secondary"
@@ -983,7 +983,7 @@ function FriendsContent() {
                 style={{ cursor: 'pointer' }}
                 onClick={() => setActiveTab('network')}
               >
-                <span className="network-stat-icon" style={{ color: '#818cf8' }}>👥</span>
+                
                 <div>
                   <div className="network-stat-num">{networkStats.friendsCount}</div>
                   <div className="network-stat-text">Friends</div>
@@ -995,7 +995,7 @@ function FriendsContent() {
                 style={{ cursor: 'pointer' }}
                 onClick={() => setActiveTab('requests')}
               >
-                <span className="network-stat-icon" style={{ color: '#f87171' }}>🚀</span>
+                
                 <div>
                   <div className="network-stat-num">{networkStats.pendingCount}</div>
                   <div className="network-stat-text">Requests</div>

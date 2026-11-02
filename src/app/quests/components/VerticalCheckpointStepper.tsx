@@ -51,19 +51,19 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
       title: `${plan.trainingDurationMonths}-Month Daily Micro-Learning`,
       subtitle: 'Daily 1-Hour guided quests, interactive theory, syntax drills, and weekly retention tests.',
       status: phases.training,
-      badgeText: badgeFor(phases.training, { completed: '✓ Completed', active: '● Active (1h / Day)', locked: '🔒 Locked' }),
+      badgeText: badgeFor(phases.training, { completed: '✓ Completed', active: '● Active (1h / Day)', locked: 'Locked' }),
       color: '#6366f1',
       progress: progress.percent,
       detail: `${progress.completed} of ${progress.total} course lessons completed (${progress.percent}%)`,
       primaryAction: {
-        label: progress.next ? "⚡ Continue Today's Quest" : '✓ All lessons completed',
+        label: progress.next ? "Continue Today's Quest" : '✓ All lessons completed',
         onClick: onContinueTodayQuest || (() => {
           const el = document.getElementById('quest-roadmap-chart-section');
           if (el) el.scrollIntoView({ behavior: 'smooth' });
         })
       },
       secondaryAction: {
-        label: '📝 Take Dynamic Diagnostic Test',
+        label: 'Take Dynamic Diagnostic Test',
         onClick: () => onOpenPracticeTest('Weekly Milestone Diagnostic Assessment')
       }
     },
@@ -77,7 +77,7 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
       color: '#38bdf8',
       techStack: flagship?.tech || ['React', 'Next.js', 'PostgreSQL', 'Docker'],
       primaryAction: {
-        label: '🚀 Open Capstone Desk',
+        label: 'Open Capstone Desk',
         onClick: onOpenCapstoneDesk
       }
     },
@@ -96,10 +96,10 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
       ],
       primaryAction: onOpenInternshipDesk ? {
         label: phases.internship === 'completed'
-          ? '🎓 View Internship Outcome'
+          ? 'View Internship Outcome'
           : phases.internship === 'active'
-          ? '🏢 Open Internship Desk'
-          : '🏢 View Internship Desk',
+          ? 'Open Internship Desk'
+          : 'View Internship Desk',
         onClick: onOpenInternshipDesk,
       } : undefined
     },
@@ -111,13 +111,13 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
         ? 'Present your production capstone to a senior panel, pass defense, and unlock cryptographically signed SHA-256 credentials.'
         : 'Your capstone passed its defense: get a signed certificate that anyone can verify online.',
       status: phases.graduation,
-      badgeText: badgeFor(phases.graduation, { completed: '🎓 Certificate issued', active: '🎓 Certificate ready', locked: isTierOn ? '🔒 Unlocks after the fellowship' : '🔒 Unlocks after your capstone' }),
+      badgeText: badgeFor(phases.graduation, { completed: 'Certificate issued', active: '🎓 Certificate ready', locked: isTierOn ? '🔒 Unlocks after the fellowship' : '🔒 Unlocks after your capstone' }),
       color: '#f59e0b',
       // Sharing is only offered once the credentials really exist; before that, a labelled sample.
       primaryAction: phases.graduation === 'completed'
-        ? { label: '📲 Share & Verify (QR)', onClick: onOpenQrModal }
+        ? { label: 'Share & Verify (QR)', onClick: onOpenQrModal }
         : phases.graduation === 'active' && onGetCertificate
-          ? { label: '🎓 Get my certificate', onClick: onGetCertificate }
+          ? { label: 'Get my certificate', onClick: onGetCertificate }
           : undefined,
       secondaryAction: onOpenPreviewCredentials ? {
         label: phases.graduation === 'completed' ? '👁️ View Certificates' : '👁️ Preview Sample Certificates',
@@ -189,7 +189,7 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <span style={{ fontSize: 26.5 }}>📍</span>
+            
             <h3 style={{ fontSize: 20, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
               Vertical Milestone Pipeline: {plan.title}
             </h3>
@@ -212,7 +212,7 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
         }}>
           <span style={{ fontSize: 12, fontWeight: 800, color: '#818cf8', textTransform: 'uppercase' }}>Current Track:</span>
           <span style={{ fontSize: 13, fontWeight: 900, color: 'var(--t1)' }}>
-            {activeTrack === 'web_fullstack' ? '🌐 Full-Stack Web' : '🤖 Python & AI'}
+            {activeTrack === 'web_fullstack' ? 'Full-Stack Web' : 'Python & AI'}
           </span>
         </div>
       </div>

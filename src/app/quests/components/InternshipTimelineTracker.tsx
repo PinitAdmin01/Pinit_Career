@@ -40,7 +40,7 @@ export const InternshipTimelineTracker: React.FC<InternshipTimelineTrackerProps>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span style={{ fontSize: 22 }}>📍</span>
+            
             <h4 style={{ fontSize: 17.5, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
               Active Program Timeline: {plan.title} ({plan.totalProgramDuration})
             </h4>
@@ -117,7 +117,7 @@ export const InternshipTimelineTracker: React.FC<InternshipTimelineTrackerProps>
                 cursor: 'pointer'
               }}
             >
-              📝 Take Weekly Practice Test
+              Take Weekly Practice Test
             </button>
           )}
         </div>
@@ -165,7 +165,7 @@ export const InternshipTimelineTracker: React.FC<InternshipTimelineTrackerProps>
         >
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <span style={{ fontSize: 11, fontWeight: 900, color: 'var(--t2)', textTransform: 'uppercase' }}>PHASE 3</span>
-            <span style={{ fontSize: 12, fontWeight: 700, color: '#64748b' }}>🏢 Industry Experience</span>
+            <span style={{ fontSize: 12, fontWeight: 700, color: '#64748b' }}>Industry Experience</span>
           </div>
           <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--t1)' }}>
             {plan.internshipDurationMonths} Real Internship
@@ -174,7 +174,7 @@ export const InternshipTimelineTracker: React.FC<InternshipTimelineTrackerProps>
             Live sprint tasks, code reviews, standups, and corporate performance tracking on PinIT Network.
           </div>
           <div style={{ fontSize: 12, color: '#10b981', fontWeight: 700, marginTop: 'auto' }}>
-            📜 Real-Time Internship Certificate
+            Real-Time Internship Certificate
           </div>
         </div>
 
@@ -193,7 +193,7 @@ export const InternshipTimelineTracker: React.FC<InternshipTimelineTrackerProps>
         >
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <span style={{ fontSize: 11, fontWeight: 900, color: '#10b981', textTransform: 'uppercase' }}>PHASE 4</span>
-            <span style={{ fontSize: 12, fontWeight: 800, color: '#10b981' }}>🎓 Graduation</span>
+            <span style={{ fontSize: 12, fontWeight: 800, color: '#10b981' }}>Graduation</span>
           </div>
           <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--t1)' }}>
             Placement Ready & Dual Certs
@@ -202,7 +202,7 @@ export const InternshipTimelineTracker: React.FC<InternshipTimelineTrackerProps>
             SHA-256 Verifiable Proof of Training + Real-time Experience Letter + Interview Referral Pipeline.
           </div>
           <div style={{ fontSize: 12, color: '#f59e0b', fontWeight: 700, marginTop: 'auto' }}>
-            🚀 Full Portfolio Live on Web
+            Full Portfolio Live on Web
           </div>
         </div>
       </div>

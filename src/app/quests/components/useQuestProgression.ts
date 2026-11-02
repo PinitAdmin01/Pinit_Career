@@ -888,7 +888,7 @@ export function useQuestProgression() {
     if (!shouldRecordRoadmapCompletion(roadmapProgress, onboardingAnswers, activeCourseId)) return;
     roadmapCompletionRecordedRef.current = courseKey;
     setOnboarding({ ...onboardingAnswers, ...buildRoadmapCompletionRecord(roadmapProgress, activeCourseId) }, false);
-    toast.success('Roadmap complete 🎓', 'Every quest is done. Next step: your capstone project.');
+    toast.success('Roadmap complete', 'Every quest is done. Next step: your capstone project.');
   }, [isOwnRoadmapView, userId, activeCourseId, roadmapProgress, onboardingAnswers, setOnboarding]);
 
   const totalTrajectoryQuests = trajectory.nodes.reduce((acc, node) => {
@@ -912,7 +912,7 @@ export function useQuestProgression() {
 
     const isCompleted = completedQuests.includes(quest.id);
     if (isCompleted) {
-      toast.warning('Class Already Completed 🔒', 'You cannot access previous classes. Please continue with your next scheduled class.');
+      toast.warning('Class Already Completed', 'You cannot access previous classes. Please continue with your next scheduled class.');
       return;
     }
     const initiated = onboardingAnswers?.initiatedQuests || [];
@@ -924,7 +924,7 @@ export function useQuestProgression() {
     if (questIdx > 0 && !isCompleted) {
       const prevQuest = allQuestsInCourse[questIdx - 1];
       if (prevQuest && !completedQuests.includes(prevQuest.id)) {
-        toast.warning('Prerequisite Locked 🔒', `Please complete "${prevQuest.title}" before starting this quest.`);
+        toast.warning('Prerequisite Locked', `Please complete "${prevQuest.title}" before starting this quest.`);
         return;
       }
     }

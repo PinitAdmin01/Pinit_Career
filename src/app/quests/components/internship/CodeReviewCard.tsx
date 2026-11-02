@@ -38,7 +38,7 @@ export const CodeReviewCard: React.FC<CodeReviewCardProps> = ({ review }) => {
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <span style={{ fontSize: 22 }}>🤖</span>
+          
           <div>
             <h4 style={{ margin: 0, fontSize: 16, fontWeight: 900, color: 'var(--text)' }}>
               Senior AI Code Review
@@ -155,7 +155,7 @@ export const CodeReviewCard: React.FC<CodeReviewCardProps> = ({ review }) => {
             }}
           >
             <div style={{ fontSize: 12, fontWeight: 800, color: '#facc15' }}>
-              💡 Areas to Refine
+              Areas to Refine
             </div>
             <ul style={{ margin: 0, paddingLeft: 18, fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.5 }}>
               {improvements.map((imp, idx) => (

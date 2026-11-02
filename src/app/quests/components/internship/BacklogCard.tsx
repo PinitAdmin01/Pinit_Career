@@ -34,7 +34,7 @@ export const BacklogCard: React.FC<BacklogCardProps> = ({ brief, stories }) => {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 12 }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span style={{ fontSize: 22 }}>📋</span>
+            
             <h3 data-testid="backlog-product-name" style={{ margin: 0, fontSize: 17, fontWeight: 900, color: '#ffffff' }}>
               {brief.productName}
             </h3>
@@ -139,7 +139,7 @@ export const BacklogCard: React.FC<BacklogCardProps> = ({ brief, stories }) => {
               }}
             >
               <span style={{ display: 'block', fontSize: 13, fontWeight: 800, color: '#38bdf8', marginBottom: 6 }}>
-                🗄️ {table.table}
+                {table.table}
               </span>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                 {table.columns.map((col, cIdx) => (

@@ -168,8 +168,8 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
                 {student.headline || 'Software Engineering Student'}
               </div>
               <div className="drawer-student-meta">
-                <span>🏫 {student.college || 'Engineering College'}</span>
-                {student.course && <span>📚 {student.course}</span>}
+                <span>{student.college || 'Engineering College'}</span>
+                {student.course && <span>{student.course}</span>}
               </div>
 
               <div className="drawer-actions-row">
@@ -179,19 +179,19 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
                       className="friends-btn friends-btn-primary"
                       onClick={() => onOpenMessage?.(student)}
                     >
-                      💬 Message
+                      Message
                     </button>
                     <button
                       className="friends-btn friends-btn-secondary"
                       onClick={() => onOpenChallenge?.(student)}
                     >
-                      ⚔️ Arena Battle
+                      Arena Battle
                     </button>
                     <button
                       className="friends-btn friends-btn-secondary"
                       onClick={() => onOpenProjectInvite?.(student)}
                     >
-                      📁 Invite to Squad
+                      Invite to Squad
                     </button>
                     <button
                       className="friends-btn friends-btn-secondary"
@@ -200,7 +200,7 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
                         router.push(`/friends/${student.id}`);
                       }}
                     >
-                      🔗 Full Profile
+                      Full Profile
                     </button>
                     <button
                       className="friends-btn friends-btn-danger"
@@ -225,7 +225,7 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
                         router.push(`/friends/${student.id}`);
                       }}
                     >
-                      🔗 Full Profile
+                      Full Profile
                     </button>
                   </>
                 ) : isSent ? (
@@ -240,7 +240,7 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
                         router.push(`/friends/${student.id}`);
                       }}
                     >
-                      🔗 Full Profile
+                      Full Profile
                     </button>
                   </>
                 ) : (
@@ -258,7 +258,7 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
                         router.push(`/friends/${student.id}`);
                       }}
                     >
-                      🔗 Full Profile
+                      Full Profile
                     </button>
                   </>
                 )}
@@ -303,7 +303,7 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
           {activeTab === 'overview' && (
             <>
               <div className="drawer-section">
-                <div className="drawer-section-heading">🎯 Career Target & Trajectory</div>
+                <div className="drawer-section-heading">Career Target & Trajectory</div>
                 <div className="drawer-section-card">
                   <div className="drawer-career-goal-title">
                     {student.careerGoal || 'Full Stack Engineer'}
@@ -315,7 +315,7 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
               </div>
 
               <div className="drawer-section">
-                <div className="drawer-section-heading">⚡ Verified Skill Badges</div>
+                <div className="drawer-section-heading">Verified Skill Badges</div>
                 <div className="drawer-section-card" style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
                   {(student.skills || []).map((skill, idx) => (
                     <span key={idx} className="friends-skill-pill match-highlight" style={{ fontSize: 12, padding: '5px 10px' }}>
@@ -332,7 +332,7 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
 
           {activeTab === 'skills' && (
             <div className="drawer-section">
-              <div className="drawer-section-heading">📊 Skill Mastery Ledger</div>
+              <div className="drawer-section-heading">Skill Mastery Ledger</div>
               <div className="drawer-section-card" style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                 {(student.skills || []).map((skill, idx) => (
                   <div key={idx} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -353,7 +353,7 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
 
           {activeTab === 'portfolio' && (
             <div className="drawer-section">
-              <div className="drawer-section-heading">📁 Squad Projects & Proofs-of-Work</div>
+              <div className="drawer-section-heading">Squad Projects & Proofs-of-Work</div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                 {(student as any).projects && Array.isArray((student as any).projects) && (student as any).projects.length > 0 ? (
                   (student as any).projects.map((proj: any, idx: number) => (
@@ -371,7 +371,7 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
                   ))
                 ) : (
                   <div className="drawer-section-card" style={{ textAlign: 'center', padding: '24px 16px' }}>
-                    <div style={{ fontSize: 26, marginBottom: 8 }}>📁</div>
+                    
                     <div className="drawer-project-title" style={{ fontSize: 15.5 }}>No Capstone Proofs Submitted Yet</div>
                     <div className="drawer-project-desc" style={{ marginTop: 4 }}>
                       Candidate is completing foundational sprints. Verified project repos and oral defense records will appear here upon graduation.
@@ -384,7 +384,7 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
 
           {activeTab === 'arena' && (
             <div className="drawer-section">
-              <div className="drawer-section-heading">⚔️ Challenging Arena Record</div>
+              <div className="drawer-section-heading">Challenging Arena Record</div>
               <div className="drawer-section-card" style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <div>
@@ -405,7 +405,7 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
                   onClick={() => onOpenChallenge?.(student)}
                   style={{ width: '100%', padding: '10px' }}
                 >
-                  ⚔️ Challenge {(student.name || 'Student').split(' ')[0]} to a 1v1 DSA Duel
+                  Challenge {(student.name || 'Student').split(' ')[0]} to a 1v1 DSA Duel
                 </button>
               </div>
             </div>

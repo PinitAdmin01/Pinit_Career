@@ -85,7 +85,7 @@ export const InternshipCertificateCard: React.FC<InternshipCertificateCardProps>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px solid var(--border)', paddingBottom: 14 }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <span style={{ fontSize: 26 }}>📜</span>
+              
               <h3 style={{ margin: 0, fontSize: 18, fontWeight: 900, color: 'var(--text)' }}>
                 Official Internship Credential
               </h3>
@@ -144,7 +144,7 @@ export const InternshipCertificateCard: React.FC<InternshipCertificateCardProps>
                 fontWeight: 700,
               }}
             >
-              <span>⚠️</span>
+              
               <span>Simulated Experience</span>
             </div>
           </div>
@@ -219,7 +219,7 @@ export const InternshipCertificateCard: React.FC<InternshipCertificateCardProps>
               gap: 6,
             }}
           >
-            <span>{copied ? '✓ Copied URL' : '🔗 Copy Shareable Link'}</span>
+            <span>{copied ? '✓ Copied URL' : 'Copy Shareable Link'}</span>
           </button>
 
           <button

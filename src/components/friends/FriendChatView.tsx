@@ -172,9 +172,9 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
               width: '100%',
               padding: '8px 12px',
               borderRadius: 8,
-              background: 'rgba(30, 41, 59, 0.6)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              color: '#ffffff',
+              background: 'var(--bg2)',
+              border: '1px solid var(--border)',
+              color: 'var(--t1)',
               fontSize: 14,
               outline: 'none',
               boxSizing: 'border-box'
@@ -185,7 +185,7 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
         {/* Friends List */}
         <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
           {filteredFriends.length === 0 ? (
-            <div style={{ padding: '24px 16px', textAlign: 'center', color: '#94a3b8', fontSize: 13 }}>
+            <div style={{ padding: '24px 16px', textAlign: 'center', color: 'var(--t3)', fontSize: 13 }}>
               {searchFilter ? `No friends match "${searchFilter}"` : 'No friends found.'}
             </div>
           ) : (
@@ -216,10 +216,10 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
                   </div>
 
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontSize: 14.5, fontWeight: 700, color: '#ffffff', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    <div style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--t1)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                       {friend.name}
                     </div>
-                    <div style={{ fontSize: 12, color: '#94a3b8', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    <div style={{ fontSize: 12, color: 'var(--t3)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                       {friend.course} • {friend.college}
                     </div>
                   </div>
@@ -232,17 +232,17 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
 
       {/* ── Right Pane: Active Chat Window ── */}
       {!activeFriend ? (
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', gap: 12, padding: 32, textAlign: 'center', background: 'rgba(10, 15, 30, 0.6)' }}>
-          <span style={{ fontSize: 44 }}>💬</span>
-          <div style={{ fontSize: 17.5, fontWeight: 700, color: '#ffffff' }}>Select a Conversation</div>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: 'var(--t3)', gap: 12, padding: 32, textAlign: 'center', background: 'var(--bg2)' }}>
+          <div style={{ width: 48, height: 48, borderRadius: '50%', background: 'var(--bg3)', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent)', fontWeight: 800, fontSize: 14 }}>MSG</div>
+          <div style={{ fontSize: 17.5, fontWeight: 700, color: 'var(--t1)' }}>Select a Conversation</div>
           <div style={{ fontSize: 14.5, maxWidth: 320, lineHeight: 1.5 }}>Choose a classmate or project partner from the sidebar to chat, share code, or initiate arena duels.</div>
         </div>
       ) : (
-      <div style={{ display: 'flex', flexDirection: 'column', height: '100%', background: 'rgba(10, 15, 30, 0.6)' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', height: '100%', background: 'var(--bg2)' }}>
         {/* Chat Header */}
         <div style={{
           padding: '14px 20px',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+          borderBottom: '1px solid var(--border)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -258,7 +258,7 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
               {activeFriend.online && <span className="online-beacon" />}
             </div>
             <div>
-              <div style={{ fontSize: 15.5, fontWeight: 700, color: '#ffffff' }}>{activeFriend.name}</div>
+              <div style={{ fontSize: 15.5, fontWeight: 700, color: 'var(--t1)' }}>{activeFriend.name}</div>
               <div style={{ fontSize: 12.5, color: '#34d399' }}>
                 {activeFriend.online ? 'Online on campus' : 'Offline'} • {activeFriend.college}
               </div>
@@ -278,14 +278,14 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
               style={{ padding: '6px 12px', fontSize: 12.5 }}
               onClick={() => onOpenChallenge(activeFriend)}
             >
-              ⚔️ Duel
+              Duel
             </button>
             <button
               className="friends-btn friends-btn-secondary"
               style={{ padding: '6px 12px', fontSize: 12.5 }}
               onClick={() => onOpenProjectInvite(activeFriend)}
             >
-              👥 Project
+              Project
             </button>
           </div>
         </div>
@@ -293,13 +293,13 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
         {/* Message Stream */}
         <div style={{ flex: 1, padding: '20px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 14 }}>
           {loadingMessages && messages.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: '40px 0', color: '#94a3b8', fontSize: 14.5 }}>
+            <div style={{ textAlign: 'center', padding: '40px 0', color: 'var(--t3)', fontSize: 14.5 }}>
               Loading conversation...
             </div>
           ) : messages.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: '50px 20px', color: '#94a3b8' }}>
-              <div style={{ fontSize: 35, marginBottom: 8 }}>👋</div>
-              <div style={{ fontSize: 15.5, fontWeight: 700, color: '#ffffff', marginBottom: 4 }}>
+            <div style={{ textAlign: 'center', padding: '50px 20px', color: 'var(--t3)' }}>
+              
+              <div style={{ fontSize: 15.5, fontWeight: 700, color: 'var(--t1)', marginBottom: 4 }}>
                 Say hello to {activeFriend.name}!
               </div>
               <div style={{ fontSize: 13 }}>
@@ -341,7 +341,7 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
                     background: isMe
                       ? 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)'
                       : 'rgba(30, 41, 59, 0.75)',
-                    color: '#ffffff',
+                    color: 'var(--t1)',
                     fontSize: 14.5,
                     lineHeight: 1.45,
                     boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)'
@@ -349,7 +349,7 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
                     <div>{msg.message}</div>
                     <div style={{
                       fontSize: 11,
-                      color: isMe ? 'rgba(255, 255, 255, 0.7)' : '#94a3b8',
+                      color: isMe ? 'rgba(255, 255, 255, 0.85)' : 'var(--t3)',
                       textAlign: 'right',
                       marginTop: 4
                     }}>
@@ -368,39 +368,39 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
           <button
             onClick={() => setInputText("Are you free to do an Arena duel on algorithms?")}
             style={{
-              background: 'rgba(255, 255, 255, 0.05)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+              background: 'var(--bg3)',
+              border: '1px solid var(--border)',
               borderRadius: 12,
               padding: '4px 10px',
               fontSize: 12,
-              color: '#94a3b8',
+              color: 'var(--t3)',
               cursor: 'pointer',
               whiteSpace: 'nowrap'
             }}
           >
-            ⚔️ &quot;Up for an Arena duel?&quot;
+            &quot;Up for an Arena duel?&quot;
           </button>
           <button
             onClick={() => setInputText("Would love to collaborate on a squad project with you!")}
             style={{
-              background: 'rgba(255, 255, 255, 0.05)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
+              background: 'var(--bg3)',
+              border: '1px solid var(--border)',
               borderRadius: 12,
               padding: '4px 10px',
               fontSize: 12,
-              color: '#94a3b8',
+              color: 'var(--t3)',
               cursor: 'pointer',
               whiteSpace: 'nowrap'
             }}
           >
-            👥 &quot;Want to join our project squad?&quot;
+            &quot;Want to join our project squad?&quot;
           </button>
         </div>
 
         {/* Chat Input Bar */}
         <div style={{
           padding: '12px 20px',
-          borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+          borderTop: '1px solid var(--border)',
           display: 'flex',
           gap: 10,
           background: 'var(--card)', border: '1px solid var(--border)'
@@ -417,9 +417,9 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
               flex: 1,
               padding: '10px 14px',
               borderRadius: 10,
-              background: 'rgba(30, 41, 59, 0.6)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              color: '#ffffff',
+              background: 'var(--bg2)',
+              border: '1px solid var(--border)',
+              color: 'var(--t1)',
               fontSize: 14.5,
               outline: 'none'
             }}
@@ -429,7 +429,7 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
             onClick={handleSendMessage}
             style={{ padding: '10px 16px', fontSize: 14.5 }}
           >
-            Send ➤
+            Send
           </button>
         </div>
       </div>

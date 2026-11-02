@@ -86,7 +86,7 @@ export const ProjectInviteModal: React.FC<ProjectInviteModalProps> = ({
     <div className="friends-modal-overlay" onClick={onClose}>
       <div className="friends-modal-dialog" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
-          <h3>👥 Invite {student.name.split(' ')[0]} to Project Squad</h3>
+          <h3>Invite {student.name.split(' ')[0]} to Project Squad</h3>
           <button className="drawer-close-btn" onClick={onClose}>✕</button>
         </div>
 
@@ -177,7 +177,7 @@ export const ProjectInviteModal: React.FC<ProjectInviteModalProps> = ({
                 border: '1px solid rgba(52, 211, 153, 0.4)'
               }}
             >
-              {isSubmitting ? 'Dispatching...' : '🚀 Dispatch Squad Invitation'}
+              {isSubmitting ? 'Dispatching...' : 'Dispatch Squad Invitation'}
             </button>
           </div>
         </form>

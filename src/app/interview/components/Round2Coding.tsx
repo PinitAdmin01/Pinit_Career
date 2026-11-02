@@ -230,7 +230,7 @@ export const Round2Coding: React.FC<Round2CodingProps> = ({
             title="Run Code & Tests (Ctrl+Enter / ⌘+Enter)"
             style={{ background: 'var(--green)', border: 'none', borderRadius: 8, padding: '7px 16px', color: 'var(--text)', fontWeight: 900, fontSize: 12.5, cursor: 'pointer' }}
           >
-            {isRunning ? 'Executing...' : (domainStream === 'non_tech' ? '📊 Run Calculation (Ctrl+↵)' : '▶️ Run Code & Tests (Ctrl+↵)')}
+            {isRunning ? 'Executing...' : (domainStream === 'non_tech' ? 'Run Calculation (Ctrl+↵)' : '▶️ Run Code & Tests (Ctrl+↵)')}
           </button>
         </div>
 
@@ -314,7 +314,7 @@ export const Round2Coding: React.FC<Round2CodingProps> = ({
             <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase' }}>EXECUTION CONSOLE</div>
             <button
               onClick={() => {
-                console.log('[Interview] 🗑️ Terminal console cleared by candidate.');
+                console.log('[Interview] Terminal console cleared by candidate.');
                 setTerminalLogs([]);
               }}
               style={{
@@ -327,7 +327,7 @@ export const Round2Coding: React.FC<Round2CodingProps> = ({
                 cursor: 'pointer'
               }}
             >
-              🗑️ Clear
+              Clear
             </button>
           </div>
           <div style={{ flex: 1, fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--success-bright)', overflowY: 'auto', maxHeight: 160 }}>

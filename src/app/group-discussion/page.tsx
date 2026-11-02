@@ -254,7 +254,7 @@ export default function GroupDiscussionPage({ embedded = false }: { embedded?: b
         {!embedded && (
           <div>
             <h1 style={{ fontSize: 17.5, fontWeight: 900, color: 'var(--t1)', display: 'flex', alignItems: 'center', gap: 8, margin: 0 }}>
-              🗣️ Group Discussion Practice
+              Group Discussion Practice
             </h1>
             <p style={{ fontSize: 12, color: 'var(--t3)', margin: '2px 0 0' }}>Practice clear, collaborative discussion with a timed host and a diverse panel.</p>
           </div>
@@ -327,7 +327,7 @@ export default function GroupDiscussionPage({ embedded = false }: { embedded?: b
                 color: 'var(--t1)'
               }}
             >
-              🌗 Theme
+              Theme
             </button>
             <Link href="/dashboard" className="btn-ghost" style={{ fontSize: 12, textDecoration: 'none' }}>
               ➔ Return to Command
@@ -405,9 +405,9 @@ export default function GroupDiscussionPage({ embedded = false }: { embedded?: b
                     {(['technical', 'sales', 'business'] as const).map(dom => {
                       const isActive = domain === dom;
                       const labelMap = {
-                        technical: '💻 Technical',
-                        sales: '📈 Sales',
-                        business: '💼 Business'
+                        technical: 'Technical',
+                        sales: 'Sales',
+                        business: 'Business'
                       };
                       return (
                         <button
@@ -427,9 +427,9 @@ export default function GroupDiscussionPage({ embedded = false }: { embedded?: b
                     })}
                   </div>
                   <p style={{ fontSize: 10.5, color: 'var(--t4)', marginTop: 6, margin: 0, textAlign: 'center' }}>
-                    {domain === 'technical' && '💻 Focus on technology, code integrations, and hardware.'}
-                    {domain === 'sales' && '📈 Focus on marketing budget, campaigns, and conversions.'}
-                    {domain === 'business' && '💼 Focus on unit economics, operational costs, and structures.'}
+                    {domain === 'technical' && 'Focus on technology, code integrations, and hardware.'}
+                    {domain === 'sales' && 'Focus on marketing budget, campaigns, and conversions.'}
+                    {domain === 'business' && 'Focus on unit economics, operational costs, and structures.'}
                   </p>
                 </div>
 
@@ -458,9 +458,9 @@ export default function GroupDiscussionPage({ embedded = false }: { embedded?: b
                     })}
                   </div>
                   <p style={{ fontSize: 10.5, color: 'var(--t4)', marginTop: 6, margin: 0, textAlign: 'center' }}>
-                    {difficulty === 'easy' && '🟢 Supportive questions and a gentle 25-second response window.'}
-                    {difficulty === 'medium' && '🟡 Balanced follow-ups and a 25-second response window.'}
-                    {difficulty === 'hard' && '🔴 Tougher evidence and trade-off questions; 25 seconds to respond.'}
+                    {difficulty === 'easy' && 'Supportive questions and a gentle 25-second response window.'}
+                    {difficulty === 'medium' && 'Balanced follow-ups and a 25-second response window.'}
+                    {difficulty === 'hard' && 'Tougher evidence and trade-off questions; 25 seconds to respond.'}
                   </p>
                 </div>
 
@@ -482,15 +482,15 @@ export default function GroupDiscussionPage({ embedded = false }: { embedded?: b
                             color: isActive ? 'white' : 'var(--t1)'
                           }}
                         >
-                          ⏱️ {mins} Mins {mins === 5 ? '(Express)' : mins === 10 ? '(Standard)' : '(Deep Dive)'}
+                          {mins} Mins {mins === 5 ? '(Express)' : mins === 10 ? '(Standard)' : '(Deep Dive)'}
                         </button>
                       );
                     })}
                   </div>
                   <p style={{ fontSize: 10.5, color: 'var(--t4)', marginTop: 6, margin: 0, textAlign: 'center' }}>
-                    {sessionDurationMinutes === 5 && '⚡ Express session with fast-paced interventions and 5-min recap.'}
-                    {sessionDurationMinutes === 10 && '⚖️ Standard 10-min corporate debate with mid-session summary.'}
-                    {sessionDurationMinutes === 15 && '🏛️ Deep dive architectural boardroom with comprehensive closing synthesis.'}
+                    {sessionDurationMinutes === 5 && 'Express session with fast-paced interventions and 5-min recap.'}
+                    {sessionDurationMinutes === 10 && 'Standard 10-min corporate debate with mid-session summary.'}
+                    {sessionDurationMinutes === 15 && 'Deep dive architectural boardroom with comprehensive closing synthesis.'}
                   </p>
                 </div>
 
@@ -507,7 +507,7 @@ export default function GroupDiscussionPage({ embedded = false }: { embedded?: b
               </h2>
               {historyListState.length === 0 ? (
                 <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: 'var(--t4)', gap: 8 }}>
-                  <span style={{ fontSize: 35 }}>📜</span>
+                  <div style={{ width: 44, height: 44, borderRadius: '50%', background: 'var(--bg3)', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--teal)', fontSize: 13, fontWeight: 900 }}>GD</div>
                   <span style={{ fontSize: 12, fontWeight: 700 }}>No previous boardroom sessions found.</span>
                 </div>
               ) : (
@@ -541,7 +541,7 @@ export default function GroupDiscussionPage({ embedded = false }: { embedded?: b
                           }}
                           className="gd-review-btn"
                         >
-                          🔍 Review Recap
+                          Review Recap
                         </button>
                       </div>
                     </div>
@@ -609,7 +609,7 @@ export default function GroupDiscussionPage({ embedded = false }: { embedded?: b
                       }}
                     >
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <span style={{ fontSize: 22 }}>{a.emoji}</span>
+                        <div style={{ width: 30, height: 30, borderRadius: '50%', background: a.color || 'var(--teal)', color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: 11 }}>{a.name.slice(0, 2).toUpperCase()}</div>
                         <button
                           type="button"
                           aria-pressed={isInvited}
@@ -641,7 +641,7 @@ export default function GroupDiscussionPage({ embedded = false }: { embedded?: b
                           }}
                           className="gd-avatar-demo-btn"
                         >
-                          🎙️ Voice Demo
+                          Voice Demo
                         </button>
                       </div>
                     </div>

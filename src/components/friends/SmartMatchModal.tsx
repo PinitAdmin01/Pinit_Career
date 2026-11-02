@@ -43,7 +43,7 @@ export const SmartMatchModal: React.FC<SmartMatchModalProps> = ({
         {/* Header */}
         <div className="modal-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <span style={{ fontSize: 22 }}>🤖</span>
+            
             <div>
               <h3 style={{ margin: 0, fontSize: 18.5, color: '#ffffff' }}>AI Peer Match Breakdown</h3>
               <span style={{ fontSize: 12, color: '#94a3b8' }}>PinIT Smart Affinity Engine</span>
@@ -177,7 +177,7 @@ export const SmartMatchModal: React.FC<SmartMatchModalProps> = ({
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 6 }}>
                   {match.complementarySkills.map((s, idx) => (
                     <span key={idx} className="mini-skill-pill" style={{ background: 'rgba(16, 185, 129, 0.15)', color: '#6ee7b7', border: '1px solid rgba(16, 185, 129, 0.3)' }}>
-                      ⚡ {s}
+                      {s}
                     </span>
                   ))}
                 </div>
@@ -209,7 +209,7 @@ export const SmartMatchModal: React.FC<SmartMatchModalProps> = ({
                     toast.success('Icebreaker Copied!', 'Ready to paste in chat.');
                   }}
                 >
-                  💬 "{starter}"
+                  "{starter}"
                 </div>
               ))}
             </div>
@@ -226,7 +226,7 @@ export const SmartMatchModal: React.FC<SmartMatchModalProps> = ({
                 onOpenChallenge(student);
               }}
             >
-              🏆 Duel
+              Duel
             </button>
             <button
               className="friends-btn friends-btn-secondary"
@@ -235,7 +235,7 @@ export const SmartMatchModal: React.FC<SmartMatchModalProps> = ({
                 onOpenProjectInvite(student);
               }}
             >
-              👥 Project
+              Project
             </button>
           </div>
 

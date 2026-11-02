@@ -24,12 +24,12 @@ type TabKey = (typeof TABS)[number]['key'];
 // Fallback blueprints if API or static metadata is partially unavailable (Option 2)
 const FALLBACK_MODULES: Record<'web_fullstack' | 'python_ai', CrashPlanCourseModule[]> = {
   web_fullstack: [
-    { month: 1, courseId: 'course-react-web', title: 'Modern React Architecture', desc: 'Component lifecycle, hooks, and state.', icon: '⚛️', skills: ['React', 'TypeScript'] },
-    { month: 2, courseId: 'course-node-web', title: 'Backend APIs & Microservices', desc: 'REST, PostgreSQL, and auth.', icon: '🟢', skills: ['Node.js', 'PostgreSQL'] },
+    { month: 1, courseId: 'course-react-web', title: 'Modern React Architecture', desc: 'Component lifecycle, hooks, and state.', icon: '', skills: ['React', 'TypeScript'] },
+    { month: 2, courseId: 'course-node-web', title: 'Backend APIs & Microservices', desc: 'REST, PostgreSQL, and auth.', icon: '', skills: ['Node.js', 'PostgreSQL'] },
   ],
   python_ai: [
-    { month: 1, courseId: 'course-python', title: 'Python Core & Data Systems', desc: 'OOP, algorithms, and test automation.', icon: '🐍', skills: ['Python', 'pytest'] },
-    { month: 2, courseId: 'course-ai-py', title: 'Machine Learning & Neural Nets', desc: 'Model architectures and inference.', icon: '🧠', skills: ['PyTorch', 'FastAPI'] },
+    { month: 1, courseId: 'course-python', title: 'Python Core & Data Systems', desc: 'OOP, algorithms, and test automation.', icon: '', skills: ['Python', 'pytest'] },
+    { month: 2, courseId: 'course-ai-py', title: 'Machine Learning & Neural Nets', desc: 'Model architectures and inference.', icon: '', skills: ['PyTorch', 'FastAPI'] },
   ],
 };
 

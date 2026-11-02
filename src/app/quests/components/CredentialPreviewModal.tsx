@@ -93,18 +93,18 @@ const CredentialPreviewModal: React.FC<CredentialPreviewModalProps> = ({
             <span style={bBadge('rgba(99,102,241,0.18)','#a5b4fc','rgba(99,102,241,0.3)')}>ACCREDITED PROJECT CERTIFICATION</span>
             <h3 style={s.heading}>{track}</h3>
             <p style={s.details}>Awarded for independent execution of 1-Month production capstone with automated test passing.</p>
-            <div style={s.seal}><span style={s.sealIcon('#f59e0b')}>🏅</span><span>✓ ISO-Aligned • Cryptographically Signed</span></div>
+            <div style={s.seal}><span>✓ ISO-Aligned • Cryptographically Signed</span></div>
           </article>
           {INTERNSHIP_AVAILABLE && <article data-testid="credential-fellowship-card" style={bCard(eg)}>
             <span style={bBadge('rgba(16,185,129,0.18)','#6ee7b7','rgba(16,185,129,0.3)')}>VENTURE APPRENTICESHIP & FELLOWSHIP</span>
             <h3 style={s.heading}>{getTierWording()}</h3>
             <p style={s.details}>Verified software development program contributing to production-grade repositories.</p>
-            <div style={s.seal}><span style={s.sealIcon('#10b981')}>🛡️</span><span>✓ SHA-256 Tamper-Proof Hash • QR Verifiable</span></div>
+            <div style={s.seal}><span>✓ SHA-256 Tamper-Proof Hash • QR Verifiable</span></div>
           </article>}
         </div>
 
         <div style={s.hud} role="status" aria-live="polite">
-          <span style={s.hudIcon}>🔎</span>
+          
           <span>Public Verification Gateway: Recruiters verify live Git commits and project integrity at <a href="/verify/[id]" style={s.hudLink} target="_blank" rel="noopener noreferrer">pinitcareer.vercel.app/verify/[id]</a></span>
         </div>
 

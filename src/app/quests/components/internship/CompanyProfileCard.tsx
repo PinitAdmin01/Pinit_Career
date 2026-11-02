@@ -34,7 +34,7 @@ export const CompanyProfileCard: React.FC<CompanyProfileCardProps> = ({ profile 
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 8 }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <span style={{ fontSize: 20 }}>🏢</span>
+            
             <h3 data-testid="company-profile-name" style={{ margin: 0, fontSize: 17, fontWeight: 900, color: 'var(--text)' }}>
               {name}
             </h3>
@@ -74,7 +74,7 @@ export const CompanyProfileCard: React.FC<CompanyProfileCardProps> = ({ profile 
             fontWeight: 700,
           }}
         >
-          <span>⚠️</span>
+          
           <span>Simulated Company</span>
         </div>
       </div>

@@ -112,7 +112,7 @@ export const SquadProjectsView: React.FC<SquadProjectsViewProps> = ({ onOpenInvi
       }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <span style={{ fontSize: 26.5 }}>👥</span>
+            
             <h2 style={{ fontSize: 22, fontWeight: 800, color: 'var(--t1)', margin: 0 }}>
               Squad Collaboration & Group Projects
             </h2>
@@ -141,7 +141,7 @@ export const SquadProjectsView: React.FC<SquadProjectsViewProps> = ({ onOpenInvi
       {incomingInvites.length > 0 && (
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
-            <span style={{ fontSize: 17.5 }}>📩</span>
+            
             <h3 style={{ fontSize: 17.5, fontWeight: 700, color: 'var(--t1)', margin: 0 }}>
               Incoming Squad Invitations ({incomingInvites.length})
             </h3>
@@ -204,7 +204,7 @@ export const SquadProjectsView: React.FC<SquadProjectsViewProps> = ({ onOpenInvi
                     disabled={respondingId === inv.id}
                     onClick={() => handleRespond(inv.id, 'accept')}
                   >
-                    ✓ Accept & Join Squad
+                    Accept & Join Squad
                   </button>
                   <button
                     className="friends-btn friends-btn-secondary"
@@ -225,7 +225,7 @@ export const SquadProjectsView: React.FC<SquadProjectsViewProps> = ({ onOpenInvi
       <div>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span style={{ fontSize: 17.5 }}>🚀</span>
+            
             <h3 style={{ fontSize: 17.5, fontWeight: 700, color: 'var(--t1)', margin: 0 }}>
               Active Collaborative Squads ({squadProjects.length})
             </h3>

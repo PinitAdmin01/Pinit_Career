@@ -73,7 +73,7 @@ export default function GdHistoryModal({
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border)', paddingBottom: 16 }}>
           <div>
             <h3 style={{ margin: 0, fontSize: 20, fontWeight: 900, color: 'var(--t1)', display: 'flex', alignItems: 'center', gap: 8 }}>
-              📜 Boardroom Discussion History & Analytics
+              Boardroom Discussion History & Analytics
             </h3>
             <p style={{ margin: '2px 0 0', fontSize: 12, color: 'var(--t3)' }}>
               Review past debate transcripts, performance scores, and identified architectural gaps.
@@ -127,9 +127,9 @@ export default function GdHistoryModal({
             style={{ flex: 1, padding: '10px 14px' }}
           >
             <option value="all">🌐 All Domains</option>
-            <option value="technical">💻 Technical</option>
-            <option value="sales">📈 Sales</option>
-            <option value="business">💼 Business</option>
+            <option value="technical">Technical</option>
+            <option value="sales">Sales</option>
+            <option value="business">Business</option>
           </select>
         </div>
 
@@ -203,7 +203,7 @@ export default function GdHistoryModal({
 
             {/* Searchable Transcript Log */}
             <div>
-              <h5 style={{ margin: '8px 0 8px', fontSize: 13, fontWeight: 800, color: 'var(--t1)' }}>📜 Session Transcript</h5>
+              <h5 style={{ margin: '8px 0 8px', fontSize: 13, fontWeight: 800, color: 'var(--t1)' }}>Session Transcript</h5>
               <div style={{
                 maxHeight: 260,
                 overflowY: 'auto',

@@ -75,7 +75,7 @@ export const InternshipCompletedBanner: React.FC<InternshipCompletedBannerProps>
                 cursor: isRestarting ? 'not-allowed' : 'pointer',
               }}
             >
-              {isRestarting ? 'Restarting...' : '🔄 Restart Simulation (Final Attempt)'}
+              {isRestarting ? 'Restarting...' : 'Restart Simulation (Final Attempt)'}
             </button>
           </div>
         ) : (
@@ -101,7 +101,7 @@ export const InternshipCompletedBanner: React.FC<InternshipCompletedBannerProps>
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-        <span style={{ fontSize: 26 }}>🎓</span>
+        
         <div>
           <h4 style={{ margin: 0, fontSize: 17, fontWeight: 900, color: '#10b981' }}>
             Simulation Successfully Completed!
@@ -132,7 +132,7 @@ export const InternshipCompletedBanner: React.FC<InternshipCompletedBannerProps>
               gap: 6,
             }}
           >
-            <span>📜 View Verifiable Certificate</span>
+            <span>View Verifiable Certificate</span>
           </button>
         ) : (
           <button
@@ -151,7 +151,7 @@ export const InternshipCompletedBanner: React.FC<InternshipCompletedBannerProps>
               cursor: isRequestingCertificate ? 'not-allowed' : 'pointer',
             }}
           >
-            {isRequestingCertificate ? 'Issuing...' : '🎓 Claim Verifiable Certificate'}
+            {isRequestingCertificate ? 'Issuing...' : 'Claim Verifiable Certificate'}
           </button>
         )}
 
@@ -171,7 +171,7 @@ export const InternshipCompletedBanner: React.FC<InternshipCompletedBannerProps>
               cursor: 'pointer',
             }}
           >
-            📋 Review Stand-Up Report
+            Review Stand-Up Report
           </button>
         )}
       </div>

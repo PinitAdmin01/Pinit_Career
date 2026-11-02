@@ -78,7 +78,7 @@ export const InternshipDeadlineBanner: React.FC<InternshipDeadlineBannerProps> =
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-        <span style={{ fontSize: 18 }}>{isPast ? '⏰' : isUrgent ? '⏳' : '📅'}</span>
+        
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--text)' }}>

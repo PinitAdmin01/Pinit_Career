@@ -144,7 +144,7 @@ export default function CapstoneInternshipPortal({
             </div>
           )}
           <Link data-testid="btn-start-capstone-defense" href={COURSE_DEFENSE_PATH} style={{ ...primaryButton(false), textDecoration: 'none', display: 'inline-block' }}>
-            🎙️ {last ? 'Retake' : 'Start'} capstone defense →
+            {last ? 'Retake' : 'Start'} capstone defense →
           </Link>
         </div>
       );
@@ -237,7 +237,7 @@ export default function CapstoneInternshipPortal({
               padding: 14, borderRadius: 12, background: 'rgba(245,158,11,0.1)',
               border: '1px solid rgba(245,158,11,0.3)', color: '#f59e0b', fontSize: 14, fontWeight: 700,
             }}>
-              🔒 The capstone opens after the last lesson of your course ({lessonsLeft} {lessonsLeft === 1 ? 'lesson' : 'lessons'} left).
+              The capstone opens after the last lesson of your course ({lessonsLeft} {lessonsLeft === 1 ? 'lesson' : 'lessons'} left).
             </div>
           )}
 

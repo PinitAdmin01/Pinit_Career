@@ -464,7 +464,7 @@ export default function PracticeTestQuizRunner({
           borderRadius: 20, overflow: 'hidden', padding: 32,
         }}>
           <h2 style={{ fontSize: 26.5, fontWeight: 900, color: 'var(--t1)', fontFamily: 'var(--font-display)', marginBottom: 24, textAlign: 'center' }}>
-            📊 Test Complete — Results
+            Test Complete — Results
           </h2>
 
           {/* Score Cards */}

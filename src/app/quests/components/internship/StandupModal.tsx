@@ -93,7 +93,7 @@ export const StandupModal: React.FC<StandupModalProps> = ({
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
             <h3 style={{ margin: 0, fontSize: 18, fontWeight: 900, color: 'var(--t1)' }}>
-              📝 Week {week} Asynchronous Stand-Up
+              Week {week} Asynchronous Stand-Up
             </h3>
             <span style={{ fontSize: 12.5, color: 'var(--t2)' }}>
               Keep your squad in sync (done, next, blockers · 30–200 words)

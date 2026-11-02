@@ -72,7 +72,7 @@ export const SprintBoardCard: React.FC<SprintBoardCardProps> = ({
       case 'submitted':
         return { text: '● Under Review', bg: 'rgba(59, 130, 246, 0.15)', color: '#60a5fa', border: 'rgba(59, 130, 246, 0.3)' };
       case 'changes_requested':
-        return { text: '⚠️ Changes Needed', bg: 'rgba(239, 68, 68, 0.15)', color: '#f87171', border: 'rgba(239, 68, 68, 0.3)' };
+        return { text: 'Changes Needed', bg: 'rgba(239, 68, 68, 0.15)', color: '#f87171', border: 'rgba(239, 68, 68, 0.3)' };
       default:
         return { text: '● Active Sprint', bg: 'rgba(99, 102, 241, 0.15)', color: '#818cf8', border: 'rgba(99, 102, 241, 0.3)' };
     }
@@ -95,7 +95,7 @@ export const SprintBoardCard: React.FC<SprintBoardCardProps> = ({
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
         <div>
           <h3 style={{ margin: 0, fontSize: 17, fontWeight: 900, color: '#ffffff' }}>
-            📅 4-Week Sprint Schedule
+            4-Week Sprint Schedule
           </h3>
           <span style={{ fontSize: 12, color: '#94a3b8' }}>
             Complete weekly tasks, submit PR links, and provide async stand-ups
@@ -118,7 +118,7 @@ export const SprintBoardCard: React.FC<SprintBoardCardProps> = ({
               cursor: 'pointer',
             }}
           >
-            📝 Write Week {activeSprint.number} Stand-Up
+            Write Week {activeSprint.number} Stand-Up
           </button>
         )}
       </div>
@@ -259,7 +259,7 @@ export const SprintBoardCard: React.FC<SprintBoardCardProps> = ({
                   cursor: 'pointer',
                 }}
               >
-                {isSubmittingSprint ? 'Submitting...' : '🚀 Submit Sprint for Review'}
+                {isSubmittingSprint ? 'Submitting...' : 'Submit Sprint for Review'}
               </button>
             </div>
           )}

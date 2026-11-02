@@ -39,7 +39,7 @@ export const InternshipReadyBanner: React.FC<InternshipReadyBannerProps> = ({
           gap: 12,
         }}
       >
-        <span style={{ fontSize: 32 }}>⚙️</span>
+        
         <div>
           <h4 style={{ margin: 0, fontSize: 17, fontWeight: 900, color: 'var(--text)' }}>
             Generating Your Simulation Backlog
@@ -49,7 +49,7 @@ export const InternshipReadyBanner: React.FC<InternshipReadyBannerProps> = ({
           </p>
         </div>
         <div style={{ fontSize: 12, fontWeight: 800, color: '#818cf8', display: 'flex', alignItems: 'center', gap: 6 }}>
-          <span>🔄</span>
+          
           <span>Checking server progress...</span>
         </div>
       </div>
@@ -71,7 +71,7 @@ export const InternshipReadyBanner: React.FC<InternshipReadyBannerProps> = ({
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <span style={{ fontSize: 22 }}>⚠️</span>
+          
           <div>
             <h4 style={{ margin: 0, fontSize: 16, fontWeight: 900, color: '#f87171' }}>
               Ticket Generation Timed Out
@@ -99,7 +99,7 @@ export const InternshipReadyBanner: React.FC<InternshipReadyBannerProps> = ({
             cursor: isRetryingGeneration ? 'not-allowed' : 'pointer',
           }}
         >
-          {isRetryingGeneration ? 'Retrying...' : '🔄 Retry Generation'}
+          {isRetryingGeneration ? 'Retrying...' : 'Retry Generation'}
         </button>
       </div>
     );
@@ -119,7 +119,7 @@ export const InternshipReadyBanner: React.FC<InternshipReadyBannerProps> = ({
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-        <span style={{ fontSize: 24 }}>🚀</span>
+        
         <div>
           <h4 style={{ margin: 0, fontSize: 17, fontWeight: 900, color: 'var(--text)' }}>
             Ready to Start Your 2-Week {tierName || (track === 'web_fullstack' ? 'Web Developer Job Simulation' : 'Python Job Simulation')}

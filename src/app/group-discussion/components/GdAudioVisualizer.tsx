@@ -11,15 +11,20 @@ interface GdAudioVisualizerProps {
 }
 
 function resolveCanvasColor(inputColor?: string): string {
-  if (!inputColor) return '#14b8a6';
+  if (!inputColor) return '#0891b2';
   const trimmed = inputColor.trim();
   if (trimmed.includes('var(')) {
     if (typeof window !== 'undefined' && typeof document !== 'undefined') {
       try {
         const varMatch = trimmed.match(/var\((--[^)]+)\)/);
         if (varMatch && varMatch[1]) {
-          const val = getComputedStyle(document.documentElement).getPropertyValue(varMatch[1].trim()).trim();
-          if (val && !val.includes('var(')) return val;
+          const propName = varMatch[1].trim();
+          const docVal = getComputedStyle(document.documentElement).getPropertyValue(propName).trim();
+          if (docVal && (docVal.startsWith('#') || docVal.startsWith('rgb'))) return docVal;
+          if (document.body) {
+            const bodyVal = getComputedStyle(document.body).getPropertyValue(propName).trim();
+            if (bodyVal && (bodyVal.startsWith('#') || bodyVal.startsWith('rgb'))) return bodyVal;
+          }
         }
       } catch {}
     }
@@ -27,9 +32,12 @@ function resolveCanvasColor(inputColor?: string): string {
     if (trimmed.includes('--accent') || trimmed.includes('--primary') || trimmed.includes('--blue')) return '#0284c7';
     if (trimmed.includes('--amber') || trimmed.includes('--warning') || trimmed.includes('--orange')) return '#f59e0b';
     if (trimmed.includes('--green') || trimmed.includes('--emerald')) return '#10b981';
-    return '#14b8a6';
+    if (trimmed.includes('--teal')) return '#0891b2';
+    if (trimmed.includes('--purple')) return '#a855f7';
+    return '#0891b2';
   }
-  return trimmed;
+  if (trimmed.startsWith('#') || trimmed.startsWith('rgb')) return trimmed;
+  return '#0891b2';
 }
 
 export default function GdAudioVisualizer({
@@ -75,7 +83,7 @@ export default function GdAudioVisualizer({
           gradient.addColorStop(1, 'rgba(255, 255, 255, 0.2)');
           ctx.fillStyle = active ? gradient : 'rgba(255, 255, 255, 0.1)';
         } catch {
-          ctx.fillStyle = active ? safeColor : 'rgba(255, 255, 255, 0.1)';
+          ctx.fillStyle = active ? '#0891b2' : 'rgba(255, 255, 255, 0.1)';
         }
 
         ctx.beginPath();

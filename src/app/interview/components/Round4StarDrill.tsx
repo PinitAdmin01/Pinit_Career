@@ -87,14 +87,14 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
               display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontWeight: 800
             }}>
               <span style={{ color: eyeContactScore !== null ? (eyeContactScore >= 60 ? 'var(--success-bright)' : 'var(--warning-bright)') : 'var(--text-muted)' }}>
-                📷 {eyeContactScore !== null ? (eyeContactScore >= 60 ? 'Presence: Centered' : 'Presence: Adjust Angle') : 'Detecting...'}
+                {eyeContactScore !== null ? (eyeContactScore >= 60 ? 'Presence: Centered' : 'Presence: Adjust Angle') : 'Detecting...'}
               </span>
               <span style={{
                 color: wpmScore !== null
                   ? (wpmScore >= 115 && wpmScore <= 165 ? 'var(--success-bright)' : wpmScore > 165 ? 'var(--warning-bright)' : 'var(--info-bright)')
                   : 'var(--text-muted)'
               }}>
-                ⚡ {wpmScore !== null ? `${wpmScore} WPM ${wpmScore > 165 ? '(Fast)' : wpmScore >= 115 ? '(Optimal)' : '(Paced)'}` : 'Mic Inactive'}
+                {wpmScore !== null ? `${wpmScore} WPM ${wpmScore > 165 ? '(Fast)' : wpmScore >= 115 ? '(Optimal)' : '(Paced)'}` : 'Mic Inactive'}
               </span>
             </div>
           </div>
@@ -164,14 +164,14 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
           }}
         >
           {starStep === 0
-            ? '💡 Focus: Set the business & technical context, system scale, and primary constraints.'
+            ? 'Focus: Set the business & technical context, system scale, and primary constraints.'
             : starStep === 1
-            ? '💡 Focus: Define your exact engineering responsibility, milestone targets, and success criteria.'
+            ? 'Focus: Define your exact engineering responsibility, milestone targets, and success criteria.'
             : starStep === 2
-            ? '💡 Focus: Explain the concrete technical actions, trade-offs, architecture choices, and teamwork.'
+            ? 'Focus: Explain the concrete technical actions, trade-offs, architecture choices, and teamwork.'
             : starStep === 3
-            ? '💡 Focus: Quantify measurable impact — latency drops, uptime gains, revenue unlocked, or error reductions.'
-            : '🎉 All 4 STAR quadrants completed! Submit your defense to review your scorecard.'}
+            ? 'Focus: Quantify measurable impact — latency drops, uptime gains, revenue unlocked, or error reductions.'
+            : 'All 4 STAR quadrants completed! Submit your defense to review your scorecard.'}
         </div>
 
         <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
@@ -304,7 +304,7 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
                       cursor: 'pointer'
                     }}
                   >
-                    📋 Copy
+                    Copy
                   </button>
                 )}
                 {setIsAssistModeActive && (
@@ -347,7 +347,7 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
             {/* Tab Body */}
             {isFetchingAssist ? (
               <div style={{ padding: '8px 0', textAlign: 'center', color: 'var(--reward-bright)', fontSize: 12, fontStyle: 'italic' }}>
-                ✨ Crafting spoken STAR answer for this question...
+                Crafting spoken STAR answer for this question...
               </div>
             ) : assistData ? (
               <div>
@@ -422,7 +422,7 @@ export const Round4StarDrill: React.FC<Round4StarDrillProps> = ({
                       cursor: 'pointer'
                     }}
                   >
-                    ✨ Generate STAR Script ➔
+                    Generate STAR Script ➔
                   </button>
                 )}
               </div>

@@ -65,7 +65,7 @@ export default function GdTranscriptDrawer({
               {selectedConcept}
             </div>
             <div className="gd-timer-badge-active">
-              <span>⏱️</span>
+              
               <span>{Math.floor(callDuration / 60).toString().padStart(2, '0')}:{(callDuration % 60).toString().padStart(2, '0')}</span>
             </div>
           </div>
@@ -73,7 +73,7 @@ export default function GdTranscriptDrawer({
         <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
           {candidateTurnTimer !== null && (
             <div className="gd-user-turn-badge">
-              🎙️ USER TURN: {candidateTurnTimer}s
+              USER TURN: {candidateTurnTimer}s
             </div>
           )}
           <button
@@ -121,7 +121,7 @@ export default function GdTranscriptDrawer({
         ))}
         {loading && (
           <div style={{ display: 'flex', gap: 4, alignItems: 'center', padding: 4 }}>
-            <span style={{ fontSize: 11, color: 'var(--t3)' }}>⚡ Avatars thinking...</span>
+            <span style={{ fontSize: 11, color: 'var(--t3)' }}>Avatars thinking...</span>
           </div>
         )}
         <div ref={bottomRef} />
@@ -148,7 +148,7 @@ export default function GdTranscriptDrawer({
               alignItems: 'center',
               marginBottom: 4
             }}>
-              <span>💡 OPTIONAL DISCUSSION PROMPT</span>
+              <span>OPTIONAL DISCUSSION PROMPT</span>
               <button
                 onClick={onClearHelperText}
                 style={{ background: 'none', border: 'none', color: 'var(--t4)', cursor: 'pointer', fontSize: 12, fontWeight: 900 }}
@@ -201,7 +201,7 @@ export default function GdTranscriptDrawer({
                   fontSize: 17
                 }}
               >
-                {micActive ? '🎙️' : '🎤'}
+                {micActive ? 'Active' : 'Mute'}
               </button>
               <button
                 type="button"
@@ -219,7 +219,7 @@ export default function GdTranscriptDrawer({
                 }}
                 title="Get an optional prompt to help shape your own point"
               >
-                💡 Need an idea?
+                Need an idea?
               </button>
             </>
           )}

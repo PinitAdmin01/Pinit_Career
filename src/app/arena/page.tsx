@@ -1259,7 +1259,7 @@ function ArenaContent() {
                     background: activeRoom.hostReady ? 'rgba(16, 185, 129, 0.15)' : 'rgba(239, 68, 68, 0.15)',
                     color: activeRoom.hostReady ? '#10b981' : '#f87171'
                   }}>
-                    {activeRoom.hostReady ? '✔ READY' : '⏳ NOT READY'}
+                    {activeRoom.hostReady ? 'READY' : 'WAITING'}
                   </div>
                 </div>
 
@@ -1315,12 +1315,12 @@ function ArenaContent() {
                         background: activeRoom.guestReady ? 'rgba(16, 185, 129, 0.15)' : 'rgba(239, 68, 68, 0.15)',
                         color: activeRoom.guestReady ? '#10b981' : '#f87171'
                       }}>
-                        {activeRoom.guestReady ? '✔ READY' : '⏳ NOT READY'}
+                        {activeRoom.guestReady ? 'READY' : 'WAITING'}
                       </div>
                     </>
                   ) : (
                     <div style={{ padding: '20px 0' }}>
-                      <div style={{ fontSize: 35, marginBottom: 8 }} className="animate-pulse">📡</div>
+                      <div style={{ width: 10, height: 10, borderRadius: "50%", background: "var(--accent)", margin: "0 auto 10px" }} className="animate-pulse" />
                       <h4 style={{ fontSize: 17.5, fontWeight: 700, color: 'var(--t2)', margin: '0 0 6px' }}>
                         Waiting for Friend...
                       </h4>

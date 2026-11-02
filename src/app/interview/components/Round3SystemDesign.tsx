@@ -139,7 +139,7 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{ fontSize: 20 }}>🏛️</span>
+                
                 <div>
                   <h4 style={{ margin: 0, fontSize: 14.5, fontWeight: 900, color: 'var(--t1)' }}>Architecture Evaluation Report</h4>
                   <span style={{ fontSize: 12, color: 'var(--t3)' }}>{architectureEvaluation.summary || 'Architecture verified.'}</span>
@@ -170,17 +170,17 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
             {/* Strengths, Weaknesses / Bottlenecks & Recommendations */}
             {architectureEvaluation.strengths && (
               <div style={{ fontSize: 12, color: 'var(--green-mid)', lineHeight: 1.4 }}>
-                <strong>🌟 Architectural Strengths:</strong> {Array.isArray(architectureEvaluation.strengths) ? architectureEvaluation.strengths.join('; ') : architectureEvaluation.strengths}
+                <strong>Architectural Strengths:</strong> {Array.isArray(architectureEvaluation.strengths) ? architectureEvaluation.strengths.join('; ') : architectureEvaluation.strengths}
               </div>
             )}
             {architectureEvaluation.weaknesses && (
               <div style={{ fontSize: 12, color: 'var(--coral-mid)', lineHeight: 1.4 }}>
-                <strong>⚠️ Bottlenecks identified:</strong> {Array.isArray(architectureEvaluation.weaknesses) ? architectureEvaluation.weaknesses.join('; ') : architectureEvaluation.weaknesses}
+                <strong>Bottlenecks identified:</strong> {Array.isArray(architectureEvaluation.weaknesses) ? architectureEvaluation.weaknesses.join('; ') : architectureEvaluation.weaknesses}
               </div>
             )}
             {architectureEvaluation.improvements && (
               <div style={{ fontSize: 12, color: 'var(--teal-mid)', lineHeight: 1.4 }}>
-                <strong>💡 Recommendations:</strong> {architectureEvaluation.improvements}
+                <strong>Recommendations:</strong> {architectureEvaluation.improvements}
               </div>
             )}
           </div>
@@ -225,7 +225,7 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
                       onClick={() => navigator.clipboard.writeText(assistData.script)}
                       style={{ background: 'rgba(255,255,255,0.1)', border: 'none', color: 'var(--text)', borderRadius: 4, padding: '2px 5px', fontSize: 10, fontWeight: 800, cursor: 'pointer' }}
                     >
-                      📋 Copy
+                      Copy
                     </button>
                   )}
                   {setIsAssistModeActive && (
@@ -242,7 +242,7 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
 
               {isFetchingAssist ? (
                 <div style={{ padding: '6px 0', textAlign: 'center', color: 'var(--reward-bright)', fontSize: 11, fontStyle: 'italic' }}>
-                  ✨ Crafting defense script...
+                  Crafting defense script...
                 </div>
               ) : assistData?.script ? (
                 <div style={{ background: 'rgba(0,0,0,0.45)', borderRadius: 6, padding: '6px 8px' }}>
@@ -275,7 +275,7 @@ export const Round3SystemDesign: React.FC<Round3SystemDesignProps> = ({
                       onClick={() => fetchAssistScript(lastInterviewerSpeech, assistScriptLevel)}
                       style={{ background: 'var(--reward)', border: 'none', color: '#000', borderRadius: 4, padding: '2px 8px', fontSize: 10.5, fontWeight: 800, cursor: 'pointer' }}
                     >
-                      ✨ Generate Script
+                      Generate Script
                     </button>
                   )}
                 </div>

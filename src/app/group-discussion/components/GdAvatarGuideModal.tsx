@@ -167,7 +167,7 @@ export default function GdAvatarGuideModal({
                     gap: 6
                   }}
                 >
-                  🎙️ Play Neural Voice Sample
+                  Play Neural Voice Sample
                 </button>
               </div>
             );

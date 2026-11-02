@@ -73,7 +73,7 @@ export const InternshipStatusBanner: React.FC<InternshipStatusBannerProps> = ({
           fontWeight: 700,
         }}
       >
-        <span style={{ fontSize: 20 }}>🔄</span>
+        
         <span>Loading your internship program status...</span>
       </div>
     );
@@ -94,7 +94,7 @@ export const InternshipStatusBanner: React.FC<InternshipStatusBannerProps> = ({
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <span style={{ fontSize: 22 }}>🔒</span>
+          
           <h4 style={{ margin: 0, fontSize: 16, fontWeight: 900, color: '#f87171' }}>
             Internship Access Locked
           </h4>

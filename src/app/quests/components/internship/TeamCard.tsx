@@ -58,7 +58,7 @@ export const TeamCard: React.FC<TeamCardProps> = ({
       {/* Top Banner */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <span style={{ fontSize: 24 }}>{isSolo ? '👤' : '👥'}</span>
+          
           <div>
             <h3 style={{ margin: 0, fontSize: 17, fontWeight: 900, color: '#ffffff' }}>
               {isSolo ? 'Solo Engineering Sprint Mode' : 'Virtual Engineering Squad'}
@@ -104,7 +104,7 @@ export const TeamCard: React.FC<TeamCardProps> = ({
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span style={{ fontSize: 16 }}>🐙</span>
+          
           <span style={{ fontSize: 13, fontWeight: 700, color: '#cbd5e1' }}>Team Repository:</span>
           {team?.repoUrl ? (
             <a
@@ -124,7 +124,7 @@ export const TeamCard: React.FC<TeamCardProps> = ({
             </a>
           ) : (
             <span style={{ fontSize: 12.5, color: '#f59e0b', fontWeight: 600 }}>
-              ⚠️ No GitHub repo registered yet
+              No GitHub repo registered yet
             </span>
           )}
         </div>

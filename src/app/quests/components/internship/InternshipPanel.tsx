@@ -138,7 +138,7 @@ export const InternshipPanel: React.FC<InternshipPanelProps> = ({
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px solid var(--border)', paddingBottom: 16 }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <span style={{ fontSize: 24 }}>🏢</span>
+              
               <h2 data-testid="internship-panel-title" style={{ margin: 0, fontSize: 20, fontWeight: 900, color: 'var(--text)' }}>
                 {displayTitle} · Virtual Simulation Desk
               </h2>
