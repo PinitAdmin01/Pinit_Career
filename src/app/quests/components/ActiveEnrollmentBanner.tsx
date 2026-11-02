@@ -140,7 +140,7 @@ export const ActiveEnrollmentBanner: React.FC<ActiveEnrollmentBannerProps> = ({
             {INTERNSHIP_AVAILABLE ? '✓ Accredited Fellowship Seat' : '✓ Enrolled Seat'}
           </span>
           <span style={{ fontSize: 13, color: 'var(--t3)', fontWeight: 600 }}>
-            Ref #{enrollment.enrollmentId.slice(-8).toUpperCase()}
+            Ref #{(enrollment.enrollmentId || enrollment.paymentId || 'ACTIVE').slice(-8).toUpperCase()}
           </span>
         </div>
 
