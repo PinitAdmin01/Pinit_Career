@@ -121,7 +121,7 @@ export function LearningPathView({
                         {idx + 1}
                       </div>
                       <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--t3)', textTransform: 'uppercase' }}>
-                        {s.phaseName.split(':')[0]}
+                        {s.phaseName}
                       </span>
                     </div>
                     <span style={{ fontSize: 11, fontWeight: 800, color: s.progressPct > 0 ? 'var(--green)' : 'var(--t3)' }}>
