@@ -8,15 +8,15 @@ import { EnrolledCoursesPanel } from './components/EnrolledCoursesPanel';
 import { LearningPathView } from './components/LearningPathView';
 import { CourseGrid } from './components/CourseGrid';
 
-export default function LearningPage() {
+export default function LearningPage({ initialTab, embedded = false }: { initialTab?: 'mistakes' | 'roadmap' | 'twin' | 'gaps' | 'memory'; embedded?: boolean } = {}) {
   return (
     <Suspense fallback={<div style={{ padding: 40, color: 'var(--t2)', fontSize: 14.5 }}>Loading Learning Hub...</div>}>
-      <LearningPageInner />
+      <LearningPageInner initialTab={initialTab} embedded={embedded} />
     </Suspense>
   );
 }
 
-function LearningPageInner() {
+function LearningPageInner({ initialTab, embedded = false }: { initialTab?: 'mistakes' | 'roadmap' | 'twin' | 'gaps' | 'memory'; embedded?: boolean }) {
   const {
     cOS,
     activeTab,
@@ -49,7 +49,20 @@ function LearningPageInner() {
     roadmapSteps,
     quests,
     onboardingAnswers,
-  } = useLearningData();
+    // Enhanced intelligence exports
+    targetRole,
+    humanizedMistakes,
+    resolveDrill,
+    dynamicRoadmap,
+    twinSimulation,
+    dailyQuestPace,
+    setDailyQuestPace,
+    interviewScoreTarget,
+    setInterviewScoreTarget,
+    gapsResolvedCount,
+    setGapsResolvedCount,
+    categorizedGaps
+  } = useLearningData(initialTab);
 
   return (
     <div style={{ maxWidth: 1280, margin: '0 auto', paddingBottom: 60 }} className="animate-fade-in">
@@ -59,6 +72,7 @@ function LearningPageInner() {
         canAccessFaculty={canAccessFaculty}
         activeTab={activeTab}
         handleTabChange={handleTabChange}
+        embedded={embedded}
       />
 
       {activeRole === 'faculty' && canAccessFaculty ? (
@@ -69,6 +83,8 @@ function LearningPageInner() {
           studentsList={studentsList}
           prescribeQuest={prescribeQuest}
           missingSkills={missingSkills}
+          humanizedMistakes={humanizedMistakes}
+          resolveDrill={resolveDrill}
         />
       ) : (
         <div>
@@ -80,6 +96,8 @@ function LearningPageInner() {
               studentsList={studentsList}
               prescribeQuest={prescribeQuest}
               missingSkills={missingSkills}
+              humanizedMistakes={humanizedMistakes}
+              resolveDrill={resolveDrill}
             />
           )}
 
@@ -87,6 +105,7 @@ function LearningPageInner() {
             <LearningPathView
               activeTab="roadmap"
               roadmapSteps={roadmapSteps}
+              dynamicRoadmap={dynamicRoadmap}
               activeStep={activeStep}
               setActiveStep={setActiveStep}
               onboardingComplete={onboardingComplete}
@@ -102,8 +121,16 @@ function LearningPageInner() {
               step={step}
               onboardingAnswers={onboardingAnswers}
               twinData={twinData}
+              twinSimulation={twinSimulation}
               selectedTwinPath={selectedTwinPath}
               setSelectedTwinPath={setSelectedTwinPath}
+              dailyQuestPace={dailyQuestPace}
+              setDailyQuestPace={setDailyQuestPace}
+              interviewScoreTarget={interviewScoreTarget}
+              setInterviewScoreTarget={setInterviewScoreTarget}
+              gapsResolvedCount={gapsResolvedCount}
+              setGapsResolvedCount={setGapsResolvedCount}
+              targetRole={targetRole}
             />
           )}
 
@@ -112,6 +139,7 @@ function LearningPageInner() {
               <LearningPathView
                 activeTab="twin"
                 roadmapSteps={roadmapSteps}
+                dynamicRoadmap={dynamicRoadmap}
                 activeStep={activeStep}
                 setActiveStep={setActiveStep}
                 onboardingComplete={onboardingComplete}
@@ -127,14 +155,23 @@ function LearningPageInner() {
                 step={step}
                 onboardingAnswers={onboardingAnswers}
                 twinData={twinData}
+                twinSimulation={twinSimulation}
                 selectedTwinPath={selectedTwinPath}
                 setSelectedTwinPath={setSelectedTwinPath}
+                dailyQuestPace={dailyQuestPace}
+                setDailyQuestPace={setDailyQuestPace}
+                interviewScoreTarget={interviewScoreTarget}
+                setInterviewScoreTarget={setInterviewScoreTarget}
+                gapsResolvedCount={gapsResolvedCount}
+                setGapsResolvedCount={setGapsResolvedCount}
+                targetRole={targetRole}
               />
               {onboardingComplete && (
                 <CourseGrid
                   activeTab="twin"
                   missingSkills={missingSkills}
                   baseMissingSkills={baseMissingSkills}
+                  categorizedGaps={categorizedGaps}
                   quests={quests}
                   cOS={cOS}
                 />
@@ -147,13 +184,14 @@ function LearningPageInner() {
               activeTab="gaps"
               missingSkills={missingSkills}
               baseMissingSkills={baseMissingSkills}
+              categorizedGaps={categorizedGaps}
               quests={quests}
               cOS={cOS}
             />
           )}
 
           {activeTab === 'memory' && (
-            <div style={{ maxWidth: 840, margin: '0 auto' }}>
+            <div style={{ maxWidth: 880, margin: '0 auto' }}>
               <SpacedReviewQueue />
             </div>
           )}

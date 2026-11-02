@@ -24,7 +24,7 @@ const MonacoEditor = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div style={{ height: 360, background: '#0d1117', color: 'var(--t3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'monospace', fontSize: 14.5 }}>
+      <div style={{ height: 360, background: 'var(--bg3)', color: 'var(--t3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'monospace', fontSize: 14.5 }}>
         Loading Monaco Code Arena Engine...
       </div>
     )
@@ -474,15 +474,15 @@ function ArenaContent() {
       <div style={{
         padding: '24px 32px',
         borderRadius: 16,
-        background: 'linear-gradient(135deg, rgba(30, 27, 75, 0.7) 0%, rgba(15, 23, 42, 0.8) 100%)',
-        border: '1px solid rgba(99, 102, 241, 0.25)',
+        background: 'linear-gradient(135deg, var(--card) 0%, var(--bg2) 100%)',
+        border: '1px solid var(--border)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
         flexWrap: 'wrap',
         gap: 20,
         marginBottom: 24,
-        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.35)'
+        boxShadow: 'var(--shadow-md)'
       }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
@@ -796,8 +796,8 @@ function ArenaContent() {
                 <div style={{
                   padding: 24,
                   borderRadius: 16,
-                  background: 'linear-gradient(135deg, rgba(30, 27, 75, 0.5) 0%, rgba(15, 23, 42, 0.7) 100%)',
-                  border: isQueueing ? '1.5px solid #6366f1' : '1px solid var(--border)',
+                  background: 'var(--bg2)',
+                  border: isQueueing ? '1.5px solid var(--accent)' : '1px solid var(--border)',
                   boxShadow: isQueueing ? '0 0 24px rgba(99, 102, 241, 0.25)' : 'none',
                   display: 'flex',
                   flexDirection: 'column',
@@ -1194,9 +1194,9 @@ function ArenaContent() {
               margin: '0 auto',
               padding: 32,
               borderRadius: 20,
-              background: 'linear-gradient(135deg, rgba(30, 27, 75, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%)',
-              border: '1px solid rgba(99, 102, 241, 0.3)',
-              boxShadow: '0 12px 40px rgba(0, 0, 0, 0.5)'
+              background: 'linear-gradient(135deg, var(--card) 0%, var(--bg2) 100%)',
+              border: '1px solid var(--border)',
+              boxShadow: 'var(--shadow-lg)'
             }}>
               {/* Room Header & Invite Code Bar */}
               <div style={{ textAlign: 'center', marginBottom: 28 }}>
@@ -1382,8 +1382,8 @@ function ArenaContent() {
               <div style={{
                 padding: '14px 20px',
                 borderRadius: 14,
-                background: 'linear-gradient(135deg, rgba(30, 27, 75, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%)',
-                border: '1px solid rgba(99, 102, 241, 0.3)',
+                background: 'linear-gradient(135deg, var(--card) 0%, var(--bg2) 100%)',
+                border: '1px solid var(--border)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
@@ -1429,9 +1429,9 @@ function ArenaContent() {
                   <div style={{
                     padding: '8px 20px',
                     borderRadius: 12,
-                    background: timeRemaining < 60 ? 'rgba(239, 68, 68, 0.2)' : 'rgba(15, 23, 42, 0.8)',
-                    border: timeRemaining < 60 ? '1px solid #ef4444' : '1px solid rgba(99, 102, 241, 0.4)',
-                    color: timeRemaining < 60 ? '#ef4444' : '#fbbf24',
+                    background: timeRemaining < 60 ? 'rgba(239, 68, 68, 0.15)' : 'var(--bg2)',
+                    border: timeRemaining < 60 ? '1px solid #ef4444' : '1px solid var(--border)',
+                    color: timeRemaining < 60 ? '#ef4444' : 'var(--accent)',
                     fontWeight: 800,
                     fontSize: 22,
                     fontFamily: 'monospace',

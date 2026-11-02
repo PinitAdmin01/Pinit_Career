@@ -53,12 +53,12 @@ export const ActiveEnrollmentBanner: React.FC<ActiveEnrollmentBannerProps> = ({
     <div
       data-testid="active-enrollment-banner"
       style={{
-        background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95))',
-        border: '1.5px solid rgba(99, 102, 241, 0.4)',
+        background: 'linear-gradient(135deg, var(--card) 0%, var(--bg2) 100%)',
+        border: '1.5px solid var(--accent)',
         borderRadius: 16,
         padding: '16px 20px',
         marginBottom: 20,
-        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.35), inset 0 0 20px rgba(99, 102, 241, 0.08)',
+        boxShadow: 'var(--shadow-md)',
         display: 'flex',
         flexDirection: 'column',
         gap: 12,
@@ -152,8 +152,8 @@ export const ActiveEnrollmentBanner: React.FC<ActiveEnrollmentBannerProps> = ({
                 fontSize: 12.5,
                 fontWeight: 700,
                 color: 'var(--t2)',
-                background: 'rgba(255, 255, 255, 0.05)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
+                background: 'var(--bg2)',
+                border: '1px solid var(--border)',
                 padding: '6px 12px',
                 borderRadius: 8,
                 cursor: 'pointer'
@@ -167,10 +167,10 @@ export const ActiveEnrollmentBanner: React.FC<ActiveEnrollmentBannerProps> = ({
 
       <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', flexWrap: 'wrap', gap: 10 }}>
         <div>
-          <h3 data-testid="enrollment-plan-title" style={{ fontSize: 20, fontWeight: 900, color: '#ffffff', margin: 0, letterSpacing: '-0.02em' }}>
+          <h3 data-testid="enrollment-plan-title" style={{ fontSize: 20, fontWeight: 900, color: 'var(--t1)', margin: 0, letterSpacing: '-0.02em' }}>
             {plan.title}
           </h3>
-          <p style={{ fontSize: 14.5, color: '#94a3b8', margin: '4px 0 0 0', fontWeight: 500 }}>
+          <p style={{ fontSize: 14.5, color: 'var(--t2)', margin: '4px 0 0 0', fontWeight: 500 }}>
             {trackLabel} • {plan.totalProgramDuration.replace(/\s*Total$/i, '')} in total
           </p>
         </div>
@@ -218,9 +218,9 @@ export const ActiveEnrollmentBanner: React.FC<ActiveEnrollmentBannerProps> = ({
             minWidth: 180,
             fontSize: 14,
             fontWeight: 800,
-            color: '#ffffff',
-            background: 'rgba(255, 255, 255, 0.07)',
-            border: '1px solid rgba(255, 255, 255, 0.15)',
+            color: 'var(--t1)',
+            background: 'var(--bg2)',
+            border: '1px solid var(--border)',
             padding: '9px 14px',
             borderRadius: 10,
             cursor: 'pointer',

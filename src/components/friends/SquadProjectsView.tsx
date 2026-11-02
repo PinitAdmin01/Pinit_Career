@@ -106,18 +106,18 @@ export const SquadProjectsView: React.FC<SquadProjectsViewProps> = ({ onOpenInvi
         alignItems: 'center',
         justifyContent: 'space-between',
         padding: '20px 24px',
-        background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(15, 23, 42, 0.7) 100%)',
+        background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, var(--card) 100%)',
         border: '1px solid rgba(16, 185, 129, 0.25)',
         borderRadius: 16
       }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <span style={{ fontSize: 26.5 }}>👥</span>
-            <h2 style={{ fontSize: 22, fontWeight: 800, color: '#ffffff', margin: 0 }}>
+            <h2 style={{ fontSize: 22, fontWeight: 800, color: 'var(--t1)', margin: 0 }}>
               Squad Collaboration & Group Projects
             </h2>
           </div>
-          <p style={{ fontSize: 14.5, color: '#94a3b8', margin: '6px 0 0' }}>
+          <p style={{ fontSize: 14.5, color: 'var(--t2)', margin: '6px 0 0' }}>
             Build production-ready applications with your friends, divide engineering roles, and level up together.
           </p>
         </div>
@@ -142,7 +142,7 @@ export const SquadProjectsView: React.FC<SquadProjectsViewProps> = ({ onOpenInvi
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
             <span style={{ fontSize: 17.5 }}>📩</span>
-            <h3 style={{ fontSize: 17.5, fontWeight: 700, color: '#ffffff', margin: 0 }}>
+            <h3 style={{ fontSize: 17.5, fontWeight: 700, color: 'var(--t1)', margin: 0 }}>
               Incoming Squad Invitations ({incomingInvites.length})
             </h3>
           </div>
@@ -153,7 +153,7 @@ export const SquadProjectsView: React.FC<SquadProjectsViewProps> = ({ onOpenInvi
                 key={inv.id}
                 style={{
                   padding: 18,
-                  background: 'rgba(15, 23, 42, 0.85)',
+                  background: 'var(--bg2)',
                   border: '1px solid rgba(16, 185, 129, 0.3)',
                   borderRadius: 14,
                   display: 'flex',
@@ -226,7 +226,7 @@ export const SquadProjectsView: React.FC<SquadProjectsViewProps> = ({ onOpenInvi
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <span style={{ fontSize: 17.5 }}>🚀</span>
-            <h3 style={{ fontSize: 17.5, fontWeight: 700, color: '#ffffff', margin: 0 }}>
+            <h3 style={{ fontSize: 17.5, fontWeight: 700, color: 'var(--t1)', margin: 0 }}>
               Active Collaborative Squads ({squadProjects.length})
             </h3>
           </div>
@@ -239,7 +239,7 @@ export const SquadProjectsView: React.FC<SquadProjectsViewProps> = ({ onOpenInvi
               key={proj.id}
               style={{
                 padding: 20,
-                background: 'rgba(15, 23, 42, 0.75)',
+                background: 'var(--bg2)',
                 border: '1px solid rgba(255, 255, 255, 0.08)',
                 borderRadius: 16,
                 display: 'flex',

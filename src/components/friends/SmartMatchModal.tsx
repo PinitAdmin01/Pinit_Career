@@ -60,7 +60,7 @@ export const SmartMatchModal: React.FC<SmartMatchModalProps> = ({
             alignItems: 'center',
             justifyContent: 'space-between',
             padding: '16px 20px',
-            background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(15, 23, 42, 0.8) 100%)',
+            background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, var(--card) 100%)',
             border: '1px solid rgba(99, 102, 241, 0.3)',
             borderRadius: 14
           }}>
