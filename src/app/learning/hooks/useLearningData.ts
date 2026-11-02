@@ -1,12 +1,23 @@
 'use client';
 
-import { useState, useEffect, useRef, useMemo } from 'react';
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { useAuth } from '@/lib/context/AuthContext';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import { toast } from '@/lib/store/useAppStore';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { api } from '@/lib/api/client';
+import {
+  humanizeAssessmentGap,
+  HumanizedMistake,
+  getDynamicRoadmapForTrack,
+  RoadmapStageInfo,
+  calculateDynamicCareerTwin,
+  TwinSimulationOutput,
+  getCategorizedGaps,
+  CategorizedGap,
+  createFSRSCardFromMistake,
+} from '@/lib/learning/learningTwinIntelligence';
 
 export interface Path { 
   name: string; 
@@ -108,7 +119,9 @@ export const getRoadmapSteps = (targetRole: string = 'Software Engineer', weakAr
 
 export const ROADMAP_STEPS = getRoadmapSteps();
 
-export function useLearningData() {
+const DECK_STORAGE_KEY = 'pinit_fsrs_concept_deck';
+
+export function useLearningData(defaultTab?: 'mistakes' | 'roadmap' | 'twin' | 'gaps' | 'memory') {
   const { user } = useAuth();
   const cOS = useCareerOS();
   const router = useRouter();
@@ -124,17 +137,21 @@ export function useLearningData() {
     const tabParam = searchParams.get('tab') as any;
     const validTabs = ['mistakes', 'roadmap', 'twin', 'gaps', 'memory'];
     if (tabParam && validTabs.includes(tabParam)) {
-      console.log('[Learning Hub] Switching sub-tab from query param to:', tabParam);
       setActiveTab(tabParam);
+    } else if (defaultTab && validTabs.includes(defaultTab)) {
+      setActiveTab(defaultTab);
     } else if (!tabParam) {
-      console.log('[Learning Hub] Defaulting sub-tab to twin for Career Blueprint view');
       setActiveTab('twin');
     }
-  }, [searchParams]);
+  }, [searchParams, defaultTab]);
 
   const handleTabChange = (nextTab: typeof activeTab) => {
     setActiveTab(nextTab);
-    router.replace(`/learning?tab=${nextTab}`);
+    if (typeof window !== 'undefined' && window.location.pathname.startsWith('/mirror')) {
+      router.replace(`/mirror?tab=${nextTab}`);
+    } else {
+      router.replace(`/learning?tab=${nextTab}`);
+    }
   };
 
   // Set default switch based on auth role
@@ -160,18 +177,74 @@ export function useLearningData() {
     }
   }, [onboardingAnswers]);
 
-  // Dynamic missing skills calculated from the actual database weak_areas - no fabricated defaults
+  // Target Role & Weak Areas
   const weakAreas: string[] = Array.isArray(user?.weak_areas) ? user.weak_areas : [];
-  const missingSkills = weakAreas.map((area, idx) => ({
-    name: area,
-    reason: `Identified as growth opportunity in your skill assessment history.`,
-    severity: idx === 0 ? 'High' as const : 'Medium' as const
-  }));
+  const targetRole = user?.target_role || onboardingAnswers?.role || (cOS as any)?.targetRole || 'Full Stack Engineer';
 
-  const targetRole = user?.target_role || onboardingAnswers?.role || (cOS as any)?.targetRole || 'Software Engineer';
+  // Humanized Mistakes Compilation
+  const humanizedMistakes: HumanizedMistake[] = useMemo(() => {
+    // If explicit recorded mistakes exist
+    if (mistakes.length > 0) {
+      return mistakes.map(m => humanizeAssessmentGap(m.module || m.type || m.id || 'system_error', m.description));
+    }
+    // If weak areas exist from assessment
+    if (weakAreas.length > 0) {
+      return weakAreas.map(w => humanizeAssessmentGap(w));
+    }
+    // Default baseline diagnostic cases if fresh user
+    return [
+      humanizeAssessmentGap('rigid_execution_vs_adaptation'),
+      humanizeAssessmentGap('communication_vs_investigation')
+    ];
+  }, [mistakes, weakAreas]);
+
+  // Dynamic missing skills calculated from the actual database weak_areas
+  const missingSkills = useMemo(() => {
+    return humanizedMistakes.map(hm => ({
+      name: hm.title,
+      rawName: hm.rawKey,
+      reason: hm.rootCause,
+      category: hm.category,
+      severity: hm.severity as 'High' | 'Medium'
+    }));
+  }, [humanizedMistakes]);
+
+  // Legacy roadmap steps for backward compatibility
   const roadmapSteps = useMemo(() => getRoadmapSteps(targetRole, weakAreas), [targetRole, weakAreas]);
 
-  // Fetch Career Twin projections from supabased endpoint
+  // Dynamic 4-Phase Curriculum Trajectory
+  const dynamicRoadmap: RoadmapStageInfo[] = useMemo(() => {
+    return getDynamicRoadmapForTrack(
+      targetRole,
+      (cOS as any)?.activeCourseId,
+      cOS.completedMissions?.length || 0,
+      (cOS as any)?.completedQuests?.length || 0,
+      cOS.vaultItems?.length || 0
+    );
+  }, [targetRole, cOS]);
+
+  // Dynamic Career Twin Sensitivity Sliders (What-If Engine)
+  const [dailyQuestPace, setDailyQuestPace] = useState<number>(2);
+  const [interviewScoreTarget, setInterviewScoreTarget] = useState<number>(75);
+  const [gapsResolvedCount, setGapsResolvedCount] = useState<number>(1);
+
+  const twinSimulation: TwinSimulationOutput = useMemo(() => {
+    return calculateDynamicCareerTwin({
+      targetRole,
+      dailyQuestPace,
+      interviewScoreTarget,
+      gapsResolvedCount,
+      baseAtsScore: Number(user?.ats_score) || 68,
+      verifiedProofsCount: cOS.vaultItems?.length || 1
+    });
+  }, [targetRole, dailyQuestPace, interviewScoreTarget, gapsResolvedCount, user?.ats_score, cOS.vaultItems?.length]);
+
+  // Categorized Curriculum Gaps
+  const categorizedGaps: CategorizedGap[] = useMemo(() => {
+    return getCategorizedGaps(targetRole, weakAreas, jdMissingSkills);
+  }, [targetRole, weakAreas, jdMissingSkills]);
+
+  // Fetch Career Twin projections from backend endpoint
   const { data: twinData } = useQuery({
     queryKey: ['career_twin', 'results'],
     queryFn: () => api.get<{ simulation: Simulation }>('/api/career-twin/results'),
@@ -189,9 +262,11 @@ export function useLearningData() {
 
   // Onboarding Chat Companion
   const onboardingTimersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
-  const [onboardingComplete, setOnboardingComplete] = useState(!!onboardingAnswers?.hasCompleted);
+  // Initialize onboardingComplete to true if targetRole or hasCompleted is already established
+  const [onboardingComplete, setOnboardingComplete] = useState<boolean>(
+    Boolean(onboardingAnswers?.hasCompleted || user?.target_role || onboardingAnswers?.role)
+  );
 
-  // Cleanup onboarding timeouts on unmount
   useEffect(() => {
     return () => {
       onboardingTimersRef.current.forEach(t => clearTimeout(t));
@@ -286,9 +361,63 @@ export function useLearningData() {
     toast.success('Quest Prescribed', `Prescribed targeted remedial quests for ${studentName}.`);
   };
 
+  // Resolve a specific mistake by completing its drill
+  const resolveDrill = useCallback(async (mistakeId: string, optionId: string) => {
+    const foundMistake = humanizedMistakes.find(m => m.id === mistakeId);
+    if (!foundMistake) return { success: false, xpEarned: 0 };
+
+    const selectedOpt = foundMistake.drill.options.find(o => o.id === optionId);
+    if (!selectedOpt || !selectedOpt.isCorrect) {
+      toast.error('Incorrect Approach', selectedOpt?.explanation || 'Review the telemetry log and try again.');
+      return { success: false, xpEarned: 0 };
+    }
+
+    const xpEarned = foundMistake.drill.successRewardXp || 25;
+    
+    // Add XP to Career DNA
+    try {
+      if (typeof cOS.addXp === 'function') {
+        cOS.addXp(xpEarned, `Remediated Blind Spot: ${foundMistake.title}`);
+      }
+    } catch (e) {
+      console.warn('[Learning Hub] XP grant error:', e);
+    }
+
+    // Add card to Spaced Memory Queue
+    try {
+      const newCard = createFSRSCardFromMistake(foundMistake);
+      const stored = localStorage.getItem(DECK_STORAGE_KEY);
+      let deck = stored ? JSON.parse(stored) : [];
+      if (Array.isArray(deck)) {
+        deck.unshift(newCard);
+        localStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(deck));
+      }
+    } catch (e) {
+      console.warn('[Learning Hub] Failed to ingest FSRS card:', e);
+    }
+
+    // Update state & remove from active mistakes
+    const nextMistakes = mistakes.filter(m => m.id !== mistakeId && m.module !== foundMistake.rawKey);
+    setMistakes(nextMistakes);
+    setGapsResolvedCount(prev => Math.min(10, prev + 1));
+
+    if (onboardingAnswers) {
+      setOnboarding({
+        ...onboardingAnswers,
+        learning_mistakes: nextMistakes,
+      });
+    }
+
+    api.post('/api/auth/onboarding', { learning_mistakes: nextMistakes }).catch(() => {});
+
+    toast.success('🎉 Blind Spot Remediation Verified!', `+${xpEarned} XP granted. Card added to your Spaced Memory (FSRS) queue.`);
+    return { success: true, xpEarned };
+  }, [humanizedMistakes, mistakes, onboardingAnswers, setOnboarding, cOS]);
+
   const clearMistake = (id: string) => {
     const nextMistakes = mistakes.filter(m => m.id !== id);
     setMistakes(nextMistakes);
+    setGapsResolvedCount(prev => Math.min(10, prev + 1));
     if (onboardingAnswers) {
       setOnboarding({
         ...onboardingAnswers,
@@ -338,6 +467,19 @@ export function useLearningData() {
     handleSendAnswer,
     roadmapSteps,
     quests: QUESTS,
-    onboardingAnswers
+    onboardingAnswers,
+    // Enhanced intelligence exports
+    targetRole,
+    humanizedMistakes,
+    resolveDrill,
+    dynamicRoadmap,
+    twinSimulation,
+    dailyQuestPace,
+    setDailyQuestPace,
+    interviewScoreTarget,
+    setInterviewScoreTarget,
+    gapsResolvedCount,
+    setGapsResolvedCount,
+    categorizedGaps
   };
 }
