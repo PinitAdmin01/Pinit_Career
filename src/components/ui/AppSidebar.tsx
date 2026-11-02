@@ -523,7 +523,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
 
   const pinsActive = isNavActive('/pins');
   const profileActive = isNavActive('/profile');
-  const homeHref = isStudent
+  const homeHref = isStudent || roleLabel === 'student' || roleLabel === 'member' || roleLabel === 'alumni'
     ? '/dashboard'
     : roleLabel === 'recruiter'
       ? '/recruiter'
@@ -531,7 +531,9 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
         ? '/parent'
         : roleLabel === 'consultant'
           ? '/consultant'
-          : '/admin';
+          : ['admin', 'superadmin', 'teacher', 'faculty'].includes(roleLabel)
+            ? '/admin'
+            : '/dashboard';
 
   return (
     <aside

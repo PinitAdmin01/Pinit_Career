@@ -33,6 +33,7 @@ const ExamStartModal = dynamic(
 const PAGE_TITLES: Record<string, string> = {
   '/dashboard':     'Home',          '/resume':        'Resume & ATS',
   '/career-builder': 'Career Builder',
+  '/mirror':        'Mirror',
   '/career-assets': 'Career Assets', '/career-dna':   'Career DNA',    '/trust':         'Trust Score',
   '/career-twin':   'Career Twin',   '/missions':      'Daily Missions',
   '/learn':         'Learn',         '/exam':          'Exams',
@@ -293,7 +294,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const checkCallAndRoleplay = () => {
-      const activeCall = window.location.pathname.startsWith('/group-discussion') && window.location.search.includes('call=true');
+      const activeCall = (window.location.pathname.startsWith('/group-discussion') || (window.location.pathname.startsWith('/interview') && window.location.search.includes('tab=gd'))) && window.location.search.includes('call=true');
       setIsGdCall(activeCall);
 
       const activeRoleplay = window.location.pathname.startsWith('/missions') && window.location.search.includes('roleplay=true');
@@ -495,7 +496,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         return;
       }
       const allowedStudentTabs = [
-        '/interview', '/dashboard', '/quests', '/missions', '/learning', '/career-builder',
+        '/interview', '/dashboard', '/quests', '/missions', '/learning', '/career-builder', '/mirror',
         '/projects', '/group-discussion', '/attention-span', '/profile', '/notifications',
         '/vault', '/library', '/hostel', '/transport', '/events', '/grievances', '/research',
         '/career-intelligence', '/finance', '/maintenance', '/advisor', '/exams', '/attendance',

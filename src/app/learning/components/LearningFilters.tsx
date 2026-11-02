@@ -22,6 +22,7 @@ export function LearningFilters({
   return (
     <>
       {/* Header */}
+      {!embedded && (
       <div className="page-header" style={{ marginBottom: 20, display: 'flex', justifySelf: 'stretch', justifyContent: 'space-between', alignItems: 'flex-start' }}>
         <div>
           <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 24, fontWeight: 900, letterSpacing: '-0.5px', marginBottom: 4 }}>
@@ -61,6 +62,7 @@ export function LearningFilters({
           </div>
         )}
       </div>
+      )}
 
       {(activeRole === 'student' || !canAccessFaculty) && (
         <div style={{ display: 'flex', gap: 4, background: 'var(--bg3)', padding: 4, borderRadius: 12, border: '1px solid var(--border)', width: 'fit-content', marginBottom: 24 }}>
