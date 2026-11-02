@@ -54,12 +54,33 @@ import { getProjectEvidenceTarget } from '@/lib/projects/projectEvidence';
 import { crashCourseEnrollmentService } from '@/lib/services/crashCourseEnrollmentService';
 import { getCrashPlanById } from '@/lib/data/crashPlansData';
 import { courseDefenseTopic, nextCapstoneSprint, type CapstoneMilestones } from '@/lib/courses/capstoneSprints';
+import GroupDiscussionPage from '@/app/group-discussion/page';
 
 export default function InterviewPage() {
   const searchParams = useSearchParams();
   const cOS = useCareerOS();
   const { user } = useAuth();
   const { applyServerXp, earnPins, onboardingAnswers, saveCareerProjects } = cOS;
+
+  const [hubTab, setHubTab] = useState<'interview' | 'gd'>('interview');
+
+  useEffect(() => {
+    const tabParam = searchParams.get('tab');
+    if (tabParam === 'gd') setHubTab('gd');
+    else if (tabParam === 'interview') setHubTab('interview');
+  }, [searchParams]);
+
+  const handleHubTabChange = (nextTab: 'interview' | 'gd') => {
+    setHubTab(nextTab);
+    if (typeof window !== 'undefined') {
+      try {
+        const url = new URL(window.location.href);
+        if (nextTab === 'gd') url.searchParams.set('tab', 'gd');
+        else url.searchParams.delete('tab');
+        window.history.replaceState({}, '', url.pathname + (url.search ? url.search : ''));
+      } catch {}
+    }
+  };
 
   const [interviewMode, setInterviewMode] = useState<'roadmap' | 'custom'>('roadmap');
   const [customTopicInput, setCustomTopicInput] = useState('');
@@ -1121,7 +1142,72 @@ export default function InterviewPage() {
 
   return (
     <div style={{ padding: isInterviewActive ? '0 4px' : '0 0 32px', maxWidth: 1380, margin: '0 auto', color: 'var(--t1)', fontFamily: 'var(--font-sans)' }}>
-      {!isInterviewActive ? (
+      {/* Top Placement Interview Hub Switcher: 1v1 Mock Interview vs GD Practice */}
+      {!isInterviewActive && (
+        <div
+          data-testid="interview-hub-subtabs"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
+            marginBottom: 20,
+            padding: '4px',
+            background: 'var(--bg2)',
+            border: '1px solid var(--border)',
+            borderRadius: 12,
+            width: 'fit-content'
+          }}
+        >
+          <button
+            type="button"
+            data-testid="tab-1v1-interview"
+            onClick={() => handleHubTabChange('interview')}
+            style={{
+              padding: '8px 18px',
+              borderRadius: 8,
+              border: 'none',
+              background: hubTab === 'interview' ? 'var(--accent)' : 'transparent',
+              color: hubTab === 'interview' ? '#fff' : 'var(--t2)',
+              fontWeight: 800,
+              fontSize: 13.5,
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              transition: 'all 0.18s ease'
+            }}
+          >
+            <span>🎙️</span>
+            <span>1v1 Mock Interview</span>
+          </button>
+          <button
+            type="button"
+            data-testid="tab-gd-practice"
+            onClick={() => handleHubTabChange('gd')}
+            style={{
+              padding: '8px 18px',
+              borderRadius: 8,
+              border: 'none',
+              background: hubTab === 'gd' ? 'var(--accent)' : 'transparent',
+              color: hubTab === 'gd' ? '#fff' : 'var(--t2)',
+              fontWeight: 800,
+              fontSize: 13.5,
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              transition: 'all 0.18s ease'
+            }}
+          >
+            <span>💬</span>
+            <span>GD Practice (Group Discussion)</span>
+          </button>
+        </div>
+      )}
+
+      {hubTab === 'gd' && !isInterviewActive ? (
+        <GroupDiscussionPage embedded={true} />
+      ) : !isInterviewActive ? (
         <InterviewSetupView
           activeSessionDraft={activeSessionDraft} resumeActiveSession={resumeActiveSession}
           discardActiveSession={discardActiveSession} formatStageLabel={formatStageLabel}

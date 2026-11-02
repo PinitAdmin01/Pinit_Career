@@ -84,6 +84,11 @@ export const ROUTE_TOOLTIPS: Record<string, { label: string; tooltip: string; de
     tooltip: 'Student Identity, Verified Credentials & Preferences',
     description: 'Personal portfolio, cryptographically signed credentials, resume sync, and account settings.'
   },
+  '/mirror': {
+    label: 'Mirror',
+    tooltip: 'Career Mirror: ATS Resume Studio, Digital Twin & Roadmaps',
+    description: 'Unified career reflection: AI resume builder, ATS score optimizer, and digital twin skill simulation.'
+  },
   '/career-builder': {
     label: 'Career Builder',
     tooltip: 'Career Architect & ATS Resume Intelligence Studio',
@@ -100,8 +105,7 @@ export const STUDENT_NAV: NavSection[] = [
     { href: '/projects', icon: '🚀', label: 'Projects & Squads' },
     { href: '/leaderboard', icon: '🏆', label: 'Leaderboard & Leagues' },
     { href: '/interview', icon: '🎙', label: 'AI Interview' },
-    { href: '/group-discussion', icon: '💬', label: 'GD Practice' },
-    { href: '/learning', icon: '📖', label: 'Learning & Twin' },
+    { href: '/mirror', icon: '🪞', label: 'Mirror' },
     { href: '/attention-span', icon: '🧠', label: 'Attention Span' }
   ]}
 ];
@@ -262,6 +266,12 @@ export function isPathActive(pathname: string, href: string, currentSearch = '')
 
   // `/quests/teacher-select` has its own menu item; don't double-highlight `/quests`
   if (hrefPath === '/quests' && cleanPathname === '/quests/teacher-select') return false;
+
+  // Unified AI Interview hub: /interview also activates on /group-discussion
+  if (hrefPath === '/interview' && cleanPathname === '/group-discussion') return true;
+
+  // Unified Mirror hub: /mirror also activates on /learning, /career-builder, /career_builder
+  if (hrefPath === '/mirror' && (cleanPathname === '/learning' || cleanPathname === '/career-builder' || cleanPathname === '/career_builder')) return true;
 
   return cleanPathname === hrefPath || cleanPathname.startsWith(hrefPath + '/');
 }
@@ -887,8 +897,8 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
           </div>
         )}
 
-        {/* Quick Portal Switcher for Multi-Role & Institutional Evaluation */}
-        {!isCompact && (
+        {/* Quick Portal Switcher: Strictly hidden in Student Portal */}
+        {!isCompact && !isStudent && roleLabel !== 'student' && ['admin', 'superadmin', 'teacher', 'faculty'].includes(roleLabel) && (
           <div
             style={{
               display: 'flex',

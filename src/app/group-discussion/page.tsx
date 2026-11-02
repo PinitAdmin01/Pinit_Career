@@ -81,7 +81,7 @@ function normalizeGdHistoryRecords(value: unknown): GdHistoryRecord[] {
   }).slice(0, 25);
 }
 
-export default function GroupDiscussionPage() {
+export default function GroupDiscussionPage({ embedded = false }: { embedded?: boolean } = {}) {
   const { user } = useAuth();
   const cOS = useCareerOS();
   const currentMentorId = resolveFloatingMentorId({
