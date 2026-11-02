@@ -108,7 +108,7 @@ describe('Block 52 — QuestsPage, TrackSelectorDrawer & QuestPathView SSR Suite
 
     assert.ok(markup.includes('data-testid="track-selector-subtabs"'));
     assert.ok(markup.includes('data-testid="subtab-certification-passport"'));
-    assert.ok(markup.includes('Certification &amp; Skill Passport'));
+    assert.ok(markup.includes('Certification Programs'));
     assert.ok(markup.includes('data-testid="subtab-custom-roadmap"'));
     assert.ok(markup.includes('Custom Roadmap'));
     assert.ok(markup.includes('data-testid="subtab-standalone"'));
