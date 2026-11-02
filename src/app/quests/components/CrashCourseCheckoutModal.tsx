@@ -120,6 +120,15 @@ export default function CrashCourseCheckoutModal({
   const [walletInfo, setWalletInfo] = useState<any>(null);
   const [isLaunchingWorkspace, setIsLaunchingWorkspace] = useState(false);
   const [confirmedEnrollment, setConfirmedEnrollment] = useState<CrashCourseEnrollment | null>(null);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [isOpen]);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
