@@ -10,10 +10,29 @@ interface GdAudioVisualizerProps {
   barCount?: number;
 }
 
+function resolveCanvasColor(inputColor?: string): string {
+  if (!inputColor) return '#14b8a6';
+  const trimmed = inputColor.trim();
+  if (trimmed.startsWith('var(--')) {
+    const varName = trimmed.slice(4, -1).trim();
+    if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+      try {
+        const val = getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
+        if (val) return val;
+      } catch {}
+    }
+    if (varName === '--teal') return '#14b8a6';
+    if (varName === '--accent') return '#0284c7';
+    if (varName === '--danger') return '#ef4444';
+    return '#14b8a6';
+  }
+  return trimmed;
+}
+
 export default function GdAudioVisualizer({
   active,
   isSpeaking = false,
-  color = 'var(--teal)',
+  color = '#14b8a6',
   height = 36,
   barCount = 28
 }: GdAudioVisualizerProps) {
@@ -27,6 +46,7 @@ export default function GdAudioVisualizer({
     if (!ctx) return;
 
     let phase = 0;
+    const safeColor = resolveCanvasColor(color);
 
     const render = () => {
       const width = canvas.width;
@@ -46,13 +66,21 @@ export default function GdAudioVisualizer({
         const x = i * (barWidth + 2);
         const y = (h - barHeight) / 2;
 
-        const gradient = ctx.createLinearGradient(0, y, 0, y + barHeight);
-        gradient.addColorStop(0, color);
-        gradient.addColorStop(1, 'rgba(255, 255, 255, 0.2)');
+        try {
+          const gradient = ctx.createLinearGradient(0, y, 0, y + barHeight);
+          gradient.addColorStop(0, safeColor);
+          gradient.addColorStop(1, 'rgba(255, 255, 255, 0.2)');
+          ctx.fillStyle = active ? gradient : 'rgba(255, 255, 255, 0.1)';
+        } catch {
+          ctx.fillStyle = active ? safeColor : 'rgba(255, 255, 255, 0.1)';
+        }
 
-        ctx.fillStyle = active ? gradient : 'rgba(255, 255, 255, 0.1)';
         ctx.beginPath();
-        ctx.roundRect ? ctx.roundRect(x, y, barWidth, barHeight, 2) : ctx.rect(x, y, barWidth, barHeight);
+        if (typeof ctx.roundRect === 'function') {
+          ctx.roundRect(x, y, barWidth, barHeight, 2);
+        } else {
+          ctx.rect(x, y, barWidth, barHeight);
+        }
         ctx.fill();
       }
 
@@ -67,7 +95,7 @@ export default function GdAudioVisualizer({
         cancelAnimationFrame(animFrameRef.current);
         animFrameRef.current = null;
       }
-      if (ctx) {
+      if (ctx && canvas) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
       }
     };

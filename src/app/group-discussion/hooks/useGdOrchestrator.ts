@@ -34,6 +34,7 @@ interface UseGdOrchestratorProps {
   filteredAvatars: GdAvatar[];
   setStep: (step: 'create_room' | 'invite_concept' | 'call_grid') => void;
   onRecordSaved?: (record: GdHistoryRecord) => void;
+  embedded?: boolean;
 }
 
 export function useGdOrchestrator({
@@ -51,7 +52,8 @@ export function useGdOrchestrator({
   gdHostId,
   filteredAvatars,
   setStep,
-  onRecordSaved
+  onRecordSaved,
+  embedded = false
 }: UseGdOrchestratorProps) {
   const router = useRouter();
 
@@ -841,9 +843,10 @@ export function useGdOrchestrator({
     }
   };
 
-  const handleStartCall = async () => {
-    if (!cOS.isItemUnlocked(`gd:${roomName}`)) {
-      const ok = await cOS.unlockItem(`gd:${roomName}`, 'gd', `Group Discussion: ${roomName}`);
+  const handleStartCall = async (bypassPinGate = false) => {
+    const sessionKey = `gd:${roomName || 'default-room'}`;
+    if (!bypassPinGate && !cOS.isItemUnlocked(sessionKey)) {
+      const ok = await cOS.unlockItem(sessionKey, 'gd', `Group Discussion: ${roomName || 'Practice'}`);
       if (!ok) {
         toast.error('Insufficient Pins 🔒', 'You need Pins to enter this corporate Group Discussion.');
         return;
@@ -905,7 +908,11 @@ export function useGdOrchestrator({
 
     if (typeof window !== 'undefined') {
       try {
-        router.push('/group-discussion?call=true');
+        if (embedded) {
+          router.push('/interview?tab=gd&call=true');
+        } else {
+          router.push('/group-discussion?call=true');
+        }
       } catch {}
     }
 
@@ -1060,7 +1067,7 @@ export function useGdOrchestrator({
     setCallActive(false);
 
     if (typeof window !== 'undefined') {
-      window.history.pushState(null, '', `/group-discussion/`);
+      window.history.pushState(null, '', embedded ? '/interview?tab=gd' : '/group-discussion');
       window.dispatchEvent(new Event('popstate'));
     }
 
@@ -1085,7 +1092,7 @@ export function useGdOrchestrator({
     setCallActive(false);
 
     if (typeof window !== 'undefined') {
-      window.history.pushState(null, '', `/group-discussion/`);
+      window.history.pushState(null, '', embedded ? '/interview?tab=gd' : '/group-discussion');
       window.dispatchEvent(new Event('popstate'));
     }
 

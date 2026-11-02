@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 
 export default function PublicFooter() {
   return (
@@ -25,9 +24,10 @@ export default function PublicFooter() {
           {/* BRAND COLUMN */}
           <div>
             <Link href="/" className="lp-brand" style={{ textDecoration: 'none', marginBottom: '16px' }}>
-              <span className="lp-brand-lockup">
-                <Image src="/brand/pinit-career-logo-clear.png" alt="PINIT CAREER" width={140} height={36} className="lp-brand-logo" style={{ height: '36px', width: 'auto', objectFit: 'contain' }} />
-              </span>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
+                <span style={{ width: 28, height: 28, borderRadius: 7, background: 'linear-gradient(135deg, var(--teal, #14b8a6), var(--accent, #0284c7))', color: '#fff', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: 14 }}>P</span>
+                <span style={{ fontWeight: 900, fontSize: 16.5, letterSpacing: '-0.02em', color: '#FFFFFF' }}>PINIT <span style={{ color: '#14b8a6' }}>CAREER</span></span>
+              </div>
             </Link>
             <p style={{ color: '#94A3B8', fontSize: '15px', lineHeight: '1.6', maxWidth: '320px' }}>
               We don&apos;t help students find jobs. We help them discover who they are. Discover · Connect · Grow.

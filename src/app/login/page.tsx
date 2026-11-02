@@ -3,7 +3,6 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import Image from 'next/image';
 import { isOnboardingComplete, onboardingSignalsOf, readLocalOnboardingSignals } from '@/lib/onboarding/onboardingStatus';
 import { useAuth } from '@/lib/context/AuthContext';
 import { isDemoAuthEnabled } from '@/lib/demoAuth';
@@ -448,16 +447,25 @@ function LoginContent() {
         <div className="auth-logo" style={{ textAlign: 'center', marginBottom: 20 }}>
           <Link href="/" style={{ textDecoration: 'none', display: 'inline-block' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, marginBottom: 12 }}>
-              <span className="lp-brand-lockup" style={{ height: 56, padding: '4px 10px' }}>
-                <Image
-                  src="/brand/pinit-career-logo.png"
-                  alt="PINIT CAREER"
-                  width={200}
-                  height={48}
-                  priority
-                  className="lp-brand-logo"
-                  style={{ height: 48, width: 'auto', maxWidth: 200, objectFit: 'contain' }}
-                />
+              <span
+                style={{
+                  width: 36,
+                  height: 36,
+                  borderRadius: 9,
+                  background: 'linear-gradient(135deg, var(--teal, #14b8a6), var(--accent, #0284c7))',
+                  color: '#ffffff',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontWeight: 900,
+                  fontSize: 18,
+                  boxShadow: '0 4px 12px rgba(2, 132, 199, 0.25)'
+                }}
+              >
+                P
+              </span>
+              <span style={{ fontWeight: 900, fontSize: 22, letterSpacing: '-0.02em', color: 'var(--t1, #ffffff)' }}>
+                PINIT <span style={{ color: 'var(--teal, #14b8a6)' }}>CAREER</span>
               </span>
             </div>
           </Link>

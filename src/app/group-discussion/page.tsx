@@ -108,8 +108,8 @@ export default function GroupDiscussionPage({ embedded = false }: { embedded?: b
   const [historyListState, setHistoryListState] = useState<GdHistoryRecord[]>([]);
 
   // Room details
-  const [roomName, setRoomName] = useState('');
-  const [roomDesc, setRoomDesc] = useState('');
+  const [roomName, setRoomName] = useState('AWS Multi-Region Hydration Sync');
+  const [roomDesc, setRoomDesc] = useState('Present caching architecture proposal to managers.');
   const [selectedConcept, setSelectedConcept] = useState('Microservices Orchestration');
   const [invitedAvatars, setInvitedAvatars] = useState<string[]>([]);
 
@@ -150,6 +150,17 @@ export default function GroupDiscussionPage({ embedded = false }: { embedded?: b
   useEffect(() => {
     refreshHistoryList();
   }, [refreshHistoryList]);
+  useEffect(() => {
+    if (typeof window !== 'undefined' && step !== 'call_grid') {
+      const url = new URL(window.location.href);
+      if (url.searchParams.has('call')) {
+        url.searchParams.delete('call');
+        window.history.replaceState(null, '', url.pathname + (url.search ? url.search : ''));
+        window.dispatchEvent(new Event('popstate'));
+      }
+    }
+  }, [step]);
+
 
   const handleDeleteHistoryItem = (id: string) => {
     if (typeof window === 'undefined') return;
@@ -213,6 +224,7 @@ export default function GroupDiscussionPage({ embedded = false }: { embedded?: b
     gdHostId,
     filteredAvatars,
     setStep,
+    embedded,
     onRecordSaved: (record) => {
       setHistoryListState(prev => [record, ...prev.filter(r => r.id !== record.id)].slice(0, 25));
     }
@@ -642,7 +654,7 @@ export default function GroupDiscussionPage({ embedded = false }: { embedded?: b
               <button onClick={() => setStep('create_room')} className="btn-ghost" style={{ flex: 1, padding: 12 }}>
                 ⇠ Back to Step 1
               </button>
-              <PinsGate itemKey={`gd:${roomName || 'default-room'}`} category="gd" onUnlocked={orch.handleStartCall}>
+              <PinsGate itemKey={`gd:${roomName || 'default-room'}`} category="gd" onUnlocked={() => orch.handleStartCall(true)}>
                 <button className="btn-primary" style={{ width: '100%', padding: 12, justifyContent: 'center' }}>
                   ➔ Open Group Call Workspace
                 </button>

@@ -2,7 +2,6 @@
 
 import React, { useMemo, useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useQueryClient } from '@tanstack/react-query';
 import { executeSecureLogout } from '@/lib/auth/secureLogout';
 
@@ -567,21 +566,54 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
           title={isCompact ? 'PinIT Career OS — Home' : undefined}
         >
           {isCompact || effectiveFocusMode ? (
-            <span className="logo-mark logo-mark-img">
-              <Image src="/brand/pinit-career-logo.png" alt="PINIT CAREER" width={32} height={32} priority />
+            <span
+              style={{
+                width: 32,
+                height: 32,
+                borderRadius: 8,
+                background: 'linear-gradient(135deg, var(--teal), var(--accent))',
+                color: '#ffffff',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontWeight: 900,
+                fontSize: 16,
+                letterSpacing: '-0.02em',
+                boxShadow: '0 2px 8px color-mix(in srgb, var(--accent) 25%, transparent)'
+              }}
+            >
+              P
             </span>
           ) : (
-            <span className="lp-brand-lockup" style={{ height: 40, padding: '2px 6px' }}>
-              <Image
-                src="/brand/pinit-career-logo.png"
-                alt="PINIT CAREER"
-                width={148}
-                height={34}
-                className="lp-brand-logo"
-                style={{ height: 34, maxWidth: 148, width: 'auto', objectFit: 'contain' }}
-                priority
-              />
-            </span>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: '2px 4px' }}>
+              <span
+                style={{
+                  width: 30,
+                  height: 30,
+                  borderRadius: 7,
+                  background: 'linear-gradient(135deg, var(--teal), var(--accent))',
+                  color: '#ffffff',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontWeight: 900,
+                  fontSize: 15,
+                  letterSpacing: '-0.02em',
+                  boxShadow: '0 2px 6px color-mix(in srgb, var(--accent) 20%, transparent)',
+                  flexShrink: 0
+                }}
+              >
+                P
+              </span>
+              <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.15 }}>
+                <span style={{ fontWeight: 900, fontSize: 15, letterSpacing: '-0.02em', color: 'var(--t1)' }}>
+                  PINIT <span style={{ color: 'var(--teal)' }}>CAREER</span>
+                </span>
+                <span style={{ fontSize: 9.5, fontWeight: 700, color: 'var(--t3)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                  Career OS
+                </span>
+              </div>
+            </div>
           )}
         </Link>
 

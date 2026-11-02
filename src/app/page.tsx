@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useRef, useCallback, Suspense, type MouseEvent } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import PublicNavbar from '@/components/nav/PublicNavbar';
 import PublicFooter from '@/components/landing/PublicFooter';
@@ -161,8 +160,9 @@ function LandingContent() {
                     title="Click to trigger kinetic pulse"
                     style={{ cursor: 'pointer' }}
                   >
-                    <div className="lp-badge-official">
-                      <Image src="/brand/pinit-career-logo-clear.png" alt="PINIT CAREER" width={140} height={36} priority />
+                    <div className="lp-badge-official" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 14px' }}>
+                      <span style={{ width: 26, height: 26, borderRadius: 6, background: 'linear-gradient(135deg, var(--teal, #14b8a6), var(--accent, #0284c7))', color: '#fff', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: 13 }}>P</span>
+                      <span style={{ fontWeight: 900, fontSize: 15, letterSpacing: '-0.02em', color: '#ffffff' }}>PINIT <span style={{ color: 'var(--teal, #14b8a6)' }}>CAREER</span></span>
                     </div>
                   </div>
 

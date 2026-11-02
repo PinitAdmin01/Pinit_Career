@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/context/AuthContext';
 import { isDemoAuthEnabled } from '@/lib/demoAuth';
@@ -99,16 +98,27 @@ export default function PublicNavbar({ onLoginClick }: PublicNavbarProps) {
         {/* BRAND LOGO */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <Link href="/" className="lp-brand" aria-label="PINIT CAREER home" style={{ display: 'inline-flex', alignItems: 'center', height: '36px' }}>
-            <span className="lp-brand-lockup" style={{ display: 'inline-flex', alignItems: 'center', height: '36px' }}>
-              <Image
-                src="/brand/pinit-career-logo-clear.png"
-                alt="PINIT CAREER"
-                width={140}
-                height={36}
-                className="lp-brand-logo"
-                style={{ height: '36px', maxHeight: '36px', width: 'auto', objectFit: 'contain', display: 'block' }}
-                priority
-              />
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 9, height: '36px', textDecoration: 'none' }}>
+              <span
+                style={{
+                  width: 28,
+                  height: 28,
+                  borderRadius: 7,
+                  background: 'linear-gradient(135deg, var(--teal), var(--accent))',
+                  color: '#ffffff',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontWeight: 900,
+                  fontSize: 14,
+                  flexShrink: 0
+                }}
+              >
+                P
+              </span>
+              <span style={{ fontWeight: 900, fontSize: 16.5, letterSpacing: '-0.02em', color: 'var(--t1)' }}>
+                PINIT <span style={{ color: 'var(--teal)' }}>CAREER</span>
+              </span>
             </span>
           </Link>
         </div>
