@@ -8,6 +8,7 @@ interface LearningFiltersProps {
   canAccessFaculty: boolean;
   activeTab: 'mistakes' | 'roadmap' | 'twin' | 'gaps' | 'memory';
   handleTabChange: (tab: 'mistakes' | 'roadmap' | 'twin' | 'gaps' | 'memory') => void;
+  embedded?: boolean;
 }
 
 export function LearningFilters({
@@ -16,6 +17,7 @@ export function LearningFilters({
   canAccessFaculty,
   activeTab,
   handleTabChange,
+  embedded = false,
 }: LearningFiltersProps) {
   return (
     <>
