@@ -83,7 +83,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
               data-testid="quest-roadmap-title"
               style={{ fontSize: 22, fontWeight: 900, color: 'var(--t1)', fontFamily: 'var(--font-display)', letterSpacing: '-0.3px' }}
             >
-              🧭 Dynamic Career Roadmap ({COURSES_REGISTRY.find(c => c.id === activeCourseId)?.title.split('(')[0].trim() || onboardingAnswers?.role || trajectory.roleTitle})
+              Dynamic Career Roadmap ({COURSES_REGISTRY.find(c => c.id === activeCourseId)?.title.split('(')[0].trim() || onboardingAnswers?.role || trajectory.roleTitle})
             </h2>
             <p style={{ fontSize: 14.5, color: 'var(--t3)', marginTop: 4 }}>
               Sequential milestone nodes. Single-click any node to launch its quests.
@@ -162,7 +162,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                   transition: 'all 0.2s ease'
                 }}
               >
-                <span>🗺️ Fused Career Trajectory</span>
+                <span>Fused Career Trajectory</span>
                 <span style={{ fontSize: 11, fontWeight: 800, background: 'rgba(var(--success-rgb),0.25)', padding: '2px 7px', borderRadius: 6, color: 'var(--success)' }}>
                   Roadmap 1
                 </span>
@@ -205,7 +205,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                       maxWidth: 220
                     }}
                   >
-                    <span style={{ whiteSpace: 'nowrap' }}>🗺️ Roadmap {rm.number}</span>
+                    <span style={{ whiteSpace: 'nowrap' }}>Roadmap {rm.number}</span>
                     <button
                       type="button"
                       aria-label={`Close Roadmap ${rm.number}`}
@@ -276,7 +276,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
               <div>
                 <h3 style={{ fontSize: 17.5, fontWeight: 900, color: 'var(--t1)', margin: 0, fontFamily: 'var(--font-display)' }}>
-                  🗺️ Visual Roadmap Chart
+                  Visual Roadmap Chart
                 </h3>
               </div>
               <span style={{ fontSize: 11, fontWeight: 800, background: 'rgba(var(--success-rgb),0.15)', color: 'var(--green)', padding: '3px 10px', borderRadius: 20 }}>
@@ -837,7 +837,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                   className="btn-primary"
                   style={{ padding: '10px 20px', borderRadius: 10, fontSize: 13, fontWeight: 700 }}
                 >
-                  ⚡ Synchronize Roadmap
+                  Synchronize Roadmap
                 </button>
               </div>
             )) : (
@@ -888,7 +888,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                           color: 'var(--amber)',
                           cursor: 'pointer'
                         }} className="card-hover">
-                          <span>🔒 Career Gate Checkpoint (Click to Audit):</span>
+                          <span>Career Gate Checkpoint (Click to Audit):</span>
                           <span style={{ color: 'var(--t2)' }}>
                             {node.gate.minDsaScore ? `✓ DSA ≥ ${node.gate.minDsaScore}% ` : ''}
                             {node.gate.minCommunicationScore ? `✓ Soft Skills ≥ ${node.gate.minCommunicationScore}% ` : ''}
@@ -987,9 +987,9 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                             </span>
                             {(() => {
                               const getLevelBadge = (i: number) => {
-                                if (i === 0) return { label: '🌱 Level 0: Zero Basics', color: 'var(--success)' };
-                                if (i === 1) return { label: '🌱 Level 1: Foundations', color: 'var(--accent-cyan)' };
-                                if (i === 2) return { label: '⚡ Level 2: Core Engineering', color: 'var(--info)' };
+                                if (i === 0) return { label: 'Level 0: Zero Basics', color: 'var(--success)' };
+                                if (i === 1) return { label: 'Level 1: Foundations', color: 'var(--accent-cyan)' };
+                                if (i === 2) return { label: 'Level 2: Core Engineering', color: 'var(--info)' };
                                 return { label: '🔥 Level 3: Pro Mastery', color: '#ec4899' };
                               };
                               const badge = getLevelBadge(idx);
@@ -1096,7 +1096,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                     ✓ {completedQuests.length} Quests Cleared
                   </div>
                   <div style={{ padding: '8px 14px', borderRadius: 12, background: 'rgba(var(--brand-rgb),0.1)', border: '1px solid rgba(var(--brand-rgb),0.25)', fontSize: 13, fontWeight: 800, color: 'var(--brand-bright)' }}>
-                    ⚡ +{totalXp} XP Accumulated
+                    +{totalXp} XP Accumulated
                   </div>
                   <div style={{ padding: '8px 14px', borderRadius: 12, background: 'rgba(var(--warning-rgb),0.1)', border: '1px solid rgba(var(--warning-rgb),0.25)', fontSize: 13, fontWeight: 800, color: 'var(--warning-bright)' }}>
                     🪙 +{totalPins} Pins Bonus
@@ -1109,7 +1109,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
           {/* Filter Navigation Tabs */}
           <div style={{ display: 'flex', gap: 10, marginBottom: 20, borderBottom: '1px solid var(--border)', paddingBottom: 12 }}>
             {[
-              { id: 'all', label: `🌐 All Activity (${completedQuests.length + (pinsHistory?.length || 0)})` },
+              { id: 'all', label: `All Activity (${completedQuests.length + (pinsHistory?.length || 0)})` },
               { id: 'quests', label: `🎓 Quests & Exams (${completedQuests.length})` },
               { id: 'pins', label: `🪙 Pins & Rewards (${pinsHistory?.length || 0})` }
             ].map(tab => (

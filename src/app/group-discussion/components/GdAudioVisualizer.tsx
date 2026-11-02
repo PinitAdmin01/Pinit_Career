@@ -13,17 +13,20 @@ interface GdAudioVisualizerProps {
 function resolveCanvasColor(inputColor?: string): string {
   if (!inputColor) return '#14b8a6';
   const trimmed = inputColor.trim();
-  if (trimmed.startsWith('var(--')) {
-    const varName = trimmed.slice(4, -1).trim();
+  if (trimmed.includes('var(')) {
     if (typeof window !== 'undefined' && typeof document !== 'undefined') {
       try {
-        const val = getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
-        if (val) return val;
+        const varMatch = trimmed.match(/var\((--[^)]+)\)/);
+        if (varMatch && varMatch[1]) {
+          const val = getComputedStyle(document.documentElement).getPropertyValue(varMatch[1].trim()).trim();
+          if (val && !val.includes('var(')) return val;
+        }
       } catch {}
     }
-    if (varName === '--teal') return '#14b8a6';
-    if (varName === '--accent') return '#0284c7';
-    if (varName === '--danger') return '#ef4444';
+    if (trimmed.includes('--danger') || trimmed.includes('--rose') || trimmed.includes('--red')) return '#ef4444';
+    if (trimmed.includes('--accent') || trimmed.includes('--primary') || trimmed.includes('--blue')) return '#0284c7';
+    if (trimmed.includes('--amber') || trimmed.includes('--warning') || trimmed.includes('--orange')) return '#f59e0b';
+    if (trimmed.includes('--green') || trimmed.includes('--emerald')) return '#10b981';
     return '#14b8a6';
   }
   return trimmed;

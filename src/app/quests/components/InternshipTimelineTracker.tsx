@@ -137,7 +137,7 @@ export const InternshipTimelineTracker: React.FC<InternshipTimelineTrackerProps>
         >
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <span style={{ fontSize: 11, fontWeight: 900, color: 'var(--t2)', textTransform: 'uppercase' }}>PHASE 2</span>
-            <span style={{ fontSize: 12, fontWeight: 700, color: '#64748b' }}>🔒 Unlocks Month {plan.trainingDurationMonths + 1}</span>
+            <span style={{ fontSize: 12, fontWeight: 700, color: '#64748b' }}>Unlocks Month {plan.trainingDurationMonths + 1}</span>
           </div>
           <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--t1)' }}>
             1-Month Production Project
@@ -146,7 +146,7 @@ export const InternshipTimelineTracker: React.FC<InternshipTimelineTrackerProps>
             Full-stack production repo build with mentor architectural review & automated CI/CD checks.
           </div>
           <div style={{ fontSize: 12, color: '#818cf8', fontWeight: 700, marginTop: 'auto' }}>
-            🏆 Project Certificate Included
+            Project Certificate Included
           </div>
         </div>
 

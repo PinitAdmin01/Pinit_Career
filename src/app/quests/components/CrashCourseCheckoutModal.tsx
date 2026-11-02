@@ -230,7 +230,7 @@ Thank you for enrolling with PinIT Career OS!
     if (alreadyEnrolled) {
       toast.info('Already Enrolled', `You're already enrolled in ${plan.title}. You were not charged again.`);
     } else if (walletData?.rewardPinsCredited) {
-      toast.success('Reward Pins Credited! ⚡', `+${walletData.rewardPinsCredited} PinIT Coins added to your wallet!`);
+      toast.success('Reward Pins Credited!', `+${walletData.rewardPinsCredited} PinIT Coins added to your wallet!`);
     } else if (walletData?.pinsDeducted) {
       toast.success('Pins Deducted 🪙', `-${walletData.pinsDeducted} Pins debited from your wallet for enrollment.`);
     } else {
@@ -586,7 +586,7 @@ Thank you for enrolling with PinIT Career OS!
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
                   <span style={{ fontSize: 12, fontWeight: 700, color: '#38bdf8', background: 'rgba(56, 189, 248, 0.1)', padding: '3px 8px', borderRadius: 6 }}>
-                    ⏱️ {plan.totalProgramDuration}
+                    {plan.totalProgramDuration}
                   </span>
                   <span style={{ fontSize: 12, color: 'var(--t3)' }}>
                     ({plan.totalProgramDuration} + Capstone)
@@ -689,7 +689,7 @@ Thank you for enrolling with PinIT Career OS!
             }}>
               <div>
                 <div style={{ fontSize: 13.5, fontWeight: 800, color: 'var(--t1)', marginBottom: 10 }}>
-                  🛡️ Select Payment Method
+                  Select Payment Method
                 </div>
 
                 {/* Method Options */}

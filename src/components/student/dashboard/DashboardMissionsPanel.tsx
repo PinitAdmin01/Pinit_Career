@@ -180,7 +180,7 @@ export default function DashboardMissionsPanel({ nextStep, userId }: Props) {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 18px', borderBottom: '1px solid var(--border)', flexWrap: 'wrap', gap: 8 }}>
           <div>
             <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 15.5, fontWeight: 900, color: 'var(--t1)', margin: 0, display: 'flex', alignItems: 'center', gap: 8 }}>
-              ⚡ Today&apos;s Workload Missions
+              Today&apos;s Workload Missions
             </h3>
             <span style={{ fontSize: 11, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
               {workloadBand === 'exam_pause' ? '1 Maintenance Task' : `${coreMissions.length} Core ${optionalMissions.length > 0 ? `+ ${optionalMissions.length} Optional` : ''}`}
@@ -265,7 +265,7 @@ export default function DashboardMissionsPanel({ nextStep, userId }: Props) {
                       <span style={{ fontSize: 9.5, fontFamily: 'var(--font-mono)', fontWeight: 800, color: meta.color, background: `${meta.color}15`, padding: '1px 5px', borderRadius: 4 }}>
                         {meta.label}
                       </span>
-                      <span style={{ fontSize: 10.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>⏱️ {m.estDurationMinutes}m</span>
+                      <span style={{ fontSize: 10.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>{m.estDurationMinutes}m</span>
                       <span style={{ fontSize: 10.5, color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontWeight: 700 }}>+{m.xpReward} XP</span>
                     </div>
                     <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--t1)', textDecoration: done ? 'line-through' : 'none', marginTop: 2, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>

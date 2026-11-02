@@ -163,7 +163,7 @@ export const EnhancedCrashCoursePlanCard: React.FC<EnhancedCrashCoursePlanCardPr
         </p>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
           <span style={{ fontSize: 11.5, color: 'var(--t2)', fontWeight: 700, fontFamily: 'var(--font-mono)', background: 'var(--bg3)', padding: '2px 8px', borderRadius: 6, border: '1px solid var(--border)' }}>
-            ⏱️ {plan?.totalProgramDuration || '3-4 Months Total'}
+            {plan?.totalProgramDuration || '3-4 Months Total'}
           </span>
           <span style={{ fontSize: 11.5, color: 'var(--accent)', fontWeight: 700, fontFamily: 'var(--font-mono)', background: 'var(--accent-light)', padding: '2px 8px', borderRadius: 6, border: '1px solid color-mix(in srgb, var(--accent) 30%, transparent)' }}>
             {plan?.dailyCommitment || 'Daily 1-Hr Micro-Learning'}

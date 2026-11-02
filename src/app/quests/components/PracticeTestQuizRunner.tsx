@@ -559,7 +559,7 @@ export default function PracticeTestQuizRunner({
           <div>
             <h2 style={{ fontSize: 18.5, fontWeight: 900, color: 'var(--t1)', margin: 0, fontFamily: 'var(--font-display)' }}>{testTitle}</h2>
             <span style={{ fontSize: 12, color: 'var(--t3)' }}>
-              {track === 'web_fullstack' ? '🌐 Web Fullstack' : '🐍 Python & AI'} • {planTier.toUpperCase()} Plan • Question {currentIndex + 1} of {totalQuestions}
+              {track === 'web_fullstack' ? 'Web Fullstack' : 'Python & AI'} • {planTier.toUpperCase()} Plan • Question {currentIndex + 1} of {totalQuestions}
             </span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>

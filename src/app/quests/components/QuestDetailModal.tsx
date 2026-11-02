@@ -98,7 +98,7 @@ export const CareerGateModal: React.FC<CareerGateModalProps> = ({
               display: 'flex', alignItems: 'center', gap: 6
             }}
           >
-            {isGateCleared ? '✓ Career Gate Cleared' : '🔒 Career Gate Audit Checkpoint'}
+            {isGateCleared ? '✓ Career Gate Cleared' : 'Career Gate Audit Checkpoint'}
           </span>
           <button onClick={onClose} aria-label="Close readiness audit" style={{ background: 'none', border: 'none', color: 'var(--t3)', fontSize: 20, cursor: 'pointer' }}>✕</button>
         </div>
@@ -232,7 +232,7 @@ export const MasterJourneyModal: React.FC<MasterJourneyModalProps> = ({
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
           <div>
             <span style={{ fontSize: 12, fontWeight: 900, color: 'var(--success)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-              🗺️ Master Syllabus & Full Journey Breakdown
+              Master Syllabus & Full Journey Breakdown
             </span>
             <h3 style={{ fontSize: 22, fontWeight: 900, color: 'var(--t1)', margin: '4px 0 0 0' }}>
               {trajectory.roleTitle} — Every Quest Lined Up
@@ -373,7 +373,7 @@ export const QrModal: React.FC<QrModalProps> = ({
     >
       <div style={{ width: '100%', maxWidth: 440, background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 20, padding: 28, textAlign: 'center' }}>
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '4px 12px', borderRadius: 20, background: 'rgba(var(--success-rgb), 0.15)', color: 'var(--success-bright)', fontSize: 12, fontWeight: 800, textTransform: 'uppercase', marginBottom: 12 }}>
-          <span>🛡️</span> Cryptographic Proof
+          Cryptographic Proof
         </div>
         <h3 style={{ margin: '0 0 8px 0', fontSize: 22, fontWeight: 800, color: 'var(--t1)' }}>
           Verifiable Skill Passport QR
@@ -430,7 +430,7 @@ export const QrModal: React.FC<QrModalProps> = ({
               boxSizing: 'border-box'
             }}
           >
-            <span>🌐</span> Open Public Skill Passport ↗
+            Open Public Skill Passport ↗
           </a>
 
           <button
@@ -601,7 +601,7 @@ export const CustomRoadmapModal: React.FC<CustomRoadmapModalProps> = ({
               fontWeight: 800
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                <span style={{ color: 'var(--t4)' }}>⚡ QT1 Knowledge:</span>
+                <span style={{ color: 'var(--t4)' }}>QT1 Knowledge:</span>
                 <span style={{ color: 'var(--success)' }}>{qt1}/100</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>

@@ -186,7 +186,7 @@ export const PracticeTestReportModal: React.FC<PracticeTestReportModalProps> = (
           }}
         >
           <div style={{ fontSize: 12, fontWeight: 900, color: '#f59e0b', textTransform: 'uppercase' }}>
-            ⚡ Detected Skill Gap & Diagnostic Feedback:
+            Detected Skill Gap & Diagnostic Feedback:
           </div>
           <p style={{ fontSize: 12.5, color: '#cbd5e1', margin: 0, lineHeight: 1.4 }}>
             {result && result.skillGaps && result.skillGaps.length > 0
