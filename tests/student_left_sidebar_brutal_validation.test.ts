@@ -29,7 +29,7 @@ describe('BRUTAL VALIDATION — STUDENT LEFT SIDEBAR (Perspectives 3, 4, 5)', ()
       
       const primarySection = STUDENT_NAV[0];
       assert.equal(primarySection.section, 'PinIT Career OS', 'Primary section name must match PinIT branding');
-      assert.ok(primarySection.items.length >= 10, 'Student must have at least 10 core workspace items');
+      assert.ok(primarySection.items.length >= 9, 'Student must have at least 9 core workspace items');
     });
 
     it('every STUDENT_NAV item has valid, non-empty, well-formed properties', () => {
@@ -63,8 +63,7 @@ describe('BRUTAL VALIDATION — STUDENT LEFT SIDEBAR (Perspectives 3, 4, 5)', ()
         { href: '/projects', label: 'Projects & Squads' },
         { href: '/leaderboard', label: 'Leaderboard & Leagues' },
         { href: '/interview', label: 'AI Interview' },
-        { href: '/group-discussion', label: 'GD Practice' },
-        { href: '/learning', label: 'Learning & Twin' },
+        { href: '/mirror', label: 'Mirror' },
         { href: '/attention-span', label: 'Attention Span' },
       ];
 
@@ -248,8 +247,7 @@ describe('BRUTAL VALIDATION — FULL SSR RENDERING OF APPSIDEBAR', () => {
     assert.ok(html.includes('href="/projects"'), 'Projects link must be present');
     assert.ok(html.includes('href="/leaderboard"'), 'Leaderboard link must be present');
     assert.ok(html.includes('href="/interview"'), 'Interview link must be present');
-    assert.ok(html.includes('href="/group-discussion"'), 'GD link must be present');
-    assert.ok(html.includes('href="/learning"'), 'Learning link must be present');
+    assert.ok(html.includes('href="/mirror"'), 'Mirror link must be present');
     assert.ok(html.includes('href="/attention-span"'), 'Attention span link must be present');
 
     // Active state highlighting on /dashboard
@@ -349,6 +347,7 @@ describe('Perspective 6: All 15 Student Route Modules Exist and Export Valid Com
     { name: 'Notifications', path: '../src/app/notifications/page' },
     { name: 'Profile', path: '../src/app/profile/page' },
     { name: 'Career Builder', path: '../src/app/career-builder/page' },
+    { name: 'Mirror', path: '../src/app/mirror/page' },
   ];
 
   for (const route of routes) {

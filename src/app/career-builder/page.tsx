@@ -129,7 +129,7 @@ Requirements:
   }
 };
 
-export default function CareerBuilderPage() {
+export default function CareerBuilderPage({ embedded = false }: { embedded?: boolean } = {}) {
   const router = useRouter();
   const { user } = useAuth();
   const userId = user?.id || 'guest';

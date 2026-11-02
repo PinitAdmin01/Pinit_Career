@@ -62,8 +62,8 @@ describe('ADVERSARIAL SENIOR QA & UI/UX DESIGN AUDIT', () => {
       { path: '/career-builder', label: 'Career Builder' },
     ];
 
-    it('has exactly 10 primary workspace items in STUDENT_NAV', () => {
-      assert.equal(STUDENT_NAV[0].items.length, 10);
+    it('has exactly 9 primary workspace items in STUDENT_NAV (GD unified under Interview, Twin unified under Mirror)', () => {
+      assert.equal(STUDENT_NAV[0].items.length, 9);
     });
 
     it('has exactly 4 persistent footer items in BOTTOM_NAV', () => {
