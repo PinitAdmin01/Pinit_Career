@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation';
 import { crashCourseEnrollmentService, CrashCourseEnrollment } from '@/lib/services/crashCourseEnrollmentService';
 import { CRASH_COURSE_PLANS } from '@/lib/data/crashPlansData';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
+import { COURSES_REGISTRY } from '@/lib/data/coursesData';
+import { getCrashCourseProgress } from '@/lib/courses/crashCourseProgress';
 
 const TIMELINE_STYLES = `
   @keyframes pulseNodeGlow {
@@ -96,15 +98,19 @@ export default function CareerCourseProgressBar() {
     ];
   }, [totalDays]);
 
-  // Next quest ID for resuming
-  const nextQuestId = useMemo(() => {
-    // If there is an active roadmap quest, link to it; otherwise default to course sprint
-    if (completedQuests.length === 0) return 'fizzbuzz';
-    return `quest-day-${currentIncompleteDay}`;
-  }, [completedQuests, currentIncompleteDay]);
-
   const handleResumeDay = () => {
-    router.push(`/quests/lesson?questId=${nextQuestId}`);
+    if (plan && enrollment) {
+      try {
+        const prog = getCrashCourseProgress(plan, enrollment.track, COURSES_REGISTRY, completedQuests, enrollment);
+        if (prog.next?.questId) {
+          router.push(`/quests/lesson?questId=${encodeURIComponent(prog.next.questId)}`);
+          return;
+        }
+      } catch (err) {
+        console.warn('Could not resolve crash course quest, navigating to quests:', err);
+      }
+    }
+    router.push('/quests');
   };
 
   // ── Render 1: Empty State (No career course purchased) ─────────────────────

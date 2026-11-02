@@ -185,8 +185,8 @@ export default function DashboardHeaderHUD({
 
     if (daysSinceLast >= 2) {
       setGreetingInfo({
-        title: `Hello, ${firstName}`,
-        subtitle: `It's been ${daysSinceLast} days since your last session — welcome back!`,
+        title: `Hello ${firstName}, it's been ${daysSinceLast} days!`,
+        subtitle: `Welcome back to your workspace — ready to pick up where you left off?`,
       });
     } else {
       const hour = new Date().getHours();
