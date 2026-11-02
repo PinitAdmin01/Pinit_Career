@@ -180,23 +180,23 @@ export function useLearningData(defaultTab?: 'mistakes' | 'roadmap' | 'twin' | '
   // Target Role & Weak Areas
   const weakAreas: string[] = Array.isArray(user?.weak_areas) ? user.weak_areas : [];
   const targetRole = user?.target_role || onboardingAnswers?.role || (cOS as any)?.targetRole || 'Full Stack Engineer';
+  const [resolvedGapIds, setResolvedGapIds] = useState<string[]>([]);
 
   // Humanized Mistakes Compilation
   const humanizedMistakes: HumanizedMistake[] = useMemo(() => {
-    // If explicit recorded mistakes exist
+    let sourceList: HumanizedMistake[] = [];
     if (mistakes.length > 0) {
-      return mistakes.map(m => humanizeAssessmentGap(m.module || m.type || m.id || 'system_error', m.description));
+      sourceList = mistakes.map(m => humanizeAssessmentGap(m.module || m.type || m.id || 'system_error', m.description));
+    } else if (weakAreas.length > 0) {
+      sourceList = weakAreas.map(w => humanizeAssessmentGap(w));
+    } else {
+      sourceList = [
+        humanizeAssessmentGap('rigid_execution_vs_adaptation'),
+        humanizeAssessmentGap('communication_vs_investigation')
+      ];
     }
-    // If weak areas exist from assessment
-    if (weakAreas.length > 0) {
-      return weakAreas.map(w => humanizeAssessmentGap(w));
-    }
-    // Default baseline diagnostic cases if fresh user
-    return [
-      humanizeAssessmentGap('rigid_execution_vs_adaptation'),
-      humanizeAssessmentGap('communication_vs_investigation')
-    ];
-  }, [mistakes, weakAreas]);
+    return sourceList.filter(m => !resolvedGapIds.includes(m.id) && !resolvedGapIds.includes(m.rawKey));
+  }, [mistakes, weakAreas, resolvedGapIds]);
 
   // Dynamic missing skills calculated from the actual database weak_areas
   const missingSkills = useMemo(() => {
@@ -397,6 +397,7 @@ export function useLearningData(defaultTab?: 'mistakes' | 'roadmap' | 'twin' | '
     }
 
     // Update state & remove from active mistakes
+    setResolvedGapIds(prev => [...prev, mistakeId, foundMistake.rawKey]);
     const nextMistakes = mistakes.filter(m => m.id !== mistakeId && m.module !== foundMistake.rawKey);
     setMistakes(nextMistakes);
     setGapsResolvedCount(prev => Math.min(10, prev + 1));
@@ -415,6 +416,7 @@ export function useLearningData(defaultTab?: 'mistakes' | 'roadmap' | 'twin' | '
   }, [humanizedMistakes, mistakes, onboardingAnswers, setOnboarding, cOS]);
 
   const clearMistake = (id: string) => {
+    setResolvedGapIds(prev => [...prev, id]);
     const nextMistakes = mistakes.filter(m => m.id !== id);
     setMistakes(nextMistakes);
     setGapsResolvedCount(prev => Math.min(10, prev + 1));

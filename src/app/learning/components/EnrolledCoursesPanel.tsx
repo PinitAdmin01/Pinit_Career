@@ -122,7 +122,7 @@ export function EnrolledCoursesPanel({
   };
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '1.25fr 1fr', gap: 20, alignItems: 'start' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: 20, alignItems: 'start' }}>
       {/* Left Column: Fused Learning Mistakes Tracker & Socratic Drills */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <div style={card}>
@@ -175,8 +175,31 @@ export function EnrolledCoursesPanel({
           {/* Mistakes & Remedial Drills List */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             {filteredMistakes.length === 0 ? (
-              <div style={{ padding: 24, textAlign: 'center', color: 'var(--t3)', fontSize: 14.5, border: '1px dashed var(--border)', borderRadius: 12, background: 'var(--bg3)' }}>
-                ✓ No active mistakes detected in this category. Excellent work!
+              <div style={{ padding: 32, textAlign: 'center', borderRadius: 14, background: 'var(--bg3)', border: '1px dashed var(--border)' }}>
+                <div style={{ fontSize: 32, marginBottom: 8 }}>🎉</div>
+                <div style={{ fontWeight: 800, fontSize: 16, color: 'var(--t1)', marginBottom: 4 }}>
+                  All Active Blind Spots Resolved!
+                </div>
+                <p style={{ fontSize: 13, color: 'var(--t2)', maxWidth: 420, margin: '0 auto 12px auto' }}>
+                  Your remedial drills have verified all assessed failure modes. These learned patterns are now reinforced in your Spaced Memory (FSRS) queue.
+                </p>
+                <Link
+                  href="/learning?tab=memory"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 6,
+                    padding: '8px 16px',
+                    borderRadius: 8,
+                    background: 'var(--accent)',
+                    color: '#fff',
+                    fontWeight: 800,
+                    fontSize: 12.5,
+                    textDecoration: 'none'
+                  }}
+                >
+                  🧠 Review in Spaced Repetition →
+                </Link>
               </div>
             ) : (
               filteredMistakes.map((m, idx) => {
@@ -426,8 +449,8 @@ export function EnrolledCoursesPanel({
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             {humanizedMistakes.length === 0 ? (
-              <div style={{ padding: 20, textAlign: 'center', color: 'var(--t3)', fontSize: 14, background: 'var(--bg3)', borderRadius: 10, border: '1px dashed var(--border)' }}>
-                ✓ No active performance errors detected. Your curriculum benchmark is currently on track!
+              <div style={{ padding: 24, textAlign: 'center', color: 'var(--green)', fontSize: 13.5, background: 'var(--green-light)', borderRadius: 12, border: '1px solid var(--green)' }}>
+                ✓ 100% Remedial Alignment Achieved! All assessed blind spots have been verified and bridged.
               </div>
             ) : (
               humanizedMistakes.map((step, idx) => (

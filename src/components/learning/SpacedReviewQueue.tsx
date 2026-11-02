@@ -76,6 +76,7 @@ const INITIAL_CONCEPTS: Omit<ConceptCard, 'fsrs'>[] = [
 const DECK_STORAGE_KEY = 'pinit_fsrs_concept_deck';
 
 export default function SpacedReviewQueue() {
+  const [isMounted, setIsMounted] = useState(false);
   const [deck, setDeck] = useState<ConceptCard[]>([]);
   const [activeDeckFilter, setActiveDeckFilter] = useState<string>('all');
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -84,6 +85,7 @@ export default function SpacedReviewQueue() {
 
   // Initialize deck from storage or initial concept seed
   useEffect(() => {
+    setIsMounted(true);
     try {
       const stored = localStorage.getItem(DECK_STORAGE_KEY);
       if (stored) {
@@ -148,6 +150,24 @@ export default function SpacedReviewQueue() {
   const retentionPercent = currentCard
     ? Math.round(calculateRetention(currentCard.fsrs, Date.now()) * 100)
     : 0;
+
+  if (!isMounted) {
+    return (
+      <div
+        style={{
+          background: 'var(--bg2)',
+          border: '1.5px solid var(--border)',
+          borderRadius: 20,
+          padding: 32,
+          textAlign: 'center',
+          color: 'var(--t3)',
+          fontSize: 14
+        }}
+      >
+        Loading Spaced Repetition Memory Engine...
+      </div>
+    );
+  }
 
   return (
     <div

@@ -74,7 +74,7 @@ export function LearningPathView({
     const currentStage = dynamicRoadmap[activeStep] || dynamicRoadmap[0];
 
     return (
-      <div style={{ display: 'grid', gridTemplateColumns: '420px 1fr', gap: 20, alignItems: 'start' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: 20, alignItems: 'start' }}>
         {/* Left Column: Stages List */}
         <div style={card}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
@@ -347,7 +347,7 @@ export function LearningPathView({
           </div>
 
           {/* 4 Bento Overview Cards */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 14 }}>
             <div style={{ background: 'var(--bg2)', padding: 16, borderRadius: 14, border: '1px solid var(--border)' }}>
               <div style={{ fontSize: 11, color: 'var(--t3)', textTransform: 'uppercase', marginBottom: 4 }}>Market Readiness</div>
               <div style={{ fontSize: 22, fontWeight: 950, color: 'var(--accent)' }}>{sim?.overallMarketReadiness || 78}%</div>
@@ -388,7 +388,7 @@ export function LearningPathView({
               </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 20 }}>
               {/* Slider 1: Daily Quest Pacing */}
               <div style={{ background: 'var(--bg2)', padding: 14, borderRadius: 12, border: '1px solid var(--border)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
@@ -467,7 +467,7 @@ export function LearningPathView({
               <span style={{ fontSize: 11.5, color: 'var(--t3)' }}>Click an archetype to inspect hiring criteria</span>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16 }}>
               {sim?.paths.map((p, idx) => {
                 const isSelected = selectedTwinPath === idx;
                 return (
@@ -562,7 +562,7 @@ export function LearningPathView({
           {/* Recommended Strategic Sprints */}
           <div style={card}>
             <div style={cardLabel}>🚀 High-Leverage Strategic Action Plan</div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 14 }}>
               {sim?.recommendedSprints.map((sp, idx) => (
                 <div key={idx} style={{ background: 'var(--bg3)', padding: 14, borderRadius: 12, border: '1px solid var(--border)' }}>
                   <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--accent)', marginBottom: 4 }}>

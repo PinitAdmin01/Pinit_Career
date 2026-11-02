@@ -169,4 +169,51 @@ describe('Learning & Career Twin Intelligence Suite', () => {
     assert.ok(reactCard!.question.includes('React Hooks'));
   });
 
+  it('7. Verified all known diagnostic tokens map cleanly with zero undefined fields', () => {
+    const knownKeys = [
+      'rigid_execution_vs_adaptation',
+      'communication_vs_investigation',
+      'independent_isolation_vs_alignment',
+      'analysis_vs_shipping',
+      'async_race_condition',
+      'db_n_plus_one_query'
+    ];
+
+    for (const key of knownKeys) {
+      const humanized = humanizeAssessmentGap(key);
+      assert.ok(humanized.title, `Missing title for ${key}`);
+      assert.ok(humanized.category, `Missing category for ${key}`);
+      assert.ok(humanized.rootCause, `Missing rootCause for ${key}`);
+      assert.ok(humanized.drill, `Missing drill for ${key}`);
+      assert.ok(humanized.drill.question, `Missing drill question for ${key}`);
+      assert.ok(humanized.drill.correctOptionId, `Missing correctOptionId for ${key}`);
+      assert.ok(humanized.drill.fsrsDeckItem, `Missing fsrsDeckItem for ${key}`);
+    }
+  });
+
+  it('8. Verifies sensitivity simulator edge bounds (min pace 1, max pace 4, interview 50-98)', () => {
+    const minEdge = calculateDynamicCareerTwin({
+      targetRole: 'Junior Frontend',
+      dailyQuestPace: 1,
+      interviewScoreTarget: 50,
+      gapsResolvedCount: 0,
+      baseAtsScore: 50,
+      verifiedProofsCount: 0
+    });
+
+    const maxEdge = calculateDynamicCareerTwin({
+      targetRole: 'Staff Engineer',
+      dailyQuestPace: 4,
+      interviewScoreTarget: 98,
+      gapsResolvedCount: 10,
+      baseAtsScore: 95,
+      verifiedProofsCount: 10
+    });
+
+    assert.ok(minEdge.overallMarketReadiness >= 40, 'Min edge readiness >= 40');
+    assert.ok(maxEdge.overallMarketReadiness <= 98, 'Max edge readiness <= 98');
+    assert.ok(minEdge.estimatedMonthsToOffer > maxEdge.estimatedMonthsToOffer, 'Higher pacing must accelerate placement');
+    assert.ok(minEdge.paths[0].projectedCtcMin < maxEdge.paths[0].projectedCtcMin, 'Higher score must raise CTC');
+  });
+
 });
