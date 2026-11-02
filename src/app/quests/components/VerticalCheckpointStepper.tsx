@@ -260,11 +260,11 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
                   position: 'relative',
                   borderRadius: '50%',
                   background: isActive
-                    ? `radial-gradient(circle, ${step.color} 0%, #0f172a 100%)`
+                    ? `radial-gradient(circle, ${step.color} 0%, var(--card) 100%)`
                     : isDone
                     ? '#10b981'
-                    : '#1e293b',
-                  border: `3px solid ${isActive ? step.color : isDone ? '#10b981' : 'rgba(255, 255, 255, 0.15)'}`,
+                    : 'var(--bg3)',
+                  border: `3px solid ${isActive ? step.color : isDone ? '#10b981' : 'var(--border)'}`,
                   boxShadow: isActive ? `0 0 20px ${step.color}88` : '0 4px 10px rgba(0,0,0,0.4)',
                   display: 'flex',
                   alignItems: 'center',

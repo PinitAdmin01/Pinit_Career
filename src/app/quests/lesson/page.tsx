@@ -161,7 +161,7 @@ const lessonStyles = `
     align-items: center;
     gap: 3px;
     z-index: 10;
-    background: rgba(15, 23, 42, 0.75);
+    background: var(--card);
     backdrop-filter: blur(4px);
     padding: 8px 16px;
     border-radius: 20px;
@@ -772,7 +772,7 @@ function LessonPageContent({ questId, questData, overrideUser, isTestMode = fals
             top: 14,
             left: 24,
             zIndex: 99999,
-            background: 'rgba(15, 23, 42, 0.92)',
+            background: 'linear-gradient(135deg, var(--card) 0%, var(--bg2) 100%)',
             backdropFilter: 'blur(10px)',
             border: '1.5px solid var(--accent)',
             borderRadius: 20,

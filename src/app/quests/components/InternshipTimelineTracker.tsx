@@ -28,8 +28,8 @@ export const InternshipTimelineTracker: React.FC<InternshipTimelineTrackerProps>
       style={{
         borderRadius: 18,
         padding: '20px 22px',
-        background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(9, 13, 22, 0.95) 100%)',
-        border: '1.5px solid rgba(99, 102, 241, 0.25)',
+        background: 'linear-gradient(135deg, var(--card) 0%, var(--bg2) 100%)',
+        border: '1.5px solid var(--border)',
         boxShadow: '0 8px 30px rgba(0, 0, 0, 0.35)',
         display: 'flex',
         flexDirection: 'column',
@@ -41,11 +41,11 @@ export const InternshipTimelineTracker: React.FC<InternshipTimelineTrackerProps>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <span style={{ fontSize: 22 }}>📍</span>
-            <h4 style={{ fontSize: 17.5, fontWeight: 900, color: '#ffffff', margin: 0 }}>
+            <h4 style={{ fontSize: 17.5, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
               Active Program Timeline: {plan.title} ({plan.totalProgramDuration})
             </h4>
           </div>
-          <p style={{ fontSize: 13, color: '#94a3b8', margin: '3px 0 0 0' }}>
+          <p style={{ fontSize: 13, color: 'var(--t2)', margin: '3px 0 0 0' }}>
             Structured 4-phase progression: Daily 1Hr Micro-Learning ➔ Live Capstone ➔ Real-Time Internship ➔ Dual Credentials.
           </p>
         </div>
@@ -63,7 +63,7 @@ export const InternshipTimelineTracker: React.FC<InternshipTimelineTrackerProps>
           }}
         >
           <span style={{ fontSize: 12, fontWeight: 800, color: '#818cf8', textTransform: 'uppercase' }}>Current Status:</span>
-          <span style={{ fontSize: 13, fontWeight: 900, color: '#ffffff' }}>Phase 1 (In Progress - {trainingProgressPct}%)</span>
+          <span style={{ fontSize: 13, fontWeight: 900, color: 'var(--t1)' }}>Phase 1 (In Progress - {trainingProgressPct}%)</span>
         </div>
       </div>
 
@@ -91,10 +91,10 @@ export const InternshipTimelineTracker: React.FC<InternshipTimelineTrackerProps>
             <span style={{ fontSize: 11, fontWeight: 900, color: '#818cf8', textTransform: 'uppercase' }}>PHASE 1</span>
             <span style={{ fontSize: 12, fontWeight: 800, color: '#10b981' }}>● Active (1h/day)</span>
           </div>
-          <div style={{ fontSize: 15, fontWeight: 800, color: '#ffffff' }}>
+          <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--t1)' }}>
             {plan.trainingDurationMonths}-Month Training
           </div>
-          <div style={{ fontSize: 12.5, color: '#94a3b8', lineHeight: 1.3 }}>
+          <div style={{ fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.3 }}>
             {completedQuestsCount} of {totalTrainingDays} Daily Quests Completed ({trainingProgressPct}%)
           </div>
           {/* Mini progress bar */}
@@ -113,7 +113,7 @@ export const InternshipTimelineTracker: React.FC<InternshipTimelineTrackerProps>
                 fontWeight: 700,
                 background: 'rgba(255, 255, 255, 0.06)',
                 border: '1px solid rgba(255, 255, 255, 0.1)',
-                color: '#cbd5e1',
+                color: 'var(--t1)',
                 cursor: 'pointer'
               }}
             >
@@ -128,18 +128,18 @@ export const InternshipTimelineTracker: React.FC<InternshipTimelineTrackerProps>
           style={{
             padding: 14,
             borderRadius: 14,
-            background: 'rgba(15, 23, 42, 0.6)',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            background: 'var(--bg2)',
+            border: '1px solid var(--border)',
             display: 'flex',
             flexDirection: 'column',
             gap: 8
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <span style={{ fontSize: 11, fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase' }}>PHASE 2</span>
+            <span style={{ fontSize: 11, fontWeight: 900, color: 'var(--t2)', textTransform: 'uppercase' }}>PHASE 2</span>
             <span style={{ fontSize: 12, fontWeight: 700, color: '#64748b' }}>🔒 Unlocks Month {plan.trainingDurationMonths + 1}</span>
           </div>
-          <div style={{ fontSize: 15, fontWeight: 800, color: '#cbd5e1' }}>
+          <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--t1)' }}>
             1-Month Production Project
           </div>
           <div style={{ fontSize: 12.5, color: '#64748b', lineHeight: 1.3 }}>
@@ -156,18 +156,18 @@ export const InternshipTimelineTracker: React.FC<InternshipTimelineTrackerProps>
           style={{
             padding: 14,
             borderRadius: 14,
-            background: 'rgba(15, 23, 42, 0.6)',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            background: 'var(--bg2)',
+            border: '1px solid var(--border)',
             display: 'flex',
             flexDirection: 'column',
             gap: 8
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <span style={{ fontSize: 11, fontWeight: 900, color: '#94a3b8', textTransform: 'uppercase' }}>PHASE 3</span>
+            <span style={{ fontSize: 11, fontWeight: 900, color: 'var(--t2)', textTransform: 'uppercase' }}>PHASE 3</span>
             <span style={{ fontSize: 12, fontWeight: 700, color: '#64748b' }}>🏢 Industry Experience</span>
           </div>
-          <div style={{ fontSize: 15, fontWeight: 800, color: '#cbd5e1' }}>
+          <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--t1)' }}>
             {plan.internshipDurationMonths} Real Internship
           </div>
           <div style={{ fontSize: 12.5, color: '#64748b', lineHeight: 1.3 }}>
@@ -195,10 +195,10 @@ export const InternshipTimelineTracker: React.FC<InternshipTimelineTrackerProps>
             <span style={{ fontSize: 11, fontWeight: 900, color: '#10b981', textTransform: 'uppercase' }}>PHASE 4</span>
             <span style={{ fontSize: 12, fontWeight: 800, color: '#10b981' }}>🎓 Graduation</span>
           </div>
-          <div style={{ fontSize: 15, fontWeight: 800, color: '#ffffff' }}>
+          <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--t1)' }}>
             Placement Ready & Dual Certs
           </div>
-          <div style={{ fontSize: 12.5, color: '#94a3b8', lineHeight: 1.3 }}>
+          <div style={{ fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.3 }}>
             SHA-256 Verifiable Proof of Training + Real-time Experience Letter + Interview Referral Pipeline.
           </div>
           <div style={{ fontSize: 12, color: '#f59e0b', fontWeight: 700, marginTop: 'auto' }}>

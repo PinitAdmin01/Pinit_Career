@@ -371,11 +371,11 @@ export const QrModal: React.FC<QrModalProps> = ({
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
       style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.85)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: 20 }}
     >
-      <div style={{ width: '100%', maxWidth: 440, background: '#0f172a', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 20, padding: 28, textAlign: 'center' }}>
+      <div style={{ width: '100%', maxWidth: 440, background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 20, padding: 28, textAlign: 'center' }}>
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '4px 12px', borderRadius: 20, background: 'rgba(var(--success-rgb), 0.15)', color: 'var(--success-bright)', fontSize: 12, fontWeight: 800, textTransform: 'uppercase', marginBottom: 12 }}>
           <span>🛡️</span> Cryptographic Proof
         </div>
-        <h3 style={{ margin: '0 0 8px 0', fontSize: 22, fontWeight: 800, color: '#f8fafc' }}>
+        <h3 style={{ margin: '0 0 8px 0', fontSize: 22, fontWeight: 800, color: 'var(--t1)' }}>
           Verifiable Skill Passport QR
         </h3>
         <p style={{ margin: '0 0 20px 0', fontSize: 13, color: 'var(--text-muted)' }}>

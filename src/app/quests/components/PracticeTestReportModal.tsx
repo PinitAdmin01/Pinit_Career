@@ -54,8 +54,8 @@ export const PracticeTestReportModal: React.FC<PracticeTestReportModalProps> = (
         style={{
           width: '100%',
           maxWidth: 620,
-          background: 'linear-gradient(180deg, #0f172a 0%, #090d16 100%)',
-          border: '1.5px solid rgba(99, 102, 241, 0.4)',
+          background: 'linear-gradient(180deg, var(--card) 0%, var(--bg2) 100%)',
+          border: '1.5px solid var(--border)',
           borderRadius: 20,
           padding: '24px 26px',
           boxShadow: '0 20px 50px rgba(0, 0, 0, 0.6)',
