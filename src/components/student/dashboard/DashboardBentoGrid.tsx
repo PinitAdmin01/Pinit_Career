@@ -16,16 +16,18 @@ interface Props {
   careerScore: number;
   dnaScore: number;
   activeTrack: 'sde' | 'iot';
-  contributionDates: Date[];
-  getContributionsForDate: (date: Date) => number;
+  contributionDates?: Date[];
+  getContributionsForDate?: (date: Date) => number;
   activeStageIndex: number;
   learningMistakes?: any[];
 }
 
 export default function DashboardBentoGrid({
-  careerScore, dnaScore, activeTrack,
-  contributionDates, getContributionsForDate,
-  activeStageIndex, learningMistakes = [],
+  careerScore,
+  dnaScore,
+  activeTrack,
+  activeStageIndex,
+  learningMistakes = [],
 }: Props) {
   const cOS = useCareerOS();
   const accentRgb = activeTrack === 'iot' ? '20,184,166' : '99,102,241';
@@ -129,135 +131,58 @@ export default function DashboardBentoGrid({
         </p>
       </div>
 
-      {/* Row 1.5: Campus Attendance Marker & 75% Eligibility HUD */}
+      {/* Row 1.5: Campus Attendance Marker & 75% Eligibility HUD (Automatic check-in) */}
       <DashboardAttendanceMarker />
 
-      {/* Row 2: Radar + Heatmap */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 16 }}>
-
-        {/* Competencies Radar */}
-        <div className="db-glass" style={{ padding: 20 }}>
-          <span className="db-label">📊 SOCRATIC COMPETENCIES RADAR</span>
-          <h3 style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', margin: '2px 0 14px', fontFamily: 'var(--font-display)' }}>
-            Multi-Dimensional Skills
-          </h3>
-          <div style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
-            <svg viewBox="0 0 120 120" style={{ width: 190, height: 190, overflow: 'visible' }}>
-              {[0.25, 0.5, 0.75, 1.0].map((scale, i) => (
-                <polygon
-                  key={i}
-                  points={[0, 72, 144, 216, 288].map(ang => {
-                    const r = 46 * scale;
-                    const rad = ang * (Math.PI / 180);
-                    return `${+(60 + r * Math.sin(rad)).toFixed(1)},${+(60 - r * Math.cos(rad)).toFixed(1)}`;
-                  }).join(' ')}
-                  fill="none"
-                  stroke="rgba(255,255,255,0.06)"
-                  strokeWidth="0.8"
-                />
-              ))}
-              {[0, 72, 144, 216, 288].map((ang, i) => {
-                const rad = ang * (Math.PI / 180);
-                const x2 = +(60 + 46 * Math.sin(rad)).toFixed(1);
-                const y2 = +(60 - 46 * Math.cos(rad)).toFixed(1);
-                return <line key={i} x1="60" y1="60" x2={x2} y2={y2} stroke="rgba(255,255,255,0.06)" strokeWidth="0.8" />;
-              })}
-              <polygon
-                points={radarPoints}
-                fill={`rgba(${accentRgb},0.22)`}
-                stroke={accentVar}
-                strokeWidth="1.8"
-                style={{ transition: 'all 0.5s ease' }}
-              />
-              <text x="60" y="8" fill="var(--t3)" fontSize="6" fontFamily="var(--font-mono)" textAnchor="middle">CODING</text>
-              <text x="110" y="44" fill="var(--t3)" fontSize="6" fontFamily="var(--font-mono)" textAnchor="middle">AF</text>
-              <text x="96" y="112" fill="var(--t3)" fontSize="6" fontFamily="var(--font-mono)" textAnchor="middle">DATA</text>
-              <text x="24" y="112" fill="var(--t3)" fontSize="6" fontFamily="var(--font-mono)" textAnchor="middle">SOCRATIC</text>
-              <text x="10" y="44" fill="var(--t3)" fontSize="6" fontFamily="var(--font-mono)" textAnchor="middle">IoT</text>
-            </svg>
+      {/* Row 2: Competencies Radar card */}
+      <div className="db-glass" style={{ padding: 22 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10, marginBottom: 12 }}>
+          <div>
+            <span className="db-label">📊 SOCRATIC COMPETENCIES RADAR</span>
+            <h3 style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', margin: '2px 0 0', fontFamily: 'var(--font-display)' }}>
+              Multi-Dimensional Competency Matrix
+            </h3>
           </div>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: 16, marginTop: 10, fontSize: 11, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
-            <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-              <span style={{ width: 8, height: 8, borderRadius: 2, background: activeTrack === 'sde' ? 'var(--accent)' : 'var(--teal-mid)' }} />
-              Live Competency Profile
-            </span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 11.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
+            <span style={{ width: 8, height: 8, borderRadius: 2, background: activeTrack === 'sde' ? 'var(--accent)' : 'var(--teal-mid)' }} />
+            Active Track: <strong style={{ color: 'var(--t1)' }}>{activeTrack === 'sde' ? 'SDE Full-Stack' : 'IoT Embedded'}</strong>
           </div>
         </div>
 
-        {/* Heatmap with Right-Aligned Legend to eliminate text collisions */}
-        <div className="db-glass" style={{ padding: 20 }}>
-          <span className="db-label">🔥 SOCRATIC CONTRIBUTION TRACKER</span>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8, margin: '2px 0 14px' }}>
-            <h3 style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', margin: 0, fontFamily: 'var(--font-display)' }}>
-              Learning Activity &amp; Attendance Heatmap
-            </h3>
-            <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', padding: '2px 8px', borderRadius: 6, background: 'rgba(16,185,129,0.12)', color: '#10b981', border: '1px solid rgba(16,185,129,0.25)' }}>
-              84-Day Consistency Grid
-            </span>
-          </div>
-          <style>{`
-            .db-hcell { position: relative; }
-            .db-hcell:hover::after, .db-hcell:focus-visible::after { content: attr(data-tip); position:absolute; bottom:140%; left:50%; transform:translateX(-50%); background:#111827; color:#f3f4f6; border:1px solid rgba(255,255,255,0.08); padding:3px 7px; border-radius:4px; font-size:10px; font-family:var(--font-mono); white-space:nowrap; z-index:9999; pointer-events:none; }
-            .db-hcell:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; z-index: 10; }
-          `}</style>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-            {/* Month row */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(12,1fr)', gap: 4, paddingLeft: 24, fontSize: 9.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
-              {Array.from({ length: 12 }).map((_, ci) => {
-                const ws = contributionDates[ci * 7];
-                const show = ci === 0 || (ws && ws.getMonth() !== contributionDates[(ci - 1) * 7]?.getMonth());
-                return <div key={ci} style={{ visibility: show ? 'visible' : 'hidden' }}>{ws ? ws.toLocaleString('default', { month: 'short' }) : ''}</div>;
-              })}
-            </div>
-            <div style={{ display: 'flex', gap: 4, alignItems: 'flex-start' }}>
-              {/* Day labels */}
-              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: 104, fontSize: 9.5, color: 'var(--t3)', paddingRight: 4, fontFamily: 'var(--font-mono)', lineHeight: '12px' }}>
-                <span>Sun</span><span>Tue</span><span>Thu</span><span>Sat</span>
-              </div>
-              {/* Grid */}
-              <div role="grid" aria-label="Learning Activity Contribution Heatmap" style={{ display: 'grid', gridTemplateRows: 'repeat(7,1fr)', gridAutoFlow: 'column', gap: 3.5, flex: 1, height: 104 }}>
-                {contributionDates.map((date, idx) => {
-                  const cnt = getContributionsForDate(date);
-                  const lv = cnt === 0 ? 0 : cnt === 1 ? 1 : cnt === 2 ? 2 : 3;
-                  const fut = date > new Date();
-                  let bg = fut ? 'rgba(255,255,255,0.01)' : lv === 0 ? 'rgba(255,255,255,0.03)' : lv === 1 ? `rgba(${accentRgb},0.2)` : lv === 2 ? `rgba(${accentRgb},0.55)` : accentVar;
-                  const tip = fut ? 'Future' : `${cnt} contribution${cnt !== 1 ? 's' : ''} on ${date.toLocaleDateString('default', { month: 'short', day: 'numeric', year: 'numeric' })}`;
-                  return (
-                    <div 
-                      key={idx} 
-                      role="gridcell"
-                      tabIndex={fut ? -1 : 0}
-                      aria-label={tip}
-                      title={tip}
-                      data-tip={tip} 
-                      className="db-hcell" 
-                      style={{ aspectRatio: '1', background: bg, border: '1px solid var(--border)', borderRadius: 2, cursor: fut ? 'default' : 'pointer' }} 
-                    />
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Legend - Cleanly aligned to the right, zero text overlap */}
-            <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: 6, fontSize: 10, color: 'var(--t3)', marginTop: 8, fontFamily: 'var(--font-mono)' }}>
-              <span>Less</span>
-              <div style={{ display: 'flex', gap: 3, alignItems: 'center' }}>
-                {[0, 1, 2, 3].map(lv => (
-                  <div
-                    key={lv}
-                    style={{
-                      width: 10,
-                      height: 10,
-                      borderRadius: 2,
-                      background: lv === 0 ? 'rgba(255,255,255,0.03)' : lv === 1 ? `rgba(${accentRgb},0.2)` : lv === 2 ? `rgba(${accentRgb},0.55)` : accentVar,
-                      border: lv === 0 ? '1px solid var(--border)' : 'none'
-                    }}
-                  />
-                ))}
-              </div>
-              <span>More</span>
-            </div>
-          </div>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '10px 0' }}>
+          <svg viewBox="0 0 120 120" style={{ width: 220, height: 220, overflow: 'visible' }}>
+            {[0.25, 0.5, 0.75, 1.0].map((scale, i) => (
+              <polygon
+                key={i}
+                points={[0, 72, 144, 216, 288].map(ang => {
+                  const r = 46 * scale;
+                  const rad = ang * (Math.PI / 180);
+                  return `${+(60 + r * Math.sin(rad)).toFixed(1)},${+(60 - r * Math.cos(rad)).toFixed(1)}`;
+                }).join(' ')}
+                fill="none"
+                stroke="rgba(255,255,255,0.06)"
+                strokeWidth="0.8"
+              />
+            ))}
+            {[0, 72, 144, 216, 288].map((ang, i) => {
+              const rad = ang * (Math.PI / 180);
+              const x2 = +(60 + 46 * Math.sin(rad)).toFixed(1);
+              const y2 = +(60 - 46 * Math.cos(rad)).toFixed(1);
+              return <line key={i} x1="60" y1="60" x2={x2} y2={y2} stroke="rgba(255,255,255,0.06)" strokeWidth="0.8" />;
+            })}
+            <polygon
+              points={radarPoints}
+              fill={`rgba(${accentRgb},0.22)`}
+              stroke={accentVar}
+              strokeWidth="2"
+              style={{ transition: 'all 0.5s ease' }}
+            />
+            <text x="60" y="8" fill="var(--t3)" fontSize="6" fontFamily="var(--font-mono)" textAnchor="middle">CODING</text>
+            <text x="110" y="44" fill="var(--t3)" fontSize="6" fontFamily="var(--font-mono)" textAnchor="middle">ARCH</text>
+            <text x="96" y="112" fill="var(--t3)" fontSize="6" fontFamily="var(--font-mono)" textAnchor="middle">DATA</text>
+            <text x="24" y="112" fill="var(--t3)" fontSize="6" fontFamily="var(--font-mono)" textAnchor="middle">SOCRATIC</text>
+            <text x="10" y="44" fill="var(--t3)" fontSize="6" fontFamily="var(--font-mono)" textAnchor="middle">IoT</text>
+          </svg>
         </div>
       </div>
 

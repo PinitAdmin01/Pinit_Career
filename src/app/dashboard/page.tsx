@@ -1,50 +1,19 @@
 'use client';
 
 import Link from 'next/link';
-import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/context/AuthContext';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import WhatToDoToday from '@/components/ui/WhatToDoToday';
-import { QUESTS_REGISTRY } from '@/lib/data/questsData';
 
-// Sub-components (extracted from monolith)
-import DashboardHeaderHUD    from '@/components/student/dashboard/DashboardHeaderHUD';
-import DashboardStatsRow     from '@/components/student/dashboard/DashboardStatsRow';
-import DashboardBentoGrid    from '@/components/student/dashboard/DashboardBentoGrid';
-import DashboardMissionsPanel from '@/components/student/dashboard/DashboardMissionsPanel';
-import DashboardTrajectoryMap from '@/components/student/dashboard/DashboardTrajectoryMap';
+// Sub-components
+import DashboardHeaderHUD      from '@/components/student/dashboard/DashboardHeaderHUD';
+import CareerCourseProgressBar from '@/components/student/dashboard/CareerCourseProgressBar';
+import DashboardBentoGrid      from '@/components/student/dashboard/DashboardBentoGrid';
+import DashboardTrajectoryMap  from '@/components/student/dashboard/DashboardTrajectoryMap';
 import { DynamicRoleReadiness, StudentSkillProfile } from '@/lib/pathway/competencySchema';
 import { PathwayApiService } from '@/lib/api/pathwayApi';
-
-// ── Tier definitions ────────────────────────────────────────────────────────
-const TIERS = [
-  { label: 'Explorer',        minDna: 0,  color: 'var(--accent)',  emoji: '🌱' },
-  { label: 'Career Builder',  minDna: 20, color: 'var(--blue)',    emoji: '🔧' },
-  { label: 'Interview Ready', minDna: 40, color: 'var(--teal)',    emoji: '🎯' },
-  { label: 'Industry Ready',  minDna: 60, color: 'var(--purple)',  emoji: '⚡' },
-  { label: 'Elite Candidate', minDna: 80, color: 'var(--green)',   emoji: '🏆' },
-] as const;
-
-function computeLevel(xp: number, careerScore: number) {
-  let idx = 0;
-  for (let i = TIERS.length - 1; i >= 0; i--) {
-    if (careerScore >= TIERS[i].minDna) { idx = i; break; }
-  }
-  const current = TIERS[idx], next = TIERS[idx + 1] ?? null;
-  const span   = next ? (next.minDna - current.minDna) : 100;
-  const within = next ? Math.min(span, careerScore - current.minDna) : span;
-  return {
-    index: idx + 1,
-    label: current.label,
-    next:  next?.label ?? null,
-    xp,
-    xpToNext: next ? Math.max(0, (next.minDna - idx * 20) * 150) : 0,
-    pct:   Math.round((within / span) * 100),
-    color: current.color,
-    emoji: current.emoji,
-  };
-}
 
 // ── Evolution stages ────────────────────────────────────────────────────────
 const EVOLUTION_STAGES = [
@@ -55,7 +24,7 @@ const EVOLUTION_STAGES = [
   { stage: 5, minScore: 81 },
 ];
 
-// ── Scoped CSS (injected once, minimal) ─────────────────────────────────────
+// ── Scoped CSS ──────────────────────────────────────────────────────────────
 const DB_STYLES = `
   /* Page wrapper */
   .db-page { display:flex; flex-direction:column; gap:20px; max-width:1340px; margin:0 auto; padding:0 4px; }
@@ -100,35 +69,22 @@ const DB_STYLES = `
     --dash-subtext: var(--t2);
     --dash-banner:  linear-gradient(135deg,rgba(255,255,255,0.95),rgba(241,243,248,0.85));
   }
-
-  /* Responsive: stack 3-col missions to 1-col on mobile */
-  @media (max-width:768px) {
-    .db-missions-grid { grid-template-columns: 1fr !important; }
-  }
 `;
 
-// ── Main export ──────────────────────────────────────────────────────────────
 export default function DashboardPage() {
   const { user, loading: authLoading } = useAuth();
-  const router   = useRouter();
-  const cOS      = useCareerOS();
+  const router = useRouter();
+  const cOS = useCareerOS();
 
   const {
     onboardingAnswers,
-    vaultItems        = [],
-    xp                = 0,
     completedQuests   = [],
     roadmapGenerated  = false,
     trustScore        = 0,
     careerScore       = 0,
     dnaScore          = 0,
-    completedMissions = [],
-    onboardingStep    = 1,
-    jdMissingSkills   = [],
     generateFusedRoadmap,
-    updateVaultItem,
     setOnboarding,
-    addVaultItem,
   } = cOS;
 
   // ── Local state ────────────────────────────────────────────────────────────
@@ -139,15 +95,6 @@ export default function DashboardPage() {
   const [isGeneratingRoadmap,  setIsGeneratingRoadmap]  = useState(false);
   const [skillProfile,         setSkillProfile]         = useState<StudentSkillProfile | null>(null);
   const [roleReadiness,        setRoleReadiness]        = useState<DynamicRoleReadiness | null>(null);
-  const [attendanceRefresh,    setAttendanceRefresh]    = useState<number>(0);
-
-  useEffect(() => {
-    const handleAttendanceChange = () => setAttendanceRefresh((v) => v + 1);
-    if (typeof window !== 'undefined') {
-      window.addEventListener('pinit:attendance_checked_in', handleAttendanceChange);
-      return () => window.removeEventListener('pinit:attendance_checked_in', handleAttendanceChange);
-    }
-  }, []);
 
   // ── Mount guard ────────────────────────────────────────────────────────────
   useEffect(() => { setMounted(true); }, []);
@@ -180,7 +127,7 @@ export default function DashboardPage() {
     }
     loadPathwayData();
     return () => { isMounted = false; };
-  }, [user?.id, completedQuests, completedMissions]);
+  }, [user?.id, completedQuests]);
 
   // ── Role-based redirect ────────────────────────────────────────────────────
   useEffect(() => {
@@ -212,7 +159,6 @@ export default function DashboardPage() {
           }
         } catch { /* ignore */ }
       }
-      // Remote DB fallback if localStorage was cleared or user switched devices
       if (answersRoadmap && Array.isArray(answersRoadmap) && answersRoadmap.length > 0) {
         setRoadmapModules(answersRoadmap);
         try {
@@ -223,63 +169,6 @@ export default function DashboardPage() {
       setRoadmapModules([]);
     }
   }, [user?.id, completedQuests, roadmapGenerated, answersRoadmap]);
-
-  // ── 84-day contribution dates (Sun-anchored, 12 weeks) ────────────────────
-  const contributionDates = useMemo(() => {
-    const dates: Date[] = [];
-    const today     = new Date();
-    const startDate = new Date(today);
-    startDate.setDate(today.getDate() - (11 * 7) - today.getDay());
-    startDate.setHours(0, 0, 0, 0);
-    const temp = new Date(startDate);
-    for (let i = 0; i < 84; i++) { dates.push(new Date(temp)); temp.setDate(temp.getDate() + 1); }
-    return dates;
-  }, []);
-
-  const getContributionsForDate = useCallback((date: Date) => {
-    const str = date.toDateString();
-    let count = 0;
-    const qTs: string[] = (onboardingAnswers as any)?.completedQuestsTimestamps || [];
-    const mTs: string[] = (onboardingAnswers as any)?.completedMissionsTimestamps || [];
-
-    // 1. Parse quest completion timestamps safely
-    qTs.forEach(ts => {
-      if (!ts) return;
-      const iso = ts.includes('|') ? ts.split('|')[0] : ts;
-      const d = new Date(iso);
-      if (!isNaN(d.getTime()) && d.toDateString() === str) count++;
-    });
-
-    // 2. Parse daily missions timestamps safely
-    mTs.forEach(ts => {
-      if (!ts) return;
-      const iso = ts.includes('|') ? ts.split('|')[0] : ts;
-      const d = new Date(iso);
-      if (!isNaN(d.getTime()) && d.toDateString() === str) count++;
-    });
-
-    // 3. Check official campus attendance records for this date
-    if (typeof window !== 'undefined' && user?.id) {
-      try {
-        const raw = localStorage.getItem(`pinit_attendance_v2_${user.id}`);
-        if (raw) {
-          const parsed = JSON.parse(raw);
-          const y = date.getFullYear();
-          const m = String(date.getMonth() + 1).padStart(2, '0');
-          const dy = String(date.getDate()).padStart(2, '0');
-          const ymd = `${y}-${m}-${dy}`;
-          if (Array.isArray(parsed.attended_days) && parsed.attended_days.includes(ymd)) {
-            count++;
-          }
-        }
-      } catch {}
-    }
-
-    return count;
-  }, [onboardingAnswers, user?.id, attendanceRefresh]);
-
-  // ── Unverified credentials tracking ───────────────────────────────────────
-  const unverifiedItems = (vaultItems || []).filter(v => !v.verified);
 
   // ── Trajectory selection handler ───────────────────────────────────────────
   const handleChooseTrajectory = async (trackTitle: string) => {
@@ -302,27 +191,6 @@ export default function DashboardPage() {
       'Industrial IoT Security':                  { skills:['Secure Boot','AES','X.509'],      weak:['OCSP','Firmware Rollbacks'],        courseId:'course-iot-security' },
       '3D Graphics & Avatar Animation':           { skills:['WebGL','Three.js','VRM'],         weak:['IK Solvers','Rigging'],             courseId:'course-3d-graphics' },
       'AI Software Engineer':                     { skills:['Python','PyTorch','LLMs'],        weak:['Pipelines','Vector DBs'],           courseId:'course-ai-eng' },
-      'Digital Accountant & Taxation Specialist': { skills:['Tally Prime','GST','Double-Entry Bookkeeping'], weak:['ITC Reconciliation','Tax Sampling'], courseId:'course-digital-accounting' },
-      'Financial Analyst & Investment Specialist': { skills:['Financial Modeling','Valuation','TVM'], weak:['WACC Variations','M&A Dilution'], courseId:'course-finance-investment' },
-      'Business Analytics & Decision Intelligence Specialist': { skills:['Excel Analytics','Power BI','SQL Querying'], weak:['Predictive Modeling','A/B Test Design'], courseId:'course-business-analytics' },
-      'Marketing & Brand Manager': { skills:['Consumer Insights','Brand Development','Pricing Strategy'], weak:['Media Mix Modeling','Brand Equity Metrics'], courseId:'course-marketing-branding' },
-      'Digital Marketing & Growth Strategist': { skills:['SEO','Paid Performance Ads','CRO Analytics'], weak:['Attribution Modeling','Paid Unit Economics'], courseId:'course-digital-marketing' },
-      'E-Commerce & Digital Business Specialist': { skills:['Store UX','Payment Gateways','Logistics Fulfillment'], weak:['Cart Abandonment','Inventory Turnover'], courseId:'course-ecommerce-digital-biz' },
-      'Entrepreneur & Business Manager': { skills:['Business Model Canvas','Startup Finance','Break-Even Analysis'], weak:['Investor Valuation','Working Capital'], courseId:'course-entrepreneurship-biz-mgmt' },
-      'Sales, Customer Success & CRM Specialist': { skills:['Consultative Selling','BANT Qualification','LAER Objection Handling'], weak:['Sales Velocity','Enterprise Contracting'], courseId:'course-sales-crm-success' },
-      'Operations, Supply Chain & Compliance Specialist': { skills:['Process Mapping','EOQ Inventory','Lean 5S'], weak:['Supply Chain Bottlenecks','ISO Quality Compliance'], courseId:'course-operations-supplychain-compliance' },
-      'AI & Digital Transformation Business Specialist': { skills:['AI Business Literacy','Prompt Engineering','RPA Automation'], weak:['RPA Scalability','AI Governance'], courseId:'course-ai-digital-transformation' },
-      'Management Consultant & Business Strategist': { skills:['Hypothesis-Driven Problem Solving','MECE Structuring','Market Sizing','Corporate Valuation'], weak:['Market Sizing Estimation','Turnaround Modeling'], courseId:'course-entrepreneurship-biz-mgmt' },
-      'Product Manager (Tech & Business Strategy)': { skills:['Product Roadmaps','PRDs','Agile Sprints','RICE Prioritization'], weak:['Telemetry Funnels','Feasibility Auditing'], courseId:'course-design-systems' },
-      'Human Resources & People Operations Specialist': { skills:['Talent Acquisition','HR Analytics','Labor Law Compliance','Performance Frameworks'], weak:['Attrition Modeling','Compensation Benchmarks'], courseId:'course-operations-supplychain-compliance' },
-      'Scientific & Quantitative Research Specialist': { skills:['Research Methodology','Statistical Modeling','Python for Research'], weak:['Hypothesis Testing','Publication Standards'], courseId:'course-business-analytics' },
-      'Public Policy, Compliance & Legal Specialist': { skills:['Regulatory Compliance','Statutory Analysis','Policy Evaluation'], weak:['Cross-Border Alignment','Administrative Hearings'], courseId:'course-operations-supplychain-compliance' },
-      'Education & Learning Technology Specialist': { skills:['Instructional Design','Pedagogical Assessment','Learning Analytics'], weak:['Formative Rubrics','EdTech Integration'], courseId:'course-operations-supplychain-compliance' },
-      'Healthcare & Clinical Operations Analyst': { skills:['Healthcare Data Management','Clinical Analytics','Health Informatics'], weak:['Healthcare Compliance (HIPAA)','EHR Auditing'], courseId:'course-business-analytics' },
-      'Digital Media & Communications Specialist': { skills:['Investigative Journalism','Multimedia Content','Digital Publishing'], weak:['Fact-Checking Protocols','Media Ethics'], courseId:'course-digital-marketing' },
-      'Core Systems & Hardware Engineer': { skills:['Embedded C/C++','Circuit Design','Microcontroller Interfacing'], weak:['RTOS Basics','PCB Layout'], courseId:'course-iot-embedded' },
-      'Creative & Digital Arts Specialist': { skills:['Visual Design','Digital Illustration','Concept Art'], weak:['Interactive Prototyping','3D Optimization'], courseId:'course-design-systems' },
-      'Social Impact & Non-Profit Program Manager': { skills:['Program Management','Grant Writing','Impact Measurement'], weak:['M&E Frameworks','Donor Reporting'], courseId:'course-operations-supplychain-compliance' },
     };
     const cfg = TRACK_MAP[trackTitle] || { skills:['Node.js','Docker','React'], weak:['CI/CD','APIs'], courseId:'course-fullstack-js' };
     try {
@@ -332,20 +200,11 @@ export default function DashboardPage() {
     finally { setIsGeneratingRoadmap(false); }
   };
 
-  // ── Computed values ────────────────────────────────────────────────────────
-  const level = computeLevel(xp, careerScore);
-
+  // ── Computed evolution stage ───────────────────────────────────────────────
   let activeStageIndex = 0;
   for (let i = EVOLUTION_STAGES.length - 1; i >= 0; i--) {
     if (careerScore >= EVOLUTION_STAGES[i].minScore) { activeStageIndex = i; break; }
   }
-
-  // Next step logic
-  let nextStep = { title:'Setup Your Career OS Profile', desc:'Take the 2-min assessment to map your strengths.', href:'/career-twin', icon:'🧬', color:'var(--accent)' };
-  if (!roadmapGenerated)                nextStep = { title:'Choose Career Trajectory',   desc:'Select a target track to build your custom quest roadmap.',     href:'#trajectory-selector', icon:'🛠️', color:'var(--teal)' };
-  if (roadmapGenerated)                 nextStep = { title:'Launch Your Next Quest', desc:'Start learning in your customized roadmap.', href:'/quests?tab=custom_roadmap', icon:'🗺️', color:'var(--blue)' };
-  if (completedQuests.length > 0 && vaultItems.length === 0) nextStep = { title:'Upload to Evidence Vault', desc:'Certifications and project docs boost your Trust Score.', href:'/vault', icon:'🗂️', color:'var(--purple)' };
-  if (completedQuests.length > 0 && completedMissions.length === 0) nextStep = { title:'Solve Your First Mission',  desc:'5 personalised missions generated daily to close skill gaps.',  href:'/missions',    icon:'⚡', color:'var(--amber)' };
 
   // Profile for WhatToDoToday
   function profileForActions() {
@@ -361,10 +220,12 @@ export default function DashboardPage() {
       weak_areas:           (user?.weak_areas  as string[] | undefined) ?? [],
       skill_tags:           (user?.skill_tags  as string[] | undefined) ?? [],
       xp_total:             cOS.xp || 0,
+      active_track:         activeTrack,
+      target_role:          roleReadiness?.targetRole || (onboardingAnswers as any)?.targetRole,
     };
   }
 
-  // ── Render guard: Prevent leaking private dashboard to unauthenticated sessions ──
+  // ── Render guard ───────────────────────────────────────────────────────────
   if (!mounted || authLoading) {
     return (
       <div style={{ minHeight: '100vh', background: 'var(--bg)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -397,7 +258,7 @@ export default function DashboardPage() {
     <div className="db-page animate-fade-in">
       <style>{DB_STYLES}</style>
 
-      {/* 1. Hero HUD — unified mission cockpit (hologram + greeting + live pathway & skills + dynamic job match + track toggle) */}
+      {/* 1. Hero HUD: Hologram + Dynamic Greeting + Top Trust Button + Track Switcher */}
       <DashboardHeaderHUD
         user={user}
         careerScore={careerScore}
@@ -409,39 +270,22 @@ export default function DashboardPage() {
         roleReadiness={roleReadiness}
       />
 
-      {/* 2. Stats Row — XP tier, Career Score ring, Trust Quotient */}
-      <DashboardStatsRow
-        xp={xp}
-        careerScore={careerScore}
-        trustScore={trustScore}
-        level={level}
-        unverifiedCount={unverifiedItems.length}
-        vaultItemsCount={vaultItems.length}
-        userRole={user?.role}
-        onSeedDemo={() => addVaultItem({ title:'AWS Certified Cloud Practitioner', item_type:'certification', organization_name:'Amazon Web Services', description:'Validation of AWS Cloud platform understanding.', skill_tags:['Cloud','AWS','IAM','EC2'] })}
-      />
+      {/* 2. Creative Career Course Progress Bar (Task 4) */}
+      <CareerCourseProgressBar />
 
-      {/* 3. Bento Grid — Evolution timeline, Radar, Heatmap, Mistakes */}
+      {/* 3. Bento Grid: Evolution Timeline, Automatic Attendance Marker, Competencies Radar */}
       <DashboardBentoGrid
         careerScore={careerScore}
         dnaScore={dnaScore}
         activeTrack={activeTrack}
-        contributionDates={contributionDates}
-        getContributionsForDate={getContributionsForDate}
         activeStageIndex={activeStageIndex}
         learningMistakes={cOS.onboardingAnswers?.learning_mistakes || []}
       />
 
-      {/* 4. Priority action checklist */}
+      {/* 4. Priority Action Checklist: 3 concise, dynamic actions */}
       <WhatToDoToday profile={profileForActions()} />
 
-      {/* 5. Missions Panel — Next Step + Missions + Activity Feed */}
-      <DashboardMissionsPanel
-        nextStep={nextStep}
-        userId={user?.id}
-      />
-
-      {/* 6. Trajectory Map — collapsed by default (Bug 6 fix) */}
+      {/* 5. Trajectory Map (Roadmap generator) */}
       <DashboardTrajectoryMap
         roadmapGenerated={roadmapGenerated}
         roadmapModules={roadmapModules}

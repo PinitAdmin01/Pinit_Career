@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { api } from '@/lib/api/client';
 import { CS, AuditLogItem } from './types';
+import LearningHeatmapCard from '@/components/student/dashboard/LearningHeatmapCard';
 
 interface ActivityTabProps {
   user: any;
@@ -36,7 +37,10 @@ export default function ActivityTab({ user }: ActivityTabProps) {
   }, [user?.id]);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }} className="animate-fade-in">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }} className="animate-fade-in">
+      {/* 84-Day Learning Activity & Attendance Heatmap (relocated from Dashboard) */}
+      <LearningHeatmapCard />
+
       <div style={CS.card}>
         <div style={CS.cardTitle}>📜 Activity History</div>
         <p style={{ fontSize: 13, color: 'var(--t3)', marginBottom: 16 }}>

@@ -1,102 +1,112 @@
 'use client';
-// apps/web/src/components/ui/WhatToDoToday.tsx
-// Generates 3 personalised action cards from existing career_profiles data.
-// Zero new API calls — derives everything from the profile already loaded on dashboard.
 
 import Link from 'next/link';
 
-interface Profile {
-  ats_score?:           number;
-  trust_score?:         number;
-  career_dna_score?:    number;
-  mission_streak?:      number;
-  missions_completed?:  number;
-  recruiter_visibility?:number;
-  vault_count?:         number;
-  interviews_done?:     number;
-  weak_areas?:          string[];
-  skill_tags?:          string[];
-  xp_total?:            number;
+export interface ActionProfile {
+  ats_score?: number;
+  trust_score?: number;
+  career_dna_score?: number;
+  mission_streak?: number;
+  missions_completed?: number;
+  recruiter_visibility?: number;
+  vault_count?: number;
+  interviews_done?: number;
+  weak_areas?: string[];
+  skill_tags?: string[];
+  xp_total?: number;
+  active_track?: 'sde' | 'iot' | string;
+  target_role?: string;
 }
 
 interface Action {
-  icon:    string;
-  title:   string;
-  desc:    string;
-  href:    string;
-  cta:     string;
-  color:   string;
-  urgency: number; // higher = more important, determines order
+  icon: string;
+  title: string;
+  desc: string;
+  href: string;
+  cta: string;
+  color: string;
+  urgency: number;
 }
 
-function pickActions(profile: Profile): Action[] {
-  const ats     = profile?.ats_score           || 0;
-  const trust   = profile?.trust_score         || 0;
-  const streak  = profile?.mission_streak      || 0;
-  const vault   = profile?.vault_count         || 0;
-  const recVis  = profile?.recruiter_visibility|| 0;
-  const done    = profile?.missions_completed  || 0;
-  const intDone = profile?.interviews_done     || 0;
+function pickActions(profile: ActionProfile): Action[] {
+  const ats = profile?.ats_score || 0;
+  const trust = profile?.trust_score || 0;
+  const streak = profile?.mission_streak || 0;
+  const vault = profile?.vault_count || 0;
+  const intDone = profile?.interviews_done || 0;
+  const trackName = profile?.active_track === 'iot' ? 'IoT Hardware' : 'SDE Software';
 
   const candidates: Action[] = [
     // 1. Resume / ATS Optimization
     {
-      icon: '📄', color: 'var(--accent)',
-      title: ats === 0 ? 'Optimize your resume' : 'Review resume SDE keywords',
+      icon: '📄',
+      color: 'var(--accent)',
+      title: ats === 0 ? 'Optimize Resume' : `Resume Score (${ats}/100)`,
       desc: ats === 0
-        ? 'Your ATS score is low (0/100). Upload your resume in the Career Builder to identify keyword gaps.'
-        : `Your resume is at ${ats}/100. Close missing keyword tags to push your score towards 80+.`,
-      href: '/career-builder', cta: 'Go to Resume Builder ➔',
-      urgency: ats === 0 ? 95 : ats < 55 ? 75 : 10
+        ? `Upload your resume to map keyword gaps for ${trackName}.`
+        : `Close missing technical keywords to reach 80+ benchmark.`,
+      href: '/career-builder',
+      cta: 'Open Resume Builder →',
+      urgency: ats === 0 ? 95 : ats < 55 ? 75 : 10,
     },
     // 2. Mission Streak
     {
-      icon: '🔥', color: 'var(--amber)',
-      title: streak === 0 ? 'Start your daily mission streak' : 'Keep the streak going',
+      icon: '🔥',
+      color: 'var(--amber)',
+      title: streak === 0 ? 'Start Daily Streak' : `Extend ${streak}-Day Streak`,
       desc: streak === 0
-        ? 'Complete a daily mission roleplay today to start building your streak. Consistent users get 3x more recruiter views.'
-        : `Outstanding! You are on a ${streak}-day daily streak. Complete today's mission to extend it.`,
-      href: '/missions', cta: 'Launch Daily Mission ➔',
-      urgency: streak === 0 ? 90 : streak < 3 ? 60 : 15
+        ? 'Complete a 15-min daily mission to begin building your consistency record.'
+        : `Complete today's quick sprint to keep your focus streak alive.`,
+      href: '/missions',
+      cta: 'Launch Today’s Mission →',
+      urgency: streak === 0 ? 90 : streak < 3 ? 60 : 15,
     },
     // 3. Trust Score
     {
-      icon: '🛡️', color: 'var(--green)',
-      title: trust < 50 ? 'Verify a skill to build trust' : 'Boost your Trust Score further',
+      icon: '🛡️',
+      color: 'var(--green)',
+      title: trust < 50 ? 'Boost Trust Quotient' : `Trust Score (${Math.round(trust)}/100)`,
       desc: trust < 50
-        ? `Your Trust Score is below 50. Pass coding exams or upload certificates to unlock recruiter visibility.`
-        : `Your Trust Score is solid at ${Math.round(trust)}/100. Passing another proctored exam keeps it high.`,
-      href: '/vault', cta: 'Verify credentials ➔',
-      urgency: trust < 50 ? 88 : trust < 70 ? 45 : 8
+        ? 'Verify a certificate or pass a quick coding quiz to build recruiter trust.'
+        : 'Institutional trust is verified. Add more credentials to maintain 90+ standing.',
+      href: '/trust',
+      cta: 'Verify Credentials →',
+      urgency: trust < 50 ? 88 : trust < 70 ? 45 : 8,
     },
     // 4. Mock Interviews
     {
-      icon: '🎙️', color: 'var(--blue)',
-      title: intDone === 0 ? 'Clear your first SDE interview' : 'Schedule mock SDE practice',
+      icon: '🎙️',
+      color: 'var(--blue)',
+      title: intDone === 0 ? 'First AI Mock Round' : `Mock Practice (${intDone} Cleared)`,
       desc: intDone === 0
-        ? 'You have not completed any mock interviews. Practice technical/behavioral rounds with Vikram or Priya.'
-        : `You have cleared ${intDone} mock rounds. Take an advanced systems design practice session.`,
-      href: '/interview', cta: 'Start Mock Interview ➔',
-      urgency: intDone === 0 ? 82 : intDone < 3 ? 40 : 12
+        ? 'Practice a 10-minute technical interview with Priya to build confidence.'
+        : 'Take an advanced system design or problem-solving mock round.',
+      href: '/interview',
+      cta: 'Start Mock Interview →',
+      urgency: intDone === 0 ? 82 : intDone < 3 ? 40 : 12,
     },
-    // 5. Vault items
+    // 5. Evidence Vault
     {
-      icon: '🗂️', color: 'var(--purple)',
-      title: vault === 0 ? 'Upload proof to Evidence Vault' : 'Expand your Vault assets',
+      icon: '🗂️',
+      color: 'var(--purple)',
+      title: vault === 0 ? 'Add Proof to Vault' : `Vault Assets (${vault})`,
       desc: vault === 0
-        ? 'Your Vault is empty. Upload project documentation, university degrees, or course certificates.'
-        : `You have ${vault} items in your Vault. Add verified assets to showcase on your profile.`,
-      href: '/vault', cta: 'Open Evidence Vault ➔',
-      urgency: vault === 0 ? 84 : vault < 3 ? 50 : 15
+        ? 'Store GitHub repos, degrees, or certifications in your tamper-proof Vault.'
+        : 'Your vault credentials back your verified skill score.',
+      href: '/vault',
+      cta: 'Open Vault →',
+      urgency: vault === 0 ? 84 : vault < 3 ? 50 : 15,
     },
     // 6. Group Discussion Boardroom
     {
-      icon: '💬', color: 'var(--teal)',
-      title: 'Join System Design debate',
-      desc: 'Top-tier roles require strong communication. Join immersive boardroom debates with AI participants.',
-      href: '/group-discussion', cta: 'Join Boardroom ➔',
-      urgency: done < 3 ? 65 : 10
-    }
+      icon: '💬',
+      color: 'var(--teal)',
+      title: 'AI Boardroom Debate',
+      desc: 'Sharpen your technical communication and collaborative argumentation skills.',
+      href: '/group-discussion',
+      cta: 'Enter Boardroom →',
+      urgency: 25,
+    },
   ];
 
   return candidates
@@ -104,54 +114,97 @@ function pickActions(profile: Profile): Action[] {
     .slice(0, 3);
 }
 
-// ── Component ─────────────────────────────────────────────────────────────────
-export default function WhatToDoToday({ profile }: { profile: Profile | null | undefined }) {
+export default function WhatToDoToday({ profile }: { profile: ActionProfile | null | undefined }) {
   if (!profile) return null;
   const actions = pickActions(profile);
 
   return (
-    <div style={{
-      background: 'var(--bg2)', border: '1px solid var(--border)',
-      borderRadius: 'var(--radius-xl)', padding: '18px 20px',
-      boxShadow: 'var(--shadow-sm)',
-    }}>
+    <div
+      data-testid="what-to-do-today-root"
+      className="db-glass"
+      style={{
+        padding: '18px 22px',
+        borderRadius: 16,
+        background: 'var(--card, var(--bg2))',
+        border: '1px solid var(--border)',
+        boxShadow: 'var(--shadow-sm)',
+      }}
+    >
       {/* Header */}
-      <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:14 }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
         <div>
-          <div style={{ fontSize:11.5, letterSpacing:'0.8px', textTransform:'uppercase', color:'var(--t3)', fontFamily:'var(--font-mono)', fontWeight:600, marginBottom:3 }}>
+          <div style={{ fontSize: 11, letterSpacing: '0.8px', textTransform: 'uppercase', color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontWeight: 800, marginBottom: 2 }}>
             What to do today
           </div>
-          <div style={{ fontSize:14.5, color:'var(--t2)' }}>3 actions personalised to your career profile</div>
+          <div style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--t1)' }}>
+            3 concise actions personalized to your career progress
+          </div>
         </div>
-        <Link href="/missions" style={{ fontSize:12, color:'var(--accent)', textDecoration:'none', fontFamily:'var(--font-mono)' }}>
+        <Link
+          href="/missions"
+          style={{
+            fontSize: 12,
+            fontWeight: 700,
+            color: 'var(--accent)',
+            textDecoration: 'none',
+            fontFamily: 'var(--font-mono)',
+            padding: '4px 10px',
+            borderRadius: 6,
+            background: 'rgba(99,102,241,0.08)',
+            border: '1px solid rgba(99,102,241,0.2)',
+          }}
+        >
           All missions →
         </Link>
       </div>
 
       {/* Action cards */}
-      <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(220px,1fr))', gap:10 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 12 }}>
         {actions.map((action, i) => (
-          <Link key={action.href + i} href={action.href} style={{ textDecoration:'none' }}>
-            <div style={{
-              background: 'var(--bg3)', border: `1.5px solid ${action.color}22`,
-              borderRadius: 'var(--radius-lg)', padding: '14px 16px',
-              cursor: 'pointer', transition: 'all 0.15s',
-              borderLeft: `4px solid ${action.color}`,
-            }}
-            onMouseEnter={e => { e.currentTarget.style.transform='translateY(-2px)'; e.currentTarget.style.boxShadow='var(--shadow-md)'; }}
-            onMouseLeave={e => { e.currentTarget.style.transform='translateY(0)'; e.currentTarget.style.boxShadow='none'; }}
+          <Link key={action.href + i} href={action.href} style={{ textDecoration: 'none' }}>
+            <div
+              style={{
+                background: 'var(--bg3)',
+                border: `1.5px solid ${action.color}33`,
+                borderRadius: 12,
+                padding: '14px 16px',
+                cursor: 'pointer',
+                transition: 'all 0.18s ease',
+                borderLeft: `4px solid ${action.color}`,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                height: '100%',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.borderColor = action.color;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.borderColor = `${action.color}33`;
+              }}
             >
-              <div style={{ display:'flex', alignItems:'center', gap:8, marginBottom:8 }}>
-                <span style={{ fontSize:22 }}>{action.icon}</span>
-                <span style={{ fontSize:12.5, fontWeight:700, color:action.color }}>Priority {i+1}</span>
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <span style={{ fontSize: 20 }}>{action.icon}</span>
+                    <span style={{ fontSize: 11.5, fontWeight: 800, color: action.color, fontFamily: 'var(--font-mono)' }}>
+                      Priority {i + 1}
+                    </span>
+                  </div>
+                </div>
+
+                <div style={{ fontWeight: 800, fontSize: 14, color: 'var(--t1)', marginBottom: 4, lineHeight: 1.3 }}>
+                  {action.title}
+                </div>
+
+                <div style={{ fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.45, marginBottom: 12 }}>
+                  {action.desc}
+                </div>
               </div>
-              <div style={{ fontWeight:700, fontSize:14.5, color:'var(--t1)', marginBottom:5, lineHeight:1.3 }}>
-                {action.title}
-              </div>
-              <div style={{ fontSize:12.5, color:'var(--t2)', lineHeight:1.55, marginBottom:10 }}>
-                {action.desc}
-              </div>
-              <div style={{ fontSize:12.5, fontWeight:700, color:action.color }}>
+
+              <div style={{ fontSize: 12, fontWeight: 800, color: action.color, fontFamily: 'var(--font-mono)', display: 'flex', alignItems: 'center', gap: 4 }}>
                 {action.cta}
               </div>
             </div>
