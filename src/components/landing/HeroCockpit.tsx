@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 
 import React, { useState, useRef, type CSSProperties, type MouseEvent } from 'react';
 
@@ -70,9 +71,8 @@ export default function HeroCockpit({ onOpenLogin, onExploreCourses }: HeroCockp
               <div className="lp-ring" aria-hidden />
               <div className="lp-ring lp-ring-soft" aria-hidden />
               <div className="lp-logo">
-                <div className="lp-badge lp-badge-official" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 12px' }}>
-                  <span style={{ width: 24, height: 24, borderRadius: 6, background: 'linear-gradient(135deg, var(--teal, #14b8a6), var(--accent, #0284c7))', color: '#fff', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: 12 }}>P</span>
-                  <span style={{ fontWeight: 900, fontSize: 14, letterSpacing: '-0.02em', color: '#ffffff' }}>PINIT <span style={{ color: 'var(--teal, #14b8a6)' }}>CAREER</span></span>
+                <div className="lp-badge lp-badge-official">
+                  <Image src="/brand/pinit-career-logo-clear.png" alt="PINIT CAREER" width={120} height={32} style={{ width: 'auto', height: 'auto', maxHeight: 32 }} priority />
                 </div>
               </div>
               <ul className="lp-terms">

@@ -258,7 +258,6 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
             whiteSpace: 'nowrap',
           }}
         >
-          <span style={{ fontSize: 20 }}>🏆</span>
           <span>Certification Programs</span>
         </button>
 
@@ -290,7 +289,6 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
             whiteSpace: 'nowrap',
           }}
         >
-          <span style={{ fontSize: 20 }}>🗺️</span>
           <span>Custom Roadmap</span>
         </button>
 
@@ -322,7 +320,6 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
             whiteSpace: 'nowrap',
           }}
         >
-          <span style={{ fontSize: 20 }}>📦</span>
           <span>Standalone Course</span>
         </button>
 
@@ -354,7 +351,6 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
             whiteSpace: 'nowrap',
           }}
         >
-          <span style={{ fontSize: 20 }}>🌐</span>
           <span>Language Academy</span>
         </button>
       </div>
@@ -382,7 +378,6 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 14 }}>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{ fontSize: 26.5 }}>🏆</span>
                 <h3 style={{ fontSize: 18.5, fontWeight: 900, color: 'var(--t1)', margin: 0, fontFamily: 'var(--font-display)' }}>
                   {activeEnrollment ? 'My certificate course' : 'Certificate courses'}
                 </h3>
@@ -415,7 +410,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                         boxShadow: '0 4px 14px rgba(99, 102, 241, 0.25)'
                       }}
                     >
-                      <span>🏢</span> {INTERNSHIP_AVAILABLE ? 'Internship Portal' : 'Capstone Desk'}
+                      {INTERNSHIP_AVAILABLE ? 'Internship Portal' : 'Capstone Desk'}
                     </button>
                   )}
 
@@ -437,7 +432,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                       boxShadow: '0 4px 14px rgba(var(--success-rgb),0.3)'
                     }}
                   >
-                    <span>📲</span> Share &amp; Verify (QR)
+                    Share &amp; Verify (QR)
                   </button>
                 </>
               ) : null}
@@ -614,7 +609,6 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
                 gap: 10
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <span style={{ fontSize: 20 }}>🎓</span>
                   <div>
                     <span style={{ fontSize: 14, fontWeight: 800, color: 'var(--success)' }}>
                       {showPassportDetails ? 'Hide Competency Evidence Matrix' : 'Full Multi-Semester Competency Matrix & Evidence Transcript'}
@@ -844,7 +838,6 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
         }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span style={{ fontSize: 24 }}>🗺️</span>
               <h3 style={{ fontSize: 17.5, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
                 Dynamic Career Roadmap ({trajectory.roleTitle})
               </h3>
@@ -868,7 +861,7 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
               boxShadow: '0 4px 14px rgba(var(--success-rgb),0.3)'
             }}
           >
-            ✨ Generate Custom AI Roadmap
+            Generate Custom AI Roadmap
           </button>
         </div>
       )}
@@ -889,7 +882,6 @@ export const TrackSelectorDrawer: React.FC<TrackSelectorDrawerProps> = ({
         }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span style={{ fontSize: 24 }}>📚</span>
               <h3 style={{ fontSize: 17.5, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
                 Standalone Single-Course Learning
               </h3>

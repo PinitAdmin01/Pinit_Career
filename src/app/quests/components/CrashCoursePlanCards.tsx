@@ -88,11 +88,10 @@ export const CrashCoursePlanCards: React.FC<CrashCoursePlanCardsProps> = ({
                   fontFamily: 'var(--font-mono)',
                 }}
               >
-                <span>🏆</span> ISO-ALIGNED INDUSTRIAL ACCREDITATION
+                ISO-ALIGNED INDUSTRIAL ACCREDITATION
               </span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span style={{ fontSize: 24 }}>⚡</span>
               <h3
                 style={{
                   fontSize: 19,
@@ -150,7 +149,6 @@ export const CrashCoursePlanCards: React.FC<CrashCoursePlanCardsProps> = ({
                 transition: 'all 0.18s ease',
               }}
             >
-              <span>🌐</span>
               <span>Full-Stack Web Development</span>
               <span
                 style={{
@@ -188,7 +186,6 @@ export const CrashCoursePlanCards: React.FC<CrashCoursePlanCardsProps> = ({
                 transition: 'all 0.18s ease',
               }}
             >
-              <span>🐍</span>
               <span>Python & Data Engineering</span>
               <span
                 style={{
@@ -224,7 +221,7 @@ export const CrashCoursePlanCards: React.FC<CrashCoursePlanCardsProps> = ({
               }}
               title="Browse all standalone courses"
             >
-              <span>📦</span> Standalone Courses Library →
+              Standalone Courses Library →
             </button>
           </div>
         </div>
@@ -250,7 +247,6 @@ export const CrashCoursePlanCards: React.FC<CrashCoursePlanCardsProps> = ({
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <span style={{ fontSize: 14 }}>{activeTrack === 'web_fullstack' ? '🌐' : '🐍'}</span>
             <strong>
               {activeTrack === 'web_fullstack'
                 ? 'Option 1: Web Full Stack (React 19, TypeScript, Next.js, Node.js, PostgreSQL & Docker)'

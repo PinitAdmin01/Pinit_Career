@@ -50,7 +50,7 @@ export const InterviewSetupView: React.FC<InterviewSetupViewProps> = ({
   return (
     <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: 20 }}>
       <div className="iv-panel" style={{ padding: 28 }}>
-        <h2 style={{ fontSize: 20, fontWeight: 900, margin: '0 0 8px', color: 'var(--t1)' }}>🎙️ Start AI Corporate Interview</h2>
+        <h2 style={{ fontSize: 20, fontWeight: 900, margin: '0 0 8px', color: 'var(--t1)' }}>Start AI Corporate Interview</h2>
         <p style={{ fontSize: 14.5, color: 'var(--t2)', lineHeight: 1.6, margin: '0 0 20px' }}>
           Practice real-time corporate interviews with spoken voice communication, Monaco code sandbox, interactive architecture canvas, and automated role-weighted scoring.
         </p>
@@ -294,10 +294,10 @@ export const InterviewSetupView: React.FC<InterviewSetupViewProps> = ({
       {/* Persistent History Section */}
       <div className="iv-panel" style={{ padding: 24, display: 'flex', flexDirection: 'column' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
-          <h3 style={{ fontSize: 15.5, fontWeight: 900, margin: 0, color: 'var(--t1)' }}>📜 Past Session History ({sessions.length})</h3>
+          <h3 style={{ fontSize: 15.5, fontWeight: 900, margin: 0, color: 'var(--t1)' }}>Past Session History ({sessions.length})</h3>
           {sessions.length > 0 && (
             <button onClick={clearSessionHistory} style={{ background: 'none', border: 'none', color: 'var(--coral-mid)', fontSize: 12, fontWeight: 800, cursor: 'pointer' }}>
-              🗑️ Clear
+              Clear
             </button>
           )}
         </div>

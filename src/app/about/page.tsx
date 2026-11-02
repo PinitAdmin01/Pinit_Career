@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 
 import React, { useState, Suspense } from 'react';
 import Link from 'next/link';
@@ -26,9 +27,10 @@ function AboutPageContent() {
       {/* 1. NAVBAR */}
       <nav className="about-navbar">
         <div className="container nav-content">
-          <Link href="/" className="brand-logo lp-brand" aria-label="PINIT CAREER home" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, textDecoration: 'none' }}>
-            <span style={{ width: 28, height: 28, borderRadius: 7, background: 'linear-gradient(135deg, var(--teal, #14b8a6), var(--accent, #0284c7))', color: '#fff', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: 14 }}>P</span>
-            <span style={{ fontWeight: 900, fontSize: 16.5, letterSpacing: '-0.02em', color: 'var(--text-primary, #ffffff)' }}>PINIT <span style={{ color: 'var(--teal, #14b8a6)' }}>CAREER</span></span>
+          <Link href="/" className="brand-logo lp-brand" aria-label="PINIT CAREER home">
+            <span className="lp-brand-lockup">
+              <Image src="/brand/pinit-career-logo-clear.png" alt="PINIT CAREER" width={140} height={36} className="lp-brand-logo" style={{ height: '36px', width: 'auto', objectFit: 'contain' }} priority />
+            </span>
           </Link>
 
           <div className="nav-links">
@@ -397,9 +399,10 @@ function AboutPageContent() {
       <footer className="about-footer">
         <div className="container footer-content">
           <div className="footer-left">
-            <div className="brand-logo mb-2" style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
-              <span style={{ width: 28, height: 28, borderRadius: 7, background: 'linear-gradient(135deg, var(--teal, #14b8a6), var(--accent, #0284c7))', color: '#fff', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: 14 }}>P</span>
-              <span style={{ fontWeight: 900, fontSize: 16.5, letterSpacing: '-0.02em', color: 'var(--text-primary, #ffffff)' }}>PINIT <span style={{ color: 'var(--teal, #14b8a6)' }}>CAREER</span></span>
+            <div className="brand-logo mb-2">
+              <span className="lp-brand-lockup">
+                <Image src="/brand/pinit-career-logo-clear.png" alt="PINIT CAREER" width={140} height={36} className="lp-brand-logo" style={{ height: '36px', width: 'auto', objectFit: 'contain' }} />
+              </span>
             </div>
             <p className="footer-sub">© 2026 PinitCareer Technologies. All 54 Ecosystem Modules Active.</p>
           </div>

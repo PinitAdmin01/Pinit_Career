@@ -207,10 +207,10 @@ function LeaderboardContent() {
         overflowX: 'auto'
       }}>
         {[
-          { id: 'weekly_leagues', label: 'Weekly Ranked Leagues', icon: '⚡' },
-          { id: 'global', label: 'Global Rankings', icon: '🏆' },
-          { id: 'verified_evidence', label: 'SHA-256 Verified Ledger', icon: '🛡️' },
-          { id: 'code_wars', label: 'Code Wars 1v1 Duel Elo', icon: '⚔️' },
+          { id: 'weekly_leagues', label: 'Weekly Ranked Leagues' },
+          { id: 'global', label: 'Global Rankings' },
+          { id: 'verified_evidence', label: 'SHA-256 Verified Ledger' },
+          { id: 'code_wars', label: 'Code Wars 1v1 Duel Elo' },
         ].map(tab => (
           <button
             key={tab.id}
@@ -235,7 +235,6 @@ function LeaderboardContent() {
               transition: 'all 0.15s ease'
             }}
           >
-            <span>{tab.icon}</span>
             <span>{tab.label}</span>
           </button>
         ))}

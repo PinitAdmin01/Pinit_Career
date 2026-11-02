@@ -206,7 +206,7 @@ export default function CapstoneInternshipPortal({
         }}>
           <div>
             <h2 style={{ fontSize: 22, fontWeight: 900, color: 'var(--t1)', margin: 0, fontFamily: 'var(--font-display)' }}>
-              🏆 {planTitle} Capstone
+              {planTitle} Capstone
             </h2>
             <span style={{ fontSize: 13, color: 'var(--t3)' }}>Student: {studentName}</span>
           </div>
@@ -290,7 +290,7 @@ export default function CapstoneInternshipPortal({
           {/* Certificate */}
           <div data-testid="capstone-certificate-section" style={{ padding: 18, borderRadius: 14, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
             <h3 style={{ fontSize: 15.5, fontWeight: 800, color: 'var(--t1)', margin: '0 0 12px', fontFamily: 'var(--font-display)' }}>
-              📜 Capstone Project Certificate
+              Capstone Project Certificate
             </h3>
             {certificateId ? (
               <div data-testid="capstone-certificate-issued" style={{ display: 'flex', gap: 20, alignItems: 'center', flexWrap: 'wrap' }}>
@@ -308,7 +308,7 @@ export default function CapstoneInternshipPortal({
               </div>
             ) : current === null && trainingDone ? (
               <button data-testid="btn-claim-capstone-certificate" onClick={getCertificate} disabled={busy} style={primaryButton(busy)}>
-                {busy ? 'Issuing…' : '🎓 Get my certificate'}
+                {busy ? 'Issuing…' : 'Get my certificate'}
               </button>
             ) : (
               <p style={{ fontSize: 13, color: 'var(--t3)', margin: 0 }}>

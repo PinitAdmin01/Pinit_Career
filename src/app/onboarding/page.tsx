@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 
 import React from 'react';
 import dynamic from 'next/dynamic';
@@ -205,24 +206,16 @@ export default function OnboardingPage() {
       {/* Top Header */}
       <header className="ob-header" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 32px', borderBottom: '1px solid rgba(255,255,255,0.04)', background: 'rgba(10,15,26,0.3)', backdropFilter: 'blur(10px)', zIndex: 10 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <span
-            style={{
-              width: 30,
-              height: 30,
-              borderRadius: 7,
-              background: 'linear-gradient(135deg, var(--teal, #14b8a6), var(--accent, #0284c7))',
-              color: '#ffffff',
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontWeight: 900,
-              fontSize: 15
-            }}
-          >
-            P
-          </span>
-          <span style={{ fontWeight: 900, fontSize: 16, letterSpacing: '-0.02em', color: 'var(--t1, #ffffff)' }}>
-            PINIT <span style={{ color: 'var(--teal, #14b8a6)' }}>CAREER</span>
+          <span className="lp-brand-lockup" style={{ height: 40, padding: '2px 6px' }}>
+            <Image
+              src="/brand/pinit-career-logo-clear.png"
+              alt="PINIT CAREER"
+              width={148}
+              height={34}
+              className="lp-brand-logo"
+              style={{ height: 34, maxWidth: 148, width: 'auto', objectFit: 'contain' }}
+              priority
+            />
           </span>
         </div>
         <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>

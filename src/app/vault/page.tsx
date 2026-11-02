@@ -161,7 +161,7 @@ export default function VaultPage() {
     <div style={{ maxWidth: 1040, margin: '0 auto' }} className="animate-fade-in">
       <div className="page-hero" style={{ marginBottom: 20 }}>
         <div style={{ position:"relative", zIndex:1 }}>
-          <h1 className="page-hero-title">🗄 Proof Vault</h1>
+          <h1 className="page-hero-title">Proof Vault</h1>
           <p className="page-hero-sub">Your tamper-proof evidence locker — upload certificates, projects, and achievements</p>
         </div>
       </div>

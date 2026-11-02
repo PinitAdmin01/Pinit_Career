@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 
 import React from 'react';
 import Link from 'next/link';
@@ -11,10 +12,16 @@ export default function PublicFooter() {
           
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <Link href="/" className="lp-brand" aria-label="PINIT CAREER home">
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
-                <span style={{ width: 28, height: 28, borderRadius: 7, background: 'linear-gradient(135deg, var(--teal, #14b8a6), var(--accent, #0284c7))', color: '#fff', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: 14 }}>P</span>
-                <span style={{ fontWeight: 900, fontSize: 16.5, letterSpacing: '-0.02em', color: 'var(--text, #ffffff)' }}>PINIT <span style={{ color: 'var(--teal, #14b8a6)' }}>CAREER</span></span>
-              </div>
+              <span className="lp-brand-lockup">
+                <Image
+                  src="/brand/pinit-career-logo-clear.png"
+                  alt="PINIT CAREER"
+                  width={160}
+                  height={36}
+                  className="lp-brand-logo"
+                  style={{ height: 36, width: 'auto', objectFit: 'contain' }}
+                />
+              </span>
             </Link>
             <p style={{ fontSize: 13, color: 'var(--text-tertiary)', lineHeight: 1.6, margin: 0 }}>
               The AI-powered Career Operating System connecting students, placement directors, and enterprise recruiters with verifiable proof of competence.

@@ -134,7 +134,7 @@ export default function CareerGrowthGraph({
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
         <div>
           <h2 style={{ fontSize: 20, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
-            📈 Career Growth Trajectory
+            Career Growth Trajectory
           </h2>
           <span style={{ fontSize: 13, color: 'var(--t3)' }}>
             {safeMonths}-Month Crash Program • Baseline vs Current vs Industry Target
@@ -299,7 +299,7 @@ export default function CareerGrowthGraph({
       {/* Bottom Summary */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 16, flexWrap: 'wrap', gap: 8 }}>
         <div style={{ fontSize: 12, color: 'var(--t3)' }}>
-          📊 Day 1 Baseline: {baseline[0]?.toFixed(0)} → Now: {current[safeMonths - 1]?.toFixed(0)} → Target: {target[safeMonths - 1]?.toFixed(0)}
+          Day 1 Baseline: {baseline[0]?.toFixed(0)} → Now: {current[safeMonths - 1]?.toFixed(0)} → Target: {target[safeMonths - 1]?.toFixed(0)}
         </div>
         <div data-testid="growth-summary-badge" style={{
           padding: '6px 14px', borderRadius: 8,

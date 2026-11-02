@@ -80,7 +80,7 @@ const CredentialPreviewModal: React.FC<CredentialPreviewModalProps> = ({
 
         <header style={s.header}>
           <div>
-            <h2 id="modal-title" style={s.title}>{INTERNSHIP_AVAILABLE ? '🏆 Dual Verifiable Credential Portfolio' : '🏆 Verifiable Capstone Certificate (sample)'}</h2>
+            <h2 id="modal-title" style={s.title}>{INTERNSHIP_AVAILABLE ? 'Dual Verifiable Credential Portfolio' : 'Verifiable Capstone Certificate (sample)'}</h2>
             <p style={s.subtitle}>{INTERNSHIP_AVAILABLE
               ? 'Every graduate receives an Industrial Project Certificate AND an official PinIT Tech Labs Fellowship Letter.'
               : 'Graduates receive a signed Project Certificate that anyone can verify online.'}</p>

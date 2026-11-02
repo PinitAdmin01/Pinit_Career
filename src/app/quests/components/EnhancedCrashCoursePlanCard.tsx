@@ -14,9 +14,9 @@ export interface EnhancedCrashCoursePlanCardProps {
 }
 
 const TABS = [
-  { key: 'curriculum', label: '📚 Curriculum' },
-  { key: 'capstone', label: '🛠️ Capstone Spec' },
-  { key: 'credentials', label: '📜 Credentials' },
+  { key: 'curriculum', label: 'Curriculum' },
+  { key: 'capstone', label: 'Capstone Spec' },
+  { key: 'credentials', label: 'Credentials' },
 ] as const;
 
 type TabKey = (typeof TABS)[number]['key'];
@@ -166,7 +166,7 @@ export const EnhancedCrashCoursePlanCard: React.FC<EnhancedCrashCoursePlanCardPr
             ⏱️ {plan?.totalProgramDuration || '3-4 Months Total'}
           </span>
           <span style={{ fontSize: 11.5, color: 'var(--accent)', fontWeight: 700, fontFamily: 'var(--font-mono)', background: 'var(--accent-light)', padding: '2px 8px', borderRadius: 6, border: '1px solid color-mix(in srgb, var(--accent) 30%, transparent)' }}>
-            ⚡ {plan?.dailyCommitment || 'Daily 1-Hr Micro-Learning'}
+            {plan?.dailyCommitment || 'Daily 1-Hr Micro-Learning'}
           </span>
         </div>
       </div>
@@ -184,7 +184,7 @@ export const EnhancedCrashCoursePlanCard: React.FC<EnhancedCrashCoursePlanCardPr
         }}
       >
         <div style={{ fontSize: 12, fontWeight: 800, color: hc, display: 'flex', alignItems: 'center', gap: 6 }}>
-          <span>🚀</span> Flagship Project: {flagship.title}
+          Flagship Project: {flagship.title}
         </div>
         <p style={{ fontSize: 12, color: 'var(--t2)', lineHeight: 1.4, margin: 0 }}>
           {flagship.desc}
@@ -316,7 +316,7 @@ export const EnhancedCrashCoursePlanCard: React.FC<EnhancedCrashCoursePlanCardPr
                   marginTop: 2,
                 }}
               >
-                📊 View Diagnostic Assessment Report ➔
+                View Diagnostic Assessment Report ➔
               </button>
             )}
           </div>
@@ -394,7 +394,7 @@ export const EnhancedCrashCoursePlanCard: React.FC<EnhancedCrashCoursePlanCardPr
                 transition: 'transform 0.15s ease',
               }}
             >
-              🏆 Preview Sample Credentials ➔
+              Preview Sample Credentials ➔
             </button>
           </div>
         )}
@@ -415,8 +415,8 @@ export const EnhancedCrashCoursePlanCard: React.FC<EnhancedCrashCoursePlanCardPr
           color: 'var(--accent)',
         }}
       >
-        <span>📦 +{cashback} Reward Coins</span>
-        <span style={{ color: 'var(--green)', fontWeight: 800 }}>💡 {savings}</span>
+        <span>+{cashback} Reward Coins</span>
+        <span style={{ color: 'var(--green)', fontWeight: 800 }}>{savings}</span>
       </div>
 
       {/* Pricing & CTA */}
@@ -424,7 +424,7 @@ export const EnhancedCrashCoursePlanCard: React.FC<EnhancedCrashCoursePlanCardPr
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 6 }}>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
             <span style={{ fontSize: 20, fontWeight: 900, color: 'var(--t1)', fontFamily: 'var(--font-display)' }}>
-              ⚡ {pins}
+              {pins} Pins
             </span>
             <span style={{ fontSize: 13, color: 'var(--t2)', fontFamily: 'var(--font-mono)', fontWeight: 700 }}>
               Pins · ₹{inr}

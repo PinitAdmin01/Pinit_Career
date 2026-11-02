@@ -124,7 +124,7 @@ export const ActiveEnrollmentBanner: React.FC<ActiveEnrollmentBannerProps> = ({
               color: '#a5b4fc'
             }}
           >
-            🔒 {trackLabel} (Locked)
+            {trackLabel} (Locked)
           </span>
           <span
             style={{
@@ -207,7 +207,7 @@ export const ActiveEnrollmentBanner: React.FC<ActiveEnrollmentBannerProps> = ({
             boxShadow: '0 4px 14px rgba(99, 102, 241, 0.35)'
           }}
         >
-          <span>⚡</span> View Daily Sprints & Timeline
+          View Daily Sprints & Timeline
         </button>
 
         <button
@@ -230,7 +230,7 @@ export const ActiveEnrollmentBanner: React.FC<ActiveEnrollmentBannerProps> = ({
             gap: 7
           }}
         >
-          <span>📜</span> {INTERNSHIP_AVAILABLE ? 'Capstone Defense & Dual Certificates' : 'Final project & certificate'}
+          {INTERNSHIP_AVAILABLE ? 'Capstone Defense & Dual Certificates' : 'Final project & certificate'}
         </button>
       </div>
     </div>

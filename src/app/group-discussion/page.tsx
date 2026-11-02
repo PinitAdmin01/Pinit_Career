@@ -281,7 +281,7 @@ export default function GroupDiscussionPage({ embedded = false }: { embedded?: b
                 cursor: 'pointer'
               }}
             >
-              📜 Past History ({historyListState.length})
+              Past History ({historyListState.length})
             </button>
 
             <button
@@ -301,7 +301,7 @@ export default function GroupDiscussionPage({ embedded = false }: { embedded?: b
                 cursor: 'pointer'
               }}
             >
-              📖 Open Avatar Guide
+              Open Avatar Guide
             </button>
 
             <button
@@ -370,7 +370,7 @@ export default function GroupDiscussionPage({ embedded = false }: { embedded?: b
                       gap: 6
                     }}
                   >
-                    🎲 Suggest {domain.charAt(0).toUpperCase() + domain.slice(1)} Topic
+                    Suggest {domain.charAt(0).toUpperCase() + domain.slice(1)} Topic
                   </button>
                 </div>
 
@@ -503,7 +503,7 @@ export default function GroupDiscussionPage({ embedded = false }: { embedded?: b
             {/* Right Column: Previous Boardroom Sessions */}
             <div className="gd-history-panel animate-fade-in">
               <h2 style={{ fontSize: 16.5, fontWeight: 900, color: 'var(--t1)', textAlign: 'center', marginBottom: 16 }}>
-                📜 Previous Boardrooms
+                Previous Boardrooms
               </h2>
               {historyListState.length === 0 ? (
                 <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: 'var(--t4)', gap: 8 }}>

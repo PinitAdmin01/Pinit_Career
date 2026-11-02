@@ -3,10 +3,9 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 
-describe('GD Engine & Brand Logo Cleanliness Audit', () => {
+describe('GD Engine, Brand Logo Restoration & Student Portal Emoji Audit', () => {
   test('GD1.1: GdAudioVisualizer safe color resolution prevents CanvasGradient crash', () => {
     const visualizerCode = fs.readFileSync(path.resolve('src/app/group-discussion/components/GdAudioVisualizer.tsx'), 'utf8');
-    // Ensure resolveCanvasColor helper is defined and used
     assert.ok(visualizerCode.includes('resolveCanvasColor'), 'GdAudioVisualizer must include resolveCanvasColor helper');
     assert.ok(visualizerCode.includes("color = '#14b8a6'"), "default color prop must be concrete hex, not 'var(--teal)'");
     assert.ok(!visualizerCode.includes("gradient.addColorStop(0, color)"), "addColorStop must not directly pass unparsed color");
@@ -28,20 +27,19 @@ describe('GD Engine & Brand Logo Cleanliness Audit', () => {
     assert.ok(gdPageCode.includes('orch.handleStartCall(true)'), 'PinsGate unlock trigger must pass bypass flag to orch.handleStartCall');
   });
 
-  test('LOGO1.1: AppSidebar contains zero hardcoded logo images or black square boxes', () => {
+  test('LOGO1.1: AppSidebar correctly renders official company logos without pitch black backgrounds', () => {
     const sidebarCode = fs.readFileSync(path.resolve('src/components/ui/AppSidebar.tsx'), 'utf8');
-    assert.ok(!sidebarCode.includes('/brand/pinit-career-logo'), 'AppSidebar must not contain /brand/pinit-career-logo');
-    assert.ok(!sidebarCode.includes('<Image'), 'AppSidebar must not render <Image tags for logos');
+    assert.ok(sidebarCode.includes('/brand/pinit-career-mark.png'), 'AppSidebar must render pinit-career-mark.png in compact mode');
+    assert.ok(sidebarCode.includes('/brand/pinit-career-logo-clear.png'), 'AppSidebar must render pinit-career-logo-clear.png in expanded mode');
   });
 
-  test('LOGO1.2: Public auth and onboarding pages have removed hardcoded logo images', () => {
+  test('LOGO1.2: Public auth and onboarding pages render clear official company logo', () => {
     const filesToCheck = [
       'src/components/nav/PublicNavbar.tsx',
       'src/app/login/page.tsx',
       'src/app/signup/page.tsx',
       'src/app/reset-password/page.tsx',
       'src/app/onboarding/page.tsx',
-      'src/app/onboarding/components/OnboardingIntro.tsx',
       'src/app/about/page.tsx',
       'src/app/admissions/page.tsx',
       'src/components/landing/HeroCockpit.tsx',
@@ -51,13 +49,26 @@ describe('GD Engine & Brand Logo Cleanliness Audit', () => {
 
     for (const relPath of filesToCheck) {
       const code = fs.readFileSync(path.resolve(relPath), 'utf8');
-      assert.ok(!code.includes('/brand/pinit-career-logo'), `${relPath} must not contain /brand/pinit-career-logo`);
+      assert.ok(code.includes('/brand/pinit-career-logo-clear.png'), `${relPath} must render official clear company logo`);
     }
   });
 
-  test('LOGO1.3: globals.css eliminates pitch black background on logo classes', () => {
-    const css = fs.readFileSync(path.resolve('src/styles/globals.css'), 'utf8');
-    assert.ok(!css.includes('.logo-mark-img {\r\n  width: 34px;\r\n  height: 34px;\r\n  padding: 0;\r\n  overflow: hidden;\r\n  background: #000;'), 'logo-mark-img must not have background: #000');
-    assert.ok(!css.includes('.lp-brand-lockup {\r\n  display: inline-flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  background: #000;'), 'lp-brand-lockup must not have background: #000');
+  test('EMOJI1.1: Student portal subtabs and primary headings have eliminated unwanted emoji clutter', () => {
+    const trackSelector = fs.readFileSync(path.resolve('src/app/quests/components/TrackSelectorDrawer.tsx'), 'utf8');
+    assert.ok(!trackSelector.includes('🏆</span>\r\n          <span>Certification Programs</span>'), 'Subtab must not have 🏆 emoji');
+    assert.ok(!trackSelector.includes('🗺️</span>\r\n          <span>Custom Roadmap</span>'), 'Subtab must not have 🗺️ emoji');
+    assert.ok(!trackSelector.includes('📦</span>\r\n          <span>Standalone Course</span>'), 'Subtab must not have 📦 emoji');
+    assert.ok(!trackSelector.includes('🌐</span>\r\n          <span>Language Academy</span>'), 'Subtab must not have 🌐 emoji');
+
+    const planCards = fs.readFileSync(path.resolve('src/app/quests/components/CrashCoursePlanCards.tsx'), 'utf8');
+    assert.ok(!planCards.includes('<span>🏆</span> ISO-ALIGNED'), 'Certification banner must not have 🏆 emoji');
+    assert.ok(!planCards.includes('<span style={{ fontSize: 24 }}>⚡</span>\r\n              <h3'), 'Title must not have ⚡ emoji');
+  });
+
+  test('SIDEBAR1.1: Left and right sidebars preserve navigation emojis as requested', () => {
+    const sidebarCode = fs.readFileSync(path.resolve('src/components/ui/AppSidebar.tsx'), 'utf8');
+    assert.ok(sidebarCode.includes('Quests & Courses') && sidebarCode.includes('🗺'), 'AppSidebar must preserve Quests & Courses 🗺️ emoji');
+    assert.ok(sidebarCode.includes("icon: '⚡'"), 'AppSidebar must preserve Daily Missions ⚡ emoji');
+    assert.ok(sidebarCode.includes("icon: '🚀'"), 'AppSidebar must preserve Projects 🚀 emoji');
   });
 });

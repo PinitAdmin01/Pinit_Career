@@ -720,7 +720,7 @@ function ProjectsPageContent() {
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
         <div>
-          <h1 style={{ margin: 0, fontSize: 26.5, fontWeight: 900, color: 'var(--t1)' }}>🚀 Projects & Squads Innovation Hub</h1>
+          <h1 style={{ margin: 0, fontSize: 26.5, fontWeight: 900, color: 'var(--t1)' }}>Projects & Squads Innovation Hub</h1>
           <p style={{ margin: '4px 0 0 0', fontSize: 14.5, color: 'var(--t3)' }}>
             Build individual GitHub-verified Capstones or collaborate with 3-person Hackathon Squads.
           </p>
@@ -839,7 +839,7 @@ function ProjectsPageContent() {
           {/* AI Generator Control */}
           <div style={{ background: 'var(--bg3)', border: '1px solid var(--border)', borderRadius: 16, padding: 20, display: 'flex', flexDirection: 'column', gap: 14 }}>
             <div>
-              <h3 style={{ margin: 0, fontSize: 15.5, fontWeight: 900, color: 'var(--t1)' }}>⚡ AI Dynamic Portfolio Generator</h3>
+              <h3 style={{ margin: 0, fontSize: 15.5, fontWeight: 900, color: 'var(--t1)' }}>AI Dynamic Portfolio Generator</h3>
               <p style={{ margin: '2px 0 0 0', fontSize: 12.5, color: 'var(--t3)' }}>
                 Constructs 5 real-world projects utilizing target parameters: `projects = quests + academic degree + DNA score + career goal`.
               </p>
@@ -1425,7 +1425,7 @@ function ProjectsPageContent() {
           <div style={{ width: 500, background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 16, padding: 24, display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div style={{ borderBottom: '1px solid var(--border)', paddingBottom: 10 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <h3 style={{ margin: 0, fontSize: 17.5, fontWeight: 900, color: 'var(--t1)' }}>🤖 AI Repository Evidence Report</h3>
+                <h3 style={{ margin: 0, fontSize: 17.5, fontWeight: 900, color: 'var(--t1)' }}>AI Repository Evidence Report</h3>
                 <span style={{ fontSize: 11.5, fontWeight: 800, padding: '2px 8px', borderRadius: 4, background: 'rgba(var(--info-rgb),0.1)', color: 'var(--accent)' }}>
                   {auditReport?.projectComplexityTier || 'Advanced'}
                 </span>
