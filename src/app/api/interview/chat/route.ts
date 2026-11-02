@@ -97,56 +97,125 @@ interface FallbackContext {
   interviewerName: string;
 }
 
-export function generateProgressiveFallbackQuestion(ctx: FallbackContext): string {
-  const { stage, subTopic, history, difficulty, interviewerName } = ctx;
+function extractCandidateKeyContext(text: string): { phrase: string; keyTerm: string; type: 'tech' | 'action' | 'metric' | 'general' } {
+  const clean = text.replace(/```[\s\S]*?```/g, '').replace(/[^\w\s.,%'-]/g, ' ').trim();
+  if (!clean || clean.length < 5) return { phrase: 'your initial approach', keyTerm: 'approach', type: 'general' };
 
-  const pastAssistantMsgs = (history || [])
-    .filter(m => m.role === 'assistant')
-    .map(m => (m.content || '').toLowerCase());
-  const userTurns = (history || []).filter(m => m.role === 'user').length;
+  // Check for metrics or scale: e.g. "40%", "10x", "500ms", "3 team members", "millions of users"
+  const metricMatch = clean.match(/(\d+%\s*(?:latency|improvement|reduction|increase|drop)|10x|5x|\d+\s*(?:ms|seconds|minutes|hours|users|req\/s|rps|nodes|servers|instances))/i);
+  if (metricMatch) {
+    return { phrase: `achieving ${metricMatch[1]}`, keyTerm: metricMatch[1], type: 'metric' };
+  }
 
-  const STAGE_QUESTIONS: Record<string, string[]> = {
-    round1_behavioral: [
-      `Thank you for sharing your background. In your experience with ${subTopic}, could you tell me about the most demanding challenge you tackled and how you approached resolving it?`,
-      `Understood. When collaborating with stakeholders or cross-functional team members on ${subTopic}, how do you resolve conflicting priorities or technical disagreements?`,
-      `That provides good context. Could you describe a time when an initial plan or implementation in ${subTopic} did not go as expected, and what actionable lessons you took away?`,
-      `Great reflection. In high-pressure situations with tight deadlines, how do you balance technical excellence against shipping speed in ${subTopic}?`,
-      `To wrap up our behavioral discussion: Looking forward, what is an area within ${subTopic} where you are actively expanding your skills or pushing deeper expertise?`
-    ],
-    round2_coding: [
-      `Thank you for walking through that. Looking at your approach for ${subTopic}, what is the time and space complexity of your implementation, and could we optimize either?`,
-      `How would your solution behave on extreme edge cases, such as null/empty inputs, integer overflow, or massive dataset scale?`,
-      `If this code were executed concurrently by thousands of simultaneous threads, what concurrency issues or race conditions might arise, and how would you safeguard against them?`,
-      `How would you structure comprehensive unit and integration tests to verify this logic before deploying to production?`
-    ],
-    round3_systems: [
-      `Thank you. Let's analyze your architecture for ${subTopic}. Walk me through your data flow from the client edge gateway down to the persistent data store.`,
-      `Where do you foresee the primary throughput or storage bottlenecks under 10x traffic surge, and how does your caching and indexing strategy mitigate them?`,
-      `If your primary database or worker instance experiences an unrecoverable failure during peak hours, how does your system handle failover and data consistency?`,
-      `How do you monitor system health, latency SLAs, and error budgets across these distributed components in production?`
-    ],
-    round4_star: [
-      `Looking across your code and the ${subTopic} architecture you designed, why does your implementation fit that system, and what trade-off would you explain to the team?`,
-      `How would your code behave at the scale of the system you designed, and what would you change first if the main service became a bottleneck?`,
-      `Connect your earlier experience to these design choices: what did you personally own, and what evidence would show that your approach worked?`,
-      `What measurable result would you expect from this design, and which part of your implementation or architecture would you revisit if that result fell short?`
-    ]
-  };
+  // Common high-value technical keywords & domains
+  const techKeywords = [
+    'redis', 'kafka', 'postgresql', 'postgres', 'mongodb', 'mysql', 'docker', 'kubernetes',
+    'k8s', 'microservices', 'monolith', 'graphql', 'rest api', 'websocket', 'websockets',
+    'caching', 'indexes', 'indexing', 'sharding', 'replication', 'concurrency', 'race condition',
+    'deadlock', 'mutex', 'thread pool', 'event loop', 'async/await', 'load balancer', 'nginx',
+    'react', 'next.js', 'nextjs', 'typescript', 'python', 'golang', 'java', 'spring boot',
+    'ci/cd', 'github actions', 'aws', 's3', 'lambda', 'ec2', 'cloud', 'security', 'oauth', 'jwt',
+    'rate limit', 'circuit breaker', 'idempotency', 'acid', 'eventual consistency', 'cap theorem',
+    'bloom filter', 'trie', 'binary search', 'dynamic programming', 'graph', 'tree', 'queue',
+    'cash flow', 'ebitda', 'unit economics', 'cac', 'ltv', 'margin', 'inventory', 'supply chain',
+    'turnover', 'compliance', 'audit', 'taxation', 'statutory', 'reconciliation', 'ledger'
+  ];
 
-  const candidates = STAGE_QUESTIONS[stage] || STAGE_QUESTIONS.round1_behavioral;
-
-  let selected = candidates[Math.min(userTurns, candidates.length - 1)];
-
-  for (const q of candidates) {
-    const snippet = q.slice(0, 35).toLowerCase();
-    const alreadyAsked = pastAssistantMsgs.some(past => past.includes(snippet));
-    if (!alreadyAsked) {
-      selected = q;
-      break;
+  const lower = clean.toLowerCase();
+  for (const tk of techKeywords) {
+    if (lower.includes(tk)) {
+      return { phrase: `leveraging ${tk}`, keyTerm: tk, type: 'tech' };
     }
   }
 
-  return `${selected} — ${interviewerName}`;
+  // Extract substantive action/problem clauses
+  const actionMatch = clean.match(/(?:migrat|refactor|optimiz|debugg|deploy|resolv|implement|architect|scal|build|handl|manag|tackl)\w*\s+(?:the\s+)?[\w\s]{4,30}/i);
+  if (actionMatch) {
+    const rawPhrase = actionMatch[0].trim().replace(/\s+/g, ' ');
+    const parts = rawPhrase.split(/\s+/);
+    return { phrase: rawPhrase, keyTerm: parts.slice(-2).join(' '), type: 'action' };
+  }
+
+  // Meaningful non-filler words
+  const words = clean.split(/\s+/).filter(w => !/^(i|we|my|the|a|an|in|on|at|to|for|of|with|and|or|so|but|that|this|it|is|was|are|were|been|have|has|had|do|did|would|could|should|can|will|just|really|basically|like|you|know)$/i.test(w));
+  if (words.length >= 2) {
+    const snippet = words.slice(0, 4).join(' ');
+    return { phrase: `focusing on ${snippet}`, keyTerm: snippet, type: 'general' };
+  }
+
+  return { phrase: clean.slice(0, 30), keyTerm: clean.slice(0, 20), type: 'general' };
+}
+
+export function generateProgressiveFallbackQuestion(ctx: FallbackContext): string {
+  const { stage, subTopic, history, difficulty, interviewerName } = ctx;
+
+  const userTurns = (history || []).filter(m => m.role === 'user');
+  const lastUserTurn = userTurns[userTurns.length - 1]?.content || '';
+  const turnCount = userTurns.length;
+
+  // First turn: warm welcome & initial background question
+  if (turnCount <= 1 && (!lastUserTurn || lastUserTurn.length < 15)) {
+    return `Welcome to your interview. I am ${interviewerName}. To get started, could you walk me through your background and your hands-on experience with ${subTopic}?`;
+  }
+
+  const { phrase, keyTerm } = extractCandidateKeyContext(lastUserTurn);
+
+  // Active listening reflection openers
+  const reflectionOpeners = [
+    `I see your point regarding ${phrase}.`,
+    `You made an insightful observation around ${phrase}.`,
+    `Focusing on ${phrase} is a very pragmatic decision for ${subTopic}.`,
+    `I appreciate how you tackled ${phrase}.`,
+    `That is a solid direction regarding ${phrase}.`
+  ];
+  const opener = reflectionOpeners[turnCount % reflectionOpeners.length];
+
+  // Stage-specific contextual follow-up questions
+  if (stage === 'round1_behavioral') {
+    const behavioralFollowUps = [
+      `When navigating that, what was the most significant roadblock or cross-functional disagreement you encountered, and how did you resolve it?`,
+      `Looking back at that scenario, what is one key technical or process trade-off you would approach differently today?`,
+      `Under tight deadline pressure, how did you balance technical excellence against shipping speed while driving that forward?`,
+      `What measurable signal or feedback confirmed to you and your team that this decision was a success?`
+    ];
+    const question = behavioralFollowUps[turnCount % behavioralFollowUps.length];
+    return `${opener} ${question} — ${interviewerName}`;
+  }
+
+  if (stage === 'round2_coding') {
+    const codingFollowUps = [
+      `Given that approach with ${keyTerm}, what is the exact time and space complexity, and where could memory usage spike under large inputs?`,
+      `How does your implementation handle critical boundary conditions, such as null/empty inputs, duplicate records, or extreme numerical ranges?`,
+      `If multiple concurrent threads or API requests hit this logic simultaneously, what race condition or state corruption risks arise, and how would you safeguard against them?`,
+      `How would you structure unit tests to thoroughly verify the correctness and failure modes of that logic before shipping to production?`
+    ];
+    const question = codingFollowUps[turnCount % codingFollowUps.length];
+    return `${opener} ${question} — ${interviewerName}`;
+  }
+
+  if (stage === 'round3_systems') {
+    const systemsFollowUps = [
+      `Looking at the role of ${keyTerm} in your architecture, how does the system behave if that specific component experiences a sudden crash or network partition during peak load?`,
+      `Where do you foresee the primary throughput or IO bottleneck in that data path, and how would caching or asynchronous queuing alleviate it?`,
+      `How do you enforce idempotency and maintain data consistency across distributed boundaries if an operation fails midway?`,
+      `What telemetry metrics, error budgets, and health check signals would you establish to monitor that tier in real time?`
+    ];
+    const question = systemsFollowUps[turnCount % systemsFollowUps.length];
+    return `${opener} ${question} — ${interviewerName}`;
+  }
+
+  if (stage === 'round4_star') {
+    const starFollowUps = [
+      `How does your choice around ${keyTerm} directly drive the overall system SLAs and measurable business impact?`,
+      `What empirical metrics or benchmarks did you monitor to demonstrate that your solution achieved its intended goal?`,
+      `If a principal architect or executive challenged that architectural trade-off, what quantitative data and counter-arguments would you present?`,
+      `Which part of your implementation or system design would you revisit first if traffic grew by a factor of 10x?`
+    ];
+    const question = starFollowUps[turnCount % starFollowUps.length];
+    return `${opener} ${question} — ${interviewerName}`;
+  }
+
+  return `${opener} Could you elaborate on the key trade-offs and decisions you made for ${subTopic}? — ${interviewerName}`;
 }
 
 export async function POST(req: Request) {
@@ -452,6 +521,40 @@ RULES:
         }
       } catch (err: any) {
         console.warn(`[Interview Chat API] Groq request failed for key:`, err?.message);
+      }
+    }
+
+    // Fallback to Google Gemini API if Groq pool is exhausted
+    const geminiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
+    if (!reply && geminiKey) {
+      try {
+        console.log('[Interview Chat API] Falling back to Gemini inference...');
+        const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiKey}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [
+              {
+                role: 'user',
+                parts: [{ text: `${systemPrompt}\n\nConversation History:\n${formattedHistory.map(h => `${h.role}: ${h.content}`).join('\n')}\n\nRespond as ${selectedInterviewer.name}:` }]
+              }
+            ],
+            generationConfig: {
+              maxOutputTokens: 280,
+              temperature: 0.7
+            }
+          }),
+          signal: AbortSignal.timeout(3500)
+        });
+        if (geminiRes.ok) {
+          const gemData = await geminiRes.json();
+          reply = (gemData?.candidates?.[0]?.content?.parts?.[0]?.text || '').trim();
+          if (reply) {
+            console.log(`[Interview Chat API] Gemini inference successful (${reply.length} chars)`);
+          }
+        }
+      } catch (gemErr: any) {
+        console.warn('[Interview Chat API] Gemini fallback failed:', gemErr?.message);
       }
     }
 

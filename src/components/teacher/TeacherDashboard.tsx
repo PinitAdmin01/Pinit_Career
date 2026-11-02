@@ -334,6 +334,24 @@ export const ALL_FACULTY_STUDIOS: FacultyStudioItem[] = [
     icon: '🧪',
     badge: 'TRL 1-9 Lab',
     description: 'Technology Readiness Level (TRL) progression, student founder mentoring and DSIR SIRO compliance.'
+  },
+  {
+    id: 'ai-interview',
+    title: 'AI Mock Interview Studio',
+    path: '/interview',
+    category: 'career',
+    icon: '🎙️',
+    badge: 'Live 1v1 Mock',
+    description: 'Autonomous multi-round AI technical and behavioral screening with dynamic conversational follow-ups and live scoring.'
+  },
+  {
+    id: 'group-discussion',
+    title: 'Boardroom Group Discussion (GD) Lab',
+    path: '/interview?tab=gd',
+    category: 'career',
+    icon: '🗣️',
+    badge: 'Multi-Avatar GD',
+    description: 'Host-moderated boardroom discussions with timed turn-taking, active multi-avatar challenges, and instant performance rubrics.'
   }
 ];
 
@@ -552,6 +570,8 @@ export default function TeacherDashboard({ teacher, onLogout }: TeacherDashboard
               { href: '/learning', icon: '📖', label: 'Learning Roadmaps' },
               { href: '/advisor', icon: '🧠', label: 'AI Advisor Logs' },
               { href: '/portfolio', icon: '👤', label: 'Student Portfolios' },
+              { href: '/interview', icon: '🎙️', label: 'AI Interview Studio' },
+              { href: '/interview?tab=gd', icon: '🗣️', label: 'GD Boardroom Practice' },
               { href: '/internships', icon: '🏢', label: 'Internships Review' },
               { href: '/projects', icon: '💼', label: 'Projects & Squads' },
             ].map(link => (

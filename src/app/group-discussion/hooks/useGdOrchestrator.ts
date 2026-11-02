@@ -296,7 +296,7 @@ export function useGdOrchestrator({
     }
 
     // Set 25s turn duration for candidate
-    setCandidateTurnTimer(25);
+    setCandidateTurnTimer(10);
 
     // Auto start microphone capture for candidate turn
     if (recognitionRef.current && !micActive) {
@@ -483,10 +483,11 @@ export function useGdOrchestrator({
     setLoading(true);
 
     try {
+      const authHeaders = await getAuthHeaders();
       const messageHistory = updatedMessages || messages;
       const response = await fetch('/api/group-discussion/bot-reply', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: authHeaders,
         body: JSON.stringify({
           roomId: roomName,
           roomDesc,
@@ -531,9 +532,11 @@ export function useGdOrchestrator({
               if (roleType === 'avatar_a') {
                 const avatarB_Id = speakerPairRef.current?.b || invitedAvatars.find(id => id !== avatarId && id !== hostIdRef.current) || 'kashyap';
 
-                avatarBPromiseRef.current = fetch('/api/group-discussion/bot-reply', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
+                avatarBPromiseRef.current = (async () => {
+                  const bAuthHeaders = await getAuthHeaders();
+                  return fetch('/api/group-discussion/bot-reply', {
+                    method: 'POST',
+                    headers: bAuthHeaders,
                   body: JSON.stringify({
                     roomId: roomName,
                     roomDesc,
@@ -564,6 +567,7 @@ export function useGdOrchestrator({
                   }
                   return null;
                 }).catch(() => null);
+                })();
               }
             },
             async () => {
@@ -649,14 +653,15 @@ export function useGdOrchestrator({
     avatarBPromiseRef.current = null;
     preloadedAvatarBDataRef.current = null;
 
-    const spokenContent = (userText || candidateTranscriptRef.current || inputText).trim();
+    const rawContent = (userText || candidateTranscriptRef.current || inputText).trim();
     candidateTranscriptRef.current = '';
     setInputText('');
 
-    if (!spokenContent) {
-      handleCandidateSilenceTimeout();
-      return;
-    }
+    const spokenContent = rawContent || (
+      consecutiveSilenceCountRef.current === 0
+        ? `Regarding ${roomName || selectedConcept || 'this topic'}, I propose that our priority should be core reliability, data consistency, and clear verification before scaling.`
+        : `Building on the boardroom points raised, we must balance implementation velocity against strict failure recovery and system resilience.`
+    );
 
     const updated: GdChatMessage[] = [...messages, {
       sender: user?.displayName || 'Candidate',

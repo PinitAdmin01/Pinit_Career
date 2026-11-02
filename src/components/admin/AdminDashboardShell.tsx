@@ -58,6 +58,13 @@ const NAV_GROUPS: NavGroup[] = [
     ]
   },
   {
+    label: 'Career & Assessment Hub',
+    items: [
+      { id: 'interview', icon: '🎙️', label: 'AI Mock Interview', badge: '1v1 Live' },
+      { id: 'gd', icon: '🗣️', label: 'Boardroom GD Practice', badge: 'Multi-Avatar' },
+    ]
+  },
+  {
     label: 'Campus Operations',
     items: [
       { id: 'admissions', icon: '🏛️', label: 'Admissions' },
@@ -323,6 +330,62 @@ export default function AdminDashboardShell({ activeTab: controlledTab, onTabCha
           {activeTab === 'pins' && <AdminPinsEconomyTab />}
           {activeTab === 'grants' && <AdminPinGrantTab />}
           {activeTab === 'tournaments' && <AdminTournamentsTab />}
+
+          {/* Career & Assessment Hub */}
+          {activeTab === 'interview' && (
+            <div style={{ background: 'var(--card, #fff)', border: '1px solid var(--border)', borderRadius: 12, padding: 24 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+                <div>
+                  <h2 style={{ margin: '0 0 6px', fontSize: 20 }}>🎙️ AI Mock Interview Studio</h2>
+                  <p style={{ margin: 0, color: 'var(--t3, #64748b)', fontSize: 13.5 }}>
+                    Autonomous 1v1 multi-round technical and behavioral interviews with real-time scoring.
+                  </p>
+                </div>
+                <button
+                  onClick={() => window.location.href = '/interview'}
+                  style={{
+                    padding: '8px 16px',
+                    borderRadius: 8,
+                    background: 'var(--accent, #2563eb)',
+                    color: '#fff',
+                    border: 'none',
+                    fontWeight: 700,
+                    cursor: 'pointer'
+                  }}
+                >
+                  Launch Fullscreen Studio ↗
+                </button>
+              </div>
+              <iframe src="/interview" style={{ width: '100%', height: '75vh', border: '1px solid var(--border)', borderRadius: 8 }} />
+            </div>
+          )}
+          {activeTab === 'gd' && (
+            <div style={{ background: 'var(--card, #fff)', border: '1px solid var(--border)', borderRadius: 12, padding: 24 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+                <div>
+                  <h2 style={{ margin: '0 0 6px', fontSize: 20 }}>🗣️ Boardroom Group Discussion (GD) Lab</h2>
+                  <p style={{ margin: 0, color: 'var(--t3, #64748b)', fontSize: 13.5 }}>
+                    Multi-avatar timed discussion rooms with host facilitation, active challenges, and evaluation rubrics.
+                  </p>
+                </div>
+                <button
+                  onClick={() => window.location.href = '/interview?tab=gd'}
+                  style={{
+                    padding: '8px 16px',
+                    borderRadius: 8,
+                    background: 'var(--accent, #2563eb)',
+                    color: '#fff',
+                    border: 'none',
+                    fontWeight: 700,
+                    cursor: 'pointer'
+                  }}
+                >
+                  Launch Fullscreen GD ↗
+                </button>
+              </div>
+              <iframe src="/interview?tab=gd" style={{ width: '100%', height: '75vh', border: '1px solid var(--border)', borderRadius: 8 }} />
+            </div>
+          )}
 
           {/* 3. Campus Operations */}
           {activeTab === 'admissions' && <AdmissionsTab />}

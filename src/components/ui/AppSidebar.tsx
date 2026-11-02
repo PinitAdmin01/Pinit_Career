@@ -160,6 +160,7 @@ export const ADMIN_NAV: NavSection[] = [
       { href: '/career-builder', icon: '🛠️', label: 'Resume Builder' },
       { href: '/recruiter', icon: '🔍', label: 'ATS Pipelines' },
       { href: '/interview', icon: '🎙', label: 'AI Interview' },
+      { href: '/interview?tab=gd', icon: '🗣️', label: 'GD Boardroom' },
       { href: '/missions', icon: '⚡', label: 'Coding Missions' },
       { href: '/quests', icon: '🗺', label: 'Coding Quests' },
       { href: '/crm', icon: '💼', label: 'Company CRM' }
@@ -215,6 +216,8 @@ export const TEACHER_NAV: NavSection[] = [
   { section: 'Academic Mentoring', items: [
     { href: '/advisor', icon: '🧠', label: 'AI Advisor Logs' },
     { href: '/portfolio', icon: '👤', label: 'Student Portfolio' },
+    { href: '/interview', icon: '🎙', label: 'AI Interview Studio' },
+    { href: '/interview?tab=gd', icon: '🗣️', label: 'GD Boardroom' },
     { href: '/internships', icon: '🏢', label: 'Internships Review' },
     { href: '/projects', icon: '💼', label: 'Industry Projects & Squads' },
     { href: '/passport', icon: '🎫', label: 'Skill Passport & Transcript' }
@@ -267,7 +270,13 @@ export function isPathActive(pathname: string, href: string, currentSearch = '')
   // `/quests/teacher-select` has its own menu item; don't double-highlight `/quests`
   if (hrefPath === '/quests' && cleanPathname === '/quests/teacher-select') return false;
 
-  // Unified AI Interview hub: /interview also activates on /group-discussion
+  // Unified AI Interview and GD tab routing
+  if (href === '/interview?tab=gd' && (cleanPathname === '/group-discussion' || (cleanPathname === '/interview' && new URLSearchParams(searchStr).get('tab') === 'gd'))) return true;
+  if (href === '/interview' && cleanPathname === '/interview') {
+    const activeTab = new URLSearchParams(searchStr).get('tab');
+    if (activeTab === 'gd') return false;
+    return true;
+  }
   if (hrefPath === '/interview' && cleanPathname === '/group-discussion') return true;
 
   // Unified Mirror hub: /mirror also activates on /learning, /career-builder, /career_builder

@@ -239,14 +239,11 @@ function generateUtterance(req: GdTurnRequest): string {
   const pointExcerpt = point.replace(/[\s.!?]+$/g, '').split(/\s+/).slice(0, 12).join(' ');
   const priorExcerpt = prior.replace(/[\s.!?]+$/g, '').split(/\s+/).slice(0, 10).join(' ');
 
-  if (req.roleType === 'avatar_a') {
-    return `${candidate}, I heard your point: ${pointExcerpt}. For this ${domain} discussion, its practical strength is worth keeping, but we still need to test the assumptions, risks, and how success would be measured. ${next}, please deepen that analysis.`;
+if (req.roleType === 'avatar_a') {
+    return `${candidate}, I challenge your point: ${pointExcerpt}. In a ${domain} team, that creates unverified assumptions, edge case failures, and latency risks. We must stress-test this before moving forward. ${next}, how do you evaluate these flaws?`;
   }
 
-  const hook = priorExcerpt
-    ? `Avatar 1 emphasized ${priorExcerpt}, while ${candidate} raised ${pointExcerpt}.`
-    : `${candidate} raised ${pointExcerpt} on ${topic}.`;
-  return `${hook} Looking at both ideas for a ${domain} team, the trade-off is delivery speed versus dependable evidence. Keep the useful part of each, then compare cost, risk, and what outcome can actually be verified before choosing.`;
+  return `${candidate}, you have the floor. While Avatar 1 challenges ${pointExcerpt}, your approach has practical value if bounded. In ${domain} systems, the trade-off is velocity versus reliability. Please defend your approach and address these risks.`;
 }
 
 function systemPrompt(req: GdTurnRequest): string {
@@ -268,11 +265,11 @@ Do not greet. Do not say you are an AI.`;
 
   if (req.roleType === 'avatar_a') {
     return `${shared}
-You are Avatar 1. Respond directly to the candidate's most recent point, not a generic version of the topic. Evaluate its reasoning, evidence, feasibility, and trade-offs for the ${req.domain || 'general'} domain. Be candid but respectful: identify what is sound and what is missing, and never label an idea simply right or wrong without a reason. End by inviting the next panelist to deepen the discussion.`;
+You are Avatar 1 (The Challenger / Attacker). Aggressively attack and challenge the candidate's most recent point. Probe the unstated assumptions, missing edge cases, latency or cost penalties, and lack of empirical metrics. Be sharp, incisive, and adversarial yet professional. Keep your speech strictly ${GD_TARGET_WORDS_MIN} to ${GD_TARGET_WORDS_MAX} words so it fits in a 10-second spoken burst. End by directly passing the floor to ${req.nextSpeakerName || 'Avatar 2'} to see if they can defend or deepen this critique.`;
   }
 
   return `${shared}
-You are Avatar 2. Stay fair and independent; do not automatically agree with Avatar 1. Explicitly connect Avatar 1's point with the candidate's most recent point, identify where they agree or differ, deepen the analysis for the ${req.domain || 'general'} domain, and close with a concise balanced synthesis or unresolved trade-off. Do not call the candidate to answer yet.`;
+You are Avatar 2 (The Synthesizer / Balancer). Listen to Avatar 1's sharp attack and the candidate's point. Offer a pragmatic synthesis or counter-perspective balancing velocity versus stability in the ${req.domain || 'general'} domain. Keep your speech strictly ${GD_TARGET_WORDS_MIN} to ${GD_TARGET_WORDS_MAX} words (approx 10 seconds). End by handing the floor directly back to the Candidate to defend their position.`;
 }
 
 export async function executeGdTurn(req: GdTurnRequest, llm: GdLlmFn): Promise<GdTurnResult> {
