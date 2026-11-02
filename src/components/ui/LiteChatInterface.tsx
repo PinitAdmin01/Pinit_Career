@@ -206,8 +206,8 @@ export default function LiteChatInterface() {
             timestamp: Date.now(),
             actions: [
               {
-                label: '🗺️ Open Career Builder',
-                onClick: () => router.push('/career-builder')
+                label: '🗺️ Open Career Mirror',
+                onClick: () => router.push('/mirror?tab=career-builder')
               }
             ]
           }

@@ -394,7 +394,12 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
   function NavLink({ href, icon, label, badge, indent = false }: NavLeaf & { indent?: boolean }) {
     const active = isNavActive(href);
     const isTourSpotlight = Boolean(
-      activeTourRoute && (href === activeTourRoute || (activeTourRoute !== '/dashboard' && href.startsWith(activeTourRoute)))
+      activeTourRoute && (
+        href === activeTourRoute ||
+        (activeTourRoute !== '/dashboard' && href.startsWith(activeTourRoute)) ||
+        (href === '/interview' && activeTourRoute.startsWith('/group-discussion')) ||
+        (href === '/mirror' && (activeTourRoute.startsWith('/learning') || activeTourRoute.startsWith('/career-builder') || activeTourRoute.startsWith('/career_builder')))
+      )
     );
 
     const tooltipInfo = ROUTE_TOOLTIPS[href];

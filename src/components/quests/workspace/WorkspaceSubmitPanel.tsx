@@ -177,8 +177,8 @@ export function CompletionScreen({ quest, currentTeacher, category }: Completion
           <Link href="/quests?tab=custom_roadmap" className="btn-primary" style={{ padding: '10px 24px' }}>
             Return to Quests Tab
           </Link>
-          <Link href="/career-builder" className="btn-ghost" style={{ padding: '10px 24px' }}>
-            View Career Roadmap
+          <Link href="/mirror?tab=roadmap" className="btn-ghost" style={{ padding: '10px 24px' }}>
+            View Career Mirror
           </Link>
         </div>
       </div>

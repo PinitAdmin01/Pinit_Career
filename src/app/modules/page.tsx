@@ -66,7 +66,7 @@ interface ModuleItem {
 
 const MODULES_LIST: ModuleItem[] = [
     // Student & Learning
-    { id: '1', name: '36-Course S-Curve Curriculum', category: 'student', icon: '📚', desc: '1,080 handcrafted days across Software, Cloud, IoT, and B.Com tracks.', route: '/learning', status: 'live' },
+    { id: '1', name: '36-Course S-Curve Curriculum', category: 'student', icon: '📚', desc: '1,080 handcrafted days across Software, Cloud, IoT, and B.Com tracks.', route: '/mirror?tab=roadmap', status: 'live' },
     { id: '2', name: 'AI Socratic Voice Mentor', category: 'student', icon: '👩‍🏫', desc: '24/7 spoken tutoring with 0 jargon and empathetic recovery ladders.', route: '/quests/lesson', status: 'live' },
     { id: '3', name: 'Code Wars Multiplayer Arena', category: 'student', icon: '⚔️', desc: 'Real-time algorithmic battles with Elo ranking and global leaderboards.', route: '/arena?tab=code_wars', status: 'roadmap' },
     { id: '4', name: 'AI Mock Interview Studio', category: 'student', icon: '🎙️', desc: 'Spoken technical mock interviews with speech confidence and BLUF analysis.', route: '/interview', status: 'live' },
@@ -74,7 +74,7 @@ const MODULES_LIST: ModuleItem[] = [
     { id: '6', name: 'Career DNA & Psychometrics', category: 'student', icon: '🧬', desc: 'Multidimensional cognitive profiling for optimal career trajectory.', route: '/career-dna', status: 'live' },
     { id: '7', name: 'Attention Span & Focus Trainer', category: 'student', icon: '🎯', desc: 'Gamified cognitive reflex exercises to build deep technical focus.', route: '/attention-span', status: 'live' },
     { id: '8', name: 'AI Resume & Portfolio Builder', category: 'student', icon: '📄', desc: 'Auto-generate audited proof-of-work portfolios from completed quests.', route: '/portfolio', status: 'live' },
-    { id: '9', name: 'Group Discussion AI Simulator', category: 'student', icon: '💬', desc: 'Multi-persona AI roundtable discussions with turn-taking analysis.', route: '/group-discussion', status: 'live' },
+    { id: '9', name: 'Group Discussion AI Simulator', category: 'student', icon: '💬', desc: 'Multi-persona AI roundtable discussions with turn-taking analysis.', route: '/interview?tab=gd', status: 'live' },
     { id: '10', name: 'Internship & Job Matchmaker', category: 'student', icon: '💼', desc: 'Direct algorithmic matching to live roles based on verified test assertions.', route: '/internships', status: 'live' },
 
     // Faculty & Teaching
