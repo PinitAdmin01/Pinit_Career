@@ -248,7 +248,7 @@ export default function DashboardHeaderHUD({
               {greetingInfo.subtitle}
             </p>
 
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '4px 10px', borderRadius: 8, background: 'rgba(255,255,255,0.03)', border: '1px solid var(--dash-border)' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', border: '1px solid var(--dash-border)' }}>
               <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--green)', display: 'inline-block', boxShadow: '0 0 8px var(--green)', animation: 'hud-pulse 2s infinite ease-in-out' }} />
               <span style={{ fontSize: 12.5, color: 'var(--dash-subtext)' }}>
                 Active Pathway: <strong style={{ color: 'var(--dash-text)' }}>{trajectory}</strong>
@@ -290,7 +290,7 @@ export default function DashboardHeaderHUD({
           <div 
             role="radiogroup" 
             aria-label="Engineering Career Trajectory Track"
-            style={{ display: 'flex', background: 'rgba(255,255,255,0.02)', borderRadius: 10, padding: 3, border: '1px solid var(--dash-border)' }}
+            style={{ display: 'flex', background: 'var(--bg3)', borderRadius: 10, padding: 3, border: '1px solid var(--dash-border)' }}
           >
             {(['sde', 'iot'] as const).map(t => (
               <button

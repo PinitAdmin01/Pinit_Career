@@ -160,9 +160,9 @@ export default function LearningHeatmapCard({
               const lv = cnt === 0 ? 0 : cnt === 1 ? 1 : cnt === 2 ? 2 : 3;
               const fut = date > new Date();
               const bg = fut
-                ? 'rgba(255,255,255,0.02)'
+                ? 'transparent'
                 : lv === 0
-                ? 'rgba(255,255,255,0.04)'
+                ? 'var(--bg3)'
                 : lv === 1
                 ? `rgba(${accentRgb},0.28)`
                 : lv === 2
@@ -206,7 +206,7 @@ export default function LearningHeatmapCard({
                   height: 11,
                   borderRadius: 2.5,
                   background: lv === 0
-                    ? 'rgba(255,255,255,0.04)'
+                    ? 'var(--bg3)'
                     : lv === 1
                     ? `rgba(${accentRgb},0.28)`
                     : lv === 2

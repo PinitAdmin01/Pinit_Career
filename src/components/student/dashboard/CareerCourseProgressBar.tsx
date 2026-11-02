@@ -113,15 +113,47 @@ export default function CareerCourseProgressBar() {
     router.push('/quests');
   };
 
+  // ── Render 0: Loading Skeleton (prevents flicker of enrolled state) ──────
+  if (loading && !enrollment) {
+    return (
+      <div
+        data-testid="career-progress-skeleton"
+        className="db-glass"
+        style={{
+          padding: '20px 24px',
+          minHeight: 140,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 16,
+          background: 'var(--dash-card)',
+          border: '1px solid var(--dash-border)',
+          opacity: 0.75,
+        }}
+      >
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <div style={{ width: 42, height: 42, borderRadius: 12, background: 'var(--bg3)', animation: 'pulse 1.5s infinite' }} />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+              <div style={{ width: 140, height: 12, borderRadius: 4, background: 'var(--bg3)' }} />
+              <div style={{ width: 220, height: 18, borderRadius: 4, background: 'var(--bg3)' }} />
+            </div>
+          </div>
+          <div style={{ width: 160, height: 38, borderRadius: 10, background: 'var(--bg3)' }} />
+        </div>
+        <div style={{ width: '100%', height: 4, borderRadius: 2, background: 'var(--bg3)', marginTop: 8 }} />
+      </div>
+    );
+  }
+
   // ── Render 1: Empty State (No career course purchased) ─────────────────────
-  if (!loading && !enrollment) {
+  if (!enrollment) {
     return (
       <div
         data-testid="career-progress-empty"
         className="db-glass"
         style={{
           padding: '20px 24px',
-          background: 'linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(10,14,23,0.4) 100%)',
+          background: 'linear-gradient(135deg, rgba(99,102,241,0.03) 0%, var(--dash-card) 100%)',
           display: 'flex',
           flexDirection: 'column',
           gap: 16,
@@ -204,7 +236,7 @@ export default function CareerCourseProgressBar() {
       className="db-glass"
       style={{
         padding: '20px 24px',
-        background: 'linear-gradient(135deg, rgba(99,102,241,0.06) 0%, rgba(10,14,23,0.55) 100%)',
+        background: 'linear-gradient(135deg, rgba(99,102,241,0.08) 0%, var(--dash-card) 100%)',
         border: '1.5px solid rgba(99,102,241,0.3)',
         boxShadow: '0 8px 30px -4px rgba(99,102,241,0.2)',
         display: 'flex',
@@ -284,37 +316,37 @@ export default function CareerCourseProgressBar() {
       </div>
 
       {/* Horizontal Interactive Timeline Bar (Inspired by Image 4) */}
-      <div style={{ position: 'relative', padding: '16px 8px 10px', marginTop: 4 }}>
-        
-        {/* Background track line */}
-        <div
-          style={{
-            position: 'absolute',
-            top: 24,
-            left: '4%',
-            right: '4%',
-            height: 4,
-            background: 'rgba(255, 255, 255, 0.08)',
-            borderRadius: 2,
-            zIndex: 0,
-          }}
-        />
+      <div style={{ position: 'relative', padding: '16px 8px 10px', marginTop: 4, overflowX: 'auto' }}>
+        <div style={{ minWidth: 440, position: 'relative' }}>
+          {/* Background track line */}
+          <div
+            style={{
+              position: 'absolute',
+              top: 24,
+              left: '4%',
+              right: '4%',
+              height: 4,
+              background: 'var(--border2, var(--dash-border))',
+              borderRadius: 2,
+              zIndex: 0,
+            }}
+          />
 
-        {/* Completed progress line with gradient glow */}
-        <div
-          style={{
-            position: 'absolute',
-            top: 24,
-            left: '4%',
-            width: `${Math.min(92, Math.max(4, (completedCount / totalDays) * 92))}%`,
-            height: 4,
-            background: 'linear-gradient(90deg, var(--accent), #10b981)',
-            borderRadius: 2,
-            boxShadow: '0 0 12px rgba(16, 185, 129, 0.6)',
-            transition: 'width 0.8s ease',
-            zIndex: 0,
-          }}
-        />
+          {/* Completed progress line with gradient glow */}
+          <div
+            style={{
+              position: 'absolute',
+              top: 24,
+              left: '4%',
+              width: `${Math.min(92, Math.max(4, (completedCount / totalDays) * 92))}%`,
+              height: 4,
+              background: 'linear-gradient(90deg, var(--accent), #10b981)',
+              borderRadius: 2,
+              boxShadow: '0 0 12px rgba(16, 185, 129, 0.6)',
+              transition: 'width 0.8s ease',
+              zIndex: 0,
+            }}
+          />
 
         {/* Milestone nodes along the timeline */}
         <div style={{ display: 'flex', justifyContent: 'space-between', position: 'relative', zIndex: 1 }}>
@@ -399,5 +431,6 @@ export default function CareerCourseProgressBar() {
         </div>
       </div>
     </div>
-  );
+  </div>
+);
 }

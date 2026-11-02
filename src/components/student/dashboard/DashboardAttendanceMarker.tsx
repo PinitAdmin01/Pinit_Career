@@ -89,7 +89,7 @@ export default function DashboardAttendanceMarker({ onCheckInSuccess }: Props) {
       style={{
         padding: '16px 22px',
         borderRadius: 16,
-        background: 'linear-gradient(135deg, rgba(16,185,129,0.08) 0%, rgba(10,14,23,0.55) 100%)',
+        background: 'linear-gradient(135deg, rgba(16,185,129,0.08) 0%, var(--dash-card) 100%)',
         border: '1.5px solid rgba(16,185,129,0.3)',
         boxShadow: '0 8px 24px -4px rgba(16,185,129,0.15)',
         display: 'flex',
@@ -155,7 +155,7 @@ export default function DashboardAttendanceMarker({ onCheckInSuccess }: Props) {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 14 }}>
         <div style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.45, maxWidth: 640 }}>
           <span>
-            Institutional attendance is automatically confirmed for <strong style={{ color: 'var(--t1)' }}>{todayStr}</strong>. Your cumulative record is <strong style={{ color: '#10b981' }}>{pct}%</strong> ({record?.attended_classes ?? 17} of {record?.total_classes ?? 20} sessions). Complete daily learning quests and missions to maintain your streak.
+            Institutional attendance is automatically confirmed for <strong style={{ color: 'var(--t1)' }}>{todayStr}</strong>. Your cumulative record is <strong style={{ color: '#10b981' }}>{pct}%</strong> {record ? `(${record.attended_classes} of ${record.total_classes} sessions)` : '(Active semester sessions)'}. Complete daily learning quests and missions to maintain your streak.
           </span>
         </div>
 
