@@ -23,7 +23,7 @@ describe('Adversarial Verification: Light Mode & Checkout Modal Viewport Alignme
     assert.ok(file.includes("background: 'linear-gradient(135deg, var(--card) 0%, var(--bg3) 100%)'"));
 
     // Option 2 badge must not have white text on white background
-    assert.ok(!/background:\s*activeTrack === 'python_ai'\s*\?\s*'var\(--green\)'\s*:\s*'var\(--bg2\)',\s*color:\s*'#ffffff'/.test(file));
+    assert.ok(!file.includes("background: activeTrack === 'python_ai' ? 'var(--green)' : 'var(--bg2)'"));
     
     // Inactive badge must use var(--bg3) and var(--t2)
     assert.ok(file.includes("background: activeTrack === 'python_ai' ? 'var(--green)' : 'var(--bg3)'"));
