@@ -141,7 +141,7 @@ export const CrashCoursePlanCards: React.FC<CrashCoursePlanCardsProps> = ({
                 fontSize: 13,
                 fontWeight: 800,
                 cursor: 'pointer',
-                border: `1.5px solid ${activeTrack === 'web_fullstack' ? 'var(--accent)' : 'transparent'}`,
+                border: `1.5px solid ${activeTrack === 'web_fullstack' ? 'var(--accent)' : 'var(--border)'}`,
                 background: activeTrack === 'web_fullstack'
                   ? 'linear-gradient(135deg, rgba(99,102,241,0.22), rgba(99,102,241,0.12))'
                   : 'transparent',
@@ -179,7 +179,7 @@ export const CrashCoursePlanCards: React.FC<CrashCoursePlanCardsProps> = ({
                 fontSize: 13,
                 fontWeight: 800,
                 cursor: 'pointer',
-                border: `1.5px solid ${activeTrack === 'python_ai' ? 'var(--green)' : 'transparent'}`,
+                border: `1.5px solid ${activeTrack === 'python_ai' ? 'var(--green)' : 'var(--border)'}`,
                 background: activeTrack === 'python_ai'
                   ? 'linear-gradient(135deg, rgba(16,185,129,0.22), rgba(16,185,129,0.12))'
                   : 'transparent',
