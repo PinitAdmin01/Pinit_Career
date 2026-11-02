@@ -138,9 +138,9 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
       style={{
         marginTop: 8,
         borderRadius: 24,
-        background: 'linear-gradient(180deg, rgba(15, 23, 42, 0.95) 0%, rgba(10, 15, 29, 0.98) 100%)',
-        border: '1.5px solid rgba(99, 102, 241, 0.25)',
-        boxShadow: '0 12px 36px rgba(0, 0, 0, 0.45)',
+        background: 'linear-gradient(180deg, var(--card) 0%, var(--bg2) 100%)',
+        border: '1.5px solid var(--border)',
+        boxShadow: 'var(--shadow-md)',
         display: 'flex',
         flexDirection: 'column',
         gap: 24,
@@ -190,11 +190,11 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <span style={{ fontSize: 26.5 }}>📍</span>
-            <h3 style={{ fontSize: 20, fontWeight: 900, color: '#ffffff', margin: 0 }}>
+            <h3 style={{ fontSize: 20, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
               Vertical Milestone Pipeline: {plan.title}
             </h3>
           </div>
-          <p style={{ fontSize: 14.5, color: '#94a3b8', margin: '4px 0 0 0' }}>
+          <p style={{ fontSize: 14.5, color: 'var(--t2)', margin: '4px 0 0 0' }}>
             {isTierOn
               ? 'Structured 4-checkpoint progression from daily learning to corporate fellowship and verifiable graduation.'
               : 'Structured 3-checkpoint progression from daily learning to a production capstone and a verifiable certificate.'}
@@ -211,7 +211,7 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
           border: '1px solid rgba(99, 102, 241, 0.3)'
         }}>
           <span style={{ fontSize: 12, fontWeight: 800, color: '#818cf8', textTransform: 'uppercase' }}>Current Track:</span>
-          <span style={{ fontSize: 13, fontWeight: 900, color: '#ffffff' }}>
+          <span style={{ fontSize: 13, fontWeight: 900, color: 'var(--t1)' }}>
             {activeTrack === 'web_fullstack' ? '🌐 Full-Stack Web' : '🤖 Python & AI'}
           </span>
         </div>
@@ -297,12 +297,8 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
                 style={{
                   flex: 1,
                   position: 'relative',
-                  background: isActive
-                    ? 'linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%)'
-                    : 'rgba(15, 23, 42, 0.65)',
-                  border: isActive
-                    ? `1.5px solid ${step.color}`
-                    : '1px solid rgba(255, 255, 255, 0.08)',
+                  background: isActive ? 'linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, var(--card) 100%)' : 'var(--bg2)',
+                  border: isActive ? `1.5px solid ${step.color}` : '1px solid var(--border)',
                   borderRadius: 18,
                   boxShadow: isActive ? `0 8px 24px -4px ${step.color}33` : '0 4px 14px rgba(0,0,0,0.2)',
                   display: 'flex',
@@ -346,10 +342,10 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
 
                 {/* Milestone Title & Subtitle */}
                 <div>
-                  <h4 style={{ fontSize: 17.5, fontWeight: 900, color: '#ffffff', margin: 0 }}>
+                  <h4 style={{ fontSize: 17.5, fontWeight: 900, color: 'var(--t1)', margin: 0 }}>
                     {step.title}
                   </h4>
-                  <p style={{ fontSize: 14, color: '#94a3b8', margin: '4px 0 0 0', lineHeight: 1.4 }}>
+                  <p style={{ fontSize: 14, color: 'var(--t2)', margin: '4px 0 0 0', lineHeight: 1.4 }}>
                     {step.subtitle}
                   </p>
                 </div>
@@ -357,11 +353,11 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
                 {/* Progress Bar (For Step 1) */}
                 {step.progress !== undefined && (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginTop: 4 }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12.5, color: '#cbd5e1', fontWeight: 700 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12.5, color: 'var(--t2)', fontWeight: 700 }}>
                       <span>{step.detail}</span>
                       <span style={{ color: step.color }}>{step.progress}% Complete</span>
                     </div>
-                    <div style={{ width: '100%', height: 6, borderRadius: 3, background: 'rgba(255, 255, 255, 0.08)', overflow: 'hidden' }}>
+                    <div style={{ width: '100%', height: 6, borderRadius: 3, background: 'var(--bg3)', overflow: 'hidden' }}>
                       <div style={{
                         width: `${step.progress}%`,
                         height: '100%',
@@ -396,7 +392,7 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
                 {step.highlights && (
                   <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 2 }}>
                     {step.highlights.map(h => (
-                      <span key={h} style={{ fontSize: 12.5, color: '#cbd5e1', display: 'flex', alignItems: 'center', gap: 4 }}>
+                      <span key={h} style={{ fontSize: 12.5, color: 'var(--t2)', display: 'flex', alignItems: 'center', gap: 4 }}>
                         <span style={{ color: '#10b981' }}>✓</span> {h}
                       </span>
                     ))}
@@ -441,9 +437,9 @@ export const VerticalCheckpointStepper: React.FC<VerticalCheckpointStepperProps>
                         pointerEvents: isLocked && step.key !== 'graduation' ? 'none' : 'auto',
                         padding: '8px 16px',
                         borderRadius: 10,
-                        border: '1px solid rgba(255, 255, 255, 0.15)',
-                        background: 'rgba(255, 255, 255, 0.04)',
-                        color: '#cbd5e1',
+                        border: '1px solid var(--border)',
+                        background: 'var(--card)',
+                        color: 'var(--t1)',
                         fontSize: 13,
                         fontWeight: 700,
                         cursor: 'pointer',

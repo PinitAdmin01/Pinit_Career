@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import type { CrashPlan } from '@/lib/data/crashPlansData';
 import { INTERNSHIP_AVAILABLE } from '@/lib/data/crashPlansData';
 import { openRazorpayCheckout } from '@/lib/razorpay';
@@ -119,6 +120,20 @@ export default function CrashCourseCheckoutModal({
   const [walletInfo, setWalletInfo] = useState<any>(null);
   const [isLaunchingWorkspace, setIsLaunchingWorkspace] = useState(false);
   const [confirmedEnrollment, setConfirmedEnrollment] = useState<CrashCourseEnrollment | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [isOpen]);
 
   React.useEffect(() => {
     if (!isOpen || paymentState === 'processing' || typeof window === 'undefined') return;
@@ -400,20 +415,26 @@ Thank you for enrolling with PinIT Career OS!
     );
   };
 
-  return (
+  const modalContent = (
     <div
       data-testid="crash-checkout-modal"
       onClick={(e) => { if (paymentState !== 'processing' && e.target === e.currentTarget) handleClose(); }}
       style={{
         position: 'fixed',
-        inset: 0,
-        background: 'rgba(0, 0, 0, 0.85)',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        width: '100vw',
+        height: '100vh',
+        background: 'rgba(0, 0, 0, 0.8)',
         backdropFilter: 'blur(8px)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        zIndex: 1000,
+        zIndex: 99999,
         padding: 16,
+        overflow: 'hidden',
       }}
       aria-modal="true"
       role="dialog"
@@ -427,10 +448,10 @@ Thank you for enrolling with PinIT Career OS!
           maxHeight: 'min(92vh, 620px)',
           display: 'flex',
           flexDirection: 'column',
-          background: 'rgba(15, 23, 42, 0.96)',
-          border: '1.5px solid rgba(99, 102, 241, 0.25)',
+          background: 'var(--card)',
+          border: '1.5px solid var(--border)',
           borderRadius: 20,
-          boxShadow: '0 24px 80px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.08)',
+          boxShadow: '0 24px 80px rgba(0, 0, 0, 0.4), var(--shadow-xl)',
           color: 'var(--text)',
           overflow: 'hidden',
         }}
@@ -440,7 +461,7 @@ Thank you for enrolling with PinIT Career OS!
         {/* ── Compact Header (Zero Scroll Header) ────────────────── */}
         <div style={{
           padding: '14px 22px',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+          borderBottom: '1px solid var(--border)',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
@@ -475,8 +496,8 @@ Thank you for enrolling with PinIT Career OS!
               aria-label="Close checkout"
               style={{
                 width: 32, height: 32, borderRadius: 8,
-                background: 'rgba(255, 255, 255, 0.06)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
+                background: 'var(--bg3)',
+                border: '1px solid var(--border)',
                 color: 'var(--t2)', fontSize: 14, fontWeight: 700,
                 cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
               }}
@@ -557,7 +578,7 @@ Thank you for enrolling with PinIT Career OS!
             {/* ── LEFT COLUMN: Plan & Pricing Summary ── */}
             <div style={{
               padding: '18px 22px',
-              borderRight: '1px solid rgba(255, 255, 255, 0.08)',
+              borderRight: '1px solid var(--border)',
               display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
               background: 'rgba(255, 255, 255, 0.01)',
               overflowY: 'auto',
@@ -653,7 +674,7 @@ Thank you for enrolling with PinIT Career OS!
                 display: 'flex', justifyContent: 'space-between', alignItems: 'center',
               }}>
                 <span style={{ fontSize: 13.5, fontWeight: 800, color: 'var(--t1)' }}>Final Payable</span>
-                <span data-testid="checkout-final-payable" style={{ fontSize: 22, fontWeight: 900, color: '#fff', fontFamily: 'var(--font-display)' }}>
+                <span data-testid="checkout-final-payable" style={{ fontSize: 22, fontWeight: 900, color: 'var(--accent)', fontFamily: 'var(--font-display)' }}>
                   {formatINR(finalPayable)}
                 </span>
               </div>
@@ -786,4 +807,13 @@ Thank you for enrolling with PinIT Career OS!
       `}</style>
     </div>
   );
+
+  if (typeof document === 'undefined') {
+    return modalContent;
+  }
+
+  if (typeof document === 'undefined' || !isMounted) {
+    return modalContent;
+  }
+  return createPortal(modalContent, document.body);
 }

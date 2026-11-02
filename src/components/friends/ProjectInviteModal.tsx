@@ -99,7 +99,7 @@ export const ProjectInviteModal: React.FC<ProjectInviteModalProps> = ({
               alignItems: 'center',
               gap: 12,
               padding: '12px 16px',
-              background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(15, 23, 42, 0.7) 100%)',
+              background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, var(--card) 100%)',
               border: '1px solid rgba(16, 185, 129, 0.3)',
               borderRadius: 12
             }}>

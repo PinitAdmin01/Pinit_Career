@@ -12,6 +12,7 @@
   --bg2:   rgba(13, 18, 30, 0.7);
   --bg3:   #121824;
   --card:  rgba(13, 18, 30, 0.85);
+  --card-rgb: 13, 18, 30;
 
   /* Borders */
   --border:  rgba(255, 255, 255, 0.08);
@@ -72,6 +73,7 @@
   --bg2:   rgba(13, 18, 30, 0.7);
   --bg3:   #121824;
   --card:  rgba(13, 18, 30, 0.85);
+  --card-rgb: 13, 18, 30;
   --border:  rgba(255, 255, 255, 0.08);
   --border2: rgba(255, 255, 255, 0.16);
   --border3: rgba(255, 255, 255, 0.24);
@@ -90,6 +92,7 @@
 :root.light, [data-theme='light'] {
   --bg:    #f8f9fc;  --bg2:   #ffffff;
   --bg3:   #f1f3f8;  --card:  #ffffff;
+  --card-rgb: 255, 255, 255;
   --border:  #e4e7ef;  --border2: #cdd2e1;  --border3: #b8bfcf;
   --t1: #0f1117;  --t2: #43495d;  --t3: #525b77;  --t4: #7b849e;
   --accent-light:  #eef2ff;  --teal-light: #e0f7fa;

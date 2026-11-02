@@ -106,18 +106,18 @@ export const ArenaChallengesView: React.FC<ArenaChallengesViewProps> = ({
         alignItems: 'center',
         justifyContent: 'space-between',
         padding: '20px 24px',
-        background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(15, 23, 42, 0.8) 100%)',
+        background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.12) 0%, var(--card) 100%)',
         border: '1px solid rgba(239, 68, 68, 0.3)',
         borderRadius: 16
       }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <span style={{ fontSize: 26.5 }}>⚔️</span>
-            <h2 style={{ fontSize: 22, fontWeight: 800, color: '#ffffff', margin: 0 }}>
+            <h2 style={{ fontSize: 22, fontWeight: 800, color: 'var(--t1)', margin: 0 }}>
               1v1 Friend Duels & Arena Battleground
             </h2>
           </div>
-          <p style={{ fontSize: 14.5, color: '#94a3b8', margin: '6px 0 0' }}>
+          <p style={{ fontSize: 14.5, color: 'var(--t2)', margin: '6px 0 0' }}>
             Challenge campus friends to real-time coding duels, wager XP, and climb the verified peer leaderboard.
           </p>
         </div>
@@ -142,7 +142,7 @@ export const ArenaChallengesView: React.FC<ArenaChallengesViewProps> = ({
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
             <span style={{ fontSize: 17.5 }}>⚡</span>
-            <h3 style={{ fontSize: 17.5, fontWeight: 700, color: '#ffffff', margin: 0 }}>
+            <h3 style={{ fontSize: 17.5, fontWeight: 700, color: 'var(--t1)', margin: 0 }}>
               Pending Duel Invitations ({pendingChallenges.length})
             </h3>
           </div>
@@ -153,7 +153,7 @@ export const ArenaChallengesView: React.FC<ArenaChallengesViewProps> = ({
                 key={duel.id}
                 style={{
                   padding: 18,
-                  background: 'rgba(15, 23, 42, 0.85)',
+                  background: 'var(--bg2)',
                   border: '1px solid rgba(239, 68, 68, 0.35)',
                   borderRadius: 14,
                   display: 'flex',
@@ -227,7 +227,7 @@ export const ArenaChallengesView: React.FC<ArenaChallengesViewProps> = ({
         {/* Left: Head-to-Head Records */}
         <div style={{
           padding: 20,
-          background: 'rgba(15, 23, 42, 0.75)',
+          background: 'var(--bg2)',
           border: '1px solid rgba(255, 255, 255, 0.08)',
           borderRadius: 16,
           display: 'flex',
@@ -236,7 +236,7 @@ export const ArenaChallengesView: React.FC<ArenaChallengesViewProps> = ({
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <span style={{ fontSize: 20 }}>🏆</span>
-            <h3 style={{ fontSize: 17.5, fontWeight: 700, color: '#ffffff', margin: 0 }}>
+            <h3 style={{ fontSize: 17.5, fontWeight: 700, color: 'var(--t1)', margin: 0 }}>
               Head-to-Head Duel Records
             </h3>
           </div>
@@ -283,7 +283,7 @@ export const ArenaChallengesView: React.FC<ArenaChallengesViewProps> = ({
         {/* Right: Friends Arena Leaderboard */}
         <div style={{
           padding: 20,
-          background: 'rgba(15, 23, 42, 0.75)',
+          background: 'var(--bg2)',
           border: '1px solid rgba(255, 255, 255, 0.08)',
           borderRadius: 16,
           display: 'flex',
@@ -293,7 +293,7 @@ export const ArenaChallengesView: React.FC<ArenaChallengesViewProps> = ({
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <span style={{ fontSize: 20 }}>👑</span>
-              <h3 style={{ fontSize: 17.5, fontWeight: 700, color: '#ffffff', margin: 0 }}>
+              <h3 style={{ fontSize: 17.5, fontWeight: 700, color: 'var(--t1)', margin: 0 }}>
                 Friends Arena Leaderboard
               </h3>
             </div>

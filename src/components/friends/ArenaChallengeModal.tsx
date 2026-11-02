@@ -98,7 +98,7 @@ export const ArenaChallengeModal: React.FC<ArenaChallengeModalProps> = ({
               alignItems: 'center',
               gap: 12,
               padding: '12px 14px',
-              background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.12) 0%, rgba(15, 23, 42, 0.7) 100%)',
+              background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.12) 0%, var(--card) 100%)',
               border: '1px solid rgba(239, 68, 68, 0.25)',
               borderRadius: 12
             }}>

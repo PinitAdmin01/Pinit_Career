@@ -123,8 +123,8 @@ export default function CareerGrowthGraph({
       data-testid="career-growth-graph"
       style={{
         padding: 24, borderRadius: 20,
-        background: 'rgba(15, 23, 42, 0.85)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
+        background: 'var(--card)',
+        border: '1px solid var(--border)',
         backdropFilter: 'blur(12px)',
         fontFamily: 'var(--font-display)',
         width: '100%', maxWidth: 700,
@@ -181,7 +181,7 @@ export default function CareerGrowthGraph({
             <g key={tick}>
               <line
                 x1={padding.left} y1={getY(tick)} x2={width - padding.right} y2={getY(tick)}
-                stroke="rgba(255,255,255,0.06)" strokeWidth="1"
+                stroke="var(--border)" strokeWidth="1"
               />
               <text x={padding.left - 8} y={getY(tick) + 4} textAnchor="end" fill="var(--t3)" fontSize="11" fontFamily="var(--font-display)">
                 {tick}

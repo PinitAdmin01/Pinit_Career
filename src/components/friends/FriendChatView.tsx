@@ -159,7 +159,7 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
         borderRight: '1px solid rgba(255, 255, 255, 0.08)',
         display: 'flex',
         flexDirection: 'column',
-        background: 'rgba(15, 23, 42, 0.5)'
+        background: 'var(--card)', border: '1px solid var(--border)'
       }}>
         {/* Search header */}
         <div style={{ padding: '14px 16px', borderBottom: '1px solid rgba(255, 255, 255, 0.06)' }}>
@@ -246,7 +246,7 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          background: 'rgba(15, 23, 42, 0.6)'
+          background: 'var(--card)', border: '1px solid var(--border)'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <div style={{ position: 'relative', width: 40, height: 40 }}>
@@ -403,7 +403,7 @@ export const FriendChatView: React.FC<FriendChatViewProps> = ({
           borderTop: '1px solid rgba(255, 255, 255, 0.08)',
           display: 'flex',
           gap: 10,
-          background: 'rgba(15, 23, 42, 0.6)'
+          background: 'var(--card)', border: '1px solid var(--border)'
         }}>
           <input
             type="text"

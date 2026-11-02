@@ -61,7 +61,7 @@ export const CrashCoursePlanCards: React.FC<CrashCoursePlanCardsProps> = ({
           flexDirection: 'column',
           gap: 14,
           padding: '18px 22px',
-          background: 'linear-gradient(135deg, rgba(var(--card-rgb, 15,23,42), 0.95), rgba(var(--card-rgb, 15,23,42), 0.85))',
+          background: 'linear-gradient(135deg, var(--card) 0%, var(--bg3) 100%)',
           backdropFilter: 'blur(12px)',
           border: '1px solid var(--border)',
           borderRadius: 'var(--radius-xl)',
@@ -145,7 +145,7 @@ export const CrashCoursePlanCards: React.FC<CrashCoursePlanCardsProps> = ({
                 background: activeTrack === 'web_fullstack'
                   ? 'linear-gradient(135deg, rgba(99,102,241,0.22), rgba(99,102,241,0.12))'
                   : 'transparent',
-                color: activeTrack === 'web_fullstack' ? '#ffffff' : 'var(--t2)',
+                color: activeTrack === 'web_fullstack' ? 'var(--t1)' : 'var(--t2)',
                 boxShadow: activeTrack === 'web_fullstack' ? '0 3px 12px rgba(99,102,241,0.3)' : 'none',
                 transition: 'all 0.18s ease',
               }}
@@ -157,8 +157,8 @@ export const CrashCoursePlanCards: React.FC<CrashCoursePlanCardsProps> = ({
                   fontSize: 10,
                   padding: '1px 6px',
                   borderRadius: 4,
-                  background: activeTrack === 'web_fullstack' ? 'var(--accent)' : 'var(--bg2)',
-                  color: '#ffffff',
+                  background: activeTrack === 'web_fullstack' ? 'var(--accent)' : 'var(--bg3)',
+                  color: activeTrack === 'web_fullstack' ? '#ffffff' : 'var(--t2)',
                   fontWeight: 800,
                 }}
               >
@@ -183,7 +183,7 @@ export const CrashCoursePlanCards: React.FC<CrashCoursePlanCardsProps> = ({
                 background: activeTrack === 'python_ai'
                   ? 'linear-gradient(135deg, rgba(16,185,129,0.22), rgba(16,185,129,0.12))'
                   : 'transparent',
-                color: activeTrack === 'python_ai' ? '#ffffff' : 'var(--t2)',
+                color: activeTrack === 'python_ai' ? 'var(--t1)' : 'var(--t2)',
                 boxShadow: activeTrack === 'python_ai' ? '0 3px 12px rgba(16,185,129,0.3)' : 'none',
                 transition: 'all 0.18s ease',
               }}
@@ -195,8 +195,8 @@ export const CrashCoursePlanCards: React.FC<CrashCoursePlanCardsProps> = ({
                   fontSize: 10,
                   padding: '1px 6px',
                   borderRadius: 4,
-                  background: activeTrack === 'python_ai' ? 'var(--green)' : 'var(--bg2)',
-                  color: '#ffffff',
+                  background: activeTrack === 'python_ai' ? 'var(--green)' : 'var(--bg3)',
+                  color: activeTrack === 'python_ai' ? '#ffffff' : 'var(--t2)',
                   fontWeight: 800,
                 }}
               >
