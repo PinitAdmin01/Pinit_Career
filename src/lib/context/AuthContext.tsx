@@ -10,6 +10,7 @@ import {
 } from '@/lib/supabaseService';
 import { api } from '@/lib/api/client';
 import { voiceCacheDB } from '@/lib/voiceCacheDB';
+import { generateMemorableGlobalId } from '@/lib/utils/pinitIdGenerator';
 
 interface User {
   id:               string;
@@ -19,6 +20,8 @@ interface User {
   role:             string;
   subscription_tier?: string;
   registerNumber?:  string;
+  pinitId?:         string;
+  pinit_id?:        string;
   selectedTeacherId?: string;
   guidanceMentorId?: string;
   atsScore?:        number;
@@ -46,6 +49,8 @@ interface SignupData {
   displayName:     string;
   role?:           string;
   registerNumber?: string;
+  pinitId?:        string;
+  collegeInfo?:    any;
 }
 
 const Ctx = createContext<AuthCtx | null>(null);
@@ -165,6 +170,8 @@ function sbUserToAppUser(sbUser: SbUser, profile: Record<string, unknown> | null
     role:              role,
     registerNumber:    regNo,
     register_number:   regNo,
+    pinitId:           regNo,
+    pinit_id:          regNo,
     selectedTeacherId: teacherId,
     selected_teacher_id: teacherId,
     guidanceMentorId:  mentorId,
@@ -776,6 +783,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         throw new Error('Signup failed — no user was returned from the server. Please try again.');
       }
 
+      const resolvedId = data.pinitId || data.registerNumber || generateMemorableGlobalId(data.displayName, data.username);
       const profile = {
         ...EMPTY_PROFILE,
         uid:             sbUser.id,
@@ -783,7 +791,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         username:        data.username,
         displayName:     data.displayName,
         role:            'student',
-        registerNumber:  data.registerNumber || '',
+        registerNumber:  resolvedId,
+        register_number: resolvedId,
+        pinit_id:        resolvedId,
       };
 
       // Await profile creation on signup to prevent broken state (Task 3.2)

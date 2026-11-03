@@ -4,12 +4,17 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '@/lib/context/AuthContext';
+import CollegeIdScanner from '@/components/auth/CollegeIdScanner';
+import { CollegeMetadata } from '@/lib/utils/pinitIdGenerator';
 
 export default function SignupPage() {
   const { signup } = useAuth();
   const router = useRouter();
 
   const [form, setForm] = useState({ username: '', displayName: '', password: '' });
+  const [pinitId, setPinitId] = useState('');
+  const [idMode, setIdMode] = useState<'college' | 'global'>('global');
+  const [collegeMeta, setCollegeMeta] = useState<CollegeMetadata | undefined>();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -28,13 +33,26 @@ export default function SignupPage() {
     setError('');
 
     try {
-      // Signup always creates a student account (server/AuthContext enforce this).
+      // Signup creates student account with verified/memorable PinIT ID (Task 6 & Task 7)
       await signup({
         username: form.username,
         displayName: form.displayName,
         password: form.password,
         role: 'student',
+        registerNumber: pinitId,
+        pinitId: pinitId,
+        collegeInfo: collegeMeta,
       });
+
+      // Persist local identification for offline continuity
+      try {
+        if (typeof window !== 'undefined') {
+          if (pinitId) localStorage.setItem('pinit_student_id', pinitId);
+          if (collegeMeta) localStorage.setItem('pinit_college_meta', JSON.stringify(collegeMeta));
+          localStorage.setItem('pinit_id_mode', idMode);
+        }
+      } catch {}
+
       router.push('/onboarding');
     } catch (e: unknown) {
       setError(e instanceof Error ? e.message : 'Signup failed');
@@ -115,8 +133,19 @@ export default function SignupPage() {
             />
           </label>
 
+          {/* Task 6 & Task 7: College ID Scanner & Memorable PinIT ID Generation */}
+          <CollegeIdScanner
+            displayName={form.displayName}
+            username={form.username}
+            onIdGenerated={(id, mode, meta) => {
+              setPinitId(id);
+              setIdMode(mode);
+              setCollegeMeta(meta);
+            }}
+          />
+
           <p style={{ margin: 0, fontSize: 13, color: 'var(--t3)', lineHeight: 1.5 }}>
-            New accounts are registered as <strong>students</strong>. Staff and recruiter access is granted by an administrator — it cannot be self-selected at signup.
+            New accounts are registered as <strong>students</strong> with an official PinIT ID. Staff and recruiter access is granted by an administrator.
           </p>
 
           <button type="submit" className="btn-primary" disabled={loading} style={{ width: '100%', marginTop: 4 }}>

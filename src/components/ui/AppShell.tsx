@@ -736,11 +736,18 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                 const realName = typeof rawReal === 'string' ? rawReal : '';
                 const studentName = (rawDisp && !rawDisp.startsWith('usr_') && rawDisp.toLowerCase() !== 'student') ? rawDisp : (realName || rawDisp || 'Student');
                 const rawUName = typeof user?.username === 'string' ? user.username : '';
+                const pinitId = (user as any)?.pinitId || (user as any)?.pinit_id || (user as any)?.registerNumber || (user as any)?.register_number || '';
                 const handleOrRoll = (rawUName && !rawUName.startsWith('usr_')) ? rawUName : (user?.registerNumber || (typeof user?.email === 'string' ? user.email.split('@')[0] : ''));
                 return (
                   <>
                     <div style={{ fontSize: 14.5, fontWeight: 700, marginBottom: 2, color: 'var(--t1)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{studentName}</div>
-                    {handleOrRoll && <div style={{ fontSize: 11, color: 'var(--t3)', marginBottom: 6, fontFamily: 'var(--font-mono)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{handleOrRoll}</div>}
+                    {pinitId && typeof pinitId === 'string' && pinitId.startsWith('PIN-') ? (
+                      <div style={{ fontSize: 10.5, color: 'var(--accent)', marginBottom: 6, fontFamily: 'var(--font-mono)', fontWeight: 800, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', letterSpacing: '0.5px' }}>
+                        {pinitId}
+                      </div>
+                    ) : handleOrRoll ? (
+                      <div style={{ fontSize: 11, color: 'var(--t3)', marginBottom: 6, fontFamily: 'var(--font-mono)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{handleOrRoll}</div>
+                    ) : null}
                   </>
                 );
               })()}
