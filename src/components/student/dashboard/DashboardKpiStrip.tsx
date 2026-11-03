@@ -20,14 +20,21 @@ export default function DashboardKpiStrip({
   attendancePct = 85,
   verifiedVaultCount = 0,
 }: Props) {
-  const currentLevel = Math.floor(xp / 100) + 1;
-  const xpToNext = 100 - (xp % 100);
+  const safeStreak = Math.max(0, Math.floor(Number(streak) || 0));
+  const safePins = Math.max(0, Math.floor(Number(pins) || 0));
+  const safeXp = Math.max(0, Math.floor(Number(xp) || 0));
+  const safeTrust = Math.min(100, Math.max(0, Math.round(Number(trustScore) || 0)));
+  const safeAttendance = Math.min(100, Math.max(0, Math.round(Number(attendancePct) || 0)));
+  const safeVaultCount = Math.max(0, Math.floor(Number(verifiedVaultCount) || 0));
+
+  const currentLevel = Math.floor(safeXp / 100) + 1;
+  const xpToNext = 100 - (safeXp % 100);
 
   const KPIS = [
     {
       id: 'streak',
       label: 'FOCUS STREAK',
-      value: `${streak} ${streak === 1 ? 'Day' : 'Days'}`,
+      value: `${safeStreak} ${safeStreak === 1 ? 'Day' : 'Days'}`,
       badge: '🔥 Active',
       badgeColor: '#f59e0b',
       badgeBg: 'rgba(245,158,11,0.14)',
@@ -38,7 +45,7 @@ export default function DashboardKpiStrip({
     {
       id: 'pins',
       label: 'WALLET BALANCE',
-      value: `${pins} Pins`,
+      value: `${safePins} Pins`,
       badge: '🪙 Store',
       badgeColor: '#eab308',
       badgeBg: 'rgba(234,179,8,0.14)',
@@ -60,8 +67,8 @@ export default function DashboardKpiStrip({
     {
       id: 'trust',
       label: 'TRUST QUOTIENT',
-      value: `${Math.round(trustScore)}%`,
-      badge: verifiedVaultCount > 0 ? `🛡️ ${verifiedVaultCount} Verified` : '🛡️ Baseline',
+      value: `${safeTrust}%`,
+      badge: safeVaultCount > 0 ? `🛡️ ${safeVaultCount} Verified` : '🛡️ Baseline',
       badgeColor: '#10b981',
       badgeBg: 'rgba(16,185,129,0.14)',
       subtext: 'Institutional accreditation',
@@ -71,13 +78,13 @@ export default function DashboardKpiStrip({
     {
       id: 'attendance',
       label: 'CAMPUS ATTENDANCE',
-      value: `${attendancePct}%`,
-      badge: attendancePct >= 75 ? '✓ Exam Safe' : '⚠️ Warning',
-      badgeColor: attendancePct >= 75 ? '#10b981' : '#ef4444',
-      badgeBg: attendancePct >= 75 ? 'rgba(16,185,129,0.14)' : 'rgba(239,68,68,0.14)',
+      value: `${safeAttendance}%`,
+      badge: safeAttendance >= 75 ? '✓ Exam Safe' : '⚠️ Warning',
+      badgeColor: safeAttendance >= 75 ? '#10b981' : '#ef4444',
+      badgeBg: safeAttendance >= 75 ? 'rgba(16,185,129,0.14)' : 'rgba(239,68,68,0.14)',
       subtext: '75% mandatory threshold',
       href: '/profile?tab=activity',
-      accent: attendancePct >= 75 ? '#10b981' : '#ef4444',
+      accent: safeAttendance >= 75 ? '#10b981' : '#ef4444',
     },
   ];
 

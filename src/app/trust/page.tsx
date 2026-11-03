@@ -123,7 +123,7 @@ export default function TrustDashboardPage() {
         style={{
           padding: '36px 32px',
           borderRadius: 20,
-          background: 'linear-gradient(135deg, rgba(16,185,129,0.06) 0%, rgba(10,14,23,0.55) 100%)',
+          background: 'linear-gradient(135deg, rgba(16,185,129,0.08) 0%, var(--card, var(--bg2)) 100%)',
           border: '1.5px solid rgba(16,185,129,0.35)',
           boxShadow: '0 8px 32px rgba(16,185,129,0.15)',
           textAlign: 'center',

@@ -309,7 +309,7 @@ export default function DashboardHeaderHUD({
               boxShadow: '0 2px 10px rgba(16,185,129,0.12)',
             }}
           >
-            
+            <span>🛡️</span>
             <span>Trust</span>
           </Link>
 

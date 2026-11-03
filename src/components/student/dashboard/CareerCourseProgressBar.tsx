@@ -99,6 +99,12 @@ export default function CareerCourseProgressBar() {
     ];
   }, [totalDays]);
 
+  const activeMilestoneIndex = useMemo(() => {
+    if (isAllComplete) return -1;
+    const idx = milestones.findIndex(m => m.day >= currentIncompleteDay);
+    return idx !== -1 ? idx : milestones.length - 1;
+  }, [milestones, currentIncompleteDay, isAllComplete]);
+
   const handleResumeDay = () => {
     if (plan && enrollment) {
       try {
@@ -351,9 +357,9 @@ export default function CareerCourseProgressBar() {
 
         {/* Milestone nodes along the timeline */}
         <div style={{ display: 'flex', justifyContent: 'space-between', position: 'relative', zIndex: 1 }}>
-          {milestones.map((m) => {
+          {milestones.map((m, idx) => {
             const isCompleted = m.day <= completedCount;
-            const isCurrent = !isAllComplete && (m.day === currentIncompleteDay || (currentIncompleteDay >= m.day && currentIncompleteDay < m.day + Math.round(totalDays * 0.25)));
+            const isCurrent = !isAllComplete && (idx === activeMilestoneIndex);
 
             return (
               <div
@@ -394,7 +400,11 @@ export default function CareerCourseProgressBar() {
                     transition: 'all 0.3s ease',
                   }}
                   title={`Day ${m.day}: ${m.name}`}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`Milestone Day ${m.day}: ${m.name}`}
                   onClick={handleResumeDay}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleResumeDay(); } }}
                 >
                   {isCompleted ? '✓' : isCurrent ? '●' : ''}
                 </div>
