@@ -25,6 +25,8 @@ interface Action {
   href: string;
   cta: string;
   color: string;
+  bg: string;
+  border: string;
   urgency: number;
 }
 
@@ -40,7 +42,9 @@ function pickActions(profile: ActionProfile): Action[] {
     // 1. Resume / ATS Optimization
     {
       icon: 'RESUME',
-      color: 'var(--accent)',
+      color: '#6366f1',
+      bg: 'rgba(99,102,241,0.12)',
+      border: 'rgba(99,102,241,0.25)',
       title: ats === 0 ? 'Optimize Resume' : `Resume Score (${ats}/100)`,
       desc: ats === 0
         ? `Upload your resume to map keyword gaps for ${trackName}.`
@@ -52,7 +56,9 @@ function pickActions(profile: ActionProfile): Action[] {
     // 2. Mission Streak
     {
       icon: 'STREAK',
-      color: 'var(--amber)',
+      color: '#f59e0b',
+      bg: 'rgba(245,158,11,0.12)',
+      border: 'rgba(245,158,11,0.25)',
       title: streak === 0 ? 'Start Daily Streak' : `Extend ${streak}-Day Streak`,
       desc: streak === 0
         ? 'Complete a 15-min daily mission to begin building your consistency record.'
@@ -64,7 +70,9 @@ function pickActions(profile: ActionProfile): Action[] {
     // 3. Trust Score
     {
       icon: 'TRUST',
-      color: 'var(--green)',
+      color: '#10b981',
+      bg: 'rgba(16,185,129,0.12)',
+      border: 'rgba(16,185,129,0.25)',
       title: trust < 50 ? 'Boost Trust Quotient' : `Trust Score (${Math.round(trust)}/100)`,
       desc: trust < 50
         ? 'Verify a certificate or pass a quick coding quiz to build recruiter trust.'
@@ -76,7 +84,9 @@ function pickActions(profile: ActionProfile): Action[] {
     // 4. Mock Interviews
     {
       icon: 'MOCK',
-      color: 'var(--blue)',
+      color: '#3b82f6',
+      bg: 'rgba(59,130,246,0.12)',
+      border: 'rgba(59,130,246,0.25)',
       title: intDone === 0 ? 'First AI Mock Round' : `Mock Practice (${intDone} Cleared)`,
       desc: intDone === 0
         ? 'Practice a 10-minute technical interview with Priya to build confidence.'
@@ -88,7 +98,9 @@ function pickActions(profile: ActionProfile): Action[] {
     // 5. Evidence Vault
     {
       icon: 'VAULT',
-      color: 'var(--purple)',
+      color: '#a855f7',
+      bg: 'rgba(168,85,247,0.12)',
+      border: 'rgba(168,85,247,0.25)',
       title: vault === 0 ? 'Add Proof to Vault' : `Vault Assets (${vault})`,
       desc: vault === 0
         ? 'Store GitHub repos, degrees, or certifications in your tamper-proof Vault.'
@@ -100,7 +112,9 @@ function pickActions(profile: ActionProfile): Action[] {
     // 6. Group Discussion Boardroom
     {
       icon: 'DEBATE',
-      color: 'var(--teal)',
+      color: '#14b8a6',
+      bg: 'rgba(20,184,166,0.12)',
+      border: 'rgba(20,184,166,0.25)',
       title: 'AI Boardroom Debate',
       desc: 'Sharpen your technical communication and collaborative argumentation skills.',
       href: '/group-discussion',
@@ -165,7 +179,7 @@ export default function WhatToDoToday({ profile }: { profile: ActionProfile | nu
             <div
               style={{
                 background: 'var(--bg3)',
-                border: `1.5px solid ${action.color}33`,
+                border: `1.5px solid ${action.border}`,
                 borderRadius: 12,
                 padding: '14px 16px',
                 cursor: 'pointer',
@@ -182,13 +196,13 @@ export default function WhatToDoToday({ profile }: { profile: ActionProfile | nu
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.borderColor = `${action.color}33`;
+                e.currentTarget.style.borderColor = action.border;
               }}
             >
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                    <span style={{ fontSize: 10, fontWeight: 900, color: action.color, background: `${action.color}18`, padding: '2px 7px', borderRadius: 4, fontFamily: 'var(--font-mono)' }}>{action.icon}</span>
+                    <span style={{ fontSize: 10, fontWeight: 900, color: action.color, background: action.bg, padding: '2px 7px', borderRadius: 4, fontFamily: 'var(--font-mono)' }}>{action.icon}</span>
                     <span style={{ fontSize: 11.5, fontWeight: 800, color: action.color, fontFamily: 'var(--font-mono)' }}>
                       Priority {i + 1}
                     </span>
