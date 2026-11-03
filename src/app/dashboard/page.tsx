@@ -9,6 +9,7 @@ import WhatToDoToday from '@/components/ui/WhatToDoToday';
 
 // Sub-components
 import DashboardHeaderHUD      from '@/components/student/dashboard/DashboardHeaderHUD';
+import DashboardKpiStrip       from '@/components/student/dashboard/DashboardKpiStrip';
 import CareerCourseProgressBar from '@/components/student/dashboard/CareerCourseProgressBar';
 import DashboardBentoGrid      from '@/components/student/dashboard/DashboardBentoGrid';
 import DashboardTrajectoryMap  from '@/components/student/dashboard/DashboardTrajectoryMap';
@@ -200,14 +201,35 @@ export default function DashboardPage() {
     finally { setIsGeneratingRoadmap(false); }
   };
 
-  // ── Computed evolution stage ───────────────────────────────────────────────
-  let activeStageIndex = 0;
-  for (let i = EVOLUTION_STAGES.length - 1; i >= 0; i--) {
-    if (careerScore >= EVOLUTION_STAGES[i].minScore) { activeStageIndex = i; break; }
-  }
+  // ── Computed evolution stage (memoized for performance) ───────────────────
+  const activeStageIndex = useMemo(() => {
+    for (let i = EVOLUTION_STAGES.length - 1; i >= 0; i--) {
+      if (careerScore >= EVOLUTION_STAGES[i].minScore) return i;
+    }
+    return 0;
+  }, [careerScore]);
 
-  // Profile for WhatToDoToday
-  function profileForActions() {
+  // Verified vault credentials count
+  const verifiedVaultCount = useMemo(() => {
+    return (cOS?.vaultItems || []).filter(v => v.verified).length;
+  }, [cOS?.vaultItems]);
+
+  // Dynamic attendance percentage calculation
+  const attendancePct = useMemo(() => {
+    if (typeof window !== 'undefined' && user?.id) {
+      try {
+        const raw = localStorage.getItem('pinit_attendance_v2_' + user.id);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (typeof parsed.percentage === 'number') return parsed.percentage;
+        }
+      } catch {}
+    }
+    return 85;
+  }, [user?.id]);
+
+  // Profile for WhatToDoToday (memoized to prevent redundant downstream re-renders)
+  const memoizedProfileForActions = useMemo(() => {
     return {
       ats_score:            cOS.careerScore ?? 0,
       trust_score:          cOS.trustScore  ?? 0,
@@ -223,7 +245,21 @@ export default function DashboardPage() {
       active_track:         activeTrack,
       target_role:          roleReadiness?.targetRole || (onboardingAnswers as any)?.targetRole,
     };
-  }
+  }, [
+    cOS.careerScore,
+    cOS.trustScore,
+    cOS.missionStreak,
+    cOS.completedMissions,
+    user?.recruiter_visibility,
+    cOS.vaultItems,
+    user?.interviews_done,
+    user?.weak_areas,
+    user?.skill_tags,
+    cOS.xp,
+    activeTrack,
+    roleReadiness?.targetRole,
+    onboardingAnswers,
+  ]);
 
   // ── Render guard ───────────────────────────────────────────────────────────
   if (!mounted || authLoading) {
@@ -270,10 +306,20 @@ export default function DashboardPage() {
         roleReadiness={roleReadiness}
       />
 
-      {/* 2. Creative Career Course Progress Bar (Task 4) */}
+      {/* 2. Operational KPI Strip: Streak, Pins, Mastery Level, Trust, Attendance */}
+      <DashboardKpiStrip
+        streak={cOS.missionStreak || 1}
+        pins={cOS.pins || 0}
+        xp={cOS.xp || 0}
+        trustScore={trustScore}
+        attendancePct={attendancePct}
+        verifiedVaultCount={verifiedVaultCount}
+      />
+
+      {/* 3. Creative Career Course Progress Bar (Task 4) */}
       <CareerCourseProgressBar />
 
-      {/* 3. Bento Grid: Evolution Timeline, Automatic Attendance Marker, Competencies Radar */}
+      {/* 4. Bento Grid: Evolution Timeline, Automatic Attendance Marker, Competencies Radar */}
       <DashboardBentoGrid
         careerScore={careerScore}
         dnaScore={dnaScore}
@@ -282,8 +328,8 @@ export default function DashboardPage() {
         learningMistakes={cOS.onboardingAnswers?.learning_mistakes || []}
       />
 
-      {/* 4. Priority Action Checklist: 3 concise, dynamic actions */}
-      <WhatToDoToday profile={profileForActions()} />
+      {/* 5. Priority Action Checklist: 3 concise, dynamic actions */}
+      <WhatToDoToday profile={memoizedProfileForActions} />
 
       {/* 5. Trajectory Map (Roadmap generator) */}
       <DashboardTrajectoryMap

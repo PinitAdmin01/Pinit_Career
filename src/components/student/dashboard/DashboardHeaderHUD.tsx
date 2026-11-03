@@ -17,12 +17,13 @@ function CareerTwinHologram({ track }: { track: 'sde' | 'iot' }) {
     let angle = 0;
     let time = 0;
     let isDestroyed = false;
+    let isVisible = true;
 
     let resizeRafId: number;
     const resizeCanvas = () => {
       if (!canvas || isDestroyed) return;
       const rect = canvas.getBoundingClientRect();
-      const dpr = window.devicePixelRatio || 1;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = rect.width * dpr;
       canvas.height = rect.height * dpr;
       ctx.scale(dpr, dpr);
@@ -34,6 +35,30 @@ function CareerTwinHologram({ track }: { track: 'sde' | 'iot' }) {
 
     resizeCanvas();
     window.addEventListener('resize', handleResize);
+
+    // Performance optimization: pause animation when canvas is scrolled off-screen or tab is backgrounded
+    let observer: IntersectionObserver | null = null;
+    if (typeof IntersectionObserver !== 'undefined') {
+      observer = new IntersectionObserver(([entry]) => {
+        const wasVisible = isVisible;
+        isVisible = entry.isIntersecting && !document.hidden;
+        if (!wasVisible && isVisible && !isDestroyed) {
+          cancelAnimationFrame(animationId);
+          animationId = requestAnimationFrame(draw);
+        }
+      }, { threshold: 0.05 });
+      observer.observe(canvas);
+    }
+
+    const handleVisibilityChange = () => {
+      const wasVisible = isVisible;
+      isVisible = !document.hidden;
+      if (!wasVisible && isVisible && !isDestroyed) {
+        cancelAnimationFrame(animationId);
+        animationId = requestAnimationFrame(draw);
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     interface Particle { x: number; y: number; targetY: number; size: number; alpha: number; speed: number; color: string; active: boolean; }
     interface Ripple { y: number; radius: number; maxRadius: number; color: string; alpha: number; }
@@ -53,7 +78,7 @@ function CareerTwinHologram({ track }: { track: 'sde' | 'iot' }) {
     const skillColors = ['rgba(99,102,241,0.8)','rgba(168,85,247,0.8)','rgba(14,165,233,0.8)','rgba(34,197,94,0.8)'];
 
     const draw = () => {
-      if (isDestroyed) return;
+      if (isDestroyed || !isVisible) return;
       time += 0.03;
       angle += 0.025;
       ctx.clearRect(0, 0, w, h);
@@ -119,6 +144,8 @@ function CareerTwinHologram({ track }: { track: 'sde' | 'iot' }) {
       cancelAnimationFrame(animationId);
       cancelAnimationFrame(resizeRafId);
       window.removeEventListener('resize', handleResize);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      if (observer) observer.disconnect();
     };
   }, [track]);
 

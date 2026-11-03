@@ -75,9 +75,10 @@ export default function CareerCourseProgressBar() {
     return Math.min(totalDays, completedQuests.length);
   }, [enrollment, completedQuests, totalDays]);
 
+  const isAllComplete = completedCount >= totalDays;
   const currentIncompleteDay = useMemo(() => {
-    return Math.min(totalDays, completedCount + 1);
-  }, [completedCount, totalDays]);
+    return isAllComplete ? totalDays : Math.min(totalDays, completedCount + 1);
+  }, [completedCount, totalDays, isAllComplete]);
 
   const percentComplete = useMemo(() => {
     return Math.round((completedCount / totalDays) * 100);
@@ -264,7 +265,7 @@ export default function CareerCourseProgressBar() {
               </span>
             </div>
             <h3 style={{ fontSize: 17, fontWeight: 900, color: 'var(--t1)', margin: '2px 0 0', fontFamily: 'var(--font-display)' }}>
-              {plan?.title || 'Full-Stack Career Accelerator'} &middot; <span style={{ color: 'var(--accent)' }}>Day {currentIncompleteDay}</span> of {totalDays}
+              {plan?.title || 'Full-Stack Career Accelerator'} &middot; {isAllComplete ? <span style={{ color: '#10b981' }}>100% Completed</span> : <><span style={{ color: 'var(--accent)' }}>Day {currentIncompleteDay}</span> of {totalDays}</>}
             </h3>
           </div>
         </div>
@@ -309,8 +310,8 @@ export default function CareerCourseProgressBar() {
               e.currentTarget.style.boxShadow = '0 4px 18px rgba(99,102,241,0.35)';
             }}
           >
-            <span>▶</span>
-            <span>Resume Incomplete Day (Day {currentIncompleteDay})</span>
+            <span>{isAllComplete ? '🎓' : '▶'}</span>
+            <span>{isAllComplete ? 'View Capstone & Certificate' : ('Resume Incomplete Day (Day ' + currentIncompleteDay + ')')}</span>
           </button>
         </div>
       </div>
@@ -352,7 +353,7 @@ export default function CareerCourseProgressBar() {
         <div style={{ display: 'flex', justifyContent: 'space-between', position: 'relative', zIndex: 1 }}>
           {milestones.map((m) => {
             const isCompleted = m.day <= completedCount;
-            const isCurrent = m.day === currentIncompleteDay || (currentIncompleteDay >= m.day && currentIncompleteDay < m.day + Math.round(totalDays * 0.25));
+            const isCurrent = !isAllComplete && (m.day === currentIncompleteDay || (currentIncompleteDay >= m.day && currentIncompleteDay < m.day + Math.round(totalDays * 0.25)));
 
             return (
               <div
