@@ -19,6 +19,14 @@ import { triggerPinStream } from '@/components/pins/coinAnimation';
 import ArenaMatchmakingRadar from '@/components/pins/ArenaMatchmakingRadar';
 import ArenaCodeDiffViewer from '@/components/pins/ArenaCodeDiffViewer';
 import { calculateStudentKnowledge } from '@/lib/arena/knowledgeEngine';
+import { BattleAudio } from '@/lib/arena/battleAudio';
+import {
+  checkRunCooldown,
+  calculateBattleScore,
+  ARENA_RULES_CONFIG,
+  CombatEvent,
+  createCombatEvent,
+} from '@/lib/arena/codeWarRules';
 
 const MonacoEditor = dynamic(
   () => import('@monaco-editor/react').then(mod => mod.default),
@@ -120,6 +128,17 @@ function ArenaContent() {
   const [recentMatches, setRecentMatches] = useState<BattleMatch[]>([]);
   const [showCodeInspect, setShowCodeInspect] = useState<boolean>(false);
 
+  // Code War Rules & Competitive State (Task 15)
+  const [isAudioMuted, setIsAudioMuted] = useState<boolean>(() => (typeof window !== 'undefined' ? BattleAudio.isMuted() : false));
+  const [runCooldownRemaining, setRunCooldownRemaining] = useState<number>(0);
+  const [lastRunTimestamp, setLastRunTimestamp] = useState<number>(0);
+  const [combatEvents, setCombatEvents] = useState<CombatEvent[]>([]);
+  const [consecutivePassStreak, setConsecutivePassStreak] = useState<number>(0);
+  const [submissionAttempts, setSubmissionAttempts] = useState<number>(0);
+  const [failedAttempts, setFailedAttempts] = useState<number>(0);
+  const [showRulesDrawer, setShowRulesDrawer] = useState<boolean>(false);
+  const [showBattleReport, setShowBattleReport] = useState<boolean>(false);
+
   // Determine current active problem
   const activeProblem = problems.find(p => p.id === (activeRoom?.problemId || soloMatch?.problemId || selectedProblemId)) || problems[0];
 
@@ -158,6 +177,67 @@ function ArenaContent() {
       unsubscribe();
     };
   }, [activeRoom?.roomCode]);
+
+  // Tactical Cooldown Countdown Timer
+  useEffect(() => {
+    if (runCooldownRemaining <= 0) return;
+    const timer = setInterval(() => {
+      setRunCooldownRemaining(prev => Math.max(0, prev - 200));
+    }, 200);
+    return () => clearInterval(timer);
+  }, [runCooldownRemaining]);
+
+  // Audio Fanfare on Match Start
+  const prevGameActiveRef = useRef<boolean>(false);
+  useEffect(() => {
+    const isGameActive = activeRoom?.status === 'in_progress' || soloMatch?.status === 'active';
+    if (isGameActive && !prevGameActiveRef.current) {
+      BattleAudio.playBattleStart();
+      const startEvt = createCombatEvent('peer_joined', {
+        actorName: 'SYSTEM',
+        actorId: 'system',
+        extra: 'Chamber locked. All tactical rules active!',
+      });
+      setCombatEvents([startEvt]);
+    }
+    prevGameActiveRef.current = isGameActive;
+  }, [activeRoom?.status, soloMatch?.status]);
+
+  // Pressure Surge Protocol Trigger (<90s)
+  const surgeFiredRef = useRef<boolean>(false);
+  useEffect(() => {
+    const isGameActive = activeRoom?.status === 'in_progress' || soloMatch?.status === 'active';
+    if (isGameActive && timeRemaining <= 90 && timeRemaining > 0 && !surgeFiredRef.current) {
+      surgeFiredRef.current = true;
+      BattleAudio.playSurgePulse();
+      const surgeEvt = createCombatEvent('surge', {
+        actorName: 'SYSTEM',
+        actorId: 'system',
+      });
+      setCombatEvents(prev => [surgeEvt, ...prev].slice(0, 10));
+    }
+    if (!isGameActive) {
+      surgeFiredRef.current = false;
+    }
+  }, [timeRemaining, activeRoom?.status, soloMatch?.status]);
+
+  // Sync real-time events from activeRoom into local combat feed
+  useEffect(() => {
+    if (activeRoom?.events && activeRoom.events.length > 0) {
+      setCombatEvents(prev => {
+        const existingIds = new Set(prev.map(e => e.id));
+        const newEvts = activeRoom.events!.filter((e: any) => !existingIds.has(e.id));
+        if (newEvts.length === 0) return prev;
+        const latest = newEvts[0];
+        if (latest.actorId !== studentId) {
+          if (latest.type === 'first_blood') BattleAudio.playFirstBlood();
+          else if (latest.type === 'test_passed') BattleAudio.playTestPassed(1);
+          else if (latest.type === 'test_failed') BattleAudio.playTestFailed();
+        }
+        return [...newEvts, ...prev].slice(0, 12);
+      });
+    }
+  }, [activeRoom?.events, studentId]);
 
   // Load starter code on problem or language change
   useEffect(() => {
@@ -309,8 +389,18 @@ function ArenaContent() {
     }
   };
 
-  // Run Tests (local verification & broadcast progress)
+  // Run Tests with Tactical Cooldown, Audio Synthesizer, and Live Ticker
   const handleRunTests = async () => {
+    // 1. Enforce Rule 2: Anti-Spam Tactical Cooldown
+    const cooldown = checkRunCooldown(lastRunTimestamp);
+    if (!cooldown.allowed) {
+      BattleAudio.playCooldownWarning();
+      toast.warning('Tactical Cooldown', `Please wait ${cooldown.remainingCooldownSeconds}s before running tests again.`);
+      return;
+    }
+    setLastRunTimestamp(Date.now());
+    setRunCooldownRemaining(ARENA_RULES_CONFIG.RUN_COOLDOWN_MS);
+
     setIsRunningTests(true);
     try {
       const result = await CodeWarsApiService.submitSolution({
@@ -321,6 +411,42 @@ function ArenaContent() {
         timeSpentSeconds: (activeRoom?.timeLimitSeconds || 600) - timeRemaining,
       });
       setTestResult(result);
+
+      // Audio & Event handling
+      if (result.passed) {
+        setConsecutivePassStreak(prev => {
+          const next = prev + 1;
+          BattleAudio.playTestPassed(next);
+          return next;
+        });
+        const streakEvt = createCombatEvent(consecutivePassStreak >= 2 ? 'streak' : 'test_passed', {
+          actorName: 'You',
+          actorId: studentId,
+          testIndex: result.testsPassed,
+          testTotal: result.totalTests,
+          streakCount: consecutivePassStreak + 1,
+        });
+        setCombatEvents(prev => [streakEvt, ...prev].slice(0, 10));
+      } else if (result.testsPassed > 0) {
+        setConsecutivePassStreak(1);
+        BattleAudio.playTestPassed(1);
+        const passEvt = createCombatEvent('test_passed', {
+          actorName: 'You',
+          actorId: studentId,
+          testIndex: result.testsPassed,
+          testTotal: result.totalTests,
+        });
+        setCombatEvents(prev => [passEvt, ...prev].slice(0, 10));
+      } else {
+        setConsecutivePassStreak(0);
+        BattleAudio.playTestFailed();
+        const failEvt = createCombatEvent('test_failed', {
+          actorName: 'You',
+          actorId: studentId,
+          extra: result.logs ? result.logs.slice(0, 50) : 'Test assertion failed',
+        });
+        setCombatEvents(prev => [failEvt, ...prev].slice(0, 10));
+      }
 
       // Broadcast progress to opponent if in PvP room
       if (activeRoom) {
@@ -335,6 +461,8 @@ function ArenaContent() {
         });
       }
     } catch (err: any) {
+      setConsecutivePassStreak(0);
+      BattleAudio.playTestFailed();
       setTestResult({
         passed: false,
         score: 0,
@@ -347,9 +475,10 @@ function ArenaContent() {
     }
   };
 
-  // Submit Final Solution
+  // Submit Final Solution with Attempt Tracking & First Blood Fanfare
   const handleSubmitSolution = async () => {
     setIsSubmitting(true);
+    setSubmissionAttempts(prev => prev + 1);
     try {
       const result = await CodeWarsApiService.submitSolution({
         matchId: activeRoom?.id || soloMatch?.id || 'submit_run',
@@ -359,6 +488,13 @@ function ArenaContent() {
         timeSpentSeconds: (activeRoom?.timeLimitSeconds || 600) - timeRemaining,
       });
       setTestResult(result);
+
+      if (!result.passed) {
+        setFailedAttempts(prev => prev + 1);
+        BattleAudio.playTestFailed();
+      } else {
+        BattleAudio.playFirstBlood();
+      }
 
       if (activeRoom) {
         const updated = await ArenaPvPService.submitSolution({
@@ -478,6 +614,23 @@ function ArenaContent() {
 
   const isMatchOver = Boolean((activeRoom && activeRoom.status === 'completed') || (soloMatch && soloMatch.status !== 'active'));
   const didIWin = activeRoom ? activeRoom.winnerId === studentId : soloMatch?.status === 'victory';
+
+  // Audio Fanfare & Report on Match Conclusion
+  const matchOverSoundPlayedRef = useRef<boolean>(false);
+  useEffect(() => {
+    if (isMatchOver && !matchOverSoundPlayedRef.current) {
+      matchOverSoundPlayedRef.current = true;
+      if (didIWin) {
+        BattleAudio.playVictory();
+      } else {
+        BattleAudio.playDefeat();
+      }
+      setShowBattleReport(true);
+    }
+    if (!isMatchOver) {
+      matchOverSoundPlayedRef.current = false;
+    }
+  }, [isMatchOver, didIWin]);
 
   // Synchronize match XP & rewards to student profile upon match conclusion
   const awardAppliedRef = useRef<string | null>(null);
@@ -1432,6 +1585,146 @@ function ArenaContent() {
           {/* STATE 3: LIVE COMBAT BATTLE VIEW (In progress or completed) */}
           {((activeRoom && activeRoom.status !== 'waiting') || soloMatch) && (
             <div>
+              {/* Tactical Rules Codex Bar (Task 15) */}
+              <div style={{
+                padding: '10px 18px',
+                borderRadius: 14,
+                background: 'var(--bg2)',
+                border: '1px solid var(--border)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                flexWrap: 'wrap',
+                gap: 12,
+                marginBottom: 16
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+                  <button
+                    onClick={() => {
+                      const next = BattleAudio.toggleMute();
+                      setIsAudioMuted(next);
+                    }}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 6,
+                      padding: '5px 12px',
+                      borderRadius: 8,
+                      background: isAudioMuted ? 'rgba(239, 68, 68, 0.12)' : 'rgba(16, 185, 129, 0.12)',
+                      border: isAudioMuted ? '1px solid rgba(239, 68, 68, 0.3)' : '1px solid rgba(16, 185, 129, 0.3)',
+                      color: isAudioMuted ? '#ef4444' : '#10b981',
+                      fontSize: 12.5,
+                      fontWeight: 700,
+                      cursor: 'pointer'
+                    }}
+                  >
+                    <span>{isAudioMuted ? '🔇' : '🔊'}</span>
+                    <span>{isAudioMuted ? 'Audio Muted' : 'Sound FX Live'}</span>
+                  </button>
+
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+                    <span style={{ fontSize: 12, padding: '4px 9px', borderRadius: 6, background: 'rgba(245, 158, 11, 0.12)', border: '1px solid rgba(245, 158, 11, 0.3)', color: '#d97706', fontWeight: 700 }}>
+                      ⚡ First Blood: +25 XP / +5 Elo
+                    </span>
+                    <span style={{ fontSize: 12, padding: '4px 9px', borderRadius: 6, background: 'rgba(99, 102, 241, 0.12)', border: '1px solid rgba(99, 102, 241, 0.3)', color: '#6366f1', fontWeight: 700 }}>
+                      🛡️ Anti-Spam: 3.0s Tactical Cooldown
+                    </span>
+                    <span style={{ fontSize: 12, padding: '4px 9px', borderRadius: 6, background: 'rgba(16, 185, 129, 0.12)', border: '1px solid rgba(16, 185, 129, 0.3)', color: '#059669', fontWeight: 700 }}>
+                      🎯 Clean Code: +15 XP (1st Attempt)
+                    </span>
+                    {timeRemaining <= 90 && (
+                      <span style={{ fontSize: 12, padding: '4px 9px', borderRadius: 6, background: 'rgba(239, 68, 68, 0.18)', border: '1px solid #ef4444', color: '#ef4444', fontWeight: 800 }}>
+                        🔥 Surge Active (+15% Clutch)
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => setShowRulesDrawer(true)}
+                  style={{
+                    padding: '6px 14px',
+                    borderRadius: 8,
+                    background: 'var(--bg3)',
+                    border: '1px solid var(--border)',
+                    color: 'var(--t1)',
+                    fontSize: 12.5,
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 6
+                  }}
+                >
+                  <span>📜</span> Battle Rulebook
+                </button>
+              </div>
+
+              {/* Pressure Surge Protocol Banner (<90s) */}
+              {timeRemaining <= 90 && (
+                <div style={{
+                  padding: '9px 16px',
+                  borderRadius: 12,
+                  background: 'linear-gradient(90deg, rgba(239, 68, 68, 0.22) 0%, rgba(245, 158, 11, 0.22) 100%)',
+                  border: '1.5px solid #ef4444',
+                  color: '#ef4444',
+                  fontWeight: 800,
+                  fontSize: 13,
+                  textAlign: 'center',
+                  marginBottom: 16,
+                  letterSpacing: '0.5px',
+                  boxShadow: '0 0 16px rgba(239, 68, 68, 0.25)'
+                }}>
+                  ⚡ PRESSURE SURGE PROTOCOL ACTIVE — FINAL 90 SECONDS! ALL PASSED TESTS GRANT +15% CLUTCH SCORE ⚡
+                </div>
+              )}
+
+              {/* Live Combat Event Ticker */}
+              {combatEvents.length > 0 && (
+                <div style={{
+                  marginBottom: 16,
+                  padding: '8px 14px',
+                  borderRadius: 10,
+                  background: 'var(--bg2)',
+                  border: '1px solid var(--border)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 10,
+                  overflowX: 'auto',
+                  whiteSpace: 'nowrap'
+                }}>
+                  <span style={{ fontSize: 11.5, fontWeight: 800, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                    ⚔️ Combat Telemetry:
+                  </span>
+                  {combatEvents.slice(0, 3).map(evt => {
+                    const severityBg =
+                      evt.severity === 'urgent' ? 'rgba(239, 68, 68, 0.15)' :
+                      evt.severity === 'success' ? 'rgba(16, 185, 129, 0.15)' :
+                      evt.severity === 'warning' ? 'rgba(245, 158, 11, 0.15)' : 'rgba(99, 102, 241, 0.15)';
+                    const severityText =
+                      evt.severity === 'urgent' ? '#ef4444' :
+                      evt.severity === 'success' ? '#10b981' :
+                      evt.severity === 'warning' ? '#f59e0b' : '#818cf8';
+                    return (
+                      <div key={evt.id} style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: 6,
+                        padding: '3px 10px',
+                        borderRadius: 6,
+                        background: severityBg,
+                        color: severityText,
+                        fontSize: 12,
+                        fontWeight: 600
+                      }}>
+                        <span>{evt.title}</span>
+                        <span style={{ color: 'var(--t2)', fontWeight: 400 }}>{evt.description}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+
               {/* Top Combat Battle Bar (You vs Rival) */}
               <div style={{
                 padding: '14px 20px',
@@ -1736,22 +2029,31 @@ function ArenaContent() {
 
                     <button
                       onClick={handleRunTests}
-                      disabled={Boolean(isRunningTests || isSubmitting || isMatchOver)}
+                      disabled={Boolean(isRunningTests || isSubmitting || isMatchOver || runCooldownRemaining > 0)}
                       style={{
                         padding: '10px 20px',
                         borderRadius: 10,
-                        background: 'var(--bg3)',
-                        border: '1px solid var(--border)',
-                        color: 'var(--t1)',
+                        background: runCooldownRemaining > 0 ? 'rgba(99, 102, 241, 0.15)' : 'var(--bg3)',
+                        border: runCooldownRemaining > 0 ? '1.5px solid #6366f1' : '1px solid var(--border)',
+                        color: runCooldownRemaining > 0 ? '#818cf8' : 'var(--t1)',
                         fontWeight: 700,
                         fontSize: 14.5,
-                        cursor: isRunningTests || isMatchOver ? 'not-allowed' : 'pointer',
+                        cursor: isRunningTests || isMatchOver || runCooldownRemaining > 0 ? 'not-allowed' : 'pointer',
                         display: 'flex',
                         alignItems: 'center',
-                        gap: 6
+                        gap: 6,
+                        transition: 'all 0.15s ease'
                       }}
                     >
-                      <span>▶️</span> {isRunningTests ? 'Running...' : 'Run Tests'}
+                      {runCooldownRemaining > 0 ? (
+                        <>
+                          <span>🛡️</span> Cooldown ({(runCooldownRemaining / 1000).toFixed(1)}s)
+                        </>
+                      ) : (
+                        <>
+                          <span>▶️</span> {isRunningTests ? 'Running...' : 'Run Tests'}
+                        </>
+                      )}
                     </button>
 
                     <button
@@ -1810,11 +2112,42 @@ function ArenaContent() {
                       {didIWin ? 'VICTORY!' : 'DEFEAT'}
                     </h2>
 
-                    <p style={{ color: 'var(--t2)', fontSize: 16.5, margin: '0 0 24px' }}>
+                    <div style={{
+                      display: 'inline-block',
+                      padding: '4px 12px',
+                      borderRadius: 20,
+                      background: 'rgba(99, 102, 241, 0.15)',
+                      border: '1px solid #6366f1',
+                      color: '#c7d2fe',
+                      fontSize: 13,
+                      fontWeight: 700,
+                      marginBottom: 12
+                    }}>
+                      ⚔️ Decision: {activeRoom?.tieBreakerReason || (didIWin ? 'Flawless Test Suite Clear' : 'Match Concluded')}
+                    </div>
+
+                    <p style={{ color: 'var(--t2)', fontSize: 15.5, margin: '0 0 20px' }}>
                       {didIWin
-                        ? 'Sensational performance! You conquered the algorithmic duel.'
-                        : 'Hard-fought match. Review your test logs and run it back.'}
+                        ? 'Sensational performance! You conquered the algorithmic duel under official Arena rules.'
+                        : "Hard-fought match. Review your test logs, inspect your rival's approach, and run it back."}
                     </p>
+
+                    {/* Combat Honor Badges */}
+                    <div style={{ display: 'flex', justifyContent: 'center', gap: 8, flexWrap: 'wrap', marginBottom: 20 }}>
+                      {activeRoom?.firstBloodClaimedBy === studentId && (
+                        <span style={{ fontSize: 12, padding: '3px 10px', borderRadius: 8, background: 'rgba(239, 68, 68, 0.18)', border: '1px solid #ef4444', color: '#ef4444', fontWeight: 800 }}>
+                          🩸 First Blood Winner (+25 XP / +5 Elo)
+                        </span>
+                      )}
+                      {didIWin && submissionAttempts <= 1 && failedAttempts === 0 && (
+                        <span style={{ fontSize: 12, padding: '3px 10px', borderRadius: 8, background: 'rgba(16, 185, 129, 0.18)', border: '1px solid #10b981', color: '#10b981', fontWeight: 800 }}>
+                          🎯 Clean First-Pass Architecture (+15 XP)
+                        </span>
+                      )}
+                      <span style={{ fontSize: 12, padding: '3px 10px', borderRadius: 8, background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--t2)', fontWeight: 600 }}>
+                        Accuracy: {testResult?.testsPassed || myProgress?.testsPassed || 0}/{activeProblem.testCases.length} Tests
+                      </span>
+                    </div>
 
                     <div style={{
                       display: 'grid',
@@ -1954,6 +2287,138 @@ function ArenaContent() {
           )}
         </div>
       )}
+
+      {/* ARENA RULES CODEX MODAL (Task 15) */}
+      {showRulesDrawer && (
+        <div style={{
+          position: 'fixed',
+          inset: 0,
+          background: 'rgba(0, 0, 0, 0.85)',
+          backdropFilter: 'blur(8px)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 999999,
+          padding: 20
+        }}>
+          <div style={{
+            maxWidth: 620,
+            width: '100%',
+            maxHeight: '90vh',
+            overflowY: 'auto',
+            padding: 28,
+            borderRadius: 20,
+            background: 'var(--bg2)',
+            border: '1.5px solid #6366f1',
+            boxShadow: '0 0 40px rgba(99, 102, 241, 0.25)'
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 18 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <span style={{ fontSize: 24 }}>📜</span>
+                <h3 style={{ fontSize: 20, fontWeight: 800, color: 'var(--t1)', margin: 0 }}>
+                  PinIT Code War Official Rulebook
+                </h3>
+              </div>
+              <button
+                onClick={() => setShowRulesDrawer(false)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  fontSize: 20,
+                  color: 'var(--t3)',
+                  cursor: 'pointer'
+                }}
+              >
+                ✕
+              </button>
+            </div>
+
+            <p style={{ color: 'var(--t2)', fontSize: 14, lineHeight: 1.5, marginBottom: 20 }}>
+              The PinIT Code War Arena operates under strict competitive engineering standards to promote clean code, anti-cheat integrity, and high-intensity problem solving.
+            </p>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginBottom: 24 }}>
+              <div style={{ padding: 14, borderRadius: 12, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+                  <span style={{ fontSize: 16 }}>⚡</span>
+                  <strong style={{ color: '#f59e0b', fontSize: 14.5 }}>Rule 1: First Blood & Blitz Speed</strong>
+                </div>
+                <div style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.4 }}>
+                  The first combatant to pass 100% of test cases immediately wins the match and claims the First Blood bonus: <strong>+25 Bonus XP</strong> and <strong>+5 Bonus Elo</strong>.
+                </div>
+              </div>
+
+              <div style={{ padding: 14, borderRadius: 12, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+                  <span style={{ fontSize: 16 }}>🛡️</span>
+                  <strong style={{ color: '#6366f1', fontSize: 14.5 }}>Rule 2: Anti-Spam Tactical Cooldown</strong>
+                </div>
+                <div style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.4 }}>
+                  To prevent trial-and-error brute forcing, &quot;Run Tests&quot; enforces a <strong>3.0-second tactical cooldown</strong>. Verify your algorithms methodically.
+                </div>
+              </div>
+
+              <div style={{ padding: 14, borderRadius: 12, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+                  <span style={{ fontSize: 16 }}>🎯</span>
+                  <strong style={{ color: '#10b981', fontSize: 14.5 }}>Rule 3: Clean Execution Bonus</strong>
+                </div>
+                <div style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.4 }}>
+                  Submitting a solution that passes on the 1st attempt with 0 failed runs awards the <strong>+15 XP Clean Architecture Bonus</strong>. Each failed final submission deducts 30 Battle Points.
+                </div>
+              </div>
+
+              <div style={{ padding: 14, borderRadius: 12, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+                  <span style={{ fontSize: 16 }}>🔥</span>
+                  <strong style={{ color: '#ef4444', fontSize: 14.5 }}>Rule 4: Pressure Surge Protocol (&lt;90s)</strong>
+                </div>
+                <div style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.4 }}>
+                  When the battle clock drops below 90 seconds, the chamber triggers Surge Mode. All test cases cleared during Surge grant a <strong>+15% Clutch Point Multiplier</strong>.
+                </div>
+              </div>
+
+              <div style={{ padding: 14, borderRadius: 12, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+                  <span style={{ fontSize: 16 }}>⚖️</span>
+                  <strong style={{ color: '#38bdf8', fontSize: 14.5 }}>Rule 5: Deterministic Tie-Breaker</strong>
+                </div>
+                <div style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.4 }}>
+                  If time expires with neither combatant passing 100%, the match is resolved strictly by: 1) Most tests passed, 2) Battle Score (Speed and attempt efficiency), 3) Honorable Draw.
+                </div>
+              </div>
+
+              <div style={{ padding: 14, borderRadius: 12, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+                  <span style={{ fontSize: 16 }}>🛡️</span>
+                  <strong style={{ color: '#a855f7', fontSize: 14.5 }}>Rule 6: Rating Safety Floor</strong>
+                </div>
+                <div style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.4 }}>
+                  Students are protected by a minimum rating floor of <strong>1000 Elo</strong>. You will never drop below the cadet baseline regardless of match outcomes.
+                </div>
+              </div>
+            </div>
+
+            <button
+              onClick={() => setShowRulesDrawer(false)}
+              style={{
+                width: '100%',
+                padding: '12px',
+                borderRadius: 12,
+                background: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
+                color: '#fff',
+                fontWeight: 700,
+                fontSize: 15,
+                border: 'none',
+                cursor: 'pointer'
+              }}
+            >
+              Understood — Return to Arena
+            </button>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }

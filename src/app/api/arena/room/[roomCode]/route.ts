@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { ArenaPvPStore, viewRoomFor } from '@/lib/services/arenaPvPStore';
 import { requireCombatantFromRequest } from '@/lib/server/requireAuth';
 import { codeWarsScore, judgeCodeWarsSubmission } from '@/lib/server/codeWarsJudge';
+import { createCombatEvent, resolveMatchWinner } from '@/lib/arena/codeWarRules';
 
 /**
  * Arena battle room. The player is always the logged-in user (the request body's playerId is
@@ -36,7 +37,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ roo
     const playerId = auth.user.id;
     const { roomCode } = await params;
     const body = (await req.json().catch(() => ({}))) as Record<string, unknown>;
-    const { action, testsPassed, totalTests, code, logs, language } = body;
+    const { action, testsPassed, totalTests, score, code, logs, language } = body;
 
     const current = await ArenaPvPStore.getRoom(roomCode);
     if (!current) {
@@ -85,38 +86,100 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ roo
         room.status = 'in_progress';
         room.startedAt = Date.now();
       } else if (action === 'update_progress') {
-        // Live progress bar only (the score and the result come from the judged submission).
+        // Live progress bar and combat ticker telemetry
         const progress = isHost ? room.hostProgress : room.guestProgress;
+        const actorName = isHost ? room.hostName : (room.guestName || 'Challenger');
         if (!progress.submitted) {
-          if (typeof testsPassed === 'number') progress.testsPassed = testsPassed;
+          if (typeof testsPassed === 'number') {
+            const previousPassed = progress.testsPassed || 0;
+            progress.testsPassed = testsPassed;
+            if (testsPassed > previousPassed) {
+              const evt = createCombatEvent('test_passed', {
+                actorName,
+                actorId: playerId,
+                testIndex: testsPassed,
+                testTotal: typeof totalTests === 'number' ? totalTests : progress.totalTests,
+              });
+              room.events = [evt, ...(room.events || [])].slice(0, 10);
+            }
+          }
           if (typeof totalTests === 'number') progress.totalTests = totalTests;
+          if (typeof score === 'number') progress.score = score;
         }
+        progress.lastRunTimestamp = Date.now();
         progress.lastActiveAt = Date.now();
       } else if (action === 'submit_solution' && judged) {
         if (room.status !== 'in_progress') return null;
         const progress = isHost ? room.hostProgress : room.guestProgress;
+        const actorName = isHost ? room.hostName : (room.guestName || 'Challenger');
+        progress.submissionAttempts = (progress.submissionAttempts || 0) + 1;
         progress.submitted = true;
         progress.testsPassed = judged.testsPassed;
         progress.totalTests = judged.totalTests;
         progress.score = judged.score;
         progress.lastActiveAt = Date.now();
 
-        // First to pass every test (as judged by the server) wins.
+        if (!judged.passed) {
+          progress.failedAttempts = (progress.failedAttempts || 0) + 1;
+          const failEvt = createCombatEvent('test_failed', {
+            actorName,
+            actorId: playerId,
+            extra: `${judged.testsPassed}/${judged.totalTests} tests passed`,
+          });
+          room.events = [failEvt, ...(room.events || [])].slice(0, 10);
+        }
+
+        // First to pass every test (as judged by the server) wins with First Blood!
         if (judged.passed) {
           room.status = 'completed';
           room.winnerId = playerId;
           room.endedAt = Date.now();
+          if (!room.firstBloodClaimedBy) {
+            room.firstBloodClaimedBy = playerId;
+            room.firstBloodClaimedAt = Date.now();
+          }
+          if (progress.submissionAttempts === 1 && (progress.failedAttempts || 0) === 0) {
+            room.cleanBonusAwardedTo = playerId;
+          }
+          room.tieBreakerReason = 'First Blood! Conquered all test cases before opponent.';
+          const fbEvt = createCombatEvent('first_blood', {
+            actorName,
+            actorId: playerId,
+            testTotal: judged.totalTests,
+          });
+          room.events = [fbEvt, ...(room.events || [])].slice(0, 10);
         } else if (room.hostProgress.submitted && room.guestProgress.submitted) {
-          // If both submitted, determine winner by score
+          // If both submitted, resolve winner using official Tie-Breaker Protocol
           room.status = 'completed';
           room.endedAt = Date.now();
-          if (room.hostProgress.score > room.guestProgress.score) {
-            room.winnerId = room.hostId;
-          } else if (room.guestProgress.score > room.hostProgress.score) {
-            room.winnerId = room.guestId;
-          } else {
-            room.winnerId = 'draw';
-          }
+          const resolution = resolveMatchWinner({
+            hostId: room.hostId,
+            guestId: room.guestId || 'guest',
+            hostStats: {
+              testsPassed: room.hostProgress.testsPassed,
+              totalTests: room.hostProgress.totalTests,
+              score: room.hostProgress.score,
+              submitted: room.hostProgress.submitted,
+              submissionAttempts: room.hostProgress.submissionAttempts || 1,
+              failedAttempts: room.hostProgress.failedAttempts || 0,
+              timeSpentSeconds: Math.max(0, Math.round(((room.endedAt || Date.now()) - (room.startedAt || Date.now())) / 1000)),
+              timeRemainingSeconds: 0,
+            },
+            guestStats: {
+              testsPassed: room.guestProgress.testsPassed,
+              totalTests: room.guestProgress.totalTests,
+              score: room.guestProgress.score,
+              submitted: room.guestProgress.submitted,
+              submissionAttempts: room.guestProgress.submissionAttempts || 1,
+              failedAttempts: room.guestProgress.failedAttempts || 0,
+              timeSpentSeconds: Math.max(0, Math.round(((room.endedAt || Date.now()) - (room.startedAt || Date.now())) / 1000)),
+              timeRemainingSeconds: 0,
+            },
+            firstBloodClaimedBy: room.firstBloodClaimedBy,
+          });
+
+          room.winnerId = resolution.winnerId;
+          room.tieBreakerReason = resolution.winReason;
         }
       } else if (action === 'forfeit') {
         room.status = 'completed';

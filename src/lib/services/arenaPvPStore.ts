@@ -10,6 +10,9 @@ export interface ArenaPlayerProgress {
   logs?: string;
   lastActiveAt?: number;
   language?: string;
+  submissionAttempts?: number;
+  failedAttempts?: number;
+  lastRunTimestamp?: number;
 }
 
 export interface ArenaRoom {
@@ -37,6 +40,14 @@ export interface ArenaRoom {
   startedAt?: number;
   endedAt?: number;
   createdAt: number;
+  // Code War Rules & Competitive Dynamics
+  firstBloodClaimedBy?: string;
+  firstBloodClaimedAt?: number;
+  cleanBonusAwardedTo?: string;
+  tieBreakerReason?: string;
+  hostScore?: number;
+  guestScore?: number;
+  events?: any[];
   // Authoritative Elo & Match Settlement
   eloApplied?: boolean;
   hostEloDelta?: number;
@@ -106,7 +117,7 @@ const QUEUE_TTL_MS = 60000;
 const difficultyFits = (a: string, b: string) => a === 'any' || b === 'any' || a === b;
 
 const MAX_CODE_CHARS = 50000;
-const emptyProgress = (): ArenaPlayerProgress => ({ testsPassed: 0, totalTests: 5, score: 0, submitted: false, code: '' });
+const emptyProgress = (): ArenaPlayerProgress => ({ testsPassed: 0, totalTests: 5, score: 0, submitted: false, code: '', submissionAttempts: 0, failedAttempts: 0 });
 const normalizeCode = (roomCode: string) => roomCode.toUpperCase().trim();
 const clone = <T>(v: T): T => JSON.parse(JSON.stringify(v)) as T;
 
@@ -485,6 +496,28 @@ export class ArenaPvPStore {
     });
 
 
+
+    // Code War Rule 3: First Blood Bonus (+25 XP, +5 Elo)
+    if (room.firstBloodClaimedBy) {
+      if (room.firstBloodClaimedBy === hostId) {
+        result.hostXpAward += 25;
+        result.hostDelta += 5;
+        result.hostNewElo += 5;
+      } else if (room.firstBloodClaimedBy === guestId) {
+        result.guestXpAward += 25;
+        result.guestDelta += 5;
+        result.guestNewElo += 5;
+      }
+    }
+
+    // Code War Rule 4: Clean Execution Bonus (+15 XP for passing on 1st submission)
+    if (room.cleanBonusAwardedTo) {
+      if (room.cleanBonusAwardedTo === hostId) {
+        result.hostXpAward += 15;
+      } else if (room.cleanBonusAwardedTo === guestId) {
+        result.guestXpAward += 15;
+      }
+    }
 
     room.eloApplied = true;
 
