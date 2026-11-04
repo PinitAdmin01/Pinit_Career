@@ -28,8 +28,8 @@ export interface PinItIdResult {
 // Known College/University Lexicon for intelligent recognition
 const COLLEGE_DICTIONARY: Array<{ patterns: RegExp[]; code: string; name: string }> = [
   { patterns: [/r\.?v\.?\s*college/i, /rvce/i, /rashtreeya\s*sikshana/i], code: 'RVCE', name: 'R.V. College of Engineering' },
-  { patterns: [/pes\s*univ/i, /pes\s*institute/i, /pesit/i], code: 'PES', name: 'PES University' },
-  { patterns: [/bms\s*college/i, /bmsce/i, /bmsit/i], code: 'BMS', name: 'B.M.S. College of Engineering' },
+  { patterns: [/pes\s*univ/i, /pes\s*institute/i, /pesit/i, /pesu/i], code: 'PES', name: 'PES University' },
+  { patterns: [/b\.?\s*m\.?\s*s\.?\s*college/i, /bms\s*college/i, /bmsce/i, /bmsit/i], code: 'BMS', name: 'B.M.S. College of Engineering' },
   { patterns: [/ramaiah/i, /msrit/i, /m\.?\s*s\.?\s*ramaiah/i], code: 'MSRIT', name: 'M.S. Ramaiah Institute of Technology' },
   { patterns: [/indian\s*inst.*tech.*bombay/i, /iit\s*bombay/i, /iitb/i], code: 'IITB', name: 'IIT Bombay' },
   { patterns: [/indian\s*inst.*tech.*delhi/i, /iit\s*delhi/i, /iitd/i], code: 'IITD', name: 'IIT Delhi' },
@@ -106,26 +106,71 @@ export function generateMemorableGlobalId(displayName: string, username = ''): s
  * Format: PIN-[COLLEGE]-[BRANCH]-[ROLL]
  * E.g., "PIN-RVCE-CSE-042"
  */
-export function generateCollegePinItId(params: {
-  collegeCode: string;
-  departmentCode: string;
-  rollNumber: string;
-  batchYear?: string;
-}): string {
-  const college = cleanSlug(params.collegeCode || 'COLLEGE', 6);
-  const dept = cleanSlug(params.departmentCode || 'GEN', 6);
+export function generateCollegePinItId(
+  paramsOrCollege: {
+    collegeCode?: string;
+    departmentCode?: string;
+    rollNumber?: string;
+    batchYear?: string;
+  } | string,
+  departmentCodeParam?: string,
+  rollNumberParam?: string
+): string {
+  let rawCollege = '';
+  let rawDept = '';
+  let rawRoll = '';
+
+  if (typeof paramsOrCollege === 'object' && paramsOrCollege !== null) {
+    rawCollege = paramsOrCollege.collegeCode || '';
+    rawDept = paramsOrCollege_dept(paramsOrCollege);
+    rawRoll = paramsOrCollege.rollNumber || '';
+  } else if (typeof paramsOrCollege === 'string') {
+    rawCollege = paramsOrCollege;
+    rawDept = departmentCodeParam || '';
+    rawRoll = rollNumberParam || '';
+  }
+
+  let collegeCode = rawCollege.trim().toUpperCase();
+  let deptCode = rawDept.trim().toUpperCase();
+
+  // If passed as descriptive string (has spaces or long), canonicalize via dictionary
+  if (typeof paramsOrCollege === 'string') {
+    if (rawCollege.includes(' ') || rawCollege.length > 6) {
+      for (const c of COLLEGE_DICTIONARY) {
+        if (c.patterns.some(p => p.test(rawCollege)) || c.code === collegeCode) {
+          collegeCode = c.code;
+          break;
+        }
+      }
+    }
+    if (rawDept.includes(' ') || rawDept.length > 5) {
+      for (const d of DEPARTMENT_DICTIONARY) {
+        if (d.patterns.some(p => p.test(rawDept)) || d.code === deptCode) {
+          deptCode = d.code;
+          break;
+        }
+      }
+    }
+  }
+
+  const college = cleanSlug(collegeCode || 'COLLEGE', 6);
+  const dept = cleanSlug(deptCode || 'GEN', 6);
   
   // Extract trailing digits or alphanumeric suffix for clean readability
-  let roll = (params.rollNumber || '').trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
+  let roll = (rawRoll || '').trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
   if (roll.length > 4) {
-    // Take the last 3-4 chars (e.g. 1RV21CS042 -> 042)
+    // Take the last 3-4 chars (e.g. 1RV21CS042 -> 042, PES120220055 -> 055)
     roll = roll.slice(-3);
   }
   if (!roll) {
-    roll = hashTo3Digits(`${params.collegeCode}_${params.departmentCode}`).slice(0, 3);
+    roll = hashTo3Digits(`${collegeCode}_${deptCode}`).slice(0, 3);
   }
 
   return `PIN-${college}-${dept}-${roll}`;
+}
+
+function paramsOrCollege_dept(obj: any): string {
+  return obj.departmentCode || obj.deptCode || obj.department || '';
 }
 
 /**
@@ -133,19 +178,31 @@ export function generateCollegePinItId(params: {
  * Analyzes uploaded image/document metadata and text content
  * to identify College Code, Department, Roll Number, and Student Name.
  */
-export async function parseCollegeIdCard(file: File, fallbackDisplayName = ''): Promise<CollegeMetadata> {
-  // 1. Inspect filename heuristics, stripping extensions to avoid false roll matches
-  const cleanFileName = (file.name || '').replace(/\.(pdf|png|jpe?g|webp|gif|txt)$/i, '').replace(/[._-]/g, ' ');
-  let extractedText = cleanFileName;
+export async function parseCollegeIdCard(
+  input: File | { text?: string; name?: string; size?: number } | string,
+  fallbackDisplayName = ''
+): Promise<CollegeMetadata> {
+  let cleanFileName = '';
+  let extractedText = '';
 
-  // 2. Client-side lightweight text / barcode / metadata extractor via canvas or FileReader
-  try {
-    const textBuffer = await file.text().catch(() => '');
-    if (textBuffer && textBuffer.length > 10 && textBuffer.length < 50000) {
-      extractedText += ' ' + textBuffer;
-    }
-  } catch {
-    // Binary image files might not parse to text; handled gracefully below
+  if (typeof input === 'string') {
+    extractedText = input;
+    cleanFileName = fallbackDisplayName;
+  } else if (input && typeof (input as any).text === 'function') {
+    // Standard browser File / Blob
+    const file = input as File;
+    cleanFileName = (file.name || '').replace(/\.(pdf|png|jpe?g|webp|gif|txt)$/i, '').replace(/[._-]/g, ' ');
+    extractedText = cleanFileName;
+    try {
+      const textBuffer = await file.text().catch(() => '');
+      if (textBuffer && textBuffer.length > 10 && textBuffer.length < 50000) {
+        extractedText += ' ' + textBuffer;
+      }
+    } catch { /* binary fallback */ }
+  } else if (input && typeof input === 'object') {
+    const obj = input as { text?: string; name?: string };
+    cleanFileName = (obj.name || '').replace(/\.(pdf|png|jpe?g|webp|gif|txt)$/i, '').replace(/[._-]/g, ' ');
+    extractedText = `${cleanFileName} ${obj.text || ''}`;
   }
 
   // Check known college dictionary
@@ -181,13 +238,14 @@ export async function parseCollegeIdCard(file: File, fallbackDisplayName = ''): 
   if (usnMatch) {
     rollNumber = usnMatch[0].toUpperCase();
   } else {
-    const rollRegex = /(?:roll(?:\s*no|\s*number)?|usn|reg(?:istration)?(?:\s*no|\s*number)?|student\s*id|id\s*[:#-])\s*[:#-]?\s*([A-Z0-9]{2,18})/i;
+    const rollRegex = /(?:roll(?:\s*no|\s*number)?|usn|reg(?:istration)?(?:\s*no|\s*number)?|\b(?:student\s*id|id)\s*[:#=-])\s*[:#=-]?\s*([A-Z0-9]{2,18})/i;
     const rollMatch = extractedText.match(rollRegex);
-    if (rollMatch && !['PDF', 'PNG', 'JPG', 'JPEG', 'WEBP'].includes(rollMatch[1].toUpperCase())) {
+    if (rollMatch && !['IDENTITY', 'CARD', 'STUDENT', 'PDF', 'PNG', 'JPG', 'JPEG', 'WEBP'].includes(rollMatch[1].toUpperCase())) {
       rollNumber = rollMatch[1].toUpperCase();
     } else {
       // Deterministic fallback based on file size and student name
-      const seedNum = (file.size % 900 + 100).toString().padStart(3, '0');
+      const inputSize = (typeof input === 'object' && input && 'size' in input) ? Number(input.size) : 1024;
+      const seedNum = (inputSize % 900 + 100).toString().padStart(3, '0');
       rollNumber = `${seedNum}`;
     }
   }
@@ -209,15 +267,24 @@ export async function parseCollegeIdCard(file: File, fallbackDisplayName = ''): 
 /**
  * Validate whether a string conforms to the PinIT ID format.
  */
+export function isValidPinItId(id: string): boolean {
+  return validatePinItId(id).valid;
+}
+
 export function validatePinItId(id: string): { valid: boolean; type: 'college' | 'global' | 'invalid'; error?: string } {
   if (!id || typeof id !== 'string') {
     return { valid: false, type: 'invalid', error: 'PinIT ID cannot be empty' };
   }
 
+  // Reject lowercase characters strictly to maintain uppercase protocol
+  if (/[a-z]/.test(id)) {
+    return { valid: false, type: 'invalid', error: 'PinIT ID must be strictly uppercase' };
+  }
+
   const trimmed = id.trim().toUpperCase();
 
   // College Pattern: PIN-[3-6 ALPHANUM]-[2-6 ALPHANUM]-[1-6 ALPHANUM]
-  const collegeRegex = /^PIN-[A-Z0-9]{2,8}-[A-Z0-9]{2,8}-[A-Z0-9]{1,8}$/;
+  const collegeRegex = /^PIN-[A-Z0-9]{2,6}-[A-Z0-9]{2,6}-[A-Z0-9]{1,6}$/;
   if (collegeRegex.test(trimmed)) {
     if (trimmed.startsWith('PIN-GLB-')) {
       return { valid: true, type: 'global' };
