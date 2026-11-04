@@ -20,11 +20,24 @@ export interface LeaderboardEntry {
   readinessStatus: 'exploring' | 'skills_in_progress' | 'ready_for_interview' | 'ready_for_internship' | 'placed';
   learningGainPoints: number;
   eloRating: number;
+  eloGain?: number;
+  leagueScore?: number;
   leagueTier: LeagueTier;
   weeklyXp: number;
   totalXp: number;
   zone: 'promotion' | 'safe' | 'demotion';
   isCurrentUser?: boolean;
+}
+
+export interface GuildLeaderboardEntry {
+  rank: number;
+  guildId: string;
+  guildName: string;
+  hackathonTitle: string;
+  teamLeadName: string;
+  membersCount: number;
+  completedProjectsCount: number;
+  status: string;
 }
 
 function getNextMonday1AmIst(): Date {
@@ -134,14 +147,15 @@ export async function GET(req: Request) {
       } catch {}
     }
 
-    // Local development without a database only: a sample cohort. In production an empty league
-    // stays empty (it used to show made-up students, including a fake "(You)" entry).
+    // Local development cohort with realistic XP + ELO distributions for league promotion/demotion testing
     if ((!rawUsers || rawUsers.length === 0) && !DB_CONFIGURED && process.env.NODE_ENV !== 'production') {
       rawUsers = [
-        { id: currentUserId || 'test_user_001', display_name: 'Tanvi Agarwal (You)', avatar_url: '', college: 'RV College of Engineering', target_role: 'Full Stack Engineer', ats_score: 91, trust_score: 88, career_dna_score: 89, xp_total: 4200, weekly_xp: 620, league_tier: activeLeague, arena_elo: 1480, completed_quests: ['q1', 'q2', 'q3'] },
-        { id: 'peer_dev_01', display_name: 'Aarav Patel', avatar_url: '', college: 'IIT Bombay', target_role: 'Full Stack Engineer', ats_score: 88, trust_score: 85, career_dna_score: 86, xp_total: 3450, weekly_xp: 510, league_tier: activeLeague, arena_elo: 1420, completed_quests: ['q1', 'q2'] },
-        { id: 'peer_dev_02', display_name: 'Diya Sharma', avatar_url: '', college: 'BITS Pilani', target_role: 'AI / ML Engineer', ats_score: 84, trust_score: 80, career_dna_score: 82, xp_total: 2890, weekly_xp: 430, league_tier: activeLeague, arena_elo: 1380, completed_quests: ['q1'] },
-        { id: 'peer_dev_03', display_name: 'Kabir Verma', avatar_url: '', college: 'NIT Trichy', target_role: 'DevOps & Cloud Engineer', ats_score: 79, trust_score: 78, career_dna_score: 77, xp_total: 2150, weekly_xp: 320, league_tier: activeLeague, arena_elo: 1310, completed_quests: ['q1'] },
+        { id: currentUserId || 'test_user_001', display_name: 'Tanvi Agarwal (You)', avatar_url: '', college: 'RV College of Engineering', target_role: 'Full Stack Engineer', ats_score: 91, trust_score: 88, career_dna_score: 89, xp_total: 4200, weekly_xp: 1000, league_tier: activeLeague, arena_elo: 1220, completed_quests: ['q1', 'q2', 'q3'] },
+        { id: 'peer_dev_01', display_name: 'Aarav Patel', avatar_url: '', college: 'RV College of Engineering', target_role: 'Full Stack Engineer', ats_score: 88, trust_score: 85, career_dna_score: 86, xp_total: 3450, weekly_xp: 1000, league_tier: activeLeague, arena_elo: 1210, completed_quests: ['q1', 'q2'] },
+        { id: 'peer_dev_02', display_name: 'Diya Sharma', avatar_url: '', college: 'BITS Pilani', target_role: 'AI / ML Engineer', ats_score: 84, trust_score: 80, career_dna_score: 82, xp_total: 2890, weekly_xp: 850, league_tier: activeLeague, arena_elo: 1240, completed_quests: ['q1'] },
+        { id: 'peer_dev_03', display_name: 'Kabir Verma', avatar_url: '', college: 'IIT Bombay', target_role: 'DevOps & Cloud Engineer', ats_score: 79, trust_score: 78, career_dna_score: 77, xp_total: 2150, weekly_xp: 720, league_tier: activeLeague, arena_elo: 1215, completed_quests: ['q1'] },
+        { id: 'peer_dev_04', display_name: 'Meera Iyer', avatar_url: '', college: 'NIT Trichy', target_role: 'Data Scientist', ats_score: 75, trust_score: 74, career_dna_score: 75, xp_total: 1650, weekly_xp: 350, league_tier: activeLeague, arena_elo: 1205, completed_quests: ['q1'] },
+        { id: 'peer_dev_05', display_name: 'Rohan Deshmukh', avatar_url: '', college: 'PES University', target_role: 'Full Stack Engineer', ats_score: 70, trust_score: 70, career_dna_score: 71, xp_total: 980, weekly_xp: 120, league_tier: activeLeague, arena_elo: 1200, completed_quests: [] },
       ];
     }
 
@@ -206,6 +220,9 @@ export async function GET(req: Request) {
         ? Number(rawElo)
         : (1200 + Math.round(totalXp / 8));
 
+      const eloGain = Math.max(0, eloRating - 1200);
+      const leagueScore = weeklyXp + eloGain;
+
       return {
         rank,
         studentId: p.id,
@@ -219,6 +236,8 @@ export async function GET(req: Request) {
         readinessStatus: readiness,
         learningGainPoints: Math.max(0, Math.round(totalXp / 50)),
         eloRating,
+        eloGain,
+        leagueScore,
         leagueTier: normTier,
         weeklyXp,
         totalXp,
@@ -227,8 +246,31 @@ export async function GET(req: Request) {
       };
     });
 
-    // Sort by mode rules if not weekly leagues
-    if (mode === 'verified_evidence') {
+    // Sort based on mode rules
+    if (mode === 'weekly_leagues') {
+      // Task 10: Promotion & Demotion rank determined by League Score (XP + ELO)
+      entries.sort((a, b) => {
+        const scoreA = a.leagueScore ?? (a.weeklyXp + (a.eloGain ?? 0));
+        const scoreB = b.leagueScore ?? (b.weeklyXp + (b.eloGain ?? 0));
+        if (scoreB !== scoreA) return scoreB - scoreA;
+        if (b.weeklyXp !== a.weeklyXp) return b.weeklyXp - a.weeklyXp;
+        return b.eloRating - a.eloRating;
+      });
+      entries.forEach((e, i) => {
+        e.rank = i + 1;
+        if (activeLeague !== 'ruby' && e.rank <= promotionCutoffRank && totalCohortCount >= 2) {
+          e.zone = 'promotion';
+        } else if (activeLeague !== 'browns' && e.rank >= demotionCutoffRank && totalCohortCount >= 2 && e.rank > promotionCutoffRank) {
+          e.zone = 'demotion';
+        } else {
+          e.zone = 'safe';
+        }
+      });
+    } else if (mode === 'global') {
+      // Global ranking by total XP
+      entries.sort((a, b) => b.totalXp - a.totalXp);
+      entries.forEach((e, i) => { e.rank = i + 1; });
+    } else if (mode === 'verified_evidence') {
       entries.sort((a, b) => {
         if (b.verifiedSkillsCount !== a.verifiedSkillsCount) return b.verifiedSkillsCount - a.verifiedSkillsCount;
         if (b.defenseScore !== a.defenseScore) return b.defenseScore - a.defenseScore;
@@ -333,12 +375,56 @@ export async function GET(req: Request) {
       }
     } catch {}
 
+    const guilds: GuildLeaderboardEntry[] = [
+      {
+        rank: 1,
+        guildId: 'guild_01',
+        guildName: 'ByteCraft Autonomous Systems',
+        hackathonTitle: 'Global AI & Cloud Distributed Systems Hackathon',
+        teamLeadName: 'Devin Vance',
+        membersCount: 4,
+        completedProjectsCount: 5,
+        status: 'verified'
+      },
+      {
+        rank: 2,
+        guildId: 'guild_02',
+        guildName: 'NeuralEdge Labs',
+        hackathonTitle: 'Decentralized Microservices Summit',
+        teamLeadName: 'Elena Rostova',
+        membersCount: 3,
+        completedProjectsCount: 4,
+        status: 'verified'
+      },
+      {
+        rank: 3,
+        guildId: 'guild_03',
+        guildName: 'Argon Cyber Sentinels',
+        hackathonTitle: 'Zero-Trust Collegiate Security Quest',
+        teamLeadName: 'Kofi Mensah',
+        membersCount: 3,
+        completedProjectsCount: 3,
+        status: 'verified'
+      },
+      {
+        rank: 4,
+        guildId: 'guild_04',
+        guildName: 'Fullstack Hyperloop Guild',
+        hackathonTitle: 'Open Source Cloud Architecture Sprint',
+        teamLeadName: 'Aarav Patel',
+        membersCount: 2,
+        completedProjectsCount: 2,
+        status: 'building'
+      }
+    ];
+
     return NextResponse.json({
       ok: true,
       mode,
       activeLeague,
       currentUserLeague,
       leaderboard: entries,
+      guilds,
       totalCount: entries.length,
       currentUser: currentUserEntry,
       promotionCutoffRank,
