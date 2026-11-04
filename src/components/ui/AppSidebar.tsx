@@ -65,7 +65,7 @@ export const ROUTE_TOOLTIPS: Record<string, { label: string; tooltip: string; de
     description: 'Cognitive load assessments, pomodoro focus calibration, and attention span analytics.'
   },
   '/friends': {
-    label: 'Friends',
+    label: 'My Network',
     tooltip: 'Campus Network: Peer Directory, Study Groups & Network',
     description: 'Connect with classmates, form study squads, and follow peers across courses.'
   },
@@ -116,7 +116,7 @@ export const RIGHT_NAV: { id: string; href?: string; icon: string; label: string
   { id: 'results', icon: '📊', label: 'My Results' },
   { id: 'notes', icon: '📚', label: 'Study Notes' },
   { id: 'notifications', href: '/notifications', icon: '🔔', label: 'Notifications' },
-  { id: 'friends', href: '/friends', icon: '👥', label: 'Friends & Network' },
+  { id: 'friends', href: '/friends', icon: '👥', label: 'My Network' },
   { id: 'services', href: '/services', icon: '💼', label: 'Student Services' },
   { id: 'library', href: '/library', icon: '📚', label: 'Library Center' },
   { id: 'hostel', href: '/hostel', icon: '🏢', label: 'Hostel Hub' },
@@ -225,7 +225,7 @@ export const TEACHER_NAV: NavSection[] = [
 ];
 
 export const BOTTOM_NAV: NavLeaf[] = [
-  { href: '/friends',       icon: '👥', label: 'Friends'                    },
+  { href: '/friends',       icon: '👥', label: 'My Network'                 },
   { href: '/pins',          icon: '⚡', label: 'Pins & Wallet'              },
   { href: '/notifications', icon: '🔔', label: 'Notifications', badge: true },
   { href: '/profile',       icon: '👤', label: 'Profile'                    },
@@ -692,7 +692,7 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
       {/* Sidebar Footer */}
       <div className="sidebar-footer">
         {/* 1. Friends (Student Workspace) */}
-        {isStudent && <NavLink href="/friends" icon="👥" label="Friends" />}
+        {isStudent && <NavLink href="/friends" icon="👥" label="My Network" />}
 
         {/* 2. Pins & Wallet (Student Workspace with Live Balance) */}
         {isStudent && (

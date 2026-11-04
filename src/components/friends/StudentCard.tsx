@@ -19,6 +19,7 @@ export interface StudentProfile {
   online?: boolean;
   relationship?: 'none' | 'friends' | 'sent' | 'received';
   friendshipId?: string;
+  isSelf?: boolean;
 }
 
 interface StudentCardProps {
@@ -118,7 +119,7 @@ export const StudentCard: React.FC<StudentCardProps> = ({
         <button
           className="friends-btn friends-btn-secondary"
           onClick={() => onViewProfile(student)}
-          title="View full student portfolio"
+          title="View full student profile"
         >
           View Profile
         </button>

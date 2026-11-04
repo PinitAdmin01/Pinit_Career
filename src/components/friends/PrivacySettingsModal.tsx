@@ -198,7 +198,7 @@ export const PrivacySettingsModal: React.FC<PrivacySettingsModalProps> = ({
 
               {/* Setting 2: Profile Visibility */}
               <div className="modal-form-group">
-                <label className="modal-form-label">Profile & Portfolio Visibility</label>
+                <label className="modal-form-label">Profile Visibility</label>
                 <select
                   className="modal-select-input"
                   value={settings.profileVisibility}

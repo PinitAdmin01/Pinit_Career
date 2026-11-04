@@ -34,6 +34,7 @@ export default function StudentProfilePage() {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'overview' | 'skills' | 'projects' | 'battles'>('overview');
   const [requestSent, setRequestSent] = useState(false);
+  const isFriend = student ? (student.relationship === "friends" || Boolean(student.isSelf)) : false;
 
   useEffect(() => {
     if (!studentId) return;
@@ -135,7 +136,7 @@ export default function StudentProfilePage() {
           This student account may have been updated, anonymized, or does not exist in the public network registry.
         </p>
         <Link href="/friends" className="friends-btn friends-btn-primary" style={{ padding: '10px 24px', fontSize: 14.5 }}>
-          ← Return to Friends Hub
+          ← Return to My Network
         </Link>
       </div>
     );
@@ -161,7 +162,7 @@ export default function StudentProfilePage() {
           onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--t1)')}
           onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--accent)')}
         >
-          ← Back to Friends Hub
+          ← Back to My Network
         </Link>
       </div>
 
@@ -258,6 +259,63 @@ export default function StudentProfilePage() {
         </div>
       </div>
 
+      {/* ── Task 11 Privacy Gate: Protected Full Profile State ── */}
+      {!isFriend ? (
+        <div
+          data-testid="page-profile-locked-state"
+          style={{
+            background: 'var(--card)',
+            border: '1px dashed rgba(255, 255, 255, 0.2)',
+            borderRadius: 20,
+            padding: '48px 32px',
+            textAlign: 'center',
+            boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
+            marginBottom: 24,
+          }}
+        >
+          <div style={{ fontSize: 44, marginBottom: 14 }}>🔒</div>
+          <h2 style={{ fontSize: 20, fontWeight: 900, color: 'var(--t1)', margin: '0 0 10px' }}>
+            Full Student Profile Locked Behind Connection
+          </h2>
+          <p style={{ fontSize: 15, color: 'var(--t2)', maxWidth: 480, margin: '0 auto 24px', lineHeight: 1.6 }}>
+            To safeguard collegiate academic privacy, verified skill credentials, proof-of-work project repositories, and live arena duel stats are accessible only after mutual connection approval.
+          </p>
+          <div style={{ display: 'inline-flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+            {student.relationship === 'received' ? (
+              <button
+                className="friends-btn friends-btn-primary"
+                onClick={handleAcceptIncoming}
+                style={{ padding: '10px 24px', fontSize: 15 }}
+              >
+                ✓ Accept Friend Request to Unlock Profile
+              </button>
+            ) : requestSent || student.relationship === 'sent' ? (
+              <div
+                style={{
+                  padding: '10px 20px',
+                  borderRadius: 10,
+                  background: 'rgba(234, 179, 8, 0.12)',
+                  color: '#eab308',
+                  border: '1px solid rgba(234, 179, 8, 0.3)',
+                  fontWeight: 700,
+                  fontSize: 14.5,
+                }}
+              >
+                ⏳ Friend Request Sent — Pending Mutual Acceptance
+              </div>
+            ) : (
+              <button
+                className="friends-btn friends-btn-primary"
+                onClick={handleAddFriend}
+                style={{ padding: '10px 24px', fontSize: 15 }}
+              >
+                + Connect to View Full Profile
+              </button>
+            )}
+          </div>
+        </div>
+      ) : (
+        <>
       {/* ── Stats Quad Cards ── */}
       <div className="profile-stats-grid">
         {[
@@ -387,6 +445,8 @@ export default function StudentProfilePage() {
             ))}
           </div>
         </div>
+      )}
+        </>
       )}
 
     </div>

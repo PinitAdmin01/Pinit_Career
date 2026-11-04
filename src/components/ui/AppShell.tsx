@@ -39,7 +39,7 @@ const PAGE_TITLES: Record<string, string> = {
   '/learn':         'Learn',         '/exam':          'Exams',
   '/learning':      'Learning & Career Twin',
   '/group-discussion': 'GD Practice',
-  '/friends':       'Friends & Network',
+  '/friends':       'My Network',
   '/internships':   'Internships',   '/portfolio':     'Portfolio',
   '/passport':      'Skill Passport', '/code-wars':    'Code Wars',
   '/teams':         'Squads & Teams', '/placement':    'Placement',

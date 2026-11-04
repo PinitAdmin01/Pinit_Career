@@ -347,10 +347,10 @@ function FriendsContent() {
           <div className="friends-hero-ref">
             <div className="friends-hero-text-wrap">
               <h1 className="friends-hero-title-ref">
-                Frien<span>ds</span>
+                My <span>Network</span>
               </h1>
               <p className="friends-hero-subtitle-ref">
-                Find your people. Live Supabase student matching, collaborate, and level up together.
+                Connect with peers, collaborate on engineering projects, and build institutional connections.
               </p>
             </div>
 
@@ -376,7 +376,7 @@ function FriendsContent() {
               className={`friends-tab-pill ${activeTab === 'network' ? 'active' : ''}`}
               onClick={() => setActiveTab('network')}
             >
-              My Friends
+              My Network
               {networkStats.friendsCount > 0 && (
                 <span className="tab-counter-badge">{networkStats.friendsCount}</span>
               )}
@@ -473,41 +473,7 @@ function FriendsContent() {
                 )}
               </div>
 
-              {/* Filter Chips Row */}
-              <div className="friends-filters-row">
-                <div className="filter-chips-left">
-                  <button
-                    className={`ref-filter-chip ${activeFilter === 'all' ? 'active' : ''}`}
-                    onClick={() => setActiveFilter('all')}
-                  >
-                    All Students
-                  </button>
-                  <button
-                    className={`ref-filter-chip ${activeFilter === 'college' ? 'active' : ''}`}
-                    onClick={() => setActiveFilter('college')}
-                  >
-                    Same College
-                  </button>
-                  <button
-                    className={`ref-filter-chip ${activeFilter === 'skills' ? 'active' : ''}`}
-                    onClick={() => setActiveFilter('skills')}
-                  >
-                    Same Skills
-                  </button>
-                  <button
-                    className={`ref-filter-chip ${activeFilter === 'course' ? 'active' : ''}`}
-                    onClick={() => setActiveFilter('course')}
-                  >
-                    Same Degree/Track
-                  </button>
-                  <button
-                    className={`ref-filter-chip ${activeFilter === 'goals' ? 'active' : ''}`}
-                    onClick={() => setActiveFilter('goals')}
-                  >
-                    Similar Goals
-                  </button>
-                </div>
-              </div>
+
 
               {/* Suggested For You Section */}
               <div style={{ marginTop: 16 }}>
