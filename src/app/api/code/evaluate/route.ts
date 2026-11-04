@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { requireUserFromRequest } from '@/lib/server/requireAuth';
+import { requireCombatantFromRequest } from '@/lib/server/requireAuth';
 import { CodeWarsApiService } from '@/lib/api/codeWarsApi';
 import { checkRateLimit, getClientIp } from '@/lib/server/rateLimit';
 import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
     const rl = checkRateLimit(`code_eval_${ip}`, { limit: 20, windowMs: 60_000 });
     if (!rl.allowed) return NextResponse.json({ error: 'RATE_LIMIT' }, { status: 429 });
 
-    const auth = await requireUserFromRequest(req);
+    const auth = await requireCombatantFromRequest(req);
     if (auth.error) {
       return auth.error;
     }

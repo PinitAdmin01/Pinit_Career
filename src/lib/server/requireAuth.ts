@@ -84,6 +84,59 @@ export async function requireUserFromRequest(req: Request): Promise<
   }
 }
 
+/**
+ * Combatant Auth for Arena & Code Wars:
+ * Accepts verified Supabase JWT if present.
+ * If token is 'guest-token-<deviceId>' or 'test-token-<id>',
+ * allows combatant access with an isolated guest combatant profile.
+ */
+export async function requireCombatantFromRequest(req: Request): Promise<
+  | { user: { id: string; email?: string; displayName?: string; isGuest?: boolean }; error: null }
+  | { user: null; error: NextResponse }
+> {
+  const token = getBearerToken(req);
+  const deviceHeader = req.headers.get('x-combatant-device-id') || '';
+
+  if (token.startsWith('guest-token-') || token.startsWith('test-token-')) {
+    const devId = (token.startsWith('guest-token-') ? token.slice(12) : token.slice(11)) || 'dev_guest';
+    const cleanId = `combatant_${devId.replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 32)}`;
+    return {
+      user: {
+        id: cleanId,
+        email: `${cleanId}@guest.pinit.in`,
+        displayName: 'Guest Challenger',
+        isGuest: true,
+      },
+      error: null,
+    };
+  }
+
+  // Attempt standard user authentication if a token is present
+  if (token) {
+    const normalAuth = await requireUserFromRequest(req);
+    if (!normalAuth.error && normalAuth.user) {
+      return { user: { ...normalAuth.user, isGuest: false }, error: null };
+    }
+  }
+
+  // If token is missing or invalid but this is an arena combatant with a device header:
+  if (deviceHeader) {
+    const cleanId = `combatant_${deviceHeader.replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 32)}`;
+    return {
+      user: {
+        id: cleanId,
+        email: `${cleanId}@guest.pinit.in`,
+        displayName: 'Guest Challenger',
+        isGuest: true,
+      },
+      error: null,
+    };
+  }
+
+  // Fallback to standard requireUserFromRequest
+  return requireUserFromRequest(req);
+}
+
 export function getAuthoritativeSupabaseClient(userToken: string) {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder-project.supabase.co';
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';

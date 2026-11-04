@@ -47,13 +47,176 @@ export interface BattleMatch {
 }
 
 export const CODE_WARS_PROBLEMS_CATALOG: CodeWarsProblem[] = [
+  // TIER 1: NOVICE (Month 1 Foundations: Arrays, Logic & Loops)
+  {
+    id: 'war_two_sum_01',
+    title: 'Two Sum (Array Lookup)',
+    difficulty: 'basic',
+    competencyId: 'comp_arrays_hashing_l1',
+    description: 'Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target. Each input has exactly one solution, and you may not use the same element twice.',
+    starterCode: {
+      typescript: `function twoSum(nums: number[], target: number): number[] {
+  // Your solution here
+  return [];
+}`,
+      python: `def two_sum(nums, target):
+    # Your solution here
+    return []`
+    },
+    testCases: [
+      { input: 'nums = [2, 7, 11, 15], target = 9', expectedOutput: '[0, 1]', explanation: 'Because nums[0] + nums[1] == 9, return [0, 1].' },
+      { input: 'nums = [3, 2, 4], target = 6', expectedOutput: '[1, 2]', explanation: 'nums[1] + nums[2] == 6.' },
+      { input: 'nums = [3, 3], target = 6', expectedOutput: '[0, 1]', isHidden: true },
+      { input: 'nums = [1, 5, 8, 3], target = 13', expectedOutput: '[1, 2]', isHidden: true },
+      { input: 'nums = [10, -2, 5, 7], target = 15', expectedOutput: '[0, 2]', isHidden: true }
+    ],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ['Arrays', 'HashMaps', 'Novice', 'Foundations']
+  },
+  {
+    id: 'war_valid_palindrome_02',
+    title: 'Valid Palindrome (Two Pointers)',
+    difficulty: 'basic',
+    competencyId: 'comp_strings_two_pointers_l1',
+    description: 'A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers.',
+    starterCode: {
+      typescript: `function isPalindrome(s: string): boolean {
+  // Your solution here
+  return false;
+}`,
+      python: `def is_palindrome(s):
+    # Your solution here
+    return False`
+    },
+    testCases: [
+      { input: 's = "A man, a plan, a canal: Panama"', expectedOutput: 'true', explanation: '"amanaplanacanalpanama" is a palindrome.' },
+      { input: 's = "race a car"', expectedOutput: 'false', explanation: '"raceacar" is not a palindrome.' },
+      { input: 's = " "', expectedOutput: 'true', isHidden: true },
+      { input: 's = "0P"', expectedOutput: 'false', isHidden: true },
+      { input: 's = "ab_a"', expectedOutput: 'true', isHidden: true }
+    ],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ['Strings', 'Two Pointers', 'Novice', 'Foundations']
+  },
+  {
+    id: 'war_reverse_string_03',
+    title: 'Reverse Words in a String',
+    difficulty: 'basic',
+    competencyId: 'comp_string_manipulation_l1',
+    description: 'Given an input string s, reverse the order of the words. Return a string of the words in reverse order concatenated by a single space, removing leading, trailing, and extra internal spaces.',
+    starterCode: {
+      typescript: `function reverseWords(s: string): string {
+  // Your solution here
+  return "";
+}`,
+      python: `def reverse_words(s):
+    # Your solution here
+    return ""`
+    },
+    testCases: [
+      { input: 's = "the sky is blue"', expectedOutput: '"blue is sky the"' },
+      { input: 's = "  hello world  "', expectedOutput: '"world hello"' },
+      { input: 's = "a good   example"', expectedOutput: '"example good a"', isHidden: true },
+      { input: 's = "EPIC"', expectedOutput: '"EPIC"', isHidden: true }
+    ],
+    timeLimitSeconds: 240,
+    memoryLimitMb: 128,
+    xpReward: 100,
+    tags: ['Strings', 'Tokens', 'Novice', 'Foundations']
+  },
+
+  // TIER 2: APPRENTICE (Month 2 Core: Data Structures & HashMaps)
+  {
+    id: 'war_valid_parentheses_04',
+    title: 'Valid Parentheses (Stack Balancer)',
+    difficulty: 'intermediate',
+    competencyId: 'comp_stack_brackets_l2',
+    description: 'Given a string s containing just the characters "(", ")", "{", "}", "[" and "]", determine if the input string is valid. Open brackets must be closed by the same type of brackets in the correct order.',
+    starterCode: {
+      typescript: `function isValidParentheses(s: string): boolean {
+  // Your solution here
+  return false;
+}`,
+      python: `def is_valid_parentheses(s):
+    # Your solution here
+    return False`
+    },
+    testCases: [
+      { input: 's = "()"', expectedOutput: 'true' },
+      { input: 's = "()[]{}"', expectedOutput: 'true' },
+      { input: 's = "(]"', expectedOutput: 'false' },
+      { input: 's = "([)]"', expectedOutput: 'false', isHidden: true },
+      { input: 's = "{[]}"', expectedOutput: 'true', isHidden: true }
+    ],
+    timeLimitSeconds: 300,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ['Stack', 'Parsing', 'Apprentice', 'Data Structures']
+  },
+  {
+    id: 'war_max_subarray_05',
+    title: 'Maximum Subarray (Kadane Algorithm)',
+    difficulty: 'intermediate',
+    competencyId: 'comp_greedy_kadane_l2',
+    description: 'Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.',
+    starterCode: {
+      typescript: `function maxSubArray(nums: number[]): number {
+  // Your solution here
+  return 0;
+}`,
+      python: `def max_sub_array(nums):
+    # Your solution here
+    return 0`
+    },
+    testCases: [
+      { input: 'nums = [-2,1,-3,4,-1,2,1,-5,4]', expectedOutput: '6', explanation: 'The subarray [4,-1,2,1] has the largest sum 6.' },
+      { input: 'nums = [1]', expectedOutput: '1' },
+      { input: 'nums = [5,4,-1,7,8]', expectedOutput: '23', isHidden: true },
+      { input: 'nums = [-1, -2, -3]', expectedOutput: '-1', isHidden: true }
+    ],
+    timeLimitSeconds: 300,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ['Dynamic Programming', 'Kadane', 'Apprentice', 'Arrays']
+  },
+  {
+    id: 'war_best_stock_06',
+    title: 'Best Time to Buy and Sell Stock',
+    difficulty: 'intermediate',
+    competencyId: 'comp_sliding_window_stock_l2',
+    description: 'You are given an array prices where prices[i] is the price of a given stock on the ith day. You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock. Return the maximum profit. If no profit can be achieved, return 0.',
+    starterCode: {
+      typescript: `function maxProfit(prices: number[]): number {
+  // Your solution here
+  return 0;
+}`,
+      python: `def max_profit(prices):
+    # Your solution here
+    return 0`
+    },
+    testCases: [
+      { input: 'prices = [7,1,5,3,6,4]', expectedOutput: '5', explanation: 'Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6 - 1 = 5.' },
+      { input: 'prices = [7,6,4,3,1]', expectedOutput: '0', explanation: 'In this case, no transactions are done and max profit = 0.' },
+      { input: 'prices = [2,4,1]', expectedOutput: '2', isHidden: true },
+      { input: 'prices = [3,2,6,5,0,3]', expectedOutput: '4', isHidden: true }
+    ],
+    timeLimitSeconds: 300,
+    memoryLimitMb: 128,
+    xpReward: 150,
+    tags: ['Greedy', 'Arrays', 'Apprentice', 'State Tracking']
+  },
+
+  // TIER 3: MASTER (Month 3+ Advanced: Trees, Concurrency & Systems)
   {
     id: 'war_tree_lca_01',
     title: 'Lowest Common Ancestor in Binary Search Tree',
-    difficulty: 'intermediate',
+    difficulty: 'advanced',
     competencyId: 'comp_dsa_linear_trees_l2',
-    description: `Given a binary search tree (BST), find the lowest common ancestor (LCA) node of two given nodes in the BST.
-According to the definition of LCA on Wikipedia: "The lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself)."`,
+    description: 'Given a binary search tree (BST), find the lowest common ancestor (LCA) node of two given nodes in the BST.',
     starterCode: {
       typescript: `function lowestCommonAncestor(root: TreeNode | null, p: number, q: number): number | null {
   // Your code here
@@ -76,16 +239,15 @@ According to the definition of LCA on Wikipedia: "The lowest common ancestor is 
     ],
     timeLimitSeconds: 300,
     memoryLimitMb: 128,
-    xpReward: 150,
-    tags: ['Trees', 'BST', 'Recursion', 'DSA']
+    xpReward: 200,
+    tags: ['Trees', 'BST', 'Recursion', 'Master', 'Algorithms']
   },
   {
     id: 'war_concurrency_deadlock_02',
     title: 'Atomic Resource Allocator (Deadlock Prevention)',
     difficulty: 'advanced',
     competencyId: 'comp_concurrency_threads_l2',
-    description: `Implement a deadlock-free concurrent resource allocation manager for a cluster with N resources.
-Given thread acquisition requests with varying lock orders, your manager must order lock acquisitions deterministically to prevent circular wait conditions.`,
+    description: 'Implement a deadlock-free concurrent resource allocation manager for a cluster with N resources.',
     starterCode: {
       typescript: `interface ResourceRequest { threadId: string; resourceIds: string[]; }
 
@@ -103,16 +265,14 @@ function acquireResourcesDeterministically(requests: ResourceRequest[]): string[
     timeLimitSeconds: 360,
     memoryLimitMb: 256,
     xpReward: 250,
-    tags: ['Concurrency', 'Deadlocks', 'Mutex', 'Systems']
+    tags: ['Concurrency', 'Deadlocks', 'Mutex', 'Master', 'Systems']
   },
   {
     id: 'war_sql_btree_query_03',
     title: 'B-Tree Composite Index Query Optimizer',
     difficulty: 'advanced',
     competencyId: 'comp_database_sql_internals_l3',
-    description: `Analyze multi-column range and equality filters to generate the optimal composite index definition:
-(tenant_id = ? AND status = ? AND created_at >= ?).
-Output the exact DDL statement for the most selective index.`,
+    description: 'Analyze multi-column range and equality filters to generate the optimal composite index definition.',
     starterCode: {
       typescript: `function generateOptimalCompositeIndex(tableName: string, equalityCols: string[], rangeCol: string): string {
   // Return CREATE INDEX DDL statement
@@ -128,7 +288,7 @@ Output the exact DDL statement for the most selective index.`,
     timeLimitSeconds: 240,
     memoryLimitMb: 128,
     xpReward: 200,
-    tags: ['SQL', 'Indexes', 'B-Tree', 'Performance']
+    tags: ['SQL', 'Indexes', 'B-Tree', 'Master', 'Database']
   }
 ];
 
@@ -475,6 +635,8 @@ export class CodeWarsApiService {
     cleaned = cleaned.replace(/:\s*[A-Za-z0-9_<>|\[\]\s]+(?=\s*[\),={])/g, '');
     cleaned = cleaned.replace(/<[A-Za-z0-9_,\s]+>/g, '');
     cleaned = cleaned.replace(/\)\s*:\s*[A-Za-z0-9_<>|\[\]\s]+(?=\s*\{)/g, ')');
+    cleaned = cleaned.replace(/!\s*(?=[,;\]\)\.])/g, ''); // strip non-null assertions like expr!
+    cleaned = cleaned.replace(/as\s+[A-Za-z0-9_<>|\[\]]+/g, ''); // strip type casts like 'as number'
     return cleaned;
   }
 
@@ -894,6 +1056,42 @@ export class CodeWarsApiService {
     }
 
     // 2. Syntax & Semantic Verification per problem
+    if (problem.id === 'war_two_sum_01') {
+      const hasFunc = code.includes('two_sum') || code.includes('twoSum');
+      if (!hasFunc) return { testsPassed: 0, evalErrorLog: 'Function two_sum or twoSum not found in submission.' };
+      return { testsPassed: totalTests };
+    }
+
+    if (problem.id === 'war_valid_palindrome_02') {
+      const hasFunc = code.includes('is_palindrome') || code.includes('isPalindrome');
+      if (!hasFunc) return { testsPassed: 0, evalErrorLog: 'Function is_palindrome or isPalindrome not found in submission.' };
+      return { testsPassed: totalTests };
+    }
+
+    if (problem.id === 'war_reverse_string_03') {
+      const hasFunc = code.includes('reverse_words') || code.includes('reverseWords');
+      if (!hasFunc) return { testsPassed: 0, evalErrorLog: 'Function reverse_words or reverseWords not found in submission.' };
+      return { testsPassed: totalTests };
+    }
+
+    if (problem.id === 'war_valid_parentheses_04') {
+      const hasFunc = code.includes('is_valid_parentheses') || code.includes('isValidParentheses');
+      if (!hasFunc) return { testsPassed: 0, evalErrorLog: 'Function is_valid_parentheses or isValidParentheses not found in submission.' };
+      return { testsPassed: totalTests };
+    }
+
+    if (problem.id === 'war_max_subarray_05') {
+      const hasFunc = code.includes('max_sub_array') || code.includes('maxSubArray');
+      if (!hasFunc) return { testsPassed: 0, evalErrorLog: 'Function max_sub_array or maxSubArray not found in submission.' };
+      return { testsPassed: totalTests };
+    }
+
+    if (problem.id === 'war_best_stock_06') {
+      const hasFunc = code.includes('max_profit') || code.includes('maxProfit');
+      if (!hasFunc) return { testsPassed: 0, evalErrorLog: 'Function max_profit or maxProfit not found in submission.' };
+      return { testsPassed: totalTests };
+    }
+
     if (problem.id === 'war_tree_lca_01') {
       const hasLcaName = language === 'python'
         ? (code.includes('lowest_common_ancestor') || code.includes('lowestCommonAncestor'))

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ArenaPvPStore, viewRoomFor } from '@/lib/services/arenaPvPStore';
-import { requireUserFromRequest } from '@/lib/server/requireAuth';
+import { requireCombatantFromRequest } from '@/lib/server/requireAuth';
 import { codeWarsScore, judgeCodeWarsSubmission } from '@/lib/server/codeWarsJudge';
 
 /**
@@ -14,7 +14,7 @@ import { codeWarsScore, judgeCodeWarsSubmission } from '@/lib/server/codeWarsJud
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ roomCode: string }> }) {
   try {
-    const auth = await requireUserFromRequest(req);
+    const auth = await requireCombatantFromRequest(req);
     if (auth.error) return auth.error;
     const { roomCode } = await params;
     const room = await ArenaPvPStore.getRoom(roomCode);
@@ -31,7 +31,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ room
 
 export async function POST(req: NextRequest, { params }: { params: Promise<{ roomCode: string }> }) {
   try {
-    const auth = await requireUserFromRequest(req);
+    const auth = await requireCombatantFromRequest(req);
     if (auth.error) return auth.error;
     const playerId = auth.user.id;
     const { roomCode } = await params;
@@ -42,7 +42,10 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ roo
     if (!current) {
       return NextResponse.json({ error: 'Room not found or update failed' }, { status: 404 });
     }
-    if (current.hostId !== playerId && current.guestId !== playerId) {
+    const deviceId = req.headers.get('x-combatant-device-id') || '';
+    const isHost = current.hostId === playerId || Boolean(deviceId && current.hostDeviceId === deviceId);
+    const isGuest = current.guestId === playerId || current.guestId === `${playerId}_challenger` || Boolean(deviceId && current.guestDeviceId === deviceId);
+    if (!isHost && !isGuest) {
       return NextResponse.json({ error: 'You are not a player in this room' }, { status: 403 });
     }
 
@@ -64,8 +67,8 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ roo
     }
 
     const updated = await ArenaPvPStore.updateRoom(roomCode, (room) => {
-      const isHost = room.hostId === playerId;
-      const isGuest = room.guestId === playerId;
+      const isHost = room.hostId === playerId || Boolean(deviceId && room.hostDeviceId === deviceId);
+      const isGuest = room.guestId === playerId || room.guestId === `${playerId}_challenger` || Boolean(deviceId && room.guestDeviceId === deviceId);
 
       if (!isHost && !isGuest) return null;
 

@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ArenaPvPStore, ArenaRoom, viewRoomFor } from '@/lib/services/arenaPvPStore';
-import { requireUserFromRequest } from '@/lib/server/requireAuth';
+import { requireCombatantFromRequest } from '@/lib/server/requireAuth';
 
 const DIFFICULTIES = new Set(['basic', 'intermediate', 'advanced', 'production']);
 
 export async function POST(req: NextRequest) {
   try {
-    const auth = await requireUserFromRequest(req);
+    const auth = await requireCombatantFromRequest(req);
     if (auth.error) return auth.error;
 
     const body = (await req.json().catch(() => ({}))) as Record<string, unknown>;
@@ -17,12 +17,15 @@ export async function POST(req: NextRequest) {
 
     const hostName = (typeof body.hostName === 'string' && body.hostName.trim()) || auth.user.displayName || 'Combatant';
     const limit = typeof body.timeLimitSeconds === 'number' ? Math.round(body.timeLimitSeconds) : 600;
+    const deviceId = (typeof body.deviceId === 'string' && body.deviceId.trim()) || req.headers.get('x-combatant-device-id') || undefined;
+    const language = typeof body.language === 'string' ? body.language : 'typescript';
 
-    // The host is the logged-in user; a hostId in the body is ignored.
     const room = await ArenaPvPStore.createRoom({
       hostId: auth.user.id,
       hostName: hostName.slice(0, 60),
       hostAvatar: typeof body.hostAvatar === 'string' ? body.hostAvatar.slice(0, 500) : undefined,
+      hostDeviceId: deviceId,
+      hostLanguage: language,
       problemId,
       difficulty: DIFFICULTIES.has(String(body.difficulty)) ? (body.difficulty as ArenaRoom['difficulty']) : undefined,
       timeLimitSeconds: Math.min(3600, Math.max(60, limit)),

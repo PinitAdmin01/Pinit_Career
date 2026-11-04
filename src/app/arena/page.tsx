@@ -18,6 +18,7 @@ import { ArenaPvPService, ArenaRoom } from '@/lib/services/arenaPvPService';
 import { triggerPinStream } from '@/components/pins/coinAnimation';
 import ArenaMatchmakingRadar from '@/components/pins/ArenaMatchmakingRadar';
 import ArenaCodeDiffViewer from '@/components/pins/ArenaCodeDiffViewer';
+import { calculateStudentKnowledge } from '@/lib/arena/knowledgeEngine';
 
 const MonacoEditor = dynamic(
   () => import('@monaco-editor/react').then(mod => mod.default),
@@ -44,6 +45,17 @@ function ArenaContent() {
   
   const cOS = useCareerOS();
   const { xp = 0, pins = 0 } = cOS || {};
+
+  // Task 14: Dynamic Empirical Knowledge Calibration
+  const studentKnowledge = React.useMemo(() => {
+    return calculateStudentKnowledge({
+      xpTotal: xp,
+      arenaElo: (user as any)?.arena_elo || 1200,
+      completedQuests: (user as any)?.completed_quests || [],
+      careerDnaScore: (user as any)?.careerDnaScore || (user as any)?.atsScore || 50,
+      missionsCompleted: (user as any)?.missionsCompleted || 0,
+    });
+  }, [xp, user]);
 
   const [activeTab, setActiveTab] = useState<'all' | 'code_wars' | 'hackathons' | 'viva'>(initialTab);
 
@@ -1103,8 +1115,40 @@ function ArenaContent() {
                 </div>
               )}
 
+              {/* Task 14: Knowledge Calibration Banner */}
+              <div style={{
+                marginTop: 24,
+                marginBottom: 20,
+                padding: '16px 20px',
+                borderRadius: 14,
+                background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(168, 85, 247, 0.12) 100%)',
+                border: '1px solid rgba(99, 102, 241, 0.25)',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                flexWrap: 'wrap',
+                gap: 12,
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                  <div style={{ fontSize: 28 }}>🎯</div>
+                  <div>
+                    <div style={{ fontSize: 16, fontWeight: 800, color: 'var(--t1)' }}>
+                      Knowledge-Calibrated Arena: <span style={{ color: '#818cf8' }}>{studentKnowledge.tierLabel}</span>
+                    </div>
+                    <div style={{ fontSize: 13, color: 'var(--t3)', marginTop: 2 }}>
+                      Knowledge Score: <strong style={{ color: 'var(--t2)' }}>{studentKnowledge.score}/100</strong> (Quests: {studentKnowledge.questMasteryScore}/35 · Elo: {studentKnowledge.eloMasteryScore}/30 · Diagnostic: {studentKnowledge.diagnosticScore}/20 · Activity: {studentKnowledge.consistencyScore}/15)
+                    </div>
+                  </div>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span style={{ fontSize: 12, fontWeight: 700, padding: '4px 10px', borderRadius: 8, background: '#10b981', color: '#fff', textTransform: 'uppercase' }}>
+                    Calibrated: {studentKnowledge.recommendedDifficulty}
+                  </span>
+                </div>
+              </div>
+
               {/* Problem Selection & Solo Practice Catalog */}
-              <div style={{ marginTop: 24 }}>
+              <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
                   <h3 style={{ fontSize: 20, fontWeight: 700, color: 'var(--t1)', margin: 0 }}>
                     Algorithmic Challenges Catalog
@@ -1411,7 +1455,20 @@ function ArenaContent() {
                     style={{ width: 44, height: 44, borderRadius: '50%', border: '2px solid #6366f1', objectFit: 'cover' }}
                   />
                   <div>
-                    <div style={{ fontSize: 15.5, fontWeight: 700, color: 'var(--t1)' }}>{studentName} (You)</div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <span style={{ fontSize: 15.5, fontWeight: 700, color: 'var(--t1)' }}>{studentName} (You)</span>
+                      <span style={{
+                        fontSize: 11,
+                        padding: '2px 7px',
+                        borderRadius: 4,
+                        background: language === 'python' ? '#3b82f6' : '#6366f1',
+                        color: '#fff',
+                        fontWeight: 800,
+                        letterSpacing: '0.5px'
+                      }}>
+                        {language === 'python' ? '🐍 PY' : '⚡ TS'}
+                      </span>
+                    </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 4 }}>
                       <div style={{
                         width: 120,
@@ -1435,8 +1492,21 @@ function ArenaContent() {
                   </div>
                 </div>
 
-                {/* Center: Countdown Timer */}
+                {/* Center: Countdown Timer & Sync Indicator */}
                 <div style={{ textAlign: 'center' }}>
+                  <div style={{
+                    fontSize: 12,
+                    fontWeight: 700,
+                    color: '#10b981',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 6,
+                    marginBottom: 4
+                  }}>
+                    <span style={{ display: 'inline-block', width: 7, height: 7, borderRadius: '50%', background: '#10b981', boxShadow: '0 0 6px #10b981' }} />
+                    Peer Synced ({activeProblem.testCases.length} Tests)
+                  </div>
                   <div style={{
                     padding: '8px 20px',
                     borderRadius: 12,
@@ -1456,8 +1526,21 @@ function ArenaContent() {
                 {/* Right: Opponent Progress */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: 14, minWidth: 260, justifyContent: 'flex-end' }}>
                   <div style={{ textAlign: 'right' }}>
-                    <div style={{ fontSize: 15.5, fontWeight: 700, color: 'var(--t1)' }}>
-                      {activeRoom ? opponentName : (soloMatch?.opponent?.name || 'Turing AI')}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, justifyContent: 'flex-end' }}>
+                      <span style={{
+                        fontSize: 11,
+                        padding: '2px 7px',
+                        borderRadius: 4,
+                        background: (isHost ? activeRoom?.guestLanguage : activeRoom?.hostLanguage) === 'python' ? '#3b82f6' : '#6366f1',
+                        color: '#fff',
+                        fontWeight: 800,
+                        letterSpacing: '0.5px'
+                      }}>
+                        {(isHost ? activeRoom?.guestLanguage : activeRoom?.hostLanguage) === 'python' ? '🐍 PY' : '⚡ TS'}
+                      </span>
+                      <span style={{ fontSize: 15.5, fontWeight: 700, color: 'var(--t1)' }}>
+                        {activeRoom ? opponentName : (soloMatch?.opponent?.name || 'Turing AI')}
+                      </span>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 4, justifyContent: 'flex-end' }}>
                       <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--red, #dc2626)' }}>

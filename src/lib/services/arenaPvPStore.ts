@@ -9,6 +9,7 @@ export interface ArenaPlayerProgress {
   code: string;
   logs?: string;
   lastActiveAt?: number;
+  language?: string;
 }
 
 export interface ArenaRoom {
@@ -23,11 +24,15 @@ export interface ArenaRoom {
   hostAvatar?: string;
   hostReady: boolean;
   hostProgress: ArenaPlayerProgress;
+  hostDeviceId?: string;
+  hostLanguage?: string;
   guestId?: string;
   guestName?: string;
   guestAvatar?: string;
   guestReady: boolean;
   guestProgress: ArenaPlayerProgress;
+  guestDeviceId?: string;
+  guestLanguage?: string;
   winnerId?: string;
   startedAt?: number;
   endedAt?: number;
@@ -51,6 +56,9 @@ export interface QueueTicket {
   difficulty: string;
   eloRating: number;
   enqueuedAt: number;
+  deviceId?: string;
+  preferredLanguage?: string;
+  knowledgeScore?: number;
 }
 
 interface ArenaRoomRow {
@@ -179,6 +187,8 @@ export class ArenaPvPStore {
     hostId: string;
     hostName: string;
     hostAvatar?: string;
+    hostDeviceId?: string;
+    hostLanguage?: string;
     problemId: string;
     difficulty?: 'basic' | 'intermediate' | 'advanced' | 'production';
     timeLimitSeconds?: number;
@@ -197,10 +207,13 @@ export class ArenaPvPStore {
       hostId: params.hostId,
       hostName: params.hostName,
       hostAvatar: params.hostAvatar || '',
+      hostDeviceId: params.hostDeviceId,
+      hostLanguage: params.hostLanguage || 'typescript',
       hostReady: false,
       hostProgress: emptyProgress(),
       guestReady: false,
       guestProgress: emptyProgress(),
+      guestLanguage: 'typescript',
       createdAt: now,
     };
 
@@ -300,22 +313,57 @@ export class ArenaPvPStore {
     guestId: string;
     guestName: string;
     guestAvatar?: string;
+    guestDeviceId?: string;
+    guestLanguage?: string;
   }): Promise<{ success: boolean; room?: ArenaRoom; error?: string }> {
     let failure: string | null = null;
+    let actualGuestId = params.guestId;
+
     const room = await this.updateRoom(params.roomCode, (r) => {
       if (r.status === 'completed' || r.status === 'cancelled') { failure = 'This match has already concluded.'; return null; }
-      if (r.hostId === params.guestId || r.guestId === params.guestId) { failure = null; return null; }
-      if (r.guestId) { failure = 'This battle room is already full.'; return null; }
-      r.guestId = params.guestId;
-      r.guestName = params.guestName;
+
+      // Check device ID: if the same user account is testing on two devices (or two tabs)
+      const isDifferentDevice = Boolean(
+        params.guestDeviceId && r.hostDeviceId && params.guestDeviceId !== r.hostDeviceId
+      );
+
+      // If same user ID and same device, it is host re-entering
+      if (r.hostId === params.guestId && !isDifferentDevice) {
+        failure = null;
+        return null;
+      }
+
+      // If already the guest re-entering
+      if (r.guestId === params.guestId || (r.guestDeviceId && r.guestDeviceId === params.guestDeviceId)) {
+        failure = null;
+        return null;
+      }
+
+      // If room already full
+      if (r.guestId && r.guestId !== params.guestId) {
+        failure = 'This battle room is already full.';
+        return null;
+      }
+
+      // If same user ID but DIFFERENT device, allocate distinct challenger ID
+      if (r.hostId === params.guestId && isDifferentDevice) {
+        actualGuestId = `${params.guestId}_challenger`;
+      }
+
+      r.guestId = actualGuestId;
+      r.guestName = params.guestName || 'Challenger';
       r.guestAvatar = params.guestAvatar || '';
+      r.guestDeviceId = params.guestDeviceId;
+      if (params.guestLanguage) r.guestLanguage = params.guestLanguage;
       return r;
     });
+
     if (room) return { success: true, room };
     if (failure) return { success: false, error: failure };
-    // Host re-entering, or this student is already the guest.
+
+    // Host or existing guest re-entering
     const existing = await this.getRoom(params.roomCode);
-    if (existing && (existing.hostId === params.guestId || existing.guestId === params.guestId)) {
+    if (existing && (existing.hostId === params.guestId || existing.guestId === params.guestId || existing.guestId === `${params.guestId}_challenger`)) {
       return { success: true, room: existing };
     }
     return { success: false, error: 'Room not found. Please check the code.' };
@@ -362,120 +410,234 @@ export class ArenaPvPStore {
   }
 
   /** After the match ends, both players' code goes into the room for the side-by-side review. */
-  /**
-   * Authoritative Elo & XP settlement when a match concludes.
-   * Calculates Elo deltas, updates users table, writes to xp_ledger, and attaches rewards.
-   */
-  static async settleMatch(room: ArenaRoom): Promise<ArenaRoom> {
-    if (room.status !== 'completed' || !room.winnerId || room.eloApplied) {
-      return room;
-    }
-
-    const hostId = room.hostId;
-    const guestId = room.guestId || 'guest';
-    let hostElo = 1200;
-    let guestElo = 1200;
-
-    try {
-      const admin = getSupabaseAdmin();
-      const { data: hostUser } = await admin.from('users').select('arena_elo').eq('id', hostId).maybeSingle();
-      if (hostUser?.arena_elo && typeof hostUser.arena_elo === 'number') {
-        hostElo = hostUser.arena_elo;
-      }
-      if (guestId && guestId !== 'guest') {
-        const { data: guestUser } = await admin.from('users').select('arena_elo').eq('id', guestId).maybeSingle();
-        if (guestUser?.arena_elo && typeof guestUser.arena_elo === 'number') {
-          guestElo = guestUser.arena_elo;
-        }
-      }
-    } catch (err) {
-      console.warn('[ArenaPvPStore] Could not fetch current Elo ratings:', err);
-    }
-
-    const result = calculateEloMatch({
-      hostId,
-      guestId,
-      hostElo,
-      guestElo,
-      winnerId: room.winnerId,
-    });
-
-    room.eloApplied = true;
-    room.hostEloDelta = result.hostDelta;
-    room.guestEloDelta = result.guestDelta;
-    room.hostNewElo = result.hostNewElo;
-    room.guestNewElo = result.guestNewElo;
-    room.hostXpAward = result.hostXpAward;
-    room.guestXpAward = result.guestXpAward;
-    room.hostPinsAward = result.hostPinsAward;
-    room.guestPinsAward = result.guestPinsAward;
-
-    // Cache in memory
-    inMemoryRooms.set(normalizeCode(room.roomCode), clone(room));
-
-    // Persist to Supabase if available
-    try {
-      const admin = getSupabaseAdmin();
-      const isHostWin = room.winnerId === hostId;
-      const isHostLoss = room.winnerId === guestId;
-
-      const { data: hostProfile } = await admin.from('users')
-        .select('arena_wins, arena_losses, xp_total, weekly_xp, pins')
-        .eq('id', hostId)
-        .maybeSingle();
-
-      if (hostProfile) {
-        await admin.from('users').update({
-          arena_elo: result.hostNewElo,
-          arena_wins: (hostProfile.arena_wins || 0) + (isHostWin ? 1 : 0),
-          arena_losses: (hostProfile.arena_losses || 0) + (isHostLoss ? 1 : 0),
-          xp_total: (hostProfile.xp_total || 0) + result.hostXpAward,
-          weekly_xp: (hostProfile.weekly_xp || 0) + result.hostXpAward,
-          pins: (hostProfile.pins || 0) + result.hostPinsAward,
-        }).eq('id', hostId);
-
-        await admin.from('xp_ledger').insert({
-          user_id: hostId,
-          amount: result.hostXpAward,
-          reason: `arena_pvp:${room.roomCode}`,
-          created_at: new Date().toISOString(),
-        });
-      }
-
-      if (guestId && guestId !== 'guest') {
-        const isGuestWin = room.winnerId === guestId;
-        const isGuestLoss = room.winnerId === hostId;
-
-        const { data: guestProfile } = await admin.from('users')
-          .select('arena_wins, arena_losses, xp_total, weekly_xp, pins')
-          .eq('id', guestId)
-          .maybeSingle();
-
-        if (guestProfile) {
-          await admin.from('users').update({
-            arena_elo: result.guestNewElo,
-            arena_wins: (guestProfile.arena_wins || 0) + (isGuestWin ? 1 : 0),
-            arena_losses: (guestProfile.arena_losses || 0) + (isGuestLoss ? 1 : 0),
-            xp_total: (guestProfile.xp_total || 0) + result.guestXpAward,
-            weekly_xp: (guestProfile.weekly_xp || 0) + result.guestXpAward,
-            pins: (guestProfile.pins || 0) + result.guestPinsAward,
-          }).eq('id', guestId);
-
-          await admin.from('xp_ledger').insert({
-            user_id: guestId,
-            amount: result.guestXpAward,
-            reason: `arena_pvp:${room.roomCode}`,
-            created_at: new Date().toISOString(),
-          });
-        }
-      }
-    } catch (persistErr) {
-      console.warn('[ArenaPvPStore] Failed to persist Elo match settlement:', persistErr);
-    }
-
-    return room;
-  }
-
+  /**
+
+   * Authoritative Elo & XP settlement when a match concludes.
+
+   * Calculates Elo deltas, updates users table, writes to xp_ledger, and attaches rewards.
+
+   */
+
+  static async settleMatch(room: ArenaRoom): Promise<ArenaRoom> {
+
+    if (room.status !== 'completed' || !room.winnerId || room.eloApplied) {
+
+      return room;
+
+    }
+
+
+
+    const hostId = room.hostId;
+
+    const guestId = room.guestId || 'guest';
+
+    let hostElo = 1200;
+
+    let guestElo = 1200;
+
+
+
+    try {
+
+      const admin = getSupabaseAdmin();
+
+      const { data: hostUser } = await admin.from('users').select('arena_elo').eq('id', hostId).maybeSingle();
+
+      if (hostUser?.arena_elo && typeof hostUser.arena_elo === 'number') {
+
+        hostElo = hostUser.arena_elo;
+
+      }
+
+      if (guestId && guestId !== 'guest') {
+
+        const { data: guestUser } = await admin.from('users').select('arena_elo').eq('id', guestId).maybeSingle();
+
+        if (guestUser?.arena_elo && typeof guestUser.arena_elo === 'number') {
+
+          guestElo = guestUser.arena_elo;
+
+        }
+
+      }
+
+    } catch (err) {
+
+      console.warn('[ArenaPvPStore] Could not fetch current Elo ratings:', err);
+
+    }
+
+
+
+    const result = calculateEloMatch({
+
+      hostId,
+
+      guestId,
+
+      hostElo,
+
+      guestElo,
+
+      winnerId: room.winnerId,
+
+    });
+
+
+
+    room.eloApplied = true;
+
+    room.hostEloDelta = result.hostDelta;
+
+    room.guestEloDelta = result.guestDelta;
+
+    room.hostNewElo = result.hostNewElo;
+
+    room.guestNewElo = result.guestNewElo;
+
+    room.hostXpAward = result.hostXpAward;
+
+    room.guestXpAward = result.guestXpAward;
+
+    room.hostPinsAward = result.hostPinsAward;
+
+    room.guestPinsAward = result.guestPinsAward;
+
+
+
+    // Cache in memory
+
+    inMemoryRooms.set(normalizeCode(room.roomCode), clone(room));
+
+
+
+    // Persist to Supabase if available
+
+    try {
+
+      const admin = getSupabaseAdmin();
+
+      const isHostWin = room.winnerId === hostId;
+
+      const isHostLoss = room.winnerId === guestId;
+
+
+
+      const { data: hostProfile } = await admin.from('users')
+
+        .select('arena_wins, arena_losses, xp_total, weekly_xp, pins')
+
+        .eq('id', hostId)
+
+        .maybeSingle();
+
+
+
+      if (hostProfile) {
+
+        await admin.from('users').update({
+
+          arena_elo: result.hostNewElo,
+
+          arena_wins: (hostProfile.arena_wins || 0) + (isHostWin ? 1 : 0),
+
+          arena_losses: (hostProfile.arena_losses || 0) + (isHostLoss ? 1 : 0),
+
+          xp_total: (hostProfile.xp_total || 0) + result.hostXpAward,
+
+          weekly_xp: (hostProfile.weekly_xp || 0) + result.hostXpAward,
+
+          pins: (hostProfile.pins || 0) + result.hostPinsAward,
+
+        }).eq('id', hostId);
+
+
+
+        await admin.from('xp_ledger').insert({
+
+          user_id: hostId,
+
+          amount: result.hostXpAward,
+
+          reason: `arena_pvp:${room.roomCode}`,
+
+          created_at: new Date().toISOString(),
+
+        });
+
+      }
+
+
+
+      if (guestId && guestId !== 'guest') {
+
+        const isGuestWin = room.winnerId === guestId;
+
+        const isGuestLoss = room.winnerId === hostId;
+
+
+
+        const { data: guestProfile } = await admin.from('users')
+
+          .select('arena_wins, arena_losses, xp_total, weekly_xp, pins')
+
+          .eq('id', guestId)
+
+          .maybeSingle();
+
+
+
+        if (guestProfile) {
+
+          await admin.from('users').update({
+
+            arena_elo: result.guestNewElo,
+
+            arena_wins: (guestProfile.arena_wins || 0) + (isGuestWin ? 1 : 0),
+
+            arena_losses: (guestProfile.arena_losses || 0) + (isGuestLoss ? 1 : 0),
+
+            xp_total: (guestProfile.xp_total || 0) + result.guestXpAward,
+
+            weekly_xp: (guestProfile.weekly_xp || 0) + result.guestXpAward,
+
+            pins: (guestProfile.pins || 0) + result.guestPinsAward,
+
+          }).eq('id', guestId);
+
+
+
+          await admin.from('xp_ledger').insert({
+
+            user_id: guestId,
+
+            amount: result.guestXpAward,
+
+            reason: `arena_pvp:${room.roomCode}`,
+
+            created_at: new Date().toISOString(),
+
+          });
+
+        }
+
+      }
+
+    } catch (persistErr) {
+
+      console.warn('[ArenaPvPStore] Failed to persist Elo match settlement:', persistErr);
+
+    }
+
+
+
+    return room;
+
+  }
+
+
+
   static async publishCodesIfCompleted(room: ArenaRoom): Promise<ArenaRoom> {
     if (room.status !== 'completed') return room;
     const codes = await this.loadCodes(room.roomCode);

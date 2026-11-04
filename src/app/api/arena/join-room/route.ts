@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ArenaPvPStore, viewRoomFor } from '@/lib/services/arenaPvPStore';
-import { requireUserFromRequest } from '@/lib/server/requireAuth';
+import { requireCombatantFromRequest } from '@/lib/server/requireAuth';
 
 export async function POST(req: NextRequest) {
   try {
-    const auth = await requireUserFromRequest(req);
+    const auth = await requireCombatantFromRequest(req);
     if (auth.error) return auth.error;
 
     const body = (await req.json().catch(() => ({}))) as Record<string, unknown>;
@@ -14,13 +14,17 @@ export async function POST(req: NextRequest) {
     }
 
     const guestName = (typeof body.guestName === 'string' && body.guestName.trim()) || auth.user.displayName || 'Combatant';
+    const deviceId = (typeof body.deviceId === 'string' && body.deviceId.trim()) || req.headers.get('x-combatant-device-id') || undefined;
+    const language = typeof body.language === 'string' ? body.language : 'typescript';
 
-    // The guest is the logged-in user; a guestId in the body is ignored.
+    // The guest is the combatant user, with device isolation for 2-device pairing
     const result = await ArenaPvPStore.joinRoom({
       roomCode,
       guestId: auth.user.id,
       guestName: guestName.slice(0, 60),
       guestAvatar: typeof body.guestAvatar === 'string' ? body.guestAvatar.slice(0, 500) : undefined,
+      guestDeviceId: deviceId,
+      guestLanguage: language,
     });
 
     if (!result.success || !result.room) {

@@ -5,12 +5,14 @@ import {
   runEvaluationInSandbox,
   validateVmCodeSecurity,
 } from '@/lib/server/codeWarsSandbox';
+import { runPythonInSandbox } from '@/lib/server/pythonSandbox';
 import { grantXp, xpAlreadyGranted } from '@/lib/server/xpGrant';
 
 /**
- * The one Code Wars / arena judge, run on the server: JavaScript and TypeScript are executed in
- * the sandbox against the problem's tests; other languages go through the polyglot checks. A
- * result the browser reports is never used to decide a pass, a winner or XP.
+ * The authoritative Code Wars / arena judge, run on the server:
+ * JavaScript and TypeScript are executed in the secure worker VM sandbox.
+ * Python is executed in the isolated pythonSandbox with deterministic test suites.
+ * A result the browser reports is never used to decide a pass, a winner, or XP.
  */
 
 export type JudgeResult =
@@ -18,15 +20,18 @@ export type JudgeResult =
   | { ok: false; error: 'UNSUPPORTED_PROBLEM' | 'SECURITY_VIOLATION' | 'CODE_REQUIRED'; message: string };
 
 const JS_LANGUAGES = new Set(['javascript', 'typescript', 'js', 'ts']);
+const PYTHON_LANGUAGES = new Set(['python', 'py']);
 
 export async function judgeCodeWarsSubmission(problemId: unknown, code: unknown, language: unknown): Promise<JudgeResult> {
   if (typeof code !== 'string' || !code.trim()) return { ok: false, error: 'CODE_REQUIRED', message: 'Code is required.' };
   const id = typeof problemId === 'string' ? problemId : '';
   const lang = typeof language === 'string' && language.trim() ? language.trim().toLowerCase() : 'typescript';
 
+  const config = CODEWARS_PROBLEM_REGISTRY[id];
+  if (!config) return { ok: false, error: 'UNSUPPORTED_PROBLEM', message: `Problem '${id}' is not supported for evaluation.` };
+
+  // 1. JavaScript & TypeScript: Evaluated in Node VM Sandbox
   if (JS_LANGUAGES.has(lang)) {
-    const config = CODEWARS_PROBLEM_REGISTRY[id];
-    if (!config) return { ok: false, error: 'UNSUPPORTED_PROBLEM', message: `Problem '${id}' is not supported for evaluation.` };
     const security = validateVmCodeSecurity(code);
     if (!security.safe) return { ok: false, error: 'SECURITY_VIOLATION', message: `Security violation: ${security.reason}` };
     const res = await runEvaluationInSandbox({
@@ -38,6 +43,47 @@ export async function judgeCodeWarsSubmission(problemId: unknown, code: unknown,
     return { ok: true, passed: res.passed === true, testsPassed: res.testsPassed || 0, totalTests: config.totalTests, error: res.error };
   }
 
+  // 2. Python: Evaluated in Sandboxed Python Runner
+  if (PYTHON_LANGUAGES.has(lang)) {
+    if (config.pythonTests) {
+      const pyRes = await runPythonInSandbox({
+        code,
+        tests: config.pythonTests,
+        timeoutMs: 3500,
+      });
+
+      if (pyRes.isSecurityViolation) {
+        return { ok: false, error: 'SECURITY_VIOLATION', message: pyRes.stderr };
+      }
+
+      if (pyRes.passed) {
+        return {
+          ok: true,
+          passed: true,
+          testsPassed: config.totalTests,
+          totalTests: config.totalTests,
+        };
+      }
+
+      let testsPassed = 0;
+      let errorMsg = pyRes.stderr || 'Python assertion failed';
+      const match = pyRes.stderr.match(/Test case (\d+) failed/i);
+      if (match && match[1]) {
+        const failedNum = parseInt(match[1], 10);
+        testsPassed = Math.max(0, failedNum - 1);
+      }
+
+      return {
+        ok: true,
+        passed: false,
+        testsPassed,
+        totalTests: config.totalTests,
+        error: errorMsg.split('\n')[0].replace(/\r/g, ''),
+      };
+    }
+  }
+
+  // 3. Fallback Polyglot Verification
   const poly = CodeWarsApiService.judgePolyglotSubmission(id, code, lang);
   if (!poly) return { ok: false, error: 'UNSUPPORTED_PROBLEM', message: `Problem '${id}' is not supported for evaluation.` };
   return { ok: true, ...poly };
