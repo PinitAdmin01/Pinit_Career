@@ -36,15 +36,20 @@ export default function CollegeIdScanner({
   const [previewId, setPreviewId] = useState<string>('');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  const onIdGeneratedRef = useRef(onIdGenerated);
+  useEffect(() => {
+    onIdGeneratedRef.current = onIdGenerated;
+  });
+
   // Compute live Global ID whenever displayName or username changes
   useEffect(() => {
     const gid = generateMemorableGlobalId(displayName, username);
     setGlobalId(gid);
     if (mode === 'global') {
       setPreviewId(gid);
-      onIdGenerated(gid, 'global');
+      onIdGeneratedRef.current(gid, 'global');
     }
-  }, [displayName, username, mode, onIdGenerated]);
+  }, [displayName, username, mode]);
 
   // Compute live College ID whenever codes change in college mode
   useEffect(() => {
@@ -55,9 +60,9 @@ export default function CollegeIdScanner({
         rollNumber: rollNumber || '001',
       });
       setPreviewId(cid);
-      onIdGenerated(cid, 'college', collegeMeta || undefined);
+      onIdGeneratedRef.current(cid, 'college', collegeMeta || undefined);
     }
-  }, [mode, collegeCode, deptCode, rollNumber, collegeMeta, onIdGenerated]);
+  }, [mode, collegeCode, deptCode, rollNumber, collegeMeta]);
 
   // Handle file drop / upload
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {

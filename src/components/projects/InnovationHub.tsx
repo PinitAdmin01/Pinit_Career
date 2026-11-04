@@ -406,7 +406,11 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
             Available Projects ({filteredSquads.length})
           </div>
 
-          {filteredSquads.map((squad) => {
+          {filteredSquads.length === 0 ? (
+            <div style={{ padding: '24px 16px', textAlign: 'center', background: 'var(--bg2)', borderRadius: 14, border: '1px dashed var(--border)', color: 'var(--t3)', fontSize: 13.5 }}>
+              No projects found matching that filter. Launch your own project to lead an innovation squad!
+            </div>
+          ) : filteredSquads.map((squad) => {
             const isSelected = squad.id === activeSquad?.id;
             const isMember = squad.members.some((m) => m.studentId === studentId);
 
@@ -481,7 +485,30 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
         </div>
 
         {/* Right: Active Project Workspace & Tabs */}
-        {activeSquad && (
+        {!activeSquad ? (
+          <div style={{ padding: '48px 32px', textAlign: 'center', background: 'var(--bg2)', borderRadius: 18, border: '1px dashed var(--border)', color: 'var(--t2)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ fontSize: 40, marginBottom: 12 }}>🚀</div>
+            <h3 style={{ fontSize: 18, fontWeight: 800, color: 'var(--t1)', margin: '0 0 8px' }}>No Innovation Projects Yet</h3>
+            <p style={{ fontSize: 14, color: 'var(--t3)', maxWidth: 440, margin: '0 0 20px', lineHeight: 1.5 }}>
+              Launch your first collaborative project, invite your peers via WhatsApp or QR code, and build together!
+            </p>
+            <button
+              onClick={() => setShowCreateModal(true)}
+              style={{
+                padding: '10px 22px',
+                borderRadius: 10,
+                background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
+                color: '#fff',
+                fontSize: 14,
+                fontWeight: 800,
+                border: 'none',
+                cursor: 'pointer',
+              }}
+            >
+              + Launch Innovation Project
+            </button>
+          </div>
+        ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
             {/* Squad Hero Banner */}
             <div

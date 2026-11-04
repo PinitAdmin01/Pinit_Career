@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '@/lib/context/AuthContext';
@@ -17,6 +17,12 @@ export default function SignupPage() {
   const [collegeMeta, setCollegeMeta] = useState<CollegeMetadata | undefined>();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const handleIdGenerated = useCallback((id: string, mode: 'college' | 'global', meta?: CollegeMetadata) => {
+    setPinitId(id);
+    setIdMode(mode);
+    setCollegeMeta(meta);
+  }, []);
 
   async function handleRegister(e: React.FormEvent) {
     e.preventDefault();
@@ -137,11 +143,7 @@ export default function SignupPage() {
           <CollegeIdScanner
             displayName={form.displayName}
             username={form.username}
-            onIdGenerated={(id, mode, meta) => {
-              setPinitId(id);
-              setIdMode(mode);
-              setCollegeMeta(meta);
-            }}
+            onIdGenerated={handleIdGenerated}
           />
 
           <p style={{ margin: 0, fontSize: 13, color: 'var(--t3)', lineHeight: 1.5 }}>
