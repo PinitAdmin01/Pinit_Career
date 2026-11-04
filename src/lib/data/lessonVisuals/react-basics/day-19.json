@@ -1,787 +1,703 @@
 {
   "schemaVersion": 1,
+  "courseId": "course-react-web",
   "prefix": "react-basics",
   "day": 19,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
+  "visuals": [
     {
-      "partTitle": "Why apps have pages",
-      "codeHash": "476015f30f4b7db239730179f59d2f529591d3bf43a9072a52b7fba9135ef9b0",
-      "spec": {
-        "template": "flow",
-        "title": "Matching browser pathname to dedicated page view",
-        "nodes": [
-          {
-            "id": "url",
-            "label": "path",
-            "tappable": false
-          },
-          {
-            "id": "router",
-            "label": "router",
-            "tappable": false
-          },
-          {
-            "id": "view",
-            "label": "page",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Real applications split features across separate addressable pages.",
-            "values": {
-              "url": {
-                "text": "\"/\""
+      "part": 1,
+      "title": "Mutable Ref Memory Cell Anatomy",
+      "template": "boxes",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "c52c6b241b7f67901a415e0e916dbcc4c611d5fbb6a31da2947ba78c702c7bb6"
+      },
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Fiber initializes persistent container on component mount.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Hook Allocation",
+                "tappable": false,
+                "highlight": true
               },
-              "router": {
-                "text": "show"
+              {
+                "id": "b2",
+                "label": "Persistent Address",
+                "tappable": false,
+                "highlight": false
               },
-              "view": {
-                "text": "\"Dashboard\""
+              {
+                "id": "b3",
+                "label": "In-Place Mutation",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Bypass Reconciler",
+                "tappable": false,
+                "highlight": false
               }
-            },
-            "tones": {
-              "url": "data",
-              "router": "idle",
-              "view": "idle"
-            },
-            "arrows": [
-              [
-                "url",
-                "router"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "Without pages apps cannot share a link to one job or screen.",
-            "values": {
-              "url": {
-                "text": "\"/jobs\""
-              },
-              "router": {
-                "text": "show"
-              },
-              "view": {
-                "text": "\"JobListPage\""
-              }
-            },
-            "tones": {
-              "url": "idle",
-              "router": "ok",
-              "view": "ok"
-            },
-            "arrows": [
-              [
-                "url",
-                "router"
-              ],
-              [
-                "router",
-                "view"
-              ]
             ]
           }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Matching browser pathname to dedicated page view",
-        "nodes": [
-          {
-            "id": "url",
-            "label": "path",
-            "tappable": false
-          },
-          {
-            "id": "router",
-            "label": "router",
-            "tappable": false
-          },
-          {
-            "id": "view",
-            "label": "page",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Real applications split features across separate addressable pages.",
-            "values": {
-              "url": "\"/\"",
-              "router": "show",
-              "view": "\"Dashboard\""
-            },
-            "tones": {
-              "url": "data",
-              "router": "idle",
-              "view": "idle"
-            },
-            "arrows": [
-              [
-                "url",
-                "router"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "Without pages apps cannot share a link to one job or screen.",
-            "values": {
-              "url": "\"/jobs\"",
-              "router": "show",
-              "view": "\"JobListPage\""
-            },
-            "tones": {
-              "url": "idle",
-              "router": "ok",
-              "view": "ok"
-            },
-            "arrows": [
-              [
-                "url",
-                "router"
-              ],
-              [
-                "router",
-                "view"
-              ]
+        },
+        {
+          "step": 2,
+          "caption": "Memory pointer to ref container remains invariant on renders.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Hook Allocation",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Persistent Address",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b3",
+                "label": "In-Place Mutation",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Bypass Reconciler",
+                "tappable": false,
+                "highlight": false
+              }
             ]
           }
-        ]
-      }
-    },
-    {
-      "partTitle": "Setting up React Router",
-      "codeHash": "f56532a5e8e250099d5ecb5345188e1e69b73e11a393b0c9cea3d0031d3545ef",
-      "spec": {
-        "template": "compare",
-        "title": "Route table mapping path pattern rules",
-        "leftLabel": "Root Route",
-        "rightLabel": "Collection Route",
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Define routes pairing URL path patterns with elements.",
-            "left": {
-              "code": "console.log(matchRoute(\"/\"));",
-              "result": {
-                "text": "\"home\""
+        },
+        {
+          "step": 3,
+          "caption": "Modifying current property mutates data in place on heap.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Hook Allocation",
+                "tappable": false,
+                "highlight": false
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "console.log(matchRoute(\"/jobs\"));",
-              "result": {
-                "text": "\"jobs\""
+              {
+                "id": "b2",
+                "label": "Persistent Address",
+                "tappable": false,
+                "highlight": false
               },
-              "tone": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Wildcard path patterns catch unrecognised URL routes.",
-            "left": {
-              "code": "console.log(matchRoute(\"/\"));",
-              "result": {
-                "text": "\"home\""
+              {
+                "id": "b3",
+                "label": "In-Place Mutation",
+                "tappable": false,
+                "highlight": true
               },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "console.log(matchRoute(\"/jobs\"));",
-              "result": {
-                "text": "\"jobs\""
-              },
-              "tone": "idle"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "compare",
-        "title": "Route table mapping path pattern rules",
-        "leftLabel": "Root Route",
-        "rightLabel": "Collection Route",
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Define routes pairing URL path patterns with elements.",
-            "left": {
-              "code": "console.log(matchRoute(\"/\"));",
-              "result": "\"home\"",
-              "tone": "ok",
-              "checks": [
-                "\"home\""
-              ]
-            },
-            "right": {
-              "code": "console.log(matchRoute(\"/jobs\"));",
-              "result": "\"jobs\"",
-              "tone": "idle",
-              "checks": [
-                "\"jobs\""
-              ]
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Wildcard path patterns catch unrecognised URL routes.",
-            "left": {
-              "code": "console.log(matchRoute(\"/\"));",
-              "result": "\"home\"",
-              "tone": "ok",
-              "checks": [
-                "\"home\""
-              ]
-            },
-            "right": {
-              "code": "console.log(matchRoute(\"/jobs\"));",
-              "result": "\"jobs\"",
-              "tone": "idle",
-              "checks": [
-                "\"jobs\""
-              ]
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Moving between pages with Link",
-      "codeHash": "67e7da81d90b447cc53e83c057b14e679890a27b9b3d443e1dfb230ddffeb79f",
-      "spec": {
-        "template": "compare",
-        "title": "Client side navigation using Link over anchor tags",
-        "leftLabel": "Link Component",
-        "rightLabel": "Anchor Tag (Reloads)",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Standard anchor tags trigger browser reloads losing state.",
-            "left": {
-              "code": "console.log(links[0]);",
-              "result": {
-                "text": "\"/jobs/7\""
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "console.log(links[1]);",
-              "result": {
-                "text": "\"/jobs/12\""
-              },
-              "tone": "idle"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Link updates browser history smoothly without refreshing.",
-            "left": {
-              "code": "console.log(links[0]);",
-              "result": {
-                "text": "\"/jobs/7\""
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "console.log(links[1]);",
-              "result": {
-                "text": "\"/jobs/12\""
-              },
-              "tone": "idle"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "compare",
-        "title": "Client side navigation using Link over anchor tags",
-        "leftLabel": "Link Component",
-        "rightLabel": "Anchor Tag (Reloads)",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Standard anchor tags trigger browser reloads losing state.",
-            "left": {
-              "code": "console.log(links[0]);",
-              "result": "\"/jobs/7\"",
-              "tone": "ok",
-              "checks": [
-                "\"/jobs/7\""
-              ]
-            },
-            "right": {
-              "code": "console.log(links[1]);",
-              "result": "\"/jobs/12\"",
-              "tone": "idle",
-              "checks": [
-                "\"/jobs/12\""
-              ]
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Link updates browser history smoothly without refreshing.",
-            "left": {
-              "code": "console.log(links[0]);",
-              "result": "\"/jobs/7\"",
-              "tone": "ok",
-              "checks": [
-                "\"/jobs/7\""
-              ]
-            },
-            "right": {
-              "code": "console.log(links[1]);",
-              "result": "\"/jobs/12\"",
-              "tone": "idle",
-              "checks": [
-                "\"/jobs/12\""
-              ]
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Reading the id from the address",
-      "codeHash": "b6a4148b82e0ee2b2e981f919263214787a6fc8a1659ef423af5e058dc9b6024",
-      "spec": {
-        "template": "boxes",
-        "title": "Extracting dynamic URL parameters with useParams",
-        "boxes": [
-          {
-            "id": "path",
-            "label": "path",
-            "tappable": false
-          },
-          {
-            "id": "id",
-            "label": "id",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Colon parameters match dynamic URL segments in routes.",
-            "values": {
-              "path": {
-                "text": "path"
-              },
-              "id": {
-                "text": "parts[2]"
+              {
+                "id": "b4",
+                "label": "Bypass Reconciler",
+                "tappable": false,
+                "highlight": false
               }
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "The useParams hook extracts URL parameter values into components.",
-            "values": {
-              "path": {
-                "text": "path"
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Mutation bypasses work loop without scheduling re-render.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Hook Allocation",
+                "tappable": false,
+                "highlight": false
               },
-              "id": {
-                "text": "parts[2]"
+              {
+                "id": "b2",
+                "label": "Persistent Address",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "In-Place Mutation",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Bypass Reconciler",
+                "tappable": false,
+                "highlight": true
               }
-            }
+            ]
           }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Extracting dynamic URL parameters with useParams",
-        "boxes": [
-          {
-            "id": "path",
-            "label": "path",
-            "tappable": false
-          },
-          {
-            "id": "id",
-            "label": "id",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Colon parameters match dynamic URL segments in routes.",
-            "values": {
-              "path": "path",
-              "id": "parts[2]"
-            },
-            "tones": {}
-          },
-          {
-            "at": "say2",
-            "caption": "The useParams hook extracts URL parameter values into components.",
-            "values": {
-              "path": "path",
-              "id": "parts[2]"
-            },
-            "tones": {}
-          }
-        ]
-      }
+        }
+      ]
     },
     {
-      "partTitle": "Organising pages and components",
-      "codeHash": "2ec80335283cbb24652a6b974f19868a2e6fb72000b7a7e4a253a330bf921c40",
-      "spec": {
-        "template": "component-tree",
-        "title": "Separating screen pages from reusable components",
-        "nodes": [
-          {
-            "id": "router",
-            "name": "BrowserRouter",
-            "tone": "idle"
-          },
-          {
-            "id": "dash",
-            "name": "Dashboard",
-            "tone": "ok"
-          },
-          {
-            "id": "list",
-            "name": "JobListPage",
-            "tone": "ok"
-          },
-          {
-            "id": "det",
-            "name": "JobDetails",
-            "tone": "data"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Organise applications by separating screen pages and components.",
-            "activeId": "router",
-            "tone": "idle"
-          },
-          {
-            "at": "say2",
-            "caption": "Clear folder separation keeps growing applications maintainable.",
-            "activeId": "det",
-            "tone": "ok"
-          }
-        ]
+      "part": 2,
+      "title": "Host DOM Binding and Imperative Masking",
+      "template": "flow",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "3f3f22a2596e210792c89e4e66f4cd8c75d58a40db84bf78c199cc989a359d09"
       },
-      "filled": {
-        "template": "component-tree",
-        "title": "Separating screen pages from reusable components",
-        "nodes": [
-          {
-            "id": "router",
-            "name": "BrowserRouter",
-            "tone": "idle"
-          },
-          {
-            "id": "dash",
-            "name": "Dashboard",
-            "tone": "ok"
-          },
-          {
-            "id": "list",
-            "name": "JobListPage",
-            "tone": "ok"
-          },
-          {
-            "id": "det",
-            "name": "JobDetails",
-            "tone": "data"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Organise applications by separating screen pages and components.",
-            "activeId": "router",
-            "tone": "idle",
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Commit mutation phase attaches host element to document.",
+          "data": {
             "nodes": [
               {
-                "id": "router",
-                "name": "BrowserRouter",
-                "tone": "idle"
+                "id": "n1",
+                "label": "DOM Attachment",
+                "tappable": false,
+                "active": true
               },
               {
-                "id": "dash",
-                "name": "Dashboard",
-                "tone": "ok"
+                "id": "n2",
+                "label": "Ref Current Bind",
+                "tappable": false,
+                "active": false
               },
               {
-                "id": "list",
-                "name": "JobListPage",
-                "tone": "ok"
+                "id": "n3",
+                "label": "Handle Masking",
+                "tappable": false,
+                "active": false
               },
               {
-                "id": "det",
-                "name": "JobDetails",
-                "tone": "data"
+                "id": "n4",
+                "label": "Curated Interface",
+                "tappable": false,
+                "active": false
               }
             ]
-          },
-          {
-            "at": "say2",
-            "caption": "Clear folder separation keeps growing applications maintainable.",
-            "activeId": "det",
-            "tone": "ok",
+          }
+        },
+        {
+          "step": 2,
+          "caption": "React binds physical node reference to ref current field.",
+          "data": {
             "nodes": [
               {
-                "id": "router",
-                "name": "BrowserRouter",
-                "tone": "idle"
+                "id": "n1",
+                "label": "DOM Attachment",
+                "tappable": false,
+                "active": false
               },
               {
-                "id": "dash",
-                "name": "Dashboard",
-                "tone": "ok"
+                "id": "n2",
+                "label": "Ref Current Bind",
+                "tappable": false,
+                "active": true
               },
               {
-                "id": "list",
-                "name": "JobListPage",
-                "tone": "ok"
+                "id": "n3",
+                "label": "Handle Masking",
+                "tappable": false,
+                "active": false
               },
               {
-                "id": "det",
-                "name": "JobDetails",
-                "tone": "data"
+                "id": "n4",
+                "label": "Curated Interface",
+                "tappable": false,
+                "active": false
               }
             ]
           }
-        ]
-      }
+        },
+        {
+          "step": 3,
+          "caption": "Imperative handle hook creates specialized facade object.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "DOM Attachment",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Ref Current Bind",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Handle Masking",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n4",
+                "label": "Curated Interface",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Parent component accesses only exposed control functions.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "DOM Attachment",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Ref Current Bind",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Handle Masking",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Curated Interface",
+                "tappable": false,
+                "active": true
+              }
+            ]
+          }
+        }
+      ]
     },
     {
-      "partTitle": "Add pages to the Job Tracker",
-      "codeHash": "bae115a0cf01c6c3ef96a825195ce794b07b90bb61c1b273d16b90ce11b1eed3",
-      "spec": {
-        "template": "flow",
-        "title": "Add pages to the Job Tracker — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Add pages to the Jo...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Add pages to the Job Tracker [D19.P6.S1].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Add pages to the Jo... [D19.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D19.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Add pages to the Job Tracker [D19.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
+      "part": 3,
+      "title": "Non-Visual Mutable Infrastructure",
+      "template": "boxes",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "17ad300132935939af1af6e550af220cdae40002b9c0affb1c6e361d8b885949"
       },
-      "filled": {
-        "template": "flow",
-        "title": "Add pages to the Job Tracker — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Add pages to the Jo...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Add pages to the Job Tracker [D19.P6.S1].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Add pages to the Jo... [D19.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D19.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Add pages to the Job Tracker [D19.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Background interval scheduled during effect setup.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Timer Instantiation",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b2",
+                "label": "Handle Persistence",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Background Tick",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Guaranteed Teardown",
+                "tappable": false,
+                "highlight": false
+              }
             ]
           }
-        ]
-      }
+        },
+        {
+          "step": 2,
+          "caption": "Timer identifier saved directly into mutable ref container.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Timer Instantiation",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Handle Persistence",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b3",
+                "label": "Background Tick",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Guaranteed Teardown",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Timer executes without triggering unwanted UI re-renders.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Timer Instantiation",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Handle Persistence",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Background Tick",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b4",
+                "label": "Guaranteed Teardown",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Teardown routine cleanly clears timer handle on unmount.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Timer Instantiation",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Handle Persistence",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Background Tick",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Guaranteed Teardown",
+                "tappable": false,
+                "highlight": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "part": 4,
+      "title": "Temporal State Differencing Pipeline",
+      "template": "flow",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "cdc2510d5c0fb014f41bd42320907d98ffcef653676079380263f1faea1814c3"
+      },
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Component evaluates current state during active render pass.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Render Evaluation",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n2",
+                "label": "Previous Value Read",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Delta Calculation",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Post-Paint Update",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 2,
+          "caption": "Render reads previous snapshot still held in ref container.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Render Evaluation",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Previous Value Read",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n3",
+                "label": "Delta Calculation",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Post-Paint Update",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Component derives delta metrics and motion indicators cleanly.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Render Evaluation",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Previous Value Read",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Delta Calculation",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n4",
+                "label": "Post-Paint Update",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Post-paint effect synchronizes ref for next render frame.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Render Evaluation",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Previous Value Read",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Delta Calculation",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Post-Paint Update",
+                "tappable": false,
+                "active": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "part": 5,
+      "title": "In-Memory LRU Cache Engine",
+      "template": "boxes",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "c926d5980747412bc396644d2ce263dbe869c2ae88146bd78da977da86b35ee1"
+      },
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Query response stored inside persistent memory map ref.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Map Insertion",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b2",
+                "label": "Order Refresh",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Capacity Exceeded",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Oldest Evicted",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 2,
+          "caption": "Cache hit reorders key entry to mark as recently used.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Map Insertion",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Order Refresh",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b3",
+                "label": "Capacity Exceeded",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Oldest Evicted",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Cache checks item count against maximum capacity boundary.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Map Insertion",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Order Refresh",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Capacity Exceeded",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b4",
+                "label": "Oldest Evicted",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Oldest entry removed in constant time without re-renders.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Map Insertion",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Order Refresh",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Capacity Exceeded",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Oldest Evicted",
+                "tappable": false,
+                "highlight": true
+              }
+            ]
+          }
+        }
+      ]
     }
   ]
 }

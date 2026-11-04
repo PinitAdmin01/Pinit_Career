@@ -6,574 +6,662 @@
   "model": "anthropic/claude-3.5-sonnet",
   "entries": [
     {
-      "partTitle": "Arrays: lists of values",
-      "codeHash": "6d0f5ad66c867ba4fee3f4a53a0c4be4a59090087b05d119efc95ed6572f7fdb",
+      "partTitle": "Array Memory Topologies in V8: Contiguous Packed Smi/Double Elements vs Holey Dictionary Mode",
+      "codeHash": "a80b7e185984e01c38be19d78e4c5b64bc442e9a44359a1936e9d7472c0583dc",
       "spec": {
         "template": "boxes",
-        "title": "Array indices and ordered values",
+        "title": "V8 Array ElementsKind Layout and Transition Hierarchy",
         "boxes": [
           {
-            "id": "item0",
-            "label": "item0",
+            "id": "b1",
+            "label": "Packed Smi Buffer",
             "tappable": false
           },
           {
-            "id": "item1",
-            "label": "item1",
+            "id": "b2",
+            "label": "Packed Double Buffer",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Packed Elements Heap",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "Holey Dictionary Table",
             "tappable": false
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Square brackets create an array holding multiple skills values.",
+            "at": "say1",
+            "caption": "Array initializes with contiguous small integer machine buffer.",
             "values": {
-              "item0": {
-                "text": "\"HTML\""
+              "b1": {
+                "text": "\"Packed Smi Buffer\""
               },
-              "item1": {
-                "text": "\"CSS\""
+              "b2": {
+                "text": "\"Packed Double Buffer\""
+              },
+              "b3": {
+                "text": "\"Packed Elements Heap\""
+              },
+              "b4": {
+                "text": "\"Holey Dictionary Table\""
               }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Inserting floating-point value degrades kind to packed doubles.",
+            "values": {
+              "b1": {
+                "text": "\"Packed Smi Buffer\""
+              },
+              "b2": {
+                "text": "\"Packed Double Buffer\""
+              },
+              "b3": {
+                "text": "\"Packed Elements Heap\""
+              },
+              "b4": {
+                "text": "\"Holey Dictionary Table\""
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "Each item position starts at index 0 in the list.",
+            "caption": "Inserting object pointer transitions kind to generic packed elements.",
             "values": {
-              "item0": {
-                "text": "\"HTML\""
+              "b1": {
+                "text": "\"Packed Smi Buffer\""
               },
-              "item1": {
-                "text": "\"JavaScript\""
+              "b2": {
+                "text": "\"Packed Double Buffer\""
+              },
+              "b3": {
+                "text": "\"Packed Elements Heap\""
+              },
+              "b4": {
+                "text": "\"Holey Dictionary Table\""
               }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Deleting index creates hole degrading array to slow dictionary mode.",
+            "values": {
+              "b1": {
+                "text": "\"Packed Smi Buffer\""
+              },
+              "b2": {
+                "text": "\"Packed Double Buffer\""
+              },
+              "b3": {
+                "text": "\"Packed Elements Heap\""
+              },
+              "b4": {
+                "text": "\"Holey Dictionary Table\""
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "data"
             }
           }
         ]
       },
       "filled": {
         "template": "boxes",
-        "title": "Array indices and ordered values",
+        "title": "V8 Array ElementsKind Layout and Transition Hierarchy",
         "boxes": [
           {
-            "id": "item0",
-            "label": "item0",
+            "id": "b1",
+            "label": "Packed Smi Buffer",
             "tappable": false
           },
           {
-            "id": "item1",
-            "label": "item1",
+            "id": "b2",
+            "label": "Packed Double Buffer",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Packed Elements Heap",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "Holey Dictionary Table",
             "tappable": false
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Square brackets create an array holding multiple skills values.",
-            "values": {
-              "item0": "\"HTML\"",
-              "item1": "\"CSS\""
-            },
-            "tones": {}
-          },
-          {
-            "at": "say3",
-            "caption": "Each item position starts at index 0 in the list.",
-            "values": {
-              "item0": "\"HTML\"",
-              "item1": "\"JavaScript\""
-            },
-            "tones": {}
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Changing arrays",
-      "codeHash": "1cdc6f954d32ab99c2395cb7f5bd745cf30acafecf7cbd5b17ac83f8c0d1753e",
-      "spec": {
-        "template": "compare",
-        "title": "Adding elements with array push",
-        "leftLabel": "Initial Array",
-        "rightLabel": "After Push",
-        "steps": [
-          {
             "at": "say1",
-            "caption": "Push adds a new item to the end of the array.",
-            "left": {
-              "code": "const skills = [\"HTML\", \"CSS\"];",
-              "result": {
-                "text": "\"CSS\""
-              },
-              "tone": "idle"
-            },
-            "right": {
-              "code": "skills.push(\"JavaScript\");",
-              "result": {
-                "text": "\"JavaScript\""
-              },
-              "tone": "ok"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Even though const is used, push can still change the array.",
-            "left": {
-              "code": "const skills = [\"HTML\", \"CSS\"];",
-              "result": {
-                "text": "\"HTML\""
-              },
-              "tone": "idle"
-            },
-            "right": {
-              "code": "skills.push(\"JavaScript\");",
-              "result": {
-                "text": "\"JavaScript\""
-              },
-              "tone": "data"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "compare",
-        "title": "Adding elements with array push",
-        "leftLabel": "Initial Array",
-        "rightLabel": "After Push",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Push adds a new item to the end of the array.",
-            "left": {
-              "code": "const skills = [\"HTML\", \"CSS\"];",
-              "result": "\"CSS\"",
-              "tone": "idle",
-              "checks": [
-                "\"CSS\""
-              ]
-            },
-            "right": {
-              "code": "skills.push(\"JavaScript\");",
-              "result": "\"JavaScript\"",
-              "tone": "ok",
-              "checks": [
-                "\"JavaScript\""
-              ]
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Even though const is used, push can still change the array.",
-            "left": {
-              "code": "const skills = [\"HTML\", \"CSS\"];",
-              "result": "\"HTML\"",
-              "tone": "idle",
-              "checks": [
-                "\"HTML\""
-              ]
-            },
-            "right": {
-              "code": "skills.push(\"JavaScript\");",
-              "result": "\"JavaScript\"",
-              "tone": "data",
-              "checks": [
-                "\"JavaScript\""
-              ]
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Objects: details with names",
-      "codeHash": "b33315089e1213541df80dadd0d0278c2bc3f621287ec3bdf094dcd93157169f",
-      "spec": {
-        "template": "boxes",
-        "title": "Object properties and dot notation access",
-        "boxes": [
-          {
-            "id": "title",
-            "label": "title",
-            "tappable": false
-          },
-          {
-            "id": "company",
-            "label": "company",
-            "tappable": false
-          },
-          {
-            "id": "salary",
-            "label": "salary",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "An object uses curly brackets to store property pairs.",
+            "caption": "Array initializes with contiguous small integer machine buffer.",
             "values": {
-              "title": {
-                "text": "\"Frontend Developer\""
+              "b1": {
+                "text": "\"Packed Smi Buffer\""
               },
-              "company": {
-                "text": "\"Infosys\""
+              "b2": {
+                "text": "\"Packed Double Buffer\""
               },
-              "salary": {
-                "text": "400000"
+              "b3": {
+                "text": "\"Packed Elements Heap\""
+              },
+              "b4": {
+                "text": "\"Holey Dictionary Table\""
               }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Inserting floating-point value degrades kind to packed doubles.",
+            "values": {
+              "b1": {
+                "text": "\"Packed Smi Buffer\""
+              },
+              "b2": {
+                "text": "\"Packed Double Buffer\""
+              },
+              "b3": {
+                "text": "\"Packed Elements Heap\""
+              },
+              "b4": {
+                "text": "\"Holey Dictionary Table\""
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "Dot notation reads individual properties like job title.",
+            "caption": "Inserting object pointer transitions kind to generic packed elements.",
             "values": {
-              "title": {
-                "text": "\"Frontend Developer\""
+              "b1": {
+                "text": "\"Packed Smi Buffer\""
               },
-              "company": {
-                "text": "\"Infosys\""
+              "b2": {
+                "text": "\"Packed Double Buffer\""
               },
-              "salary": {
-                "text": "400000"
+              "b3": {
+                "text": "\"Packed Elements Heap\""
+              },
+              "b4": {
+                "text": "\"Holey Dictionary Table\""
               }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Deleting index creates hole degrading array to slow dictionary mode.",
+            "values": {
+              "b1": {
+                "text": "\"Packed Smi Buffer\""
+              },
+              "b2": {
+                "text": "\"Packed Double Buffer\""
+              },
+              "b3": {
+                "text": "\"Packed Elements Heap\""
+              },
+              "b4": {
+                "text": "\"Holey Dictionary Table\""
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "data"
             }
           }
         ]
-      },
-      "filled": {
+      }
+    },
+    {
+      "partTitle": "Structural Sharing & Shallow Copying: The Spread Operator vs Deep Structural Mutation",
+      "codeHash": "c479fee709a345481f160b02a63d7aae600d6f2f52ee1a148e8c02bb0a2ce9d7",
+      "spec": {
         "template": "boxes",
-        "title": "Object properties and dot notation access",
+        "title": "Structural Sharing and Shallow Heap Pointers",
         "boxes": [
           {
-            "id": "title",
-            "label": "title",
+            "id": "b1",
+            "label": "Original Root Container",
             "tappable": false
           },
           {
-            "id": "company",
-            "label": "company",
+            "id": "b2",
+            "label": "Cloned Root Container",
             "tappable": false
           },
           {
-            "id": "salary",
-            "label": "salary",
+            "id": "b3",
+            "label": "Shared Child Branch",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "Modified Child Branch",
             "tappable": false
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "An object uses curly brackets to store property pairs.",
+            "at": "say1",
+            "caption": "Source state tree contains root container and nested child objects.",
             "values": {
-              "title": "\"Frontend Developer\"",
-              "company": "\"Infosys\"",
-              "salary": "400000"
+              "b1": {
+                "text": "\"Original Root Container\""
+              },
+              "b2": {
+                "text": "\"Cloned Root Container\""
+              },
+              "b3": {
+                "text": "\"Shared Child Branch\""
+              },
+              "b4": {
+                "text": "\"Modified Child Branch\""
+              }
             },
-            "tones": {}
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Shallow copy creates fresh root container on garbage heap.",
+            "values": {
+              "b1": {
+                "text": "\"Original Root Container\""
+              },
+              "b2": {
+                "text": "\"Cloned Root Container\""
+              },
+              "b3": {
+                "text": "\"Shared Child Branch\""
+              },
+              "b4": {
+                "text": "\"Modified Child Branch\""
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "Dot notation reads individual properties like job title.",
+            "caption": "Unmodified child branches share identical heap reference pointers.",
             "values": {
-              "title": "\"Frontend Developer\"",
-              "company": "\"Infosys\"",
-              "salary": "400000"
-            },
-            "tones": {}
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Changing and adding properties",
-      "codeHash": "bd34a2db0944bdc9d1bfd0eda169f0e3ed7adb1b30d3fd37a83d8184efd9a3ca",
-      "spec": {
-        "template": "boxes",
-        "title": "Updating properties and bracket notation access",
-        "boxes": [
-          {
-            "id": "status",
-            "label": "status",
-            "tappable": false
-          },
-          {
-            "id": "interviewDate",
-            "label": "interviewDate",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Assigning a new value updates the status property.",
-            "values": {
-              "status": {
-                "text": "\"interview\""
+              "b1": {
+                "text": "\"Original Root Container\""
               },
-              "interviewDate": {
-                "text": "\"2026-10-05\""
+              "b2": {
+                "text": "\"Cloned Root Container\""
+              },
+              "b3": {
+                "text": "\"Shared Child Branch\""
+              },
+              "b4": {
+                "text": "\"Modified Child Branch\""
               }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
             }
           },
           {
-            "at": "say2",
-            "caption": "Square brackets read properties when using variable names.",
+            "at": "say4",
+            "caption": "Modified branch derives fresh object preserving source tree integrity.",
             "values": {
-              "status": {
-                "text": "\"interview\""
+              "b1": {
+                "text": "\"Original Root Container\""
               },
-              "interviewDate": {
-                "text": "\"2026-10-05\""
+              "b2": {
+                "text": "\"Cloned Root Container\""
+              },
+              "b3": {
+                "text": "\"Shared Child Branch\""
+              },
+              "b4": {
+                "text": "\"Modified Child Branch\""
               }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "data"
             }
           }
         ]
       },
       "filled": {
         "template": "boxes",
-        "title": "Updating properties and bracket notation access",
+        "title": "Structural Sharing and Shallow Heap Pointers",
         "boxes": [
           {
-            "id": "status",
-            "label": "status",
+            "id": "b1",
+            "label": "Original Root Container",
             "tappable": false
           },
           {
-            "id": "interviewDate",
-            "label": "interviewDate",
+            "id": "b2",
+            "label": "Cloned Root Container",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Shared Child Branch",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "Modified Child Branch",
             "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Assigning a new value updates the status property.",
+            "caption": "Source state tree contains root container and nested child objects.",
             "values": {
-              "status": "\"interview\"",
-              "interviewDate": "\"2026-10-05\""
+              "b1": {
+                "text": "\"Original Root Container\""
+              },
+              "b2": {
+                "text": "\"Cloned Root Container\""
+              },
+              "b3": {
+                "text": "\"Shared Child Branch\""
+              },
+              "b4": {
+                "text": "\"Modified Child Branch\""
+              }
             },
-            "tones": {}
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
           },
           {
             "at": "say2",
-            "caption": "Square brackets read properties when using variable names.",
+            "caption": "Shallow copy creates fresh root container on garbage heap.",
             "values": {
-              "status": "\"interview\"",
-              "interviewDate": "\"2026-10-05\""
+              "b1": {
+                "text": "\"Original Root Container\""
+              },
+              "b2": {
+                "text": "\"Cloned Root Container\""
+              },
+              "b3": {
+                "text": "\"Shared Child Branch\""
+              },
+              "b4": {
+                "text": "\"Modified Child Branch\""
+              }
             },
-            "tones": {}
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Unmodified child branches share identical heap reference pointers.",
+            "values": {
+              "b1": {
+                "text": "\"Original Root Container\""
+              },
+              "b2": {
+                "text": "\"Cloned Root Container\""
+              },
+              "b3": {
+                "text": "\"Shared Child Branch\""
+              },
+              "b4": {
+                "text": "\"Modified Child Branch\""
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Modified branch derives fresh object preserving source tree integrity.",
+            "values": {
+              "b1": {
+                "text": "\"Original Root Container\""
+              },
+              "b2": {
+                "text": "\"Cloned Root Container\""
+              },
+              "b3": {
+                "text": "\"Shared Child Branch\""
+              },
+              "b4": {
+                "text": "\"Modified Child Branch\""
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "data"
+            }
           }
         ]
       }
     },
     {
-      "partTitle": "Arrays of objects: real app data",
-      "codeHash": "3a50ed706d84440d852b971c1ccaece7384522ec6a614755dec97627a6587edd",
-      "spec": {
-        "template": "boxes",
-        "title": "Combining arrays and objects for records",
-        "boxes": [
-          {
-            "id": "job0",
-            "label": "job0",
-            "tappable": false
-          },
-          {
-            "id": "job1",
-            "label": "job1",
-            "tappable": false
-          },
-          {
-            "id": "job2",
-            "label": "job2",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "An array of objects represents a list of job items.",
-            "values": {
-              "job0": {
-                "text": "\"Frontend Developer\""
-              },
-              "job1": {
-                "text": "\"React Developer\""
-              },
-              "job2": {
-                "text": "\"UI Developer\""
-              }
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Combine index and dot notation to reach company details.",
-            "values": {
-              "job0": {
-                "text": "\"Infosys\""
-              },
-              "job1": {
-                "text": "\"Zoho\""
-              },
-              "job2": {
-                "text": "\"Swiggy\""
-              }
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Combining arrays and objects for records",
-        "boxes": [
-          {
-            "id": "job0",
-            "label": "job0",
-            "tappable": false
-          },
-          {
-            "id": "job1",
-            "label": "job1",
-            "tappable": false
-          },
-          {
-            "id": "job2",
-            "label": "job2",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "An array of objects represents a list of job items.",
-            "values": {
-              "job0": "\"Frontend Developer\"",
-              "job1": "\"React Developer\"",
-              "job2": "\"UI Developer\""
-            },
-            "tones": {}
-          },
-          {
-            "at": "say2",
-            "caption": "Combine index and dot notation to reach company details.",
-            "values": {
-              "job0": "\"Infosys\"",
-              "job1": "\"Zoho\"",
-              "job2": "\"Swiggy\""
-            },
-            "tones": {}
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Common mistakes and how to avoid them",
-      "codeHash": "bfa1b2ea491ab8693bec4f19a787010c56fa4c060f49f9b8c2e1dfbe9f2fa88b",
+      "partTitle": "Object Topologies & Hidden Classes: Optimizing V8 Shape Transitions and Monomorphic Inline Caching",
+      "codeHash": "8a5ab97fd20151e20c0254b03f2dcfc0fbeb0d49015fd02f4e7fc006c85cbff4",
       "spec": {
         "template": "flow",
-        "title": "Common mistakes and how to avoid them — Execution Pipeline",
+        "title": "V8 Hidden Class Shapes and Monomorphic Inline Caching",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "n1",
+            "label": "Root Shape",
+            "tappable": false
           },
           {
-            "id": "proc",
-            "label": "2. Common mistakes and...",
-            "tappable": true
+            "id": "n2",
+            "label": "Transition Offset",
+            "tappable": false
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "n3",
+            "label": "Final Shape",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "Inline Cache Site",
+            "tappable": false
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Common mistakes and how to avoid them [D4.P6.S1].",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Common mistakes and... [D4.P6.S2].",
+            "caption": "Empty object literal initializes with baseline root shape pointer.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "n1": {
+                "text": "\"Root Shape\""
+              },
+              "n2": {
+                "text": "\"Transition Offset\""
+              },
+              "n3": {
+                "text": "\"Final Shape\""
+              },
+              "n4": {
+                "text": "\"Inline Cache Site\""
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Property assignment triggers shape transition recording field offset.",
+            "values": {
+              "n1": {
+                "text": "\"Root Shape\""
+              },
+              "n2": {
+                "text": "\"Transition Offset\""
+              },
+              "n3": {
+                "text": "\"Final Shape\""
+              },
+              "n4": {
+                "text": "\"Inline Cache Site\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "n1",
+                "n2"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D4.P6.S3].",
+            "at": "say3",
+            "caption": "Subsequent assignment advances transition tree to final shape.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "n1": {
+                "text": "\"Root Shape\""
+              },
+              "n2": {
+                "text": "\"Transition Offset\""
+              },
+              "n3": {
+                "text": "\"Final Shape\""
+              },
+              "n4": {
+                "text": "\"Inline Cache Site\""
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Common mistakes and how to avoid .. [D4.P6.S4].",
+            "at": "say4",
+            "caption": "Identical property order reuses shape enabling monomorphic cache.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "n1": {
+                "text": "\"Root Shape\""
+              },
+              "n2": {
+                "text": "\"Transition Offset\""
+              },
+              "n3": {
+                "text": "\"Final Shape\""
+              },
+              "n4": {
+                "text": "\"Inline Cache Site\""
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "n1",
+                "n2"
               ],
               [
-                "proc",
-                "out"
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
               ]
             ]
           }
@@ -581,112 +669,508 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Common mistakes and how to avoid them — Execution Pipeline",
+        "title": "V8 Hidden Class Shapes and Monomorphic Inline Caching",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "n1",
+            "label": "Root Shape",
+            "tappable": false
           },
           {
-            "id": "proc",
-            "label": "2. Common mistakes and...",
-            "tappable": true
+            "id": "n2",
+            "label": "Transition Offset",
+            "tappable": false
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "n3",
+            "label": "Final Shape",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "Inline Cache Site",
+            "tappable": false
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Common mistakes and how to avoid them [D4.P6.S1].",
+            "at": "say1",
+            "caption": "Empty object literal initializes with baseline root shape pointer.",
             "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "n1": {
+                "text": "\"Root Shape\""
+              },
+              "n2": {
+                "text": "\"Transition Offset\""
+              },
+              "n3": {
+                "text": "\"Final Shape\""
+              },
+              "n4": {
+                "text": "\"Inline Cache Site\""
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Property assignment triggers shape transition recording field offset.",
+            "values": {
+              "n1": {
+                "text": "\"Root Shape\""
+              },
+              "n2": {
+                "text": "\"Transition Offset\""
+              },
+              "n3": {
+                "text": "\"Final Shape\""
+              },
+              "n4": {
+                "text": "\"Inline Cache Site\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "n1",
+                "n2"
               ]
             ]
           },
+          {
+            "at": "say3",
+            "caption": "Subsequent assignment advances transition tree to final shape.",
+            "values": {
+              "n1": {
+                "text": "\"Root Shape\""
+              },
+              "n2": {
+                "text": "\"Transition Offset\""
+              },
+              "n3": {
+                "text": "\"Final Shape\""
+              },
+              "n4": {
+                "text": "\"Inline Cache Site\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Identical property order reuses shape enabling monomorphic cache.",
+            "values": {
+              "n1": {
+                "text": "\"Root Shape\""
+              },
+              "n2": {
+                "text": "\"Transition Offset\""
+              },
+              "n3": {
+                "text": "\"Final Shape\""
+              },
+              "n4": {
+                "text": "\"Inline Cache Site\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "data"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Relational State Normalization: Designing Entity Dictionaries (ById) vs Nested Hierarchical Trees",
+      "codeHash": "41441f424d278a9bfa9a78c87ab76845d462b19157c055b9ba4f28106c978a02",
+      "spec": {
+        "template": "boxes",
+        "title": "Normalized Entity Dictionaries and Relational State Stores",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "Denormalized Tree",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "Normalized ById Table",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Ordered AllIds List",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "Foreign Key References",
+            "tappable": false
+          }
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Common mistakes and... [D4.P6.S2].",
+            "caption": "Nested tree structure duplicates child entity across parents.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "b1": {
+                "text": "\"Denormalized Tree\""
+              },
+              "b2": {
+                "text": "\"Normalized ById Table\""
+              },
+              "b3": {
+                "text": "\"Ordered AllIds List\""
+              },
+              "b4": {
+                "text": "\"Foreign Key References\""
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D4.P6.S3].",
+            "at": "say2",
+            "caption": "Normalization flattens entities into primary key lookup tables.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "b1": {
+                "text": "\"Denormalized Tree\""
+              },
+              "b2": {
+                "text": "\"Normalized ById Table\""
+              },
+              "b3": {
+                "text": "\"Ordered AllIds List\""
+              },
+              "b4": {
+                "text": "\"Foreign Key References\""
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "b1": "data",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Common mistakes and how to avoid .. [D4.P6.S4].",
+            "at": "say3",
+            "caption": "Parent entities record array of foreign key identifier strings.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "b1": {
+                "text": "\"Denormalized Tree\""
+              },
+              "b2": {
+                "text": "\"Normalized ById Table\""
+              },
+              "b3": {
+                "text": "\"Ordered AllIds List\""
+              },
+              "b4": {
+                "text": "\"Foreign Key References\""
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Single atomic update to entity reflects across all referencing views.",
+            "values": {
+              "b1": {
+                "text": "\"Denormalized Tree\""
+              },
+              "b2": {
+                "text": "\"Normalized ById Table\""
+              },
+              "b3": {
+                "text": "\"Ordered AllIds List\""
+              },
+              "b4": {
+                "text": "\"Foreign Key References\""
+              }
             },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "data"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Normalized Entity Dictionaries and Relational State Stores",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "Denormalized Tree",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "Normalized ById Table",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Ordered AllIds List",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "Foreign Key References",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Nested tree structure duplicates child entity across parents.",
+            "values": {
+              "b1": {
+                "text": "\"Denormalized Tree\""
+              },
+              "b2": {
+                "text": "\"Normalized ById Table\""
+              },
+              "b3": {
+                "text": "\"Ordered AllIds List\""
+              },
+              "b4": {
+                "text": "\"Foreign Key References\""
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Normalization flattens entities into primary key lookup tables.",
+            "values": {
+              "b1": {
+                "text": "\"Denormalized Tree\""
+              },
+              "b2": {
+                "text": "\"Normalized ById Table\""
+              },
+              "b3": {
+                "text": "\"Ordered AllIds List\""
+              },
+              "b4": {
+                "text": "\"Foreign Key References\""
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Parent entities record array of foreign key identifier strings.",
+            "values": {
+              "b1": {
+                "text": "\"Denormalized Tree\""
+              },
+              "b2": {
+                "text": "\"Normalized ById Table\""
+              },
+              "b3": {
+                "text": "\"Ordered AllIds List\""
+              },
+              "b4": {
+                "text": "\"Foreign Key References\""
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Single atomic update to entity reflects across all referencing views.",
+            "values": {
+              "b1": {
+                "text": "\"Denormalized Tree\""
+              },
+              "b2": {
+                "text": "\"Normalized ById Table\""
+              },
+              "b3": {
+                "text": "\"Ordered AllIds List\""
+              },
+              "b4": {
+                "text": "\"Foreign Key References\""
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "data"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Object Immutability Protocols: Deep Freezing, Defensive Cloning & Architectural State Boundaries",
+      "codeHash": "de02b2f1176197309c20f01908f6ae713b9daa6d9c0b3967216c89022c905335",
+      "spec": {
+        "template": "states",
+        "title": "Recursive Deep Freezing and State Immutability Seals",
+        "states": [
+          {
+            "id": "s1",
+            "label": "Initialization"
+          },
+          {
+            "id": "s2",
+            "label": "Execution"
+          },
+          {
+            "id": "s3",
+            "label": "Derivation"
+          },
+          {
+            "id": "s4",
+            "label": "Resolution"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Top-level object properties seal with non-writable flag descriptors.",
+            "activeId": "s1",
+            "tone": "idle"
+          },
+          {
+            "at": "say2",
+            "caption": "Recursive traversal visits every nested child object and array.",
+            "activeId": "s2",
+            "tone": "data"
+          },
+          {
+            "at": "say3",
+            "caption": "Child properties mark non-configurable and non-writable in memory.",
+            "activeId": "s3",
+            "tone": "ok"
+          },
+          {
+            "at": "say4",
+            "caption": "Strict mode blocks accidental mutations throwing type error alarms.",
+            "activeId": "s4",
+            "tone": "ok"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Recursive Deep Freezing and State Immutability Seals",
+        "states": [
+          {
+            "id": "s1",
+            "label": "Initialization"
+          },
+          {
+            "id": "s2",
+            "label": "Execution"
+          },
+          {
+            "id": "s3",
+            "label": "Derivation"
+          },
+          {
+            "id": "s4",
+            "label": "Resolution"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Top-level object properties seal with non-writable flag descriptors.",
+            "activeId": "s1",
+            "tone": "idle"
+          },
+          {
+            "at": "say2",
+            "caption": "Recursive traversal visits every nested child object and array.",
+            "activeId": "s2",
+            "tone": "data"
+          },
+          {
+            "at": "say3",
+            "caption": "Child properties mark non-configurable and non-writable in memory.",
+            "activeId": "s3",
+            "tone": "ok"
+          },
+          {
+            "at": "say4",
+            "caption": "Strict mode blocks accidental mutations throwing type error alarms.",
+            "activeId": "s4",
+            "tone": "ok"
           }
         ]
       }

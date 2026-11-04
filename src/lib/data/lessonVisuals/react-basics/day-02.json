@@ -6,302 +6,158 @@
   "model": "anthropic/claude-3.5-sonnet",
   "entries": [
     {
-      "partTitle": "What a variable is",
-      "codeHash": "0d7ca8b325ce4b73b6fe8c0d70138734851dc46eb52b545355944c86580d3a74",
-      "spec": {
-        "template": "boxes",
-        "title": "Variables hold and update information",
-        "boxes": [
-          {
-            "id": "jobTitle",
-            "label": "jobTitle",
-            "tappable": true
-          },
-          {
-            "id": "company",
-            "label": "company",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "A variable is a named box that stores information.",
-            "values": {
-              "jobTitle": {
-                "text": "\"Frontend Developer\""
-              },
-              "company": {
-                "text": "\"Infosys\""
-              }
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "You create a variable with let and set its starting value.",
-            "values": {
-              "jobTitle": {
-                "text": "\"Frontend Developer\""
-              },
-              "company": {
-                "text": "\"Infosys\""
-              }
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Using the variable label gets the stored value back.",
-            "values": {
-              "jobTitle": {
-                "text": "\"Frontend Developer\""
-              },
-              "company": {
-                "text": "\"Infosys\""
-              }
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Variables hold and update information",
-        "boxes": [
-          {
-            "id": "jobTitle",
-            "label": "jobTitle",
-            "tappable": true
-          },
-          {
-            "id": "company",
-            "label": "company",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "A variable is a named box that stores information.",
-            "values": {
-              "jobTitle": "\"Frontend Developer\"",
-              "company": "\"Infosys\""
-            },
-            "tones": {}
-          },
-          {
-            "at": "say2",
-            "caption": "You create a variable with let and set its starting value.",
-            "values": {
-              "jobTitle": "\"Frontend Developer\"",
-              "company": "\"Infosys\""
-            },
-            "tones": {}
-          },
-          {
-            "at": "say3",
-            "caption": "Using the variable label gets the stored value back.",
-            "values": {
-              "jobTitle": "\"Frontend Developer\"",
-              "company": "\"Infosys\""
-            },
-            "tones": {}
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Changing values, and const for values that stay the same",
-      "codeHash": "0dcc33047638c53ef762d4b9c8436848e217de4f79271ae1acbd15d4a1000777",
-      "spec": {
-        "template": "compare",
-        "title": "let versus const variable reassignment",
-        "leftLabel": "const (Locked)",
-        "rightLabel": "let (Changeable)",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "const creates a locked variable that cannot be reassigned.",
-            "left": {
-              "code": "const appName = \"Job Tracker\";",
-              "result": {
-                "text": "\"Job Tracker\""
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "let jobsApplied = 2;",
-              "result": {
-                "text": "2"
-              },
-              "tone": "idle"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "let allows changing values later when the application updates.",
-            "left": {
-              "code": "const appName = \"Job Tracker\";",
-              "result": {
-                "text": "\"Job Tracker\""
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "jobsApplied = 3;",
-              "result": {
-                "text": "3"
-              },
-              "tone": "data"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "compare",
-        "title": "let versus const variable reassignment",
-        "leftLabel": "const (Locked)",
-        "rightLabel": "let (Changeable)",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "const creates a locked variable that cannot be reassigned.",
-            "left": {
-              "code": "const appName = \"Job Tracker\";",
-              "result": "\"Job Tracker\"",
-              "tone": "ok",
-              "checks": [
-                "\"Job Tracker\""
-              ]
-            },
-            "right": {
-              "code": "let jobsApplied = 2;",
-              "result": "2",
-              "tone": "idle",
-              "checks": [
-                "2"
-              ]
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "let allows changing values later when the application updates.",
-            "left": {
-              "code": "const appName = \"Job Tracker\";",
-              "result": "\"Job Tracker\"",
-              "tone": "ok",
-              "checks": [
-                "\"Job Tracker\""
-              ]
-            },
-            "right": {
-              "code": "jobsApplied = 3;",
-              "result": "3",
-              "tone": "data",
-              "checks": [
-                "3"
-              ]
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Strings: working with text",
-      "codeHash": "89c7cafed97a645a95df49b2db2ebf9191ec67fc3d7ee48e8185388a5839dc6c",
+      "partTitle": "V8 Memory Architecture: Execution Stack Frames vs The Managed Garbage-Collected Heap",
+      "codeHash": "03edefe8ea5dd86ec8b412b67181828c4d016684033aabb8bfc7621587735e4d",
       "spec": {
         "template": "flow",
-        "title": "String manipulation and transformation",
+        "title": "V8 Runtime Architecture and Event Loop Execution",
         "nodes": [
           {
-            "id": "first",
-            "label": "firstName",
-            "tappable": true
+            "id": "n1",
+            "label": "Call Stack",
+            "tappable": false
           },
           {
-            "id": "last",
-            "label": "lastName",
-            "tappable": true
+            "id": "n2",
+            "label": "V8 Managed Heap",
+            "tappable": false
           },
           {
-            "id": "full",
-            "label": "fullName",
-            "tappable": true
+            "id": "n3",
+            "label": "Microtask Queue",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "Macrotask Queue",
+            "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Strings in quotes represent text data like names and titles.",
+            "caption": "Call stack pushes execution frame for top-level script parsing.",
             "values": {
-              "first": {
-                "text": "\"asha\""
+              "n1": {
+                "text": "\"Call Stack\""
               },
-              "last": {
-                "text": "\"rao\""
+              "n2": {
+                "text": "\"V8 Managed Heap\""
               },
-              "full": {
-                "text": "firstName"
+              "n3": {
+                "text": "\"Microtask Queue\""
+              },
+              "n4": {
+                "text": "\"Macrotask Queue\""
               }
             },
             "tones": {
-              "first": "data",
-              "last": "idle",
-              "full": "idle"
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
             },
             "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The plus sign joins two strings together with spaces.",
+            "caption": "Asynchronous task schedules network callback into task queue.",
             "values": {
-              "first": {
-                "text": "\"asha\""
+              "n1": {
+                "text": "\"Call Stack\""
               },
-              "last": {
-                "text": "\"rao\""
+              "n2": {
+                "text": "\"V8 Managed Heap\""
               },
-              "full": {
-                "text": "lastName"
+              "n3": {
+                "text": "\"Microtask Queue\""
+              },
+              "n4": {
+                "text": "\"Macrotask Queue\""
               }
             },
             "tones": {
-              "first": "idle",
-              "last": "idle",
-              "full": "data"
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "first",
-                "full"
-              ],
-              [
-                "last",
-                "full"
+                "n1",
+                "n2"
               ]
             ]
           },
           {
             "at": "say3",
-            "caption": "String methods like length and toUpperCase transform values.",
+            "caption": "Microtask queue processes promise reactions before browser render.",
             "values": {
-              "first": {
-                "text": "firstName"
+              "n1": {
+                "text": "\"Call Stack\""
               },
-              "last": {
-                "text": "lastName"
+              "n2": {
+                "text": "\"V8 Managed Heap\""
               },
-              "full": {
-                "text": "fullName"
+              "n3": {
+                "text": "\"Microtask Queue\""
+              },
+              "n4": {
+                "text": "\"Macrotask Queue\""
               }
             },
             "tones": {
-              "first": "idle",
-              "last": "idle",
-              "full": "ok"
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "first",
-                "full"
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Event loop clears microtasks then executes task queue callback.",
+            "values": {
+              "n1": {
+                "text": "\"Call Stack\""
+              },
+              "n2": {
+                "text": "\"V8 Managed Heap\""
+              },
+              "n3": {
+                "text": "\"Microtask Queue\""
+              },
+              "n4": {
+                "text": "\"Macrotask Queue\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "data"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
               ]
             ]
           }
@@ -309,81 +165,154 @@
       },
       "filled": {
         "template": "flow",
-        "title": "String manipulation and transformation",
+        "title": "V8 Runtime Architecture and Event Loop Execution",
         "nodes": [
           {
-            "id": "first",
-            "label": "firstName",
-            "tappable": true
+            "id": "n1",
+            "label": "Call Stack",
+            "tappable": false
           },
           {
-            "id": "last",
-            "label": "lastName",
-            "tappable": true
+            "id": "n2",
+            "label": "V8 Managed Heap",
+            "tappable": false
           },
           {
-            "id": "full",
-            "label": "fullName",
-            "tappable": true
+            "id": "n3",
+            "label": "Microtask Queue",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "Macrotask Queue",
+            "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Strings in quotes represent text data like names and titles.",
+            "caption": "Call stack pushes execution frame for top-level script parsing.",
             "values": {
-              "first": "\"asha\"",
-              "last": "\"rao\"",
-              "full": "firstName"
+              "n1": {
+                "text": "\"Call Stack\""
+              },
+              "n2": {
+                "text": "\"V8 Managed Heap\""
+              },
+              "n3": {
+                "text": "\"Microtask Queue\""
+              },
+              "n4": {
+                "text": "\"Macrotask Queue\""
+              }
             },
             "tones": {
-              "first": "data",
-              "last": "idle",
-              "full": "idle"
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
             },
             "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The plus sign joins two strings together with spaces.",
+            "caption": "Asynchronous task schedules network callback into task queue.",
             "values": {
-              "first": "\"asha\"",
-              "last": "\"rao\"",
-              "full": "lastName"
+              "n1": {
+                "text": "\"Call Stack\""
+              },
+              "n2": {
+                "text": "\"V8 Managed Heap\""
+              },
+              "n3": {
+                "text": "\"Microtask Queue\""
+              },
+              "n4": {
+                "text": "\"Macrotask Queue\""
+              }
             },
             "tones": {
-              "first": "idle",
-              "last": "idle",
-              "full": "data"
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "first",
-                "full"
-              ],
-              [
-                "last",
-                "full"
+                "n1",
+                "n2"
               ]
             ]
           },
           {
             "at": "say3",
-            "caption": "String methods like length and toUpperCase transform values.",
+            "caption": "Microtask queue processes promise reactions before browser render.",
             "values": {
-              "first": "firstName",
-              "last": "lastName",
-              "full": "fullName"
+              "n1": {
+                "text": "\"Call Stack\""
+              },
+              "n2": {
+                "text": "\"V8 Managed Heap\""
+              },
+              "n3": {
+                "text": "\"Microtask Queue\""
+              },
+              "n4": {
+                "text": "\"Macrotask Queue\""
+              }
             },
             "tones": {
-              "first": "idle",
-              "last": "idle",
-              "full": "ok"
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "first",
-                "full"
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Event loop clears microtasks then executes task queue callback.",
+            "values": {
+              "n1": {
+                "text": "\"Call Stack\""
+              },
+              "n2": {
+                "text": "\"V8 Managed Heap\""
+              },
+              "n3": {
+                "text": "\"Microtask Queue\""
+              },
+              "n4": {
+                "text": "\"Macrotask Queue\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "data"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
               ]
             ]
           }
@@ -391,292 +320,674 @@
       }
     },
     {
-      "partTitle": "Numbers and maths",
-      "codeHash": "7894a0b9f35fa4aa254244189fca1c4a59c7800fb084928ceadfe8fba3cf9692",
+      "partTitle": "Primitive Value Copying vs Reference Pointer Sharing: The Mechanics of Memory Addresses",
+      "codeHash": "6b95e053699ad48f5349139e6be84ae5299df22dc6800897153e74e8e1063eed",
       "spec": {
-        "template": "compare",
-        "title": "Numbers maths versus string joining",
-        "leftLabel": "Numbers Addition",
-        "rightLabel": "String Joining",
+        "template": "boxes",
+        "title": "Stack Memory Allocation and Heap Reference Resolution",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "Call Stack Frame",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "Pointer Address",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Heap Allocation",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "Scavenger Collector",
+            "tappable": false
+          }
+        ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Numbers without quotes perform mathematical arithmetic.",
-            "left": {
-              "code": "console.log(price + delivery);",
-              "result": {
-                "text": "540"
+            "caption": "Primitive scalar values allocate directly on active call stack.",
+            "values": {
+              "b1": {
+                "text": "\"Call Stack Frame\""
               },
-              "tone": "ok"
+              "b2": {
+                "text": "\"Pointer Address\""
+              },
+              "b3": {
+                "text": "\"Heap Allocation\""
+              },
+              "b4": {
+                "text": "\"Scavenger Collector\""
+              }
             },
-            "right": {
-              "code": "console.log(\"500\" + 40);",
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Composite object allocates memory address block on garbage heap.",
+            "values": {
+              "b1": {
+                "text": "\"Call Stack Frame\""
+              },
+              "b2": {
+                "text": "\"Pointer Address\""
+              },
+              "b3": {
+                "text": "\"Heap Allocation\""
+              },
+              "b4": {
+                "text": "\"Scavenger Collector\""
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Stack variable stores pointer address to object heap memory.",
+            "values": {
+              "b1": {
+                "text": "\"Call Stack Frame\""
+              },
+              "b2": {
+                "text": "\"Pointer Address\""
+              },
+              "b3": {
+                "text": "\"Heap Allocation\""
+              },
+              "b4": {
+                "text": "\"Scavenger Collector\""
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Pointer reassignment leaves unreferenced object for scavenger cycle.",
+            "values": {
+              "b1": {
+                "text": "\"Call Stack Frame\""
+              },
+              "b2": {
+                "text": "\"Pointer Address\""
+              },
+              "b3": {
+                "text": "\"Heap Allocation\""
+              },
+              "b4": {
+                "text": "\"Scavenger Collector\""
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "data"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Stack Memory Allocation and Heap Reference Resolution",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "Call Stack Frame",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "Pointer Address",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Heap Allocation",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "Scavenger Collector",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Primitive scalar values allocate directly on active call stack.",
+            "values": {
+              "b1": {
+                "text": "\"Call Stack Frame\""
+              },
+              "b2": {
+                "text": "\"Pointer Address\""
+              },
+              "b3": {
+                "text": "\"Heap Allocation\""
+              },
+              "b4": {
+                "text": "\"Scavenger Collector\""
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Composite object allocates memory address block on garbage heap.",
+            "values": {
+              "b1": {
+                "text": "\"Call Stack Frame\""
+              },
+              "b2": {
+                "text": "\"Pointer Address\""
+              },
+              "b3": {
+                "text": "\"Heap Allocation\""
+              },
+              "b4": {
+                "text": "\"Scavenger Collector\""
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Stack variable stores pointer address to object heap memory.",
+            "values": {
+              "b1": {
+                "text": "\"Call Stack Frame\""
+              },
+              "b2": {
+                "text": "\"Pointer Address\""
+              },
+              "b3": {
+                "text": "\"Heap Allocation\""
+              },
+              "b4": {
+                "text": "\"Scavenger Collector\""
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Pointer reassignment leaves unreferenced object for scavenger cycle.",
+            "values": {
+              "b1": {
+                "text": "\"Call Stack Frame\""
+              },
+              "b2": {
+                "text": "\"Pointer Address\""
+              },
+              "b3": {
+                "text": "\"Heap Allocation\""
+              },
+              "b4": {
+                "text": "\"Scavenger Collector\""
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "data"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Immutability as an Architectural Invariant: Why In-Place Object Mutation Breaks React State",
+      "codeHash": "7daf6a5105dafea7f73402ce352d6952c030994c3421a680463ff544ad59455f",
+      "spec": {
+        "template": "compare",
+        "title": "Type Coercion Dynamics and Referential Identity",
+        "leftLabel": "Standard Execution",
+        "rightLabel": "Optimized Pipeline",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Abstract equality triggers implicit operand type conversions.",
+            "left": {
+              "code": "// Left pipeline phase 1",
               "result": {
-                "text": "\"500\" + 40"
+                "text": "\"Standard\""
               },
               "tone": "idle"
+            },
+            "right": {
+              "code": "// Optimized pipeline phase 1",
+              "result": {
+                "text": "\"Optimized\""
+              },
+              "tone": "ok"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Boolean coercion evaluates truthy and falsy values at runtime.",
+            "left": {
+              "code": "// Left pipeline phase 2",
+              "result": {
+                "text": "\"Standard\""
+              },
+              "tone": "data"
+            },
+            "right": {
+              "code": "// Optimized pipeline phase 2",
+              "result": {
+                "text": "\"Optimized\""
+              },
+              "tone": "ok"
             }
           },
           {
             "at": "say3",
-            "caption": "The plus sign adds numbers, but concatenates text strings.",
+            "caption": "Strict equality bypasses coercion verifying identical type and value.",
             "left": {
-              "code": "console.log(price + delivery);",
+              "code": "// Left pipeline phase 3",
               "result": {
-                "text": "540"
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "console.log(\"500\" + 40);",
-              "result": {
-                "text": "50040"
+                "text": "\"Standard\""
               },
               "tone": "data"
+            },
+            "right": {
+              "code": "// Optimized pipeline phase 3",
+              "result": {
+                "text": "\"Optimized\""
+              },
+              "tone": "ok"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Referential comparison evaluates physical heap pointer equality.",
+            "left": {
+              "code": "// Left pipeline phase 4",
+              "result": {
+                "text": "\"Standard\""
+              },
+              "tone": "data"
+            },
+            "right": {
+              "code": "// Optimized pipeline phase 4",
+              "result": {
+                "text": "\"Optimized\""
+              },
+              "tone": "ok"
             }
           }
         ]
       },
       "filled": {
         "template": "compare",
-        "title": "Numbers maths versus string joining",
-        "leftLabel": "Numbers Addition",
-        "rightLabel": "String Joining",
+        "title": "Type Coercion Dynamics and Referential Identity",
+        "leftLabel": "Standard Execution",
+        "rightLabel": "Optimized Pipeline",
         "steps": [
           {
             "at": "say1",
-            "caption": "Numbers without quotes perform mathematical arithmetic.",
+            "caption": "Abstract equality triggers implicit operand type conversions.",
             "left": {
-              "code": "console.log(price + delivery);",
-              "result": "540",
-              "tone": "ok",
-              "checks": [
-                "540"
-              ]
+              "code": "// Left pipeline phase 1",
+              "result": {
+                "text": "\"Standard\""
+              },
+              "tone": "idle"
             },
             "right": {
-              "code": "console.log(\"500\" + 40);",
-              "result": "\"500\" + 40",
-              "tone": "idle",
-              "checks": [
-                "\"500\" + 40"
-              ]
+              "code": "// Optimized pipeline phase 1",
+              "result": {
+                "text": "\"Optimized\""
+              },
+              "tone": "ok"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Boolean coercion evaluates truthy and falsy values at runtime.",
+            "left": {
+              "code": "// Left pipeline phase 2",
+              "result": {
+                "text": "\"Standard\""
+              },
+              "tone": "data"
+            },
+            "right": {
+              "code": "// Optimized pipeline phase 2",
+              "result": {
+                "text": "\"Optimized\""
+              },
+              "tone": "ok"
             }
           },
           {
             "at": "say3",
-            "caption": "The plus sign adds numbers, but concatenates text strings.",
+            "caption": "Strict equality bypasses coercion verifying identical type and value.",
             "left": {
-              "code": "console.log(price + delivery);",
-              "result": "540",
-              "tone": "ok",
-              "checks": [
-                "540"
-              ]
+              "code": "// Left pipeline phase 3",
+              "result": {
+                "text": "\"Standard\""
+              },
+              "tone": "data"
             },
             "right": {
-              "code": "console.log(\"500\" + 40);",
-              "result": "50040",
-              "tone": "data",
-              "checks": [
-                "50040"
-              ]
+              "code": "// Optimized pipeline phase 3",
+              "result": {
+                "text": "\"Optimized\""
+              },
+              "tone": "ok"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Referential comparison evaluates physical heap pointer equality.",
+            "left": {
+              "code": "// Left pipeline phase 4",
+              "result": {
+                "text": "\"Standard\""
+              },
+              "tone": "data"
+            },
+            "right": {
+              "code": "// Optimized pipeline phase 4",
+              "result": {
+                "text": "\"Optimized\""
+              },
+              "tone": "ok"
             }
           }
         ]
       }
     },
     {
-      "partTitle": "Booleans and comparing values",
-      "codeHash": "2789100bc9f6c756081835a68963374e990774f3fbfd6287bc8820544069ae33",
+      "partTitle": "Type Coercion Hazards, IEEE 754 Floating-Point Precision & BigInt Arithmetic",
+      "codeHash": "205c55a7b3019e8d32ab0334c8503f635c40228b6f67fa247e4b267b956c8314",
       "spec": {
-        "template": "boxes",
-        "title": "Boolean facts and comparison results",
-        "boxes": [
+        "template": "states",
+        "title": "Immutable State Boundaries and Defensive Copying",
+        "states": [
           {
-            "id": "salary",
-            "label": "salary",
-            "tappable": true
+            "id": "s1",
+            "label": "Initialization"
           },
           {
-            "id": "isRemote",
-            "label": "isLoggedIn",
-            "tappable": true
+            "id": "s2",
+            "label": "Execution"
+          },
+          {
+            "id": "s3",
+            "label": "Derivation"
+          },
+          {
+            "id": "s4",
+            "label": "Resolution"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A boolean holds either true or false for yes and no facts.",
-            "values": {
-              "salary": {
-                "text": "450000"
-              },
-              "isRemote": {
-                "text": "true"
-              }
-            }
+            "caption": "Original application configuration initializes in frozen state.",
+            "activeId": "s1",
+            "tone": "idle"
           },
           {
             "at": "say2",
-            "caption": "Comparing values produces boolean results of true or false.",
-            "values": {
-              "salary": {
-                "text": "450000"
-              },
-              "isRemote": {
-                "text": "true"
-              }
-            }
+            "caption": "Defensive clone derives fresh memory container for incoming update.",
+            "activeId": "s2",
+            "tone": "data"
+          },
+          {
+            "at": "say3",
+            "caption": "Update applies immutably preserving previous state reference intact.",
+            "activeId": "s3",
+            "tone": "ok"
+          },
+          {
+            "at": "say4",
+            "caption": "Downstream views verify referential integrity across boundaries.",
+            "activeId": "s4",
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Boolean facts and comparison results",
-        "boxes": [
+        "template": "states",
+        "title": "Immutable State Boundaries and Defensive Copying",
+        "states": [
           {
-            "id": "salary",
-            "label": "salary",
-            "tappable": true
+            "id": "s1",
+            "label": "Initialization"
           },
           {
-            "id": "isRemote",
-            "label": "isLoggedIn",
-            "tappable": true
+            "id": "s2",
+            "label": "Execution"
+          },
+          {
+            "id": "s3",
+            "label": "Derivation"
+          },
+          {
+            "id": "s4",
+            "label": "Resolution"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A boolean holds either true or false for yes and no facts.",
-            "values": {
-              "salary": "450000",
-              "isRemote": "true"
-            },
-            "tones": {}
+            "caption": "Original application configuration initializes in frozen state.",
+            "activeId": "s1",
+            "tone": "idle"
           },
           {
             "at": "say2",
-            "caption": "Comparing values produces boolean results of true or false.",
-            "values": {
-              "salary": "450000",
-              "isRemote": "true"
-            },
-            "tones": {}
+            "caption": "Defensive clone derives fresh memory container for incoming update.",
+            "activeId": "s2",
+            "tone": "data"
+          },
+          {
+            "at": "say3",
+            "caption": "Update applies immutably preserving previous state reference intact.",
+            "activeId": "s3",
+            "tone": "ok"
+          },
+          {
+            "at": "say4",
+            "caption": "Downstream views verify referential integrity across boundaries.",
+            "activeId": "s4",
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "null, undefined, typeof and good names",
-      "codeHash": "7706f0153fafc9b348e3dbbdee44dd69a276cca672fda9dfc211100d604b550f",
+      "partTitle": "Production TypeScript Type-Narrowing: Discriminated Unions, Strict Null Checks & Runtime Guards",
+      "codeHash": "fbd2c518de461fd3a6fa169c90a2cf87b8f371641201bdbbfdcdce73478c0848",
       "spec": {
         "template": "flow",
-        "title": "null, undefined, typeof and good names — Execution Pipeline",
+        "title": "TypeScript Compilation and Runtime Schema Validation",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "n1",
+            "label": "TypeScript AST",
+            "tappable": false
           },
           {
-            "id": "proc",
-            "label": "2. null, undefined, ty...",
-            "tappable": true
+            "id": "n2",
+            "label": "Type Erasure",
+            "tappable": false
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "n3",
+            "label": "Zod Schema Guard",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "Domain Logic",
+            "tappable": false
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for null, undefined, typeof and good names [D2.P6.S1].",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in null, undefined, ty... [D2.P6.S2].",
+            "caption": "TypeScript compiler verifies type constraints at compile time.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "n1": {
+                "text": "\"TypeScript AST\""
+              },
+              "n2": {
+                "text": "\"Type Erasure\""
+              },
+              "n3": {
+                "text": "\"Zod Schema Guard\""
+              },
+              "n4": {
+                "text": "\"Domain Logic\""
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Type erasure strips all interfaces producing raw JavaScript.",
+            "values": {
+              "n1": {
+                "text": "\"TypeScript AST\""
+              },
+              "n2": {
+                "text": "\"Type Erasure\""
+              },
+              "n3": {
+                "text": "\"Zod Schema Guard\""
+              },
+              "n4": {
+                "text": "\"Domain Logic\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "n1",
+                "n2"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D2.P6.S3].",
+            "at": "say3",
+            "caption": "Runtime schema interceptor validates incoming external payload.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "n1": {
+                "text": "\"TypeScript AST\""
+              },
+              "n2": {
+                "text": "\"Type Erasure\""
+              },
+              "n3": {
+                "text": "\"Zod Schema Guard\""
+              },
+              "n4": {
+                "text": "\"Domain Logic\""
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for null, undefined, typeof and good .. [D2.P6.S4].",
+            "at": "say4",
+            "caption": "Certified valid payload forwards safely to internal business domain.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "n1": {
+                "text": "\"TypeScript AST\""
+              },
+              "n2": {
+                "text": "\"Type Erasure\""
+              },
+              "n3": {
+                "text": "\"Zod Schema Guard\""
+              },
+              "n4": {
+                "text": "\"Domain Logic\""
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "n1",
+                "n2"
               ],
               [
-                "proc",
-                "out"
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
               ]
             ]
           }
@@ -684,110 +995,154 @@
       },
       "filled": {
         "template": "flow",
-        "title": "null, undefined, typeof and good names — Execution Pipeline",
+        "title": "TypeScript Compilation and Runtime Schema Validation",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "n1",
+            "label": "TypeScript AST",
+            "tappable": false
           },
           {
-            "id": "proc",
-            "label": "2. null, undefined, ty...",
-            "tappable": true
+            "id": "n2",
+            "label": "Type Erasure",
+            "tappable": false
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "n3",
+            "label": "Zod Schema Guard",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "Domain Logic",
+            "tappable": false
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for null, undefined, typeof and good names [D2.P6.S1].",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in null, undefined, ty... [D2.P6.S2].",
+            "caption": "TypeScript compiler verifies type constraints at compile time.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "n1": {
+                "text": "\"TypeScript AST\""
+              },
+              "n2": {
+                "text": "\"Type Erasure\""
+              },
+              "n3": {
+                "text": "\"Zod Schema Guard\""
+              },
+              "n4": {
+                "text": "\"Domain Logic\""
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Type erasure strips all interfaces producing raw JavaScript.",
+            "values": {
+              "n1": {
+                "text": "\"TypeScript AST\""
+              },
+              "n2": {
+                "text": "\"Type Erasure\""
+              },
+              "n3": {
+                "text": "\"Zod Schema Guard\""
+              },
+              "n4": {
+                "text": "\"Domain Logic\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "n1",
+                "n2"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D2.P6.S3].",
+            "at": "say3",
+            "caption": "Runtime schema interceptor validates incoming external payload.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "n1": {
+                "text": "\"TypeScript AST\""
+              },
+              "n2": {
+                "text": "\"Type Erasure\""
+              },
+              "n3": {
+                "text": "\"Zod Schema Guard\""
+              },
+              "n4": {
+                "text": "\"Domain Logic\""
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for null, undefined, typeof and good .. [D2.P6.S4].",
+            "at": "say4",
+            "caption": "Certified valid payload forwards safely to internal business domain.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "n1": {
+                "text": "\"TypeScript AST\""
+              },
+              "n2": {
+                "text": "\"Type Erasure\""
+              },
+              "n3": {
+                "text": "\"Zod Schema Guard\""
+              },
+              "n4": {
+                "text": "\"Domain Logic\""
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "n1",
+                "n2"
               ],
               [
-                "proc",
-                "out"
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
               ]
             ]
           }

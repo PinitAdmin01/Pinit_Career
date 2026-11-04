@@ -2,740 +2,141 @@
   "schemaVersion": 1,
   "prefix": "react-basics",
   "day": 26,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
+  "visuals": [
     {
-      "partTitle": "Saved data can be broken",
-      "codeHash": "074d0cbdff5f1271366b524856da7a0a1ce7b6887d35c7b8885f5b4ca670c352",
-      "spec": {
-        "template": "compare",
-        "title": "Valid JSON collections versus malformed storage strings",
-        "leftLabel": "Valid Data Array",
-        "rightLabel": "Malformed String",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Saved browser storage data may become corrupted or outdated.",
-            "left": {
-              "code": "console.log(Array.isArray(data) ? \"ok: a list\" : \"wrong shape\");",
-              "result": {
-                "text": "\"[{\\\"id\\\":1}]\""
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "console.log(\"broken text\");",
-              "result": {
-                "text": "\"broken{\""
-              },
-              "tone": "err"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Defensive parsing prevents unexpected corrupted data from crashing the app.",
-            "left": {
-              "code": "console.log(Array.isArray(data) ? \"ok: a list\" : \"wrong shape\");",
-              "result": {
-                "text": "\"[{\\\"id\\\":1}]\""
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "console.log(\"broken text\");",
-              "result": {
-                "text": "\"{\\\"a\\\":1}\""
-              },
-              "tone": "err"
-            }
-          }
-        ]
+      "part": 1,
+      "template": "flow",
+      "title": "REST Request Dispatch Pipeline",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "1c2f8d68f98c084bbf9e9ba5b4188505be576bee46adad8a87cf4bad77ac35ef"
       },
-      "filled": {
-        "template": "compare",
-        "title": "Valid JSON collections versus malformed storage strings",
-        "leftLabel": "Valid Data Array",
-        "rightLabel": "Malformed String",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Saved browser storage data may become corrupted or outdated.",
-            "left": {
-              "code": "console.log(Array.isArray(data) ? \"ok: a list\" : \"wrong shape\");",
-              "result": "\"[{\\\"id\\\":1}]\"",
-              "tone": "ok",
-              "checks": [
-                "\"[{\\\"id\\\":1}]\""
-              ]
-            },
-            "right": {
-              "code": "console.log(\"broken text\");",
-              "result": "\"broken{\"",
-              "tone": "err",
-              "checks": [
-                "\"broken{\""
-              ]
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Defensive parsing prevents unexpected corrupted data from crashing the app.",
-            "left": {
-              "code": "console.log(Array.isArray(data) ? \"ok: a list\" : \"wrong shape\");",
-              "result": "\"[{\\\"id\\\":1}]\"",
-              "tone": "ok",
-              "checks": [
-                "\"[{\\\"id\\\":1}]\""
-              ]
-            },
-            "right": {
-              "code": "console.log(\"broken text\");",
-              "result": "\"{\\\"a\\\":1}\"",
-              "tone": "err",
-              "checks": [
-                "\"{\\\"a\\\":1}\""
-              ]
-            }
-          }
-        ]
-      }
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Client initiates request to resource URI."
+        },
+        {
+          "step": 2,
+          "caption": "Dispatcher evaluates safe and idempotent properties."
+        },
+        {
+          "step": 3,
+          "caption": "Storage engine commits state mutation safely."
+        },
+        {
+          "step": 4,
+          "caption": "Client receives standard status envelope."
+        }
+      ]
     },
     {
-      "partTitle": "A safe loadJobs function",
-      "codeHash": "d53dc4b8aef6f0415be5fcb931233fcc4bef5fca911acda7a81b394f6fb0c5b0",
-      "spec": {
-        "template": "boxes",
-        "title": "Resilient data loader returning default empty array",
-        "boxes": [
-          {
-            "id": "input",
-            "label": "input",
-            "tappable": false
-          },
-          {
-            "id": "output",
-            "label": "result",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "The loadJobs function always returns a valid array even on parse failure.",
-            "values": {
-              "input": {
-                "text": "'[{\"id\":1}]'"
-              },
-              "output": {
-                "text": "'[{\"id\":1}]'"
-              }
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Returning consistent fallback collections shields components from surprises.",
-            "values": {
-              "input": {
-                "text": "\"broken{\""
-              },
-              "output": {
-                "text": "\"\""
-              }
-            }
-          }
-        ]
+      "part": 2,
+      "template": "boxes",
+      "title": "Stale While Revalidate Cache Layout",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "c70d7cfaeb3c4aa59db52d063e5f6166581a994e051f444dfd2531f2f3adfbe0"
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Resilient data loader returning default empty array",
-        "boxes": [
-          {
-            "id": "input",
-            "label": "input",
-            "tappable": false
-          },
-          {
-            "id": "output",
-            "label": "result",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "The loadJobs function always returns a valid array even on parse failure.",
-            "values": {
-              "input": "'[{\"id\":1}]'",
-              "output": "'[{\"id\":1}]'"
-            },
-            "tones": {}
-          },
-          {
-            "at": "say3",
-            "caption": "Returning consistent fallback collections shields components from surprises.",
-            "values": {
-              "input": "\"broken{\"",
-              "output": "\"\""
-            },
-            "tones": {}
-          }
-        ]
-      }
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Client queries cache with serialized tokens."
+        },
+        {
+          "step": 2,
+          "caption": "Cache synchronously returns available stale data."
+        },
+        {
+          "step": 3,
+          "caption": "Background worker dispatches fresh network call."
+        },
+        {
+          "step": 4,
+          "caption": "Cache updates memory and notifies observers."
+        }
+      ]
     },
     {
-      "partTitle": "Finding the job for the details page",
-      "codeHash": "db0e1cd02c6bdb50abd74b15f2a193db439d6c09bd4d9ff35a7052298e86b506",
-      "spec": {
-        "template": "boxes",
-        "title": "Lookup by identifier with safe null fallback",
-        "boxes": [
-          {
-            "id": "id",
-            "label": "idText",
-            "tappable": false
-          },
-          {
-            "id": "result",
-            "label": "found",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Read URL parameter identifiers and search matching job records.",
-            "values": {
-              "id": {
-                "text": "\"2\""
-              },
-              "result": {
-                "text": "\"Tester\""
-              }
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Return null explicitly when a requested job record cannot be located.",
-            "values": {
-              "id": {
-                "text": "\"9\""
-              },
-              "result": {
-                "text": "null"
-              }
-            }
-          }
-        ]
+      "part": 3,
+      "template": "states",
+      "title": "In Flight Request Deduplication State",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "eb2b593530dbf5973d8e3acccc9c385f1dec7d3040d80a987953245cab2e1f21"
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Lookup by identifier with safe null fallback",
-        "boxes": [
-          {
-            "id": "id",
-            "label": "idText",
-            "tappable": false
-          },
-          {
-            "id": "result",
-            "label": "found",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Read URL parameter identifiers and search matching job records.",
-            "values": {
-              "id": "\"2\"",
-              "result": "\"Tester\""
-            },
-            "tones": {}
-          },
-          {
-            "at": "say2",
-            "caption": "Return null explicitly when a requested job record cannot be located.",
-            "values": {
-              "id": "\"9\"",
-              "result": "null"
-            },
-            "tones": {}
-          }
-        ]
-      }
+      "steps": [
+        {
+          "step": 1,
+          "caption": "First caller requests key and instantiates task."
+        },
+        {
+          "step": 2,
+          "caption": "Active task promise registers in lookup table."
+        },
+        {
+          "step": 3,
+          "caption": "Concurrent callers attach to existing promise."
+        },
+        {
+          "step": 4,
+          "caption": "Task settles and shared response resolves."
+        }
+      ]
     },
     {
-      "partTitle": "Changing status from the details page",
-      "codeHash": "6cc0b78240d4c262a5609f70f7f5a0b0e72cb846362fd058595a78472ceaaf7c",
-      "spec": {
-        "template": "flow",
-        "title": "Unidirectional status updates flowing upward to App state",
-        "nodes": [
-          {
-            "id": "details",
-            "label": "JobDetails",
-            "tappable": false
-          },
-          {
-            "id": "app",
-            "label": "App",
-            "tappable": false
-          },
-          {
-            "id": "storage",
-            "label": "Storage",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Users advance application stages directly using status button triggers.",
-            "values": {
-              "details": {
-                "text": "\"interview\""
-              },
-              "app": {
-                "text": "\"applied\""
-              },
-              "storage": {
-                "text": "\"applied\""
-              }
-            },
-            "tones": {
-              "details": "data",
-              "app": "idle",
-              "storage": "idle"
-            },
-            "arrows": [
-              [
-                "details",
-                "app"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "Callback handlers update centralized job state held in the root component.",
-            "values": {
-              "details": {
-                "text": "\"interview\""
-              },
-              "app": {
-                "text": "\"interview\""
-              },
-              "storage": {
-                "text": "\"interview\""
-              }
-            },
-            "tones": {
-              "details": "idle",
-              "app": "ok",
-              "storage": "ok"
-            },
-            "arrows": [
-              [
-                "details",
-                "app"
-              ],
-              [
-                "app",
-                "storage"
-              ]
-            ]
-          }
-        ]
+      "part": 4,
+      "template": "compare",
+      "title": "Optimistic UI Mutation with Rollback",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "c232b9306b24cac70bad1ff95c6b07e5c59e2bb593583cf418c3d070148a5386"
       },
-      "filled": {
-        "template": "flow",
-        "title": "Unidirectional status updates flowing upward to App state",
-        "nodes": [
-          {
-            "id": "details",
-            "label": "JobDetails",
-            "tappable": false
-          },
-          {
-            "id": "app",
-            "label": "App",
-            "tappable": false
-          },
-          {
-            "id": "storage",
-            "label": "Storage",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Users advance application stages directly using status button triggers.",
-            "values": {
-              "details": "\"interview\"",
-              "app": "\"applied\"",
-              "storage": "\"applied\""
-            },
-            "tones": {
-              "details": "data",
-              "app": "idle",
-              "storage": "idle"
-            },
-            "arrows": [
-              [
-                "details",
-                "app"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "Callback handlers update centralized job state held in the root component.",
-            "values": {
-              "details": "\"interview\"",
-              "app": "\"interview\"",
-              "storage": "\"interview\""
-            },
-            "tones": {
-              "details": "idle",
-              "app": "ok",
-              "storage": "ok"
-            },
-            "arrows": [
-              [
-                "details",
-                "app"
-              ],
-              [
-                "app",
-                "storage"
-              ]
-            ]
-          }
-        ]
-      }
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Store captures immutable pre mutation snapshot."
+        },
+        {
+          "step": 2,
+          "caption": "Optimistic patch applies to view immediately."
+        },
+        {
+          "step": 3,
+          "caption": "Network rejection triggers error handler."
+        },
+        {
+          "step": 4,
+          "caption": "Snapshot restores previous view without drift."
+        }
+      ]
     },
     {
-      "partTitle": "Notes: editing text that is saved",
-      "codeHash": "2da5055726be89b959f17119fa31cabb1faf9c28966ca3b279c1a70333288d77",
-      "spec": {
-        "template": "compare",
-        "title": "Local draft textarea state versus persisted model",
-        "leftLabel": "Local Draft",
-        "rightLabel": "Persisted Notes",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Users capture interview feedback and details inside a dedicated notes area.",
-            "left": {
-              "code": "console.log(notesInfo(\"Call HR on Monday\", \"Call HR on Monday\"));",
-              "result": {
-                "text": "\"Call HR on Monday\""
-              },
-              "tone": "idle"
-            },
-            "right": {
-              "code": "console.log(notesInfo(\"Call HR on Monday\", \"Call HR on Monday\"));",
-              "result": {
-                "text": "\"Call HR on Monday\""
-              },
-              "tone": "ok"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Maintain uncommitted draft text in local state until the user clicks save.",
-            "left": {
-              "code": "console.log(notesInfo(\"Call HR on Monday at 10\", \"Call HR on Monday\"));",
-              "result": {
-                "text": "\"Call HR on Monday at 10\""
-              },
-              "tone": "idle"
-            },
-            "right": {
-              "code": "console.log(notesInfo(\"Call HR on Monday\", \"Call HR on Monday\"));",
-              "result": {
-                "text": "\"Call HR on Monday\""
-              },
-              "tone": "ok"
-            }
-          }
-        ]
+      "part": 5,
+      "template": "flow",
+      "title": "Resilient Backoff with Full Jitter",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "3189b4d0eca17fcaf01f4cabe4ce8cdba29bc931a30e19bf2be6bdcc345bf717"
       },
-      "filled": {
-        "template": "compare",
-        "title": "Local draft textarea state versus persisted model",
-        "leftLabel": "Local Draft",
-        "rightLabel": "Persisted Notes",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Users capture interview feedback and details inside a dedicated notes area.",
-            "left": {
-              "code": "console.log(notesInfo(\"Call HR on Monday\", \"Call HR on Monday\"));",
-              "result": "\"Call HR on Monday\"",
-              "tone": "idle",
-              "checks": [
-                "\"Call HR on Monday\""
-              ]
-            },
-            "right": {
-              "code": "console.log(notesInfo(\"Call HR on Monday\", \"Call HR on Monday\"));",
-              "result": "\"Call HR on Monday\"",
-              "tone": "ok",
-              "checks": [
-                "\"Call HR on Monday\""
-              ]
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Maintain uncommitted draft text in local state until the user clicks save.",
-            "left": {
-              "code": "console.log(notesInfo(\"Call HR on Monday at 10\", \"Call HR on Monday\"));",
-              "result": "\"Call HR on Monday at 10\"",
-              "tone": "idle",
-              "checks": [
-                "\"Call HR on Monday at 10\""
-              ]
-            },
-            "right": {
-              "code": "console.log(notesInfo(\"Call HR on Monday\", \"Call HR on Monday\"));",
-              "result": "\"Call HR on Monday\"",
-              "tone": "ok",
-              "checks": [
-                "\"Call HR on Monday\""
-              ]
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Feature complete",
-      "codeHash": "33db57dec472ea1dfef1b0c33e8015f0e1b4984ad4b0132d28fa55e39f13d336",
-      "spec": {
-        "template": "flow",
-        "title": "Feature complete — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Feature complete",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Feature complete [D26.P6.S1].",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Feature complete [D26.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D26.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Feature complete [D26.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Feature complete — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Feature complete",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Feature complete [D26.P6.S1].",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Feature complete [D26.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D26.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Feature complete [D26.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      }
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Network request fails on transient server error."
+        },
+        {
+          "step": 2,
+          "caption": "Scheduler computes exponential delay interval."
+        },
+        {
+          "step": 3,
+          "caption": "Randomized jitter desynchronizes retry attempts."
+        },
+        {
+          "step": 4,
+          "caption": "Client attempts reconnection with active signal."
+        }
+      ]
     }
   ]
 }

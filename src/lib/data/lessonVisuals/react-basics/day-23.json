@@ -2,717 +2,629 @@
   "schemaVersion": 1,
   "prefix": "react-basics",
   "day": 23,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
+  "visuals": [
     {
-      "partTitle": "Why developers plan before coding",
-      "codeHash": "ce19b984edbc9acaf45cbdb56a20776c4f99304d812d9b5f9a9acf5f5b1a67bf",
-      "spec": {
-        "template": "boxes",
-        "title": "Application feature scope and roadmap planning",
-        "boxes": [
-          {
-            "id": "screens",
-            "label": "screens",
-            "tappable": false
-          },
-          {
-            "id": "must",
-            "label": "mustHave",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Planning screens and data fields upfront prevents expensive rework.",
-            "values": {
-              "screens": {
-                "text": "\"Dashboard\""
-              },
-              "must": {
-                "text": "\"filter tabs\""
-              }
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Prioritize essential features before working on optional additions.",
-            "values": {
-              "screens": {
-                "text": "\"All jobs\""
-              },
-              "must": {
-                "text": "\"sort by date\""
-              }
-            }
-          }
-        ]
+      "part": 1,
+      "template": "compare",
+      "title": "Monolithic Bundle Versus Granular Chunks",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "2f3b28b30abca8ae4754b47d199c264dd75334b6aa396ded65b7f1c753639f69"
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Application feature scope and roadmap planning",
-        "boxes": [
-          {
-            "id": "screens",
-            "label": "screens",
-            "tappable": false
-          },
-          {
-            "id": "must",
-            "label": "mustHave",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Planning screens and data fields upfront prevents expensive rework.",
-            "values": {
-              "screens": "\"Dashboard\"",
-              "must": "\"filter tabs\""
-            },
-            "tones": {}
-          },
-          {
-            "at": "say4",
-            "caption": "Prioritize essential features before working on optional additions.",
-            "values": {
-              "screens": "\"All jobs\"",
-              "must": "\"sort by date\""
-            },
-            "tones": {}
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Screens and user stories",
-      "codeHash": "6857b547c4989b2d37ffb869e7db1f324e0baae576a8e7ff6e9b0b360e0af273",
-      "spec": {
-        "template": "flow",
-        "title": "Mapping user stories to dedicated views",
-        "nodes": [
-          {
-            "id": "dash",
-            "label": "Dashboard",
-            "tappable": false
-          },
-          {
-            "id": "jobs",
-            "label": "All jobs",
-            "tappable": false
-          },
-          {
-            "id": "detail",
-            "label": "Details",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "User stories define requirements from the perspective of user needs.",
-            "values": {
-              "dash": {
-                "text": "\"Dashboard\""
-              },
-              "jobs": {
-                "text": "\"All jobs\""
-              },
-              "detail": {
-                "text": "\"Job details\""
-              }
-            },
-            "tones": {
-              "dash": "data",
-              "jobs": "idle",
-              "detail": "idle"
-            },
-            "arrows": [
-              [
-                "dash",
-                "jobs"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "Group user stories into dedicated application screens.",
-            "values": {
-              "dash": {
-                "text": "\"Dashboard\""
-              },
-              "jobs": {
-                "text": "\"All jobs\""
-              },
-              "detail": {
-                "text": "\"Job details\""
-              }
-            },
-            "tones": {
-              "dash": "ok",
-              "jobs": "ok",
-              "detail": "ok"
-            },
-            "arrows": [
-              [
-                "dash",
-                "jobs"
-              ],
-              [
-                "jobs",
-                "detail"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Mapping user stories to dedicated views",
-        "nodes": [
-          {
-            "id": "dash",
-            "label": "Dashboard",
-            "tappable": false
-          },
-          {
-            "id": "jobs",
-            "label": "All jobs",
-            "tappable": false
-          },
-          {
-            "id": "detail",
-            "label": "Details",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "User stories define requirements from the perspective of user needs.",
-            "values": {
-              "dash": "\"Dashboard\"",
-              "jobs": "\"All jobs\"",
-              "detail": "\"Job details\""
-            },
-            "tones": {
-              "dash": "data",
-              "jobs": "idle",
-              "detail": "idle"
-            },
-            "arrows": [
-              [
-                "dash",
-                "jobs"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "Group user stories into dedicated application screens.",
-            "values": {
-              "dash": "\"Dashboard\"",
-              "jobs": "\"All jobs\"",
-              "detail": "\"Job details\""
-            },
-            "tones": {
-              "dash": "ok",
-              "jobs": "ok",
-              "detail": "ok"
-            },
-            "arrows": [
-              [
-                "dash",
-                "jobs"
-              ],
-              [
-                "jobs",
-                "detail"
-              ]
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "The final data shape of a job",
-      "codeHash": "874d2f79865525a0c845f4a64b653e6cd104a0c90e9b5ab414c371528fef9b4a",
-      "spec": {
-        "template": "boxes",
-        "title": "Data model migration and safe defaults",
-        "boxes": [
-          {
-            "id": "job",
-            "label": "job",
-            "tappable": false
-          },
-          {
-            "id": "status",
-            "label": "status",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Job objects store application dates and notes alongside basic fields.",
-            "values": {
-              "job": {
-                "text": "\"Dev\""
-              },
-              "status": {
-                "text": "\"applied\""
-              }
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Upgrading existing saved jobs fills in default values safely.",
-            "values": {
-              "job": {
-                "text": "\"Tester\""
-              },
-              "status": {
-                "text": "\"applied\""
-              }
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Data model migration and safe defaults",
-        "boxes": [
-          {
-            "id": "job",
-            "label": "job",
-            "tappable": false
-          },
-          {
-            "id": "status",
-            "label": "status",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Job objects store application dates and notes alongside basic fields.",
-            "values": {
-              "job": "\"Dev\"",
-              "status": "\"applied\""
-            },
-            "tones": {}
-          },
-          {
-            "at": "say4",
-            "caption": "Upgrading existing saved jobs fills in default values safely.",
-            "values": {
-              "job": "\"Tester\"",
-              "status": "\"applied\""
-            },
-            "tones": {}
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Sorting: newest first",
-      "codeHash": "453017392642bd3704a46825a61df65bf296c4d6ea4876e7b59a00ed7f46176f",
-      "spec": {
-        "template": "compare",
-        "title": "Immutable array sorting with localeCompare",
-        "leftLabel": "Original Array",
-        "rightLabel": "Sorted Copy",
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Create an array copy before sorting to avoid mutating state directly.",
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Monolithic bundles load all application code upfront.",
+          "data": {
             "left": {
-              "code": "console.log(jobs.map(j => j.id));",
-              "result": {
-                "text": "\"2026-09-01\""
-              },
-              "tone": "idle"
-            },
-            "right": {
-              "code": "console.log(newest.map(j => j.id));",
-              "result": {
-                "text": "\"2026-09-20\""
-              },
-              "tone": "ok"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Use localeCompare to order ISO date strings with newest first.",
-            "left": {
-              "code": "console.log(jobs.map(j => j.id));",
-              "result": {
-                "text": "\"2026-09-10\""
-              },
-              "tone": "idle"
-            },
-            "right": {
-              "code": "console.log(newest.map(j => j.id));",
-              "result": {
-                "text": "\"2026-09-20\""
-              },
-              "tone": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "compare",
-        "title": "Immutable array sorting with localeCompare",
-        "leftLabel": "Original Array",
-        "rightLabel": "Sorted Copy",
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Create an array copy before sorting to avoid mutating state directly.",
-            "left": {
-              "code": "console.log(jobs.map(j => j.id));",
-              "result": "\"2026-09-01\"",
-              "tone": "idle",
-              "checks": [
-                "\"2026-09-01\""
+              "title": "Monolithic Bundle",
+              "items": [
+                "Excessive initial size",
+                "Heavy parse latency",
+                "Blocks main thread"
               ]
             },
             "right": {
-              "code": "console.log(newest.map(j => j.id));",
-              "result": "\"2026-09-20\"",
-              "tone": "ok",
-              "checks": [
-                "\"2026-09-20\""
-              ]
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Use localeCompare to order ISO date strings with newest first.",
-            "left": {
-              "code": "console.log(jobs.map(j => j.id));",
-              "result": "\"2026-09-10\"",
-              "tone": "idle",
-              "checks": [
-                "\"2026-09-10\""
+              "title": "Granular Chunks",
+              "items": [
+                "Split route files",
+                "Parallel multiplexing",
+                "Fast first paint"
               ]
             },
-            "right": {
-              "code": "console.log(newest.map(j => j.id));",
-              "result": "\"2026-09-20\"",
-              "tone": "ok",
-              "checks": [
-                "\"2026-09-20\""
-              ]
-            }
+            "highlight": "left"
           }
-        ]
-      }
-    },
-    {
-      "partTitle": "Components and state for the final version",
-      "codeHash": "5b48daeda79ff4c3062fca27acfbc89576e069728be6e4e69528f0415ad7dd1f",
-      "spec": {
-        "template": "component-tree",
-        "title": "Hierarchical component structure and state ownership",
-        "root": {
-          "name": "App",
-          "children": [
-            {
-              "name": "Dashboard",
-              "children": [
-                {
-                  "name": "StatCards"
-                },
-                {
-                  "name": "RecentJobs"
-                }
-              ]
-            },
-            {
-              "name": "AllJobs",
-              "children": [
-                {
-                  "name": "FilterTabs"
-                },
-                {
-                  "name": "JobList"
-                }
-              ]
-            }
-          ]
         },
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Map out application screens and reusable subcomponents.",
-            "highlight": [
-              "App",
-              "Dashboard",
-              "AllJobs"
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "Store shared jobs state in App while keeping local filters in page state.",
-            "highlight": [
-              "App",
-              "Dashboard",
-              "StatCards",
-              "RecentJobs",
-              "AllJobs",
-              "FilterTabs",
-              "JobList"
-            ]
+        {
+          "step": 2,
+          "caption": "Heavy bundles block main thread and delay interactivity.",
+          "data": {
+            "left": {
+              "title": "Monolithic Bundle",
+              "items": [
+                "Excessive initial size",
+                "Heavy parse latency",
+                "Blocks main thread"
+              ]
+            },
+            "right": {
+              "title": "Granular Chunks",
+              "items": [
+                "Split route files",
+                "Parallel multiplexing",
+                "Fast first paint"
+              ]
+            },
+            "highlight": "right"
           }
-        ]
-      },
-      "filled": {
-        "template": "component-tree",
-        "title": "Hierarchical component structure and state ownership",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Map out application screens and reusable subcomponents."
-          },
-          {
-            "at": "say2",
-            "caption": "Store shared jobs state in App while keeping local filters in page state."
+        },
+        {
+          "step": 3,
+          "caption": "Code splitting generates discrete asynchronous chunks.",
+          "data": {
+            "left": {
+              "title": "Monolithic Bundle",
+              "items": [
+                "Excessive initial size",
+                "Heavy parse latency",
+                "Blocks main thread"
+              ]
+            },
+            "right": {
+              "title": "Granular Chunks",
+              "items": [
+                "Split route files",
+                "Parallel multiplexing",
+                "Fast first paint"
+              ]
+            },
+            "highlight": "left"
           }
-        ]
-      }
+        },
+        {
+          "step": 4,
+          "caption": "Initial viewport loads fast with minimal byte transfer.",
+          "data": {
+            "left": {
+              "title": "Monolithic Bundle",
+              "items": [
+                "Excessive initial size",
+                "Heavy parse latency",
+                "Blocks main thread"
+              ]
+            },
+            "right": {
+              "title": "Granular Chunks",
+              "items": [
+                "Split route files",
+                "Parallel multiplexing",
+                "Fast first paint"
+              ]
+            },
+            "highlight": "right"
+          }
+        }
+      ]
     },
     {
-      "partTitle": "Grouping jobs and writing the plan down",
-      "codeHash": "8cdc73f87cd34f8c555c3d28869fe7a432ecfbe8975693180f98e6beffc6fb05",
-      "spec": {
-        "template": "flow",
-        "title": "Grouping jobs and writing the plan down — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Grouping jobs and w...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Grouping jobs and writing the plan down [D23.P6.S1].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Grouping jobs and w... [D23.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D23.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Grouping jobs and writing the pla.. [D23.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
+      "part": 2,
+      "template": "flow",
+      "title": "Asynchronous Chunk Resolution Lifecycle",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "8e22458649194a28cb166ab1c9c005e825db3c3e273716311af07513e75f30c5"
       },
-      "filled": {
-        "template": "flow",
-        "title": "Grouping jobs and writing the plan down — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Grouping jobs and w...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Grouping jobs and writing the plan down [D23.P6.S1].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Grouping jobs and w... [D23.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D23.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Grouping jobs and writing the pla.. [D23.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Dynamic import initiates network request for target chunk.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Import Trigger",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n2",
+                "label": "Network Fetch",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Bytecode Parse",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Component Mount",
+                "tappable": false,
+                "active": false
+              }
             ]
           }
-        ]
-      }
+        },
+        {
+          "step": 2,
+          "caption": "Browser downloads chunk over multiplexed connection.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Import Trigger",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Network Fetch",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n3",
+                "label": "Bytecode Parse",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Component Mount",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Engine parses and compiles module bytecode off thread.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Import Trigger",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Network Fetch",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Bytecode Parse",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n4",
+                "label": "Component Mount",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Lazy component resolves and replaces skeleton fallback.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Import Trigger",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Network Fetch",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Bytecode Parse",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Component Mount",
+                "tappable": false,
+                "active": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "part": 3,
+      "template": "boxes",
+      "title": "Predictive Route Prefetch Pipeline",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "2aa786a6d80dded903e5a5d3cfa88b7d9af26342adb0515f777657c43a1df22d"
+      },
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Navigation link enters user viewport or hover focus.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Link Viewport Entry",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b2",
+                "label": "Idle Callback",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Preload Fetch",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Instant Navigation",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 2,
+          "caption": "Idle callback schedules prefetch during spare cycles.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Link Viewport Entry",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Idle Callback",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b3",
+                "label": "Preload Fetch",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Instant Navigation",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Module preload fetches chunk into browser disk cache.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Link Viewport Entry",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Idle Callback",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Preload Fetch",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b4",
+                "label": "Instant Navigation",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "User navigation transitions instantly without spinners.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Link Viewport Entry",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Idle Callback",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Preload Fetch",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Instant Navigation",
+                "tappable": false,
+                "highlight": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "part": 4,
+      "template": "compare",
+      "title": "Tree Shaking Dead Code Pruning",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "6fc15d6355c9211e6a70f4ea586516b6e21ce021de523cd776750cd45bfe1b37"
+      },
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Libraries often export hundreds of unreferenced symbols.",
+          "data": {
+            "left": {
+              "title": "Unpruned Library",
+              "items": [
+                "Unused icon exports",
+                "Dead utility functions",
+                "Heavy bundle payload"
+              ]
+            },
+            "right": {
+              "title": "Tree Shaken Module",
+              "items": [
+                "Live symbols only",
+                "Side effects disabled",
+                "Lean production chunk"
+              ]
+            },
+            "highlight": "left"
+          }
+        },
+        {
+          "step": 2,
+          "caption": "Common module formats bundle dead exports conservatively.",
+          "data": {
+            "left": {
+              "title": "Unpruned Library",
+              "items": [
+                "Unused icon exports",
+                "Dead utility functions",
+                "Heavy bundle payload"
+              ]
+            },
+            "right": {
+              "title": "Tree Shaken Module",
+              "items": [
+                "Live symbols only",
+                "Side effects disabled",
+                "Lean production chunk"
+              ]
+            },
+            "highlight": "right"
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Static imports enable static graph dependency analysis.",
+          "data": {
+            "left": {
+              "title": "Unpruned Library",
+              "items": [
+                "Unused icon exports",
+                "Dead utility functions",
+                "Heavy bundle payload"
+              ]
+            },
+            "right": {
+              "title": "Tree Shaken Module",
+              "items": [
+                "Live symbols only",
+                "Side effects disabled",
+                "Lean production chunk"
+              ]
+            },
+            "highlight": "left"
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Production chunks retain only actively referenced symbols.",
+          "data": {
+            "left": {
+              "title": "Unpruned Library",
+              "items": [
+                "Unused icon exports",
+                "Dead utility functions",
+                "Heavy bundle payload"
+              ]
+            },
+            "right": {
+              "title": "Tree Shaken Module",
+              "items": [
+                "Live symbols only",
+                "Side effects disabled",
+                "Lean production chunk"
+              ]
+            },
+            "highlight": "right"
+          }
+        }
+      ]
+    },
+    {
+      "part": 5,
+      "template": "flow",
+      "title": "Immutable Asset Delivery Verification",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "aec95c1fe0dfe1af5498c1d522a8eacdf8c04b646b445fc330a1171f0ff4664a"
+      },
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Build pipeline assigns cryptographic hash to each chunk.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Content Hashing",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n2",
+                "label": "Immutable Header",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Edge Compression",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Browser Cache Hit",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 2,
+          "caption": "Edge headers configure one year immutable cache policy.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Content Hashing",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Immutable Header",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n3",
+                "label": "Edge Compression",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Browser Cache Hit",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Brotli compression pre-compresses static chunks.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Content Hashing",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Immutable Header",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Edge Compression",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n4",
+                "label": "Browser Cache Hit",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Returning users load assets instantly from local disk.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Content Hashing",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Immutable Header",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Edge Compression",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Browser Cache Hit",
+                "tappable": false,
+                "active": true
+              }
+            ]
+          }
+        }
+      ]
     }
   ]
 }

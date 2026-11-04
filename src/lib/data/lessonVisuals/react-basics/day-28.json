@@ -2,740 +2,141 @@
   "schemaVersion": 1,
   "prefix": "react-basics",
   "day": 28,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
+  "visuals": [
     {
-      "partTitle": "Why automatic tests",
-      "codeHash": "ceb1fd960a1eab3db7654ed9257e9e2261fd6fb0140dc69a3c01ef46aedc77ce",
-      "spec": {
-        "template": "compare",
-        "title": "Manual checklists versus automated test suites",
-        "leftLabel": "Manual Verification",
-        "rightLabel": "Automated Test Suite",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Testing by hand with a checklist is slow and repeats every change.",
-            "left": {
-              "code": "console.log(result.total === 2 && result.offers === 1 ? \"PASS\" : \"FAIL\");",
-              "result": {
-                "text": "\"offer\""
-              },
-              "tone": "idle"
-            },
-            "right": {
-              "code": "console.log(result.total === 2 && result.offers === 1 ? \"PASS\" : \"FAIL\");",
-              "result": {
-                "text": "\"PASS\""
-              },
-              "tone": "ok"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Automated test suites verify system logic rapidly after code changes.",
-            "left": {
-              "code": "console.log(result.total === 2 && result.offers === 1 ? \"PASS\" : \"FAIL\");",
-              "result": {
-                "text": "\"applied\""
-              },
-              "tone": "idle"
-            },
-            "right": {
-              "code": "console.log(result.total === 2 && result.offers === 1 ? \"PASS\" : \"FAIL\");",
-              "result": {
-                "text": "\"PASS\""
-              },
-              "tone": "ok"
-            }
-          }
-        ]
+      "part": 1,
+      "template": "compare",
+      "title": "Modern Rendering Strategies Comparison",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "0495f0f08879d70db050098263e2fcf3a488442ecdee873cb1bf9751befe00e4"
       },
-      "filled": {
-        "template": "compare",
-        "title": "Manual checklists versus automated test suites",
-        "leftLabel": "Manual Verification",
-        "rightLabel": "Automated Test Suite",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Testing by hand with a checklist is slow and repeats every change.",
-            "left": {
-              "code": "console.log(result.total === 2 && result.offers === 1 ? \"PASS\" : \"FAIL\");",
-              "result": "\"offer\"",
-              "tone": "idle",
-              "checks": [
-                "\"offer\""
-              ]
-            },
-            "right": {
-              "code": "console.log(result.total === 2 && result.offers === 1 ? \"PASS\" : \"FAIL\");",
-              "result": "\"PASS\"",
-              "tone": "ok",
-              "checks": [
-                "\"PASS\""
-              ]
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Automated test suites verify system logic rapidly after code changes.",
-            "left": {
-              "code": "console.log(result.total === 2 && result.offers === 1 ? \"PASS\" : \"FAIL\");",
-              "result": "\"applied\"",
-              "tone": "idle",
-              "checks": [
-                "\"applied\""
-              ]
-            },
-            "right": {
-              "code": "console.log(result.total === 2 && result.offers === 1 ? \"PASS\" : \"FAIL\");",
-              "result": "\"PASS\"",
-              "tone": "ok",
-              "checks": [
-                "\"PASS\""
-              ]
-            }
-          }
-        ]
-      }
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Static generator creates fixed pages at build time."
+        },
+        {
+          "step": 2,
+          "caption": "Incremental regeneration updates pages on interval."
+        },
+        {
+          "step": 3,
+          "caption": "Server rendering dynamically creates markup per call."
+        },
+        {
+          "step": 4,
+          "caption": "Edge cache delivers optimal time to first byte."
+        }
+      ]
     },
     {
-      "partTitle": "Arrange, act, check",
-      "codeHash": "ad1e9014ad7b32871e6b2669dffa3c3d75c8a9d9bec53191b7a24c0ecdc9f0b2",
-      "spec": {
-        "template": "flow",
-        "title": "The Arrange Act Assert unit test workflow",
-        "nodes": [
-          {
-            "id": "arr",
-            "label": "arrange",
-            "tappable": false
-          },
-          {
-            "id": "act",
-            "label": "act",
-            "tappable": false
-          },
-          {
-            "id": "chk",
-            "label": "check",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Tests prepare sample inputs, execute operations and evaluate assertions.",
-            "values": {
-              "arr": {
-                "text": "\"all tab returns every job\""
-              },
-              "act": {
-                "text": "\"all\""
-              },
-              "chk": {
-                "text": "\"all\""
-              }
-            },
-            "tones": {
-              "arr": "data",
-              "act": "idle",
-              "chk": "idle"
-            },
-            "arrows": [
-              [
-                "arr",
-                "act"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "Clear descriptive names communicate failing test expectations immediately.",
-            "values": {
-              "arr": {
-                "text": "\"all tab returns every job\""
-              },
-              "act": {
-                "text": "\"all\""
-              },
-              "chk": {
-                "text": "\"all\""
-              }
-            },
-            "tones": {
-              "arr": "idle",
-              "act": "data",
-              "chk": "ok"
-            },
-            "arrows": [
-              [
-                "arr",
-                "act"
-              ],
-              [
-                "act",
-                "chk"
-              ]
-            ]
-          }
-        ]
+      "part": 2,
+      "template": "boxes",
+      "title": "Hydration Tree Reconciliation Contract",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "b4eafd1b7e6c7e9c43302ea1b6a6ba5fcf5eea89928f04e5c9b646fbdac6c77e"
       },
-      "filled": {
-        "template": "flow",
-        "title": "The Arrange Act Assert unit test workflow",
-        "nodes": [
-          {
-            "id": "arr",
-            "label": "arrange",
-            "tappable": false
-          },
-          {
-            "id": "act",
-            "label": "act",
-            "tappable": false
-          },
-          {
-            "id": "chk",
-            "label": "check",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Tests prepare sample inputs, execute operations and evaluate assertions.",
-            "values": {
-              "arr": "\"all tab returns every job\"",
-              "act": "\"all\"",
-              "chk": "\"all\""
-            },
-            "tones": {
-              "arr": "data",
-              "act": "idle",
-              "chk": "idle"
-            },
-            "arrows": [
-              [
-                "arr",
-                "act"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "Clear descriptive names communicate failing test expectations immediately.",
-            "values": {
-              "arr": "\"all tab returns every job\"",
-              "act": "\"all\"",
-              "chk": "\"all\""
-            },
-            "tones": {
-              "arr": "idle",
-              "act": "data",
-              "chk": "ok"
-            },
-            "arrows": [
-              [
-                "arr",
-                "act"
-              ],
-              [
-                "act",
-                "chk"
-              ]
-            ]
-          }
-        ]
-      }
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Browser parses server rendered static document."
+        },
+        {
+          "step": 2,
+          "caption": "Client runtime walks host document nodes."
+        },
+        {
+          "step": 3,
+          "caption": "Reconciler detects structural or text divergences."
+        },
+        {
+          "step": 4,
+          "caption": "Event listeners attach to matching elements cleanly."
+        }
+      ]
     },
     {
-      "partTitle": "Vitest in your project",
-      "codeHash": "30c8abee148253e6b78769f10cfe76cb9040e16a29dd0b4b0d1419595bc6c64a",
-      "spec": {
-        "template": "boxes",
-        "title": "Comparing strict identity with deep value equality",
-        "boxes": [
-          {
-            "id": "toBe",
-            "label": "toBe",
-            "tappable": false
-          },
-          {
-            "id": "toEqual",
-            "label": "toEqual",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Install and configure Vitest to automate suite execution.",
-            "values": {
-              "toBe": {
-                "text": "3"
-              },
-              "toEqual": {
-                "text": "3"
-              }
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Organize unit test files adjacent to source code implementations.",
-            "values": {
-              "toBe": {
-                "text": "3"
-              },
-              "toEqual": {
-                "text": "3"
-              }
-            }
-          }
-        ]
+      "part": 3,
+      "template": "flow",
+      "title": "React Server Component Wire Stream",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "82832b23d15645d77a462b933f770a18e0ff4030e36d17a256555f15843de6c8"
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Comparing strict identity with deep value equality",
-        "boxes": [
-          {
-            "id": "toBe",
-            "label": "toBe",
-            "tappable": false
-          },
-          {
-            "id": "toEqual",
-            "label": "toEqual",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Install and configure Vitest to automate suite execution.",
-            "values": {
-              "toBe": "3",
-              "toEqual": "3"
-            },
-            "tones": {}
-          },
-          {
-            "at": "say2",
-            "caption": "Organize unit test files adjacent to source code implementations.",
-            "values": {
-              "toBe": "3",
-              "toEqual": "3"
-            },
-            "tones": {}
-          }
-        ]
-      }
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Server executes component and resolves dependencies."
+        },
+        {
+          "step": 2,
+          "caption": "Server emits virtual elements into stream format."
+        },
+        {
+          "step": 3,
+          "caption": "Client reference placeholders point to bundles."
+        },
+        {
+          "step": 4,
+          "caption": "Browser stitches interactive islands into view."
+        }
+      ]
     },
     {
-      "partTitle": "Testing edge cases",
-      "codeHash": "366696be53fce4333c271d00536a22081d4bc4ae3c01114d55d3124bcd09277d",
-      "spec": {
-        "template": "compare",
-        "title": "Isolating invalid inputs with regression assertions",
-        "leftLabel": "Valid Format",
-        "rightLabel": "Malformed Input",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Good tests focus on cases that are easy to get wrong like empty text.",
-            "left": {
-              "code": "console.log(isValidEmail(\"asha@mail.com\"));",
-              "result": {
-                "text": "\"asha@mail.com\""
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "console.log(isValidEmail(\"asha.mail.com\"));",
-              "result": {
-                "text": "\"asha.mail.com\""
-              },
-              "tone": "err"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Write regression tests to ensure resolved defects never resurface.",
-            "left": {
-              "code": "console.log(isValidEmail(\"asha@mail.com\"));",
-              "result": {
-                "text": "\"asha@mail.com\""
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "console.log(isValidEmail(\"@mail.com\"));",
-              "result": {
-                "text": "\"@mail.com\""
-              },
-              "tone": "err"
-            }
-          }
-        ]
+      "part": 4,
+      "template": "states",
+      "title": "Streaming Suspense Chunk Pipeline",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "20c88d2778b68ade547cbd6de4451bb08a790f1f54961565e58641b160036d68"
       },
-      "filled": {
-        "template": "compare",
-        "title": "Isolating invalid inputs with regression assertions",
-        "leftLabel": "Valid Format",
-        "rightLabel": "Malformed Input",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Good tests focus on cases that are easy to get wrong like empty text.",
-            "left": {
-              "code": "console.log(isValidEmail(\"asha@mail.com\"));",
-              "result": "\"asha@mail.com\"",
-              "tone": "ok",
-              "checks": [
-                "\"asha@mail.com\""
-              ]
-            },
-            "right": {
-              "code": "console.log(isValidEmail(\"asha.mail.com\"));",
-              "result": "\"asha.mail.com\"",
-              "tone": "err",
-              "checks": [
-                "\"asha.mail.com\""
-              ]
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Write regression tests to ensure resolved defects never resurface.",
-            "left": {
-              "code": "console.log(isValidEmail(\"asha@mail.com\"));",
-              "result": "\"asha@mail.com\"",
-              "tone": "ok",
-              "checks": [
-                "\"asha@mail.com\""
-              ]
-            },
-            "right": {
-              "code": "console.log(isValidEmail(\"@mail.com\"));",
-              "result": "\"@mail.com\"",
-              "tone": "err",
-              "checks": [
-                "\"@mail.com\""
-              ]
-            }
-          }
-        ]
-      }
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Server flushes initial outer layout shell."
+        },
+        {
+          "step": 2,
+          "caption": "Client displays fallback skeleton instantly."
+        },
+        {
+          "step": 3,
+          "caption": "Async boundary resolves and server streams chunk."
+        },
+        {
+          "step": 4,
+          "caption": "Inline script replaces placeholder with real content."
+        }
+      ]
     },
     {
-      "partTitle": "Testing components like a user",
-      "codeHash": "033396535ca521c15ba0611a28e1110b0163e80f840fdbaf1a760fb00c28de34",
-      "spec": {
-        "template": "boxes",
-        "title": "User-centric component rendering and validation",
-        "boxes": [
-          {
-            "id": "query",
-            "label": "screenQuery",
-            "tappable": false
-          },
-          {
-            "id": "status",
-            "label": "validation",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Test component interactions from the perspective of real user actions.",
-            "values": {
-              "query": {
-                "text": "\"TCS\""
-              },
-              "status": {
-                "text": "\"Title is required\""
-              }
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Query elements by accessible role and verify user-facing validation errors.",
-            "values": {
-              "query": {
-                "text": "\"TCS\""
-              },
-              "status": {
-                "text": "\"Company is required\""
-              }
-            }
-          }
-        ]
+      "part": 5,
+      "template": "component-tree",
+      "title": "Server Client Boundary Slot Topology",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "b9fce4b70a3660f696c3eb342f9aa9445f9c6b5402e7d5f0bd8d66817c8ffb2b"
       },
-      "filled": {
-        "template": "boxes",
-        "title": "User-centric component rendering and validation",
-        "boxes": [
-          {
-            "id": "query",
-            "label": "screenQuery",
-            "tappable": false
-          },
-          {
-            "id": "status",
-            "label": "validation",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Test component interactions from the perspective of real user actions.",
-            "values": {
-              "query": "\"TCS\"",
-              "status": "\"Title is required\""
-            },
-            "tones": {}
-          },
-          {
-            "at": "say2",
-            "caption": "Query elements by accessible role and verify user-facing validation errors.",
-            "values": {
-              "query": "\"TCS\"",
-              "status": "\"Company is required\""
-            },
-            "tones": {}
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Add tests to the Job Tracker",
-      "codeHash": "7a6b0e58ddd26a249f5c4156705c835494fa1271b3334f824c6bf13c99d9b97d",
-      "spec": {
-        "template": "flow",
-        "title": "Add tests to the Job Tracker — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Add tests to the Jo...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Add tests to the Job Tracker [D28.P6.S1].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Add tests to the Jo... [D28.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D28.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Add tests to the Job Tracker [D28.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Add tests to the Job Tracker — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Add tests to the Jo...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Add tests to the Job Tracker [D28.P6.S1].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Add tests to the Jo... [D28.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D28.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Add tests to the Job Tracker [D28.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      }
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Server parent wraps interactive client component."
+        },
+        {
+          "step": 2,
+          "caption": "Client boundary accepts generic children slot."
+        },
+        {
+          "step": 3,
+          "caption": "Nested server view renders on backend without leak."
+        },
+        {
+          "step": 4,
+          "caption": "Client manages interactive state seamlessly."
+        }
+      ]
     }
   ]
 }

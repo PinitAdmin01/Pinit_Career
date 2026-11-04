@@ -1,691 +1,679 @@
-{
-  "schemaVersion": 1,
-  "prefix": "react-basics",
-  "day": 6,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
-    {
-      "partTitle": "Template strings: building text the easy way",
-      "codeHash": "7d73ebdde00fb235f6c1c81227910d129000e6b424bd46cf91a013373750f2a7",
-      "spec": {
-        "template": "compare",
-        "title": "Template strings and variable interpolation",
-        "leftLabel": "Concatenation",
-        "rightLabel": "Template String",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Concatenation joins strings with plus signs.",
-            "left": {
-              "code": "\"Hello, \" + name + \"!\";",
-              "result": {
-                "text": "\"Asha\""
-              },
-              "tone": "idle"
+[
+  {
+    "schemaVersion": 1,
+    "prefix": "react-basics",
+    "day": 6,
+    "part": 1,
+    "codeHash": "9ded8c9161bbcc33bfdee7df4414656b8c1178c66049cabb7c1564584cb82171",
+    "spec": {
+      "template": "boxes",
+      "title": "Tagged Template Compiler Interleaving and Security Sanitizer",
+      "boxes": [
+        {
+          "id": "b1",
+          "label": "String Chunks",
+          "tappable": false
+        },
+        {
+          "id": "b2",
+          "label": "Variable Expressions",
+          "tappable": false
+        },
+        {
+          "id": "b3",
+          "label": "SQL Sanitizer",
+          "tappable": false
+        },
+        {
+          "id": "b4",
+          "label": "Clean Output",
+          "tappable": false
+        }
+      ],
+      "steps": [
+        {
+          "at": "say1",
+          "caption": "Compiler isolates static string literals into permanent memory array.",
+          "values": {
+            "b1": {
+              "text": "\"String Chunks\""
             },
-            "right": {
-              "code": "`Hi ${name}, you applied to ${jobs} jobs.`;",
-              "result": {
-                "text": "name"
-              },
-              "tone": "ok"
+            "b2": {
+              "text": "\"Variable Expressions\""
+            },
+            "b3": {
+              "text": "\"SQL Sanitizer\""
+            },
+            "b4": {
+              "text": "\"Clean Output\""
             }
           },
-          {
-            "at": "say2",
-            "caption": "Template strings evaluate values within curly brackets.",
-            "left": {
-              "code": "\"Hello, \" + name + \"!\";",
-              "result": {
-                "text": "\"Asha\""
-              },
-              "tone": "idle"
-            },
-            "right": {
-              "code": "`Next month that could be ${jobs * 2} jobs!`;",
-              "result": {
-                "text": "jobs"
-              },
-              "tone": "data"
-            }
+          "tones": {
+            "b1": "data",
+            "b2": "idle",
+            "b3": "idle",
+            "b4": "idle"
           }
-        ]
-      },
-      "filled": {
-        "template": "compare",
-        "title": "Template strings and variable interpolation",
-        "leftLabel": "Concatenation",
-        "rightLabel": "Template String",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Concatenation joins strings with plus signs.",
-            "left": {
-              "code": "\"Hello, \" + name + \"!\";",
-              "result": "\"Asha\"",
-              "tone": "idle",
-              "checks": [
-                "\"Asha\""
-              ]
+        },
+        {
+          "at": "say2",
+          "caption": "Dynamic expressions evaluate separately inside calling scope.",
+          "values": {
+            "b1": {
+              "text": "\"String Chunks\""
             },
-            "right": {
-              "code": "`Hi ${name}, you applied to ${jobs} jobs.`;",
-              "result": "name",
-              "tone": "ok",
-              "checks": [
-                "name"
-              ]
+            "b2": {
+              "text": "\"Variable Expressions\""
+            },
+            "b3": {
+              "text": "\"SQL Sanitizer\""
+            },
+            "b4": {
+              "text": "\"Clean Output\""
             }
           },
-          {
-            "at": "say2",
-            "caption": "Template strings evaluate values within curly brackets.",
-            "left": {
-              "code": "\"Hello, \" + name + \"!\";",
-              "result": "\"Asha\"",
-              "tone": "idle",
-              "checks": [
-                "\"Asha\""
-              ]
+          "tones": {
+            "b1": "data",
+            "b2": "data",
+            "b3": "idle",
+            "b4": "idle"
+          }
+        },
+        {
+          "at": "say3",
+          "caption": "Tagged function intercepts raw chunks and variables simultaneously.",
+          "values": {
+            "b1": {
+              "text": "\"String Chunks\""
             },
-            "right": {
-              "code": "`Next month that could be ${jobs * 2} jobs!`;",
-              "result": "jobs",
-              "tone": "data",
-              "checks": [
-                "jobs"
-              ]
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Destructuring objects: taking out the parts you need",
-      "codeHash": "d6dcf8da39a3607646044e5a2002a6e215978889e96e33d332b627ba486caff0",
-      "spec": {
-        "template": "boxes",
-        "title": "Destructuring object properties into variables",
-        "boxes": [
-          {
-            "id": "b0",
-            "label": "title",
-            "tappable": false
-          },
-          {
-            "id": "b1",
-            "label": "company",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Destructuring extracts object properties into separate variables.",
-            "values": {
-              "b0": {
-                "text": "\"React Developer\""
-              },
-              "b1": {
-                "text": "\"Zoho\""
-              }
+            "b2": {
+              "text": "\"Variable Expressions\""
+            },
+            "b3": {
+              "text": "\"SQL Sanitizer\""
+            },
+            "b4": {
+              "text": "\"Clean Output\""
             }
           },
-          {
-            "at": "say2",
-            "caption": "Curly brackets create variables with matching property names.",
-            "values": {
-              "b0": {
-                "text": "\"React Developer\""
-              },
-              "b1": {
-                "text": "\"Zoho\""
-              }
-            }
+          "tones": {
+            "b1": "data",
+            "b2": "data",
+            "b3": "data",
+            "b4": "idle"
           }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Destructuring object properties into variables",
-        "boxes": [
-          {
-            "id": "b0",
-            "label": "title",
-            "tappable": false
-          },
-          {
-            "id": "b1",
-            "label": "company",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Destructuring extracts object properties into separate variables.",
-            "values": {
-              "b0": "\"React Developer\"",
-              "b1": "\"Zoho\""
+        },
+        {
+          "at": "say4",
+          "caption": "Sanitizer escapes malicious inputs preventing injection exploits.",
+          "values": {
+            "b1": {
+              "text": "\"String Chunks\""
             },
-            "tones": {}
-          },
-          {
-            "at": "say2",
-            "caption": "Curly brackets create variables with matching property names.",
-            "values": {
-              "b0": "\"React Developer\"",
-              "b1": "\"Zoho\""
+            "b2": {
+              "text": "\"Variable Expressions\""
             },
-            "tones": {}
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Destructuring arrays: the useState pattern",
-      "codeHash": "de0bdad302d935f62b39ff05ac9a30d1cae191f4373c103d373d72f5a4150c67",
-      "spec": {
-        "template": "boxes",
-        "title": "Array destructuring assigns values by position",
-        "boxes": [
-          {
-            "id": "pos0",
-            "label": "first",
-            "tappable": false
-          },
-          {
-            "id": "pos1",
-            "label": "second",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Array destructuring assigns values based on item position.",
-            "values": {
-              "pos0": {
-                "text": "\"HTML\""
-              },
-              "pos1": {
-                "text": "\"CSS\""
-              }
+            "b3": {
+              "text": "\"SQL Sanitizer\""
+            },
+            "b4": {
+              "text": "\"Clean Output\""
             }
           },
-          {
-            "at": "say3",
-            "caption": "The useState pattern destructures state value and updater function.",
-            "values": {
-              "pos0": {
-                "text": "count"
-              },
-              "pos1": {
-                "text": "setCount"
-              }
-            }
+          "tones": {
+            "b1": "data",
+            "b2": "data",
+            "b3": "data",
+            "b4": "data"
           }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Array destructuring assigns values by position",
-        "boxes": [
-          {
-            "id": "pos0",
-            "label": "first",
-            "tappable": false
-          },
-          {
-            "id": "pos1",
-            "label": "second",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Array destructuring assigns values based on item position.",
-            "values": {
-              "pos0": "\"HTML\"",
-              "pos1": "\"CSS\""
-            },
-            "tones": {}
-          },
-          {
-            "at": "say3",
-            "caption": "The useState pattern destructures state value and updater function.",
-            "values": {
-              "pos0": "count",
-              "pos1": "setCount"
-            },
-            "tones": {}
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Spread with arrays: copying and adding",
-      "codeHash": "f67a18fc6a841d1f96af670738537efdb7a90e5051ee7b32fe67116ce775dfd7",
-      "spec": {
-        "template": "compare",
-        "title": "Array reference assignment versus spread cloning",
-        "leftLabel": "Direct Reference",
-        "rightLabel": "Spread Clone",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Assigning an array creates a reference rather than copy.",
-            "left": {
-              "code": "const b = a;",
-              "result": {
-                "text": "b"
-              },
-              "tone": "warn"
-            },
-            "right": {
-              "code": "const c = [...a];",
-              "result": {
-                "text": "c"
-              },
-              "tone": "ok"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Spread operator copies items into an entirely new array.",
-            "left": {
-              "code": "const b = a;",
-              "result": {
-                "text": "b"
-              },
-              "tone": "warn"
-            },
-            "right": {
-              "code": "const moreJobs = [...jobs, \"Designer\"];",
-              "result": {
-                "text": "\"Designer\""
-              },
-              "tone": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "compare",
-        "title": "Array reference assignment versus spread cloning",
-        "leftLabel": "Direct Reference",
-        "rightLabel": "Spread Clone",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Assigning an array creates a reference rather than copy.",
-            "left": {
-              "code": "const b = a;",
-              "result": "b",
-              "tone": "warn",
-              "checks": [
-                "b"
-              ]
-            },
-            "right": {
-              "code": "const c = [...a];",
-              "result": "c",
-              "tone": "ok",
-              "checks": [
-                "c"
-              ]
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Spread operator copies items into an entirely new array.",
-            "left": {
-              "code": "const b = a;",
-              "result": "b",
-              "tone": "warn",
-              "checks": [
-                "b"
-              ]
-            },
-            "right": {
-              "code": "const moreJobs = [...jobs, \"Designer\"];",
-              "result": "\"Designer\"",
-              "tone": "ok",
-              "checks": [
-                "\"Designer\""
-              ]
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Spread with objects: updating one detail",
-      "codeHash": "a56676d49183ac1af6f497da31d65ec7d7409faa16e68a822def478a56195990",
-      "spec": {
-        "template": "boxes",
-        "title": "Immutable object updates with spread operator",
-        "boxes": [
-          {
-            "id": "title",
-            "label": "title",
-            "tappable": false
-          },
-          {
-            "id": "company",
-            "label": "company",
-            "tappable": false
-          },
-          {
-            "id": "status",
-            "label": "status",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Spread copies all existing properties into a new object.",
-            "values": {
-              "title": {
-                "text": "\"Dev\""
-              },
-              "company": {
-                "text": "\"TCS\""
-              },
-              "status": {
-                "text": "\"applied\""
-              }
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Properties specified after spread override the old values.",
-            "values": {
-              "title": {
-                "text": "\"Dev\""
-              },
-              "company": {
-                "text": "\"TCS\""
-              },
-              "status": {
-                "text": "\"interview\""
-              }
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Immutable object updates with spread operator",
-        "boxes": [
-          {
-            "id": "title",
-            "label": "title",
-            "tappable": false
-          },
-          {
-            "id": "company",
-            "label": "company",
-            "tappable": false
-          },
-          {
-            "id": "status",
-            "label": "status",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Spread copies all existing properties into a new object.",
-            "values": {
-              "title": "\"Dev\"",
-              "company": "\"TCS\"",
-              "status": "\"applied\""
-            },
-            "tones": {}
-          },
-          {
-            "at": "say2",
-            "caption": "Properties specified after spread override the old values.",
-            "values": {
-              "title": "\"Dev\"",
-              "company": "\"TCS\"",
-              "status": "\"interview\""
-            },
-            "tones": {}
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Safe access with ?. and ??",
-      "codeHash": "890c4e54fb0491862dc5a1e42379a83ce91c7867a8cf21cb7a01fd0c59e93f7c",
-      "spec": {
-        "template": "flow",
-        "title": "Safe access with ?. and ?? — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Safe access with ?....",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Safe access with ?. and ?? [D6.P6.S1].",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Safe access with ?.... [D6.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D6.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Safe access with ?. and ?? [D6.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Safe access with ?. and ?? — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Safe access with ?....",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Safe access with ?. and ?? [D6.P6.S1].",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Safe access with ?.... [D6.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D6.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Safe access with ?. and ?? [D6.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      }
+        }
+      ]
     }
-  ]
-}
+  },
+  {
+    "schemaVersion": 1,
+    "prefix": "react-basics",
+    "day": 6,
+    "part": 2,
+    "codeHash": "e6abaf38d0bb4c4e110fb7abfbfd4df0164c48d4568353b9a0116efed34e68e5",
+    "spec": {
+      "template": "flow",
+      "title": "Object Destructuring Bytecode Lowering and Property Lookup",
+      "nodes": [
+        {
+          "id": "n1",
+          "label": "Object Ref",
+          "tappable": false
+        },
+        {
+          "id": "n2",
+          "label": "GetNamedProperty",
+          "tappable": false
+        },
+        {
+          "id": "n3",
+          "label": "Stack Slot",
+          "tappable": false
+        },
+        {
+          "id": "n4",
+          "label": "Nullish Guard",
+          "tappable": false
+        }
+      ],
+      "steps": [
+        {
+          "at": "say1",
+          "caption": "Engine loads source object reference onto virtual machine operand stack.",
+          "values": {
+            "n1": {
+              "text": "\"Object Ref\""
+            },
+            "n2": {
+              "text": "\"GetNamedProperty\""
+            },
+            "n3": {
+              "text": "\"Stack Slot\""
+            },
+            "n4": {
+              "text": "\"Nullish Guard\""
+            }
+          },
+          "tones": {
+            "n1": "data",
+            "n2": "idle",
+            "n3": "idle",
+            "n4": "idle"
+          },
+          "arrows": []
+        },
+        {
+          "at": "say2",
+          "caption": "Bytecode instructions trigger named property lookups on prototype.",
+          "values": {
+            "n1": {
+              "text": "\"Object Ref\""
+            },
+            "n2": {
+              "text": "\"GetNamedProperty\""
+            },
+            "n3": {
+              "text": "\"Stack Slot\""
+            },
+            "n4": {
+              "text": "\"Nullish Guard\""
+            }
+          },
+          "tones": {
+            "n1": "data",
+            "n2": "data",
+            "n3": "idle",
+            "n4": "idle"
+          },
+          "arrows": [
+            [
+              "n1",
+              "n2"
+            ]
+          ]
+        },
+        {
+          "at": "say3",
+          "caption": "Extracted property primitives store into designated local stack slots.",
+          "values": {
+            "n1": {
+              "text": "\"Object Ref\""
+            },
+            "n2": {
+              "text": "\"GetNamedProperty\""
+            },
+            "n3": {
+              "text": "\"Stack Slot\""
+            },
+            "n4": {
+              "text": "\"Nullish Guard\""
+            }
+          },
+          "tones": {
+            "n1": "data",
+            "n2": "data",
+            "n3": "data",
+            "n4": "idle"
+          },
+          "arrows": [
+            [
+              "n1",
+              "n2"
+            ],
+            [
+              "n2",
+              "n3"
+            ]
+          ]
+        },
+        {
+          "at": "say4",
+          "caption": "Fallback expressions evaluate only when resolved property is undefined.",
+          "values": {
+            "n1": {
+              "text": "\"Object Ref\""
+            },
+            "n2": {
+              "text": "\"GetNamedProperty\""
+            },
+            "n3": {
+              "text": "\"Stack Slot\""
+            },
+            "n4": {
+              "text": "\"Nullish Guard\""
+            }
+          },
+          "tones": {
+            "n1": "data",
+            "n2": "data",
+            "n3": "data",
+            "n4": "data"
+          },
+          "arrows": [
+            [
+              "n1",
+              "n2"
+            ],
+            [
+              "n2",
+              "n3"
+            ],
+            [
+              "n3",
+              "n4"
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "prefix": "react-basics",
+    "day": 6,
+    "part": 3,
+    "codeHash": "7eb6d36b2bfb2a40a8bae9e338da32508887d5a6303cd297450b13c9835d3a9f",
+    "spec": {
+      "template": "compare",
+      "title": "Shallow Spread Copying vs Deep Object Reference Mutation",
+      "left": {
+        "label": "Standard Implementation"
+      },
+      "right": {
+        "label": "Architectural Pattern"
+      },
+      "steps": [
+        {
+          "at": "say1",
+          "caption": "Spread operator iterates top level enumerable own properties.",
+          "left": {
+            "code": "// Left pipeline phase 1",
+            "result": {
+              "text": "\"Standard\""
+            },
+            "tone": "idle"
+          },
+          "right": {
+            "code": "// Optimized pipeline phase 1",
+            "result": {
+              "text": "\"Optimized\""
+            },
+            "tone": "ok"
+          }
+        },
+        {
+          "at": "say2",
+          "caption": "Nested object references copy identical pointers without cloning.",
+          "left": {
+            "code": "// Left pipeline phase 2",
+            "result": {
+              "text": "\"Standard\""
+            },
+            "tone": "data"
+          },
+          "right": {
+            "code": "// Optimized pipeline phase 2",
+            "result": {
+              "text": "\"Optimized\""
+            },
+            "tone": "ok"
+          }
+        },
+        {
+          "at": "say3",
+          "caption": "Mutating nested properties corrupts the shared memory target.",
+          "left": {
+            "code": "// Left pipeline phase 3",
+            "result": {
+              "text": "\"Standard\""
+            },
+            "tone": "data"
+          },
+          "right": {
+            "code": "// Optimized pipeline phase 3",
+            "result": {
+              "text": "\"Optimized\""
+            },
+            "tone": "ok"
+          }
+        },
+        {
+          "at": "say4",
+          "caption": "Structured clone guarantees isolated deep memory separation.",
+          "left": {
+            "code": "// Left pipeline phase 4",
+            "result": {
+              "text": "\"Standard\""
+            },
+            "tone": "data"
+          },
+          "right": {
+            "code": "// Optimized pipeline phase 4",
+            "result": {
+              "text": "\"Optimized\""
+            },
+            "tone": "ok"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "prefix": "react-basics",
+    "day": 6,
+    "part": 4,
+    "codeHash": "38752d7d005c7a14f23ad997ec8375bcaa3fc30fb5581315c04fe8811b834d78",
+    "spec": {
+      "template": "boxes",
+      "title": "JavaScript Symbol Registry and Hidden Property Slots",
+      "boxes": [
+        {
+          "id": "b1",
+          "label": "Symbol Id",
+          "tappable": false
+        },
+        {
+          "id": "b2",
+          "label": "Property Key",
+          "tappable": false
+        },
+        {
+          "id": "b3",
+          "label": "Reflection Barrier",
+          "tappable": false
+        },
+        {
+          "id": "b4",
+          "label": "Iterator Protocol",
+          "tappable": false
+        }
+      ],
+      "steps": [
+        {
+          "at": "say1",
+          "caption": "Unique symbol primitives avoid collision with string properties.",
+          "values": {
+            "b1": {
+              "text": "\"Symbol Id\""
+            },
+            "b2": {
+              "text": "\"Property Key\""
+            },
+            "b3": {
+              "text": "\"Reflection Barrier\""
+            },
+            "b4": {
+              "text": "\"Iterator Protocol\""
+            }
+          },
+          "tones": {
+            "b1": "data",
+            "b2": "idle",
+            "b3": "idle",
+            "b4": "idle"
+          }
+        },
+        {
+          "at": "say2",
+          "caption": "Hidden symbol keys hide from standard object key iterations.",
+          "values": {
+            "b1": {
+              "text": "\"Symbol Id\""
+            },
+            "b2": {
+              "text": "\"Property Key\""
+            },
+            "b3": {
+              "text": "\"Reflection Barrier\""
+            },
+            "b4": {
+              "text": "\"Iterator Protocol\""
+            }
+          },
+          "tones": {
+            "b1": "data",
+            "b2": "data",
+            "b3": "idle",
+            "b4": "idle"
+          }
+        },
+        {
+          "at": "say3",
+          "caption": "Reflection methods access symbol metadata without polluting schema.",
+          "values": {
+            "b1": {
+              "text": "\"Symbol Id\""
+            },
+            "b2": {
+              "text": "\"Property Key\""
+            },
+            "b3": {
+              "text": "\"Reflection Barrier\""
+            },
+            "b4": {
+              "text": "\"Iterator Protocol\""
+            }
+          },
+          "tones": {
+            "b1": "data",
+            "b2": "data",
+            "b3": "data",
+            "b4": "idle"
+          }
+        },
+        {
+          "at": "say4",
+          "caption": "Well known symbol controls internal engine iteration protocols.",
+          "values": {
+            "b1": {
+              "text": "\"Symbol Id\""
+            },
+            "b2": {
+              "text": "\"Property Key\""
+            },
+            "b3": {
+              "text": "\"Reflection Barrier\""
+            },
+            "b4": {
+              "text": "\"Iterator Protocol\""
+            }
+          },
+          "tones": {
+            "b1": "data",
+            "b2": "data",
+            "b3": "data",
+            "b4": "data"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "prefix": "react-basics",
+    "day": 6,
+    "part": 5,
+    "codeHash": "83c3667ae48fd00940ca9e20419eddb3cd0a87dd710606037d8c49a4376fe462",
+    "spec": {
+      "template": "flow",
+      "title": "Short Circuit Bytecode Evaluation for Optional Chaining",
+      "nodes": [
+        {
+          "id": "n1",
+          "label": "Receiver Eval",
+          "tappable": false
+        },
+        {
+          "id": "n2",
+          "label": "Nullish Check",
+          "tappable": false
+        },
+        {
+          "id": "n3",
+          "label": "Short Circuit",
+          "tappable": false
+        },
+        {
+          "id": "n4",
+          "label": "Value Extract",
+          "tappable": false
+        }
+      ],
+      "steps": [
+        {
+          "at": "say1",
+          "caption": "Virtual machine evaluates receiver expression on the stack.",
+          "values": {
+            "n1": {
+              "text": "\"Receiver Eval\""
+            },
+            "n2": {
+              "text": "\"Nullish Check\""
+            },
+            "n3": {
+              "text": "\"Short Circuit\""
+            },
+            "n4": {
+              "text": "\"Value Extract\""
+            }
+          },
+          "tones": {
+            "n1": "data",
+            "n2": "idle",
+            "n3": "idle",
+            "n4": "idle"
+          },
+          "arrows": []
+        },
+        {
+          "at": "say2",
+          "caption": "Engine checks whether value is strictly null or undefined.",
+          "values": {
+            "n1": {
+              "text": "\"Receiver Eval\""
+            },
+            "n2": {
+              "text": "\"Nullish Check\""
+            },
+            "n3": {
+              "text": "\"Short Circuit\""
+            },
+            "n4": {
+              "text": "\"Value Extract\""
+            }
+          },
+          "tones": {
+            "n1": "data",
+            "n2": "data",
+            "n3": "idle",
+            "n4": "idle"
+          },
+          "arrows": [
+            [
+              "n1",
+              "n2"
+            ]
+          ]
+        },
+        {
+          "at": "say3",
+          "caption": "Nullish condition triggers immediate short circuit jump past call.",
+          "values": {
+            "n1": {
+              "text": "\"Receiver Eval\""
+            },
+            "n2": {
+              "text": "\"Nullish Check\""
+            },
+            "n3": {
+              "text": "\"Short Circuit\""
+            },
+            "n4": {
+              "text": "\"Value Extract\""
+            }
+          },
+          "tones": {
+            "n1": "data",
+            "n2": "data",
+            "n3": "data",
+            "n4": "idle"
+          },
+          "arrows": [
+            [
+              "n1",
+              "n2"
+            ],
+            [
+              "n2",
+              "n3"
+            ]
+          ]
+        },
+        {
+          "at": "say4",
+          "caption": "Valid object reference permits property extraction and downstream logic.",
+          "values": {
+            "n1": {
+              "text": "\"Receiver Eval\""
+            },
+            "n2": {
+              "text": "\"Nullish Check\""
+            },
+            "n3": {
+              "text": "\"Short Circuit\""
+            },
+            "n4": {
+              "text": "\"Value Extract\""
+            }
+          },
+          "tones": {
+            "n1": "data",
+            "n2": "data",
+            "n3": "data",
+            "n4": "data"
+          },
+          "arrows": [
+            [
+              "n1",
+              "n2"
+            ],
+            [
+              "n2",
+              "n3"
+            ],
+            [
+              "n3",
+              "n4"
+            ]
+          ]
+        }
+      ]
+    }
+  }
+]

@@ -6,78 +6,158 @@
   "model": "anthropic/claude-3.5-sonnet",
   "entries": [
     {
-      "partTitle": "Why we need functions",
-      "codeHash": "48b0f41a7a7eeea1907b42ac24a22b4c03d8dc62f36c9f60eb8c0fd868488eb0",
+      "partTitle": "The V8 Execution Context Lifecycle: Creation Phase, Hoisting, Variable Environments & Call Stack Management",
+      "codeHash": "d0f25c07f725a68c357f6f2c804915ddb4c7ac0c87e68d39726c9f6eb421bca4",
       "spec": {
         "template": "flow",
-        "title": "Reusable instruction execution with functions",
+        "title": "Execution Context Creation and Temporal Dead Zone",
         "nodes": [
           {
-            "id": "call1",
-            "label": "greet",
-            "tappable": true
+            "id": "n1",
+            "label": "Creation Phase",
+            "tappable": false
           },
           {
-            "id": "fn",
-            "label": "function",
-            "tappable": true
+            "id": "n2",
+            "label": "Temporal Dead Zone",
+            "tappable": false
           },
           {
-            "id": "out",
-            "label": "instructions",
-            "tappable": true
+            "id": "n3",
+            "label": "Lexical Binding",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "Initialized Variable",
+            "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A function calculates rules across different products.",
+            "caption": "Context creation phase allocates memory space for let and const.",
             "values": {
-              "call1": {
-                "text": "greet()"
+              "n1": {
+                "text": "\"Creation Phase\""
               },
-              "fn": {
-                "text": "greet"
+              "n2": {
+                "text": "\"Temporal Dead Zone\""
               },
-              "out": {
-                "text": "function"
+              "n3": {
+                "text": "\"Lexical Binding\""
+              },
+              "n4": {
+                "text": "\"Initialized Variable\""
               }
             },
             "tones": {
-              "call1": "data",
-              "fn": "idle",
-              "out": "idle"
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Uninitialized bindings enter strict temporal dead zone window.",
+            "values": {
+              "n1": {
+                "text": "\"Creation Phase\""
+              },
+              "n2": {
+                "text": "\"Temporal Dead Zone\""
+              },
+              "n3": {
+                "text": "\"Lexical Binding\""
+              },
+              "n4": {
+                "text": "\"Initialized Variable\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "call1",
-                "fn"
+                "n1",
+                "n2"
               ]
             ]
           },
           {
-            "at": "say2",
-            "caption": "A function is a named set of instructions with curly brackets.",
+            "at": "say3",
+            "caption": "Execution phase reaches lexical declaration initializing value.",
             "values": {
-              "call1": {
-                "text": "greet()"
+              "n1": {
+                "text": "\"Creation Phase\""
               },
-              "fn": {
-                "text": "Welcome to Job Tracker!"
+              "n2": {
+                "text": "\"Temporal Dead Zone\""
               },
-              "out": {
-                "text": "Welcome to Job Tracker!"
+              "n3": {
+                "text": "\"Lexical Binding\""
+              },
+              "n4": {
+                "text": "\"Initialized Variable\""
               }
             },
             "tones": {
-              "call1": "idle",
-              "fn": "ok",
-              "out": "ok"
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "fn",
-                "out"
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Temporal dead zone clears enabling safe variable read access.",
+            "values": {
+              "n1": {
+                "text": "\"Creation Phase\""
+              },
+              "n2": {
+                "text": "\"Temporal Dead Zone\""
+              },
+              "n3": {
+                "text": "\"Lexical Binding\""
+              },
+              "n4": {
+                "text": "\"Initialized Variable\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "data"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
               ]
             ]
           }
@@ -85,62 +165,154 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Reusable instruction execution with functions",
+        "title": "Execution Context Creation and Temporal Dead Zone",
         "nodes": [
           {
-            "id": "call1",
-            "label": "greet",
-            "tappable": true
+            "id": "n1",
+            "label": "Creation Phase",
+            "tappable": false
           },
           {
-            "id": "fn",
-            "label": "function",
-            "tappable": true
+            "id": "n2",
+            "label": "Temporal Dead Zone",
+            "tappable": false
           },
           {
-            "id": "out",
-            "label": "instructions",
-            "tappable": true
+            "id": "n3",
+            "label": "Lexical Binding",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "Initialized Variable",
+            "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A function calculates rules across different products.",
+            "caption": "Context creation phase allocates memory space for let and const.",
             "values": {
-              "call1": "greet()",
-              "fn": "greet",
-              "out": "function"
+              "n1": {
+                "text": "\"Creation Phase\""
+              },
+              "n2": {
+                "text": "\"Temporal Dead Zone\""
+              },
+              "n3": {
+                "text": "\"Lexical Binding\""
+              },
+              "n4": {
+                "text": "\"Initialized Variable\""
+              }
             },
             "tones": {
-              "call1": "data",
-              "fn": "idle",
-              "out": "idle"
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Uninitialized bindings enter strict temporal dead zone window.",
+            "values": {
+              "n1": {
+                "text": "\"Creation Phase\""
+              },
+              "n2": {
+                "text": "\"Temporal Dead Zone\""
+              },
+              "n3": {
+                "text": "\"Lexical Binding\""
+              },
+              "n4": {
+                "text": "\"Initialized Variable\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "call1",
-                "fn"
+                "n1",
+                "n2"
               ]
             ]
           },
           {
-            "at": "say2",
-            "caption": "A function is a named set of instructions with curly brackets.",
+            "at": "say3",
+            "caption": "Execution phase reaches lexical declaration initializing value.",
             "values": {
-              "call1": "greet()",
-              "fn": "Welcome to Job Tracker!",
-              "out": "Welcome to Job Tracker!"
+              "n1": {
+                "text": "\"Creation Phase\""
+              },
+              "n2": {
+                "text": "\"Temporal Dead Zone\""
+              },
+              "n3": {
+                "text": "\"Lexical Binding\""
+              },
+              "n4": {
+                "text": "\"Initialized Variable\""
+              }
             },
             "tones": {
-              "call1": "idle",
-              "fn": "ok",
-              "out": "ok"
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "fn",
-                "out"
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Temporal dead zone clears enabling safe variable read access.",
+            "values": {
+              "n1": {
+                "text": "\"Creation Phase\""
+              },
+              "n2": {
+                "text": "\"Temporal Dead Zone\""
+              },
+              "n3": {
+                "text": "\"Lexical Binding\""
+              },
+              "n4": {
+                "text": "\"Initialized Variable\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "data"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
               ]
             ]
           }
@@ -148,629 +320,831 @@
       }
     },
     {
-      "partTitle": "Inputs and answers: parameters and return",
-      "codeHash": "c566558c3eb07f9e841993340e9d4f060f365d8fe4aece8a584d64d1c0fa0a6c",
-      "spec": {
-        "template": "flow",
-        "title": "Function parameters and return values",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "price",
-            "tappable": true
-          },
-          {
-            "id": "fn",
-            "label": "addGst",
-            "tappable": true
-          },
-          {
-            "id": "output",
-            "label": "phone",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Parameters pass input information into the function.",
-            "values": {
-              "input": {
-                "text": "10000"
-              },
-              "fn": {
-                "text": "addGst"
-              },
-              "output": {
-                "text": "phone"
-              }
-            },
-            "tones": {
-              "input": "data",
-              "fn": "idle",
-              "output": "idle"
-            },
-            "arrows": [
-              [
-                "input",
-                "fn"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "The return keyword sends the calculated result back.",
-            "values": {
-              "input": {
-                "text": "10000"
-              },
-              "fn": {
-                "text": "price"
-              },
-              "output": {
-                "text": "phone"
-              }
-            },
-            "tones": {
-              "input": "idle",
-              "fn": "data",
-              "output": "ok"
-            },
-            "arrows": [
-              [
-                "fn",
-                "output"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Function parameters and return values",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "price",
-            "tappable": true
-          },
-          {
-            "id": "fn",
-            "label": "addGst",
-            "tappable": true
-          },
-          {
-            "id": "output",
-            "label": "phone",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Parameters pass input information into the function.",
-            "values": {
-              "input": "10000",
-              "fn": "addGst",
-              "output": "phone"
-            },
-            "tones": {
-              "input": "data",
-              "fn": "idle",
-              "output": "idle"
-            },
-            "arrows": [
-              [
-                "input",
-                "fn"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "The return keyword sends the calculated result back.",
-            "values": {
-              "input": "10000",
-              "fn": "price",
-              "output": "phone"
-            },
-            "tones": {
-              "input": "idle",
-              "fn": "data",
-              "output": "ok"
-            },
-            "arrows": [
-              [
-                "fn",
-                "output"
-              ]
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Arrow functions: the short way",
-      "codeHash": "77c2144f0b1910f76574e02468aa0a33101962a82d9ab18d07070546ddac4834",
+      "partTitle": "Lexical Scoping & Closures: Retaining Outer Scope References Across Asynchronous Stack Lifecycles",
+      "codeHash": "fd7ffa720a1eb96420fe5b51bf5fc06ea1213a1eb65d4e2e50785195fa67c709",
       "spec": {
         "template": "boxes",
-        "title": "Arrow function definitions and execution",
+        "title": "Lexical Scope Chains and Closure Heap Migration",
         "boxes": [
           {
-            "id": "double",
-            "label": "double",
-            "tappable": true
+            "id": "b1",
+            "label": "Outer Activation Frame",
+            "tappable": false
           },
           {
-            "id": "fullName",
-            "label": "fullName",
-            "tappable": true
+            "id": "b2",
+            "label": "Closure Reference",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Call Stack Pop",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "Heap Scope Object",
+            "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Arrow functions provide a concise syntax for writing logic.",
+            "caption": "Outer function executes allocating local activation variables.",
             "values": {
-              "double": {
-                "text": "double"
+              "b1": {
+                "text": "\"Outer Activation Frame\""
               },
-              "fullName": {
-                "text": "fullName"
+              "b2": {
+                "text": "\"Closure Reference\""
+              },
+              "b3": {
+                "text": "\"Call Stack Pop\""
+              },
+              "b4": {
+                "text": "\"Heap Scope Object\""
               }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "Calling double with 21 returns the multiplied answer.",
+            "caption": "Inner function captures reference to outer scope variables.",
             "values": {
-              "double": {
-                "text": "double(21)"
+              "b1": {
+                "text": "\"Outer Activation Frame\""
               },
-              "fullName": {
-                "text": "Kumar"
+              "b2": {
+                "text": "\"Closure Reference\""
+              },
+              "b3": {
+                "text": "\"Call Stack Pop\""
+              },
+              "b4": {
+                "text": "\"Heap Scope Object\""
               }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Outer function returns popping frame from active call stack.",
+            "values": {
+              "b1": {
+                "text": "\"Outer Activation Frame\""
+              },
+              "b2": {
+                "text": "\"Closure Reference\""
+              },
+              "b3": {
+                "text": "\"Call Stack Pop\""
+              },
+              "b4": {
+                "text": "\"Heap Scope Object\""
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Captured closure context migrates to heap preserving access.",
+            "values": {
+              "b1": {
+                "text": "\"Outer Activation Frame\""
+              },
+              "b2": {
+                "text": "\"Closure Reference\""
+              },
+              "b3": {
+                "text": "\"Call Stack Pop\""
+              },
+              "b4": {
+                "text": "\"Heap Scope Object\""
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "data"
             }
           }
         ]
       },
       "filled": {
         "template": "boxes",
-        "title": "Arrow function definitions and execution",
+        "title": "Lexical Scope Chains and Closure Heap Migration",
         "boxes": [
           {
-            "id": "double",
-            "label": "double",
-            "tappable": true
+            "id": "b1",
+            "label": "Outer Activation Frame",
+            "tappable": false
           },
           {
-            "id": "fullName",
-            "label": "fullName",
-            "tappable": true
+            "id": "b2",
+            "label": "Closure Reference",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Call Stack Pop",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "Heap Scope Object",
+            "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Arrow functions provide a concise syntax for writing logic.",
+            "caption": "Outer function executes allocating local activation variables.",
             "values": {
-              "double": "double",
-              "fullName": "fullName"
+              "b1": {
+                "text": "\"Outer Activation Frame\""
+              },
+              "b2": {
+                "text": "\"Closure Reference\""
+              },
+              "b3": {
+                "text": "\"Call Stack Pop\""
+              },
+              "b4": {
+                "text": "\"Heap Scope Object\""
+              }
             },
-            "tones": {}
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
           },
           {
             "at": "say2",
-            "caption": "Calling double with 21 returns the multiplied answer.",
+            "caption": "Inner function captures reference to outer scope variables.",
             "values": {
-              "double": "double(21)",
-              "fullName": "Kumar"
+              "b1": {
+                "text": "\"Outer Activation Frame\""
+              },
+              "b2": {
+                "text": "\"Closure Reference\""
+              },
+              "b3": {
+                "text": "\"Call Stack Pop\""
+              },
+              "b4": {
+                "text": "\"Heap Scope Object\""
+              }
             },
-            "tones": {}
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Outer function returns popping frame from active call stack.",
+            "values": {
+              "b1": {
+                "text": "\"Outer Activation Frame\""
+              },
+              "b2": {
+                "text": "\"Closure Reference\""
+              },
+              "b3": {
+                "text": "\"Call Stack Pop\""
+              },
+              "b4": {
+                "text": "\"Heap Scope Object\""
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Captured closure context migrates to heap preserving access.",
+            "values": {
+              "b1": {
+                "text": "\"Outer Activation Frame\""
+              },
+              "b2": {
+                "text": "\"Closure Reference\""
+              },
+              "b3": {
+                "text": "\"Call Stack Pop\""
+              },
+              "b4": {
+                "text": "\"Heap Scope Object\""
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "data"
+            }
           }
         ]
       }
     },
     {
-      "partTitle": "Making decisions with if and else",
-      "codeHash": "4e96c82635c2af290e24cdc2523fa717ba32522620ab067bf935722ed1246400",
+      "partTitle": "Pure Functions, Deterministic Computation & Eliminating Unintended Side Effects in UI Systems",
+      "codeHash": "89fbe99eaa458c1ca3cf7fdb4e1624c44beff81e54ecae144c637d036e1cb557",
+      "spec": {
+        "template": "flow",
+        "title": "Higher-Order Function Currying and Composed Pipelines",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "Curried Function",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "Configuration Closure",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "Input Dispatch",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "Composed Result",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Multi-argument function curries into sequence of unary handlers.",
+            "values": {
+              "n1": {
+                "text": "\"Curried Function\""
+              },
+              "n2": {
+                "text": "\"Configuration Closure\""
+              },
+              "n3": {
+                "text": "\"Input Dispatch\""
+              },
+              "n4": {
+                "text": "\"Composed Result\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "First unary invocation captures configuration parameter in closure.",
+            "values": {
+              "n1": {
+                "text": "\"Curried Function\""
+              },
+              "n2": {
+                "text": "\"Configuration Closure\""
+              },
+              "n3": {
+                "text": "\"Input Dispatch\""
+              },
+              "n4": {
+                "text": "\"Composed Result\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Second invocation receives operational input record for processing.",
+            "values": {
+              "n1": {
+                "text": "\"Curried Function\""
+              },
+              "n2": {
+                "text": "\"Configuration Closure\""
+              },
+              "n3": {
+                "text": "\"Input Dispatch\""
+              },
+              "n4": {
+                "text": "\"Composed Result\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Composed pipeline executes left-to-right yielding pure result.",
+            "values": {
+              "n1": {
+                "text": "\"Curried Function\""
+              },
+              "n2": {
+                "text": "\"Configuration Closure\""
+              },
+              "n3": {
+                "text": "\"Input Dispatch\""
+              },
+              "n4": {
+                "text": "\"Composed Result\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "data"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Higher-Order Function Currying and Composed Pipelines",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "Curried Function",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "Configuration Closure",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "Input Dispatch",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "Composed Result",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Multi-argument function curries into sequence of unary handlers.",
+            "values": {
+              "n1": {
+                "text": "\"Curried Function\""
+              },
+              "n2": {
+                "text": "\"Configuration Closure\""
+              },
+              "n3": {
+                "text": "\"Input Dispatch\""
+              },
+              "n4": {
+                "text": "\"Composed Result\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "First unary invocation captures configuration parameter in closure.",
+            "values": {
+              "n1": {
+                "text": "\"Curried Function\""
+              },
+              "n2": {
+                "text": "\"Configuration Closure\""
+              },
+              "n3": {
+                "text": "\"Input Dispatch\""
+              },
+              "n4": {
+                "text": "\"Composed Result\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Second invocation receives operational input record for processing.",
+            "values": {
+              "n1": {
+                "text": "\"Curried Function\""
+              },
+              "n2": {
+                "text": "\"Configuration Closure\""
+              },
+              "n3": {
+                "text": "\"Input Dispatch\""
+              },
+              "n4": {
+                "text": "\"Composed Result\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Composed pipeline executes left-to-right yielding pure result.",
+            "values": {
+              "n1": {
+                "text": "\"Curried Function\""
+              },
+              "n2": {
+                "text": "\"Configuration Closure\""
+              },
+              "n3": {
+                "text": "\"Input Dispatch\""
+              },
+              "n4": {
+                "text": "\"Composed Result\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "data"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Higher-Order Functions, Function Composition Pipelines & Currying in Modern JavaScript",
+      "codeHash": "feaaa4b81ffacae3a0954ee3d3761c28c3bb8e1be29976934ed49c978504a926",
       "spec": {
         "template": "compare",
-        "title": "Conditional branching with if and else",
-        "leftLabel": "Pass Branch",
-        "rightLabel": "Fail Branch",
+        "title": "Pattern Matching Exhaustiveness and Discriminated Unions",
+        "leftLabel": "Standard Execution",
+        "rightLabel": "Optimized Pipeline",
         "steps": [
           {
             "at": "say1",
-            "caption": "Programs make choices by checking conditions with if and else.",
+            "caption": "Discriminated union type specifies distinct literal discriminant.",
             "left": {
-              "code": "console.log(getResult(72));",
+              "code": "// Left pipeline phase 1",
               "result": {
-                "text": "\"Pass\""
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "console.log(getResult(35));",
-              "result": {
-                "text": "\"Fail\""
+                "text": "\"Standard\""
               },
               "tone": "idle"
+            },
+            "right": {
+              "code": "// Optimized pipeline phase 1",
+              "result": {
+                "text": "\"Optimized\""
+              },
+              "tone": "ok"
             }
           },
           {
             "at": "say2",
-            "caption": "Round brackets hold the condition to run when it is true.",
+            "caption": "Switch statement branches across all valid union discriminator cases.",
             "left": {
-              "code": "console.log(getResult(72));",
+              "code": "// Left pipeline phase 2",
               "result": {
-                "text": "Pass"
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "console.log(getResult(35));",
-              "result": {
-                "text": "Fail"
+                "text": "\"Standard\""
               },
               "tone": "data"
+            },
+            "right": {
+              "code": "// Optimized pipeline phase 2",
+              "result": {
+                "text": "\"Optimized\""
+              },
+              "tone": "ok"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "TypeScript narrows entity shape within each conditional branch.",
+            "left": {
+              "code": "// Left pipeline phase 3",
+              "result": {
+                "text": "\"Standard\""
+              },
+              "tone": "data"
+            },
+            "right": {
+              "code": "// Optimized pipeline phase 3",
+              "result": {
+                "text": "\"Optimized\""
+              },
+              "tone": "ok"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Default case asserts never type guaranteeing compile-time safety.",
+            "left": {
+              "code": "// Left pipeline phase 4",
+              "result": {
+                "text": "\"Standard\""
+              },
+              "tone": "data"
+            },
+            "right": {
+              "code": "// Optimized pipeline phase 4",
+              "result": {
+                "text": "\"Optimized\""
+              },
+              "tone": "ok"
             }
           }
         ]
       },
       "filled": {
         "template": "compare",
-        "title": "Conditional branching with if and else",
-        "leftLabel": "Pass Branch",
-        "rightLabel": "Fail Branch",
+        "title": "Pattern Matching Exhaustiveness and Discriminated Unions",
+        "leftLabel": "Standard Execution",
+        "rightLabel": "Optimized Pipeline",
         "steps": [
           {
             "at": "say1",
-            "caption": "Programs make choices by checking conditions with if and else.",
+            "caption": "Discriminated union type specifies distinct literal discriminant.",
             "left": {
-              "code": "console.log(getResult(72));",
-              "result": "\"Pass\"",
-              "tone": "ok",
-              "checks": [
-                "\"Pass\""
-              ]
+              "code": "// Left pipeline phase 1",
+              "result": {
+                "text": "\"Standard\""
+              },
+              "tone": "idle"
             },
             "right": {
-              "code": "console.log(getResult(35));",
-              "result": "\"Fail\"",
-              "tone": "idle",
-              "checks": [
-                "\"Fail\""
-              ]
+              "code": "// Optimized pipeline phase 1",
+              "result": {
+                "text": "\"Optimized\""
+              },
+              "tone": "ok"
             }
           },
           {
             "at": "say2",
-            "caption": "Round brackets hold the condition to run when it is true.",
+            "caption": "Switch statement branches across all valid union discriminator cases.",
             "left": {
-              "code": "console.log(getResult(72));",
-              "result": "Pass",
-              "tone": "ok",
-              "checks": [
-                "Pass"
-              ]
+              "code": "// Left pipeline phase 2",
+              "result": {
+                "text": "\"Standard\""
+              },
+              "tone": "data"
             },
             "right": {
-              "code": "console.log(getResult(35));",
-              "result": "Fail",
-              "tone": "data",
-              "checks": [
-                "Fail"
-              ]
+              "code": "// Optimized pipeline phase 2",
+              "result": {
+                "text": "\"Optimized\""
+              },
+              "tone": "ok"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "TypeScript narrows entity shape within each conditional branch.",
+            "left": {
+              "code": "// Left pipeline phase 3",
+              "result": {
+                "text": "\"Standard\""
+              },
+              "tone": "data"
+            },
+            "right": {
+              "code": "// Optimized pipeline phase 3",
+              "result": {
+                "text": "\"Optimized\""
+              },
+              "tone": "ok"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Default case asserts never type guaranteeing compile-time safety.",
+            "left": {
+              "code": "// Left pipeline phase 4",
+              "result": {
+                "text": "\"Standard\""
+              },
+              "tone": "data"
+            },
+            "right": {
+              "code": "// Optimized pipeline phase 4",
+              "result": {
+                "text": "\"Optimized\""
+              },
+              "tone": "ok"
             }
           }
         ]
       }
     },
     {
-      "partTitle": "More choices: else if, and, or",
-      "codeHash": "2bba45d82ee67214a6ec5168d877f181f6bce9359cc589e2627b2efa7632c1a0",
+      "partTitle": "Declarative Control Flow: Guard Clauses, Pattern Matching & Finite State Machine Encodings",
+      "codeHash": "c9a63d068c15b317b3d68779fb5515e968a8e0c51e64ed3aa60c03caa6b3608c",
       "spec": {
-        "template": "boxes",
-        "title": "Multiple choices and logical operators",
-        "boxes": [
+        "template": "states",
+        "title": "Pure Function Execution and Side-Effect Isolation",
+        "states": [
           {
-            "id": "status",
-            "label": "status",
-            "tappable": true
+            "id": "s1",
+            "label": "Initialization"
           },
           {
-            "id": "salary",
-            "label": "salary",
-            "tappable": true
+            "id": "s2",
+            "label": "Execution"
+          },
+          {
+            "id": "s3",
+            "label": "Derivation"
+          },
+          {
+            "id": "s4",
+            "label": "Resolution"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Else if tests multiple branches in sequential order.",
-            "values": {
-              "status": {
-                "text": "interview"
-              },
-              "salary": {
-                "text": "600000"
-              }
-            }
+            "caption": "Pure function receives deterministic input parameters from caller.",
+            "activeId": "s1",
+            "tone": "idle"
+          },
+          {
+            "at": "say2",
+            "caption": "Computation executes solely against local immutable stack values.",
+            "activeId": "s2",
+            "tone": "data"
           },
           {
             "at": "say3",
-            "caption": "Logical operators check whether conditions match criteria.",
-            "values": {
-              "status": {
-                "text": "Interview scheduled"
-              },
-              "salary": {
-                "text": "600000"
-              }
-            }
+            "caption": "Function returns fresh result with zero global state mutation.",
+            "activeId": "s3",
+            "tone": "ok"
+          },
+          {
+            "at": "say4",
+            "caption": "Side effects isolate strictly behind explicit gateway interfaces.",
+            "activeId": "s4",
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Multiple choices and logical operators",
-        "boxes": [
+        "template": "states",
+        "title": "Pure Function Execution and Side-Effect Isolation",
+        "states": [
           {
-            "id": "status",
-            "label": "status",
-            "tappable": true
+            "id": "s1",
+            "label": "Initialization"
           },
           {
-            "id": "salary",
-            "label": "salary",
-            "tappable": true
+            "id": "s2",
+            "label": "Execution"
+          },
+          {
+            "id": "s3",
+            "label": "Derivation"
+          },
+          {
+            "id": "s4",
+            "label": "Resolution"
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Else if tests multiple branches in sequential order.",
-            "values": {
-              "status": "interview",
-              "salary": "600000"
-            },
-            "tones": {}
+            "caption": "Pure function receives deterministic input parameters from caller.",
+            "activeId": "s1",
+            "tone": "idle"
+          },
+          {
+            "at": "say2",
+            "caption": "Computation executes solely against local immutable stack values.",
+            "activeId": "s2",
+            "tone": "data"
           },
           {
             "at": "say3",
-            "caption": "Logical operators check whether conditions match criteria.",
-            "values": {
-              "status": "Interview scheduled",
-              "salary": "600000"
-            },
-            "tones": {}
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Functions working together (and how this becomes React)",
-      "codeHash": "f11b5a68e898b750c647a2bd9369c683e6f069271f503505cdc6dad50abc4760",
-      "spec": {
-        "template": "flow",
-        "title": "Functions working together (and how this beco... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "caption": "Function returns fresh result with zero global state mutation.",
+            "activeId": "s3",
+            "tone": "ok"
           },
           {
-            "id": "proc",
-            "label": "2. Functions working t...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Functions working together (and how this.. [D3.P6.S1].",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Functions working t... [D3.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D3.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Functions working together (and h.. [D3.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Functions working together (and how this beco... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Functions working t...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Functions working together (and how this.. [D3.P6.S1].",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Functions working t... [D3.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D3.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Functions working together (and h.. [D3.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say4",
+            "caption": "Side effects isolate strictly behind explicit gateway interfaces.",
+            "activeId": "s4",
+            "tone": "ok"
           }
         ]
       }

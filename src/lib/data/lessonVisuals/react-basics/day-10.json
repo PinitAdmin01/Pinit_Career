@@ -1,809 +1,679 @@
-{
-  "schemaVersion": 1,
-  "prefix": "react-basics",
-  "day": 10,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
-    {
-      "partTitle": "From an array of data to a list on screen",
-      "codeHash": "595004ee972a2c22c6005850e7269fa1e78012250bd36418349d4b7d92a4d2b7",
-      "spec": {
-        "template": "flow",
-        "title": "Transforming data collections into interactive components",
-        "nodes": [
-          {
-            "id": "arr",
-            "label": "jobs",
-            "tappable": false
-          },
-          {
-            "id": "map",
-            "label": "map",
-            "tappable": false
-          },
-          {
-            "id": "ui",
-            "label": "JobCard",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Array map transforms raw data objects into React components.",
-            "values": {
-              "arr": {
-                "text": "\"Frontend Developer\""
-              },
-              "map": {
-                "text": "map"
-              },
-              "ui": {
-                "text": "\"React Developer\""
-              }
+[
+  {
+    "schemaVersion": 1,
+    "prefix": "react-basics",
+    "day": 10,
+    "part": 1,
+    "codeHash": "2d6fcdf246d9f1cb7fe1900248ddefd3005f5d55bc85c6adf9958e752b8b0356",
+    "spec": {
+      "template": "flow",
+      "title": "Two Pass Multi Child Diffing Algorithm and Map Resolution",
+      "nodes": [
+        {
+          "id": "n1",
+          "label": "Sequential Match",
+          "tappable": false
+        },
+        {
+          "id": "n2",
+          "label": "Key Mismatch",
+          "tappable": false
+        },
+        {
+          "id": "n3",
+          "label": "Children Map",
+          "tappable": false
+        },
+        {
+          "id": "n4",
+          "label": "Reused Fiber",
+          "tappable": false
+        }
+      ],
+      "steps": [
+        {
+          "at": "say1",
+          "caption": "Reconciler walks sequential nodes while keys and types match.",
+          "values": {
+            "n1": {
+              "text": "\"Sequential Match\""
             },
-            "tones": {
-              "arr": "idle",
-              "map": "data",
-              "ui": "ok"
+            "n2": {
+              "text": "\"Key Mismatch\""
             },
-            "arrows": [
-              [
-                "arr",
-                "map"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Mapping data collections is the fundamental list rendering pattern.",
-            "values": {
-              "arr": {
-                "text": "\"Frontend Developer\""
-              },
-              "map": {
-                "text": "map"
-              },
-              "ui": {
-                "text": "\"React Developer\""
-              }
+            "n3": {
+              "text": "\"Children Map\""
             },
-            "tones": {
-              "arr": "idle",
-              "map": "idle",
-              "ui": "ok"
-            },
-            "arrows": [
-              [
-                "arr",
-                "map"
-              ],
-              [
-                "map",
-                "ui"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Transforming data collections into interactive components",
-        "nodes": [
-          {
-            "id": "arr",
-            "label": "jobs",
-            "tappable": false
-          },
-          {
-            "id": "map",
-            "label": "map",
-            "tappable": false
-          },
-          {
-            "id": "ui",
-            "label": "JobCard",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Array map transforms raw data objects into React components.",
-            "values": {
-              "arr": "\"Frontend Developer\"",
-              "map": "map",
-              "ui": "\"React Developer\""
-            },
-            "tones": {
-              "arr": "idle",
-              "map": "data",
-              "ui": "ok"
-            },
-            "arrows": [
-              [
-                "arr",
-                "map"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Mapping data collections is the fundamental list rendering pattern.",
-            "values": {
-              "arr": "\"Frontend Developer\"",
-              "map": "map",
-              "ui": "\"React Developer\""
-            },
-            "tones": {
-              "arr": "idle",
-              "map": "idle",
-              "ui": "ok"
-            },
-            "arrows": [
-              [
-                "arr",
-                "map"
-              ],
-              [
-                "map",
-                "ui"
-              ]
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Writing map inside JSX",
-      "codeHash": "d7e94977ecee40028823d3cf20bd60df360b9a939795786ab837e4e00e7ef113",
-      "spec": {
-        "template": "compare",
-        "title": "Correct arrow function return syntax in map",
-        "leftLabel": "Missing Return",
-        "rightLabel": "Implicit Return",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Array map expressions inside JSX curly braces return values.",
-            "left": {
-              "code": "const wrong = jobs.map(job => { `<li>${job}</li>` });",
-              "result": {
-                "text": "wrong"
-              },
-              "tone": "warn"
-            },
-            "right": {
-              "code": "const right = jobs.map(job => `<li>${job}</li>`);",
-              "result": {
-                "text": "right"
-              },
-              "tone": "ok"
+            "n4": {
+              "text": "\"Reused Fiber\""
             }
           },
-          {
-            "at": "say3",
-            "caption": "Curly brackets without return yield undefined empty list rendering.",
-            "left": {
-              "code": "const wrong = jobs.map(job => { `<li>${job}</li>` });",
-              "result": {
-                "text": "wrong"
-              },
-              "tone": "warn"
+          "tones": {
+            "n1": "data",
+            "n2": "idle",
+            "n3": "idle",
+            "n4": "idle"
+          },
+          "arrows": []
+        },
+        {
+          "at": "say2",
+          "caption": "First key mismatch terminates sequential traversal immediately.",
+          "values": {
+            "n1": {
+              "text": "\"Sequential Match\""
             },
-            "right": {
-              "code": "const right = jobs.map(job => `<li>${job}</li>`);",
-              "result": {
-                "text": "right"
-              },
-              "tone": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "compare",
-        "title": "Correct arrow function return syntax in map",
-        "leftLabel": "Missing Return",
-        "rightLabel": "Implicit Return",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Array map expressions inside JSX curly braces return values.",
-            "left": {
-              "code": "const wrong = jobs.map(job => { `<li>${job}</li>` });",
-              "result": "wrong",
-              "tone": "warn",
-              "checks": [
-                "wrong"
-              ]
+            "n2": {
+              "text": "\"Key Mismatch\""
             },
-            "right": {
-              "code": "const right = jobs.map(job => `<li>${job}</li>`);",
-              "result": "right",
-              "tone": "ok",
-              "checks": [
-                "right"
-              ]
+            "n3": {
+              "text": "\"Children Map\""
+            },
+            "n4": {
+              "text": "\"Reused Fiber\""
             }
           },
-          {
-            "at": "say3",
-            "caption": "Curly brackets without return yield undefined empty list rendering.",
-            "left": {
-              "code": "const wrong = jobs.map(job => { `<li>${job}</li>` });",
-              "result": "wrong",
-              "tone": "warn",
-              "checks": [
-                "wrong"
-              ]
-            },
-            "right": {
-              "code": "const right = jobs.map(job => `<li>${job}</li>`);",
-              "result": "right",
-              "tone": "ok",
-              "checks": [
-                "right"
-              ]
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Why every item needs a key",
-      "codeHash": "673fc72e333edcfe398064d96ecfaf3d7acb01f97afdf9308166ecc5696cf790",
-      "spec": {
-        "template": "boxes",
-        "title": "Unique keys for list item reconciliation",
-        "boxes": [
-          {
-            "id": "id1",
-            "label": "id1",
-            "tappable": false
+          "tones": {
+            "n1": "data",
+            "n2": "data",
+            "n3": "idle",
+            "n4": "idle"
           },
-          {
-            "id": "id2",
-            "label": "id2",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "React requires a unique key prop for list items.",
-            "values": {
-              "id1": {
-                "text": "1"
-              },
-              "id2": {
-                "text": "2"
-              }
+          "arrows": [
+            [
+              "n1",
+              "n2"
+            ]
+          ]
+        },
+        {
+          "at": "say3",
+          "caption": "Remaining old fibers collect into key indexed hash map table.",
+          "values": {
+            "n1": {
+              "text": "\"Sequential Match\""
+            },
+            "n2": {
+              "text": "\"Key Mismatch\""
+            },
+            "n3": {
+              "text": "\"Children Map\""
+            },
+            "n4": {
+              "text": "\"Reused Fiber\""
             }
           },
-          {
-            "at": "say3",
-            "caption": "A stable unique key identifies each item across updates.",
-            "values": {
-              "id1": {
-                "text": "1"
-              },
-              "id2": {
-                "text": "2"
-              }
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Unique keys for list item reconciliation",
-        "boxes": [
-          {
-            "id": "id1",
-            "label": "id1",
-            "tappable": false
+          "tones": {
+            "n1": "data",
+            "n2": "data",
+            "n3": "data",
+            "n4": "idle"
           },
-          {
-            "id": "id2",
-            "label": "id2",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "React requires a unique key prop for list items.",
-            "values": {
-              "id1": "1",
-              "id2": "2"
+          "arrows": [
+            [
+              "n1",
+              "n2"
+            ],
+            [
+              "n2",
+              "n3"
+            ]
+          ]
+        },
+        {
+          "at": "say4",
+          "caption": "Reconciler extracts matching fibers in constant time linear diff.",
+          "values": {
+            "n1": {
+              "text": "\"Sequential Match\""
             },
-            "tones": {}
-          },
-          {
-            "at": "say3",
-            "caption": "A stable unique key identifies each item across updates.",
-            "values": {
-              "id1": "1",
-              "id2": "2"
+            "n2": {
+              "text": "\"Key Mismatch\""
             },
-            "tones": {}
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "When the list is empty",
-      "codeHash": "02bb1215a506aa20baa2ad5a981709a3e1ff12a305da5903bc887ba4f1b12ee9",
-      "spec": {
-        "template": "compare",
-        "title": "Handling empty lists with conditional rendering",
-        "leftLabel": "Empty List",
-        "rightLabel": "With Data",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Empty collections should display a friendly fallback message.",
-            "left": {
-              "code": "console.log(listMessage([]));",
-              "result": {
-                "text": "\"No jobs yet. Add your first one!\""
-              },
-              "tone": "idle"
+            "n3": {
+              "text": "\"Children Map\""
             },
-            "right": {
-              "code": "console.log(listMessage([{ id: 1 }, { id: 2 }]));",
-              "result": {
-                "text": "`Showing ${jobs.length} jobs`"
-              },
-              "tone": "ok"
+            "n4": {
+              "text": "\"Reused Fiber\""
             }
           },
-          {
-            "at": "say2",
-            "caption": "Conditional logical AND operator renders elements when length matches.",
-            "left": {
-              "code": "console.log(listMessage([]));",
-              "result": {
-                "text": "\"No jobs yet. Add your first one!\""
-              },
-              "tone": "idle"
-            },
-            "right": {
-              "code": "console.log(listMessage([{ id: 1 }, { id: 2 }]));",
-              "result": {
-                "text": "`Showing ${jobs.length} jobs`"
-              },
-              "tone": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "compare",
-        "title": "Handling empty lists with conditional rendering",
-        "leftLabel": "Empty List",
-        "rightLabel": "With Data",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Empty collections should display a friendly fallback message.",
-            "left": {
-              "code": "console.log(listMessage([]));",
-              "result": "\"No jobs yet. Add your first one!\"",
-              "tone": "idle",
-              "checks": [
-                "\"No jobs yet. Add your first one!\""
-              ]
-            },
-            "right": {
-              "code": "console.log(listMessage([{ id: 1 }, { id: 2 }]));",
-              "result": "`Showing ${jobs.length} jobs`",
-              "tone": "ok",
-              "checks": [
-                "`Showing ${jobs.length} jobs`"
-              ]
-            }
+          "tones": {
+            "n1": "data",
+            "n2": "data",
+            "n3": "data",
+            "n4": "data"
           },
-          {
-            "at": "say2",
-            "caption": "Conditional logical AND operator renders elements when length matches.",
-            "left": {
-              "code": "console.log(listMessage([]));",
-              "result": "\"No jobs yet. Add your first one!\"",
-              "tone": "idle",
-              "checks": [
-                "\"No jobs yet. Add your first one!\""
-              ]
-            },
-            "right": {
-              "code": "console.log(listMessage([{ id: 1 }, { id: 2 }]));",
-              "result": "`Showing ${jobs.length} jobs`",
-              "tone": "ok",
-              "checks": [
-                "`Showing ${jobs.length} jobs`"
-              ]
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "filter and map together",
-      "codeHash": "f56c6baa5fd1e9048d413908d7530ce41b4f2a608ce2850b5ed41b87058ba961",
-      "spec": {
-        "template": "flow",
-        "title": "Chaining filter and map for list display",
-        "nodes": [
-          {
-            "id": "all",
-            "label": "jobs",
-            "tappable": false
-          },
-          {
-            "id": "filter",
-            "label": "filter",
-            "tappable": false
-          },
-          {
-            "id": "cards",
-            "label": "cards",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Combine filter and map to show subsets of items.",
-            "values": {
-              "all": {
-                "text": "jobs"
-              },
-              "filter": {
-                "text": "\"interview\""
-              },
-              "cards": {
-                "text": "cards"
-              }
-            },
-            "tones": {
-              "all": "idle",
-              "filter": "idle",
-              "cards": "idle"
-            },
-            "arrows": [
-              [
-                "all",
-                "filter"
-              ]
+          "arrows": [
+            [
+              "n1",
+              "n2"
+            ],
+            [
+              "n2",
+              "n3"
+            ],
+            [
+              "n3",
+              "n4"
             ]
-          },
-          {
-            "at": "say2",
-            "caption": "Filtering jobs before mapping keeps JSX return statements clean.",
-            "values": {
-              "all": {
-                "text": "jobs"
-              },
-              "filter": {
-                "text": "\"interview\""
-              },
-              "cards": {
-                "text": "cards"
-              }
-            },
-            "tones": {
-              "all": "idle",
-              "filter": "data",
-              "cards": "ok"
-            },
-            "arrows": [
-              [
-                "all",
-                "filter"
-              ],
-              [
-                "filter",
-                "cards"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Chaining filter and map for list display",
-        "nodes": [
-          {
-            "id": "all",
-            "label": "jobs",
-            "tappable": false
-          },
-          {
-            "id": "filter",
-            "label": "filter",
-            "tappable": false
-          },
-          {
-            "id": "cards",
-            "label": "cards",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Combine filter and map to show subsets of items.",
-            "values": {
-              "all": "jobs",
-              "filter": "\"interview\"",
-              "cards": "cards"
-            },
-            "tones": {
-              "all": "idle",
-              "filter": "idle",
-              "cards": "idle"
-            },
-            "arrows": [
-              [
-                "all",
-                "filter"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "Filtering jobs before mapping keeps JSX return statements clean.",
-            "values": {
-              "all": "jobs",
-              "filter": "\"interview\"",
-              "cards": "cards"
-            },
-            "tones": {
-              "all": "idle",
-              "filter": "data",
-              "cards": "ok"
-            },
-            "arrows": [
-              [
-                "all",
-                "filter"
-              ],
-              [
-                "filter",
-                "cards"
-              ]
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Build the JobList component",
-      "codeHash": "addfaa2bd6b497aa1181025c0349fe88b883deb3418abb88c57bd864a01ec230",
-      "spec": {
-        "template": "flow",
-        "title": "Build the JobList component — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Build the JobList c...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Build the JobList component [D10.P6.S1].",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Build the JobList c... [D10.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D10.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Build the JobList component [D10.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Build the JobList component — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Build the JobList c...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Build the JobList component [D10.P6.S1].",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Build the JobList c... [D10.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D10.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Build the JobList component [D10.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      }
+          ]
+        }
+      ]
     }
-  ]
-}
+  },
+  {
+    "schemaVersion": 1,
+    "prefix": "react-basics",
+    "day": 10,
+    "part": 2,
+    "codeHash": "23858384df6351b7ff3305523177e5c9ccc95109acb78154ffe9da33706f9f4c",
+    "spec": {
+      "template": "compare",
+      "title": "Stable Primary Key vs Positional Index Key Under Mutation",
+      "left": {
+        "label": "Standard Implementation"
+      },
+      "right": {
+        "label": "Architectural Pattern"
+      },
+      "steps": [
+        {
+          "at": "say1",
+          "caption": "Index keys bind component identity to current array sequence.",
+          "left": {
+            "code": "// Left pipeline phase 1",
+            "result": {
+              "text": "\"Standard\""
+            },
+            "tone": "idle"
+          },
+          "right": {
+            "code": "// Optimized pipeline phase 1",
+            "result": {
+              "text": "\"Optimized\""
+            },
+            "tone": "ok"
+          }
+        },
+        {
+          "at": "say2",
+          "caption": "Prepend mutations shift indices causing state to attach to wrong rows.",
+          "left": {
+            "code": "// Left pipeline phase 2",
+            "result": {
+              "text": "\"Standard\""
+            },
+            "tone": "data"
+          },
+          "right": {
+            "code": "// Optimized pipeline phase 2",
+            "result": {
+              "text": "\"Optimized\""
+            },
+            "tone": "ok"
+          }
+        },
+        {
+          "at": "say3",
+          "caption": "Stable domain keys track entity identity across array movements.",
+          "left": {
+            "code": "// Left pipeline phase 3",
+            "result": {
+              "text": "\"Standard\""
+            },
+            "tone": "data"
+          },
+          "right": {
+            "code": "// Optimized pipeline phase 3",
+            "result": {
+              "text": "\"Optimized\""
+            },
+            "tone": "ok"
+          }
+        },
+        {
+          "at": "say4",
+          "caption": "Component inputs and focus follow correct data items seamlessly.",
+          "left": {
+            "code": "// Left pipeline phase 4",
+            "result": {
+              "text": "\"Standard\""
+            },
+            "tone": "data"
+          },
+          "right": {
+            "code": "// Optimized pipeline phase 4",
+            "result": {
+              "text": "\"Optimized\""
+            },
+            "tone": "ok"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "prefix": "react-basics",
+    "day": 10,
+    "part": 3,
+    "codeHash": "6749563a1a49172eb834859525bfadf942424153d2b63eaee7038f85088628d6",
+    "spec": {
+      "template": "flow",
+      "title": "Last Placed Index Tracking and Minimal DOM Relocation",
+      "nodes": [
+        {
+          "id": "n1",
+          "label": "Element Order",
+          "tappable": false
+        },
+        {
+          "id": "n2",
+          "label": "Old Index Lookup",
+          "tappable": false
+        },
+        {
+          "id": "n3",
+          "label": "Placement Check",
+          "tappable": false
+        },
+        {
+          "id": "n4",
+          "label": "Insert Before",
+          "tappable": false
+        }
+      ],
+      "steps": [
+        {
+          "at": "say1",
+          "caption": "Reconciler inspects new element list in desired DOM order.",
+          "values": {
+            "n1": {
+              "text": "\"Element Order\""
+            },
+            "n2": {
+              "text": "\"Old Index Lookup\""
+            },
+            "n3": {
+              "text": "\"Placement Check\""
+            },
+            "n4": {
+              "text": "\"Insert Before\""
+            }
+          },
+          "tones": {
+            "n1": "data",
+            "n2": "idle",
+            "n3": "idle",
+            "n4": "idle"
+          },
+          "arrows": []
+        },
+        {
+          "at": "say2",
+          "caption": "Engine looks up matching old fiber position in previous render.",
+          "values": {
+            "n1": {
+              "text": "\"Element Order\""
+            },
+            "n2": {
+              "text": "\"Old Index Lookup\""
+            },
+            "n3": {
+              "text": "\"Placement Check\""
+            },
+            "n4": {
+              "text": "\"Insert Before\""
+            }
+          },
+          "tones": {
+            "n1": "data",
+            "n2": "data",
+            "n3": "idle",
+            "n4": "idle"
+          },
+          "arrows": [
+            [
+              "n1",
+              "n2"
+            ]
+          ]
+        },
+        {
+          "at": "say3",
+          "caption": "If old index is less than last placed index a move is scheduled.",
+          "values": {
+            "n1": {
+              "text": "\"Element Order\""
+            },
+            "n2": {
+              "text": "\"Old Index Lookup\""
+            },
+            "n3": {
+              "text": "\"Placement Check\""
+            },
+            "n4": {
+              "text": "\"Insert Before\""
+            }
+          },
+          "tones": {
+            "n1": "data",
+            "n2": "data",
+            "n3": "data",
+            "n4": "idle"
+          },
+          "arrows": [
+            [
+              "n1",
+              "n2"
+            ],
+            [
+              "n2",
+              "n3"
+            ]
+          ]
+        },
+        {
+          "at": "say4",
+          "caption": "Commit phase executes insert before to reposition node cleanly.",
+          "values": {
+            "n1": {
+              "text": "\"Element Order\""
+            },
+            "n2": {
+              "text": "\"Old Index Lookup\""
+            },
+            "n3": {
+              "text": "\"Placement Check\""
+            },
+            "n4": {
+              "text": "\"Insert Before\""
+            }
+          },
+          "tones": {
+            "n1": "data",
+            "n2": "data",
+            "n3": "data",
+            "n4": "data"
+          },
+          "arrows": [
+            [
+              "n1",
+              "n2"
+            ],
+            [
+              "n2",
+              "n3"
+            ],
+            [
+              "n3",
+              "n4"
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "prefix": "react-basics",
+    "day": 10,
+    "part": 4,
+    "codeHash": "3cf8c420954b897c51c14f61302a92237ffc2085208208cd397fe666ebc794ac",
+    "spec": {
+      "template": "boxes",
+      "title": "Viewport Virtualization and Scroll Windowing Engine",
+      "boxes": [
+        {
+          "id": "b1",
+          "label": "Scroll Canvas",
+          "tappable": false
+        },
+        {
+          "id": "b2",
+          "label": "Viewport Slice",
+          "tappable": false
+        },
+        {
+          "id": "b3",
+          "label": "Overscan Buffer",
+          "tappable": false
+        },
+        {
+          "id": "b4",
+          "label": "GPU Transform",
+          "tappable": false
+        }
+      ],
+      "steps": [
+        {
+          "at": "say1",
+          "caption": "Virtual canvas establishes scrollbar reflecting total item count.",
+          "values": {
+            "b1": {
+              "text": "\"Scroll Canvas\""
+            },
+            "b2": {
+              "text": "\"Viewport Slice\""
+            },
+            "b3": {
+              "text": "\"Overscan Buffer\""
+            },
+            "b4": {
+              "text": "\"GPU Transform\""
+            }
+          },
+          "tones": {
+            "b1": "data",
+            "b2": "idle",
+            "b3": "idle",
+            "b4": "idle"
+          }
+        },
+        {
+          "at": "say2",
+          "caption": "Engine calculates visible index boundaries based on scroll offset.",
+          "values": {
+            "b1": {
+              "text": "\"Scroll Canvas\""
+            },
+            "b2": {
+              "text": "\"Viewport Slice\""
+            },
+            "b3": {
+              "text": "\"Overscan Buffer\""
+            },
+            "b4": {
+              "text": "\"GPU Transform\""
+            }
+          },
+          "tones": {
+            "b1": "data",
+            "b2": "data",
+            "b3": "idle",
+            "b4": "idle"
+          }
+        },
+        {
+          "at": "say3",
+          "caption": "Overscan buffer renders extra rows to prevent scrolling blank frames.",
+          "values": {
+            "b1": {
+              "text": "\"Scroll Canvas\""
+            },
+            "b2": {
+              "text": "\"Viewport Slice\""
+            },
+            "b3": {
+              "text": "\"Overscan Buffer\""
+            },
+            "b4": {
+              "text": "\"GPU Transform\""
+            }
+          },
+          "tones": {
+            "b1": "data",
+            "b2": "data",
+            "b3": "data",
+            "b4": "idle"
+          }
+        },
+        {
+          "at": "say4",
+          "caption": "GPU accelerated transform positions active slice with minimal cost.",
+          "values": {
+            "b1": {
+              "text": "\"Scroll Canvas\""
+            },
+            "b2": {
+              "text": "\"Viewport Slice\""
+            },
+            "b3": {
+              "text": "\"Overscan Buffer\""
+            },
+            "b4": {
+              "text": "\"GPU Transform\""
+            }
+          },
+          "tones": {
+            "b1": "data",
+            "b2": "data",
+            "b3": "data",
+            "b4": "data"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "prefix": "react-basics",
+    "day": 10,
+    "part": 5,
+    "codeHash": "c8be7d4dcb2a24fb035cde126b1c63356935f32f5cd563d5c94a68af23decb2a",
+    "spec": {
+      "template": "boxes",
+      "title": "Milestone Two Capstone Dynamic Feed Engine Architecture",
+      "boxes": [
+        {
+          "id": "b1",
+          "label": "Ingestion Pipeline",
+          "tappable": false
+        },
+        {
+          "id": "b2",
+          "label": "Surrogate Keying",
+          "tappable": false
+        },
+        {
+          "id": "b3",
+          "label": "Virtual Window",
+          "tappable": false
+        },
+        {
+          "id": "b4",
+          "label": "Composited Row",
+          "tappable": false
+        }
+      ],
+      "steps": [
+        {
+          "at": "say1",
+          "caption": "Telemetry ingestion pipeline parses high frequency event stream.",
+          "values": {
+            "b1": {
+              "text": "\"Ingestion Pipeline\""
+            },
+            "b2": {
+              "text": "\"Surrogate Keying\""
+            },
+            "b3": {
+              "text": "\"Virtual Window\""
+            },
+            "b4": {
+              "text": "\"Composited Row\""
+            }
+          },
+          "tones": {
+            "b1": "data",
+            "b2": "idle",
+            "b3": "idle",
+            "b4": "idle"
+          }
+        },
+        {
+          "at": "say2",
+          "caption": "Composite surrogate keys ensure bulletproof reconciliation identity.",
+          "values": {
+            "b1": {
+              "text": "\"Ingestion Pipeline\""
+            },
+            "b2": {
+              "text": "\"Surrogate Keying\""
+            },
+            "b3": {
+              "text": "\"Virtual Window\""
+            },
+            "b4": {
+              "text": "\"Composited Row\""
+            }
+          },
+          "tones": {
+            "b1": "data",
+            "b2": "data",
+            "b3": "idle",
+            "b4": "idle"
+          }
+        },
+        {
+          "at": "say3",
+          "caption": "Windowed virtualization caps active DOM elements to viewport size.",
+          "values": {
+            "b1": {
+              "text": "\"Ingestion Pipeline\""
+            },
+            "b2": {
+              "text": "\"Surrogate Keying\""
+            },
+            "b3": {
+              "text": "\"Virtual Window\""
+            },
+            "b4": {
+              "text": "\"Composited Row\""
+            }
+          },
+          "tones": {
+            "b1": "data",
+            "b2": "data",
+            "b3": "data",
+            "b4": "idle"
+          }
+        },
+        {
+          "at": "say4",
+          "caption": "Hardware composited rows render smooth frames without thread jank.",
+          "values": {
+            "b1": {
+              "text": "\"Ingestion Pipeline\""
+            },
+            "b2": {
+              "text": "\"Surrogate Keying\""
+            },
+            "b3": {
+              "text": "\"Virtual Window\""
+            },
+            "b4": {
+              "text": "\"Composited Row\""
+            }
+          },
+          "tones": {
+            "b1": "data",
+            "b2": "data",
+            "b3": "data",
+            "b4": "data"
+          }
+        }
+      ]
+    }
+  }
+]

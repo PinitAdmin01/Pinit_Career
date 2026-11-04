@@ -1,744 +1,703 @@
 {
   "schemaVersion": 1,
+  "courseId": "course-react-web",
   "prefix": "react-basics",
   "day": 20,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
+  "visuals": [
     {
-      "partTitle": "The problem: the same logic in many places",
-      "codeHash": "508abd58f94156fcd5cf8c57d0854a0e923e1911f5fd7c27287303718f15ec2c",
-      "spec": {
-        "template": "flow",
-        "title": "Extracting shared stateful logic into custom hooks",
-        "nodes": [
-          {
-            "id": "compA",
-            "label": "Dashboard",
-            "tappable": false
-          },
-          {
-            "id": "hook",
-            "label": "useSearch",
-            "tappable": false
-          },
-          {
-            "id": "compB",
-            "label": "JobListPage",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Copying logic across components creates maintenance risks.",
-            "values": {
-              "compA": {
-                "text": "jobs"
-              },
-              "hook": {
-                "text": "searchJobs"
-              },
-              "compB": {
-                "text": "jobs"
-              }
-            },
-            "tones": {
-              "compA": "idle",
-              "hook": "data",
-              "compB": "idle"
-            },
-            "arrows": [
-              [
-                "hook",
-                "compA"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "A custom hook is a function starting with use calling other hooks.",
-            "values": {
-              "compA": {
-                "text": "jobs"
-              },
-              "hook": {
-                "text": "searchJobs"
-              },
-              "compB": {
-                "text": "jobs"
-              }
-            },
-            "tones": {
-              "compA": "ok",
-              "hook": "ok",
-              "compB": "ok"
-            },
-            "arrows": [
-              [
-                "hook",
-                "compA"
-              ],
-              [
-                "hook",
-                "compB"
-              ]
-            ]
-          }
-        ]
+      "part": 1,
+      "title": "Custom Hook Logic Extraction",
+      "template": "flow",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "7951e1992b3fda6036bab0397f4e08d2bd0ac648adcf7fea113b050900ea8cae"
       },
-      "filled": {
-        "template": "flow",
-        "title": "Extracting shared stateful logic into custom hooks",
-        "nodes": [
-          {
-            "id": "compA",
-            "label": "Dashboard",
-            "tappable": false
-          },
-          {
-            "id": "hook",
-            "label": "useSearch",
-            "tappable": false
-          },
-          {
-            "id": "compB",
-            "label": "JobListPage",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Copying logic across components creates maintenance risks.",
-            "values": {
-              "compA": "jobs",
-              "hook": "searchJobs",
-              "compB": "jobs"
-            },
-            "tones": {
-              "compA": "idle",
-              "hook": "data",
-              "compB": "idle"
-            },
-            "arrows": [
-              [
-                "hook",
-                "compA"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "A custom hook is a function starting with use calling other hooks.",
-            "values": {
-              "compA": "jobs",
-              "hook": "searchJobs",
-              "compB": "jobs"
-            },
-            "tones": {
-              "compA": "ok",
-              "hook": "ok",
-              "compB": "ok"
-            },
-            "arrows": [
-              [
-                "hook",
-                "compA"
-              ],
-              [
-                "hook",
-                "compB"
-              ]
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Component invokes reusable custom logic abstraction.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Hook Function Call",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n2",
+                "label": "Fiber Hook Queue",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "State Cell Allocated",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "View Layer Return",
+                "tappable": false,
+                "active": false
+              }
             ]
           }
-        ]
-      }
+        },
+        {
+          "step": 2,
+          "caption": "Internal hooks register directly into host Fiber queue.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Hook Function Call",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Fiber Hook Queue",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n3",
+                "label": "State Cell Allocated",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "View Layer Return",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Independent state cells allocated for each component instance.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Hook Function Call",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Fiber Hook Queue",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "State Cell Allocated",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n4",
+                "label": "View Layer Return",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Custom hook returns state machine methods to clean view.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Hook Function Call",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Fiber Hook Queue",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "State Cell Allocated",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "View Layer Return",
+                "tappable": false,
+                "active": true
+              }
+            ]
+          }
+        }
+      ]
     },
     {
-      "partTitle": "Your first custom hook: useSearch",
-      "codeHash": "57ab68ff0c351c508666183adf8ea10d900b4d9062feae582bbb506debf9e479",
-      "spec": {
-        "template": "boxes",
-        "title": "Independent state encapsulation inside custom hook instances",
-        "boxes": [
-          {
-            "id": "instA",
-            "label": "instanceA",
-            "tappable": false
-          },
-          {
-            "id": "instB",
-            "label": "instanceB",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Components call custom hooks to receive state and filter logic.",
-            "values": {
-              "instA": {
-                "text": "count"
-              },
-              "instB": {
-                "text": "count"
-              }
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Each component calling a custom hook gets isolated independent state.",
-            "values": {
-              "instA": {
-                "text": "count"
-              },
-              "instB": {
-                "text": "count"
-              }
-            }
-          }
-        ]
+      "part": 2,
+      "title": "Hook API Signature Conventions",
+      "template": "boxes",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "23bca59be1b128b891bd54570d9d53a6debf012706aeb9252e603bc6e90e0b10"
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Independent state encapsulation inside custom hook instances",
-        "boxes": [
-          {
-            "id": "instA",
-            "label": "instanceA",
-            "tappable": false
-          },
-          {
-            "id": "instB",
-            "label": "instanceB",
-            "tappable": false
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Fixed array tuple provides flexible local naming ergonomics.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Tuple Signature",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b2",
+                "label": "Object Signature",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "TypeScript Generic",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Discriminated State",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
           }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Components call custom hooks to receive state and filter logic.",
-            "values": {
-              "instA": "count",
-              "instB": "count"
-            },
-            "tones": {}
-          },
-          {
-            "at": "say3",
-            "caption": "Each component calling a custom hook gets isolated independent state.",
-            "values": {
-              "instA": "count",
-              "instB": "count"
-            },
-            "tones": {}
+        },
+        {
+          "step": 2,
+          "caption": "Object dictionary allows selective destructuring cleanly.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Tuple Signature",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Object Signature",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b3",
+                "label": "TypeScript Generic",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Discriminated State",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
           }
-        ]
-      }
+        },
+        {
+          "step": 3,
+          "caption": "Generic type parameters ensure rigorous end-to-end typing.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Tuple Signature",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Object Signature",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "TypeScript Generic",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b4",
+                "label": "Discriminated State",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Discriminated unions eliminate undefined runtime errors.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Tuple Signature",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Object Signature",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "TypeScript Generic",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Discriminated State",
+                "tappable": false,
+                "highlight": true
+              }
+            ]
+          }
+        }
+      ]
     },
     {
-      "partTitle": "The rules of hooks",
-      "codeHash": "4af1d5f7553fb600945a6d6bd9e270b950ec51fb2b3dee148e27e1204175a1d3",
-      "spec": {
-        "template": "flow",
-        "title": "Rules of hooks: top level execution order consistency",
-        "nodes": [
-          {
-            "id": "h1",
-            "label": "first",
-            "tappable": false
-          },
-          {
-            "id": "h2",
-            "label": "second",
-            "tappable": false
-          },
-          {
-            "id": "h3",
-            "label": "third",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Only call hooks at the top level of components.",
-            "values": {
-              "h1": {
-                "text": "\"Asha\""
-              },
-              "h2": {
-                "text": "\"dark\""
-              },
-              "h3": {
-                "text": "render"
-              }
-            },
-            "tones": {
-              "h1": "data",
-              "h2": "idle",
-              "h3": "idle"
-            },
-            "arrows": [
-              [
-                "h1",
-                "h2"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "React identifies hooks by their exact relative execution order.",
-            "values": {
-              "h1": {
-                "text": "\"Asha\""
-              },
-              "h2": {
-                "text": "\"dark\""
-              },
-              "h3": {
-                "text": "render"
-              }
-            },
-            "tones": {
-              "h1": "idle",
-              "h2": "ok",
-              "h3": "ok"
-            },
-            "arrows": [
-              [
-                "h1",
-                "h2"
-              ],
-              [
-                "h2",
-                "h3"
-              ]
-            ]
-          }
-        ]
+      "part": 3,
+      "title": "Rate-Limiting Debounce Engine",
+      "template": "flow",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "4649d4a7d2c8f9016e7b1a365f2020f3c622b95ffa6011659ae4f7b31babf19f"
       },
-      "filled": {
-        "template": "flow",
-        "title": "Rules of hooks: top level execution order consistency",
-        "nodes": [
-          {
-            "id": "h1",
-            "label": "first",
-            "tappable": false
-          },
-          {
-            "id": "h2",
-            "label": "second",
-            "tappable": false
-          },
-          {
-            "id": "h3",
-            "label": "third",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Only call hooks at the top level of components.",
-            "values": {
-              "h1": "\"Asha\"",
-              "h2": "\"dark\"",
-              "h3": "render"
-            },
-            "tones": {
-              "h1": "data",
-              "h2": "idle",
-              "h3": "idle"
-            },
-            "arrows": [
-              [
-                "h1",
-                "h2"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "React identifies hooks by their exact relative execution order.",
-            "values": {
-              "h1": "\"Asha\"",
-              "h2": "\"dark\"",
-              "h3": "render"
-            },
-            "tones": {
-              "h1": "idle",
-              "h2": "ok",
-              "h3": "ok"
-            },
-            "arrows": [
-              [
-                "h1",
-                "h2"
-              ],
-              [
-                "h2",
-                "h3"
-              ]
+      "steps": [
+        {
+          "step": 1,
+          "caption": "User types rapidly generating high-frequency change events.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "High-Rate Input",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n2",
+                "label": "Timer Cancellation",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Quiet Period Wait",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Debounced Flush",
+                "tappable": false,
+                "active": false
+              }
             ]
           }
-        ]
-      }
+        },
+        {
+          "step": 2,
+          "caption": "Incoming stroke cancels previous timer handle in ref.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "High-Rate Input",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Timer Cancellation",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n3",
+                "label": "Quiet Period Wait",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Debounced Flush",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Engine waits for trailing quiet period without activity.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "High-Rate Input",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Timer Cancellation",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Quiet Period Wait",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n4",
+                "label": "Debounced Flush",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Debounced state updates triggering single definitive action.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "High-Rate Input",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Timer Cancellation",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Quiet Period Wait",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Debounced Flush",
+                "tappable": false,
+                "active": true
+              }
+            ]
+          }
+        }
+      ]
     },
     {
-      "partTitle": "useLocalStorage: state that saves itself",
-      "codeHash": "da52efdbd6221c9e38fd4085914c805199d67c2d5fdd2b0bfa144190b47aa305",
-      "spec": {
-        "template": "boxes",
-        "title": "Automating persistence with the useLocalStorage hook",
-        "boxes": [
-          {
-            "id": "stored",
-            "label": "jobs",
-            "tappable": false
-          },
-          {
-            "id": "fallback",
-            "label": "default",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The useLocalStorage hook persists values and loads them back.",
-            "values": {
-              "stored": {
-                "text": "\"jobs\""
-              },
-              "fallback": {
-                "text": "\"safe default\""
-              }
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "A reusable storage hook supports any application data shape.",
-            "values": {
-              "stored": {
-                "text": "\"jobs\""
-              },
-              "fallback": {
-                "text": "\"safe default\""
-              }
-            }
-          }
-        ]
+      "part": 4,
+      "title": "Cross-Tab Storage Sync Pipeline",
+      "template": "flow",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "cc75b4ee5543fe54f8398b3007f8f336c91f8603d6efc4cc8353cc7c29adc2d7"
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Automating persistence with the useLocalStorage hook",
-        "boxes": [
-          {
-            "id": "stored",
-            "label": "jobs",
-            "tappable": false
-          },
-          {
-            "id": "fallback",
-            "label": "default",
-            "tappable": false
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Primary browser tab commits state update to web storage.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Origin Write",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n2",
+                "label": "Storage Event",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Adjacent Tab Catch",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "State Sync Apply",
+                "tappable": false,
+                "active": false
+              }
+            ]
           }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The useLocalStorage hook persists values and loads them back.",
-            "values": {
-              "stored": "\"jobs\"",
-              "fallback": "\"safe default\""
-            },
-            "tones": {}
-          },
-          {
-            "at": "say5",
-            "caption": "A reusable storage hook supports any application data shape.",
-            "values": {
-              "stored": "\"jobs\"",
-              "fallback": "\"safe default\""
-            },
-            "tones": {}
+        },
+        {
+          "step": 2,
+          "caption": "Browser dispatches storage notification event across tabs.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Origin Write",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Storage Event",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n3",
+                "label": "Adjacent Tab Catch",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "State Sync Apply",
+                "tappable": false,
+                "active": false
+              }
+            ]
           }
-        ]
-      }
+        },
+        {
+          "step": 3,
+          "caption": "Secondary browser tab detects storage event payload.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Origin Write",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Storage Event",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Adjacent Tab Catch",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n4",
+                "label": "State Sync Apply",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Secondary hook updates local React state synchronously.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Origin Write",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Storage Event",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Adjacent Tab Catch",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "State Sync Apply",
+                "tappable": false,
+                "active": true
+              }
+            ]
+          }
+        }
+      ]
     },
     {
-      "partTitle": "useFetch: loading data anywhere",
-      "codeHash": "a062c9921eda1a217e3a8f841fc791351a0e1e24d92de5d6a5c543c56f052891",
-      "spec": {
-        "template": "states",
-        "title": "Consolidating data fetching states in useFetch",
-        "states": [
-          "loading",
-          "success",
-          "error"
-        ],
-        "activeIndex": 0,
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Encapsulate remote status and data inside a useFetch hook.",
-            "activeIndex": 0
-          },
-          {
-            "at": "say2",
-            "caption": "Calling useFetch reduces components to concise declarative code.",
-            "activeIndex": 1
-          }
-        ]
+      "part": 5,
+      "title": "Real-Time Streaming Sync Engine",
+      "template": "boxes",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "7717b0d8c28853e45e8201fef7502ff02cc057982bf3413e40bb4132c69f497b"
       },
-      "filled": {
-        "template": "states",
-        "title": "Consolidating data fetching states in useFetch",
-        "states": [
-          "loading",
-          "success",
-          "error"
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Encapsulate remote status and data inside a useFetch hook."
-          },
-          {
-            "at": "say2",
-            "caption": "Calling useFetch reduces components to concise declarative code."
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Clean up the Job Tracker with hooks",
-      "codeHash": "381b60c0b783647dba39313dd60c29ecf0747d1ea73e63b6e9f9cc72f1e522c7",
-      "spec": {
-        "template": "flow",
-        "title": "Clean up the Job Tracker with hooks — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Clean up the Job Tr...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Clean up the Job Tracker with hooks [D20.P6.S1].",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Clean up the Job Tr... [D20.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D20.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Clean up the Job Tracker with hooks [D20.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Duplex streaming socket maintains persistent server channel.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Stream Connection",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b2",
+                "label": "Exponential Backoff",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Offline Buffer",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Batch Drain Resync",
+                "tappable": false,
+                "highlight": false
+              }
             ]
           }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Clean up the Job Tracker with hooks — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Clean up the Job Tr...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Clean up the Job Tracker with hooks [D20.P6.S1].",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Clean up the Job Tr... [D20.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D20.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Clean up the Job Tracker with hooks [D20.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+        },
+        {
+          "step": 2,
+          "caption": "Connection drop initiates exponential backoff with jitter.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Stream Connection",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Exponential Backoff",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b3",
+                "label": "Offline Buffer",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Batch Drain Resync",
+                "tappable": false,
+                "highlight": false
+              }
             ]
           }
-        ]
-      }
+        },
+        {
+          "step": 3,
+          "caption": "Pending client mutations queue in persistent offline ref.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Stream Connection",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Exponential Backoff",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Offline Buffer",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b4",
+                "label": "Batch Drain Resync",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Reconnection flushes mutation buffer restoring consistency.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Stream Connection",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Exponential Backoff",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Offline Buffer",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Batch Drain Resync",
+                "tappable": false,
+                "highlight": true
+              }
+            ]
+          }
+        }
+      ]
     }
   ]
 }

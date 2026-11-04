@@ -18,12 +18,12 @@ const lines = (...l: string[]) => l.join('\n');
 export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
   // ── WEEK 1: The JavaScript React needs ─────────────────────────────────────
   {
-    title: "How a Website Works: HTML, CSS, JavaScript and React",
-    desc: "Every website is made of three things: HTML (the content), CSS (the look) and JavaScript (the behaviour). React is a JavaScript tool that helps you build the screens of an app from small reusable pieces. (Real world: Instagram's web app is built with React.)",
+    title: "How a Website Works: Modern Web Architecture, Network Protocols & Browser Engine Internals",
+    desc: "Master modern web architecture: TCP three-way handshakes, TLS session negotiation, HTTP pipelining vs multiplexing, V8 rendering pipelines, and Core Web Vitals telemetry.",
     syllabus: [
-      "Three layers of a web page: HTML for content, CSS for style, JavaScript for actions.",
-      "What React is: a JavaScript library for building screens out of small pieces called components.",
-      "Your first JavaScript: console.log, strings and running code."
+      "Network protocol stacks: DNS recursion, TCP handshakes, and TLS cryptographic session negotiation.",
+      "HTTP evolution: HTTP/1.1 head-of-line blocking versus HTTP/2 binary framing and multiplexed streams.",
+      "Browser rendering engines: HTML/CSS tokenization, DOM/CSSOM trees, layout geometry, and GPU compositing."
     ],
     eTitle: "App Title Formatter",
     eDesc: "Write a function `formatAppTitle(name)` that returns `'PinIT - '` followed by the app name. Example: `formatAppTitle('Job Tracker')` returns `'PinIT - Job Tracker'`.",
@@ -46,12 +46,12 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     )
   },
   {
-    title: "Variables and Data Types",
-    desc: "A variable is a labelled box that stores a value. JavaScript has a few basic kinds of values: text (strings), numbers, true/false (booleans), and 'nothing' (null and undefined). (Real world: a shopping app keeps the cart total in a variable.)",
+    title: "Variables and Data Types: V8 Heap, Stack Frames, Memory Allocation & Type Safety",
+    desc: "Analyze the low-level memory mechanics of the V8 engine: execution stack frames, heap allocation, primitive value copying vs reference pointers, type coercion hazards, and static type narrowing.",
     syllabus: [
-      "let and const: boxes you can change, and boxes you can't.",
-      "Strings, numbers and booleans: the basic kinds of values.",
-      "Comparing values with ===, >, <, and joining text with +."
+      "V8 runtime architecture: Call stack execution frames, heap allocations, and task queue event loops.",
+      "Primitive scalars vs composite heap references: Pointer semantics and garbage collection scavenger cycles.",
+      "Type safety dynamics: Coercion pitfalls, IEEE 754 precision, and production TypeScript schema validation."
     ],
     eTitle: "Describe a Job",
     eDesc: "Write `describeJob(title, salary)` that returns text like `'Frontend Developer pays 400000'`.",
@@ -75,12 +75,12 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     )
   },
   {
-    title: "Functions and Making Decisions",
-    desc: "A function is a small machine: you give it inputs, it does a job, and gives back an answer. With if/else your code can make decisions. React components are just functions, so this is the most important day of week 1. (Real world: a food app decides to show 'Free delivery' when the bill is above a limit.)",
+    title: "Functions and Making Decisions: Execution Contexts, Closures & Functional Architecture",
+    desc: "Deconstruct JavaScript execution contexts and functional architecture: creation phase, temporal dead zones, lexical scope chains, closures in heap memory, currying, and exhaustive pattern matching.",
     syllabus: [
-      "Writing functions: inputs (parameters), work, and the answer (return).",
-      "Arrow functions: the short way to write a function, used everywhere in React.",
-      "if, else if, else: letting code choose what to do."
+      "The V8 execution context lifecycle: Creation phase, variable environments, and temporal dead zone boundaries.",
+      "Lexical scope and closures: Retaining outer activation records in heap memory across function returns.",
+      "Functional architecture: Higher-order functions, curried unary pipelines, and exhaustive pattern matching."
     ],
     eTitle: "Pass or Fail",
     eDesc: "Write `getResult(score)` that returns `'Pass'` when score is 40 or more, otherwise `'Fail'`.",
@@ -95,19 +95,19 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     aTitle: "Full Name Arrow Function",
     aDesc: "Write an arrow function `fullName` that takes `first` and `last` and returns them joined with one space. Example: `fullName('Asha', 'Rao')` returns `'Asha Rao'`.",
     aStarter: lines("const fullName = (first, last) => {", "  // Return first + ' ' + last", "};"),
-    aHint: "const fullName = (first, last) => first + ' ' + last;",
+    aHint: "return first + ' ' + last;",
     aTest: lines(
       "if (typeof fullName !== 'function') throw new Error('fullName not found');",
       "if (fullName('Asha', 'Rao') !== 'Asha Rao') throw new Error('Expected Asha Rao but got ' + fullName('Asha', 'Rao'));"
     )
   },
   {
-    title: "Arrays and Objects",
-    desc: "An array is a numbered list of values. An object groups related details under names, like a form with labelled fields. Almost all app data is arrays of objects, like a list of jobs where each job has a title and a company. (Real world: your chat app stores messages as an array of message objects.)",
+    title: "Arrays and Objects: Memory Layout, Structural Sharing & Normalized Relational State",
+    desc: "Evaluate V8 internal array representations (Packed vs Holey ElementsKind), implement shallow structural sharing with spread operators, optimize V8 Hidden Classes (Shapes), and architect normalized relational client stores.",
     syllabus: [
-      "Arrays: lists you can read by position, add to, and count with .length.",
-      "Objects: named details like { title: 'Developer', company: 'Infosys' }.",
-      "Arrays of objects: the shape of real app data."
+      "V8 array memory topologies: Contiguous PACKED_SMI and DOUBLE buffers versus holey dictionary mode degradation.",
+      "Structural sharing and shallow copying: Preserving referential immutability without recursive allocation penalties.",
+      "Relational state normalization: Architecting byId entity dictionaries and allIds sequences for O(1) atomic updates."
     ],
     eTitle: "Make a Job",
     eDesc: "Write `makeJob(title, company)` that returns an object `{ title, company, status: 'applied' }`.",
@@ -125,7 +125,7 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     aTitle: "First and Last",
     aDesc: "Write `firstAndLast(list)` that returns a new array with the first and the last item of `list`.",
     aStarter: lines("function firstAndLast(list) {", "  // list[0] is the first item. What is the last?", "}"),
-    aHint: "The last item is list[list.length - 1].",
+    aHint: "return [list[0], list[list.length - 1]];",
     aTest: lines(
       "if (typeof firstAndLast !== 'function') throw new Error('firstAndLast not found');",
       "const r1 = firstAndLast(['a', 'b', 'c', 'd']);",
@@ -137,12 +137,12 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     )
   },
   {
-    title: "Loops and Array Methods: map, filter, find",
-    desc: "Apps show lists all the time. Instead of writing the same code for every item, you loop over the list. map changes every item, filter keeps only some items, and find picks one. React uses map to show lists on screen. (Real world: Swiggy filters restaurants to show only 'Pure Veg' ones.)",
+    title: "Loops and Array Methods: Iteration Cost, Collection Pipelines, Reconciliation & Milestone 1 Capstone",
+    desc: "Analyze the algorithmic cost of loop constructs versus declarative array higher-order methods, optimize collection pipelines, explore virtual DOM reconciliation keys, and build the Milestone 1 Architecture Capstone.",
     syllabus: [
-      "for...of loops: doing something for each item.",
-      "map and filter: making a new list from an old one.",
-      "find: getting the first item that matches."
+      "Loop execution mechanics: TurboFan loop peeling, On-Stack Replacement, and the perils of for...in on arrays.",
+      "Declarative collection pipelines: Intermediate array allocation overhead in method chaining vs single-pass reduction.",
+      "React list reconciliation: Spatial identity, Fiber diffing heuristics, and the Milestone 1 Relational Query Engine."
     ],
     eTitle: "Job Titles Only",
     eDesc: "Write `getTitles(jobs)` that returns an array of just the titles, using `map`.",
@@ -172,12 +172,12 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     )
   },
   {
-    title: "Modern JavaScript: Template Strings, Destructuring and Spread",
-    desc: "React code uses a few short-cuts all the time. Template strings build text easily, destructuring pulls values out of objects, and spread (...) copies arrays and objects. Once you know these, React code stops looking strange. (Real world: updating one field of your profile without touching the others.)",
+    title: "ESNext Syntax & Modern Language Mechanics: Destructuring, Tagged Templates, Rest/Spread & Symbols",
+    desc: "Master modern ESNext syntax and V8 execution mechanics: tagged template literals and AST lowering, object/array destructuring bytecode patterns, rest/spread shallow allocation, Symbols and metaprogramming, and short-circuiting optional chaining.",
     syllabus: [
-      "Template strings: `Hello, ${name}` instead of joining with +.",
-      "Destructuring: const { title, company } = job.",
-      "Spread: { ...job, status: 'offer' } makes an updated copy."
+      "Tagged template functions: String interleaving, raw chunks, and SQL/HTML injection sanitization pipelines.",
+      "Destructuring mechanics: V8 bytecode property lookup, default fallback evaluation, and stack slot allocation.",
+      "Rest and spread operators: Shallow cloning memory footprint, immutable state updates, and Symbol property slots."
     ],
     eTitle: "Update a Job's Status",
     eDesc: "Write `updateStatus(job, status)` that returns a NEW object with the same details but the new status. Do not change the original job.",
@@ -208,17 +208,17 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     )
   },
   {
-    title: "Modules and Creating Your First React Project",
-    desc: "Real apps are split into many files. import and export let one file use code from another. Today you also create your first React project with Vite and see it running in the browser. (Real world: every company React app starts with a project setup like this.)",
+    title: "JavaScript Module Systems & Bundler Internals: ESM vs CommonJS, Tree-Shaking & Dependency Graphs",
+    desc: "Dissect modern JavaScript module systems and bundler architectures: CommonJS dynamic evaluation vs ES module static analysis, dependency graph construction, tree-shaking dead code elimination, Vite native ESM dev servers, and route-based dynamic code splitting.",
     syllabus: [
-      "export and import: sharing code between files.",
-      "npm and packages: installing tools other developers made.",
-      "Creating a React app with Vite and running it with npm run dev."
+      "CommonJS vs ESM: Dynamic synchronous loading vs static parsing and live binding reference mechanics.",
+      "Module graph resolution: Abstract syntax tree parsing, cyclic dependency handling, and topological sorting.",
+      "Bundler optimization: Tree-shaking side-effect analysis, dead code elimination, and on-demand ESM serving."
     ],
     eTitle: "Count Jobs by Status",
     eDesc: "Write `countByStatus(jobs)` that returns an object counting each status. Example: two applied and one offer gives `{ applied: 2, offer: 1 }`.",
     eStarter: lines("function countByStatus(jobs) {", "  const counts = {};", "  for (const job of jobs) {", "    // add 1 to counts[job.status]", "  }", "  return counts;", "}"),
-    eHint: "counts[job.status] = (counts[job.status] || 0) + 1;",
+    eHint: "for (const job of jobs) { counts[job.status] = (counts[job.status] || 0) + 1; } return counts;",
     eTest: lines(
       "if (typeof countByStatus !== 'function') throw new Error('countByStatus not found');",
       "const c1 = countByStatus([{ status: 'applied' }, { status: 'offer' }, { status: 'applied' }]);",
@@ -248,12 +248,12 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
 
   // ── WEEK 2: React basics ───────────────────────────────────────────────────
   {
-    title: "Your First Component and JSX",
-    desc: "A component is a JavaScript function that returns a piece of screen. JSX lets you write that screen in an HTML-like way inside JavaScript. You build a whole app by putting small components together, like LEGO blocks. (Real world: a 'Like' button is one component used thousands of times.)",
+    title: "JSX Internals, Compilation Pipelines & The Virtual DOM: React.createElement vs The New JSX Transform",
+    desc: "Examine JSX compilation pipelines and virtual DOM architectures: AST lowering via Babel/SWC, React element anatomy vs native DOM nodes, heuristic tree reconciliation in O(n) linear time, React Fiber cooperative scheduling work loops, and pure component invariants.",
     syllabus: [
-      "Components: functions that return what should appear on screen.",
-      "JSX rules: one parent element, className instead of class, {} for JavaScript values.",
-      "Putting components inside other components."
+      "JSX compilation mechanics: AST lowering, React.createElement versus modern jsx runtime automatic imports.",
+      "Virtual DOM architecture: Immutable element descriptors, C++ heap DOM overhead, and shallow tree comparison.",
+      "React Fiber engine: Cooperative multitasking, 16ms frame budgeting, and pure render function idempotence."
     ],
     eTitle: "Greeting Component",
     eDesc: "Components return screen content. Write a TSX component `Greeting({ name }: { name: string })` that returns an `<h1>` element: `<h1>Hello, {name}</h1>`.",
@@ -285,12 +285,12 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     )
   },
   {
-    title: "Props: Passing Data to Components",
-    desc: "Props are the inputs of a component, like the details you fill on a form before printing it. The parent component passes props, and the child uses them to decide what to show. The same component can show different data each time. (Real world: one ProductCard component shows every product on Amazon.)",
+    title: "Props Architecture, Contract Enforcement & Unidirectional Data Flow: Read-Only Invariants & Component Composition",
+    desc: "Architect robust component input contracts and unidirectional data topologies: top-down props propagation and bubbling event callbacks, props immutability and shallow freezing, compound component composition via props.children, type-safe discriminated union props, and modern destructuring defaults.",
     syllabus: [
-      "Passing props: <JobCard title='Developer' />.",
-      "Reading props with destructuring and giving default values.",
-      "Props only flow down, from parent to child."
+      "Unidirectional data flow: Single source of truth state ownership, top-down propagation, and callback mutation.",
+      "Props immutability invariants: Object.freeze development barriers and pure referential state transitions.",
+      "Component composition patterns: Compound component inversion of control, slot patterns, and discriminated union props."
     ],
     eTitle: "Button With a Default Colour",
     eDesc: "Write a TSX component `Button({ label, color = 'blue' }: { label: string; color?: string })` that returns `<button className={color}>{label}</button>`. If no colour is given, default to `'blue'`.",
@@ -322,12 +322,12 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     )
   },
   {
-    title: "Showing Lists with map and key",
-    desc: "To show a list in React, you map an array of data to an array of components. Each item needs a unique key so React can keep track of which item is which when the list changes. (Real world: your WhatsApp chat list is an array mapped to chat rows.)",
+    title: "List Rendering, Fiber Identity Keys & Milestone 2 Architecture Capstone: Virtualized Dynamic Feed Engine",
+    desc: "Master list rendering, reconciliation mechanics, and collection virtualization: multi-child diffing algorithms, mutation inversion pitfalls of array indices as keys, DOM node reordering heuristics with lastPlacedIndex, viewport windowing with overscan, and architecting the Milestone 2 High-Throughput Dynamic Feed Engine.",
     syllabus: [
-      "jobs.map(job => <JobCard ... />) to show a list.",
-      "Why every list item needs a unique key.",
-      "Showing a message when the list is empty."
+      "Multi-child reconciliation: Two-pass diffing algorithms, key-indexed hash maps, and linear O(n) traversal.",
+      "The key contract: Entity identity versus array positions, state corruption hazards, and surrogate key derivation.",
+      "List virtualization architecture: Windowed viewport slicing, overscan buffers, and the Milestone 2 Capstone Engine."
     ],
     eTitle: "Build a List",
     eDesc: "Write a TSX component `JobList({ items }: { items: string[] })` that returns an `<ul>` containing an `<li>` for each item in `items`.",
@@ -346,7 +346,7 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     aTitle: "Are the Keys Unique?",
     aDesc: "Write `hasUniqueIds(jobs)` that returns `true` if no two jobs have the same `id`.",
     aStarter: lines("function hasUniqueIds(jobs) {", "  const seen = new Set();", "  // loop, and return false if an id was already seen", "  return true;", "}"),
-    aHint: "for (const job of jobs) { if (seen.has(job.id)) return false; seen.add(job.id); }",
+    aHint: "for (const job of jobs) { if (seen.has(job.id)) return false; seen.add(job.id); } return true;",
     aTest: lines(
       "if (typeof hasUniqueIds !== 'function') throw new Error('hasUniqueIds not found');",
       "if (hasUniqueIds([{ id: 1 }, { id: 2 }]) !== true) throw new Error('1 and 2 are unique');",
@@ -354,12 +354,12 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     )
   },
   {
-    title: "Showing Things Only When Needed",
-    desc: "Apps show different things in different situations: a loading spinner while waiting, a message when a list is empty, a badge when there is an offer. In React you do this with if, &&, and the ? : operator. (Real world: Gmail shows 'No new mail' only when the inbox is empty.)",
+    title: "Conditional Rendering Mechanics, Branching Heuristics & Element Reconciliation: Short-Circuiting, Ternaries & Early Returns",
+    desc: "Master conditional rendering mechanics and reconciliation heuristics: eliminating the falsy zero hazard in logical AND, architecting multi-branch table dispatchers, implementing early return guard clauses while preserving hook order invariants, managing element identity vs state bleed across branches, and building resilient four-state UI topologies.",
     syllabus: [
-      "Using if to return different screens.",
-      "condition && <Thing /> to show something only when true.",
-      "condition ? <A /> : <B /> to choose between two things."
+      "The falsy zero hazard: Logical AND evaluation pitfalls, boolean coercion, and guarded branch patterns.",
+      "Branching heuristics: Dispatch tables vs nested ternaries, early return guards, and hook linked list order invariants.",
+      "Identity and state preservation: Fiber reuse across branch switches, spatial key assignment, and resilient UI state topologies."
     ],
     eTitle: "Empty or Not",
     eDesc: "Write a TSX component `StatusMessage({ jobs }: { jobs: unknown[] })` that returns `<p>No jobs yet. Add your first one!</p>` when `jobs` is empty, otherwise `<p>You have {jobs.length} jobs</p>`.",
@@ -391,12 +391,12 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     )
   },
   {
-    title: "State with useState: Making the Screen Change",
-    desc: "State is a component's memory. When state changes, React redraws the screen with the new value. useState gives you the current value and a function to change it. (Real world: the item count in your cart is state.)",
+    title: "The useState Hook & React State Mechanics: State Cells, Dispatch Action Queues & Batching in Concurrent Mode",
+    desc: "Master the internal mechanics of the useState hook: understanding Fiber Hook linked list structures, preventing closure staleness with functional update queues, analyzing React 18 automatic batching across asynchronous boundaries, avoiding Object.is mutation bailout traps, and optimizing mount performance with lazy state initializers.",
     syllabus: [
-      "const [count, setCount] = useState(0): value and setter.",
-      "Why you must call the setter instead of changing the value directly.",
-      "Updating from the previous value: setCount(c => c + 1)."
+      "Fiber Hook memory architecture: MemoizedState singly-linked list, positional cursor traversal, and the Rules of Hooks.",
+      "Asynchronous batching & action queues: Stale closures, functional state setters, and React 18 automatic batching via createRoot.",
+      "Reference equality & initialization: Object.is reconciliation bailouts, immutability spread mechanics, and lazy initializer callbacks."
     ],
     eTitle: "Counter Logic",
     eDesc: "Write `nextCount(count, action)` that returns count + 1 for `'plus'`, count - 1 for `'minus'`, but never goes below 0.",
@@ -418,12 +418,12 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     )
   },
   {
-    title: "Handling Clicks and Typing",
-    desc: "Events are things the user does: clicking, typing, submitting. You give React a function to run when the event happens, like onClick={handleClick}. Inside it you usually update state. (Real world: pressing 'Like' runs a click handler that updates the like count.)",
+    title: "Synthetic Event System & Browser Event Dispatch: Event Delegation, Bubble Pipelines & Passive Event Listeners",
+    desc: "Master the architecture of React's SyntheticEvent system: event delegation to the root container (createRoot), cross-browser normalization, synthetic event pooling removal in React 17+, bubbling vs capture phases, stopPropagation() vs nativeEvent.stopImmediatePropagation(), passive event listener optimization, and keyboard accessibility pipelines.",
     syllabus: [
-      "onClick, onChange and onSubmit.",
-      "Passing a function, not calling it: onClick={handleClick}.",
-      "The event object: reading e.target.value and calling e.preventDefault()."
+      "Event delegation architecture: Root container listener binding, W3C event flow, and micro-frontend isolation boundaries.",
+      "SyntheticEvent mechanics: Cross-browser normalization, legacy pooling elimination, and generational nursery GC optimization.",
+      "Propagation & accessibility: React Fiber bubble vs native DOM capture, passive high-frequency listeners, and keyboard contracts."
     ],
     eTitle: "Is It the Enter Key?",
     eDesc: "Write `isEnterKey(event)` that returns `true` when `event.key` is `'Enter'`.",
@@ -447,17 +447,17 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     )
   },
   {
-    title: "Forms: Getting Input From the User",
-    desc: "Forms let users type information, like adding a new job. In React, the input's value lives in state (a 'controlled input'), so you always know what the user typed and can check it before saving. (Real world: sign-up forms show 'Email is required' before you submit.)",
+    title: "Form Architecture, Controlled vs Uncontrolled Components & Input Validation Engines: FormData, Ref Buffers & Schema Constraints",
+    desc: "Master modern form architecture in React: controlled state single source of truth vs uncontrolled DOM ref buffers, keystroke re-render trade-offs, native FormData extraction and onSubmit pipelines, asynchronous validation queues, debounced validation patterns, and schema-driven validation with custom constraint engines.",
     syllabus: [
-      "Controlled inputs: value={title} and onChange={e => setTitle(e.target.value)}.",
-      "One state object for the whole form.",
-      "Checking the form and showing error messages."
+      "Controlled vs uncontrolled paradigms: Single source of truth, keystroke render costs, IME composition, and DOM ref buffers.",
+      "Native FormData pipelines: Multi-field extraction, file binary blobs, multipart boundary formatting, and server actions.",
+      "Validation engines: Asynchronous race condition elimination via Request IDs, debouncing, and declarative schema parsers."
     ],
     eTitle: "Check the Job Form",
     eDesc: "Write `validateJobForm(form)` that returns an array of errors: add `'Title is required'` if title is empty and `'Company is required'` if company is empty. Return `[]` if both are filled.",
     eStarter: lines("function validateJobForm(form) {", "  const errors = [];", "  // push error messages here", "  return errors;", "}"),
-    eHint: "if (!form.title) errors.push('Title is required'); if (!form.company) errors.push('Company is required');",
+    eHint: "if (!form.title) errors.push('Title is required'); if (!form.company) errors.push('Company is required'); return errors;",
     eTest: lines(
       "if (typeof validateJobForm !== 'function') throw new Error('validateJobForm not found');",
       "const e1 = validateJobForm({ title: '', company: '' });",
@@ -484,12 +484,12 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
 
   // ── WEEK 3: Real-app skills ────────────────────────────────────────────────
   {
-    title: "Sharing Data Between Components",
-    desc: "When two components need the same data, you keep the state in their closest parent and pass it down as props. Children tell the parent about changes by calling functions passed as props. This is called 'lifting state up'. (Real world: the cart count in the header and the cart page share the same data.)",
+    title: "Lifting State Up, Prop Drilling Mitigations & State Colocation: Normalized Shared State & Milestone 3 Architecture Capstone",
+    desc: "Master multi-component state architecture: identifying state ownership, lifting state to lowest common ancestors (LCA), state colocation principles, mitigating prop drilling via component composition (children slots), relational state normalization (byId entity tables), and architecting the Milestone 3 Multi-Step Transaction & Checkout Engine capstone.",
     syllabus: [
-      "Where state should live: in the closest common parent.",
-      "Passing functions like onDelete down as props.",
-      "Updating a list: add, remove and change items."
+      "State ownership heuristics: Lowest Common Ancestor (LCA) graph search, callback stabilization, and re-render coupling.",
+      "State colocation & composition: Containing re-render blast radiuses, children slots, and eliminating prop drilling.",
+      "Normalized state & capstone: Relational byId entity stores, O(1) mutations, and the Milestone 3 Multi-Step Transaction Engine."
     ],
     eTitle: "Remove a Job",
     eDesc: "Write `removeJob(jobs, id)` that returns a new list without the job with that id.",
@@ -522,12 +522,12 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     )
   },
   {
-    title: "useEffect: Doing Things After the Screen Shows",
-    desc: "Some work should happen after the screen appears: loading data, starting a timer, or saving to the browser. useEffect runs your code after React draws the screen, and the dependency list decides when it runs again. (Real world: a page loads your notifications right after it opens.)",
+    title: "Side Effects Lifecycle & The useEffect Hook: Synchronization Pipelines, Passive Execution & Cleanup Cycles",
+    desc: "Master the side effect lifecycle in React: separating pure render computations from impure imperative side effects, understanding the passive deferred execution timing of useEffect after browser paint, implementing strict effect cleanup and teardown protocols to prevent memory leaks, handling React 18 Strict Mode double-mounting idempotently, and structuring asynchronous effects with cancellation flags and AbortController.",
     syllabus: [
-      "useEffect(() => { ... }, []) runs once after the first show.",
-      "Dependencies: run again when a value changes.",
-      "Clean-up: stopping timers when the component goes away."
+      "Render purity & side effect quarantine: Mathematical render invariants, browser paint deferral, and message channel scheduling.",
+      "Symmetric cleanup lifecycles: Destructor execution before re-sync, subscription teardowns, and Reusable State stress testing.",
+      "Asynchronous race conditions & abort signals: Unmounted component state guards, AbortController pipelines, and streaming resync."
     ],
     eTitle: "Should It Load Again?",
     eDesc: "Write `shouldReload(prevSearch, search)` that returns `true` when the search text changed.",
@@ -549,12 +549,12 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     )
   },
   {
-    title: "Loading Data From the Internet",
-    desc: "Most apps get their data from a server through an API. fetch asks the server for data, and async/await lets you wait for the answer without freezing the app. You also need to show 'Loading...' and handle errors. (Real world: a weather app fetches today's forecast from an API.)",
+    title: "Effect Dependencies & The Stale Closure Hazard: Exhaustive Deps Lint Rules & Primitive Value Tracking",
+    desc: "Master React effect dependencies and eliminate stale closures: understanding lexical environment records in V8, adhering to the exhaustive-deps lint contract, avoiding object and array reference instability loops, stabilizing function references with useCallback and inlining, and engineering the Mutable Ref Bridge pattern with useEffectEvent.",
     syllabus: [
-      "fetch and JSON: asking a server for data.",
-      "async and await: waiting for the answer.",
-      "Loading, error and success: the three states of every request."
+      "Lexical closures & stale captures: Immutable execution frames, frozen constant traps, and functional state updater queues.",
+      "The exhaustive-deps contract: AST control flow graph analysis, areHookInputsEqual mechanics, and Object.is shallow diffing.",
+      "Reference stability & ref bridges: Primitive flattening, useCallback caching, and the Mutable Ref Bridge pattern (useEffectEvent)."
     ],
     eTitle: "Read the Server's Answer",
     eDesc: "Servers often answer like `{ data: [...] }`. Write `parseJobsResponse(json)` that returns `json.data`, or `[]` if data is missing.",
@@ -581,12 +581,12 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     )
   },
   {
-    title: "Styling and Layouts That Work on Phones",
-    desc: "A good app looks clean and works on every screen size. You will style components with CSS classes, use flexbox and grid for layout, and use Tailwind CSS, which many companies use. (Real world: Flipkart shows 2 products per row on phones and 5 on laptops.)",
+    title: "The useLayoutEffect Hook & DOM Mutation Measurement: Synchronous Paint Blocking & Layout Shifts",
+    desc: "Master synchronous DOM measurements and paint-blocking effects: dissecting the browser render pipeline (Layout, Paint, Composite), eliminating Cumulative Layout Shift (CLS) with useLayoutEffect, preventing layout thrashing by separating reads and writes, resolving SSR hydration warnings with isomorphic layout hooks, and building an enterprise tooltip collision engine.",
     syllabus: [
-      "className and CSS files in React.",
-      "Flexbox and grid for layout.",
-      "Tailwind CSS basics and responsive sizes."
+      "The browser render pipeline: Layout (Reflow), Paint, Compositing layers, and asynchronous passive effect paint gaps (CLS).",
+      "useLayoutEffect commit mechanics: Synchronous post-mutation execution, main thread paint blocking, and flushSync batching.",
+      "Layout thrashing & isomorphic SSR: Interleaved read/write avoidance, contain: layout boundaries, and isomorphic layout effect hooks."
     ],
     eTitle: "Join Class Names",
     eDesc: "Write `classNames(...names)` that joins only the non-empty names with a space. Example: `classNames('card', '', 'active')` gives `'card active'`.",
@@ -607,12 +607,12 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     )
   },
   {
-    title: "Multiple Pages with React Router",
-    desc: "Real apps have many pages: home, list, details, settings. React Router shows the right page for each web address without reloading the whole site, and lets you read values from the address like a job's id. (Real world: amazon.in/dp/ID opens the page for one product.)",
+    title: "Mutable References & The useRef Hook: Persistent Memory Cells, DOM Nodes & Previous Value Caches",
+    desc: "Master mutable references and imperative component control: understanding persistent heap object identity in React Fiber, enforcing the Golden Ref Invariant (no ref mutations during render), encapsulating DOM nodes with useImperativeHandle, anchoring non-visual infrastructure (timers, WebSockets, workers), implementing the usePrevious state-differencing primitive, and building an in-memory LRU query cache.",
     syllabus: [
-      "Routes: which component to show for which address.",
-      "Link: moving between pages without reloading.",
-      "URL parameters: reading /jobs/42 to get the id 42."
+      "Persistent memory cell anatomy: Fiber memoizedState heap objects, bypass reconciliation work loop, and render purity invariants.",
+      "Host DOM binding & encapsulation: Commit mutation attachment, React 19 ref props, and useImperativeHandle facade masking.",
+      "Non-visual infrastructure & differencing: Interval timers, AbortControllers, WebSockets, usePrevious, and in-memory LRU caching."
     ],
     eTitle: "Which Page?",
     eDesc: "Write `matchRoute(path)` that returns `'home'` for `'/'`, `'jobs'` for `'/jobs'`, `'job-detail'` for `'/jobs/'` followed by an id, otherwise `'not-found'`.",
@@ -636,12 +636,12 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     )
   },
   {
-    title: "Custom Hooks: Reusing Logic",
-    desc: "When several components need the same logic, like searching a list or saving to the browser, you move it into your own hook: a function whose name starts with 'use'. This keeps components short and clean. (Real world: a useCart hook used by every page that shows the cart.)",
+    title: "Custom Hooks Architecture & Logic Extraction: Reusable Primitives & Milestone 4 Architecture Capstone",
+    desc: "Master custom hooks architecture and stateful logic extraction: understanding Fiber hook linked list traversal, designing ergonomic hook APIs (tuples vs objects), engineering rate-limiting primitives (useDebounce, useThrottle), building cross-tab sync and environmental hooks (useLocalStorage, useNetworkStatus), and constructing the Milestone 4 Real-Time Streaming & Sync Engine capstone.",
     syllabus: [
-      "Rules of hooks: call them at the top of components.",
-      "Writing a custom hook like useSearch or useLocalStorage.",
-      "Returning values and functions from a hook."
+      "Philosophy of custom hooks: Eliminating wrapper hell, flat Fiber hook linked list registration, and logic vs state isolation.",
+      "Hook API design & stability: Tuples vs objects, TypeScript generics, discriminated union lifecycles, and useCallback stabilization.",
+      "Enterprise primitives & streaming capstone: useDebounce, useLocalStorage cross-tab sync, and the Real-Time Streaming Sync Engine."
     ],
     eTitle: "Search Jobs",
     eDesc: "Write `searchJobs(jobs, text)` that returns jobs whose title contains the text, ignoring upper/lower case. Empty text returns all jobs.",
@@ -666,316 +666,310 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     )
   },
   {
-    title: "Context: Sharing Data With the Whole App",
-    desc: "Some data is needed almost everywhere: the logged-in user, the theme, the language. Passing it through every component is tiring, so React Context lets any component read it directly. (Real world: the dark mode switch changes every screen of an app.)",
+    title: "Context API Internals, Dependency Injection & The Re-Render Problem: Provider Hierarchy, Value Object Reference Stability & Context Splitting",
+    desc: "Master React Context internals and re-render broadcast mitigation: understanding Fiber tree return pointer traversal, analyzing Object.is value propagation mechanics, eliminating unnecessary subtree churn with Context Splitting (separating state and dispatch), integrating fine-grained selector stores with useSyncExternalStore, and designing an enterprise multi-tier theme and authentication topology engine.",
     syllabus: [
-      "createContext and the Provider.",
-      "useContext to read shared data.",
-      "When to use Context and when props are enough."
+      "Context Fiber traversal: Ancestor return pointers, createContext fallbacks, and dynamic runtime dependency injection.",
+      "The re-render broadcast problem: Object.is value propagation, reference traps, and why React.memo cannot shield consumers.",
+      "Context splitting & external stores: State vs dispatch separation, useSyncExternalStore fine-grained selectors, and topology pipelines."
     ],
-    eTitle: "Theme Colours",
-    eDesc: "Write `themeColors(theme)` that returns `{ background: '#ffffff', text: '#111111' }` for `'light'` and `{ background: '#111111', text: '#ffffff' }` for `'dark'`.",
-    eStarter: lines("function themeColors(theme) {", "  // return one object for dark, another for light", "}"),
-    eHint: "return theme === 'dark' ? { background: '#111111', text: '#ffffff' } : { background: '#ffffff', text: '#111111' };",
-    eTest: lines(
-      "if (typeof themeColors !== 'function') throw new Error('themeColors not found');",
-      "const d = themeColors('dark'); const l = themeColors('light');",
-      "if (d.background !== '#111111' || d.text !== '#ffffff') throw new Error('Dark colours are wrong');",
-      "if (l.background !== '#ffffff' || l.text !== '#111111') throw new Error('Light colours are wrong');"
-    ),
-    aTitle: "Can This User Edit?",
-    aDesc: "Write `canEdit(user, job)` that returns `true` only when a user is logged in and `user.id` equals `job.ownerId`.",
-    aStarter: lines("function canEdit(user, job) {", "  // user may be null when logged out", "}"),
-    aHint: "return Boolean(user) && user.id === job.ownerId;",
-    aTest: lines(
-      "if (typeof canEdit !== 'function') throw new Error('canEdit not found');",
-      "if (canEdit({ id: 1 }, { ownerId: 1 }) !== true) throw new Error('Owner should be able to edit');",
-      "if (canEdit({ id: 2 }, { ownerId: 1 }) !== false) throw new Error('Other users should not edit');",
-      "if (canEdit(null, { ownerId: 1 }) !== false) throw new Error('Logged-out users should not edit');"
-    )
+    eTitle: "Context Fallback Resolver",
+    eDesc: "Write `resolveContextValue(providers, contextId, fallback)` that returns matching provider value or fallback.",
+    eStarter: lines("function resolveContextValue(providers, contextId, fallback) {", "  // return matching provider value or fallback", "  return fallback;", "}"),
+    eHint: "return providers[contextId] !== undefined ? providers[contextId] : fallback;",
+    eTest: lines("if (typeof resolveContextValue !== 'function') throw new Error('resolveContextValue not found');", "const p = { 'ctx_theme': 'dark', 'ctx_auth': 'admin' };", "if (resolveContextValue(p, 'ctx_theme', 'light') !== 'dark') throw new Error('Failed to resolve existing context');", "if (resolveContextValue(p, 'ctx_locale', 'en-US') !== 'en-US') throw new Error('Failed fallback resolution');"),
+    aTitle: "Dispatch Identity Stability Guard",
+    aDesc: "Write `canDispatchBypassRender(lastDispatch, nextDispatch)` that returns `true` if dispatch identity is strictly identical.",
+    aStarter: lines("function canDispatchBypassRender(lastDispatch, nextDispatch) {", "  // return true if dispatch identity is strictly identical", "  return false;", "}"),
+    aHint: "return Object.is(lastDispatch, nextDispatch);",
+    aTest: lines("if (typeof canDispatchBypassRender !== 'function') throw new Error('canDispatchBypassRender not found');", "const d1 = () => {};", "if (!canDispatchBypassRender(d1, d1)) throw new Error('Identical dispatch should bypass');", "if (canDispatchBypassRender(d1, () => {})) throw new Error('Fresh dispatch reference should fail');")
   },
 
   // ── WEEK 4: Build, ship and get job-ready ──────────────────────────────────
   {
-    title: "Git and GitHub: Saving and Sharing Your Code",
-    desc: "Every developer job uses Git. It saves snapshots of your code (commits), lets you try ideas on branches, and GitHub stores your code online so others can see it. Recruiters look at your GitHub. (Real world: every change to this app is a Git commit.)",
+    title: "Performance Optimization & Memoization Primitives: React.memo, useMemo, useCallback & Shallow Equality Bailouts",
+    desc: "Master React performance optimization and memoization economics: understanding Fiber beginWork reconciliation bailouts, configuring React.memo with custom arePropsEqual comparers, avoiding the Reference Inequality Trap, applying useMemo with quantitative benchmarking thresholds, stabilizing callback pointers with useCallback and functional updaters, and profiling render performance using React DevTools and the React 19 Compiler.",
     syllabus: [
-      "git init, add, commit: saving snapshots.",
-      "Branches: working on a feature safely.",
-      "Pushing to GitHub and writing good commit messages."
+      "Fiber beginWork reconciliation bailouts: Pending work lanes, oldProps vs newProps pointer checks, and commit phase skipping.",
+      "React.memo & shallow equality: Monomorphic V8 key comparison, reference inequality traps, and custom arePropsEqual contracts.",
+      "Computational economics: useMemo memory and CPU overhead, useCallback identity preservation, and React DevTools Profiler traces."
     ],
-    eTitle: "Good Commit Message",
-    eDesc: "Write `isGoodCommitMessage(msg)` that returns `true` when the message is between 10 and 72 characters long.",
-    eStarter: lines("function isGoodCommitMessage(msg) {", "  // check msg.length", "}"),
-    eHint: "return msg.length >= 10 && msg.length <= 72;",
-    eTest: lines(
-      "if (typeof isGoodCommitMessage !== 'function') throw new Error('isGoodCommitMessage not found');",
-      "if (isGoodCommitMessage('Add job form validation') !== true) throw new Error('A clear message should be good');",
-      "if (isGoodCommitMessage('fix') !== false) throw new Error('fix is too short');"
-    ),
-    aTitle: "Branch Name",
-    aDesc: "Write `branchName(task)` that turns `'Add Login Page'` into `'feature/add-login-page'` (lower case, spaces become dashes).",
-    aStarter: lines("function branchName(task) {", "  // lower case, then replace spaces with -", "}"),
-    aHint: "return 'feature/' + task.trim().toLowerCase().split(' ').join('-');",
-    aTest: lines(
-      "if (typeof branchName !== 'function') throw new Error('branchName not found');",
-      "if (branchName('Add Login Page') !== 'feature/add-login-page') throw new Error('branchName 1 failed');",
-      "if (branchName('Fix Navbar Bug') !== 'feature/fix-navbar-bug') throw new Error('branchName 2 failed');",
-      "if (branchName('Setup Database') !== 'feature/setup-database') throw new Error('branchName 3 failed');"
-    )
+    eTitle: "Shallow Equal Props Evaluator",
+    eDesc: "Write `shallowEqualProps(objA, objB)` that returns `true` if all top-level keys match using `Object.is`.",
+    eStarter: lines("function shallowEqualProps(objA, objB) {", "  // return true if all top level keys match using Object.is", "  return false;", "}"),
+    eHint: lines("if (Object.is(objA, objB)) return true;", "if (!objA || !objB || typeof objA !== 'object' || typeof objB !== 'object') return false;", "const keysA = Object.keys(objA); const keysB = Object.keys(objB);", "if (keysA.length !== keysB.length) return false;", "for (let k of keysA) {", "  if (!Object.prototype.hasOwnProperty.call(objB, k) || !Object.is(objA[k], objB[k])) return false;", "}", "return true;"),
+    eTest: lines("if (typeof shallowEqualProps !== 'function') throw new Error('shallowEqualProps not found');", "const p1 = { id: 10, title: 'Item' }; const p2 = { id: 10, title: 'Item' }; const p3 = { id: 10, title: 'Changed' };", "if (!shallowEqualProps(p1, p2)) throw new Error('Identical props should match');", "if (shallowEqualProps(p1, p3)) throw new Error('Modified prop should fail shallow equal');", "if (shallowEqualProps(p1, { ...p1, extra: true })) throw new Error('Key length mismatch should fail');"),
+    aTitle: "Custom Domain Props Comparator",
+    aDesc: "Write `customArePropsEqual(prevProps, nextProps)` returning `true` if `id` and `version` match, ignoring others.",
+    aStarter: lines("function customArePropsEqual(prevProps, nextProps) {", "  // return true if id and version are equal, ignoring other fields", "  return false;", "}"),
+    aHint: "return prevProps.id === nextProps.id && prevProps.version === nextProps.version;",
+    aTest: lines("if (typeof customArePropsEqual !== 'function') throw new Error('customArePropsEqual not found');", "const a = { id: 'x', version: 2, meta: { ts: 100 } }; const b = { id: 'x', version: 2, meta: { ts: 200 } }; const c = { id: 'x', version: 3, meta: { ts: 100 } };", "if (!customArePropsEqual(a, b)) throw new Error('Equal id and version should return true');", "if (customArePropsEqual(a, c)) throw new Error('Version mismatch should return false');")
   },
   {
-    title: "Planning Your Job Tracker App",
-    desc: "Before coding, good developers plan: what screens are needed, which components make each screen, what data each needs, and where the state lives. Today you plan the Job Tracker you will build and deploy this week. (Real world: teams draw screens and components before writing code.)",
+    title: "Code Splitting, Dynamic Imports & React.lazy: Webpack/Vite Chunking, Route-Based Bundling & Asset Delivery",
+    desc: "Master client-side code splitting and production asset delivery: understanding why monolithic bundles impair Core Web Vitals (TTFB, FCP, INP), configuring asynchronous chunk boundaries using ECMAScript dynamic import(), integrating declarative Suspense fallbacks with React.lazy, implementing predictive route prefetching via link rel=modulepreload, enforcing tree-shaking with sideEffects: false, and auditing production bundles with strict CI size budgets.",
     syllabus: [
-      "Breaking a screen into components.",
-      "Deciding the data shape of a job.",
-      "Deciding where state lives."
+      "Monolithic bundle crisis & dynamic imports: Critical rendering path, TTFB/FCP/INP impact, and ECMAScript import() boundaries.",
+      "React.lazy state machine & Suspense: Four-stage lifecycle, thrown promise interception, and progressive skeleton commits.",
+      "Predictive prefetching & production auditing: link rel=modulepreload, sideEffects: false tree-shaking, and automated CI byte budgets."
     ],
-    eTitle: "Newest First",
-    eDesc: "Write `sortByNewest(jobs)` that returns a new list sorted by `appliedOn` (dates like `'2026-09-01'`), newest first. Do not change the original list.",
-    eStarter: lines("function sortByNewest(jobs) {", "  // copy with [...jobs], then sort", "}"),
-    eHint: "return [...jobs].sort((a, b) => b.appliedOn.localeCompare(a.appliedOn));",
-    eTest: lines(
-      "if (typeof sortByNewest !== 'function') throw new Error('sortByNewest not found');",
-      "const j1 = [{ id: 1, appliedOn: '2026-09-01' }, { id: 2, appliedOn: '2026-09-20' }, { id: 3, appliedOn: '2026-09-10' }];",
-      "const r1 = sortByNewest(j1);",
-      "if (r1[0].id !== 2 || r1[1].id !== 3 || r1[2].id !== 1 || j1[0].id !== 1) throw new Error('sortByNewest 1 failed');",
-      "const j2 = [{ id: 10, appliedOn: '2026-05-01' }, { id: 20, appliedOn: '2026-05-15' }];",
-      "const r2 = sortByNewest(j2);",
-      "if (r2[0].id !== 20 || r2[1].id !== 10) throw new Error('sortByNewest 2 failed');",
-      "const j3 = [{ id: 30, appliedOn: '2026-01-01' }];",
-      "const r3 = sortByNewest(j3);",
-      "if (r3.length !== 1 || r3[0].id !== 30) throw new Error('sortByNewest 3 failed');"
-    ),
-    aTitle: "Group by Status",
-    aDesc: "Write `groupByStatus(jobs)` that returns an object like `{ applied: [...], interview: [...] }`.",
+    eTitle: "Bundle Size Reduction Calculator",
+    eDesc: "Write `calculateBundleReduction(monolithicKb, initialChunksKb)` returning percentage of deferred bytes rounded to whole number.",
+    eStarter: lines("function calculateBundleReduction(monolithicKb, initialChunksKb) {", "  // return percentage of deferred bytes rounded to whole number", "  return 0;", "}"),
+    eHint: "const deferred = monolithicKb - initialChunksKb; return Math.round((deferred / monolithicKb) * 100);",
+    eTest: lines("if (typeof calculateBundleReduction !== 'function') throw new Error('calculateBundleReduction not found');", "if (calculateBundleReduction(1000, 300) !== 70) throw new Error('Expected 70% reduction');", "if (calculateBundleReduction(500, 250) !== 50) throw new Error('Expected 50% reduction');"),
+    aTitle: "Status Grouping Utility",
+    aDesc: "Write `groupByStatus(jobs)` that returns an object grouped by status.",
     aStarter: lines("function groupByStatus(jobs) {", "  const groups = {};", "  // add each job to groups[job.status]", "  return groups;", "}"),
-    aHint: "for (const job of jobs) { if (!groups[job.status]) groups[job.status] = []; groups[job.status].push(job); }",
+    aHint: lines("for (const job of jobs) {", "  if (!groups[job.status]) groups[job.status] = [];", "  groups[job.status].push(job);", "}", "return groups;"),
+    aTest: lines("if (typeof groupByStatus !== 'function') throw new Error('groupByStatus not found');", "const g1 = groupByStatus([{ id: 1, status: 'applied' }, { id: 2, status: 'offer' }, { id: 3, status: 'applied' }]);", "if (!g1.applied || g1.applied.length !== 2 || !g1.offer || g1.offer.length !== 1) throw new Error('groupByStatus 1 failed');", "const g2 = groupByStatus([{ id: 4, status: 'interview' }]);", "if (!g2.interview || g2.interview.length !== 1) throw new Error('groupByStatus 2 failed');")
+  },
+  {
+    title: "Suspense Architecture, Concurrent Boundaries & Error Boundaries: getDerivedStateFromError & Transition Mechanics",
+    desc: "Master declarative asynchronous UI architecture and resilient boundary topologies: eliminating isLoading boolean layout thrashing with React Suspense, eliminating fetch-on-render waterfalls via parallel resource kicking and SuspenseList, prioritizing non-blocking state transitions with useTransition and startTransition, implementing production Error Boundaries with getDerivedStateFromError and componentDidCatch, and designing an enterprise zero-crash resilient hierarchy.",
+    syllabus: [
+      "Declarative Suspense mental model: Eliminating isLoading boolean thrashing, thrown promise work loops, and atomic DOM commits.",
+      "Waterfall elimination & concurrent transitions: Parallel resource kicking, SuspenseList, and non-blocking useTransition scheduling.",
+      "Production Error Boundary architecture: getDerivedStateFromError fallbacks, componentDidCatch telemetry, and resilient multi-tier trees."
+    ],
+    eTitle: "Parallel Latency Coordinator",
+    eDesc: "Write `calculateParallelLatency(requests)` returning max latency among all concurrent requests.",
+    eStarter: lines("function calculateParallelLatency(requests) {", "  // return max latency among all concurrent requests", "  return 0;", "}"),
+    eHint: "return requests.length === 0 ? 0 : Math.max(...requests.map(r => r.latencyMs));",
+    eTest: lines("if (typeof calculateParallelLatency !== 'function') throw new Error('calculateParallelLatency not found');", "const reqs = [{ id: 'a', latencyMs: 120 }, { id: 'b', latencyMs: 250 }, { id: 'c', latencyMs: 80 }];", "if (calculateParallelLatency(reqs) !== 250) throw new Error('Parallel latency should be max latency (250)');", "if (calculateParallelLatency([]) !== 0) throw new Error('Empty array should return 0');"),
+    aTitle: "Error Boundary Derived State",
+    aDesc: "Write `getDerivedStateFromError(error)` returning `{ hasError: true, errorMessage }`.",
+    aStarter: lines("function getDerivedStateFromError(error) {", "  // return object with hasError: true and errorMessage string", "  return { hasError: false, errorMessage: '' };", "}"),
+    aHint: "return { hasError: true, errorMessage: error && error.message ? error.message : String(error) };",
+    aTest: lines("if (typeof getDerivedStateFromError !== 'function') throw new Error('getDerivedStateFromError not found');", "const s1 = getDerivedStateFromError(new Error('NETWORK_TIMEOUT'));", "if (!s1.hasError || s1.errorMessage !== 'NETWORK_TIMEOUT') throw new Error('Failed error object extraction');", "const s2 = getDerivedStateFromError('STRING_EXCEPTION');", "if (!s2.hasError || s2.errorMessage !== 'STRING_EXCEPTION') throw new Error('Failed string error extraction');")
+  },
+  {
+    title: "The useReducer Hook & Enterprise State Machines: Complex State Transitions, Reducer Purity & Milestone 5 Capstone",
+    desc: "Master advanced enterprise state management and construct the Milestone 5 Capstone: recognizing the limitations of useState for relational domains, eliminating impossible states with Finite State Machines, implementing deterministic pure reducers with useReducer and lazy init, pairing useReducer with Split Contexts for high-performance zero-dependency global stores, engineering middleware pipelines with time-travel debugging, and building the Global Enterprise E-Commerce & Inventory State Engine.",
+    syllabus: [
+      "Limitations of useState: Tangled boolean states, race conditions, impossible states, and Finite State Machine modeling.",
+      "useReducer internals & reducer purity: Action contracts, immutable structural sharing, never exhaustive checks, and lazy init.",
+      "Enterprise State Machine & Capstone: Split Context stores, middleware pipelines, time-travel logging, and the Commerce Engine Capstone."
+    ],
+    eTitle: "Inventory Reservation Reducer",
+    eDesc: "Write `inventoryReducer(stock, action)` where RESERVE decrements stock if sufficient and RESTOCK increments stock.",
+    eStarter: lines("function inventoryReducer(stock, action) {", "  // RESERVE decrements stock if sufficient, RESTOCK increments stock", "  return stock;", "}"),
+    eHint: lines("if (action.type === 'RESERVE') {", "  return stock >= action.quantity ? stock - action.quantity : stock;", "}", "if (action.type === 'RESTOCK') {", "  return stock + action.quantity;", "}", "return stock;"),
+    eTest: lines("if (typeof inventoryReducer !== 'function') throw new Error('inventoryReducer not found');", "if (inventoryReducer(100, { type: 'RESERVE', quantity: 30 }) !== 70) throw new Error('Failed to reserve stock');", "if (inventoryReducer(20, { type: 'RESERVE', quantity: 50 }) !== 20) throw new Error('Over-reservation should keep stock unchanged');", "if (inventoryReducer(50, { type: 'RESTOCK', quantity: 25 }) !== 75) throw new Error('Failed to restock');"),
+    aTitle: "Discounted Cart Total Calculator",
+    aDesc: "Write `calculateDiscountedTotal(items, discountRate)` returning discounted total rounded to 2 decimal places.",
+    aStarter: lines("function calculateDiscountedTotal(items, discountRate) {", "  // return final discounted total rounded to 2 decimal places", "  return 0;", "}"),
+    aHint: lines("const subtotal = items.reduce((acc, i) => acc + (i.price * i.qty), 0);", "const total = subtotal * (1 - discountRate);", "return Number(total.toFixed(2));"),
+    aTest: lines("if (typeof calculateDiscountedTotal !== 'function') throw new Error('calculateDiscountedTotal not found');", "const items = [{ sku: 'A', price: 100, qty: 2 }, { sku: 'B', price: 50, qty: 1 }];", "if (calculateDiscountedTotal(items, 0.20) !== 200) throw new Error('Expected 200 for 20% discount on 250 subtotal');", "if (calculateDiscountedTotal(items, 0.0) !== 250) throw new Error('Expected 250 for 0% discount');")
+  },
+  {
+    title: "REST API Design & Client Data Fetching: TanStack Query, SWR Caching & Revalidation",
+    desc: "Master enterprise data fetching and REST API architecture: HTTP method idempotency guarantees, RFC 5861 Stale-While-Revalidate caching, in-flight request deduplication, optimistic UI mutations with rollback snapshots, and exponential backoff with full jitter.",
+    syllabus: [
+      "RESTful resource hierarchies, safe (GET, HEAD) vs idempotent (PUT, DELETE) methods, and UUIDv4 idempotency keys.",
+      "The RFC 5861 Stale-While-Revalidate caching protocol, deterministic query key serialization, and staleTime vs gcTime memory tuning.",
+      "Eliminating the Thundering Herd bottleneck via in-flight Promise pooling and lifecycle observer garbage collection.",
+      "Zero-latency optimistic UI mutations with snapshot rollback closures and cache invalidation reconciliation.",
+      "Network resilience pipelines: exponential backoff, randomized jitter, and stream cancellation with AbortController."
+    ],
+    eTitle: "Deterministic Query Key Serializer",
+    eDesc: "Write `serializeQueryKey(key)` that turns a string or array containing primitive tokens and nested objects into a deterministic cache key string where object keys are sorted alphabetically.",
+    eStarter: lines(
+      "function serializeQueryKey(key) {",
+      "  // Serialize array tokens with sorted object keys",
+      "  return '';",
+      "}"
+    ),
+    eHint: "if (typeof key === 'string') return key; return key.map(k => typeof k === 'object' && k !== null ? JSON.stringify(Object.keys(k).sort().reduce((a, c) => (a[c] = k[c], a), {})) : String(k)).join('::');",
+    eTest: lines(
+      "if (typeof serializeQueryKey !== 'function') throw new Error('serializeQueryKey not found');",
+      "const k1 = ['jobs', { status: 'active', page: 1 }];",
+      "const k2 = ['jobs', { page: 1, status: 'active' }];",
+      "if (serializeQueryKey(k1) !== serializeQueryKey(k2)) throw new Error('Serialized keys should match');",
+      "if (!serializeQueryKey(k1).includes('jobs::')) throw new Error('Expected separator');"
+    ),
+    aTitle: "Exponential Backoff Calculator",
+    aDesc: "Write `calculateBackoff(attempt, baseMs, maxMs)` that calculates retry delay using exponential backoff formula `Math.min(maxMs, baseMs * Math.pow(2, attempt))`.",
+    aStarter: lines(
+      "function calculateBackoff(attempt, baseMs, maxMs) {",
+      "  // Return min(maxMs, baseMs * 2^attempt)",
+      "  return 0;",
+      "}"
+    ),
+    aHint: "return Math.min(maxMs, baseMs * Math.pow(2, attempt));",
     aTest: lines(
-      "if (typeof groupByStatus !== 'function') throw new Error('groupByStatus not found');",
-      "const g1 = groupByStatus([{ id: 1, status: 'applied' }, { id: 2, status: 'offer' }, { id: 3, status: 'applied' }]);",
-      "if (!g1.applied || g1.applied.length !== 2 || !g1.offer || g1.offer.length !== 1) throw new Error('groupByStatus 1 failed');",
-      "const g2 = groupByStatus([{ id: 4, status: 'interview' }]);",
-      "if (!g2.interview || g2.interview.length !== 1) throw new Error('groupByStatus 2 failed');",
-      "const g3 = groupByStatus([{ id: 5, status: 'rejected' }, { id: 6, status: 'rejected' }]);",
-      "if (!g3.rejected || g3.rejected.length !== 2) throw new Error('groupByStatus 3 failed');"
+      "if (typeof calculateBackoff !== 'function') throw new Error('calculateBackoff not found');",
+      "if (calculateBackoff(0, 100, 1000) !== 100) throw new Error('Attempt 0 should be 100');",
+      "if (calculateBackoff(1, 100, 1000) !== 200) throw new Error('Attempt 1 should be 200');",
+      "if (calculateBackoff(4, 100, 1000) !== 1000) throw new Error('Attempt 4 should cap at 1000');"
     )
   },
   {
-    title: "Project Build 1: Layout and Components",
-    desc: "Today you build the skeleton of the Job Tracker: a header, a summary bar, and a job list made of JobCard components, using sample data. (Real world: most apps start with a static version before adding logic.)",
+    title: "Authentication & Session Management: JWT, HttpOnly Cookies, OAuth2 & Protected Route Guards",
+    desc: "Architect enterprise full-stack authentication: stateless JWT cryptographic signatures, dual-token rotation with refresh token family reuse detection, XSS/CSRF mitigation via HttpOnly SameSite cookies, OAuth2 PKCE authorization flows, and declarative RBAC route guards.",
     syllabus: [
-      "App layout: Header, Summary and JobList components.",
-      "JobCard with props.",
-      "Summary numbers calculated from the job list."
+      "Stateless JWT cryptographic claim verification vs stateful session stores, selecting optimal revocation and latency topologies.",
+      "The dual-token architecture: short-lived access tokens, sliding refresh token rotation, and token family reuse detection alarms.",
+      "Hardening storage against XSS token exfiltration using HttpOnly Secure SameSite cookies and Double-Submit CSRF tokens.",
+      "OAuth 2.0 Authorization Code Flow with PKCE for public single-page clients, securing federated identity provider handshakes.",
+      "Declarative multi-tier route guards combining edge middleware redirect interception with client-side RBAC Auth Contexts."
     ],
-    eTitle: "Summary Bar Component",
-    eDesc: "Write a TSX component `SummaryBar({ total, interviews, offers }: { total: number; interviews: number; offers: number })` that returns `<div className=\"summary-bar\"><span>Total: {total}</span><span>Interviews: {interviews}</span><span>Offers: {offers}</span></div>`.",
-    eLanguage: "tsx",
-    eStarter: lines("function SummaryBar({ total, interviews, offers }: { total: number; interviews: number; offers: number }) {", "  // Return summary bar div with three spans", "  return null;", "}"),
-    eHint: "return <div className=\"summary-bar\"><span>Total: {total}</span><span>Interviews: {interviews}</span><span>Offers: {offers}</span></div>;",
-    eTest: lines(
-      "if (typeof SummaryBar !== 'function') throw new Error('SummaryBar not found');",
-      "const h1 = render(SummaryBar, { total: 4, interviews: 2, offers: 1 });",
-      "if (h1 !== '<div class=\"summary-bar\"><span>Total: 4</span><span>Interviews: 2</span><span>Offers: 1</span></div>') throw new Error('SummaryBar output incorrect, got ' + h1);",
-      "const h2 = render(SummaryBar, { total: 0, interviews: 0, offers: 0 });",
-      "if (h2 !== '<div class=\"summary-bar\"><span>Total: 0</span><span>Interviews: 0</span><span>Offers: 0</span></div>') throw new Error('Zero counts incorrect, got ' + h2);"
+    eTitle: "Double-Submit CSRF Validator",
+    eDesc: "Write `verifyCsrfToken(cookieToken, headerToken, method)` that allows safe HTTP methods (GET, HEAD, OPTIONS) unconditionally, and requires matching non-empty tokens for mutative methods.",
+    eStarter: lines(
+      "function verifyCsrfToken(cookieToken, headerToken, method) {",
+      "  // Safe methods pass; other methods require non-empty matching tokens",
+      "  return false;",
+      "}"
     ),
-    aTitle: "Status Label Component",
-    aDesc: "Write a TSX component `StatusLabel({ status }: { status: string })` that returns `<span className={`badge-${status}`}>{status.toUpperCase()}</span>`.",
-    aLanguage: "tsx",
-    aStarter: lines("function StatusLabel({ status }: { status: string }) {", "  // Return badge span with uppercased status", "  return null;", "}"),
-    aHint: "return <span className={`badge-${status}`}>{status.toUpperCase()}</span>;",
+    eHint: "if (['GET', 'HEAD', 'OPTIONS'].includes(method)) return true; if (!cookieToken || !headerToken) return false; return cookieToken === headerToken;",
+    eTest: lines(
+      "if (typeof verifyCsrfToken !== 'function') throw new Error('verifyCsrfToken not found');",
+      "if (!verifyCsrfToken(null, null, 'GET')) throw new Error('Safe GET should pass');",
+      "if (verifyCsrfToken('abc', null, 'POST')) throw new Error('Missing header should fail');",
+      "if (verifyCsrfToken('abc', 'xyz', 'POST')) throw new Error('Mismatch should fail');",
+      "if (!verifyCsrfToken('abc', 'abc', 'POST')) throw new Error('Matching tokens should pass');"
+    ),
+    aTitle: "Token Expiration Checker",
+    aDesc: "Write `isTokenExpired(expEpoch, currentEpoch)` that returns true if the token's expiration epoch is less than or equal to the current epoch.",
+    aStarter: lines(
+      "function isTokenExpired(expEpoch, currentEpoch) {",
+      "  // Return true if token is expired",
+      "  return false;",
+      "}"
+    ),
+    aHint: "return expEpoch <= currentEpoch;",
     aTest: lines(
-      "if (typeof StatusLabel !== 'function') throw new Error('StatusLabel not found');",
-      "const h1 = render(StatusLabel, { status: 'applied' });",
-      "if (h1 !== '<span class=\"badge-applied\">APPLIED</span>') throw new Error('applied status incorrect, got ' + h1);",
-      "const h2 = render(StatusLabel, { status: 'interview' });",
-      "if (h2 !== '<span class=\"badge-interview\">INTERVIEW</span>') throw new Error('interview status incorrect, got ' + h2);",
-      "const h3 = render(StatusLabel, { status: 'offer' });",
-      "if (h3 !== '<span class=\"badge-offer\">OFFER</span>') throw new Error('offer status incorrect, got ' + h3);"
+      "if (typeof isTokenExpired !== 'function') throw new Error('isTokenExpired not found');",
+      "if (!isTokenExpired(100, 150)) throw new Error('100 <= 150 should be expired');",
+      "if (isTokenExpired(200, 150)) throw new Error('200 > 150 should be active');"
     )
   },
   {
-    title: "Project Build 2: Adding Jobs and Filters",
-    desc: "Today the Job Tracker comes alive: a form to add a job, buttons to change status, a delete button, and filter tabs (All, Applied, Interview, Offer). (Real world: this is the core of every to-do or tracker app.)",
+    title: "Server-Side Rendering (SSR) & Next.js Architecture: Hydration Mechanics, RSC & Streaming",
+    desc: "Master modern full-stack rendering architectures: CSR vs SSR vs SSG vs ISR rendering matrix, the React hydration contract and mismatch resolution, React Server Components (RSC) wire format, asynchronous streaming SSR with Suspense, and the Server-Client serialization boundary.",
     syllabus: [
-      "The Add Job form with validation.",
-      "Changing status and deleting jobs.",
-      "Filter tabs using state."
+      "Evaluating web pages across the rendering spectrum (CSR, SSR, SSG, ISR), optimizing for TTFB, SEO, and compute cost.",
+      "Upholding the React Hydration Contract, eliminating client-server DOM mismatches caused by browser globals or invalid nesting.",
+      "Harnessing React Server Components (RSC) to execute zero-bundle-size dependencies on the server and stream UI via the RSC Wire Format.",
+      "Deploying Asynchronous Streaming SSR with Suspense boundaries, flushing critical shells immediately and executing out-of-order DOM swapping.",
+      "Architecting component hierarchies across the Server-Client boundary using serializable props contracts and the Component Slot Pattern."
     ],
-    eTitle: "Create a Job From the Form",
-    eDesc: "Write `createJob(form, id, today)` that returns `{ id, title, company, status: 'applied', appliedOn: today }` with extra spaces removed from title and company.",
-    eStarter: lines("function createJob(form, id, today) {", "  // use .trim() on title and company", "}"),
-    eHint: "return { id, title: form.title.trim(), company: form.company.trim(), status: 'applied', appliedOn: today };",
-    eTest: lines(
-      "if (typeof createJob !== 'function') throw new Error('createJob not found');",
-      "const c1 = createJob({ title: '  Dev ', company: ' TCS' }, 7, '2026-09-28');",
-      "if (c1.id !== 7 || c1.title !== 'Dev' || c1.company !== 'TCS' || c1.status !== 'applied' || c1.appliedOn !== '2026-09-28') throw new Error('createJob 1 failed');",
-      "const c2 = createJob({ title: 'Frontend  ', company: 'Infosys  ' }, 8, '2026-10-01');",
-      "if (c2.id !== 8 || c2.title !== 'Frontend' || c2.company !== 'Infosys') throw new Error('createJob 2 failed');",
-      "const c3 = createJob({ title: '  Backend', company: 'Wipro' }, 9, '2026-10-02');",
-      "if (c3.id !== 9 || c3.title !== 'Backend' || c3.company !== 'Wipro') throw new Error('createJob 3 failed');"
+    eTitle: "Rendering Strategy Classifier",
+    eDesc: "Write `classifyRenderingStrategy(isStatic, hasDynamicAuth, revalidateSeconds)` that returns 'SSR' if hasDynamicAuth is true, 'SSG' if isStatic is true, 'ISR' if revalidateSeconds > 0, and 'CSR' otherwise.",
+    eStarter: lines(
+      "function classifyRenderingStrategy(isStatic, hasDynamicAuth, revalidateSeconds) {",
+      "  // Return 'SSR', 'SSG', 'ISR', or 'CSR'",
+      "  return '';",
+      "}"
     ),
-    aTitle: "Filter Tabs",
-    aDesc: "Write `filterJobs(jobs, tab)` that returns all jobs when tab is `'all'`, otherwise only jobs with that status.",
-    aStarter: lines("function filterJobs(jobs, tab) {", "  // 'all' means no filter", "}"),
-    aHint: "return tab === 'all' ? jobs : jobs.filter(j => j.status === tab);",
+    eHint: "if (hasDynamicAuth) return 'SSR'; if (isStatic) return 'SSG'; if (revalidateSeconds > 0) return 'ISR'; return 'CSR';",
+    eTest: lines(
+      "if (typeof classifyRenderingStrategy !== 'function') throw new Error('classifyRenderingStrategy not found');",
+      "if (classifyRenderingStrategy(false, true, 0) !== 'SSR') throw new Error('Dynamic auth should give SSR');",
+      "if (classifyRenderingStrategy(true, false, 0) !== 'SSG') throw new Error('Static should give SSG');",
+      "if (classifyRenderingStrategy(false, false, 60) !== 'ISR') throw new Error('Revalidation should give ISR');"
+    ),
+    aTitle: "Hydration Mismatch Detector",
+    aDesc: "Write `detectHydrationMismatch(serverText, clientText)` that returns `{ matched: boolean, serverText, clientText }` indicating whether the server and client text align.",
+    aStarter: lines(
+      "function detectHydrationMismatch(serverText, clientText) {",
+      "  // Return object with matched boolean",
+      "  return null;",
+      "}"
+    ),
+    aHint: "return { matched: serverText === clientText, serverText, clientText };",
     aTest: lines(
-      "if (typeof filterJobs !== 'function') throw new Error('filterJobs not found');",
-      "const jobs = [{ status: 'applied' }, { status: 'offer' }];",
-      "if (filterJobs(jobs, 'all').length !== 2) throw new Error('all should return 2');",
-      "if (filterJobs(jobs, 'offer').length !== 1) throw new Error('offer should return 1');"
+      "if (typeof detectHydrationMismatch !== 'function') throw new Error('detectHydrationMismatch not found');",
+      "const resMatch = detectHydrationMismatch('hello', 'hello');",
+      "if (!resMatch.matched) throw new Error('Matching text should have matched: true');",
+      "const resDiff = detectHydrationMismatch('10:00', '10:01');",
+      "if (resDiff.matched) throw new Error('Divergent text should have matched: false');"
     )
   },
   {
-    title: "Project Build 3: Saving Data and a Details Page",
-    desc: "Today your jobs stay saved after a refresh using the browser's localStorage, sample companies load from an API, and each job gets its own details page with React Router. (Real world: apps remember your settings between visits.)",
+    title: "Full-Stack Database Integration: PostgreSQL, Prisma/Drizzle ORM & API Route Handlers",
+    desc: "Master industrial-grade database integration: relational schema design and B-Tree indexing, ACID transactions and PostgreSQL isolation levels, type-safe ORMs (Prisma/Drizzle) and N+1 query elimination, serverless connection pooling via PgBouncer, and secure Next.js API route handlers with Zod.",
     syllabus: [
-      "Saving and loading with localStorage and useEffect.",
-      "Loading data from an API with loading and error states.",
-      "A job details page using the URL id."
+      "Designing normalized 3NF relational schemas enforcing foreign key integrity and sub-millisecond B-Tree composite indexing.",
+      "Enforcing ACID guarantees, atomic rollbacks, explicit row locks (FOR UPDATE), and evaluating PostgreSQL transaction isolation levels.",
+      "Leveraging type-safe ORMs (Prisma, Drizzle) while eliminating the N+1 query bottleneck using eager relation joining and DataLoader batching.",
+      "Shielding PostgreSQL against serverless connection exhaustion using transaction poolers like PgBouncer and edge-native managers.",
+      "Building enterprise API Route Handlers combining Zod schema validation, edge/node runtime selection, and sanitized HTTP error envelopes."
     ],
-    eTitle: "Safe Load",
-    eDesc: "Saved data can be broken. Write `loadJobs(text)` that turns JSON text into an array, and returns `[]` if the text is empty, broken, or not an array.",
-    eStarter: lines("function loadJobs(text) {", "  try {", "    // JSON.parse the text", "  } catch (e) {", "    return [];", "  }", "}"),
-    eHint: "const data = JSON.parse(text); return Array.isArray(data) ? data : [];",
-    eTest: lines(
-      "if (typeof loadJobs !== 'function') throw new Error('loadJobs not found');",
-      "if (loadJobs('[{\"id\":1}]').length !== 1) throw new Error('Valid text should load 1 job');",
-      "if (loadJobs('broken{').length !== 0) throw new Error('Broken text should give []');",
-      "if (loadJobs('{\"a\":1}').length !== 0) throw new Error('A non-array should give []');",
-      "if (loadJobs('').length !== 0) throw new Error('Empty text should give []');"
+    eTitle: "Job Payload Validator",
+    eDesc: "Write `validateJobPayload(payload)` that validates that title is at least 3 chars, company at least 2 chars, and stage is one of APPLIED, INTERVIEWING, OFFER, or REJECTED. Returns `{ valid: boolean, errors: string[] }`.",
+    eStarter: lines(
+      "function validateJobPayload(payload) {",
+      "  // Return { valid: boolean, errors: string[] }",
+      "  return null;",
+      "}"
     ),
-    aTitle: "Find a Job by Id",
-    aDesc: "The details page gets the id from the address as text. Write `findJob(jobs, idText)` that returns the job whose id equals `Number(idText)`, or `null`.",
-    aStarter: lines("function findJob(jobs, idText) {", "  const id = Number(idText);", "  // use find, and return null if nothing matches", "}"),
-    aHint: "return jobs.find(j => j.id === id) || null;",
+    eHint: "const errors = []; if (!payload || typeof payload.title !== 'string' || payload.title.trim().length < 3) errors.push('invalid title'); if (!payload || typeof payload.company !== 'string' || payload.company.trim().length < 2) errors.push('invalid company'); const stages = ['APPLIED', 'INTERVIEWING', 'OFFER', 'REJECTED']; if (!payload || !stages.includes(payload.stage)) errors.push('invalid stage'); return { valid: errors.length === 0, errors };",
+    eTest: lines(
+      "if (typeof validateJobPayload !== 'function') throw new Error('validateJobPayload not found');",
+      "const ok = validateJobPayload({ title: 'Architect', company: 'Google', stage: 'OFFER' });",
+      "if (!ok.valid) throw new Error('Valid payload should pass');",
+      "const bad = validateJobPayload({ title: 'J', company: '', stage: 'PENDING' });",
+      "if (bad.valid || bad.errors.length !== 3) throw new Error('Invalid payload should return 3 errors');"
+    ),
+    aTitle: "Batch ID Deduplicator",
+    aDesc: "Write `deduplicateBatchIds(ids)` that takes an array of string identifiers, deduplicates them, and returns them sorted alphabetically.",
+    aStarter: lines(
+      "function deduplicateBatchIds(ids) {",
+      "  // Return unique sorted IDs array",
+      "  return [];",
+      "}"
+    ),
+    aHint: "return Array.from(new Set(ids)).sort();",
     aTest: lines(
-      "if (typeof findJob !== 'function') throw new Error('findJob not found');",
-      "const jobs = [{ id: 1 }, { id: 2 }];",
-      "if (!findJob(jobs, '2') || findJob(jobs, '2').id !== 2) throw new Error('Should find job 2');",
-      "if (findJob(jobs, '9') !== null) throw new Error('Missing job should give null');"
+      "if (typeof deduplicateBatchIds !== 'function') throw new Error('deduplicateBatchIds not found');",
+      "const res = deduplicateBatchIds(['c2', 'c1', 'c2', 'c3', 'c1']);",
+      "if (res.length !== 3 || res[0] !== 'c1' || res[1] !== 'c2' || res[2] !== 'c3') throw new Error('Should deduplicate and sort');"
     )
   },
   {
-    title: "Debugging: Finding and Fixing Mistakes",
-    desc: "Every developer spends a lot of time fixing bugs. Today you learn to read error messages, use console.log wisely, and use the browser's developer tools and React DevTools to see what is going on. (Real world: a junior developer's first tasks are usually bug fixes.)",
+    title: "Month 1 Capstone: Enterprise Full-Stack Job Tracker & Career OS Architecture",
+    desc: "Architect and deploy the Month 1 Capstone enterprise platform: multi-tier system topology, normalized client cache with optimistic transactional rollbacks, full-stack defense-in-depth security audit (CSP, CORS, RLS), Core Web Vitals performance profiling (LCP, INP, CLS), and production deployment verification gates.",
     syllabus: [
-      "Reading an error message: what, where, and why.",
-      "console.log and the browser DevTools.",
-      "Common React mistakes and how to spot them."
+      "Synthesizing the complete multi-tier enterprise architecture: Edge Network, Hybrid RSC & Streaming SSR, Interactive Islands, and PostgreSQL.",
+      "Implementing a normalized client cache engine supporting O(1) dictionary lookups, single-point-of-truth updates, and optimistic rollbacks.",
+      "Executing a full-stack security audit implementing Content Security Policy (CSP), HttpOnly SameSite cookies, anti-CSRF tokens, and Row-Level Security.",
+      "Optimizing Core Web Vitals to achieve elite ratings: LCP under 2.5s via SSR, INP under 200ms via deferred values, and CLS under 0.1 via aspect ratios.",
+      "Enforcing rigorous CI/CD Production Deployment Gates: zero TypeScript errors, 100% test pass rate, clean security audits, and database migrations."
     ],
-    eTitle: "Fix the Bug",
-    eDesc: "This function should add up the `salary` of all jobs, but it has a bug. Find it and fix it.",
-    eStarter: lines("function totalSalary(jobs) {", "  let total = 0;", "  for (let i = 1; i < jobs.length; i++) {", "    total = total + jobs[i].salary;", "  }", "  return total;", "}"),
-    eHint: "Arrays start at position 0, not 1.",
-    eTest: lines(
-      "if (typeof totalSalary !== 'function') throw new Error('totalSalary not found');",
-      "if (totalSalary([{ salary: 100 }, { salary: 200 }, { salary: 300 }]) !== 600) throw new Error('totalSalary 1 failed');",
-      "if (totalSalary([{ salary: 500 }]) !== 500) throw new Error('totalSalary 2 failed');",
-      "if (totalSalary([{ salary: 50 }, { salary: 75 }]) !== 125) throw new Error('totalSalary 3 failed');"
+    eTitle: "Deployment Gate Evaluator",
+    eDesc: "Write `evaluateDeploymentGate(checklist)` that verifies 5 mandatory boolean checks: typescriptCompiled, unitTestsPassed, securityAuditClean, webVitalsWithinBudget, databaseMigrationsApplied. Returns `{ approved: boolean, score: number }`.",
+    eStarter: lines(
+      "function evaluateDeploymentGate(checklist) {",
+      "  // Return { approved: boolean, score: number }",
+      "  return null;",
+      "}"
     ),
-    aTitle: "Find the Broken Record",
-    aDesc: "Write `firstIncomplete(jobs)` that returns the first job with an empty or missing `company`, or `null` if all are fine.",
-    aStarter: lines("function firstIncomplete(jobs) {", "  // use find", "}"),
-    aHint: "return jobs.find(j => !j.company) || null;",
+    eHint: "const keys = ['typescriptCompiled', 'unitTestsPassed', 'securityAuditClean', 'webVitalsWithinBudget', 'databaseMigrationsApplied']; const passed = keys.filter(k => checklist && checklist[k] === true); return { approved: passed.length === keys.length, score: Math.round((passed.length / keys.length) * 100) };",
+    eTest: lines(
+      "if (typeof evaluateDeploymentGate !== 'function') throw new Error('evaluateDeploymentGate not found');",
+      "const p = evaluateDeploymentGate({ typescriptCompiled: true, unitTestsPassed: true, securityAuditClean: true, webVitalsWithinBudget: true, databaseMigrationsApplied: true });",
+      "if (!p.approved || p.score !== 100) throw new Error('Complete checklist should be approved with score 100');",
+      "const f = evaluateDeploymentGate({ typescriptCompiled: true, unitTestsPassed: true, securityAuditClean: true, webVitalsWithinBudget: true, databaseMigrationsApplied: false });",
+      "if (f.approved || f.score !== 80) throw new Error('Incomplete checklist should not be approved');"
+    ),
+    aTitle: "Job List Normalizer",
+    aDesc: "Write `normalizeJobList(jobs)` that takes an array of job objects with `id` and returns a normalized `{ byId: Record<string, Job>, allIds: string[] }` object.",
+    aStarter: lines(
+      "function normalizeJobList(jobs) {",
+      "  // Return { byId: Record<string, Job>, allIds: string[] }",
+      "  return null;",
+      "}"
+    ),
+    aHint: "const byId = {}; const allIds = []; (jobs || []).forEach(j => { byId[j.id] = j; allIds.push(j.id); }); return { byId, allIds };",
     aTest: lines(
-      "if (typeof firstIncomplete !== 'function') throw new Error('firstIncomplete not found');",
-      "const r = firstIncomplete([{ id: 1, company: 'TCS' }, { id: 2, company: '' }, { id: 3 }]);",
-      "if (!r || r.id !== 2) throw new Error('Expected job 2');",
-      "if (firstIncomplete([{ id: 1, company: 'TCS' }]) !== null) throw new Error('Expected null');"
+      "if (typeof normalizeJobList !== 'function') throw new Error('normalizeJobList not found');",
+      "const jobs = [{ id: 'j1', title: 'Architect' }, { id: 'j2', title: 'Lead' }];",
+      "const norm = normalizeJobList(jobs);",
+      "if (norm.allIds.length !== 2 || norm.byId['j1'].title !== 'Architect' || norm.byId['j2'].title !== 'Lead') throw new Error('Normalization mismatch');"
     )
   },
-  {
-    title: "Testing Your Code",
-    desc: "Tests are small programs that check your code works, so you can change things without fear. You will learn what a test is, write simple checks, and see how React Testing Library tests a component the way a user would use it. (Real world: companies run thousands of tests before every release.)",
-    syllabus: [
-      "What a test is: arrange, act, check.",
-      "Writing checks with expect.",
-      "React Testing Library: testing what the user sees."
-    ],
-    eTitle: "Email Check",
-    eDesc: "Write `isValidEmail(email)` that returns `true` when the text has one `@` with text before it, and a `.` somewhere after it.",
-    eStarter: lines("function isValidEmail(email) {", "  // a simple pattern is enough", "}"),
-    eHint: "return /^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/.test(email);",
-    eTest: lines(
-      "if (typeof isValidEmail !== 'function') throw new Error('isValidEmail not found');",
-      "if (isValidEmail('asha@mail.com') !== true) throw new Error('asha@mail.com is valid');",
-      "if (isValidEmail('asha.mail.com') !== false) throw new Error('No @ is not valid');",
-      "if (isValidEmail('@mail.com') !== false) throw new Error('Nothing before @ is not valid');"
-    ),
-    aTitle: "Write Your Own Check",
-    aDesc: "Write `expectEqual(actual, expected)` that returns `true` when they are equal, and throws an Error with the message `'Expected X but got Y'` when they are not.",
-    aStarter: lines("function expectEqual(actual, expected) {", "  // throw new Error(...) when different", "}"),
-    aHint: "if (actual !== expected) throw new Error(`Expected ${expected} but got ${actual}`); return true;",
-    aTest: lines(
-      "if (typeof expectEqual !== 'function') throw new Error('expectEqual not found');",
-      "if (expectEqual(2, 2) !== true) throw new Error('Equal values should return true');",
-      "let threw = false; try { expectEqual(1, 2); } catch (e) { threw = String(e.message).includes('Expected 2 but got 1'); }",
-      "if (!threw) throw new Error('Should throw Expected 2 but got 1');"
-    )
-  },
-  {
-    title: "Putting Your App Online",
-    desc: "An app on your laptop helps nobody. Today you build the Job Tracker for production, deploy it to Vercel for free, and write a README so recruiters understand it. You finish with a live link for your resume. (Real world: every portfolio project should have a live link.)",
-    syllabus: [
-      "npm run build: making the production version.",
-      "Deploying to Vercel from GitHub.",
-      "Writing a good README with screenshots."
-    ],
-    eTitle: "Which Address?",
-    eDesc: "Write `apiBaseUrl(env)` that returns `'https://jobtracker.vercel.app'` for `'production'` and `'http://localhost:5173'` for anything else.",
-    eStarter: lines("function apiBaseUrl(env) {", "  // check if env is 'production'", "}"),
-    eHint: "return env === 'production' ? 'https://jobtracker.vercel.app' : 'http://localhost:5173';",
-    eTest: lines(
-      "if (typeof apiBaseUrl !== 'function') throw new Error('apiBaseUrl not found');",
-      "if (apiBaseUrl('production') !== 'https://jobtracker.vercel.app') throw new Error('Wrong production address');",
-      "if (apiBaseUrl('development') !== 'http://localhost:5173') throw new Error('Wrong local address');"
-    ),
-    aTitle: "README Checker",
-    aDesc: "Write `missingSections(readme)` that returns which of `'## About'`, `'## Features'`, `'## Setup'` are missing from the README text.",
-    aStarter: lines("function missingSections(readme) {", "  const needed = ['## About', '## Features', '## Setup'];", "  // keep the ones readme does not include", "}"),
-    aHint: "return needed.filter(s => !readme.includes(s));",
-    aTest: lines(
-      "if (typeof missingSections !== 'function') throw new Error('missingSections not found');",
-      "const m1 = missingSections('# Job Tracker\\n## About\\nText\\n## Setup\\nnpm i');",
-      "if (m1.length !== 1 || m1[0] !== '## Features') throw new Error('missingSections 1 failed');",
-      "const m2 = missingSections('# Job Tracker\\n## Features\\nDone');",
-      "if (m2.length !== 2 || !m2.includes('## About') || !m2.includes('## Setup')) throw new Error('missingSections 2 failed');",
-      "const m3 = missingSections('# Title Only');",
-      "if (m3.length !== 3 || !m3.includes('## About') || !m3.includes('## Features') || !m3.includes('## Setup')) throw new Error('missingSections 3 failed');"
-    )
-  },
-  {
-    title: "Interview Practice and Your Next Steps",
-    desc: "You have built and deployed a real React app. Today you practise the questions junior React interviews ask, learn to explain your project clearly, and solve two classic coding questions. (Real world: most junior interviews include a short coding task and questions about your project.)",
-    syllabus: [
-      "Common React interview questions: state vs props, keys, useEffect.",
-      "Explaining your project in 2 minutes.",
-      "Solving small coding questions calmly."
-    ],
-    eTitle: "FizzBuzz",
-    eDesc: "Write `fizzBuzz(n)` that returns `'FizzBuzz'` if n divides by 3 and 5, `'Fizz'` if by 3, `'Buzz'` if by 5, otherwise the number as text.",
-    eStarter: lines("function fizzBuzz(n) {", "  // check 3 and 5 together first", "}"),
-    eHint: "if (n % 15 === 0) return 'FizzBuzz'; if (n % 3 === 0) return 'Fizz'; if (n % 5 === 0) return 'Buzz'; return String(n);",
-    eTest: lines(
-      "if (typeof fizzBuzz !== 'function') throw new Error('fizzBuzz not found');",
-      "if (fizzBuzz(15) !== 'FizzBuzz' || fizzBuzz(9) !== 'Fizz' || fizzBuzz(10) !== 'Buzz' || fizzBuzz(7) !== '7') throw new Error('Wrong FizzBuzz answer');"
-    ),
-    aTitle: "Reverse the Words",
-    aDesc: "Write `reverseWords(sentence)` that reverses the order of the words. Example: `'I love React'` gives `'React love I'`.",
-    aStarter: lines("function reverseWords(sentence) {", "  // split, reverse, join", "}"),
-    aHint: "return sentence.split(' ').reverse().join(' ');",
-    aTest: lines(
-      "if (typeof reverseWords !== 'function') throw new Error('reverseWords not found');",
-      "if (reverseWords('I love React') !== 'React love I') throw new Error('reverseWords 1 failed');",
-      "if (reverseWords('Hello World') !== 'World Hello') throw new Error('reverseWords 2 failed');",
-      "if (reverseWords('frontend engineer pinit') !== 'pinit engineer frontend') throw new Error('reverseWords 3 failed');"
-    )
-  }
-,
   // ── BLOCK 7 (MONTH 2): Advanced React State Machines & Concurrency (Days 31–35) ──
   {
     title: "The React Concurrent Runtime: Fiber Tree, Work-in-Progress & Cooperatively Yielding Reconciler",

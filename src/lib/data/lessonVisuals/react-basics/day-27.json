@@ -2,754 +2,141 @@
   "schemaVersion": 1,
   "prefix": "react-basics",
   "day": 27,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
+  "visuals": [
     {
-      "partTitle": "Debugging is a normal part of the job",
-      "codeHash": "9961381c5bd64956b56db6c388a1d379509f8d05382bc0d75036e14c93ea4478",
-      "spec": {
-        "template": "flow",
-        "title": "Systematic debugging diagnosis cycle",
-        "nodes": [
-          {
-            "id": "rep",
-            "label": "reproduce",
-            "tappable": false
-          },
-          {
-            "id": "iso",
-            "label": "isolate",
-            "tappable": false
-          },
-          {
-            "id": "fix",
-            "label": "resolve",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Developers encounter and systematically resolve bugs as part of daily work.",
-            "values": {
-              "rep": {
-                "text": "\"Reproduce it\""
-              },
-              "iso": {
-                "text": "\"Narrow it down\""
-              },
-              "fix": {
-                "text": "\"Check the fix\""
-              }
-            },
-            "tones": {
-              "rep": "data",
-              "iso": "idle",
-              "fix": "idle"
-            },
-            "arrows": [
-              [
-                "rep",
-                "iso"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Reproduce errors reliably before diagnosing root causes and applying fixes.",
-            "values": {
-              "rep": {
-                "text": "\"Reproduce it\""
-              },
-              "iso": {
-                "text": "\"Narrow it down\""
-              },
-              "fix": {
-                "text": "\"Check the fix\""
-              }
-            },
-            "tones": {
-              "rep": "idle",
-              "iso": "data",
-              "fix": "ok"
-            },
-            "arrows": [
-              [
-                "rep",
-                "iso"
-              ],
-              [
-                "iso",
-                "fix"
-              ]
-            ]
-          }
-        ]
+      "part": 1,
+      "template": "boxes",
+      "title": "JSON Web Token Cryptographic Anatomy",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "384f9f7b5644791f1fcff2086446126cd4c001a00f225a624869b99e8a17d2c6"
       },
-      "filled": {
-        "template": "flow",
-        "title": "Systematic debugging diagnosis cycle",
-        "nodes": [
-          {
-            "id": "rep",
-            "label": "reproduce",
-            "tappable": false
-          },
-          {
-            "id": "iso",
-            "label": "isolate",
-            "tappable": false
-          },
-          {
-            "id": "fix",
-            "label": "resolve",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Developers encounter and systematically resolve bugs as part of daily work.",
-            "values": {
-              "rep": "\"Reproduce it\"",
-              "iso": "\"Narrow it down\"",
-              "fix": "\"Check the fix\""
-            },
-            "tones": {
-              "rep": "data",
-              "iso": "idle",
-              "fix": "idle"
-            },
-            "arrows": [
-              [
-                "rep",
-                "iso"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Reproduce errors reliably before diagnosing root causes and applying fixes.",
-            "values": {
-              "rep": "\"Reproduce it\"",
-              "iso": "\"Narrow it down\"",
-              "fix": "\"Check the fix\""
-            },
-            "tones": {
-              "rep": "idle",
-              "iso": "data",
-              "fix": "ok"
-            },
-            "arrows": [
-              [
-                "rep",
-                "iso"
-              ],
-              [
-                "iso",
-                "fix"
-              ]
-            ]
-          }
-        ]
-      }
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Token separates into header payload and signature."
+        },
+        {
+          "step": 2,
+          "caption": "Header declares signing algorithm and token type."
+        },
+        {
+          "step": 3,
+          "caption": "Payload provides verified subject and role claims."
+        },
+        {
+          "step": 4,
+          "caption": "Cryptographic signature verifies token integrity."
+        }
+      ]
     },
     {
-      "partTitle": "Reading an error message",
-      "codeHash": "1b2194713841c4dbb63d7a028bb6b46f5310fcb3ff17ed3b87ab5a8cab46bfd3",
-      "spec": {
-        "template": "compare",
-        "title": "Deciphering stack trace errors and origins",
-        "leftLabel": "Error Type",
-        "rightLabel": "Error Location",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Inspect detailed error diagnostics instead of feeling intimidated.",
-            "left": {
-              "code": "tryIt(() => { const job = undefined; return job.title; });",
-              "result": {
-                "text": "\"TypeError\""
-              },
-              "tone": "err"
-            },
-            "right": {
-              "code": "tryIt(() => { return jobz.length; });",
-              "result": {
-                "text": "\"ReferenceError\""
-              },
-              "tone": "idle"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Extract the error type, diagnostic message and specific source line.",
-            "left": {
-              "code": "tryIt(() => { const job = undefined; return job.title; });",
-              "result": {
-                "text": "\"TypeError\""
-              },
-              "tone": "err"
-            },
-            "right": {
-              "code": "tryIt(() => { const onDelete = \"not a function\"; onDelete(1); });",
-              "result": {
-                "text": "\"not a function\""
-              },
-              "tone": "ok"
-            }
-          }
-        ]
+      "part": 2,
+      "template": "states",
+      "title": "Dual Token Rotation Lifecycle",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "c4a775f5e60e27f3124e7907485387ceb3b65d7a9ee41f5d3f0d0db6c63c4bd9"
       },
-      "filled": {
-        "template": "compare",
-        "title": "Deciphering stack trace errors and origins",
-        "leftLabel": "Error Type",
-        "rightLabel": "Error Location",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Inspect detailed error diagnostics instead of feeling intimidated.",
-            "left": {
-              "code": "tryIt(() => { const job = undefined; return job.title; });",
-              "result": "\"TypeError\"",
-              "tone": "err",
-              "checks": [
-                "\"TypeError\""
-              ]
-            },
-            "right": {
-              "code": "tryIt(() => { return jobz.length; });",
-              "result": "\"ReferenceError\"",
-              "tone": "idle",
-              "checks": [
-                "\"ReferenceError\""
-              ]
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Extract the error type, diagnostic message and specific source line.",
-            "left": {
-              "code": "tryIt(() => { const job = undefined; return job.title; });",
-              "result": "\"TypeError\"",
-              "tone": "err",
-              "checks": [
-                "\"TypeError\""
-              ]
-            },
-            "right": {
-              "code": "tryIt(() => { const onDelete = \"not a function\"; onDelete(1); });",
-              "result": "\"not a function\"",
-              "tone": "ok",
-              "checks": [
-                "\"not a function\""
-              ]
-            }
-          }
-        ]
-      }
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Client presents short lived access token."
+        },
+        {
+          "step": 2,
+          "caption": "Expired access token triggers refresh exchange."
+        },
+        {
+          "step": 3,
+          "caption": "Auth server rotates tokens and issues new pair."
+        },
+        {
+          "step": 4,
+          "caption": "Token family reuse detection protects session."
+        }
+      ]
     },
     {
-      "partTitle": "console.log and the browser DevTools",
-      "codeHash": "de79fc718f5404b00eb6aea3e9cbe6bcd271e2a40283a9e2e3c89af829dc499b",
-      "spec": {
-        "template": "boxes",
-        "title": "Tracing state transitions with tagged console statements",
-        "boxes": [
-          {
-            "id": "tag",
-            "label": "logTag",
-            "tappable": false
-          },
-          {
-            "id": "val",
-            "label": "output",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Print runtime variable states using console log to inspect data flow.",
-            "values": {
-              "tag": {
-                "text": "\"tab:\""
-              },
-              "val": {
-                "text": "\"interview\""
-              }
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Use browser DevTools tabs to inspect network requests and console errors.",
-            "values": {
-              "tag": {
-                "text": "\"result count:\""
-              },
-              "val": {
-                "text": "\"Interview\""
-              }
-            }
-          }
-        ]
+      "part": 3,
+      "template": "compare",
+      "title": "XSS and CSRF Defense Architecture",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "658a060324e24f02b03240c1131902aac37c05363795b1f981a9c62015301e04"
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Tracing state transitions with tagged console statements",
-        "boxes": [
-          {
-            "id": "tag",
-            "label": "logTag",
-            "tappable": false
-          },
-          {
-            "id": "val",
-            "label": "output",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Print runtime variable states using console log to inspect data flow.",
-            "values": {
-              "tag": "\"tab:\"",
-              "val": "\"interview\""
-            },
-            "tones": {}
-          },
-          {
-            "at": "say3",
-            "caption": "Use browser DevTools tabs to inspect network requests and console errors.",
-            "values": {
-              "tag": "\"result count:\"",
-              "val": "\"Interview\""
-            },
-            "tones": {}
-          }
-        ]
-      }
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Sensitive session tokens reside in secure cookies."
+        },
+        {
+          "step": 2,
+          "caption": "Client script environment cannot access tokens."
+        },
+        {
+          "step": 3,
+          "caption": "Double submit header accompanies state mutations."
+        },
+        {
+          "step": 4,
+          "caption": "Same origin verification blocks forged requests."
+        }
+      ]
     },
     {
-      "partTitle": "Finding the bug by narrowing down",
-      "codeHash": "4e167475710b3f3244121434ed407c42a0613757259f1929ff50f7037df6e17a",
-      "spec": {
-        "template": "compare",
-        "title": "Detecting off-by-one errors in iterative boundaries",
-        "leftLabel": "Off-by-one (Bug)",
-        "rightLabel": "Zero-indexed (Fixed)",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Narrow down discrepancy locations by checking intermediate calculation state.",
-            "left": {
-              "code": "console.log(totalSalary([{ salary: 100 }, { salary: 200 }, { salary: 300 }]));",
-              "result": {
-                "text": "1"
-              },
-              "tone": "err"
-            },
-            "right": {
-              "code": "console.log(totalSalary([{ salary: 100 }, { salary: 200 }, { salary: 300 }]));",
-              "result": {
-                "text": "0"
-              },
-              "tone": "ok"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Verify loop initialization index bounds when cumulative totals miss items.",
-            "left": {
-              "code": "console.log(totalSalary([{ salary: 100 }, { salary: 200 }, { salary: 300 }]));",
-              "result": {
-                "text": "1"
-              },
-              "tone": "err"
-            },
-            "right": {
-              "code": "console.log(totalSalary([{ salary: 100 }, { salary: 200 }, { salary: 300 }]));",
-              "result": {
-                "text": "0"
-              },
-              "tone": "ok"
-            }
-          }
-        ]
+      "part": 4,
+      "template": "flow",
+      "title": "OAuth Authorization Flow with PKCE",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "1e2a4b9b986245deece663f188e7e4290cdf7be8e79ef50d258498f634869ce9"
       },
-      "filled": {
-        "template": "compare",
-        "title": "Detecting off-by-one errors in iterative boundaries",
-        "leftLabel": "Off-by-one (Bug)",
-        "rightLabel": "Zero-indexed (Fixed)",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Narrow down discrepancy locations by checking intermediate calculation state.",
-            "left": {
-              "code": "console.log(totalSalary([{ salary: 100 }, { salary: 200 }, { salary: 300 }]));",
-              "result": "1",
-              "tone": "err",
-              "checks": [
-                "1"
-              ]
-            },
-            "right": {
-              "code": "console.log(totalSalary([{ salary: 100 }, { salary: 200 }, { salary: 300 }]));",
-              "result": "0",
-              "tone": "ok",
-              "checks": [
-                "0"
-              ]
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Verify loop initialization index bounds when cumulative totals miss items.",
-            "left": {
-              "code": "console.log(totalSalary([{ salary: 100 }, { salary: 200 }, { salary: 300 }]));",
-              "result": "1",
-              "tone": "err",
-              "checks": [
-                "1"
-              ]
-            },
-            "right": {
-              "code": "console.log(totalSalary([{ salary: 100 }, { salary: 200 }, { salary: 300 }]));",
-              "result": "0",
-              "tone": "ok",
-              "checks": [
-                "0"
-              ]
-            }
-          }
-        ]
-      }
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Client generates random verifier and challenge."
+        },
+        {
+          "step": 2,
+          "caption": "Identity provider authenticates user consent."
+        },
+        {
+          "step": 3,
+          "caption": "Client exchanges code along with raw verifier."
+        },
+        {
+          "step": 4,
+          "caption": "Provider verifies challenge hash and mints tokens."
+        }
+      ]
     },
     {
-      "partTitle": "Common React mistakes",
-      "codeHash": "27c8620a5cf6089b945adca9d1b86663982097f9c67e129dd464a80188f7e514",
-      "spec": {
-        "template": "compare",
-        "title": "Direct state mutation versus immutable re-render dispatch",
-        "leftLabel": "Direct Mutation (Bug)",
-        "rightLabel": "Immutable Copy (Correct)",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Mutating arrays directly skips React re-render notifications.",
-            "left": {
-              "code": "console.log(\"Direct change, same array:\", same === jobs);",
-              "result": {
-                "text": "\"Dev\""
-              },
-              "tone": "err"
-            },
-            "right": {
-              "code": "console.log(\"Direct change, same array:\", same === jobs);",
-              "result": {
-                "text": "\"Tester\""
-              },
-              "tone": "ok"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Avoid calling an onClick function directly while drawing the screen.",
-            "left": {
-              "code": "console.log(\"Curly brackets without return:\", items);",
-              "result": {
-                "text": "\"Dev\""
-              },
-              "tone": "err"
-            },
-            "right": {
-              "code": "console.log(\"Curly brackets without return:\", items);",
-              "result": {
-                "text": "\"Tester\""
-              },
-              "tone": "ok"
-            }
-          }
-        ]
+      "part": 5,
+      "template": "component-tree",
+      "title": "Declarative Route Guard Architecture",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "99ae494ff4853b952d7a570ec72e2bd8e8f8903f9175cb7a505d09793c2ec27f"
       },
-      "filled": {
-        "template": "compare",
-        "title": "Direct state mutation versus immutable re-render dispatch",
-        "leftLabel": "Direct Mutation (Bug)",
-        "rightLabel": "Immutable Copy (Correct)",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Mutating arrays directly skips React re-render notifications.",
-            "left": {
-              "code": "console.log(\"Direct change, same array:\", same === jobs);",
-              "result": "\"Dev\"",
-              "tone": "err",
-              "checks": [
-                "\"Dev\""
-              ]
-            },
-            "right": {
-              "code": "console.log(\"Direct change, same array:\", same === jobs);",
-              "result": "\"Tester\"",
-              "tone": "ok",
-              "checks": [
-                "\"Tester\""
-              ]
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Avoid calling an onClick function directly while drawing the screen.",
-            "left": {
-              "code": "console.log(\"Curly brackets without return:\", items);",
-              "result": "\"Dev\"",
-              "tone": "err",
-              "checks": [
-                "\"Dev\""
-              ]
-            },
-            "right": {
-              "code": "console.log(\"Curly brackets without return:\", items);",
-              "result": "\"Tester\"",
-              "tone": "ok",
-              "checks": [
-                "\"Tester\""
-              ]
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Find and fix a bug in your project",
-      "codeHash": "73b29281cb17c120db1aaf8ace570913347dc2a3fe165ef165a5215278e7f22e",
-      "spec": {
-        "template": "flow",
-        "title": "Find and fix a bug in your project — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Find and fix a bug ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Find and fix a bug in your project [D27.P6.S1].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Find and fix a bug ... [D27.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D27.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Find and fix a bug in your project [D27.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Find and fix a bug in your project — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Find and fix a bug ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Find and fix a bug in your project [D27.P6.S1].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Find and fix a bug ... [D27.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D27.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Find and fix a bug in your project [D27.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      }
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Navigation enters top level route container."
+        },
+        {
+          "step": 2,
+          "caption": "Edge middleware inspects active session claims."
+        },
+        {
+          "step": 3,
+          "caption": "Auth context verifies candidate role permissions."
+        },
+        {
+          "step": 4,
+          "caption": "Protected component tree mounts without layout flash."
+        }
+      ]
     }
   ]
 }

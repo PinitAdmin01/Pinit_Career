@@ -273,7 +273,11 @@ export function isPathActive(pathname: string, href: string, currentSearch = '')
 
   // Unified AI Interview and GD tab routing
   if (href === '/interview?tab=gd' && (cleanPathname === '/group-discussion' || (cleanPathname === '/interview' && new URLSearchParams(searchStr).get('tab') === 'gd'))) return true;
-  if (href === '/interview' && cleanPathname === '/interview') return true;
+  if (href === '/interview' && cleanPathname === '/interview') {
+    const tab = new URLSearchParams(searchStr).get('tab');
+    if (tab === 'gd' && currentSearch === 'tab=gd') return false;
+    return true;
+  }
   if (hrefPath === '/interview' && cleanPathname === '/group-discussion') return true;
 
   // Unified Mirror hub: /mirror also activates on /learning, /career-builder, /career_builder

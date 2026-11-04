@@ -1,978 +1,292 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "prefix": "node-web",
   "day": 1,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "350ece00d6e3fb4f53bf876b0e6e8699fe90ac567f817e0f10eda5262ca912db",
+  "model": "google/gemini-2.0-flash",
   "entries": [
     {
-      "partTitle": "What Node.js Actually Is: V8 and libuv",
-      "codeHash": "c7f5a631506db54f29633d36551bb46b4423658846b694dfbdb6b97c96be2bcc",
+      "partTitle": "V8 Execution Pipeline: Ignition Bytecode & TurboFan Optimization",
+      "codeHash": "11b4cf1f32f121c41e7d112fb2ce3765bde9ff0f169c1f96c0f32c8b84311fd7",
+      "spec": {
+        "template": "flow",
+        "title": "Flow Architecture V Execution Pipeline: Ignition Bytecode & TurboFan Opti.",
+        "nodes": [
+          {
+            "id": "source",
+            "label": "Parser AST",
+            "type": "start"
+          },
+          {
+            "id": "interpreter",
+            "label": "Ignition Bytecode",
+            "type": "process"
+          },
+          {
+            "id": "feedback",
+            "label": "Feedback Vector",
+            "type": "process"
+          },
+          {
+            "id": "compiler",
+            "label": "TurboFan Native",
+            "type": "end"
+          }
+        ],
+        "edges": [
+          {
+            "from": "source",
+            "to": "interpreter",
+            "label": "Parse"
+          },
+          {
+            "from": "interpreter",
+            "to": "feedback",
+            "label": "Profile"
+          },
+          {
+            "from": "feedback",
+            "to": "compiler",
+            "label": "Optimize"
+          }
+        ]
+      },
+      "steps": [
+        {
+          "step": 1,
+          "description": "Virtual machine initializes baseline execution pipeline.",
+          "highlight": [
+            "source"
+          ]
+        },
+        {
+          "step": 2,
+          "description": "Runtime profiles object shapes and property offsets.",
+          "highlight": [
+            "source"
+          ]
+        },
+        {
+          "step": 3,
+          "description": "Optimizing compiler generates tuned native machine instructions.",
+          "highlight": [
+            "source"
+          ]
+        },
+        {
+          "step": 4,
+          "description": "Execution engine maintains stable throughput without deoptimization.",
+          "highlight": [
+            "source"
+          ]
+        }
+      ]
+    },
+    {
+      "partTitle": "V8 Memory Spaces: New Space Scavenge, Old Space & Garbage Collection",
+      "codeHash": "2c7eaa82bb4d06831d914b24f7f20ef7db6467df4e5dd15ced1793cf87f214ef",
       "spec": {
         "template": "boxes",
-        "title": "Node.js runtime architecture",
+        "title": "Memory Spaces V Memory Spaces: New Space Scavenge, Old Space & Garbage Co.",
         "boxes": [
           {
-            "id": "v8",
-            "label": "V8"
+            "id": "newSpace",
+            "label": "New Nursery"
+          },
+          {
+            "id": "fromSpace",
+            "label": "Semi From"
+          },
+          {
+            "id": "toSpace",
+            "label": "Semi To"
+          },
+          {
+            "id": "oldSpace",
+            "label": "Old Segment"
+          }
+        ]
+      },
+      "steps": [
+        {
+          "step": 1,
+          "description": "Transient allocations enter nursery memory partitions.",
+          "highlight": [
+            "newSpace"
+          ]
+        },
+        {
+          "step": 2,
+          "description": "Scavenger copies surviving objects between semi spaces.",
+          "highlight": [
+            "newSpace"
+          ]
+        },
+        {
+          "step": 3,
+          "description": "Durable references promote to old pointer memory segments.",
+          "highlight": [
+            "newSpace"
+          ]
+        },
+        {
+          "step": 4,
+          "description": "Incremental marking sweeps garbage without freezing threads.",
+          "highlight": [
+            "newSpace"
+          ]
+        }
+      ]
+    },
+    {
+      "partTitle": "Libuv Architecture: Cross-Platform Abstraction & Thread Pool Workloads",
+      "codeHash": "21fb047ae0d67db64b2cedfd0d751e4e53016b7f6a4421c9dcacbaeaeeaa9b9b",
+      "spec": {
+        "template": "stackQueue",
+        "title": "Thread Pool Workload Libuv Architecture: Cross-Platform Abstraction & Thr.",
+        "elements": [
+          {
+            "id": "fsRead",
+            "label": "Disk Read"
+          },
+          {
+            "id": "cryptoOp",
+            "label": "Password Hash"
+          },
+          {
+            "id": "dnsLookup",
+            "label": "Address Query"
+          },
+          {
+            "id": "netSocket",
+            "label": "Socket Descriptor"
+          }
+        ]
+      },
+      "steps": [
+        {
+          "step": 1,
+          "description": "Network operations delegate to kernel non-blocking mechanisms.",
+          "highlight": [
+            "fsRead"
+          ]
+        },
+        {
+          "step": 2,
+          "description": "Blocking file system operations route to worker thread pool.",
+          "highlight": [
+            "fsRead"
+          ]
+        },
+        {
+          "step": 3,
+          "description": "Cryptographic routines execute across background worker threads.",
+          "highlight": [
+            "fsRead"
+          ]
+        },
+        {
+          "step": 4,
+          "description": "Completed background tasks notify main event loop.",
+          "highlight": [
+            "fsRead"
+          ]
+        }
+      ]
+    },
+    {
+      "partTitle": "Operating System Kernel Multiplexing: epoll, kqueue & IOCP Demultiplexers",
+      "codeHash": "d7d78c044464dc67c830b4eaa682b7c9dff4f907a384ecaa81bf83155b8e8be5",
+      "spec": {
+        "template": "sequence",
+        "title": "Multiplexing Flow Operating System Kernel Multiplexing: epoll, kqueue & I.",
+        "actors": [
+          {
+            "id": "client",
+            "label": "Remote Client"
+          },
+          {
+            "id": "nic",
+            "label": "Network Card"
+          },
+          {
+            "id": "kernel",
+            "label": "Kernel Epoll"
           },
           {
             "id": "libuv",
-            "label": "libuv"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Node combines Google Chrome V8 engine and libuv.",
-            "values": {
-              "v8": {
-                "text": "V8"
-              },
-              "libuv": {
-                "text": "libuv"
-              }
-            },
-            "tones": {
-              "v8": "data",
-              "libuv": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Node took V8 out of the browser and coupled it with C++ bindings.",
-            "values": {
-              "v8": {
-                "text": "V8"
-              },
-              "libuv": {
-                "text": "libuv"
-              }
-            },
-            "tones": {
-              "v8": "ok",
-              "libuv": "data"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "The V8 engine compiles JavaScript code while libuv provides the event loop.",
-            "values": {
-              "v8": {
-                "text": "V8 + libuv"
-              },
-              "libuv": {
-                "text": "Single-Threaded Event Loop"
-              }
-            },
-            "tones": {
-              "v8": "ok",
-              "libuv": "ok"
-            }
+            "label": "Libuv Event Loop"
           }
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Node.js runtime architecture",
-        "boxes": [
-          {
-            "id": "v8",
-            "label": "V8"
-          },
-          {
-            "id": "libuv",
-            "label": "libuv"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Node combines Google Chrome V8 engine and libuv.",
-            "values": {
-              "v8": "V8",
-              "libuv": "libuv"
-            },
-            "tones": {
-              "v8": "data",
-              "libuv": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Node took V8 out of the browser and coupled it with C++ bindings.",
-            "values": {
-              "v8": "V8",
-              "libuv": "libuv"
-            },
-            "tones": {
-              "v8": "ok",
-              "libuv": "data"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "The V8 engine compiles JavaScript code while libuv provides the event loop.",
-            "values": {
-              "v8": "V8 + libuv",
-              "libuv": "Single-Threaded Event Loop"
-            },
-            "tones": {
-              "v8": "ok",
-              "libuv": "ok"
-            }
-          }
-        ]
-      }
+      "steps": [
+        {
+          "step": 1,
+          "description": "Sockets register file descriptors with kernel demultiplexer.",
+          "highlight": []
+        },
+        {
+          "step": 2,
+          "description": "Hardware network interrupts trigger packet receipt.",
+          "highlight": []
+        },
+        {
+          "step": 3,
+          "description": "Kernel marks descriptor readiness in notification registry.",
+          "highlight": []
+        },
+        {
+          "step": 4,
+          "description": "Event loop retrieves ready descriptors in constant time.",
+          "highlight": []
+        }
+      ]
     },
     {
-      "partTitle": "Synchronous Blocking vs Non-Blocking I/O",
-      "codeHash": "0d15eb7f421db73b3a1122de74fef78a55a9df5779d418cc87994e6a8f328976",
+      "partTitle": "Single-Threaded Event Loop Invariants & Production CPU Bounds",
+      "codeHash": "1ce85c83ce73dd21bcdbd0479222273e3230e7dc426f1d80fb8a3f50f98167ac",
       "spec": {
-        "template": "sequence",
-        "title": "Non-blocking I/O execution flow",
-        "actors": [
-          "Client",
-          "Node.js",
-          "Database"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Operating system threads are expensive for high concurrency.",
-            "activeActor": "Client",
-            "messages": [
-              {
-                "from": "Client",
-                "to": "Node.js",
-                "label": {
-                  "text": "1. Request received"
-                },
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Node delegates waiting to the operating system kernel.",
-            "activeActor": "Node.js",
-            "messages": [
-              {
-                "from": "Client",
-                "to": "Node.js",
-                "label": {
-                  "text": "1. Request received"
-                },
-                "tone": "idle"
-              },
-              {
-                "from": "Node.js",
-                "to": "Database",
-                "label": {
-                  "text": "2. Query delegated to background"
-                },
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "When the I/O operation finishes the callback is placed onto the queue.",
-            "activeActor": "Database",
-            "messages": [
-              {
-                "from": "Client",
-                "to": "Node.js",
-                "label": {
-                  "text": "1. Request received"
-                },
-                "tone": "idle"
-              },
-              {
-                "from": "Node.js",
-                "to": "Database",
-                "label": {
-                  "text": "2. Query delegated to background"
-                },
-                "tone": "idle"
-              },
-              {
-                "from": "Database",
-                "to": "Node.js",
-                "label": {
-                  "text": "3. Query results resolved"
-                },
-                "tone": "ok"
-              }
-            ]
-          }
-        ]
+        "template": "compare",
+        "title": "Latency Tradeoffs Single-Threaded Event Loop Invariants & Production CPU.",
+        "left": {
+          "title": "Single Thread",
+          "items": [
+            "Non-blocking sockets",
+            "Zero lock overhead",
+            "Event multiplexing"
+          ]
+        },
+        "right": {
+          "title": "Multi Thread",
+          "items": [
+            "Thread context switches",
+            "Stack memory footprint",
+            "Lock contention risks"
+          ]
+        }
       },
-      "filled": {
-        "template": "sequence",
-        "title": "Non-blocking I/O execution flow",
-        "actors": [
-          "Client",
-          "Node.js",
-          "Database"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Operating system threads are expensive for high concurrency.",
-            "messages": [
-              {
-                "from": "Client",
-                "to": "Node.js",
-                "label": "1. Request received",
-                "tone": "data"
-              }
-            ],
-            "activeActor": "Client"
-          },
-          {
-            "at": "say3",
-            "caption": "Node delegates waiting to the operating system kernel.",
-            "messages": [
-              {
-                "from": "Client",
-                "to": "Node.js",
-                "label": "1. Request received",
-                "tone": "idle"
-              },
-              {
-                "from": "Node.js",
-                "to": "Database",
-                "label": "2. Query delegated to background",
-                "tone": "data"
-              }
-            ],
-            "activeActor": "Node.js"
-          },
-          {
-            "at": "say8",
-            "caption": "When the I/O operation finishes the callback is placed onto the queue.",
-            "messages": [
-              {
-                "from": "Client",
-                "to": "Node.js",
-                "label": "1. Request received",
-                "tone": "idle"
-              },
-              {
-                "from": "Node.js",
-                "to": "Database",
-                "label": "2. Query delegated to background",
-                "tone": "idle"
-              },
-              {
-                "from": "Database",
-                "to": "Node.js",
-                "label": "3. Query results resolved",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "Database"
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "The Phases of the Event Loop: Timers, Poll, Check",
-      "codeHash": "183d24e618530a2a5ea3393fc6bbc3e06e8adb60d8b3e406bb064482117b4ca6",
-      "spec": {
-        "template": "flow",
-        "title": "Event loop phase progression",
-        "nodes": [
-          {
-            "id": "timers",
-            "label": "Timers"
-          },
-          {
-            "id": "poll",
-            "label": "Poll"
-          },
-          {
-            "id": "check",
-            "label": "Check"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The three phases you interact with constantly are Timers, Poll, and Check.",
-            "values": {
-              "timers": {
-                "text": "Timers"
-              },
-              "poll": {
-                "text": "Poll"
-              },
-              "check": {
-                "text": "Check"
-              }
-            },
-            "tones": {
-              "timers": "data",
-              "poll": "idle",
-              "check": "idle"
-            },
-            "arrows": [
-              [
-                "timers",
-                "poll"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "The Timers phase executes callbacks scheduled by setTimeout.",
-            "values": {
-              "timers": {
-                "text": "setTimeout and setInterval callbacks"
-              },
-              "poll": {
-                "text": "I/O events and incoming socket data"
-              },
-              "check": {
-                "text": "Check"
-              }
-            },
-            "tones": {
-              "timers": "idle",
-              "poll": "data",
-              "check": "idle"
-            },
-            "arrows": [
-              [
-                "poll",
-                "check"
-              ]
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "The Check phase is dedicated exclusively to setImmediate callbacks.",
-            "values": {
-              "timers": {
-                "text": "Timers"
-              },
-              "poll": {
-                "text": "Poll"
-              },
-              "check": {
-                "text": "setImmediate scheduled callbacks"
-              }
-            },
-            "tones": {
-              "timers": "idle",
-              "poll": "idle",
-              "check": "ok"
-            },
-            "arrows": [
-              [
-                "check",
-                "timers"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Event loop phase progression",
-        "nodes": [
-          {
-            "id": "timers",
-            "label": "Timers"
-          },
-          {
-            "id": "poll",
-            "label": "Poll"
-          },
-          {
-            "id": "check",
-            "label": "Check"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The three phases you interact with constantly are Timers, Poll, and Check.",
-            "values": {
-              "timers": "Timers",
-              "poll": "Poll",
-              "check": "Check"
-            },
-            "tones": {
-              "timers": "data",
-              "poll": "idle",
-              "check": "idle"
-            },
-            "arrows": [
-              [
-                "timers",
-                "poll"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "The Timers phase executes callbacks scheduled by setTimeout.",
-            "values": {
-              "timers": "setTimeout and setInterval callbacks",
-              "poll": "I/O events and incoming socket data",
-              "check": "Check"
-            },
-            "tones": {
-              "timers": "idle",
-              "poll": "data",
-              "check": "idle"
-            },
-            "arrows": [
-              [
-                "poll",
-                "check"
-              ]
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "The Check phase is dedicated exclusively to setImmediate callbacks.",
-            "values": {
-              "timers": "Timers",
-              "poll": "Poll",
-              "check": "setImmediate scheduled callbacks"
-            },
-            "tones": {
-              "timers": "idle",
-              "poll": "idle",
-              "check": "ok"
-            },
-            "arrows": [
-              [
-                "check",
-                "timers"
-              ]
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Microtasks: process.nextTick and Promise Queues",
-      "codeHash": "f1aa93aa8b1660a73ccd690aee5e0d1eb1bd7d3eff2cde38d6a672b54f2509d6",
-      "spec": {
-        "template": "stack-queue",
-        "title": "Microtask queue execution priority",
-        "mode": "queue",
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Node completely drains the microtask queue before moving forward.",
-            "items": [
-              {
-                "text": "1. Synchronous Frame"
-              }
-            ],
-            "action": "enqueue",
-            "actionItem": {
-              "text": "1. Synchronous Frame"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "The nextTick queue has the highest priority in the entire runtime.",
-            "items": [
-              {
-                "text": "1. Synchronous Frame"
-              },
-              {
-                "text": "2. Microtask Promise"
-              }
-            ],
-            "action": "enqueue",
-            "actionItem": {
-              "text": "2. Microtask Promise"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Calling process.nextTick recursively can completely starve the event loop.",
-            "items": [
-              {
-                "text": "2. Microtask Promise"
-              },
-              {
-                "text": "3. Resumed Synchronous Frame"
-              }
-            ],
-            "action": "dequeue",
-            "actionItem": {
-              "text": "1. Synchronous Frame"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "stack-queue",
-        "title": "Microtask queue execution priority",
-        "mode": "queue",
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Node completely drains the microtask queue before moving forward.",
-            "mode": "queue",
-            "items": [
-              "1. Synchronous Frame"
-            ],
-            "action": "enqueue",
-            "actionItem": "1. Synchronous Frame"
-          },
-          {
-            "at": "say3",
-            "caption": "The nextTick queue has the highest priority in the entire runtime.",
-            "mode": "queue",
-            "items": [
-              "1. Synchronous Frame",
-              "2. Microtask Promise"
-            ],
-            "action": "enqueue",
-            "actionItem": "2. Microtask Promise"
-          },
-          {
-            "at": "say8",
-            "caption": "Calling process.nextTick recursively can completely starve the event loop.",
-            "mode": "queue",
-            "items": [
-              "2. Microtask Promise",
-              "3. Resumed Synchronous Frame"
-            ],
-            "action": "dequeue",
-            "actionItem": "1. Synchronous Frame"
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "CPU-Bound vs I/O-Bound Workloads",
-      "codeHash": "8160bd99155313f7633096e9cea32f511893924f79293725acbfaec6c0bdfe06",
-      "spec": {
-        "template": "table",
-        "title": "Workload characteristics comparison",
-        "columns": [
-          "Workload",
-          "Characteristics",
-          "Recommendation"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "An I/O-bound operation spends almost all its time waiting for external systems.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "I/O-Bound"
-                  },
-                  {
-                    "text": "Non-blocking"
-                  },
-                  {
-                    "text": "perfect for Node.js event loop"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "CPU-Bound"
-                  },
-                  {
-                    "text": "waiting"
-                  },
-                  {
-                    "text": "waiting"
-                  }
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "A CPU-bound operation requires intense calculation directly on the processor.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "I/O-Bound"
-                  },
-                  {
-                    "text": "Non-blocking"
-                  },
-                  {
-                    "text": "perfect for Node.js event loop"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "CPU-Bound"
-                  },
-                  {
-                    "text": "Blocks main thread"
-                  },
-                  {
-                    "text": "offload to worker threads"
-                  }
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Running heavy CPU-bound code blocks the thread completely.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "I/O-Bound"
-                  },
-                  {
-                    "text": "Non-blocking"
-                  },
-                  {
-                    "text": "perfect for Node.js event loop"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "CPU-Bound"
-                  },
-                  {
-                    "text": "Blocks main thread"
-                  },
-                  {
-                    "text": "offload to worker threads"
-                  }
-                ],
-                "tone": "error"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "table",
-        "title": "Workload characteristics comparison",
-        "columns": [
-          "Workload",
-          "Characteristics",
-          "Recommendation"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "An I/O-bound operation spends almost all its time waiting for external systems.",
-            "rows": [
-              {
-                "cells": [
-                  "I/O-Bound",
-                  "Non-blocking",
-                  "perfect for Node.js event loop"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "CPU-Bound",
-                  "waiting",
-                  "waiting"
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "A CPU-bound operation requires intense calculation directly on the processor.",
-            "rows": [
-              {
-                "cells": [
-                  "I/O-Bound",
-                  "Non-blocking",
-                  "perfect for Node.js event loop"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "CPU-Bound",
-                  "Blocks main thread",
-                  "offload to worker threads"
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Running heavy CPU-bound code blocks the thread completely.",
-            "rows": [
-              {
-                "cells": [
-                  "I/O-Bound",
-                  "Non-blocking",
-                  "perfect for Node.js event loop"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "CPU-Bound",
-                  "Blocks main thread",
-                  "offload to worker threads"
-                ],
-                "tone": "error"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Structuring Clean Node.js Process Lifecycles",
-      "codeHash": "9a56c2edd4c7854d54e840c236140c84c365a94230ef869971571fa280eb5bc6",
-      "spec": {
-        "template": "flow",
-        "title": "Structuring Clean Node.js Process Lifecycles — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Structuring Clean N...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Structuring Clean Node.js Process Lifecy.. [D1.P6.S1].",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Structuring Clean N... [D1.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D1.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Structuring Clean Node.js Process.. [D1.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Structuring Clean Node.js Process Lifecycles — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Structuring Clean N...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Structuring Clean Node.js Process Lifecy.. [D1.P6.S1].",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Structuring Clean N... [D1.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D1.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Structuring Clean Node.js Process.. [D1.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      }
+      "steps": [
+        {
+          "step": 1,
+          "description": "JavaScript executes exclusively on single main thread.",
+          "highlight": []
+        },
+        {
+          "step": 2,
+          "description": "Synchronous compute blocks event loop advancement.",
+          "highlight": []
+        },
+        {
+          "step": 3,
+          "description": "Latency monitoring tracks tick delay percentiles.",
+          "highlight": []
+        },
+        {
+          "step": 4,
+          "description": "Automated gates preserve healthy response latency.",
+          "highlight": []
+        }
+      ]
     }
   ]
 }

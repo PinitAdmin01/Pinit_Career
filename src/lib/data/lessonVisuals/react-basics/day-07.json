@@ -1,833 +1,710 @@
-{
-  "schemaVersion": 1,
-  "prefix": "react-basics",
-  "day": 7,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
-    {
-      "partTitle": "Why real apps use many files",
-      "codeHash": "b1c2bf9d81d949483a12f5124eccdd118965c7c712baae9195c778a9fd7b6def",
-      "spec": {
-        "template": "component-tree",
-        "title": "Modular application architecture across files",
-        "nodes": [
-          {
-            "id": "app",
-            "name": "App",
+[
+  {
+    "schemaVersion": 1,
+    "prefix": "react-basics",
+    "day": 7,
+    "part": 1,
+    "codeHash": "55dc76eec4fbd9e3f40f4b989f9e5cedb4d679e40e9d43cd4c54a3a38156d174",
+    "spec": {
+      "template": "compare",
+      "title": "CommonJS Dynamic Runtime vs ES Module Static Analysis",
+      "left": {
+        "label": "Standard Implementation"
+      },
+      "right": {
+        "label": "Architectural Pattern"
+      },
+      "steps": [
+        {
+          "at": "say1",
+          "caption": "CommonJS loads modules synchronously via dynamic require calls.",
+          "left": {
+            "code": "// Left pipeline phase 1",
+            "result": {
+              "text": "\"Standard\""
+            },
             "tone": "idle"
           },
-          {
-            "id": "hdr",
-            "name": "Header",
+          "right": {
+            "code": "// Optimized pipeline phase 1",
+            "result": {
+              "text": "\"Optimized\""
+            },
             "tone": "ok"
-          },
-          {
-            "id": "card",
-            "name": "JobCard",
+          }
+        },
+        {
+          "at": "say2",
+          "caption": "Exported values copy by value freezing runtime state snapshots.",
+          "left": {
+            "code": "// Left pipeline phase 2",
+            "result": {
+              "text": "\"Standard\""
+            },
             "tone": "data"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Applications split components across individual modular files.",
-            "activeId": "app",
-            "tone": "idle"
           },
-          {
-            "at": "say3",
-            "caption": "Modules use export and import to share component code.",
-            "activeId": "card",
+          "right": {
+            "code": "// Optimized pipeline phase 2",
+            "result": {
+              "text": "\"Optimized\""
+            },
             "tone": "ok"
           }
-        ]
-      },
-      "filled": {
-        "template": "component-tree",
-        "title": "Modular application architecture across files",
-        "nodes": [
-          {
-            "id": "app",
-            "name": "App",
-            "tone": "idle"
-          },
-          {
-            "id": "hdr",
-            "name": "Header",
-            "tone": "ok"
-          },
-          {
-            "id": "card",
-            "name": "JobCard",
+        },
+        {
+          "at": "say3",
+          "caption": "ES modules parse import declarations statically before execution.",
+          "left": {
+            "code": "// Left pipeline phase 3",
+            "result": {
+              "text": "\"Standard\""
+            },
             "tone": "data"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Applications split components across individual modular files.",
-            "activeId": "app",
-            "tone": "idle",
-            "nodes": [
-              {
-                "id": "app",
-                "name": "App",
-                "tone": "idle"
-              },
-              {
-                "id": "hdr",
-                "name": "Header",
-                "tone": "ok"
-              },
-              {
-                "id": "card",
-                "name": "JobCard",
-                "tone": "data"
-              }
-            ]
           },
-          {
-            "at": "say3",
-            "caption": "Modules use export and import to share component code.",
-            "activeId": "card",
-            "tone": "ok",
-            "nodes": [
-              {
-                "id": "app",
-                "name": "App",
-                "tone": "idle"
-              },
-              {
-                "id": "hdr",
-                "name": "Header",
-                "tone": "ok"
-              },
-              {
-                "id": "card",
-                "name": "JobCard",
-                "tone": "data"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "export and import",
-      "codeHash": "0fb9570c223945d176d1e4b34d0aec62d5bc8b513f63bca4370870b72052911f",
-      "spec": {
-        "template": "flow",
-        "title": "Sharing code between files with exports",
-        "nodes": [
-          {
-            "id": "src",
-            "label": "export",
-            "tappable": false
-          },
-          {
-            "id": "fn",
-            "label": "formatSalary",
-            "tappable": false
-          },
-          {
-            "id": "out",
-            "label": "import",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Export allows functions to be shared across project files.",
-            "values": {
-              "src": {
-                "text": "formatSalary"
-              },
-              "fn": {
-                "text": "formatSalary"
-              },
-              "out": {
-                "text": "formatSalary"
-              }
+          "right": {
+            "code": "// Optimized pipeline phase 3",
+            "result": {
+              "text": "\"Optimized\""
             },
-            "tones": {
-              "src": "data",
-              "fn": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "src",
-                "fn"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "Import brings named exports into files using curly brackets.",
-            "values": {
-              "src": {
-                "text": "formatSalary"
-              },
-              "fn": {
-                "text": "formatSalary"
-              },
-              "out": {
-                "text": "formatSalary"
-              }
-            },
-            "tones": {
-              "src": "idle",
-              "fn": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "src",
-                "fn"
-              ],
-              [
-                "fn",
-                "out"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Sharing code between files with exports",
-        "nodes": [
-          {
-            "id": "src",
-            "label": "export",
-            "tappable": false
-          },
-          {
-            "id": "fn",
-            "label": "formatSalary",
-            "tappable": false
-          },
-          {
-            "id": "out",
-            "label": "import",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Export allows functions to be shared across project files.",
-            "values": {
-              "src": "formatSalary",
-              "fn": "formatSalary",
-              "out": "formatSalary"
-            },
-            "tones": {
-              "src": "data",
-              "fn": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "src",
-                "fn"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "Import brings named exports into files using curly brackets.",
-            "values": {
-              "src": "formatSalary",
-              "fn": "formatSalary",
-              "out": "formatSalary"
-            },
-            "tones": {
-              "src": "idle",
-              "fn": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "src",
-                "fn"
-              ],
-              [
-                "fn",
-                "out"
-              ]
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Node.js and npm: tools on your laptop",
-      "codeHash": "15e685d8d37f7b8bc23550a27ae42532e490ccc2b0d290237b4f8665fb0de4ed",
-      "spec": {
-        "template": "flow",
-        "title": "Node.js and npm: tools on your laptop — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Node.js and npm: to...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Node.js and npm: tools on your laptop [D7.P3.S1].",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Node.js and npm: to... [D7.P3.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D7.P3.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Node.js and npm: tools on your la.. [D7.P3.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Node.js and npm: tools on your laptop — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Node.js and npm: to...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Node.js and npm: tools on your laptop [D7.P3.S1].",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Node.js and npm: to... [D7.P3.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D7.P3.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Node.js and npm: tools on your la.. [D7.P3.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Create your React project with Vite",
-      "codeHash": "019dc7e12a3c14a96cddffccb6de68b7d92850ef0f08a823847cbadc08a76a61",
-      "spec": {
-        "template": "flow",
-        "title": "Vite development workflow and local server",
-        "nodes": [
-          {
-            "id": "cmd",
-            "label": "terminal",
-            "tappable": false
-          },
-          {
-            "id": "server",
-            "label": "vite",
-            "tappable": false
-          },
-          {
-            "id": "browser",
-            "label": "localhost",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say3",
-            "caption": "The development server starts local hosting in the browser.",
-            "values": {
-              "cmd": {
-                "text": "http://localhost:5173"
-              },
-              "server": {
-                "text": "http://localhost:5173"
-              },
-              "browser": {
-                "text": "http://localhost:5173"
-              }
-            },
-            "tones": {
-              "cmd": "data",
-              "server": "idle",
-              "browser": "idle"
-            },
-            "arrows": [
-              [
-                "cmd",
-                "server"
-              ]
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Stopping the terminal server halts the active local site.",
-            "values": {
-              "cmd": {
-                "text": "http://localhost:5173"
-              },
-              "server": {
-                "text": "http://localhost:5173"
-              },
-              "browser": {
-                "text": "http://localhost:5173"
-              }
-            },
-            "tones": {
-              "cmd": "idle",
-              "server": "data",
-              "browser": "idle"
-            },
-            "arrows": [
-              [
-                "cmd",
-                "server"
-              ],
-              [
-                "server",
-                "browser"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Vite development workflow and local server",
-        "nodes": [
-          {
-            "id": "cmd",
-            "label": "terminal",
-            "tappable": false
-          },
-          {
-            "id": "server",
-            "label": "vite",
-            "tappable": false
-          },
-          {
-            "id": "browser",
-            "label": "localhost",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say3",
-            "caption": "The development server starts local hosting in the browser.",
-            "values": {
-              "cmd": "http://localhost:5173",
-              "server": "http://localhost:5173",
-              "browser": "http://localhost:5173"
-            },
-            "tones": {
-              "cmd": "data",
-              "server": "idle",
-              "browser": "idle"
-            },
-            "arrows": [
-              [
-                "cmd",
-                "server"
-              ]
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Stopping the terminal server halts the active local site.",
-            "values": {
-              "cmd": "http://localhost:5173",
-              "server": "http://localhost:5173",
-              "browser": "http://localhost:5173"
-            },
-            "tones": {
-              "cmd": "idle",
-              "server": "data",
-              "browser": "idle"
-            },
-            "arrows": [
-              [
-                "cmd",
-                "server"
-              ],
-              [
-                "server",
-                "browser"
-              ]
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "A tour of your project",
-      "codeHash": "e8e4d8a52817ed4650e7040a6866f050ed124afe9014542c832e69dfcf24d9dc",
-      "spec": {
-        "template": "component-tree",
-        "title": "React project directory and entry structure",
-        "nodes": [
-          {
-            "id": "html",
-            "name": "index.html",
-            "tone": "idle"
-          },
-          {
-            "id": "main",
-            "name": "main.jsx",
             "tone": "ok"
-          },
-          {
-            "id": "app",
-            "name": "App.jsx",
+          }
+        },
+        {
+          "at": "say4",
+          "caption": "Live bindings reflect downstream state updates across module boundaries.",
+          "left": {
+            "code": "// Left pipeline phase 4",
+            "result": {
+              "text": "\"Standard\""
+            },
             "tone": "data"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Root HTML contains the host container for the React application.",
-            "activeId": "html",
-            "tone": "idle"
           },
-          {
-            "at": "say2",
-            "caption": "Source files launch React and mount the App component.",
-            "activeId": "app",
+          "right": {
+            "code": "// Optimized pipeline phase 4",
+            "result": {
+              "text": "\"Optimized\""
+            },
             "tone": "ok"
           }
-        ]
-      },
-      "filled": {
-        "template": "component-tree",
-        "title": "React project directory and entry structure",
-        "nodes": [
-          {
-            "id": "html",
-            "name": "index.html",
-            "tone": "idle"
-          },
-          {
-            "id": "main",
-            "name": "main.jsx",
-            "tone": "ok"
-          },
-          {
-            "id": "app",
-            "name": "App.jsx",
-            "tone": "data"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Root HTML contains the host container for the React application.",
-            "activeId": "html",
-            "tone": "idle",
-            "nodes": [
-              {
-                "id": "html",
-                "name": "index.html",
-                "tone": "idle"
-              },
-              {
-                "id": "main",
-                "name": "main.jsx",
-                "tone": "ok"
-              },
-              {
-                "id": "app",
-                "name": "App.jsx",
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "Source files launch React and mount the App component.",
-            "activeId": "app",
-            "tone": "ok",
-            "nodes": [
-              {
-                "id": "html",
-                "name": "index.html",
-                "tone": "idle"
-              },
-              {
-                "id": "main",
-                "name": "main.jsx",
-                "tone": "ok"
-              },
-              {
-                "id": "app",
-                "name": "App.jsx",
-                "tone": "data"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Counting with objects (for today's practice)",
-      "codeHash": "99f3cb7051c0b305bd26686af3054232431689e6b1153ca083ef769be65cb1fd",
-      "spec": {
-        "template": "boxes",
-        "title": "Counting grouped items with object keys",
-        "boxes": [
-          {
-            "id": "applied",
-            "label": "applied",
-            "tappable": false
-          },
-          {
-            "id": "interview",
-            "label": "interview",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Objects count occurrences of items matching each status.",
-            "values": {
-              "applied": {
-                "text": "\"applied\""
-              },
-              "interview": {
-                "text": "\"interview\""
-              }
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Looping updates count values for each job status property.",
-            "values": {
-              "applied": {
-                "text": "\"applied\""
-              },
-              "interview": {
-                "text": "\"interview\""
-              }
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Counting grouped items with object keys",
-        "boxes": [
-          {
-            "id": "applied",
-            "label": "applied",
-            "tappable": false
-          },
-          {
-            "id": "interview",
-            "label": "interview",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Objects count occurrences of items matching each status.",
-            "values": {
-              "applied": "\"applied\"",
-              "interview": "\"interview\""
-            },
-            "tones": {}
-          },
-          {
-            "at": "say2",
-            "caption": "Looping updates count values for each job status property.",
-            "values": {
-              "applied": "\"applied\"",
-              "interview": "\"interview\""
-            },
-            "tones": {}
-          }
-        ]
-      }
+        }
+      ]
     }
-  ]
-}
+  },
+  {
+    "schemaVersion": 1,
+    "prefix": "react-basics",
+    "day": 7,
+    "part": 2,
+    "codeHash": "3b5dcc18264dfd618533f98ded215eaae1e62f8e6cd0fbcd869a066eb9fa910a",
+    "spec": {
+      "template": "flow",
+      "title": "Module Graph Construction and Cyclic Resolution Pipeline",
+      "nodes": [
+        {
+          "id": "n1",
+          "label": "Entry File",
+          "tappable": false
+        },
+        {
+          "id": "n2",
+          "label": "Static Parser",
+          "tappable": false
+        },
+        {
+          "id": "n3",
+          "label": "Module Graph Node",
+          "tappable": false
+        },
+        {
+          "id": "n4",
+          "label": "Execution Order",
+          "tappable": false
+        }
+      ],
+      "steps": [
+        {
+          "at": "say1",
+          "caption": "Bundler parses entry file into abstract syntax tree representation.",
+          "values": {
+            "n1": {
+              "text": "\"Entry File\""
+            },
+            "n2": {
+              "text": "\"Static Parser\""
+            },
+            "n3": {
+              "text": "\"Module Graph Node\""
+            },
+            "n4": {
+              "text": "\"Execution Order\""
+            }
+          },
+          "tones": {
+            "n1": "data",
+            "n2": "idle",
+            "n3": "idle",
+            "n4": "idle"
+          },
+          "arrows": []
+        },
+        {
+          "at": "say2",
+          "caption": "Static import declarations register outgoing dependency graph edges.",
+          "values": {
+            "n1": {
+              "text": "\"Entry File\""
+            },
+            "n2": {
+              "text": "\"Static Parser\""
+            },
+            "n3": {
+              "text": "\"Module Graph Node\""
+            },
+            "n4": {
+              "text": "\"Execution Order\""
+            }
+          },
+          "tones": {
+            "n1": "data",
+            "n2": "data",
+            "n3": "idle",
+            "n4": "idle"
+          },
+          "arrows": [
+            [
+              "n1",
+              "n2"
+            ]
+          ]
+        },
+        {
+          "at": "say3",
+          "caption": "Topological sorting establishes deterministic module execution order.",
+          "values": {
+            "n1": {
+              "text": "\"Entry File\""
+            },
+            "n2": {
+              "text": "\"Static Parser\""
+            },
+            "n3": {
+              "text": "\"Module Graph Node\""
+            },
+            "n4": {
+              "text": "\"Execution Order\""
+            }
+          },
+          "tones": {
+            "n1": "data",
+            "n2": "data",
+            "n3": "data",
+            "n4": "idle"
+          },
+          "arrows": [
+            [
+              "n1",
+              "n2"
+            ],
+            [
+              "n2",
+              "n3"
+            ]
+          ]
+        },
+        {
+          "at": "say4",
+          "caption": "Cyclic dependency references resolve through hoisted live bindings.",
+          "values": {
+            "n1": {
+              "text": "\"Entry File\""
+            },
+            "n2": {
+              "text": "\"Static Parser\""
+            },
+            "n3": {
+              "text": "\"Module Graph Node\""
+            },
+            "n4": {
+              "text": "\"Execution Order\""
+            }
+          },
+          "tones": {
+            "n1": "data",
+            "n2": "data",
+            "n3": "data",
+            "n4": "data"
+          },
+          "arrows": [
+            [
+              "n1",
+              "n2"
+            ],
+            [
+              "n2",
+              "n3"
+            ],
+            [
+              "n3",
+              "n4"
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "prefix": "react-basics",
+    "day": 7,
+    "part": 3,
+    "codeHash": "c9913afcd59f9e4fe9aad05dd524a03659d2dc3ded211f2707e867987dd70d12",
+    "spec": {
+      "template": "boxes",
+      "title": "Bundler Tree Shaking and Dead Code Elimination Engine",
+      "boxes": [
+        {
+          "id": "b1",
+          "label": "Export Scanner",
+          "tappable": false
+        },
+        {
+          "id": "b2",
+          "label": "Usage Graph",
+          "tappable": false
+        },
+        {
+          "id": "b3",
+          "label": "Pure Annotation",
+          "tappable": false
+        },
+        {
+          "id": "b4",
+          "label": "Minified Output",
+          "tappable": false
+        }
+      ],
+      "steps": [
+        {
+          "at": "say1",
+          "caption": "Bundler tracks all named exports and downstream reference paths.",
+          "values": {
+            "b1": {
+              "text": "\"Export Scanner\""
+            },
+            "b2": {
+              "text": "\"Usage Graph\""
+            },
+            "b3": {
+              "text": "\"Pure Annotation\""
+            },
+            "b4": {
+              "text": "\"Minified Output\""
+            }
+          },
+          "tones": {
+            "b1": "data",
+            "b2": "idle",
+            "b3": "idle",
+            "b4": "idle"
+          }
+        },
+        {
+          "at": "say2",
+          "caption": "Unreferenced exports mark as dead code candidates for elimination.",
+          "values": {
+            "b1": {
+              "text": "\"Export Scanner\""
+            },
+            "b2": {
+              "text": "\"Usage Graph\""
+            },
+            "b3": {
+              "text": "\"Pure Annotation\""
+            },
+            "b4": {
+              "text": "\"Minified Output\""
+            }
+          },
+          "tones": {
+            "b1": "data",
+            "b2": "data",
+            "b3": "idle",
+            "b4": "idle"
+          }
+        },
+        {
+          "at": "say3",
+          "caption": "Pure annotations inform bundler that statement evaluation is safe.",
+          "values": {
+            "b1": {
+              "text": "\"Export Scanner\""
+            },
+            "b2": {
+              "text": "\"Usage Graph\""
+            },
+            "b3": {
+              "text": "\"Pure Annotation\""
+            },
+            "b4": {
+              "text": "\"Minified Output\""
+            }
+          },
+          "tones": {
+            "b1": "data",
+            "b2": "data",
+            "b3": "data",
+            "b4": "idle"
+          }
+        },
+        {
+          "at": "say4",
+          "caption": "Final minification step drops unused functions from production bundle.",
+          "values": {
+            "b1": {
+              "text": "\"Export Scanner\""
+            },
+            "b2": {
+              "text": "\"Usage Graph\""
+            },
+            "b3": {
+              "text": "\"Pure Annotation\""
+            },
+            "b4": {
+              "text": "\"Minified Output\""
+            }
+          },
+          "tones": {
+            "b1": "data",
+            "b2": "data",
+            "b3": "data",
+            "b4": "data"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "prefix": "react-basics",
+    "day": 7,
+    "part": 4,
+    "codeHash": "eb3d1f063c9987570ebdf760be00a1d169fe695593d7a5299ce94482f5d5f2aa",
+    "spec": {
+      "template": "flow",
+      "title": "Vite On Demand Native ESM Transpilation Pipeline",
+      "nodes": [
+        {
+          "id": "n1",
+          "label": "Browser Request",
+          "tappable": false
+        },
+        {
+          "id": "n2",
+          "label": "Dev Server",
+          "tappable": false
+        },
+        {
+          "id": "n3",
+          "label": "Native ESM Import",
+          "tappable": false
+        },
+        {
+          "id": "n4",
+          "label": "Dynamic Bundle",
+          "tappable": false
+        }
+      ],
+      "steps": [
+        {
+          "at": "say1",
+          "caption": "Browser requests individual source file over development network.",
+          "values": {
+            "n1": {
+              "text": "\"Browser Request\""
+            },
+            "n2": {
+              "text": "\"Dev Server\""
+            },
+            "n3": {
+              "text": "\"Native ESM Import\""
+            },
+            "n4": {
+              "text": "\"Dynamic Bundle\""
+            }
+          },
+          "tones": {
+            "n1": "data",
+            "n2": "idle",
+            "n3": "idle",
+            "n4": "idle"
+          },
+          "arrows": []
+        },
+        {
+          "at": "say2",
+          "caption": "Development server transforms single requested module on demand.",
+          "values": {
+            "n1": {
+              "text": "\"Browser Request\""
+            },
+            "n2": {
+              "text": "\"Dev Server\""
+            },
+            "n3": {
+              "text": "\"Native ESM Import\""
+            },
+            "n4": {
+              "text": "\"Dynamic Bundle\""
+            }
+          },
+          "tones": {
+            "n1": "data",
+            "n2": "data",
+            "n3": "idle",
+            "n4": "idle"
+          },
+          "arrows": [
+            [
+              "n1",
+              "n2"
+            ]
+          ]
+        },
+        {
+          "at": "say3",
+          "caption": "Native browser module loader executes modern import directly.",
+          "values": {
+            "n1": {
+              "text": "\"Browser Request\""
+            },
+            "n2": {
+              "text": "\"Dev Server\""
+            },
+            "n3": {
+              "text": "\"Native ESM Import\""
+            },
+            "n4": {
+              "text": "\"Dynamic Bundle\""
+            }
+          },
+          "tones": {
+            "n1": "data",
+            "n2": "data",
+            "n3": "data",
+            "n4": "idle"
+          },
+          "arrows": [
+            [
+              "n1",
+              "n2"
+            ],
+            [
+              "n2",
+              "n3"
+            ]
+          ]
+        },
+        {
+          "at": "say4",
+          "caption": "Heavy production bundling defers entirely until deployment build.",
+          "values": {
+            "n1": {
+              "text": "\"Browser Request\""
+            },
+            "n2": {
+              "text": "\"Dev Server\""
+            },
+            "n3": {
+              "text": "\"Native ESM Import\""
+            },
+            "n4": {
+              "text": "\"Dynamic Bundle\""
+            }
+          },
+          "tones": {
+            "n1": "data",
+            "n2": "data",
+            "n3": "data",
+            "n4": "data"
+          },
+          "arrows": [
+            [
+              "n1",
+              "n2"
+            ],
+            [
+              "n2",
+              "n3"
+            ],
+            [
+              "n3",
+              "n4"
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "prefix": "react-basics",
+    "day": 7,
+    "part": 5,
+    "codeHash": "34d1bed23958b24facdeb680cfef7bcc098d0968327d135a7b5586b1b5032996",
+    "spec": {
+      "template": "flow",
+      "title": "Dynamic Import Chunking and Network Asset Streaming",
+      "nodes": [
+        {
+          "id": "n1",
+          "label": "Main Bundle",
+          "tappable": false
+        },
+        {
+          "id": "n2",
+          "label": "Dynamic Trigger",
+          "tappable": false
+        },
+        {
+          "id": "n3",
+          "label": "Lazy Request",
+          "tappable": false
+        },
+        {
+          "id": "n4",
+          "label": "Dynamic Exec",
+          "tappable": false
+        }
+      ],
+      "steps": [
+        {
+          "at": "say1",
+          "caption": "Initial page loads minimal main JavaScript execution bundle.",
+          "values": {
+            "n1": {
+              "text": "\"Main Bundle\""
+            },
+            "n2": {
+              "text": "\"Dynamic Trigger\""
+            },
+            "n3": {
+              "text": "\"Lazy Request\""
+            },
+            "n4": {
+              "text": "\"Dynamic Exec\""
+            }
+          },
+          "tones": {
+            "n1": "data",
+            "n2": "idle",
+            "n3": "idle",
+            "n4": "idle"
+          },
+          "arrows": []
+        },
+        {
+          "at": "say2",
+          "caption": "User interaction or route transition triggers dynamic import.",
+          "values": {
+            "n1": {
+              "text": "\"Main Bundle\""
+            },
+            "n2": {
+              "text": "\"Dynamic Trigger\""
+            },
+            "n3": {
+              "text": "\"Lazy Request\""
+            },
+            "n4": {
+              "text": "\"Dynamic Exec\""
+            }
+          },
+          "tones": {
+            "n1": "data",
+            "n2": "data",
+            "n3": "idle",
+            "n4": "idle"
+          },
+          "arrows": [
+            [
+              "n1",
+              "n2"
+            ]
+          ]
+        },
+        {
+          "at": "say3",
+          "caption": "Browser fetches isolated code chunk asynchronously over the network.",
+          "values": {
+            "n1": {
+              "text": "\"Main Bundle\""
+            },
+            "n2": {
+              "text": "\"Dynamic Trigger\""
+            },
+            "n3": {
+              "text": "\"Lazy Request\""
+            },
+            "n4": {
+              "text": "\"Dynamic Exec\""
+            }
+          },
+          "tones": {
+            "n1": "data",
+            "n2": "data",
+            "n3": "data",
+            "n4": "idle"
+          },
+          "arrows": [
+            [
+              "n1",
+              "n2"
+            ],
+            [
+              "n2",
+              "n3"
+            ]
+          ]
+        },
+        {
+          "at": "say4",
+          "caption": "Module executes and hydrates secondary component tree on demand.",
+          "values": {
+            "n1": {
+              "text": "\"Main Bundle\""
+            },
+            "n2": {
+              "text": "\"Dynamic Trigger\""
+            },
+            "n3": {
+              "text": "\"Lazy Request\""
+            },
+            "n4": {
+              "text": "\"Dynamic Exec\""
+            }
+          },
+          "tones": {
+            "n1": "data",
+            "n2": "data",
+            "n3": "data",
+            "n4": "data"
+          },
+          "arrows": [
+            [
+              "n1",
+              "n2"
+            ],
+            [
+              "n2",
+              "n3"
+            ],
+            [
+              "n3",
+              "n4"
+            ]
+          ]
+        }
+      ]
+    }
+  }
+]

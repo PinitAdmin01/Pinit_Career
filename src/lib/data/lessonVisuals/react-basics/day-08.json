@@ -1,665 +1,679 @@
-{
-  "schemaVersion": 1,
-  "prefix": "react-basics",
-  "day": 8,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
-    {
-      "partTitle": "What a component really is",
-      "codeHash": "2b18ae28b0005d35cfd765c5c7f74e17d5a9546e90028188373fac459c9f28c7",
-      "spec": {
-        "template": "component-tree",
-        "title": "Component hierarchy and return structures",
-        "nodes": [
-          {
-            "id": "app",
-            "name": "App",
-            "tone": "idle"
-          },
-          {
-            "id": "hdr",
-            "name": "Header",
-            "tone": "ok"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "A component is a function returning screen interface markup.",
-            "activeId": "hdr",
-            "tone": "ok"
-          },
-          {
-            "at": "say3",
-            "caption": "React components combine by rendering child functions inside parents.",
-            "activeId": "app",
-            "tone": "data"
-          }
-        ]
-      },
-      "filled": {
-        "template": "component-tree",
-        "title": "Component hierarchy and return structures",
-        "nodes": [
-          {
-            "id": "app",
-            "name": "App",
-            "tone": "idle"
-          },
-          {
-            "id": "hdr",
-            "name": "Header",
-            "tone": "ok"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "A component is a function returning screen interface markup.",
-            "activeId": "hdr",
-            "tone": "ok",
-            "nodes": [
-              {
-                "id": "app",
-                "name": "App",
-                "tone": "idle"
-              },
-              {
-                "id": "hdr",
-                "name": "Header",
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "React components combine by rendering child functions inside parents.",
-            "activeId": "app",
-            "tone": "data",
-            "nodes": [
-              {
-                "id": "app",
-                "name": "App",
-                "tone": "idle"
-              },
-              {
-                "id": "hdr",
-                "name": "Header",
-                "tone": "ok"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "JSX: HTML-like code inside JavaScript",
-      "codeHash": "05cda7ccc8d291abba4b0a398bd1ef489828f340f85cd2cef903176bac054b07",
-      "spec": {
-        "template": "compare",
-        "title": "JSX markup compiled to JavaScript objects",
-        "leftLabel": "JSX Element",
-        "rightLabel": "Virtual Object",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "JSX compiles directly into JavaScript descriptor objects.",
-            "left": {
-              "code": "console.log(element.type);",
-              "result": {
-                "text": "\"h1\""
-              },
-              "tone": "idle"
-            },
-            "right": {
-              "code": "console.log(element.props.children);",
-              "result": {
-                "text": "\"Hello\""
-              },
-              "tone": "ok"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "React reads element description objects to create real pages.",
-            "left": {
-              "code": "console.log(element.type);",
-              "result": {
-                "text": "\"h1\""
-              },
-              "tone": "idle"
-            },
-            "right": {
-              "code": "console.log(element.props.className);",
-              "result": {
-                "text": "\"title\""
-              },
-              "tone": "data"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "compare",
-        "title": "JSX markup compiled to JavaScript objects",
-        "leftLabel": "JSX Element",
-        "rightLabel": "Virtual Object",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "JSX compiles directly into JavaScript descriptor objects.",
-            "left": {
-              "code": "console.log(element.type);",
-              "result": "\"h1\"",
-              "tone": "idle",
-              "checks": [
-                "\"h1\""
-              ]
-            },
-            "right": {
-              "code": "console.log(element.props.children);",
-              "result": "\"Hello\"",
-              "tone": "ok",
-              "checks": [
-                "\"Hello\""
-              ]
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "React reads element description objects to create real pages.",
-            "left": {
-              "code": "console.log(element.type);",
-              "result": "\"h1\"",
-              "tone": "idle",
-              "checks": [
-                "\"h1\""
-              ]
-            },
-            "right": {
-              "code": "console.log(element.props.className);",
-              "result": "\"title\"",
-              "tone": "data",
-              "checks": [
-                "\"title\""
-              ]
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "The JSX rules",
-      "codeHash": "5e5e83129942fd69216bd442d03d5bbfb73d9199aed95227250d54754f1b91a0",
-      "spec": {
-        "template": "flow",
-        "title": "The JSX rules — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The JSX rules",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The JSX rules [D8.P3.S1].",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in The JSX rules [D8.P3.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D8.P3.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The JSX rules [D8.P3.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "The JSX rules — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The JSX rules",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The JSX rules [D8.P3.S1].",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in The JSX rules [D8.P3.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D8.P3.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The JSX rules [D8.P3.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Curly braces: showing JavaScript values",
-      "codeHash": "98e7ee68746a56f285ec24365f623b92a35130a6ec5b5e87018e414e44574244",
-      "spec": {
-        "template": "compare",
-        "title": "Embedding dynamic JavaScript expressions inside JSX",
-        "leftLabel": "Static Text",
-        "rightLabel": "Curly Braces",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Curly braces calculate and display dynamic JavaScript expressions.",
-            "left": {
-              "code": "const name = \"Asha\";",
-              "result": {
-                "text": "\"Asha\""
-              },
-              "tone": "idle"
-            },
-            "right": {
-              "code": "console.log(`<h1>${name}'s Job Tracker</h1>`);",
-              "result": {
-                "text": "name"
-              },
-              "tone": "ok"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Expressions inside braces compute values like mathematical arithmetic.",
-            "left": {
-              "code": "const jobsApplied = 5;",
-              "result": {
-                "text": "5"
-              },
-              "tone": "idle"
-            },
-            "right": {
-              "code": "console.log(`<p>Goal this month: ${jobsApplied * 4}</p>`);",
-              "result": {
-                "text": "jobsApplied"
-              },
-              "tone": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "compare",
-        "title": "Embedding dynamic JavaScript expressions inside JSX",
-        "leftLabel": "Static Text",
-        "rightLabel": "Curly Braces",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Curly braces calculate and display dynamic JavaScript expressions.",
-            "left": {
-              "code": "const name = \"Asha\";",
-              "result": "\"Asha\"",
-              "tone": "idle",
-              "checks": [
-                "\"Asha\""
-              ]
-            },
-            "right": {
-              "code": "console.log(`<h1>${name}'s Job Tracker</h1>`);",
-              "result": "name",
-              "tone": "ok",
-              "checks": [
-                "name"
-              ]
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Expressions inside braces compute values like mathematical arithmetic.",
-            "left": {
-              "code": "const jobsApplied = 5;",
-              "result": "5",
-              "tone": "idle",
-              "checks": [
-                "5"
-              ]
-            },
-            "right": {
-              "code": "console.log(`<p>Goal this month: ${jobsApplied * 4}</p>`);",
-              "result": "jobsApplied",
-              "tone": "ok",
-              "checks": [
-                "jobsApplied"
-              ]
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Components inside components",
-      "codeHash": "c3a8cf8727c34856ca1e11222a694a49d2b6827feb269fa28c1e8569def6b4d3",
-      "spec": {
-        "template": "component-tree",
-        "title": "Composing multiple components into application tree",
-        "nodes": [
-          {
-            "id": "app",
-            "name": "App",
-            "tone": "idle"
-          },
-          {
-            "id": "hdr",
-            "name": "Header",
-            "tone": "ok"
-          },
-          {
-            "id": "card",
-            "name": "JobCard",
-            "tone": "data"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Composing components allows building complex structured applications.",
-            "activeId": "app",
-            "tone": "idle"
-          },
-          {
-            "at": "say2",
-            "caption": "Parent components organize and render child component tags.",
-            "activeId": "card",
-            "tone": "ok"
-          }
-        ]
-      },
-      "filled": {
-        "template": "component-tree",
-        "title": "Composing multiple components into application tree",
-        "nodes": [
-          {
-            "id": "app",
-            "name": "App",
-            "tone": "idle"
-          },
-          {
-            "id": "hdr",
-            "name": "Header",
-            "tone": "ok"
-          },
-          {
-            "id": "card",
-            "name": "JobCard",
-            "tone": "data"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Composing components allows building complex structured applications.",
-            "activeId": "app",
-            "tone": "idle",
-            "nodes": [
-              {
-                "id": "app",
-                "name": "App",
-                "tone": "idle"
-              },
-              {
-                "id": "hdr",
-                "name": "Header",
-                "tone": "ok"
-              },
-              {
-                "id": "card",
-                "name": "JobCard",
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "Parent components organize and render child component tags.",
-            "activeId": "card",
-            "tone": "ok",
-            "nodes": [
-              {
-                "id": "app",
-                "name": "App",
-                "tone": "idle"
-              },
-              {
-                "id": "hdr",
-                "name": "Header",
-                "tone": "ok"
-              },
-              {
-                "id": "card",
-                "name": "JobCard",
-                "tone": "data"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Your first real components in the Job Tracker",
-      "codeHash": "d019e5b783487cdf86b92a6746380501aade708fc4df66ade06b68fd508dfca1",
-      "spec": {
-        "template": "wireframe",
-        "title": "Initial application layout structure in wireframe",
-        "layout": "dashboard",
-        "wireframe": {
-          "header": "My Job Tracker",
-          "sidebar": [
-            "All Jobs",
-            "Applied",
-            "Interviews"
-          ],
-          "content": "Frontend Developer at Infosys"
+[
+  {
+    "schemaVersion": 1,
+    "prefix": "react-basics",
+    "day": 8,
+    "part": 1,
+    "codeHash": "4c3becd91385cb6f3cf19eeb05f0c87c159dca803fa2bd0f975948f149c4e8d2",
+    "spec": {
+      "template": "flow",
+      "title": "JSX Abstract Syntax Tree Parsing and Transpiler Lowering",
+      "nodes": [
+        {
+          "id": "n1",
+          "label": "JSX Source",
+          "tappable": false
         },
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Create organized component folders for application screen layouts."
+        {
+          "id": "n2",
+          "label": "Babel Parser",
+          "tappable": false
+        },
+        {
+          "id": "n3",
+          "label": "AST Transform",
+          "tappable": false
+        },
+        {
+          "id": "n4",
+          "label": "Output JavaScript",
+          "tappable": false
+        }
+      ],
+      "steps": [
+        {
+          "at": "say1",
+          "caption": "Compiler parses declarative JSX syntax into abstract syntax tree.",
+          "values": {
+            "n1": {
+              "text": "\"JSX Source\""
+            },
+            "n2": {
+              "text": "\"Babel Parser\""
+            },
+            "n3": {
+              "text": "\"AST Transform\""
+            },
+            "n4": {
+              "text": "\"Output JavaScript\""
+            }
           },
-          {
-            "at": "say2",
-            "caption": "Now import both components into App to show the clean header."
-          }
-        ]
-      },
-      "filled": {
-        "template": "wireframe",
-        "title": "Initial application layout structure in wireframe",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Create organized component folders for application screen layouts."
+          "tones": {
+            "n1": "data",
+            "n2": "idle",
+            "n3": "idle",
+            "n4": "idle"
           },
-          {
-            "at": "say2",
-            "caption": "Now import both components into App to show the clean header."
-          }
-        ]
-      }
+          "arrows": []
+        },
+        {
+          "at": "say2",
+          "caption": "AST visitor replaces JSX tags with React element factory calls.",
+          "values": {
+            "n1": {
+              "text": "\"JSX Source\""
+            },
+            "n2": {
+              "text": "\"Babel Parser\""
+            },
+            "n3": {
+              "text": "\"AST Transform\""
+            },
+            "n4": {
+              "text": "\"Output JavaScript\""
+            }
+          },
+          "tones": {
+            "n1": "data",
+            "n2": "data",
+            "n3": "idle",
+            "n4": "idle"
+          },
+          "arrows": [
+            [
+              "n1",
+              "n2"
+            ]
+          ]
+        },
+        {
+          "at": "say3",
+          "caption": "Modern JSX transform imports runtime helpers automatically.",
+          "values": {
+            "n1": {
+              "text": "\"JSX Source\""
+            },
+            "n2": {
+              "text": "\"Babel Parser\""
+            },
+            "n3": {
+              "text": "\"AST Transform\""
+            },
+            "n4": {
+              "text": "\"Output JavaScript\""
+            }
+          },
+          "tones": {
+            "n1": "data",
+            "n2": "data",
+            "n3": "data",
+            "n4": "idle"
+          },
+          "arrows": [
+            [
+              "n1",
+              "n2"
+            ],
+            [
+              "n2",
+              "n3"
+            ]
+          ]
+        },
+        {
+          "at": "say4",
+          "caption": "Output code consists of pure ECMAScript compliant function calls.",
+          "values": {
+            "n1": {
+              "text": "\"JSX Source\""
+            },
+            "n2": {
+              "text": "\"Babel Parser\""
+            },
+            "n3": {
+              "text": "\"AST Transform\""
+            },
+            "n4": {
+              "text": "\"Output JavaScript\""
+            }
+          },
+          "tones": {
+            "n1": "data",
+            "n2": "data",
+            "n3": "data",
+            "n4": "data"
+          },
+          "arrows": [
+            [
+              "n1",
+              "n2"
+            ],
+            [
+              "n2",
+              "n3"
+            ],
+            [
+              "n3",
+              "n4"
+            ]
+          ]
+        }
+      ]
     }
-  ]
-}
+  },
+  {
+    "schemaVersion": 1,
+    "prefix": "react-basics",
+    "day": 8,
+    "part": 2,
+    "codeHash": "073f31a761647f3ee5dcc76a3854f63f811946f28037ab2c0759b50bc090a673",
+    "spec": {
+      "template": "compare",
+      "title": "Lightweight Virtual DOM Element vs Heavy Browser DOM Node",
+      "left": {
+        "label": "Standard Implementation"
+      },
+      "right": {
+        "label": "Architectural Pattern"
+      },
+      "steps": [
+        {
+          "at": "say1",
+          "caption": "Virtual element is an immutable plain object with key and props.",
+          "left": {
+            "code": "// Left pipeline phase 1",
+            "result": {
+              "text": "\"Standard\""
+            },
+            "tone": "idle"
+          },
+          "right": {
+            "code": "// Optimized pipeline phase 1",
+            "result": {
+              "text": "\"Optimized\""
+            },
+            "tone": "ok"
+          }
+        },
+        {
+          "at": "say2",
+          "caption": "Virtual nodes instantiate in single microseconds on JavaScript heap.",
+          "left": {
+            "code": "// Left pipeline phase 2",
+            "result": {
+              "text": "\"Standard\""
+            },
+            "tone": "data"
+          },
+          "right": {
+            "code": "// Optimized pipeline phase 2",
+            "result": {
+              "text": "\"Optimized\""
+            },
+            "tone": "ok"
+          }
+        },
+        {
+          "at": "say3",
+          "caption": "Real DOM elements carry dozens of event handlers and layout methods.",
+          "left": {
+            "code": "// Left pipeline phase 3",
+            "result": {
+              "text": "\"Standard\""
+            },
+            "tone": "data"
+          },
+          "right": {
+            "code": "// Optimized pipeline phase 3",
+            "result": {
+              "text": "\"Optimized\""
+            },
+            "tone": "ok"
+          }
+        },
+        {
+          "at": "say4",
+          "caption": "Direct DOM operations trigger expensive browser style recalculation.",
+          "left": {
+            "code": "// Left pipeline phase 4",
+            "result": {
+              "text": "\"Standard\""
+            },
+            "tone": "data"
+          },
+          "right": {
+            "code": "// Optimized pipeline phase 4",
+            "result": {
+              "text": "\"Optimized\""
+            },
+            "tone": "ok"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "prefix": "react-basics",
+    "day": 8,
+    "part": 3,
+    "codeHash": "04791561e558ec8e031534ee20ac9670d4a76d34d54fc936ee6bf1e95374893d",
+    "spec": {
+      "template": "boxes",
+      "title": "Heuristic Reconciliation and Subtree Pruning Pipeline",
+      "boxes": [
+        {
+          "id": "b1",
+          "label": "Type Compare",
+          "tappable": false
+        },
+        {
+          "id": "b2",
+          "label": "Subtree Replace",
+          "tappable": false
+        },
+        {
+          "id": "b3",
+          "label": "Props Update",
+          "tappable": false
+        },
+        {
+          "id": "b4",
+          "label": "Child Reconcile",
+          "tappable": false
+        }
+      ],
+      "steps": [
+        {
+          "at": "say1",
+          "caption": "Reconciler compares element types at the current tree position.",
+          "values": {
+            "b1": {
+              "text": "\"Type Compare\""
+            },
+            "b2": {
+              "text": "\"Subtree Replace\""
+            },
+            "b3": {
+              "text": "\"Props Update\""
+            },
+            "b4": {
+              "text": "\"Child Reconcile\""
+            }
+          },
+          "tones": {
+            "b1": "data",
+            "b2": "idle",
+            "b3": "idle",
+            "b4": "idle"
+          }
+        },
+        {
+          "at": "say2",
+          "caption": "Different element types discard previous subtree and unmount nodes.",
+          "values": {
+            "b1": {
+              "text": "\"Type Compare\""
+            },
+            "b2": {
+              "text": "\"Subtree Replace\""
+            },
+            "b3": {
+              "text": "\"Props Update\""
+            },
+            "b4": {
+              "text": "\"Child Reconcile\""
+            }
+          },
+          "tones": {
+            "b1": "data",
+            "b2": "data",
+            "b3": "idle",
+            "b4": "idle"
+          }
+        },
+        {
+          "at": "say3",
+          "caption": "Matching types retain existing DOM node and diff updated props.",
+          "values": {
+            "b1": {
+              "text": "\"Type Compare\""
+            },
+            "b2": {
+              "text": "\"Subtree Replace\""
+            },
+            "b3": {
+              "text": "\"Props Update\""
+            },
+            "b4": {
+              "text": "\"Child Reconcile\""
+            }
+          },
+          "tones": {
+            "b1": "data",
+            "b2": "data",
+            "b3": "data",
+            "b4": "idle"
+          }
+        },
+        {
+          "at": "say4",
+          "caption": "Child reconciliation matches sibling elements using stable keys.",
+          "values": {
+            "b1": {
+              "text": "\"Type Compare\""
+            },
+            "b2": {
+              "text": "\"Subtree Replace\""
+            },
+            "b3": {
+              "text": "\"Props Update\""
+            },
+            "b4": {
+              "text": "\"Child Reconcile\""
+            }
+          },
+          "tones": {
+            "b1": "data",
+            "b2": "data",
+            "b3": "data",
+            "b4": "data"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "prefix": "react-basics",
+    "day": 8,
+    "part": 4,
+    "codeHash": "848f7030a903cfdffb6f8c1f52cd5c936d273191a044168af87390258207cd03",
+    "spec": {
+      "template": "flow",
+      "title": "React Fiber Two Phase Render and Commit Architecture",
+      "nodes": [
+        {
+          "id": "n1",
+          "label": "Render Phase",
+          "tappable": false
+        },
+        {
+          "id": "n2",
+          "label": "Fiber Work Loop",
+          "tappable": false
+        },
+        {
+          "id": "n3",
+          "label": "Yield Check",
+          "tappable": false
+        },
+        {
+          "id": "n4",
+          "label": "Commit Phase",
+          "tappable": false
+        }
+      ],
+      "steps": [
+        {
+          "at": "say1",
+          "caption": "Render phase begins constructing work in progress fiber tree.",
+          "values": {
+            "n1": {
+              "text": "\"Render Phase\""
+            },
+            "n2": {
+              "text": "\"Fiber Work Loop\""
+            },
+            "n3": {
+              "text": "\"Yield Check\""
+            },
+            "n4": {
+              "text": "\"Commit Phase\""
+            }
+          },
+          "tones": {
+            "n1": "data",
+            "n2": "idle",
+            "n3": "idle",
+            "n4": "idle"
+          },
+          "arrows": []
+        },
+        {
+          "at": "say2",
+          "caption": "Fiber work loop processes individual components cooperatively.",
+          "values": {
+            "n1": {
+              "text": "\"Render Phase\""
+            },
+            "n2": {
+              "text": "\"Fiber Work Loop\""
+            },
+            "n3": {
+              "text": "\"Yield Check\""
+            },
+            "n4": {
+              "text": "\"Commit Phase\""
+            }
+          },
+          "tones": {
+            "n1": "data",
+            "n2": "data",
+            "n3": "idle",
+            "n4": "idle"
+          },
+          "arrows": [
+            [
+              "n1",
+              "n2"
+            ]
+          ]
+        },
+        {
+          "at": "say3",
+          "caption": "Scheduler yields execution to browser when frame budget expires.",
+          "values": {
+            "n1": {
+              "text": "\"Render Phase\""
+            },
+            "n2": {
+              "text": "\"Fiber Work Loop\""
+            },
+            "n3": {
+              "text": "\"Yield Check\""
+            },
+            "n4": {
+              "text": "\"Commit Phase\""
+            }
+          },
+          "tones": {
+            "n1": "data",
+            "n2": "data",
+            "n3": "data",
+            "n4": "idle"
+          },
+          "arrows": [
+            [
+              "n1",
+              "n2"
+            ],
+            [
+              "n2",
+              "n3"
+            ]
+          ]
+        },
+        {
+          "at": "say4",
+          "caption": "Commit phase applies all aggregated DOM mutations in one paint.",
+          "values": {
+            "n1": {
+              "text": "\"Render Phase\""
+            },
+            "n2": {
+              "text": "\"Fiber Work Loop\""
+            },
+            "n3": {
+              "text": "\"Yield Check\""
+            },
+            "n4": {
+              "text": "\"Commit Phase\""
+            }
+          },
+          "tones": {
+            "n1": "data",
+            "n2": "data",
+            "n3": "data",
+            "n4": "data"
+          },
+          "arrows": [
+            [
+              "n1",
+              "n2"
+            ],
+            [
+              "n2",
+              "n3"
+            ],
+            [
+              "n3",
+              "n4"
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "prefix": "react-basics",
+    "day": 8,
+    "part": 5,
+    "codeHash": "3991dfa63381fa94054119e23a4d1fce6a9f27bba3404670b5ca99bddeab4011",
+    "spec": {
+      "template": "boxes",
+      "title": "Pure Component Rendering Pipeline and Side Effect Isolation",
+      "boxes": [
+        {
+          "id": "b1",
+          "label": "Props and State",
+          "tappable": false
+        },
+        {
+          "id": "b2",
+          "label": "Pure Function",
+          "tappable": false
+        },
+        {
+          "id": "b3",
+          "label": "Deterministic JSX",
+          "tappable": false
+        },
+        {
+          "id": "b4",
+          "label": "Effect Queue",
+          "tappable": false
+        }
+      ],
+      "steps": [
+        {
+          "at": "say1",
+          "caption": "Render function accepts props and returns deterministic JSX output.",
+          "values": {
+            "b1": {
+              "text": "\"Props and State\""
+            },
+            "b2": {
+              "text": "\"Pure Function\""
+            },
+            "b3": {
+              "text": "\"Deterministic JSX\""
+            },
+            "b4": {
+              "text": "\"Effect Queue\""
+            }
+          },
+          "tones": {
+            "b1": "data",
+            "b2": "idle",
+            "b3": "idle",
+            "b4": "idle"
+          }
+        },
+        {
+          "at": "say2",
+          "caption": "Side effects during render cause catastrophic concurrent tearing.",
+          "values": {
+            "b1": {
+              "text": "\"Props and State\""
+            },
+            "b2": {
+              "text": "\"Pure Function\""
+            },
+            "b3": {
+              "text": "\"Deterministic JSX\""
+            },
+            "b4": {
+              "text": "\"Effect Queue\""
+            }
+          },
+          "tones": {
+            "b1": "data",
+            "b2": "data",
+            "b3": "idle",
+            "b4": "idle"
+          }
+        },
+        {
+          "at": "say3",
+          "caption": "Strict mode renders twice in development to uncover impure mutations.",
+          "values": {
+            "b1": {
+              "text": "\"Props and State\""
+            },
+            "b2": {
+              "text": "\"Pure Function\""
+            },
+            "b3": {
+              "text": "\"Deterministic JSX\""
+            },
+            "b4": {
+              "text": "\"Effect Queue\""
+            }
+          },
+          "tones": {
+            "b1": "data",
+            "b2": "data",
+            "b3": "data",
+            "b4": "idle"
+          }
+        },
+        {
+          "at": "say4",
+          "caption": "Passive side effects schedule safely inside post commit effect hooks.",
+          "values": {
+            "b1": {
+              "text": "\"Props and State\""
+            },
+            "b2": {
+              "text": "\"Pure Function\""
+            },
+            "b3": {
+              "text": "\"Deterministic JSX\""
+            },
+            "b4": {
+              "text": "\"Effect Queue\""
+            }
+          },
+          "tones": {
+            "b1": "data",
+            "b2": "data",
+            "b3": "data",
+            "b4": "data"
+          }
+        }
+      ]
+    }
+  }
+]

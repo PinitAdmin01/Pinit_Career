@@ -2,740 +2,141 @@
   "schemaVersion": 1,
   "prefix": "react-basics",
   "day": 29,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
+  "visuals": [
     {
-      "partTitle": "Development versus production",
-      "codeHash": "8e03211d67e182c9e6f9e7f2ea2173b6befac7a232e6f4c69a5bf8635bf7e600",
-      "spec": {
-        "template": "compare",
-        "title": "Hot dev server versus minified production bundle",
-        "leftLabel": "Development Server",
-        "rightLabel": "Production Build",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Development servers optimize for rapid reload and debugging feedback.",
-            "left": {
-              "code": "console.log(sourceFiles.length);",
-              "result": {
-                "text": "\"App.jsx\""
-              },
-              "tone": "idle"
-            },
-            "right": {
-              "code": "console.log(dist.length);",
-              "result": {
-                "text": "\"index.html\""
-              },
-              "tone": "ok"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Production builds bundle and minify assets into compact distributions.",
-            "left": {
-              "code": "console.log(sourceFiles.length);",
-              "result": {
-                "text": "\"index.css\""
-              },
-              "tone": "idle"
-            },
-            "right": {
-              "code": "console.log(dist.length);",
-              "result": {
-                "text": "\"index.html\""
-              },
-              "tone": "ok"
-            }
-          }
-        ]
+      "part": 1,
+      "template": "boxes",
+      "title": "Relational Foreign Key and Index Model",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "703473d9e1c0f6a356044b59dab382f5800603aa695a7c59464942571b61c727"
       },
-      "filled": {
-        "template": "compare",
-        "title": "Hot dev server versus minified production bundle",
-        "leftLabel": "Development Server",
-        "rightLabel": "Production Build",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Development servers optimize for rapid reload and debugging feedback.",
-            "left": {
-              "code": "console.log(sourceFiles.length);",
-              "result": "\"App.jsx\"",
-              "tone": "idle",
-              "checks": [
-                "\"App.jsx\""
-              ]
-            },
-            "right": {
-              "code": "console.log(dist.length);",
-              "result": "\"index.html\"",
-              "tone": "ok",
-              "checks": [
-                "\"index.html\""
-              ]
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Production builds bundle and minify assets into compact distributions.",
-            "left": {
-              "code": "console.log(sourceFiles.length);",
-              "result": "\"index.css\"",
-              "tone": "idle",
-              "checks": [
-                "\"index.css\""
-              ]
-            },
-            "right": {
-              "code": "console.log(dist.length);",
-              "result": "\"index.html\"",
-              "tone": "ok",
-              "checks": [
-                "\"index.html\""
-              ]
-            }
-          }
-        ]
-      }
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Users and jobs link via foreign key constraints."
+        },
+        {
+          "step": 2,
+          "caption": "Composite index organizes search keys into tree."
+        },
+        {
+          "step": 3,
+          "caption": "Planner traverses logarithmic index blocks in memory."
+        },
+        {
+          "step": 4,
+          "caption": "Query executes without sequential table scans."
+        }
+      ]
     },
     {
-      "partTitle": "Deploying with Vercel",
-      "codeHash": "7d2a8041ad8f099bb9701aa2ed2c016d831ad108779d952316a3d150a315398e",
-      "spec": {
-        "template": "flow",
-        "title": "Continuous Git push deployment pipeline to cloud host",
-        "nodes": [
-          {
-            "id": "git",
-            "label": "GitHub",
-            "tappable": false
-          },
-          {
-            "id": "build",
-            "label": "Vercel",
-            "tappable": false
-          },
-          {
-            "id": "live",
-            "label": "Internet",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Connect your GitHub repository to trigger automated cloud hosting builds.",
-            "values": {
-              "git": {
-                "text": "\"http://localhost:5173\""
-              },
-              "build": {
-                "text": "\"https://jobtracker.vercel.app\""
-              },
-              "live": {
-                "text": "\"https://jobtracker.vercel.app\""
-              }
-            },
-            "tones": {
-              "git": "data",
-              "build": "idle",
-              "live": "idle"
-            },
-            "arrows": [
-              [
-                "git",
-                "build"
-              ]
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Pushing commits automatically deploys updated versions to your live URL.",
-            "values": {
-              "git": {
-                "text": "\"http://localhost:5173\""
-              },
-              "build": {
-                "text": "\"https://jobtracker.vercel.app\""
-              },
-              "live": {
-                "text": "\"https://jobtracker.vercel.app\""
-              }
-            },
-            "tones": {
-              "git": "idle",
-              "build": "data",
-              "live": "ok"
-            },
-            "arrows": [
-              [
-                "git",
-                "build"
-              ],
-              [
-                "build",
-                "live"
-              ]
-            ]
-          }
-        ]
+      "part": 2,
+      "template": "states",
+      "title": "ACID Transaction and Rollback Lifecycle",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "19776a2546c86032e6685db67f780a4692da3e7572b1e232786e6c199f0482ff"
       },
-      "filled": {
-        "template": "flow",
-        "title": "Continuous Git push deployment pipeline to cloud host",
-        "nodes": [
-          {
-            "id": "git",
-            "label": "GitHub",
-            "tappable": false
-          },
-          {
-            "id": "build",
-            "label": "Vercel",
-            "tappable": false
-          },
-          {
-            "id": "live",
-            "label": "Internet",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Connect your GitHub repository to trigger automated cloud hosting builds.",
-            "values": {
-              "git": "\"http://localhost:5173\"",
-              "build": "\"https://jobtracker.vercel.app\"",
-              "live": "\"https://jobtracker.vercel.app\""
-            },
-            "tones": {
-              "git": "data",
-              "build": "idle",
-              "live": "idle"
-            },
-            "arrows": [
-              [
-                "git",
-                "build"
-              ]
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Pushing commits automatically deploys updated versions to your live URL.",
-            "values": {
-              "git": "\"http://localhost:5173\"",
-              "build": "\"https://jobtracker.vercel.app\"",
-              "live": "\"https://jobtracker.vercel.app\""
-            },
-            "tones": {
-              "git": "idle",
-              "build": "data",
-              "live": "ok"
-            },
-            "arrows": [
-              [
-                "git",
-                "build"
-              ],
-              [
-                "build",
-                "live"
-              ]
-            ]
-          }
-        ]
-      }
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Transaction begins and captures isolated snapshot."
+        },
+        {
+          "step": 2,
+          "caption": "Operations execute and modify state atomically."
+        },
+        {
+          "step": 3,
+          "caption": "Constraint violation triggers immediate abort."
+        },
+        {
+          "step": 4,
+          "caption": "Storage engine rolls back to pre transaction state."
+        }
+      ]
     },
     {
-      "partTitle": "Fixing refresh on inner pages",
-      "codeHash": "40151e4b66b921bc3d459e9469ffa1ebe7d37b88f2f116aaec2f6429155ed218",
-      "spec": {
-        "template": "compare",
-        "title": "Server 404 response versus single-page app rewrite rule",
-        "leftLabel": "Missing Rewrite (404)",
-        "rightLabel": "Configured Rewrite",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Browser refreshes on deep routes fail because the server lacks raw files.",
-            "left": {
-              "code": "console.log(serve(\"/jobs/42\", false));",
-              "result": {
-                "text": "\"404 Not Found\""
-              },
-              "tone": "err"
-            },
-            "right": {
-              "code": "console.log(serve(\"/jobs/42\", true));",
-              "result": {
-                "text": "\"/index.html\""
-              },
-              "tone": "ok"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Route rewrite rules direct all web traffic to index html for routing.",
-            "left": {
-              "code": "console.log(serve(\"/jobs/42\", false));",
-              "result": {
-                "text": "\"404 Not Found\""
-              },
-              "tone": "err"
-            },
-            "right": {
-              "code": "console.log(serve(\"/jobs/42\", true));",
-              "result": {
-                "text": "\"/index.html\""
-              },
-              "tone": "ok"
-            }
-          }
-        ]
+      "part": 3,
+      "template": "flow",
+      "title": "DataLoader Batch Query Execution",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "d88713a5ae2b2eb0eb22bf4b5d671240b61dbcbd073b036b0feb9a40d036ec2a"
       },
-      "filled": {
-        "template": "compare",
-        "title": "Server 404 response versus single-page app rewrite rule",
-        "leftLabel": "Missing Rewrite (404)",
-        "rightLabel": "Configured Rewrite",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Browser refreshes on deep routes fail because the server lacks raw files.",
-            "left": {
-              "code": "console.log(serve(\"/jobs/42\", false));",
-              "result": "\"404 Not Found\"",
-              "tone": "err",
-              "checks": [
-                "\"404 Not Found\""
-              ]
-            },
-            "right": {
-              "code": "console.log(serve(\"/jobs/42\", true));",
-              "result": "\"/index.html\"",
-              "tone": "ok",
-              "checks": [
-                "\"/index.html\""
-              ]
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Route rewrite rules direct all web traffic to index html for routing.",
-            "left": {
-              "code": "console.log(serve(\"/jobs/42\", false));",
-              "result": "\"404 Not Found\"",
-              "tone": "err",
-              "checks": [
-                "\"404 Not Found\""
-              ]
-            },
-            "right": {
-              "code": "console.log(serve(\"/jobs/42\", true));",
-              "result": "\"/index.html\"",
-              "tone": "ok",
-              "checks": [
-                "\"/index.html\""
-              ]
-            }
-          }
-        ]
-      }
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Multiple components request individual entity keys."
+        },
+        {
+          "step": 2,
+          "caption": "Batch queue aggregates and deduplicates identifiers."
+        },
+        {
+          "step": 3,
+          "caption": "Single database query fetches consolidated entities."
+        },
+        {
+          "step": 4,
+          "caption": "Loader resolves all caller promises simultaneously."
+        }
+      ]
     },
     {
-      "partTitle": "Check your live app like a user",
-      "codeHash": "5d4af941ea59ec3c5c0f92a3b1ddb9446535be5468c3c5fd5dce2556a2eac7a7",
-      "spec": {
-        "template": "boxes",
-        "title": "Production health validation with Google Lighthouse metrics",
-        "boxes": [
-          {
-            "id": "cat",
-            "label": "category",
-            "tappable": false
-          },
-          {
-            "id": "score",
-            "label": "score",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Audit live performance and behavior across real mobile network connections.",
-            "values": {
-              "cat": {
-                "text": "96"
-              },
-              "score": {
-                "text": "88"
-              }
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Review Lighthouse performance, accessibility and SEO audit metrics.",
-            "values": {
-              "cat": {
-                "text": "100"
-              },
-              "score": {
-                "text": "91"
-              }
-            }
-          }
-        ]
+      "part": 4,
+      "template": "compare",
+      "title": "Serverless Database Connection Pooling",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "1c8b6bdebf3c5f53cbc2738f93cecefae767c0ddcfcbd90ba6692dfc4363d13d"
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Production health validation with Google Lighthouse metrics",
-        "boxes": [
-          {
-            "id": "cat",
-            "label": "category",
-            "tappable": false
-          },
-          {
-            "id": "score",
-            "label": "score",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Audit live performance and behavior across real mobile network connections.",
-            "values": {
-              "cat": "96",
-              "score": "88"
-            },
-            "tones": {}
-          },
-          {
-            "at": "say2",
-            "caption": "Review Lighthouse performance, accessibility and SEO audit metrics.",
-            "values": {
-              "cat": "100",
-              "score": "91"
-            },
-            "tones": {}
-          }
-        ]
-      }
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Multiple serverless lambdas instantiate concurrently."
+        },
+        {
+          "step": 2,
+          "caption": "Lightweight pooler queues incoming client requests."
+        },
+        {
+          "step": 3,
+          "caption": "Fixed pool of persistent sockets serves transactions."
+        },
+        {
+          "step": 4,
+          "caption": "Database operates within safe connection thresholds."
+        }
+      ]
     },
     {
-      "partTitle": "Finish the README",
-      "codeHash": "78156e70d6921cd481d7e0c10f38d01fc9130aaef111cc837f7bc6ed7b86219a",
-      "spec": {
-        "template": "boxes",
-        "title": "Essential documentation sections for project showcase",
-        "boxes": [
-          {
-            "id": "section",
-            "label": "section",
-            "tappable": false
-          },
-          {
-            "id": "status",
-            "label": "status",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Update your README now that the app is live and put the link at the top.",
-            "values": {
-              "section": {
-                "text": "\"## About\""
-              },
-              "status": {
-                "text": "\"## Features\""
-              }
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Keep the sections from earlier work and add tests and what you learned.",
-            "values": {
-              "section": {
-                "text": "\"## Features\""
-              },
-              "status": {
-                "text": "\"## Setup\""
-              }
-            }
-          }
-        ]
+      "part": 5,
+      "template": "flow",
+      "title": "Next Route Handler Schema Validation",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "c30e33d54c56bc4ee82514cd40c0d061250a847503e592b5e5efb667a5c24878"
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Essential documentation sections for project showcase",
-        "boxes": [
-          {
-            "id": "section",
-            "label": "section",
-            "tappable": false
-          },
-          {
-            "id": "status",
-            "label": "status",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Update your README now that the app is live and put the link at the top.",
-            "values": {
-              "section": "\"## About\"",
-              "status": "\"## Features\""
-            },
-            "tones": {}
-          },
-          {
-            "at": "say2",
-            "caption": "Keep the sections from earlier work and add tests and what you learned.",
-            "values": {
-              "section": "\"## Features\"",
-              "status": "\"## Setup\""
-            },
-            "tones": {}
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Your portfolio is live",
-      "codeHash": "5c7c97bd5e1e0de425897638cedcd8e23dbe95fcab2bd703a14953a609a94a6c",
-      "spec": {
-        "template": "flow",
-        "title": "Your portfolio is live — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Your portfolio is live",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Your portfolio is live [D29.P6.S1].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Your portfolio is live [D29.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D29.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Your portfolio is live [D29.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Your portfolio is live — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Your portfolio is live",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Your portfolio is live [D29.P6.S1].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Your portfolio is live [D29.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D29.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Your portfolio is live [D29.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      }
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Client sends payload to endpoint route handler."
+        },
+        {
+          "step": 2,
+          "caption": "Zod schema validates types and constraint rules."
+        },
+        {
+          "step": 3,
+          "caption": "Malformed requests receive structured error bodies."
+        },
+        {
+          "step": 4,
+          "caption": "Valid payloads execute database operations safely."
+        }
+      ]
     }
   ]
 }

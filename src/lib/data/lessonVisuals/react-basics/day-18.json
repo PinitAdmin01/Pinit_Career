@@ -1,659 +1,703 @@
 {
   "schemaVersion": 1,
+  "courseId": "course-react-web",
   "prefix": "react-basics",
   "day": 18,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
+  "visuals": [
     {
-      "partTitle": "Styling React components with CSS",
-      "codeHash": "c7ccb4d76b4d8af98bcfe94aaeba810a014c7c2b9603f30f36ef4320ed704908",
-      "spec": {
-        "template": "boxes",
-        "title": "Inline style objects versus CSS class rules",
-        "boxes": [
-          {
-            "id": "bg",
-            "label": "backgroundColor",
-            "tappable": false
-          },
-          {
-            "id": "pad",
-            "label": "padding",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Create CSS rules with class names and attach them using className.",
-            "values": {
-              "bg": {
-                "text": "\"white\""
-              },
-              "pad": {
-                "text": "\"16px\""
-              }
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Real projects use dedicated CSS files and class names.",
-            "values": {
-              "bg": {
-                "text": "\"white\""
-              },
-              "pad": {
-                "text": "\"16px\""
-              }
-            }
-          }
-        ]
+      "part": 1,
+      "title": "Browser Render Pipeline Stages",
+      "template": "flow",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "c116e023f901de78966963dd8e046f10221d905b72a8bb02ba96316ba24f0165"
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Inline style objects versus CSS class rules",
-        "boxes": [
-          {
-            "id": "bg",
-            "label": "backgroundColor",
-            "tappable": false
-          },
-          {
-            "id": "pad",
-            "label": "padding",
-            "tappable": false
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Browser engine calculates style rules and render tree.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "DOM Construction",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n2",
+                "label": "Layout Geometry",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Screen Paint",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Passive Effect",
+                "tappable": false,
+                "active": false
+              }
+            ]
           }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Create CSS rules with class names and attach them using className.",
-            "values": {
-              "bg": "\"white\"",
-              "pad": "\"16px\""
-            },
-            "tones": {}
-          },
-          {
-            "at": "say3",
-            "caption": "Real projects use dedicated CSS files and class names.",
-            "values": {
-              "bg": "\"white\"",
-              "pad": "\"16px\""
-            },
-            "tones": {}
+        },
+        {
+          "step": 2,
+          "caption": "Layout phase computes physical geometric coordinates.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "DOM Construction",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Layout Geometry",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n3",
+                "label": "Screen Paint",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Passive Effect",
+                "tappable": false,
+                "active": false
+              }
+            ]
           }
-        ]
-      }
+        },
+        {
+          "step": 3,
+          "caption": "Compositor flushes rasterized pixels onto visual display.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "DOM Construction",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Layout Geometry",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Screen Paint",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n4",
+                "label": "Passive Effect",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Asynchronous effect runs after paint inducing visual shift.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "DOM Construction",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Layout Geometry",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Screen Paint",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Passive Effect",
+                "tappable": false,
+                "active": true
+              }
+            ]
+          }
+        }
+      ]
     },
     {
-      "partTitle": "Flexbox: arranging things in a row or column",
-      "codeHash": "24c89791660a009f30227b609dd3e0244ae8037fea987d971d37fd4b437ef9a1",
-      "spec": {
-        "template": "boxes",
-        "title": "Aligning items with flexible box model",
-        "boxes": [
-          {
-            "id": "items",
-            "label": "items",
-            "tappable": false
-          },
-          {
-            "id": "width",
-            "label": "width",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Flexbox lines children up in responsive rows or columns.",
-            "values": {
-              "items": {
-                "text": "items"
-              },
-              "width": {
-                "text": "width"
-              }
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Justify content spaces items apart across container widths.",
-            "values": {
-              "items": {
-                "text": "items"
-              },
-              "width": {
-                "text": "width"
-              }
-            }
-          }
-        ]
+      "part": 2,
+      "title": "Synchronous Pre-Paint Execution",
+      "template": "flow",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "61949ad9dcabb65dbb1df7661e04b84d21c4962bda740490fa64fe289e650072"
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Aligning items with flexible box model",
-        "boxes": [
-          {
-            "id": "items",
-            "label": "items",
-            "tappable": false
-          },
-          {
-            "id": "width",
-            "label": "width",
-            "tappable": false
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Reconciler mutates host DOM tree synchronously in memory.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Commit Mutation",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n2",
+                "label": "Synchronous Hook",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Synchronous State",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Single Paint",
+                "tappable": false,
+                "active": false
+              }
+            ]
           }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Flexbox lines children up in responsive rows or columns.",
-            "values": {
-              "items": "items",
-              "width": "width"
-            },
-            "tones": {}
-          },
-          {
-            "at": "say2",
-            "caption": "Justify content spaces items apart across container widths.",
-            "values": {
-              "items": "items",
-              "width": "width"
-            },
-            "tones": {}
+        },
+        {
+          "step": 2,
+          "caption": "Layout effect executes immediately before main thread yields.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Commit Mutation",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Synchronous Hook",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n3",
+                "label": "Synchronous State",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Single Paint",
+                "tappable": false,
+                "active": false
+              }
+            ]
           }
-        ]
-      }
+        },
+        {
+          "step": 3,
+          "caption": "Synchronous state update reconciles before initial paint.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Commit Mutation",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Synchronous Hook",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Synchronous State",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n4",
+                "label": "Single Paint",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Display paints final aligned coordinates with zero flicker.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Commit Mutation",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Synchronous Hook",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Synchronous State",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Single Paint",
+                "tappable": false,
+                "active": true
+              }
+            ]
+          }
+        }
+      ]
     },
     {
-      "partTitle": "Grid: cards in rows and columns",
-      "codeHash": "68099d0332644420643de0053eb966a47f7e4781ba65fc3819c143b163eb4182",
-      "spec": {
-        "template": "boxes",
-        "title": "Multi-column layouts with CSS Grid repeat",
-        "boxes": [
-          {
-            "id": "screen",
-            "label": "screenWidth",
-            "tappable": false
-          },
-          {
-            "id": "card",
-            "label": "minCard",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "CSS grid arranges cards in uniform rows and columns.",
-            "values": {
-              "screen": {
-                "text": "screenWidth"
-              },
-              "card": {
-                "text": "minCard"
-              }
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Responsive autofill columns adjust card counts as screens resize.",
-            "values": {
-              "screen": {
-                "text": "screenWidth"
-              },
-              "card": {
-                "text": "minCard"
-              }
-            }
-          }
-        ]
+      "part": 3,
+      "title": "Layout Thrashing Reflow Batching",
+      "template": "boxes",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "9086aede2530c1bbaffe07bfef2c3c9bc8c5a983c28849983632cb941533efb3"
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Multi-column layouts with CSS Grid repeat",
-        "boxes": [
-          {
-            "id": "screen",
-            "label": "screenWidth",
-            "tappable": false
-          },
-          {
-            "id": "card",
-            "label": "minCard",
-            "tappable": false
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Alternating style writes and layout reads dirties geometry.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Interleaved Read",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b2",
+                "label": "Forced Reflow",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Batched Reads",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Consolidated Writes",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
           }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "CSS grid arranges cards in uniform rows and columns.",
-            "values": {
-              "screen": "screenWidth",
-              "card": "minCard"
-            },
-            "tones": {}
-          },
-          {
-            "at": "say2",
-            "caption": "Responsive autofill columns adjust card counts as screens resize.",
-            "values": {
-              "screen": "screenWidth",
-              "card": "minCard"
-            },
-            "tones": {}
+        },
+        {
+          "step": 2,
+          "caption": "Browser engine forced into repeated synchronous reflows.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Interleaved Read",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Forced Reflow",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b3",
+                "label": "Batched Reads",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Consolidated Writes",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
           }
-        ]
-      }
+        },
+        {
+          "step": 3,
+          "caption": "Engine measures all element geometries in consolidated pass.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Interleaved Read",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Forced Reflow",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Batched Reads",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b4",
+                "label": "Consolidated Writes",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Style mutations applied in single batch avoiding thrash.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Interleaved Read",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Forced Reflow",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Batched Reads",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Consolidated Writes",
+                "tappable": false,
+                "highlight": true
+              }
+            ]
+          }
+        }
+      ]
     },
     {
-      "partTitle": "Responsive design: phones first",
-      "codeHash": "678ec54f6e9d15378c1f29221ec0e4cc4b33df79e2398e0dbc68ae1082fbf244",
-      "spec": {
-        "template": "compare",
-        "title": "Mobile first design and responsive media queries",
-        "leftLabel": "Phone (375px)",
-        "rightLabel": "Desktop (1366px)",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Designing for phones first ensures optimal usability on mobile.",
-            "left": {
-              "code": "console.log(paddingFor(375));",
-              "result": {
-                "text": "16"
-              },
-              "tone": "idle"
-            },
-            "right": {
-              "code": "console.log(paddingFor(1366));",
-              "result": {
-                "text": "32"
-              },
-              "tone": "ok"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Media queries adapt container padding when screen width expands.",
-            "left": {
-              "code": "console.log(paddingFor(375));",
-              "result": {
-                "text": "16"
-              },
-              "tone": "idle"
-            },
-            "right": {
-              "code": "console.log(paddingFor(1366));",
-              "result": {
-                "text": "32"
-              },
-              "tone": "ok"
-            }
-          }
-        ]
+      "part": 4,
+      "title": "Isomorphic Layout Hook Gate",
+      "template": "flow",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "26218dc82aeaff3dac811671cbd353b60f93f614e706d7e7c0f6cb1036ed1b92"
       },
-      "filled": {
-        "template": "compare",
-        "title": "Mobile first design and responsive media queries",
-        "leftLabel": "Phone (375px)",
-        "rightLabel": "Desktop (1366px)",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Designing for phones first ensures optimal usability on mobile.",
-            "left": {
-              "code": "console.log(paddingFor(375));",
-              "result": "16",
-              "tone": "idle",
-              "checks": [
-                "16"
-              ]
-            },
-            "right": {
-              "code": "console.log(paddingFor(1366));",
-              "result": "32",
-              "tone": "ok",
-              "checks": [
-                "32"
-              ]
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Media queries adapt container padding when screen width expands.",
-            "left": {
-              "code": "console.log(paddingFor(375));",
-              "result": "16",
-              "tone": "idle",
-              "checks": [
-                "16"
-              ]
-            },
-            "right": {
-              "code": "console.log(paddingFor(1366));",
-              "result": "32",
-              "tone": "ok",
-              "checks": [
-                "32"
-              ]
-            }
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Isomorphic hook evaluates window global object availability.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Environment Check",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n2",
+                "label": "Server Fallback",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Client Resolution",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Clean Hydration",
+                "tappable": false,
+                "active": false
+              }
+            ]
           }
-        ]
-      }
+        },
+        {
+          "step": 2,
+          "caption": "Server runtime safely selects passive effect implementation.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Environment Check",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Server Fallback",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n3",
+                "label": "Client Resolution",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Clean Hydration",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Browser client runtime resolves to synchronous layout hook.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Environment Check",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Server Fallback",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Client Resolution",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n4",
+                "label": "Clean Hydration",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Component hydrates seamlessly without console warnings.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Environment Check",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Server Fallback",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Client Resolution",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Clean Hydration",
+                "tappable": false,
+                "active": true
+              }
+            ]
+          }
+        }
+      ]
     },
     {
-      "partTitle": "Tailwind CSS: styling with small classes",
-      "codeHash": "f3a4a972dafecab5b53fbe68c01f1aba82566c958dd25da9c5ddd9d764ced568",
-      "spec": {
-        "template": "boxes",
-        "title": "Utility class composition with Tailwind CSS",
-        "boxes": [
-          {
-            "id": "cls",
-            "label": "classNames",
-            "tappable": false
-          },
-          {
-            "id": "status",
-            "label": "status",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Tailwind adds utility styling classes directly within JSX.",
-            "values": {
-              "cls": {
-                "text": "\"offer\""
-              },
-              "status": {
-                "text": "status"
-              }
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Combining utility classes conditionally creates dynamic styles.",
-            "values": {
-              "cls": {
-                "text": "\"offer\""
-              },
-              "status": {
-                "text": "status"
-              }
-            }
-          }
-        ]
+      "part": 5,
+      "title": "Viewport Collision Positioning Engine",
+      "template": "boxes",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "d07dd961ee6499b4ee6da5b1ee25e39a54f86f0a6d6259994b5769521ded62df"
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Utility class composition with Tailwind CSS",
-        "boxes": [
-          {
-            "id": "cls",
-            "label": "classNames",
-            "tappable": false
-          },
-          {
-            "id": "status",
-            "label": "status",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Tailwind adds utility styling classes directly within JSX.",
-            "values": {
-              "cls": "\"offer\"",
-              "status": "status"
-            },
-            "tones": {}
-          },
-          {
-            "at": "say3",
-            "caption": "Combining utility classes conditionally creates dynamic styles.",
-            "values": {
-              "cls": "\"offer\"",
-              "status": "status"
-            },
-            "tones": {}
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Make the Job Tracker look professional",
-      "codeHash": "975c0df7ed4278fb8579c30ee5f94a8536cf2f011f048c215404aabba256a82c",
-      "spec": {
-        "template": "flow",
-        "title": "Make the Job Tracker look professional — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Make the Job Tracke...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Make the Job Tracker look professional [D18.P6.S1].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Make the Job Tracke... [D18.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D18.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Make the Job Tracker look profess.. [D18.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Subpixel bounding rectangles measured via layout hook.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Bounding Measure",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b2",
+                "label": "Boundary Detection",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Axis Placement Flip",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "GPU Transform Apply",
+                "tappable": false,
+                "highlight": false
+              }
             ]
           }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Make the Job Tracker look professional — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Make the Job Tracke...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Make the Job Tracker look professional [D18.P6.S1].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Make the Job Tracke... [D18.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D18.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Make the Job Tracker look profess.. [D18.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+        },
+        {
+          "step": 2,
+          "caption": "Engine evaluates overflow collisions against viewport edges.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Bounding Measure",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Boundary Detection",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b3",
+                "label": "Axis Placement Flip",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "GPU Transform Apply",
+                "tappable": false,
+                "highlight": false
+              }
             ]
           }
-        ]
-      }
+        },
+        {
+          "step": 3,
+          "caption": "Detected collision flips placement axis dynamically.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Bounding Measure",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Boundary Detection",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Axis Placement Flip",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b4",
+                "label": "GPU Transform Apply",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "GPU accelerated transform positions tooltip cleanly.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Bounding Measure",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Boundary Detection",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Axis Placement Flip",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "GPU Transform Apply",
+                "tappable": false,
+                "highlight": true
+              }
+            ]
+          }
+        }
+      ]
     }
   ]
 }

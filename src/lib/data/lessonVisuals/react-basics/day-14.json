@@ -2,820 +2,701 @@
   "schemaVersion": 1,
   "prefix": "react-basics",
   "day": 14,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
+  "visuals": [
     {
-      "partTitle": "Why forms matter",
-      "codeHash": "95d01c634dc849e150be89665f78727db7bef94c0bc12a772d4f63a84028b0d1",
-      "spec": {
-        "template": "boxes",
-        "title": "Four essential responsibilities of web forms",
-        "boxes": [
-          {
-            "id": "title",
-            "label": "title",
-            "tappable": false
-          },
-          {
-            "id": "company",
-            "label": "company",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Web applications rely on forms to collect user information.",
-            "values": {
-              "title": {
-                "text": "\"\""
-              },
-              "company": {
-                "text": "\"\""
-              }
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "A good form displays current values and checks for errors.",
-            "values": {
-              "title": {
-                "text": "\"React Developer\""
-              },
-              "company": {
-                "text": "\"\""
-              }
-            }
-          }
-        ]
+      "part": 1,
+      "title": "Controlled Component Synchronous Keystroke Loop",
+      "template": "flow",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "53031797e5133b9bf16b06c9eceadefaa3c9418ec589f2ce9d0f69e5e1b5ca14"
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Four essential responsibilities of web forms",
-        "boxes": [
-          {
-            "id": "title",
-            "label": "title",
-            "tappable": false
-          },
-          {
-            "id": "company",
-            "label": "company",
-            "tappable": false
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Physical keystroke fires browser input change event.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Physical Key",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n2",
+                "label": "Change Handler",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "State Cell",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Reconciled DOM",
+                "tappable": false,
+                "active": false
+              }
+            ]
           }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Web applications rely on forms to collect user information.",
-            "values": {
-              "title": "\"\"",
-              "company": "\"\""
-            },
-            "tones": {}
-          },
-          {
-            "at": "say2",
-            "caption": "A good form displays current values and checks for errors.",
-            "values": {
-              "title": "\"React Developer\"",
-              "company": "\"\""
-            },
-            "tones": {}
+        },
+        {
+          "step": 2,
+          "caption": "Synthetic handler sanitizes and formats string characters.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Physical Key",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Change Handler",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n3",
+                "label": "State Cell",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Reconciled DOM",
+                "tappable": false,
+                "active": false
+              }
+            ]
           }
-        ]
-      }
+        },
+        {
+          "step": 3,
+          "caption": "State setter schedules synchronous reconciliation pass.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Physical Key",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Change Handler",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "State Cell",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n4",
+                "label": "Reconciled DOM",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Reconciliation writes formatted value back into input element.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Physical Key",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Change Handler",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "State Cell",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Reconciled DOM",
+                "tappable": false,
+                "active": true
+              }
+            ]
+          }
+        }
+      ]
     },
     {
-      "partTitle": "Controlled inputs",
-      "codeHash": "f09792c7268d1efebf14d9fb8a3321afd5c31c914120da49be3e614497204df8",
-      "spec": {
-        "template": "flow",
-        "title": "Two way binding loop of controlled inputs",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "input",
-            "tappable": false
-          },
-          {
-            "id": "handler",
-            "label": "onChange",
-            "tappable": false
-          },
-          {
-            "id": "state",
-            "label": "title",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Controlled input values are driven directly by React component state.",
-            "values": {
-              "input": {
-                "text": "\"R\""
-              },
-              "handler": {
-                "text": "\"R\""
-              },
-              "state": {
-                "text": "\"R\""
-              }
-            },
-            "tones": {
-              "input": "data",
-              "handler": "idle",
-              "state": "idle"
-            },
-            "arrows": [
-              [
-                "input",
-                "handler"
-              ]
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Typing triggers onChange which updates state and repaints the input.",
-            "values": {
-              "input": {
-                "text": "\"Re\""
-              },
-              "handler": {
-                "text": "\"Re\""
-              },
-              "state": {
-                "text": "\"Re\""
-              }
-            },
-            "tones": {
-              "input": "idle",
-              "handler": "ok",
-              "state": "ok"
-            },
-            "arrows": [
-              [
-                "input",
-                "handler"
-              ],
-              [
-                "handler",
-                "state"
-              ],
-              [
-                "state",
-                "input"
-              ]
-            ]
-          }
-        ]
+      "part": 2,
+      "title": "Uncontrolled Component Native DOM Buffer Pipeline",
+      "template": "boxes",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "55f744a83de3074a19db875bbc70920ce47980bba2b07967592cfb45d97f21e7"
       },
-      "filled": {
-        "template": "flow",
-        "title": "Two way binding loop of controlled inputs",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "input",
-            "tappable": false
-          },
-          {
-            "id": "handler",
-            "label": "onChange",
-            "tappable": false
-          },
-          {
-            "id": "state",
-            "label": "title",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Controlled input values are driven directly by React component state.",
-            "values": {
-              "input": "\"R\"",
-              "handler": "\"R\"",
-              "state": "\"R\""
-            },
-            "tones": {
-              "input": "data",
-              "handler": "idle",
-              "state": "idle"
-            },
-            "arrows": [
-              [
-                "input",
-                "handler"
-              ]
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Typing triggers onChange which updates state and repaints the input.",
-            "values": {
-              "input": "\"Re\"",
-              "handler": "\"Re\"",
-              "state": "\"Re\""
-            },
-            "tones": {
-              "input": "idle",
-              "handler": "ok",
-              "state": "ok"
-            },
-            "arrows": [
-              [
-                "input",
-                "handler"
-              ],
-              [
-                "handler",
-                "state"
-              ],
-              [
-                "state",
-                "input"
-              ]
+      "steps": [
+        {
+          "step": 1,
+          "caption": "User types directly into browser native input field.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Native Typing",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b2",
+                "label": "Internal Buffer",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Ref Inspection",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Payload Read",
+                "tappable": false,
+                "highlight": false
+              }
             ]
           }
-        ]
-      }
+        },
+        {
+          "step": 2,
+          "caption": "Engine buffers characters without virtual tree diffing.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Native Typing",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Internal Buffer",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b3",
+                "label": "Ref Inspection",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Payload Read",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Component reference holds direct handle to physical node.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Native Typing",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Internal Buffer",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Ref Inspection",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b4",
+                "label": "Payload Read",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Submission handler reads buffer imperatively on demand.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Native Typing",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Internal Buffer",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Ref Inspection",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Payload Read",
+                "tappable": false,
+                "highlight": true
+              }
+            ]
+          }
+        }
+      ]
     },
     {
-      "partTitle": "One state object for the whole form",
-      "codeHash": "3d6f9062601e28f1fb7c3f9beed347e32dfd971dfa45ea07a2031b535e761429",
-      "spec": {
-        "template": "boxes",
-        "title": "Single unified state object for multiple form fields",
-        "boxes": [
-          {
-            "id": "title",
-            "label": "title",
-            "tappable": false
-          },
-          {
-            "id": "company",
-            "label": "company",
-            "tappable": false
-          },
-          {
-            "id": "status",
-            "label": "status",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Grouping all form fields into one state object simplifies code.",
-            "values": {
-              "title": {
-                "text": "\"\""
-              },
-              "company": {
-                "text": "\"\""
-              },
-              "status": {
-                "text": "\"applied\""
-              }
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Dynamic bracket notation updates whichever field name fired the event.",
-            "values": {
-              "title": {
-                "text": "\"React Developer\""
-              },
-              "company": {
-                "text": "\"Zoho\""
-              },
-              "status": {
-                "text": "\"applied\""
-              }
-            }
-          }
-        ]
+      "part": 3,
+      "title": "Declarative Form Data Multi-Type Extraction",
+      "template": "flow",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "fff3b97fbe8c225237aef455d77c7ea5b4aebe84c13a9714cb6d63912ce09c80"
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Single unified state object for multiple form fields",
-        "boxes": [
-          {
-            "id": "title",
-            "label": "title",
-            "tappable": false
-          },
-          {
-            "id": "company",
-            "label": "company",
-            "tappable": false
-          },
-          {
-            "id": "status",
-            "label": "status",
-            "tappable": false
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Form submission event captures reference to parent form.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Form Element",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n2",
+                "label": "Data Collector",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Named Entries",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Typed Payload",
+                "tappable": false,
+                "active": false
+              }
+            ]
           }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Grouping all form fields into one state object simplifies code.",
-            "values": {
-              "title": "\"\"",
-              "company": "\"\"",
-              "status": "\"applied\""
-            },
-            "tones": {}
-          },
-          {
-            "at": "say3",
-            "caption": "Dynamic bracket notation updates whichever field name fired the event.",
-            "values": {
-              "title": "\"React Developer\"",
-              "company": "\"Zoho\"",
-              "status": "\"applied\""
-            },
-            "tones": {}
+        },
+        {
+          "step": 2,
+          "caption": "Form data constructor iterates all named input elements.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Form Element",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Data Collector",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n3",
+                "label": "Named Entries",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Typed Payload",
+                "tappable": false,
+                "active": false
+              }
+            ]
           }
-        ]
-      }
+        },
+        {
+          "step": 3,
+          "caption": "Multi-select checkboxes and files collect into entry pairs.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Form Element",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Data Collector",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Named Entries",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n4",
+                "label": "Typed Payload",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Structured object transforms entries into clean network payload.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Form Element",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Data Collector",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Named Entries",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Typed Payload",
+                "tappable": false,
+                "active": true
+              }
+            ]
+          }
+        }
+      ]
     },
     {
-      "partTitle": "Checking the form and showing errors",
-      "codeHash": "d42c7d0e2c5a875b6219f48395104e71ea8a255841ef8bd4e82a1c2007b663e0",
-      "spec": {
-        "template": "compare",
-        "title": "Client side validation checks and error collection",
-        "leftLabel": "Invalid Submission",
-        "rightLabel": "Valid Submission",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Validation checks inspect form values and return error messages.",
-            "left": {
-              "code": "validateJobForm({ title: \"  \", company: \"\" });",
-              "result": {
-                "text": "\"Title is required\""
-              },
-              "tone": "warn"
-            },
-            "right": {
-              "code": "validateJobForm({ title: \"Dev\", company: \"TCS\" });",
-              "result": {
-                "text": "[]"
-              },
-              "tone": "ok"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Trimming whitespace prevents empty space inputs from passing validation.",
-            "left": {
-              "code": "validateJobForm({ title: \"  \", company: \"\" });",
-              "result": {
-                "text": "\"Company is required\""
-              },
-              "tone": "warn"
-            },
-            "right": {
-              "code": "validateJobForm({ title: \"Dev\", company: \"TCS\" });",
-              "result": {
-                "text": "[]"
-              },
-              "tone": "ok"
-            }
-          }
-        ]
+      "part": 4,
+      "title": "Asynchronous Validation Queue and Race Invalidation",
+      "template": "boxes",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "5fa220af45bd8077b09aca81590d0bc2e9d269ccb8d1b87d51b19fc3324b9b66"
       },
-      "filled": {
-        "template": "compare",
-        "title": "Client side validation checks and error collection",
-        "leftLabel": "Invalid Submission",
-        "rightLabel": "Valid Submission",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Validation checks inspect form values and return error messages.",
-            "left": {
-              "code": "validateJobForm({ title: \"  \", company: \"\" });",
-              "result": "\"Title is required\"",
-              "tone": "warn",
-              "checks": [
-                "\"Title is required\""
-              ]
-            },
-            "right": {
-              "code": "validateJobForm({ title: \"Dev\", company: \"TCS\" });",
-              "result": "[]",
-              "tone": "ok",
-              "checks": [
-                "[]"
-              ]
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Trimming whitespace prevents empty space inputs from passing validation.",
-            "left": {
-              "code": "validateJobForm({ title: \"  \", company: \"\" });",
-              "result": "\"Company is required\"",
-              "tone": "warn",
-              "checks": [
-                "\"Company is required\""
-              ]
-            },
-            "right": {
-              "code": "validateJobForm({ title: \"Dev\", company: \"TCS\" });",
-              "result": "[]",
-              "tone": "ok",
-              "checks": [
-                "[]"
-              ]
-            }
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Typing pause satisfies debounce quiet threshold interval.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Keystroke Pause",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b2",
+                "label": "Debounce Timer",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Request Token",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Stale Rejection",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
           }
-        ]
-      }
+        },
+        {
+          "step": 2,
+          "caption": "Timer initiates asynchronous server availability check.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Keystroke Pause",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Debounce Timer",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b3",
+                "label": "Request Token",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Stale Rejection",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Request token increments identifying active transaction.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Keystroke Pause",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Debounce Timer",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Request Token",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b4",
+                "label": "Stale Rejection",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Out of order delayed responses are safely discarded.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Keystroke Pause",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Debounce Timer",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Request Token",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Stale Rejection",
+                "tappable": false,
+                "highlight": true
+              }
+            ]
+          }
+        }
+      ]
     },
     {
-      "partTitle": "Submitting the form",
-      "codeHash": "fc6a50405d1018156595300110aff9667561598a024390172336e63d5f93b0d4",
-      "spec": {
-        "template": "flow",
-        "title": "Form submit workflow with preventDefault and reset",
-        "nodes": [
-          {
-            "id": "sub",
-            "label": "submit",
-            "tappable": false
-          },
-          {
-            "id": "prev",
-            "label": "preventDefault",
-            "tappable": false
-          },
-          {
-            "id": "save",
-            "label": "setJobs",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Calling preventDefault prevents default browser page reloads.",
-            "values": {
-              "sub": {
-                "text": "handleSubmit"
-              },
-              "prev": {
-                "text": "true"
-              },
-              "save": {
-                "text": "jobs"
-              }
-            },
-            "tones": {
-              "sub": "data",
-              "prev": "idle",
-              "save": "idle"
-            },
-            "arrows": [
-              [
-                "sub",
-                "prev"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Successful validation appends new jobs and clears form fields.",
-            "values": {
-              "sub": {
-                "text": "handleSubmit"
-              },
-              "prev": {
-                "text": "true"
-              },
-              "save": {
-                "text": "jobs"
-              }
-            },
-            "tones": {
-              "sub": "idle",
-              "prev": "ok",
-              "save": "ok"
-            },
-            "arrows": [
-              [
-                "sub",
-                "prev"
-              ],
-              [
-                "prev",
-                "save"
-              ]
-            ]
-          }
-        ]
+      "part": 5,
+      "title": "Schema Driven Form Finite State Machine",
+      "template": "flow",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "07c166538a681e9ca49a07dd1c376262dab0abb1e5e08e648cbcfa89fb9bdddb"
       },
-      "filled": {
-        "template": "flow",
-        "title": "Form submit workflow with preventDefault and reset",
-        "nodes": [
-          {
-            "id": "sub",
-            "label": "submit",
-            "tappable": false
-          },
-          {
-            "id": "prev",
-            "label": "preventDefault",
-            "tappable": false
-          },
-          {
-            "id": "save",
-            "label": "setJobs",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Calling preventDefault prevents default browser page reloads.",
-            "values": {
-              "sub": "handleSubmit",
-              "prev": "true",
-              "save": "jobs"
-            },
-            "tones": {
-              "sub": "data",
-              "prev": "idle",
-              "save": "idle"
-            },
-            "arrows": [
-              [
-                "sub",
-                "prev"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Successful validation appends new jobs and clears form fields.",
-            "values": {
-              "sub": "handleSubmit",
-              "prev": "true",
-              "save": "jobs"
-            },
-            "tones": {
-              "sub": "idle",
-              "prev": "ok",
-              "save": "ok"
-            },
-            "arrows": [
-              [
-                "sub",
-                "prev"
-              ],
-              [
-                "prev",
-                "save"
-              ]
+      "steps": [
+        {
+          "step": 1,
+          "caption": "User submits completed form payload for verification.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Submission Data",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n2",
+                "label": "Schema Parser",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "State Machine",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Accessible Error",
+                "tappable": false,
+                "active": false
+              }
             ]
           }
-        ]
-      }
-    },
-    {
-      "partTitle": "Build the Add Job form",
-      "codeHash": "06fa513e8558d1b683b50a7922f3bccb18c91b5902119ca42ac6c4eef76c29be",
-      "spec": {
-        "template": "flow",
-        "title": "Build the Add Job form — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Build the Add Job form",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Build the Add Job form [D14.P6.S1].",
-            "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Build the Add Job form [D14.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D14.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Build the Add Job form [D14.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+        },
+        {
+          "step": 2,
+          "caption": "Declarative schema parser verifies type and string rules.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Submission Data",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Schema Parser",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n3",
+                "label": "State Machine",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Accessible Error",
+                "tappable": false,
+                "active": false
+              }
             ]
           }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Build the Add Job form — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Build the Add Job form",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Build the Add Job form [D14.P6.S1].",
-            "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Build the Add Job form [D14.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D14.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Build the Add Job form [D14.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+        },
+        {
+          "step": 3,
+          "caption": "State machine advances to validating or submitting state.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Submission Data",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Schema Parser",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "State Machine",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n4",
+                "label": "Accessible Error",
+                "tappable": false,
+                "active": false
+              }
             ]
           }
-        ]
-      }
+        },
+        {
+          "step": 4,
+          "caption": "Invalid fields receive aria error descriptions and focus.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Submission Data",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Schema Parser",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "State Machine",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Accessible Error",
+                "tappable": false,
+                "active": true
+              }
+            ]
+          }
+        }
+      ]
     }
   ]
 }

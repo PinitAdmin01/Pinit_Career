@@ -2,612 +2,665 @@
   "schemaVersion": 1,
   "prefix": "react-basics",
   "day": 24,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
+  "visuals": [
     {
-      "partTitle": "The dashboard layout",
-      "codeHash": "65591ede18aa67eeba2d67a95d2efffda870db22d06a432ce12c00d46dfd8d27",
-      "spec": {
-        "template": "wireframe",
-        "title": "Responsive dashboard structure and section placement",
-        "wireframe": {
-          "header": "Job Tracker Dashboard",
-          "sections": [
-            {
-              "id": "stats",
-              "label": "StatCards (Grid)",
-              "kind": "grid"
-            },
-            {
-              "id": "recent",
-              "label": "Recent Applications",
-              "kind": "list"
-            },
-            {
-              "id": "add",
-              "label": "Add Job Form",
-              "kind": "form"
-            }
-          ]
+      "part": 1,
+      "template": "flow",
+      "title": "Suspense Promise Interception Pipeline",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "b7a30b90349dc546fd2a89176c474d5fc7e274db1e277f1313c10384fcd69097"
+      },
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Component attempts to read unresolved resource from cache.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Resource Read",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n2",
+                "label": "Thrown Promise",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Suspense Catch",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Fallback Commit",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
         },
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Position the stat cards, recent job applications and the form.",
-            "focus": "stats"
-          },
-          {
-            "at": "say2",
-            "caption": "Organize layout structure and verify responsiveness across devices.",
-            "focus": "recent"
+        {
+          "step": 2,
+          "caption": "Pending resource throws promise up the component tree.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Resource Read",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Thrown Promise",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n3",
+                "label": "Suspense Catch",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Fallback Commit",
+                "tappable": false,
+                "active": false
+              }
+            ]
           }
-        ]
-      },
-      "filled": {
-        "template": "wireframe",
-        "title": "Responsive dashboard structure and section placement",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Position the stat cards, recent job applications and the form."
-          },
-          {
-            "at": "say2",
-            "caption": "Organize layout structure and verify responsiveness across devices."
+        },
+        {
+          "step": 3,
+          "caption": "Nearest suspense boundary catches thrown promise cleanly.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Resource Read",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Thrown Promise",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Suspense Catch",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n4",
+                "label": "Fallback Commit",
+                "tappable": false,
+                "active": false
+              }
+            ]
           }
-        ]
-      }
+        },
+        {
+          "step": 4,
+          "caption": "Configured skeleton fallback mounts in active view.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Resource Read",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Thrown Promise",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Suspense Catch",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Fallback Commit",
+                "tappable": false,
+                "active": true
+              }
+            ]
+          }
+        }
+      ]
     },
     {
-      "partTitle": "Calculating the statistics",
-      "codeHash": "589bdeaff5f8730524bc577d64b0d719ace213d6fe9b873cf8e74dbb56efad28",
-      "spec": {
-        "template": "boxes",
-        "title": "Encapsulated statistics calculation helper",
-        "boxes": [
-          {
-            "id": "total",
-            "label": "total",
-            "tappable": false
-          },
-          {
-            "id": "interviews",
-            "label": "interviews",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Compute job statistics during component render using a helper function.",
-            "values": {
-              "total": {
-                "text": "\"applied\""
-              },
-              "interviews": {
-                "text": "\"interview\""
-              }
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Keep statistical calculations in separate utility functions for easy reuse.",
-            "values": {
-              "total": {
-                "text": "\"offer\""
-              },
-              "interviews": {
-                "text": "\"interview\""
-              }
-            }
-          }
-        ]
+      "part": 2,
+      "template": "compare",
+      "title": "Sequential Waterfall Versus Parallel Resolution",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "4669c678b9cf8b822e7ca231dfb37c37304f99e9cf68c8ff2a521de2a05c9519"
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Encapsulated statistics calculation helper",
-        "boxes": [
-          {
-            "id": "total",
-            "label": "total",
-            "tappable": false
-          },
-          {
-            "id": "interviews",
-            "label": "interviews",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Compute job statistics during component render using a helper function.",
-            "values": {
-              "total": "\"applied\"",
-              "interviews": "\"interview\""
-            },
-            "tones": {}
-          },
-          {
-            "at": "say2",
-            "caption": "Keep statistical calculations in separate utility functions for easy reuse.",
-            "values": {
-              "total": "\"offer\"",
-              "interviews": "\"interview\""
-            },
-            "tones": {}
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "A reusable StatCard component",
-      "codeHash": "101e4ef290f11fbc45580a517e09e7b3a7bc511b1f7a499e6869c78542512b5e",
-      "spec": {
-        "template": "boxes",
-        "title": "Configurable metric card with dynamic tones",
-        "boxes": [
-          {
-            "id": "label",
-            "label": "label",
-            "tappable": false
-          },
-          {
-            "id": "value",
-            "label": "value",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Render reusable statistic cards by configuring label and value props.",
-            "values": {
-              "label": {
-                "text": "\"Total\""
-              },
-              "value": {
-                "text": "\"green\""
-              }
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Map through metric card definitions and spread prop values directly.",
-            "values": {
-              "label": {
-                "text": "\"Offers\""
-              },
-              "value": {
-                "text": "\"green\""
-              }
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Configurable metric card with dynamic tones",
-        "boxes": [
-          {
-            "id": "label",
-            "label": "label",
-            "tappable": false
-          },
-          {
-            "id": "value",
-            "label": "value",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Render reusable statistic cards by configuring label and value props.",
-            "values": {
-              "label": "\"Total\"",
-              "value": "\"green\""
-            },
-            "tones": {}
-          },
-          {
-            "at": "say2",
-            "caption": "Map through metric card definitions and spread prop values directly.",
-            "values": {
-              "label": "\"Offers\"",
-              "value": "\"green\""
-            },
-            "tones": {}
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Readable labels and dates",
-      "codeHash": "9aae15284497a5a654178b178685bf73222eddf2e951e84f23066f0079324480",
-      "spec": {
-        "template": "compare",
-        "title": "Separating machine data from user-facing presentations",
-        "leftLabel": "Stored Format",
-        "rightLabel": "Formatted Display",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Transform raw machine data into friendly human labels on the screen.",
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Fetch on render architectures cause sequential network delays.",
+          "data": {
             "left": {
-              "code": "console.log(statusLabel(\"interview\"));",
-              "result": {
-                "text": "\"interview\""
-              },
-              "tone": "idle"
-            },
-            "right": {
-              "code": "console.log(statusLabel(\"interview\"));",
-              "result": {
-                "text": "\"Interview\""
-              },
-              "tone": "ok"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Keep stored ISO dates distinct from visual user presentations.",
-            "left": {
-              "code": "console.log(prettyDate(\"2026-09-28\"));",
-              "result": {
-                "text": "\"2026-09-28\""
-              },
-              "tone": "idle"
-            },
-            "right": {
-              "code": "console.log(prettyDate(\"2026-09-28\"));",
-              "result": {
-                "text": "\"Jan\""
-              },
-              "tone": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "compare",
-        "title": "Separating machine data from user-facing presentations",
-        "leftLabel": "Stored Format",
-        "rightLabel": "Formatted Display",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Transform raw machine data into friendly human labels on the screen.",
-            "left": {
-              "code": "console.log(statusLabel(\"interview\"));",
-              "result": "\"interview\"",
-              "tone": "idle",
-              "checks": [
-                "\"interview\""
+              "title": "Sequential Waterfall",
+              "items": [
+                "Parent renders first",
+                "Child fetches late",
+                "Cumulative delay spikes"
               ]
             },
             "right": {
-              "code": "console.log(statusLabel(\"interview\"));",
-              "result": "\"Interview\"",
-              "tone": "ok",
-              "checks": [
-                "\"Interview\""
+              "title": "Parallel Resolution",
+              "items": [
+                "Promises kicked early",
+                "Concurrent requests",
+                "Fast atomic render"
               ]
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Keep stored ISO dates distinct from visual user presentations.",
+            },
+            "highlight": "left"
+          }
+        },
+        {
+          "step": 2,
+          "caption": "Total loading time equals sum of all nested requests.",
+          "data": {
             "left": {
-              "code": "console.log(prettyDate(\"2026-09-28\"));",
-              "result": "\"2026-09-28\"",
-              "tone": "idle",
-              "checks": [
-                "\"2026-09-28\""
+              "title": "Sequential Waterfall",
+              "items": [
+                "Parent renders first",
+                "Child fetches late",
+                "Cumulative delay spikes"
               ]
             },
             "right": {
-              "code": "console.log(prettyDate(\"2026-09-28\"));",
-              "result": "\"Jan\"",
-              "tone": "ok",
-              "checks": [
-                "\"Jan\""
+              "title": "Parallel Resolution",
+              "items": [
+                "Promises kicked early",
+                "Concurrent requests",
+                "Fast atomic render"
               ]
-            }
+            },
+            "highlight": "right"
           }
-        ]
-      }
+        },
+        {
+          "step": 3,
+          "caption": "Parallel loading kicks all promises before rendering.",
+          "data": {
+            "left": {
+              "title": "Sequential Waterfall",
+              "items": [
+                "Parent renders first",
+                "Child fetches late",
+                "Cumulative delay spikes"
+              ]
+            },
+            "right": {
+              "title": "Parallel Resolution",
+              "items": [
+                "Promises kicked early",
+                "Concurrent requests",
+                "Fast atomic render"
+              ]
+            },
+            "highlight": "left"
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Total loading time equals single slowest request only.",
+          "data": {
+            "left": {
+              "title": "Sequential Waterfall",
+              "items": [
+                "Parent renders first",
+                "Child fetches late",
+                "Cumulative delay spikes"
+              ]
+            },
+            "right": {
+              "title": "Parallel Resolution",
+              "items": [
+                "Promises kicked early",
+                "Concurrent requests",
+                "Fast atomic render"
+              ]
+            },
+            "highlight": "right"
+          }
+        }
+      ]
     },
     {
-      "partTitle": "Recent jobs and empty states",
-      "codeHash": "778fd2563f396db47cfe1b55df3d2bd8e4a5d3e7f95e6b30f041dc45604bdc90",
-      "spec": {
-        "template": "states",
-        "title": "Empty states versus populated list rendering",
-        "states": [
-          {
-            "id": "populated",
-            "label": "Populated List"
-          },
-          {
-            "id": "empty",
-            "label": "Empty State"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Display the three most recent applications sorted by date.",
-            "activeState": "populated",
-            "values": {
-              "count": {
-                "text": "\"A\""
-              }
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Show a welcoming message when the user has no applications yet.",
-            "activeState": "empty",
-            "values": {
-              "count": {
-                "text": "\"B\""
-              }
-            }
-          }
-        ]
+      "part": 3,
+      "template": "boxes",
+      "title": "Concurrent Scheduler Priority Lanes",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "69d6b54e3af4442b2e31ea2705717044376525047050fdfbbc97086f4b37d219"
       },
-      "filled": {
-        "template": "states",
-        "title": "Empty states versus populated list rendering",
-        "states": [
-          {
-            "id": "populated",
-            "label": "Populated List"
-          },
-          {
-            "id": "empty",
-            "label": "Empty State"
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Keystroke events schedule in urgent input priority lanes.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Urgent Input Lane",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b2",
+                "label": "Transition Lane",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Scheduler Window",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Committed Screen",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
           }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Display the three most recent applications sorted by date."
-          },
-          {
-            "at": "say2",
-            "caption": "Show a welcoming message when the user has no applications yet."
+        },
+        {
+          "step": 2,
+          "caption": "Heavy view updates schedule in deferred transition lanes.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Urgent Input Lane",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Transition Lane",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b3",
+                "label": "Scheduler Window",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Committed Screen",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
           }
-        ]
-      }
+        },
+        {
+          "step": 3,
+          "caption": "Scheduler yields every five milliseconds to handle input.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Urgent Input Lane",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Transition Lane",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Scheduler Window",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b4",
+                "label": "Committed Screen",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "UI updates smoothly without locking browser main thread.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Urgent Input Lane",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Transition Lane",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Scheduler Window",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Committed Screen",
+                "tappable": false,
+                "highlight": true
+              }
+            ]
+          }
+        }
+      ]
     },
     {
-      "partTitle": "Accessibility: an app everyone can use",
-      "codeHash": "78b9fceea58d1459fbf5853378dbad61847b1c9c6bdf90d1cd1cec29177aaca2",
-      "spec": {
-        "template": "flow",
-        "title": "Accessibility: an app everyone can use — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Accessibility: an a...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Accessibility: an app everyone can use [D24.P6.S1].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Accessibility: an a... [D24.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D24.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Accessibility: an app everyone ca.. [D24.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
+      "part": 4,
+      "template": "flow",
+      "title": "Error Boundary Crash Containment",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "28b8a48ef62d4186ca9c024d57ef8a093c867206bc66a3784d8a409efe74f1d2"
       },
-      "filled": {
-        "template": "flow",
-        "title": "Accessibility: an app everyone can use — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Accessibility: an a...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Accessibility: an app everyone can use [D24.P6.S1].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Accessibility: an a... [D24.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D24.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Accessibility: an app everyone ca.. [D24.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Child component throws unhandled exception during render.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Render Exception",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n2",
+                "label": "Derived State Update",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Telemetry Dispatch",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Recovery Fallback",
+                "tappable": false,
+                "active": false
+              }
             ]
           }
-        ]
-      }
+        },
+        {
+          "step": 2,
+          "caption": "Boundary catches crash and computes error fallback state.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Render Exception",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Derived State Update",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n3",
+                "label": "Telemetry Dispatch",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Recovery Fallback",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Component stack trace dispatches to observability service.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Render Exception",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Derived State Update",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Telemetry Dispatch",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n4",
+                "label": "Recovery Fallback",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Isolated crash card displays retry option to user.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Render Exception",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Derived State Update",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Telemetry Dispatch",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Recovery Fallback",
+                "tappable": false,
+                "active": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "part": 5,
+      "template": "boxes",
+      "title": "Multi Tiered Resilient Boundary Architecture",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "1eacfda56c362b5298b3dee32d17abe8b2a2fda8a4ad71cd126805820fdac537"
+      },
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Root boundary catches critical application shell failures.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Root Shell Boundary",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b2",
+                "label": "Route View Boundary",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Widget Boundary",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Live UI Element",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 2,
+          "caption": "Route boundary keeps navigation working if page fails.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Root Shell Boundary",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Route View Boundary",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b3",
+                "label": "Widget Boundary",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Live UI Element",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Widget boundary isolates crashes to single dashboard cards.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Root Shell Boundary",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Route View Boundary",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Widget Boundary",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b4",
+                "label": "Live UI Element",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Healthy components continue operating without disruption.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Root Shell Boundary",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Route View Boundary",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Widget Boundary",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Live UI Element",
+                "tappable": false,
+                "highlight": true
+              }
+            ]
+          }
+        }
+      ]
     }
   ]
 }

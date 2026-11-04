@@ -2,740 +2,141 @@
   "schemaVersion": 1,
   "prefix": "react-basics",
   "day": 30,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
+  "visuals": [
     {
-      "partTitle": "What junior React interviews look like",
-      "codeHash": "1a8bea23356c37394c2e79135f3d45f1b70f1e650b62db9b94ae6cff49ae112f",
-      "spec": {
-        "template": "flow",
-        "title": "Standard frontend engineering interview progression",
-        "nodes": [
-          {
-            "id": "r1",
-            "label": "Screening",
-            "tappable": false
-          },
-          {
-            "id": "r2",
-            "label": "Technical",
-            "tappable": false
-          },
-          {
-            "id": "r3",
-            "label": "Manager",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Junior interviews consist of screening, technical and management stages.",
-            "values": {
-              "r1": {
-                "text": "\"Screening\""
-              },
-              "r2": {
-                "text": "\"Technical\""
-              },
-              "r3": {
-                "text": "\"Manager\""
-              }
-            },
-            "tones": {
-              "r1": "data",
-              "r2": "idle",
-              "r3": "idle"
-            },
-            "arrows": [
-              [
-                "r1",
-                "r2"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Interviewers look for core fundamentals and clear problem-solving thought.",
-            "values": {
-              "r1": {
-                "text": "\"Screening\""
-              },
-              "r2": {
-                "text": "\"Technical\""
-              },
-              "r3": {
-                "text": "\"Manager\""
-              }
-            },
-            "tones": {
-              "r1": "idle",
-              "r2": "data",
-              "r3": "ok"
-            },
-            "arrows": [
-              [
-                "r1",
-                "r2"
-              ],
-              [
-                "r2",
-                "r3"
-              ]
-            ]
-          }
-        ]
+      "part": 1,
+      "template": "component-tree",
+      "title": "Enterprise Career Platform System Topology",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "9832ceac8970583a352fc09cea250b70618125649ce5d8efdaaeb28ebf723f81"
       },
-      "filled": {
-        "template": "flow",
-        "title": "Standard frontend engineering interview progression",
-        "nodes": [
-          {
-            "id": "r1",
-            "label": "Screening",
-            "tappable": false
-          },
-          {
-            "id": "r2",
-            "label": "Technical",
-            "tappable": false
-          },
-          {
-            "id": "r3",
-            "label": "Manager",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Junior interviews consist of screening, technical and management stages.",
-            "values": {
-              "r1": "\"Screening\"",
-              "r2": "\"Technical\"",
-              "r3": "\"Manager\""
-            },
-            "tones": {
-              "r1": "data",
-              "r2": "idle",
-              "r3": "idle"
-            },
-            "arrows": [
-              [
-                "r1",
-                "r2"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Interviewers look for core fundamentals and clear problem-solving thought.",
-            "values": {
-              "r1": "\"Screening\"",
-              "r2": "\"Technical\"",
-              "r3": "\"Manager\""
-            },
-            "tones": {
-              "r1": "idle",
-              "r2": "data",
-              "r3": "ok"
-            },
-            "arrows": [
-              [
-                "r1",
-                "r2"
-              ],
-              [
-                "r2",
-                "r3"
-              ]
-            ]
-          }
-        ]
-      }
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Edge network intercepts traffic and validates tokens."
+        },
+        {
+          "step": 2,
+          "caption": "Streaming server components render layout shells."
+        },
+        {
+          "step": 3,
+          "caption": "Interactive client islands manage local drag states."
+        },
+        {
+          "step": 4,
+          "caption": "Transactional database pool persists application data."
+        }
+      ]
     },
     {
-      "partTitle": "Common React questions and short answers",
-      "codeHash": "b927c0b3fb0cad1586e331b236e47ec4afdb01c151497b4cbe853b221fe28d58",
-      "spec": {
-        "template": "compare",
-        "title": "Contrasting read-only component inputs with owned local state",
-        "leftLabel": "Props (Read-only)",
-        "rightLabel": "State (Mutable)",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Props provide immutable inputs whereas state represents internal mutable data.",
-            "left": {
-              "code": "console.log(questions[\"props vs state\"]);",
-              "result": {
-                "text": "\"props vs state\""
-              },
-              "tone": "idle"
-            },
-            "right": {
-              "code": "console.log(questions[\"props vs state\"]);",
-              "result": {
-                "text": "\"why keys\""
-              },
-              "tone": "ok"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Unique keys preserve DOM identity across rendering updates.",
-            "left": {
-              "code": "console.log(questions[\"why keys\"]);",
-              "result": {
-                "text": "\"why keys\""
-              },
-              "tone": "idle"
-            },
-            "right": {
-              "code": "console.log(questions[\"useEffect\"]);",
-              "result": {
-                "text": "\"useEffect\""
-              },
-              "tone": "ok"
-            }
-          }
-        ]
+      "part": 2,
+      "template": "boxes",
+      "title": "Normalized Store and Rollback Engine",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "8401619599f19130cab837e122b320cbda4950e9ca0be7b7bcfd577424c8e222"
       },
-      "filled": {
-        "template": "compare",
-        "title": "Contrasting read-only component inputs with owned local state",
-        "leftLabel": "Props (Read-only)",
-        "rightLabel": "State (Mutable)",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Props provide immutable inputs whereas state represents internal mutable data.",
-            "left": {
-              "code": "console.log(questions[\"props vs state\"]);",
-              "result": "\"props vs state\"",
-              "tone": "idle",
-              "checks": [
-                "\"props vs state\""
-              ]
-            },
-            "right": {
-              "code": "console.log(questions[\"props vs state\"]);",
-              "result": "\"why keys\"",
-              "tone": "ok",
-              "checks": [
-                "\"why keys\""
-              ]
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Unique keys preserve DOM identity across rendering updates.",
-            "left": {
-              "code": "console.log(questions[\"why keys\"]);",
-              "result": "\"why keys\"",
-              "tone": "idle",
-              "checks": [
-                "\"why keys\""
-              ]
-            },
-            "right": {
-              "code": "console.log(questions[\"useEffect\"]);",
-              "result": "\"useEffect\"",
-              "tone": "ok",
-              "checks": [
-                "\"useEffect\""
-              ]
-            }
-          }
-        ]
-      }
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Entities organize into dictionary lookup tables."
+        },
+        {
+          "step": 2,
+          "caption": "Optimistic mutation updates view instantaneously."
+        },
+        {
+          "step": 3,
+          "caption": "Network error triggers transactional rollback closure."
+        },
+        {
+          "step": 4,
+          "caption": "Store restores snapshot without visual inconsistency."
+        }
+      ]
     },
     {
-      "partTitle": "Explaining your project in two minutes",
-      "codeHash": "25cf2ff817ac9241e8a7741ba4d8861481a59f48dfa88e034d64661eb5890a7e",
-      "spec": {
-        "template": "boxes",
-        "title": "Four-part project elevator pitch structure",
-        "boxes": [
-          {
-            "id": "part",
-            "label": "narrative",
-            "tappable": false
-          },
-          {
-            "id": "content",
-            "label": "summary",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Structure project overviews into four focused narrative segments.",
-            "values": {
-              "part": {
-                "text": "\"A Job Tracker in React to track my job applications\""
-              },
-              "content": {
-                "text": "\"React, React Router, custom hooks, localStorage, Vitest, deployed on Vercel\""
-              }
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Describe what you built and explain one challenge you solved in React.",
-            "values": {
-              "part": {
-                "text": "\"Refresh broke inner pages after deploy; fixed with a rewrite rule\""
-              },
-              "content": {
-                "text": "\"Add a backend so data syncs across devices\""
-              }
-            }
-          }
-        ]
+      "part": 3,
+      "template": "compare",
+      "title": "Defense in Depth Security Architecture",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "622b5de2fc638e3a16fe849abf87d833a856b107964b027b337d4d491bc8380a"
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Four-part project elevator pitch structure",
-        "boxes": [
-          {
-            "id": "part",
-            "label": "narrative",
-            "tappable": false
-          },
-          {
-            "id": "content",
-            "label": "summary",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Structure project overviews into four focused narrative segments.",
-            "values": {
-              "part": "\"A Job Tracker in React to track my job applications\"",
-              "content": "\"React, React Router, custom hooks, localStorage, Vitest, deployed on Vercel\""
-            },
-            "tones": {}
-          },
-          {
-            "at": "say2",
-            "caption": "Describe what you built and explain one challenge you solved in React.",
-            "values": {
-              "part": "\"Refresh broke inner pages after deploy; fixed with a rewrite rule\"",
-              "content": "\"Add a backend so data syncs across devices\""
-            },
-            "tones": {}
-          }
-        ]
-      }
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Strict policy headers block inline script injection."
+        },
+        {
+          "step": 2,
+          "caption": "Same site cookies hide credentials from scripts."
+        },
+        {
+          "step": 3,
+          "caption": "Input filters neutralize untrusted markup inputs."
+        },
+        {
+          "step": 4,
+          "caption": "Row policies enforce tenant boundary isolation."
+        }
+      ]
     },
     {
-      "partTitle": "Live coding: think aloud",
-      "codeHash": "2794bb7e9672f929dda1f067a65c2605032786204674af8049d9926a7dbbd903",
-      "spec": {
-        "template": "compare",
-        "title": "Deconstructing interview coding challenges aloud",
-        "leftLabel": "Problem Formulation",
-        "rightLabel": "Working Implementation",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Live coding assessments evaluate problem solving approach under pressure.",
-            "left": {
-              "code": "console.log(fizzBuzz(3));",
-              "result": {
-                "text": "\"Fizz\""
-              },
-              "tone": "idle"
-            },
-            "right": {
-              "code": "console.log(fizzBuzz(15));",
-              "result": {
-                "text": "\"FizzBuzz\""
-              },
-              "tone": "ok"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Communicate planned approaches verbally before implementing and testing.",
-            "left": {
-              "code": "console.log(fizzBuzz(5));",
-              "result": {
-                "text": "\"Buzz\""
-              },
-              "tone": "idle"
-            },
-            "right": {
-              "code": "console.log(fizzBuzz(15));",
-              "result": {
-                "text": "\"FizzBuzz\""
-              },
-              "tone": "ok"
-            }
-          }
-        ]
+      "part": 4,
+      "template": "states",
+      "title": "Core Web Vitals Performance Audit",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "a98dd60b02533b940c774917c305887d17ebcc437d45e94881f90032e64d1598"
       },
-      "filled": {
-        "template": "compare",
-        "title": "Deconstructing interview coding challenges aloud",
-        "leftLabel": "Problem Formulation",
-        "rightLabel": "Working Implementation",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Live coding assessments evaluate problem solving approach under pressure.",
-            "left": {
-              "code": "console.log(fizzBuzz(3));",
-              "result": "\"Fizz\"",
-              "tone": "idle",
-              "checks": [
-                "\"Fizz\""
-              ]
-            },
-            "right": {
-              "code": "console.log(fizzBuzz(15));",
-              "result": "\"FizzBuzz\"",
-              "tone": "ok",
-              "checks": [
-                "\"FizzBuzz\""
-              ]
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Communicate planned approaches verbally before implementing and testing.",
-            "left": {
-              "code": "console.log(fizzBuzz(5));",
-              "result": "\"Buzz\"",
-              "tone": "idle",
-              "checks": [
-                "\"Buzz\""
-              ]
-            },
-            "right": {
-              "code": "console.log(fizzBuzz(15));",
-              "result": "\"FizzBuzz\"",
-              "tone": "ok",
-              "checks": [
-                "\"FizzBuzz\""
-              ]
-            }
-          }
-        ]
-      }
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Server pre rendering delivers optimal content paint."
+        },
+        {
+          "step": 2,
+          "caption": "Deferred search inputs eliminate long main tasks."
+        },
+        {
+          "step": 3,
+          "caption": "Explicit container dimensions prevent layout shifts."
+        },
+        {
+          "step": 4,
+          "caption": "Metrics pass all enterprise production thresholds."
+        }
+      ]
     },
     {
-      "partTitle": "Applying for jobs",
-      "codeHash": "48457bd3da84a924d1cfb5ee70ef640d4fcee07c2ada2c918d5f5f12781f8c9e",
-      "spec": {
-        "template": "boxes",
-        "title": "Strategic job search tracking and pipeline metrics",
-        "boxes": [
-          {
-            "id": "target",
-            "label": "company",
-            "tappable": false
-          },
-          {
-            "id": "state",
-            "label": "status",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Submit job applications across job boards, networks and professional referrals.",
-            "values": {
-              "target": {
-                "text": "\"Zoho\""
-              },
-              "state": {
-                "text": "\"interview\""
-              }
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Track applications steadily and follow up on submissions over time.",
-            "values": {
-              "target": {
-                "text": "\"Swiggy\""
-              },
-              "state": {
-                "text": "\"rejected\""
-              }
-            }
-          }
-        ]
+      "part": 5,
+      "template": "flow",
+      "title": "Production Deployment Gate Verification",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "469d260049665959748a723d10ca0b0caaf5ad351af54d42b7f33ab5ab9c595d"
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Strategic job search tracking and pipeline metrics",
-        "boxes": [
-          {
-            "id": "target",
-            "label": "company",
-            "tappable": false
-          },
-          {
-            "id": "state",
-            "label": "status",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Submit job applications across job boards, networks and professional referrals.",
-            "values": {
-              "target": "\"Zoho\"",
-              "state": "\"interview\""
-            },
-            "tones": {}
-          },
-          {
-            "at": "say4",
-            "caption": "Track applications steadily and follow up on submissions over time.",
-            "values": {
-              "target": "\"Swiggy\"",
-              "state": "\"rejected\""
-            },
-            "tones": {}
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "What to learn next",
-      "codeHash": "f0b0c20917cea67e7577e389b36e5182a2ab3538c71dac9ce719bcd2135a1a41",
-      "spec": {
-        "template": "flow",
-        "title": "What to learn next — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. What to learn next",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for What to learn next [D30.P6.S1].",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in What to learn next [D30.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D30.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for What to learn next [D30.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "What to learn next — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. What to learn next",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for What to learn next [D30.P6.S1].",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in What to learn next [D30.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D30.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for What to learn next [D30.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      }
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Continuous integration verifies zero type errors."
+        },
+        {
+          "step": 2,
+          "caption": "Complete automated test suite passes with full green."
+        },
+        {
+          "step": 3,
+          "caption": "Database migrations execute against staging instance."
+        },
+        {
+          "step": 4,
+          "caption": "Zero downtime deployment cutover serves production."
+        }
+      ]
     }
   ]
 }

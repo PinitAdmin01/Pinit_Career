@@ -1,761 +1,679 @@
-{
-  "schemaVersion": 1,
-  "prefix": "react-basics",
-  "day": 9,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
-    {
-      "partTitle": "Why components need props",
-      "codeHash": "57c875182602028d2bab8d2af414eedddd66579d186176086fb4670e39653e2f",
-      "spec": {
-        "template": "flow",
-        "title": "Passing custom parameters to reusable components",
-        "nodes": [
-          {
-            "id": "parent",
-            "label": "App",
-            "tappable": false
-          },
-          {
-            "id": "props",
-            "label": "props",
-            "tappable": false
-          },
-          {
-            "id": "child",
-            "label": "JobCard",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Props pass custom inputs from parent to child components.",
-            "values": {
-              "parent": {
-                "text": "\"Frontend Developer\""
-              },
-              "props": {
-                "text": "\"Infosys\""
-              },
-              "child": {
-                "text": "JobCard"
-              }
+[
+  {
+    "schemaVersion": 1,
+    "prefix": "react-basics",
+    "day": 9,
+    "part": 1,
+    "codeHash": "9065b6210548020e3a4545bde46e641633da55ac20756bf129ce9ade810a395d",
+    "spec": {
+      "template": "flow",
+      "title": "Top Down Props Propagation and Event Callback Architecture",
+      "nodes": [
+        {
+          "id": "n1",
+          "label": "Parent State",
+          "tappable": false
+        },
+        {
+          "id": "n2",
+          "label": "Props Downward",
+          "tappable": false
+        },
+        {
+          "id": "n3",
+          "label": "User Action",
+          "tappable": false
+        },
+        {
+          "id": "n4",
+          "label": "Callback Upward",
+          "tappable": false
+        }
+      ],
+      "steps": [
+        {
+          "at": "say1",
+          "caption": "Single source of truth holds canonical application state.",
+          "values": {
+            "n1": {
+              "text": "\"Parent State\""
             },
-            "tones": {
-              "parent": "idle",
-              "props": "data",
-              "child": "idle"
+            "n2": {
+              "text": "\"Props Downward\""
             },
-            "arrows": [
-              [
-                "parent",
-                "props"
-              ]
+            "n3": {
+              "text": "\"User Action\""
+            },
+            "n4": {
+              "text": "\"Callback Upward\""
+            }
+          },
+          "tones": {
+            "n1": "data",
+            "n2": "idle",
+            "n3": "idle",
+            "n4": "idle"
+          },
+          "arrows": []
+        },
+        {
+          "at": "say2",
+          "caption": "State values propagate down the component hierarchy via props.",
+          "values": {
+            "n1": {
+              "text": "\"Parent State\""
+            },
+            "n2": {
+              "text": "\"Props Downward\""
+            },
+            "n3": {
+              "text": "\"User Action\""
+            },
+            "n4": {
+              "text": "\"Callback Upward\""
+            }
+          },
+          "tones": {
+            "n1": "data",
+            "n2": "data",
+            "n3": "idle",
+            "n4": "idle"
+          },
+          "arrows": [
+            [
+              "n1",
+              "n2"
             ]
+          ]
+        },
+        {
+          "at": "say3",
+          "caption": "User interactions trigger event handlers inside child components.",
+          "values": {
+            "n1": {
+              "text": "\"Parent State\""
+            },
+            "n2": {
+              "text": "\"Props Downward\""
+            },
+            "n3": {
+              "text": "\"User Action\""
+            },
+            "n4": {
+              "text": "\"Callback Upward\""
+            }
           },
-          {
-            "at": "say3",
-            "caption": "Components render different outputs using passed props values.",
-            "values": {
-              "parent": {
-                "text": "\"Tester\""
-              },
-              "props": {
-                "text": "\"TCS\""
-              },
-              "child": {
-                "text": "JobCard"
-              }
-            },
-            "tones": {
-              "parent": "idle",
-              "props": "ok",
-              "child": "ok"
-            },
-            "arrows": [
-              [
-                "parent",
-                "props"
-              ],
-              [
-                "props",
-                "child"
-              ]
+          "tones": {
+            "n1": "data",
+            "n2": "data",
+            "n3": "data",
+            "n4": "idle"
+          },
+          "arrows": [
+            [
+              "n1",
+              "n2"
+            ],
+            [
+              "n2",
+              "n3"
             ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Passing custom parameters to reusable components",
-        "nodes": [
-          {
-            "id": "parent",
-            "label": "App",
-            "tappable": false
-          },
-          {
-            "id": "props",
-            "label": "props",
-            "tappable": false
-          },
-          {
-            "id": "child",
-            "label": "JobCard",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Props pass custom inputs from parent to child components.",
-            "values": {
-              "parent": "\"Frontend Developer\"",
-              "props": "\"Infosys\"",
-              "child": "JobCard"
+          ]
+        },
+        {
+          "at": "say4",
+          "caption": "Callback functions signal parent components to dispatch mutations.",
+          "values": {
+            "n1": {
+              "text": "\"Parent State\""
             },
-            "tones": {
-              "parent": "idle",
-              "props": "data",
-              "child": "idle"
+            "n2": {
+              "text": "\"Props Downward\""
             },
-            "arrows": [
-              [
-                "parent",
-                "props"
-              ]
+            "n3": {
+              "text": "\"User Action\""
+            },
+            "n4": {
+              "text": "\"Callback Upward\""
+            }
+          },
+          "tones": {
+            "n1": "data",
+            "n2": "data",
+            "n3": "data",
+            "n4": "data"
+          },
+          "arrows": [
+            [
+              "n1",
+              "n2"
+            ],
+            [
+              "n2",
+              "n3"
+            ],
+            [
+              "n3",
+              "n4"
             ]
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "prefix": "react-basics",
+    "day": 9,
+    "part": 2,
+    "codeHash": "d740b0c33dde48ff1b82b253578f935883a0555086a679ea70f9d0b66dffa3c4",
+    "spec": {
+      "template": "boxes",
+      "title": "Props Immutability Enforcement and Shallow Object Freezing",
+      "boxes": [
+        {
+          "id": "b1",
+          "label": "Input Props",
+          "tappable": false
+        },
+        {
+          "id": "b2",
+          "label": "Object Freeze",
+          "tappable": false
+        },
+        {
+          "id": "b3",
+          "label": "Dev Guard",
+          "tappable": false
+        },
+        {
+          "id": "b4",
+          "label": "Pure Pipeline",
+          "tappable": false
+        }
+      ],
+      "steps": [
+        {
+          "at": "say1",
+          "caption": "React wraps component props in shallow frozen object containers.",
+          "values": {
+            "b1": {
+              "text": "\"Input Props\""
+            },
+            "b2": {
+              "text": "\"Object Freeze\""
+            },
+            "b3": {
+              "text": "\"Dev Guard\""
+            },
+            "b4": {
+              "text": "\"Pure Pipeline\""
+            }
           },
-          {
-            "at": "say3",
-            "caption": "Components render different outputs using passed props values.",
-            "values": {
-              "parent": "\"Tester\"",
-              "props": "\"TCS\"",
-              "child": "JobCard"
+          "tones": {
+            "b1": "data",
+            "b2": "idle",
+            "b3": "idle",
+            "b4": "idle"
+          }
+        },
+        {
+          "at": "say2",
+          "caption": "Direct mutation of props throws error in strict development mode.",
+          "values": {
+            "b1": {
+              "text": "\"Input Props\""
             },
-            "tones": {
-              "parent": "idle",
-              "props": "ok",
-              "child": "ok"
+            "b2": {
+              "text": "\"Object Freeze\""
             },
-            "arrows": [
-              [
-                "parent",
-                "props"
-              ],
-              [
-                "props",
-                "child"
-              ]
+            "b3": {
+              "text": "\"Dev Guard\""
+            },
+            "b4": {
+              "text": "\"Pure Pipeline\""
+            }
+          },
+          "tones": {
+            "b1": "data",
+            "b2": "data",
+            "b3": "idle",
+            "b4": "idle"
+          }
+        },
+        {
+          "at": "say3",
+          "caption": "Shallow freeze does not protect deep nested object references.",
+          "values": {
+            "b1": {
+              "text": "\"Input Props\""
+            },
+            "b2": {
+              "text": "\"Object Freeze\""
+            },
+            "b3": {
+              "text": "\"Dev Guard\""
+            },
+            "b4": {
+              "text": "\"Pure Pipeline\""
+            }
+          },
+          "tones": {
+            "b1": "data",
+            "b2": "data",
+            "b3": "data",
+            "b4": "idle"
+          }
+        },
+        {
+          "at": "say4",
+          "caption": "Immutable update patterns prevent corrupting shared parent state.",
+          "values": {
+            "b1": {
+              "text": "\"Input Props\""
+            },
+            "b2": {
+              "text": "\"Object Freeze\""
+            },
+            "b3": {
+              "text": "\"Dev Guard\""
+            },
+            "b4": {
+              "text": "\"Pure Pipeline\""
+            }
+          },
+          "tones": {
+            "b1": "data",
+            "b2": "data",
+            "b3": "data",
+            "b4": "data"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "prefix": "react-basics",
+    "day": 9,
+    "part": 3,
+    "codeHash": "38f4eed5b931cf60f4cd24be959d01a74793250fc5d41d9f86505ea387a6eb8e",
+    "spec": {
+      "template": "flow",
+      "title": "Compound Component Composition and Context Sharing",
+      "nodes": [
+        {
+          "id": "n1",
+          "label": "Root Container",
+          "tappable": false
+        },
+        {
+          "id": "n2",
+          "label": "Layout Slots",
+          "tappable": false
+        },
+        {
+          "id": "n3",
+          "label": "Context Bridge",
+          "tappable": false
+        },
+        {
+          "id": "n4",
+          "label": "Sub Components",
+          "tappable": false
+        }
+      ],
+      "steps": [
+        {
+          "at": "say1",
+          "caption": "Root component coordinates shared state and layout constraints.",
+          "values": {
+            "n1": {
+              "text": "\"Root Container\""
+            },
+            "n2": {
+              "text": "\"Layout Slots\""
+            },
+            "n3": {
+              "text": "\"Context Bridge\""
+            },
+            "n4": {
+              "text": "\"Sub Components\""
+            }
+          },
+          "tones": {
+            "n1": "data",
+            "n2": "idle",
+            "n3": "idle",
+            "n4": "idle"
+          },
+          "arrows": []
+        },
+        {
+          "at": "say2",
+          "caption": "Children prop provides inversion of control over rendered layout.",
+          "values": {
+            "n1": {
+              "text": "\"Root Container\""
+            },
+            "n2": {
+              "text": "\"Layout Slots\""
+            },
+            "n3": {
+              "text": "\"Context Bridge\""
+            },
+            "n4": {
+              "text": "\"Sub Components\""
+            }
+          },
+          "tones": {
+            "n1": "data",
+            "n2": "data",
+            "n3": "idle",
+            "n4": "idle"
+          },
+          "arrows": [
+            [
+              "n1",
+              "n2"
             ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Passing props",
-      "codeHash": "9656184d080a06eb50c2ab0b798743b2b27d0ec7651cf7f69146041af5f47ddb",
-      "spec": {
-        "template": "compare",
-        "title": "String attributes versus numeric expression props",
-        "leftLabel": "String Prop",
-        "rightLabel": "Numeric Prop",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Props accept strings in quotes and expressions in curly braces.",
-            "left": {
-              "code": "const props = { title: \"Tester\", salary: \"300000\" };",
-              "result": {
-                "text": "\"300000\""
-              },
-              "tone": "warn"
+          ]
+        },
+        {
+          "at": "say3",
+          "caption": "Internal context bridge shares active state across sub components.",
+          "values": {
+            "n1": {
+              "text": "\"Root Container\""
             },
-            "right": {
-              "code": "const fixed = { title: \"Tester\", salary: 300000 };",
-              "result": {
-                "text": "300000"
-              },
-              "tone": "ok"
+            "n2": {
+              "text": "\"Layout Slots\""
+            },
+            "n3": {
+              "text": "\"Context Bridge\""
+            },
+            "n4": {
+              "text": "\"Sub Components\""
             }
           },
-          {
-            "at": "say3",
-            "caption": "Passing a string in quotes causes unexpected maths instead of numbers.",
-            "left": {
-              "code": "console.log(props.salary + 50000);",
-              "result": {
-                "text": "\"300000\""
-              },
-              "tone": "warn"
+          "tones": {
+            "n1": "data",
+            "n2": "data",
+            "n3": "data",
+            "n4": "idle"
+          },
+          "arrows": [
+            [
+              "n1",
+              "n2"
+            ],
+            [
+              "n2",
+              "n3"
+            ]
+          ]
+        },
+        {
+          "at": "say4",
+          "caption": "Sub components render cleanly without explicit prop drilling.",
+          "values": {
+            "n1": {
+              "text": "\"Root Container\""
             },
-            "right": {
-              "code": "console.log(fixed.salary + 50000);",
-              "result": {
-                "text": "300000"
-              },
-              "tone": "ok"
+            "n2": {
+              "text": "\"Layout Slots\""
+            },
+            "n3": {
+              "text": "\"Context Bridge\""
+            },
+            "n4": {
+              "text": "\"Sub Components\""
             }
-          }
-        ]
+          },
+          "tones": {
+            "n1": "data",
+            "n2": "data",
+            "n3": "data",
+            "n4": "data"
+          },
+          "arrows": [
+            [
+              "n1",
+              "n2"
+            ],
+            [
+              "n2",
+              "n3"
+            ],
+            [
+              "n3",
+              "n4"
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "prefix": "react-basics",
+    "day": 9,
+    "part": 4,
+    "codeHash": "d67db8f15af4581145c11aaa787a2e911b2f68e9aaf98b901b4cc8c45717b71b",
+    "spec": {
+      "template": "compare",
+      "title": "Discriminated Union Props vs Fragile Boolean Combinations",
+      "left": {
+        "label": "Standard Implementation"
       },
-      "filled": {
-        "template": "compare",
-        "title": "String attributes versus numeric expression props",
-        "leftLabel": "String Prop",
-        "rightLabel": "Numeric Prop",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Props accept strings in quotes and expressions in curly braces.",
-            "left": {
-              "code": "const props = { title: \"Tester\", salary: \"300000\" };",
-              "result": "\"300000\"",
-              "tone": "warn",
-              "checks": [
-                "\"300000\""
-              ]
-            },
-            "right": {
-              "code": "const fixed = { title: \"Tester\", salary: 300000 };",
-              "result": "300000",
-              "tone": "ok",
-              "checks": [
-                "300000"
-              ]
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Passing a string in quotes causes unexpected maths instead of numbers.",
-            "left": {
-              "code": "console.log(props.salary + 50000);",
-              "result": "\"300000\"",
-              "tone": "warn",
-              "checks": [
-                "\"300000\""
-              ]
-            },
-            "right": {
-              "code": "console.log(fixed.salary + 50000);",
-              "result": "300000",
-              "tone": "ok",
-              "checks": [
-                "300000"
-              ]
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Reading props with destructuring",
-      "codeHash": "94d5ec1d793ee0ce0e808844584297b3450bf7360adcf6786a35cbaeea604d7c",
-      "spec": {
-        "template": "boxes",
-        "title": "Direct destructuring of component parameter props",
-        "boxes": [
-          {
-            "id": "title",
-            "label": "title",
-            "tappable": false
-          },
-          {
-            "id": "company",
-            "label": "company",
-            "tappable": false
-          },
-          {
-            "id": "salary",
-            "label": "salary",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Destructuring extracts individual props directly in parameter brackets.",
-            "values": {
-              "title": {
-                "text": "\"Frontend Developer\""
-              },
-              "company": {
-                "text": "\"Infosys\""
-              },
-              "salary": {
-                "text": "400000"
-              }
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Components use destructured variables directly in their body.",
-            "values": {
-              "title": {
-                "text": "\"Frontend Developer\""
-              },
-              "company": {
-                "text": "\"Infosys\""
-              },
-              "salary": {
-                "text": "400000"
-              }
-            }
-          }
-        ]
+      "right": {
+        "label": "Architectural Pattern"
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Direct destructuring of component parameter props",
-        "boxes": [
-          {
-            "id": "title",
-            "label": "title",
-            "tappable": false
-          },
-          {
-            "id": "company",
-            "label": "company",
-            "tappable": false
-          },
-          {
-            "id": "salary",
-            "label": "salary",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Destructuring extracts individual props directly in parameter brackets.",
-            "values": {
-              "title": "\"Frontend Developer\"",
-              "company": "\"Infosys\"",
-              "salary": "400000"
+      "steps": [
+        {
+          "at": "say1",
+          "caption": "Multiple optional boolean flags create invalid component states.",
+          "left": {
+            "code": "// Left pipeline phase 1",
+            "result": {
+              "text": "\"Standard\""
             },
-            "tones": {}
-          },
-          {
-            "at": "say2",
-            "caption": "Components use destructured variables directly in their body.",
-            "values": {
-              "title": "\"Frontend Developer\"",
-              "company": "\"Infosys\"",
-              "salary": "400000"
-            },
-            "tones": {}
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Default values for props",
-      "codeHash": "344fd90eb6632472b7ec90ed3440e343b9d96e001d5345237b89f09d41bc35d2",
-      "spec": {
-        "template": "boxes",
-        "title": "Fallback defaults for optional component props",
-        "boxes": [
-          {
-            "id": "status",
-            "label": "status",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Providing default values prevents undefined prop rendering errors.",
-            "values": {
-              "status": {
-                "text": "\"applied\""
-              }
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Default values make component usage cleaner and safer.",
-            "values": {
-              "status": {
-                "text": "\"interview\""
-              }
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Fallback defaults for optional component props",
-        "boxes": [
-          {
-            "id": "status",
-            "label": "status",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Providing default values prevents undefined prop rendering errors.",
-            "values": {
-              "status": "\"applied\""
-            },
-            "tones": {}
-          },
-          {
-            "at": "say3",
-            "caption": "Default values make component usage cleaner and safer.",
-            "values": {
-              "status": "\"interview\""
-            },
-            "tones": {}
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Passing a whole object as a prop",
-      "codeHash": "8ee9d943e8c4e2ebd94cf0f78359d01f0094fc99678ef5b95f0465af69de09ce",
-      "spec": {
-        "template": "component-tree",
-        "title": "Passing full object structures through props",
-        "nodes": [
-          {
-            "id": "list",
-            "name": "JobList",
             "tone": "idle"
           },
-          {
-            "id": "card",
-            "name": "JobCard",
-            "tone": "ok"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Passing a full object prop simplifies parent component code.",
-            "activeId": "card",
-            "propsPassed": {
-              "from": "list",
-              "to": "card",
-              "propName": "job",
-              "value": {
-                "text": "\"React Developer\""
-              }
+          "right": {
+            "code": "// Optimized pipeline phase 1",
+            "result": {
+              "text": "\"Optimized\""
             },
             "tone": "ok"
-          },
-          {
-            "at": "say3",
-            "caption": "Passing whole objects keeps parent component markup compact.",
-            "activeId": "card",
-            "propsPassed": {
-              "from": "list",
-              "to": "card",
-              "propName": "job",
-              "value": {
-                "text": "\"Zoho\""
-              }
+          }
+        },
+        {
+          "at": "say2",
+          "caption": "Runtime prop checks require defensive validation boilerplate.",
+          "left": {
+            "code": "// Left pipeline phase 2",
+            "result": {
+              "text": "\"Standard\""
             },
             "tone": "data"
-          }
-        ]
-      },
-      "filled": {
-        "template": "component-tree",
-        "title": "Passing full object structures through props",
-        "nodes": [
-          {
-            "id": "list",
-            "name": "JobList",
-            "tone": "idle"
           },
-          {
-            "id": "card",
-            "name": "JobCard",
+          "right": {
+            "code": "// Optimized pipeline phase 2",
+            "result": {
+              "text": "\"Optimized\""
+            },
             "tone": "ok"
           }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Passing a full object prop simplifies parent component code.",
-            "activeId": "card",
-            "propsPassed": {
-              "from": "list",
-              "to": "card",
-              "propName": "job",
-              "value": "\"React Developer\""
+        },
+        {
+          "at": "say3",
+          "caption": "Discriminated union types enforce companion properties at build time.",
+          "left": {
+            "code": "// Left pipeline phase 3",
+            "result": {
+              "text": "\"Standard\""
             },
-            "tone": "ok",
-            "nodes": [
-              {
-                "id": "list",
-                "name": "JobList",
-                "tone": "idle"
-              },
-              {
-                "id": "card",
-                "name": "JobCard",
-                "tone": "ok"
-              }
-            ]
+            "tone": "data"
           },
-          {
-            "at": "say3",
-            "caption": "Passing whole objects keeps parent component markup compact.",
-            "activeId": "card",
-            "propsPassed": {
-              "from": "list",
-              "to": "card",
-              "propName": "job",
-              "value": "\"Zoho\""
+          "right": {
+            "code": "// Optimized pipeline phase 3",
+            "result": {
+              "text": "\"Optimized\""
             },
-            "tone": "data",
-            "nodes": [
-              {
-                "id": "list",
-                "name": "JobList",
-                "tone": "idle"
-              },
-              {
-                "id": "card",
-                "name": "JobCard",
-                "tone": "ok"
-              }
-            ]
+            "tone": "ok"
           }
-        ]
-      }
-    },
-    {
-      "partTitle": "Props flow one way and are read-only",
-      "codeHash": "9e607d8cd5011e360832b53e21b72a9d533add37537d54bb07d1e199b6a9ac81",
-      "spec": {
-        "template": "flow",
-        "title": "Props flow one way and are read-only — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+        },
+        {
+          "at": "say4",
+          "caption": "TypeScript compiler prevents impossible UI configurations instantly.",
+          "left": {
+            "code": "// Left pipeline phase 4",
+            "result": {
+              "text": "\"Standard\""
+            },
+            "tone": "data"
           },
-          {
-            "id": "proc",
-            "label": "2. Props flow one way ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+          "right": {
+            "code": "// Optimized pipeline phase 4",
+            "result": {
+              "text": "\"Optimized\""
+            },
+            "tone": "ok"
           }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Props flow one way and are read-only [D9.P6.S1].",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Props flow one way ... [D9.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D9.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Props flow one way and are read-o.. [D9.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Props flow one way and are read-only — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Props flow one way ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Props flow one way and are read-only [D9.P6.S1].",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Props flow one way ... [D9.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D9.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Props flow one way and are read-o.. [D9.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      }
+        }
+      ]
     }
-  ]
-}
+  },
+  {
+    "schemaVersion": 1,
+    "prefix": "react-basics",
+    "day": 9,
+    "part": 5,
+    "codeHash": "19e02eb628d502d1cd46a7c57bff7ad174e2fd5e2047f3cb4361181ea0beb346",
+    "spec": {
+      "template": "boxes",
+      "title": "Modern Parameter Destructuring Defaults and Fallback Evaluation",
+      "boxes": [
+        {
+          "id": "b1",
+          "label": "Param Destructure",
+          "tappable": false
+        },
+        {
+          "id": "b2",
+          "label": "Default Value",
+          "tappable": false
+        },
+        {
+          "id": "b3",
+          "label": "Nullish Check",
+          "tappable": false
+        },
+        {
+          "id": "b4",
+          "label": "Resolved Prop",
+          "tappable": false
+        }
+      ],
+      "steps": [
+        {
+          "at": "say1",
+          "caption": "JavaScript function parameters destructure incoming props object.",
+          "values": {
+            "b1": {
+              "text": "\"Param Destructure\""
+            },
+            "b2": {
+              "text": "\"Default Value\""
+            },
+            "b3": {
+              "text": "\"Nullish Check\""
+            },
+            "b4": {
+              "text": "\"Resolved Prop\""
+            }
+          },
+          "tones": {
+            "b1": "data",
+            "b2": "idle",
+            "b3": "idle",
+            "b4": "idle"
+          }
+        },
+        {
+          "at": "say2",
+          "caption": "Default values assign only when passed property is strictly undefined.",
+          "values": {
+            "b1": {
+              "text": "\"Param Destructure\""
+            },
+            "b2": {
+              "text": "\"Default Value\""
+            },
+            "b3": {
+              "text": "\"Nullish Check\""
+            },
+            "b4": {
+              "text": "\"Resolved Prop\""
+            }
+          },
+          "tones": {
+            "b1": "data",
+            "b2": "data",
+            "b3": "idle",
+            "b4": "idle"
+          }
+        },
+        {
+          "at": "say3",
+          "caption": "Nullish coalescing preserves valid zero and empty string values.",
+          "values": {
+            "b1": {
+              "text": "\"Param Destructure\""
+            },
+            "b2": {
+              "text": "\"Default Value\""
+            },
+            "b3": {
+              "text": "\"Nullish Check\""
+            },
+            "b4": {
+              "text": "\"Resolved Prop\""
+            }
+          },
+          "tones": {
+            "b1": "data",
+            "b2": "data",
+            "b3": "data",
+            "b4": "idle"
+          }
+        },
+        {
+          "at": "say4",
+          "caption": "Component executes cleanly with guaranteed non nullish properties.",
+          "values": {
+            "b1": {
+              "text": "\"Param Destructure\""
+            },
+            "b2": {
+              "text": "\"Default Value\""
+            },
+            "b3": {
+              "text": "\"Nullish Check\""
+            },
+            "b4": {
+              "text": "\"Resolved Prop\""
+            }
+          },
+          "tones": {
+            "b1": "data",
+            "b2": "data",
+            "b3": "data",
+            "b4": "data"
+          }
+        }
+      ]
+    }
+  }
+]

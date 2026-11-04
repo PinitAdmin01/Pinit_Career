@@ -60,7 +60,7 @@ describe('BRUTAL VALIDATION — STUDENT LEFT SIDEBAR (Perspectives 3, 4, 5)', ()
         { href: '/quests', label: 'Quests & Courses' },
         { href: '/missions', label: 'Daily Missions' },
         { href: '/arena', label: 'Challenging Arena' },
-        { href: '/projects', label: 'Projects & Squads' },
+        { href: '/projects', label: 'Projects & Innovation' },
         { href: '/leaderboard', label: 'Leaderboard & Leagues' },
         { href: '/interview', label: 'AI Interview' },
         { href: '/mirror', label: 'Mirror' },

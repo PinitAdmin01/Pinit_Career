@@ -6,104 +6,158 @@
   "model": "anthropic/claude-3.5-sonnet",
   "entries": [
     {
-      "partTitle": "What happens when you open a website",
-      "codeHash": "6f132b81ed2cf3672748e0a7cf86acbf8b7ea97a26297f6de76e7fc42460b5f7",
+      "partTitle": "The Network Request Lifecycle: DNS Recursive Resolution, Anycast Routing & Latency Budgets",
+      "codeHash": "d5a18d04b55874bf522b099981f4235ca21297c7b9f702f47b638926b828b04d",
       "spec": {
         "template": "flow",
-        "title": "From your instructions to the screen",
+        "title": "Client Network Layer to DNS Resolver and Edge Gateway",
         "nodes": [
           {
-            "id": "browser",
-            "label": "browser",
-            "tappable": true
+            "id": "n1",
+            "label": "Browser Client",
+            "tappable": false
           },
           {
-            "id": "server",
-            "label": "server",
-            "tappable": true
+            "id": "n2",
+            "label": "OS DNS Cache",
+            "tappable": false
           },
           {
-            "id": "files",
-            "label": "files",
-            "tappable": true
+            "id": "n3",
+            "label": "Recursive Resolver",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "Edge Gateway",
+            "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Your browser sends a request to the server.",
+            "caption": "Client checks local operating system cache for domain address.",
             "values": {
-              "browser": {
-                "text": "Chrome"
+              "n1": {
+                "text": "\"Browser Client\""
               },
-              "server": {
-                "text": "flipkart.com"
+              "n2": {
+                "text": "\"OS DNS Cache\""
               },
-              "files": {
-                "text": "server"
+              "n3": {
+                "text": "\"Recursive Resolver\""
+              },
+              "n4": {
+                "text": "\"Edge Gateway\""
               }
             },
             "tones": {
-              "browser": "data",
-              "server": "idle",
-              "files": "idle"
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
             },
-            "arrows": [
-              [
-                "browser",
-                "server"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The server sends files back to your browser.",
+            "caption": "Recursive resolver queries root name servers across the network.",
             "values": {
-              "browser": {
-                "text": "Chrome"
+              "n1": {
+                "text": "\"Browser Client\""
               },
-              "server": {
-                "text": "flipkart.com"
+              "n2": {
+                "text": "\"OS DNS Cache\""
               },
-              "files": {
-                "text": "files"
+              "n3": {
+                "text": "\"Recursive Resolver\""
+              },
+              "n4": {
+                "text": "\"Edge Gateway\""
               }
             },
             "tones": {
-              "browser": "idle",
-              "server": "data",
-              "files": "ok"
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "server",
-                "browser"
+                "n1",
+                "n2"
               ]
             ]
           },
           {
             "at": "say3",
-            "caption": "JavaScript and HTML together build the website.",
+            "caption": "Authoritative name server returns canonical internet protocol address.",
             "values": {
-              "browser": {
-                "text": "draws the page"
+              "n1": {
+                "text": "\"Browser Client\""
               },
-              "server": {
-                "text": "flipkart.com"
+              "n2": {
+                "text": "\"OS DNS Cache\""
               },
-              "files": {
-                "text": "JavaScript"
+              "n3": {
+                "text": "\"Recursive Resolver\""
+              },
+              "n4": {
+                "text": "\"Edge Gateway\""
               }
             },
             "tones": {
-              "browser": "ok",
-              "server": "idle",
-              "files": "data"
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "files",
-                "browser"
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Client establishes transmission control protocol socket connection.",
+            "values": {
+              "n1": {
+                "text": "\"Browser Client\""
+              },
+              "n2": {
+                "text": "\"OS DNS Cache\""
+              },
+              "n3": {
+                "text": "\"Recursive Resolver\""
+              },
+              "n4": {
+                "text": "\"Edge Gateway\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "data"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
               ]
             ]
           }
@@ -111,82 +165,154 @@
       },
       "filled": {
         "template": "flow",
-        "title": "From your instructions to the screen",
+        "title": "Client Network Layer to DNS Resolver and Edge Gateway",
         "nodes": [
           {
-            "id": "browser",
-            "label": "browser",
-            "tappable": true
+            "id": "n1",
+            "label": "Browser Client",
+            "tappable": false
           },
           {
-            "id": "server",
-            "label": "server",
-            "tappable": true
+            "id": "n2",
+            "label": "OS DNS Cache",
+            "tappable": false
           },
           {
-            "id": "files",
-            "label": "files",
-            "tappable": true
+            "id": "n3",
+            "label": "Recursive Resolver",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "Edge Gateway",
+            "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Your browser sends a request to the server.",
+            "caption": "Client checks local operating system cache for domain address.",
             "values": {
-              "browser": "Chrome",
-              "server": "flipkart.com",
-              "files": "server"
+              "n1": {
+                "text": "\"Browser Client\""
+              },
+              "n2": {
+                "text": "\"OS DNS Cache\""
+              },
+              "n3": {
+                "text": "\"Recursive Resolver\""
+              },
+              "n4": {
+                "text": "\"Edge Gateway\""
+              }
             },
             "tones": {
-              "browser": "data",
-              "server": "idle",
-              "files": "idle"
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
             },
-            "arrows": [
-              [
-                "browser",
-                "server"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "The server sends files back to your browser.",
+            "caption": "Recursive resolver queries root name servers across the network.",
             "values": {
-              "browser": "Chrome",
-              "server": "flipkart.com",
-              "files": "files"
+              "n1": {
+                "text": "\"Browser Client\""
+              },
+              "n2": {
+                "text": "\"OS DNS Cache\""
+              },
+              "n3": {
+                "text": "\"Recursive Resolver\""
+              },
+              "n4": {
+                "text": "\"Edge Gateway\""
+              }
             },
             "tones": {
-              "browser": "idle",
-              "server": "data",
-              "files": "ok"
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "server",
-                "browser"
+                "n1",
+                "n2"
               ]
             ]
           },
           {
             "at": "say3",
-            "caption": "JavaScript and HTML together build the website.",
+            "caption": "Authoritative name server returns canonical internet protocol address.",
             "values": {
-              "browser": "draws the page",
-              "server": "flipkart.com",
-              "files": "JavaScript"
+              "n1": {
+                "text": "\"Browser Client\""
+              },
+              "n2": {
+                "text": "\"OS DNS Cache\""
+              },
+              "n3": {
+                "text": "\"Recursive Resolver\""
+              },
+              "n4": {
+                "text": "\"Edge Gateway\""
+              }
             },
             "tones": {
-              "browser": "ok",
-              "server": "idle",
-              "files": "data"
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "files",
-                "browser"
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Client establishes transmission control protocol socket connection.",
+            "values": {
+              "n1": {
+                "text": "\"Browser Client\""
+              },
+              "n2": {
+                "text": "\"OS DNS Cache\""
+              },
+              "n3": {
+                "text": "\"Recursive Resolver\""
+              },
+              "n4": {
+                "text": "\"Edge Gateway\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "data"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
               ]
             ]
           }
@@ -194,683 +320,1045 @@
       }
     },
     {
-      "partTitle": "HTML: the content of the page",
-      "codeHash": "13ba42e7b8350ce3681521a2f25500be5fa5f56a6880668f187f48a26524fb9c",
+      "partTitle": "Transport Layer Security & Multiplexing: TCP Handshakes, TLS 1.3 Resumption & HTTP/2 Binary Frames",
+      "codeHash": "484612927eedb88b40b4e1233ebef01aa31d13c509b56484bc0b3f68a542cf42",
       "spec": {
-        "template": "boxes",
-        "title": "HTML structure and tags",
-        "boxes": [
+        "template": "flow",
+        "title": "Transmission Control Protocol and Security Handshake",
+        "nodes": [
           {
-            "id": "heading",
-            "label": "heading",
-            "tappable": true
+            "id": "n1",
+            "label": "Client Socket",
+            "tappable": false
           },
           {
-            "id": "button",
-            "label": "button",
-            "tappable": true
+            "id": "n2",
+            "label": "SYN Packet",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "SYN-ACK Packet",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "Session Cipher",
+            "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "HTML describes headings, buttons and links on the page.",
+            "caption": "Client initiates transmission control protocol syn packet to edge server.",
             "values": {
-              "heading": {
-                "text": "<h1>"
+              "n1": {
+                "text": "\"Client Socket\""
               },
-              "button": {
-                "text": "<button>"
+              "n2": {
+                "text": "\"SYN Packet\""
+              },
+              "n3": {
+                "text": "\"SYN-ACK Packet\""
+              },
+              "n4": {
+                "text": "\"Session Cipher\""
               }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Edge server responds with syn ack packet confirming port allocation.",
+            "values": {
+              "n1": {
+                "text": "\"Client Socket\""
+              },
+              "n2": {
+                "text": "\"SYN Packet\""
+              },
+              "n3": {
+                "text": "\"SYN-ACK Packet\""
+              },
+              "n4": {
+                "text": "\"Session Cipher\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Client transmits ack packet completing initial three-way handshake.",
+            "values": {
+              "n1": {
+                "text": "\"Client Socket\""
+              },
+              "n2": {
+                "text": "\"SYN Packet\""
+              },
+              "n3": {
+                "text": "\"SYN-ACK Packet\""
+              },
+              "n4": {
+                "text": "\"Session Cipher\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Client and server negotiate cipher suites and derive session keys.",
+            "values": {
+              "n1": {
+                "text": "\"Client Socket\""
+              },
+              "n2": {
+                "text": "\"SYN Packet\""
+              },
+              "n3": {
+                "text": "\"SYN-ACK Packet\""
+              },
+              "n4": {
+                "text": "\"Session Cipher\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "data"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Transmission Control Protocol and Security Handshake",
+        "nodes": [
+          {
+            "id": "n1",
+            "label": "Client Socket",
+            "tappable": false
+          },
+          {
+            "id": "n2",
+            "label": "SYN Packet",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "SYN-ACK Packet",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "Session Cipher",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Client initiates transmission control protocol syn packet to edge server.",
+            "values": {
+              "n1": {
+                "text": "\"Client Socket\""
+              },
+              "n2": {
+                "text": "\"SYN Packet\""
+              },
+              "n3": {
+                "text": "\"SYN-ACK Packet\""
+              },
+              "n4": {
+                "text": "\"Session Cipher\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Edge server responds with syn ack packet confirming port allocation.",
+            "values": {
+              "n1": {
+                "text": "\"Client Socket\""
+              },
+              "n2": {
+                "text": "\"SYN Packet\""
+              },
+              "n3": {
+                "text": "\"SYN-ACK Packet\""
+              },
+              "n4": {
+                "text": "\"Session Cipher\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Client transmits ack packet completing initial three-way handshake.",
+            "values": {
+              "n1": {
+                "text": "\"Client Socket\""
+              },
+              "n2": {
+                "text": "\"SYN Packet\""
+              },
+              "n3": {
+                "text": "\"SYN-ACK Packet\""
+              },
+              "n4": {
+                "text": "\"Session Cipher\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Client and server negotiate cipher suites and derive session keys.",
+            "values": {
+              "n1": {
+                "text": "\"Client Socket\""
+              },
+              "n2": {
+                "text": "\"SYN Packet\""
+              },
+              "n3": {
+                "text": "\"SYN-ACK Packet\""
+              },
+              "n4": {
+                "text": "\"Session Cipher\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "data"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "The Browser Rendering Engine: HTML Tokenization, DOM Tree Construction & The CSSOM Tree",
+      "codeHash": "2d2e583d50c20cc152c200051d4e44e0210e91afb2ec0e7ef188884fabb35138",
+      "spec": {
+        "template": "boxes",
+        "title": "HTTP Protocol Framing Architecture",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "Socket Layer",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "Stream Multiplex",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Binary Frames",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "Application Payload",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Legacy HTTP opens multiple parallel transmission control sockets.",
+            "values": {
+              "b1": {
+                "text": "\"Socket Layer\""
+              },
+              "b2": {
+                "text": "\"Stream Multiplex\""
+              },
+              "b3": {
+                "text": "\"Binary Frames\""
+              },
+              "b4": {
+                "text": "\"Application Payload\""
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "Tags come in pairs with content placed between them.",
+            "caption": "Head-of-line blocking stalls subsequent requests behind slow assets.",
             "values": {
-              "heading": {
-                "text": "<h1>My Job Tracker</h1>"
+              "b1": {
+                "text": "\"Socket Layer\""
               },
-              "button": {
-                "text": "<button>Add Job</button>"
+              "b2": {
+                "text": "\"Stream Multiplex\""
+              },
+              "b3": {
+                "text": "\"Binary Frames\""
+              },
+              "b4": {
+                "text": "\"Application Payload\""
               }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say3",
-            "caption": "Common tags like h1 and button structure the application.",
+            "caption": "Modern HTTP introduces binary framing layer over single socket stream.",
             "values": {
-              "heading": {
-                "text": "<h1>My Job Tracker</h1>"
+              "b1": {
+                "text": "\"Socket Layer\""
               },
-              "button": {
-                "text": "<button>Add Job</button>"
+              "b2": {
+                "text": "\"Stream Multiplex\""
+              },
+              "b3": {
+                "text": "\"Binary Frames\""
+              },
+              "b4": {
+                "text": "\"Application Payload\""
               }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Independent bidirectional streams interleave packets without head blocking.",
+            "values": {
+              "b1": {
+                "text": "\"Socket Layer\""
+              },
+              "b2": {
+                "text": "\"Stream Multiplex\""
+              },
+              "b3": {
+                "text": "\"Binary Frames\""
+              },
+              "b4": {
+                "text": "\"Application Payload\""
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "data"
             }
           }
         ]
       },
       "filled": {
         "template": "boxes",
-        "title": "HTML structure and tags",
+        "title": "HTTP Protocol Framing Architecture",
         "boxes": [
           {
-            "id": "heading",
-            "label": "heading",
-            "tappable": true
+            "id": "b1",
+            "label": "Socket Layer",
+            "tappable": false
           },
           {
-            "id": "button",
-            "label": "button",
-            "tappable": true
+            "id": "b2",
+            "label": "Stream Multiplex",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Binary Frames",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "Application Payload",
+            "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "HTML describes headings, buttons and links on the page.",
+            "caption": "Legacy HTTP opens multiple parallel transmission control sockets.",
             "values": {
-              "heading": "<h1>",
-              "button": "<button>"
+              "b1": {
+                "text": "\"Socket Layer\""
+              },
+              "b2": {
+                "text": "\"Stream Multiplex\""
+              },
+              "b3": {
+                "text": "\"Binary Frames\""
+              },
+              "b4": {
+                "text": "\"Application Payload\""
+              }
             },
-            "tones": {}
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
           },
           {
             "at": "say2",
-            "caption": "Tags come in pairs with content placed between them.",
+            "caption": "Head-of-line blocking stalls subsequent requests behind slow assets.",
             "values": {
-              "heading": "<h1>My Job Tracker</h1>",
-              "button": "<button>Add Job</button>"
+              "b1": {
+                "text": "\"Socket Layer\""
+              },
+              "b2": {
+                "text": "\"Stream Multiplex\""
+              },
+              "b3": {
+                "text": "\"Binary Frames\""
+              },
+              "b4": {
+                "text": "\"Application Payload\""
+              }
             },
-            "tones": {}
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
           },
           {
             "at": "say3",
-            "caption": "Common tags like h1 and button structure the application.",
+            "caption": "Modern HTTP introduces binary framing layer over single socket stream.",
             "values": {
-              "heading": "<h1>My Job Tracker</h1>",
-              "button": "<button>Add Job</button>"
+              "b1": {
+                "text": "\"Socket Layer\""
+              },
+              "b2": {
+                "text": "\"Stream Multiplex\""
+              },
+              "b3": {
+                "text": "\"Binary Frames\""
+              },
+              "b4": {
+                "text": "\"Application Payload\""
+              }
             },
-            "tones": {}
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Independent bidirectional streams interleave packets without head blocking.",
+            "values": {
+              "b1": {
+                "text": "\"Socket Layer\""
+              },
+              "b2": {
+                "text": "\"Stream Multiplex\""
+              },
+              "b3": {
+                "text": "\"Binary Frames\""
+              },
+              "b4": {
+                "text": "\"Application Payload\""
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "data"
+            }
           }
         ]
       }
     },
     {
-      "partTitle": "CSS: how the page looks",
-      "codeHash": "bf4a2af30130e99583f6a068ce9e8f70e9155aa52fcbfcb695ea41efe5d39f47",
+      "partTitle": "The Critical Rendering Path: Layout Trees, Paint Geometry & GPU Compositor Threading",
+      "codeHash": "8efa02758b11186a1388c567d71856600c0f23dbeac79de19a9e7f34c872607c",
       "spec": {
-        "template": "wireframe",
-        "title": "CSS Box Model and layout",
-        "boxes": [
+        "template": "flow",
+        "title": "Critical Rendering Path and Graphics Compositing",
+        "nodes": [
           {
-            "id": "h1",
-            "label": "heading",
-            "tone": "ok"
+            "id": "n1",
+            "label": "Byte Stream",
+            "tappable": false
           },
           {
-            "id": "container",
-            "label": "div",
-            "tone": "idle"
+            "id": "n2",
+            "label": "DOM Construction",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "Layout Geometry",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "GPU Compositor",
+            "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "CSS decides colours, sizes, fonts and spacing on screen.",
-            "layoutMode": "box-model",
-            "activeBoxId": "h1",
-            "tone": "ok"
+            "caption": "Network stream yields raw bytes converted to tokens and nodes.",
+            "values": {
+              "n1": {
+                "text": "\"Byte Stream\""
+              },
+              "n2": {
+                "text": "\"DOM Construction\""
+              },
+              "n3": {
+                "text": "\"Layout Geometry\""
+              },
+              "n4": {
+                "text": "\"GPU Compositor\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "A CSS rule selects elements and applies styling.",
-            "layoutMode": "box-model",
-            "activeBoxId": "container",
-            "tone": "data"
+            "caption": "Style rules resolve against elements to construct the render tree.",
+            "values": {
+              "n1": {
+                "text": "\"Byte Stream\""
+              },
+              "n2": {
+                "text": "\"DOM Construction\""
+              },
+              "n3": {
+                "text": "\"Layout Geometry\""
+              },
+              "n4": {
+                "text": "\"GPU Compositor\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Layout engine computes exact geometric coordinates for visible boxes.",
+            "values": {
+              "n1": {
+                "text": "\"Byte Stream\""
+              },
+              "n2": {
+                "text": "\"DOM Construction\""
+              },
+              "n3": {
+                "text": "\"Layout Geometry\""
+              },
+              "n4": {
+                "text": "\"GPU Compositor\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Compositor thread groups display layers onto hardware texture buffers.",
+            "values": {
+              "n1": {
+                "text": "\"Byte Stream\""
+              },
+              "n2": {
+                "text": "\"DOM Construction\""
+              },
+              "n3": {
+                "text": "\"Layout Geometry\""
+              },
+              "n4": {
+                "text": "\"GPU Compositor\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "data"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
+              ]
+            ]
           }
         ]
       },
       "filled": {
-        "template": "wireframe",
-        "title": "CSS Box Model and layout",
-        "boxes": [
+        "template": "flow",
+        "title": "Critical Rendering Path and Graphics Compositing",
+        "nodes": [
           {
-            "id": "h1",
-            "label": "heading",
-            "tone": "ok"
+            "id": "n1",
+            "label": "Byte Stream",
+            "tappable": false
           },
           {
-            "id": "container",
-            "label": "div",
-            "tone": "idle"
+            "id": "n2",
+            "label": "DOM Construction",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "Layout Geometry",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "GPU Compositor",
+            "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "CSS decides colours, sizes, fonts and spacing on screen.",
-            "layoutMode": "box-model",
-            "activeBoxId": "h1",
-            "tone": "ok",
-            "boxes": [
-              {
-                "id": "h1",
-                "label": "heading",
-                "tone": "ok"
+            "caption": "Network stream yields raw bytes converted to tokens and nodes.",
+            "values": {
+              "n1": {
+                "text": "\"Byte Stream\""
               },
-              {
-                "id": "container",
-                "label": "div",
-                "tone": "idle"
+              "n2": {
+                "text": "\"DOM Construction\""
+              },
+              "n3": {
+                "text": "\"Layout Geometry\""
+              },
+              "n4": {
+                "text": "\"GPU Compositor\""
               }
-            ]
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "A CSS rule selects elements and applies styling.",
-            "layoutMode": "box-model",
-            "activeBoxId": "container",
-            "tone": "data",
-            "boxes": [
-              {
-                "id": "h1",
-                "label": "heading",
-                "tone": "ok"
+            "caption": "Style rules resolve against elements to construct the render tree.",
+            "values": {
+              "n1": {
+                "text": "\"Byte Stream\""
               },
-              {
-                "id": "container",
-                "label": "div",
-                "tone": "idle"
+              "n2": {
+                "text": "\"DOM Construction\""
+              },
+              "n3": {
+                "text": "\"Layout Geometry\""
+              },
+              "n4": {
+                "text": "\"GPU Compositor\""
               }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ]
+            ]
+          },
+          {
+            "at": "say3",
+            "caption": "Layout engine computes exact geometric coordinates for visible boxes.",
+            "values": {
+              "n1": {
+                "text": "\"Byte Stream\""
+              },
+              "n2": {
+                "text": "\"DOM Construction\""
+              },
+              "n3": {
+                "text": "\"Layout Geometry\""
+              },
+              "n4": {
+                "text": "\"GPU Compositor\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Compositor thread groups display layers onto hardware texture buffers.",
+            "values": {
+              "n1": {
+                "text": "\"Byte Stream\""
+              },
+              "n2": {
+                "text": "\"DOM Construction\""
+              },
+              "n3": {
+                "text": "\"Layout Geometry\""
+              },
+              "n4": {
+                "text": "\"GPU Compositor\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "data"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "JavaScript: making the page do things",
-      "codeHash": "2f521b956ae598f29aff135118db0ef9bc860f6eb9c0dd6c44f3c5da874406bc",
+      "partTitle": "From Imperative DOM Mutation to Declarative Component Architecture: The Architectural Rationale for React",
+      "codeHash": "774d8431325064a08fb8a7867ea6f2f48f915f7f4b5264fbb8ae17bde819c9ef",
       "spec": {
         "template": "compare",
-        "title": "Numbers versus Text in JavaScript",
-        "leftLabel": "Numbers",
-        "rightLabel": "Text",
+        "title": "Core Web Vitals Thresholds and Performance Telemetry",
+        "leftLabel": "Standard Execution",
+        "rightLabel": "Optimized Pipeline",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Instructions follow line by line from top to bottom.",
+            "at": "say1",
+            "caption": "Largest Contentful Paint measures render speed of primary viewports.",
             "left": {
-              "code": "console.log(2 + 3);",
+              "code": "// Left pipeline phase 1",
               "result": {
-                "text": "2 + 3"
+                "text": "\"Standard\""
               },
               "tone": "idle"
             },
             "right": {
-              "code": "console.log(\"Asha\" + \" Rao\");",
+              "code": "// Optimized pipeline phase 1",
               "result": {
-                "text": "\"Asha\" + \" Rao\""
-              },
-              "tone": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Numbers add mathematically, while quotes join text together.",
-            "left": {
-              "code": "console.log(2 + 3);",
-              "result": {
-                "text": "5"
+                "text": "\"Optimized\""
               },
               "tone": "ok"
-            },
-            "right": {
-              "code": "console.log(\"Asha\" + \" Rao\");",
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Interaction to Next Paint monitors event dispatch and frame delays.",
+            "left": {
+              "code": "// Left pipeline phase 2",
               "result": {
-                "text": "Asha Rao"
+                "text": "\"Standard\""
               },
               "tone": "data"
+            },
+            "right": {
+              "code": "// Optimized pipeline phase 2",
+              "result": {
+                "text": "\"Optimized\""
+              },
+              "tone": "ok"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Cumulative Layout Shift tracks unexpected layout movement during load.",
+            "left": {
+              "code": "// Left pipeline phase 3",
+              "result": {
+                "text": "\"Standard\""
+              },
+              "tone": "data"
+            },
+            "right": {
+              "code": "// Optimized pipeline phase 3",
+              "result": {
+                "text": "\"Optimized\""
+              },
+              "tone": "ok"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Target thresholds ensure fluid interactive performance across clients.",
+            "left": {
+              "code": "// Left pipeline phase 4",
+              "result": {
+                "text": "\"Standard\""
+              },
+              "tone": "data"
+            },
+            "right": {
+              "code": "// Optimized pipeline phase 4",
+              "result": {
+                "text": "\"Optimized\""
+              },
+              "tone": "ok"
             }
           }
         ]
       },
       "filled": {
         "template": "compare",
-        "title": "Numbers versus Text in JavaScript",
-        "leftLabel": "Numbers",
-        "rightLabel": "Text",
+        "title": "Core Web Vitals Thresholds and Performance Telemetry",
+        "leftLabel": "Standard Execution",
+        "rightLabel": "Optimized Pipeline",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Instructions follow line by line from top to bottom.",
+            "at": "say1",
+            "caption": "Largest Contentful Paint measures render speed of primary viewports.",
             "left": {
-              "code": "console.log(2 + 3);",
-              "result": "2 + 3",
-              "tone": "idle",
-              "checks": [
-                "2 + 3"
-              ]
+              "code": "// Left pipeline phase 1",
+              "result": {
+                "text": "\"Standard\""
+              },
+              "tone": "idle"
             },
             "right": {
-              "code": "console.log(\"Asha\" + \" Rao\");",
-              "result": "\"Asha\" + \" Rao\"",
-              "tone": "idle",
-              "checks": [
-                "\"Asha\" + \" Rao\""
-              ]
+              "code": "// Optimized pipeline phase 1",
+              "result": {
+                "text": "\"Optimized\""
+              },
+              "tone": "ok"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Interaction to Next Paint monitors event dispatch and frame delays.",
+            "left": {
+              "code": "// Left pipeline phase 2",
+              "result": {
+                "text": "\"Standard\""
+              },
+              "tone": "data"
+            },
+            "right": {
+              "code": "// Optimized pipeline phase 2",
+              "result": {
+                "text": "\"Optimized\""
+              },
+              "tone": "ok"
             }
           },
           {
             "at": "say3",
-            "caption": "Numbers add mathematically, while quotes join text together.",
+            "caption": "Cumulative Layout Shift tracks unexpected layout movement during load.",
             "left": {
-              "code": "console.log(2 + 3);",
-              "result": "5",
-              "tone": "ok",
-              "checks": [
-                "5"
-              ]
+              "code": "// Left pipeline phase 3",
+              "result": {
+                "text": "\"Standard\""
+              },
+              "tone": "data"
             },
             "right": {
-              "code": "console.log(\"Asha\" + \" Rao\");",
-              "result": "Asha Rao",
-              "tone": "data",
-              "checks": [
-                "Asha Rao"
-              ]
+              "code": "// Optimized pipeline phase 3",
+              "result": {
+                "text": "\"Optimized\""
+              },
+              "tone": "ok"
             }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "What React is and why companies use it",
-      "codeHash": "a0e0993b0cf396437c6e0073233d6e3389de961a48ec3286d4e0e85af58913a6",
-      "spec": {
-        "template": "component-tree",
-        "title": "React component hierarchy",
-        "nodes": [
-          {
-            "id": "app",
-            "name": "App",
-            "tone": "idle"
           },
           {
-            "id": "card1",
-            "name": "JobCard",
-            "tone": "ok"
-          },
-          {
-            "id": "card2",
-            "name": "JobCard",
-            "tone": "data"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "React builds screens out of small reusable components.",
-            "activeId": "app",
-            "tone": "idle"
-          },
-          {
-            "at": "say2",
-            "caption": "Components are reused with different information props.",
-            "activeId": "card1",
-            "propsPassed": {
-              "from": "app",
-              "to": "card1",
-              "propName": "title",
-              "value": {
-                "text": "Frontend Developer"
-              }
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "say3",
-            "caption": "When data changes, React updates the screen for you.",
-            "activeId": "card2",
-            "propsPassed": {
-              "from": "app",
-              "to": "card2",
-              "propName": "title",
-              "value": {
-                "text": "React Developer"
-              }
-            },
-            "tone": "data"
-          }
-        ]
-      },
-      "filled": {
-        "template": "component-tree",
-        "title": "React component hierarchy",
-        "nodes": [
-          {
-            "id": "app",
-            "name": "App",
-            "tone": "idle"
-          },
-          {
-            "id": "card1",
-            "name": "JobCard",
-            "tone": "ok"
-          },
-          {
-            "id": "card2",
-            "name": "JobCard",
-            "tone": "data"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "React builds screens out of small reusable components.",
-            "activeId": "app",
-            "tone": "idle",
-            "nodes": [
-              {
-                "id": "app",
-                "name": "App",
-                "tone": "idle"
+            "at": "say4",
+            "caption": "Target thresholds ensure fluid interactive performance across clients.",
+            "left": {
+              "code": "// Left pipeline phase 4",
+              "result": {
+                "text": "\"Standard\""
               },
-              {
-                "id": "card1",
-                "name": "JobCard",
-                "tone": "ok"
+              "tone": "data"
+            },
+            "right": {
+              "code": "// Optimized pipeline phase 4",
+              "result": {
+                "text": "\"Optimized\""
               },
-              {
-                "id": "card2",
-                "name": "JobCard",
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "Components are reused with different information props.",
-            "activeId": "card1",
-            "propsPassed": {
-              "from": "app",
-              "to": "card1",
-              "propName": "title",
-              "value": "Frontend Developer"
-            },
-            "tone": "ok",
-            "nodes": [
-              {
-                "id": "app",
-                "name": "App",
-                "tone": "idle"
-              },
-              {
-                "id": "card1",
-                "name": "JobCard",
-                "tone": "ok"
-              },
-              {
-                "id": "card2",
-                "name": "JobCard",
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "When data changes, React updates the screen for you.",
-            "activeId": "card2",
-            "propsPassed": {
-              "from": "app",
-              "to": "card2",
-              "propName": "title",
-              "value": "React Developer"
-            },
-            "tone": "data",
-            "nodes": [
-              {
-                "id": "app",
-                "name": "App",
-                "tone": "idle"
-              },
-              {
-                "id": "card1",
-                "name": "JobCard",
-                "tone": "ok"
-              },
-              {
-                "id": "card2",
-                "name": "JobCard",
-                "tone": "data"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Your month plan and your Job Tracker project",
-      "codeHash": "8db6857062e51a910f42089febb16a24f1dc056580513a1147bfeb957ce7ab44",
-      "spec": {
-        "template": "flow",
-        "title": "Your month plan and your Job Tracker project — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Your month plan and...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Your month plan and your Job Tracker pro.. [D1.P6.S1].",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Your month plan and... [D1.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D1.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Your month plan and your Job Trac.. [D1.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Your month plan and your Job Tracker project — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Your month plan and...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Your month plan and your Job Tracker pro.. [D1.P6.S1].",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Your month plan and... [D1.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D1.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Your month plan and your Job Trac.. [D1.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "tone": "ok"
+            }
           }
         ]
       }

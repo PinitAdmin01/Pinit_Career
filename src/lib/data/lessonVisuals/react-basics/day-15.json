@@ -2,866 +2,677 @@
   "schemaVersion": 1,
   "prefix": "react-basics",
   "day": 15,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
+  "visuals": [
     {
-      "partTitle": "Where should state live?",
-      "codeHash": "9b473c04a2ce5ebff9688c15a575d8d034974d43a568ec4731ab906ccdb2ccac",
-      "spec": {
-        "template": "component-tree",
-        "title": "Lifting state to closest common ancestor",
-        "nodes": [
-          {
-            "id": "app",
-            "name": "App (owner)",
-            "tone": "idle"
-          },
-          {
-            "id": "summary",
-            "name": "Summary",
-            "tone": "ok"
-          },
-          {
-            "id": "list",
-            "name": "JobList",
-            "tone": "ok"
-          },
-          {
-            "id": "form",
-            "name": "JobForm",
-            "tone": "data"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Shared state lives in the closest common parent component.",
-            "activeId": "app",
-            "tone": "idle"
-          },
-          {
-            "at": "say2",
-            "caption": "Components needing access to jobs receive state from common parent App.",
-            "activeId": "list",
-            "tone": "ok"
-          }
-        ]
+      "part": 1,
+      "title": "Lowest Common Ancestor State Placement Resolution",
+      "template": "flow",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "6332442942850150c3bbe2be467e21a8cbbc530d73cc7a11c92699b6314c3d84"
       },
-      "filled": {
-        "template": "component-tree",
-        "title": "Lifting state to closest common ancestor",
-        "nodes": [
-          {
-            "id": "app",
-            "name": "App (owner)",
-            "tone": "idle"
-          },
-          {
-            "id": "summary",
-            "name": "Summary",
-            "tone": "ok"
-          },
-          {
-            "id": "list",
-            "name": "JobList",
-            "tone": "ok"
-          },
-          {
-            "id": "form",
-            "name": "JobForm",
-            "tone": "data"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Shared state lives in the closest common parent component.",
-            "activeId": "app",
-            "tone": "idle",
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Multiple sibling components require synchronized data access.",
+          "data": {
             "nodes": [
               {
-                "id": "app",
-                "name": "App (owner)",
-                "tone": "idle"
+                "id": "n1",
+                "label": "Consumer Nodes",
+                "tappable": false,
+                "active": true
               },
               {
-                "id": "summary",
-                "name": "Summary",
-                "tone": "ok"
+                "id": "n2",
+                "label": "Ancestry Search",
+                "tappable": false,
+                "active": false
               },
               {
-                "id": "list",
-                "name": "JobList",
-                "tone": "ok"
+                "id": "n3",
+                "label": "Deepest Parent",
+                "tappable": false,
+                "active": false
               },
               {
-                "id": "form",
-                "name": "JobForm",
-                "tone": "data"
+                "id": "n4",
+                "label": "State Hoisting",
+                "tappable": false,
+                "active": false
               }
             ]
-          },
-          {
-            "at": "say2",
-            "caption": "Components needing access to jobs receive state from common parent App.",
-            "activeId": "list",
-            "tone": "ok",
+          }
+        },
+        {
+          "step": 2,
+          "caption": "Traversal traces fiber parent pointers upward toward root.",
+          "data": {
             "nodes": [
               {
-                "id": "app",
-                "name": "App (owner)",
-                "tone": "idle"
+                "id": "n1",
+                "label": "Consumer Nodes",
+                "tappable": false,
+                "active": false
               },
               {
-                "id": "summary",
-                "name": "Summary",
-                "tone": "ok"
+                "id": "n2",
+                "label": "Ancestry Search",
+                "tappable": false,
+                "active": true
               },
               {
-                "id": "list",
-                "name": "JobList",
-                "tone": "ok"
+                "id": "n3",
+                "label": "Deepest Parent",
+                "tappable": false,
+                "active": false
               },
               {
-                "id": "form",
-                "name": "JobForm",
-                "tone": "data"
+                "id": "n4",
+                "label": "State Hoisting",
+                "tappable": false,
+                "active": false
               }
             ]
           }
-        ]
-      }
+        },
+        {
+          "step": 3,
+          "caption": "Algorithm identifies deepest shared ancestral component.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Consumer Nodes",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Ancestry Search",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Deepest Parent",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n4",
+                "label": "State Hoisting",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "State hoists to minimal common parent preserving boundaries.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Consumer Nodes",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Ancestry Search",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Deepest Parent",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "State Hoisting",
+                "tappable": false,
+                "active": true
+              }
+            ]
+          }
+        }
+      ]
     },
     {
-      "partTitle": "Data down, actions up",
-      "codeHash": "f6bded0b80cffcc40a6f7c8ce229a300f05626800d4682bca2dd40f751752ebf",
-      "spec": {
-        "template": "flow",
-        "title": "Data flows down props while actions trigger upwards",
-        "nodes": [
-          {
-            "id": "parent",
-            "label": "App",
-            "tappable": false
-          },
-          {
-            "id": "props",
-            "label": "props",
-            "tappable": false
-          },
-          {
-            "id": "child",
-            "label": "JobCard",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Data passes down as props while actions bubble up via callbacks.",
-            "values": {
-              "parent": {
-                "text": "App"
-              },
-              "props": {
-                "text": "jobs"
-              },
-              "child": {
-                "text": "JobCard"
-              }
-            },
-            "tones": {
-              "parent": "data",
-              "props": "idle",
-              "child": "idle"
-            },
-            "arrows": [
-              [
-                "parent",
-                "props"
-              ],
-              [
-                "props",
-                "child"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "Action callbacks start with on prefix to signal event occurrences.",
-            "values": {
-              "parent": {
-                "text": "App"
-              },
-              "props": {
-                "text": "onDelete"
-              },
-              "child": {
-                "text": "JobCard"
-              }
-            },
-            "tones": {
-              "parent": "idle",
-              "props": "ok",
-              "child": "ok"
-            },
-            "arrows": [
-              [
-                "child",
-                "props"
-              ],
-              [
-                "props",
-                "parent"
-              ]
-            ]
-          }
-        ]
+      "part": 2,
+      "title": "Over-Hoisted Parent vs Colocated Leaf State Blast Radius",
+      "template": "compare",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "8d22a503bc438feb64b91ddcb8da9fe9268673f520ae73d75886eb7cebe12d05"
       },
-      "filled": {
-        "template": "flow",
-        "title": "Data flows down props while actions trigger upwards",
-        "nodes": [
-          {
-            "id": "parent",
-            "label": "App",
-            "tappable": false
-          },
-          {
-            "id": "props",
-            "label": "props",
-            "tappable": false
-          },
-          {
-            "id": "child",
-            "label": "JobCard",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Data passes down as props while actions bubble up via callbacks.",
-            "values": {
-              "parent": "App",
-              "props": "jobs",
-              "child": "JobCard"
-            },
-            "tones": {
-              "parent": "data",
-              "props": "idle",
-              "child": "idle"
-            },
-            "arrows": [
-              [
-                "parent",
-                "props"
-              ],
-              [
-                "props",
-                "child"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "Action callbacks start with on prefix to signal event occurrences.",
-            "values": {
-              "parent": "App",
-              "props": "onDelete",
-              "child": "JobCard"
-            },
-            "tones": {
-              "parent": "idle",
-              "props": "ok",
-              "child": "ok"
-            },
-            "arrows": [
-              [
-                "child",
-                "props"
-              ],
-              [
-                "props",
-                "parent"
-              ]
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Removing an item",
-      "codeHash": "26a23db59d509ed6125e6ea11c7e285d4ffe93f0b11465e373fe670c7f268aa0",
-      "spec": {
-        "template": "compare",
-        "title": "Immutable deletion using array filter",
-        "leftLabel": "Before Deletion",
-        "rightLabel": "After Filter",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Filter removes an item by retaining every other element id.",
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Hoisting state to top layout triggers widespread cascades.",
+          "data": {
             "left": {
-              "code": "const jobs = [{ id: 1 }, { id: 2 }, { id: 3 }];",
-              "result": {
-                "text": "3"
-              },
-              "tone": "idle"
+              "title": "Over-Hoisted State",
+              "items": [
+                "Parent Re-renders",
+                "Unrelated Siblings Run",
+                "Cascading Diff Cycles",
+                "High Total Blocking Time"
+              ],
+              "highlightIndex": 0
             },
             "right": {
-              "code": "const after = removeJob(jobs, 2);",
-              "result": {
-                "text": "after"
-              },
-              "tone": "ok"
+              "title": "Colocated State",
+              "items": [
+                "Leaf Isolated Update",
+                "Zero Parent Cycles",
+                "Untouched Siblings",
+                "Zero Millisecond Frame Lag"
+              ],
+              "highlightIndex": 0
             }
-          },
-          {
-            "at": "say2",
-            "caption": "Generating a new array causes React to re-render the view.",
+          }
+        },
+        {
+          "step": 2,
+          "caption": "Unrelated widgets spend cpu cycles on unneeded diffs.",
+          "data": {
             "left": {
-              "code": "console.log(jobs.length);",
-              "result": {
-                "text": "3"
-              },
-              "tone": "idle"
+              "title": "Over-Hoisted State",
+              "items": [
+                "Parent Re-renders",
+                "Unrelated Siblings Run",
+                "Cascading Diff Cycles",
+                "High Total Blocking Time"
+              ],
+              "highlightIndex": 1
             },
             "right": {
-              "code": "console.log(after.length);",
-              "result": {
-                "text": "after"
-              },
-              "tone": "ok"
+              "title": "Colocated State",
+              "items": [
+                "Leaf Isolated Update",
+                "Zero Parent Cycles",
+                "Untouched Siblings",
+                "Zero Millisecond Frame Lag"
+              ],
+              "highlightIndex": 1
             }
           }
-        ]
-      },
-      "filled": {
-        "template": "compare",
-        "title": "Immutable deletion using array filter",
-        "leftLabel": "Before Deletion",
-        "rightLabel": "After Filter",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Filter removes an item by retaining every other element id.",
+        },
+        {
+          "step": 3,
+          "caption": "Colocating state confines updates to consuming leaf bounds.",
+          "data": {
             "left": {
-              "code": "const jobs = [{ id: 1 }, { id: 2 }, { id: 3 }];",
-              "result": "3",
-              "tone": "idle",
-              "checks": [
-                "3"
-              ]
+              "title": "Over-Hoisted State",
+              "items": [
+                "Parent Re-renders",
+                "Unrelated Siblings Run",
+                "Cascading Diff Cycles",
+                "High Total Blocking Time"
+              ],
+              "highlightIndex": 2
             },
             "right": {
-              "code": "const after = removeJob(jobs, 2);",
-              "result": "after",
-              "tone": "ok",
-              "checks": [
-                "after"
-              ]
+              "title": "Colocated State",
+              "items": [
+                "Leaf Isolated Update",
+                "Zero Parent Cycles",
+                "Untouched Siblings",
+                "Zero Millisecond Frame Lag"
+              ],
+              "highlightIndex": 2
             }
-          },
-          {
-            "at": "say2",
-            "caption": "Generating a new array causes React to re-render the view.",
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Parent layouts remain quiescent achieving optimal throughput.",
+          "data": {
             "left": {
-              "code": "console.log(jobs.length);",
-              "result": "3",
-              "tone": "idle",
-              "checks": [
-                "3"
-              ]
+              "title": "Over-Hoisted State",
+              "items": [
+                "Parent Re-renders",
+                "Unrelated Siblings Run",
+                "Cascading Diff Cycles",
+                "High Total Blocking Time"
+              ],
+              "highlightIndex": 3
             },
             "right": {
-              "code": "console.log(after.length);",
-              "result": "after",
-              "tone": "ok",
-              "checks": [
-                "after"
-              ]
+              "title": "Colocated State",
+              "items": [
+                "Leaf Isolated Update",
+                "Zero Parent Cycles",
+                "Untouched Siblings",
+                "Zero Millisecond Frame Lag"
+              ],
+              "highlightIndex": 3
             }
           }
-        ]
-      }
+        }
+      ]
     },
     {
-      "partTitle": "Changing one item",
-      "codeHash": "ccf2ee7d96ddd15037686a7802fa6350170bd99f95997e0e84114309e3ea482d",
-      "spec": {
-        "template": "flow",
-        "title": "Modifying a single item immutably with map",
-        "nodes": [
-          {
-            "id": "list",
-            "label": "jobs",
-            "tappable": false
-          },
-          {
-            "id": "map",
-            "label": "map",
-            "tappable": false
-          },
-          {
-            "id": "item",
-            "label": "status",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Mapping through arrays returns an updated copy for the matching id.",
-            "values": {
-              "list": {
-                "text": "\"applied\""
-              },
-              "map": {
-                "text": "map"
-              },
-              "item": {
-                "text": "\"interview\""
-              }
-            },
-            "tones": {
-              "list": "idle",
-              "map": "data",
-              "item": "idle"
-            },
-            "arrows": [
-              [
-                "list",
-                "map"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Only the matching element creates a new object instance.",
-            "values": {
-              "list": {
-                "text": "\"applied\""
-              },
-              "map": {
-                "text": "map"
-              },
-              "item": {
-                "text": "\"interview\""
-              }
-            },
-            "tones": {
-              "list": "idle",
-              "map": "ok",
-              "item": "ok"
-            },
-            "arrows": [
-              [
-                "list",
-                "map"
-              ],
-              [
-                "map",
-                "item"
-              ]
-            ]
-          }
-        ]
+      "part": 3,
+      "title": "Component Composition Slots Inversion Architecture",
+      "template": "boxes",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "70a0415a70a93536fdb1079a87dd9fb995975619601c5ed1dacd81e169810188"
       },
-      "filled": {
-        "template": "flow",
-        "title": "Modifying a single item immutably with map",
-        "nodes": [
-          {
-            "id": "list",
-            "label": "jobs",
-            "tappable": false
-          },
-          {
-            "id": "map",
-            "label": "map",
-            "tappable": false
-          },
-          {
-            "id": "item",
-            "label": "status",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Mapping through arrays returns an updated copy for the matching id.",
-            "values": {
-              "list": "\"applied\"",
-              "map": "map",
-              "item": "\"interview\""
-            },
-            "tones": {
-              "list": "idle",
-              "map": "data",
-              "item": "idle"
-            },
-            "arrows": [
-              [
-                "list",
-                "map"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Only the matching element creates a new object instance.",
-            "values": {
-              "list": "\"applied\"",
-              "map": "map",
-              "item": "\"interview\""
-            },
-            "tones": {
-              "list": "idle",
-              "map": "ok",
-              "item": "ok"
-            },
-            "arrows": [
-              [
-                "list",
-                "map"
-              ],
-              [
-                "map",
-                "item"
-              ]
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Top level parent owns domain models and state bindings.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Top Container",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b2",
+                "label": "Pre-built Slots",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Layout Shell",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Zero Drilling",
+                "tappable": false,
+                "highlight": false
+              }
             ]
           }
-        ]
-      }
+        },
+        {
+          "step": 2,
+          "caption": "Parent instantiates leaf element directly into named slot.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Top Container",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Pre-built Slots",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b3",
+                "label": "Layout Shell",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Zero Drilling",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Intermediate layout accepts children without domain knowledge.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Top Container",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Pre-built Slots",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Layout Shell",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b4",
+                "label": "Zero Drilling",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Inversion of control completely eliminates prop drilling.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Top Container",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Pre-built Slots",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Layout Shell",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Zero Drilling",
+                "tappable": false,
+                "highlight": true
+              }
+            ]
+          }
+        }
+      ]
     },
     {
-      "partTitle": "Derived data: calculate, do not store",
-      "codeHash": "e2d85246f4f88a2586d862a4645cf122c5d1e6a72d2d342257b616c545d9aef4",
-      "spec": {
-        "template": "boxes",
-        "title": "Calculating derived metrics on render instead of storing state",
-        "boxes": [
-          {
-            "id": "tot",
-            "label": "total",
-            "tappable": false
-          },
-          {
-            "id": "int",
-            "label": "interviews",
-            "tappable": false
-          },
-          {
-            "id": "off",
-            "label": "offers",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Avoid storing values in state that can be derived directly.",
-            "values": {
-              "tot": {
-                "text": "jobs.length"
-              },
-              "int": {
-                "text": "\"interview\""
-              },
-              "off": {
-                "text": "\"offer\""
-              }
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Compute statistics during render from the underlying state array.",
-            "values": {
-              "tot": {
-                "text": "jobs.length"
-              },
-              "int": {
-                "text": "\"interview\""
-              },
-              "off": {
-                "text": "\"offer\""
-              }
-            }
-          }
-        ]
+      "part": 4,
+      "title": "Relational Normalized Entity Store Lookup",
+      "template": "flow",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "c9f27730d80c2f98f2b54672e2191612f5de78268cb7122e112b60b134bdb412"
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Calculating derived metrics on render instead of storing state",
-        "boxes": [
-          {
-            "id": "tot",
-            "label": "total",
-            "tappable": false
-          },
-          {
-            "id": "int",
-            "label": "interviews",
-            "tappable": false
-          },
-          {
-            "id": "off",
-            "label": "offers",
-            "tappable": false
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Raw nested json payload arrives from backend service.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Nested Payload",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n2",
+                "label": "Entity Normalizer",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "By ID Tables",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Constant Lookup",
+                "tappable": false,
+                "active": false
+              }
+            ]
           }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Avoid storing values in state that can be derived directly.",
-            "values": {
-              "tot": "jobs.length",
-              "int": "\"interview\"",
-              "off": "\"offer\""
-            },
-            "tones": {}
-          },
-          {
-            "at": "say2",
-            "caption": "Compute statistics during render from the underlying state array.",
-            "values": {
-              "tot": "jobs.length",
-              "int": "\"interview\"",
-              "off": "\"offer\""
-            },
-            "tones": {}
+        },
+        {
+          "step": 2,
+          "caption": "Normalizer flattens hierarchy into relational collections.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Nested Payload",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Entity Normalizer",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n3",
+                "label": "By ID Tables",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Constant Lookup",
+                "tappable": false,
+                "active": false
+              }
+            ]
           }
-        ]
-      }
+        },
+        {
+          "step": 3,
+          "caption": "Entities store in dictionary tables alongside id lists.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Nested Payload",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Entity Normalizer",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "By ID Tables",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n4",
+                "label": "Constant Lookup",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Components perform constant time updates without nested maps.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Nested Payload",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Entity Normalizer",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "By ID Tables",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Constant Lookup",
+                "tappable": false,
+                "active": true
+              }
+            ]
+          }
+        }
+      ]
     },
     {
-      "partTitle": "Finish the core Job Tracker",
-      "codeHash": "5c9311622b925e7a56f5b7c509d9fb8c19ed87c478a0ab4dc30379d747656d28",
-      "spec": {
-        "template": "flow",
-        "title": "Finish the core Job Tracker — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Finish the core Job...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Finish the core Job Tracker [D15.P6.S1].",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Finish the core Job... [D15.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D15.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Finish the core Job Tracker [D15.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
+      "part": 5,
+      "title": "Milestone Three Multi-Step Checkout Transaction Engine",
+      "template": "flow",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "451d7386b15cf7141c671c5ed3fa2ad068c409a819e4074b69e2a914660413b7"
       },
-      "filled": {
-        "template": "flow",
-        "title": "Finish the core Job Tracker — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Finish the core Job...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Finish the core Job Tracker [D15.P6.S1].",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Finish the core Job... [D15.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D15.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Finish the core Job Tracker [D15.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Cart stage verifies inventory stock and pricing totals.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Cart Review",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n2",
+                "label": "Shipping Address",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Payment Gateway",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Order Confirmed",
+                "tappable": false,
+                "active": false
+              }
             ]
           }
-        ]
-      }
+        },
+        {
+          "step": 2,
+          "caption": "Shipping stage extracts validated addresses via form data.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Cart Review",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Shipping Address",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n3",
+                "label": "Payment Gateway",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Order Confirmed",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Payment stage executes secure asynchronous token charge.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Cart Review",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Shipping Address",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Payment Gateway",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n4",
+                "label": "Order Confirmed",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Transaction state machine commits receipt confirming order.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Cart Review",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Shipping Address",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Payment Gateway",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Order Confirmed",
+                "tappable": false,
+                "active": true
+              }
+            ]
+          }
+        }
+      ]
     }
   ]
 }

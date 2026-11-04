@@ -6,728 +6,888 @@
   "model": "anthropic/claude-3.5-sonnet",
   "entries": [
     {
-      "partTitle": "Why loops: doing something for every item",
-      "codeHash": "6f2daad7f40c294597507dd4bf4f3265a8f7acb07d48c5e561ed40b73ab5a329",
+      "partTitle": "Iteration Mechanics & Loop Topologies: Classic For, For...of (Iterables), For...in (Prototype Pitfalls) & While Loops",
+      "codeHash": "80e9d94ae5f9ed87084e35560ce8b82d74c7097f5667df513cb6ba409718405d",
       "spec": {
         "template": "flow",
-        "title": "Iterating through collections with for of",
+        "title": "Loop Topologies and Virtual Machine Optimization",
         "nodes": [
           {
-            "id": "n0",
-            "label": "jobs",
-            "tappable": false
-          },
-          {
             "id": "n1",
-            "label": "job",
+            "label": "Indexed For Loop",
             "tappable": false
           },
           {
             "id": "n2",
-            "label": "print",
+            "label": "Iterable Protocol",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "Prototype Traverser",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "On-Stack Replacement",
             "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A loop processes every job in the list automatically.",
+            "caption": "Indexed for loop compiles to vectorized machine instructions.",
             "values": {
-              "n0": {
-                "text": "jobs"
-              },
               "n1": {
-                "text": "job"
+                "text": "\"Indexed For Loop\""
               },
               "n2": {
-                "text": "console.log"
+                "text": "\"Iterable Protocol\""
+              },
+              "n3": {
+                "text": "\"Prototype Traverser\""
+              },
+              "n4": {
+                "text": "\"On-Stack Replacement\""
               }
             },
             "tones": {
-              "n0": "idle",
-              "n1": "idle",
-              "n2": "idle"
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
             },
-            "arrows": [
-              [
-                "n0",
-                "n1"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "In for of loops, each item is assigned to job.",
+            "caption": "For-of loop instantiates iterator protocol wrapper objects.",
             "values": {
-              "n0": {
-                "text": "jobs"
-              },
               "n1": {
-                "text": "\"Frontend Developer\""
+                "text": "\"Indexed For Loop\""
               },
               "n2": {
-                "text": "\"Infosys\""
+                "text": "\"Iterable Protocol\""
+              },
+              "n3": {
+                "text": "\"Prototype Traverser\""
+              },
+              "n4": {
+                "text": "\"On-Stack Replacement\""
               }
             },
             "tones": {
-              "n0": "idle",
               "n1": "data",
-              "n2": "ok"
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
             },
             "arrows": [
-              [
-                "n0",
-                "n1"
-              ],
               [
                 "n1",
                 "n2"
               ]
             ]
+          },
+          {
+            "at": "say3",
+            "caption": "For-in loop traverses full prototype chain extracting string keys.",
+            "values": {
+              "n1": {
+                "text": "\"Indexed For Loop\""
+              },
+              "n2": {
+                "text": "\"Iterable Protocol\""
+              },
+              "n3": {
+                "text": "\"Prototype Traverser\""
+              },
+              "n4": {
+                "text": "\"On-Stack Replacement\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "On-stack replacement promotes hot loops to compiled native code.",
+            "values": {
+              "n1": {
+                "text": "\"Indexed For Loop\""
+              },
+              "n2": {
+                "text": "\"Iterable Protocol\""
+              },
+              "n3": {
+                "text": "\"Prototype Traverser\""
+              },
+              "n4": {
+                "text": "\"On-Stack Replacement\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "data"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
+              ]
+            ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Iterating through collections with for of",
+        "title": "Loop Topologies and Virtual Machine Optimization",
         "nodes": [
           {
-            "id": "n0",
-            "label": "jobs",
-            "tappable": false
-          },
-          {
             "id": "n1",
-            "label": "job",
+            "label": "Indexed For Loop",
             "tappable": false
           },
           {
             "id": "n2",
-            "label": "print",
+            "label": "Iterable Protocol",
+            "tappable": false
+          },
+          {
+            "id": "n3",
+            "label": "Prototype Traverser",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "On-Stack Replacement",
             "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A loop processes every job in the list automatically.",
+            "caption": "Indexed for loop compiles to vectorized machine instructions.",
             "values": {
-              "n0": "jobs",
-              "n1": "job",
-              "n2": "console.log"
+              "n1": {
+                "text": "\"Indexed For Loop\""
+              },
+              "n2": {
+                "text": "\"Iterable Protocol\""
+              },
+              "n3": {
+                "text": "\"Prototype Traverser\""
+              },
+              "n4": {
+                "text": "\"On-Stack Replacement\""
+              }
             },
             "tones": {
-              "n0": "idle",
-              "n1": "idle",
-              "n2": "idle"
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
             },
-            "arrows": [
-              [
-                "n0",
-                "n1"
-              ]
-            ]
+            "arrows": []
           },
           {
             "at": "say2",
-            "caption": "In for of loops, each item is assigned to job.",
+            "caption": "For-of loop instantiates iterator protocol wrapper objects.",
             "values": {
-              "n0": "jobs",
-              "n1": "\"Frontend Developer\"",
-              "n2": "\"Infosys\""
+              "n1": {
+                "text": "\"Indexed For Loop\""
+              },
+              "n2": {
+                "text": "\"Iterable Protocol\""
+              },
+              "n3": {
+                "text": "\"Prototype Traverser\""
+              },
+              "n4": {
+                "text": "\"On-Stack Replacement\""
+              }
             },
             "tones": {
-              "n0": "idle",
               "n1": "data",
-              "n2": "ok"
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
             },
             "arrows": [
-              [
-                "n0",
-                "n1"
-              ],
               [
                 "n1",
                 "n2"
               ]
             ]
+          },
+          {
+            "at": "say3",
+            "caption": "For-in loop traverses full prototype chain extracting string keys.",
+            "values": {
+              "n1": {
+                "text": "\"Indexed For Loop\""
+              },
+              "n2": {
+                "text": "\"Iterable Protocol\""
+              },
+              "n3": {
+                "text": "\"Prototype Traverser\""
+              },
+              "n4": {
+                "text": "\"On-Stack Replacement\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "On-stack replacement promotes hot loops to compiled native code.",
+            "values": {
+              "n1": {
+                "text": "\"Indexed For Loop\""
+              },
+              "n2": {
+                "text": "\"Iterable Protocol\""
+              },
+              "n3": {
+                "text": "\"Prototype Traverser\""
+              },
+              "n4": {
+                "text": "\"On-Stack Replacement\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "data"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
+              ]
+            ]
           }
         ]
       }
     },
     {
-      "partTitle": "Counting and adding up with a loop",
-      "codeHash": "0c05b4fdaa07f2f36b4314b2c5bfdc33f5e40f307aa306fef365bf5c9e5a940d",
+      "partTitle": "Declarative Collection Pipelines: Map, Filter, Reduce & The Algorithmic Overhead of Method Chaining",
+      "codeHash": "9109a4e2ceefd6df00dd95f9aa9e358799987c4d6e33591b6b17254ab19a0234",
       "spec": {
         "template": "boxes",
-        "title": "Accumulating values and counts across loops",
+        "title": "Chained Method Allocations vs Single-Pass Reduction",
         "boxes": [
-          {
-            "id": "b0",
-            "label": "interviews",
-            "tappable": false
-          },
           {
             "id": "b1",
-            "label": "totalSalary",
+            "label": "Source Collection",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "Filter Intermediate",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Map Intermediate",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "Single-Pass Accumulator",
             "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Variables calculate totals and counts before and during loops.",
+            "caption": "Method chaining allocates intermediate array for filter pass.",
             "values": {
-              "b0": {
-                "text": "0"
-              },
               "b1": {
-                "text": "0"
+                "text": "\"Source Collection\""
+              },
+              "b2": {
+                "text": "\"Filter Intermediate\""
+              },
+              "b3": {
+                "text": "\"Map Intermediate\""
+              },
+              "b4": {
+                "text": "\"Single-Pass Accumulator\""
               }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "Inside the loop, if status is interview we increment the count.",
+            "caption": "Secondary map allocates second intermediate array in heap nursery.",
             "values": {
-              "b0": {
-                "text": "interviews + 1"
-              },
               "b1": {
-                "text": "totalSalary + job.salary"
+                "text": "\"Source Collection\""
+              },
+              "b2": {
+                "text": "\"Filter Intermediate\""
+              },
+              "b3": {
+                "text": "\"Map Intermediate\""
+              },
+              "b4": {
+                "text": "\"Single-Pass Accumulator\""
               }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Garbage collector pauses main thread to scavenge intermediate arrays.",
+            "values": {
+              "b1": {
+                "text": "\"Source Collection\""
+              },
+              "b2": {
+                "text": "\"Filter Intermediate\""
+              },
+              "b3": {
+                "text": "\"Map Intermediate\""
+              },
+              "b4": {
+                "text": "\"Single-Pass Accumulator\""
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Single-pass reduce computes final result with zero throwaway arrays.",
+            "values": {
+              "b1": {
+                "text": "\"Source Collection\""
+              },
+              "b2": {
+                "text": "\"Filter Intermediate\""
+              },
+              "b3": {
+                "text": "\"Map Intermediate\""
+              },
+              "b4": {
+                "text": "\"Single-Pass Accumulator\""
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "data"
             }
           }
         ]
       },
       "filled": {
         "template": "boxes",
-        "title": "Accumulating values and counts across loops",
+        "title": "Chained Method Allocations vs Single-Pass Reduction",
         "boxes": [
-          {
-            "id": "b0",
-            "label": "interviews",
-            "tappable": false
-          },
           {
             "id": "b1",
-            "label": "totalSalary",
+            "label": "Source Collection",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "Filter Intermediate",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Map Intermediate",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "Single-Pass Accumulator",
             "tappable": false
           }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Variables calculate totals and counts before and during loops.",
+            "caption": "Method chaining allocates intermediate array for filter pass.",
             "values": {
-              "b0": "0",
-              "b1": "0"
-            },
-            "tones": {}
-          },
-          {
-            "at": "say2",
-            "caption": "Inside the loop, if status is interview we increment the count.",
-            "values": {
-              "b0": "interviews + 1",
-              "b1": "totalSalary + job.salary"
-            },
-            "tones": {}
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "map: turn every item into something new",
-      "codeHash": "5fce08446005b92f2611ba71d932327ab9b9f53ea68bf712dd283c980e51921f",
-      "spec": {
-        "template": "flow",
-        "title": "Transforming array elements with map",
-        "nodes": [
-          {
-            "id": "src",
-            "label": "jobs",
-            "tappable": false
-          },
-          {
-            "id": "fn",
-            "label": "transform",
-            "tappable": false
-          },
-          {
-            "id": "dst",
-            "label": "titles",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Array map transforms items into a new array.",
-            "values": {
-              "src": {
-                "text": "jobs"
+              "b1": {
+                "text": "\"Source Collection\""
               },
-              "fn": {
-                "text": "job => job.title"
+              "b2": {
+                "text": "\"Filter Intermediate\""
               },
-              "dst": {
-                "text": "titles"
+              "b3": {
+                "text": "\"Map Intermediate\""
+              },
+              "b4": {
+                "text": "\"Single-Pass Accumulator\""
               }
             },
             "tones": {
-              "src": "idle",
-              "fn": "idle",
-              "dst": "idle"
-            },
-            "arrows": [
-              [
-                "src",
-                "fn"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "For every job, the function returns its title into titles array.",
-            "values": {
-              "src": {
-                "text": "\"Frontend Developer\""
-              },
-              "fn": {
-                "text": "job => job.title"
-              },
-              "dst": {
-                "text": "\"React Developer\""
-              }
-            },
-            "tones": {
-              "src": "idle",
-              "fn": "data",
-              "dst": "ok"
-            },
-            "arrows": [
-              [
-                "src",
-                "fn"
-              ],
-              [
-                "fn",
-                "dst"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Transforming array elements with map",
-        "nodes": [
-          {
-            "id": "src",
-            "label": "jobs",
-            "tappable": false
-          },
-          {
-            "id": "fn",
-            "label": "transform",
-            "tappable": false
-          },
-          {
-            "id": "dst",
-            "label": "titles",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Array map transforms items into a new array.",
-            "values": {
-              "src": "jobs",
-              "fn": "job => job.title",
-              "dst": "titles"
-            },
-            "tones": {
-              "src": "idle",
-              "fn": "idle",
-              "dst": "idle"
-            },
-            "arrows": [
-              [
-                "src",
-                "fn"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "For every job, the function returns its title into titles array.",
-            "values": {
-              "src": "\"Frontend Developer\"",
-              "fn": "job => job.title",
-              "dst": "\"React Developer\""
-            },
-            "tones": {
-              "src": "idle",
-              "fn": "data",
-              "dst": "ok"
-            },
-            "arrows": [
-              [
-                "src",
-                "fn"
-              ],
-              [
-                "fn",
-                "dst"
-              ]
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "filter: keep only some items",
-      "codeHash": "89e37f8fdde917d562c77e1036c524b7d36764eed03aeae6946d8c0a385ec37e",
-      "spec": {
-        "template": "flow",
-        "title": "Filtering items matching specific conditions",
-        "nodes": [
-          {
-            "id": "allJobs",
-            "label": "jobs",
-            "tappable": false
-          },
-          {
-            "id": "condition",
-            "label": "filter",
-            "tappable": false
-          },
-          {
-            "id": "matched",
-            "label": "interviewJobs",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Filter checks items and keeps only those returning true.",
-            "values": {
-              "allJobs": {
-                "text": "jobs"
-              },
-              "condition": {
-                "text": "job.status === \"interview\""
-              },
-              "matched": {
-                "text": "interviewJobs"
-              }
-            },
-            "tones": {
-              "allJobs": "idle",
-              "condition": "idle",
-              "matched": "idle"
-            },
-            "arrows": [
-              [
-                "allJobs",
-                "condition"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "Filter keeps only the jobs where status equals interview.",
-            "values": {
-              "allJobs": {
-                "text": "jobs"
-              },
-              "condition": {
-                "text": "job.status === \"interview\""
-              },
-              "matched": {
-                "text": "interviewJobs"
-              }
-            },
-            "tones": {
-              "allJobs": "idle",
-              "condition": "data",
-              "matched": "ok"
-            },
-            "arrows": [
-              [
-                "allJobs",
-                "condition"
-              ],
-              [
-                "condition",
-                "matched"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Filtering items matching specific conditions",
-        "nodes": [
-          {
-            "id": "allJobs",
-            "label": "jobs",
-            "tappable": false
-          },
-          {
-            "id": "condition",
-            "label": "filter",
-            "tappable": false
-          },
-          {
-            "id": "matched",
-            "label": "interviewJobs",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Filter checks items and keeps only those returning true.",
-            "values": {
-              "allJobs": "jobs",
-              "condition": "job.status === \"interview\"",
-              "matched": "interviewJobs"
-            },
-            "tones": {
-              "allJobs": "idle",
-              "condition": "idle",
-              "matched": "idle"
-            },
-            "arrows": [
-              [
-                "allJobs",
-                "condition"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "Filter keeps only the jobs where status equals interview.",
-            "values": {
-              "allJobs": "jobs",
-              "condition": "job.status === \"interview\"",
-              "matched": "interviewJobs"
-            },
-            "tones": {
-              "allJobs": "idle",
-              "condition": "data",
-              "matched": "ok"
-            },
-            "arrows": [
-              [
-                "allJobs",
-                "condition"
-              ],
-              [
-                "condition",
-                "matched"
-              ]
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "find and some: one item, or a yes/no answer",
-      "codeHash": "f5ed6ba91572136699ed3ba9f5645b482dba71bf5f553bae8f53087fbe581782",
-      "spec": {
-        "template": "boxes",
-        "title": "Locating unique entries with find",
-        "boxes": [
-          {
-            "id": "found",
-            "label": "job",
-            "tappable": false
-          },
-          {
-            "id": "matchedId",
-            "label": "id",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Find returns the first item matching your function condition.",
-            "values": {
-              "found": {
-                "text": "jobs.find(job => job.id === 2)"
-              },
-              "matchedId": {
-                "text": "2"
-              }
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
             }
           },
           {
             "at": "say2",
-            "caption": "Use find when opening detail pages for a specific job.",
+            "caption": "Secondary map allocates second intermediate array in heap nursery.",
             "values": {
-              "found": {
-                "text": "jobs.find(job => job.id === 2)"
+              "b1": {
+                "text": "\"Source Collection\""
               },
-              "matchedId": {
-                "text": "2"
+              "b2": {
+                "text": "\"Filter Intermediate\""
+              },
+              "b3": {
+                "text": "\"Map Intermediate\""
+              },
+              "b4": {
+                "text": "\"Single-Pass Accumulator\""
               }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Garbage collector pauses main thread to scavenge intermediate arrays.",
+            "values": {
+              "b1": {
+                "text": "\"Source Collection\""
+              },
+              "b2": {
+                "text": "\"Filter Intermediate\""
+              },
+              "b3": {
+                "text": "\"Map Intermediate\""
+              },
+              "b4": {
+                "text": "\"Single-Pass Accumulator\""
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Single-pass reduce computes final result with zero throwaway arrays.",
+            "values": {
+              "b1": {
+                "text": "\"Source Collection\""
+              },
+              "b2": {
+                "text": "\"Filter Intermediate\""
+              },
+              "b3": {
+                "text": "\"Map Intermediate\""
+              },
+              "b4": {
+                "text": "\"Single-Pass Accumulator\""
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "data"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Advanced Array Invariants: In-Place Mutation (Sort, Splice, Reverse) vs Immutable Derivation (ToSorted, ToSpliced, ToReversed)",
+      "codeHash": "b44c04fcc260928b365c6d0d035880ddcb2045151410b487506fc18df12ed98b",
+      "spec": {
+        "template": "compare",
+        "title": "Mutating Array Methods vs Change-By-Copy Derivation",
+        "leftLabel": "Standard Execution",
+        "rightLabel": "Optimized Pipeline",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "In-place sort mutates original memory buffer destroying history.",
+            "left": {
+              "code": "// Left pipeline phase 1",
+              "result": {
+                "text": "\"Standard\""
+              },
+              "tone": "idle"
+            },
+            "right": {
+              "code": "// Optimized pipeline phase 1",
+              "result": {
+                "text": "\"Optimized\""
+              },
+              "tone": "ok"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Identical pointer tricks reactive frameworks into skipping renders.",
+            "left": {
+              "code": "// Left pipeline phase 2",
+              "result": {
+                "text": "\"Standard\""
+              },
+              "tone": "data"
+            },
+            "right": {
+              "code": "// Optimized pipeline phase 2",
+              "result": {
+                "text": "\"Optimized\""
+              },
+              "tone": "ok"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Immutable derivation creates clean copy with modifications applied.",
+            "left": {
+              "code": "// Left pipeline phase 3",
+              "result": {
+                "text": "\"Standard\""
+              },
+              "tone": "data"
+            },
+            "right": {
+              "code": "// Optimized pipeline phase 3",
+              "result": {
+                "text": "\"Optimized\""
+              },
+              "tone": "ok"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Fresh memory address triggers reliable reconciliation across views.",
+            "left": {
+              "code": "// Left pipeline phase 4",
+              "result": {
+                "text": "\"Standard\""
+              },
+              "tone": "data"
+            },
+            "right": {
+              "code": "// Optimized pipeline phase 4",
+              "result": {
+                "text": "\"Optimized\""
+              },
+              "tone": "ok"
             }
           }
         ]
       },
       "filled": {
-        "template": "boxes",
-        "title": "Locating unique entries with find",
-        "boxes": [
-          {
-            "id": "found",
-            "label": "job",
-            "tappable": false
-          },
-          {
-            "id": "matchedId",
-            "label": "id",
-            "tappable": false
-          }
-        ],
+        "template": "compare",
+        "title": "Mutating Array Methods vs Change-By-Copy Derivation",
+        "leftLabel": "Standard Execution",
+        "rightLabel": "Optimized Pipeline",
         "steps": [
           {
             "at": "say1",
-            "caption": "Find returns the first item matching your function condition.",
-            "values": {
-              "found": "jobs.find(job => job.id === 2)",
-              "matchedId": "2"
+            "caption": "In-place sort mutates original memory buffer destroying history.",
+            "left": {
+              "code": "// Left pipeline phase 1",
+              "result": {
+                "text": "\"Standard\""
+              },
+              "tone": "idle"
             },
-            "tones": {}
+            "right": {
+              "code": "// Optimized pipeline phase 1",
+              "result": {
+                "text": "\"Optimized\""
+              },
+              "tone": "ok"
+            }
           },
           {
             "at": "say2",
-            "caption": "Use find when opening detail pages for a specific job.",
-            "values": {
-              "found": "jobs.find(job => job.id === 2)",
-              "matchedId": "2"
+            "caption": "Identical pointer tricks reactive frameworks into skipping renders.",
+            "left": {
+              "code": "// Left pipeline phase 2",
+              "result": {
+                "text": "\"Standard\""
+              },
+              "tone": "data"
             },
-            "tones": {}
+            "right": {
+              "code": "// Optimized pipeline phase 2",
+              "result": {
+                "text": "\"Optimized\""
+              },
+              "tone": "ok"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Immutable derivation creates clean copy with modifications applied.",
+            "left": {
+              "code": "// Left pipeline phase 3",
+              "result": {
+                "text": "\"Standard\""
+              },
+              "tone": "data"
+            },
+            "right": {
+              "code": "// Optimized pipeline phase 3",
+              "result": {
+                "text": "\"Optimized\""
+              },
+              "tone": "ok"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Fresh memory address triggers reliable reconciliation across views.",
+            "left": {
+              "code": "// Left pipeline phase 4",
+              "result": {
+                "text": "\"Standard\""
+              },
+              "tone": "data"
+            },
+            "right": {
+              "code": "// Optimized pipeline phase 4",
+              "result": {
+                "text": "\"Optimized\""
+              },
+              "tone": "ok"
+            }
           }
         ]
       }
     },
     {
-      "partTitle": "Putting it together, and a look at React",
-      "codeHash": "5773932de55525ba76b5d1231a84c26710bf5ad5a1765729fbbbe87d828cff8c",
+      "partTitle": "React List Reconciliation & The Key Prop: Spatial Identity, Fiber Diffing & Index-As-Key Catastrophes",
+      "codeHash": "f331d364eccb07d92bd2067fc18d3839f9e747fbff9a5706c087413cf8436732",
       "spec": {
         "template": "flow",
-        "title": "Putting it together, and a look at React — Execution Pipeline",
+        "title": "React Fiber Reconciliation and Spatial Identity Keys",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "n1",
+            "label": "Sequential Scan",
+            "tappable": false
           },
           {
-            "id": "proc",
-            "label": "2. Putting it together...",
-            "tappable": true
+            "id": "n2",
+            "label": "Key Mismatch",
+            "tappable": false
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "n3",
+            "label": "Map Lookup Table",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "Reused Fiber Node",
+            "tappable": false
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Putting it together, and a look at React [D5.P6.S1].",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Putting it together... [D5.P6.S2].",
+            "caption": "Reconciler executes fast sequential scan across matching keys.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "n1": {
+                "text": "\"Sequential Scan\""
+              },
+              "n2": {
+                "text": "\"Key Mismatch\""
+              },
+              "n3": {
+                "text": "\"Map Lookup Table\""
+              },
+              "n4": {
+                "text": "\"Reused Fiber Node\""
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Key mismatch switches diffing engine to key-value lookup map.",
+            "values": {
+              "n1": {
+                "text": "\"Sequential Scan\""
+              },
+              "n2": {
+                "text": "\"Key Mismatch\""
+              },
+              "n3": {
+                "text": "\"Map Lookup Table\""
+              },
+              "n4": {
+                "text": "\"Reused Fiber Node\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "n1",
+                "n2"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D5.P6.S3].",
+            "at": "say3",
+            "caption": "Existing Fiber reuses corresponding DOM node preserving input state.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "n1": {
+                "text": "\"Sequential Scan\""
+              },
+              "n2": {
+                "text": "\"Key Mismatch\""
+              },
+              "n3": {
+                "text": "\"Map Lookup Table\""
+              },
+              "n4": {
+                "text": "\"Reused Fiber Node\""
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Putting it together, and a look a.. [D5.P6.S4].",
+            "at": "say4",
+            "caption": "Unmatched previous keys schedule for graceful DOM tree removal.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "n1": {
+                "text": "\"Sequential Scan\""
+              },
+              "n2": {
+                "text": "\"Key Mismatch\""
+              },
+              "n3": {
+                "text": "\"Map Lookup Table\""
+              },
+              "n4": {
+                "text": "\"Reused Fiber Node\""
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "n1",
+                "n2"
               ],
               [
-                "proc",
-                "out"
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
               ]
             ]
           }
@@ -735,112 +895,408 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Putting it together, and a look at React — Execution Pipeline",
+        "title": "React Fiber Reconciliation and Spatial Identity Keys",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "n1",
+            "label": "Sequential Scan",
+            "tappable": false
           },
           {
-            "id": "proc",
-            "label": "2. Putting it together...",
-            "tappable": true
+            "id": "n2",
+            "label": "Key Mismatch",
+            "tappable": false
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "n3",
+            "label": "Map Lookup Table",
+            "tappable": false
+          },
+          {
+            "id": "n4",
+            "label": "Reused Fiber Node",
+            "tappable": false
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Putting it together, and a look at React [D5.P6.S1].",
+            "at": "say1",
+            "caption": "Reconciler executes fast sequential scan across matching keys.",
             "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
+              "n1": {
+                "text": "\"Sequential Scan\""
+              },
+              "n2": {
+                "text": "\"Key Mismatch\""
+              },
+              "n3": {
+                "text": "\"Map Lookup Table\""
+              },
+              "n4": {
+                "text": "\"Reused Fiber Node\""
+              }
             },
             "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
+              "n1": "data",
+              "n2": "idle",
+              "n3": "idle",
+              "n4": "idle"
+            },
+            "arrows": []
+          },
+          {
+            "at": "say2",
+            "caption": "Key mismatch switches diffing engine to key-value lookup map.",
+            "values": {
+              "n1": {
+                "text": "\"Sequential Scan\""
+              },
+              "n2": {
+                "text": "\"Key Mismatch\""
+              },
+              "n3": {
+                "text": "\"Map Lookup Table\""
+              },
+              "n4": {
+                "text": "\"Reused Fiber Node\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "idle",
+              "n4": "idle"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "n1",
+                "n2"
               ]
             ]
           },
+          {
+            "at": "say3",
+            "caption": "Existing Fiber reuses corresponding DOM node preserving input state.",
+            "values": {
+              "n1": {
+                "text": "\"Sequential Scan\""
+              },
+              "n2": {
+                "text": "\"Key Mismatch\""
+              },
+              "n3": {
+                "text": "\"Map Lookup Table\""
+              },
+              "n4": {
+                "text": "\"Reused Fiber Node\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "idle"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ]
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "Unmatched previous keys schedule for graceful DOM tree removal.",
+            "values": {
+              "n1": {
+                "text": "\"Sequential Scan\""
+              },
+              "n2": {
+                "text": "\"Key Mismatch\""
+              },
+              "n3": {
+                "text": "\"Map Lookup Table\""
+              },
+              "n4": {
+                "text": "\"Reused Fiber Node\""
+              }
+            },
+            "tones": {
+              "n1": "data",
+              "n2": "data",
+              "n3": "data",
+              "n4": "data"
+            },
+            "arrows": [
+              [
+                "n1",
+                "n2"
+              ],
+              [
+                "n2",
+                "n3"
+              ],
+              [
+                "n3",
+                "n4"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Milestone 1 Architecture Capstone: Building a High-Throughput In-Memory Relational Query & State Engine",
+      "codeHash": "42805b04490369473cc65f6dd4c4ec9e8a8739ec2b722c980fac914576587272",
+      "spec": {
+        "template": "boxes",
+        "title": "Integrated Relational Query and State Engine Architecture",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "Normalized Ingestion",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "Monomorphic Factory",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Single-Pass Query",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "Structural Immutability",
+            "tappable": false
+          }
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Putting it together... [D5.P6.S2].",
+            "caption": "Stream parser ingests raw network events into normalized tables.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "b1": {
+                "text": "\"Normalized Ingestion\""
+              },
+              "b2": {
+                "text": "\"Monomorphic Factory\""
+              },
+              "b3": {
+                "text": "\"Single-Pass Query\""
+              },
+              "b4": {
+                "text": "\"Structural Immutability\""
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D5.P6.S3].",
+            "at": "say2",
+            "caption": "Monomorphic factory creates records sharing uniform engine shapes.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "b1": {
+                "text": "\"Normalized Ingestion\""
+              },
+              "b2": {
+                "text": "\"Monomorphic Factory\""
+              },
+              "b3": {
+                "text": "\"Single-Pass Query\""
+              },
+              "b4": {
+                "text": "\"Structural Immutability\""
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "b1": "data",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Putting it together, and a look a.. [D5.P6.S4].",
+            "at": "say3",
+            "caption": "Single-pass query processor aggregates relational data in linear time.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "b1": {
+                "text": "\"Normalized Ingestion\""
+              },
+              "b2": {
+                "text": "\"Monomorphic Factory\""
+              },
+              "b3": {
+                "text": "\"Single-Pass Query\""
+              },
+              "b4": {
+                "text": "\"Structural Immutability\""
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Immutable update preserves structural sharing across unmutated slices.",
+            "values": {
+              "b1": {
+                "text": "\"Normalized Ingestion\""
+              },
+              "b2": {
+                "text": "\"Monomorphic Factory\""
+              },
+              "b3": {
+                "text": "\"Single-Pass Query\""
+              },
+              "b4": {
+                "text": "\"Structural Immutability\""
+              }
             },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "data"
+            }
+          }
+        ]
+      },
+      "filled": {
+        "template": "boxes",
+        "title": "Integrated Relational Query and State Engine Architecture",
+        "boxes": [
+          {
+            "id": "b1",
+            "label": "Normalized Ingestion",
+            "tappable": false
+          },
+          {
+            "id": "b2",
+            "label": "Monomorphic Factory",
+            "tappable": false
+          },
+          {
+            "id": "b3",
+            "label": "Single-Pass Query",
+            "tappable": false
+          },
+          {
+            "id": "b4",
+            "label": "Structural Immutability",
+            "tappable": false
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Stream parser ingests raw network events into normalized tables.",
+            "values": {
+              "b1": {
+                "text": "\"Normalized Ingestion\""
+              },
+              "b2": {
+                "text": "\"Monomorphic Factory\""
+              },
+              "b3": {
+                "text": "\"Single-Pass Query\""
+              },
+              "b4": {
+                "text": "\"Structural Immutability\""
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "idle",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say2",
+            "caption": "Monomorphic factory creates records sharing uniform engine shapes.",
+            "values": {
+              "b1": {
+                "text": "\"Normalized Ingestion\""
+              },
+              "b2": {
+                "text": "\"Monomorphic Factory\""
+              },
+              "b3": {
+                "text": "\"Single-Pass Query\""
+              },
+              "b4": {
+                "text": "\"Structural Immutability\""
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "idle",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say3",
+            "caption": "Single-pass query processor aggregates relational data in linear time.",
+            "values": {
+              "b1": {
+                "text": "\"Normalized Ingestion\""
+              },
+              "b2": {
+                "text": "\"Monomorphic Factory\""
+              },
+              "b3": {
+                "text": "\"Single-Pass Query\""
+              },
+              "b4": {
+                "text": "\"Structural Immutability\""
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "idle"
+            }
+          },
+          {
+            "at": "say4",
+            "caption": "Immutable update preserves structural sharing across unmutated slices.",
+            "values": {
+              "b1": {
+                "text": "\"Normalized Ingestion\""
+              },
+              "b2": {
+                "text": "\"Monomorphic Factory\""
+              },
+              "b3": {
+                "text": "\"Single-Pass Query\""
+              },
+              "b4": {
+                "text": "\"Structural Immutability\""
+              }
+            },
+            "tones": {
+              "b1": "data",
+              "b2": "data",
+              "b3": "data",
+              "b4": "data"
+            }
           }
         ]
       }

@@ -1,704 +1,703 @@
 {
   "schemaVersion": 1,
+  "courseId": "course-react-web",
   "prefix": "react-basics",
   "day": 16,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
+  "visuals": [
     {
-      "partTitle": "Side effects: work outside drawing the screen",
-      "codeHash": "2f3fbb4c8e445fd682b038d545a90faa4d2c7079b5c2100340246e959aa1c8c4",
-      "spec": {
-        "template": "compare",
-        "title": "Direct render execution versus encapsulated side effects",
-        "leftLabel": "Direct In Body (Bad)",
-        "rightLabel": "Inside useEffect (Good)",
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Side effects reaching outside components cause unintended repeated work.",
-            "left": {
-              "code": "console.log(JobListBad());",
-              "result": {
-                "text": "\"Rendered. Server requests so far: 1\""
-              },
-              "tone": "warn"
-            },
-            "right": {
-              "code": "console.log(JobListBad());",
-              "result": {
-                "text": "\"Rendered. Server requests so far: 1\""
-              },
-              "tone": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "React runs useEffect code after drawing the screen.",
-            "left": {
-              "code": "console.log(JobListBad());",
-              "result": {
-                "text": "\"Rendered. Server requests so far: 2\""
-              },
-              "tone": "warn"
-            },
-            "right": {
-              "code": "console.log(JobListBad());",
-              "result": {
-                "text": "\"Rendered. Server requests so far: 1\""
-              },
-              "tone": "ok"
-            }
-          }
-        ]
+      "part": 1,
+      "title": "Passive Execution Timing Cycle",
+      "template": "flow",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "622ff4999f63b9e1cf08fbc755a866460af340ef9aa342ccb102834a52c2f15d"
       },
-      "filled": {
-        "template": "compare",
-        "title": "Direct render execution versus encapsulated side effects",
-        "leftLabel": "Direct In Body (Bad)",
-        "rightLabel": "Inside useEffect (Good)",
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Side effects reaching outside components cause unintended repeated work.",
-            "left": {
-              "code": "console.log(JobListBad());",
-              "result": "\"Rendered. Server requests so far: 1\"",
-              "tone": "warn",
-              "checks": [
-                "\"Rendered. Server requests so far: 1\""
-              ]
-            },
-            "right": {
-              "code": "console.log(JobListBad());",
-              "result": "\"Rendered. Server requests so far: 1\"",
-              "tone": "idle",
-              "checks": [
-                "\"Rendered. Server requests so far: 1\""
-              ]
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "React runs useEffect code after drawing the screen.",
-            "left": {
-              "code": "console.log(JobListBad());",
-              "result": "\"Rendered. Server requests so far: 2\"",
-              "tone": "warn",
-              "checks": [
-                "\"Rendered. Server requests so far: 2\""
-              ]
-            },
-            "right": {
-              "code": "console.log(JobListBad());",
-              "result": "\"Rendered. Server requests so far: 1\"",
-              "tone": "ok",
-              "checks": [
-                "\"Rendered. Server requests so far: 1\""
-              ]
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "useEffect and the empty dependency list",
-      "codeHash": "068251af47edfbe405062b77e69c24bc889d664b7b73cb91c3ffe556cb352c8a",
-      "spec": {
-        "template": "states",
-        "title": "Initial mounting execution with empty dependency array",
-        "states": [
-          "Component Mounts",
-          "Effect Executes Once",
-          "Subsequent Re-renders Skip"
-        ],
-        "activeIndex": 0,
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "An empty dependency array runs the effect once after mount.",
-            "activeIndex": 1
-          },
-          {
-            "at": "say4",
-            "caption": "Future renders skip repeating the effect initialization.",
-            "activeIndex": 2
-          }
-        ]
-      },
-      "filled": {
-        "template": "states",
-        "title": "Initial mounting execution with empty dependency array",
-        "states": [
-          "Component Mounts",
-          "Effect Executes Once",
-          "Subsequent Re-renders Skip"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "An empty dependency array runs the effect once after mount."
-          },
-          {
-            "at": "say4",
-            "caption": "Future renders skip repeating the effect initialization."
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Dependencies: running again when something changes",
-      "codeHash": "5025f29040446362f1a3001bbd7fe802affce04a50147a87d0fce1e709130596",
-      "spec": {
-        "template": "flow",
-        "title": "Re-running effects when tracked dependencies change",
-        "nodes": [
-          {
-            "id": "dep",
-            "label": "deps",
-            "tappable": false
-          },
-          {
-            "id": "check",
-            "label": "changed",
-            "tappable": false
-          },
-          {
-            "id": "eff",
-            "label": "effect",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Placing variables in dependencies tells React when to rerun.",
-            "values": {
-              "dep": {
-                "text": "deps"
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Reconciliation computes new virtual tree in memory.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Render Phase",
+                "tappable": false,
+                "active": true
               },
-              "check": {
-                "text": "changed"
+              {
+                "id": "n2",
+                "label": "DOM Mutation",
+                "tappable": false,
+                "active": false
               },
-              "eff": {
-                "text": "effect"
+              {
+                "id": "n3",
+                "label": "Browser Paint",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Passive Effect",
+                "tappable": false,
+                "active": false
               }
-            },
-            "tones": {
-              "dep": "data",
-              "check": "idle",
-              "eff": "idle"
-            },
-            "arrows": [
-              [
-                "dep",
-                "check"
-              ]
             ]
-          },
-          {
-            "at": "say2",
-            "caption": "If dependency values differ from previous render the effect runs.",
-            "values": {
-              "dep": {
-                "text": "deps"
+          }
+        },
+        {
+          "step": 2,
+          "caption": "Commit phase attaches real host nodes to document.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Render Phase",
+                "tappable": false,
+                "active": false
               },
-              "check": {
-                "text": "changed"
+              {
+                "id": "n2",
+                "label": "DOM Mutation",
+                "tappable": false,
+                "active": true
               },
-              "eff": {
-                "text": "effect"
+              {
+                "id": "n3",
+                "label": "Browser Paint",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Passive Effect",
+                "tappable": false,
+                "active": false
               }
-            },
-            "tones": {
-              "dep": "idle",
-              "check": "ok",
-              "eff": "ok"
-            },
-            "arrows": [
-              [
-                "dep",
-                "check"
-              ],
-              [
-                "check",
-                "eff"
-              ]
             ]
           }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Re-running effects when tracked dependencies change",
-        "nodes": [
-          {
-            "id": "dep",
-            "label": "deps",
-            "tappable": false
-          },
-          {
-            "id": "check",
-            "label": "changed",
-            "tappable": false
-          },
-          {
-            "id": "eff",
-            "label": "effect",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Placing variables in dependencies tells React when to rerun.",
-            "values": {
-              "dep": "deps",
-              "check": "changed",
-              "eff": "effect"
-            },
-            "tones": {
-              "dep": "data",
-              "check": "idle",
-              "eff": "idle"
-            },
-            "arrows": [
-              [
-                "dep",
-                "check"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "If dependency values differ from previous render the effect runs.",
-            "values": {
-              "dep": "deps",
-              "check": "changed",
-              "eff": "effect"
-            },
-            "tones": {
-              "dep": "idle",
-              "check": "ok",
-              "eff": "ok"
-            },
-            "arrows": [
-              [
-                "dep",
-                "check"
-              ],
-              [
-                "check",
-                "eff"
-              ]
+        },
+        {
+          "step": 3,
+          "caption": "Browser flushes rasterized pixels to physical display.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Render Phase",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "DOM Mutation",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Browser Paint",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n4",
+                "label": "Passive Effect",
+                "tappable": false,
+                "active": false
+              }
             ]
           }
-        ]
-      }
+        },
+        {
+          "step": 4,
+          "caption": "Passive effect executes asynchronously after paint.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Render Phase",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "DOM Mutation",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Browser Paint",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Passive Effect",
+                "tappable": false,
+                "active": true
+              }
+            ]
+          }
+        }
+      ]
     },
     {
-      "partTitle": "Clean-up: stopping what you started",
-      "codeHash": "e4b35713c8ba18988c52a603355abb162f68a1a143ee28524d028cb360241905",
-      "spec": {
-        "template": "compare",
-        "title": "Cleaning up active timers and external subscriptions",
-        "leftLabel": "Start Effect",
-        "rightLabel": "Cleanup Return",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Some effects start ongoing processes like timers or listeners.",
-            "left": {
-              "code": "running.add(\"timer\");",
-              "result": {
-                "text": "\"timer\""
-              },
-              "tone": "idle"
-            },
-            "right": {
-              "code": "running.delete(\"timer\");",
-              "result": {
-                "text": "\"timer\""
-              },
-              "tone": "ok"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Return a cleanup function to stop ongoing background work.",
-            "left": {
-              "code": "running.add(\"timer\");",
-              "result": {
-                "text": "\"timer\""
-              },
-              "tone": "idle"
-            },
-            "right": {
-              "code": "running.delete(\"timer\");",
-              "result": {
-                "text": "\"timer\""
-              },
-              "tone": "ok"
-            }
-          }
-        ]
+      "part": 2,
+      "title": "Symmetrical Effect Cleanup Pipeline",
+      "template": "flow",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "4ed22e95e05ba6c29b911b3df38cdd27dae2837b0d240bccdd37fcac631caf2a"
       },
-      "filled": {
-        "template": "compare",
-        "title": "Cleaning up active timers and external subscriptions",
-        "leftLabel": "Start Effect",
-        "rightLabel": "Cleanup Return",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Some effects start ongoing processes like timers or listeners.",
-            "left": {
-              "code": "running.add(\"timer\");",
-              "result": "\"timer\"",
-              "tone": "idle",
-              "checks": [
-                "\"timer\""
-              ]
-            },
-            "right": {
-              "code": "running.delete(\"timer\");",
-              "result": "\"timer\"",
-              "tone": "ok",
-              "checks": [
-                "\"timer\""
-              ]
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Return a cleanup function to stop ongoing background work.",
-            "left": {
-              "code": "running.add(\"timer\");",
-              "result": "\"timer\"",
-              "tone": "idle",
-              "checks": [
-                "\"timer\""
-              ]
-            },
-            "right": {
-              "code": "running.delete(\"timer\");",
-              "result": "\"timer\"",
-              "tone": "ok",
-              "checks": [
-                "\"timer\""
-              ]
-            }
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Initial synchronization pipeline operates normally.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Active Effect",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n2",
+                "label": "Dependency Change",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Teardown Call",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Fresh Setup",
+                "tappable": false,
+                "active": false
+              }
+            ]
           }
-        ]
-      }
+        },
+        {
+          "step": 2,
+          "caption": "Reactive dependency receives updated values from parent.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Active Effect",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Dependency Change",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n3",
+                "label": "Teardown Call",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Fresh Setup",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Previous cleanup callback executes to disconnect resource.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Active Effect",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Dependency Change",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Teardown Call",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n4",
+                "label": "Fresh Setup",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Fresh synchronization callback executes with latest inputs.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Active Effect",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Dependency Change",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Teardown Call",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Fresh Setup",
+                "tappable": false,
+                "active": true
+              }
+            ]
+          }
+        }
+      ]
     },
     {
-      "partTitle": "Saving to the browser with localStorage",
-      "codeHash": "4a2951fe1c4f1378e9bb41b169bea3ebda53a732479af8a1847d9844a0df2d1c",
-      "spec": {
-        "template": "boxes",
-        "title": "Persistent browser storage serialization with localStorage",
-        "boxes": [
-          {
-            "id": "jobs",
-            "label": "jobs",
-            "tappable": false
-          },
-          {
-            "id": "storage",
-            "label": "localStorage",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Turn the jobs array into text with stringify to save in localStorage.",
-            "values": {
-              "jobs": {
-                "text": "jobs"
-              },
-              "storage": {
-                "text": "text"
-              }
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Loading saved jobs happens once when creating initial state.",
-            "values": {
-              "jobs": {
-                "text": "jobs"
-              },
-              "storage": {
-                "text": "saved"
-              }
-            }
-          }
-        ]
+      "part": 3,
+      "title": "Asynchronous Data Race Condition Guard",
+      "template": "boxes",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "86086b5d72a1d59b04f6b3b929bf45515170254740df874f929e1d7d3d68403e"
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Persistent browser storage serialization with localStorage",
-        "boxes": [
-          {
-            "id": "jobs",
-            "label": "jobs",
-            "tappable": false
-          },
-          {
-            "id": "storage",
-            "label": "localStorage",
-            "tappable": false
+      "steps": [
+        {
+          "step": 1,
+          "caption": "First asynchronous query departs for remote endpoint.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Initial Request",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b2",
+                "label": "Second Request",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Out-Of-Order Return",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Active Flag Check",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
           }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Turn the jobs array into text with stringify to save in localStorage.",
-            "values": {
-              "jobs": "jobs",
-              "storage": "text"
-            },
-            "tones": {}
-          },
-          {
-            "at": "say3",
-            "caption": "Loading saved jobs happens once when creating initial state.",
-            "values": {
-              "jobs": "jobs",
-              "storage": "saved"
-            },
-            "tones": {}
+        },
+        {
+          "step": 2,
+          "caption": "Second query departs following rapid user interaction.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Initial Request",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Second Request",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b3",
+                "label": "Out-Of-Order Return",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Active Flag Check",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
           }
-        ]
-      }
+        },
+        {
+          "step": 3,
+          "caption": "First query returns late after second query resolves.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Initial Request",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Second Request",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Out-Of-Order Return",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b4",
+                "label": "Active Flag Check",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Boolean active flag ignores stale response safely.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Initial Request",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Second Request",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Out-Of-Order Return",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Active Flag Check",
+                "tappable": false,
+                "highlight": true
+              }
+            ]
+          }
+        }
+      ]
     },
     {
-      "partTitle": "When not to use useEffect",
-      "codeHash": "62e95d0ec065fc1fbb08ca4369ba6dee53f9eac3629dfd0beaff7fcf5146f914",
-      "spec": {
-        "template": "flow",
-        "title": "When not to use useEffect — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. When not to use use...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for When not to use useEffect [D16.P6.S1].",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in When not to use use... [D16.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D16.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for When not to use useEffect [D16.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
+      "part": 4,
+      "title": "Strict Mode Symmetrical Stress Test",
+      "template": "flow",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "1ba988d55d3ae73af2ba0e58cbecd38bd8ac6974f9a39e3bd6b022b4b98fc244"
       },
-      "filled": {
-        "template": "flow",
-        "title": "When not to use useEffect — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. When not to use use...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for When not to use useEffect [D16.P6.S1].",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in When not to use use... [D16.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D16.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for When not to use useEffect [D16.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Component mounts and executes initial effect setup.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Initial Mount",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n2",
+                "label": "Simulated Unmount",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Immediate Remount",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Clean State",
+                "tappable": false,
+                "active": false
+              }
             ]
           }
-        ]
-      }
+        },
+        {
+          "step": 2,
+          "caption": "Development engine executes synthetic teardown instantly.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Initial Mount",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Simulated Unmount",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n3",
+                "label": "Immediate Remount",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Clean State",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Reconciler executes second setup to verify idempotency.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Initial Mount",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Simulated Unmount",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Immediate Remount",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n4",
+                "label": "Clean State",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Symmetrical teardown guarantees zero memory leaks.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Initial Mount",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Simulated Unmount",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Immediate Remount",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Clean State",
+                "tappable": false,
+                "active": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "part": 5,
+      "title": "Resilient Data Subscription Engine",
+      "template": "boxes",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "ec844734568e3c542ed974405cf78d6d0db83a6d9bcd932d878101b92a466a49"
+      },
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Client initiates real-time duplex network channel.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Socket Connect",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b2",
+                "label": "Stream Dispatch",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Disconnection Flap",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Automatic Resync",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 2,
+          "caption": "Streaming payload dispatches continuous state packets.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Socket Connect",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Stream Dispatch",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b3",
+                "label": "Disconnection Flap",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Automatic Resync",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Network interruption triggers graceful disconnect handler.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Socket Connect",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Stream Dispatch",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Disconnection Flap",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b4",
+                "label": "Automatic Resync",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Retry mechanism re-establishes synchronization stream.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Socket Connect",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Stream Dispatch",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Disconnection Flap",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Automatic Resync",
+                "tappable": false,
+                "highlight": true
+              }
+            ]
+          }
+        }
+      ]
     }
   ]
 }

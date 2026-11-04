@@ -2,740 +2,665 @@
   "schemaVersion": 1,
   "prefix": "react-basics",
   "day": 21,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
+  "visuals": [
     {
-      "partTitle": "The problem: passing props through every layer",
-      "codeHash": "641bfa2f890d467d76a9f6407544b77d7c5d272f322caa41b10622ec4b833ae7",
-      "spec": {
-        "template": "flow",
-        "title": "Prop drilling across multiple component layers",
-        "nodes": [
-          {
-            "id": "app",
-            "label": "App",
-            "tappable": false
-          },
-          {
-            "id": "page",
-            "label": "Page",
-            "tappable": false
-          },
-          {
-            "id": "card",
-            "label": "Card",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Passing props down through intermediate layers causes prop drilling.",
-            "values": {
-              "app": {
-                "text": "\"dark\""
-              },
-              "page": {
-                "text": "theme"
-              },
-              "card": {
-                "text": "theme"
-              }
-            },
-            "tones": {
-              "app": "data",
-              "page": "idle",
-              "card": "idle"
-            },
-            "arrows": [
-              [
-                "app",
-                "page"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "React Context allows deep components to read values directly.",
-            "values": {
-              "app": {
-                "text": "\"dark\""
-              },
-              "page": {
-                "text": "theme"
-              },
-              "card": {
-                "text": "theme"
-              }
-            },
-            "tones": {
-              "app": "data",
-              "page": "idle",
-              "card": "ok"
-            },
-            "arrows": [
-              [
-                "app",
-                "page"
-              ],
-              [
-                "app",
-                "card"
-              ]
-            ]
-          }
-        ]
+      "part": 1,
+      "template": "flow",
+      "title": "Context Return Pointer Traversal",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "bc6d32426f5a091dcc198bdbe1513dc74fb1b4bb034a70df72a0d8bc9f062f2b"
       },
-      "filled": {
-        "template": "flow",
-        "title": "Prop drilling across multiple component layers",
-        "nodes": [
-          {
-            "id": "app",
-            "label": "App",
-            "tappable": false
-          },
-          {
-            "id": "page",
-            "label": "Page",
-            "tappable": false
-          },
-          {
-            "id": "card",
-            "label": "Card",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Passing props down through intermediate layers causes prop drilling.",
-            "values": {
-              "app": "\"dark\"",
-              "page": "theme",
-              "card": "theme"
-            },
-            "tones": {
-              "app": "data",
-              "page": "idle",
-              "card": "idle"
-            },
-            "arrows": [
-              [
-                "app",
-                "page"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "React Context allows deep components to read values directly.",
-            "values": {
-              "app": "\"dark\"",
-              "page": "theme",
-              "card": "theme"
-            },
-            "tones": {
-              "app": "data",
-              "page": "idle",
-              "card": "ok"
-            },
-            "arrows": [
-              [
-                "app",
-                "page"
-              ],
-              [
-                "app",
-                "card"
-              ]
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Consumer invokes hook and requests context value.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Consumer Node",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n2",
+                "label": "Parent Fiber",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Context Provider",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Resolved Value",
+                "tappable": false,
+                "active": false
+              }
             ]
           }
-        ]
-      }
+        },
+        {
+          "step": 2,
+          "caption": "Reconciler traverses upward along fiber return pointers.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Consumer Node",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Parent Fiber",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n3",
+                "label": "Context Provider",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Resolved Value",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Nearest matching provider boundary is located in tree.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Consumer Node",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Parent Fiber",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Context Provider",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n4",
+                "label": "Resolved Value",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Current provider value resolves to consumer cleanly.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Consumer Node",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Parent Fiber",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Context Provider",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Resolved Value",
+                "tappable": false,
+                "active": true
+              }
+            ]
+          }
+        }
+      ]
     },
     {
-      "partTitle": "createContext and the Provider",
-      "codeHash": "bf3488c7e39912df5ba15ffd78a338a7cdb3239efbb706f9720954fedbc75780",
-      "spec": {
-        "template": "compare",
-        "title": "Context creation and consumer subscription",
-        "leftLabel": "Create Context",
-        "rightLabel": "Read Context",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Initialize a shared context with a fallback default value.",
-            "left": {
-              "code": "const ThemeContext = createContext(\"light\");",
-              "result": {
-                "text": "\"light\""
-              },
-              "tone": "idle"
-            },
-            "right": {
-              "code": "console.log(Card());",
-              "result": {
-                "text": "\"dark\""
-              },
-              "tone": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Nested child components read context values without props.",
-            "left": {
-              "code": "ThemeContext.value = \"dark\";",
-              "result": {
-                "text": "\"dark\""
-              },
-              "tone": "idle"
-            },
-            "right": {
-              "code": "console.log(Card());",
-              "result": {
-                "text": "\"dark\""
-              },
-              "tone": "ok"
-            }
-          }
-        ]
+      "part": 2,
+      "template": "compare",
+      "title": "Context Value Reference Comparison",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "8987ed29b4667e9dcae6aa6121ddd7c9bd1ac27bdf7e77e4652bc54acbd85eb7"
       },
-      "filled": {
-        "template": "compare",
-        "title": "Context creation and consumer subscription",
-        "leftLabel": "Create Context",
-        "rightLabel": "Read Context",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Initialize a shared context with a fallback default value.",
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Inline object values generate new pointers on every pass.",
+          "data": {
             "left": {
-              "code": "const ThemeContext = createContext(\"light\");",
-              "result": "\"light\"",
-              "tone": "idle",
-              "checks": [
-                "\"light\""
+              "title": "Inline Literal Object",
+              "items": [
+                "Fresh reference allocated",
+                "Shallow equality fails",
+                "Forces consumer render"
               ]
             },
             "right": {
-              "code": "console.log(Card());",
-              "result": "\"dark\"",
-              "tone": "idle",
-              "checks": [
-                "\"dark\""
-              ]
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Nested child components read context values without props.",
-            "left": {
-              "code": "ThemeContext.value = \"dark\";",
-              "result": "\"dark\"",
-              "tone": "idle",
-              "checks": [
-                "\"dark\""
+              "title": "Memoized Value Object",
+              "items": [
+                "Stable memory pointer",
+                "Shallow equality passes",
+                "Bails out clean subtrees"
               ]
             },
-            "right": {
-              "code": "console.log(Card());",
-              "result": "\"dark\"",
-              "tone": "ok",
-              "checks": [
-                "\"dark\""
-              ]
-            }
+            "highlight": "left"
           }
-        ]
-      }
+        },
+        {
+          "step": 2,
+          "caption": "Object equality checks fail and trigger child updates.",
+          "data": {
+            "left": {
+              "title": "Inline Literal Object",
+              "items": [
+                "Fresh reference allocated",
+                "Shallow equality fails",
+                "Forces consumer render"
+              ]
+            },
+            "right": {
+              "title": "Memoized Value Object",
+              "items": [
+                "Stable memory pointer",
+                "Shallow equality passes",
+                "Bails out clean subtrees"
+              ]
+            },
+            "highlight": "right"
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Memoized context values preserve stable memory pointers.",
+          "data": {
+            "left": {
+              "title": "Inline Literal Object",
+              "items": [
+                "Fresh reference allocated",
+                "Shallow equality fails",
+                "Forces consumer render"
+              ]
+            },
+            "right": {
+              "title": "Memoized Value Object",
+              "items": [
+                "Stable memory pointer",
+                "Shallow equality passes",
+                "Bails out clean subtrees"
+              ]
+            },
+            "highlight": "left"
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Subtree consumers bail out of rendering successfully.",
+          "data": {
+            "left": {
+              "title": "Inline Literal Object",
+              "items": [
+                "Fresh reference allocated",
+                "Shallow equality fails",
+                "Forces consumer render"
+              ]
+            },
+            "right": {
+              "title": "Memoized Value Object",
+              "items": [
+                "Stable memory pointer",
+                "Shallow equality passes",
+                "Bails out clean subtrees"
+              ]
+            },
+            "highlight": "right"
+          }
+        }
+      ]
     },
     {
-      "partTitle": "children: components that wrap other components",
-      "codeHash": "c350e2314fb49b6fabcecea73c5a6df6971a7c2b5dcf37a2015e30a395414511",
-      "spec": {
-        "template": "boxes",
-        "title": "Wrapper component composability with children prop",
-        "boxes": [
-          {
-            "id": "title",
-            "label": "title",
-            "tappable": false
-          },
-          {
-            "id": "child",
-            "label": "children",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Components receive nested tags through the special children prop.",
-            "values": {
-              "title": {
-                "text": "\"Offer\""
-              },
-              "child": {
-                "text": "\"Zoho, React Developer\""
-              }
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Wrapper components render child layouts inside enclosing borders.",
-            "values": {
-              "title": {
-                "text": "\"Note\""
-              },
-              "child": {
-                "text": "\"Call HR on Monday\""
-              }
-            }
-          }
-        ]
+      "part": 3,
+      "template": "boxes",
+      "title": "Split Context Architecture Topology",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "f9bcc8f25f24d0830c848b334e97f9986e5f5839c28c6f23b042297733d2dc92"
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Wrapper component composability with children prop",
-        "boxes": [
-          {
-            "id": "title",
-            "label": "title",
-            "tappable": false
-          },
-          {
-            "id": "child",
-            "label": "children",
-            "tappable": false
+      "steps": [
+        {
+          "step": 1,
+          "caption": "State context holds volatile domain data.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "State Context",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b2",
+                "label": "Dispatch Context",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Data Consumer",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Action Button",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
           }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Components receive nested tags through the special children prop.",
-            "values": {
-              "title": "\"Offer\"",
-              "child": "\"Zoho, React Developer\""
-            },
-            "tones": {}
-          },
-          {
-            "at": "say2",
-            "caption": "Wrapper components render child layouts inside enclosing borders.",
-            "values": {
-              "title": "\"Note\"",
-              "child": "\"Call HR on Monday\""
-            },
-            "tones": {}
+        },
+        {
+          "step": 2,
+          "caption": "Dispatch context exposes permanently stable updater.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "State Context",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Dispatch Context",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b3",
+                "label": "Data Consumer",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Action Button",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
           }
-        ]
-      }
+        },
+        {
+          "step": 3,
+          "caption": "Data consumers subscribe only to changing state values.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "State Context",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Dispatch Context",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Data Consumer",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b4",
+                "label": "Action Button",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Action buttons consume dispatch and avoid re-renders.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "State Context",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Dispatch Context",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Data Consumer",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Action Button",
+                "tappable": false,
+                "highlight": true
+              }
+            ]
+          }
+        }
+      ]
     },
     {
-      "partTitle": "A dark mode for the Job Tracker",
-      "codeHash": "f96ade3c6a2a96d5641b16d49f80be5e8ec30a908f855c153e13f2019e329e8a",
-      "spec": {
-        "template": "compare",
-        "title": "Global theme toggling and palette switching",
-        "leftLabel": "Light Palette",
-        "rightLabel": "Dark Palette",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Theme toggles switch active mode styling across the entire app.",
-            "left": {
-              "code": "console.log(themeColors(theme));",
-              "result": {
-                "text": "\"#ffffff\""
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "console.log(themeColors(theme));",
-              "result": {
-                "text": "\"#111111\""
-              },
-              "tone": "idle"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Setting the dark theme class updates background and text colours.",
-            "left": {
-              "code": "console.log(themeColors(theme));",
-              "result": {
-                "text": "\"#ffffff\""
-              },
-              "tone": "idle"
-            },
-            "right": {
-              "code": "console.log(themeColors(theme));",
-              "result": {
-                "text": "\"#111111\""
-              },
-              "tone": "ok"
-            }
-          }
-        ]
+      "part": 4,
+      "template": "flow",
+      "title": "Selector Store Subscription Loop",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "92911ecd5b4699486c6b7c2feecb7170ed036f2eb461737acb59e99db1e98746"
       },
-      "filled": {
-        "template": "compare",
-        "title": "Global theme toggling and palette switching",
-        "leftLabel": "Light Palette",
-        "rightLabel": "Dark Palette",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Theme toggles switch active mode styling across the entire app.",
-            "left": {
-              "code": "console.log(themeColors(theme));",
-              "result": "\"#ffffff\"",
-              "tone": "ok",
-              "checks": [
-                "\"#ffffff\""
-              ]
-            },
-            "right": {
-              "code": "console.log(themeColors(theme));",
-              "result": "\"#111111\"",
-              "tone": "idle",
-              "checks": [
-                "\"#111111\""
-              ]
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Setting the dark theme class updates background and text colours.",
-            "left": {
-              "code": "console.log(themeColors(theme));",
-              "result": "\"#ffffff\"",
-              "tone": "idle",
-              "checks": [
-                "\"#ffffff\""
-              ]
-            },
-            "right": {
-              "code": "console.log(themeColors(theme));",
-              "result": "\"#111111\"",
-              "tone": "ok",
-              "checks": [
-                "\"#111111\""
-              ]
-            }
+      "steps": [
+        {
+          "step": 1,
+          "caption": "External state store receives high frequency event.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "External Store",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n2",
+                "label": "State Slice",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Selector Diff",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Targeted Render",
+                "tappable": false,
+                "active": false
+              }
+            ]
           }
-        ]
-      }
+        },
+        {
+          "step": 2,
+          "caption": "Component selector extracts target data slice.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "External Store",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "State Slice",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n3",
+                "label": "Selector Diff",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Targeted Render",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Equality comparator checks if selected slice changed.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "External Store",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "State Slice",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Selector Diff",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n4",
+                "label": "Targeted Render",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Render pass triggers only when selected slice updates.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "External Store",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "State Slice",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Selector Diff",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Targeted Render",
+                "tappable": false,
+                "active": true
+              }
+            ]
+          }
+        }
+      ]
     },
     {
-      "partTitle": "A user context: who is logged in",
-      "codeHash": "f0eb8402b3e8d8c28a5afedd99c8ea83120c9bf4372f9c17a1974b3f2641191f",
-      "spec": {
-        "template": "boxes",
-        "title": "User authentication state and permission validation",
-        "boxes": [
-          {
-            "id": "user",
-            "label": "user",
-            "tappable": false
-          },
-          {
-            "id": "job",
-            "label": "job",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Components check user authentication state to grant permissions.",
-            "values": {
-              "user": {
-                "text": "\"Asha\""
-              },
-              "job": {
-                "text": "\"Dev\""
-              }
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Logged out users have null state and cannot edit protected jobs.",
-            "values": {
-              "user": {
-                "text": "null"
-              },
-              "job": {
-                "text": "\"Dev\""
-              }
-            }
-          }
-        ]
+      "part": 5,
+      "template": "boxes",
+      "title": "Enterprise Provider Hierarchy Pipeline",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "ea77b345c3c7bb1abacddb59a05f1fe3fa30b44e343e2e0234e311fb8211a45f"
       },
-      "filled": {
-        "template": "boxes",
-        "title": "User authentication state and permission validation",
-        "boxes": [
-          {
-            "id": "user",
-            "label": "user",
-            "tappable": false
-          },
-          {
-            "id": "job",
-            "label": "job",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Components check user authentication state to grant permissions.",
-            "values": {
-              "user": "\"Asha\"",
-              "job": "\"Dev\""
-            },
-            "tones": {}
-          },
-          {
-            "at": "say2",
-            "caption": "Logged out users have null state and cannot edit protected jobs.",
-            "values": {
-              "user": "null",
-              "job": "\"Dev\""
-            },
-            "tones": {}
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "When to use Context, and when not to",
-      "codeHash": "25c7472ea86366647e540b4e6799a683a51d13e198fc6e195a90d62d6dce8279",
-      "spec": {
-        "template": "flow",
-        "title": "When to use Context, and when not to — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. When to use Context...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for When to use Context, and when not to [D21.P6.S1].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in When to use Context... [D21.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D21.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for When to use Context, and when not.. [D21.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Telemetry provider captures operational events at root.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Telemetry Provider",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b2",
+                "label": "Auth Provider",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Theme Provider",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Feature Provider",
+                "tappable": false,
+                "highlight": false
+              }
             ]
           }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "When to use Context, and when not to — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. When to use Context...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for When to use Context, and when not to [D21.P6.S1].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in When to use Context... [D21.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D21.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for When to use Context, and when not.. [D21.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+        },
+        {
+          "step": 2,
+          "caption": "Authentication provider verifies credentials synchronously.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Telemetry Provider",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Auth Provider",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b3",
+                "label": "Theme Provider",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Feature Provider",
+                "tappable": false,
+                "highlight": false
+              }
             ]
           }
-        ]
-      }
+        },
+        {
+          "step": 3,
+          "caption": "Theme provider injects design tokens down layout tree.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Telemetry Provider",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Auth Provider",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Theme Provider",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b4",
+                "label": "Feature Provider",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Feature flag provider scopes capabilities per tenant.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Telemetry Provider",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Auth Provider",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Theme Provider",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Feature Provider",
+                "tappable": false,
+                "highlight": true
+              }
+            ]
+          }
+        }
+      ]
     }
   ]
 }

@@ -2,792 +2,677 @@
   "schemaVersion": 1,
   "prefix": "react-basics",
   "day": 11,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
+  "visuals": [
     {
-      "partTitle": "Why screens change with the situation",
-      "codeHash": "23dde4f3e63c7ddd622f760b6e1cc2e8fe8ffe6a3495ad78a6c131b7b190ddf9",
-      "spec": {
-        "template": "compare",
-        "title": "Conditional rendering branches based on authentication",
-        "leftLabel": "Logged In",
-        "rightLabel": "Logged Out",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Screens display different elements depending on current situation.",
-            "left": {
-              "code": "console.log(Greeting({ name: \"Asha\" }));",
-              "result": {
-                "text": "\"Welcome back, Asha!\""
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "console.log(Greeting(null));",
-              "result": {
-                "text": "\"Please log in.\""
-              },
-              "tone": "idle"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Conditional rendering shows content when a specific condition holds.",
-            "left": {
-              "code": "console.log(Greeting({ name: \"Asha\" }));",
-              "result": {
-                "text": "\"Welcome back, Asha!\""
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "console.log(Greeting(null));",
-              "result": {
-                "text": "\"Please log in.\""
-              },
-              "tone": "idle"
-            }
-          }
-        ]
+      "part": 1,
+      "title": "Falsy Zero Value Evaluation and Guarded Branching",
+      "template": "boxes",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "2f17d961ebf9bcee6dcb2e8ac14e8e6df8b85ea6cc6a478cc697591774225b5b"
       },
-      "filled": {
-        "template": "compare",
-        "title": "Conditional rendering branches based on authentication",
-        "leftLabel": "Logged In",
-        "rightLabel": "Logged Out",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Screens display different elements depending on current situation.",
-            "left": {
-              "code": "console.log(Greeting({ name: \"Asha\" }));",
-              "result": "\"Welcome back, Asha!\"",
-              "tone": "ok",
-              "checks": [
-                "\"Welcome back, Asha!\""
-              ]
-            },
-            "right": {
-              "code": "console.log(Greeting(null));",
-              "result": "\"Please log in.\"",
-              "tone": "idle",
-              "checks": [
-                "\"Please log in.\""
-              ]
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Conditional rendering shows content when a specific condition holds.",
-            "left": {
-              "code": "console.log(Greeting({ name: \"Asha\" }));",
-              "result": "\"Welcome back, Asha!\"",
-              "tone": "ok",
-              "checks": [
-                "\"Welcome back, Asha!\""
-              ]
-            },
-            "right": {
-              "code": "console.log(Greeting(null));",
-              "result": "\"Please log in.\"",
-              "tone": "idle",
-              "checks": [
-                "\"Please log in.\""
-              ]
-            }
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Numeric count holds raw zero value inside memory.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Numeric Zero",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b2",
+                "label": "Logical AND",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Falsy Value Output",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Guarded Compare",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
           }
-        ]
-      }
+        },
+        {
+          "step": 2,
+          "caption": "Logical operator evaluates left expression for falsy state.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Numeric Zero",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Logical AND",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b3",
+                "label": "Falsy Value Output",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Guarded Compare",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Raw zero passes through operator directly into virtual tree.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Numeric Zero",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Logical AND",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Falsy Value Output",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b4",
+                "label": "Guarded Compare",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Explicit comparison forces boolean resolution eliminating hazard.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Numeric Zero",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Logical AND",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Falsy Value Output",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Guarded Compare",
+                "tappable": false,
+                "highlight": true
+              }
+            ]
+          }
+        }
+      ]
     },
     {
-      "partTitle": "Way 1: if with an early return",
-      "codeHash": "3a79a878765d3bc9fd0427743971c197dd1dfc73734d76e6edda6e6ba0f9f808",
-      "spec": {
-        "template": "flow",
-        "title": "Early return pattern for loading states",
-        "nodes": [
-          {
-            "id": "check",
-            "label": "loading",
-            "tappable": false
-          },
-          {
-            "id": "early",
-            "label": "return",
-            "tappable": false
-          },
-          {
-            "id": "main",
-            "label": "JobList",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "An early return handles special loading situations straight away.",
-            "values": {
-              "check": {
-                "text": "loading"
-              },
-              "early": {
-                "text": "\"Loading your jobs...\""
-              },
-              "main": {
-                "text": "JobList"
-              }
-            },
-            "tones": {
-              "check": "data",
-              "early": "idle",
-              "main": "idle"
-            },
-            "arrows": [
-              [
-                "check",
-                "early"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "When jobs are empty an early return keeps the main component simple.",
-            "values": {
-              "check": {
-                "text": "loading"
-              },
-              "early": {
-                "text": "\"No jobs yet. Add your first one!\""
-              },
-              "main": {
-                "text": "JobList"
-              }
-            },
-            "tones": {
-              "check": "idle",
-              "early": "ok",
-              "main": "idle"
-            },
-            "arrows": [
-              [
-                "check",
-                "early"
-              ]
-            ]
-          }
-        ]
+      "part": 2,
+      "title": "View Router State Table Dispatch Execution",
+      "template": "flow",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "6a2c7746bfb0287b1ae39d372b2d7eedc31b7dea68b2e2bc714da3bc82ed50c8"
       },
-      "filled": {
-        "template": "flow",
-        "title": "Early return pattern for loading states",
-        "nodes": [
-          {
-            "id": "check",
-            "label": "loading",
-            "tappable": false
-          },
-          {
-            "id": "early",
-            "label": "return",
-            "tappable": false
-          },
-          {
-            "id": "main",
-            "label": "JobList",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "An early return handles special loading situations straight away.",
-            "values": {
-              "check": "loading",
-              "early": "\"Loading your jobs...\"",
-              "main": "JobList"
-            },
-            "tones": {
-              "check": "data",
-              "early": "idle",
-              "main": "idle"
-            },
-            "arrows": [
-              [
-                "check",
-                "early"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "When jobs are empty an early return keeps the main component simple.",
-            "values": {
-              "check": "loading",
-              "early": "\"No jobs yet. Add your first one!\"",
-              "main": "JobList"
-            },
-            "tones": {
-              "check": "idle",
-              "early": "ok",
-              "main": "idle"
-            },
-            "arrows": [
-              [
-                "check",
-                "early"
-              ]
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Component receives current discrete lifecycle status.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Current State",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n2",
+                "label": "Lookup Table",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Render Function",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Mounted View",
+                "tappable": false,
+                "active": false
+              }
             ]
           }
-        ]
-      }
+        },
+        {
+          "step": 2,
+          "caption": "Router inspects pre-registered key mapping table.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Current State",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Lookup Table",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n3",
+                "label": "Render Function",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Mounted View",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Matching render function retrieves specific view factory.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Current State",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Lookup Table",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Render Function",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n4",
+                "label": "Mounted View",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Virtual tree mounts clean branch without nested conditionals.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Current State",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Lookup Table",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Render Function",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Mounted View",
+                "tappable": false,
+                "active": true
+              }
+            ]
+          }
+        }
+      ]
     },
     {
-      "partTitle": "Way 2: && to show something or nothing",
-      "codeHash": "845741336f29364b7e132263c423d4c38b7784fc5ef5794a457d7ec03751a143",
-      "spec": {
-        "template": "compare",
-        "title": "Logical AND short circuit evaluation in JSX",
-        "leftLabel": "Boolean Condition",
-        "rightLabel": "Numeric Falsy Trap",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Use logical AND to show an extra piece like a badge.",
-            "left": {
-              "code": "console.log(true && \"Offer!\");",
-              "result": {
-                "text": "\"Offer!\""
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "console.log(false && \"Offer!\");",
-              "result": {
-                "text": "false"
-              },
-              "tone": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Using zero with logical AND displays zero instead of hiding content.",
-            "left": {
-              "code": "console.log(0 && \"You have jobs\");",
-              "result": {
-                "text": "0"
-              },
-              "tone": "warn"
-            },
-            "right": {
-              "code": "console.log(0 > 0 && \"You have jobs\");",
-              "result": {
-                "text": "false"
-              },
-              "tone": "ok"
-            }
-          }
-        ]
+      "part": 3,
+      "title": "Early Return Guard Clause Lifecycle Tree",
+      "template": "boxes",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "3dffc07be9a68e1ae309204799aa861bdfff4b9063feb7c154ead005993f9f4d"
       },
-      "filled": {
-        "template": "compare",
-        "title": "Logical AND short circuit evaluation in JSX",
-        "leftLabel": "Boolean Condition",
-        "rightLabel": "Numeric Falsy Trap",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Use logical AND to show an extra piece like a badge.",
-            "left": {
-              "code": "console.log(true && \"Offer!\");",
-              "result": "\"Offer!\"",
-              "tone": "ok",
-              "checks": [
-                "\"Offer!\""
-              ]
-            },
-            "right": {
-              "code": "console.log(false && \"Offer!\");",
-              "result": "false",
-              "tone": "idle",
-              "checks": [
-                "false"
-              ]
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Using zero with logical AND displays zero instead of hiding content.",
-            "left": {
-              "code": "console.log(0 && \"You have jobs\");",
-              "result": "0",
-              "tone": "warn",
-              "checks": [
-                "0"
-              ]
-            },
-            "right": {
-              "code": "console.log(0 > 0 && \"You have jobs\");",
-              "result": "false",
-              "tone": "ok",
-              "checks": [
-                "false"
-              ]
-            }
+      "steps": [
+        {
+          "step": 1,
+          "caption": "All component hooks execute unconditionally on entrance.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Hook Allocation",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b2",
+                "label": "Guard Evaluation",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Early Branch",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Primary Render",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
           }
-        ]
-      }
+        },
+        {
+          "step": 2,
+          "caption": "Guard clauses evaluate preconditions in priority order.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Hook Allocation",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Guard Evaluation",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b3",
+                "label": "Early Branch",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Primary Render",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Failing precondition returns dedicated fallback view early.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Hook Allocation",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Guard Evaluation",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Early Branch",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b4",
+                "label": "Primary Render",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Valid conditions proceed smoothly to complete main layout.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Hook Allocation",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Guard Evaluation",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Early Branch",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Primary Render",
+                "tappable": false,
+                "highlight": true
+              }
+            ]
+          }
+        }
+      ]
     },
     {
-      "partTitle": "Way 3: ? : to choose between two things",
-      "codeHash": "9aa560a289f82f847288789785ba58838b357c89f55c9fd6e557e3afdc08b179",
-      "spec": {
-        "template": "boxes",
-        "title": "Ternary operator and dictionary lookup for status",
-        "boxes": [
-          {
-            "id": "remote",
-            "label": "remote",
-            "tappable": false
-          },
-          {
-            "id": "status",
-            "label": "status",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "The ternary operator chooses between two possible alternative values.",
-            "values": {
-              "remote": {
-                "text": "\"Office\""
-              },
-              "status": {
-                "text": "\"interview\""
-              }
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "An object lookup replaces long chains of if statements cleanly.",
-            "values": {
-              "remote": {
-                "text": "\"Remote\""
-              },
-              "status": {
-                "text": "\"blue\""
-              }
-            }
-          }
-        ]
+      "part": 4,
+      "title": "Fiber Reconciliation Identity Without and With Keys",
+      "template": "compare",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "c249851f83b013764d6517c7073937f63f5d5a9852aebdf9e3b730bec9619636"
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Ternary operator and dictionary lookup for status",
-        "boxes": [
-          {
-            "id": "remote",
-            "label": "remote",
-            "tappable": false
-          },
-          {
-            "id": "status",
-            "label": "status",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "The ternary operator chooses between two possible alternative values.",
-            "values": {
-              "remote": "\"Office\"",
-              "status": "\"interview\""
-            },
-            "tones": {}
-          },
-          {
-            "at": "say4",
-            "caption": "An object lookup replaces long chains of if statements cleanly.",
-            "values": {
-              "remote": "\"Remote\"",
-              "status": "\"blue\""
-            },
-            "tones": {}
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Choosing the right way",
-      "codeHash": "582b593ca542ec3b08d2f8e4171bc67f20ab80bb2a83ac78a993e0af2bb71993",
-      "spec": {
-        "template": "flow",
-        "title": "Strategy guidelines for conditional rendering options",
-        "nodes": [
-          {
-            "id": "cond",
-            "label": "condition",
-            "tappable": false
-          },
-          {
-            "id": "early",
-            "label": "early return",
-            "tappable": false
-          },
-          {
-            "id": "ternary",
-            "label": "lookup",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Whole different screen situations recommend using an early return.",
-            "values": {
-              "cond": {
-                "text": "loading"
-              },
-              "early": {
-                "text": "return"
-              },
-              "ternary": {
-                "text": "statusLabel"
-              }
-            },
-            "tones": {
-              "cond": "idle",
-              "early": "ok",
-              "ternary": "idle"
-            },
-            "arrows": [
-              [
-                "cond",
-                "early"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "Multiple situation mappings use lookup functions rather than nested ternaries.",
-            "values": {
-              "cond": {
-                "text": "status"
-              },
-              "early": {
-                "text": "return"
-              },
-              "ternary": {
-                "text": "statusLabel"
-              }
-            },
-            "tones": {
-              "cond": "idle",
-              "early": "idle",
-              "ternary": "ok"
-            },
-            "arrows": [
-              [
-                "cond",
-                "ternary"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Strategy guidelines for conditional rendering options",
-        "nodes": [
-          {
-            "id": "cond",
-            "label": "condition",
-            "tappable": false
-          },
-          {
-            "id": "early",
-            "label": "early return",
-            "tappable": false
-          },
-          {
-            "id": "ternary",
-            "label": "lookup",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Whole different screen situations recommend using an early return.",
-            "values": {
-              "cond": "loading",
-              "early": "return",
-              "ternary": "statusLabel"
-            },
-            "tones": {
-              "cond": "idle",
-              "early": "ok",
-              "ternary": "idle"
-            },
-            "arrows": [
-              [
-                "cond",
-                "early"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "Multiple situation mappings use lookup functions rather than nested ternaries.",
-            "values": {
-              "cond": "status",
-              "early": "return",
-              "ternary": "statusLabel"
-            },
-            "tones": {
-              "cond": "idle",
-              "early": "idle",
-              "ternary": "ok"
-            },
-            "arrows": [
-              [
-                "cond",
-                "ternary"
-              ]
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Make the Job Tracker react to status",
-      "codeHash": "665645a093480f88a654c95ffc57e014072b9f1eafbe101d148a59c78fcecbfb",
-      "spec": {
-        "template": "flow",
-        "title": "Make the Job Tracker react to status — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Make the Job Tracke...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Make the Job Tracker react to status [D11.P6.S1].",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Make the Job Tracke... [D11.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Matching component types at identical tree index share state.",
+          "data": {
+            "left": {
+              "title": "Shared Position (No Keys)",
+              "items": [
+                "Same Component Type",
+                "Fiber Node Reused",
+                "Internal State Bleeds",
+                "Inputs Retain Old Text"
               ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D11.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "highlightIndex": 0
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Make the Job Tracker react to sta.. [D11.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
+            "right": {
+              "title": "Explicit Keys Assigned",
+              "items": [
+                "Distinct Key Identities",
+                "Old Fiber Unmounted",
+                "Fresh State Allocated",
+                "Clean Input Fields"
               ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+              "highlightIndex": 0
+            }
           }
-        ]
+        },
+        {
+          "step": 2,
+          "caption": "Reusing existing fiber preserves previous internal values.",
+          "data": {
+            "left": {
+              "title": "Shared Position (No Keys)",
+              "items": [
+                "Same Component Type",
+                "Fiber Node Reused",
+                "Internal State Bleeds",
+                "Inputs Retain Old Text"
+              ],
+              "highlightIndex": 1
+            },
+            "right": {
+              "title": "Explicit Keys Assigned",
+              "items": [
+                "Distinct Key Identities",
+                "Old Fiber Unmounted",
+                "Fresh State Allocated",
+                "Clean Input Fields"
+              ],
+              "highlightIndex": 1
+            }
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Unique key flags mandate complete fiber unmounting.",
+          "data": {
+            "left": {
+              "title": "Shared Position (No Keys)",
+              "items": [
+                "Same Component Type",
+                "Fiber Node Reused",
+                "Internal State Bleeds",
+                "Inputs Retain Old Text"
+              ],
+              "highlightIndex": 2
+            },
+            "right": {
+              "title": "Explicit Keys Assigned",
+              "items": [
+                "Distinct Key Identities",
+                "Old Fiber Unmounted",
+                "Fresh State Allocated",
+                "Clean Input Fields"
+              ],
+              "highlightIndex": 2
+            }
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Fresh fiber mounts with isolated state eliminating state bleed.",
+          "data": {
+            "left": {
+              "title": "Shared Position (No Keys)",
+              "items": [
+                "Same Component Type",
+                "Fiber Node Reused",
+                "Internal State Bleeds",
+                "Inputs Retain Old Text"
+              ],
+              "highlightIndex": 3
+            },
+            "right": {
+              "title": "Explicit Keys Assigned",
+              "items": [
+                "Distinct Key Identities",
+                "Old Fiber Unmounted",
+                "Fresh State Allocated",
+                "Clean Input Fields"
+              ],
+              "highlightIndex": 3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "part": 5,
+      "title": "Four State Asynchronous UI Topology Pipeline",
+      "template": "flow",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "b1c9e9583c5dfeb0cd92d365bee61eda0a847d155e14c96cbedc984bb61e1b9f"
       },
-      "filled": {
-        "template": "flow",
-        "title": "Make the Job Tracker react to status — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Make the Job Tracke...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Make the Job Tracker react to status [D11.P6.S1].",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Make the Job Tracke... [D11.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D11.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Make the Job Tracker react to sta.. [D11.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Asynchronous network fetch begins initial transaction.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Request Trigger",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n2",
+                "label": "Status Selector",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Dedicated View",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "User Feedback",
+                "tappable": false,
+                "active": false
+              }
             ]
           }
-        ]
-      }
+        },
+        {
+          "step": 2,
+          "caption": "Controller routes current status to explicit layout branch.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Request Trigger",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Status Selector",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n3",
+                "label": "Dedicated View",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "User Feedback",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Skeleton screen reserves geometric space during loading.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Request Trigger",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Status Selector",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Dedicated View",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n4",
+                "label": "User Feedback",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Error banner offers clear actionable retry button.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Request Trigger",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Status Selector",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Dedicated View",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "User Feedback",
+                "tappable": false,
+                "active": true
+              }
+            ]
+          }
+        }
+      ]
     }
   ]
 }

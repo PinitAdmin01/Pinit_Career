@@ -2,703 +2,677 @@
   "schemaVersion": 1,
   "prefix": "react-basics",
   "day": 12,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
+  "visuals": [
     {
-      "partTitle": "Why normal variables are not enough",
-      "codeHash": "81e49a9b9ade8bb9126917a1941b3ad67eae23aacab0ae76024a1355e4809165",
-      "spec": {
-        "template": "compare",
-        "title": "Local variable re-execution versus persistent state memory",
-        "leftLabel": "Local Variable",
-        "rightLabel": "Persistent State",
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "A normal variable resets every time a component function runs.",
-            "left": {
-              "code": "console.log(Counter());",
-              "result": {
-                "text": "\"Count: 1\""
-              },
-              "tone": "warn"
-            },
-            "right": {
-              "code": "console.log(Counter());",
-              "result": {
-                "text": "\"Count: 1\""
-              },
-              "tone": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "State data stored by React persists across component redraws.",
-            "left": {
-              "code": "console.log(Counter());",
-              "result": {
-                "text": "\"Count: 1\""
-              },
-              "tone": "warn"
-            },
-            "right": {
-              "code": "console.log(Counter());",
-              "result": {
-                "text": "\"Count: 1\""
-              },
-              "tone": "ok"
-            }
-          }
-        ]
+      "part": 1,
+      "title": "Fiber Hook Singly Linked List Traversal",
+      "template": "flow",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "de2c8443da6f3dbcc09c788d17c1f07f037faa0c1900e59468b9765fead948b6"
       },
-      "filled": {
-        "template": "compare",
-        "title": "Local variable re-execution versus persistent state memory",
-        "leftLabel": "Local Variable",
-        "rightLabel": "Persistent State",
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "A normal variable resets every time a component function runs.",
-            "left": {
-              "code": "console.log(Counter());",
-              "result": "\"Count: 1\"",
-              "tone": "warn",
-              "checks": [
-                "\"Count: 1\""
-              ]
-            },
-            "right": {
-              "code": "console.log(Counter());",
-              "result": "\"Count: 1\"",
-              "tone": "idle",
-              "checks": [
-                "\"Count: 1\""
-              ]
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "State data stored by React persists across component redraws.",
-            "left": {
-              "code": "console.log(Counter());",
-              "result": "\"Count: 1\"",
-              "tone": "warn",
-              "checks": [
-                "\"Count: 1\""
-              ]
-            },
-            "right": {
-              "code": "console.log(Counter());",
-              "result": "\"Count: 1\"",
-              "tone": "ok",
-              "checks": [
-                "\"Count: 1\""
-              ]
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "useState: value and setter",
-      "codeHash": "87f7d6effd2fdf87fdc73392ce5a52ea5dffeb9bb5ccac9d8ad903ac5bdaa234",
-      "spec": {
-        "template": "boxes",
-        "title": "State tuple value and updater function dispatch",
-        "boxes": [
-          {
-            "id": "val",
-            "label": "count",
-            "tappable": false
-          },
-          {
-            "id": "setter",
-            "label": "setCount",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Calling useState returns the current value and a setter function.",
-            "values": {
-              "val": {
-                "text": "0"
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Internal fiber stores memoized state linked list head.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Fiber Node",
+                "tappable": false,
+                "active": true
               },
-              "setter": {
-                "text": "setCount"
+              {
+                "id": "n2",
+                "label": "First Hook Cell",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Next Pointer",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Subsequent Hook",
+                "tappable": false,
+                "active": false
               }
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Calling the setter function schedules a redraw with the new value.",
-            "values": {
-              "val": {
-                "text": "1"
+            ]
+          }
+        },
+        {
+          "step": 2,
+          "caption": "Initial hook invocation maps to first memory record.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Fiber Node",
+                "tappable": false,
+                "active": false
               },
-              "setter": {
-                "text": "setCount"
+              {
+                "id": "n2",
+                "label": "First Hook Cell",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n3",
+                "label": "Next Pointer",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Subsequent Hook",
+                "tappable": false,
+                "active": false
               }
-            }
+            ]
           }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "State tuple value and updater function dispatch",
-        "boxes": [
-          {
-            "id": "val",
-            "label": "count",
-            "tappable": false
-          },
-          {
-            "id": "setter",
-            "label": "setCount",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Calling useState returns the current value and a setter function.",
-            "values": {
-              "val": "0",
-              "setter": "setCount"
-            },
-            "tones": {}
-          },
-          {
-            "at": "say3",
-            "caption": "Calling the setter function schedules a redraw with the new value.",
-            "values": {
-              "val": "1",
-              "setter": "setCount"
-            },
-            "tones": {}
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Never change state directly",
-      "codeHash": "cf9c60cada1385e3c5d7965de210d02e85fcc5291a0f51f9159bf4c1ec360c50",
-      "spec": {
-        "template": "compare",
-        "title": "Direct array mutation versus new array reference",
-        "leftLabel": "Mutation (Ignored)",
-        "rightLabel": "New Array Copy",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Never mutate state directly because React cannot detect the modification.",
-            "left": {
-              "code": "sameArray.push(\"Tester\");",
-              "result": {
-                "text": "true"
+        },
+        {
+          "step": 3,
+          "caption": "Pointer advances sequentially along next attribute.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Fiber Node",
+                "tappable": false,
+                "active": false
               },
-              "tone": "warn"
-            },
-            "right": {
-              "code": "const newArray = [...jobs, \"Designer\"];",
-              "result": {
-                "text": "false"
+              {
+                "id": "n2",
+                "label": "First Hook Cell",
+                "tappable": false,
+                "active": false
               },
-              "tone": "ok"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Spread creates a new array reference that tells React state changed.",
-            "left": {
-              "code": "console.log(sameArray === jobs);",
-              "result": {
-                "text": "true"
+              {
+                "id": "n3",
+                "label": "Next Pointer",
+                "tappable": false,
+                "active": true
               },
-              "tone": "warn"
-            },
-            "right": {
-              "code": "console.log(newArray === jobs);",
-              "result": {
-                "text": "false"
-              },
-              "tone": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "compare",
-        "title": "Direct array mutation versus new array reference",
-        "leftLabel": "Mutation (Ignored)",
-        "rightLabel": "New Array Copy",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Never mutate state directly because React cannot detect the modification.",
-            "left": {
-              "code": "sameArray.push(\"Tester\");",
-              "result": "true",
-              "tone": "warn",
-              "checks": [
-                "true"
-              ]
-            },
-            "right": {
-              "code": "const newArray = [...jobs, \"Designer\"];",
-              "result": "false",
-              "tone": "ok",
-              "checks": [
-                "false"
-              ]
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Spread creates a new array reference that tells React state changed.",
-            "left": {
-              "code": "console.log(sameArray === jobs);",
-              "result": "true",
-              "tone": "warn",
-              "checks": [
-                "true"
-              ]
-            },
-            "right": {
-              "code": "console.log(newArray === jobs);",
-              "result": "false",
-              "tone": "ok",
-              "checks": [
-                "false"
-              ]
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Updating from the previous value",
-      "codeHash": "4565acb6eb7687c57d1f89f601102396ea8dc06fe09f971eb8ae8c91cb57e9f5",
-      "spec": {
-        "template": "flow",
-        "title": "Updater function pattern for queued state transitions",
-        "nodes": [
-          {
-            "id": "prev",
-            "label": "prev",
-            "tappable": false
-          },
-          {
-            "id": "fn",
-            "label": "updater",
-            "tappable": false
-          },
-          {
-            "id": "next",
-            "label": "next",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Passing a function to the setter handles dependent state calculations.",
-            "values": {
-              "prev": {
-                "text": "5"
-              },
-              "fn": {
-                "text": "c => c + 1"
-              },
-              "next": {
-                "text": "6"
+              {
+                "id": "n4",
+                "label": "Subsequent Hook",
+                "tappable": false,
+                "active": false
               }
-            },
-            "tones": {
-              "prev": "idle",
-              "fn": "data",
-              "next": "idle"
-            },
-            "arrows": [
-              [
-                "prev",
-                "fn"
-              ]
             ]
-          },
-          {
-            "at": "say2",
-            "caption": "Queued updates each receive the latest value from previous updater.",
-            "values": {
-              "prev": {
-                "text": "5"
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Subsequent hook retrieves exact matching state cell.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Fiber Node",
+                "tappable": false,
+                "active": false
               },
-              "fn": {
-                "text": "c => c + 1"
+              {
+                "id": "n2",
+                "label": "First Hook Cell",
+                "tappable": false,
+                "active": false
               },
-              "next": {
-                "text": "8"
+              {
+                "id": "n3",
+                "label": "Next Pointer",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Subsequent Hook",
+                "tappable": false,
+                "active": true
               }
-            },
-            "tones": {
-              "prev": "idle",
-              "fn": "ok",
-              "next": "ok"
-            },
-            "arrows": [
-              [
-                "prev",
-                "fn"
-              ],
-              [
-                "fn",
-                "next"
-              ]
             ]
           }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Updater function pattern for queued state transitions",
-        "nodes": [
-          {
-            "id": "prev",
-            "label": "prev",
-            "tappable": false
-          },
-          {
-            "id": "fn",
-            "label": "updater",
-            "tappable": false
-          },
-          {
-            "id": "next",
-            "label": "next",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Passing a function to the setter handles dependent state calculations.",
-            "values": {
-              "prev": "5",
-              "fn": "c => c + 1",
-              "next": "6"
-            },
-            "tones": {
-              "prev": "idle",
-              "fn": "data",
-              "next": "idle"
-            },
-            "arrows": [
-              [
-                "prev",
-                "fn"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "Queued updates each receive the latest value from previous updater.",
-            "values": {
-              "prev": "5",
-              "fn": "c => c + 1",
-              "next": "8"
-            },
-            "tones": {
-              "prev": "idle",
-              "fn": "ok",
-              "next": "ok"
-            },
-            "arrows": [
-              [
-                "prev",
-                "fn"
-              ],
-              [
-                "fn",
-                "next"
-              ]
-            ]
-          }
-        ]
-      }
+        }
+      ]
     },
     {
-      "partTitle": "What happens when state changes",
-      "codeHash": "207ef07cc225775eb110a3b8af82a5ae90ba9c6c0d25a63cd5af56a6a1d81a18",
-      "spec": {
-        "template": "states",
-        "title": "Lifecycle stages of component re-rendering",
-        "states": [
-          "Event Triggered",
-          "State Updated",
-          "Component Re-rendered"
-        ],
-        "activeIndex": 0,
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Calling a setter schedules a component re-render in React.",
-            "activeIndex": 1
-          },
-          {
-            "at": "say2",
-            "caption": "During re-render React recalculates JSX and updates the page.",
-            "activeIndex": 2
-          }
-        ]
+      "part": 2,
+      "title": "Asynchronous State Dispatch FIFO Update Queue",
+      "template": "boxes",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "1417276dd2652536ce34126cd20bc71007765752f56d847cbbca42e00c5320b7"
       },
-      "filled": {
-        "template": "states",
-        "title": "Lifecycle stages of component re-rendering",
-        "states": [
-          "Event Triggered",
-          "State Updated",
-          "Component Re-rendered"
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Calling a setter schedules a component re-render in React."
-          },
-          {
-            "at": "say2",
-            "caption": "During re-render React recalculates JSX and updates the page."
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Event trigger dispatches state transition request.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "User Action",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b2",
+                "label": "Update Reducer",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Queue Buffer",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Computed State",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
           }
-        ]
-      }
+        },
+        {
+          "step": 2,
+          "caption": "Functional update encapsulates pure reducer callback.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "User Action",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Update Reducer",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b3",
+                "label": "Queue Buffer",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Computed State",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Pending queue buffers sequential updates atomically.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "User Action",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Update Reducer",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Queue Buffer",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b4",
+                "label": "Computed State",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Reconciliation resolves accumulated updates to fresh value.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "User Action",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Update Reducer",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Queue Buffer",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Computed State",
+                "tappable": false,
+                "highlight": true
+              }
+            ]
+          }
+        }
+      ]
     },
     {
-      "partTitle": "Put the jobs into state",
-      "codeHash": "b864df889dc9fea7f78b182e5bb9385da0b9d57471e3233435b32a51624dcf72",
-      "spec": {
-        "template": "flow",
-        "title": "Put the jobs into state — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Put the jobs into s...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Put the jobs into state [D12.P6.S1].",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Put the jobs into s... [D12.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D12.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Put the jobs into state [D12.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
+      "part": 3,
+      "title": "Automatic Batching across Asynchronous Boundaries",
+      "template": "flow",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "7ebeedeb7b35f5e7d8471a72f5d179c70951aba5b09a665e262e9d65556903b9"
       },
-      "filled": {
-        "template": "flow",
-        "title": "Put the jobs into state — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Put the jobs into s...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Put the jobs into state [D12.P6.S1].",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Put the jobs into s... [D12.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D12.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Put the jobs into state [D12.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Multiple state setters fire inside asynchronous promise.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Multiple Updates",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n2",
+                "label": "Batch Collector",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Microtask Flush",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Single Render",
+                "tappable": false,
+                "active": false
+              }
             ]
           }
-        ]
-      }
+        },
+        {
+          "step": 2,
+          "caption": "Batch manager aggregates updates into unified transaction.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Multiple Updates",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Batch Collector",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n3",
+                "label": "Microtask Flush",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Single Render",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Single microtask schedule defers execution to end of tick.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Multiple Updates",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Batch Collector",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Microtask Flush",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n4",
+                "label": "Single Render",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Reconciliation executes single atomic pass preserving frames.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Multiple Updates",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Batch Collector",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Microtask Flush",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Single Render",
+                "tappable": false,
+                "active": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "part": 4,
+      "title": "Object Reference Equality vs Immutability Bailout",
+      "template": "compare",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "f43897861d2c4858b891edda5d55696f90f6025b5e4844c92285b9cb6457da97"
+      },
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Mutating object in place retains identical memory pointer.",
+          "data": {
+            "left": {
+              "title": "Direct Mutation",
+              "items": [
+                "Same Memory Address",
+                "Object Is Evaluates True",
+                "Eager Bailout Triggered",
+                "Screen Fails to Update"
+              ],
+              "highlightIndex": 0
+            },
+            "right": {
+              "title": "Immutable Spread",
+              "items": [
+                "Fresh Heap Allocation",
+                "Object Is Evaluates False",
+                "Reconciliation Queued",
+                "Visual Tree Updates"
+              ],
+              "highlightIndex": 0
+            }
+          }
+        },
+        {
+          "step": 2,
+          "caption": "Equality check evaluates true triggering eager bailout.",
+          "data": {
+            "left": {
+              "title": "Direct Mutation",
+              "items": [
+                "Same Memory Address",
+                "Object Is Evaluates True",
+                "Eager Bailout Triggered",
+                "Screen Fails to Update"
+              ],
+              "highlightIndex": 1
+            },
+            "right": {
+              "title": "Immutable Spread",
+              "items": [
+                "Fresh Heap Allocation",
+                "Object Is Evaluates False",
+                "Reconciliation Queued",
+                "Visual Tree Updates"
+              ],
+              "highlightIndex": 1
+            }
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Object spread allocates fresh unique reference address.",
+          "data": {
+            "left": {
+              "title": "Direct Mutation",
+              "items": [
+                "Same Memory Address",
+                "Object Is Evaluates True",
+                "Eager Bailout Triggered",
+                "Screen Fails to Update"
+              ],
+              "highlightIndex": 2
+            },
+            "right": {
+              "title": "Immutable Spread",
+              "items": [
+                "Fresh Heap Allocation",
+                "Object Is Evaluates False",
+                "Reconciliation Queued",
+                "Visual Tree Updates"
+              ],
+              "highlightIndex": 2
+            }
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Reference divergence schedules immediate virtual DOM update.",
+          "data": {
+            "left": {
+              "title": "Direct Mutation",
+              "items": [
+                "Same Memory Address",
+                "Object Is Evaluates True",
+                "Eager Bailout Triggered",
+                "Screen Fails to Update"
+              ],
+              "highlightIndex": 3
+            },
+            "right": {
+              "title": "Immutable Spread",
+              "items": [
+                "Fresh Heap Allocation",
+                "Object Is Evaluates False",
+                "Reconciliation Queued",
+                "Visual Tree Updates"
+              ],
+              "highlightIndex": 3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "part": 5,
+      "title": "Lazy Initializer Mount Execution Strategy",
+      "template": "boxes",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "fe0e1ad050ca84ae1905af5c72a46ed338ce455f6504cd89685b9ae4907bfacf"
+      },
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Component enters initial mount lifecycle phase.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Initial Mount",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b2",
+                "label": "Callback Run",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "State Cached",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Update Bypass",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 2,
+          "caption": "Lazy initializer function executes expensive calculation once.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Initial Mount",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Callback Run",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b3",
+                "label": "State Cached",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Update Bypass",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Computed result caches directly on fiber hook cell.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Initial Mount",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Callback Run",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "State Cached",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b4",
+                "label": "Update Bypass",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Subsequent re-renders bypass initializer callback completely.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Initial Mount",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Callback Run",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "State Cached",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Update Bypass",
+                "tappable": false,
+                "highlight": true
+              }
+            ]
+          }
+        }
+      ]
     }
   ]
 }

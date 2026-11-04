@@ -1,772 +1,703 @@
 {
   "schemaVersion": 1,
+  "courseId": "course-react-web",
   "prefix": "react-basics",
   "day": 17,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
+  "visuals": [
     {
-      "partTitle": "APIs: how apps get data",
-      "codeHash": "fa38cab37f518424c9d49ec7d91fb34841286890e39346281ae2cfcf47d129bc",
-      "spec": {
-        "template": "flow",
-        "title": "Client requests and server data serialization",
-        "nodes": [
-          {
-            "id": "srv",
-            "label": "server",
-            "tappable": false
-          },
-          {
-            "id": "json",
-            "label": "JSON",
-            "tappable": false
-          },
-          {
-            "id": "app",
-            "label": "app",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Client apps request data stored remotely on servers.",
-            "values": {
-              "srv": {
-                "text": "\"Infosys\""
+      "part": 1,
+      "title": "Lexical Closures and Stale State Trap",
+      "template": "boxes",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "5d4e87b12229c55f050148af2d969de9933f2bb8ace3c13180a2f726accb2039"
+      },
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Component renders initial frame with frozen constant value.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Initial Scope",
+                "tappable": false,
+                "highlight": true
               },
-              "json": {
-                "text": "\"Zoho\""
+              {
+                "id": "b2",
+                "label": "Frozen Capture",
+                "tappable": false,
+                "highlight": false
               },
-              "app": {
-                "text": "responseText"
+              {
+                "id": "b3",
+                "label": "Functional Updater",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Live Queue Access",
+                "tappable": false,
+                "highlight": false
               }
-            },
-            "tones": {
-              "srv": "data",
-              "json": "idle",
-              "app": "idle"
-            },
-            "arrows": [
-              [
-                "srv",
-                "json"
-              ]
             ]
-          },
-          {
-            "at": "say3",
-            "caption": "The app will load companies from an API to suggest in forms.",
-            "values": {
-              "srv": {
-                "text": "\"Infosys\""
+          }
+        },
+        {
+          "step": 2,
+          "caption": "Timer callback closes over stale initial frame snapshot.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Initial Scope",
+                "tappable": false,
+                "highlight": false
               },
-              "json": {
-                "text": "\"Zoho\""
+              {
+                "id": "b2",
+                "label": "Frozen Capture",
+                "tappable": false,
+                "highlight": true
               },
-              "app": {
-                "text": "responseText"
+              {
+                "id": "b3",
+                "label": "Functional Updater",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Live Queue Access",
+                "tappable": false,
+                "highlight": false
               }
-            },
-            "tones": {
-              "srv": "idle",
-              "json": "ok",
-              "app": "ok"
-            },
-            "arrows": [
-              [
-                "srv",
-                "json"
-              ],
-              [
-                "json",
-                "app"
-              ]
             ]
           }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Client requests and server data serialization",
-        "nodes": [
-          {
-            "id": "srv",
-            "label": "server",
-            "tappable": false
-          },
-          {
-            "id": "json",
-            "label": "JSON",
-            "tappable": false
-          },
-          {
-            "id": "app",
-            "label": "app",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Client apps request data stored remotely on servers.",
-            "values": {
-              "srv": "\"Infosys\"",
-              "json": "\"Zoho\"",
-              "app": "responseText"
-            },
-            "tones": {
-              "srv": "data",
-              "json": "idle",
-              "app": "idle"
-            },
-            "arrows": [
-              [
-                "srv",
-                "json"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "The app will load companies from an API to suggest in forms.",
-            "values": {
-              "srv": "\"Infosys\"",
-              "json": "\"Zoho\"",
-              "app": "responseText"
-            },
-            "tones": {
-              "srv": "idle",
-              "json": "ok",
-              "app": "ok"
-            },
-            "arrows": [
-              [
-                "srv",
-                "json"
-              ],
-              [
-                "json",
-                "app"
-              ]
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "fetch, async and await",
-      "codeHash": "bc4c179c2baeb29596267a09755b873089f27f1f1f4ae80ccfae4aea9822dd98",
-      "spec": {
-        "template": "compare",
-        "title": "Asynchronous HTTP request execution with fetch",
-        "leftLabel": "Request Sent",
-        "rightLabel": "Data Parsed",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Sending network requests with fetch takes non-blocking time.",
-            "left": {
-              "code": "console.log(names[0]);",
-              "result": {
-                "text": "\"Leanne\""
+        },
+        {
+          "step": 3,
+          "caption": "Functional updater reads live pending update queue directly.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Initial Scope",
+                "tappable": false,
+                "highlight": false
               },
-              "tone": "idle"
-            },
-            "right": {
-              "code": "console.log(names[1]);",
-              "result": {
-                "text": "\"Ervin\""
+              {
+                "id": "b2",
+                "label": "Frozen Capture",
+                "tappable": false,
+                "highlight": false
               },
-              "tone": "ok"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Async functions await server responses without freezing user interface.",
-            "left": {
-              "code": "console.log(names[0]);",
-              "result": {
-                "text": "\"Leanne\""
+              {
+                "id": "b3",
+                "label": "Functional Updater",
+                "tappable": false,
+                "highlight": true
               },
-              "tone": "idle"
-            },
-            "right": {
-              "code": "console.log(names[1]);",
-              "result": {
-                "text": "\"Ervin\""
-              },
-              "tone": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "compare",
-        "title": "Asynchronous HTTP request execution with fetch",
-        "leftLabel": "Request Sent",
-        "rightLabel": "Data Parsed",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Sending network requests with fetch takes non-blocking time.",
-            "left": {
-              "code": "console.log(names[0]);",
-              "result": "\"Leanne\"",
-              "tone": "idle",
-              "checks": [
-                "\"Leanne\""
-              ]
-            },
-            "right": {
-              "code": "console.log(names[1]);",
-              "result": "\"Ervin\"",
-              "tone": "ok",
-              "checks": [
-                "\"Ervin\""
-              ]
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Async functions await server responses without freezing user interface.",
-            "left": {
-              "code": "console.log(names[0]);",
-              "result": "\"Leanne\"",
-              "tone": "idle",
-              "checks": [
-                "\"Leanne\""
-              ]
-            },
-            "right": {
-              "code": "console.log(names[1]);",
-              "result": "\"Ervin\"",
-              "tone": "ok",
-              "checks": [
-                "\"Ervin\""
-              ]
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "The three states of every request",
-      "codeHash": "ac4b904a61f0e5366e08c54213c32ca90de2ac46651a545afd65b26d5b3f211a",
-      "spec": {
-        "template": "states",
-        "title": "Three core states of network request lifecycle",
-        "states": [
-          "loading",
-          "success",
-          "error"
-        ],
-        "activeIndex": 0,
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Every remote network request passes through distinct status phases.",
-            "activeIndex": 0
-          },
-          {
-            "at": "say2",
-            "caption": "Track request status in state to conditionally render loading screens.",
-            "activeIndex": 1
-          }
-        ]
-      },
-      "filled": {
-        "template": "states",
-        "title": "Three core states of network request lifecycle",
-        "states": [
-          "loading",
-          "success",
-          "error"
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Every remote network request passes through distinct status phases."
-          },
-          {
-            "at": "say2",
-            "caption": "Track request status in state to conditionally render loading screens."
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Handling errors with try and catch",
-      "codeHash": "cc409e17965877c2e3feb654656db5ca4a3cd63fcc1416114561a69af4ee2bff",
-      "spec": {
-        "template": "compare",
-        "title": "Error trapping with try and catch blocks",
-        "leftLabel": "Invalid JSON",
-        "rightLabel": "Valid JSON",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Network failures throw errors that catch blocks handle gracefully.",
-            "left": {
-              "code": "console.log(parseCompanies(\"broken json\"));",
-              "result": {
-                "text": "\"error\""
-              },
-              "tone": "warn"
-            },
-            "right": {
-              "code": "console.log(parseCompanies('{\"data\":[\"Zoho\"]}'));",
-              "result": {
-                "text": "\"success\""
-              },
-              "tone": "ok"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Wrapping requests in try catch sets error state cleanly.",
-            "left": {
-              "code": "console.log(parseCompanies(\"broken json\"));",
-              "result": {
-                "text": "\"error\""
-              },
-              "tone": "warn"
-            },
-            "right": {
-              "code": "console.log(parseCompanies('{\"data\":[\"Zoho\"]}'));",
-              "result": {
-                "text": "\"success\""
-              },
-              "tone": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "compare",
-        "title": "Error trapping with try and catch blocks",
-        "leftLabel": "Invalid JSON",
-        "rightLabel": "Valid JSON",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Network failures throw errors that catch blocks handle gracefully.",
-            "left": {
-              "code": "console.log(parseCompanies(\"broken json\"));",
-              "result": "\"error\"",
-              "tone": "warn",
-              "checks": [
-                "\"error\""
-              ]
-            },
-            "right": {
-              "code": "console.log(parseCompanies('{\"data\":[\"Zoho\"]}'));",
-              "result": "\"success\"",
-              "tone": "ok",
-              "checks": [
-                "\"success\""
-              ]
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Wrapping requests in try catch sets error state cleanly.",
-            "left": {
-              "code": "console.log(parseCompanies(\"broken json\"));",
-              "result": "\"error\"",
-              "tone": "warn",
-              "checks": [
-                "\"error\""
-              ]
-            },
-            "right": {
-              "code": "console.log(parseCompanies('{\"data\":[\"Zoho\"]}'));",
-              "result": "\"success\"",
-              "tone": "ok",
-              "checks": [
-                "\"success\""
-              ]
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Loading data in a component",
-      "codeHash": "9c8e320014faa06a525e558d37b6021a58df992097402b37a69fb0aabcca348c",
-      "spec": {
-        "template": "flow",
-        "title": "Mounting side effect request lifecycle in components",
-        "nodes": [
-          {
-            "id": "start",
-            "label": "start",
-            "tappable": false
-          },
-          {
-            "id": "status",
-            "label": "status",
-            "tappable": false
-          },
-          {
-            "id": "data",
-            "label": "data",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Fetch operations placed inside useEffect run once on mount.",
-            "values": {
-              "start": {
-                "text": "\"start\""
-              },
-              "status": {
-                "text": "\"loading\""
-              },
-              "data": {
-                "text": "companies"
+              {
+                "id": "b4",
+                "label": "Live Queue Access",
+                "tappable": false,
+                "highlight": false
               }
-            },
-            "tones": {
-              "start": "data",
-              "status": "idle",
-              "data": "idle"
-            },
-            "arrows": [
-              [
-                "start",
-                "status"
-              ]
             ]
-          },
-          {
-            "at": "say2",
-            "caption": "Setting state inside async functions updates the component view.",
-            "values": {
-              "start": {
-                "text": "\"done\""
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Counter increments smoothly without closure corruption.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Initial Scope",
+                "tappable": false,
+                "highlight": false
               },
-              "status": {
-                "text": "\"success\""
+              {
+                "id": "b2",
+                "label": "Frozen Capture",
+                "tappable": false,
+                "highlight": false
               },
-              "data": {
-                "text": "companies"
+              {
+                "id": "b3",
+                "label": "Functional Updater",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Live Queue Access",
+                "tappable": false,
+                "highlight": true
               }
-            },
-            "tones": {
-              "start": "idle",
-              "status": "ok",
-              "data": "ok"
-            },
-            "arrows": [
-              [
-                "start",
-                "status"
-              ],
-              [
-                "status",
-                "data"
-              ]
             ]
           }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Mounting side effect request lifecycle in components",
-        "nodes": [
-          {
-            "id": "start",
-            "label": "start",
-            "tappable": false
-          },
-          {
-            "id": "status",
-            "label": "status",
-            "tappable": false
-          },
-          {
-            "id": "data",
-            "label": "data",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Fetch operations placed inside useEffect run once on mount.",
-            "values": {
-              "start": "\"start\"",
-              "status": "\"loading\"",
-              "data": "companies"
-            },
-            "tones": {
-              "start": "data",
-              "status": "idle",
-              "data": "idle"
-            },
-            "arrows": [
-              [
-                "start",
-                "status"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "Setting state inside async functions updates the component view.",
-            "values": {
-              "start": "\"done\"",
-              "status": "\"success\"",
-              "data": "companies"
-            },
-            "tones": {
-              "start": "idle",
-              "status": "ok",
-              "data": "ok"
-            },
-            "arrows": [
-              [
-                "start",
-                "status"
-              ],
-              [
-                "status",
-                "data"
-              ]
-            ]
-          }
-        ]
-      }
+        }
+      ]
     },
     {
-      "partTitle": "Use the data in the Job Tracker form",
-      "codeHash": "67a85f72104f4b18e7d509f2314ca40d2b6c55f773ba1487f2971738a765a438",
-      "spec": {
-        "template": "flow",
-        "title": "Use the data in the Job Tracker form — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Use the data in the...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Use the data in the Job Tracker form [D17.P6.S1].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Use the data in the... [D17.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D17.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Use the data in the Job Tracker f.. [D17.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
+      "part": 2,
+      "title": "Exhaustive Dependencies Comparator Flow",
+      "template": "flow",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "716779f6e61721143016f1843819cf418b75afa59b75e5c1d7b709b08e8f8c6e"
       },
-      "filled": {
-        "template": "flow",
-        "title": "Use the data in the Job Tracker form — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Use the data in the...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Use the data in the Job Tracker form [D17.P6.S1].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Use the data in the... [D17.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D17.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Use the data in the Job Tracker f.. [D17.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Reconciler inspects dependency array elements on render.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Input Scanner",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n2",
+                "label": "Shallow Diff",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Skip Execution",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Schedule Passive",
+                "tappable": false,
+                "active": false
+              }
             ]
           }
-        ]
-      }
+        },
+        {
+          "step": 2,
+          "caption": "Equality comparator evaluates pairs using identity check.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Input Scanner",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Shallow Diff",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n3",
+                "label": "Skip Execution",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Schedule Passive",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Identical values mark hook with no work flag to skip.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Input Scanner",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Shallow Diff",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Skip Execution",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n4",
+                "label": "Schedule Passive",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Changed values schedule post-paint synchronization.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Input Scanner",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Shallow Diff",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Skip Execution",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Schedule Passive",
+                "tappable": false,
+                "active": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "part": 3,
+      "title": "Object Reference Instability Loop",
+      "template": "boxes",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "55205c8f4ea27e2fe67c5099bdd4499c3282b1125a91acd9d640027f22c03c10"
+      },
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Render pass allocates fresh object literal on heap.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "New Object Alloc",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b2",
+                "label": "Address Mismatch",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Effect Trigger",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Primitive Flatten",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 2,
+          "caption": "Shallow comparison fails because memory pointers differ.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "New Object Alloc",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Address Mismatch",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b3",
+                "label": "Effect Trigger",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Primitive Flatten",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Unstable reference schedules effect and triggers infinite loop.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "New Object Alloc",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Address Mismatch",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Effect Trigger",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b4",
+                "label": "Primitive Flatten",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Flattening to primitive values breaks runaway render cycle.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "New Object Alloc",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Address Mismatch",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Effect Trigger",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Primitive Flatten",
+                "tappable": false,
+                "highlight": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "part": 4,
+      "title": "Function Reference Stabilization",
+      "template": "flow",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "716040aff7a2e86fa7e3746665f67a36de339f4cb62d0b5a6ef5ee6c3386a1a6"
+      },
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Component body allocates helper function on every frame.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Inline Function",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n2",
+                "label": "Memoized Pointer",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Dependency Diff",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Stable Identity",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 2,
+          "caption": "Memoization hook caches function instance on Fiber node.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Inline Function",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Memoized Pointer",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n3",
+                "label": "Dependency Diff",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Stable Identity",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Hook compares declared inputs against previous render pass.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Inline Function",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Memoized Pointer",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Dependency Diff",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n4",
+                "label": "Stable Identity",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Cached memory address returned preserving identity.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Inline Function",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Memoized Pointer",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Dependency Diff",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Stable Identity",
+                "tappable": false,
+                "active": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "part": 5,
+      "title": "Mutable Ref Bridge Pattern",
+      "template": "flow",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "765260460525d6a9f6415872ccdefd66e90d7877c0bb82ee3b0169f270f435e5"
+      },
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Component receives dynamic props or volatile state updates.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Volatile State",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n2",
+                "label": "Ref Current Sync",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Event Trigger",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Live Value Read",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 2,
+          "caption": "Render pass synchronously updates mutable ref pointer.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Volatile State",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Ref Current Sync",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n3",
+                "label": "Event Trigger",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Live Value Read",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Long-lived effect depends only on primary event trigger.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Volatile State",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Ref Current Sync",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Event Trigger",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n4",
+                "label": "Live Value Read",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Effect reads live metadata without extra re-executions.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Volatile State",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Ref Current Sync",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Event Trigger",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Live Value Read",
+                "tappable": false,
+                "active": true
+              }
+            ]
+          }
+        }
+      ]
     }
   ]
 }

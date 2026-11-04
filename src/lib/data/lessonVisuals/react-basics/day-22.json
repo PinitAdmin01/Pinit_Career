@@ -2,756 +2,629 @@
   "schemaVersion": 1,
   "prefix": "react-basics",
   "day": 22,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
+  "visuals": [
     {
-      "partTitle": "Why every developer uses Git",
-      "codeHash": "4efcfe5a78121916971d7a770c68630ed81d893f1c980f2cdd79c4e6a96b962b",
-      "spec": {
-        "template": "flow",
-        "title": "Version control snapshots and commit progression",
-        "nodes": [
-          {
-            "id": "c1",
-            "label": "commit1",
-            "tappable": false
-          },
-          {
-            "id": "c2",
-            "label": "commit2",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Git records your working history so nothing breaks or is changed.",
-            "values": {
-              "c1": {
-                "text": "\"Create Vite project\""
-              },
-              "c2": {
-                "text": "\"Add JobCard component\""
-              }
-            },
-            "tones": {
-              "c1": "data",
-              "c2": "idle"
-            },
-            "arrows": [
-              [
-                "c1",
-                "c2"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "Each commit saves a version snapshot that you can inspect or restore.",
-            "values": {
-              "c1": {
-                "text": "\"Create Vite project\""
-              },
-              "c2": {
-                "text": "\"Add JobCard component\""
-              }
-            },
-            "tones": {
-              "c1": "idle",
-              "c2": "ok"
-            },
-            "arrows": [
-              [
-                "c1",
-                "c2"
-              ]
-            ]
-          }
-        ]
+      "part": 1,
+      "template": "flow",
+      "title": "Fiber Reconciliation Bailout Check",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "e9eba033b9d9b3a1334f0c7b39df6a874c623ae3a67698b3a1536d5edf11d90d"
       },
-      "filled": {
-        "template": "flow",
-        "title": "Version control snapshots and commit progression",
-        "nodes": [
-          {
-            "id": "c1",
-            "label": "commit1",
-            "tappable": false
-          },
-          {
-            "id": "c2",
-            "label": "commit2",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Git records your working history so nothing breaks or is changed.",
-            "values": {
-              "c1": "\"Create Vite project\"",
-              "c2": "\"Add JobCard component\""
-            },
-            "tones": {
-              "c1": "data",
-              "c2": "idle"
-            },
-            "arrows": [
-              [
-                "c1",
-                "c2"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "Each commit saves a version snapshot that you can inspect or restore.",
-            "values": {
-              "c1": "\"Create Vite project\"",
-              "c2": "\"Add JobCard component\""
-            },
-            "tones": {
-              "c1": "idle",
-              "c2": "ok"
-            },
-            "arrows": [
-              [
-                "c1",
-                "c2"
-              ]
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Fiber reconciler begins work on current node.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Begin Work",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n2",
+                "label": "Lane Inspection",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Props Pointer Diff",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Subtree Bailout",
+                "tappable": false,
+                "active": false
+              }
             ]
           }
-        ]
-      }
+        },
+        {
+          "step": 2,
+          "caption": "Engine checks if pending work lanes overlap current pass.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Begin Work",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Lane Inspection",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n3",
+                "label": "Props Pointer Diff",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Subtree Bailout",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Old props pointer is checked against pending props pointer.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Begin Work",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Lane Inspection",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Props Pointer Diff",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n4",
+                "label": "Subtree Bailout",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Matching pointers allow entire subtree to bail out.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Begin Work",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Lane Inspection",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Props Pointer Diff",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Subtree Bailout",
+                "tappable": false,
+                "active": true
+              }
+            ]
+          }
+        }
+      ]
     },
     {
-      "partTitle": "Your first commits",
-      "codeHash": "236b4b1a17d55b94bc6d35cdba82081365a216accda962745d0a2591b9c4692a",
-      "spec": {
-        "template": "compare",
-        "title": "Staging tracked files while ignoring node_modules",
-        "leftLabel": "Tracked Files",
-        "rightLabel": "Ignored Files",
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Git excludes bulky generated files listed inside the gitignore file.",
-            "left": {
-              "code": "console.log(staged);",
-              "result": {
-                "text": "\"src/App.jsx\""
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "console.log(ignored);",
-              "result": {
-                "text": "\"node_modules/\""
-              },
-              "tone": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Staging chooses changed files before recording the commit snapshot.",
-            "left": {
-              "code": "console.log(staged);",
-              "result": {
-                "text": "\"src/index.css\""
-              },
-              "tone": "ok"
-            },
-            "right": {
-              "code": "console.log(ignored);",
-              "result": {
-                "text": "\"node_modules/\""
-              },
-              "tone": "idle"
-            }
-          }
-        ]
+      "part": 2,
+      "template": "compare",
+      "title": "Shallow Equality Object Evaluation",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "cea3f51140b3dab95e8b181f754a618ad4639b9fbd4707e3ee32ec4c9d4e3b72"
       },
-      "filled": {
-        "template": "compare",
-        "title": "Staging tracked files while ignoring node_modules",
-        "leftLabel": "Tracked Files",
-        "rightLabel": "Ignored Files",
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Git excludes bulky generated files listed inside the gitignore file.",
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Shallow equality compares top level keys and pointers.",
+          "data": {
             "left": {
-              "code": "console.log(staged);",
-              "result": "\"src/App.jsx\"",
-              "tone": "ok",
-              "checks": [
-                "\"src/App.jsx\""
+              "title": "Shallow Comparison",
+              "items": [
+                "Evaluates scalar fields",
+                "Checks key count match",
+                "Fast pointer comparison"
               ]
             },
             "right": {
-              "code": "console.log(ignored);",
-              "result": "\"node_modules/\"",
-              "tone": "idle",
-              "checks": [
-                "\"node_modules/\""
-              ]
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Staging chooses changed files before recording the commit snapshot.",
-            "left": {
-              "code": "console.log(staged);",
-              "result": "\"src/index.css\"",
-              "tone": "ok",
-              "checks": [
-                "\"src/index.css\""
+              "title": "Deep Comparison",
+              "items": [
+                "Traverses nested keys",
+                "High memory overhead",
+                "Severe CPU bottleneck"
               ]
             },
-            "right": {
-              "code": "console.log(ignored);",
-              "result": "\"node_modules/\"",
-              "tone": "idle",
-              "checks": [
-                "\"node_modules/\""
-              ]
-            }
+            "highlight": "left"
           }
-        ]
-      }
+        },
+        {
+          "step": 2,
+          "caption": "Key count mismatches reject memoization immediately.",
+          "data": {
+            "left": {
+              "title": "Shallow Comparison",
+              "items": [
+                "Evaluates scalar fields",
+                "Checks key count match",
+                "Fast pointer comparison"
+              ]
+            },
+            "right": {
+              "title": "Deep Comparison",
+              "items": [
+                "Traverses nested keys",
+                "High memory overhead",
+                "Severe CPU bottleneck"
+              ]
+            },
+            "highlight": "right"
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Nested object mutations require structural sharing.",
+          "data": {
+            "left": {
+              "title": "Shallow Comparison",
+              "items": [
+                "Evaluates scalar fields",
+                "Checks key count match",
+                "Fast pointer comparison"
+              ]
+            },
+            "right": {
+              "title": "Deep Comparison",
+              "items": [
+                "Traverses nested keys",
+                "High memory overhead",
+                "Severe CPU bottleneck"
+              ]
+            },
+            "highlight": "left"
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Shallow checks preserve high frame rates on render.",
+          "data": {
+            "left": {
+              "title": "Shallow Comparison",
+              "items": [
+                "Evaluates scalar fields",
+                "Checks key count match",
+                "Fast pointer comparison"
+              ]
+            },
+            "right": {
+              "title": "Deep Comparison",
+              "items": [
+                "Traverses nested keys",
+                "High memory overhead",
+                "Severe CPU bottleneck"
+              ]
+            },
+            "highlight": "right"
+          }
+        }
+      ]
     },
     {
-      "partTitle": "Good commit messages",
-      "codeHash": "c7994214819b36f4148d58ab5485f3c1b5bc2344eaed192f9e0deb242b77ce52",
-      "spec": {
-        "template": "compare",
-        "title": "Evaluating commit message clarity and length standards",
-        "leftLabel": "Vague Message",
-        "rightLabel": "Descriptive Message",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Vague commit messages make tracking project changes difficult.",
-            "left": {
-              "code": "console.log(isGoodCommitMessage(\"fix\"));",
-              "result": {
-                "text": "\"fix\""
-              },
-              "tone": "err"
-            },
-            "right": {
-              "code": "console.log(isGoodCommitMessage(\"Add validation to the job form\"));",
-              "result": {
-                "text": "\"Add validation to the job form\""
-              },
-              "tone": "idle"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Clear commit messages begin with a verb and explain what changed.",
-            "left": {
-              "code": "console.log(isGoodCommitMessage(\"changes\"));",
-              "result": {
-                "text": "\"changes\""
-              },
-              "tone": "err"
-            },
-            "right": {
-              "code": "console.log(isGoodCommitMessage(\"Add validation to the job form\"));",
-              "result": {
-                "text": "\"Add validation to the job form\""
-              },
-              "tone": "ok"
-            }
-          }
-        ]
+      "part": 3,
+      "template": "boxes",
+      "title": "Computational Memoization Cache",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "d89f5703a7fac4011b54f751087be9f3bcf8c9d6d9aece0a14b35a2c5f383259"
       },
-      "filled": {
-        "template": "compare",
-        "title": "Evaluating commit message clarity and length standards",
-        "leftLabel": "Vague Message",
-        "rightLabel": "Descriptive Message",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Vague commit messages make tracking project changes difficult.",
-            "left": {
-              "code": "console.log(isGoodCommitMessage(\"fix\"));",
-              "result": "\"fix\"",
-              "tone": "err",
-              "checks": [
-                "\"fix\""
-              ]
-            },
-            "right": {
-              "code": "console.log(isGoodCommitMessage(\"Add validation to the job form\"));",
-              "result": "\"Add validation to the job form\"",
-              "tone": "idle",
-              "checks": [
-                "\"Add validation to the job form\""
-              ]
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Clear commit messages begin with a verb and explain what changed.",
-            "left": {
-              "code": "console.log(isGoodCommitMessage(\"changes\"));",
-              "result": "\"changes\"",
-              "tone": "err",
-              "checks": [
-                "\"changes\""
-              ]
-            },
-            "right": {
-              "code": "console.log(isGoodCommitMessage(\"Add validation to the job form\"));",
-              "result": "\"Add validation to the job form\"",
-              "tone": "ok",
-              "checks": [
-                "\"Add validation to the job form\""
-              ]
-            }
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Expensive calculation evaluates on initial mount pass.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Compute Function",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b2",
+                "label": "Dependency Array",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Cached Result",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Returned Output",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
           }
-        ]
-      }
+        },
+        {
+          "step": 2,
+          "caption": "Dependencies are captured in fiber hook record.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Compute Function",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Dependency Array",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b3",
+                "label": "Cached Result",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Returned Output",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Calculated result is cached in memory for reuse.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Compute Function",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Dependency Array",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Cached Result",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b4",
+                "label": "Returned Output",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Cache returns stored value while dependencies match.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Compute Function",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Dependency Array",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Cached Result",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Returned Output",
+                "tappable": false,
+                "highlight": true
+              }
+            ]
+          }
+        }
+      ]
     },
     {
-      "partTitle": "Branches: trying ideas safely",
-      "codeHash": "558977655f51d8f11124a59200cc7a9acf062c91529bfa06245901938035feb7",
-      "spec": {
-        "template": "flow",
-        "title": "Branch creation and merging into main",
-        "nodes": [
-          {
-            "id": "main",
-            "label": "main",
-            "tappable": false
-          },
-          {
-            "id": "feat",
-            "label": "branch",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Create an isolated branch to work on new features safely.",
-            "values": {
-              "main": {
-                "text": "\"Add Login Page\""
-              },
-              "feat": {
-                "text": "\"Add Login Page\""
-              }
-            },
-            "tones": {
-              "main": "idle",
-              "feat": "data"
-            },
-            "arrows": [
-              [
-                "main",
-                "feat"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "Merge successful branch features back into main when finished.",
-            "values": {
-              "main": {
-                "text": "\"  Edit job details \""
-              },
-              "feat": {
-                "text": "\"  Edit job details \""
-              }
-            },
-            "tones": {
-              "main": "ok",
-              "feat": "ok"
-            },
-            "arrows": [
-              [
-                "main",
-                "feat"
-              ],
-              [
-                "feat",
-                "main"
-              ]
-            ]
-          }
-        ]
+      "part": 4,
+      "template": "flow",
+      "title": "Callback Reference Preservation",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "6118ab71fcf6e16de20b01eb12b451149d83d6e88b07b21d40c62f0917c51c68"
       },
-      "filled": {
-        "template": "flow",
-        "title": "Branch creation and merging into main",
-        "nodes": [
-          {
-            "id": "main",
-            "label": "main",
-            "tappable": false
-          },
-          {
-            "id": "feat",
-            "label": "branch",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Create an isolated branch to work on new features safely.",
-            "values": {
-              "main": "\"Add Login Page\"",
-              "feat": "\"Add Login Page\""
-            },
-            "tones": {
-              "main": "idle",
-              "feat": "data"
-            },
-            "arrows": [
-              [
-                "main",
-                "feat"
-              ]
-            ]
-          },
-          {
-            "at": "say2",
-            "caption": "Merge successful branch features back into main when finished.",
-            "values": {
-              "main": "\"  Edit job details \"",
-              "feat": "\"  Edit job details \""
-            },
-            "tones": {
-              "main": "ok",
-              "feat": "ok"
-            },
-            "arrows": [
-              [
-                "main",
-                "feat"
-              ],
-              [
-                "feat",
-                "main"
-              ]
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Parent component begins new execution render pass.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Parent Render",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n2",
+                "label": "Hook Evaluation",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Cached Pointer",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Child Bailout",
+                "tappable": false,
+                "active": false
+              }
             ]
           }
-        ]
-      }
+        },
+        {
+          "step": 2,
+          "caption": "Callback hook verifies dependency equality list.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Parent Render",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Hook Evaluation",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n3",
+                "label": "Cached Pointer",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Child Bailout",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Cached function reference is returned intact.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Parent Render",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Hook Evaluation",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Cached Pointer",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n4",
+                "label": "Child Bailout",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Memoized child receives identical pointer and skips.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Parent Render",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Hook Evaluation",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Cached Pointer",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Child Bailout",
+                "tappable": false,
+                "active": true
+              }
+            ]
+          }
+        }
+      ]
     },
     {
-      "partTitle": "Pushing to GitHub",
-      "codeHash": "0e70f000f5456b2f550ff636cef09fe8c9994523e673ed3039e28056029de97b",
-      "spec": {
-        "template": "boxes",
-        "title": "Synchronizing local commits with remote GitHub repository",
-        "boxes": [
-          {
-            "id": "local",
-            "label": "local",
-            "tappable": false
-          },
-          {
-            "id": "remote",
-            "label": "GitHub",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Local repositories keep commit history on your computer.",
-            "values": {
-              "local": {
-                "text": "\"c1\""
-              },
-              "remote": {
-                "text": "\"c1\""
-              }
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Push uploads commits to your online repository on GitHub.",
-            "values": {
-              "local": {
-                "text": "\"c3\""
-              },
-              "remote": {
-                "text": "\"c2\""
-              }
-            }
-          }
-        ]
+      "part": 5,
+      "template": "compare",
+      "title": "Flame Chart Render Cost Breakdown",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "1e8f59a60a7bb466229fe21d4969a17bdbc2bd5cf2fc3d87eeb5cbb5f181fe1a"
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Synchronizing local commits with remote GitHub repository",
-        "boxes": [
-          {
-            "id": "local",
-            "label": "local",
-            "tappable": false
-          },
-          {
-            "id": "remote",
-            "label": "GitHub",
-            "tappable": false
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Unmemoized components show wide yellow flame bars.",
+          "data": {
+            "left": {
+              "title": "Unmemoized Churn",
+              "items": [
+                "Wide yellow bars",
+                "Dropped display frames",
+                "High execution cost"
+              ]
+            },
+            "right": {
+              "title": "Memoized Execution",
+              "items": [
+                "Thin blue bars",
+                "Sustained high refresh",
+                "Hatched gray bailouts"
+              ]
+            },
+            "highlight": "left"
           }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Local repositories keep commit history on your computer.",
-            "values": {
-              "local": "\"c1\"",
-              "remote": "\"c1\""
+        },
+        {
+          "step": 2,
+          "caption": "Main thread blocks on unnecessary rendering passes.",
+          "data": {
+            "left": {
+              "title": "Unmemoized Churn",
+              "items": [
+                "Wide yellow bars",
+                "Dropped display frames",
+                "High execution cost"
+              ]
             },
-            "tones": {}
-          },
-          {
-            "at": "say2",
-            "caption": "Push uploads commits to your online repository on GitHub.",
-            "values": {
-              "local": "\"c3\"",
-              "remote": "\"c2\""
+            "right": {
+              "title": "Memoized Execution",
+              "items": [
+                "Thin blue bars",
+                "Sustained high refresh",
+                "Hatched gray bailouts"
+              ]
             },
-            "tones": {}
+            "highlight": "right"
           }
-        ]
-      }
-    },
-    {
-      "partTitle": "A README that sells your project",
-      "codeHash": "87a3168f0875baa33ec6e90033c7076e712b408bc803694d8507b7d0acef4006",
-      "spec": {
-        "template": "flow",
-        "title": "A README that sells your project — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. A README that sells...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+        },
+        {
+          "step": 3,
+          "caption": "Memoized components show narrow blue execution bars.",
+          "data": {
+            "left": {
+              "title": "Unmemoized Churn",
+              "items": [
+                "Wide yellow bars",
+                "Dropped display frames",
+                "High execution cost"
+              ]
+            },
+            "right": {
+              "title": "Memoized Execution",
+              "items": [
+                "Thin blue bars",
+                "Sustained high refresh",
+                "Hatched gray bailouts"
+              ]
+            },
+            "highlight": "left"
           }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for A README that sells your project [D22.P6.S1].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
+        },
+        {
+          "step": 4,
+          "caption": "Clean bailouts render as gray hatched patterns.",
+          "data": {
+            "left": {
+              "title": "Unmemoized Churn",
+              "items": [
+                "Wide yellow bars",
+                "Dropped display frames",
+                "High execution cost"
               ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in A README that sells... [D22.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+            "right": {
+              "title": "Memoized Execution",
+              "items": [
+                "Thin blue bars",
+                "Sustained high refresh",
+                "Hatched gray bailouts"
               ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D22.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for A README that sells your project [D22.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "highlight": "right"
           }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "A README that sells your project — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. A README that sells...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for A README that sells your project [D22.P6.S1].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in A README that sells... [D22.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D22.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for A README that sells your project [D22.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      }
+        }
+      ]
     }
   ]
 }

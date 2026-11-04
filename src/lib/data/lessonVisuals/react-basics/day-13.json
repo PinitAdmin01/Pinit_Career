@@ -2,794 +2,677 @@
   "schemaVersion": 1,
   "prefix": "react-basics",
   "day": 13,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
+  "visuals": [
     {
-      "partTitle": "What events are",
-      "codeHash": "4cd3eb534fad30985c4751315a05b91643994f67db48b2b761e4f4986089e9be",
-      "spec": {
-        "template": "flow",
-        "title": "Unidirectional cycle of user event to screen update",
-        "nodes": [
-          {
-            "id": "evt",
-            "label": "click",
-            "tappable": false
-          },
-          {
-            "id": "state",
-            "label": "state",
-            "tappable": false
-          },
-          {
-            "id": "ui",
-            "label": "screen",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "An event represents a user action like a button click.",
-            "values": {
-              "evt": {
-                "text": "\"click\""
-              },
-              "state": {
-                "text": "likes"
-              },
-              "ui": {
-                "text": "likes"
-              }
-            },
-            "tones": {
-              "evt": "data",
-              "state": "idle",
-              "ui": "idle"
-            },
-            "arrows": [
-              [
-                "evt",
-                "state"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Click events change state and trigger screen re-renders.",
-            "values": {
-              "evt": {
-                "text": "\"click\""
-              },
-              "state": {
-                "text": "likes"
-              },
-              "ui": {
-                "text": "likes"
-              }
-            },
-            "tones": {
-              "evt": "idle",
-              "state": "ok",
-              "ui": "ok"
-            },
-            "arrows": [
-              [
-                "evt",
-                "state"
-              ],
-              [
-                "state",
-                "ui"
-              ]
-            ]
-          }
-        ]
+      "part": 1,
+      "title": "Centralized Root Container Event Delegation",
+      "template": "flow",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "c70911bc7bc27930e82b81285461ac76f3dcf16ffb042a84570dc4c035c8674f"
       },
-      "filled": {
-        "template": "flow",
-        "title": "Unidirectional cycle of user event to screen update",
-        "nodes": [
-          {
-            "id": "evt",
-            "label": "click",
-            "tappable": false
-          },
-          {
-            "id": "state",
-            "label": "state",
-            "tappable": false
-          },
-          {
-            "id": "ui",
-            "label": "screen",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "An event represents a user action like a button click.",
-            "values": {
-              "evt": "\"click\"",
-              "state": "likes",
-              "ui": "likes"
-            },
-            "tones": {
-              "evt": "data",
-              "state": "idle",
-              "ui": "idle"
-            },
-            "arrows": [
-              [
-                "evt",
-                "state"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Click events change state and trigger screen re-renders.",
-            "values": {
-              "evt": "\"click\"",
-              "state": "likes",
-              "ui": "likes"
-            },
-            "tones": {
-              "evt": "idle",
-              "state": "ok",
-              "ui": "ok"
-            },
-            "arrows": [
-              [
-                "evt",
-                "state"
-              ],
-              [
-                "state",
-                "ui"
-              ]
+      "steps": [
+        {
+          "step": 1,
+          "caption": "User clicks interactive button deep within tree.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Leaf Element",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n2",
+                "label": "Native Bubble",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Root Container",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Synthetic Dispatch",
+                "tappable": false,
+                "active": false
+              }
             ]
           }
-        ]
-      }
+        },
+        {
+          "step": 2,
+          "caption": "Native browser event bubbles naturally through document.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Leaf Element",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Native Bubble",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n3",
+                "label": "Root Container",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Synthetic Dispatch",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Centralized listener intercepts event at root boundary.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Leaf Element",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Native Bubble",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Root Container",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n4",
+                "label": "Synthetic Dispatch",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "React routes synthetic event to matching component fiber.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Leaf Element",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Native Bubble",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Root Container",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Synthetic Dispatch",
+                "tappable": false,
+                "active": true
+              }
+            ]
+          }
+        }
+      ]
     },
     {
-      "partTitle": "onClick: pass the function, do not call it",
-      "codeHash": "849d83afc1cad9f0d0c2f0a6de26c8390636050574134dff461f0feea24c7ad6",
-      "spec": {
-        "template": "compare",
-        "title": "Passing callback function reference versus immediate execution",
-        "leftLabel": "Function Reference",
-        "rightLabel": "Immediate Call (Bug)",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Calling a function with brackets runs immediately during page draw.",
+      "part": 2,
+      "title": "Legacy Event Pooling vs Modern Immutable Allocation",
+      "template": "compare",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "f2f194b043594470209cfc21948277e0f2b5d06c84fa16d60a9490bf8f7c7452"
+      },
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Legacy architecture recycled single event object across actions.",
+          "data": {
             "left": {
-              "code": "const good = sayHi;",
-              "result": {
-                "text": "\"function\""
-              },
-              "tone": "ok"
+              "title": "Legacy Pooled Events",
+              "items": [
+                "Shared Instance Pool",
+                "Fields Wiped to Null",
+                "Broken Async Closures",
+                "Persist Method Required"
+              ],
+              "highlightIndex": 0
             },
             "right": {
-              "code": "const bad = sayHi();",
-              "result": {
-                "text": "\"done\""
-              },
-              "tone": "warn"
+              "title": "Modern Unpooled Events",
+              "items": [
+                "Fresh Heap Instances",
+                "Permanent Event Data",
+                "Safe Async Access",
+                "Scavenge GC Efficiency"
+              ],
+              "highlightIndex": 0
             }
-          },
-          {
-            "at": "say2",
-            "caption": "Pass the function without brackets so React calls it on click.",
+          }
+        },
+        {
+          "step": 2,
+          "caption": "Asynchronous closures encountered wiped null properties.",
+          "data": {
             "left": {
-              "code": "const good = sayHi;",
-              "result": {
-                "text": "\"function\""
-              },
-              "tone": "ok"
+              "title": "Legacy Pooled Events",
+              "items": [
+                "Shared Instance Pool",
+                "Fields Wiped to Null",
+                "Broken Async Closures",
+                "Persist Method Required"
+              ],
+              "highlightIndex": 1
             },
             "right": {
-              "code": "const bad = sayHi();",
-              "result": {
-                "text": "\"done\""
-              },
-              "tone": "warn"
+              "title": "Modern Unpooled Events",
+              "items": [
+                "Fresh Heap Instances",
+                "Permanent Event Data",
+                "Safe Async Access",
+                "Scavenge GC Efficiency"
+              ],
+              "highlightIndex": 1
             }
           }
-        ]
-      },
-      "filled": {
-        "template": "compare",
-        "title": "Passing callback function reference versus immediate execution",
-        "leftLabel": "Function Reference",
-        "rightLabel": "Immediate Call (Bug)",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Calling a function with brackets runs immediately during page draw.",
+        },
+        {
+          "step": 3,
+          "caption": "Modern architecture allocates independent immutable instances.",
+          "data": {
             "left": {
-              "code": "const good = sayHi;",
-              "result": "\"function\"",
-              "tone": "ok",
-              "checks": [
-                "\"function\""
-              ]
+              "title": "Legacy Pooled Events",
+              "items": [
+                "Shared Instance Pool",
+                "Fields Wiped to Null",
+                "Broken Async Closures",
+                "Persist Method Required"
+              ],
+              "highlightIndex": 2
             },
             "right": {
-              "code": "const bad = sayHi();",
-              "result": "\"done\"",
-              "tone": "warn",
-              "checks": [
-                "\"done\""
-              ]
+              "title": "Modern Unpooled Events",
+              "items": [
+                "Fresh Heap Instances",
+                "Permanent Event Data",
+                "Safe Async Access",
+                "Scavenge GC Efficiency"
+              ],
+              "highlightIndex": 2
             }
-          },
-          {
-            "at": "say2",
-            "caption": "Pass the function without brackets so React calls it on click.",
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Generational nursery garbage collection cleans objects fast.",
+          "data": {
             "left": {
-              "code": "const good = sayHi;",
-              "result": "\"function\"",
-              "tone": "ok",
-              "checks": [
-                "\"function\""
-              ]
+              "title": "Legacy Pooled Events",
+              "items": [
+                "Shared Instance Pool",
+                "Fields Wiped to Null",
+                "Broken Async Closures",
+                "Persist Method Required"
+              ],
+              "highlightIndex": 3
             },
             "right": {
-              "code": "const bad = sayHi();",
-              "result": "\"done\"",
-              "tone": "warn",
-              "checks": [
-                "\"done\""
-              ]
+              "title": "Modern Unpooled Events",
+              "items": [
+                "Fresh Heap Instances",
+                "Permanent Event Data",
+                "Safe Async Access",
+                "Scavenge GC Efficiency"
+              ],
+              "highlightIndex": 3
             }
           }
-        ]
-      }
+        }
+      ]
     },
     {
-      "partTitle": "The event object",
-      "codeHash": "3495f1a6479bd363839f072d0dd14db05b32b124ce78fbbdb1b4a7e0f32ee6f9",
-      "spec": {
-        "template": "boxes",
-        "title": "Inspecting synthetic event target and keyboard properties",
-        "boxes": [
-          {
-            "id": "key",
-            "label": "key",
-            "tappable": false
-          },
-          {
-            "id": "val",
-            "label": "value",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The event object provides properties like target value and key.",
-            "values": {
-              "key": {
-                "text": "\"r\""
-              },
-              "val": {
-                "text": "\"r\""
-              }
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Handlers check event key values to detect Enter key presses.",
-            "values": {
-              "key": {
-                "text": "\"Enter\""
-              },
-              "val": {
-                "text": "\"react\""
-              }
-            }
-          }
-        ]
+      "part": 3,
+      "title": "Propagation Phases and Stop Propagation Boundary",
+      "template": "boxes",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "4ca6b49f41eaf825183c6afc2108eccaf266a234664e302be0f7a50fff59b74e"
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Inspecting synthetic event target and keyboard properties",
-        "boxes": [
-          {
-            "id": "key",
-            "label": "key",
-            "tappable": false
-          },
-          {
-            "id": "val",
-            "label": "value",
-            "tappable": false
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Native event travels downward from window through ancestors.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Native Capture",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b2",
+                "label": "Native Bubble",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Synthetic Tree",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Stop Action",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
           }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The event object provides properties like target value and key.",
-            "values": {
-              "key": "\"r\"",
-              "val": "\"r\""
-            },
-            "tones": {}
-          },
-          {
-            "at": "say4",
-            "caption": "Handlers check event key values to detect Enter key presses.",
-            "values": {
-              "key": "\"Enter\"",
-              "val": "\"react\""
-            },
-            "tones": {}
+        },
+        {
+          "step": 2,
+          "caption": "Event reverses direction ascending through parent elements.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Native Capture",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Native Bubble",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b3",
+                "label": "Synthetic Tree",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Stop Action",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
           }
-        ]
-      }
+        },
+        {
+          "step": 3,
+          "caption": "Root delegator constructs synthetic fiber traversal path.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Native Capture",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Native Bubble",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Synthetic Tree",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b4",
+                "label": "Stop Action",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Stop propagation halts synthetic queue without breaking native.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Native Capture",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Native Bubble",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Synthetic Tree",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Stop Action",
+                "tappable": false,
+                "highlight": true
+              }
+            ]
+          }
+        }
+      ]
     },
     {
-      "partTitle": "onChange: reacting to typing",
-      "codeHash": "f981124dd36b9f98e9493faeec24ed061a37940433126b441b6ab4e276f49e7b",
-      "spec": {
-        "template": "flow",
-        "title": "Live search query filtering with onChange events",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "onChange",
-            "tappable": false
-          },
-          {
-            "id": "query",
-            "label": "search",
-            "tappable": false
-          },
-          {
-            "id": "list",
-            "label": "shown",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Typing triggers onChange to update the search state text.",
-            "values": {
-              "input": {
-                "text": "\"d\""
-              },
-              "query": {
-                "text": "\"d\""
-              },
-              "list": {
-                "text": "jobs"
-              }
-            },
-            "tones": {
-              "input": "data",
-              "query": "idle",
-              "list": "idle"
-            },
-            "arrows": [
-              [
-                "input",
-                "query"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Filtering jobs by search query updates the list dynamically.",
-            "values": {
-              "input": {
-                "text": "\"dev\""
-              },
-              "query": {
-                "text": "\"dev\""
-              },
-              "list": {
-                "text": "jobs"
-              }
-            },
-            "tones": {
-              "input": "idle",
-              "query": "ok",
-              "list": "ok"
-            },
-            "arrows": [
-              [
-                "input",
-                "query"
-              ],
-              [
-                "query",
-                "list"
-              ]
-            ]
-          }
-        ]
+      "part": 4,
+      "title": "Hardware Accelerated Passive Scroll Pipeline",
+      "template": "flow",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "8f78bf2749874153822b3abf2e56c6a2af8ca64194a05aef428d9e13de59f664"
       },
-      "filled": {
-        "template": "flow",
-        "title": "Live search query filtering with onChange events",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "onChange",
-            "tappable": false
-          },
-          {
-            "id": "query",
-            "label": "search",
-            "tappable": false
-          },
-          {
-            "id": "list",
-            "label": "shown",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Typing triggers onChange to update the search state text.",
-            "values": {
-              "input": "\"d\"",
-              "query": "\"d\"",
-              "list": "jobs"
-            },
-            "tones": {
-              "input": "data",
-              "query": "idle",
-              "list": "idle"
-            },
-            "arrows": [
-              [
-                "input",
-                "query"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Filtering jobs by search query updates the list dynamically.",
-            "values": {
-              "input": "\"dev\"",
-              "query": "\"dev\"",
-              "list": "jobs"
-            },
-            "tones": {
-              "input": "idle",
-              "query": "ok",
-              "list": "ok"
-            },
-            "arrows": [
-              [
-                "input",
-                "query"
-              ],
-              [
-                "query",
-                "list"
-              ]
+      "steps": [
+        {
+          "step": 1,
+          "caption": "User gesture sends high frequency coordinate interrupts.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Touch Hardware",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n2",
+                "label": "Compositor Thread",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Passive Contract",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Hardware Scroll",
+                "tappable": false,
+                "active": false
+              }
             ]
           }
-        ]
-      }
+        },
+        {
+          "step": 2,
+          "caption": "Compositor thread inspects registered listener flags.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Touch Hardware",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Compositor Thread",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n3",
+                "label": "Passive Contract",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Hardware Scroll",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Passive flag promises listener will never cancel scroll.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Touch Hardware",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Compositor Thread",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Passive Contract",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n4",
+                "label": "Hardware Scroll",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Compositor shifts pixels on graphics processor with zero lag.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Touch Hardware",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Compositor Thread",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Passive Contract",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Hardware Scroll",
+                "tappable": false,
+                "active": true
+              }
+            ]
+          }
+        }
+      ]
     },
     {
-      "partTitle": "Handlers that update objects",
-      "codeHash": "bd89ecd90e20d3af19bad2fa5a6ab3b11508c6f544a1354fdee6daf31d562fc8",
-      "spec": {
-        "template": "boxes",
-        "title": "State updates using plain logic functions",
-        "boxes": [
-          {
-            "id": "liked",
-            "label": "liked",
-            "tappable": false
-          },
-          {
-            "id": "likes",
-            "label": "likes",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Clicking flips liked status and updates the like count.",
-            "values": {
-              "liked": {
-                "text": "false"
-              },
-              "likes": {
-                "text": "10"
-              }
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "A small logic function returns a new post object.",
-            "values": {
-              "liked": {
-                "text": "true"
-              },
-              "likes": {
-                "text": "10"
-              }
-            }
-          }
-        ]
+      "part": 5,
+      "title": "Keyboard Accessibility Interaction Contract",
+      "template": "boxes",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "30b7e5adbab540a5d4697444005d4292ef8a3de849db314706b51c5d7ec790ae"
       },
-      "filled": {
-        "template": "boxes",
-        "title": "State updates using plain logic functions",
-        "boxes": [
-          {
-            "id": "liked",
-            "label": "liked",
-            "tappable": false
-          },
-          {
-            "id": "likes",
-            "label": "likes",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Clicking flips liked status and updates the like count.",
-            "values": {
-              "liked": "false",
-              "likes": "10"
-            },
-            "tones": {}
-          },
-          {
-            "at": "say2",
-            "caption": "A small logic function returns a new post object.",
-            "values": {
-              "liked": "true",
-              "likes": "10"
-            },
-            "tones": {}
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Status buttons in the Job Tracker",
-      "codeHash": "3e6d20fd817c10fb8258459e62ebb76320ecad788353cfc52d27905efaff7217",
-      "spec": {
-        "template": "flow",
-        "title": "Status buttons in the Job Tracker — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Status buttons in t...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Status buttons in the Job Tracker [D13.P6.S1].",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Status buttons in t... [D13.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D13.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Status buttons in the Job Tracker [D13.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Tab index integrates custom element into sequential focus order.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Keyboard Focus",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b2",
+                "label": "Role Contract",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Key Evaluation",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Semantic Action",
+                "tappable": false,
+                "highlight": false
+              }
             ]
           }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Status buttons in the Job Tracker — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Status buttons in t...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Status buttons in the Job Tracker [D13.P6.S1].",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Status buttons in t... [D13.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D13.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Status buttons in the Job Tracker [D13.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+        },
+        {
+          "step": 2,
+          "caption": "Explicit button role announces semantic identity to readers.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Keyboard Focus",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Role Contract",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b3",
+                "label": "Key Evaluation",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Semantic Action",
+                "tappable": false,
+                "highlight": false
+              }
             ]
           }
-        ]
-      }
+        },
+        {
+          "step": 3,
+          "caption": "Keyboard listener filters Enter and Space key activations.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Keyboard Focus",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Role Contract",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Key Evaluation",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b4",
+                "label": "Semantic Action",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Prevent default cancels space scroll executing business action.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Keyboard Focus",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Role Contract",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Key Evaluation",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Semantic Action",
+                "tappable": false,
+                "highlight": true
+              }
+            ]
+          }
+        }
+      ]
     }
   ]
 }

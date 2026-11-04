@@ -2,698 +2,665 @@
   "schemaVersion": 1,
   "prefix": "react-basics",
   "day": 25,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
+  "visuals": [
     {
-      "partTitle": "Filter tabs",
-      "codeHash": "8ab4c6598f5d4cb5bb5ee862761a6e0cdf2df6e597ebbb6c0024c8605cff2cab",
-      "spec": {
-        "template": "wireframe",
-        "title": "Filter tabs navigation and status counts",
-        "wireframe": {
-          "header": "Job Filter Navigation",
-          "sections": [
-            {
-              "id": "all",
-              "label": "All Jobs Tab",
-              "kind": "button"
+      "part": 1,
+      "template": "compare",
+      "title": "Disjoint Boolean State Versus Finite State Machine",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "ed64f89ef1175749b4b593c4e014b03b7172990cc3cb81789c1e84e41d62b660"
+      },
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Multiple boolean flags allow impossible concurrent states.",
+          "data": {
+            "left": {
+              "title": "Disjoint Booleans",
+              "items": [
+                "Tangled state flags",
+                "Impossible states",
+                "Desynchronized UI"
+              ]
             },
-            {
-              "id": "interview",
-              "label": "Interview Tab",
-              "kind": "button"
+            "right": {
+              "title": "Finite State Machine",
+              "items": [
+                "Strict enum statuses",
+                "Declared transitions",
+                "Guaranteed invariants"
+              ]
             },
-            {
-              "id": "offer",
-              "label": "Offer Tab",
-              "kind": "button"
-            }
-          ]
+            "highlight": "left"
+          }
         },
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Clicking a filter tab restricts visible applications to that status.",
-            "focus": "all"
-          },
-          {
-            "at": "say3",
-            "caption": "Tab buttons display counts and highlight the active selection.",
-            "focus": "interview"
-          }
-        ]
-      },
-      "filled": {
-        "template": "wireframe",
-        "title": "Filter tabs navigation and status counts",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Clicking a filter tab restricts visible applications to that status."
-          },
-          {
-            "at": "say3",
-            "caption": "Tab buttons display counts and highlight the active selection."
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Search, filter and sort together",
-      "codeHash": "096cd5f6d218d65ab7e6406e42c1761956ad30bfaf61e6764c4374ad1f222596",
-      "spec": {
-        "template": "flow",
-        "title": "Sequential filtering, searching and sorting pipeline",
-        "nodes": [
-          {
-            "id": "tab",
-            "label": "tab",
-            "tappable": false
-          },
-          {
-            "id": "search",
-            "label": "search",
-            "tappable": false
-          },
-          {
-            "id": "sort",
-            "label": "sort",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Chain filtering by tab, keyword search and sorting sequentially.",
-            "values": {
-              "tab": {
-                "text": "\"interview\""
-              },
-              "search": {
-                "text": "\"dev\""
-              },
-              "sort": {
-                "text": "\"newest\""
-              }
-            },
-            "tones": {
-              "tab": "data",
-              "search": "idle",
-              "sort": "idle"
-            },
-            "arrows": [
-              [
-                "tab",
-                "search"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Narrow the collection first to minimize items sorted in memory.",
-            "values": {
-              "tab": {
-                "text": "\"interview\""
-              },
-              "search": {
-                "text": "\"dev\""
-              },
-              "sort": {
-                "text": "\"newest\""
-              }
-            },
-            "tones": {
-              "tab": "idle",
-              "search": "data",
-              "sort": "ok"
-            },
-            "arrows": [
-              [
-                "tab",
-                "search"
-              ],
-              [
-                "search",
-                "sort"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Sequential filtering, searching and sorting pipeline",
-        "nodes": [
-          {
-            "id": "tab",
-            "label": "tab",
-            "tappable": false
-          },
-          {
-            "id": "search",
-            "label": "search",
-            "tappable": false
-          },
-          {
-            "id": "sort",
-            "label": "sort",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Chain filtering by tab, keyword search and sorting sequentially.",
-            "values": {
-              "tab": "\"interview\"",
-              "search": "\"dev\"",
-              "sort": "\"newest\""
-            },
-            "tones": {
-              "tab": "data",
-              "search": "idle",
-              "sort": "idle"
-            },
-            "arrows": [
-              [
-                "tab",
-                "search"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Narrow the collection first to minimize items sorted in memory.",
-            "values": {
-              "tab": "\"interview\"",
-              "search": "\"dev\"",
-              "sort": "\"newest\""
-            },
-            "tones": {
-              "tab": "idle",
-              "search": "data",
-              "sort": "ok"
-            },
-            "arrows": [
-              [
-                "tab",
-                "search"
-              ],
-              [
-                "search",
-                "sort"
-              ]
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Clean data when adding a job",
-      "codeHash": "0317076a9b99822375425c69f5d4b9c91037f23348d8ec0424a7441ed8a8846d",
-      "spec": {
-        "template": "boxes",
-        "title": "Input sanitization and default field assignment",
-        "boxes": [
-          {
-            "id": "title",
-            "label": "title",
-            "tappable": false
-          },
-          {
-            "id": "company",
-            "label": "company",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Store application dates using the standard year-month-day input.",
-            "values": {
-              "title": {
-                "text": "\"  React Dev \""
-              },
-              "company": {
-                "text": "\" Zoho\""
-              }
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Trim whitespace and assign default values before creating a job.",
-            "values": {
-              "title": {
-                "text": "\"applied\""
-              },
-              "company": {
-                "text": "\"\""
-              }
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Input sanitization and default field assignment",
-        "boxes": [
-          {
-            "id": "title",
-            "label": "title",
-            "tappable": false
-          },
-          {
-            "id": "company",
-            "label": "company",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Store application dates using the standard year-month-day input.",
-            "values": {
-              "title": "\"  React Dev \"",
-              "company": "\" Zoho\""
-            },
-            "tones": {}
-          },
-          {
-            "at": "say3",
-            "caption": "Trim whitespace and assign default values before creating a job.",
-            "values": {
-              "title": "\"applied\"",
-              "company": "\"\""
-            },
-            "tones": {}
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Keeping filters in the address",
-      "codeHash": "bf30639434d191d9ea3855687f6a697eca1d1d3de1f67b1679c3c7638af517be",
-      "spec": {
-        "template": "compare",
-        "title": "Query parameter synchronization with browser URL",
-        "leftLabel": "Read Query Params",
-        "rightLabel": "Update Query Params",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "When a user selects the interview tab keep it in the address.",
+        {
+          "step": 2,
+          "caption": "Race conditions create simultaneous loading and error views.",
+          "data": {
             "left": {
-              "code": "console.log(params.get(\"status\"));",
-              "result": {
-                "text": "\"status=interview&sort=newest\""
-              },
-              "tone": "idle"
-            },
-            "right": {
-              "code": "params.set(\"status\", \"offer\");",
-              "result": {
-                "text": "\"offer\""
-              },
-              "tone": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Preserve filter state across browser refreshes and shareable links.",
-            "left": {
-              "code": "console.log(params.get(\"status\"));",
-              "result": {
-                "text": "\"status=interview&sort=newest\""
-              },
-              "tone": "idle"
-            },
-            "right": {
-              "code": "console.log(params.toString());",
-              "result": {
-                "text": "\"status=offer&sort=newest\""
-              },
-              "tone": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "compare",
-        "title": "Query parameter synchronization with browser URL",
-        "leftLabel": "Read Query Params",
-        "rightLabel": "Update Query Params",
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "When a user selects the interview tab keep it in the address.",
-            "left": {
-              "code": "console.log(params.get(\"status\"));",
-              "result": "\"status=interview&sort=newest\"",
-              "tone": "idle",
-              "checks": [
-                "\"status=interview&sort=newest\""
+              "title": "Disjoint Booleans",
+              "items": [
+                "Tangled state flags",
+                "Impossible states",
+                "Desynchronized UI"
               ]
             },
             "right": {
-              "code": "params.set(\"status\", \"offer\");",
-              "result": "\"offer\"",
-              "tone": "idle",
-              "checks": [
-                "\"offer\""
+              "title": "Finite State Machine",
+              "items": [
+                "Strict enum statuses",
+                "Declared transitions",
+                "Guaranteed invariants"
               ]
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Preserve filter state across browser refreshes and shareable links.",
+            },
+            "highlight": "right"
+          }
+        },
+        {
+          "step": 3,
+          "caption": "State machines enforce mutually exclusive status values.",
+          "data": {
             "left": {
-              "code": "console.log(params.get(\"status\"));",
-              "result": "\"status=interview&sort=newest\"",
-              "tone": "idle",
-              "checks": [
-                "\"status=interview&sort=newest\""
+              "title": "Disjoint Booleans",
+              "items": [
+                "Tangled state flags",
+                "Impossible states",
+                "Desynchronized UI"
               ]
             },
             "right": {
-              "code": "console.log(params.toString());",
-              "result": "\"status=offer&sort=newest\"",
-              "tone": "ok",
-              "checks": [
-                "\"status=offer&sort=newest\""
+              "title": "Finite State Machine",
+              "items": [
+                "Strict enum statuses",
+                "Declared transitions",
+                "Guaranteed invariants"
               ]
-            }
+            },
+            "highlight": "left"
           }
-        ]
-      }
+        },
+        {
+          "step": 4,
+          "caption": "Transitions execute only on legal declared event triggers.",
+          "data": {
+            "left": {
+              "title": "Disjoint Booleans",
+              "items": [
+                "Tangled state flags",
+                "Impossible states",
+                "Desynchronized UI"
+              ]
+            },
+            "right": {
+              "title": "Finite State Machine",
+              "items": [
+                "Strict enum statuses",
+                "Declared transitions",
+                "Guaranteed invariants"
+              ]
+            },
+            "highlight": "right"
+          }
+        }
+      ]
     },
     {
-      "partTitle": "Testing your features by hand",
-      "codeHash": "c9f1ee80964cb4494a7866d3875d02e048e3fa8c8833a1abf66c24272d83b498",
-      "spec": {
-        "template": "boxes",
-        "title": "Systematic manual QA checklist validation",
-        "boxes": [
-          {
-            "id": "step",
-            "label": "step",
-            "tappable": false
-          },
-          {
-            "id": "status",
-            "label": "passed",
-            "tappable": false
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Verify interactive flows systematically against a manual test checklist.",
-            "values": {
-              "step": {
-                "text": "\"Add job with spaces in title\""
-              },
-              "status": {
-                "text": "true"
-              }
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Inspect boundary conditions including empty inputs and missing data.",
-            "values": {
-              "step": {
-                "text": "\"Search with no matches shows a message\""
-              },
-              "status": {
-                "text": "false"
-              }
-            }
-          }
-        ]
+      "part": 2,
+      "template": "flow",
+      "title": "Unidirectional Reducer Dispatch Cycle",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "48cdf4b505a91af24cfca9b3c82ba0335107cb609cb4d5e337fb4dafda538c57"
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Systematic manual QA checklist validation",
-        "boxes": [
-          {
-            "id": "step",
-            "label": "step",
-            "tappable": false
-          },
-          {
-            "id": "status",
-            "label": "passed",
-            "tappable": false
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Component dispatches typed action object to pipeline.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Dispatched Action",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n2",
+                "label": "Pure Reducer",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Next Immutable State",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Component Render",
+                "tappable": false,
+                "active": false
+              }
+            ]
           }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Verify interactive flows systematically against a manual test checklist.",
-            "values": {
-              "step": "\"Add job with spaces in title\"",
-              "status": "true"
-            },
-            "tones": {}
-          },
-          {
-            "at": "say3",
-            "caption": "Inspect boundary conditions including empty inputs and missing data.",
-            "values": {
-              "step": "\"Search with no matches shows a message\"",
-              "status": "false"
-            },
-            "tones": {}
+        },
+        {
+          "step": 2,
+          "caption": "Pure reducer evaluates current state and action payload.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Dispatched Action",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Pure Reducer",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n3",
+                "label": "Next Immutable State",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Component Render",
+                "tappable": false,
+                "active": false
+              }
+            ]
           }
-        ]
-      }
+        },
+        {
+          "step": 3,
+          "caption": "New immutable state object returns via structural sharing.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Dispatched Action",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Pure Reducer",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Next Immutable State",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n4",
+                "label": "Component Render",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Fiber detects pointer change and updates subscribed views.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Dispatched Action",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Pure Reducer",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Next Immutable State",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Component Render",
+                "tappable": false,
+                "active": true
+              }
+            ]
+          }
+        }
+      ]
     },
     {
-      "partTitle": "Finish, commit and look back",
-      "codeHash": "c2a615a9326d1d57add2fd2c1f2f7ea9da3f192a66523f983f25da2cc0210f43",
-      "spec": {
-        "template": "flow",
-        "title": "Finish, commit and look back — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Finish, commit and ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Finish, commit and look back [D25.P6.S1].",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Finish, commit and ... [D25.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D25.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Finish, commit and look back [D25.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
+      "part": 3,
+      "template": "boxes",
+      "title": "Split Context State And Dispatch Container",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "30f326e859e3d87ff261efd740c5809593639c5982588712c8b45d4b553f0745"
       },
-      "filled": {
-        "template": "flow",
-        "title": "Finish, commit and look back — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Finish, commit and ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Finish, commit and look back [D25.P6.S1].",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Finish, commit and ... [D25.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D25.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Finish, commit and look back [D25.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Single reducer manages core transactional domain logic.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Store Reducer",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b2",
+                "label": "State Context",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Dispatch Context",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Action Handlers",
+                "tappable": false,
+                "highlight": false
+              }
             ]
           }
-        ]
-      }
+        },
+        {
+          "step": 2,
+          "caption": "State context provides read access to dynamic values.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Store Reducer",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "State Context",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b3",
+                "label": "Dispatch Context",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Action Handlers",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Dispatch context provides stable action triggers.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Store Reducer",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "State Context",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Dispatch Context",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b4",
+                "label": "Action Handlers",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Action handlers dispatch updates without re-render churn.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Store Reducer",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "State Context",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Dispatch Context",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Action Handlers",
+                "tappable": false,
+                "highlight": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "part": 4,
+      "template": "flow",
+      "title": "Middleware Interceptor And Logging Pipeline",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "ddc415d4345ad90cff8ef2689d5219da98c7b759cb493afed22d78ee2a629747"
+      },
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Action triggers and enters custom middleware chain.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Raw Dispatch",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n2",
+                "label": "Schema Validator",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Telemetry Logger",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Reducer Execution",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 2,
+          "caption": "Schema validator confirms payload satisfies contracts.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Raw Dispatch",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Schema Validator",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n3",
+                "label": "Telemetry Logger",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Reducer Execution",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Telemetry logger records action type and state snapshots.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Raw Dispatch",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Schema Validator",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Telemetry Logger",
+                "tappable": false,
+                "active": true
+              },
+              {
+                "id": "n4",
+                "label": "Reducer Execution",
+                "tappable": false,
+                "active": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Validated action passes to pure reducer for calculation.",
+          "data": {
+            "nodes": [
+              {
+                "id": "n1",
+                "label": "Raw Dispatch",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n2",
+                "label": "Schema Validator",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n3",
+                "label": "Telemetry Logger",
+                "tappable": false,
+                "active": false
+              },
+              {
+                "id": "n4",
+                "label": "Reducer Execution",
+                "tappable": false,
+                "active": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "part": 5,
+      "template": "boxes",
+      "title": "Enterprise Commerce State Machine Topology",
+      "codeBinding": {
+        "type": "sha256",
+        "hash": "5ac505d22c382070781a557b0fe90aa37cb2b9143dc226b5d7933e85d2ca8505"
+      },
+      "steps": [
+        {
+          "step": 1,
+          "caption": "Cart items record selected products and quantities.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Cart Items",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b2",
+                "label": "Inventory Hold",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Discount Logic",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Checkout State",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 2,
+          "caption": "Inventory holds reserve warehouse stock optimistically.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Cart Items",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Inventory Hold",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b3",
+                "label": "Discount Logic",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Checkout State",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 3,
+          "caption": "Discount engine validates promotional coupon rules.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Cart Items",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Inventory Hold",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Discount Logic",
+                "tappable": false,
+                "highlight": true
+              },
+              {
+                "id": "b4",
+                "label": "Checkout State",
+                "tappable": false,
+                "highlight": false
+              }
+            ]
+          }
+        },
+        {
+          "step": 4,
+          "caption": "Checkout state machine manages commit and rollback flows.",
+          "data": {
+            "boxes": [
+              {
+                "id": "b1",
+                "label": "Cart Items",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b2",
+                "label": "Inventory Hold",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b3",
+                "label": "Discount Logic",
+                "tappable": false,
+                "highlight": false
+              },
+              {
+                "id": "b4",
+                "label": "Checkout State",
+                "tappable": false,
+                "highlight": true
+              }
+            ]
+          }
+        }
+      ]
     }
   ]
 }
