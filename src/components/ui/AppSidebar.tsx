@@ -35,8 +35,8 @@ export const ROUTE_TOOLTIPS: Record<string, { label: string; tooltip: string; de
     description: '1v1 coding duels, timed hackathons, and algorithmic skill matchmaking.'
   },
   '/projects': {
-    label: 'Projects & Squads',
-    tooltip: 'Industry Capstone Projects & Peer Squads',
+    label: 'Projects & Innovation',
+    tooltip: 'Projects & Innovation Hub: Course Capstones & Collaborative Squads',
     description: 'Collaborative real-world repositories, squad work, and production deploy pipelines.'
   },
   '/leaderboard': {
@@ -102,7 +102,7 @@ export const STUDENT_NAV: NavSection[] = [
     { href: '/quests', icon: '🗺', label: 'Quests & Courses' },
     { href: '/missions', icon: '⚡', label: 'Daily Missions' },
     { href: '/arena', icon: '⚔️', label: 'Challenging Arena' },
-    { href: '/projects', icon: '🚀', label: 'Projects & Squads' },
+    { href: '/projects', icon: '🚀', label: 'Projects & Innovation' },
     { href: '/leaderboard', icon: '🏆', label: 'Leaderboard & Leagues' },
     { href: '/interview', icon: '🎙', label: 'AI Interview' },
     { href: '/mirror', icon: '🪞', label: 'Mirror' },
@@ -219,7 +219,7 @@ export const TEACHER_NAV: NavSection[] = [
     { href: '/interview', icon: '🎙', label: 'AI Interview Studio' },
     { href: '/interview?tab=gd', icon: '🗣️', label: 'GD Boardroom' },
     { href: '/internships', icon: '🏢', label: 'Internships Review' },
-    { href: '/projects', icon: '💼', label: 'Industry Projects & Squads' },
+    { href: '/projects', icon: '💼', label: 'Projects & Innovation' },
     { href: '/passport', icon: '🎫', label: 'Skill Passport & Transcript' }
   ]}
 ];
