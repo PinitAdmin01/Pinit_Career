@@ -23,8 +23,12 @@ export const FORBIDDEN_PYTHON_PATTERNS: RegExp[] = [
   /\bfrom\s+io\b/,           // from io import ...
   /shutil/,                  // File manipulation
   /socket/,                  // Raw network socket
-  /urllib/,                  // HTTP requests
-  /requests/,                // HTTP requests library
+  /\bimport\s+urllib\b/,     // import urllib
+  /\bfrom\s+urllib\b/,       // from urllib import ...
+  /\burllib\./,              // urllib module calls
+  /\bimport\s+requests\b/,   // import requests
+  /\bfrom\s+requests\b/,     // from requests import ...
+  /\brequests\./,            // requests API calls (get, post, etc.)
   /http\.client/,            // Python http.client exfiltration
   /\bhttp\./,                // Any http module usage
   /httpx/,                   // Async HTTP

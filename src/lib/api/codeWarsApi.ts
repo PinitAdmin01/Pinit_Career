@@ -628,16 +628,24 @@ export class CodeWarsApiService {
   }
 
   static cleanTypeScriptForExecution(tsCode: string): string {
-    let cleaned = tsCode;
-    cleaned = cleaned.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*/g, '');
-    cleaned = cleaned.replace(/interface\s+[\s\S]*?\{[\s\S]*?\}/g, '');
-    cleaned = cleaned.replace(/type\s+\w+\s*=\s*[^;]+;/g, '');
-    cleaned = cleaned.replace(/:\s*[A-Za-z0-9_<>|\[\]\s]+(?=\s*[\),={])/g, '');
-    cleaned = cleaned.replace(/<[A-Za-z0-9_,\s]+>/g, '');
-    cleaned = cleaned.replace(/\)\s*:\s*[A-Za-z0-9_<>|\[\]\s]+(?=\s*\{)/g, ')');
-    cleaned = cleaned.replace(/!\s*(?=[,;\]\)\.])/g, ''); // strip non-null assertions like expr!
-    cleaned = cleaned.replace(/as\s+[A-Za-z0-9_<>|\[\]]+/g, ''); // strip type casts like 'as number'
-    return cleaned;
+    try {
+      // Use esbuild for instantaneous, syntactically-perfect TypeScript stripping
+      const esbuild = require('esbuild');
+      const res = esbuild.transformSync(tsCode, { loader: 'ts', target: 'es2020' });
+      return res.code;
+    } catch {
+      // Defensive fallback if esbuild binary is unavailable
+      let cleaned = tsCode;
+      cleaned = cleaned.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*/g, '');
+      cleaned = cleaned.replace(/interface\s+[\s\S]*?\{[\s\S]*?\}/g, '');
+      cleaned = cleaned.replace(/type\s+\w+\s*=\s*[^;]+;/g, '');
+      cleaned = cleaned.replace(/:\s*[A-Za-z0-9_<>|,\[\]\s]+(?=\s*[\)={])/g, '');
+      cleaned = cleaned.replace(/<[A-Za-z0-9_,\s]+>/g, '');
+      cleaned = cleaned.replace(/\)\s*:\s*[A-Za-z0-9_<>|,\[\]\s]+(?=\s*\{)/g, ')');
+      cleaned = cleaned.replace(/!\s*(?=[,;\]\)\.])/g, '');
+      cleaned = cleaned.replace(/ as\s+[A-Za-z0-9_<>|,\[\]]+/g, '');
+      return cleaned;
+    }
   }
 
   /**
