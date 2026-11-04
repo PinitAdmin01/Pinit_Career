@@ -1,22 +1,62 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
 const supabaseUrl      = process.env.NEXT_PUBLIC_SUPABASE_URL      || '';
 const supabaseAnonKey  = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  const isLocalhost =
-    typeof window !== 'undefined' &&
-    (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
-  const msg = '[Supabase] NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY is not set. Check your .env.local file.';
-  if (isLocalhost) {
-    console.warn(msg);
-  } else {
-    // In production, log clearly — all DB operations will fail
-    console.error(msg);
-  }
+export function isSupabaseConfigured(): boolean {
+  return Boolean(
+    supabaseUrl &&
+    supabaseAnonKey &&
+    !supabaseUrl.includes('placeholder') &&
+    !supabaseUrl.includes('127.0.0.1') &&
+    !supabaseUrl.includes('localhost') &&
+    supabaseUrl.startsWith('http')
+  );
 }
 
-export const supabase = createClient(
-  supabaseUrl || 'http://127.0.0.1:54321',
-  supabaseAnonKey || 'placeholder-anon-key',
-);
+/**
+ * High-performance offline proxy: when Supabase environment variables are missing
+ * (such as in local preview or standalone demo deployments), immediately resolves
+ * queries with a safe offline result without initiating failed HTTP connections to
+ * 127.0.0.1 that produce net::ERR_CONNECTION_REFUSED and delay UI rendering.
+ */
+function createOfflineSupabaseProxy(): any {
+  const chainHandler: ProxyHandler<any> = {
+    get(_target, prop) {
+      if (prop === 'then') {
+        return (resolve: (val: any) => void) =>
+          resolve({ data: null, error: { message: 'Offline mode: Supabase is not configured' } });
+      }
+      if (prop === 'catch') {
+        return () => Promise.resolve({ data: null, error: { message: 'Offline mode: Supabase is not configured' } });
+      }
+      return (..._args: any[]) => new Proxy(() => {}, chainHandler);
+    },
+    apply() {
+      return new Proxy(() => {}, chainHandler);
+    }
+  };
+
+  return new Proxy({}, {
+    get(_target, prop) {
+      if (prop === 'auth') {
+        return {
+          getUser: async () => ({ data: { user: null }, error: null }),
+          getSession: async () => ({ data: { session: null }, error: null }),
+          onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } }),
+        };
+      }
+      if (prop === 'channel') {
+        return () => ({
+          on: function() { return this; },
+          subscribe: () => ({ unsubscribe: () => {} }),
+        });
+      }
+      return (..._args: any[]) => new Proxy(() => {}, chainHandler);
+    }
+  });
+}
+
+export const supabase: SupabaseClient = (isSupabaseConfigured()
+  ? createClient(supabaseUrl, supabaseAnonKey)
+  : createOfflineSupabaseProxy()) as SupabaseClient;

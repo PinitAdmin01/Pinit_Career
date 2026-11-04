@@ -383,12 +383,12 @@ export class VRoidAvatarEngine {
     const litePath = `/avatar/${id}.glb`;
 
     const FEMALE_FALLBACK_MODELS = prefersHD
-      ? ['/avatar/hd/priya.glb', '/avatar/priya.glb', '/avatar/aisha.glb']
-      : ['/avatar/priya.glb', '/avatar/aisha.glb'];
+      ? ['/avatar/hd/priya.glb', '/avatar/priya.glb', '/avatar/avatarsample_c.glb']
+      : ['/avatar/avatarsample_c.glb', '/avatar/priya.glb'];
 
     const MALE_FALLBACK_MODELS = prefersHD
-      ? ['/avatar/hd/kashyap.glb', '/avatar/kashyap.glb', '/avatar/rohan.glb']
-      : ['/avatar/kashyap.glb', '/avatar/rohan.glb'];
+      ? ['/avatar/hd/kashyap.glb', '/avatar/kashyap.glb', '/avatar/akira.glb']
+      : ['/avatar/akira.glb', '/avatar/kashyap.glb'];
 
     const genderMatchedFallbacks =
       personaForModel.gender === 'female' ? FEMALE_FALLBACK_MODELS
@@ -415,7 +415,7 @@ export class VRoidAvatarEngine {
           settled = true;
           console.warn(`[VRoidAvatarEngine] Load timed out for "${resolvedPath}", trying next fallback.`);
           loadAttempt(idx + 1).then(resolve).catch(reject);
-        }, 8000);
+        }, 4500);
 
         console.log('[VRoidAvatarEngine] Attempting to load avatar GLB from:', resolvedPath);
         try {

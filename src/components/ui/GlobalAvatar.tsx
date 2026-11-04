@@ -692,17 +692,17 @@ export const GlobalAvatar: React.FC<GlobalAvatarProps> = ({
             
             opacity: 0.4,
             transition: 'opacity 0.3s ease, transform 0.3s ease, box-shadow 0.2s',
-            left: '50%',
-            right: 'auto',
-            transform: 'translateX(-50%)',
+            right: 24,
+            left: 'auto',
+            transform: 'none',
           }}
           onMouseEnter={e => {
             e.currentTarget.style.opacity = '1';
-            e.currentTarget.style.transform = 'translateX(-50%) scale(1.05)';
+            e.currentTarget.style.transform = 'scale(1.05)';
           }}
           onMouseLeave={e => {
             e.currentTarget.style.opacity = '0.4';
-            e.currentTarget.style.transform = 'translateX(-50%)';
+            e.currentTarget.style.transform = 'none';
           }}
         >
           <div style={{

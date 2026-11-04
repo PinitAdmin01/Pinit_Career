@@ -26,9 +26,6 @@ export default function VRoidInterviewAvatar({ teacherId = 'priya', animState = 
 
     // 8-second safety timeout: degrades to 2D portrait fallback if GLB load stalls
     const safetyTimer = setTimeout(() => {
-      // CRITICAL FIX: must trigger hasWebGLError=true so the 2D fallback renders.
-      // Previously only setIsLoading(false) was called here — that hid the spinner
-      // but left a dead, black, empty canvas instead of the 2D mentor portrait.
       setHasWebGLError(true);
       setIsLoading(false);
     }, 8000);
@@ -130,7 +127,6 @@ export default function VRoidInterviewAvatar({ teacherId = 'priya', animState = 
 
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-      {/* keyed by mentor: each mentor gets a fresh canvas (the previous one's WebGL context is released) */}
       <canvas key={teacherId} ref={canvasRef} data-vroid-canvas="true" style={{ width: '100%', height: '100%', display: 'block' }} />
       {isLoading && (
         <div
@@ -172,13 +168,24 @@ export default function VRoidInterviewAvatar({ teacherId = 'priya', animState = 
   );
 }
 
-export function preloadAvatarGLB(teacherIds: string | string[] = ['priya', 'anish']) {
+export function preloadAvatarGLB(teacherIds: string | string[] = ['priya']) {
   if (typeof window === 'undefined') return;
-  const list = Array.isArray(teacherIds) ? teacherIds : [teacherIds];
-  list.forEach(id => {
-    if (!id) return;
-    const charId = id.toLowerCase().trim();
+
+  const schedulePreload = (window as any).requestIdleCallback || ((cb: () => void) => setTimeout(cb, 1200));
+
+  schedulePreload(() => {
+    const nav = navigator as any;
+    const conn = nav?.connection || nav?.mozConnection || nav?.webkitConnection;
+    if (conn && (conn.saveData || conn.effectiveType === 'slow-2g' || conn.effectiveType === '2g' || conn.effectiveType === '3g')) {
+      return;
+    }
+
+    const list = Array.isArray(teacherIds) ? teacherIds : [teacherIds];
+    const primaryId = list[0];
+    if (!primaryId) return;
+
+    const charId = primaryId.toLowerCase().trim();
     const url = `/avatar/${charId}.glb`;
-    fetch(url, { mode: 'cors', cache: 'force-cache' }).catch(() => {});
+    fetch(url, { mode: 'cors' }).catch(() => {});
   });
 }
