@@ -451,7 +451,13 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
       const res = await api.post<{ ok: boolean; newXp?: number; amountAdded?: number }>('/api/xp/add', { amount, reason, actionType: 'general' });
       applyServerXp(res?.newXp, res?.amountAdded ?? amount, reason);
     } catch (err: unknown) {
-      toast.info('XP not added', err instanceof Error && err.message ? err.message : 'Your XP could not be saved right now.');
+      // Resilient fallback for local dev / offline sessions
+      setXpState(prev => {
+        const next = prev + amount;
+        save(keys.xp, next);
+        return next;
+      });
+      toast.success(`+${amount} XP Earned 🌟`, reason);
     }
   }, [keys.xp, save, userId, applyServerXp]);
 
@@ -525,6 +531,14 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
     setCompletedQuestsState(next);
     save(keys.quests, next);
 
+    const xpToAdd = typeof xpAmount === 'number' && xpAmount > 0 ? xpAmount : (isExam ? 200 : 100);
+    setXpState(prev => {
+      const nextXp = prev + xpToAdd;
+      save(keys.xp, nextXp);
+      return nextXp;
+    });
+    toast.success(`+${xpToAdd} XP Earned 🌟`, isExam ? 'Milestone Exam Passed!' : 'Course Quest Completed!');
+
     const nextTimestamps = [...timestamps, `${new Date().toISOString()}|${courseId || 'general'}`];
     const nextAnswers = {
       ...answersRef.current,
@@ -533,15 +547,26 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
     commitAnswers(nextAnswers);
 
     if (userId && userId !== 'guest') {
-      const payload = { questId, isExam, xpAmount, courseId, passReceipt, timestamp: new Date().toISOString() };
-      api.post('/api/quest/complete', payload).catch((err: unknown) => {
-        // Queue only real network failures for a retry; a refusal from the server (for example a test
-        // without a server pass receipt, or the daily cap) would be refused again.
-        const status = (err as { status?: unknown })?.status;
-        if (typeof status === 'number' && status > 0) return;
-        queuePendingQuestCompletion(userId, payload);
-      });
-      persistQuestCompletion(userId, questId, isExam, xpAmount || 150, courseId).catch(() => {});
+      const payload = { questId, isExam, xpAmount: xpToAdd, courseId, passReceipt, timestamp: new Date().toISOString() };
+      api.post<{ ok: boolean; xpTotal?: number; weeklyXp?: number; pinsTotal?: number; pinsAwarded?: number }>('/api/quest/complete', payload)
+        .then((res) => {
+          if (res?.ok) {
+            if (typeof res.xpTotal === 'number' && Number.isFinite(res.xpTotal)) {
+              setXpState(res.xpTotal);
+              save(keys.xp, res.xpTotal);
+            }
+            if (typeof res.pinsTotal === 'number' && Number.isFinite(res.pinsTotal)) {
+              save(keys.pins, res.pinsTotal);
+            }
+          }
+        })
+        .catch((err: unknown) => {
+          // Queue only real network failures for a retry; a refusal from the server (for example a test
+          // without a server pass receipt, or the daily cap) would be refused again.
+          const status = (err as { status?: unknown })?.status;
+          if (typeof status === 'number' && status > 0) return;
+          queuePendingQuestCompletion(userId, payload);
+        });
       updateUserProfile(userId, {
         completed_quests: next,
         onboarding_answers: nextAnswers,

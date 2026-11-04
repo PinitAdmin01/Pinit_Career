@@ -437,7 +437,11 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
                   <div>
                     <div className="drawer-stat-label">Battle Elo Rating</div>
                     <div style={{ fontSize: 22, fontWeight: 800, color: '#38bdf8' }}>
-                      {(student.arenaWins ?? 0) > 0 ? `${1200 + ((student.arenaWins || 0) * 25)} Elo` : '1,200 Elo (Cadet)'}
+                      {(() => {
+                        const elo = (student as any).arena_elo || (student as any).eloRating || (1200 + ((student.arenaWins || 0) * 25));
+                        const rankTitle = elo >= 1800 ? 'Grandmaster' : elo >= 1400 ? 'Warrior' : 'Cadet';
+                        return `${elo.toLocaleString()} Elo (${rankTitle})`;
+                      })()}
                     </div>
                   </div>
                   <div>

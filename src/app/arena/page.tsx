@@ -467,6 +467,19 @@ function ArenaContent() {
   const isMatchOver = Boolean((activeRoom && activeRoom.status === 'completed') || (soloMatch && soloMatch.status !== 'active'));
   const didIWin = activeRoom ? activeRoom.winnerId === studentId : soloMatch?.status === 'victory';
 
+  // Synchronize match XP & rewards to student profile upon match conclusion
+  const awardAppliedRef = useRef<string | null>(null);
+  useEffect(() => {
+    if (!isMatchOver || !activeRoom) return;
+    const matchKey = `${activeRoom.roomCode}:${activeRoom.winnerId}`;
+    if (awardAppliedRef.current === matchKey) return;
+    awardAppliedRef.current = matchKey;
+
+    const myAwardXp = isHost ? (activeRoom as any)?.hostXpAward : (activeRoom as any)?.guestXpAward;
+    const xpToAdd = typeof myAwardXp === 'number' ? myAwardXp : (didIWin ? 50 : 15);
+    cOS.addXp(xpToAdd, didIWin ? '1v1 Code War Victory' : '1v1 Code War Match Effort');
+  }, [isMatchOver, activeRoom, isHost, didIWin, cOS]);
+
   return (
     <div style={{ maxWidth: 1380, margin: '0 auto', minHeight: '85vh', paddingBottom: 40 }}>
       
@@ -1732,19 +1745,33 @@ function ArenaContent() {
                       <div>
                         <div style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600 }}>ELO RATING</div>
                         <div style={{ fontSize: 20, fontWeight: 800, color: didIWin ? '#34d399' : '#f87171' }}>
-                          {didIWin ? '+25' : '-10'}
+                          {(() => {
+                            const delta = isHost ? (activeRoom as any)?.hostEloDelta : (activeRoom as any)?.guestEloDelta;
+                            if (typeof delta === 'number') {
+                              return delta >= 0 ? `+${delta}` : `${delta}`;
+                            }
+                            return didIWin ? '+25' : '-10';
+                          })()}
                         </div>
                       </div>
                       <div>
                         <div style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600 }}>ARENA XP</div>
                         <div style={{ fontSize: 20, fontWeight: 800, color: 'var(--t1)' }}>
-                          +{didIWin ? activeProblem.xpReward || 200 : 25}
+                          +{(() => {
+                            const awardXp = isHost ? (activeRoom as any)?.hostXpAward : (activeRoom as any)?.guestXpAward;
+                            if (typeof awardXp === 'number') return awardXp;
+                            return didIWin ? (activeProblem?.xpReward || 50) : 15;
+                          })()}
                         </div>
                       </div>
                       <div>
                         <div style={{ fontSize: 12, color: 'var(--t3)', fontWeight: 600 }}>COMBAT PINS</div>
                         <div style={{ fontSize: 20, fontWeight: 800, color: 'var(--t1)' }}>
-                          +{didIWin ? 20 : 5}
+                          +{(() => {
+                            const awardPins = isHost ? (activeRoom as any)?.hostPinsAward : (activeRoom as any)?.guestPinsAward;
+                            if (typeof awardPins === 'number') return awardPins;
+                            return didIWin ? 20 : 5;
+                          })()}
                         </div>
                       </div>
                     </div>

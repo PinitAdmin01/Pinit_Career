@@ -126,7 +126,11 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ roo
       return room;
     });
 
-    const latest = updated ? await ArenaPvPStore.publishCodesIfCompleted(updated) : await ArenaPvPStore.getRoom(roomCode);
+    let settled = updated;
+    if (settled && settled.status === 'completed' && settled.winnerId && !settled.eloApplied) {
+      settled = await ArenaPvPStore.settleMatch(settled);
+    }
+    const latest = settled ? await ArenaPvPStore.publishCodesIfCompleted(settled) : await ArenaPvPStore.getRoom(roomCode);
     if (!latest) {
       return NextResponse.json({ error: 'Room not found or update failed' }, { status: 404 });
     }
