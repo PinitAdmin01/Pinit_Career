@@ -1,5 +1,6 @@
 import { COURSES_REGISTRY } from '@/lib/data/coursesData';
 import { QUESTS_REGISTRY } from '@/lib/data/questsData';
+import { REWARD_RULES } from '@/lib/gamification/rewardRules';
 
 export interface AuthoritativeQuest {
   id: string;
@@ -31,8 +32,8 @@ function buildIndex(): Map<string, AuthoritativeQuest> {
         desc: q.desc,
         type: q.type,
         category,
-        xp: typeof q.xp === 'number' && q.xp > 0 ? q.xp : 100,
-        pins: typeof q.pins === 'number' && q.pins >= 0 ? q.pins : 5,
+        xp: typeof q.xp === 'number' && q.xp > 0 ? q.xp : (category === 'exam' ? REWARD_RULES.LESSON_EXAM_MILESTONE.xp : REWARD_RULES.LESSON_STANDARD.xp),
+        pins: typeof q.pins === 'number' && q.pins >= 0 ? q.pins : (category === 'exam' ? REWARD_RULES.LESSON_EXAM_MILESTONE.pins : REWARD_RULES.LESSON_STANDARD.pins),
         testSuite: q.testSuite,
         starterCode: q.starterCode,
         language: (q as any).language,
@@ -49,8 +50,8 @@ function buildIndex(): Map<string, AuthoritativeQuest> {
       desc: q.desc,
       type: q.type,
       category: q.id.includes('exam') ? 'exam' : 'learning',
-      xp: 100,
-      pins: 5,
+      xp: q.id.includes('exam') ? REWARD_RULES.LESSON_EXAM_MILESTONE.xp : REWARD_RULES.LESSON_STANDARD.xp,
+      pins: q.id.includes('exam') ? REWARD_RULES.LESSON_EXAM_MILESTONE.pins : REWARD_RULES.LESSON_STANDARD.pins,
       testSuite: q.testSuite,
       starterCode: q.starterCode,
       language: (q as any).language,
@@ -104,8 +105,8 @@ export function getAuthoritativeQuest(questId: string): AuthoritativeQuest | nul
       desc: `Curriculum learning and assessment module for ${trimmed}.`,
       type: isCode ? 'coding' : isExam ? 'interactive' : 'lecture',
       category: isExam ? 'exam' : isCode ? 'assignment' : 'learning',
-      xp: isExam ? 200 : 150,
-      pins: isExam ? 10 : 5,
+      xp: isExam ? REWARD_RULES.LESSON_EXAM_MILESTONE.xp : REWARD_RULES.LESSON_STANDARD.xp,
+      pins: isExam ? REWARD_RULES.LESSON_EXAM_MILESTONE.pins : REWARD_RULES.LESSON_STANDARD.pins,
       starterCode,
       testSuite,
     };

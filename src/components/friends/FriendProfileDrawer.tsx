@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { StudentProfile } from './StudentCard';
 import { computeStudentMatch, CURRENT_STUDENT_PROFILE } from '@/lib/friends/matching';
+import { calculateStakesPreview } from '@/lib/gamification/rewardRules';
 
 interface FriendProfileDrawerProps {
   student: StudentProfile | null;
@@ -451,6 +452,33 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
                     </div>
                   </div>
                 </div>
+                {(() => {
+                  const targetElo = (student as any).arena_elo || (student as any).eloRating || (1200 + ((student.arenaWins || 0) * 25));
+                  const stakes = calculateStakesPreview(1200, targetElo);
+                  return (
+                    <div style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      padding: '10px 14px',
+                      borderRadius: 10,
+                      background: 'rgba(56, 189, 248, 0.08)',
+                      border: '1px solid rgba(56, 189, 248, 0.2)',
+                      fontSize: 13,
+                    }}>
+                      <div>
+                        <span style={{ color: 'var(--t3)', fontSize: 11, fontWeight: 700, display: 'block' }}>IF YOU WIN</span>
+                        <strong style={{ color: '#34d399', fontSize: 15 }}>+{stakes.potentialWin} Elo</strong>
+                        <span style={{ color: 'var(--t2)', fontSize: 12, marginLeft: 4 }}>({stakes.potentialWinXp} XP)</span>
+                      </div>
+                      <div style={{ textAlign: 'right' }}>
+                        <span style={{ color: 'var(--t3)', fontSize: 11, fontWeight: 700, display: 'block' }}>IF YOU LOSE</span>
+                        <strong style={{ color: '#f87171', fontSize: 15 }}>{stakes.potentialLoss} Elo</strong>
+                        <span style={{ color: 'var(--t2)', fontSize: 12, marginLeft: 4 }}>({stakes.potentialLossXp} XP)</span>
+                      </div>
+                    </div>
+                  );
+                })()}
                 <button
                   className="friends-btn friends-btn-primary"
                   onClick={() => onOpenChallenge?.(student)}
