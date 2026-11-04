@@ -283,19 +283,19 @@ export function validatePinItId(id: string): { valid: boolean; type: 'college' |
 
   const trimmed = id.trim().toUpperCase();
 
+  // If starts with PIN-GLB-, validate strictly against Global format
+  if (trimmed.startsWith('PIN-GLB-')) {
+    const globalRegex = /^PIN-GLB-[A-Z0-9]{2,12}-[0-9]{3,4}$/;
+    if (globalRegex.test(trimmed)) {
+      return { valid: true, type: 'global' };
+    }
+    return { valid: false, type: 'invalid', error: 'Global PinIT ID must end with 3 or 4 digits' };
+  }
+
   // College Pattern: PIN-[3-6 ALPHANUM]-[2-6 ALPHANUM]-[1-6 ALPHANUM]
   const collegeRegex = /^PIN-[A-Z0-9]{2,6}-[A-Z0-9]{2,6}-[A-Z0-9]{1,6}$/;
   if (collegeRegex.test(trimmed)) {
-    if (trimmed.startsWith('PIN-GLB-')) {
-      return { valid: true, type: 'global' };
-    }
     return { valid: true, type: 'college' };
-  }
-
-  // Global Pattern: PIN-GLB-[NAME]-[3-4 DIGITS]
-  const globalRegex = /^PIN-GLB-[A-Z0-9]{2,12}-[0-9]{3,4}$/;
-  if (globalRegex.test(trimmed)) {
-    return { valid: true, type: 'global' };
   }
 
   return { valid: false, type: 'invalid', error: 'Invalid PinIT ID format (Expected: PIN-GLB-NAME-123 or PIN-COLLEGE-DEPT-042)' };

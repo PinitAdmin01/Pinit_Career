@@ -106,7 +106,7 @@ function LeaderboardContent() {
   const [joinedLeague, setJoinedLeague] = useState<boolean>(() => {
     if (typeof window === 'undefined') return false;
     const stored = localStorage.getItem(`pinit_joined_league_${user?.id || 'default'}`);
-    return stored === 'true' || userTotalXp >= 100;
+    return stored === 'true';
   });
 
   const handleJoinLeague = () => {

@@ -195,9 +195,25 @@ export default function StudentProfilePage() {
               ) : (
                 <>
                   {student.relationship === 'friends' ? (
-                    <button className="friends-btn friends-btn-secondary" style={{ padding: '9px 18px', fontSize: 14.5, borderColor: '#22c55e', color: '#22c55e' }} disabled>
-                      ✓ Connected Friend
-                    </button>
+                    <>
+                      <button className="friends-btn friends-btn-secondary" style={{ padding: '9px 18px', fontSize: 14.5, borderColor: '#22c55e', color: '#22c55e' }} disabled>
+                        ✓ Connected Friend
+                      </button>
+                      <button
+                        className="friends-btn friends-btn-secondary"
+                        onClick={handleArenaDuel}
+                        style={{ padding: '9px 18px', fontSize: 14.5 }}
+                      >
+                        Arena Duel
+                      </button>
+                      <button
+                        className="friends-btn friends-btn-secondary"
+                        onClick={handleOpenChat}
+                        style={{ padding: '9px 18px', fontSize: 14.5 }}
+                      >
+                        Message
+                      </button>
+                    </>
                   ) : student.relationship === 'received' ? (
                     <button
                       className="friends-btn friends-btn-primary"
@@ -219,20 +235,6 @@ export default function StudentProfilePage() {
                       + Add Friend
                     </button>
                   )}
-                  <button
-                    className="friends-btn friends-btn-secondary"
-                    onClick={handleArenaDuel}
-                    style={{ padding: '9px 18px', fontSize: 14.5 }}
-                  >
-                    Arena Duel
-                  </button>
-                  <button
-                    className="friends-btn friends-btn-secondary"
-                    onClick={handleOpenChat}
-                    style={{ padding: '9px 18px', fontSize: 14.5 }}
-                  >
-                    Message
-                  </button>
                 </>
               )}
             </div>
