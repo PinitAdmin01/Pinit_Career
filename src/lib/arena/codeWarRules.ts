@@ -106,19 +106,20 @@ export function calculateBattleScore(params: {
     timeLimitSeconds,
     submissionAttempts = 1,
     failedAttempts = 0,
-    isSurgeActive = timeRemainingSeconds <= ARENA_RULES_CONFIG.PRESSURE_SURGE_THRESHOLD_SECONDS,
+    isSurgeActive = (Number.isFinite(Number(timeRemainingSeconds)) ? Number(timeRemainingSeconds) : 0) <= ARENA_RULES_CONFIG.PRESSURE_SURGE_THRESHOLD_SECONDS,
   } = params;
 
-  const validTotal = Math.max(1, totalTests);
-  const validPassed = Math.min(validTotal, Math.max(0, testsPassed));
+  const validTotal = Number.isFinite(Number(totalTests)) ? Math.max(1, Math.floor(Number(totalTests))) : 1;
+  const validPassed = Number.isFinite(Number(testsPassed)) ? Math.min(validTotal, Math.max(0, Math.floor(Number(testsPassed)))) : 0;
   const completionRatio = validPassed / validTotal;
 
   // 1. Test Completion Points (up to 700 pts)
   let testScore = Math.round(completionRatio * ARENA_RULES_CONFIG.TEST_SCORE_WEIGHT);
 
   // 2. Time Remaining Speed Points (up to 200 pts)
-  const validTimeLimit = Math.max(1, timeLimitSeconds);
-  const timeRatio = Math.max(0, Math.min(1, timeRemainingSeconds / validTimeLimit));
+  const validTimeLimit = Number.isFinite(Number(timeLimitSeconds)) ? Math.max(1, Number(timeLimitSeconds)) : ARENA_RULES_CONFIG.DEFAULT_TIME_LIMIT_SECONDS;
+  const validTimeRemaining = Number.isFinite(Number(timeRemainingSeconds)) ? Math.max(0, Number(timeRemainingSeconds)) : 0;
+  const timeRatio = Math.max(0, Math.min(1, validTimeRemaining / validTimeLimit));
   let timeScore = Math.round(timeRatio * ARENA_RULES_CONFIG.SPEED_SCORE_WEIGHT);
 
   // 3. Clean Execution Bonus (up to 100 pts)
@@ -133,7 +134,8 @@ export function calculateBattleScore(params: {
   }
 
   // 4. Failed Attempt Penalties
-  const penalties = failedAttempts * ARENA_RULES_CONFIG.FAILED_SUBMISSION_PENALTY_SCORE;
+  const validFailures = Number.isFinite(Number(failedAttempts)) ? Math.max(0, Math.floor(Number(failedAttempts))) : 0;
+  const penalties = validFailures * ARENA_RULES_CONFIG.FAILED_SUBMISSION_PENALTY_SCORE;
 
   // 5. Surge Clutch Multiplier (if passed during final 90 seconds)
   if (isSurgeActive && validPassed === validTotal) {
@@ -142,7 +144,8 @@ export function calculateBattleScore(params: {
 
   // Composite sum clamped to [0, MAX_SCORE]
   const rawTotal = testScore + timeScore + cleanBonus - penalties;
-  const totalScore = Math.max(0, Math.min(ARENA_RULES_CONFIG.MAX_SCORE, rawTotal));
+  const safeRawTotal = Number.isFinite(rawTotal) ? rawTotal : 0;
+  const totalScore = Math.max(0, Math.min(ARENA_RULES_CONFIG.MAX_SCORE, safeRawTotal));
   const accuracyPct = Math.round(completionRatio * 100);
 
   return {

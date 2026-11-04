@@ -68,8 +68,10 @@ export function calculateEloMatch(params: {
   guestElo?: number | null;
   winnerId: string; // hostId, guestId, or 'draw'
 }): EloMatchResult {
-  const hostCurrentElo = Math.max(ELO_CONFIG.FLOOR_ELO, Number(params.hostElo) || ELO_CONFIG.DEFAULT_ELO);
-  const guestCurrentElo = Math.max(ELO_CONFIG.FLOOR_ELO, Number(params.guestElo) || ELO_CONFIG.DEFAULT_ELO);
+  const safeHostElo = Number.isFinite(Number(params.hostElo)) ? Number(params.hostElo) : ELO_CONFIG.DEFAULT_ELO;
+  const safeGuestElo = Number.isFinite(Number(params.guestElo)) ? Number(params.guestElo) : ELO_CONFIG.DEFAULT_ELO;
+  const hostCurrentElo = Math.max(ELO_CONFIG.FLOOR_ELO, safeHostElo);
+  const guestCurrentElo = Math.max(ELO_CONFIG.FLOOR_ELO, safeGuestElo);
 
   const hostExpected = calculateExpectedScore(hostCurrentElo, guestCurrentElo);
   const guestExpected = calculateExpectedScore(guestCurrentElo, hostCurrentElo);
