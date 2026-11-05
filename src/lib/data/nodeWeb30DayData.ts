@@ -11,7 +11,16 @@ export const NODE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
     eDesc: "Write `formatUptime(seconds: number): string` that formats an uptime duration into a readable string like `'1d 2h 30m 15s'`, `'45m 10s'`, or `'0s'` when 0.",
     eLanguage: "typescript",
     eStarter: lines("function formatUptime(seconds: number): string {", "  // Return formatted uptime string", "  return '';", "}"),
-    eHint: "Calculate days, hours, minutes, and seconds using Math.floor and modulo arithmetic.",
+    eHint: `const d = Math.floor(seconds / 86400);
+  const h = Math.floor((seconds % 86400) / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  const s = seconds % 60;
+  const parts: string[] = [];
+  if (d > 0) parts.push(d + 'd');
+  if (h > 0) parts.push(h + 'h');
+  if (m > 0) parts.push(m + 'm');
+  if (s > 0 || parts.length === 0) parts.push(s + 's');
+  return parts.join(' ');`,
     eTest: lines(
       "if (typeof formatUptime !== 'function') throw new Error('formatUptime not found');",
       "if (formatUptime(0) !== '0s') throw new Error('0 should be 0s, got ' + formatUptime(0));",
@@ -23,7 +32,19 @@ export const NODE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
     aDesc: "Write `parseProcessArgs(argv: string[]): Record<string, string | boolean>` that converts an array of CLI arguments (like `['--port', '8080', '--debug']`) into an object.",
     aLanguage: "typescript",
     aStarter: lines("function parseProcessArgs(argv: string[]): Record<string, string | boolean> {", "  // Parse flags into an object", "  return {};", "}"),
-    aHint: "Loop through argv; if an argument starts with '--', check if the next argument does not start with '--'.",
+    aHint: `const res: Record<string, string | boolean> = {};
+  for (let i = 0; i < argv.length; i++) {
+    const arg = argv[i];
+    if (arg.startsWith('--')) {
+      const key = arg.slice(2);
+      if (i + 1 < argv.length && !argv[i + 1].startsWith('--')) {
+        res[key] = argv[++i];
+      } else {
+        res[key] = true;
+      }
+    }
+  }
+  return res;`,
     aTest: lines(
       "if (typeof parseProcessArgs !== 'function') throw new Error('parseProcessArgs not found');",
       "const r1 = parseProcessArgs(['--port', '8080', '--host', 'localhost']);",
@@ -42,7 +63,8 @@ export const NODE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
     eDesc: "Write `normalizeApiPath(base: string, endpoint: string): string` that joins a base path and endpoint ensuring exactly one leading `/`, no trailing `/` (unless root), and no duplicate slashes.",
     eLanguage: "typescript",
     eStarter: lines("function normalizeApiPath(base: string, endpoint: string): string {", "  // Normalize and join paths", "  return '';", "}"),
-    eHint: "Combine strings, replace multiple slashes with a single slash, ensure leading slash and remove trailing slash.",
+    eHint: `const parts = (base + '/' + endpoint).split('/').filter(Boolean);
+  return '/' + parts.join('/');`,
     eTest: lines(
       "if (typeof normalizeApiPath !== 'function') throw new Error('normalizeApiPath not found');",
       "if (normalizeApiPath('/api/v1/', '/users/') !== '/api/v1/users') throw new Error('Failed /api/v1/ and /users/');",
@@ -54,7 +76,10 @@ export const NODE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
     aDesc: "Write `resolveModuleImport(specifier: string, defaultExt: string = '.js'): string` that appends `defaultExt` to relative imports that lack an extension.",
     aLanguage: "typescript",
     aStarter: lines("function resolveModuleImport(specifier: string, defaultExt: string = '.js'): string {", "  // Append defaultExt if extension is missing", "  return '';", "}"),
-    aHint: "Check if the path has an extension after the last slash using regex or string methods.",
+    aHint: `const lastSlash = specifier.lastIndexOf('/');
+  const filename = lastSlash >= 0 ? specifier.slice(lastSlash + 1) : specifier;
+  if (filename.includes('.')) return specifier;
+  return specifier + defaultExt;`,
     aTest: lines(
       "if (typeof resolveModuleImport !== 'function') throw new Error('resolveModuleImport not found');",
       "if (resolveModuleImport('./utils/math') !== './utils/math.js') throw new Error('Missing .js extension');",
@@ -71,7 +96,10 @@ export const NODE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
     eDesc: "Write `formatApiResult(result: { success: true; data: unknown } | { success: false; error: string }): string` that narrows the discriminated union and formats the message.",
     eLanguage: "typescript",
     eStarter: lines("function formatApiResult(result: { success: true; data: unknown } | { success: false; error: string }): string {", "  // Return formatted result string", "  return '';", "}"),
-    eHint: "Check if result.success is true: return 'OK: ' + JSON.stringify(result.data), else 'ERR: ' + result.error.",
+    eHint: `if (result.success) {
+    return 'OK: ' + JSON.stringify(result.data);
+  }
+  return 'ERR: ' + result.error;`,
     eTest: lines(
       "if (typeof formatApiResult !== 'function') throw new Error('formatApiResult not found');",
       "if (formatApiResult({ success: true, data: { count: 5 } }) !== 'OK: {\"count\":5}') throw new Error('Success object format incorrect');",
@@ -82,7 +110,7 @@ export const NODE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
     aDesc: "Write a user-defined type guard `isNonEmptyString(value: unknown): value is string` that returns `true` only if `value` is a string with trimmed length greater than 0.",
     aLanguage: "typescript",
     aStarter: lines("function isNonEmptyString(value: unknown): value is string {", "  // Return true if value is non-empty string", "  return false;", "}"),
-    aHint: "Check typeof value === 'string' && value.trim().length > 0.",
+    aHint: `return typeof value === 'string' && value.trim().length > 0;`,
     aTest: lines(
       "if (typeof isNonEmptyString !== 'function') throw new Error('isNonEmptyString not found');",
       "if (isNonEmptyString('hello') !== true) throw new Error('hello should be true');",
@@ -100,7 +128,13 @@ export const NODE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
     eDesc: "Write `pickFields<T extends Record<string, unknown>, K extends keyof T>(obj: T, keys: K[]): Pick<T, K>` that extracts only the selected keys into a new object.",
     eLanguage: "typescript",
     eStarter: lines("function pickFields<T extends Record<string, unknown>, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> {", "  // Return new object with selected keys", "  return {} as any;", "}"),
-    eHint: "Iterate through keys; if key in obj, assign out[key] = obj[key].",
+    eHint: `const res = {} as Pick<T, K>;
+  for (const k of keys) {
+    if (k in obj) {
+      res[k] = obj[k];
+    }
+  }
+  return res;`,
     eTest: lines(
       "if (typeof pickFields !== 'function') throw new Error('pickFields not found');",
       "const u = { id: 1, name: 'Alice', role: 'admin', hash: 'xyz' };",
@@ -113,7 +147,13 @@ export const NODE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
     aDesc: "Write `applyDefaults<T extends Record<string, unknown>>(provided: Partial<T>, defaults: T): T` that combines defaults and provided values, ignoring `undefined` provided fields.",
     aLanguage: "typescript",
     aStarter: lines("function applyDefaults<T extends Record<string, unknown>>(provided: Partial<T>, defaults: T): T {", "  // Return combined object", "  return {} as any;", "}"),
-    aHint: "Create a copy of defaults, then override with non-undefined fields from provided.",
+    aHint: `const res = { ...defaults };
+  for (const key of Object.keys(provided) as (keyof T)[]) {
+    if (provided[key] !== undefined) {
+      res[key] = provided[key]!;
+    }
+  }
+  return res;`,
     aTest: lines(
       "if (typeof applyDefaults !== 'function') throw new Error('applyDefaults not found');",
       "const def = { host: '0.0.0.0', port: 3000, timeout: 5000 };",
@@ -133,7 +173,11 @@ export const NODE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
     eDesc: "Write `executeWithFallback<T>(primary: () => Promise<T>, fallback: () => Promise<T>): Promise<T>` that attempts primary() and falls back to fallback() on rejection.",
     eLanguage: "typescript",
     eStarter: lines("async function executeWithFallback<T>(primary: () => Promise<T>, fallback: () => Promise<T>): Promise<T> {", "  // Try primary, then fallback", "  return {} as any;", "}"),
-    eHint: "Use try/catch around await primary(), calling await fallback() inside catch.",
+    eHint: `try {
+    return await primary();
+  } catch {
+    return await fallback();
+  }`,
     eTest: lines(
       "if (typeof executeWithFallback !== 'function') throw new Error('executeWithFallback not found');",
       "const v1 = await executeWithFallback(async () => 42, async () => 99);",
@@ -145,7 +189,17 @@ export const NODE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
     aDesc: "Write `settleAllBatch<T>(tasks: (() => Promise<T>)[]): Promise<{ succeeded: T[]; failed: string[] }>` that executes an array of async functions and groups results.",
     aLanguage: "typescript",
     aStarter: lines("async function settleAllBatch<T>(tasks: (() => Promise<T>)[]): Promise<{ succeeded: T[]; failed: string[] }> {", "  // Run tasks and partition results", "  return { succeeded: [], failed: [] };", "}"),
-    aHint: "Map tasks to task(), use Promise.allSettled, then partition by status === 'fulfilled'.",
+    aHint: `const succeeded: T[] = [];
+  const failed: string[] = [];
+  for (const task of tasks) {
+    try {
+      const val = await task();
+      succeeded.push(val);
+    } catch (err: any) {
+      failed.push(err && err.message ? err.message : String(err));
+    }
+  }
+  return { succeeded, failed };`,
     aTest: lines(
       "if (typeof settleAllBatch !== 'function') throw new Error('settleAllBatch not found');",
       "const tasks = [async () => 'a', async () => { throw new Error('b-err'); }, async () => 'c'];",
@@ -177,7 +231,14 @@ export const NODE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
     aDesc: "Write `parseContentType(header: string): { mediaType: string; charset?: string }` that extracts the lowercase mediaType and optional charset parameter.",
     aLanguage: "typescript",
     aStarter: lines("function parseContentType(header: string): { mediaType: string; charset?: string } {", "  // Parse mediaType and charset", "  return { mediaType: '' };", "}"),
-    aHint: "Split header on ';' and trim parts. Check for 'charset=' in secondary parameters.",
+    aHint: `const parts = header.split(';').map(p => p.trim());
+  const mediaType = parts[0].toLowerCase();
+  let charset: string | undefined;
+  for (let i = 1; i < parts.length; i++) {
+    const match = parts[i].match(/^charset=(.+)$/i);
+    if (match) charset = match[1].toLowerCase();
+  }
+  return charset ? { mediaType, charset } : { mediaType };`,
     aTest: lines(
       "if (typeof parseContentType !== 'function') throw new Error('parseContentType not found');",
       "const r1 = parseContentType('application/json; charset=utf-8');",
@@ -196,7 +257,11 @@ export const NODE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
     eDesc: "Write `createJsonResponse(data: unknown, status: number = 200): { status: number; headers: Record<string, string>; body: string }` that constructs a standardized pure response.",
     eLanguage: "typescript",
     eStarter: lines("function createJsonResponse(data: unknown, status: number = 200): { status: number; headers: Record<string, string>; body: string } {", "  // Return JSON response object", "  return null as any;", "}"),
-    eHint: "Return { status, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) }.",
+    eHint: `return {
+    status,
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  };`,
     eTest: lines(
       "if (typeof createJsonResponse !== 'function') throw new Error('createJsonResponse not found');",
       "const r1 = createJsonResponse({ ok: true });",
@@ -208,7 +273,9 @@ export const NODE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
     aDesc: "Write `handleEchoRequest(req: { method: string; body?: unknown }): { status: number; body: string }` that returns 405 for non-POST, 400 for missing body, and 200 echoing stringified body.",
     aLanguage: "typescript",
     aStarter: lines("function handleEchoRequest(req: { method: string; body?: unknown }): { status: number; body: string } {", "  // Validate method and body, then echo", "  return null as any;", "}"),
-    aHint: "Check req.method !== 'POST', then req.body === undefined, then return JSON.stringify(req.body).",
+    aHint: `if (req.method !== 'POST') return { status: 405, body: 'Method Not Allowed' };
+  if (req.body === undefined) return { status: 400, body: 'Missing Body' };
+  return { status: 200, body: JSON.stringify(req.body) };`,
     aTest: lines(
       "if (typeof handleEchoRequest !== 'function') throw new Error('handleEchoRequest not found');",
       "if (handleEchoRequest({ method: 'GET' }).status !== 405) throw new Error('GET should return 405');",
@@ -225,7 +292,18 @@ export const NODE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
     eDesc: "Write `matchPath(pattern: string, path: string): { matched: boolean; params: Record<string, string> }` that matches paths with named parameters like `'/jobs/:id'`.",
     eLanguage: "typescript",
     eStarter: lines("function matchPath(pattern: string, path: string): { matched: boolean; params: Record<string, string> } {", "  // Match pattern and extract params", "  return { matched: false, params: {} };", "}"),
-    eHint: "Split pattern and path on '/' and compare segment by segment. Segments starting with ':' are parameter names.",
+    eHint: `const patSegs = pattern.split('/').filter(Boolean);
+  const pathSegs = path.split('/').filter(Boolean);
+  if (patSegs.length !== pathSegs.length) return { matched: false, params: {} };
+  const params: Record<string, string> = {};
+  for (let i = 0; i < patSegs.length; i++) {
+    if (patSegs[i].startsWith(':')) {
+      params[patSegs[i].slice(1)] = pathSegs[i];
+    } else if (patSegs[i] !== pathSegs[i]) {
+      return { matched: false, params: {} };
+    }
+  }
+  return { matched: true, params };`,
     eTest: lines(
       "if (typeof matchPath !== 'function') throw new Error('matchPath not found');",
       "const m1 = matchPath('/jobs/:id', '/jobs/101');",
@@ -239,7 +317,8 @@ export const NODE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
     aDesc: "Write `resolveRoute(routes: { method: string; path: string; handler: string }[], method: string, path: string): string | null` that finds the matching handler name.",
     aLanguage: "typescript",
     aStarter: lines("function resolveRoute(routes: { method: string; path: string; handler: string }[], method: string, path: string): string | null {", "  // Find matching route handler", "  return null;", "}"),
-    aHint: "Find route where r.method === method && r.path === path.",
+    aHint: `const r = routes.find(entry => entry.method === method && entry.path === path);
+  return r ? r.handler : null;`,
     aTest: lines(
       "if (typeof resolveRoute !== 'function') throw new Error('resolveRoute not found');",
       "const routes = [",
@@ -259,7 +338,12 @@ export const NODE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
     eDesc: "Write `parsePaginationQuery(search: string): { page: number; limit: number }` that parses query parameters with defaults (page: 1, limit: 10), min page: 1, and max limit: 100.",
     eLanguage: "typescript",
     eStarter: lines("function parsePaginationQuery(search: string): { page: number; limit: number } {", "  // Parse page and limit with bounds", "  return { page: 1, limit: 10 };", "}"),
-    eHint: "Use URLSearchParams, parse integers with Number(), enforce Math.max(1, page) and Math.min(100, Math.max(1, limit)).",
+    eHint: `const sp = new URLSearchParams(search);
+  const rawPage = sp.get('page');
+  const rawLimit = sp.get('limit');
+  const page = Math.max(1, rawPage ? Number(rawPage) || 1 : 1);
+  const limit = Math.min(100, Math.max(1, rawLimit ? Number(rawLimit) || 10 : 10));
+  return { page, limit };`,
     eTest: lines(
       "if (typeof parsePaginationQuery !== 'function') throw new Error('parsePaginationQuery not found');",
       "const p1 = parsePaginationQuery('?page=3&limit=50');",
@@ -273,7 +357,13 @@ export const NODE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
     aDesc: "Write `parseFilterQuery(search: string, allowedKeys: string[]): Record<string, string>` that extracts only allowed query parameters.",
     aLanguage: "typescript",
     aStarter: lines("function parseFilterQuery(search: string, allowedKeys: string[]): Record<string, string> {", "  // Return allowed key-value query pairs", "  return {};", "}"),
-    aHint: "Use URLSearchParams, iterate entries, and keep only keys in allowedKeys.",
+    aHint: `const sp = new URLSearchParams(search);
+  const allowed = new Set(allowedKeys);
+  const result: Record<string, string> = {};
+  for (const [key, value] of sp.entries()) {
+    if (allowed.has(key)) result[key] = value;
+  }
+  return result;`,
     aTest: lines(
       "if (typeof parseFilterQuery !== 'function') throw new Error('parseFilterQuery not found');",
       "const f1 = parseFilterQuery('?status=active&sort=desc&secret=123', ['status', 'sort']);",
@@ -290,7 +380,17 @@ export const NODE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
     eDesc: "Write `validateUserRegistration(body: any): { valid: boolean; errors: string[] }` checking: email contains '@', password length >= 8, age >= 18 if present.",
     eLanguage: "typescript",
     eStarter: lines("function validateUserRegistration(body: any): { valid: boolean; errors: string[] } {", "  // Validate registration fields", "  return { valid: false, errors: [] };", "}"),
-    eHint: "Push error messages into an array; return { valid: errors.length === 0, errors }.",
+    eHint: `const errors: string[] = [];
+  if (!body || typeof body.email !== 'string' || !body.email.includes('@')) {
+    errors.push('Invalid email');
+  }
+  if (!body || typeof body.password !== 'string' || body.password.length < 8) {
+    errors.push('Password must be at least 8 characters');
+  }
+  if (body && typeof body.age === 'number' && body.age < 18) {
+    errors.push('Must be at least 18 years old');
+  }
+  return { valid: errors.length === 0, errors };`,
     eTest: lines(
       "if (typeof validateUserRegistration !== 'function') throw new Error('validateUserRegistration not found');",
       "const v1 = validateUserRegistration({ email: 'alice@mail.com', password: 'password123' });",
@@ -304,7 +404,8 @@ export const NODE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
     aDesc: "Write `requireFields(obj: Record<string, unknown>, required: string[]): { ok: boolean; missing: string[] }` checking which required fields are missing, null, or empty string.",
     aLanguage: "typescript",
     aStarter: lines("function requireFields(obj: Record<string, unknown>, required: string[]): { ok: boolean; missing: string[] } {", "  // Identify missing fields", "  return { ok: false, missing: [] };", "}"),
-    aHint: "Filter required list where obj[k] is null, undefined, or ''.",
+    aHint: `const missing = required.filter(k => obj[k] === undefined || obj[k] === null || obj[k] === '');
+  return { ok: missing.length === 0, missing };`,
     aTest: lines(
       "if (typeof requireFields !== 'function') throw new Error('requireFields not found');",
       "const r1 = requireFields({ title: 'Dev', company: 'TCS' }, ['title', 'company']);",
@@ -314,165 +415,285 @@ export const NODE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
     )
   },
 
-  // ── DAY 11: Middleware Chains ─────────────────────────────────────────────
+  // ── DAY 11: Database Drivers & Connection Pooling ─────────────────────────
   {
     ...NODE_WEB_DAYS[10],
-    eTitle: "Compose Onion Middleware",
-    eDesc: "Write `composeMiddleware(middlewares: ((ctx: any, next: () => Promise<void>) => Promise<void>)[]): (ctx: any) => Promise<void>` executing middlewares in onion order.",
+    eTitle: "Calculate Little's Law Pool Sizing",
+    eDesc: "Write `calculateLittleLawPool(arrivalRate: number, avgLatencyMs: number, p99LatencyMs: number): { activeConnections: number; recommendedPool: number }` using Little's Law with P99 safety headroom.",
     eLanguage: "typescript",
-    eStarter: lines("function composeMiddleware(middlewares: ((ctx: any, next: () => Promise<void>) => Promise<void>)[]): (ctx: any) => Promise<void> {", "  // Return composed runner", "  return async function(ctx: any) {};", "}"),
-    eHint: "Recursive dispatch function: dispatch(i) calls middlewares[i](ctx, () => dispatch(i + 1)).",
-    eTest: lines(
-      "if (typeof composeMiddleware !== 'function') throw new Error('composeMiddleware not found');",
-      "const calls = [];",
-      "const m1 = async (ctx, next) => { calls.push('m1-in'); await next(); calls.push('m1-out'); };",
-      "const m2 = async (ctx, next) => { calls.push('m2-in'); await next(); calls.push('m2-out'); };",
-      "const run = composeMiddleware([m1, m2]);",
-      "await run({});",
-      "if (calls.join(',') !== 'm1-in,m2-in,m2-out,m1-out') throw new Error('Onion execution order failed: ' + calls.join(','));",
-      "const singleCalls = [];",
-      "const single = async (ctx, next) => { singleCalls.push('only'); await next(); };",
-      "await composeMiddleware([single])({});",
-      "if (singleCalls.join(',') !== 'only') throw new Error('Single middleware failed');"
+    eStarter: lines(
+      "function calculateLittleLawPool(arrivalRate: number, avgLatencyMs: number, p99LatencyMs: number): { activeConnections: number; recommendedPool: number } {",
+      "  // Calculate theoretical active and recommended pool size",
+      "  return { activeConnections: 0, recommendedPool: 0 };",
+      "}"
     ),
-    aTitle: "Execution Timing Middleware",
-    aDesc: "Write `timingMiddleware(fn: () => Promise<any>): Promise<{ result: any; durationMs: number }>` that times execution of an async function.",
+    eHint: `const activeConnections = Math.round(arrivalRate * (avgLatencyMs / 1000) * 100) / 100;
+  const p99Connections = arrivalRate * (p99LatencyMs / 1000);
+  const recommendedPool = Math.ceil(Math.max(activeConnections * 2, p99Connections * 1.2));
+  return { activeConnections, recommendedPool };`,
+    eTest: lines(
+      "if (typeof calculateLittleLawPool !== 'function') throw new Error('calculateLittleLawPool not found');",
+      "const r1 = calculateLittleLawPool(250, 8.0, 20.0);",
+      "if (r1.activeConnections !== 2.0) throw new Error('Expected 2.0 active, got ' + r1.activeConnections);",
+      "if (r1.recommendedPool !== 6) throw new Error('Expected 6 pool, got ' + r1.recommendedPool);",
+      "const r2 = calculateLittleLawPool(500, 10.0, 30.0);",
+      "if (r2.activeConnections !== 5.0) throw new Error('Expected 5.0 active, got ' + r2.activeConnections);",
+      "if (r2.recommendedPool !== 18) throw new Error('Expected 18 pool, got ' + r2.recommendedPool);"
+    ),
+    aTitle: "Detect Leaked Database Connections",
+    aDesc: "Write `detectLeakedConnections(leases: Array<{ id: string; leasedAt: number }>, now: number, thresholdMs: number): string[]` returning IDs of connections that exceeded lease thresholds.",
     aLanguage: "typescript",
-    aStarter: lines("async function timingMiddleware(fn: () => Promise<any>): Promise<{ result: any; durationMs: number }> {", "  // Time the function and return result", "  return null as any;", "}"),
-    aHint: "Record Date.now() before and after calling await fn().",
+    aStarter: lines(
+      "function detectLeakedConnections(leases: Array<{ id: string; leasedAt: number }>, now: number, thresholdMs: number): string[] {",
+      "  // Filter leaked connection IDs",
+      "  return [];",
+      "}"
+    ),
+    aHint: `return leases.filter((l) => (now - l.leasedAt) > thresholdMs).map((l) => l.id);`,
     aTest: lines(
-      "if (typeof timingMiddleware !== 'function') throw new Error('timingMiddleware not found');",
-      "const timed = await timingMiddleware(async () => 100);",
-      "if (timed.result !== 100 || typeof timed.durationMs !== 'number' || timed.durationMs < 0) throw new Error('Failed timingMiddleware number');",
-      "const timed2 = await timingMiddleware(async () => 'hello');",
-      "if (timed2.result !== 'hello' || typeof timed2.durationMs !== 'number' || timed2.durationMs < 0) throw new Error('Failed timingMiddleware string');",
-      "const timed3 = await timingMiddleware(async () => [1, 2, 3]);",
-      "if (!Array.isArray(timed3.result) || timed3.result.length !== 3 || timed3.result[0] !== 1 || typeof timed3.durationMs !== 'number' || timed3.durationMs < 0) throw new Error('Failed timingMiddleware array');"
+      "if (typeof detectLeakedConnections !== 'function') throw new Error('detectLeakedConnections not found');",
+      "const leases = [",
+      "  { id: 'conn-1', leasedAt: 1000 },",
+      "  { id: 'conn-2', leasedAt: 4500 },",
+      "  { id: 'conn-3', leasedAt: 2000 }",
+      "];",
+      "const leaked = detectLeakedConnections(leases, 5000, 2500);",
+      "if (leaked.length !== 2) throw new Error('Expected 2 leaked connections, got ' + leaked.length);",
+      "if (!leaked.includes('conn-1') || !leaked.includes('conn-3')) throw new Error('Expected conn-1 and conn-3');",
+      "if (detectLeakedConnections([], 5000, 2500).length !== 0) throw new Error('Expected 0 leaked for empty leases');"
     )
   },
 
-  // ── DAY 12: RFC 7807 Problem Details ──────────────────────────────────────
+  // ── DAY 12: SQL Query Composition & Injection Defense ─────────────────────
   {
     ...NODE_WEB_DAYS[11],
-    eTitle: "Format RFC 7807 Problem Details",
-    eDesc: "Write `formatProblemDetails(status: number, title: string, detail: string, instance?: string)` returning an RFC 7807 compliant error object.",
+    eTitle: "Build Parameterized WHERE Clause",
+    eDesc: "Write `buildParameterizedWhere(filters: Record<string, unknown>, startIndex?: number): { sql: string; values: unknown[] }` converting filter keys into positional placeholders.",
     eLanguage: "typescript",
-    eStarter: lines("function formatProblemDetails(status: number, title: string, detail: string, instance?: string): Record<string, unknown> {", "  // Return RFC 7807 object", "  return {};", "}"),
-    eHint: "Return { type: 'about:blank', title, status, detail, ...(instance ? { instance } : {}) }.",
-    eTest: lines(
-      "if (typeof formatProblemDetails !== 'function') throw new Error('formatProblemDetails not found');",
-      "const p1 = formatProblemDetails(404, 'Not Found', 'Job 42 not found', '/jobs/42');",
-      "if (p1.status !== 404 || p1.title !== 'Not Found' || p1.instance !== '/jobs/42' || p1.type !== 'about:blank') throw new Error('p1 format failed');",
-      "const p2 = formatProblemDetails(500, 'Server Error', 'Internal failure');",
-      "if (p2.status !== 500 || 'instance' in p2) throw new Error('p2 should not have instance');"
+    eStarter: lines(
+      "function buildParameterizedWhere(filters: Record<string, unknown>, startIndex = 1): { sql: string; values: unknown[] } {",
+      "  // Generate parameterized WHERE clause",
+      "  return { sql: '', values: [] };",
+      "}"
     ),
-    aTitle: "Format Validation Problem Details",
-    aDesc: "Write `formatValidationProblem(invalidParams: { name: string; reason: string }[]): Record<string, unknown>` returning status 400 problem details with `invalidParams`.",
+    eHint: `const keys = Object.keys(filters);
+  if (keys.length === 0) return { sql: '', values: [] };
+  const clauses: string[] = [];
+  const values: unknown[] = [];
+  let idx = startIndex;
+  for (const key of keys) {
+    clauses.push(key + ' = $' + idx++);
+    values.push(filters[key]);
+  }
+  return { sql: 'WHERE ' + clauses.join(' AND '), values };`,
+    eTest: lines(
+      "if (typeof buildParameterizedWhere !== 'function') throw new Error('buildParameterizedWhere not found');",
+      "const q1 = buildParameterizedWhere({ status: 'active', role: 'admin' });",
+      "if (q1.sql !== 'WHERE status = $1 AND role = $2') throw new Error('Unexpected SQL: ' + q1.sql);",
+      "if (q1.values.length !== 2 || q1.values[0] !== 'active' || q1.values[1] !== 'admin') throw new Error('Invalid values');",
+      "const q2 = buildParameterizedWhere({});",
+      "if (q2.sql !== '' || q2.values.length !== 0) throw new Error('Empty filters should produce empty SQL');"
+    ),
+    aTitle: "Sanitize SQL Order Clause",
+    aDesc: "Write `sanitizeOrderClause(column: string, direction: string, allowedCols: string[]): string` validating identifiers against whitelists and quoting safely.",
     aLanguage: "typescript",
-    aStarter: lines("function formatValidationProblem(invalidParams: { name: string; reason: string }[]): Record<string, unknown> {", "  // Return validation problem details", "  return {};", "}"),
-    aHint: "Return status 400 with title 'Validation Failed', detail 'One or more fields failed validation', and invalidParams array.",
+    aStarter: lines(
+      "function sanitizeOrderClause(column: string, direction: string, allowedCols: string[]): string {",
+      "  // Build validated ORDER BY clause",
+      "  return '';",
+      "}"
+    ),
+    aHint: `if (!allowedCols.includes(column)) throw new Error('Disallowed column: ' + column);
+  const dir = direction.toUpperCase();
+  if (dir !== 'ASC' && dir !== 'DESC') throw new Error('Invalid direction: ' + direction);
+  return 'ORDER BY "' + column.replace(/"/g, '""') + '" ' + dir;`,
     aTest: lines(
-      "if (typeof formatValidationProblem !== 'function') throw new Error('formatValidationProblem not found');",
-      "const v1 = formatValidationProblem([{ name: 'email', reason: 'Must contain @' }]);",
-      "if (v1.status !== 400 || v1.title !== 'Validation Failed' || !Array.isArray(v1.invalidParams) || v1.invalidParams.length !== 1 || v1.invalidParams[0].name !== 'email') throw new Error('Validation problem shape failed');",
-      "const v2 = formatValidationProblem([{ name: 'password', reason: 'Too short' }, { name: 'age', reason: 'Under 18' }]);",
-      "if (v2.invalidParams.length !== 2 || v2.invalidParams[1].name !== 'age') throw new Error('Multiple invalidParams failed');"
+      "if (typeof sanitizeOrderClause !== 'function') throw new Error('sanitizeOrderClause not found');",
+      "const ord1 = sanitizeOrderClause('created_at', 'desc', ['id', 'created_at', 'name']);",
+      'if (ord1 !== \'ORDER BY "created_at" DESC\') throw new Error("Expected ORDER BY created_at DESC, got " + ord1);',
+      "let threw = false;",
+      "try { sanitizeOrderClause('password; DROP', 'DESC', ['id', 'created_at']); } catch (e) { threw = true; }",
+      "if (!threw) throw new Error('Should throw on disallowed column');"
     )
   },
 
-  // ── DAY 13: Structured JSON Logging ───────────────────────────────────────
+  // ── DAY 13: Transaction Management & Distributed Locks ───────────────────
   {
     ...NODE_WEB_DAYS[12],
-    eTitle: "Format Structured JSON Log Entry",
-    eDesc: "Write `formatLogEntry(level: 'info' | 'warn' | 'error', message: string, meta?: Record<string, unknown>): string` returning a stringified JSON log record.",
+    eTitle: "Execute Transaction with Transient Retry",
+    eDesc: "Write `executeWithRetry<T>(operation: () => Promise<T>, maxAttempts?: number): Promise<{ result: T; attempts: number }>` retrying on 40P01 and 40001 errors.",
     eLanguage: "typescript",
-    eStarter: lines("function formatLogEntry(level: 'info' | 'warn' | 'error', message: string, meta?: Record<string, unknown>): string {", "  // Return JSON log string", "  return '';", "}"),
-    eHint: "Return JSON.stringify({ level, message, ...(meta || {}) }).",
-    eTest: lines(
-      "if (typeof formatLogEntry !== 'function') throw new Error('formatLogEntry not found');",
-      "const json = formatLogEntry('info', 'Server started', { port: 3000 });",
-      "const parsed = JSON.parse(json);",
-      "if (parsed.level !== 'info' || parsed.message !== 'Server started' || parsed.port !== 3000) throw new Error('Log JSON structure failed');",
-      "const json2 = formatLogEntry('error', 'DB failed');",
-      "const parsed2 = JSON.parse(json2);",
-      "if (parsed2.level !== 'error' || parsed2.message !== 'DB failed' || 'port' in parsed2) throw new Error('Second log entry failed');"
+    eStarter: lines(
+      "async function executeWithRetry<T>(operation: () => Promise<T>, maxAttempts = 3): Promise<{ result: T; attempts: number }> {",
+      "  // Execute with deadlock retry logic",
+      "  return { result: {} as T, attempts: 0 };",
+      "}"
     ),
-    aTitle: "Mask Sensitive Log Fields",
-    aDesc: "Write `maskSensitiveFields(data: Record<string, unknown>, sensitiveKeys: string[] = ['password', 'token', 'secret']): Record<string, unknown>` replacing sensitive values with `'***REDACTED***'`.",
+    eHint: `let attempts = 0;
+  while (attempts < maxAttempts) {
+    attempts++;
+    try {
+      const result = await operation();
+      return { result, attempts };
+    } catch (err: any) {
+      if (err && (err.code === '40P01' || err.code === '40001') && attempts < maxAttempts) {
+        continue;
+      }
+      throw err;
+    }
+  }
+  throw new Error('Max retries exceeded');`,
+    eTest: lines(
+      "if (typeof executeWithRetry !== 'function') throw new Error('executeWithRetry not found');",
+      "let failCount = 2;",
+      "const res = await executeWithRetry(async () => {",
+      "  if (failCount > 0) {",
+      "    failCount--;",
+      "    const e = new Error('deadlock');",
+      "    e.code = '40P01';",
+      "    throw e;",
+      "  }",
+      "  return 'committed';",
+      "});",
+      "if (res.result !== 'committed' || res.attempts !== 3) throw new Error('Expected committed in 3 attempts');",
+      "const res2 = await executeWithRetry(async () => 'fast');",
+      "if (res2.result !== 'fast' || res2.attempts !== 1) throw new Error('Expected fast in 1 attempt');"
+    ),
+    aTitle: "Validate Fencing Token Write",
+    aDesc: "Write `validateFencingWrite(token: number, lastToken: number, data: string): { success: boolean; lastToken: number }` enforcing monotonic fencing token order.",
     aLanguage: "typescript",
-    aStarter: lines("function maskSensitiveFields(data: Record<string, unknown>, sensitiveKeys: string[] = ['password', 'token', 'secret']): Record<string, unknown> {", "  // Redact sensitive keys", "  return {};", "}"),
-    aHint: "Iterate object keys; if lowercased key matches sensitiveKeys, set value to '***REDACTED***'.",
+    aStarter: lines(
+      "function validateFencingWrite(token: number, lastToken: number, data: string): { success: boolean; lastToken: number } {",
+      "  // Validate token monotonicity",
+      "  return { success: false, lastToken: 0 };",
+      "}"
+    ),
+    aHint: `if (token <= lastToken) {
+    return { success: false, lastToken };
+  }
+  return { success: true, lastToken: token };`,
     aTest: lines(
-      "if (typeof maskSensitiveFields !== 'function') throw new Error('maskSensitiveFields not found');",
-      "const raw = { user: 'admin', password: 'my-secret', token: 'xyz123', email: 'a@a.com' };",
-      "const masked = maskSensitiveFields(raw);",
-      "if (masked.user !== 'admin' || masked.email !== 'a@a.com') throw new Error('Safe fields modified');",
-      "if (masked.password !== '***REDACTED***' || masked.token !== '***REDACTED***') throw new Error('Sensitive fields not redacted');",
-      "const raw2 = { secret: 'topsecret', name: 'PinIT' };",
-      "const masked2 = maskSensitiveFields(raw2);",
-      "if (masked2.name !== 'PinIT' || masked2.secret !== '***REDACTED***' || 'user' in masked2) throw new Error('Custom fields redaction failed');"
+      "if (typeof validateFencingWrite !== 'function') throw new Error('validateFencingWrite not found');",
+      "const r1 = validateFencingWrite(101, 100, 'update-1');",
+      "if (!r1.success || r1.lastToken !== 101) throw new Error('Token 101 should succeed');",
+      "const r2 = validateFencingWrite(101, 102, 'update-stale');",
+      "if (r2.success || r2.lastToken !== 102) throw new Error('Token 101 should fail against 102');"
     )
   },
 
-  // ── DAY 14: Configuration Management ──────────────────────────────────────
+  // ── DAY 14: Multi-Tier Caching & Stampede Mitigation ───────────────────────
   {
     ...NODE_WEB_DAYS[13],
-    eTitle: "Validate Server App Configuration",
-    eDesc: "Write `validateAppConfig(env: Record<string, string | undefined>): { PORT: number; NODE_ENV: string; DATABASE_URL: string }` validating env with defaults and throwing if DATABASE_URL is missing.",
+    eTitle: "Evaluate XFetch Probabilistic Early Expiration",
+    eDesc: "Write `evaluateXFetch(remainingTtlSec: number, deltaMs: number, beta: number, randomVal: number): boolean` computing optimal background refresh thresholds.",
     eLanguage: "typescript",
-    eStarter: lines("function validateAppConfig(env: Record<string, string | undefined>): { PORT: number; NODE_ENV: string; DATABASE_URL: string } {", "  // Validate and parse environment", "  return null as any;", "}"),
-    eHint: "If (!env.DATABASE_URL) throw new Error('DATABASE_URL is required'); parse PORT with Number(env.PORT || 3000).",
-    eTest: lines(
-      "if (typeof validateAppConfig !== 'function') throw new Error('validateAppConfig not found');",
-      "const c1 = validateAppConfig({ DATABASE_URL: 'postgres://db' });",
-      "if (c1.PORT !== 3000 || c1.NODE_ENV !== 'development' || c1.DATABASE_URL !== 'postgres://db') throw new Error('Failed c1 defaults');",
-      "const c2 = validateAppConfig({ PORT: '8080', NODE_ENV: 'production', DATABASE_URL: 'postgres://prod' });",
-      "if (c2.PORT !== 8080 || c2.NODE_ENV !== 'production') throw new Error('Failed c2 custom values');",
-      "let threw = false; try { validateAppConfig({}); } catch (e) { threw = true; }",
-      "if (!threw) throw new Error('Should throw when DATABASE_URL is missing');"
+    eStarter: lines(
+      "function evaluateXFetch(remainingTtlSec: number, deltaMs: number, beta: number, randomVal: number): boolean {",
+      "  // Evaluate XFetch formula",
+      "  return false;",
+      "}"
     ),
-    aTitle: "Freeze Configuration Object Recursively",
-    aDesc: "Write `freezeConfig<T extends Record<string, unknown>>(config: T): Readonly<T>` that recursively deep freezes an object preventing modification.",
+    eHint: `if (remainingTtlSec <= 0) return true;
+  const deltaSec = deltaMs / 1000;
+  const threshold = -1 * (beta * deltaSec * Math.log(randomVal));
+  return threshold > remainingTtlSec;`,
+    eTest: lines(
+      "if (typeof evaluateXFetch !== 'function') throw new Error('evaluateXFetch not found');",
+      "const early = evaluateXFetch(2, 200, 1.0, 1e-13);",
+      "if (!early) throw new Error('Expected early refresh to be true when remaining is 2s');",
+      "const notEarly = evaluateXFetch(50, 200, 1.0, 1e-13);",
+      "if (notEarly) throw new Error('Expected early refresh to be false when remaining is 50s');"
+    ),
+    aTitle: "Singleflight Promise Deduplicator",
+    aDesc: "Write `createSingleflightManager(): { doCall: <T>(key: string, fn: () => Promise<T>) => Promise<T> }` coalescing concurrent queries into a single pending promise.",
     aLanguage: "typescript",
-    aStarter: lines("function freezeConfig<T extends Record<string, unknown>>(config: T): Readonly<T> {", "  // Deep freeze object", "  return config;", "}"),
-    aHint: "Use Object.freeze, and recursively call freezeConfig on any nested objects.",
+    aStarter: lines(
+      "function createSingleflightManager(): { doCall: <T>(key: string, fn: () => Promise<T>) => Promise<T> } {",
+      "  // Create promise deduplicator",
+      "  return { doCall: async (k, fn) => fn() };",
+      "}"
+    ),
+    aHint: `const inFlight = new Map<string, Promise<any>>();
+  return {
+    doCall: async <T>(key: string, fn: () => Promise<T>): Promise<T> => {
+      if (inFlight.has(key)) return inFlight.get(key) as Promise<T>;
+      const p = (async () => {
+        try { return await fn(); }
+        finally { inFlight.delete(key); }
+      })();
+      inFlight.set(key, p);
+      return p;
+    }
+  };`,
     aTest: lines(
-      "if (typeof freezeConfig !== 'function') throw new Error('freezeConfig not found');",
-      "const cfg = freezeConfig({ app: { name: 'PinIT' } });",
-      "if (!Object.isFrozen(cfg) || !Object.isFrozen(cfg.app)) throw new Error('Deep freeze failed');",
-      "const cfg2 = freezeConfig({ env: 'prod' });",
-      "if (!Object.isFrozen(cfg2) || cfg2.env !== 'prod' || 'app' in cfg2) throw new Error('freezeConfig should preserve properties');"
+      "if (typeof createSingleflightManager !== 'function') throw new Error('createSingleflightManager not found');",
+      "const sf = createSingleflightManager();",
+      "let calls = 0;",
+      "const slowFn = async () => { calls++; return 'done'; };",
+      "const [res1, res2, res3] = await Promise.all([",
+      "  sf.doCall('k1', slowFn),",
+      "  sf.doCall('k1', slowFn),",
+      "  sf.doCall('k1', slowFn)",
+      "]);",
+      "if (calls !== 1) throw new Error('Expected exactly 1 call, got ' + calls);",
+      "if (res1 !== 'done' || res2 !== 'done' || res3 !== 'done') throw new Error('Values mismatch');"
     )
   },
 
-  // ── DAY 15: Pagination & Sorting Standards ────────────────────────────────
+  // ── DAY 15: Zero-Downtime Database Migrations ──────────────────────────────
   {
     ...NODE_WEB_DAYS[14],
-    eTitle: "Paginate In-Memory List",
-    eDesc: "Write `paginateList<T>(items: T[], page: number, limit: number): { data: T[]; total: number; totalPages: number; page: number }` slicing items for the given 1-based page and limit.",
+    eTitle: "Audit DDL Non-Blocking Safety",
+    eDesc: "Write `auditDDLScript(sql: string): { isSafe: boolean; issues: string[] }` checking for lock_timeout directives and CONCURRENTLY flags.",
     eLanguage: "typescript",
-    eStarter: lines("function paginateList<T>(items: T[], page: number, limit: number): { data: T[]; total: number; totalPages: number; page: number } {", "  // Slice items and compute pagination metadata", "  return null as any;", "}"),
-    eHint: "const start = (page - 1) * limit; const data = items.slice(start, start + limit); totalPages = Math.ceil(items.length / limit).",
-    eTest: lines(
-      "if (typeof paginateList !== 'function') throw new Error('paginateList not found');",
-      "const r1 = paginateList([1, 2, 3, 4, 5], 1, 2);",
-      "if (r1.data.length !== 2 || r1.data[0] !== 1 || r1.total !== 5 || r1.totalPages !== 3 || r1.page !== 1) throw new Error('Page 1 failed');",
-      "const r2 = paginateList([1, 2, 3, 4, 5], 3, 2);",
-      "if (r2.data.length !== 1 || r2.data[0] !== 5 || r2.page !== 3) throw new Error('Page 3 failed');"
+    eStarter: lines(
+      "function auditDDLScript(sql: string): { isSafe: boolean; issues: string[] } {",
+      "  // Audit DDL safety pragmas",
+      "  return { isSafe: false, issues: [] };",
+      "}"
     ),
-    aTitle: "Sort Entity Collection",
-    aDesc: "Write `sortEntities<T extends Record<string, any>>(items: T[], field: keyof T, order: 'asc' | 'desc' = 'asc'): T[]` returning a new array sorted by the specified field.",
+    eHint: `const issues: string[] = [];
+  const upper = sql.toUpperCase();
+  if (!upper.includes('LOCK_TIMEOUT')) {
+    issues.push('Missing lock_timeout');
+  }
+  if (upper.includes('CREATE INDEX') && !upper.includes('CONCURRENTLY')) {
+    issues.push('CREATE INDEX without CONCURRENTLY');
+  }
+  return { isSafe: issues.length === 0, issues };`,
+    eTest: lines(
+      "if (typeof auditDDLScript !== 'function') throw new Error('auditDDLScript not found');",
+      "const unsafe = auditDDLScript('CREATE INDEX idx_user ON users(email);');",
+      "if (unsafe.isSafe) throw new Error('Expected unsafe script to fail');",
+      "if (unsafe.issues.length !== 2) throw new Error('Expected 2 issues, got ' + unsafe.issues.length);",
+      'const safe = auditDDLScript("SET lock_timeout = \'2s\'; CREATE INDEX CONCURRENTLY idx_user ON users(email);");',
+      "if (!safe.isSafe || safe.issues.length !== 0) throw new Error('Expected safe script to pass');"
+    ),
+    aTitle: "Calculate Batch Migration Rollback",
+    aDesc: "Write `calculateMigrationBatchRollback(records: Array<{ name: string; batch: number }>): string[]` returning migration names of the latest batch in reverse order.",
     aLanguage: "typescript",
-    aStarter: lines("function sortEntities<T extends Record<string, any>>(items: T[], field: keyof T, order: 'asc' | 'desc' = 'asc'): T[] {", "  // Return sorted copy of items", "  return [];", "}"),
-    aHint: "Copy items with [...items] then call sort with comparison on a[field] and b[field].",
+    aStarter: lines(
+      "function calculateMigrationBatchRollback(records: Array<{ name: string; batch: number }>): string[] {",
+      "  // Return latest batch migration names in reverse",
+      "  return [];",
+      "}"
+    ),
+    aHint: `if (records.length === 0) return [];
+  const maxBatch = Math.max(...records.map((r) => r.batch));
+  return records.filter((r) => r.batch === maxBatch).reverse().map((r) => r.name);`,
     aTest: lines(
-      "if (typeof sortEntities !== 'function') throw new Error('sortEntities not found');",
-      "const users = [{ id: 2, name: 'Bob' }, { id: 1, name: 'Alice' }];",
-      "const sorted = sortEntities(users, 'id', 'asc');",
-      "if (sorted[0].id !== 1 || sorted[1].id !== 2) throw new Error('Ascending sort failed');",
-      "if (users[0].id !== 2) throw new Error('Original array was mutated');",
-      "const desc = sortEntities(users, 'name', 'desc');",
-      "if (desc[0].name !== 'Bob' || desc[1].name !== 'Alice') throw new Error('Descending sort failed');"
+      "if (typeof calculateMigrationBatchRollback !== 'function') throw new Error('calculateMigrationBatchRollback not found');",
+      "const history = [",
+      "  { name: '001_init', batch: 1 },",
+      "  { name: '002_users', batch: 1 },",
+      "  { name: '003_orders', batch: 2 },",
+      "  { name: '004_items', batch: 2 }",
+      "];",
+      "const rollback = calculateMigrationBatchRollback(history);",
+      "if (rollback.length !== 2) throw new Error('Expected 2 to rollback, got ' + rollback.length);",
+      "if (rollback[0] !== '004_items' || rollback[1] !== '003_orders') throw new Error('Expected reverse order [004, 003]');",
+      "const emptyRollback = calculateMigrationBatchRollback([]);",
+      "if (emptyRollback.length !== 0) throw new Error('Expected 0 items for empty history');"
     )
   },
 

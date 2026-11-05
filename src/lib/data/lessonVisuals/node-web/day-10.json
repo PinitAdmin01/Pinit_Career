@@ -1,1060 +1,263 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "prefix": "node-web",
   "day": 10,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
   "entries": [
     {
-      "partTitle": "Untrusted Request Bodies & The Threat of Injection",
-      "codeHash": "02f5d46547c7d658f1e0549bd0e55a7c6c3509be767fb7e74e2427a8dd597ee7",
-      "spec": {
-        "template": "boxes",
-        "title": "Hostile body payload inspection",
-        "boxes": [
-          {
-            "id": "name",
-            "label": "name"
-          },
-          {
-            "id": "email",
-            "label": "email"
-          },
-          {
-            "id": "admin",
-            "label": "isAdmin"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Attackers can inject unexpected fields or prototype pollution keys.",
-            "values": {
-              "name": {
-                "text": "Alice"
-              },
-              "email": {
-                "text": "alice@pin.it"
-              },
-              "admin": {
-                "text": "isAdmin"
-              }
-            },
-            "tones": {
-              "name": "data",
-              "email": "idle",
-              "admin": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Passing unvalidated bodies directly to database insertion is insecure.",
-            "values": {
-              "name": {
-                "text": "Attacker"
-              },
-              "email": {
-                "text": "alice@pin.it"
-              },
-              "admin": {
-                "text": "true"
-              }
-            },
-            "tones": {
-              "name": "idle",
-              "email": "data",
-              "admin": "error"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Failing fast at the perimeter prevents resource exhaustion attacks.",
-            "values": {
-              "name": {
-                "text": "Alice"
-              },
-              "email": {
-                "text": "alice@pin.it"
-              },
-              "admin": {
-                "text": "isAdmin"
-              }
-            },
-            "tones": {
-              "name": "ok",
-              "email": "ok",
-              "admin": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Hostile body payload inspection",
-        "boxes": [
-          {
-            "id": "name",
-            "label": "name"
-          },
-          {
-            "id": "email",
-            "label": "email"
-          },
-          {
-            "id": "admin",
-            "label": "isAdmin"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Attackers can inject unexpected fields or prototype pollution keys.",
-            "values": {
-              "name": "Alice",
-              "email": "alice@pin.it",
-              "admin": "isAdmin"
-            },
-            "tones": {
-              "name": "data",
-              "email": "idle",
-              "admin": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Passing unvalidated bodies directly to database insertion is insecure.",
-            "values": {
-              "name": "Attacker",
-              "email": "alice@pin.it",
-              "admin": "true"
-            },
-            "tones": {
-              "name": "idle",
-              "email": "data",
-              "admin": "error"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Failing fast at the perimeter prevents resource exhaustion attacks.",
-            "values": {
-              "name": "Alice",
-              "email": "alice@pin.it",
-              "admin": "isAdmin"
-            },
-            "tones": {
-              "name": "ok",
-              "email": "ok",
-              "admin": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Declarative Schema Definitions for Ingestion",
-      "codeHash": "2827d465055298b9d5e874409491d9a852c5e5e8468e8fca76cfb0afcb642ffa",
-      "spec": {
-        "template": "table",
-        "title": "Declarative schema rules registry",
-        "columns": [
-          "Schema Field",
-          "Declared Type",
-          "Required Rule"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Industry standard backends use declarative schema definitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "username"
-                  },
-                  {
-                    "text": "string"
-                  },
-                  {
-                    "text": "true"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "email"
-                  },
-                  {
-                    "text": "string"
-                  },
-                  {
-                    "text": "true"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "age"
-                  },
-                  {
-                    "text": "number"
-                  },
-                  {
-                    "text": "false"
-                  }
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Validation libraries allow developers to define schemas using clean builders.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "username"
-                  },
-                  {
-                    "text": "string"
-                  },
-                  {
-                    "text": "true"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "email"
-                  },
-                  {
-                    "text": "string"
-                  },
-                  {
-                    "text": "true"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "age"
-                  },
-                  {
-                    "text": "number"
-                  },
-                  {
-                    "text": "false"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Modifying the schema automatically updates runtime validation checks.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "username"
-                  },
-                  {
-                    "text": "string"
-                  },
-                  {
-                    "text": "true"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "email"
-                  },
-                  {
-                    "text": "string"
-                  },
-                  {
-                    "text": "true"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "age"
-                  },
-                  {
-                    "text": "number"
-                  },
-                  {
-                    "text": "false"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "table",
-        "title": "Declarative schema rules registry",
-        "columns": [
-          "Schema Field",
-          "Declared Type",
-          "Required Rule"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Industry standard backends use declarative schema definitions.",
-            "rows": [
-              {
-                "cells": [
-                  "username",
-                  "string",
-                  "true"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "email",
-                  "string",
-                  "true"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "age",
-                  "number",
-                  "false"
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Validation libraries allow developers to define schemas using clean builders.",
-            "rows": [
-              {
-                "cells": [
-                  "username",
-                  "string",
-                  "true"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "email",
-                  "string",
-                  "true"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "age",
-                  "number",
-                  "false"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Modifying the schema automatically updates runtime validation checks.",
-            "rows": [
-              {
-                "cells": [
-                  "username",
-                  "string",
-                  "true"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "email",
-                  "string",
-                  "true"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "age",
-                  "number",
-                  "false"
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Validating Required Fields and Data Types",
-      "codeHash": "18911e0ec08826998813effbdea09c00045708cccfc0b0ecf7b529d4f91e2f64",
+      "partTitle": "Prototype Pollution Defense & Object Hardening",
+      "codeHash": "4e8ba892c5d0e45903ca50741c7942b1e705f4ea284d90967b6dec1d246b399d",
       "spec": {
         "template": "flow",
-        "title": "Primitive field type validation flow",
+        "title": "Process Pipeline Prototype Pollution Defense & Object Hardening.",
         "nodes": [
           {
-            "id": "val",
-            "label": "value"
+            "id": "stepA",
+            "label": "Initial Stage",
+            "type": "start"
           },
           {
-            "id": "str",
-            "label": "string"
+            "id": "stepB",
+            "label": "Processing Core",
+            "type": "process"
           },
           {
-            "id": "num",
-            "label": "number"
+            "id": "stepC",
+            "label": "Verification Check",
+            "type": "process"
+          },
+          {
+            "id": "stepD",
+            "label": "Terminal Output",
+            "type": "end"
+          }
+        ],
+        "edges": [
+          {
+            "from": "stepA",
+            "to": "stepB",
+            "label": "Next"
+          },
+          {
+            "from": "stepB",
+            "to": "stepC",
+            "label": "Inspect"
+          },
+          {
+            "from": "stepC",
+            "to": "stepD",
+            "label": "Complete"
           }
         ],
         "steps": [
-          {
-            "at": "say2",
-            "caption": "If a field is marked required the validator ensures the field exists.",
-            "values": {
-              "val": {
-                "text": "Alice"
-              },
-              "str": {
-                "text": "string"
-              },
-              "num": {
-                "text": "42"
-              }
-            },
-            "tones": {
-              "val": "data",
-              "str": "idle",
-              "num": "idle"
-            },
-            "arrows": [
-              [
-                "val",
-                "str"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "The validator verifies the type matches expected schema primitives.",
-            "values": {
-              "val": {
-                "text": "42"
-              },
-              "str": {
-                "text": "string"
-              },
-              "num": {
-                "text": "42"
-              }
-            },
-            "tones": {
-              "val": "idle",
-              "str": "idle",
-              "num": "data"
-            },
-            "arrows": [
-              [
-                "val",
-                "num"
-              ]
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Strict schema validation strips out unrecognized properties.",
-            "values": {
-              "val": {
-                "text": "Alice"
-              },
-              "str": {
-                "text": "string"
-              },
-              "num": {
-                "text": "42"
-              }
-            },
-            "tones": {
-              "val": "ok",
-              "str": "ok",
-              "num": "ok"
-            },
-            "arrows": [
-              [
-                "val",
-                "str"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Primitive field type validation flow",
-        "nodes": [
-          {
-            "id": "val",
-            "label": "value"
-          },
-          {
-            "id": "str",
-            "label": "string"
-          },
-          {
-            "id": "num",
-            "label": "number"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "If a field is marked required the validator ensures the field exists.",
-            "values": {
-              "val": "Alice",
-              "str": "string",
-              "num": "42"
-            },
-            "tones": {
-              "val": "data",
-              "str": "idle",
-              "num": "idle"
-            },
-            "arrows": [
-              [
-                "val",
-                "str"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "The validator verifies the type matches expected schema primitives.",
-            "values": {
-              "val": "42",
-              "str": "string",
-              "num": "42"
-            },
-            "tones": {
-              "val": "idle",
-              "str": "idle",
-              "num": "data"
-            },
-            "arrows": [
-              [
-                "val",
-                "num"
-              ]
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Strict schema validation strips out unrecognized properties.",
-            "values": {
-              "val": "Alice",
-              "str": "string",
-              "num": "42"
-            },
-            "tones": {
-              "val": "ok",
-              "str": "ok",
-              "num": "ok"
-            },
-            "arrows": [
-              [
-                "val",
-                "str"
-              ]
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "String Format Validation: Email and UUID Rules",
-      "codeHash": "3e4760f04e7d1bc4953ec2fc68fc73db0a1da42b7dc4eeab96af57d41d3e1235",
-      "spec": {
-        "template": "boxes",
-        "title": "String format validation constraints",
-        "boxes": [
-          {
-            "id": "email",
-            "label": "email"
-          },
-          {
-            "id": "uuid",
-            "label": "id"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "String format validation enforces domain constraints on text fields.",
-            "values": {
-              "email": {
-                "text": "student@pin.it"
-              },
-              "uuid": {
-                "text": "123e4567-e89b-12d3-a456-426614174000"
-              }
-            },
-            "tones": {
-              "email": "data",
-              "uuid": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "For email validation a regex verifies recipient names and domain name.",
-            "values": {
-              "email": {
-                "text": "student@pin.it"
-              },
-              "uuid": {
-                "text": "123e4567-e89b-12d3-a456-426614174000"
-              }
-            },
-            "tones": {
-              "email": "ok",
-              "uuid": "data"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Regular expression patterns should be vetted against ReDoS vulnerabilities.",
-            "values": {
-              "email": {
-                "text": "student@pin.it"
-              },
-              "uuid": {
-                "text": "123e4567-e89b-12d3-a456-426614174000"
-              }
-            },
-            "tones": {
-              "email": "ok",
-              "uuid": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "String format validation constraints",
-        "boxes": [
-          {
-            "id": "email",
-            "label": "email"
-          },
-          {
-            "id": "uuid",
-            "label": "id"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "String format validation enforces domain constraints on text fields.",
-            "values": {
-              "email": "student@pin.it",
-              "uuid": "123e4567-e89b-12d3-a456-426614174000"
-            },
-            "tones": {
-              "email": "data",
-              "uuid": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "For email validation a regex verifies recipient names and domain name.",
-            "values": {
-              "email": "student@pin.it",
-              "uuid": "123e4567-e89b-12d3-a456-426614174000"
-            },
-            "tones": {
-              "email": "ok",
-              "uuid": "data"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Regular expression patterns should be vetted against ReDoS vulnerabilities.",
-            "values": {
-              "email": "student@pin.it",
-              "uuid": "123e4567-e89b-12d3-a456-426614174000"
-            },
-            "tones": {
-              "email": "ok",
-              "uuid": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Formatting Detailed Client Error Payloads (RFC 7807 Invalid Params)",
-      "codeHash": "b11d0b1b01c3c4289e766d624085b0b16c6c0a2c43382a8798c2642b62f787d0",
-      "spec": {
-        "template": "boxes",
-        "title": "RFC 7807 problem details document",
-        "boxes": [
-          {
-            "id": "title",
-            "label": "title"
-          },
-          {
-            "id": "status",
-            "label": "status"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Professional APIs return an RFC problem details document.",
-            "values": {
-              "title": {
-                "text": "Request Validation Failed"
-              },
-              "status": {
-                "text": "400"
-              }
-            },
-            "tones": {
-              "title": "data",
-              "status": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Each entry in invalid-params includes the exact field name and reason.",
-            "values": {
-              "title": {
-                "text": "Request Validation Failed"
-              },
-              "status": {
-                "text": "400"
-              }
-            },
-            "tones": {
-              "title": "idle",
-              "status": "error"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "RFC problem details have become industry standard across REST APIs.",
-            "values": {
-              "title": {
-                "text": "Request Validation Failed"
-              },
-              "status": {
-                "text": "400"
-              }
-            },
-            "tones": {
-              "title": "ok",
-              "status": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "RFC 7807 problem details document",
-        "boxes": [
-          {
-            "id": "title",
-            "label": "title"
-          },
-          {
-            "id": "status",
-            "label": "status"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Professional APIs return an RFC problem details document.",
-            "values": {
-              "title": "Request Validation Failed",
-              "status": "400"
-            },
-            "tones": {
-              "title": "data",
-              "status": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Each entry in invalid-params includes the exact field name and reason.",
-            "values": {
-              "title": "Request Validation Failed",
-              "status": "400"
-            },
-            "tones": {
-              "title": "idle",
-              "status": "error"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "RFC problem details have become industry standard across REST APIs.",
-            "values": {
-              "title": "Request Validation Failed",
-              "status": "400"
-            },
-            "tones": {
-              "title": "ok",
-              "status": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Building a Complete Schema Validation Engine",
-      "codeHash": "c26f985bf3c3ca6b57f2ddc158fbc1cf399eb6c893944fdd75411a9558ada7d1",
-      "spec": {
-        "template": "flow",
-        "title": "Building a Complete Schema Validation Engine — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building a Complete...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building a Complete Schema Validation En.. [D10.P6.S1].",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building a Complete... [D10.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D10.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building a Complete Schema Valida.. [D10.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
           }
         ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Building a Complete Schema Validation Engine — Execution Pipeline",
-        "nodes": [
+      }
+    },
+    {
+      "partTitle": "Deterministic Schema Validation & Type-Safe Parsers",
+      "codeHash": "2ad45fdcaf3d5f6a7694505e521fd78f469df90cfbef432fe6b0334ea30247b1",
+      "spec": {
+        "template": "boxes",
+        "title": "Architectural Partitions Deterministic Schema Validation & Type-Safe Pars.",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "boxA",
+            "label": "Primary Sector"
           },
           {
-            "id": "proc",
-            "label": "2. Building a Complete...",
-            "tappable": true
+            "id": "boxB",
+            "label": "Secondary Sector"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "boxC",
+            "label": "Buffer Allocation"
+          },
+          {
+            "id": "boxD",
+            "label": "Resource Handle"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building a Complete Schema Validation En.. [D10.P6.S1].",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Unicode Normalization (NFC/NFKC) & String Sanitization",
+      "codeHash": "4ad0c6faa942b8157506a550681ef9e59a93f867cb688cc81b400fd64a2a5f86",
+      "spec": {
+        "template": "stackQueue",
+        "title": "Queue Ordering Unicode Normalization (NFC/NFKC) & String Sanitization.",
+        "elements": [
+          {
+            "id": "elemA",
+            "label": "Top Priority"
+          },
+          {
+            "id": "elemB",
+            "label": "Secondary Task"
+          },
+          {
+            "id": "elemC",
+            "label": "Pending Callback"
+          },
+          {
+            "id": "elemD",
+            "label": "Deferred Workload"
+          }
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building a Complete... [D10.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D10.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building a Complete Schema Valida.. [D10.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Strict Domain Transformation & Mass Assignment Defense",
+      "codeHash": "5720bf11ff13b28786b8433ab8a046025bf72a04c373360b3a7bf92871990f6c",
+      "spec": {
+        "template": "sequence",
+        "title": "Sequence Coordination Strict Domain Transformation & Mass Assignment Defe.",
+        "actors": [
+          {
+            "id": "client",
+            "label": "Request Origin"
+          },
+          {
+            "id": "driver",
+            "label": "Runtime Driver"
+          },
+          {
+            "id": "kernel",
+            "label": "Kernel Boundary"
+          },
+          {
+            "id": "subsystem",
+            "label": "Target Subsystem"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
+          },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Zero-Trust Validation Middleware & RFC 7807 Problem Details",
+      "codeHash": "c8db38ee74371562d0d4d9c3dd9d522804f91feed40debdf1e7ab1ef59d0b0ce",
+      "spec": {
+        "template": "compare",
+        "title": "Architectural Comparison Zero-Trust Validation Middleware & RFC Problem D.",
+        "left": {
+          "title": "Optimized Pattern",
+          "items": [
+            "Bounded latency",
+            "Deterministic execution",
+            "Zero resource leak"
+          ]
+        },
+        "right": {
+          "title": "Naive Pattern",
+          "items": [
+            "Unbounded growth",
+            "Blocking dispatch",
+            "Resource contention risk"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
+          },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
           }
         ]
       }

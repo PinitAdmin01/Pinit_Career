@@ -10,283 +10,259 @@
       "codeHash": "11b4cf1f32f121c41e7d112fb2ce3765bde9ff0f169c1f96c0f32c8b84311fd7",
       "spec": {
         "template": "flow",
-        "title": "Flow Architecture V Execution Pipeline: Ignition Bytecode & TurboFan Opti.",
+        "title": "Process Pipeline V Execution Pipeline: Ignition Bytecode & TurboFan Optim.",
         "nodes": [
           {
-            "id": "source",
-            "label": "Parser AST",
+            "id": "stepA",
+            "label": "Initial Stage",
             "type": "start"
           },
           {
-            "id": "interpreter",
-            "label": "Ignition Bytecode",
+            "id": "stepB",
+            "label": "Processing Core",
             "type": "process"
           },
           {
-            "id": "feedback",
-            "label": "Feedback Vector",
+            "id": "stepC",
+            "label": "Verification Check",
             "type": "process"
           },
           {
-            "id": "compiler",
-            "label": "TurboFan Native",
+            "id": "stepD",
+            "label": "Terminal Output",
             "type": "end"
           }
         ],
         "edges": [
           {
-            "from": "source",
-            "to": "interpreter",
-            "label": "Parse"
+            "from": "stepA",
+            "to": "stepB",
+            "label": "Next"
           },
           {
-            "from": "interpreter",
-            "to": "feedback",
-            "label": "Profile"
+            "from": "stepB",
+            "to": "stepC",
+            "label": "Inspect"
           },
           {
-            "from": "feedback",
-            "to": "compiler",
-            "label": "Optimize"
+            "from": "stepC",
+            "to": "stepD",
+            "label": "Complete"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
+          },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
           }
         ]
-      },
-      "steps": [
-        {
-          "step": 1,
-          "description": "Virtual machine initializes baseline execution pipeline.",
-          "highlight": [
-            "source"
-          ]
-        },
-        {
-          "step": 2,
-          "description": "Runtime profiles object shapes and property offsets.",
-          "highlight": [
-            "source"
-          ]
-        },
-        {
-          "step": 3,
-          "description": "Optimizing compiler generates tuned native machine instructions.",
-          "highlight": [
-            "source"
-          ]
-        },
-        {
-          "step": 4,
-          "description": "Execution engine maintains stable throughput without deoptimization.",
-          "highlight": [
-            "source"
-          ]
-        }
-      ]
+      }
     },
     {
       "partTitle": "V8 Memory Spaces: New Space Scavenge, Old Space & Garbage Collection",
       "codeHash": "2c7eaa82bb4d06831d914b24f7f20ef7db6467df4e5dd15ced1793cf87f214ef",
       "spec": {
         "template": "boxes",
-        "title": "Memory Spaces V Memory Spaces: New Space Scavenge, Old Space & Garbage Co.",
+        "title": "Architectural Partitions V Memory Spaces: New Space Scavenge, Old Space &.",
         "boxes": [
           {
-            "id": "newSpace",
-            "label": "New Nursery"
+            "id": "boxA",
+            "label": "Primary Sector"
           },
           {
-            "id": "fromSpace",
-            "label": "Semi From"
+            "id": "boxB",
+            "label": "Secondary Sector"
           },
           {
-            "id": "toSpace",
-            "label": "Semi To"
+            "id": "boxC",
+            "label": "Buffer Allocation"
           },
           {
-            "id": "oldSpace",
-            "label": "Old Segment"
+            "id": "boxD",
+            "label": "Resource Handle"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
+          },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
           }
         ]
-      },
-      "steps": [
-        {
-          "step": 1,
-          "description": "Transient allocations enter nursery memory partitions.",
-          "highlight": [
-            "newSpace"
-          ]
-        },
-        {
-          "step": 2,
-          "description": "Scavenger copies surviving objects between semi spaces.",
-          "highlight": [
-            "newSpace"
-          ]
-        },
-        {
-          "step": 3,
-          "description": "Durable references promote to old pointer memory segments.",
-          "highlight": [
-            "newSpace"
-          ]
-        },
-        {
-          "step": 4,
-          "description": "Incremental marking sweeps garbage without freezing threads.",
-          "highlight": [
-            "newSpace"
-          ]
-        }
-      ]
+      }
     },
     {
       "partTitle": "Libuv Architecture: Cross-Platform Abstraction & Thread Pool Workloads",
       "codeHash": "21fb047ae0d67db64b2cedfd0d751e4e53016b7f6a4421c9dcacbaeaeeaa9b9b",
       "spec": {
         "template": "stackQueue",
-        "title": "Thread Pool Workload Libuv Architecture: Cross-Platform Abstraction & Thr.",
+        "title": "Queue Ordering Libuv Architecture: Cross-Platform Abstraction & Thread Po.",
         "elements": [
           {
-            "id": "fsRead",
-            "label": "Disk Read"
+            "id": "elemA",
+            "label": "Top Priority"
           },
           {
-            "id": "cryptoOp",
-            "label": "Password Hash"
+            "id": "elemB",
+            "label": "Secondary Task"
           },
           {
-            "id": "dnsLookup",
-            "label": "Address Query"
+            "id": "elemC",
+            "label": "Pending Callback"
           },
           {
-            "id": "netSocket",
-            "label": "Socket Descriptor"
+            "id": "elemD",
+            "label": "Deferred Workload"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
+          },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
           }
         ]
-      },
-      "steps": [
-        {
-          "step": 1,
-          "description": "Network operations delegate to kernel non-blocking mechanisms.",
-          "highlight": [
-            "fsRead"
-          ]
-        },
-        {
-          "step": 2,
-          "description": "Blocking file system operations route to worker thread pool.",
-          "highlight": [
-            "fsRead"
-          ]
-        },
-        {
-          "step": 3,
-          "description": "Cryptographic routines execute across background worker threads.",
-          "highlight": [
-            "fsRead"
-          ]
-        },
-        {
-          "step": 4,
-          "description": "Completed background tasks notify main event loop.",
-          "highlight": [
-            "fsRead"
-          ]
-        }
-      ]
+      }
     },
     {
       "partTitle": "Operating System Kernel Multiplexing: epoll, kqueue & IOCP Demultiplexers",
       "codeHash": "d7d78c044464dc67c830b4eaa682b7c9dff4f907a384ecaa81bf83155b8e8be5",
       "spec": {
         "template": "sequence",
-        "title": "Multiplexing Flow Operating System Kernel Multiplexing: epoll, kqueue & I.",
+        "title": "Sequence Coordination Operating System Kernel Multiplexing: epoll, kqueue.",
         "actors": [
           {
             "id": "client",
-            "label": "Remote Client"
+            "label": "Request Origin"
           },
           {
-            "id": "nic",
-            "label": "Network Card"
+            "id": "driver",
+            "label": "Runtime Driver"
           },
           {
             "id": "kernel",
-            "label": "Kernel Epoll"
+            "label": "Kernel Boundary"
           },
           {
-            "id": "libuv",
-            "label": "Libuv Event Loop"
+            "id": "subsystem",
+            "label": "Target Subsystem"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
+          },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
           }
         ]
-      },
-      "steps": [
-        {
-          "step": 1,
-          "description": "Sockets register file descriptors with kernel demultiplexer.",
-          "highlight": []
-        },
-        {
-          "step": 2,
-          "description": "Hardware network interrupts trigger packet receipt.",
-          "highlight": []
-        },
-        {
-          "step": 3,
-          "description": "Kernel marks descriptor readiness in notification registry.",
-          "highlight": []
-        },
-        {
-          "step": 4,
-          "description": "Event loop retrieves ready descriptors in constant time.",
-          "highlight": []
-        }
-      ]
+      }
     },
     {
       "partTitle": "Single-Threaded Event Loop Invariants & Production CPU Bounds",
       "codeHash": "1ce85c83ce73dd21bcdbd0479222273e3230e7dc426f1d80fb8a3f50f98167ac",
       "spec": {
         "template": "compare",
-        "title": "Latency Tradeoffs Single-Threaded Event Loop Invariants & Production CPU.",
+        "title": "Architectural Comparison Single-Threaded Event Loop Invariants & Producti.",
         "left": {
-          "title": "Single Thread",
+          "title": "Optimized Pattern",
           "items": [
-            "Non-blocking sockets",
-            "Zero lock overhead",
-            "Event multiplexing"
+            "Bounded latency",
+            "Deterministic execution",
+            "Zero resource leak"
           ]
         },
         "right": {
-          "title": "Multi Thread",
+          "title": "Naive Pattern",
           "items": [
-            "Thread context switches",
-            "Stack memory footprint",
-            "Lock contention risks"
+            "Unbounded growth",
+            "Blocking dispatch",
+            "Resource contention risk"
           ]
-        }
-      },
-      "steps": [
-        {
-          "step": 1,
-          "description": "JavaScript executes exclusively on single main thread.",
-          "highlight": []
         },
-        {
-          "step": 2,
-          "description": "Synchronous compute blocks event loop advancement.",
-          "highlight": []
-        },
-        {
-          "step": 3,
-          "description": "Latency monitoring tracks tick delay percentiles.",
-          "highlight": []
-        },
-        {
-          "step": 4,
-          "description": "Automated gates preserve healthy response latency.",
-          "highlight": []
-        }
-      ]
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
+          },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
     }
   ]
 }

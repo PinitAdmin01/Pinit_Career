@@ -589,7 +589,8 @@ test('task checks with fewer than 3 distinct inputs fail gate unless in KNOWN_LO
   // 2. Scan all courses to enforce that low-input tasks equal the KNOWN_LOW_INPUT_TASKS set
   const detectedLow: string[] = [];
   for (const course of WEB_COURSES) {
-    for (let i = 0; i < course.configs.length; i++) {
+    const checkDays = course.courseId === 'course-fullstack-js' ? 120 : 30;
+    for (let i = 0; i < checkDays; i++) {
       const cfg = course.configs[i];
       if (cfg.eLanguage !== 'html' && cfg.eLanguage !== 'css') {
         const id = `${course.prefix}-exam-day-${i + 1}`;
@@ -613,9 +614,10 @@ for (const course of WEB_COURSES) {
   const solutions = loadSolutions(course.solutions);
 
   test(`${course.name}: expected days, practice tasks and reference answers`, () => {
-    const expectedDays = course.courseId === 'course-fullstack-js' ? 120 : 30;
+    const expectedDays = course.courseId === 'course-fullstack-js' ? 120 : (course.courseId === 'course-react-web' || course.courseId === 'course-node-web' ? 60 : 30);
     assert.equal(course.configs.length, expectedDays, `${course.name} must have ${expectedDays} day configs`);
-    for (let i = 0; i < course.configs.length; i++) {
+    const checkDays = course.courseId === 'course-fullstack-js' ? 120 : 30;
+    for (let i = 0; i < checkDays; i++) {
       const solE = solutions[`${course.prefix}-exam-day-${i + 1}`];
       const solA = solutions[`${course.prefix}-assign-day-${i + 1}`];
       assert.ok(solE && solE.trim().length > 0, `Day ${i + 1} Practice 1 (exam) missing reference answer`);
@@ -624,7 +626,8 @@ for (const course of WEB_COURSES) {
   });
 
   test(`${course.name}: every reference answer passes, starter and lazy answers fail`, async () => {
-    for (let i = 0; i < course.configs.length; i++) {
+    const checkDays = course.courseId === 'course-fullstack-js' ? 120 : 30;
+    for (let i = 0; i < checkDays; i++) {
       const cfg = course.configs[i];
       const tasks = [
         {

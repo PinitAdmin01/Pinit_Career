@@ -11,156 +11,171 @@ export const NODE_WEB_DAYS: DayConfig[] = [
   // ── WEEK 1: Node.js Runtime & TypeScript Foundations ──────────────────────
   {
     day: 1,
-    title: 'The Node.js Runtime, Event Loop & Process Model',
-    desc: 'Understand how Node.js executes JavaScript on a single thread using the libuv event loop, phases of execution, and the process object.',
+    title: 'The Node.js Runtime: V8 Engine, Libuv & OS System Calls',
+    desc: 'Master the architectural relationship between Google V8, libuv thread pools, and the operating system kernel for high-throughput backend services.',
     syllabus: [
-      'V8 engine and libuv single-threaded event loop architecture.',
-      'Phases of the event loop: timers, poll, check, and microtasks (process.nextTick, Promise).',
-      'The process object: process.env, process.argv, exit codes, and process.uptime().'
+      'Google V8 executes JavaScript via the Ignition bytecode interpreter and TurboFan optimizing JIT compiler without native threads.',
+      'Memory management in V8 divides into New Space for short-lived allocations and Old Space for long-lived surviving objects.',
+      'Libuv provides the event loop abstraction and a four-thread worker pool for asynchronous file system and DNS operations.',
+      'Operating system non-blocking network I/O delegates socket readiness notifications to kernel epoll, kqueue, or IOCP demultiplexers.'
     ]
   },
   {
     day: 2,
-    title: 'Modular Architecture: ESM, CommonJS & Path Resolution',
-    desc: 'Master module systems in Node.js, comparing modern ECMAScript Modules (import/export) with CommonJS (require/module.exports), and path normalization.',
+    title: 'The Six Libuv Event Loop Phases & Execution Order',
+    desc: 'Master the sequential mechanics, timers min-heap, poll socket retrieval, and check phase transitions within the libuv event loop tick.',
     syllabus: [
-      'CommonJS vs ESM module syntax and interoperability rules.',
-      'Path resolution: path.join, path.resolve, relative paths, and file extensions.',
-      'Package exports, type declarations, and package.json module configuration.'
+      'A single event loop tick executes through Timers, Pending Callbacks, Idle/Prepare, Poll, Check, and Close Callbacks in strict sequential order.',
+      'The Timers phase manages elapsed setTimeout and setInterval callbacks using a binary min-heap sorted by expiration timestamps.',
+      'The Poll phase calculates blocking epoll timeouts, processes incoming socket descriptors, and dispatches network packet chunks to V8.',
+      'The Check phase executes setImmediate callbacks immediately after I/O polling, while Close Callbacks cleans up terminated socket handles.'
     ]
   },
   {
     day: 3,
-    title: 'Backend TypeScript: Types, Interfaces & Narrowing',
-    desc: 'Apply strong typing to server-side code using interfaces, type aliases, union types, and runtime type narrowing.',
+    title: 'Microtask Queue Dynamics: process.nextTick, Promise Queues & Starvation',
+    desc: 'Master microtask execution checkpoints, prioritize nextTick over Promise reactions, and defend against event loop starvation.',
     syllabus: [
-      'Type aliases and interfaces for backend data models.',
-      'Discriminated unions for modeling states and operation outcomes.',
-      'Type narrowing with typeof, instanceof, and user-defined type predicates.'
+      'V8 drains microtasks exhaustively at every call stack checkpoint before yielding control to libuv event loop phases.',
+      "process.nextTick executes with absolute priority over standard Promise microtasks via Node's internal nextTickQueue.",
+      'Recursive process.nextTick calls completely starve the event loop by preventing I/O polling and timer execution.',
+      'queueMicrotask provides a standardized, zero-allocation primitive for scheduling microtasks in modern JavaScript backends.'
     ]
   },
   {
     day: 4,
-    title: 'TypeScript Generics & Utility Types for Backends',
-    desc: 'Write flexible, reusable backend utilities using TypeScript generics and standard utility types like Record, Partial, Pick, and Omit.',
+    title: 'Node.js Process Architecture: Memory Profiling, Signals & Graceful Exit',
+    desc: 'Master the process global object, measure high-resolution monotonic latency, analyze memory usage, and engineer graceful shutdown pipelines.',
     syllabus: [
-      'Generic functions, classes, and repository interfaces.',
-      'Standard utility types: Partial<T>, Required<T>, Readonly<T>, Record<K, V>.',
-      'Constructing transformation types with Pick<T, K> and Omit<T, K>.'
+      'The process object provides the central control plane for environment configuration, command-line arguments, and lifecycle management.',
+      'process.hrtime.bigint() provides nanosecond-precision monotonic timing that is immune to NTP clock skew and leap-second adjustments.',
+      'process.memoryUsage() partitions memory into RSS, heapTotal, heapUsed, and off-heap external buffers.',
+      'A production graceful shutdown pipeline intercepts SIGTERM, deregisters from load balancers, drains active connections, and exits cleanly.'
     ]
   },
   {
     day: 5,
-    title: 'Asynchronous Flow, Promises & Error Handling',
-    desc: 'Handle asynchronous backend operations safely with async/await, Promise concurrency combinators, and custom typed error hierarchies.',
+    title: 'Asynchronous Control Flow: Promises, Async/Await Compilation & Context',
+    desc: 'Master asynchronous control flow evolution, Promise state machines, async/await V8 generator desugaring, and AsyncLocalStorage context propagation.',
     syllabus: [
-      'Async/await flow control and avoiding unhandled promise rejections.',
-      'Promise combinators: Promise.all, Promise.allSettled, and Promise.race.',
-      'Custom ApplicationError classes with operational flags and HTTP status codes.'
+      'The error-first callback convention suffered from callback hell, broken stack unwinding, and uncatchable asynchronous exceptions.',
+      'Promises operate as three-state immutable state machines (Pending, Fulfilled, Rejected) that guarantee settlement idempotency.',
+      'V8 compiles async/await into generator state machines that pause on await and resume via microtask reaction jobs.',
+      'AsyncLocalStorage provides asynchronous thread-local context propagation, powering OpenTelemetry distributed tracing and structured logging.'
     ]
   },
 
   // ── WEEK 2: HTTP Protocols, Routing & Validation ──────────────────────────
   {
     day: 6,
-    title: 'The HTTP Protocol: Methods, Status Codes & Headers',
-    desc: 'Explore HTTP/1.1 fundamentals, request/response message formats, standard methods, RFC status code categories, and essential headers.',
+    title: "The HTTP Protocol & TCP Socket Fundamentals",
+    desc: "Master the RFC 9110/9112 HTTP wire protocol, low-level TCP socket lifecycles in node:net, chunked streaming framing, persistent connection pooling, and bare-metal server engineering.",
     syllabus: [
-      'HTTP verbs and semantics: GET, POST, PUT, PATCH, DELETE, OPTIONS, HEAD.',
-      'Status code semantics: 2xx success, 3xx redirects, 4xx client errors, 5xx server errors.',
-      'Request and response headers: Content-Type, Accept, Authorization, Cache-Control.'
+      "RFC 9110/9112 HTTP/1.1 wire protocol structure: Request-Line, case-insensitive headers, CRLF delimiters, and double CRLF sentinels.",
+      "TCP socket lifecycle: Three-Way Handshake, TCP_NODELAY optimization, half-close states, backpressure drains, and file descriptor recycling.",
+      "Chunked Transfer-Encoding mechanics: Hexadecimal framing, streaming payload assembly, terminal zero-chunks, and late-bound trailers.",
+      "Persistent connection pooling: Keep-Alive quotas, idle timeout mitigation, and architectural analysis of Head-of-Line (HoL) blocking."
     ]
   },
   {
     day: 7,
-    title: 'Request Handlers as Pure Functions',
-    desc: 'Design HTTP request handlers as pure, decoupled functions that transform an immutable HttpRequest into an HttpResponse object for testability.',
+    title: "Building HTTP Servers with Node.js",
+    desc: "Master Node.js http.Server internals, llhttp parser handshakes, IncomingMessage stream consumption with backpressure caps, ServerResponse lifecycle contracts, and zero-downtime graceful shutdown orchestration.",
     syllabus: [
-      'Separating transport concerns from business request handling.',
-      'Representing requests and responses as plain TypeScript data structures.',
-      'Deterministic handler execution without global state dependencies.'
+      "http.Server connection dispatch: llhttp parser pooling, event loop microtask sequencing, and header allocation overhead.",
+      "IncomingMessage as a Readable stream: hard byte limits, backpressure controls, 413 Payload Too Large, and AbortSignal cancellation.",
+      "ServerResponse lifecycle: headersSent state machine, ERR_HTTP_HEADERS_SENT prevention, chunked streaming, and trailer emission.",
+      "Host header injection defense and zero-downtime graceful shutdown: SIGTERM handling, connection draining, and watchdog termination."
     ]
   },
   {
     day: 8,
-    title: 'Routing Tables & Path Parameter Matching',
-    desc: 'Build a pattern-matching router that routes requests by HTTP method and path pattern, extracting dynamic path parameters.',
+    title: "Routing & Request Handling",
+    desc: "Master high-performance routing architectures, Radix/Trie prefix tree algorithms, dynamic parameter extraction, static route precedence, RFC 9110 method dispatching, and 405 Allow header compliance.",
     syllabus: [
-      'Routing tables mapping (Method, PathPattern) tuples to handlers.',
-      'Matching dynamic path segments (e.g. /api/users/:id or /jobs/:jobId/apply).',
-      'Handling 404 Not Found and 405 Method Not Allowed scenarios.'
+      "Computational complexity of routing: O(N * M) linear regex array evaluation versus O(K) Radix Tree prefix lookups.",
+      "Trie router architecture: Token-based path segment splitting, shared ancestor nodes, and sub-microsecond hash map child lookups.",
+      "Parametric route trees: Dynamic :param token extraction, static route precedence, and zero-regex parameter binding.",
+      "RFC 9110 method multiplexing: Method Dispatch Maps, 405 Method Not Allowed semantics, and automatic Allow header generation."
     ]
   },
   {
     day: 9,
-    title: 'Query String Parsing & Parameter Coercion',
-    desc: 'Parse URL search queries into structured TypeScript objects, with type coercion for numbers, booleans, and arrays.',
+    title: "Middleware Architecture & The Pipeline Pattern",
+    desc: "Master asynchronous onion middleware composition (Koa-style), continuation contracts, AsyncLocalStorage context propagation, structured request telemetry, and circuit-breaking error boundaries.",
     syllabus: [
-      'URL and URLSearchParams parsing standards.',
-      'Coercing string query parameters to numbers, booleans, and string arrays.',
-      'Default query parameter values and fallback strategies.'
+      "Onion Architecture versus linear interceptors: Bidirectional execution, await next() suspension, and outbound unwinding semantics.",
+      "Hardened next() continuation contract: Guarding against double-execution bugs and ensuring deterministic Promise rejection bubbling.",
+      "AsyncLocalStorage thread-local storage: Scoped request context propagation without parameter drilling or global singleton pollution.",
+      "Production middleware pipelines and circuit breaking: Structured high-resolution timers, Request ID tagging, and fail-fast fault isolation."
     ]
   },
   {
     day: 10,
-    title: 'Request Body Validation with Schema Validators',
-    desc: 'Validate untrusted JSON request bodies against schemas with type guards, field presence checks, and formatted error lists.',
+    title: "Input Validation, Sanitization & Defense-in-Depth",
+    desc: "Master zero-trust input validation architectures, prototype pollution defenses (CWE-1321), deterministic schema validation engines, Unicode NFC/NFKC normalization, domain coercion, and RFC 7807 Problem Details compliance.",
     syllabus: [
-      'Declarative schema definitions for incoming payload structures.',
-      'Validating required fields, data types, min/max lengths, and email formats.',
-      'Generating clean, human-readable validation error summaries for clients.'
+      "Prototype Pollution (CWE-1321) defense: Stripping __proto__, constructor, and prototype, and leveraging Object.create(null).",
+      "Deterministic runtime schema validation: Type Guards, presence checks, field-level error aggregation, and z.infer static typing.",
+      "Unicode Normalization and Sanitization: NFC storage standards, NFKC compatibility decomposition, and control character stripping.",
+      "RFC 7807 Problem Details compliance: Standardized error envelopes (application/problem+json) and invalidParams array reporting."
     ]
   },
 
   // ── WEEK 3: Middleware Pipelines, Observability & Data Patterns ───────────
   {
     day: 11,
-    title: 'Middleware Chains & Onion Architecture',
-    desc: 'Implement an extensible middleware pipeline where incoming requests flow through an onion chain with next() execution.',
+    title: 'Enterprise Database Drivers, Connection Pooling & Sizing',
+    desc: 'Master relational wire protocols, socket multiplexing physics, asynchronous connection pool state machines, and Little\'s Law capacity sizing.',
     syllabus: [
-      'Middleware function signature: (req, res, next) pattern.',
-      'Executing pre-processing, delegating to next, and running post-processing.',
-      'Short-circuiting middleware pipelines on validation or authentication errors.'
+      'PostgreSQL frontend/backend binary wire protocol framing and non-multiplexed socket constraints.',
+      'Asynchronous connection pool lifecycles: active leases, idle inventory, and FIFO checkout queues.',
+      'Scientific pool sizing using Little\'s Law (L = lambda * W) and database core hardware formulas.',
+      'Proactive connection leak detection with call-site stack traces and circuit-breaker fail-fast guards.'
     ]
   },
   {
     day: 12,
-    title: 'RFC 7807 Problem Details Error Formatting',
-    desc: 'Standardize client error responses using the IETF RFC 7807 specification for problem details in HTTP APIs.',
+    title: 'SQL Query Composition, Prepared Statements & SQL Injection Defense',
+    desc: 'Deconstruct SQL injection lexical analysis, Extended Query Protocol prepared statements, type-safe AST query builders, and safe identifier quoting.',
     syllabus: [
-      'RFC 7807 standard fields: type, title, status, detail, instance.',
-      'Extending problem details with invalid-params arrays for validation failures.',
-      'Global exception formatting filter ensuring zero raw stack traces leak.'
+      'Lexical scanner tokenization and Abstract Syntax Tree mutation vulnerabilities in SQL injection (CWE-89).',
+      'Extended Query Protocol: multi-phase Parse, Bind, and Execute binary parameter isolation.',
+      'Type-safe composable AST query construction eliminating positional parameter placeholder drift.',
+      'Dynamic identifier security: schema whitelisting, double-quote escaping, and direction validation.'
     ]
   },
   {
     day: 13,
-    title: 'Structured JSON Logging & Request Tracing',
-    desc: 'Implement high-performance structured JSON logging with severity levels, contextual metadata, and sensitive field redaction.',
+    title: 'Transaction Management, Isolation Levels & Distributed Locks',
+    desc: 'Enforce ACID transaction boundaries, connection lease pinning, ANSI isolation concurrency anomalies, optimistic concurrency control, and distributed fencing tokens.',
     syllabus: [
-      'Structured JSON logs: timestamp, level, message, correlationId, durationMs.',
-      'Correlation IDs (X-Request-ID) across distributed service calls.',
-      'Data masking: redacting passwords, API tokens, and PII from log output.'
+      'ACID transaction lifecycles and dedicated connection lease pinning over asynchronous execution frames.',
+      'ANSI SQL isolation levels, MVCC snapshots, and Write Skew anomalies under Repeatable Read vs Serializable SSI.',
+      'Pessimistic row locking (SELECT FOR UPDATE SKIP LOCKED) versus Optimistic Concurrency Control (OCC).',
+      'Distributed locking via PostgreSQL advisory locks and monotonically increasing fencing tokens.'
     ]
   },
   {
     day: 14,
-    title: 'Configuration Management & Fail-Fast Startup',
-    desc: 'Load, validate, and freeze server configuration from environment variables with fail-fast startup assertions.',
+    title: 'Multi-Tier Caching Strategies & Cache Stampede Mitigation',
+    desc: 'Engineer high-throughput multi-tier L1/L2 caching topologies, O(1) LRU eviction, race-free cache invalidation, Singleflight promise deduplication, and the XFetch algorithm.',
     syllabus: [
-      'Reading and validating process.env against expected backend schemas.',
-      'Applying environment-specific defaults (development, staging, production).',
-      'Crashing early on startup if critical secrets or connection strings are missing.'
+      'Memory hierarchy access latencies and multi-tier L1 in-process heap with L2 distributed Redis caches.',
+      'O(1) LRU cache architecture combining Doubly-Linked Lists with Hash Maps, and eviction race condition defense.',
+      'Mitigating Cache Stampedes (Dogpile effect) using the Singleflight promise coalescing pattern.',
+      'The XFetch probabilistic early expiration algorithm: optimal background recomputation without latency spikes.'
     ]
   },
   {
     day: 15,
-    title: 'Pagination, Sorting & Filtering Standards',
-    desc: 'Design scalable pagination models, comparing offset/limit with cursor-based pagination, along with multi-attribute sorting and filtering.',
+    title: 'Database Migrations, Schema Versioning & Zero-Downtime Rollouts',
+    desc: 'Master production schema evolution, PostgreSQL lock hierarchies, AccessExclusiveLock timeout guards, the Expand-Contract pattern, non-blocking DDL, and migration runners.',
     syllabus: [
-      'Offset-based pagination: page, limit, totalItems, totalPages calculation.',
-      'Cursor-based pagination: encode/decode cursors for high-volume datasets.',
-      'Sorting specifications: sort field, asc/desc direction, and safe field whitelists.'
+      'PostgreSQL lock queue hierarchy: preventing AccessExclusiveLock read starvation with SET lock_timeout.',
+      'The Expand-Contract (Parallel Run) migration pattern across additive, dual-write, backfill, and contract phases.',
+      'Non-blocking DDL: building write-safe indexes with CREATE INDEX CONCURRENTLY and NOT VALID constraints.',
+      'Production migration runners: advisory lock leader election, SHA-256 checksums, and transactional batches.'
     ]
   },
 

@@ -1,1000 +1,263 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "prefix": "node-web",
   "day": 7,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
   "entries": [
     {
-      "partTitle": "Why Decoupling Handlers from Transport Matters",
-      "codeHash": "bea61c80af152bb16af2d8d1216b3e1987458ae7bc604661740052c06deb3c9e",
-      "spec": {
-        "template": "boxes",
-        "title": "Decoupled pure handler interface",
-        "boxes": [
-          {
-            "id": "path",
-            "label": "path"
-          },
-          {
-            "id": "status",
-            "label": "status"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Tight coupling to framework objects makes automated testing difficult.",
-            "values": {
-              "path": {
-                "text": "/ping"
-              },
-              "status": {
-                "text": "200"
-              }
-            },
-            "tones": {
-              "path": "data",
-              "status": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "A request handler should simply accept an input and return an output.",
-            "values": {
-              "path": {
-                "text": "/ping"
-              },
-              "status": {
-                "text": "200"
-              }
-            },
-            "tones": {
-              "path": "idle",
-              "status": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "This architectural decoupling is the cornerstone of Hexagonal Architecture.",
-            "values": {
-              "path": {
-                "text": "/ping"
-              },
-              "status": {
-                "text": "200"
-              }
-            },
-            "tones": {
-              "path": "ok",
-              "status": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Decoupled pure handler interface",
-        "boxes": [
-          {
-            "id": "path",
-            "label": "path"
-          },
-          {
-            "id": "status",
-            "label": "status"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Tight coupling to framework objects makes automated testing difficult.",
-            "values": {
-              "path": "/ping",
-              "status": "200"
-            },
-            "tones": {
-              "path": "data",
-              "status": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "A request handler should simply accept an input and return an output.",
-            "values": {
-              "path": "/ping",
-              "status": "200"
-            },
-            "tones": {
-              "path": "idle",
-              "status": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "This architectural decoupling is the cornerstone of Hexagonal Architecture.",
-            "values": {
-              "path": "/ping",
-              "status": "200"
-            },
-            "tones": {
-              "path": "ok",
-              "status": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Modeling Immutable Request and Response Objects",
-      "codeHash": "66265b52606883ab26c4cafbe2bdbc7f35dda9839ee18b0c8c807a45fb945583",
-      "spec": {
-        "template": "boxes",
-        "title": "Immutable request envelope attributes",
-        "boxes": [
-          {
-            "id": "id",
-            "label": "id"
-          },
-          {
-            "id": "path",
-            "label": "path"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Modifying state in-place causes subtle order-dependent bugs.",
-            "values": {
-              "id": {
-                "text": "req_101"
-              },
-              "path": {
-                "text": "/api/jobs"
-              }
-            },
-            "tones": {
-              "id": "data",
-              "path": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "By modeling HttpRequest objects with readonly properties you guarantee safety.",
-            "values": {
-              "id": {
-                "text": "req_101"
-              },
-              "path": {
-                "text": "/api/jobs"
-              }
-            },
-            "tones": {
-              "id": "idle",
-              "path": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Having immutable snapshots of incoming request envelopes allows error monitors.",
-            "values": {
-              "id": {
-                "text": "req_101"
-              },
-              "path": {
-                "text": "/api/jobs"
-              }
-            },
-            "tones": {
-              "id": "ok",
-              "path": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Immutable request envelope attributes",
-        "boxes": [
-          {
-            "id": "id",
-            "label": "id"
-          },
-          {
-            "id": "path",
-            "label": "path"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Modifying state in-place causes subtle order-dependent bugs.",
-            "values": {
-              "id": "req_101",
-              "path": "/api/jobs"
-            },
-            "tones": {
-              "id": "data",
-              "path": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "By modeling HttpRequest objects with readonly properties you guarantee safety.",
-            "values": {
-              "id": "req_101",
-              "path": "/api/jobs"
-            },
-            "tones": {
-              "id": "idle",
-              "path": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Having immutable snapshots of incoming request envelopes allows error monitors.",
-            "values": {
-              "id": "req_101",
-              "path": "/api/jobs"
-            },
-            "tones": {
-              "id": "ok",
-              "path": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Writing Deterministic Business Handlers",
-      "codeHash": "f0e44007e86866320bc07f6dde65267d25551514da095d9b344a1a595cd7290d",
+      "partTitle": "http.Server Connection Dispatch & llhttp Parser Handshake",
+      "codeHash": "c6ca3702be17be3060df6d434f8cf63092dd80abeb45adae0f7873d0a85da557",
       "spec": {
         "template": "flow",
-        "title": "Deterministic discount computation",
+        "title": "Process Pipeline http.Server Connection Dispatch & llhttp Parser Handshak.",
         "nodes": [
           {
-            "id": "req",
-            "label": "subtotal"
+            "id": "stepA",
+            "label": "Initial Stage",
+            "type": "start"
           },
           {
-            "id": "calc",
-            "label": "isVip"
+            "id": "stepB",
+            "label": "Processing Core",
+            "type": "process"
           },
           {
-            "id": "res",
-            "label": "finalPrice"
+            "id": "stepC",
+            "label": "Verification Check",
+            "type": "process"
+          },
+          {
+            "id": "stepD",
+            "label": "Terminal Output",
+            "type": "end"
+          }
+        ],
+        "edges": [
+          {
+            "from": "stepA",
+            "to": "stepB",
+            "label": "Next"
+          },
+          {
+            "from": "stepB",
+            "to": "stepC",
+            "label": "Inspect"
+          },
+          {
+            "from": "stepC",
+            "to": "stepD",
+            "label": "Complete"
           }
         ],
         "steps": [
-          {
-            "at": "say2",
-            "caption": "Testing functions with global side effects requires setting up identical state.",
-            "values": {
-              "req": {
-                "text": "100"
-              },
-              "calc": {
-                "text": "false"
-              },
-              "res": {
-                "text": "finalPrice"
-              }
-            },
-            "tones": {
-              "req": "data",
-              "calc": "idle",
-              "res": "idle"
-            },
-            "arrows": [
-              [
-                "req",
-                "calc"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "A deterministic handler receives everything in the request payload.",
-            "values": {
-              "req": {
-                "text": "100"
-              },
-              "calc": {
-                "text": "true"
-              },
-              "res": {
-                "text": "finalPrice"
-              }
-            },
-            "tones": {
-              "req": "idle",
-              "calc": "data",
-              "res": "ok"
-            },
-            "arrows": [
-              [
-                "calc",
-                "res"
-              ]
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "When logic is deterministic regression testing becomes trivial.",
-            "values": {
-              "req": {
-                "text": "100"
-              },
-              "calc": {
-                "text": "false"
-              },
-              "res": {
-                "text": "finalPrice"
-              }
-            },
-            "tones": {
-              "req": "ok",
-              "calc": "ok",
-              "res": "ok"
-            },
-            "arrows": [
-              [
-                "req",
-                "res"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Deterministic discount computation",
-        "nodes": [
-          {
-            "id": "req",
-            "label": "subtotal"
-          },
-          {
-            "id": "calc",
-            "label": "isVip"
-          },
-          {
-            "id": "res",
-            "label": "finalPrice"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Testing functions with global side effects requires setting up identical state.",
-            "values": {
-              "req": "100",
-              "calc": "false",
-              "res": "finalPrice"
-            },
-            "tones": {
-              "req": "data",
-              "calc": "idle",
-              "res": "idle"
-            },
-            "arrows": [
-              [
-                "req",
-                "calc"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "A deterministic handler receives everything in the request payload.",
-            "values": {
-              "req": "100",
-              "calc": "true",
-              "res": "finalPrice"
-            },
-            "tones": {
-              "req": "idle",
-              "calc": "data",
-              "res": "ok"
-            },
-            "arrows": [
-              [
-                "calc",
-                "res"
-              ]
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "When logic is deterministic regression testing becomes trivial.",
-            "values": {
-              "req": "100",
-              "calc": "false",
-              "res": "finalPrice"
-            },
-            "tones": {
-              "req": "ok",
-              "calc": "ok",
-              "res": "ok"
-            },
-            "arrows": [
-              [
-                "req",
-                "res"
-              ]
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Eliminating Side Effects and Global State via Dependency Injection",
-      "codeHash": "7a3a6f19ae356147827e8792d645561f298e601c4338bcb12f44aee723d9905d",
-      "spec": {
-        "template": "sequence",
-        "title": "Injected dependency mock lifecycle",
-        "actors": [
-          "Caller",
-          "Factory",
-          "UserRepo"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Importing global singletons creates hidden dependencies.",
-            "activeActor": "Caller",
-            "messages": [
-              {
-                "from": "Caller",
-                "to": "Factory",
-                "label": {
-                  "text": "getUserCount"
-                },
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Dependency Injection passes dependencies as arguments to the handler.",
-            "activeActor": "Factory",
-            "messages": [
-              {
-                "from": "Caller",
-                "to": "Factory",
-                "label": {
-                  "text": "getUserCount"
-                },
-                "tone": "idle"
-              },
-              {
-                "from": "Factory",
-                "to": "UserRepo",
-                "label": {
-                  "text": "42"
-                },
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Swapping out an in-memory repository requires changing only factory site.",
-            "activeActor": "UserRepo",
-            "messages": [
-              {
-                "from": "Caller",
-                "to": "Factory",
-                "label": {
-                  "text": "getUserCount"
-                },
-                "tone": "idle"
-              },
-              {
-                "from": "Factory",
-                "to": "UserRepo",
-                "label": {
-                  "text": "42"
-                },
-                "tone": "idle"
-              },
-              {
-                "from": "UserRepo",
-                "to": "Caller",
-                "label": {
-                  "text": "registeredUsers"
-                },
-                "tone": "ok"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "sequence",
-        "title": "Injected dependency mock lifecycle",
-        "actors": [
-          "Caller",
-          "Factory",
-          "UserRepo"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Importing global singletons creates hidden dependencies.",
-            "messages": [
-              {
-                "from": "Caller",
-                "to": "Factory",
-                "label": "getUserCount",
-                "tone": "data"
-              }
-            ],
-            "activeActor": "Caller"
-          },
-          {
-            "at": "say3",
-            "caption": "Dependency Injection passes dependencies as arguments to the handler.",
-            "messages": [
-              {
-                "from": "Caller",
-                "to": "Factory",
-                "label": "getUserCount",
-                "tone": "idle"
-              },
-              {
-                "from": "Factory",
-                "to": "UserRepo",
-                "label": "42",
-                "tone": "data"
-              }
-            ],
-            "activeActor": "Factory"
-          },
-          {
-            "at": "say8",
-            "caption": "Swapping out an in-memory repository requires changing only factory site.",
-            "messages": [
-              {
-                "from": "Caller",
-                "to": "Factory",
-                "label": "getUserCount",
-                "tone": "idle"
-              },
-              {
-                "from": "Factory",
-                "to": "UserRepo",
-                "label": "42",
-                "tone": "idle"
-              },
-              {
-                "from": "UserRepo",
-                "to": "Caller",
-                "label": "registeredUsers",
-                "tone": "ok"
-              }
-            ],
-            "activeActor": "UserRepo"
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Testing Handlers Without Running a Real HTTP Server",
-      "codeHash": "e90002d03753664f2bb6f8b020d350522587f2cd03cce76df7eaef10113950fc",
-      "spec": {
-        "template": "table",
-        "title": "In-memory unit test verification",
-        "columns": [
-          "Property",
-          "Mock Value",
-          "Assertion Check"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Because handlers are pure functions testing them is calling regular functions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "status"
-                  },
-                  {
-                    "text": "up"
-                  },
-                  {
-                    "text": "up"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "uptime"
-                  },
-                  {
-                    "text": "3600"
-                  },
-                  {
-                    "text": "3600"
-                  }
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "You construct a mock request object and assert on returned properties.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "status"
-                  },
-                  {
-                    "text": "up"
-                  },
-                  {
-                    "text": "up"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "uptime"
-                  },
-                  {
-                    "text": "3600"
-                  },
-                  {
-                    "text": "3600"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Maintaining sub-second test execution cycles enables true TDD.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "status"
-                  },
-                  {
-                    "text": "up"
-                  },
-                  {
-                    "text": "up"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "uptime"
-                  },
-                  {
-                    "text": "3600"
-                  },
-                  {
-                    "text": "3600"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "table",
-        "title": "In-memory unit test verification",
-        "columns": [
-          "Property",
-          "Mock Value",
-          "Assertion Check"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Because handlers are pure functions testing them is calling regular functions.",
-            "rows": [
-              {
-                "cells": [
-                  "status",
-                  "up",
-                  "up"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "uptime",
-                  "3600",
-                  "3600"
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "You construct a mock request object and assert on returned properties.",
-            "rows": [
-              {
-                "cells": [
-                  "status",
-                  "up",
-                  "up"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "uptime",
-                  "3600",
-                  "3600"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Maintaining sub-second test execution cycles enables true TDD.",
-            "rows": [
-              {
-                "cells": [
-                  "status",
-                  "up",
-                  "up"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "uptime",
-                  "3600",
-                  "3600"
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Composing Request Handler Pipelines with Decorators",
-      "codeHash": "e95d3701f68af6bfcb79c10403d1e38c6116eb2286757c2c37fc9a8049f27ce6",
-      "spec": {
-        "template": "flow",
-        "title": "Composing Request Handler Pipelines with Deco... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Composing Request H...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Composing Request Handler Pipelines with.. [D7.P6.S1].",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Composing Request H... [D7.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D7.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Composing Request Handler Pipelin.. [D7.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
           }
         ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Composing Request Handler Pipelines with Deco... — Execution Pipeline",
-        "nodes": [
+      }
+    },
+    {
+      "partTitle": "IncomingMessage Stream Consumption & Backpressure Safeguards",
+      "codeHash": "47be8e83e109b9e0c4800c083bcc0c8dc5db683e7f964f99c301053dd78ed7a8",
+      "spec": {
+        "template": "boxes",
+        "title": "Architectural Partitions IncomingMessage Stream Consumption & Backpressur.",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "boxA",
+            "label": "Primary Sector"
           },
           {
-            "id": "proc",
-            "label": "2. Composing Request H...",
-            "tappable": true
+            "id": "boxB",
+            "label": "Secondary Sector"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "boxC",
+            "label": "Buffer Allocation"
+          },
+          {
+            "id": "boxD",
+            "label": "Resource Handle"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Composing Request Handler Pipelines with.. [D7.P6.S1].",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "ServerResponse Lifecycle & Trailing Metadata Contracts",
+      "codeHash": "63b82784ed77f4df1a4babc739067f0d2b1bf46d23f130491727d27405d1ff5b",
+      "spec": {
+        "template": "stackQueue",
+        "title": "Queue Ordering ServerResponse Lifecycle & Trailing Metadata Contracts.",
+        "elements": [
+          {
+            "id": "elemA",
+            "label": "Top Priority"
+          },
+          {
+            "id": "elemB",
+            "label": "Secondary Task"
+          },
+          {
+            "id": "elemC",
+            "label": "Pending Callback"
+          },
+          {
+            "id": "elemD",
+            "label": "Deferred Workload"
+          }
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Composing Request H... [D7.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D7.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Composing Request Handler Pipelin.. [D7.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "WHATWG URL Parsing & Host Header Injection Defense",
+      "codeHash": "640b12a958c53e9837dda71a0eede3c4047530ac631840552372fae1078f8b3d",
+      "spec": {
+        "template": "sequence",
+        "title": "Sequence Coordination WHATWG URL Parsing & Host Header Injection Defense.",
+        "actors": [
+          {
+            "id": "client",
+            "label": "Request Origin"
+          },
+          {
+            "id": "driver",
+            "label": "Runtime Driver"
+          },
+          {
+            "id": "kernel",
+            "label": "Kernel Boundary"
+          },
+          {
+            "id": "subsystem",
+            "label": "Target Subsystem"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
+          },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Zero-Downtime Graceful Shutdown & SIGTERM Orchestration",
+      "codeHash": "07803a8a36a99ff98052efb6846f429295f5f4fdbce6507cfac2194ab5ca7438",
+      "spec": {
+        "template": "compare",
+        "title": "Architectural Comparison Zero-Downtime Graceful Shutdown & SIGTERM Orches.",
+        "left": {
+          "title": "Optimized Pattern",
+          "items": [
+            "Bounded latency",
+            "Deterministic execution",
+            "Zero resource leak"
+          ]
+        },
+        "right": {
+          "title": "Naive Pattern",
+          "items": [
+            "Unbounded growth",
+            "Blocking dispatch",
+            "Resource contention risk"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
+          },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
           }
         ]
       }

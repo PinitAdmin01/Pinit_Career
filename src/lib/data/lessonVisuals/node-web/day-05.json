@@ -1,990 +1,265 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "prefix": "node-web",
   "day": 5,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "495164c5f5711b6658263cf34780901853def903c9a54c147917274d59407df8",
+  "model": "google/gemini-2.0-flash",
   "entries": [
     {
-      "partTitle": "Promises Under the Hood and async/await Semantics",
-      "codeHash": "fbb90bd1b1018f76790e2f32dab5daefc9594e4b560fa7749f7bfe7105da766c",
-      "spec": {
-        "template": "boxes",
-        "title": "Async function execution state",
-        "boxes": [
-          {
-            "id": "userId",
-            "label": "userId"
-          },
-          {
-            "id": "active",
-            "label": "active"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "An async function always returns a Promise resolving or rejecting.",
-            "values": {
-              "userId": {
-                "text": "usr_200"
-              },
-              "active": {
-                "text": "true"
-              }
-            },
-            "tones": {
-              "userId": "data",
-              "active": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "The await keyword pauses execution until the awaited Promise settles.",
-            "values": {
-              "userId": {
-                "text": "usr_200"
-              },
-              "active": {
-                "text": "true"
-              }
-            },
-            "tones": {
-              "userId": "idle",
-              "active": "data"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Writing asynchronous code with async/await makes stack traces easier to read.",
-            "values": {
-              "userId": {
-                "text": "usr_200"
-              },
-              "active": {
-                "text": "true"
-              }
-            },
-            "tones": {
-              "userId": "ok",
-              "active": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Async function execution state",
-        "boxes": [
-          {
-            "id": "userId",
-            "label": "userId"
-          },
-          {
-            "id": "active",
-            "label": "active"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "An async function always returns a Promise resolving or rejecting.",
-            "values": {
-              "userId": "usr_200",
-              "active": "true"
-            },
-            "tones": {
-              "userId": "data",
-              "active": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "The await keyword pauses execution until the awaited Promise settles.",
-            "values": {
-              "userId": "usr_200",
-              "active": "true"
-            },
-            "tones": {
-              "userId": "idle",
-              "active": "data"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Writing asynchronous code with async/await makes stack traces easier to read.",
-            "values": {
-              "userId": "usr_200",
-              "active": "true"
-            },
-            "tones": {
-              "userId": "ok",
-              "active": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Concurrent Operations: Promise.all vs Promise.allSettled",
-      "codeHash": "975c303b9b9a15fe953510b2ca991d41f37295d4e497694d8366450ab76ab3d9",
-      "spec": {
-        "template": "table",
-        "title": "Promise concurrency outcomes",
-        "columns": [
-          "Task Identifier",
-          "Service State",
-          "Settled Outcome"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "A common novice mistake is to await each promise sequentially.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "taskA"
-                  },
-                  {
-                    "text": "Service A: OK"
-                  },
-                  {
-                    "text": "Service A: OK"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "taskB"
-                  },
-                  {
-                    "text": "Service B: 503 Unavailable"
-                  },
-                  {
-                    "text": "Service B: 503 Unavailable"
-                  }
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Promise.all has fail-fast behavior while allSettled inspects each.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "taskA"
-                  },
-                  {
-                    "text": "Service A: OK"
-                  },
-                  {
-                    "text": "Service A: OK"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "taskB"
-                  },
-                  {
-                    "text": "Service B: 503 Unavailable"
-                  },
-                  {
-                    "text": "Service B: 503 Unavailable"
-                  }
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Promise.allSettled enables composite dashboard endpoints.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "taskA"
-                  },
-                  {
-                    "text": "Service A: OK"
-                  },
-                  {
-                    "text": "Service A: OK"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "taskB"
-                  },
-                  {
-                    "text": "Service B: 503 Unavailable"
-                  },
-                  {
-                    "text": "Service B: 503 Unavailable"
-                  }
-                ],
-                "tone": "error"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "table",
-        "title": "Promise concurrency outcomes",
-        "columns": [
-          "Task Identifier",
-          "Service State",
-          "Settled Outcome"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "A common novice mistake is to await each promise sequentially.",
-            "rows": [
-              {
-                "cells": [
-                  "taskA",
-                  "Service A: OK",
-                  "Service A: OK"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "taskB",
-                  "Service B: 503 Unavailable",
-                  "Service B: 503 Unavailable"
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Promise.all has fail-fast behavior while allSettled inspects each.",
-            "rows": [
-              {
-                "cells": [
-                  "taskA",
-                  "Service A: OK",
-                  "Service A: OK"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "taskB",
-                  "Service B: 503 Unavailable",
-                  "Service B: 503 Unavailable"
-                ],
-                "tone": "error"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Promise.allSettled enables composite dashboard endpoints.",
-            "rows": [
-              {
-                "cells": [
-                  "taskA",
-                  "Service A: OK",
-                  "Service A: OK"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "taskB",
-                  "Service B: 503 Unavailable",
-                  "Service B: 503 Unavailable"
-                ],
-                "tone": "error"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Safe Error Handling with Custom AppError Hierarchies",
-      "codeHash": "6158c780e0338f29640bc8a7ab7cb72655ae49f0dca9164a634259c75b53596b",
-      "spec": {
-        "template": "boxes",
-        "title": "Operational error hierarchy attributes",
-        "boxes": [
-          {
-            "id": "code",
-            "label": "statusCode"
-          },
-          {
-            "id": "message",
-            "label": "message"
-          },
-          {
-            "id": "operational",
-            "label": "isOperational"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Professional Node applications define a custom AppError class.",
-            "values": {
-              "code": {
-                "text": "404"
-              },
-              "message": {
-                "text": "User profile not found"
-              },
-              "operational": {
-                "text": "true"
-              }
-            },
-            "tones": {
-              "code": "data",
-              "message": "idle",
-              "operational": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Centralized middleware can inspect statusCode and respond with problem details.",
-            "values": {
-              "code": {
-                "text": "404"
-              },
-              "message": {
-                "text": "User profile not found"
-              },
-              "operational": {
-                "text": "true"
-              }
-            },
-            "tones": {
-              "code": "idle",
-              "message": "data",
-              "operational": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Distinguishing operational errors ensures security auditing detects attacks.",
-            "values": {
-              "code": {
-                "text": "404"
-              },
-              "message": {
-                "text": "User profile not found"
-              },
-              "operational": {
-                "text": "true"
-              }
-            },
-            "tones": {
-              "code": "ok",
-              "message": "ok",
-              "operational": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Operational error hierarchy attributes",
-        "boxes": [
-          {
-            "id": "code",
-            "label": "statusCode"
-          },
-          {
-            "id": "message",
-            "label": "message"
-          },
-          {
-            "id": "operational",
-            "label": "isOperational"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Professional Node applications define a custom AppError class.",
-            "values": {
-              "code": "404",
-              "message": "User profile not found",
-              "operational": "true"
-            },
-            "tones": {
-              "code": "data",
-              "message": "idle",
-              "operational": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Centralized middleware can inspect statusCode and respond with problem details.",
-            "values": {
-              "code": "404",
-              "message": "User profile not found",
-              "operational": "true"
-            },
-            "tones": {
-              "code": "idle",
-              "message": "data",
-              "operational": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Distinguishing operational errors ensures security auditing detects attacks.",
-            "values": {
-              "code": "404",
-              "message": "User profile not found",
-              "operational": "true"
-            },
-            "tones": {
-              "code": "ok",
-              "message": "ok",
-              "operational": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Timeout Patterns and Promise Races",
-      "codeHash": "e0789183118ea10804cbb02d9975dfdb0a3262e7fbc1c7a889430f5b545b39b1",
-      "spec": {
-        "template": "states",
-        "title": "Promise timeout race resolution",
-        "states": [
-          {
-            "id": "pending",
-            "label": "pending"
-          },
-          {
-            "id": "resolved",
-            "label": "resolved"
-          },
-          {
-            "id": "timeout",
-            "label": "timeout"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Production code must enforce strict timeouts on network operations.",
-            "currentState": "pending",
-            "transition": {
-              "from": "pending",
-              "to": "resolved",
-              "label": {
-                "text": "Fast Service Result"
-              }
-            },
-            "tone": "idle"
-          },
-          {
-            "at": "say3",
-            "caption": "Promise.race resolves or rejects as soon as the first promise settles.",
-            "currentState": "resolved",
-            "transition": {
-              "from": "pending",
-              "to": "resolved",
-              "label": {
-                "text": "Fast Service Result"
-              }
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "say8",
-            "caption": "Combining timeout patterns with retry policies creates fault tolerance.",
-            "currentState": "timeout",
-            "transition": {
-              "from": "pending",
-              "to": "timeout",
-              "label": {
-                "text": "executeWithSimulatedTimeout"
-              }
-            },
-            "tone": "error"
-          }
-        ]
-      },
-      "filled": {
-        "template": "states",
-        "title": "Promise timeout race resolution",
-        "states": [
-          {
-            "id": "pending",
-            "label": "pending"
-          },
-          {
-            "id": "resolved",
-            "label": "resolved"
-          },
-          {
-            "id": "timeout",
-            "label": "timeout"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Production code must enforce strict timeouts on network operations.",
-            "currentState": "pending",
-            "transition": {
-              "from": "pending",
-              "to": "resolved",
-              "label": "Fast Service Result"
-            },
-            "tone": "idle"
-          },
-          {
-            "at": "say3",
-            "caption": "Promise.race resolves or rejects as soon as the first promise settles.",
-            "currentState": "resolved",
-            "transition": {
-              "from": "pending",
-              "to": "resolved",
-              "label": "Fast Service Result"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "say8",
-            "caption": "Combining timeout patterns with retry policies creates fault tolerance.",
-            "currentState": "timeout",
-            "transition": {
-              "from": "pending",
-              "to": "timeout",
-              "label": "executeWithSimulatedTimeout"
-            },
-            "tone": "error"
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Error Propagation vs Error Swallowing in Pipelines",
-      "codeHash": "9ce1121456d7b4d0a3da2258743ce23c03de9d426858adfe7f20a4b032265800",
+      "partTitle": "The Evolution of Asynchronous Patterns: Error-First Callbacks to Modern Promises",
+      "codeHash": "e4772fb0a22c06b31a95a76936b6000761f234a6682b2787ca52bd1f4ae8832b",
       "spec": {
         "template": "flow",
-        "title": "Safe JSON parsing pipeline",
+        "title": "Process Pipeline The Evolution of Asynchronous Patterns: Error-First Call.",
         "nodes": [
           {
-            "id": "raw",
-            "label": "raw"
+            "id": "stepA",
+            "label": "Initial Stage",
+            "type": "start"
           },
           {
-            "id": "fallback",
-            "label": "fallback"
+            "id": "stepB",
+            "label": "Processing Core",
+            "type": "process"
           },
           {
-            "id": "result",
-            "label": "valid"
+            "id": "stepC",
+            "label": "Verification Check",
+            "type": "process"
+          },
+          {
+            "id": "stepD",
+            "label": "Terminal Output",
+            "type": "end"
+          }
+        ],
+        "edges": [
+          {
+            "from": "stepA",
+            "to": "stepB",
+            "label": "Next"
+          },
+          {
+            "from": "stepB",
+            "to": "stepC",
+            "label": "Inspect"
+          },
+          {
+            "from": "stepC",
+            "to": "stepD",
+            "label": "Complete"
           }
         ],
         "steps": [
-          {
-            "at": "say2",
-            "caption": "Swallowing an error causes callers to assume the operation succeeded.",
-            "values": {
-              "raw": {
-                "text": "{\"port\": 5000}"
-              },
-              "fallback": {
-                "text": "3000"
-              },
-              "result": {
-                "text": "5000"
-              }
-            },
-            "tones": {
-              "raw": "data",
-              "fallback": "idle",
-              "result": "idle"
-            },
-            "arrows": [
-              [
-                "raw",
-                "result"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Catch an error only if you can meaningfully handle it.",
-            "values": {
-              "raw": {
-                "text": "not-json"
-              },
-              "fallback": {
-                "text": "3000"
-              },
-              "result": {
-                "text": "3000"
-              }
-            },
-            "tones": {
-              "raw": "idle",
-              "fallback": "data",
-              "result": "ok"
-            },
-            "arrows": [
-              [
-                "fallback",
-                "result"
-              ]
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Structured error logging ensures engineers correlate failures across logs.",
-            "values": {
-              "raw": {
-                "text": "{\"port\": 5000}"
-              },
-              "fallback": {
-                "text": "3000"
-              },
-              "result": {
-                "text": "5000"
-              }
-            },
-            "tones": {
-              "raw": "ok",
-              "fallback": "ok",
-              "result": "ok"
-            },
-            "arrows": [
-              [
-                "raw",
-                "result"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Safe JSON parsing pipeline",
-        "nodes": [
-          {
-            "id": "raw",
-            "label": "raw"
-          },
-          {
-            "id": "fallback",
-            "label": "fallback"
-          },
-          {
-            "id": "result",
-            "label": "valid"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Swallowing an error causes callers to assume the operation succeeded.",
-            "values": {
-              "raw": "{\"port\": 5000}",
-              "fallback": "3000",
-              "result": "5000"
-            },
-            "tones": {
-              "raw": "data",
-              "fallback": "idle",
-              "result": "idle"
-            },
-            "arrows": [
-              [
-                "raw",
-                "result"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Catch an error only if you can meaningfully handle it.",
-            "values": {
-              "raw": "not-json",
-              "fallback": "3000",
-              "result": "3000"
-            },
-            "tones": {
-              "raw": "idle",
-              "fallback": "data",
-              "result": "ok"
-            },
-            "arrows": [
-              [
-                "fallback",
-                "result"
-              ]
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Structured error logging ensures engineers correlate failures across logs.",
-            "values": {
-              "raw": "{\"port\": 5000}",
-              "fallback": "3000",
-              "result": "5000"
-            },
-            "tones": {
-              "raw": "ok",
-              "fallback": "ok",
-              "result": "ok"
-            },
-            "arrows": [
-              [
-                "raw",
-                "result"
-              ]
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Building an Asynchronous Batch Worker with Failure Isolation",
-      "codeHash": "e665d6243ae02b5aed92ead1423f4ef5c6b885cd4a0333cac45d2e3d3c1cd2f1",
-      "spec": {
-        "template": "flow",
-        "title": "Building an Asynchronous Batch Worker with Fa... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building an Asynchr...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building an Asynchronous Batch Worker wi.. [D5.P6.S1].",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building an Asynchr... [D5.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D5.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building an Asynchronous Batch Wo.. [D5.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
           }
         ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Building an Asynchronous Batch Worker with Fa... — Execution Pipeline",
-        "nodes": [
+      }
+    },
+    {
+      "partTitle": "Promise State Machine: Pending, Fulfilled, Rejected and Resolution Procedures",
+      "codeHash": "e977bde94d1bafa71422a029e50bc639b906fcbb04a6aa227acc3d36e1173768",
+      "spec": {
+        "template": "boxes",
+        "title": "Architectural Partitions Promise State Machine: Pending, Fulfilled, Rejec.",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "boxA",
+            "label": "Primary Sector"
           },
           {
-            "id": "proc",
-            "label": "2. Building an Asynchr...",
-            "tappable": true
+            "id": "boxB",
+            "label": "Secondary Sector"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "boxC",
+            "label": "Buffer Allocation"
+          },
+          {
+            "id": "boxD",
+            "label": "Resource Handle"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building an Asynchronous Batch Worker wi.. [D5.P6.S1].",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Async/Await Under the Hood: V8 Generator Desugaring and Promise Allocation",
+      "codeHash": "882acd5f70fa5667d5b205124931753e8d8557e71428b8e6ab7e6b53496f31a0",
+      "spec": {
+        "template": "stackQueue",
+        "title": "Queue Ordering Async/Await Under the Hood: V Generator Desugaring and Pro.",
+        "elements": [
+          {
+            "id": "elemA",
+            "label": "Top Priority"
+          },
+          {
+            "id": "elemB",
+            "label": "Secondary Task"
+          },
+          {
+            "id": "elemC",
+            "label": "Pending Callback"
+          },
+          {
+            "id": "elemD",
+            "label": "Deferred Workload"
+          }
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building an Asynchr... [D5.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D5.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building an Asynchronous Batch Wo.. [D5.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Unhandled Rejection Mechanics and Node.js Process Crash Policies",
+      "codeHash": "aebf1b00f2bcc2cbb9624fb15d831d3635650f1dca7aa457108ffec19572f314",
+      "spec": {
+        "template": "sequence",
+        "title": "Sequence Coordination Unhandled Rejection Mechanics and Node.js Process C.",
+        "actors": [
+          {
+            "id": "client",
+            "label": "Request Origin"
+          },
+          {
+            "id": "driver",
+            "label": "Runtime Driver"
+          },
+          {
+            "id": "kernel",
+            "label": "Kernel Boundary"
+          },
+          {
+            "id": "subsystem",
+            "label": "Target Subsystem"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
+          },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Async Context Propagation: AsyncLocalStorage and Distributed Request Tracing",
+      "codeHash": "a67b448a3d0bf52300d17b5f96f074cba6da4034b9148abfcfcec8d968007218",
+      "spec": {
+        "template": "compare",
+        "title": "Architectural Comparison Async Context Propagation: AsyncLocalStorage and.",
+        "left": {
+          "title": "Optimized Pattern",
+          "items": [
+            "Bounded latency",
+            "Deterministic execution",
+            "Zero resource leak"
+          ]
+        },
+        "right": {
+          "title": "Naive Pattern",
+          "items": [
+            "Unbounded growth",
+            "Blocking dispatch",
+            "Resource contention risk"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
+          },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
           }
         ]
       }

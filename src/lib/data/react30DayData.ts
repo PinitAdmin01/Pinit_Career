@@ -682,7 +682,7 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     aDesc: "Write `canDispatchBypassRender(lastDispatch, nextDispatch)` that returns `true` if dispatch identity is strictly identical.",
     aStarter: lines("function canDispatchBypassRender(lastDispatch, nextDispatch) {", "  // return true if dispatch identity is strictly identical", "  return false;", "}"),
     aHint: "return Object.is(lastDispatch, nextDispatch);",
-    aTest: lines("if (typeof canDispatchBypassRender !== 'function') throw new Error('canDispatchBypassRender not found');", "const d1 = () => {};", "if (!canDispatchBypassRender(d1, d1)) throw new Error('Identical dispatch should bypass');", "if (canDispatchBypassRender(d1, () => {})) throw new Error('Fresh dispatch reference should fail');")
+    aTest: lines("if (typeof canDispatchBypassRender !== 'function') throw new Error('canDispatchBypassRender not found');", "const d1 = () => {};", "const d2 = () => {};", "if (!canDispatchBypassRender(d1, d1)) throw new Error('Identical dispatch should bypass');", "if (canDispatchBypassRender(d1, () => {})) throw new Error('Fresh dispatch reference should fail');", "if (canDispatchBypassRender(d1, d2)) throw new Error('Different dispatch should fail');")
   },
 
   // ── WEEK 4: Build, ship and get job-ready ──────────────────────────────────
@@ -786,7 +786,9 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
       "const k1 = ['jobs', { status: 'active', page: 1 }];",
       "const k2 = ['jobs', { page: 1, status: 'active' }];",
       "if (serializeQueryKey(k1) !== serializeQueryKey(k2)) throw new Error('Serialized keys should match');",
-      "if (!serializeQueryKey(k1).includes('jobs::')) throw new Error('Expected separator');"
+      "if (!serializeQueryKey(k1).includes('jobs::')) throw new Error('Expected separator');",
+      "const k3 = ['users', 42];",
+      "if (serializeQueryKey(k3) !== 'users::42') throw new Error('Expected users::42, got ' + serializeQueryKey(k3));"
     ),
     aTitle: "Exponential Backoff Calculator",
     aDesc: "Write `calculateBackoff(attempt, baseMs, maxMs)` that calculates retry delay using exponential backoff formula `Math.min(maxMs, baseMs * Math.pow(2, attempt))`.",
@@ -925,7 +927,9 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     aTest: lines(
       "if (typeof deduplicateBatchIds !== 'function') throw new Error('deduplicateBatchIds not found');",
       "const res = deduplicateBatchIds(['c2', 'c1', 'c2', 'c3', 'c1']);",
-      "if (res.length !== 3 || res[0] !== 'c1' || res[1] !== 'c2' || res[2] !== 'c3') throw new Error('Should deduplicate and sort');"
+      "if (res.length !== 3 || res[0] !== 'c1' || res[1] !== 'c2' || res[2] !== 'c3') throw new Error('Should deduplicate and sort');",
+      "const res2 = deduplicateBatchIds(['z', 'a', 'z']);",
+      "if (res2.length !== 2 || res2[0] !== 'a' || res2[1] !== 'z') throw new Error('Should sort z and a');"
     )
   },
   {
@@ -967,7 +971,9 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
       "if (typeof normalizeJobList !== 'function') throw new Error('normalizeJobList not found');",
       "const jobs = [{ id: 'j1', title: 'Architect' }, { id: 'j2', title: 'Lead' }];",
       "const norm = normalizeJobList(jobs);",
-      "if (norm.allIds.length !== 2 || norm.byId['j1'].title !== 'Architect' || norm.byId['j2'].title !== 'Lead') throw new Error('Normalization mismatch');"
+      "if (norm.allIds.length !== 2 || norm.byId['j1'].title !== 'Architect' || norm.byId['j2'].title !== 'Lead') throw new Error('Normalization mismatch');",
+      "const empty = normalizeJobList([]);",
+      "if (empty.allIds.length !== 0 || Object.keys(empty.byId).length !== 0) throw new Error('Empty list should produce empty normalization');"
     )
   },
   // ── BLOCK 7 (MONTH 2): Advanced React State Machines & Concurrency (Days 31–35) ──

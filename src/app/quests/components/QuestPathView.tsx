@@ -935,7 +935,7 @@ export const QuestPathView: React.FC<QuestPathViewProps> = ({
                             return;
                           }
                           if (isNodeCompleted) {
-                            toast.warning('Milestone Completed', 'All classes in this milestone have been completed. Previous classes cannot be re-accessed.');
+                            toast.warning('Milestone Completed 🔒', 'All classes in this milestone have been completed. Previous classes cannot be re-accessed.');
                             return;
                           }
                           if (nextQuestInNode) {

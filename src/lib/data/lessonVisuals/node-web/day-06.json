@@ -1,928 +1,263 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "prefix": "node-web",
   "day": 6,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
   "entries": [
     {
-      "partTitle": "The Request-Response Lifecycle & Message Format",
-      "codeHash": "61af860500620321444e7b83705dfbaa08a737d0657b3e2190a15617178754ba",
-      "spec": {
-        "template": "boxes",
-        "title": "HTTP message structure components",
-        "boxes": [
-          {
-            "id": "method",
-            "label": "method"
-          },
-          {
-            "id": "path",
-            "label": "path"
-          },
-          {
-            "id": "version",
-            "label": "httpVersion"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "An HTTP request message consists of three distinct sections.",
-            "values": {
-              "method": {
-                "text": "GET"
-              },
-              "path": {
-                "text": "/api/v1/jobs?limit=10"
-              },
-              "version": {
-                "text": "HTTP/1.1"
-              }
-            },
-            "tones": {
-              "method": "data",
-              "path": "idle",
-              "version": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "The server parses the incoming byte stream and processes the payload.",
-            "values": {
-              "method": {
-                "text": "GET"
-              },
-              "path": {
-                "text": "/api/v1/jobs?limit=10"
-              },
-              "version": {
-                "text": "HTTP/1.1"
-              }
-            },
-            "tones": {
-              "method": "idle",
-              "path": "data",
-              "version": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Because HTTP is fundamentally text-based over TCP debugging is simple.",
-            "values": {
-              "method": {
-                "text": "GET"
-              },
-              "path": {
-                "text": "/api/v1/jobs?limit=10"
-              },
-              "version": {
-                "text": "HTTP/1.1"
-              }
-            },
-            "tones": {
-              "method": "ok",
-              "path": "ok",
-              "version": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "HTTP message structure components",
-        "boxes": [
-          {
-            "id": "method",
-            "label": "method"
-          },
-          {
-            "id": "path",
-            "label": "path"
-          },
-          {
-            "id": "version",
-            "label": "httpVersion"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "An HTTP request message consists of three distinct sections.",
-            "values": {
-              "method": "GET",
-              "path": "/api/v1/jobs?limit=10",
-              "version": "HTTP/1.1"
-            },
-            "tones": {
-              "method": "data",
-              "path": "idle",
-              "version": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "The server parses the incoming byte stream and processes the payload.",
-            "values": {
-              "method": "GET",
-              "path": "/api/v1/jobs?limit=10",
-              "version": "HTTP/1.1"
-            },
-            "tones": {
-              "method": "idle",
-              "path": "data",
-              "version": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Because HTTP is fundamentally text-based over TCP debugging is simple.",
-            "values": {
-              "method": "GET",
-              "path": "/api/v1/jobs?limit=10",
-              "version": "HTTP/1.1"
-            },
-            "tones": {
-              "method": "ok",
-              "path": "ok",
-              "version": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Safe vs Idempotent HTTP Methods",
-      "codeHash": "527d8457c01e5c4bfd53f3481e83ae3c261c0baed9100925e6efe33a4425002e",
-      "spec": {
-        "template": "table",
-        "title": "HTTP method idempotency semantics",
-        "columns": [
-          "HTTP Method",
-          "Safe Operation",
-          "Idempotent"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "A method is considered safe if calling it does not alter server state.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "GET"
-                  },
-                  {
-                    "text": "true"
-                  },
-                  {
-                    "text": "true"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "POST"
-                  },
-                  {
-                    "text": "false"
-                  },
-                  {
-                    "text": "false"
-                  }
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "A method is idempotent if making the request produces the exact same result.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "GET"
-                  },
-                  {
-                    "text": "true"
-                  },
-                  {
-                    "text": "true"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "POST"
-                  },
-                  {
-                    "text": "false"
-                  },
-                  {
-                    "text": "false"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Designing endpoints to honor method idempotency allows client automatic retry.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "GET"
-                  },
-                  {
-                    "text": "true"
-                  },
-                  {
-                    "text": "true"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "POST"
-                  },
-                  {
-                    "text": "false"
-                  },
-                  {
-                    "text": "false"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "table",
-        "title": "HTTP method idempotency semantics",
-        "columns": [
-          "HTTP Method",
-          "Safe Operation",
-          "Idempotent"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "A method is considered safe if calling it does not alter server state.",
-            "rows": [
-              {
-                "cells": [
-                  "GET",
-                  "true",
-                  "true"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "POST",
-                  "false",
-                  "false"
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "A method is idempotent if making the request produces the exact same result.",
-            "rows": [
-              {
-                "cells": [
-                  "GET",
-                  "true",
-                  "true"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "POST",
-                  "false",
-                  "false"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Designing endpoints to honor method idempotency allows client automatic retry.",
-            "rows": [
-              {
-                "cells": [
-                  "GET",
-                  "true",
-                  "true"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "POST",
-                  "false",
-                  "false"
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Status Codes: 2xx Success and 3xx Redirection Semantics",
-      "codeHash": "effcfe0a314620fa76a763737a7fd9e51a613a0e33ba356f0c6af432973d3292",
-      "spec": {
-        "template": "states",
-        "title": "Status code category distribution",
-        "states": [
-          {
-            "id": "s200",
-            "label": "200"
-          },
-          {
-            "id": "s201",
-            "label": "201"
-          },
-          {
-            "id": "s204",
-            "label": "204"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The 2xx class indicates that the client request was successfully received.",
-            "currentState": "s200",
-            "transition": {
-              "from": "s204",
-              "to": "s200",
-              "label": {
-                "text": "200 OK - Standard Success"
-              }
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "say3",
-            "caption": "The 3xx class indicates that the client must take additional action.",
-            "currentState": "s201",
-            "transition": {
-              "from": "s200",
-              "to": "s201",
-              "label": {
-                "text": "201 Created - Resource Persisted"
-              }
-            },
-            "tone": "error"
-          },
-          {
-            "at": "say8",
-            "caption": "Using precise status codes instead of generic responses improves caching.",
-            "currentState": "s204",
-            "transition": {
-              "from": "s201",
-              "to": "s204",
-              "label": {
-                "text": "204 No Content - Deletion Completed"
-              }
-            },
-            "tone": "ok"
-          }
-        ]
-      },
-      "filled": {
-        "template": "states",
-        "title": "Status code category distribution",
-        "states": [
-          {
-            "id": "s200",
-            "label": "200"
-          },
-          {
-            "id": "s201",
-            "label": "201"
-          },
-          {
-            "id": "s204",
-            "label": "204"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The 2xx class indicates that the client request was successfully received.",
-            "currentState": "s200",
-            "transition": {
-              "from": "s204",
-              "to": "s200",
-              "label": "200 OK - Standard Success"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "say3",
-            "caption": "The 3xx class indicates that the client must take additional action.",
-            "currentState": "s201",
-            "transition": {
-              "from": "s200",
-              "to": "s201",
-              "label": "201 Created - Resource Persisted"
-            },
-            "tone": "error"
-          },
-          {
-            "at": "say8",
-            "caption": "Using precise status codes instead of generic responses improves caching.",
-            "currentState": "s204",
-            "transition": {
-              "from": "s201",
-              "to": "s204",
-              "label": "204 No Content - Deletion Completed"
-            },
-            "tone": "ok"
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Status Codes: 4xx Client Errors vs 5xx Server Errors",
-      "codeHash": "3102b97823170b6a66f747fb0f44ee999175259e2eb2002a2597adebea336ac2",
-      "spec": {
-        "template": "boxes",
-        "title": "HTTP status error classification",
-        "boxes": [
-          {
-            "id": "c404",
-            "label": "CLIENT_FAULT"
-          },
-          {
-            "id": "c503",
-            "label": "SERVER_FAULT"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The 4xx class indicates the client sent an invalid request.",
-            "values": {
-              "c404": {
-                "text": "CLIENT_FAULT"
-              },
-              "c503": {
-                "text": "SERVER_FAULT"
-              }
-            },
-            "tones": {
-              "c404": "data",
-              "c503": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "The 5xx class indicates the server encountered an unexpected error.",
-            "values": {
-              "c404": {
-                "text": "CLIENT_FAULT"
-              },
-              "c503": {
-                "text": "SERVER_FAULT"
-              }
-            },
-            "tones": {
-              "c404": "idle",
-              "c503": "error"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Never return 500 when a user provides invalid input.",
-            "values": {
-              "c404": {
-                "text": "CLIENT_FAULT"
-              },
-              "c503": {
-                "text": "SERVER_FAULT"
-              }
-            },
-            "tones": {
-              "c404": "ok",
-              "c503": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "HTTP status error classification",
-        "boxes": [
-          {
-            "id": "c404",
-            "label": "CLIENT_FAULT"
-          },
-          {
-            "id": "c503",
-            "label": "SERVER_FAULT"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The 4xx class indicates the client sent an invalid request.",
-            "values": {
-              "c404": "CLIENT_FAULT",
-              "c503": "SERVER_FAULT"
-            },
-            "tones": {
-              "c404": "data",
-              "c503": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "The 5xx class indicates the server encountered an unexpected error.",
-            "values": {
-              "c404": "CLIENT_FAULT",
-              "c503": "SERVER_FAULT"
-            },
-            "tones": {
-              "c404": "idle",
-              "c503": "error"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Never return 500 when a user provides invalid input.",
-            "values": {
-              "c404": "CLIENT_FAULT",
-              "c503": "SERVER_FAULT"
-            },
-            "tones": {
-              "c404": "ok",
-              "c503": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Critical HTTP Headers: Content-Type, Authorization, and Cache-Control",
-      "codeHash": "72f269777b2d0f66f5e430dedb2e710f4e8b3a6c19cf6326c694c29931202cee",
-      "spec": {
-        "template": "boxes",
-        "title": "Critical HTTP header parameters",
-        "boxes": [
-          {
-            "id": "auth",
-            "label": "authorization"
-          },
-          {
-            "id": "cache",
-            "label": "cache-control"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Content-Type is the most important payload header.",
-            "values": {
-              "auth": {
-                "text": "Bearer eyJhbGciOiJIUzI1NiJ9..."
-              },
-              "cache": {
-                "text": "no-store, private"
-              }
-            },
-            "tones": {
-              "auth": "data",
-              "cache": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "The Authorization header carries authentication credentials.",
-            "values": {
-              "auth": {
-                "text": "Bearer eyJhbGciOiJIUzI1NiJ9..."
-              },
-              "cache": {
-                "text": "no-store, private"
-              }
-            },
-            "tones": {
-              "auth": "idle",
-              "cache": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Correct header management also underpins modern API security.",
-            "values": {
-              "auth": {
-                "text": "Bearer eyJhbGciOiJIUzI1NiJ9..."
-              },
-              "cache": {
-                "text": "no-store, private"
-              }
-            },
-            "tones": {
-              "auth": "ok",
-              "cache": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Critical HTTP header parameters",
-        "boxes": [
-          {
-            "id": "auth",
-            "label": "authorization"
-          },
-          {
-            "id": "cache",
-            "label": "cache-control"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Content-Type is the most important payload header.",
-            "values": {
-              "auth": "Bearer eyJhbGciOiJIUzI1NiJ9...",
-              "cache": "no-store, private"
-            },
-            "tones": {
-              "auth": "data",
-              "cache": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "The Authorization header carries authentication credentials.",
-            "values": {
-              "auth": "Bearer eyJhbGciOiJIUzI1NiJ9...",
-              "cache": "no-store, private"
-            },
-            "tones": {
-              "auth": "idle",
-              "cache": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Correct header management also underpins modern API security.",
-            "values": {
-              "auth": "Bearer eyJhbGciOiJIUzI1NiJ9...",
-              "cache": "no-store, private"
-            },
-            "tones": {
-              "auth": "ok",
-              "cache": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Content Negotiation with the Accept Header",
-      "codeHash": "a5fa76209dfa10c0c02d813c657c3fa711eb40271cb9ac79b33f5527010fabe0",
+      "partTitle": "Anatomy of an RFC 9110 HTTP/1.1 Wire Transaction",
+      "codeHash": "fd21b74b6c58658de8d8670c1397142cdbfa93691f9da0d9c6dbd2363623360a",
       "spec": {
         "template": "flow",
-        "title": "Content Negotiation with the Accept Header — Execution Pipeline",
+        "title": "Process Pipeline Anatomy of an RFC HTTP/. Wire Transaction.",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "stepA",
+            "label": "Initial Stage",
+            "type": "start"
           },
           {
-            "id": "proc",
-            "label": "2. Content Negotiation...",
-            "tappable": true
+            "id": "stepB",
+            "label": "Processing Core",
+            "type": "process"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "stepC",
+            "label": "Verification Check",
+            "type": "process"
+          },
+          {
+            "id": "stepD",
+            "label": "Terminal Output",
+            "type": "end"
+          }
+        ],
+        "edges": [
+          {
+            "from": "stepA",
+            "to": "stepB",
+            "label": "Next"
+          },
+          {
+            "from": "stepB",
+            "to": "stepC",
+            "label": "Inspect"
+          },
+          {
+            "from": "stepC",
+            "to": "stepD",
+            "label": "Complete"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Content Negotiation with the Accept Header [D6.P6.S1].",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Content Negotiation... [D6.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D6.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Content Negotiation with the Acce.. [D6.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
           }
         ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Content Negotiation with the Accept Header — Execution Pipeline",
-        "nodes": [
+      }
+    },
+    {
+      "partTitle": "Low-Level TCP Socket Lifecycle & Nagle Optimization",
+      "codeHash": "f87f7b123a98fe6aad5b641d1cf094e56935cef2eab4f28dd5001dad9843f2ad",
+      "spec": {
+        "template": "boxes",
+        "title": "Architectural Partitions Low-Level TCP Socket Lifecycle & Nagle Optimizat.",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "boxA",
+            "label": "Primary Sector"
           },
           {
-            "id": "proc",
-            "label": "2. Content Negotiation...",
-            "tappable": true
+            "id": "boxB",
+            "label": "Secondary Sector"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "boxC",
+            "label": "Buffer Allocation"
+          },
+          {
+            "id": "boxD",
+            "label": "Resource Handle"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Content Negotiation with the Accept Header [D6.P6.S1].",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Chunked Transfer-Encoding & Trailer Metadata",
+      "codeHash": "15df11dad93b208d16f4e09e821f380e13d7f8585f15bab6aa1d42846f9b2e9a",
+      "spec": {
+        "template": "stackQueue",
+        "title": "Queue Ordering Chunked Transfer-Encoding & Trailer Metadata.",
+        "elements": [
+          {
+            "id": "elemA",
+            "label": "Top Priority"
+          },
+          {
+            "id": "elemB",
+            "label": "Secondary Task"
+          },
+          {
+            "id": "elemC",
+            "label": "Pending Callback"
+          },
+          {
+            "id": "elemD",
+            "label": "Deferred Workload"
+          }
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Content Negotiation... [D6.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D6.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Content Negotiation with the Acce.. [D6.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Keep-Alive Sockets & Head-of-Line Blocking",
+      "codeHash": "c5af798617253387ec75a34888c377622b21b08b9220b5e36660ba65c14ee750",
+      "spec": {
+        "template": "sequence",
+        "title": "Sequence Coordination Keep-Alive Sockets & Head-of-Line Blocking.",
+        "actors": [
+          {
+            "id": "client",
+            "label": "Request Origin"
+          },
+          {
+            "id": "driver",
+            "label": "Runtime Driver"
+          },
+          {
+            "id": "kernel",
+            "label": "Kernel Boundary"
+          },
+          {
+            "id": "subsystem",
+            "label": "Target Subsystem"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
+          },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Building a Bare-Metal HTTP Server on Raw TCP",
+      "codeHash": "adf7f1985e1dc42b2f06f02f2afd7fc94e2dba67e1592aceb25dfcff02830258",
+      "spec": {
+        "template": "compare",
+        "title": "Architectural Comparison Building a Bare-Metal HTTP Server on Raw TCP.",
+        "left": {
+          "title": "Optimized Pattern",
+          "items": [
+            "Bounded latency",
+            "Deterministic execution",
+            "Zero resource leak"
+          ]
+        },
+        "right": {
+          "title": "Naive Pattern",
+          "items": [
+            "Unbounded growth",
+            "Blocking dispatch",
+            "Resource contention risk"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
+          },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
           }
         ]
       }

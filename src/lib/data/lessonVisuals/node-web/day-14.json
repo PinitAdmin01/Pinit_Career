@@ -1,906 +1,263 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "prefix": "node-web",
   "day": 14,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
   "entries": [
     {
-      "partTitle": "The Twelve-Factor App: Config in the Environment",
-      "codeHash": "99e4c279ced2ec31bd332ee132533e7fe8fe68aa18b6cb6f16cdb525527397f6",
-      "spec": {
-        "template": "boxes",
-        "title": "Twelve-Factor environment config store",
-        "boxes": [
-          {
-            "id": "port",
-            "label": "PORT"
-          },
-          {
-            "id": "env",
-            "label": "NODE_ENV"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Configuration comprises everything that varies between deployments.",
-            "values": {
-              "port": {
-                "text": "8080"
-              },
-              "env": {
-                "text": "production"
-              }
-            },
-            "tones": {
-              "port": "data",
-              "env": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Hardcoding configuration settings inside source code is an anti-pattern.",
-            "values": {
-              "port": {
-                "text": "8080"
-              },
-              "env": {
-                "text": "production"
-              }
-            },
-            "tones": {
-              "port": "idle",
-              "env": "error"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "The environment injects runtime configuration ensuring separation of code.",
-            "values": {
-              "port": {
-                "text": "8080"
-              },
-              "env": {
-                "text": "production"
-              }
-            },
-            "tones": {
-              "port": "ok",
-              "env": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Twelve-Factor environment config store",
-        "boxes": [
-          {
-            "id": "port",
-            "label": "PORT"
-          },
-          {
-            "id": "env",
-            "label": "NODE_ENV"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Configuration comprises everything that varies between deployments.",
-            "values": {
-              "port": "8080",
-              "env": "production"
-            },
-            "tones": {
-              "port": "data",
-              "env": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Hardcoding configuration settings inside source code is an anti-pattern.",
-            "values": {
-              "port": "8080",
-              "env": "production"
-            },
-            "tones": {
-              "port": "idle",
-              "env": "error"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "The environment injects runtime configuration ensuring separation of code.",
-            "values": {
-              "port": "8080",
-              "env": "production"
-            },
-            "tones": {
-              "port": "ok",
-              "env": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Reading, Coercing, and Validating Environment DTOs",
-      "codeHash": "abf2b9d3891dfb6518f79242bb83bd29db5de3543b8d56007f686b070a1758e1",
-      "spec": {
-        "template": "boxes",
-        "title": "Typed AppConfig DTO interface",
-        "boxes": [
-          {
-            "id": "port",
-            "label": "port"
-          },
-          {
-            "id": "service",
-            "label": "serviceName"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Reading process.env yields raw strings requiring numeric coercion.",
-            "values": {
-              "port": {
-                "text": "3000"
-              },
-              "service": {
-                "text": "auth-api"
-              }
-            },
-            "tones": {
-              "port": "data",
-              "service": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Professional backends define an AppConfig interface for type safety.",
-            "values": {
-              "port": {
-                "text": "3000"
-              },
-              "service": {
-                "text": "auth-api"
-              }
-            },
-            "tones": {
-              "port": "ok",
-              "service": "data"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "This transforms untyped environment strings into a clean configuration object.",
-            "values": {
-              "port": {
-                "text": "3000"
-              },
-              "service": {
-                "text": "auth-api"
-              }
-            },
-            "tones": {
-              "port": "ok",
-              "service": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Typed AppConfig DTO interface",
-        "boxes": [
-          {
-            "id": "port",
-            "label": "port"
-          },
-          {
-            "id": "service",
-            "label": "serviceName"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Reading process.env yields raw strings requiring numeric coercion.",
-            "values": {
-              "port": "3000",
-              "service": "auth-api"
-            },
-            "tones": {
-              "port": "data",
-              "service": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Professional backends define an AppConfig interface for type safety.",
-            "values": {
-              "port": "3000",
-              "service": "auth-api"
-            },
-            "tones": {
-              "port": "ok",
-              "service": "data"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "This transforms untyped environment strings into a clean configuration object.",
-            "values": {
-              "port": "3000",
-              "service": "auth-api"
-            },
-            "tones": {
-              "port": "ok",
-              "service": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Tiered Defaults: Development vs Staging vs Production",
-      "codeHash": "5103804ac083f21ae5fc130554f9f8f5103ad78ab11603efcc8e2aa1eb7b43ad",
-      "spec": {
-        "template": "table",
-        "title": "Tiered environment configuration defaults",
-        "columns": [
-          "Environment Tier",
-          "Database Host",
-          "SSL Required"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "In local development developers want convenient localhost defaults.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "development"
-                  },
-                  {
-                    "text": "localhost"
-                  },
-                  {
-                    "text": "false"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "production"
-                  },
-                  {
-                    "text": "db-cluster.internal"
-                  },
-                  {
-                    "text": "true"
-                  }
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "In production connecting to localhost must be strictly forbidden.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "development"
-                  },
-                  {
-                    "text": "localhost"
-                  },
-                  {
-                    "text": "false"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "production"
-                  },
-                  {
-                    "text": "db-cluster.internal"
-                  },
-                  {
-                    "text": "true"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Providing sensible development defaults lets developers clone and run dev.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "development"
-                  },
-                  {
-                    "text": "localhost"
-                  },
-                  {
-                    "text": "false"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "production"
-                  },
-                  {
-                    "text": "db-cluster.internal"
-                  },
-                  {
-                    "text": "true"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "table",
-        "title": "Tiered environment configuration defaults",
-        "columns": [
-          "Environment Tier",
-          "Database Host",
-          "SSL Required"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "In local development developers want convenient localhost defaults.",
-            "rows": [
-              {
-                "cells": [
-                  "development",
-                  "localhost",
-                  "false"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "production",
-                  "db-cluster.internal",
-                  "true"
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "In production connecting to localhost must be strictly forbidden.",
-            "rows": [
-              {
-                "cells": [
-                  "development",
-                  "localhost",
-                  "false"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "production",
-                  "db-cluster.internal",
-                  "true"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Providing sensible development defaults lets developers clone and run dev.",
-            "rows": [
-              {
-                "cells": [
-                  "development",
-                  "localhost",
-                  "false"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "production",
-                  "db-cluster.internal",
-                  "true"
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Fail-Fast Principle: Halting Boot on Invalid Config",
-      "codeHash": "8687a040218671bacf763171a32ea0659487bfdf6d4eb95a49c6aa9c56b91e81",
-      "spec": {
-        "template": "boxes",
-        "title": "Fail-fast required secrets assertion",
-        "boxes": [
-          {
-            "id": "db",
-            "label": "DATABASE_URL"
-          },
-          {
-            "id": "jwt",
-            "label": "JWT_SECRET"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The server starts up fine but begins accepting invalid incoming traffic.",
-            "values": {
-              "db": {
-                "text": "DATABASE_URL"
-              },
-              "jwt": {
-                "text": "JWT_SECRET"
-              }
-            },
-            "tones": {
-              "db": "data",
-              "jwt": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Signing tokens with undefined triggers runtime crashes or forgery.",
-            "values": {
-              "db": {
-                "text": "DATABASE_URL"
-              },
-              "jwt": {
-                "text": "JWT_SECRET"
-              }
-            },
-            "tones": {
-              "db": "idle",
-              "jwt": "error"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "If any mandatory variable is missing the application logs a FATAL error.",
-            "values": {
-              "db": {
-                "text": "DATABASE_URL"
-              },
-              "jwt": {
-                "text": "JWT_SECRET"
-              }
-            },
-            "tones": {
-              "db": "ok",
-              "jwt": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Fail-fast required secrets assertion",
-        "boxes": [
-          {
-            "id": "db",
-            "label": "DATABASE_URL"
-          },
-          {
-            "id": "jwt",
-            "label": "JWT_SECRET"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The server starts up fine but begins accepting invalid incoming traffic.",
-            "values": {
-              "db": "DATABASE_URL",
-              "jwt": "JWT_SECRET"
-            },
-            "tones": {
-              "db": "data",
-              "jwt": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Signing tokens with undefined triggers runtime crashes or forgery.",
-            "values": {
-              "db": "DATABASE_URL",
-              "jwt": "JWT_SECRET"
-            },
-            "tones": {
-              "db": "idle",
-              "jwt": "error"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "If any mandatory variable is missing the application logs a FATAL error.",
-            "values": {
-              "db": "DATABASE_URL",
-              "jwt": "JWT_SECRET"
-            },
-            "tones": {
-              "db": "ok",
-              "jwt": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Freezing Config Objects (Object.freeze) to Prevent Mutation",
-      "codeHash": "d5039c14f3168a5057228077f19640eafed3c2def3e4fe7532488d41e6a7774c",
-      "spec": {
-        "template": "boxes",
-        "title": "Deep-freeze immutable config lock",
-        "boxes": [
-          {
-            "id": "env",
-            "label": "env"
-          },
-          {
-            "id": "frozen",
-            "label": "isFrozen"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Plain mutable objects allow accidental mutation across modules.",
-            "values": {
-              "env": {
-                "text": "production"
-              },
-              "frozen": {
-                "text": "production"
-              }
-            },
-            "tones": {
-              "env": "data",
-              "frozen": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Accidental mutations create subtle bugs that change runtime state.",
-            "values": {
-              "env": {
-                "text": "production"
-              },
-              "frozen": {
-                "text": "production"
-              }
-            },
-            "tones": {
-              "env": "idle",
-              "frozen": "error"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Combining freeze with Readonly guarantees compile-time type safety.",
-            "values": {
-              "env": {
-                "text": "production"
-              },
-              "frozen": {
-                "text": "production"
-              }
-            },
-            "tones": {
-              "env": "ok",
-              "frozen": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Deep-freeze immutable config lock",
-        "boxes": [
-          {
-            "id": "env",
-            "label": "env"
-          },
-          {
-            "id": "frozen",
-            "label": "isFrozen"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Plain mutable objects allow accidental mutation across modules.",
-            "values": {
-              "env": "production",
-              "frozen": "production"
-            },
-            "tones": {
-              "env": "data",
-              "frozen": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Accidental mutations create subtle bugs that change runtime state.",
-            "values": {
-              "env": "production",
-              "frozen": "production"
-            },
-            "tones": {
-              "env": "idle",
-              "frozen": "error"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Combining freeze with Readonly guarantees compile-time type safety.",
-            "values": {
-              "env": "production",
-              "frozen": "production"
-            },
-            "tones": {
-              "env": "ok",
-              "frozen": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Building a Safe Config Loader Module",
-      "codeHash": "480451f1bf48d9a2d924036232c5799d431193568f992eb5ed008ee6145cf09c",
+      "partTitle": "Memory Hierarchy, L1/L2 Cache Topology & Access Latencies",
+      "codeHash": "086435b0e01c98566fa24d4ebdb03236ecfa6a182c6edd51af69b188c9f965ee",
       "spec": {
         "template": "flow",
-        "title": "Building a Safe Config Loader Module — Execution Pipeline",
+        "title": "Process Pipeline Memory Hierarchy, L/L Cache Topology & Access Latencies.",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "stepA",
+            "label": "Initial Stage",
+            "type": "start"
           },
           {
-            "id": "proc",
-            "label": "2. Building a Safe Con...",
-            "tappable": true
+            "id": "stepB",
+            "label": "Processing Core",
+            "type": "process"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "stepC",
+            "label": "Verification Check",
+            "type": "process"
+          },
+          {
+            "id": "stepD",
+            "label": "Terminal Output",
+            "type": "end"
+          }
+        ],
+        "edges": [
+          {
+            "from": "stepA",
+            "to": "stepB",
+            "label": "Next"
+          },
+          {
+            "from": "stepB",
+            "to": "stepC",
+            "label": "Inspect"
+          },
+          {
+            "from": "stepC",
+            "to": "stepD",
+            "label": "Complete"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building a Safe Config Loader Module [D14.P6.S1].",
-            "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building a Safe Con... [D14.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D14.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building a Safe Config Loader Mod.. [D14.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
           }
         ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Building a Safe Config Loader Module — Execution Pipeline",
-        "nodes": [
+      }
+    },
+    {
+      "partTitle": "Cache Invalidation Patterns: Cache-Aside, Write-Through & Write-Behind",
+      "codeHash": "a8d496445d127ab2f0e5b7026a52989aec39876acd6e938509616849edb33027",
+      "spec": {
+        "template": "boxes",
+        "title": "Architectural Partitions Cache Invalidation Patterns: Cache-Aside, Write-.",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "boxA",
+            "label": "Primary Sector"
           },
           {
-            "id": "proc",
-            "label": "2. Building a Safe Con...",
-            "tappable": true
+            "id": "boxB",
+            "label": "Secondary Sector"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "boxC",
+            "label": "Buffer Allocation"
+          },
+          {
+            "id": "boxD",
+            "label": "Resource Handle"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building a Safe Config Loader Module [D14.P6.S1].",
-            "values": {
-              "in": "Day 14 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "The Cache Stampede Problem (Dogpile Effect) & Mutex Locking",
+      "codeHash": "0655fefe8a3793818888c63e5276d5c6911b5eecc93f5fe2d07df6314349a5c0",
+      "spec": {
+        "template": "stackQueue",
+        "title": "Queue Ordering The Cache Stampede Problem (Dogpile Effect) & Mutex Lockin.",
+        "elements": [
+          {
+            "id": "elemA",
+            "label": "Top Priority"
+          },
+          {
+            "id": "elemB",
+            "label": "Secondary Task"
+          },
+          {
+            "id": "elemC",
+            "label": "Pending Callback"
+          },
+          {
+            "id": "elemD",
+            "label": "Deferred Workload"
+          }
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building a Safe Con... [D14.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D14.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building a Safe Config Loader Mod.. [D14.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Probabilistic Early Expiration (The XFetch Algorithm)",
+      "codeHash": "190e794eb7e8d8d83afc8b6402511ab9a784039a14158d30e7a6159675b2b7dc",
+      "spec": {
+        "template": "sequence",
+        "title": "Sequence Coordination Probabilistic Early Expiration (The XFetch Algorith.",
+        "actors": [
+          {
+            "id": "client",
+            "label": "Request Origin"
+          },
+          {
+            "id": "driver",
+            "label": "Runtime Driver"
+          },
+          {
+            "id": "kernel",
+            "label": "Kernel Boundary"
+          },
+          {
+            "id": "subsystem",
+            "label": "Target Subsystem"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
+          },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Production Tiered Cache with Singleflight Stampede Defense",
+      "codeHash": "20f8726ef62d9d1615820652550c7a2122fb5f9d56976d48daf8ac8858dc377c",
+      "spec": {
+        "template": "compare",
+        "title": "Architectural Comparison Production Tiered Cache with Singleflight Stampe.",
+        "left": {
+          "title": "Optimized Pattern",
+          "items": [
+            "Bounded latency",
+            "Deterministic execution",
+            "Zero resource leak"
+          ]
+        },
+        "right": {
+          "title": "Naive Pattern",
+          "items": [
+            "Unbounded growth",
+            "Blocking dispatch",
+            "Resource contention risk"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
+          },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
           }
         ]
       }

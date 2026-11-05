@@ -1,832 +1,263 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "prefix": "node-web",
   "day": 15,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
   "entries": [
     {
-      "partTitle": "Why Unbounded Database Queries Crash Backends",
-      "codeHash": "395cb69313d119f08957688775dd4bd1814f396186fa5b83689a2b1555386142",
-      "spec": {
-        "template": "boxes",
-        "title": "Unbounded database scan memory footprint",
-        "boxes": [
-          {
-            "id": "rows",
-            "label": "rowCount"
-          },
-          {
-            "id": "bytes",
-            "label": "bytesPerRow"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "As a startup grows an unbounded query causes catastrophic outages.",
-            "values": {
-              "rows": {
-                "text": "250000"
-              },
-              "bytes": {
-                "text": "512"
-              }
-            },
-            "tones": {
-              "rows": "data",
-              "bytes": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Fetching records in a single query exhausts connection pool memory.",
-            "values": {
-              "rows": {
-                "text": "250000"
-              },
-              "bytes": {
-                "text": "512"
-              }
-            },
-            "tones": {
-              "rows": "error",
-              "bytes": "idle"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "An unbounded query is a critical Denial of Service vulnerability.",
-            "values": {
-              "rows": {
-                "text": "20"
-              },
-              "bytes": {
-                "text": "512"
-              }
-            },
-            "tones": {
-              "rows": "ok",
-              "bytes": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Unbounded database scan memory footprint",
-        "boxes": [
-          {
-            "id": "rows",
-            "label": "rowCount"
-          },
-          {
-            "id": "bytes",
-            "label": "bytesPerRow"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "As a startup grows an unbounded query causes catastrophic outages.",
-            "values": {
-              "rows": "250000",
-              "bytes": "512"
-            },
-            "tones": {
-              "rows": "data",
-              "bytes": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Fetching records in a single query exhausts connection pool memory.",
-            "values": {
-              "rows": "250000",
-              "bytes": "512"
-            },
-            "tones": {
-              "rows": "error",
-              "bytes": "idle"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "An unbounded query is a critical Denial of Service vulnerability.",
-            "values": {
-              "rows": "20",
-              "bytes": "512"
-            },
-            "tones": {
-              "rows": "ok",
-              "bytes": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Offset-Based Pagination: page, limit, totalPages Math",
-      "codeHash": "98f108f2df0fc8044d9d7f438332f75ef94e9319445220b3e04a279158ba876a",
-      "spec": {
-        "template": "boxes",
-        "title": "Offset-based pagination envelope fields",
-        "boxes": [
-          {
-            "id": "page",
-            "label": "page"
-          },
-          {
-            "id": "limit",
-            "label": "limit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "In SQL databases this maps directly to LIMIT and OFFSET clauses.",
-            "values": {
-              "page": {
-                "text": "1"
-              },
-              "limit": {
-                "text": "3"
-              }
-            },
-            "tones": {
-              "page": "data",
-              "limit": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "The response payload wraps items inside a standardized pagination envelope.",
-            "values": {
-              "page": {
-                "text": "1"
-              },
-              "limit": {
-                "text": "3"
-              }
-            },
-            "tones": {
-              "page": "ok",
-              "limit": "data"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "It allows users to jump directly to any arbitrary page number.",
-            "values": {
-              "page": {
-                "text": "1"
-              },
-              "limit": {
-                "text": "3"
-              }
-            },
-            "tones": {
-              "page": "ok",
-              "limit": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Offset-based pagination envelope fields",
-        "boxes": [
-          {
-            "id": "page",
-            "label": "page"
-          },
-          {
-            "id": "limit",
-            "label": "limit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "In SQL databases this maps directly to LIMIT and OFFSET clauses.",
-            "values": {
-              "page": "1",
-              "limit": "3"
-            },
-            "tones": {
-              "page": "data",
-              "limit": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "The response payload wraps items inside a standardized pagination envelope.",
-            "values": {
-              "page": "1",
-              "limit": "3"
-            },
-            "tones": {
-              "page": "ok",
-              "limit": "data"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "It allows users to jump directly to any arbitrary page number.",
-            "values": {
-              "page": "1",
-              "limit": "3"
-            },
-            "tones": {
-              "page": "ok",
-              "limit": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "The Pitfalls of High Offsets & Cursor-Based Pagination",
-      "codeHash": "a3d2b4de15cdd20df7628ae7d4f19652d6426ae592cf114ae7139d6c372ec708",
-      "spec": {
-        "template": "boxes",
-        "title": "Cursor-based record seeking pointer",
-        "boxes": [
-          {
-            "id": "id",
-            "label": "id"
-          },
-          {
-            "id": "title",
-            "label": "title"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The database engine must scan rows on disk bringing queries to a crawl.",
-            "values": {
-              "id": {
-                "text": "105"
-              },
-              "title": {
-                "text": "Staff Engineer"
-              }
-            },
-            "tones": {
-              "id": "data",
-              "title": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Page drift causes users to see duplicate items across pages.",
-            "values": {
-              "id": {
-                "text": "104"
-              },
-              "title": {
-                "text": "Senior Backend"
-              }
-            },
-            "tones": {
-              "id": "idle",
-              "title": "error"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Using an index seek executes in milliseconds across billions of rows.",
-            "values": {
-              "id": {
-                "text": "104"
-              },
-              "title": {
-                "text": "Senior Backend"
-              }
-            },
-            "tones": {
-              "id": "ok",
-              "title": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Cursor-based record seeking pointer",
-        "boxes": [
-          {
-            "id": "id",
-            "label": "id"
-          },
-          {
-            "id": "title",
-            "label": "title"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The database engine must scan rows on disk bringing queries to a crawl.",
-            "values": {
-              "id": "105",
-              "title": "Staff Engineer"
-            },
-            "tones": {
-              "id": "data",
-              "title": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Page drift causes users to see duplicate items across pages.",
-            "values": {
-              "id": "104",
-              "title": "Senior Backend"
-            },
-            "tones": {
-              "id": "idle",
-              "title": "error"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Using an index seek executes in milliseconds across billions of rows.",
-            "values": {
-              "id": "104",
-              "title": "Senior Backend"
-            },
-            "tones": {
-              "id": "ok",
-              "title": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Encoding and Decoding Opaque Cursors",
-      "codeHash": "07b31fa8b21e27739ebefd91bac8ffa1142a0463c5c974bf78036aded73ffda7",
-      "spec": {
-        "template": "boxes",
-        "title": "Opaque base64 token cursor payload",
-        "boxes": [
-          {
-            "id": "id",
-            "label": "id"
-          },
-          {
-            "id": "sort",
-            "label": "sortValue"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Best practice is to encode cursors as opaque base64 tokens.",
-            "values": {
-              "id": {
-                "text": "job_500"
-              },
-              "sort": {
-                "text": "1700000"
-              }
-            },
-            "tones": {
-              "id": "data",
-              "sort": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "An opaque cursor serializes a small JSON payload with identifiers.",
-            "values": {
-              "id": {
-                "text": "job_500"
-              },
-              "sort": {
-                "text": "1700000"
-              }
-            },
-            "tones": {
-              "id": "idle",
-              "sort": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Because the cursor is opaque engineers can change internal cursor structures.",
-            "values": {
-              "id": {
-                "text": "job_500"
-              },
-              "sort": {
-                "text": "1700000"
-              }
-            },
-            "tones": {
-              "id": "ok",
-              "sort": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Opaque base64 token cursor payload",
-        "boxes": [
-          {
-            "id": "id",
-            "label": "id"
-          },
-          {
-            "id": "sort",
-            "label": "sortValue"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Best practice is to encode cursors as opaque base64 tokens.",
-            "values": {
-              "id": "job_500",
-              "sort": "1700000"
-            },
-            "tones": {
-              "id": "data",
-              "sort": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "An opaque cursor serializes a small JSON payload with identifiers.",
-            "values": {
-              "id": "job_500",
-              "sort": "1700000"
-            },
-            "tones": {
-              "id": "idle",
-              "sort": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Because the cursor is opaque engineers can change internal cursor structures.",
-            "values": {
-              "id": "job_500",
-              "sort": "1700000"
-            },
-            "tones": {
-              "id": "ok",
-              "sort": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Safe Multi-Field Sorting with Whitelists",
-      "codeHash": "984a75f2723b4a595742efc1d2a41e1199e1e94372259ba88560bd523e002c0a",
-      "spec": {
-        "template": "boxes",
-        "title": "Whitelisted sort direction parameters",
-        "boxes": [
-          {
-            "id": "field",
-            "label": "field"
-          },
-          {
-            "id": "dir",
-            "label": "direction"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Concatenating query strings directly into queries creates SQL injection.",
-            "values": {
-              "field": {
-                "text": "salary"
-              },
-              "dir": {
-                "text": "desc"
-              }
-            },
-            "tones": {
-              "field": "data",
-              "dir": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Sorting must be strictly governed by a field whitelist.",
-            "values": {
-              "field": {
-                "text": "salary"
-              },
-              "dir": {
-                "text": "DESC"
-              }
-            },
-            "tones": {
-              "field": "idle",
-              "dir": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Whitelisting guarantees clients can only sort by indexed performant columns.",
-            "values": {
-              "field": {
-                "text": "createdAt"
-              },
-              "dir": {
-                "text": "ASC"
-              }
-            },
-            "tones": {
-              "field": "ok",
-              "dir": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Whitelisted sort direction parameters",
-        "boxes": [
-          {
-            "id": "field",
-            "label": "field"
-          },
-          {
-            "id": "dir",
-            "label": "direction"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Concatenating query strings directly into queries creates SQL injection.",
-            "values": {
-              "field": "salary",
-              "dir": "desc"
-            },
-            "tones": {
-              "field": "data",
-              "dir": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Sorting must be strictly governed by a field whitelist.",
-            "values": {
-              "field": "salary",
-              "dir": "DESC"
-            },
-            "tones": {
-              "field": "idle",
-              "dir": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Whitelisting guarantees clients can only sort by indexed performant columns.",
-            "values": {
-              "field": "createdAt",
-              "dir": "ASC"
-            },
-            "tones": {
-              "field": "ok",
-              "dir": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Building an End-to-End Query Pagination & Filter Pipeline",
-      "codeHash": "e79e439777816ffd82c25d291981e5b856c6d22fe3d4b6c801d6f8692a5c3805",
+      "partTitle": "The Zero-Downtime Challenge: Schema Evolution in Production",
+      "codeHash": "aba7cfd684708bc273cbc170419c305e0bcaa73e45856984903b86a05622d76e",
       "spec": {
         "template": "flow",
-        "title": "Building an End-to-End Query Pagination & Fil... — Execution Pipeline",
+        "title": "Process Pipeline The Zero-Downtime Challenge: Schema Evolution in Product.",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "stepA",
+            "label": "Initial Stage",
+            "type": "start"
           },
           {
-            "id": "proc",
-            "label": "2. Building an End-to-...",
-            "tappable": true
+            "id": "stepB",
+            "label": "Processing Core",
+            "type": "process"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "stepC",
+            "label": "Verification Check",
+            "type": "process"
+          },
+          {
+            "id": "stepD",
+            "label": "Terminal Output",
+            "type": "end"
+          }
+        ],
+        "edges": [
+          {
+            "from": "stepA",
+            "to": "stepB",
+            "label": "Next"
+          },
+          {
+            "from": "stepB",
+            "to": "stepC",
+            "label": "Inspect"
+          },
+          {
+            "from": "stepC",
+            "to": "stepD",
+            "label": "Complete"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building an End-to-End Query Pagination .. [D15.P6.S1].",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building an End-to-... [D15.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D15.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building an End-to-End Query Pagi.. [D15.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
           }
         ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Building an End-to-End Query Pagination & Fil... — Execution Pipeline",
-        "nodes": [
+      }
+    },
+    {
+      "partTitle": "The Expand-Contract (Parallel Run) Migration Pattern",
+      "codeHash": "1703d0c0fbf34d56a1003561427149105224b1c5a104b5b21242f0a5fd4f7136",
+      "spec": {
+        "template": "boxes",
+        "title": "Architectural Partitions The Expand-Contract (Parallel Run) Migration Pat.",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "boxA",
+            "label": "Primary Sector"
           },
           {
-            "id": "proc",
-            "label": "2. Building an End-to-...",
-            "tappable": true
+            "id": "boxB",
+            "label": "Secondary Sector"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "boxC",
+            "label": "Buffer Allocation"
+          },
+          {
+            "id": "boxD",
+            "label": "Resource Handle"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building an End-to-End Query Pagination .. [D15.P6.S1].",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Non-Blocking DDL Operations in PostgreSQL & MySQL",
+      "codeHash": "88d60b1f7f735fa58d83223b8e19eff7ec59625e158f3a00e2740e066ce96356",
+      "spec": {
+        "template": "stackQueue",
+        "title": "Queue Ordering Non-Blocking DDL Operations in PostgreSQL & MySQL.",
+        "elements": [
+          {
+            "id": "elemA",
+            "label": "Top Priority"
+          },
+          {
+            "id": "elemB",
+            "label": "Secondary Task"
+          },
+          {
+            "id": "elemC",
+            "label": "Pending Callback"
+          },
+          {
+            "id": "elemD",
+            "label": "Deferred Workload"
+          }
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building an End-to-... [D15.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D15.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building an End-to-End Query Pagi.. [D15.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Migration Runners, Checksum Verification & Distributed Leader Election",
+      "codeHash": "3fae3942e6d07a206c8bc7befa4e51069da69584dba04548ef62f10d9f008237",
+      "spec": {
+        "template": "sequence",
+        "title": "Sequence Coordination Migration Runners, Checksum Verification & Distribu.",
+        "actors": [
+          {
+            "id": "client",
+            "label": "Request Origin"
+          },
+          {
+            "id": "driver",
+            "label": "Runtime Driver"
+          },
+          {
+            "id": "kernel",
+            "label": "Kernel Boundary"
+          },
+          {
+            "id": "subsystem",
+            "label": "Target Subsystem"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
+          },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Industrial Schema Migration Engine & Version Runner",
+      "codeHash": "6b82bf5f188d4596430bc6e06ea07ece32a64ce8c4485655a6d7944a241774c8",
+      "spec": {
+        "template": "compare",
+        "title": "Architectural Comparison Industrial Schema Migration Engine & Version Run.",
+        "left": {
+          "title": "Optimized Pattern",
+          "items": [
+            "Bounded latency",
+            "Deterministic execution",
+            "Zero resource leak"
+          ]
+        },
+        "right": {
+          "title": "Naive Pattern",
+          "items": [
+            "Unbounded growth",
+            "Blocking dispatch",
+            "Resource contention risk"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
+          },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
           }
         ]
       }

@@ -1,965 +1,263 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "prefix": "node-web",
   "day": 9,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
   "entries": [
     {
-      "partTitle": "The Anatomy of a Query String & URLSearchParams",
-      "codeHash": "59cef33eddbe7c9fd7918d81fc7ec63686337aad3d516bbcae647cb7fa762b1e",
-      "spec": {
-        "template": "boxes",
-        "title": "Parsed URLSearchParams key-value store",
-        "boxes": [
-          {
-            "id": "cat",
-            "label": "category"
-          },
-          {
-            "id": "lim",
-            "label": "limit"
-          },
-          {
-            "id": "act",
-            "label": "active"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "A query string begins with a question mark in the URL.",
-            "values": {
-              "cat": {
-                "text": "engineering"
-              },
-              "lim": {
-                "text": "25"
-              },
-              "act": {
-                "text": "true"
-              }
-            },
-            "tones": {
-              "cat": "data",
-              "lim": "idle",
-              "act": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Modern JavaScript provides standard URLSearchParams to parse query strings.",
-            "values": {
-              "cat": {
-                "text": "engineering"
-              },
-              "lim": {
-                "text": "25"
-              },
-              "act": {
-                "text": "true"
-              }
-            },
-            "tones": {
-              "cat": "idle",
-              "lim": "data",
-              "act": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Modern backend frameworks rely on URLSearchParams to tokenize key-value pairs.",
-            "values": {
-              "cat": {
-                "text": "engineering"
-              },
-              "lim": {
-                "text": "25"
-              },
-              "act": {
-                "text": "true"
-              }
-            },
-            "tones": {
-              "cat": "ok",
-              "lim": "ok",
-              "act": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Parsed URLSearchParams key-value store",
-        "boxes": [
-          {
-            "id": "cat",
-            "label": "category"
-          },
-          {
-            "id": "lim",
-            "label": "limit"
-          },
-          {
-            "id": "act",
-            "label": "active"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "A query string begins with a question mark in the URL.",
-            "values": {
-              "cat": "engineering",
-              "lim": "25",
-              "act": "true"
-            },
-            "tones": {
-              "cat": "data",
-              "lim": "idle",
-              "act": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Modern JavaScript provides standard URLSearchParams to parse query strings.",
-            "values": {
-              "cat": "engineering",
-              "lim": "25",
-              "act": "true"
-            },
-            "tones": {
-              "cat": "idle",
-              "lim": "data",
-              "act": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Modern backend frameworks rely on URLSearchParams to tokenize key-value pairs.",
-            "values": {
-              "cat": "engineering",
-              "lim": "25",
-              "act": "true"
-            },
-            "tones": {
-              "cat": "ok",
-              "lim": "ok",
-              "act": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Type Coercion: Converting Strings to Numbers and Booleans",
-      "codeHash": "66c3ff4151a722a5b36c676f53f25438cdc5663fe7c4808c323f4e431e7c97be",
+      "partTitle": "The Onion Middleware Pattern & Async Continuation Passing",
+      "codeHash": "2b5e32acddc590f4ba076451660145d1d46f03f0c74e15769dfe378b9f17edea",
       "spec": {
         "template": "flow",
-        "title": "Primitive parameter coercion pipeline",
+        "title": "Process Pipeline The Onion Middleware Pattern & Async Continuation Passin.",
         "nodes": [
           {
-            "id": "val",
-            "label": "val"
+            "id": "stepA",
+            "label": "Initial Stage",
+            "type": "start"
           },
           {
-            "id": "parsed",
-            "label": "parsed"
+            "id": "stepB",
+            "label": "Processing Core",
+            "type": "process"
           },
           {
-            "id": "fallback",
-            "label": "fallback"
+            "id": "stepC",
+            "label": "Verification Check",
+            "type": "process"
+          },
+          {
+            "id": "stepD",
+            "label": "Terminal Output",
+            "type": "end"
+          }
+        ],
+        "edges": [
+          {
+            "from": "stepA",
+            "to": "stepB",
+            "label": "Next"
+          },
+          {
+            "from": "stepB",
+            "to": "stepC",
+            "label": "Inspect"
+          },
+          {
+            "from": "stepC",
+            "to": "stepD",
+            "label": "Complete"
           }
         ],
         "steps": [
-          {
-            "at": "say2",
-            "caption": "To coerce numbers safely never use simple Number or parseInt blindly.",
-            "values": {
-              "val": {
-                "text": "50"
-              },
-              "parsed": {
-                "text": "10"
-              },
-              "fallback": {
-                "text": "10"
-              }
-            },
-            "tones": {
-              "val": "data",
-              "parsed": "idle",
-              "fallback": "idle"
-            },
-            "arrows": [
-              [
-                "val",
-                "parsed"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "A resilient number coercion helper parses the string and checks isFinite.",
-            "values": {
-              "val": {
-                "text": "50"
-              },
-              "parsed": {
-                "text": "10"
-              },
-              "fallback": {
-                "text": "10"
-              }
-            },
-            "tones": {
-              "val": "idle",
-              "parsed": "data",
-              "fallback": "ok"
-            },
-            "arrows": [
-              [
-                "parsed",
-                "fallback"
-              ]
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Always establish a centralized parameter coercion pipeline or middleware.",
-            "values": {
-              "val": {
-                "text": "50"
-              },
-              "parsed": {
-                "text": "10"
-              },
-              "fallback": {
-                "text": "10"
-              }
-            },
-            "tones": {
-              "val": "ok",
-              "parsed": "ok",
-              "fallback": "ok"
-            },
-            "arrows": [
-              [
-                "val",
-                "fallback"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Primitive parameter coercion pipeline",
-        "nodes": [
-          {
-            "id": "val",
-            "label": "val"
-          },
-          {
-            "id": "parsed",
-            "label": "parsed"
-          },
-          {
-            "id": "fallback",
-            "label": "fallback"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "To coerce numbers safely never use simple Number or parseInt blindly.",
-            "values": {
-              "val": "50",
-              "parsed": "10",
-              "fallback": "10"
-            },
-            "tones": {
-              "val": "data",
-              "parsed": "idle",
-              "fallback": "idle"
-            },
-            "arrows": [
-              [
-                "val",
-                "parsed"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "A resilient number coercion helper parses the string and checks isFinite.",
-            "values": {
-              "val": "50",
-              "parsed": "10",
-              "fallback": "10"
-            },
-            "tones": {
-              "val": "idle",
-              "parsed": "data",
-              "fallback": "ok"
-            },
-            "arrows": [
-              [
-                "parsed",
-                "fallback"
-              ]
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Always establish a centralized parameter coercion pipeline or middleware.",
-            "values": {
-              "val": "50",
-              "parsed": "10",
-              "fallback": "10"
-            },
-            "tones": {
-              "val": "ok",
-              "parsed": "ok",
-              "fallback": "ok"
-            },
-            "arrows": [
-              [
-                "val",
-                "fallback"
-              ]
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Handling Repeated Parameters and Array Values",
-      "codeHash": "a0eb0cb1ffcb91fabf5b566e1bfe01c2e5f9a825d4f5f1405dcba7284df88f68",
-      "spec": {
-        "template": "stack-queue",
-        "title": "Repeated query parameter collector",
-        "mode": "queue",
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "There are common industry standards for transmitting arrays in query strings.",
-            "items": [
-              {
-                "text": "typescript"
-              }
-            ],
-            "action": "enqueue",
-            "actionItem": {
-              "text": "typescript"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Calling URLSearchParams.getAll returns an array of all matched values.",
-            "items": [
-              {
-                "text": "typescript"
-              },
-              {
-                "text": "node"
-              }
-            ],
-            "action": "enqueue",
-            "actionItem": {
-              "text": "node"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Enforcing maximum array length limits prevents memory exhaustion attacks.",
-            "items": [
-              {
-                "text": "node"
-              }
-            ],
-            "action": "dequeue",
-            "actionItem": {
-              "text": "typescript"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "stack-queue",
-        "title": "Repeated query parameter collector",
-        "mode": "queue",
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "There are common industry standards for transmitting arrays in query strings.",
-            "mode": "queue",
-            "items": [
-              "typescript"
-            ],
-            "action": "enqueue",
-            "actionItem": "typescript"
-          },
-          {
-            "at": "say3",
-            "caption": "Calling URLSearchParams.getAll returns an array of all matched values.",
-            "mode": "queue",
-            "items": [
-              "typescript",
-              "node"
-            ],
-            "action": "enqueue",
-            "actionItem": "node"
-          },
-          {
-            "at": "say8",
-            "caption": "Enforcing maximum array length limits prevents memory exhaustion attacks.",
-            "mode": "queue",
-            "items": [
-              "node"
-            ],
-            "action": "dequeue",
-            "actionItem": "typescript"
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Setting Default Values and Fallback Strategies",
-      "codeHash": "3dd39cb0557d40d5852604c6f3cb1aadd821fd0b8d51c3205e299253cef0a9d5",
-      "spec": {
-        "template": "table",
-        "title": "Pagination bounds clamping rules",
-        "columns": [
-          "Query Parameter",
-          "Requested Input",
-          "Resolved Clamp"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "If a backend handler fails to supply defaults queries execute undefined.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "page"
-                  },
-                  {
-                    "text": "3"
-                  },
-                  {
-                    "text": "1"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "limit"
-                  },
-                  {
-                    "text": "5000"
-                  },
-                  {
-                    "text": "20"
-                  }
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "A production query parser defines a strict Default Query Configuration.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "page"
-                  },
-                  {
-                    "text": "3"
-                  },
-                  {
-                    "text": "1"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "limit"
-                  },
-                  {
-                    "text": "5000"
-                  },
-                  {
-                    "text": "100"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Cursor-based pagination is often superior to offset-based pagination.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "page"
-                  },
-                  {
-                    "text": "3"
-                  },
-                  {
-                    "text": "1"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "limit"
-                  },
-                  {
-                    "text": "5000"
-                  },
-                  {
-                    "text": "100"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "table",
-        "title": "Pagination bounds clamping rules",
-        "columns": [
-          "Query Parameter",
-          "Requested Input",
-          "Resolved Clamp"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "If a backend handler fails to supply defaults queries execute undefined.",
-            "rows": [
-              {
-                "cells": [
-                  "page",
-                  "3",
-                  "1"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "limit",
-                  "5000",
-                  "20"
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "A production query parser defines a strict Default Query Configuration.",
-            "rows": [
-              {
-                "cells": [
-                  "page",
-                  "3",
-                  "1"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "limit",
-                  "5000",
-                  "100"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Cursor-based pagination is often superior to offset-based pagination.",
-            "rows": [
-              {
-                "cells": [
-                  "page",
-                  "3",
-                  "1"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "limit",
-                  "5000",
-                  "100"
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Defending Against HTTP Parameter Pollution (HPP)",
-      "codeHash": "180bc006066dccb30c6bb68236ab8c19495bd336f85e0d91bf45ea60622c8818",
-      "spec": {
-        "template": "boxes",
-        "title": "HTTP Parameter Pollution guard",
-        "boxes": [
-          {
-            "id": "role",
-            "label": "role"
-          },
-          {
-            "id": "admin",
-            "label": "admin"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "In some frameworks duplicate query parameters become an array.",
-            "values": {
-              "role": {
-                "text": "developer"
-              },
-              "admin": {
-                "text": "admin"
-              }
-            },
-            "tones": {
-              "role": "data",
-              "admin": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "If downstream code takes the last element it escalates privileges to admin.",
-            "values": {
-              "role": {
-                "text": "developer"
-              },
-              "admin": {
-                "text": "admin"
-              }
-            },
-            "tones": {
-              "role": "idle",
-              "admin": "error"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Standardizing on a strict first-value-wins policy eliminates vulnerabilities.",
-            "values": {
-              "role": {
-                "text": "developer"
-              },
-              "admin": {
-                "text": "admin"
-              }
-            },
-            "tones": {
-              "role": "ok",
-              "admin": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "HTTP Parameter Pollution guard",
-        "boxes": [
-          {
-            "id": "role",
-            "label": "role"
-          },
-          {
-            "id": "admin",
-            "label": "admin"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "In some frameworks duplicate query parameters become an array.",
-            "values": {
-              "role": "developer",
-              "admin": "admin"
-            },
-            "tones": {
-              "role": "data",
-              "admin": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "If downstream code takes the last element it escalates privileges to admin.",
-            "values": {
-              "role": "developer",
-              "admin": "admin"
-            },
-            "tones": {
-              "role": "idle",
-              "admin": "error"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Standardizing on a strict first-value-wins policy eliminates vulnerabilities.",
-            "values": {
-              "role": "developer",
-              "admin": "admin"
-            },
-            "tones": {
-              "role": "ok",
-              "admin": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Building a Type-Safe Query Parser Function",
-      "codeHash": "e9b383f6bc38b2e33564ab8912c341c68d0ec4d767c1c8cb84ae7f82e52f060e",
-      "spec": {
-        "template": "flow",
-        "title": "Building a Type-Safe Query Parser Function — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building a Type-Saf...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building a Type-Safe Query Parser Function [D9.P6.S1].",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building a Type-Saf... [D9.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D9.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building a Type-Safe Query Parser.. [D9.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
           }
         ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Building a Type-Safe Query Parser Function — Execution Pipeline",
-        "nodes": [
+      }
+    },
+    {
+      "partTitle": "Hardened next() Contract & Double-Execution Safeguards",
+      "codeHash": "c3381bd9be664eb8dcbc3b62ed1fef2c69e66b0e7c23a8ec9c41512e9ff4f391",
+      "spec": {
+        "template": "boxes",
+        "title": "Architectural Partitions Hardened next() Contract & Double-Execution Safe.",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "boxA",
+            "label": "Primary Sector"
           },
           {
-            "id": "proc",
-            "label": "2. Building a Type-Saf...",
-            "tappable": true
+            "id": "boxB",
+            "label": "Secondary Sector"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "boxC",
+            "label": "Buffer Allocation"
+          },
+          {
+            "id": "boxD",
+            "label": "Resource Handle"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building a Type-Safe Query Parser Function [D9.P6.S1].",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Request Context Propagation with AsyncLocalStorage",
+      "codeHash": "f6e38a396b57717a232a129cf36db60266173c337c215996e0563170b3afaecf",
+      "spec": {
+        "template": "stackQueue",
+        "title": "Queue Ordering Request Context Propagation with AsyncLocalStorage.",
+        "elements": [
+          {
+            "id": "elemA",
+            "label": "Top Priority"
+          },
+          {
+            "id": "elemB",
+            "label": "Secondary Task"
+          },
+          {
+            "id": "elemC",
+            "label": "Pending Callback"
+          },
+          {
+            "id": "elemD",
+            "label": "Deferred Workload"
+          }
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building a Type-Saf... [D9.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D9.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building a Type-Safe Query Parser.. [D9.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Essential Production Middlewares: Timing, ID & Ingestion",
+      "codeHash": "9d160a2cd4ef5cb0b94fb43a703344c8928a526e89d391f121c17fac72687019",
+      "spec": {
+        "template": "sequence",
+        "title": "Sequence Coordination Essential Production Middlewares: Timing, ID & Inge.",
+        "actors": [
+          {
+            "id": "client",
+            "label": "Request Origin"
+          },
+          {
+            "id": "driver",
+            "label": "Runtime Driver"
+          },
+          {
+            "id": "kernel",
+            "label": "Kernel Boundary"
+          },
+          {
+            "id": "subsystem",
+            "label": "Target Subsystem"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
+          },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Resilience Middleware, Error Boundaries & Circuit Breaking",
+      "codeHash": "3ff72674deb11c43c636f4a86a95dd0d1d7e9ebeb61537c14b4b4b2c1a86cf2b",
+      "spec": {
+        "template": "compare",
+        "title": "Architectural Comparison Resilience Middleware, Error Boundaries & Circui.",
+        "left": {
+          "title": "Optimized Pattern",
+          "items": [
+            "Bounded latency",
+            "Deterministic execution",
+            "Zero resource leak"
+          ]
+        },
+        "right": {
+          "title": "Naive Pattern",
+          "items": [
+            "Unbounded growth",
+            "Blocking dispatch",
+            "Resource contention risk"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
+          },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
           }
         ]
       }

@@ -1,1046 +1,265 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "prefix": "node-web",
   "day": 4,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "9067c44b684f4cd1acbfe5d20bf07df0547a037f9afef5d53a2430e1ada536f3",
+  "model": "google/gemini-2.0-flash",
   "entries": [
     {
-      "partTitle": "Understanding Generic Functions and Type Variables",
-      "codeHash": "6f5349537ad5c60778cdc02e74ee73425e3914b1f5118003bca6b46baedaea91",
-      "spec": {
-        "template": "boxes",
-        "title": "Generic Envelope container structure",
-        "boxes": [
-          {
-            "id": "userId",
-            "label": "userId"
-          },
-          {
-            "id": "role",
-            "label": "role"
-          },
-          {
-            "id": "receivedAt",
-            "label": "receivedAt"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Without generics you would duplicate the function for every single entity.",
-            "values": {
-              "userId": {
-                "text": "u_99"
-              },
-              "role": {
-                "text": "admin"
-              },
-              "receivedAt": {
-                "text": "1700000000"
-              }
-            },
-            "tones": {
-              "userId": "data",
-              "role": "idle",
-              "receivedAt": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Generics allow writing functions and interfaces that take type parameters.",
-            "values": {
-              "userId": {
-                "text": "u_99"
-              },
-              "role": {
-                "text": "admin"
-              },
-              "receivedAt": {
-                "text": "1700000000"
-              }
-            },
-            "tones": {
-              "userId": "idle",
-              "role": "data",
-              "receivedAt": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Generic wrapper types ensure services share synchronized contract structures.",
-            "values": {
-              "userId": {
-                "text": "u_99"
-              },
-              "role": {
-                "text": "admin"
-              },
-              "receivedAt": {
-                "text": "1700000000"
-              }
-            },
-            "tones": {
-              "userId": "ok",
-              "role": "ok",
-              "receivedAt": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Generic Envelope container structure",
-        "boxes": [
-          {
-            "id": "userId",
-            "label": "userId"
-          },
-          {
-            "id": "role",
-            "label": "role"
-          },
-          {
-            "id": "receivedAt",
-            "label": "receivedAt"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Without generics you would duplicate the function for every single entity.",
-            "values": {
-              "userId": "u_99",
-              "role": "admin",
-              "receivedAt": "1700000000"
-            },
-            "tones": {
-              "userId": "data",
-              "role": "idle",
-              "receivedAt": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Generics allow writing functions and interfaces that take type parameters.",
-            "values": {
-              "userId": "u_99",
-              "role": "admin",
-              "receivedAt": "1700000000"
-            },
-            "tones": {
-              "userId": "idle",
-              "role": "data",
-              "receivedAt": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Generic wrapper types ensure services share synchronized contract structures.",
-            "values": {
-              "userId": "u_99",
-              "role": "admin",
-              "receivedAt": "1700000000"
-            },
-            "tones": {
-              "userId": "ok",
-              "role": "ok",
-              "receivedAt": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Generic Constraints with the extends Keyword",
-      "codeHash": "5ad318f98214f21815f46354c630574ad7a34503ec9df9d247fabe8639aa982c",
-      "spec": {
-        "template": "boxes",
-        "title": "Constrained entity attributes",
-        "boxes": [
-          {
-            "id": "id",
-            "label": "id"
-          },
-          {
-            "id": "title",
-            "label": "title"
-          },
-          {
-            "id": "level",
-            "label": "level"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "TypeScript allows constraining generic parameters using the extends keyword.",
-            "values": {
-              "id": {
-                "text": "job_01"
-              },
-              "title": {
-                "text": "Cloud Architect"
-              },
-              "level": {
-                "text": "Senior"
-              }
-            },
-            "tones": {
-              "id": "data",
-              "title": "idle",
-              "level": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Inside the generic function you can safely access properties on constraint.",
-            "values": {
-              "id": {
-                "text": "job_01"
-              },
-              "title": {
-                "text": "Cloud Architect"
-              },
-              "level": {
-                "text": "Senior"
-              }
-            },
-            "tones": {
-              "id": "idle",
-              "title": "data",
-              "level": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Combining constraints with union types enforces supported database entities.",
-            "values": {
-              "id": {
-                "text": "job_01"
-              },
-              "title": {
-                "text": "Cloud Architect"
-              },
-              "level": {
-                "text": "Senior"
-              }
-            },
-            "tones": {
-              "id": "ok",
-              "title": "ok",
-              "level": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Constrained entity attributes",
-        "boxes": [
-          {
-            "id": "id",
-            "label": "id"
-          },
-          {
-            "id": "title",
-            "label": "title"
-          },
-          {
-            "id": "level",
-            "label": "level"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "TypeScript allows constraining generic parameters using the extends keyword.",
-            "values": {
-              "id": "job_01",
-              "title": "Cloud Architect",
-              "level": "Senior"
-            },
-            "tones": {
-              "id": "data",
-              "title": "idle",
-              "level": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Inside the generic function you can safely access properties on constraint.",
-            "values": {
-              "id": "job_01",
-              "title": "Cloud Architect",
-              "level": "Senior"
-            },
-            "tones": {
-              "id": "idle",
-              "title": "data",
-              "level": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Combining constraints with union types enforces supported database entities.",
-            "values": {
-              "id": "job_01",
-              "title": "Cloud Architect",
-              "level": "Senior"
-            },
-            "tones": {
-              "id": "ok",
-              "title": "ok",
-              "level": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Built-in Utility Types: Partial, Required, and Readonly",
-      "codeHash": "124615c1b660b1040e4acf961f0673abb65fea9334caf07c0d6b82b134532ca8",
-      "spec": {
-        "template": "table",
-        "title": "Server config utility transformations",
-        "columns": [
-          "Property",
-          "Partial Value",
-          "Required Default"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Partial constructs a type with all properties set to optional.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "port"
-                  },
-                  {
-                    "text": "port"
-                  },
-                  {
-                    "text": "8080"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "host"
-                  },
-                  {
-                    "text": "host"
-                  },
-                  {
-                    "text": "0.0.0.0"
-                  }
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Required does the exact opposite removing optionality from every property.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "port"
-                  },
-                  {
-                    "text": "port"
-                  },
-                  {
-                    "text": "8080"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "host"
-                  },
-                  {
-                    "text": "host"
-                  },
-                  {
-                    "text": "0.0.0.0"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Understanding utility types enables you to design clean data architectures.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "port"
-                  },
-                  {
-                    "text": "port"
-                  },
-                  {
-                    "text": "8080"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "host"
-                  },
-                  {
-                    "text": "host"
-                  },
-                  {
-                    "text": "0.0.0.0"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "table",
-        "title": "Server config utility transformations",
-        "columns": [
-          "Property",
-          "Partial Value",
-          "Required Default"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Partial constructs a type with all properties set to optional.",
-            "rows": [
-              {
-                "cells": [
-                  "port",
-                  "port",
-                  "8080"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "host",
-                  "host",
-                  "0.0.0.0"
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Required does the exact opposite removing optionality from every property.",
-            "rows": [
-              {
-                "cells": [
-                  "port",
-                  "port",
-                  "8080"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "host",
-                  "host",
-                  "0.0.0.0"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Understanding utility types enables you to design clean data architectures.",
-            "rows": [
-              {
-                "cells": [
-                  "port",
-                  "port",
-                  "8080"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "host",
-                  "host",
-                  "0.0.0.0"
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Selective Typing: Pick and Omit for DTOs",
-      "codeHash": "7ee0768c9779d3eea30fe919b4b464d492c97e6275fec5709f0c91074c33f75a",
-      "spec": {
-        "template": "boxes",
-        "title": "Selective DTO projection",
-        "boxes": [
-          {
-            "id": "id",
-            "label": "id"
-          },
-          {
-            "id": "username",
-            "label": "username"
-          },
-          {
-            "id": "email",
-            "label": "email"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Pick constructs a new type by selecting a set of keys from type T.",
-            "values": {
-              "id": {
-                "text": "usr_10"
-              },
-              "username": {
-                "text": "vikram"
-              },
-              "email": {
-                "text": "vikram@pin.it"
-              }
-            },
-            "tones": {
-              "id": "data",
-              "username": "idle",
-              "email": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Omit constructs a type with all properties except the specified keys.",
-            "values": {
-              "id": {
-                "text": "usr_10"
-              },
-              "username": {
-                "text": "vikram"
-              },
-              "email": {
-                "text": "vikram@pin.it"
-              }
-            },
-            "tones": {
-              "id": "idle",
-              "username": "data",
-              "email": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Using Pick rather than Omit is recommended for public APIs.",
-            "values": {
-              "id": {
-                "text": "usr_10"
-              },
-              "username": {
-                "text": "vikram"
-              },
-              "email": {
-                "text": "vikram@pin.it"
-              }
-            },
-            "tones": {
-              "id": "ok",
-              "username": "ok",
-              "email": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Selective DTO projection",
-        "boxes": [
-          {
-            "id": "id",
-            "label": "id"
-          },
-          {
-            "id": "username",
-            "label": "username"
-          },
-          {
-            "id": "email",
-            "label": "email"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Pick constructs a new type by selecting a set of keys from type T.",
-            "values": {
-              "id": "usr_10",
-              "username": "vikram",
-              "email": "vikram@pin.it"
-            },
-            "tones": {
-              "id": "data",
-              "username": "idle",
-              "email": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Omit constructs a type with all properties except the specified keys.",
-            "values": {
-              "id": "usr_10",
-              "username": "vikram",
-              "email": "vikram@pin.it"
-            },
-            "tones": {
-              "id": "idle",
-              "username": "data",
-              "email": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Using Pick rather than Omit is recommended for public APIs.",
-            "values": {
-              "id": "usr_10",
-              "username": "vikram",
-              "email": "vikram@pin.it"
-            },
-            "tones": {
-              "id": "ok",
-              "username": "ok",
-              "email": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Lookup Types and Indexed Access: keyof and T[K]",
-      "codeHash": "a55f196f59f90501a19014a4bea7093b6745e1fa3a96e3476f2b8d19e6caf85a",
+      "partTitle": "The Node.js Process Object: Environment Variables, Command-Line Flags & Globals",
+      "codeHash": "bf3b005547b5655b2de367248c47cfd43bfc752ecc9bb695b71628f041be9c0f",
       "spec": {
         "template": "flow",
-        "title": "Indexed key access routing",
+        "title": "Process Pipeline The Node.js Process Object: Environment Variables, Comma.",
         "nodes": [
           {
-            "id": "title",
-            "label": "title"
+            "id": "stepA",
+            "label": "Initial Stage",
+            "type": "start"
           },
           {
-            "id": "location",
-            "label": "location"
+            "id": "stepB",
+            "label": "Processing Core",
+            "type": "process"
           },
           {
-            "id": "openings",
-            "label": "openings"
+            "id": "stepC",
+            "label": "Verification Check",
+            "type": "process"
+          },
+          {
+            "id": "stepD",
+            "label": "Terminal Output",
+            "type": "end"
+          }
+        ],
+        "edges": [
+          {
+            "from": "stepA",
+            "to": "stepB",
+            "label": "Next"
+          },
+          {
+            "from": "stepB",
+            "to": "stepC",
+            "label": "Inspect"
+          },
+          {
+            "from": "stepC",
+            "to": "stepD",
+            "label": "Complete"
           }
         ],
         "steps": [
-          {
-            "at": "say2",
-            "caption": "The keyof operator queries an object type and produces a union of its keys.",
-            "values": {
-              "title": {
-                "text": "DevOps Engineer"
-              },
-              "location": {
-                "text": "Bengaluru"
-              },
-              "openings": {
-                "text": "4"
-              }
-            },
-            "tones": {
-              "title": "data",
-              "location": "idle",
-              "openings": "idle"
-            },
-            "arrows": [
-              [
-                "title",
-                "location"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Indexed access types look up the exact type of property on a type.",
-            "values": {
-              "title": {
-                "text": "DevOps Engineer"
-              },
-              "location": {
-                "text": "Bengaluru"
-              },
-              "openings": {
-                "text": "4"
-              }
-            },
-            "tones": {
-              "title": "idle",
-              "location": "data",
-              "openings": "ok"
-            },
-            "arrows": [
-              [
-                "location",
-                "openings"
-              ]
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Indexed access eliminates hard-coded string sorting bugs.",
-            "values": {
-              "title": {
-                "text": "DevOps Engineer"
-              },
-              "location": {
-                "text": "Bengaluru"
-              },
-              "openings": {
-                "text": "4"
-              }
-            },
-            "tones": {
-              "title": "ok",
-              "location": "ok",
-              "openings": "ok"
-            },
-            "arrows": [
-              [
-                "title",
-                "openings"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Indexed key access routing",
-        "nodes": [
-          {
-            "id": "title",
-            "label": "title"
-          },
-          {
-            "id": "location",
-            "label": "location"
-          },
-          {
-            "id": "openings",
-            "label": "openings"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The keyof operator queries an object type and produces a union of its keys.",
-            "values": {
-              "title": "DevOps Engineer",
-              "location": "Bengaluru",
-              "openings": "4"
-            },
-            "tones": {
-              "title": "data",
-              "location": "idle",
-              "openings": "idle"
-            },
-            "arrows": [
-              [
-                "title",
-                "location"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Indexed access types look up the exact type of property on a type.",
-            "values": {
-              "title": "DevOps Engineer",
-              "location": "Bengaluru",
-              "openings": "4"
-            },
-            "tones": {
-              "title": "idle",
-              "location": "data",
-              "openings": "ok"
-            },
-            "arrows": [
-              [
-                "location",
-                "openings"
-              ]
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Indexed access eliminates hard-coded string sorting bugs.",
-            "values": {
-              "title": "DevOps Engineer",
-              "location": "Bengaluru",
-              "openings": "4"
-            },
-            "tones": {
-              "title": "ok",
-              "location": "ok",
-              "openings": "ok"
-            },
-            "arrows": [
-              [
-                "title",
-                "openings"
-              ]
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Building a Type-Safe Entity Store with Generics",
-      "codeHash": "a75cf15baefc04915629f27456e8c3eeaaf05d1aa982f029c3737c7936858264",
-      "spec": {
-        "template": "flow",
-        "title": "Building a Type-Safe Entity Store with Generics — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building a Type-Saf...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building a Type-Safe Entity Store with G.. [D4.P6.S1].",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building a Type-Saf... [D4.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D4.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building a Type-Safe Entity Store.. [D4.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
           }
         ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Building a Type-Safe Entity Store with Generics — Execution Pipeline",
-        "nodes": [
+      }
+    },
+    {
+      "partTitle": "High-Resolution Timing & Profiling: process.hrtime.bigint vs Date.now()",
+      "codeHash": "beaff15858f8d5436ae7b3e18024641d2aa4b274cd68dacb6a342272ab03f8c7",
+      "spec": {
+        "template": "boxes",
+        "title": "Architectural Partitions High-Resolution Timing & Profiling: process.hrti.",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "boxA",
+            "label": "Primary Sector"
           },
           {
-            "id": "proc",
-            "label": "2. Building a Type-Saf...",
-            "tappable": true
+            "id": "boxB",
+            "label": "Secondary Sector"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "boxC",
+            "label": "Buffer Allocation"
+          },
+          {
+            "id": "boxD",
+            "label": "Resource Handle"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building a Type-Safe Entity Store with G.. [D4.P6.S1].",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Memory Diagnostic Introspection: Resident Set Size (RSS), Heap Used & External Buffers",
+      "codeHash": "ae231e0e092d3d187a222522dd02b820f08803ea5204818dd507453e26d66a4c",
+      "spec": {
+        "template": "stackQueue",
+        "title": "Queue Ordering Memory Diagnostic Introspection: Resident Set Size (RSS),.",
+        "elements": [
+          {
+            "id": "elemA",
+            "label": "Top Priority"
+          },
+          {
+            "id": "elemB",
+            "label": "Secondary Task"
+          },
+          {
+            "id": "elemC",
+            "label": "Pending Callback"
+          },
+          {
+            "id": "elemD",
+            "label": "Deferred Workload"
+          }
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building a Type-Saf... [D4.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D4.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building a Type-Safe Entity Store.. [D4.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "POSIX Process Signals: Handling SIGTERM, SIGINT and SIGHUP in Containerized Deployments",
+      "codeHash": "158695c2ec47839704ef598979d4dd38ceb522fc157e1891d3d0ac84d8791cd2",
+      "spec": {
+        "template": "sequence",
+        "title": "Sequence Coordination POSIX Process Signals: Handling SIGTERM, SIGINT and.",
+        "actors": [
+          {
+            "id": "client",
+            "label": "Request Origin"
+          },
+          {
+            "id": "driver",
+            "label": "Runtime Driver"
+          },
+          {
+            "id": "kernel",
+            "label": "Kernel Boundary"
+          },
+          {
+            "id": "subsystem",
+            "label": "Target Subsystem"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
+          },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Exit Codes, Uncaught Exceptions and Graceful Shutdown Pipelines",
+      "codeHash": "78a061578114473e1e808d5345f4a6acd74a5e3089b6f6cd7c40a89c9fb368cc",
+      "spec": {
+        "template": "compare",
+        "title": "Architectural Comparison Exit Codes, Uncaught Exceptions and Graceful Shu.",
+        "left": {
+          "title": "Optimized Pattern",
+          "items": [
+            "Bounded latency",
+            "Deterministic execution",
+            "Zero resource leak"
+          ]
+        },
+        "right": {
+          "title": "Naive Pattern",
+          "items": [
+            "Unbounded growth",
+            "Blocking dispatch",
+            "Resource contention risk"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
+          },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
           }
         ]
       }

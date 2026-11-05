@@ -1,906 +1,263 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "prefix": "node-web",
   "day": 12,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
   "entries": [
     {
-      "partTitle": "The Problem with Inconsistent API Error JSON",
-      "codeHash": "f180a0ee3e2a33c44d2473ec6aa77c643ff65b8137e86677736a62e08706a158",
-      "spec": {
-        "template": "boxes",
-        "title": "Inconsistent ad-hoc API error payloads",
-        "boxes": [
-          {
-            "id": "msg",
-            "label": "message"
-          },
-          {
-            "id": "code",
-            "label": "code"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Inconsistent error keys create friction for frontend engineering teams.",
-            "values": {
-              "msg": {
-                "text": "Item out of stock"
-              },
-              "code": {
-                "text": "404"
-              }
-            },
-            "tones": {
-              "msg": "data",
-              "code": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Unhandled errors frequently dump raw JavaScript stack traces into responses.",
-            "values": {
-              "msg": {
-                "text": "Item out of stock"
-              },
-              "code": {
-                "text": "404"
-              }
-            },
-            "tones": {
-              "msg": "idle",
-              "code": "error"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Standardizing error formatting simplifies client-side error handling.",
-            "values": {
-              "msg": {
-                "text": "Item out of stock"
-              },
-              "code": {
-                "text": "404"
-              }
-            },
-            "tones": {
-              "msg": "ok",
-              "code": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Inconsistent ad-hoc API error payloads",
-        "boxes": [
-          {
-            "id": "msg",
-            "label": "message"
-          },
-          {
-            "id": "code",
-            "label": "code"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Inconsistent error keys create friction for frontend engineering teams.",
-            "values": {
-              "msg": "Item out of stock",
-              "code": "404"
-            },
-            "tones": {
-              "msg": "data",
-              "code": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Unhandled errors frequently dump raw JavaScript stack traces into responses.",
-            "values": {
-              "msg": "Item out of stock",
-              "code": "404"
-            },
-            "tones": {
-              "msg": "idle",
-              "code": "error"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Standardizing error formatting simplifies client-side error handling.",
-            "values": {
-              "msg": "Item out of stock",
-              "code": "404"
-            },
-            "tones": {
-              "msg": "ok",
-              "code": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "The RFC 7807 Standard Schema (type, title, status, detail, instance)",
-      "codeHash": "4be2d7a85106031a1c97c275ef50af97e95547880f0ec4a08d4fdda09d6e22a7",
-      "spec": {
-        "template": "boxes",
-        "title": "Standard problem details object attributes",
-        "boxes": [
-          {
-            "id": "title",
-            "label": "title"
-          },
-          {
-            "id": "status",
-            "label": "status"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The type attribute provides a URI reference for error documentation.",
-            "values": {
-              "title": {
-                "text": "Item Out of Stock"
-              },
-              "status": {
-                "text": "409"
-              }
-            },
-            "tones": {
-              "title": "data",
-              "status": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "The title provides a short human-readable summary of the problem type.",
-            "values": {
-              "title": {
-                "text": "Item Out of Stock"
-              },
-              "status": {
-                "text": "409"
-              }
-            },
-            "tones": {
-              "title": "ok",
-              "status": "data"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "The instance attribute provides a URI reference for specific problem logs.",
-            "values": {
-              "title": {
-                "text": "Item Out of Stock"
-              },
-              "status": {
-                "text": "409"
-              }
-            },
-            "tones": {
-              "title": "ok",
-              "status": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Standard problem details object attributes",
-        "boxes": [
-          {
-            "id": "title",
-            "label": "title"
-          },
-          {
-            "id": "status",
-            "label": "status"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The type attribute provides a URI reference for error documentation.",
-            "values": {
-              "title": "Item Out of Stock",
-              "status": "409"
-            },
-            "tones": {
-              "title": "data",
-              "status": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "The title provides a short human-readable summary of the problem type.",
-            "values": {
-              "title": "Item Out of Stock",
-              "status": "409"
-            },
-            "tones": {
-              "title": "ok",
-              "status": "data"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "The instance attribute provides a URI reference for specific problem logs.",
-            "values": {
-              "title": "Item Out of Stock",
-              "status": "409"
-            },
-            "tones": {
-              "title": "ok",
-              "status": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Modeling Domain Errors as Typed Problem Objects",
-      "codeHash": "38eb999e137fae1ee645a0fa6ad818d945e5987604675228a0a55c9e9c28a42c",
-      "spec": {
-        "template": "boxes",
-        "title": "Typed domain problem exception hierarchy",
-        "boxes": [
-          {
-            "id": "title",
-            "label": "title"
-          },
-          {
-            "id": "status",
-            "label": "status"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Define custom domain error classes extending an abstract base class.",
-            "values": {
-              "title": {
-                "text": "Resource Not Found"
-              },
-              "status": {
-                "text": "404"
-              }
-            },
-            "tones": {
-              "title": "data",
-              "status": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Custom error classes encapsulate their respective HTTP status codes and titles.",
-            "values": {
-              "title": {
-                "text": "Resource Not Found"
-              },
-              "status": {
-                "text": "404"
-              }
-            },
-            "tones": {
-              "title": "idle",
-              "status": "error"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "This establishes a clean type-safe error pipeline to the client HTTP response.",
-            "values": {
-              "title": {
-                "text": "Resource Not Found"
-              },
-              "status": {
-                "text": "404"
-              }
-            },
-            "tones": {
-              "title": "ok",
-              "status": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Typed domain problem exception hierarchy",
-        "boxes": [
-          {
-            "id": "title",
-            "label": "title"
-          },
-          {
-            "id": "status",
-            "label": "status"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Define custom domain error classes extending an abstract base class.",
-            "values": {
-              "title": "Resource Not Found",
-              "status": "404"
-            },
-            "tones": {
-              "title": "data",
-              "status": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Custom error classes encapsulate their respective HTTP status codes and titles.",
-            "values": {
-              "title": "Resource Not Found",
-              "status": "404"
-            },
-            "tones": {
-              "title": "idle",
-              "status": "error"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "This establishes a clean type-safe error pipeline to the client HTTP response.",
-            "values": {
-              "title": "Resource Not Found",
-              "status": "404"
-            },
-            "tones": {
-              "title": "ok",
-              "status": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Extending RFC 7807 with Invalid Params for Validation Failures",
-      "codeHash": "98fdb4e6f66f6159f0fcf72db1721d7099516c538afed806223903f766038544",
-      "spec": {
-        "template": "table",
-        "title": "Validation problem invalid parameters list",
-        "columns": [
-          "Field Name",
-          "Validation Reason",
-          "Error Status"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The invalid-params array is the standard extension for validation failures.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "age"
-                  },
-                  {
-                    "text": "Must be an integer >= 18"
-                  },
-                  {
-                    "text": "400"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "email"
-                  },
-                  {
-                    "text": "Malformed domain suffix"
-                  },
-                  {
-                    "text": "400"
-                  }
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Each entry details the name of the failing field and rejection reason.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "age"
-                  },
-                  {
-                    "text": "Must be an integer >= 18"
-                  },
-                  {
-                    "text": "400"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "email"
-                  },
-                  {
-                    "text": "Malformed domain suffix"
-                  },
-                  {
-                    "text": "400"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Structured error communication delivers an exceptional developer experience.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "age"
-                  },
-                  {
-                    "text": "Must be an integer >= 18"
-                  },
-                  {
-                    "text": "400"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "email"
-                  },
-                  {
-                    "text": "Malformed domain suffix"
-                  },
-                  {
-                    "text": "400"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "table",
-        "title": "Validation problem invalid parameters list",
-        "columns": [
-          "Field Name",
-          "Validation Reason",
-          "Error Status"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The invalid-params array is the standard extension for validation failures.",
-            "rows": [
-              {
-                "cells": [
-                  "age",
-                  "Must be an integer >= 18",
-                  "400"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "email",
-                  "Malformed domain suffix",
-                  "400"
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Each entry details the name of the failing field and rejection reason.",
-            "rows": [
-              {
-                "cells": [
-                  "age",
-                  "Must be an integer >= 18",
-                  "400"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "email",
-                  "Malformed domain suffix",
-                  "400"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Structured error communication delivers an exceptional developer experience.",
-            "rows": [
-              {
-                "cells": [
-                  "age",
-                  "Must be an integer >= 18",
-                  "400"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "email",
-                  "Malformed domain suffix",
-                  "400"
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Global Error Handling Middleware to Standardize Output",
-      "codeHash": "4c6c2f34cbc169c4bf1792d7206e07ecba4c729373c784cef3dc2efb24d0115e",
-      "spec": {
-        "template": "boxes",
-        "title": "Global error handler output serialization",
-        "boxes": [
-          {
-            "id": "title",
-            "label": "title"
-          },
-          {
-            "id": "status",
-            "label": "status"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Centralized error middleware catches all uncaught exceptions.",
-            "values": {
-              "title": {
-                "text": "Forbidden"
-              },
-              "status": {
-                "text": "403"
-              }
-            },
-            "tones": {
-              "title": "data",
-              "status": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "The global error middleware inspects and serializes error details.",
-            "values": {
-              "title": {
-                "text": "Forbidden"
-              },
-              "status": {
-                "text": "403"
-              }
-            },
-            "tones": {
-              "title": "idle",
-              "status": "error"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "This guarantees no endpoint can leak unformatted error responses to clients.",
-            "values": {
-              "title": {
-                "text": "Forbidden"
-              },
-              "status": {
-                "text": "403"
-              }
-            },
-            "tones": {
-              "title": "ok",
-              "status": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Global error handler output serialization",
-        "boxes": [
-          {
-            "id": "title",
-            "label": "title"
-          },
-          {
-            "id": "status",
-            "label": "status"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Centralized error middleware catches all uncaught exceptions.",
-            "values": {
-              "title": "Forbidden",
-              "status": "403"
-            },
-            "tones": {
-              "title": "data",
-              "status": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "The global error middleware inspects and serializes error details.",
-            "values": {
-              "title": "Forbidden",
-              "status": "403"
-            },
-            "tones": {
-              "title": "idle",
-              "status": "error"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "This guarantees no endpoint can leak unformatted error responses to clients.",
-            "values": {
-              "title": "Forbidden",
-              "status": "403"
-            },
-            "tones": {
-              "title": "ok",
-              "status": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Preventing Sensitive Stack Trace Leakage in Production",
-      "codeHash": "08c8c9899c9b1733c2783231ff490bbf424620501a4bc758bc7f3fbe3ac6d619",
+      "partTitle": "Anatomy of SQL Injection (CWE-89) & Parser Lexical Grammar",
+      "codeHash": "d4cc00a78d2c7f297bf9160bda36818d8129bf5608b20d817ef9817efc18e37b",
       "spec": {
         "template": "flow",
-        "title": "Preventing Sensitive Stack Trace Leakage in P... — Execution Pipeline",
+        "title": "Process Pipeline Anatomy of SQL Injection (CWE-) & Parser Lexical Grammar.",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "stepA",
+            "label": "Initial Stage",
+            "type": "start"
           },
           {
-            "id": "proc",
-            "label": "2. Preventing Sensitiv...",
-            "tappable": true
+            "id": "stepB",
+            "label": "Processing Core",
+            "type": "process"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "stepC",
+            "label": "Verification Check",
+            "type": "process"
+          },
+          {
+            "id": "stepD",
+            "label": "Terminal Output",
+            "type": "end"
+          }
+        ],
+        "edges": [
+          {
+            "from": "stepA",
+            "to": "stepB",
+            "label": "Next"
+          },
+          {
+            "from": "stepB",
+            "to": "stepC",
+            "label": "Inspect"
+          },
+          {
+            "from": "stepC",
+            "to": "stepD",
+            "label": "Complete"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Preventing Sensitive Stack Trace Leakage.. [D12.P6.S1].",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Preventing Sensitiv... [D12.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D12.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Preventing Sensitive Stack Trace .. [D12.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
           }
         ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Preventing Sensitive Stack Trace Leakage in P... — Execution Pipeline",
-        "nodes": [
+      }
+    },
+    {
+      "partTitle": "Wire Protocol Prepared Statements & Binary Parameter Binding",
+      "codeHash": "263ddeca2ca6c46407242a5f9eeb66814ae23675489a03995612e3942dfea19b",
+      "spec": {
+        "template": "boxes",
+        "title": "Architectural Partitions Wire Protocol Prepared Statements & Binary Param.",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "boxA",
+            "label": "Primary Sector"
           },
           {
-            "id": "proc",
-            "label": "2. Preventing Sensitiv...",
-            "tappable": true
+            "id": "boxB",
+            "label": "Secondary Sector"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "boxC",
+            "label": "Buffer Allocation"
+          },
+          {
+            "id": "boxD",
+            "label": "Resource Handle"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Preventing Sensitive Stack Trace Leakage.. [D12.P6.S1].",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Type-Safe Query Construction & Composable AST Builders",
+      "codeHash": "f16a7d0d352855bb2d8c8fe378359e9609ad9fd58474c0e701ee27462732e093",
+      "spec": {
+        "template": "stackQueue",
+        "title": "Queue Ordering Type-Safe Query Construction & Composable AST Builders.",
+        "elements": [
+          {
+            "id": "elemA",
+            "label": "Top Priority"
+          },
+          {
+            "id": "elemB",
+            "label": "Secondary Task"
+          },
+          {
+            "id": "elemC",
+            "label": "Pending Callback"
+          },
+          {
+            "id": "elemD",
+            "label": "Deferred Workload"
+          }
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Preventing Sensitiv... [D12.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D12.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Preventing Sensitive Stack Trace .. [D12.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Dynamic Identifiers, Column Whitelisting & Lexical Escaping",
+      "codeHash": "f664d05ecbfe28b1601611f854b4dd1ea5ae666ac0eb3cbd91573fca4353cb03",
+      "spec": {
+        "template": "sequence",
+        "title": "Sequence Coordination Dynamic Identifiers, Column Whitelisting & Lexical.",
+        "actors": [
+          {
+            "id": "client",
+            "label": "Request Origin"
+          },
+          {
+            "id": "driver",
+            "label": "Runtime Driver"
+          },
+          {
+            "id": "kernel",
+            "label": "Kernel Boundary"
+          },
+          {
+            "id": "subsystem",
+            "label": "Target Subsystem"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
+          },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "High-Security Parameterized Query Compiler & Validator",
+      "codeHash": "09af1dedd96e37ba21daceed19d9704261f8316a5d9fd12d37551036cce17f6f",
+      "spec": {
+        "template": "compare",
+        "title": "Architectural Comparison High-Security Parameterized Query Compiler & Val.",
+        "left": {
+          "title": "Optimized Pattern",
+          "items": [
+            "Bounded latency",
+            "Deterministic execution",
+            "Zero resource leak"
+          ]
+        },
+        "right": {
+          "title": "Naive Pattern",
+          "items": [
+            "Unbounded growth",
+            "Blocking dispatch",
+            "Resource contention risk"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
+          },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
           }
         ]
       }

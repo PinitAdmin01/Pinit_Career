@@ -1,1008 +1,265 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "prefix": "node-web",
   "day": 3,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "1c473c0b5fcbdacb620c7182eaa21794b4196380e52423b5692ee5f6ee889172",
+  "model": "google/gemini-2.0-flash",
   "entries": [
     {
-      "partTitle": "Why Type Safety Matters for Server Backends",
-      "codeHash": "c5dabad6f709275a82289e8d34dc510f250aa11383e79d49c4d9b41b7ec67827",
-      "spec": {
-        "template": "boxes",
-        "title": "Validated DTO interface structure",
-        "boxes": [
-          {
-            "id": "email",
-            "label": "email"
-          },
-          {
-            "id": "tier",
-            "label": "tier"
-          },
-          {
-            "id": "credits",
-            "label": "credits"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "TypeScript adds static type verification at compile time.",
-            "values": {
-              "email": {
-                "text": "student@pin.it"
-              },
-              "tier": {
-                "text": "pro"
-              },
-              "credits": {
-                "text": "100"
-              }
-            },
-            "tones": {
-              "email": "data",
-              "tier": "idle",
-              "credits": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "TypeScript ensures every payload is rigorously checked and typed.",
-            "values": {
-              "email": {
-                "text": "student@pin.it"
-              },
-              "tier": {
-                "text": "pro"
-              },
-              "credits": {
-                "text": "100"
-              }
-            },
-            "tones": {
-              "email": "idle",
-              "tier": "data",
-              "credits": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Strict type definitions act as executable contracts between teams.",
-            "values": {
-              "email": {
-                "text": "student@pin.it"
-              },
-              "tier": {
-                "text": "pro"
-              },
-              "credits": {
-                "text": "100"
-              }
-            },
-            "tones": {
-              "email": "ok",
-              "tier": "ok",
-              "credits": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Validated DTO interface structure",
-        "boxes": [
-          {
-            "id": "email",
-            "label": "email"
-          },
-          {
-            "id": "tier",
-            "label": "tier"
-          },
-          {
-            "id": "credits",
-            "label": "credits"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "TypeScript adds static type verification at compile time.",
-            "values": {
-              "email": "student@pin.it",
-              "tier": "pro",
-              "credits": "100"
-            },
-            "tones": {
-              "email": "data",
-              "tier": "idle",
-              "credits": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "TypeScript ensures every payload is rigorously checked and typed.",
-            "values": {
-              "email": "student@pin.it",
-              "tier": "pro",
-              "credits": "100"
-            },
-            "tones": {
-              "email": "idle",
-              "tier": "data",
-              "credits": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Strict type definitions act as executable contracts between teams.",
-            "values": {
-              "email": "student@pin.it",
-              "tier": "pro",
-              "credits": "100"
-            },
-            "tones": {
-              "email": "ok",
-              "tier": "ok",
-              "credits": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Type Narrowing with typeof and the in Operator",
-      "codeHash": "41f24f96fb822c6adbc8432a07f61517daae9154e629f78e66e03571b5f5cdf7",
+      "partTitle": "Microtasks vs Macrotasks: V8 Microtask Checkpoints vs Libuv Phases",
+      "codeHash": "7ea2cd2075971ce3be8d968ce18f1eeb7f39134d39d6f315308649107c417302",
       "spec": {
         "template": "flow",
-        "title": "Type narrowing branch routing",
+        "title": "Process Pipeline Microtasks vs Macrotasks: V Microtask Checkpoints vs Lib.",
         "nodes": [
           {
-            "id": "input",
-            "label": "input"
+            "id": "stepA",
+            "label": "Initial Stage",
+            "type": "start"
           },
           {
-            "id": "numberBranch",
-            "label": "number"
+            "id": "stepB",
+            "label": "Processing Core",
+            "type": "process"
           },
           {
-            "id": "stringBranch",
-            "label": "string"
+            "id": "stepC",
+            "label": "Verification Check",
+            "type": "process"
+          },
+          {
+            "id": "stepD",
+            "label": "Terminal Output",
+            "type": "end"
+          }
+        ],
+        "edges": [
+          {
+            "from": "stepA",
+            "to": "stepB",
+            "label": "Next"
+          },
+          {
+            "from": "stepB",
+            "to": "stepC",
+            "label": "Inspect"
+          },
+          {
+            "from": "stepC",
+            "to": "stepD",
+            "label": "Complete"
           }
         ],
         "steps": [
-          {
-            "at": "say2",
-            "caption": "JavaScript provides built-in operators that TypeScript understands.",
-            "values": {
-              "input": {
-                "text": "Identifier"
-              },
-              "numberBranch": {
-                "text": "42"
-              },
-              "stringBranch": {
-                "text": "adm_token"
-              }
-            },
-            "tones": {
-              "input": "data",
-              "numberBranch": "idle",
-              "stringBranch": "idle"
-            },
-            "arrows": [
-              [
-                "input",
-                "numberBranch"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "The typeof operator checks primitive types like string and number.",
-            "values": {
-              "input": {
-                "text": "Identifier"
-              },
-              "numberBranch": {
-                "text": "42"
-              },
-              "stringBranch": {
-                "text": "adm_token"
-              }
-            },
-            "tones": {
-              "input": "idle",
-              "numberBranch": "data",
-              "stringBranch": "ok"
-            },
-            "arrows": [
-              [
-                "input",
-                "stringBranch"
-              ]
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Mastering runtime operators allows developers to write safe input sanitizers.",
-            "values": {
-              "input": {
-                "text": "Identifier"
-              },
-              "numberBranch": {
-                "text": "number"
-              },
-              "stringBranch": {
-                "text": "string"
-              }
-            },
-            "tones": {
-              "input": "ok",
-              "numberBranch": "ok",
-              "stringBranch": "ok"
-            },
-            "arrows": [
-              [
-                "input",
-                "numberBranch"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Type narrowing branch routing",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "input"
-          },
-          {
-            "id": "numberBranch",
-            "label": "number"
-          },
-          {
-            "id": "stringBranch",
-            "label": "string"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "JavaScript provides built-in operators that TypeScript understands.",
-            "values": {
-              "input": "Identifier",
-              "numberBranch": "42",
-              "stringBranch": "adm_token"
-            },
-            "tones": {
-              "input": "data",
-              "numberBranch": "idle",
-              "stringBranch": "idle"
-            },
-            "arrows": [
-              [
-                "input",
-                "numberBranch"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "The typeof operator checks primitive types like string and number.",
-            "values": {
-              "input": "Identifier",
-              "numberBranch": "42",
-              "stringBranch": "adm_token"
-            },
-            "tones": {
-              "input": "idle",
-              "numberBranch": "data",
-              "stringBranch": "ok"
-            },
-            "arrows": [
-              [
-                "input",
-                "stringBranch"
-              ]
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Mastering runtime operators allows developers to write safe input sanitizers.",
-            "values": {
-              "input": "Identifier",
-              "numberBranch": "number",
-              "stringBranch": "string"
-            },
-            "tones": {
-              "input": "ok",
-              "numberBranch": "ok",
-              "stringBranch": "ok"
-            },
-            "arrows": [
-              [
-                "input",
-                "numberBranch"
-              ]
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Discriminated Unions for HTTP API Payloads",
-      "codeHash": "ab34ca3f11038528d237748624642b8199587791f77f496b90458b83b8226a50",
-      "spec": {
-        "template": "states",
-        "title": "Discriminated union state transitions",
-        "states": [
-          {
-            "id": "success",
-            "label": "success"
-          },
-          {
-            "id": "error",
-            "label": "error"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "A discriminated union shares a common literal property tag.",
-            "currentState": "success",
-            "transition": {
-              "from": "error",
-              "to": "success",
-              "label": {
-                "text": "status"
-              }
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "say3",
-            "caption": "Inspecting the discriminator narrows the object to the specific variant.",
-            "currentState": "error",
-            "transition": {
-              "from": "success",
-              "to": "error",
-              "label": {
-                "text": "status"
-              }
-            },
-            "tone": "error"
-          },
-          {
-            "at": "say8",
-            "caption": "Designing domain payloads as discriminated unions routes messages cleanly.",
-            "currentState": "success",
-            "transition": {
-              "from": "error",
-              "to": "success",
-              "label": {
-                "text": "success"
-              }
-            },
-            "tone": "ok"
-          }
-        ]
-      },
-      "filled": {
-        "template": "states",
-        "title": "Discriminated union state transitions",
-        "states": [
-          {
-            "id": "success",
-            "label": "success"
-          },
-          {
-            "id": "error",
-            "label": "error"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "A discriminated union shares a common literal property tag.",
-            "currentState": "success",
-            "transition": {
-              "from": "error",
-              "to": "success",
-              "label": "status"
-            },
-            "tone": "ok"
-          },
-          {
-            "at": "say3",
-            "caption": "Inspecting the discriminator narrows the object to the specific variant.",
-            "currentState": "error",
-            "transition": {
-              "from": "success",
-              "to": "error",
-              "label": "status"
-            },
-            "tone": "error"
-          },
-          {
-            "at": "say8",
-            "caption": "Designing domain payloads as discriminated unions routes messages cleanly.",
-            "currentState": "success",
-            "transition": {
-              "from": "error",
-              "to": "success",
-              "label": "success"
-            },
-            "tone": "ok"
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "User-Defined Custom Type Guards (is syntax)",
-      "codeHash": "0045c07c28df2dd23a551ecb6ea70f9d2803005afca3b4e15fccb341a872d9bf",
-      "spec": {
-        "template": "boxes",
-        "title": "Custom type guard validation schema",
-        "boxes": [
-          {
-            "id": "id",
-            "label": "id"
-          },
-          {
-            "id": "title",
-            "label": "title"
-          },
-          {
-            "id": "salary",
-            "label": "salary"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "TypeScript allows writing custom type guards using value is Type.",
-            "values": {
-              "id": {
-                "text": "job_404"
-              },
-              "title": {
-                "text": "Site Reliability Engineer"
-              },
-              "salary": {
-                "text": "140000"
-              }
-            },
-            "tones": {
-              "id": "data",
-              "title": "idle",
-              "salary": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "When the function returns true TypeScript assumes the variable matches.",
-            "values": {
-              "id": {
-                "text": "job_404"
-              },
-              "title": {
-                "text": "Site Reliability Engineer"
-              },
-              "salary": {
-                "text": "140000"
-              }
-            },
-            "tones": {
-              "id": "idle",
-              "title": "data",
-              "salary": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Custom type guards underpin validation layers inspecting parsed JSON bodies.",
-            "values": {
-              "id": {
-                "text": "job_404"
-              },
-              "title": {
-                "text": "Site Reliability Engineer"
-              },
-              "salary": {
-                "text": "140000"
-              }
-            },
-            "tones": {
-              "id": "ok",
-              "title": "ok",
-              "salary": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Custom type guard validation schema",
-        "boxes": [
-          {
-            "id": "id",
-            "label": "id"
-          },
-          {
-            "id": "title",
-            "label": "title"
-          },
-          {
-            "id": "salary",
-            "label": "salary"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "TypeScript allows writing custom type guards using value is Type.",
-            "values": {
-              "id": "job_404",
-              "title": "Site Reliability Engineer",
-              "salary": "140000"
-            },
-            "tones": {
-              "id": "data",
-              "title": "idle",
-              "salary": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "When the function returns true TypeScript assumes the variable matches.",
-            "values": {
-              "id": "job_404",
-              "title": "Site Reliability Engineer",
-              "salary": "140000"
-            },
-            "tones": {
-              "id": "idle",
-              "title": "data",
-              "salary": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Custom type guards underpin validation layers inspecting parsed JSON bodies.",
-            "values": {
-              "id": "job_404",
-              "title": "Site Reliability Engineer",
-              "salary": "140000"
-            },
-            "tones": {
-              "id": "ok",
-              "title": "ok",
-              "salary": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "The unknown Type vs any: Safe Deserialization",
-      "codeHash": "7d15f7d764c1dc3b034c059c1313044932e73837c2f6056eb3fc326f0127d873",
-      "spec": {
-        "template": "table",
-        "title": "Unknown deserialization handling",
-        "columns": [
-          "Input Value",
-          "Guarded Type",
-          "Parsed Output"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Using any is dangerous and allows calling non-existent methods.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "clean token"
-                  },
-                  {
-                    "text": "string"
-                  },
-                  {
-                    "text": "clean token"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "default_value"
-                  },
-                  {
-                    "text": "unknown"
-                  },
-                  {
-                    "text": "default_value"
-                  }
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "The unknown type forbids performing operations until you narrow it.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "clean token"
-                  },
-                  {
-                    "text": "string"
-                  },
-                  {
-                    "text": "clean token"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "default_value"
-                  },
-                  {
-                    "text": "unknown"
-                  },
-                  {
-                    "text": "default_value"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Treating incoming network data as unknown builds a protective perimeter.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "clean token"
-                  },
-                  {
-                    "text": "string"
-                  },
-                  {
-                    "text": "clean token"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "default_value"
-                  },
-                  {
-                    "text": "unknown"
-                  },
-                  {
-                    "text": "default_value"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "table",
-        "title": "Unknown deserialization handling",
-        "columns": [
-          "Input Value",
-          "Guarded Type",
-          "Parsed Output"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Using any is dangerous and allows calling non-existent methods.",
-            "rows": [
-              {
-                "cells": [
-                  "clean token",
-                  "string",
-                  "clean token"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "default_value",
-                  "unknown",
-                  "default_value"
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "The unknown type forbids performing operations until you narrow it.",
-            "rows": [
-              {
-                "cells": [
-                  "clean token",
-                  "string",
-                  "clean token"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "default_value",
-                  "unknown",
-                  "default_value"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Treating incoming network data as unknown builds a protective perimeter.",
-            "rows": [
-              {
-                "cells": [
-                  "clean token",
-                  "string",
-                  "clean token"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "default_value",
-                  "unknown",
-                  "default_value"
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Exhaustive Pattern Matching with the never Type",
-      "codeHash": "184ad76e5e25afb7212d5bf0d3fb9ea65e7c2caa71d6d42b1923d5ebf8936da0",
-      "spec": {
-        "template": "flow",
-        "title": "Exhaustive Pattern Matching with the never Type — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Exhaustive Pattern ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Exhaustive Pattern Matching with the nev.. [D3.P6.S1].",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Exhaustive Pattern ... [D3.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D3.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Exhaustive Pattern Matching with .. [D3.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
           }
         ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Exhaustive Pattern Matching with the never Type — Execution Pipeline",
-        "nodes": [
+      }
+    },
+    {
+      "partTitle": "The process.nextTick Queue: Immediate Stack Draining and Priority Mechanics",
+      "codeHash": "e5e0b826f88d775a49fc612705804b1e733b16cd521923d23ff3e1a499274908",
+      "spec": {
+        "template": "boxes",
+        "title": "Architectural Partitions The process.nextTick Queue: Immediate Stack Drai.",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "boxA",
+            "label": "Primary Sector"
           },
           {
-            "id": "proc",
-            "label": "2. Exhaustive Pattern ...",
-            "tappable": true
+            "id": "boxB",
+            "label": "Secondary Sector"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "boxC",
+            "label": "Buffer Allocation"
+          },
+          {
+            "id": "boxD",
+            "label": "Resource Handle"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Exhaustive Pattern Matching with the nev.. [D3.P6.S1].",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Promise Microtasks: Promise.resolve, PromiseRejectionEvent and Native Microtasks",
+      "codeHash": "fe0d7452d8cd5f8034eed9681a0aabff4959fc3e243d48236bc6b567ea4deb16",
+      "spec": {
+        "template": "stackQueue",
+        "title": "Queue Ordering Promise Microtasks: Promise.resolve, PromiseRejectionEvent.",
+        "elements": [
+          {
+            "id": "elemA",
+            "label": "Top Priority"
+          },
+          {
+            "id": "elemB",
+            "label": "Secondary Task"
+          },
+          {
+            "id": "elemC",
+            "label": "Pending Callback"
+          },
+          {
+            "id": "elemD",
+            "label": "Deferred Workload"
+          }
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Exhaustive Pattern ... [D3.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D3.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Exhaustive Pattern Matching with .. [D3.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Event Loop Starvation Attacks: Recursive Tick Cascades and Main Thread Starvation",
+      "codeHash": "9162ba24d6ecd12e7ab44dc8e00b7c50057709770b47cebc99b14cd789d6b4f5",
+      "spec": {
+        "template": "sequence",
+        "title": "Sequence Coordination Event Loop Starvation Attacks: Recursive Tick Casca.",
+        "actors": [
+          {
+            "id": "client",
+            "label": "Request Origin"
+          },
+          {
+            "id": "driver",
+            "label": "Runtime Driver"
+          },
+          {
+            "id": "kernel",
+            "label": "Kernel Boundary"
+          },
+          {
+            "id": "subsystem",
+            "label": "Target Subsystem"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
+          },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "queueMicrotask Standard & Safe Asynchronous Deferral Patterns",
+      "codeHash": "fa0c83237a919f524cf4917e09bfc14c0c98c5baad457eca829ba7c3d0218c01",
+      "spec": {
+        "template": "compare",
+        "title": "Architectural Comparison queueMicrotask Standard & Safe Asynchronous Defe.",
+        "left": {
+          "title": "Optimized Pattern",
+          "items": [
+            "Bounded latency",
+            "Deterministic execution",
+            "Zero resource leak"
+          ]
+        },
+        "right": {
+          "title": "Naive Pattern",
+          "items": [
+            "Unbounded growth",
+            "Blocking dispatch",
+            "Resource contention risk"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
+          },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
           }
         ]
       }

@@ -1,968 +1,263 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "prefix": "node-web",
   "day": 8,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
   "entries": [
     {
-      "partTitle": "Anatomy of an HTTP Router: Method and Path Pattern Matching",
-      "codeHash": "3a1b5f0277caf436cf4f3f6fa079f745bbafcacf2d68ac85f0e2c77627d1ea33",
-      "spec": {
-        "template": "table",
-        "title": "Declarative routing table entries",
-        "columns": [
-          "Method",
-          "Path Pattern",
-          "Handler Action"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "A router lookup table maps method and path patterns to handler functions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "GET"
-                  },
-                  {
-                    "text": "/health"
-                  },
-                  {
-                    "text": "healthCheck"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "POST"
-                  },
-                  {
-                    "text": "/login"
-                  },
-                  {
-                    "text": "authenticateUser"
-                  }
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "When incoming requests arrive the router scans registered route definitions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "GET"
-                  },
-                  {
-                    "text": "/health"
-                  },
-                  {
-                    "text": "healthCheck"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "POST"
-                  },
-                  {
-                    "text": "/login"
-                  },
-                  {
-                    "text": "authenticateUser"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Production routers normalize paths to prevent duplicate matching keys.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "GET"
-                  },
-                  {
-                    "text": "/health"
-                  },
-                  {
-                    "text": "healthCheck"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "POST"
-                  },
-                  {
-                    "text": "/login"
-                  },
-                  {
-                    "text": "authenticateUser"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "table",
-        "title": "Declarative routing table entries",
-        "columns": [
-          "Method",
-          "Path Pattern",
-          "Handler Action"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "A router lookup table maps method and path patterns to handler functions.",
-            "rows": [
-              {
-                "cells": [
-                  "GET",
-                  "/health",
-                  "healthCheck"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "POST",
-                  "/login",
-                  "authenticateUser"
-                ],
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "When incoming requests arrive the router scans registered route definitions.",
-            "rows": [
-              {
-                "cells": [
-                  "GET",
-                  "/health",
-                  "healthCheck"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "POST",
-                  "/login",
-                  "authenticateUser"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Production routers normalize paths to prevent duplicate matching keys.",
-            "rows": [
-              {
-                "cells": [
-                  "GET",
-                  "/health",
-                  "healthCheck"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "POST",
-                  "/login",
-                  "authenticateUser"
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Parsing Dynamic Path Segments (e.g. /users/:id)",
-      "codeHash": "f5b97cbca25311ab098ad4ee26ceeec437e4aab10b9a8f98a4f64df3351e3b10",
-      "spec": {
-        "template": "boxes",
-        "title": "Dynamic path segment parameter mapping",
-        "boxes": [
-          {
-            "id": "pattern",
-            "label": "pattern"
-          },
-          {
-            "id": "params",
-            "label": "params"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "A dynamic path pattern uses a colon prefix to match variable segments.",
-            "values": {
-              "pattern": {
-                "text": "/jobs/:jobId"
-              },
-              "params": {
-                "text": "jobId"
-              }
-            },
-            "tones": {
-              "pattern": "data",
-              "params": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "The router extracts dynamic tokens into key-value parameter dictionaries.",
-            "values": {
-              "pattern": {
-                "text": "/jobs/:jobId"
-              },
-              "params": {
-                "text": "jobId"
-              }
-            },
-            "tones": {
-              "pattern": "idle",
-              "params": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Extracting parameters safely maps keys into an immutable params object.",
-            "values": {
-              "pattern": {
-                "text": "/jobs/:jobId"
-              },
-              "params": {
-                "text": "jobId"
-              }
-            },
-            "tones": {
-              "pattern": "ok",
-              "params": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Dynamic path segment parameter mapping",
-        "boxes": [
-          {
-            "id": "pattern",
-            "label": "pattern"
-          },
-          {
-            "id": "params",
-            "label": "params"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "A dynamic path pattern uses a colon prefix to match variable segments.",
-            "values": {
-              "pattern": "/jobs/:jobId",
-              "params": "jobId"
-            },
-            "tones": {
-              "pattern": "data",
-              "params": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "The router extracts dynamic tokens into key-value parameter dictionaries.",
-            "values": {
-              "pattern": "/jobs/:jobId",
-              "params": "jobId"
-            },
-            "tones": {
-              "pattern": "idle",
-              "params": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Extracting parameters safely maps keys into an immutable params object.",
-            "values": {
-              "pattern": "/jobs/:jobId",
-              "params": "jobId"
-            },
-            "tones": {
-              "pattern": "ok",
-              "params": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Route Specificity and Collision Resolution",
-      "codeHash": "90d01a88efb4ad2fa71915206cc9039233a254874466b12a80fd262d855bc7f0",
+      "partTitle": "Computational Complexity: Linear Regex vs Radix Trees",
+      "codeHash": "5a2883a23d40ca78bc399f64d4b88caeebc8f704f0f86546f3e3488ac34957d0",
       "spec": {
         "template": "flow",
-        "title": "Route specificity collision resolution",
+        "title": "Process Pipeline Computational Complexity: Linear Regex vs Radix Trees.",
         "nodes": [
           {
-            "id": "rule",
-            "label": "RouteRule"
+            "id": "stepA",
+            "label": "Initial Stage",
+            "type": "start"
           },
           {
-            "id": "pattern",
-            "label": "pattern"
+            "id": "stepB",
+            "label": "Processing Core",
+            "type": "process"
           },
           {
-            "id": "isStatic",
-            "label": "isStatic"
+            "id": "stepC",
+            "label": "Verification Check",
+            "type": "process"
+          },
+          {
+            "id": "stepD",
+            "label": "Terminal Output",
+            "type": "end"
+          }
+        ],
+        "edges": [
+          {
+            "from": "stepA",
+            "to": "stepB",
+            "label": "Next"
+          },
+          {
+            "from": "stepB",
+            "to": "stepC",
+            "label": "Inspect"
+          },
+          {
+            "from": "stepC",
+            "to": "stepD",
+            "label": "Complete"
           }
         ],
         "steps": [
-          {
-            "at": "say2",
-            "caption": "Visiting users endpoints tests whether dynamic parameters collide.",
-            "values": {
-              "rule": {
-                "text": "/users/me"
-              },
-              "pattern": {
-                "text": "/users/:id"
-              },
-              "isStatic": {
-                "text": "true"
-              }
-            },
-            "tones": {
-              "rule": "data",
-              "pattern": "idle",
-              "isStatic": "idle"
-            },
-            "arrows": [
-              [
-                "rule",
-                "pattern"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Route specificity rules give static literal segments precedence.",
-            "values": {
-              "rule": {
-                "text": "/users/me"
-              },
-              "pattern": {
-                "text": "/users/:id"
-              },
-              "isStatic": {
-                "text": "true"
-              }
-            },
-            "tones": {
-              "rule": "idle",
-              "pattern": "data",
-              "isStatic": "ok"
-            },
-            "arrows": [
-              [
-                "pattern",
-                "isStatic"
-              ]
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Enforcing explicit specificity sorting during route registration is vital.",
-            "values": {
-              "rule": {
-                "text": "/users/me"
-              },
-              "pattern": {
-                "text": "/users/:id"
-              },
-              "isStatic": {
-                "text": "true"
-              }
-            },
-            "tones": {
-              "rule": "ok",
-              "pattern": "ok",
-              "isStatic": "ok"
-            },
-            "arrows": [
-              [
-                "rule",
-                "isStatic"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Route specificity collision resolution",
-        "nodes": [
-          {
-            "id": "rule",
-            "label": "RouteRule"
-          },
-          {
-            "id": "pattern",
-            "label": "pattern"
-          },
-          {
-            "id": "isStatic",
-            "label": "isStatic"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Visiting users endpoints tests whether dynamic parameters collide.",
-            "values": {
-              "rule": "/users/me",
-              "pattern": "/users/:id",
-              "isStatic": "true"
-            },
-            "tones": {
-              "rule": "data",
-              "pattern": "idle",
-              "isStatic": "idle"
-            },
-            "arrows": [
-              [
-                "rule",
-                "pattern"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Route specificity rules give static literal segments precedence.",
-            "values": {
-              "rule": "/users/me",
-              "pattern": "/users/:id",
-              "isStatic": "true"
-            },
-            "tones": {
-              "rule": "idle",
-              "pattern": "data",
-              "isStatic": "ok"
-            },
-            "arrows": [
-              [
-                "pattern",
-                "isStatic"
-              ]
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Enforcing explicit specificity sorting during route registration is vital.",
-            "values": {
-              "rule": "/users/me",
-              "pattern": "/users/:id",
-              "isStatic": "true"
-            },
-            "tones": {
-              "rule": "ok",
-              "pattern": "ok",
-              "isStatic": "ok"
-            },
-            "arrows": [
-              [
-                "rule",
-                "isStatic"
-              ]
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Handling 404 Not Found vs 405 Method Not Allowed",
-      "codeHash": "0bad0303f3d59e284aa78fa39a3be9c83e8f7da75c7a32f6f3629889b8fed387",
-      "spec": {
-        "template": "boxes",
-        "title": "HTTP routing outcome status codes",
-        "boxes": [
-          {
-            "id": "method",
-            "label": "method"
-          },
-          {
-            "id": "status",
-            "label": "status"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The specification draws a distinction between routing failure modes.",
-            "values": {
-              "method": {
-                "text": "GET"
-              },
-              "status": {
-                "text": "200"
-              }
-            },
-            "tones": {
-              "method": "data",
-              "status": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "A 404 status indicates that the requested path does not exist on the server.",
-            "values": {
-              "method": {
-                "text": "GET"
-              },
-              "status": {
-                "text": "404"
-              }
-            },
-            "tones": {
-              "method": "idle",
-              "status": "error"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Returning the Allow header lets clients proceed securely without boilerplate.",
-            "values": {
-              "method": {
-                "text": "DELETE"
-              },
-              "status": {
-                "text": "405"
-              }
-            },
-            "tones": {
-              "method": "ok",
-              "status": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "HTTP routing outcome status codes",
-        "boxes": [
-          {
-            "id": "method",
-            "label": "method"
-          },
-          {
-            "id": "status",
-            "label": "status"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The specification draws a distinction between routing failure modes.",
-            "values": {
-              "method": "GET",
-              "status": "200"
-            },
-            "tones": {
-              "method": "data",
-              "status": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "A 404 status indicates that the requested path does not exist on the server.",
-            "values": {
-              "method": "GET",
-              "status": "404"
-            },
-            "tones": {
-              "method": "idle",
-              "status": "error"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Returning the Allow header lets clients proceed securely without boilerplate.",
-            "values": {
-              "method": "DELETE",
-              "status": "405"
-            },
-            "tones": {
-              "method": "ok",
-              "status": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Nested Routing Tables and Feature Prefixes",
-      "codeHash": "ee105be0efa7bf8a4faec38ed8697a493b5240527ea99389682a1b7dffb95d90",
-      "spec": {
-        "template": "boxes",
-        "title": "Modular sub-router mount configuration",
-        "boxes": [
-          {
-            "id": "prefix",
-            "label": "prefix"
-          },
-          {
-            "id": "path",
-            "label": "path"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Modern backend frameworks organize routes into modular sub-routers.",
-            "values": {
-              "prefix": {
-                "text": "/api/v1/jobs"
-              },
-              "path": {
-                "text": "/"
-              }
-            },
-            "tones": {
-              "prefix": "data",
-              "path": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "The main application router mounts sub-routers under common path prefixes.",
-            "values": {
-              "prefix": {
-                "text": "/api/v1/jobs"
-              },
-              "path": {
-                "text": "/:id"
-              }
-            },
-            "tones": {
-              "prefix": "idle",
-              "path": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Isolating route sub-trees allows unit testing feature domains in isolation.",
-            "values": {
-              "prefix": {
-                "text": "/api/v1/jobs"
-              },
-              "path": {
-                "text": "/:id"
-              }
-            },
-            "tones": {
-              "prefix": "ok",
-              "path": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Modular sub-router mount configuration",
-        "boxes": [
-          {
-            "id": "prefix",
-            "label": "prefix"
-          },
-          {
-            "id": "path",
-            "label": "path"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Modern backend frameworks organize routes into modular sub-routers.",
-            "values": {
-              "prefix": "/api/v1/jobs",
-              "path": "/"
-            },
-            "tones": {
-              "prefix": "data",
-              "path": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "The main application router mounts sub-routers under common path prefixes.",
-            "values": {
-              "prefix": "/api/v1/jobs",
-              "path": "/:id"
-            },
-            "tones": {
-              "prefix": "idle",
-              "path": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Isolating route sub-trees allows unit testing feature domains in isolation.",
-            "values": {
-              "prefix": "/api/v1/jobs",
-              "path": "/:id"
-            },
-            "tones": {
-              "prefix": "ok",
-              "path": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Building a Fast Pattern-Matching Router Class",
-      "codeHash": "00929abfff3974f19ab7edcc6e0e72a3143e8d17dd18693d5c5fa734d5542a53",
-      "spec": {
-        "template": "flow",
-        "title": "Building a Fast Pattern-Matching Router Class — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building a Fast Pat...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building a Fast Pattern-Matching Router .. [D8.P6.S1].",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building a Fast Pat... [D8.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D8.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building a Fast Pattern-Matching .. [D8.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
           }
         ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Building a Fast Pattern-Matching Router Class — Execution Pipeline",
-        "nodes": [
+      }
+    },
+    {
+      "partTitle": "Implementing a Pure TypeScript Radix Trie Router",
+      "codeHash": "c12b55bd99de7124a0d773704ca7c869045e900e475b2e424ea4e7a3c3dbe00a",
+      "spec": {
+        "template": "boxes",
+        "title": "Architectural Partitions Implementing a Pure TypeScript Radix Trie Router.",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "boxA",
+            "label": "Primary Sector"
           },
           {
-            "id": "proc",
-            "label": "2. Building a Fast Pat...",
-            "tappable": true
+            "id": "boxB",
+            "label": "Secondary Sector"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "boxC",
+            "label": "Buffer Allocation"
+          },
+          {
+            "id": "boxD",
+            "label": "Resource Handle"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building a Fast Pattern-Matching Router .. [D8.P6.S1].",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Capturing Dynamic Route Parameters & Static Precedence",
+      "codeHash": "569895e9c22ec768c94a8dbf5c5b45c32b6b96e633f403ba7db58e4a1bd0c859",
+      "spec": {
+        "template": "stackQueue",
+        "title": "Queue Ordering Capturing Dynamic Route Parameters & Static Precedence.",
+        "elements": [
+          {
+            "id": "elemA",
+            "label": "Top Priority"
+          },
+          {
+            "id": "elemB",
+            "label": "Secondary Task"
+          },
+          {
+            "id": "elemC",
+            "label": "Pending Callback"
+          },
+          {
+            "id": "elemD",
+            "label": "Deferred Workload"
+          }
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building a Fast Pat... [D8.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D8.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building a Fast Pattern-Matching .. [D8.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Method Dispatch, RFC 405 & Allow Header Generation",
+      "codeHash": "20269710e517825434fa9e24fac420012a9cdf6f22dfbe8b637424bd1abdae4a",
+      "spec": {
+        "template": "sequence",
+        "title": "Sequence Coordination Method Dispatch, RFC & Allow Header Generation.",
+        "actors": [
+          {
+            "id": "client",
+            "label": "Request Origin"
+          },
+          {
+            "id": "driver",
+            "label": "Runtime Driver"
+          },
+          {
+            "id": "kernel",
+            "label": "Kernel Boundary"
+          },
+          {
+            "id": "subsystem",
+            "label": "Target Subsystem"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
+          },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Production Request Dispatcher & Benchmark Telemetry",
+      "codeHash": "0d7a44073e9fe93b587dffd91038e0b590839efcee540680b63c38d6fece33de",
+      "spec": {
+        "template": "compare",
+        "title": "Architectural Comparison Production Request Dispatcher & Benchmark Teleme.",
+        "left": {
+          "title": "Optimized Pattern",
+          "items": [
+            "Bounded latency",
+            "Deterministic execution",
+            "Zero resource leak"
+          ]
+        },
+        "right": {
+          "title": "Naive Pattern",
+          "items": [
+            "Unbounded growth",
+            "Blocking dispatch",
+            "Resource contention risk"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
+          },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
           }
         ]
       }

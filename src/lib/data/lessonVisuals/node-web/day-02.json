@@ -1,1068 +1,265 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "prefix": "node-web",
   "day": 2,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
+  "promptSha": "189ac5119bb06d80fcecbaf1c4a30b241a671667d9cf895af8066b27d3ff6f2f",
+  "model": "google/gemini-2.0-flash",
   "entries": [
     {
-      "partTitle": "ES Modules vs CommonJS: The Modern Standard",
-      "codeHash": "885084e5d3175d5a6dfa57edc566c2702e1bc36b1c327eb173aa8e9d761222a7",
-      "spec": {
-        "template": "table",
-        "title": "Module standards comparison",
-        "columns": [
-          "Standard",
-          "Syntax",
-          "Static Analysis"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "CommonJS loads modules synchronously from disk.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "CommonJS"
-                  },
-                  {
-                    "text": "require"
-                  },
-                  {
-                    "text": "CommonJS"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "ESM"
-                  },
-                  {
-                    "text": "import / export"
-                  },
-                  {
-                    "text": "true"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "ECMAScript Modules are the official standardized module format.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "CommonJS"
-                  },
-                  {
-                    "text": "require"
-                  },
-                  {
-                    "text": "CommonJS"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "ESM"
-                  },
-                  {
-                    "text": "import / export"
-                  },
-                  {
-                    "text": "true"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Native ESM guarantees that your code adheres to standard specifications.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "CommonJS"
-                  },
-                  {
-                    "text": "require"
-                  },
-                  {
-                    "text": "CommonJS"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "ESM"
-                  },
-                  {
-                    "text": "import / export"
-                  },
-                  {
-                    "text": "true"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "table",
-        "title": "Module standards comparison",
-        "columns": [
-          "Standard",
-          "Syntax",
-          "Static Analysis"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "CommonJS loads modules synchronously from disk.",
-            "rows": [
-              {
-                "cells": [
-                  "CommonJS",
-                  "require",
-                  "CommonJS"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "ESM",
-                  "import / export",
-                  "true"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "ECMAScript Modules are the official standardized module format.",
-            "rows": [
-              {
-                "cells": [
-                  "CommonJS",
-                  "require",
-                  "CommonJS"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "ESM",
-                  "import / export",
-                  "true"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Native ESM guarantees that your code adheres to standard specifications.",
-            "rows": [
-              {
-                "cells": [
-                  "CommonJS",
-                  "require",
-                  "CommonJS"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "ESM",
-                  "import / export",
-                  "true"
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Working with File and Directory URLs",
-      "codeHash": "5b13843046ed23c5378210bbef083c61273bacf6c5b9c2fb890593571ae9688d",
-      "spec": {
-        "template": "boxes",
-        "title": "Module URL specifier components",
-        "boxes": [
-          {
-            "id": "protocol",
-            "label": "protocol"
-          },
-          {
-            "id": "host",
-            "label": "host"
-          },
-          {
-            "id": "pathname",
-            "label": "pathname"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "In modern ECMAScript Modules import.meta provides file URLs.",
-            "values": {
-              "protocol": {
-                "text": "file"
-              },
-              "host": {
-                "text": "localhost"
-              },
-              "pathname": {
-                "text": "/var/app/dist/server.js"
-              }
-            },
-            "tones": {
-              "protocol": "data",
-              "host": "idle",
-              "pathname": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Node provides helper functions to convert file URLs to paths.",
-            "values": {
-              "protocol": {
-                "text": "file"
-              },
-              "host": {
-                "text": "localhost"
-              },
-              "pathname": {
-                "text": "/var/app/dist/server.js"
-              }
-            },
-            "tones": {
-              "protocol": "idle",
-              "host": "data",
-              "pathname": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Always anchor paths to import.meta.url rather than process.cwd().",
-            "values": {
-              "protocol": {
-                "text": "file"
-              },
-              "host": {
-                "text": "localhost"
-              },
-              "pathname": {
-                "text": "/var/app/dist/server.js"
-              }
-            },
-            "tones": {
-              "protocol": "ok",
-              "host": "ok",
-              "pathname": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Module URL specifier components",
-        "boxes": [
-          {
-            "id": "protocol",
-            "label": "protocol"
-          },
-          {
-            "id": "host",
-            "label": "host"
-          },
-          {
-            "id": "pathname",
-            "label": "pathname"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "In modern ECMAScript Modules import.meta provides file URLs.",
-            "values": {
-              "protocol": "file",
-              "host": "localhost",
-              "pathname": "/var/app/dist/server.js"
-            },
-            "tones": {
-              "protocol": "data",
-              "host": "idle",
-              "pathname": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Node provides helper functions to convert file URLs to paths.",
-            "values": {
-              "protocol": "file",
-              "host": "localhost",
-              "pathname": "/var/app/dist/server.js"
-            },
-            "tones": {
-              "protocol": "idle",
-              "host": "data",
-              "pathname": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Always anchor paths to import.meta.url rather than process.cwd().",
-            "values": {
-              "protocol": "file",
-              "host": "localhost",
-              "pathname": "/var/app/dist/server.js"
-            },
-            "tones": {
-              "protocol": "ok",
-              "host": "ok",
-              "pathname": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Path Resolution: path.join, path.resolve and path.normalize",
-      "codeHash": "8d83242bff0d3f6ac826b7198bbd3b9b5900f7f13593c92ec79a64b5c66da589",
+      "partTitle": "The Event Loop Macro-Architecture: Continuous Ticks & Phase Ordering",
+      "codeHash": "92299c87e3334170ea2797b8d4777dffb2e951f2aef9ccd5f4d0f70563c9e48d",
       "spec": {
         "template": "flow",
-        "title": "Path normalization pipeline",
+        "title": "Process Pipeline The Event Loop Macro-Architecture: Continuous Ticks & Ph.",
         "nodes": [
           {
-            "id": "base",
-            "label": "base"
+            "id": "stepA",
+            "label": "Initial Stage",
+            "type": "start"
           },
           {
-            "id": "endpoint",
-            "label": "endpoint"
+            "id": "stepB",
+            "label": "Processing Core",
+            "type": "process"
           },
           {
-            "id": "normalized",
-            "label": "normalized"
+            "id": "stepC",
+            "label": "Verification Check",
+            "type": "process"
+          },
+          {
+            "id": "stepD",
+            "label": "Terminal Output",
+            "type": "end"
           }
         ],
-        "steps": [
+        "edges": [
           {
-            "at": "say2",
-            "caption": "Never concatenate path strings with simple plus operators.",
-            "values": {
-              "base": {
-                "text": "/api/v1/"
-              },
-              "endpoint": {
-                "text": "/users/profile/"
-              },
-              "normalized": {
-                "text": "/etc/passwd"
-              }
-            },
-            "tones": {
-              "base": "data",
-              "endpoint": "idle",
-              "normalized": "idle"
-            },
-            "arrows": [
-              [
-                "base",
-                "endpoint"
-              ]
-            ]
+            "from": "stepA",
+            "to": "stepB",
+            "label": "Next"
           },
           {
-            "at": "say3",
-            "caption": "The path module provides cross-platform path utilities.",
-            "values": {
-              "base": {
-                "text": "/api/v1/"
-              },
-              "endpoint": {
-                "text": "/users/profile/"
-              },
-              "normalized": {
-                "text": "/etc/passwd"
-              }
-            },
-            "tones": {
-              "base": "idle",
-              "endpoint": "data",
-              "normalized": "ok"
-            },
-            "arrows": [
-              [
-                "endpoint",
-                "normalized"
-              ]
-            ]
+            "from": "stepB",
+            "to": "stepC",
+            "label": "Inspect"
           },
           {
-            "at": "say8",
-            "caption": "Path normalization protects against malicious directory traversal exploits.",
-            "values": {
-              "base": {
-                "text": "/api/v1/"
-              },
-              "endpoint": {
-                "text": "/users/profile/"
-              },
-              "normalized": {
-                "text": "/etc/passwd"
-              }
-            },
-            "tones": {
-              "base": "ok",
-              "endpoint": "ok",
-              "normalized": "ok"
-            },
-            "arrows": [
-              [
-                "base",
-                "normalized"
-              ]
-            ]
+            "from": "stepC",
+            "to": "stepD",
+            "label": "Complete"
           }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Path normalization pipeline",
-        "nodes": [
-          {
-            "id": "base",
-            "label": "base"
-          },
-          {
-            "id": "endpoint",
-            "label": "endpoint"
-          },
-          {
-            "id": "normalized",
-            "label": "normalized"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Never concatenate path strings with simple plus operators.",
-            "values": {
-              "base": "/api/v1/",
-              "endpoint": "/users/profile/",
-              "normalized": "/etc/passwd"
-            },
-            "tones": {
-              "base": "data",
-              "endpoint": "idle",
-              "normalized": "idle"
-            },
-            "arrows": [
-              [
-                "base",
-                "endpoint"
-              ]
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "The path module provides cross-platform path utilities.",
-            "values": {
-              "base": "/api/v1/",
-              "endpoint": "/users/profile/",
-              "normalized": "/etc/passwd"
-            },
-            "tones": {
-              "base": "idle",
-              "endpoint": "data",
-              "normalized": "ok"
-            },
-            "arrows": [
-              [
-                "endpoint",
-                "normalized"
-              ]
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Path normalization protects against malicious directory traversal exploits.",
-            "values": {
-              "base": "/api/v1/",
-              "endpoint": "/users/profile/",
-              "normalized": "/etc/passwd"
-            },
-            "tones": {
-              "base": "ok",
-              "endpoint": "ok",
-              "normalized": "ok"
-            },
-            "arrows": [
-              [
-                "base",
-                "normalized"
-              ]
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Named Exports, Default Exports, and Re-exporting",
-      "codeHash": "5cd1b558aa9df390c2b8033bc7ab1ed8ce5fb169ba9dbfdf819c036c6a5a5282",
-      "spec": {
-        "template": "boxes",
-        "title": "Modular export architecture",
-        "boxes": [
-          {
-            "id": "service",
-            "label": "defaultService"
-          },
-          {
-            "id": "utilities",
-            "label": "namedUtilities"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "A named export allows exporting multiple distinct functions by name.",
-            "values": {
-              "service": {
-                "text": "AuthenticationService"
-              },
-              "utilities": {
-                "text": "hashPassword"
-              }
-            },
-            "tones": {
-              "service": "data",
-              "utilities": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "A default export allows a module to declare a single primary export.",
-            "values": {
-              "service": {
-                "text": "AuthenticationService"
-              },
-              "utilities": {
-                "text": "verifyToken"
-              }
-            },
-            "tones": {
-              "service": "idle",
-              "utilities": "data"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Explicit named exports are strongly favored in production enterprise codebases.",
-            "values": {
-              "service": {
-                "text": "AuthenticationService"
-              },
-              "utilities": {
-                "text": "parseHeader"
-              }
-            },
-            "tones": {
-              "service": "ok",
-              "utilities": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Modular export architecture",
-        "boxes": [
-          {
-            "id": "service",
-            "label": "defaultService"
-          },
-          {
-            "id": "utilities",
-            "label": "namedUtilities"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "A named export allows exporting multiple distinct functions by name.",
-            "values": {
-              "service": "AuthenticationService",
-              "utilities": "hashPassword"
-            },
-            "tones": {
-              "service": "data",
-              "utilities": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "A default export allows a module to declare a single primary export.",
-            "values": {
-              "service": "AuthenticationService",
-              "utilities": "verifyToken"
-            },
-            "tones": {
-              "service": "idle",
-              "utilities": "data"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Explicit named exports are strongly favored in production enterprise codebases.",
-            "values": {
-              "service": "AuthenticationService",
-              "utilities": "parseHeader"
-            },
-            "tones": {
-              "service": "ok",
-              "utilities": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Package.json Module Configuration and \"type\": \"module\"",
-      "codeHash": "83465090c2ec1cad18efaa7403e3f8d683e5b1fa91ceda8e52007828b34b16bf",
-      "spec": {
-        "template": "table",
-        "title": "Package.json module manifest keys",
-        "columns": [
-          "Configuration Key",
-          "Configured Value",
-          "Runtime Meaning"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "To tell Node your project uses ESM set type module in package.json.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "type"
-                  },
-                  {
-                    "text": "module"
-                  },
-                  {
-                    "text": "type"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "main"
-                  },
-                  {
-                    "text": "dist/index.js"
-                  },
-                  {
-                    "text": "main"
-                  }
-                ],
-                "tone": "idle"
-              }
-            ]
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
           {
             "at": "say2",
-            "caption": "When type module is configured Node treats all js files as ESM.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "type"
-                  },
-                  {
-                    "text": "module"
-                  },
-                  {
-                    "text": "type"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "main"
-                  },
-                  {
-                    "text": "dist/index.js"
-                  },
-                  {
-                    "text": "main"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
           },
           {
-            "at": "say8",
-            "caption": "Combining package.json exports mapping allows clean import statements.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "type"
-                  },
-                  {
-                    "text": "module"
-                  },
-                  {
-                    "text": "type"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "main"
-                  },
-                  {
-                    "text": "dist/index.js"
-                  },
-                  {
-                    "text": "main"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "table",
-        "title": "Package.json module manifest keys",
-        "columns": [
-          "Configuration Key",
-          "Configured Value",
-          "Runtime Meaning"
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "To tell Node your project uses ESM set type module in package.json.",
-            "rows": [
-              {
-                "cells": [
-                  "type",
-                  "module",
-                  "type"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "main",
-                  "dist/index.js",
-                  "main"
-                ],
-                "tone": "idle"
-              }
-            ]
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
           },
           {
-            "at": "say2",
-            "caption": "When type module is configured Node treats all js files as ESM.",
-            "rows": [
-              {
-                "cells": [
-                  "type",
-                  "module",
-                  "type"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "main",
-                  "dist/index.js",
-                  "main"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Combining package.json exports mapping allows clean import statements.",
-            "rows": [
-              {
-                "cells": [
-                  "type",
-                  "module",
-                  "type"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "main",
-                  "dist/index.js",
-                  "main"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
           }
         ]
       }
     },
     {
-      "partTitle": "Handling Dynamic Imports and Conditional Loading",
-      "codeHash": "1b864e03a45fe2f1abfb17d74f09563caab5544e100155bcaff31e1401324c80",
+      "partTitle": "The Timers Phase: Min-Heap Priority Queues for setTimeout and setInterval",
+      "codeHash": "ec88dcbbff5744867a8ebf847a08577d89806c9199be3c050aa0e7908f08adbe",
       "spec": {
-        "template": "flow",
-        "title": "Handling Dynamic Imports and Conditional Loading — Execution Pipeline",
-        "nodes": [
+        "template": "boxes",
+        "title": "Architectural Partitions The Timers Phase: Min-Heap Priority Queues for s.",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "boxA",
+            "label": "Primary Sector"
           },
           {
-            "id": "proc",
-            "label": "2. Handling Dynamic Im...",
-            "tappable": true
+            "id": "boxB",
+            "label": "Secondary Sector"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "boxC",
+            "label": "Buffer Allocation"
+          },
+          {
+            "id": "boxD",
+            "label": "Resource Handle"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Handling Dynamic Imports and Conditional.. [D2.P6.S1].",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Handling Dynamic Im... [D2.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D2.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Handling Dynamic Imports and Cond.. [D2.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
           }
         ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Handling Dynamic Imports and Conditional Loading — Execution Pipeline",
-        "nodes": [
+      }
+    },
+    {
+      "partTitle": "The Pending Callbacks & Idle/Prepare Phases: Deferred System Operations",
+      "codeHash": "8ede639c5919e0fd3dee61531e3af60b15eaa1adbf2743d24e50ce09d8a03742",
+      "spec": {
+        "template": "stackQueue",
+        "title": "Queue Ordering The Pending Callbacks & Idle/Prepare Phases: Deferred Syst.",
+        "elements": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "elemA",
+            "label": "Top Priority"
           },
           {
-            "id": "proc",
-            "label": "2. Handling Dynamic Im...",
-            "tappable": true
+            "id": "elemB",
+            "label": "Secondary Task"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "elemC",
+            "label": "Pending Callback"
+          },
+          {
+            "id": "elemD",
+            "label": "Deferred Workload"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Handling Dynamic Imports and Conditional.. [D2.P6.S1].",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "The Poll Phase: I/O Demultiplexing, Socket Ingestion & Timeout Calculations",
+      "codeHash": "b3129cdd3f02601228b2b002c4198ee7cd8c2e6e9d06fe1a414a4da1e1a08e1f",
+      "spec": {
+        "template": "sequence",
+        "title": "Sequence Coordination The Poll Phase: I/O Demultiplexing, Socket Ingestio.",
+        "actors": [
+          {
+            "id": "client",
+            "label": "Request Origin"
+          },
+          {
+            "id": "driver",
+            "label": "Runtime Driver"
+          },
+          {
+            "id": "kernel",
+            "label": "Kernel Boundary"
+          },
+          {
+            "id": "subsystem",
+            "label": "Target Subsystem"
+          }
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Handling Dynamic Im... [D2.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D2.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Handling Dynamic Imports and Cond.. [D2.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "The Check and Close Callbacks Phases: setImmediate vs Closing File Descriptors",
+      "codeHash": "677b9421a35e798fd7989ac23b9f2df262e58da7884e4dae540bbf57f2dbfc75",
+      "spec": {
+        "template": "compare",
+        "title": "Architectural Comparison The Check and Close Callbacks Phases: setImmedia.",
+        "left": {
+          "title": "Optimized Pattern",
+          "items": [
+            "Bounded latency",
+            "Deterministic execution",
+            "Zero resource leak"
+          ]
+        },
+        "right": {
+          "title": "Naive Pattern",
+          "items": [
+            "Unbounded growth",
+            "Blocking dispatch",
+            "Resource contention risk"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
+          },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
           }
         ]
       }

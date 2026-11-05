@@ -1,906 +1,263 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "prefix": "node-web",
   "day": 13,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
   "entries": [
     {
-      "partTitle": "Why Human-Readable Text Logs Fail in Production",
-      "codeHash": "21d56e2a20b3ac712108a9092c537b68859df98928634df6d2c18ac442c2d05a",
-      "spec": {
-        "template": "boxes",
-        "title": "Unstructured text vs JSON log event",
-        "boxes": [
-          {
-            "id": "level",
-            "label": "level"
-          },
-          {
-            "id": "msg",
-            "label": "message"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "In clustered container environments unstructured text logs become unmanageable.",
-            "values": {
-              "level": {
-                "text": "ERROR"
-              },
-              "msg": {
-                "text": "Failed to save order"
-              }
-            },
-            "tones": {
-              "level": "data",
-              "msg": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Different log lines interleave randomly making identification difficult.",
-            "values": {
-              "level": {
-                "text": "ERROR"
-              },
-              "msg": {
-                "text": "Failed to save order"
-              }
-            },
-            "tones": {
-              "level": "idle",
-              "msg": "error"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Structured JSON logs can be ingested and aggregated by observability tools.",
-            "values": {
-              "level": {
-                "text": "ERROR"
-              },
-              "msg": {
-                "text": "Failed to save order"
-              }
-            },
-            "tones": {
-              "level": "ok",
-              "msg": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Unstructured text vs JSON log event",
-        "boxes": [
-          {
-            "id": "level",
-            "label": "level"
-          },
-          {
-            "id": "msg",
-            "label": "message"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "In clustered container environments unstructured text logs become unmanageable.",
-            "values": {
-              "level": "ERROR",
-              "msg": "Failed to save order"
-            },
-            "tones": {
-              "level": "data",
-              "msg": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Different log lines interleave randomly making identification difficult.",
-            "values": {
-              "level": "ERROR",
-              "msg": "Failed to save order"
-            },
-            "tones": {
-              "level": "idle",
-              "msg": "error"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Structured JSON logs can be ingested and aggregated by observability tools.",
-            "values": {
-              "level": "ERROR",
-              "msg": "Failed to save order"
-            },
-            "tones": {
-              "level": "ok",
-              "msg": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Structured JSON Log Schemas (level, time, msg, context)",
-      "codeHash": "38818227b781a04b0e57bc3414a593265fa4b65f0ab1e9d36150ef24db14d688",
-      "spec": {
-        "template": "boxes",
-        "title": "Structured log schema fields",
-        "boxes": [
-          {
-            "id": "service",
-            "label": "service"
-          },
-          {
-            "id": "level",
-            "label": "level"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Core attributes include timestamp level message and service name.",
-            "values": {
-              "service": {
-                "text": "pinit-api"
-              },
-              "level": {
-                "text": "INFO"
-              }
-            },
-            "tones": {
-              "service": "data",
-              "level": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Structured logs include contextual metadata like correlationId.",
-            "values": {
-              "service": {
-                "text": "pinit-api"
-              },
-              "level": {
-                "text": "INFO"
-              }
-            },
-            "tones": {
-              "service": "idle",
-              "level": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Modern loggers minimize memory allocation overhead during log serialization.",
-            "values": {
-              "service": {
-                "text": "pinit-api"
-              },
-              "level": {
-                "text": "INFO"
-              }
-            },
-            "tones": {
-              "service": "ok",
-              "level": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Structured log schema fields",
-        "boxes": [
-          {
-            "id": "service",
-            "label": "service"
-          },
-          {
-            "id": "level",
-            "label": "level"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Core attributes include timestamp level message and service name.",
-            "values": {
-              "service": "pinit-api",
-              "level": "INFO"
-            },
-            "tones": {
-              "service": "data",
-              "level": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Structured logs include contextual metadata like correlationId.",
-            "values": {
-              "service": "pinit-api",
-              "level": "INFO"
-            },
-            "tones": {
-              "service": "idle",
-              "level": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Modern loggers minimize memory allocation overhead during log serialization.",
-            "values": {
-              "service": "pinit-api",
-              "level": "INFO"
-            },
-            "tones": {
-              "service": "ok",
-              "level": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Log Levels Taxonomy: DEBUG, INFO, WARN, ERROR, FATAL",
-      "codeHash": "b748b83d289c1da2ab292a2ba1e04843a968407383bd5230bfe471b4691503f7",
-      "spec": {
-        "template": "table",
-        "title": "Log level taxonomy severity thresholds",
-        "columns": [
-          "Log Level",
-          "Severity Score",
-          "Production Status"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "DEBUG logs provide granular troubleshooting during local development.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "DEBUG"
-                  },
-                  {
-                    "text": "10"
-                  },
-                  {
-                    "text": "INFO"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "INFO"
-                  },
-                  {
-                    "text": "20"
-                  },
-                  {
-                    "text": "INFO"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "INFO represents normal expected application milestones.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "DEBUG"
-                  },
-                  {
-                    "text": "10"
-                  },
-                  {
-                    "text": "INFO"
-                  }
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "INFO"
-                  },
-                  {
-                    "text": "20"
-                  },
-                  {
-                    "text": "INFO"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "FATAL represents an unrecoverable failure that causes the process to exit.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "DEBUG"
-                  },
-                  {
-                    "text": "10"
-                  },
-                  {
-                    "text": "INFO"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "INFO"
-                  },
-                  {
-                    "text": "20"
-                  },
-                  {
-                    "text": "INFO"
-                  }
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "table",
-        "title": "Log level taxonomy severity thresholds",
-        "columns": [
-          "Log Level",
-          "Severity Score",
-          "Production Status"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "DEBUG logs provide granular troubleshooting during local development.",
-            "rows": [
-              {
-                "cells": [
-                  "DEBUG",
-                  "10",
-                  "INFO"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "INFO",
-                  "20",
-                  "INFO"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "INFO represents normal expected application milestones.",
-            "rows": [
-              {
-                "cells": [
-                  "DEBUG",
-                  "10",
-                  "INFO"
-                ],
-                "tone": "idle"
-              },
-              {
-                "cells": [
-                  "INFO",
-                  "20",
-                  "INFO"
-                ],
-                "tone": "data"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "FATAL represents an unrecoverable failure that causes the process to exit.",
-            "rows": [
-              {
-                "cells": [
-                  "DEBUG",
-                  "10",
-                  "INFO"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "INFO",
-                  "20",
-                  "INFO"
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Distributed Tracing with Correlation IDs (X-Request-ID)",
-      "codeHash": "6aea793036be8034f61439861d3502c09590a0b5cf18e8395c8d733f24d68e3e",
-      "spec": {
-        "template": "boxes",
-        "title": "Correlation ID header propagation",
-        "boxes": [
-          {
-            "id": "in",
-            "label": "incomingHeader"
-          },
-          {
-            "id": "out",
-            "label": "resolveCorrelationId"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Locating log messages across separate microservices requires tracing.",
-            "values": {
-              "in": {
-                "text": "client-trace-999"
-              },
-              "out": {
-                "text": "client-trace-999"
-              }
-            },
-            "tones": {
-              "in": "data",
-              "out": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Distributed tracing uses correlation IDs passed in HTTP headers.",
-            "values": {
-              "in": {
-                "text": "client-trace-999"
-              },
-              "out": {
-                "text": "client-trace-999"
-              }
-            },
-            "tones": {
-              "in": "idle",
-              "out": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Every service injects this correlationId into every structured log line.",
-            "values": {
-              "in": {
-                "text": "client-trace-999"
-              },
-              "out": {
-                "text": "client-trace-999"
-              }
-            },
-            "tones": {
-              "in": "ok",
-              "out": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Correlation ID header propagation",
-        "boxes": [
-          {
-            "id": "in",
-            "label": "incomingHeader"
-          },
-          {
-            "id": "out",
-            "label": "resolveCorrelationId"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Locating log messages across separate microservices requires tracing.",
-            "values": {
-              "in": "client-trace-999",
-              "out": "client-trace-999"
-            },
-            "tones": {
-              "in": "data",
-              "out": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Distributed tracing uses correlation IDs passed in HTTP headers.",
-            "values": {
-              "in": "client-trace-999",
-              "out": "client-trace-999"
-            },
-            "tones": {
-              "in": "idle",
-              "out": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Every service injects this correlationId into every structured log line.",
-            "values": {
-              "in": "client-trace-999",
-              "out": "client-trace-999"
-            },
-            "tones": {
-              "in": "ok",
-              "out": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Data Sanitization: Redacting Passwords, Tokens & PII",
-      "codeHash": "81e8ef3bf7f43346314fd9493f89973037e20163303066bca8a79b1863b2fc9e",
-      "spec": {
-        "template": "boxes",
-        "title": "Sensitive credential redaction pattern",
-        "boxes": [
-          {
-            "id": "user",
-            "label": "username"
-          },
-          {
-            "id": "pass",
-            "label": "password"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Logging raw request bodies risks storing plain text passwords.",
-            "values": {
-              "user": {
-                "text": "kavita"
-              },
-              "pass": {
-                "text": "password"
-              }
-            },
-            "tones": {
-              "user": "data",
-              "pass": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Sensitive field redaction prevents leaking credentials to dashboards.",
-            "values": {
-              "user": {
-                "text": "kavita"
-              },
-              "pass": {
-                "text": "[REDACTED]"
-              }
-            },
-            "tones": {
-              "user": "ok",
-              "pass": "error"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Whenever a matching sensitive key is detected its value is replaced.",
-            "values": {
-              "user": {
-                "text": "kavita"
-              },
-              "pass": {
-                "text": "[REDACTED]"
-              }
-            },
-            "tones": {
-              "user": "ok",
-              "pass": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Sensitive credential redaction pattern",
-        "boxes": [
-          {
-            "id": "user",
-            "label": "username"
-          },
-          {
-            "id": "pass",
-            "label": "password"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Logging raw request bodies risks storing plain text passwords.",
-            "values": {
-              "user": "kavita",
-              "pass": "password"
-            },
-            "tones": {
-              "user": "data",
-              "pass": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Sensitive field redaction prevents leaking credentials to dashboards.",
-            "values": {
-              "user": "kavita",
-              "pass": "[REDACTED]"
-            },
-            "tones": {
-              "user": "ok",
-              "pass": "error"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Whenever a matching sensitive key is detected its value is replaced.",
-            "values": {
-              "user": "kavita",
-              "pass": "[REDACTED]"
-            },
-            "tones": {
-              "user": "ok",
-              "pass": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Building a Zero-Dependency Structured Logger",
-      "codeHash": "aa04ee7aea1969f86afad660952340963b73d991bc9bb97d59cdf794f33a9184",
+      "partTitle": "ACID Guarantees & Transaction Boundaries in Node.js",
+      "codeHash": "05223d0becc52dabb9053c81760311f03c2e628eddf4a9b8d5394ae148961243",
       "spec": {
         "template": "flow",
-        "title": "Building a Zero-Dependency Structured Logger — Execution Pipeline",
+        "title": "Process Pipeline ACID Guarantees & Transaction Boundaries in Node.js.",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "stepA",
+            "label": "Initial Stage",
+            "type": "start"
           },
           {
-            "id": "proc",
-            "label": "2. Building a Zero-Dep...",
-            "tappable": true
+            "id": "stepB",
+            "label": "Processing Core",
+            "type": "process"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "stepC",
+            "label": "Verification Check",
+            "type": "process"
+          },
+          {
+            "id": "stepD",
+            "label": "Terminal Output",
+            "type": "end"
+          }
+        ],
+        "edges": [
+          {
+            "from": "stepA",
+            "to": "stepB",
+            "label": "Next"
+          },
+          {
+            "from": "stepB",
+            "to": "stepC",
+            "label": "Inspect"
+          },
+          {
+            "from": "stepC",
+            "to": "stepD",
+            "label": "Complete"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building a Zero-Dependency Structured Lo.. [D13.P6.S1].",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building a Zero-Dep... [D13.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D13.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building a Zero-Dependency Struct.. [D13.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
           }
         ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Building a Zero-Dependency Structured Logger — Execution Pipeline",
-        "nodes": [
+      }
+    },
+    {
+      "partTitle": "SQL Isolation Levels & Concurrency Anomalies",
+      "codeHash": "57a512b55dcfac2dfc1358825eb62cd592e97c06cdff84975922e39b36d96f91",
+      "spec": {
+        "template": "boxes",
+        "title": "Architectural Partitions SQL Isolation Levels & Concurrency Anomalies.",
+        "boxes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "boxA",
+            "label": "Primary Sector"
           },
           {
-            "id": "proc",
-            "label": "2. Building a Zero-Dep...",
-            "tappable": true
+            "id": "boxB",
+            "label": "Secondary Sector"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "boxC",
+            "label": "Buffer Allocation"
+          },
+          {
+            "id": "boxD",
+            "label": "Resource Handle"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building a Zero-Dependency Structured Lo.. [D13.P6.S1].",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Pessimistic vs Optimistic Locking",
+      "codeHash": "79eca127f4440a2b83e8a99d71ffba6b7b2fd0389d4e19119e2f73de80bf0ae8",
+      "spec": {
+        "template": "stackQueue",
+        "title": "Queue Ordering Pessimistic vs Optimistic Locking.",
+        "elements": [
+          {
+            "id": "elemA",
+            "label": "Top Priority"
+          },
+          {
+            "id": "elemB",
+            "label": "Secondary Task"
+          },
+          {
+            "id": "elemC",
+            "label": "Pending Callback"
+          },
+          {
+            "id": "elemD",
+            "label": "Deferred Workload"
+          }
+        ],
+        "steps": [
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building a Zero-Dep... [D13.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D13.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building a Zero-Dependency Struct.. [D13.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Distributed Locks & Postgres Advisory Locks",
+      "codeHash": "4a49ff06655f4defd9527e7daf77765220e1eaf76e1f4d1dd8d6e0ddd1612038",
+      "spec": {
+        "template": "sequence",
+        "title": "Sequence Coordination Distributed Locks & Postgres Advisory Locks.",
+        "actors": [
+          {
+            "id": "client",
+            "label": "Request Origin"
+          },
+          {
+            "id": "driver",
+            "label": "Runtime Driver"
+          },
+          {
+            "id": "kernel",
+            "label": "Kernel Boundary"
+          },
+          {
+            "id": "subsystem",
+            "label": "Target Subsystem"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
+          },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Enterprise Transaction Engine with Automatic Deadlock Retries",
+      "codeHash": "060e72e276efc0a8f619ad32d899ce8023a8e76a9b27707ab2d4315a6dd54e1b",
+      "spec": {
+        "template": "compare",
+        "title": "Architectural Comparison Enterprise Transaction Engine with Automatic Dea.",
+        "left": {
+          "title": "Optimized Pattern",
+          "items": [
+            "Bounded latency",
+            "Deterministic execution",
+            "Zero resource leak"
+          ]
+        },
+        "right": {
+          "title": "Naive Pattern",
+          "items": [
+            "Unbounded growth",
+            "Blocking dispatch",
+            "Resource contention risk"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Runtime initializes structural execution state for part.",
+            "values": {}
+          },
+          {
+            "at": "say2",
+            "caption": "Engine schedules transaction parameters across execution phase.",
+            "values": {}
+          },
+          {
+            "at": "say3",
+            "caption": "Subsystem processes asynchronous callbacks with bounded latency.",
+            "values": {}
+          },
+          {
+            "at": "say4",
+            "caption": "Execution pipeline completes without memory leaks or stalls.",
+            "values": {}
           }
         ]
       }
