@@ -9,9 +9,21 @@
 // This version only adds the header. It never reroutes, never changes the method, body or
 // response (streams keep streaming), and leaves alone requests that already have an
 // Authorization header, other origins (Supabase, CDNs) and non-API paths.
-import { supabase } from './supabaseClient';
+import { supabase, isSupabaseConfigured } from './supabaseClient';
 
 let installed = false;
+let cachedToken: string = '';
+let tokenCachedAt: number = 0;
+const TOKEN_CACHE_TTL = 30_000; // 30s in-memory cache to prevent blocking every fetch
+
+if (typeof window !== 'undefined' && isSupabaseConfigured()) {
+  try {
+    supabase.auth.onAuthStateChange((_event, session) => {
+      cachedToken = session?.access_token ?? '';
+      tokenCachedAt = Date.now();
+    });
+  } catch {}
+}
 
 function isSameOriginApi(input: RequestInfo | URL): boolean {
   try {
@@ -24,9 +36,16 @@ function isSameOriginApi(input: RequestInfo | URL): boolean {
 }
 
 async function currentAccessToken(): Promise<string> {
+  if (!isSupabaseConfigured()) return '';
+  const now = Date.now();
+  if (cachedToken && (now - tokenCachedAt < TOKEN_CACHE_TTL)) {
+    return cachedToken;
+  }
   try {
     const { data } = await supabase.auth.getSession();
-    return data.session?.access_token ?? '';
+    cachedToken = data.session?.access_token ?? '';
+    tokenCachedAt = now;
+    return cachedToken;
   } catch {
     return '';
   }
