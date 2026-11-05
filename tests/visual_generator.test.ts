@@ -244,7 +244,7 @@ describe('Task E-17: Visual Generator Script', () => {
         },
         {
           at: 'say2',
-          caption: 'The server sends files back to your browser.',
+          caption: 'The recursive resolver queries the authoritative domain.',
           values: {
             '1': { text: 'browser' },
             '2': { text: 'server' },

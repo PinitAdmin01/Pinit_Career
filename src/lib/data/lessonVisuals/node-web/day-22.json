@@ -1,835 +1,306 @@
-{
-  "schemaVersion": 1,
-  "prefix": "node-web",
-  "day": 22,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
-    {
-      "partTitle": "Composable Predicate Filtering in Repositories",
-      "codeHash": "bfff68d59d78c9f4404199dc8b8a9a78f71674865f759049fbd253983d9b4347",
-      "spec": {
-        "template": "boxes",
-        "title": "Job entity predicate filter matching",
-        "boxes": [
-          {
-            "id": "title",
-            "label": "title"
-          },
-          {
-            "id": "remote",
-            "label": "remote"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say4",
-            "caption": "Composable predicate filtering passes higher order criteria functions.",
-            "values": {
-              "title": {
-                "text": "Staff Architect"
-              },
-              "remote": {
-                "text": "true"
-              }
-            },
-            "tones": {
-              "title": "data",
-              "remote": "idle"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Predicates combined using logical combinators construct dynamic filters.",
-            "values": {
-              "title": {
-                "text": "Staff Architect"
-              },
-              "remote": {
-                "text": "true"
-              }
-            },
-            "tones": {
-              "title": "data",
-              "remote": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Pure predicate functions can be tested in isolation before composition.",
-            "values": {
-              "title": {
-                "text": "Staff Architect"
-              },
-              "remote": {
-                "text": "true"
-              }
-            },
-            "tones": {
-              "title": "ok",
-              "remote": "ok"
-            }
-          }
+[
+  {
+    "schemaVersion": 2,
+    "partIndex": 1,
+    "codeHash": "026f00fbd97a06852b06d070a65c4c87f8bbdfaf98a21a1bd6690e95e42ff229",
+    "spec": {
+      "template": "flow",
+      "title": "Process Pipeline Shared Memory Architecture vs Message Passing.",
+      "nodes": [
+        {
+          "id": "stepA",
+          "label": "Worker Thread Spawner",
+          "type": "start"
+        },
+        {
+          "id": "stepB",
+          "label": "Atomic Memory Buffer",
+          "type": "process"
+        },
+        {
+          "id": "stepC",
+          "label": "Execution Coordinator",
+          "type": "process"
+        },
+        {
+          "id": "stepD",
+          "label": "Output Event Stream",
+          "type": "end"
+        }
+      ],
+      "edges": [
+        {
+          "from": "stepA",
+          "to": "stepB",
+          "label": "Alloc"
+        },
+        {
+          "from": "stepB",
+          "to": "stepC",
+          "label": "Lock"
+        },
+        {
+          "from": "stepC",
+          "to": "stepD",
+          "label": "Emit"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Concurrency engine initializes parallel memory structures safely.",
+        "highlight": [
+          "stepA"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Job entity predicate filter matching",
-        "boxes": [
-          {
-            "id": "title",
-            "label": "title"
-          },
-          {
-            "id": "remote",
-            "label": "remote"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say4",
-            "caption": "Composable predicate filtering passes higher order criteria functions.",
-            "values": {
-              "title": "Staff Architect",
-              "remote": "true"
-            },
-            "tones": {
-              "title": "data",
-              "remote": "idle"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Predicates combined using logical combinators construct dynamic filters.",
-            "values": {
-              "title": "Staff Architect",
-              "remote": "true"
-            },
-            "tones": {
-              "title": "data",
-              "remote": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Pure predicate functions can be tested in isolation before composition.",
-            "values": {
-              "title": "Staff Architect",
-              "remote": "true"
-            },
-            "tones": {
-              "title": "ok",
-              "remote": "ok"
-            }
-          }
+      {
+        "step": 2,
+        "caption": "Atomic operations enforce mutual exclusion without kernel pauses.",
+        "highlight": [
+          "stepB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Worker thread processes tasks and coordinates backpressured flow.",
+        "highlight": [
+          "stepC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Execution completes cleanly with bounded memory utilization.",
+        "highlight": [
+          "stepD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 2,
+    "codeHash": "5db3f79e41b3fc318101677410d8bbf77e5a8de38fbe890776a4237788b1f61d",
+    "spec": {
+      "template": "boxes",
+      "title": "Architectural Partitions Concurrency Anomalies & Data Races in Shared Mem.",
+      "boxes": [
+        {
+          "id": "boxA",
+          "label": "Cluster Primary Node"
+        },
+        {
+          "id": "boxB",
+          "label": "Worker Process Pool"
+        },
+        {
+          "id": "boxC",
+          "label": "Shared Ring Buffer"
+        },
+        {
+          "id": "boxD",
+          "label": "Persistent Task Broker"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Concurrency engine initializes parallel memory structures safely.",
+        "highlight": [
+          "boxA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Atomic operations enforce mutual exclusion without kernel pauses.",
+        "highlight": [
+          "boxB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Worker thread processes tasks and coordinates backpressured flow.",
+        "highlight": [
+          "boxC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Execution completes cleanly with bounded memory utilization.",
+        "highlight": [
+          "boxD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 3,
+    "codeHash": "898477e060e06ccac1aaeed757fec9735978f6d030e55b06a64ca5cedf519d5c",
+    "spec": {
+      "template": "stackQueue",
+      "title": "Task Pipeline Queue The Atomics API: Atomic RMW Operations & Memory Fence.",
+      "elements": [
+        {
+          "id": "elemA",
+          "label": "Waiting Priority Task"
+        },
+        {
+          "id": "elemB",
+          "label": "Active Working Lease"
+        },
+        {
+          "id": "elemC",
+          "label": "Delayed Timer Task"
+        },
+        {
+          "id": "elemD",
+          "label": "Dead Letter Quarantine"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Concurrency engine initializes parallel memory structures safely.",
+        "highlight": [
+          "elemA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Atomic operations enforce mutual exclusion without kernel pauses.",
+        "highlight": [
+          "elemB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Worker thread processes tasks and coordinates backpressured flow.",
+        "highlight": [
+          "elemC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Execution completes cleanly with bounded memory utilization.",
+        "highlight": [
+          "elemD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 4,
+    "codeHash": "caf56a01027aa0afea2c5407794fddad46f57e95cd491eb6f73a7c0995a8d54c",
+    "spec": {
+      "template": "sequence",
+      "title": "Sequence Coordination Thread Coordination with Atomics.wait() & Atomics.n.",
+      "actors": [
+        {
+          "id": "primary",
+          "label": "Primary Process"
+        },
+        {
+          "id": "worker",
+          "label": "Compute Worker"
+        },
+        {
+          "id": "broker",
+          "label": "Redis Task Broker"
+        },
+        {
+          "id": "storage",
+          "label": "Durable Store"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Concurrency engine initializes parallel memory structures safely.",
+        "highlight": [
+          "elemA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Atomic operations enforce mutual exclusion without kernel pauses.",
+        "highlight": [
+          "elemB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Worker thread processes tasks and coordinates backpressured flow.",
+        "highlight": [
+          "elemC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Execution completes cleanly with bounded memory utilization.",
+        "highlight": [
+          "elemD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 5,
+    "codeHash": "95f33ffada1510b1db4944491f0c1d118077e617fbbb88883679afcb51fc98a3",
+    "spec": {
+      "template": "compare",
+      "title": "Concurrency Architecture Production Lock-Free Circular Ring Buffer (SPSC.",
+      "left": {
+        "title": "Distributed Queue",
+        "items": [
+          "Atomic transitions",
+          "Full jitter backoff",
+          "Durable state"
+        ]
+      },
+      "right": {
+        "title": "In Memory Async",
+        "items": [
+          "Lost on restart",
+          "Unbounded spikes",
+          "Zero fault isolation"
         ]
       }
     },
-    {
-      "partTitle": "Dynamic Sorting Strategies and Comparator Functions",
-      "codeHash": "7e947f7ca2b39512ad585ffb84c482b5e7015dc6923c441bcf110211fe4c5fe7",
-      "spec": {
-        "template": "boxes",
-        "title": "Candidate ranking comparator fields",
-        "boxes": [
-          {
-            "id": "name",
-            "label": "name"
-          },
-          {
-            "id": "score",
-            "label": "score"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Sorting is governed by comparator functions returning negative or positive.",
-            "values": {
-              "name": {
-                "text": "Alice"
-              },
-              "score": {
-                "text": "95"
-              }
-            },
-            "tones": {
-              "name": "data",
-              "score": "idle"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "String fields use localeCompare to ensure international character ordering.",
-            "values": {
-              "name": {
-                "text": "Bob"
-              },
-              "score": {
-                "text": "91"
-              }
-            },
-            "tones": {
-              "name": "ok",
-              "score": "data"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Ensuring strict tie breakers guarantees deterministic pagination orders.",
-            "values": {
-              "name": {
-                "text": "Charlie"
-              },
-              "score": {
-                "text": "88"
-              }
-            },
-            "tones": {
-              "name": "ok",
-              "score": "ok"
-            }
-          }
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Concurrency engine initializes parallel memory structures safely.",
+        "highlight": [
+          "elemA"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Candidate ranking comparator fields",
-        "boxes": [
-          {
-            "id": "name",
-            "label": "name"
-          },
-          {
-            "id": "score",
-            "label": "score"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Sorting is governed by comparator functions returning negative or positive.",
-            "values": {
-              "name": "Alice",
-              "score": "95"
-            },
-            "tones": {
-              "name": "data",
-              "score": "idle"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "String fields use localeCompare to ensure international character ordering.",
-            "values": {
-              "name": "Bob",
-              "score": "91"
-            },
-            "tones": {
-              "name": "ok",
-              "score": "data"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Ensuring strict tie breakers guarantees deterministic pagination orders.",
-            "values": {
-              "name": "Charlie",
-              "score": "88"
-            },
-            "tones": {
-              "name": "ok",
-              "score": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Slicing and Windowing Datasets for Pagination",
-      "codeHash": "2f06c128a6edfb8c240e17a99d015551230992c13c7ffbe57e6b20c2340d9531",
-      "spec": {
-        "template": "boxes",
-        "title": "Pagination window slicing parameters",
-        "boxes": [
-          {
-            "id": "total",
-            "label": "total"
-          },
-          {
-            "id": "hasMore",
-            "label": "hasMore"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "A repository pagination method accepts query parameters for windowing.",
-            "values": {
-              "total": {
-                "text": "total"
-              },
-              "hasMore": {
-                "text": "hasMore"
-              }
-            },
-            "tones": {
-              "total": "data",
-              "hasMore": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "The repository captures the total matching count before slicing windows.",
-            "values": {
-              "total": {
-                "text": "total"
-              },
-              "hasMore": {
-                "text": "hasMore"
-              }
-            },
-            "tones": {
-              "total": "ok",
-              "hasMore": "data"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Returning both window slice and count supports standard pagination envelopes.",
-            "values": {
-              "total": {
-                "text": "total"
-              },
-              "hasMore": {
-                "text": "hasMore"
-              }
-            },
-            "tones": {
-              "total": "ok",
-              "hasMore": "ok"
-            }
-          }
+      {
+        "step": 2,
+        "caption": "Atomic operations enforce mutual exclusion without kernel pauses.",
+        "highlight": [
+          "elemB"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Pagination window slicing parameters",
-        "boxes": [
-          {
-            "id": "total",
-            "label": "total"
-          },
-          {
-            "id": "hasMore",
-            "label": "hasMore"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "A repository pagination method accepts query parameters for windowing.",
-            "values": {
-              "total": "total",
-              "hasMore": "hasMore"
-            },
-            "tones": {
-              "total": "data",
-              "hasMore": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "The repository captures the total matching count before slicing windows.",
-            "values": {
-              "total": "total",
-              "hasMore": "hasMore"
-            },
-            "tones": {
-              "total": "ok",
-              "hasMore": "data"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Returning both window slice and count supports standard pagination envelopes.",
-            "values": {
-              "total": "total",
-              "hasMore": "hasMore"
-            },
-            "tones": {
-              "total": "ok",
-              "hasMore": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Immutable Record Mutations and Avoiding In-Place Side Effects",
-      "codeHash": "5677282ac73884f083572acaeacd4c478ce0043194f1baf817a2cc0fde34dca3",
-      "spec": {
-        "template": "boxes",
-        "title": "Immutable user record update attributes",
-        "boxes": [
-          {
-            "id": "name",
-            "label": "name"
-          },
-          {
-            "id": "version",
-            "label": "version"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say3",
-            "caption": "Professional repositories enforce immutable state mutations on entities.",
-            "values": {
-              "name": {
-                "text": "David"
-              },
-              "version": {
-                "text": "1"
-              }
-            },
-            "tones": {
-              "name": "data",
-              "version": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "In TypeScript immutable updates use object spread syntax to create copies.",
-            "values": {
-              "name": {
-                "text": "David K."
-              },
-              "version": {
-                "text": "1"
-              }
-            },
-            "tones": {
-              "name": "ok",
-              "version": "data"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Immutability simplifies debugging and guarantees reliable state auditing.",
-            "values": {
-              "name": {
-                "text": "David K."
-              },
-              "version": {
-                "text": "1"
-              }
-            },
-            "tones": {
-              "name": "ok",
-              "version": "ok"
-            }
-          }
+      {
+        "step": 3,
+        "caption": "Worker thread processes tasks and coordinates backpressured flow.",
+        "highlight": [
+          "elemC"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Immutable user record update attributes",
-        "boxes": [
-          {
-            "id": "name",
-            "label": "name"
-          },
-          {
-            "id": "version",
-            "label": "version"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say3",
-            "caption": "Professional repositories enforce immutable state mutations on entities.",
-            "values": {
-              "name": "David",
-              "version": "1"
-            },
-            "tones": {
-              "name": "data",
-              "version": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "In TypeScript immutable updates use object spread syntax to create copies.",
-            "values": {
-              "name": "David K.",
-              "version": "1"
-            },
-            "tones": {
-              "name": "ok",
-              "version": "data"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Immutability simplifies debugging and guarantees reliable state auditing.",
-            "values": {
-              "name": "David K.",
-              "version": "1"
-            },
-            "tones": {
-              "name": "ok",
-              "version": "ok"
-            }
-          }
+      {
+        "step": 4,
+        "caption": "Execution completes cleanly with bounded memory utilization.",
+        "highlight": [
+          "elemD"
         ]
       }
-    },
-    {
-      "partTitle": "Automatic Audit Timestamps (createdAt, updatedAt)",
-      "codeHash": "6a3d9ff1580d7db750c3af2d1725f647b6a57c2b1317415327561b9b9913f191",
-      "spec": {
-        "template": "boxes",
-        "title": "Audit timestamp manager record metadata",
-        "boxes": [
-          {
-            "id": "created",
-            "label": "createdAt"
-          },
-          {
-            "id": "updated",
-            "label": "updatedAt"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Every database record should track createdAt and updatedAt timestamps.",
-            "values": {
-              "created": {
-                "text": "1000"
-              },
-              "updated": {
-                "text": "1000"
-              }
-            },
-            "tones": {
-              "created": "data",
-              "updated": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "UpdatedAt records the timestamp of the most recent modification automatically.",
-            "values": {
-              "created": {
-                "text": "1000"
-              },
-              "updated": {
-                "text": "1500"
-              }
-            },
-            "tones": {
-              "created": "data",
-              "updated": "ok"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Automated audit timestamps provide a reliable audit trail for compliance.",
-            "values": {
-              "created": {
-                "text": "1000"
-              },
-              "updated": {
-                "text": "1500"
-              }
-            },
-            "tones": {
-              "created": "ok",
-              "updated": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Audit timestamp manager record metadata",
-        "boxes": [
-          {
-            "id": "created",
-            "label": "createdAt"
-          },
-          {
-            "id": "updated",
-            "label": "updatedAt"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Every database record should track createdAt and updatedAt timestamps.",
-            "values": {
-              "created": "1000",
-              "updated": "1000"
-            },
-            "tones": {
-              "created": "data",
-              "updated": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "UpdatedAt records the timestamp of the most recent modification automatically.",
-            "values": {
-              "created": "1000",
-              "updated": "1500"
-            },
-            "tones": {
-              "created": "data",
-              "updated": "ok"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Automated audit timestamps provide a reliable audit trail for compliance.",
-            "values": {
-              "created": "1000",
-              "updated": "1500"
-            },
-            "tones": {
-              "created": "ok",
-              "updated": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Building an Advanced Queryable Repository Engine",
-      "codeHash": "bb0dead2d50a481f4b4560d7830d9e7eff4e1c5a0fc1bbdeefc24b6a5ba962f1",
-      "spec": {
-        "template": "flow",
-        "title": "Building an Advanced Queryable Repository Engine — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building an Advance...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building an Advanced Queryable Repositor.. [D22.P6.S1].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building an Advance... [D22.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D22.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building an Advanced Queryable Re.. [D22.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Building an Advanced Queryable Repository Engine — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building an Advance...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building an Advanced Queryable Repositor.. [D22.P6.S1].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building an Advance... [D22.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D22.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building an Advanced Queryable Re.. [D22.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      }
-    }
-  ]
-}
+    ]
+  }
+]

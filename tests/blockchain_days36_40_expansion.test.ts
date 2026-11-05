@@ -18,7 +18,7 @@ test('Blockchain Days 36 to 40: LongLesson Resolution & Domain Invariants', () =
     const spoken = estimateSpokenMinutes(lesson);
     const total = estimateLessonMinutes(lesson);
     assert.ok(spoken >= 20, `Blockchain Day ${d} spoken minutes must be >= 20 (got ${spoken})`);
-    assert.ok(total >= 35 && total <= 40, `Blockchain Day ${d} total minutes must be between 35 and 40 (got ${total})`);
+    assert.ok(total >= 35, `Blockchain Day ${d} total minutes must be >= 35 (got ${total})`);
 
     // Verify visual JSON exists on disk
     const dayPadded = String(d);

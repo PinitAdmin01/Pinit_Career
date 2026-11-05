@@ -182,156 +182,171 @@ export const NODE_WEB_DAYS: DayConfig[] = [
   // ── WEEK 4: Security, Authentication & Resiliency ─────────────────────────
   {
     day: 16,
-    title: 'Password Security & Cryptographic Hashing',
-    desc: 'Understand cryptographic password security, salt generation, slow key-derivation functions, and timing-attack defense.',
+    title: 'Password Security, Key Derivation & Timing Attack Defense',
+    desc: 'Master information-theoretic password entropy, cryptographic salt physics, memory-hard Argon2id derivation, and constant-time verification.',
     syllabus: [
-      'Why fast hashes (MD5, SHA-256) are dangerous for password storage.',
-      'Salts, work factors, and key-stretching functions (bcrypt/Argon2 concepts).',
-      'Timing-safe comparisons to prevent side-channel timing attacks.'
+      'Shannon entropy mathematics and password space calculation.',
+      'Why fast hashing functions (MD5, SHA-256) fail under GPU/ASIC attacks.',
+      'Memory-hard key derivation functions (Argon2id parameters: memory, iterations, parallelism).',
+      'Constant-time verification with crypto.timingSafeEqual to prevent side-channel timing attacks.'
     ]
   },
   {
     day: 17,
-    title: 'Stateful Sessions vs Stateless Bearer Tokens',
-    desc: 'Compare session-based authentication using cookies with stateless token-based authentication using HTTP Bearer tokens.',
+    title: 'JSON Web Tokens (JWT), Cryptographic Signatures & JWS/JWE',
+    desc: 'Master RFC 7519 JWS token framing, Base64URL encoding, symmetric HMAC vs asymmetric RSA/ECDSA signatures, algorithm confusion mitigation, and JWKS key rotation.',
     syllabus: [
-      'Session stores, session cookies, HttpOnly, and SameSite attributes.',
-      'Bearer token authentication flow via Authorization header.',
-      'Architectural trade-offs: server memory, horizontal scaling, and revocation.'
+      'Anatomy of RFC 7519 JWS compact serialization and Base64URL encoding mechanics.',
+      'Symmetric HMAC (HS256) vs Asymmetric RSA/ECDSA (RS256/ES256) blast-radius isolation.',
+      'Mitigating the "none" algorithm exploit and Algorithm Confusion key attacks.',
+      'Zero-downtime distributed key rotation via JSON Web Key Sets (JWKS) endpoints.'
     ]
   },
   {
     day: 18,
-    title: 'JSON Web Tokens (JWT): Structure & Verification',
-    desc: 'Deconstruct JWT header, payload, and signature components, implementing strict expiration (exp) and validity checks.',
+    title: 'Distributed Session Architecture, Redis Token Stores & Refresh Token Rotation',
+    desc: 'Master stateful vs stateless session trade-offs, externalized Redis session storage, atomic SET NX EX leases, and Refresh Token Rotation with automatic breach invalidation.',
     syllabus: [
-      'JWT three-part structure: base64url(header).base64url(payload).signature.',
-      'Standard claims: iss (issuer), sub (subject), aud (audience), exp (expiration).',
-      'Validating token expiration, not-before (nbf), and signature tampering.'
+      'In-memory session scaling bottlenecks, sticky session failure modes, and externalized Redis stores.',
+      'Redis wire protocol (RESP) and atomic session leases via SET NX EX.',
+      'Dual-token architecture with single-use Refresh Token Rotation (RTR).',
+      'Automatic token theft detection and distributed breach invalidation across active devices.'
     ]
   },
   {
     day: 19,
-    title: 'Role-Based Access Control (RBAC) & Route Guards',
-    desc: 'Implement authorization layers checking user roles and explicit permission scopes before allowing route access.',
+    title: 'Fine-Grained Authorization: RBAC vs ABAC, Permission Bitflags & Policy Decision Points (PDP)',
+    desc: 'Master AuthN vs AuthZ decoupling, Permission-Based Access Control, single-cycle 32-bit Permission Bitflags, ABAC contextual evaluation, and hierarchical wildcard globbing.',
     syllabus: [
-      'RBAC primitives: users, roles (admin, member, viewer), and permissions.',
-      'Role hierarchy and permission set evaluation.',
-      'Route authorization guards returning 401 Unauthorized vs 403 Forbidden.'
+      'AuthN vs AuthZ decoupling and eliminating RBAC role explosion through granular capabilities.',
+      'Single-cycle 32-bit and 64-bit Permission Bitflags using bitwise operators (&, |, ~, ^).',
+      'Attribute-Based Access Control (ABAC) evaluating Subject, Resource, Action, and Environment.',
+      'Hierarchical resource paths, wildcard globbing (* and **), and Deny-Takes-Precedence resolution.'
     ]
   },
   {
     day: 20,
-    title: 'API Security: Rate Limiting, CORS & Input Sanitization',
-    desc: 'Protect backend endpoints against brute-force attacks, cross-origin request abuse, and injection with rate limiting and CORS headers.',
+    title: 'Perimeter Security: CORS Preflight, Helmet Headers, CSP Nonces & CSRF Protection',
+    desc: 'Master Same-Origin Policy relaxation via CORS preflights, Defense-in-Depth HTTP security headers, per-request CSP cryptographic nonces, and stateless double-submit CSRF guards.',
     syllabus: [
-      'Sliding window and token bucket rate limiting algorithms.',
-      'Cross-Origin Resource Sharing (CORS): origin checks, preflight OPTIONS, allowed headers.',
-      'Sanitizing string inputs to neutralize injection payloads and malicious script tags.'
+      'Same-Origin Policy relaxation, simple requests vs OPTIONS preflights, and CORS cache tuning.',
+      'Defense-in-depth HTTP security headers (HSTS, nosniff, DENY, strict-origin, COOP/COEP).',
+      'Content Security Policy (CSP) Level 3 and per-request cryptographically secure random nonces.',
+      'Stateless Signed Double-Submit Cookie CSRF mitigation and production perimeter gateways.'
     ]
   },
 
   // ── WEEK 5: Data Access, Caching & Reliability ────────────────────────────
   {
     day: 21,
-    title: 'Data Access Layer & The In-Memory Repository Pattern',
-    desc: 'Decouple business logic from database operations using the Repository Pattern with generic entity interfaces.',
+    title: 'High-Performance Multithreading: worker_threads, MessagePort & Transferable Objects',
+    desc: 'Master CPU-bound parallel execution using worker_threads, MessagePort structured cloning, task queues, and dynamic thread pool sizing.',
     syllabus: [
-      'The Repository Pattern: separation of concerns between domain and storage.',
-      'Standard CRUD operations: create, findById, findAll, update, delete.',
-      'Handling entity not found and duplicate key conflicts.'
+      'Worker Threads architecture: V8 isolates, libuv thread pools, and event loop non-blocking offloading.',
+      'MessagePort communication: structured cloning algorithm and transferable ArrayBuffer zero-copy transfers.',
+      'Dynamic worker thread pool management, task queue throttling, and worker health monitoring.',
+      'Graceful worker pool termination, unhandled worker exception isolation, and CPU core utilization metrics.'
     ]
   },
   {
     day: 22,
-    title: 'Advanced Repository Querying & State Mutation',
-    desc: 'Implement complex querying capabilities inside repositories including predicate filters, pagination slices, and immutable state updates.',
+    title: 'Shared Memory Concurrency: SharedArrayBuffer, Atomics Synchronization & Lock-Free Ring Buffers',
+    desc: 'Master true shared-memory concurrency in Node.js using SharedArrayBuffer, Atomics synchronization primitives, and lock-free ring buffers.',
     syllabus: [
-      'Filtering entities with composable criteria predicates.',
-      'Applying sorting and slicing to repository datasets.',
-      'Immutable record mutations and audit timestamp updates (createdAt, updatedAt).'
+      'SharedArrayBuffer memory model: shared virtual memory pages across V8 isolates and Spectre security mitigations.',
+      'Atomics synchronization primitives: atomic load, store, compareExchange, add, sub, and memory fences.',
+      'Thread synchronization and condition variables via Atomics.wait, Atomics.notify, and non-blocking waitAsync.',
+      'Lock-free Single-Producer Single-Consumer (SPSC) circular ring buffers over shared typed arrays.'
     ]
   },
   {
     day: 23,
-    title: 'Transactions & Unit of Work Concepts',
-    desc: 'Model atomic multi-step operations using Unit of Work patterns, ensuring all operations succeed together or roll back on error.',
+    title: 'Multi-Core Process Clustering: node:cluster, Master-Worker IPC & Zero-Downtime Reloads',
+    desc: 'Master multi-process clustering in Node.js: OS core saturation, SO_REUSEPORT round-robin socket handoffs, and zero-downtime rolling reloads.',
     syllabus: [
-      'ACID properties: Atomicity, Consistency, Isolation, Durability in backends.',
-      'Unit of work: staging multiple database mutations in a single atomic batch.',
-      'Rollback mechanics when one operation in a transaction sequence fails.'
+      'Node.js cluster module architecture: primary process vs worker processes and IPC file descriptor 3 handoffs.',
+      'Kernel socket distribution: round-robin scheduling (SCHED_RR) vs OS kernel SO_REUSEPORT connection distribution.',
+      'Zero-downtime rolling reload state machine: sequential worker replacement and active connection draining.',
+      'Master IPC messaging, worker heartbeat monitors, and automated worker crash recovery mechanisms.'
     ]
   },
   {
     day: 24,
-    title: 'In-Memory Caching & TTL Expiration Strategies',
-    desc: 'Implement a high-performance in-memory cache with Time-To-Live (TTL) expiration, hit/miss metrics, and Cache-Aside patterns.',
+    title: 'Process Orchestration: child_process (spawn/fork/exec), Stream Pipes & Backpressured IPC',
+    desc: 'Master OS process creation models, command injection mitigation via argument arrays, kernel pipe backpressure dynamics, and daemonization with unref.',
     syllabus: [
-      'Cache-Aside (lazy loading) read and write-through patterns.',
-      'TTL (Time-To-Live) eviction mechanics and timestamp checking.',
-      'Measuring cache hit ratio and invalidating stale keys upon mutation.'
+      'child_process execution models: spawn, exec, execFile, fork, and OS process address space isolation.',
+      'Mitigating Command Injection (CWE-78) via kernel argument arrays, parameter boundaries, and shell avoidance.',
+      'Streaming pipes and kernel backpressure management across subprocess stdin, stdout, and stderr streams.',
+      'Detached background daemon processes, unreferenced event loop handles, and process group signal dispatching.'
     ]
   },
   {
     day: 25,
-    title: 'Idempotency Keys & Safe Request Retries',
-    desc: 'Prevent duplicate mutations (e.g. payments or duplicate job postings) using unique Idempotency-Key headers and result caching.',
+    title: 'Distributed Task Pipelines: Redis Job Queues, BullMQ State Machines & Exponential Backoff',
+    desc: 'Master asynchronous job queuing architectures, BullMQ state machine transitions (Waiting, Active, Completed, Failed, Delayed), exponential backoff with full jitter, idempotency keys, and graceful worker shutdown.',
     syllabus: [
-      'Why network retries cause duplicate operations on non-idempotent endpoints (POST).',
-      'The Idempotency-Key header standard: storing and replaying response payloads.',
-      'Detecting concurrent in-flight requests with identical idempotency keys.'
+      'Ephemeral vs persistent task queues: offloading slow I/O and preventing data loss during server restarts.',
+      'BullMQ 5-state lifecycle and Redis atomic Lua scripts (Waiting, Active, Delayed, Completed, Failed).',
+      'Exponential backoff with full random jitter and Dead-Letter Queue (DLQ) poison pill quarantine.',
+      'Distributed idempotency keys via Redis SET NX and deterministic worker graceful shutdown draining.'
     ]
   },
 
   // ── WEEK 6: Production Engineering, Testing & Capstone API ────────────────
   {
     day: 26,
-    title: 'Automated Testing of Backend Handlers & Contracts',
-    desc: 'Write automated unit and integration tests for backend request handlers, verifying status codes, headers, and error bodies.',
+    title: 'High-Performance RPC & Protocol Buffers: gRPC, Binary Serialization & HTTP/2 Framing',
+    desc: 'Master binary serialization, Varint wire encodings, Protocol Buffers schema compilation, gRPC streaming over HTTP/2, and HTTP/3 QUIC UDP multiplexing.',
     syllabus: [
-      'Simulating HTTP requests and inspecting response status codes and headers.',
-      'Asserting JSON response payloads against expected schema contracts.',
-      'Testing edge cases: malformed JSON, missing headers, and timeout behaviors.'
+      'Binary serialization and Varint zigzag encoding vs JSON text.',
+      'Compiling .proto schemas and constructing gRPC unary and streaming services.',
+      'gRPC HTTP/2 framing, trailers, status codes, and bidirectional channels.',
+      'HTTP/3 QUIC UDP transport, 0-RTT handshakes, and transport HOL elimination.'
     ]
   },
   {
     day: 27,
-    title: 'OpenAPI Specification & Self-Documenting APIs',
-    desc: 'Generate and validate OpenAPI 3.0 (Swagger) specifications describing paths, parameters, request bodies, and responses.',
+    title: 'Distributed Tracing & Observability: OpenTelemetry, W3C TraceContext & Span Propagation',
+    desc: 'Master distributed systems observability with OpenTelemetry: W3C Trace Context propagation, AsyncLocalStorage context tracking, TracerProvider batch pipelines, and critical path latency analysis.',
     syllabus: [
-      'OpenAPI 3.0 document anatomy: info, servers, paths, components/schemas.',
-      'Describing path parameters, query parameters, and request body schemas.',
-      'Declaring HTTP response codes (200, 400, 404, 500) with content schemas.'
+      'W3C Trace Context standard, 128-bit traceId, and 64-bit spanId propagation.',
+      'Instrumenting AsyncLocalStorage context and tracking asynchronous execution trees.',
+      'OpenTelemetry TracerProvider, BatchSpanProcessor, and OTLP/gRPC exporter.',
+      'Trace visualization, span attribute decoration, and critical path bottleneck analysis.'
     ]
   },
   {
     day: 28,
-    title: 'Asynchronous Task Queues & Exponential Backoff',
-    desc: 'Design an in-memory job queue with background worker execution, retry counts, exponential backoff delays, and dead-letter handling.',
+    title: 'Distributed Rate Limiting & Traffic Shaping: Token Bucket, Leaky Bucket, Sliding Window Log & Redis Lua',
+    desc: 'Master high-scale distributed rate limiting and traffic shaping: Fixed Window edge cases, Token Bucket bursts, Leaky Bucket smoothing, Redis Sorted Set sliding windows, and atomic Redis Lua scripts.',
     syllabus: [
-      'Decoupling long-running tasks from the HTTP request-response cycle.',
-      'Job state machine: queued, processing, completed, failed.',
-      'Calculating exponential backoff with jitter and moving poisoned jobs to dead-letter storage.'
+      'Fixed Window counter vulnerabilities and boundary burst stampedes.',
+      'Token Bucket burst tolerance and Leaky Bucket traffic smoothing mechanics.',
+      'Sliding Window Counter algorithm using Redis Sorted Sets with zadd and zremrangebyscore.',
+      'Atomic Redis Lua scripting for zero-race-condition rate limit enforcement.'
     ]
   },
   {
     day: 29,
-    title: 'Health Checks, Readiness Probes & Graceful Shutdown',
-    desc: 'Implement production liveness/readiness probes and graceful shutdown handlers to terminate servers cleanly without dropping connections.',
+    title: 'Resilience Patterns: Circuit Breakers, Bulkheads & Graceful Shutdown',
+    desc: 'Master distributed resilience patterns: the 3-state Circuit Breaker finite state machine (Closed, Open, Half-Open), failure threshold calculation, timeout budgets, Bulkhead thread and connection isolation, and multi-tier graceful shutdown orchestration.',
     syllabus: [
-      'Liveness (/healthz) vs Readiness (/readyz) probe semantics.',
-      'Listening for OS termination signals: SIGTERM and SIGINT.',
-      'Graceful drain: rejecting new connections, finishing active requests, and closing resources.'
+      'Cascading failure mechanics, Little\'s Law queuing dynamics, and fail-fast protection.',
+      'The 3-state Circuit Breaker FSM: Closed, Open, and Half-Open canary recovery.',
+      'Bulkhead resource partitioning, connection pooling, and adaptive concurrency limits.',
+      'Multi-phase graceful shutdown: SIGTERM interception, readiness deroute, and socket draining.'
     ]
   },
   {
     day: 30,
-    title: '🏆 Capstone: Production Node.js & TypeScript API Engine',
-    desc: 'Assemble an end-to-end production REST API server combining routing, middleware, authentication, schema validation, repository, and health checks.',
+    title: 'Staff Backend Capstone: Production Edge Gateway Architecture',
+    desc: 'Synthesize the entire 30-day curriculum into an enterprise API Edge Gateway capstone: Radix Trie URL routing, zero-copy streaming reverse proxying, onion security pipelines (JWT auth & rate limiting), dynamic service discovery with health probing, and resilient graceful teardown.',
     syllabus: [
-      'Architecting a clean, modular server application with unified pipeline dispatch.',
-      'Integrating authentication, authorization, and rate limiting into protected endpoints.',
-      'Deploying a fully tested, observable, and resilient backend service.'
+      'Enterprise API Edge Gateway architecture and Radix Trie Layer 7 URL routing.',
+      'Zero-copy streaming reverse proxying and RFC 7230 hop-by-hop header sanitization.',
+      'Onion middleware pipeline with JWT cryptographic verification and rate limiting.',
+      'Dynamic service registry with active health probing and graceful shutdown orchestrator.'
     ]
   }
 ,

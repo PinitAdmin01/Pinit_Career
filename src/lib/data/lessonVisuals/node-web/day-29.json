@@ -1,835 +1,306 @@
-{
-  "schemaVersion": 1,
-  "prefix": "node-web",
-  "day": 29,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
-    {
-      "partTitle": "Liveness (/healthz) vs Readiness (/readyz) Probe Semantics",
-      "codeHash": "16ac28da29526882f0dc288ea2fc864b3450d801c99a33816e97a605ea5141ca",
-      "spec": {
-        "template": "boxes",
-        "title": "Health probe manager liveness and readiness states",
-        "boxes": [
-          {
-            "id": "alive",
-            "label": "isAlive"
-          },
-          {
-            "id": "ready",
-            "label": "isReady"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "A liveness probe determines whether the process is alive.",
-            "values": {
-              "alive": {
-                "text": "true"
-              },
-              "ready": {
-                "text": "false"
-              }
-            },
-            "tones": {
-              "alive": "ok",
-              "ready": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "A readiness probe determines whether applications can accept traffic.",
-            "values": {
-              "alive": {
-                "text": "true"
-              },
-              "ready": {
-                "text": "false"
-              }
-            },
-            "tones": {
-              "alive": "ok",
-              "ready": "error"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Distinguishing probes prevents restart loops when databases reboot.",
-            "values": {
-              "alive": {
-                "text": "true"
-              },
-              "ready": {
-                "text": "true"
-              }
-            },
-            "tones": {
-              "alive": "ok",
-              "ready": "ok"
-            }
-          }
+[
+  {
+    "schemaVersion": 2,
+    "partIndex": 1,
+    "codeHash": "49394c870e4115423a05be6cd7b6e2c19a2022ca5b382ef335e99ef9f262cdd7",
+    "spec": {
+      "template": "flow",
+      "title": "Process Pipeline Cascading Failures & The Anatomy of a Circuit Breaker.",
+      "nodes": [
+        {
+          "id": "stepA",
+          "label": "Client Ingress Gateway",
+          "type": "start"
+        },
+        {
+          "id": "stepB",
+          "label": "Security Rate Limiter",
+          "type": "process"
+        },
+        {
+          "id": "stepC",
+          "label": "Upstream Proxy Streamer",
+          "type": "process"
+        },
+        {
+          "id": "stepD",
+          "label": "Egress Observability",
+          "type": "end"
+        }
+      ],
+      "edges": [
+        {
+          "from": "stepA",
+          "to": "stepB",
+          "label": "Route"
+        },
+        {
+          "from": "stepB",
+          "to": "stepC",
+          "label": "Pass"
+        },
+        {
+          "from": "stepC",
+          "to": "stepD",
+          "label": "Emit"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Ingress gateway validates incoming request credentials and tokens.",
+        "highlight": [
+          "stepA"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Health probe manager liveness and readiness states",
-        "boxes": [
-          {
-            "id": "alive",
-            "label": "isAlive"
-          },
-          {
-            "id": "ready",
-            "label": "isReady"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "A liveness probe determines whether the process is alive.",
-            "values": {
-              "alive": "true",
-              "ready": "false"
-            },
-            "tones": {
-              "alive": "ok",
-              "ready": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "A readiness probe determines whether applications can accept traffic.",
-            "values": {
-              "alive": "true",
-              "ready": "false"
-            },
-            "tones": {
-              "alive": "ok",
-              "ready": "error"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Distinguishing probes prevents restart loops when databases reboot.",
-            "values": {
-              "alive": "true",
-              "ready": "true"
-            },
-            "tones": {
-              "alive": "ok",
-              "ready": "ok"
-            }
-          }
+      {
+        "step": 2,
+        "caption": "Traffic shaper verifies rate limit budgets before dispatching.",
+        "highlight": [
+          "stepB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Streaming reverse proxy forwards bytes to healthy upstream nodes.",
+        "highlight": [
+          "stepC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Observability hooks emit telemetry spans and structured metrics.",
+        "highlight": [
+          "stepD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 2,
+    "codeHash": "9f64e4b9585ceef7690284cd7442ed35bbfd8020c6a6c8fd7386f71a7ba642b0",
+    "spec": {
+      "template": "boxes",
+      "title": "Architectural Partitions The -State Finite State Machine: Closed, Open &.",
+      "boxes": [
+        {
+          "id": "boxA",
+          "label": "Edge Router Ingress"
+        },
+        {
+          "id": "boxB",
+          "label": "Circuit Breaker FSM"
+        },
+        {
+          "id": "boxC",
+          "label": "Bulkhead Resource Pool"
+        },
+        {
+          "id": "boxD",
+          "label": "Telemetry Trace Exporter"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Ingress gateway validates incoming request credentials and tokens.",
+        "highlight": [
+          "boxA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Traffic shaper verifies rate limit budgets before dispatching.",
+        "highlight": [
+          "boxB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Streaming reverse proxy forwards bytes to healthy upstream nodes.",
+        "highlight": [
+          "boxC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Observability hooks emit telemetry spans and structured metrics.",
+        "highlight": [
+          "boxD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 3,
+    "codeHash": "5db4d3c319fdc15f1d92db5b70cbbd23962f006f902f387dcf0a23439c012ddd",
+    "spec": {
+      "template": "stackQueue",
+      "title": "Task Pipeline Queue Bulkhead Isolation & Resource Partitioning.",
+      "elements": [
+        {
+          "id": "elemA",
+          "label": "Incoming HTTP Stream"
+        },
+        {
+          "id": "elemB",
+          "label": "Sliding Token Bucket"
+        },
+        {
+          "id": "elemC",
+          "label": "Upstream Healthy Socket"
+        },
+        {
+          "id": "elemD",
+          "label": "Graceful Drain Buffer"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Ingress gateway validates incoming request credentials and tokens.",
+        "highlight": [
+          "elemA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Traffic shaper verifies rate limit budgets before dispatching.",
+        "highlight": [
+          "elemB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Streaming reverse proxy forwards bytes to healthy upstream nodes.",
+        "highlight": [
+          "elemC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Observability hooks emit telemetry spans and structured metrics.",
+        "highlight": [
+          "elemD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 4,
+    "codeHash": "9d481473df4ad7b0ed198d948737d573ce550956b3df0ee06995864b87682594",
+    "spec": {
+      "template": "sequence",
+      "title": "Sequence Coordination Timeout Budgets, Fallbacks & Graceful Degradation.",
+      "actors": [
+        {
+          "id": "client",
+          "label": "Client Caller"
+        },
+        {
+          "id": "gateway",
+          "label": "Edge Gateway"
+        },
+        {
+          "id": "breaker",
+          "label": "Circuit Breaker"
+        },
+        {
+          "id": "backend",
+          "label": "Upstream Service"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Ingress gateway validates incoming request credentials and tokens.",
+        "highlight": [
+          "elemA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Traffic shaper verifies rate limit budgets before dispatching.",
+        "highlight": [
+          "elemB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Streaming reverse proxy forwards bytes to healthy upstream nodes.",
+        "highlight": [
+          "elemC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Observability hooks emit telemetry spans and structured metrics.",
+        "highlight": [
+          "elemD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 5,
+    "codeHash": "8f586cd59708b327ae61e1f21d50049e35839ef3d04df459a6ce0e91d2a3a283",
+    "spec": {
+      "template": "compare",
+      "title": "Systems Architecture Production Multi-Signal Graceful Shutdown Orchestrat.",
+      "left": {
+        "title": "Resilient Mesh",
+        "items": [
+          "Circuit breaker protected",
+          "Sliding rate limits",
+          "Distributed context"
+        ]
+      },
+      "right": {
+        "title": "Unprotected Hub",
+        "items": [
+          "Cascading collapse",
+          "Socket exhaustion",
+          "Silent data loss"
         ]
       }
     },
-    {
-      "partTitle": "Checking Critical Subsystem Dependencies (Storage, Memory, Cache)",
-      "codeHash": "167f135c200fa81d81201e704569df7cad64e9b9ca02342a49094f435bfd5ca9",
-      "spec": {
-        "template": "boxes",
-        "title": "Subsystem dependency health evaluation",
-        "boxes": [
-          {
-            "id": "name",
-            "label": "name"
-          },
-          {
-            "id": "healthy",
-            "label": "healthy"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The health utility inspects database latency and memory usage.",
-            "values": {
-              "name": {
-                "text": "database"
-              },
-              "healthy": {
-                "text": "true"
-              }
-            },
-            "tones": {
-              "name": "data",
-              "healthy": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Each subsystem check enforces timeouts so frozen queries do not hang.",
-            "values": {
-              "name": {
-                "text": "database"
-              },
-              "healthy": {
-                "text": "true"
-              }
-            },
-            "tones": {
-              "name": "data",
-              "healthy": "data"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Structured health inspection reports pinpoint degraded dependencies.",
-            "values": {
-              "name": {
-                "text": "database"
-              },
-              "healthy": {
-                "text": "true"
-              }
-            },
-            "tones": {
-              "name": "ok",
-              "healthy": "ok"
-            }
-          }
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Ingress gateway validates incoming request credentials and tokens.",
+        "highlight": [
+          "elemA"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Subsystem dependency health evaluation",
-        "boxes": [
-          {
-            "id": "name",
-            "label": "name"
-          },
-          {
-            "id": "healthy",
-            "label": "healthy"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The health utility inspects database latency and memory usage.",
-            "values": {
-              "name": "database",
-              "healthy": "true"
-            },
-            "tones": {
-              "name": "data",
-              "healthy": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Each subsystem check enforces timeouts so frozen queries do not hang.",
-            "values": {
-              "name": "database",
-              "healthy": "true"
-            },
-            "tones": {
-              "name": "data",
-              "healthy": "data"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Structured health inspection reports pinpoint degraded dependencies.",
-            "values": {
-              "name": "database",
-              "healthy": "true"
-            },
-            "tones": {
-              "name": "ok",
-              "healthy": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Trapping Process Termination Signals (SIGTERM & SIGINT)",
-      "codeHash": "c5d89572d818e221aeea4e1405ebee4eb1b7286a7ecae508332e9f2a3bb2cee1",
-      "spec": {
-        "template": "boxes",
-        "title": "Operating system process termination signals",
-        "boxes": [
-          {
-            "id": "sig1",
-            "label": "SIGTERM"
-          },
-          {
-            "id": "sig2",
-            "label": "SIGINT"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "SIGTERM is the standard termination signal sent by orchestrators.",
-            "values": {
-              "sig1": {
-                "text": "SIGTERM"
-              },
-              "sig2": {
-                "text": "SIGINT"
-              }
-            },
-            "tones": {
-              "sig1": "data",
-              "sig2": "idle"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Trapping SIGTERM allows the server to execute an orderly cleanup.",
-            "values": {
-              "sig1": {
-                "text": "SIGTERM"
-              },
-              "sig2": {
-                "text": "SIGINT"
-              }
-            },
-            "tones": {
-              "sig1": "data",
-              "sig2": "data"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Graceful signal interception ensures background jobs do not abort.",
-            "values": {
-              "sig1": {
-                "text": "SIGTERM"
-              },
-              "sig2": {
-                "text": "SIGINT"
-              }
-            },
-            "tones": {
-              "sig1": "ok",
-              "sig2": "ok"
-            }
-          }
+      {
+        "step": 2,
+        "caption": "Traffic shaper verifies rate limit budgets before dispatching.",
+        "highlight": [
+          "elemB"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Operating system process termination signals",
-        "boxes": [
-          {
-            "id": "sig1",
-            "label": "SIGTERM"
-          },
-          {
-            "id": "sig2",
-            "label": "SIGINT"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "SIGTERM is the standard termination signal sent by orchestrators.",
-            "values": {
-              "sig1": "SIGTERM",
-              "sig2": "SIGINT"
-            },
-            "tones": {
-              "sig1": "data",
-              "sig2": "idle"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Trapping SIGTERM allows the server to execute an orderly cleanup.",
-            "values": {
-              "sig1": "SIGTERM",
-              "sig2": "SIGINT"
-            },
-            "tones": {
-              "sig1": "data",
-              "sig2": "data"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Graceful signal interception ensures background jobs do not abort.",
-            "values": {
-              "sig1": "SIGTERM",
-              "sig2": "SIGINT"
-            },
-            "tones": {
-              "sig1": "ok",
-              "sig2": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Draining In-Flight Requests and Refusing New Traffic",
-      "codeHash": "578272da4df3bec5cd0e38de92b9c52042fa0ca4cf11c1fc410a5d02f3437764",
-      "spec": {
-        "template": "boxes",
-        "title": "Request draining and in-flight traffic tracking",
-        "boxes": [
-          {
-            "id": "drain",
-            "label": "isDraining"
-          },
-          {
-            "id": "inFlight",
-            "label": "inFlightCount"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Upon shutdown signals the server stops accepting new connections.",
-            "values": {
-              "drain": {
-                "text": "true"
-              },
-              "inFlight": {
-                "text": "0"
-              }
-            },
-            "tones": {
-              "drain": "data",
-              "inFlight": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Requests in flight must complete execution within a drain timeout.",
-            "values": {
-              "drain": {
-                "text": "true"
-              },
-              "inFlight": {
-                "text": "0"
-              }
-            },
-            "tones": {
-              "drain": "data",
-              "inFlight": "data"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Tracking active in flight requests allows servers to exit cleanly.",
-            "values": {
-              "drain": {
-                "text": "true"
-              },
-              "inFlight": {
-                "text": "0"
-              }
-            },
-            "tones": {
-              "drain": "ok",
-              "inFlight": "ok"
-            }
-          }
+      {
+        "step": 3,
+        "caption": "Streaming reverse proxy forwards bytes to healthy upstream nodes.",
+        "highlight": [
+          "elemC"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Request draining and in-flight traffic tracking",
-        "boxes": [
-          {
-            "id": "drain",
-            "label": "isDraining"
-          },
-          {
-            "id": "inFlight",
-            "label": "inFlightCount"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Upon shutdown signals the server stops accepting new connections.",
-            "values": {
-              "drain": "true",
-              "inFlight": "0"
-            },
-            "tones": {
-              "drain": "data",
-              "inFlight": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Requests in flight must complete execution within a drain timeout.",
-            "values": {
-              "drain": "true",
-              "inFlight": "0"
-            },
-            "tones": {
-              "drain": "data",
-              "inFlight": "data"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Tracking active in flight requests allows servers to exit cleanly.",
-            "values": {
-              "drain": "true",
-              "inFlight": "0"
-            },
-            "tones": {
-              "drain": "ok",
-              "inFlight": "ok"
-            }
-          }
+      {
+        "step": 4,
+        "caption": "Observability hooks emit telemetry spans and structured metrics.",
+        "highlight": [
+          "elemD"
         ]
       }
-    },
-    {
-      "partTitle": "Cleaning Up Active Handles, Timers, and Storage Connections",
-      "codeHash": "f3476a1da99ad168a22b0d03c29772764b62bb82313c7e8ee1242321460ea33e",
-      "spec": {
-        "template": "boxes",
-        "title": "Active resource handle cleanup manager",
-        "boxes": [
-          {
-            "id": "name",
-            "label": "name"
-          },
-          {
-            "id": "fn",
-            "label": "executeAll"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "After draining HTTP requests the server closes persistent connections.",
-            "values": {
-              "name": {
-                "text": "db"
-              },
-              "fn": {
-                "text": "executeAll"
-              }
-            },
-            "tones": {
-              "name": "data",
-              "fn": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "A graceful shutdown manager orchestrates cleanup tasks sequentially.",
-            "values": {
-              "name": {
-                "text": "cache"
-              },
-              "fn": {
-                "text": "executeAll"
-              }
-            },
-            "tones": {
-              "name": "ok",
-              "fn": "data"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Releasing connection pool handles returns slots to the database cluster.",
-            "values": {
-              "name": {
-                "text": "queue"
-              },
-              "fn": {
-                "text": "executeAll"
-              }
-            },
-            "tones": {
-              "name": "ok",
-              "fn": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Active resource handle cleanup manager",
-        "boxes": [
-          {
-            "id": "name",
-            "label": "name"
-          },
-          {
-            "id": "fn",
-            "label": "executeAll"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "After draining HTTP requests the server closes persistent connections.",
-            "values": {
-              "name": "db",
-              "fn": "executeAll"
-            },
-            "tones": {
-              "name": "data",
-              "fn": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "A graceful shutdown manager orchestrates cleanup tasks sequentially.",
-            "values": {
-              "name": "cache",
-              "fn": "executeAll"
-            },
-            "tones": {
-              "name": "ok",
-              "fn": "data"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Releasing connection pool handles returns slots to the database cluster.",
-            "values": {
-              "name": "queue",
-              "fn": "executeAll"
-            },
-            "tones": {
-              "name": "ok",
-              "fn": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Building a Production Server Lifecycle and Graceful Shutdown Manager",
-      "codeHash": "2db0c1941a5388d5214cc7c22a4cdb9fe2fb136780bde3b161947a6fd0b94153",
-      "spec": {
-        "template": "flow",
-        "title": "Building a Production Server Lifecycle and Gr... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building a Producti...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building a Production Server Lifecycle a.. [D29.P6.S1].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building a Producti... [D29.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D29.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building a Production Server Life.. [D29.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Building a Production Server Lifecycle and Gr... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building a Producti...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building a Production Server Lifecycle a.. [D29.P6.S1].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building a Producti... [D29.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D29.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building a Production Server Life.. [D29.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      }
-    }
-  ]
-}
+    ]
+  }
+]

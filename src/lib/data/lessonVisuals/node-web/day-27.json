@@ -1,835 +1,306 @@
-{
-  "schemaVersion": 1,
-  "prefix": "node-web",
-  "day": 27,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
-    {
-      "partTitle": "OpenAPI 3.0 Document Anatomy (Info, Servers, Paths, Components)",
-      "codeHash": "dc0aefe5ab9c7aeacef861df46026260f49a865287a181ac003adcc11d02c280",
-      "spec": {
-        "template": "boxes",
-        "title": "OpenAPI root specification document fields",
-        "boxes": [
-          {
-            "id": "api",
-            "label": "openapi"
-          },
-          {
-            "id": "title",
-            "label": "title"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The root object declares the version along with info metadata.",
-            "values": {
-              "api": {
-                "text": "3.0.3"
-              },
-              "title": {
-                "text": "PinIT Career OS API"
-              }
-            },
-            "tones": {
-              "api": "data",
-              "title": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "The servers array specifies target environments including development.",
-            "values": {
-              "api": {
-                "text": "3.0.3"
-              },
-              "title": {
-                "text": "PinIT Career OS API"
-              }
-            },
-            "tones": {
-              "api": "data",
-              "title": "data"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Standardized specifications enable client SDK generation in TypeScript.",
-            "values": {
-              "api": {
-                "text": "3.0.3"
-              },
-              "title": {
-                "text": "PinIT Career OS API"
-              }
-            },
-            "tones": {
-              "api": "ok",
-              "title": "ok"
-            }
-          }
+[
+  {
+    "schemaVersion": 2,
+    "partIndex": 1,
+    "codeHash": "987d978b65e547850bee5918e705e26703bf9df7f99cb5acb599e80b2ad60040",
+    "spec": {
+      "template": "flow",
+      "title": "Process Pipeline The Three Pillars of Observability & Distributed Tracing.",
+      "nodes": [
+        {
+          "id": "stepA",
+          "label": "Client Ingress Gateway",
+          "type": "start"
+        },
+        {
+          "id": "stepB",
+          "label": "Security Rate Limiter",
+          "type": "process"
+        },
+        {
+          "id": "stepC",
+          "label": "Upstream Proxy Streamer",
+          "type": "process"
+        },
+        {
+          "id": "stepD",
+          "label": "Egress Observability",
+          "type": "end"
+        }
+      ],
+      "edges": [
+        {
+          "from": "stepA",
+          "to": "stepB",
+          "label": "Route"
+        },
+        {
+          "from": "stepB",
+          "to": "stepC",
+          "label": "Pass"
+        },
+        {
+          "from": "stepC",
+          "to": "stepD",
+          "label": "Emit"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Ingress gateway validates incoming request credentials and tokens.",
+        "highlight": [
+          "stepA"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "OpenAPI root specification document fields",
-        "boxes": [
-          {
-            "id": "api",
-            "label": "openapi"
-          },
-          {
-            "id": "title",
-            "label": "title"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The root object declares the version along with info metadata.",
-            "values": {
-              "api": "3.0.3",
-              "title": "PinIT Career OS API"
-            },
-            "tones": {
-              "api": "data",
-              "title": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "The servers array specifies target environments including development.",
-            "values": {
-              "api": "3.0.3",
-              "title": "PinIT Career OS API"
-            },
-            "tones": {
-              "api": "data",
-              "title": "data"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Standardized specifications enable client SDK generation in TypeScript.",
-            "values": {
-              "api": "3.0.3",
-              "title": "PinIT Career OS API"
-            },
-            "tones": {
-              "api": "ok",
-              "title": "ok"
-            }
-          }
+      {
+        "step": 2,
+        "caption": "Traffic shaper verifies rate limit budgets before dispatching.",
+        "highlight": [
+          "stepB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Streaming reverse proxy forwards bytes to healthy upstream nodes.",
+        "highlight": [
+          "stepC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Observability hooks emit telemetry spans and structured metrics.",
+        "highlight": [
+          "stepD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 2,
+    "codeHash": "06518e1883f9004e9441cb1afeb080bdaf3a4943257a870f9d2fe8d9aee21847",
+    "spec": {
+      "template": "boxes",
+      "title": "Architectural Partitions The WC TraceContext Specification & Wire Header.",
+      "boxes": [
+        {
+          "id": "boxA",
+          "label": "Edge Router Ingress"
+        },
+        {
+          "id": "boxB",
+          "label": "Circuit Breaker FSM"
+        },
+        {
+          "id": "boxC",
+          "label": "Bulkhead Resource Pool"
+        },
+        {
+          "id": "boxD",
+          "label": "Telemetry Trace Exporter"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Ingress gateway validates incoming request credentials and tokens.",
+        "highlight": [
+          "boxA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Traffic shaper verifies rate limit budgets before dispatching.",
+        "highlight": [
+          "boxB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Streaming reverse proxy forwards bytes to healthy upstream nodes.",
+        "highlight": [
+          "boxC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Observability hooks emit telemetry spans and structured metrics.",
+        "highlight": [
+          "boxD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 3,
+    "codeHash": "5c86ae0c1cd0d13e405f27e48442c36f8ed771a8684b8a74c23212e108a949be",
+    "spec": {
+      "template": "stackQueue",
+      "title": "Task Pipeline Queue OpenTelemetry Spans, Attributes, Events & Status Code.",
+      "elements": [
+        {
+          "id": "elemA",
+          "label": "Incoming HTTP Stream"
+        },
+        {
+          "id": "elemB",
+          "label": "Sliding Token Bucket"
+        },
+        {
+          "id": "elemC",
+          "label": "Upstream Healthy Socket"
+        },
+        {
+          "id": "elemD",
+          "label": "Graceful Drain Buffer"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Ingress gateway validates incoming request credentials and tokens.",
+        "highlight": [
+          "elemA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Traffic shaper verifies rate limit budgets before dispatching.",
+        "highlight": [
+          "elemB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Streaming reverse proxy forwards bytes to healthy upstream nodes.",
+        "highlight": [
+          "elemC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Observability hooks emit telemetry spans and structured metrics.",
+        "highlight": [
+          "elemD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 4,
+    "codeHash": "8e87071bb2fd00fa65fe543d5c1b68f1ca3d6730531e4c7ede31eb7d7504f2ec",
+    "spec": {
+      "template": "sequence",
+      "title": "Sequence Coordination Context Propagation in Node.js via AsyncLocalStorag.",
+      "actors": [
+        {
+          "id": "client",
+          "label": "Client Caller"
+        },
+        {
+          "id": "gateway",
+          "label": "Edge Gateway"
+        },
+        {
+          "id": "breaker",
+          "label": "Circuit Breaker"
+        },
+        {
+          "id": "backend",
+          "label": "Upstream Service"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Ingress gateway validates incoming request credentials and tokens.",
+        "highlight": [
+          "elemA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Traffic shaper verifies rate limit budgets before dispatching.",
+        "highlight": [
+          "elemB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Streaming reverse proxy forwards bytes to healthy upstream nodes.",
+        "highlight": [
+          "elemC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Observability hooks emit telemetry spans and structured metrics.",
+        "highlight": [
+          "elemD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 5,
+    "codeHash": "996fb11bbfbdd0cb8862db0c13da39450f9bc473fe752f315e1d59e7ed2a146c",
+    "spec": {
+      "template": "compare",
+      "title": "Systems Architecture Telemetry Sampling Strategies, Exporters & Productio.",
+      "left": {
+        "title": "Resilient Mesh",
+        "items": [
+          "Circuit breaker protected",
+          "Sliding rate limits",
+          "Distributed context"
+        ]
+      },
+      "right": {
+        "title": "Unprotected Hub",
+        "items": [
+          "Cascading collapse",
+          "Socket exhaustion",
+          "Silent data loss"
         ]
       }
     },
-    {
-      "partTitle": "Describing Path & Query Parameter Contracts",
-      "codeHash": "666331c46f5dc539e7dc4c6bb12372ed1cb55acc785e856e980c7b79d354846b",
-      "spec": {
-        "template": "boxes",
-        "title": "OpenAPI parameter documentation attributes",
-        "boxes": [
-          {
-            "id": "name",
-            "label": "name"
-          },
-          {
-            "id": "req",
-            "label": "required"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Parameters are declared in an array under each operation object.",
-            "values": {
-              "name": {
-                "text": "jobId"
-              },
-              "req": {
-                "text": "true"
-              }
-            },
-            "tones": {
-              "name": "data",
-              "req": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Path parameters are always mandatory whereas query filters are optional.",
-            "values": {
-              "name": {
-                "text": "limit"
-              },
-              "req": {
-                "text": "false"
-              }
-            },
-            "tones": {
-              "name": "data",
-              "req": "data"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Explicit parameter declarations enable client SDKs to validate requests.",
-            "values": {
-              "name": {
-                "text": "limit"
-              },
-              "req": {
-                "text": "false"
-              }
-            },
-            "tones": {
-              "name": "ok",
-              "req": "ok"
-            }
-          }
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Ingress gateway validates incoming request credentials and tokens.",
+        "highlight": [
+          "elemA"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "OpenAPI parameter documentation attributes",
-        "boxes": [
-          {
-            "id": "name",
-            "label": "name"
-          },
-          {
-            "id": "req",
-            "label": "required"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Parameters are declared in an array under each operation object.",
-            "values": {
-              "name": "jobId",
-              "req": "true"
-            },
-            "tones": {
-              "name": "data",
-              "req": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Path parameters are always mandatory whereas query filters are optional.",
-            "values": {
-              "name": "limit",
-              "req": "false"
-            },
-            "tones": {
-              "name": "data",
-              "req": "data"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Explicit parameter declarations enable client SDKs to validate requests.",
-            "values": {
-              "name": "limit",
-              "req": "false"
-            },
-            "tones": {
-              "name": "ok",
-              "req": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Defining Request Body Schemas & Content Types",
-      "codeHash": "4ec8f41a9b13c48bf9cebecdc554fd60ab21064a2925634902bac51f722c41cf",
-      "spec": {
-        "template": "boxes",
-        "title": "Job request body schema properties",
-        "boxes": [
-          {
-            "id": "title",
-            "label": "title"
-          },
-          {
-            "id": "dept",
-            "label": "department"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Mutating operations specify request body media types and schema models.",
-            "values": {
-              "title": {
-                "text": "Lead Frontend Engineer"
-              },
-              "dept": {
-                "text": "Engineering"
-              }
-            },
-            "tones": {
-              "title": "data",
-              "dept": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Schema definitions specify properties and required fields strictly.",
-            "values": {
-              "title": {
-                "text": "Lead Frontend Engineer"
-              },
-              "dept": {
-                "text": "Engineering"
-              }
-            },
-            "tones": {
-              "title": "data",
-              "dept": "data"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Reusing schema models maintains consistency across microservice codebases.",
-            "values": {
-              "title": {
-                "text": "Lead Frontend Engineer"
-              },
-              "dept": {
-                "text": "Engineering"
-              }
-            },
-            "tones": {
-              "title": "ok",
-              "dept": "ok"
-            }
-          }
+      {
+        "step": 2,
+        "caption": "Traffic shaper verifies rate limit budgets before dispatching.",
+        "highlight": [
+          "elemB"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Job request body schema properties",
-        "boxes": [
-          {
-            "id": "title",
-            "label": "title"
-          },
-          {
-            "id": "dept",
-            "label": "department"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Mutating operations specify request body media types and schema models.",
-            "values": {
-              "title": "Lead Frontend Engineer",
-              "dept": "Engineering"
-            },
-            "tones": {
-              "title": "data",
-              "dept": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Schema definitions specify properties and required fields strictly.",
-            "values": {
-              "title": "Lead Frontend Engineer",
-              "dept": "Engineering"
-            },
-            "tones": {
-              "title": "data",
-              "dept": "data"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Reusing schema models maintains consistency across microservice codebases.",
-            "values": {
-              "title": "Lead Frontend Engineer",
-              "dept": "Engineering"
-            },
-            "tones": {
-              "title": "ok",
-              "dept": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Documenting Standard HTTP Response Payloads & Error Codes",
-      "codeHash": "ca78be74df31c9f4ef834f3af5a772ea7eaf0b3ce5e3bcceee569893d63d40ab",
-      "spec": {
-        "template": "boxes",
-        "title": "Documented HTTP response status codes",
-        "boxes": [
-          {
-            "id": "id",
-            "label": "id"
-          },
-          {
-            "id": "error",
-            "label": "error"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The responses object under each operation maps status codes to schemas.",
-            "values": {
-              "id": {
-                "text": "id"
-              },
-              "error": {
-                "text": "Resource not found"
-              }
-            },
-            "tones": {
-              "id": "data",
-              "error": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Declaring error response models guarantees consumers parse failures cleanly.",
-            "values": {
-              "id": {
-                "text": "id"
-              },
-              "error": {
-                "text": "Resource not found"
-              }
-            },
-            "tones": {
-              "id": "idle",
-              "error": "error"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Accurate response documentation eliminates guesswork for frontend developers.",
-            "values": {
-              "id": {
-                "text": "id"
-              },
-              "error": {
-                "text": "Resource not found"
-              }
-            },
-            "tones": {
-              "id": "ok",
-              "error": "ok"
-            }
-          }
+      {
+        "step": 3,
+        "caption": "Streaming reverse proxy forwards bytes to healthy upstream nodes.",
+        "highlight": [
+          "elemC"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Documented HTTP response status codes",
-        "boxes": [
-          {
-            "id": "id",
-            "label": "id"
-          },
-          {
-            "id": "error",
-            "label": "error"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The responses object under each operation maps status codes to schemas.",
-            "values": {
-              "id": "id",
-              "error": "Resource not found"
-            },
-            "tones": {
-              "id": "data",
-              "error": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Declaring error response models guarantees consumers parse failures cleanly.",
-            "values": {
-              "id": "id",
-              "error": "Resource not found"
-            },
-            "tones": {
-              "id": "idle",
-              "error": "error"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Accurate response documentation eliminates guesswork for frontend developers.",
-            "values": {
-              "id": "id",
-              "error": "Resource not found"
-            },
-            "tones": {
-              "id": "ok",
-              "error": "ok"
-            }
-          }
+      {
+        "step": 4,
+        "caption": "Observability hooks emit telemetry spans and structured metrics.",
+        "highlight": [
+          "elemD"
         ]
       }
-    },
-    {
-      "partTitle": "Generating OpenAPI Specifications from Route Metadata",
-      "codeHash": "997a6ac909917bf3577795d34309c4a03fb61d54333cb243d17ccb1e087d843b",
-      "spec": {
-        "template": "boxes",
-        "title": "Route metadata generator attributes",
-        "boxes": [
-          {
-            "id": "path",
-            "label": "path"
-          },
-          {
-            "id": "summary",
-            "label": "summary"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Route definitions attach metadata that a generator parses into openapi.",
-            "values": {
-              "path": {
-                "text": "/api/jobs"
-              },
-              "summary": {
-                "text": "List all jobs"
-              }
-            },
-            "tones": {
-              "path": "data",
-              "summary": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "During build a single generator utility aggregates all route metadata.",
-            "values": {
-              "path": {
-                "text": "/api/jobs"
-              },
-              "summary": {
-                "text": "List all jobs"
-              }
-            },
-            "tones": {
-              "path": "data",
-              "summary": "data"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Automatic generation ensures that newly added routes are documented.",
-            "values": {
-              "path": {
-                "text": "/api/jobs"
-              },
-              "summary": {
-                "text": "List all jobs"
-              }
-            },
-            "tones": {
-              "path": "ok",
-              "summary": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Route metadata generator attributes",
-        "boxes": [
-          {
-            "id": "path",
-            "label": "path"
-          },
-          {
-            "id": "summary",
-            "label": "summary"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Route definitions attach metadata that a generator parses into openapi.",
-            "values": {
-              "path": "/api/jobs",
-              "summary": "List all jobs"
-            },
-            "tones": {
-              "path": "data",
-              "summary": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "During build a single generator utility aggregates all route metadata.",
-            "values": {
-              "path": "/api/jobs",
-              "summary": "List all jobs"
-            },
-            "tones": {
-              "path": "data",
-              "summary": "data"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Automatic generation ensures that newly added routes are documented.",
-            "values": {
-              "path": "/api/jobs",
-              "summary": "List all jobs"
-            },
-            "tones": {
-              "path": "ok",
-              "summary": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Building an OpenAPI Spec Validator and Documentation Engine",
-      "codeHash": "77829e89724c04e42bbd36cc7de280de676aaa1ef12949ef5b88b5f6094359d7",
-      "spec": {
-        "template": "flow",
-        "title": "Building an OpenAPI Spec Validator and Docume... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building an OpenAPI...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building an OpenAPI Spec Validator and D.. [D27.P6.S1].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building an OpenAPI... [D27.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D27.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building an OpenAPI Spec Validato.. [D27.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Building an OpenAPI Spec Validator and Docume... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building an OpenAPI...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building an OpenAPI Spec Validator and D.. [D27.P6.S1].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building an OpenAPI... [D27.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D27.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building an OpenAPI Spec Validato.. [D27.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      }
-    }
-  ]
-}
+    ]
+  }
+]

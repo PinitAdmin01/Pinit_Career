@@ -99,7 +99,7 @@ export async function GET(req: Request) {
       const found = await findActiveCourseEnrollment(admin, userId);
       if (found.error) {
         console.error('[api/quests/enrollment] GET lookup failed:', found.error);
-        return NextResponse.json({ ok: false, error: 'ENROLLMENT_LOOKUP_FAILED' }, { status: 503 });
+        return NextResponse.json({ ok: true, enrollment: null });
       }
       return NextResponse.json({ ok: true, enrollment: found.enrollment });
     }

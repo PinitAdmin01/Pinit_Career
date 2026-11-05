@@ -1,835 +1,306 @@
-{
-  "schemaVersion": 1,
-  "prefix": "node-web",
-  "day": 26,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
-    {
-      "partTitle": "Simulating HTTP Requests & In-Memory Response Assertions",
-      "codeHash": "6e6ce5589ec942cafcbabb9c8a22fb1cb0598d0824353555ce414f0641a58a41",
-      "spec": {
-        "template": "boxes",
-        "title": "Simulated HTTP mock request parameters",
-        "boxes": [
-          {
-            "id": "method",
-            "label": "method"
-          },
-          {
-            "id": "url",
-            "label": "url"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Unit testing handlers without live servers requires simulating requests.",
-            "values": {
-              "method": {
-                "text": "GET"
-              },
-              "url": {
-                "text": "/ping"
-              }
-            },
-            "tones": {
-              "method": "data",
-              "url": "idle"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Mock response abstractions capture status codes and serialized bodies.",
-            "values": {
-              "method": {
-                "text": "GET"
-              },
-              "url": {
-                "text": "/ping"
-              }
-            },
-            "tones": {
-              "method": "data",
-              "url": "data"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Simulated request testing eliminates flaky port collisions in pipelines.",
-            "values": {
-              "method": {
-                "text": "GET"
-              },
-              "url": {
-                "text": "/ping"
-              }
-            },
-            "tones": {
-              "method": "ok",
-              "url": "ok"
-            }
-          }
+[
+  {
+    "schemaVersion": 2,
+    "partIndex": 1,
+    "codeHash": "56aab54ad4fe9ce8cda5267ed371c01b85463da4971c37de6f433db278b28116",
+    "spec": {
+      "template": "flow",
+      "title": "Process Pipeline The RPC Paradigm vs REST: Microservice Inter-Process Com.",
+      "nodes": [
+        {
+          "id": "stepA",
+          "label": "Client Ingress Gateway",
+          "type": "start"
+        },
+        {
+          "id": "stepB",
+          "label": "Security Rate Limiter",
+          "type": "process"
+        },
+        {
+          "id": "stepC",
+          "label": "Upstream Proxy Streamer",
+          "type": "process"
+        },
+        {
+          "id": "stepD",
+          "label": "Egress Observability",
+          "type": "end"
+        }
+      ],
+      "edges": [
+        {
+          "from": "stepA",
+          "to": "stepB",
+          "label": "Route"
+        },
+        {
+          "from": "stepB",
+          "to": "stepC",
+          "label": "Pass"
+        },
+        {
+          "from": "stepC",
+          "to": "stepD",
+          "label": "Emit"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Ingress gateway validates incoming request credentials and tokens.",
+        "highlight": [
+          "stepA"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Simulated HTTP mock request parameters",
-        "boxes": [
-          {
-            "id": "method",
-            "label": "method"
-          },
-          {
-            "id": "url",
-            "label": "url"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Unit testing handlers without live servers requires simulating requests.",
-            "values": {
-              "method": "GET",
-              "url": "/ping"
-            },
-            "tones": {
-              "method": "data",
-              "url": "idle"
-            }
-          },
-          {
-            "at": "say2",
-            "caption": "Mock response abstractions capture status codes and serialized bodies.",
-            "values": {
-              "method": "GET",
-              "url": "/ping"
-            },
-            "tones": {
-              "method": "data",
-              "url": "data"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Simulated request testing eliminates flaky port collisions in pipelines.",
-            "values": {
-              "method": "GET",
-              "url": "/ping"
-            },
-            "tones": {
-              "method": "ok",
-              "url": "ok"
-            }
-          }
+      {
+        "step": 2,
+        "caption": "Traffic shaper verifies rate limit budgets before dispatching.",
+        "highlight": [
+          "stepB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Streaming reverse proxy forwards bytes to healthy upstream nodes.",
+        "highlight": [
+          "stepC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Observability hooks emit telemetry spans and structured metrics.",
+        "highlight": [
+          "stepD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 2,
+    "codeHash": "678d765e4adc677af5efcf49a16fd93dcd1eec21414f2c21aba4522a11b6c1d6",
+    "spec": {
+      "template": "boxes",
+      "title": "Architectural Partitions Protocol Buffers (Protobuf) Wire Format & Varint.",
+      "boxes": [
+        {
+          "id": "boxA",
+          "label": "Edge Router Ingress"
+        },
+        {
+          "id": "boxB",
+          "label": "Circuit Breaker FSM"
+        },
+        {
+          "id": "boxC",
+          "label": "Bulkhead Resource Pool"
+        },
+        {
+          "id": "boxD",
+          "label": "Telemetry Trace Exporter"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Ingress gateway validates incoming request credentials and tokens.",
+        "highlight": [
+          "boxA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Traffic shaper verifies rate limit budgets before dispatching.",
+        "highlight": [
+          "boxB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Streaming reverse proxy forwards bytes to healthy upstream nodes.",
+        "highlight": [
+          "boxC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Observability hooks emit telemetry spans and structured metrics.",
+        "highlight": [
+          "boxD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 3,
+    "codeHash": "2244c8984b2e6347a48a6a7596f9281e888f0e25aab3ca17ee15db305254f860",
+    "spec": {
+      "template": "stackQueue",
+      "title": "Task Pipeline Queue gRPC Protocol over HTTP/: Multiplexing, Flow Control.",
+      "elements": [
+        {
+          "id": "elemA",
+          "label": "Incoming HTTP Stream"
+        },
+        {
+          "id": "elemB",
+          "label": "Sliding Token Bucket"
+        },
+        {
+          "id": "elemC",
+          "label": "Upstream Healthy Socket"
+        },
+        {
+          "id": "elemD",
+          "label": "Graceful Drain Buffer"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Ingress gateway validates incoming request credentials and tokens.",
+        "highlight": [
+          "elemA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Traffic shaper verifies rate limit budgets before dispatching.",
+        "highlight": [
+          "elemB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Streaming reverse proxy forwards bytes to healthy upstream nodes.",
+        "highlight": [
+          "elemC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Observability hooks emit telemetry spans and structured metrics.",
+        "highlight": [
+          "elemD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 4,
+    "codeHash": "f5c524e8fdcf3c970f23f5e20d795eb7d426ef36e339aeac4fcd269c6103780a",
+    "spec": {
+      "template": "sequence",
+      "title": "Sequence Coordination Four RPC Communication Modes: Unary, Client, Server.",
+      "actors": [
+        {
+          "id": "client",
+          "label": "Client Caller"
+        },
+        {
+          "id": "gateway",
+          "label": "Edge Gateway"
+        },
+        {
+          "id": "breaker",
+          "label": "Circuit Breaker"
+        },
+        {
+          "id": "backend",
+          "label": "Upstream Service"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Ingress gateway validates incoming request credentials and tokens.",
+        "highlight": [
+          "elemA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Traffic shaper verifies rate limit budgets before dispatching.",
+        "highlight": [
+          "elemB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Streaming reverse proxy forwards bytes to healthy upstream nodes.",
+        "highlight": [
+          "elemC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Observability hooks emit telemetry spans and structured metrics.",
+        "highlight": [
+          "elemD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 5,
+    "codeHash": "08871bb956a10f7d7ddeb5c944c03ed86559d74967e9eb2742dfcab695f4d53b",
+    "spec": {
+      "template": "compare",
+      "title": "Systems Architecture Production gRPC Service Definition, Metadata Interce.",
+      "left": {
+        "title": "Resilient Mesh",
+        "items": [
+          "Circuit breaker protected",
+          "Sliding rate limits",
+          "Distributed context"
+        ]
+      },
+      "right": {
+        "title": "Unprotected Hub",
+        "items": [
+          "Cascading collapse",
+          "Socket exhaustion",
+          "Silent data loss"
         ]
       }
     },
-    {
-      "partTitle": "Status Code Contracts & Header Verification",
-      "codeHash": "0bf21f3faef984211103e81ab44675d79f731d4dc33b72ba31cbb6552b3511c4",
-      "spec": {
-        "template": "boxes",
-        "title": "User creation response status and location contract",
-        "boxes": [
-          {
-            "id": "status",
-            "label": "status"
-          },
-          {
-            "id": "loc",
-            "label": "location"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Successful resource creation returns 201 with a Location header.",
-            "values": {
-              "status": {
-                "text": "201"
-              },
-              "loc": {
-                "text": "/api/users/usr_42"
-              }
-            },
-            "tones": {
-              "status": "ok",
-              "loc": "data"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Validation errors must return 400 Bad Request to communicate failure.",
-            "values": {
-              "status": {
-                "text": "400"
-              },
-              "loc": {
-                "text": "/api/users/usr_42"
-              }
-            },
-            "tones": {
-              "status": "error",
-              "loc": "idle"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Testing response headers guarantees proxies interpret payloads correctly.",
-            "values": {
-              "status": {
-                "text": "201"
-              },
-              "loc": {
-                "text": "/api/users/usr_42"
-              }
-            },
-            "tones": {
-              "status": "ok",
-              "loc": "ok"
-            }
-          }
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Ingress gateway validates incoming request credentials and tokens.",
+        "highlight": [
+          "elemA"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "User creation response status and location contract",
-        "boxes": [
-          {
-            "id": "status",
-            "label": "status"
-          },
-          {
-            "id": "loc",
-            "label": "location"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Successful resource creation returns 201 with a Location header.",
-            "values": {
-              "status": "201",
-              "loc": "/api/users/usr_42"
-            },
-            "tones": {
-              "status": "ok",
-              "loc": "data"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Validation errors must return 400 Bad Request to communicate failure.",
-            "values": {
-              "status": "400",
-              "loc": "/api/users/usr_42"
-            },
-            "tones": {
-              "status": "error",
-              "loc": "idle"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Testing response headers guarantees proxies interpret payloads correctly.",
-            "values": {
-              "status": "201",
-              "loc": "/api/users/usr_42"
-            },
-            "tones": {
-              "status": "ok",
-              "loc": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Payload Schema Assertions & RFC 7807 Error Contracts",
-      "codeHash": "0c4e7944d4bff8e9903fafc03850ca243e968b861dc61d7a7d49d00d6d4674c7",
-      "spec": {
-        "template": "boxes",
-        "title": "RFC 7807 problem details error payload",
-        "boxes": [
-          {
-            "id": "title",
-            "label": "title"
-          },
-          {
-            "id": "detail",
-            "label": "detail"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Standardizing error responses according to RFC 7807 ensures metadata.",
-            "values": {
-              "title": {
-                "text": "Unauthorized Access"
-              },
-              "detail": {
-                "text": "The provided authentication token has expired."
-              }
-            },
-            "tones": {
-              "title": "error",
-              "detail": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Testing payload schemas prevents accidental breaking changes for clients.",
-            "values": {
-              "title": {
-                "text": "Unauthorized Access"
-              },
-              "detail": {
-                "text": "The provided authentication token has expired."
-              }
-            },
-            "tones": {
-              "title": "error",
-              "detail": "data"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Problem objects allow client SDKs to write unified error middleware.",
-            "values": {
-              "title": {
-                "text": "Unauthorized Access"
-              },
-              "detail": {
-                "text": "The provided authentication token has expired."
-              }
-            },
-            "tones": {
-              "title": "ok",
-              "detail": "ok"
-            }
-          }
+      {
+        "step": 2,
+        "caption": "Traffic shaper verifies rate limit budgets before dispatching.",
+        "highlight": [
+          "elemB"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "RFC 7807 problem details error payload",
-        "boxes": [
-          {
-            "id": "title",
-            "label": "title"
-          },
-          {
-            "id": "detail",
-            "label": "detail"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Standardizing error responses according to RFC 7807 ensures metadata.",
-            "values": {
-              "title": "Unauthorized Access",
-              "detail": "The provided authentication token has expired."
-            },
-            "tones": {
-              "title": "error",
-              "detail": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Testing payload schemas prevents accidental breaking changes for clients.",
-            "values": {
-              "title": "Unauthorized Access",
-              "detail": "The provided authentication token has expired."
-            },
-            "tones": {
-              "title": "error",
-              "detail": "data"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Problem objects allow client SDKs to write unified error middleware.",
-            "values": {
-              "title": "Unauthorized Access",
-              "detail": "The provided authentication token has expired."
-            },
-            "tones": {
-              "title": "ok",
-              "detail": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Testing Boundary Edge Cases (Malformed JSON & Truncated Payloads)",
-      "codeHash": "ba75b0f54f5b48751fa1d0f4137cf71fed045a8f9236a90ca71ed67dd7f1827e",
-      "spec": {
-        "template": "boxes",
-        "title": "JSON body parser boundary edge check",
-        "boxes": [
-          {
-            "id": "ok",
-            "label": "ok"
-          },
-          {
-            "id": "status",
-            "label": "status"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Robust backends must handle malformed input gracefully without crashing.",
-            "values": {
-              "ok": {
-                "text": "true"
-              },
-              "status": {
-                "text": "400"
-              }
-            },
-            "tones": {
-              "ok": "ok",
-              "status": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "When invalid syntax is parsed the server emits a 400 Bad Request error.",
-            "values": {
-              "ok": {
-                "text": "false"
-              },
-              "status": {
-                "text": "400"
-              }
-            },
-            "tones": {
-              "ok": "error",
-              "status": "error"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Writing edge case tests builds confidence that APIs withstand attacks.",
-            "values": {
-              "ok": {
-                "text": "true"
-              },
-              "status": {
-                "text": "400"
-              }
-            },
-            "tones": {
-              "ok": "ok",
-              "status": "ok"
-            }
-          }
+      {
+        "step": 3,
+        "caption": "Streaming reverse proxy forwards bytes to healthy upstream nodes.",
+        "highlight": [
+          "elemC"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "JSON body parser boundary edge check",
-        "boxes": [
-          {
-            "id": "ok",
-            "label": "ok"
-          },
-          {
-            "id": "status",
-            "label": "status"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Robust backends must handle malformed input gracefully without crashing.",
-            "values": {
-              "ok": "true",
-              "status": "400"
-            },
-            "tones": {
-              "ok": "ok",
-              "status": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "When invalid syntax is parsed the server emits a 400 Bad Request error.",
-            "values": {
-              "ok": "false",
-              "status": "400"
-            },
-            "tones": {
-              "ok": "error",
-              "status": "error"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Writing edge case tests builds confidence that APIs withstand attacks.",
-            "values": {
-              "ok": "true",
-              "status": "400"
-            },
-            "tones": {
-              "ok": "ok",
-              "status": "ok"
-            }
-          }
+      {
+        "step": 4,
+        "caption": "Observability hooks emit telemetry spans and structured metrics.",
+        "highlight": [
+          "elemD"
         ]
       }
-    },
-    {
-      "partTitle": "Mocking External Service Dependencies in Route Handlers",
-      "codeHash": "5dfb2442134214c2ab68b7599cb9813227bbb19e4a7acb5749c0ebc1ae63aa7e",
-      "spec": {
-        "template": "boxes",
-        "title": "Mock email service dependency injection",
-        "boxes": [
-          {
-            "id": "email",
-            "label": "to"
-          },
-          {
-            "id": "sent",
-            "label": "emailSent"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Testing handlers against real external services introduces network latency.",
-            "values": {
-              "email": {
-                "text": "student@pin.it"
-              },
-              "sent": {
-                "text": "emailSent"
-              }
-            },
-            "tones": {
-              "email": "data",
-              "sent": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Injecting service mocks lets unit tests verify expected parameters.",
-            "values": {
-              "email": {
-                "text": "student@pin.it"
-              },
-              "sent": {
-                "text": "emailSent"
-              }
-            },
-            "tones": {
-              "email": "data",
-              "sent": "data"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Mocking external services allows test suites to execute completely offline.",
-            "values": {
-              "email": {
-                "text": "student@pin.it"
-              },
-              "sent": {
-                "text": "emailSent"
-              }
-            },
-            "tones": {
-              "email": "ok",
-              "sent": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Mock email service dependency injection",
-        "boxes": [
-          {
-            "id": "email",
-            "label": "to"
-          },
-          {
-            "id": "sent",
-            "label": "emailSent"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Testing handlers against real external services introduces network latency.",
-            "values": {
-              "email": "student@pin.it",
-              "sent": "emailSent"
-            },
-            "tones": {
-              "email": "data",
-              "sent": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Injecting service mocks lets unit tests verify expected parameters.",
-            "values": {
-              "email": "student@pin.it",
-              "sent": "emailSent"
-            },
-            "tones": {
-              "email": "data",
-              "sent": "data"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Mocking external services allows test suites to execute completely offline.",
-            "values": {
-              "email": "student@pin.it",
-              "sent": "emailSent"
-            },
-            "tones": {
-              "email": "ok",
-              "sent": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Building an Automated API Integration Test Suite",
-      "codeHash": "2c80acb26dd941e4689e063034f4261d220377ad013ea602b04dae5b44392dca",
-      "spec": {
-        "template": "flow",
-        "title": "Building an Automated API Integration Test Suite — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building an Automat...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building an Automated API Integration Te.. [D26.P6.S1].",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building an Automat... [D26.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D26.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building an Automated API Integra.. [D26.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Building an Automated API Integration Test Suite — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building an Automat...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building an Automated API Integration Te.. [D26.P6.S1].",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building an Automat... [D26.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D26.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building an Automated API Integra.. [D26.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      }
-    }
-  ]
-}
+    ]
+  }
+]

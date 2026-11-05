@@ -1,835 +1,306 @@
-{
-  "schemaVersion": 1,
-  "prefix": "node-web",
-  "day": 24,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
-    {
-      "partTitle": "Why Caching is Essential for High-Scale APIs",
-      "codeHash": "7194c905507bc8f75b422827e0d7213ecb11263e3a260e90aa5caa152c366687",
-      "spec": {
-        "template": "boxes",
-        "title": "Cache efficiency hits and misses",
-        "boxes": [
-          {
-            "id": "hits",
-            "label": "hits"
-          },
-          {
-            "id": "misses",
-            "label": "misses"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say3",
-            "caption": "Querying databases repeatedly for identical records wastes CPU resources.",
-            "values": {
-              "hits": {
-                "text": "920"
-              },
-              "misses": {
-                "text": "80"
-              }
-            },
-            "tones": {
-              "hits": "data",
-              "misses": "idle"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Subsequent requests retrieve cached data directly from RAM in microseconds.",
-            "values": {
-              "hits": {
-                "text": "920"
-              },
-              "misses": {
-                "text": "80"
-              }
-            },
-            "tones": {
-              "hits": "ok",
-              "misses": "idle"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Strategic caching reduces database load by lowering API response latencies.",
-            "values": {
-              "hits": {
-                "text": "920"
-              },
-              "misses": {
-                "text": "80"
-              }
-            },
-            "tones": {
-              "hits": "ok",
-              "misses": "ok"
-            }
-          }
+[
+  {
+    "schemaVersion": 2,
+    "partIndex": 1,
+    "codeHash": "0e417ed743d740a4e66f4fd58d617c4272c9c07d77ca53524d2a22c87ec6be62",
+    "spec": {
+      "template": "flow",
+      "title": "Process Pipeline Anatomy of OS Processes & The child_process Module API.",
+      "nodes": [
+        {
+          "id": "stepA",
+          "label": "Worker Thread Spawner",
+          "type": "start"
+        },
+        {
+          "id": "stepB",
+          "label": "Atomic Memory Buffer",
+          "type": "process"
+        },
+        {
+          "id": "stepC",
+          "label": "Execution Coordinator",
+          "type": "process"
+        },
+        {
+          "id": "stepD",
+          "label": "Output Event Stream",
+          "type": "end"
+        }
+      ],
+      "edges": [
+        {
+          "from": "stepA",
+          "to": "stepB",
+          "label": "Alloc"
+        },
+        {
+          "from": "stepB",
+          "to": "stepC",
+          "label": "Lock"
+        },
+        {
+          "from": "stepC",
+          "to": "stepD",
+          "label": "Emit"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Concurrency engine initializes parallel memory structures safely.",
+        "highlight": [
+          "stepA"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Cache efficiency hits and misses",
-        "boxes": [
-          {
-            "id": "hits",
-            "label": "hits"
-          },
-          {
-            "id": "misses",
-            "label": "misses"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say3",
-            "caption": "Querying databases repeatedly for identical records wastes CPU resources.",
-            "values": {
-              "hits": "920",
-              "misses": "80"
-            },
-            "tones": {
-              "hits": "data",
-              "misses": "idle"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Subsequent requests retrieve cached data directly from RAM in microseconds.",
-            "values": {
-              "hits": "920",
-              "misses": "80"
-            },
-            "tones": {
-              "hits": "ok",
-              "misses": "idle"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Strategic caching reduces database load by lowering API response latencies.",
-            "values": {
-              "hits": "920",
-              "misses": "80"
-            },
-            "tones": {
-              "hits": "ok",
-              "misses": "ok"
-            }
-          }
+      {
+        "step": 2,
+        "caption": "Atomic operations enforce mutual exclusion without kernel pauses.",
+        "highlight": [
+          "stepB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Worker thread processes tasks and coordinates backpressured flow.",
+        "highlight": [
+          "stepC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Execution completes cleanly with bounded memory utilization.",
+        "highlight": [
+          "stepD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 2,
+    "codeHash": "4d15f772c0974c4801f9f9e2701bd33f87ac91a767be605670f2510034cee906",
+    "spec": {
+      "template": "boxes",
+      "title": "Architectural Partitions Mitigating Command Injection (CWE-) & Argument E.",
+      "boxes": [
+        {
+          "id": "boxA",
+          "label": "Cluster Primary Node"
+        },
+        {
+          "id": "boxB",
+          "label": "Worker Process Pool"
+        },
+        {
+          "id": "boxC",
+          "label": "Shared Ring Buffer"
+        },
+        {
+          "id": "boxD",
+          "label": "Persistent Task Broker"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Concurrency engine initializes parallel memory structures safely.",
+        "highlight": [
+          "boxA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Atomic operations enforce mutual exclusion without kernel pauses.",
+        "highlight": [
+          "boxB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Worker thread processes tasks and coordinates backpressured flow.",
+        "highlight": [
+          "boxC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Execution completes cleanly with bounded memory utilization.",
+        "highlight": [
+          "boxD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 3,
+    "codeHash": "b8f9f45df7d262e2d7b9a3b89ebeb1aaaefe58d28df306bf26fd781a143816b3",
+    "spec": {
+      "template": "stackQueue",
+      "title": "Task Pipeline Queue Asynchronous Stream Piping & Backpressure across Subp.",
+      "elements": [
+        {
+          "id": "elemA",
+          "label": "Waiting Priority Task"
+        },
+        {
+          "id": "elemB",
+          "label": "Active Working Lease"
+        },
+        {
+          "id": "elemC",
+          "label": "Delayed Timer Task"
+        },
+        {
+          "id": "elemD",
+          "label": "Dead Letter Quarantine"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Concurrency engine initializes parallel memory structures safely.",
+        "highlight": [
+          "elemA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Atomic operations enforce mutual exclusion without kernel pauses.",
+        "highlight": [
+          "elemB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Worker thread processes tasks and coordinates backpressured flow.",
+        "highlight": [
+          "elemC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Execution completes cleanly with bounded memory utilization.",
+        "highlight": [
+          "elemD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 4,
+    "codeHash": "5ba10bb926a223d2a524101727436a9ddf69e8691dd9cecbad2703960e2eb784",
+    "spec": {
+      "template": "sequence",
+      "title": "Sequence Coordination Detached Processes, Daemons & Signal Dispatching.",
+      "actors": [
+        {
+          "id": "primary",
+          "label": "Primary Process"
+        },
+        {
+          "id": "worker",
+          "label": "Compute Worker"
+        },
+        {
+          "id": "broker",
+          "label": "Redis Task Broker"
+        },
+        {
+          "id": "storage",
+          "label": "Durable Store"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Concurrency engine initializes parallel memory structures safely.",
+        "highlight": [
+          "elemA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Atomic operations enforce mutual exclusion without kernel pauses.",
+        "highlight": [
+          "elemB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Worker thread processes tasks and coordinates backpressured flow.",
+        "highlight": [
+          "elemC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Execution completes cleanly with bounded memory utilization.",
+        "highlight": [
+          "elemD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 5,
+    "codeHash": "09932d94ef789bc0c351519827ce3de04d90ad057f54cac550222058270892b8",
+    "spec": {
+      "template": "compare",
+      "title": "Concurrency Architecture Production Subprocess Pipeline & Execution Gatew.",
+      "left": {
+        "title": "Distributed Queue",
+        "items": [
+          "Atomic transitions",
+          "Full jitter backoff",
+          "Durable state"
+        ]
+      },
+      "right": {
+        "title": "In Memory Async",
+        "items": [
+          "Lost on restart",
+          "Unbounded spikes",
+          "Zero fault isolation"
         ]
       }
     },
-    {
-      "partTitle": "The Cache-Aside (Lazy Loading) Pattern",
-      "codeHash": "e0c1241c89ecb331fbfbd4ad40d2c6ca70c4a0e24807dfeb7b305fcd481ff4d9",
-      "spec": {
-        "template": "boxes",
-        "title": "Cache-aside data retrieval resolution",
-        "boxes": [
-          {
-            "id": "jobId",
-            "label": "jobId"
-          },
-          {
-            "id": "source",
-            "label": "source"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "In cache aside application code sits between the cache and the database.",
-            "values": {
-              "jobId": {
-                "text": "job_101"
-              },
-              "source": {
-                "text": "DATABASE"
-              }
-            },
-            "tones": {
-              "jobId": "data",
-              "source": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "If the key exists the application returns the cached data immediately.",
-            "values": {
-              "jobId": {
-                "text": "job_101"
-              },
-              "source": {
-                "text": "CACHE"
-              }
-            },
-            "tones": {
-              "jobId": "ok",
-              "source": "ok"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Cache aside ensures only actively requested data is stored in memory.",
-            "values": {
-              "jobId": {
-                "text": "job_101"
-              },
-              "source": {
-                "text": "CACHE"
-              }
-            },
-            "tones": {
-              "jobId": "ok",
-              "source": "ok"
-            }
-          }
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Concurrency engine initializes parallel memory structures safely.",
+        "highlight": [
+          "elemA"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Cache-aside data retrieval resolution",
-        "boxes": [
-          {
-            "id": "jobId",
-            "label": "jobId"
-          },
-          {
-            "id": "source",
-            "label": "source"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "In cache aside application code sits between the cache and the database.",
-            "values": {
-              "jobId": "job_101",
-              "source": "DATABASE"
-            },
-            "tones": {
-              "jobId": "data",
-              "source": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "If the key exists the application returns the cached data immediately.",
-            "values": {
-              "jobId": "job_101",
-              "source": "CACHE"
-            },
-            "tones": {
-              "jobId": "ok",
-              "source": "ok"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Cache aside ensures only actively requested data is stored in memory.",
-            "values": {
-              "jobId": "job_101",
-              "source": "CACHE"
-            },
-            "tones": {
-              "jobId": "ok",
-              "source": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "TTL (Time-To-Live) Eviction Mechanics and Expiration",
-      "codeHash": "74bf567a85431e0481bbd80d2fda0778d04af02ded95f10a940285eae42dcdd9",
-      "spec": {
-        "template": "boxes",
-        "title": "TTL cache entry expiration timestamp",
-        "boxes": [
-          {
-            "id": "key",
-            "label": "key"
-          },
-          {
-            "id": "expires",
-            "label": "expiresAt"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say3",
-            "caption": "TTL specifies the lifespan of a cache entry in milliseconds.",
-            "values": {
-              "key": {
-                "text": "stats"
-              },
-              "expires": {
-                "text": "expiresAt"
-              }
-            },
-            "tones": {
-              "key": "data",
-              "expires": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "When an item is stored the cache calculates its expiration timestamp.",
-            "values": {
-              "key": {
-                "text": "stats"
-              },
-              "expires": {
-                "text": "expiresAt"
-              }
-            },
-            "tones": {
-              "key": "data",
-              "expires": "data"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "In passive eviction the cache deletes the key when expiration has passed.",
-            "values": {
-              "key": {
-                "text": "stats"
-              },
-              "expires": {
-                "text": "expiresAt"
-              }
-            },
-            "tones": {
-              "key": "ok",
-              "expires": "ok"
-            }
-          }
+      {
+        "step": 2,
+        "caption": "Atomic operations enforce mutual exclusion without kernel pauses.",
+        "highlight": [
+          "elemB"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "TTL cache entry expiration timestamp",
-        "boxes": [
-          {
-            "id": "key",
-            "label": "key"
-          },
-          {
-            "id": "expires",
-            "label": "expiresAt"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say3",
-            "caption": "TTL specifies the lifespan of a cache entry in milliseconds.",
-            "values": {
-              "key": "stats",
-              "expires": "expiresAt"
-            },
-            "tones": {
-              "key": "data",
-              "expires": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "When an item is stored the cache calculates its expiration timestamp.",
-            "values": {
-              "key": "stats",
-              "expires": "expiresAt"
-            },
-            "tones": {
-              "key": "data",
-              "expires": "data"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "In passive eviction the cache deletes the key when expiration has passed.",
-            "values": {
-              "key": "stats",
-              "expires": "expiresAt"
-            },
-            "tones": {
-              "key": "ok",
-              "expires": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Cache Key Design and Namespace Partitioning",
-      "codeHash": "99cacaa38acc2aefd09c8f7a36f5b439ba968d3b1e3d434683926812fe7b695b",
-      "spec": {
-        "template": "boxes",
-        "title": "Hierarchical cache key components",
-        "boxes": [
-          {
-            "id": "ns",
-            "label": "namespace"
-          },
-          {
-            "id": "entity",
-            "label": "entity"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Professional backend architectures adopt strict cache key namespacing.",
-            "values": {
-              "ns": {
-                "text": "pinit"
-              },
-              "entity": {
-                "text": "jobs"
-              }
-            },
-            "tones": {
-              "ns": "data",
-              "entity": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Standardized cache keys follow a colon delimited hierarchical format.",
-            "values": {
-              "ns": {
-                "text": "pinit"
-              },
-              "entity": {
-                "text": "jobs"
-              }
-            },
-            "tones": {
-              "ns": "data",
-              "entity": "data"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Namespacing prevents key collisions between different entity types.",
-            "values": {
-              "ns": {
-                "text": "pinit"
-              },
-              "entity": {
-                "text": "jobs"
-              }
-            },
-            "tones": {
-              "ns": "ok",
-              "entity": "ok"
-            }
-          }
+      {
+        "step": 3,
+        "caption": "Worker thread processes tasks and coordinates backpressured flow.",
+        "highlight": [
+          "elemC"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Hierarchical cache key components",
-        "boxes": [
-          {
-            "id": "ns",
-            "label": "namespace"
-          },
-          {
-            "id": "entity",
-            "label": "entity"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Professional backend architectures adopt strict cache key namespacing.",
-            "values": {
-              "ns": "pinit",
-              "entity": "jobs"
-            },
-            "tones": {
-              "ns": "data",
-              "entity": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Standardized cache keys follow a colon delimited hierarchical format.",
-            "values": {
-              "ns": "pinit",
-              "entity": "jobs"
-            },
-            "tones": {
-              "ns": "data",
-              "entity": "data"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Namespacing prevents key collisions between different entity types.",
-            "values": {
-              "ns": "pinit",
-              "entity": "jobs"
-            },
-            "tones": {
-              "ns": "ok",
-              "entity": "ok"
-            }
-          }
+      {
+        "step": 4,
+        "caption": "Execution completes cleanly with bounded memory utilization.",
+        "highlight": [
+          "elemD"
         ]
       }
-    },
-    {
-      "partTitle": "Cache Invalidation Strategies Upon Mutation (Write-Through vs Evict)",
-      "codeHash": "f5962276563884ee3a5ba85be8f26d020309c3f92da10a29c5121e55f0a73c4f",
-      "spec": {
-        "template": "boxes",
-        "title": "Cache eviction on database record update",
-        "boxes": [
-          {
-            "id": "key",
-            "label": "key"
-          },
-          {
-            "id": "val",
-            "label": "newDbValue"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The central danger of caching is stale data persisting until expiration.",
-            "values": {
-              "key": {
-                "text": "job_1"
-              },
-              "val": {
-                "text": "Senior Engineer"
-              }
-            },
-            "tones": {
-              "key": "data",
-              "val": "idle"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "In eviction the server deletes the cache key when updating records.",
-            "values": {
-              "key": {
-                "text": "job_1"
-              },
-              "val": {
-                "text": "Staff Engineer"
-              }
-            },
-            "tones": {
-              "key": "data",
-              "val": "error"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Eviction is preferred in distributed systems to prevent update races.",
-            "values": {
-              "key": {
-                "text": "job_1"
-              },
-              "val": {
-                "text": "Staff Engineer"
-              }
-            },
-            "tones": {
-              "key": "ok",
-              "val": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Cache eviction on database record update",
-        "boxes": [
-          {
-            "id": "key",
-            "label": "key"
-          },
-          {
-            "id": "val",
-            "label": "newDbValue"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The central danger of caching is stale data persisting until expiration.",
-            "values": {
-              "key": "job_1",
-              "val": "Senior Engineer"
-            },
-            "tones": {
-              "key": "data",
-              "val": "idle"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "In eviction the server deletes the cache key when updating records.",
-            "values": {
-              "key": "job_1",
-              "val": "Staff Engineer"
-            },
-            "tones": {
-              "key": "data",
-              "val": "error"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Eviction is preferred in distributed systems to prevent update races.",
-            "values": {
-              "key": "job_1",
-              "val": "Staff Engineer"
-            },
-            "tones": {
-              "key": "ok",
-              "val": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Building a High-Performance In-Memory Cache with Hit/Miss Metrics",
-      "codeHash": "79967522f080c86a991381fa1a442a7b02d4ea01e0249545b74ea5a41a3087c3",
-      "spec": {
-        "template": "flow",
-        "title": "Building a High-Performance In-Memory Cache w... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building a High-Per...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building a High-Performance In-Memory Ca.. [D24.P6.S1].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building a High-Per... [D24.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D24.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building a High-Performance In-Me.. [D24.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Building a High-Performance In-Memory Cache w... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building a High-Per...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building a High-Performance In-Memory Ca.. [D24.P6.S1].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building a High-Per... [D24.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D24.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building a High-Performance In-Me.. [D24.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      }
-    }
-  ]
-}
+    ]
+  }
+]

@@ -6,7 +6,7 @@
     {
       "partIndex": 1,
       "partTitle": "Aurora Distributed Storage Architecture: 4-of-6 Quorum, Log Is The Database & Multi-AZ Striping",
-      "codeHash": "b8a5335e87125466898b34ae5f11060327318f25c6f06d95ec1cb6293eee650f",
+      "codeHash": "7df1944ed4b9992beaeec5f52843921f6d50e326f16fd19f5e4ca9120375ed70",
       "spec": {
         "template": "compare",
         "left": {
@@ -54,7 +54,7 @@
     {
       "partIndex": 2,
       "partTitle": "Aurora Serverless v2 Auto-Scaling Mechanics: ACU Granularity & Instant In-Place Scaling",
-      "codeHash": "143956010e10950dfbf7136c0c886571e91739d1bd60df5495e2e28eaae4fdb6",
+      "codeHash": "14a77bf10d4af3e2fbf36a7e0e28798bcc1e62f5783136198a17c00c28020223",
       "spec": {
         "template": "compare",
         "left": {
@@ -102,7 +102,7 @@
     {
       "partIndex": 3,
       "partTitle": "High-Performance Read Scaling: Shared Storage Replicas & Custom Endpoints",
-      "codeHash": "aaed8295ef9560f8db24b10c29140f9fea23093a5a402a3f4a2257b8122f53bb",
+      "codeHash": "ec6387c1aee5d84f4bfcc8c522dbced47de4cbe7132c4d26e1c74c9b9466adcf",
       "spec": {
         "template": "compare",
         "left": {
@@ -150,7 +150,7 @@
     {
       "partIndex": 4,
       "partTitle": "Aurora Global Database: Cross-Region Storage Replication & Headless Disaster Recovery",
-      "codeHash": "d31ec7a0320ffd5a61b1acff007218d38fe41f660504f5eae95dd2a91c9b667d",
+      "codeHash": "5aa279a5df5172a9dd19047e8db9db6815bf9eee489a862d8a578ce7175d0cbc",
       "spec": {
         "template": "compare",
         "left": {
@@ -198,7 +198,7 @@
     {
       "partIndex": 5,
       "partTitle": "Aurora Connection Pooling & High Availability: Amazon RDS Proxy & Fast Failover",
-      "codeHash": "28fba391291927d513c663223b1b9bb20d6e02e10a1dd11c055d570a5e9e5feb",
+      "codeHash": "1e3b8b0b32e2d53f23b2006a90b4a053cd493fb520191271dbad1c2d59f15e91",
       "spec": {
         "template": "compare",
         "left": {

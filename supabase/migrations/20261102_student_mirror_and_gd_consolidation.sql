@@ -73,6 +73,11 @@ CREATE TABLE IF NOT EXISTS public.student_attendance (
     created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
+ALTER TABLE public.student_gd_history ADD COLUMN IF NOT EXISTS user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE;
+ALTER TABLE public.student_gd_history ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ DEFAULT NOW();
+ALTER TABLE public.student_attendance ADD COLUMN IF NOT EXISTS user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE;
+ALTER TABLE public.student_attendance ADD COLUMN IF NOT EXISTS date DATE DEFAULT CURRENT_DATE;
+
 -- ── Performance Indexes ─────────────────────────────────────────────────────────
 CREATE INDEX IF NOT EXISTS idx_gd_sessions_user_created ON public.gd_sessions(user_id, created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_student_gd_history_user ON public.student_gd_history(user_id, created_at DESC);

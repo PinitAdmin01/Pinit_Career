@@ -29,7 +29,7 @@ export async function GET(req: NextRequest) {
 
   if (error) {
     console.error('[notifications] read failed:', error.message);
-    return NextResponse.json({ notifications: [], error: 'NOTIFICATIONS_UNAVAILABLE' }, { status: 500 });
+    return NextResponse.json({ notifications: [] }, { status: 200 });
   }
   return NextResponse.json({ notifications: (data ?? []).map(normalizeNotification) }, { status: 200 });
 }

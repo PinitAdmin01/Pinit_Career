@@ -704,7 +704,12 @@ export const NODE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
     eDesc: "Write `compareConstantTime(a: string, b: string): boolean` that compares two secret strings with constant-time execution loop to resist timing attacks.",
     eLanguage: "typescript",
     eStarter: lines("function compareConstantTime(a: string, b: string): boolean {", "  // Timing-safe string comparison", "  return false;", "}"),
-    eHint: "If lengths differ return false. Compute bitwise diff across character codes in a loop.",
+    eHint: `if (a.length !== b.length) return false;
+  let diff = 0;
+  for (let i = 0; i < a.length; i++) {
+    diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  }
+  return diff === 0;`,
     eTest: lines(
       "if (typeof compareConstantTime !== 'function') throw new Error('compareConstantTime not found');",
       "if (compareConstantTime('secret123', 'secret123') !== true) throw new Error('Matching strings should be true');",
@@ -716,7 +721,12 @@ export const NODE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
     aDesc: "Write `validatePasswordStrength(password: string): { valid: boolean; issues: string[] }` checking length >= 8, uppercase, lowercase, and digit.",
     aLanguage: "typescript",
     aStarter: lines("function validatePasswordStrength(password: string): { valid: boolean; issues: string[] } {", "  // Validate password complexity", "  return { valid: false, issues: [] };", "}"),
-    aHint: "Check password length >= 8, /[A-Z]/.test(password), /[a-z]/.test(password), /[0-9]/.test(password).",
+    aHint: `const issues: string[] = [];
+  if (password.length < 8) issues.push('Must be at least 8 characters');
+  if (!/[A-Z]/.test(password)) issues.push('Must contain uppercase letter');
+  if (!/[a-z]/.test(password)) issues.push('Must contain lowercase letter');
+  if (!/[0-9]/.test(password)) issues.push('Must contain digit');
+  return { valid: issues.length === 0, issues };`,
     aTest: lines(
       "if (typeof validatePasswordStrength !== 'function') throw new Error('validatePasswordStrength not found');",
       "const p1 = validatePasswordStrength('P@ssword1');",
@@ -735,7 +745,9 @@ export const NODE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
     eDesc: "Write `parseBearerToken(header: string | undefined): string | null` extracting the token from `'Bearer <token>'` (case-insensitive for 'Bearer').",
     eLanguage: "typescript",
     eStarter: lines("function parseBearerToken(header: string | undefined): string | null {", "  // Extract bearer token", "  return null;", "}"),
-    eHint: "If header is missing return null. Use regex /^Bearer\\s+(\\S+)$/i to extract token.",
+    eHint: `if (!header) return null;
+  const match = header.match(/^Bearer\\s+(\\S+)$/i);
+  return match ? match[1] : null;`,
     eTest: lines(
       "if (typeof parseBearerToken !== 'function') throw new Error('parseBearerToken not found');",
       "if (parseBearerToken('Bearer token123') !== 'token123') throw new Error('Failed token123');",
@@ -748,7 +760,12 @@ export const NODE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
     aDesc: "Write `createSessionCookie(name: string, value: string, options?: { maxAge?: number; httpOnly?: boolean; secure?: boolean; sameSite?: 'Strict' | 'Lax' | 'None' }): string`.",
     aLanguage: "typescript",
     aStarter: lines("function createSessionCookie(name: string, value: string, options: { maxAge?: number; httpOnly?: boolean; secure?: boolean; sameSite?: 'Strict' | 'Lax' | 'None' } = {}): string {", "  // Serialize Set-Cookie header", "  return '';", "}"),
-    aHint: "Format parts: name=encodeURIComponent(value), Max-Age, HttpOnly, Secure, SameSite, and join with '; '.",
+    aHint: `const parts = [name + '=' + encodeURIComponent(value)];
+  if (options.maxAge !== undefined) parts.push('Max-Age=' + options.maxAge);
+  if (options.httpOnly) parts.push('HttpOnly');
+  if (options.secure) parts.push('Secure');
+  if (options.sameSite) parts.push('SameSite=' + options.sameSite);
+  return parts.join('; ');`,
     aTest: lines(
       "if (typeof createSessionCookie !== 'function') throw new Error('createSessionCookie not found');",
       "const c1 = createSessionCookie('sid', 'abc123xyz', { httpOnly: true, sameSite: 'Lax' });",
@@ -767,7 +784,16 @@ export const NODE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
     eDesc: "Write `parseJwtPayload(token: string): Record<string, unknown> | null` that decodes base64url payload segment to JSON.",
     eLanguage: "typescript",
     eStarter: lines("function parseJwtPayload(token: string): Record<string, unknown> | null {", "  // Decode JWT payload", "  return null;", "}"),
-    eHint: "Split token on '.', check 3 parts. Normalize base64url chars (- to +, _ to /) and pad with '=', then atob and JSON.parse.",
+    eHint: `const parts = token.split('.');
+  if (parts.length !== 3) return null;
+  try {
+    let b64 = parts[1].replace(/-/g, '+').replace(/_/g, '/');
+    while (b64.length % 4 !== 0) b64 += '=';
+    const json = Buffer.from(b64, 'base64').toString('utf-8');
+    return JSON.parse(json);
+  } catch {
+    return null;
+  }`,
     eTest: lines(
       "if (typeof parseJwtPayload !== 'function') throw new Error('parseJwtPayload not found');",
       "const token = 'header.eyJzdWIiOiJ1c2VyMTIzIiwicm9sZSI6ImFkbWluIn0.signature';",
@@ -780,7 +806,9 @@ export const NODE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
     aDesc: "Write `verifyJwtExpiration(payload: { exp?: number }, currentTimestampSeconds?: number): { valid: boolean; expired: boolean }`.",
     aLanguage: "typescript",
     aStarter: lines("function verifyJwtExpiration(payload: { exp?: number }, currentTimestampSeconds: number = Math.floor(Date.now() / 1000)): { valid: boolean; expired: boolean } {", "  // Verify exp claim", "  return { valid: false, expired: false };", "}"),
-    aHint: "If typeof payload.exp !== 'number' return { valid: false, expired: false }. expired is exp <= currentTimestampSeconds.",
+    aHint: `if (typeof payload.exp !== 'number') return { valid: false, expired: false };
+  const expired = payload.exp <= currentTimestampSeconds;
+  return { valid: !expired, expired };`,
     aTest: lines(
       "if (typeof verifyJwtExpiration !== 'function') throw new Error('verifyJwtExpiration not found');",
       "const r1 = verifyJwtExpiration({ exp: 2000 }, 1000);",
@@ -799,7 +827,9 @@ export const NODE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
     eDesc: "Write `hasPermission(role: string, requiredPermission: string, rolePermissions: Record<string, string[]>): boolean` supporting wildcard `'*'`.",
     eLanguage: "typescript",
     eStarter: lines("function hasPermission(role: string, requiredPermission: string, rolePermissions: Record<string, string[]>): boolean {", "  // Check role permission matrix", "  return false;", "}"),
-    eHint: "Look up role in rolePermissions; return true if list includes '*' or requiredPermission.",
+    eHint: `const perms = rolePermissions[role];
+  if (!perms) return false;
+  return perms.includes('*') || perms.includes(requiredPermission);`,
     eTest: lines(
       "if (typeof hasPermission !== 'function') throw new Error('hasPermission not found');",
       "const matrix = { admin: ['*'], editor: ['jobs:create', 'jobs:update'], viewer: ['jobs:read'] };",
@@ -812,7 +842,10 @@ export const NODE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
     aDesc: "Write `authorizeRoute(user: { id: string; roles: string[] } | null, allowedRoles: string[]): { status: 200 | 401 | 403; message?: string }`.",
     aLanguage: "typescript",
     aStarter: lines("function authorizeRoute(user: { id: string; roles: string[] } | null, allowedRoles: string[]): { status: 200 | 401 | 403; message?: string } {", "  // Authorize user roles for route", "  return { status: 401 };", "}"),
-    aHint: "Return 401 if user is null; 403 if none of user.roles match allowedRoles; 200 if authorized.",
+    aHint: `if (!user) return { status: 401, message: 'Unauthorized' };
+  const hasRole = user.roles.some(r => allowedRoles.includes(r));
+  if (!hasRole) return { status: 403, message: 'Forbidden' };
+  return { status: 200, message: 'Authorized' };`,
     aTest: lines(
       "if (typeof authorizeRoute !== 'function') throw new Error('authorizeRoute not found');",
       "if (authorizeRoute(null, ['admin']).status !== 401) throw new Error('Null user should be 401');",
@@ -830,7 +863,17 @@ export const NODE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
     eDesc: "Write `checkRateLimit(key: string, now: number, windowMs: number, maxRequests: number, store: Map<string, number[]>): { allowed: boolean; remaining: number; retryAfterMs: number }`.",
     eLanguage: "typescript",
     eStarter: lines("function checkRateLimit(key: string, now: number, windowMs: number, maxRequests: number, store: Map<string, number[]>): { allowed: boolean; remaining: number; retryAfterMs: number } {", "  // Sliding window rate limiter", "  return { allowed: false, remaining: 0, retryAfterMs: 0 };", "}"),
-    eHint: "Filter timestamps > now - windowMs. If length >= maxRequests return allowed: false with retryAfterMs = timestamps[0] + windowMs - now. Else append now and return allowed: true.",
+    eHint: `const existing = store.get(key) || [];
+  const valid = existing.filter(t => t > now - windowMs);
+  if (valid.length >= maxRequests) {
+    const oldest = valid[0];
+    const retryAfterMs = oldest + windowMs - now;
+    store.set(key, valid);
+    return { allowed: false, remaining: 0, retryAfterMs };
+  }
+  valid.push(now);
+  store.set(key, valid);
+  return { allowed: true, remaining: maxRequests - valid.length, retryAfterMs: 0 };`,
     eTest: lines(
       "if (typeof checkRateLimit !== 'function') throw new Error('checkRateLimit not found');",
       "const store = new Map();",
@@ -844,353 +887,567 @@ export const NODE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
       "if (!r4.allowed || r4.remaining !== 1) throw new Error('Independent key should be allowed');"
     ),
     aTitle: "Sanitize Text Input against HTML Injection",
-    aDesc: "Write `sanitizeHtmlInput(input: string): string` replacing &, <, >, \\\", ' with safe HTML entities.",
+    aDesc: "Write `sanitizeHtmlInput(input: string): string` replacing &, <, >, \", ' with safe HTML entities.",
     aLanguage: "typescript",
     aStarter: lines("function sanitizeHtmlInput(input: string): string {", "  // Escape HTML entities", "  return '';", "}"),
-    aHint: "Use string replacement on &, <, >, \\\", ' to produce entity equivalents.",
+    aHint: `return input
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');`,
     aTest: lines(
       "if (typeof sanitizeHtmlInput !== 'function') throw new Error('sanitizeHtmlInput not found');",
-      "if (sanitizeHtmlInput('<script>alert(\\\"xss\\\")</script>') !== '&lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;') throw new Error('Script tag sanitization failed');",
-      "if (sanitizeHtmlInput('Tom & Jerry\\'s') !== 'Tom &amp; Jerry&#39;s') throw new Error('Ampersand and quote failed');",
+      "if (sanitizeHtmlInput('<script>alert(\"xss\")</script>') !== '&lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;') throw new Error('Script tag sanitization failed');",
+      "if (sanitizeHtmlInput(\"Tom & Jerry's\") !== 'Tom &amp; Jerry&#39;s') throw new Error('Ampersand and quote failed');",
       "if (sanitizeHtmlInput('Hello World!') !== 'Hello World!') throw new Error('Clean string altered');"
     )
   },
 
   // ── DAY 21: Data Access Layer & In-Memory Repository ───────────────────────
+  // ── DAY 21: Worker Threads, Thread Pools & CPU-Bound Parallelism ──────────
   {
     ...NODE_WEB_DAYS[20],
-    eTitle: "In-Memory Entity Repository (CRUD)",
-    eDesc: "Write `createEntityRepository<T extends { id: string }>()` providing create, findById, findAll, and delete methods.",
+    eTitle: "ThreadPool Task Dispatcher & Sizing",
+    eDesc: "Write `calculateThreadPoolMetrics(numCpuCores: number, activeTasks: number, maxQueueDepth: number): { optimalPoolSize: number; queueSaturationRatio: number; requiresBackpressure: boolean }`.",
     eLanguage: "typescript",
-    eStarter: lines("function createEntityRepository<T extends { id: string }>() {", "  // Return in-memory repository object", "  return {} as any;", "}"),
-    eHint: "Use Map<string, T>. create throws on duplicate id; findById returns clone or null; findAll returns array of clones; delete returns boolean.",
-    eTest: lines(
-      "if (typeof createEntityRepository !== 'function') throw new Error('createEntityRepository not found');",
-      "const repo = createEntityRepository();",
-      "repo.create({ id: '1', name: 'Alice' });",
-      "if (!repo.findById('1') || repo.findById('1').name !== 'Alice') throw new Error('findById failed');",
-      "if (repo.findAll().length !== 1) throw new Error('findAll failed');",
-      "let threw = false; try { repo.create({ id: '1', name: 'Duplicate' }); } catch { threw = true; }",
-      "if (!threw) throw new Error('Duplicate id should throw');",
-      "if (!repo.delete('1') || repo.findById('1') !== null) throw new Error('delete failed');"
+    eStarter: lines(
+      "function calculateThreadPoolMetrics(numCpuCores: number, activeTasks: number, maxQueueDepth: number): { optimalPoolSize: number; queueSaturationRatio: number; requiresBackpressure: boolean } {",
+      "  // Calculate thread pool capacity and backpressure state",
+      "  return { optimalPoolSize: 0, queueSaturationRatio: 0, requiresBackpressure: false };",
+      "}"
     ),
-    aTitle: "Immutable Entity Patch Update",
-    aDesc: "Write `updateEntity<T extends { id: string }>(items: T[], id: string, patch: Partial<T>): { updated: T | null; nextItems: T[] }` without mutating input array.",
+    eHint: `const optimalPoolSize = Math.max(1, numCpuCores);
+  const queueSaturationRatio = Math.round((activeTasks / maxQueueDepth) * 100) / 100;
+  const requiresBackpressure = activeTasks >= maxQueueDepth;
+  return { optimalPoolSize, queueSaturationRatio, requiresBackpressure };`,
+    eTest: lines(
+      "if (typeof calculateThreadPoolMetrics !== 'function') throw new Error('calculateThreadPoolMetrics not found');",
+      "const m1 = calculateThreadPoolMetrics(8, 50, 100);",
+      "if (m1.optimalPoolSize !== 8 || m1.queueSaturationRatio !== 0.5 || m1.requiresBackpressure !== false) throw new Error('m1 failed');",
+      "const m2 = calculateThreadPoolMetrics(4, 100, 100);",
+      "if (m2.requiresBackpressure !== true || m2.queueSaturationRatio !== 1) throw new Error('m2 failed');"
+    ),
+    aTitle: "Structured Clone Transfer Payload Builder",
+    aDesc: "Write `sanitizeWorkerTransferPayload(payload: Record<string, any>): { transferableKeys: string[]; cloneablePayload: Record<string, any> }` that identifies ArrayBuffer keys.",
     aLanguage: "typescript",
-    aStarter: lines("function updateEntity<T extends { id: string }>(items: T[], id: string, patch: Partial<T>): { updated: T | null; nextItems: T[] } {", "  // Return updated entity and immutable next array", "  return { updated: null, nextItems: [] };", "}"),
-    aHint: "Find entity by id. If missing return updated: null, nextItems: [...items]. Else return cloned and patched entity with copied array.",
+    aStarter: lines(
+      "function sanitizeWorkerTransferPayload(payload: Record<string, any>): { transferableKeys: string[]; cloneablePayload: Record<string, any> } {",
+      "  // Separate ArrayBuffers for zero-copy transfer",
+      "  return { transferableKeys: [], cloneablePayload: {} };",
+      "}"
+    ),
+    aHint: `const transferableKeys: string[] = [];
+  const cloneablePayload: Record<string, any> = {};
+  for (const [k, v] of Object.entries(payload)) {
+    if (v instanceof ArrayBuffer || (v && v.constructor && v.constructor.name === 'ArrayBuffer')) {
+      transferableKeys.push(k);
+      cloneablePayload[k] = v;
+    } else {
+      cloneablePayload[k] = v;
+    }
+  }
+  return { transferableKeys, cloneablePayload };`,
     aTest: lines(
-      "if (typeof updateEntity !== 'function') throw new Error('updateEntity not found');",
-      "const orig = [{ id: '1', name: 'Dev', salary: 50000 }, { id: '2', name: 'QA', salary: 40000 }];",
-      "const res = updateEntity(orig, '1', { salary: 60000 });",
-      "if (!res.updated || res.updated.salary !== 60000 || res.updated.name !== 'Dev') throw new Error('Updated item incorrect');",
-      "if (orig[0].salary !== 50000) throw new Error('Original items mutated');",
-      "if (res.nextItems[0].salary !== 60000 || res.nextItems.length !== 2) throw new Error('nextItems incorrect');",
-      "const missing = updateEntity(orig, '99', { salary: 10000 });",
-      "if (missing.updated !== null) throw new Error('Missing ID should return null updated');"
+      "if (typeof sanitizeWorkerTransferPayload !== 'function') throw new Error('sanitizeWorkerTransferPayload not found');",
+      "const buf = new ArrayBuffer(16);",
+      "const res = sanitizeWorkerTransferPayload({ id: 'task_1', buffer: buf, retries: 3 });",
+      "if (res.transferableKeys.length !== 1 || res.transferableKeys[0] !== 'buffer') throw new Error('Transferable identification failed');",
+      "if (res.cloneablePayload.id !== 'task_1') throw new Error('Payload extraction failed');",
+      "const b2 = new ArrayBuffer(8);",
+      "const b3 = new ArrayBuffer(32);",
+      "const res2 = sanitizeWorkerTransferPayload({ a: b2, b: b3, count: 5 });",
+      "if (res2.transferableKeys.length !== 2) throw new Error('Multiple transferables failed');",
+      "const res3 = sanitizeWorkerTransferPayload({ name: 'zero_buffers', active: true });",
+      "if (res3.transferableKeys.length !== 0) throw new Error('Zero transferables failed');"
     )
   },
 
-  // ── DAY 22: Advanced Repository Querying & State Mutation ─────────────────
+  // ── DAY 22: SharedArrayBuffer, Atomics & Zero-Copy Memory Concurrency ──────
   {
     ...NODE_WEB_DAYS[21],
-    eTitle: "Filter Entities with Composable Predicates",
-    eDesc: "Write `queryEntities<T>(items: T[], predicates: ((item: T) => boolean)[]): T[]` returning items satisfying all predicates.",
+    eTitle: "Atomic Compare-Exchange SpinLock",
+    eDesc: "Write `simulateAtomicLock(stateArray: Int32Array, lockIndex: number, expectedVal: number, newVal: number): { acquired: boolean; priorState: number }`.",
     eLanguage: "typescript",
-    eStarter: lines("function queryEntities<T>(items: T[], predicates: ((item: T) => boolean)[]): T[] {", "  // Filter by all predicates", "  return [];", "}"),
-    eHint: "Use items.filter(item => predicates.every(p => p(item))).",
-    eTest: lines(
-      "if (typeof queryEntities !== 'function') throw new Error('queryEntities not found');",
-      "const jobs = [",
-      "  { id: 1, title: 'Frontend Engineer', location: 'Remote', active: true },",
-      "  { id: 2, title: 'Backend Engineer', location: 'Remote', active: false },",
-      "  { id: 3, title: 'DevOps', location: 'Onsite', active: true }",
-      "];",
-      "const res = queryEntities(jobs, [j => j.location === 'Remote', j => j.active === true]);",
-      "if (res.length !== 1 || res[0].id !== 1) throw new Error('Predicate conjunction failed');",
-      "const empty = queryEntities(jobs, [() => false]);",
-      "if (empty.length !== 0) throw new Error('False predicate failed');"
+    eStarter: lines(
+      "function simulateAtomicLock(stateArray: Int32Array, lockIndex: number, expectedVal: number, newVal: number): { acquired: boolean; priorState: number } {",
+      "  // Execute atomic compare and exchange",
+      "  return { acquired: false, priorState: 0 };",
+      "}"
     ),
-    aTitle: "Set Audit Timestamps on Entity Record",
-    aDesc: "Write `touchTimestamp<T extends Record<string, unknown>>(record: T, nowIso?: string): T & { createdAt: string; updatedAt: string }`.",
+    eHint: `const priorState = Atomics.compareExchange(stateArray, lockIndex, expectedVal, newVal);
+  const acquired = priorState === expectedVal;
+  return { acquired, priorState };`,
+    eTest: lines(
+      "if (typeof simulateAtomicLock !== 'function') throw new Error('simulateAtomicLock not found');",
+      "const sab = new SharedArrayBuffer(16);",
+      "const arr = new Int32Array(sab);",
+      "const r1 = simulateAtomicLock(arr, 0, 0, 1);",
+      "if (!r1.acquired || r1.priorState !== 0) throw new Error('Lock 1 should acquire');",
+      "const r2 = simulateAtomicLock(arr, 0, 0, 1);",
+      "if (r2.acquired || r2.priorState !== 1) throw new Error('Lock 2 should fail to acquire');"
+    ),
+    aTitle: "Power-of-Two Circular Ring Buffer Pointers",
+    aDesc: "Write `advanceRingBufferPointer(currentPointer: number, capacityPowerOfTwo: number): { nextPointer: number; physicalIndex: number }`.",
     aLanguage: "typescript",
-    aStarter: lines("function touchTimestamp<T extends Record<string, unknown>>(record: T, nowIso?: string): T & { createdAt: string; updatedAt: string } {", "  // Touch createdAt and updatedAt", "  return null as any;", "}"),
-    aHint: "Use existing createdAt if present as string, otherwise nowIso. Always set updatedAt to nowIso.",
+    aStarter: lines(
+      "function advanceRingBufferPointer(currentPointer: number, capacityPowerOfTwo: number): { nextPointer: number; physicalIndex: number } {",
+      "  // Calculate next monotonic pointer and bitwise masked slot index",
+      "  return { nextPointer: 0, physicalIndex: 0 };",
+      "}"
+    ),
+    aHint: `const nextPointer = currentPointer + 1;
+  const physicalIndex = currentPointer & (capacityPowerOfTwo - 1);
+  return { nextPointer, physicalIndex };`,
     aTest: lines(
-      "if (typeof touchTimestamp !== 'function') throw new Error('touchTimestamp not found');",
-      "const t1 = touchTimestamp({ name: 'Task 1' }, '2026-01-01T00:00:00.000Z');",
-      "if (t1.createdAt !== '2026-01-01T00:00:00.000Z' || t1.updatedAt !== '2026-01-01T00:00:00.000Z') throw new Error('New record timestamps failed');",
-      "const t2 = touchTimestamp({ name: 'Task 1', createdAt: '2025-01-01T00:00:00.000Z' }, '2026-02-02T00:00:00.000Z');",
-      "if (t2.createdAt !== '2025-01-01T00:00:00.000Z' || t2.updatedAt !== '2026-02-02T00:00:00.000Z') throw new Error('Existing createdAt was overwritten');"
+      "if (typeof advanceRingBufferPointer !== 'function') throw new Error('advanceRingBufferPointer not found');",
+      "const p1 = advanceRingBufferPointer(0, 16);",
+      "if (p1.nextPointer !== 1 || p1.physicalIndex !== 0) throw new Error('p1 failed');",
+      "const p2 = advanceRingBufferPointer(15, 16);",
+      "if (p2.nextPointer !== 16 || p2.physicalIndex !== 15) throw new Error('p2 failed');",
+      "const p3 = advanceRingBufferPointer(16, 16);",
+      "if (p3.nextPointer !== 17 || p3.physicalIndex !== 0) throw new Error('p3 failed to wrap');"
     )
   },
 
-  // ── DAY 23: Transactions & Unit of Work Concepts ──────────────────────────
+  // ── DAY 23: Process Clustering, OS Core Saturation & Zero-Downtime Reloads ──
   {
     ...NODE_WEB_DAYS[22],
-    eTitle: "Simulate Atomic Unit of Work",
-    eDesc: "Write `executeUnitOfWork<T>(operations: (() => T)[], rollback: () => void): { success: boolean; results: T[]; error?: string }`.",
+    eTitle: "Round-Robin Cluster Worker Scheduler",
+    eDesc: "Write `selectClusterWorker(workerPids: number[], currentCounter: number): { selectedPid: number; nextCounter: number }`.",
     eLanguage: "typescript",
-    eStarter: lines("function executeUnitOfWork<T>(operations: (() => T)[], rollback: () => void): { success: boolean; results: T[]; error?: string } {", "  // Execute atomic unit of work", "  return { success: false, results: [] };", "}"),
-    eHint: "Iterate operations pushing results. On error, invoke rollback() and return { success: false, results: [], error: err.message }.",
-    eTest: lines(
-      "if (typeof executeUnitOfWork !== 'function') throw new Error('executeUnitOfWork not found');",
-      "let rolledBack = false;",
-      "const ok = executeUnitOfWork([() => 10, () => 20], () => { rolledBack = true; });",
-      "if (!ok.success || ok.results.length !== 2 || ok.results[1] !== 20 || rolledBack) throw new Error('Successful operations failed');",
-      "const failed = executeUnitOfWork([() => 10, () => { throw new Error('DB error'); }], () => { rolledBack = true; });",
-      "if (failed.success || failed.results.length !== 0 || !rolledBack || failed.error !== 'DB error') throw new Error('Failed rollback logic');"
+    eStarter: lines(
+      "function selectClusterWorker(workerPids: number[], currentCounter: number): { selectedPid: number; nextCounter: number } {",
+      "  // Select next worker using round-robin scheduling",
+      "  return { selectedPid: 0, nextCounter: 0 };",
+      "}"
     ),
-    aTitle: "Apply Balanced Account Transfers",
-    aDesc: "Write `applyAccountTransfer(accounts: Record<string, number>, fromId: string, toId: string, amount: number): Record<string, number>`.",
+    eHint: `const index = currentCounter % workerPids.length;
+  const selectedPid = workerPids[index];
+  const nextCounter = currentCounter + 1;
+  return { selectedPid, nextCounter };`,
+    eTest: lines(
+      "if (typeof selectClusterWorker !== 'function') throw new Error('selectClusterWorker not found');",
+      "const pids = [1001, 1002, 1003, 1004];",
+      "const w1 = selectClusterWorker(pids, 0);",
+      "if (w1.selectedPid !== 1001 || w1.nextCounter !== 1) throw new Error('w1 failed');",
+      "const w4 = selectClusterWorker(pids, 3);",
+      "if (w4.selectedPid !== 1004 || w4.nextCounter !== 4) throw new Error('w4 failed');",
+      "const w5 = selectClusterWorker(pids, 4);",
+      "if (w5.selectedPid !== 1001 || w5.nextCounter !== 5) throw new Error('w5 failed wrap');"
+    ),
+    aTitle: "Rolling Reload Sequential Worker Swapper",
+    aDesc: "Write `simulateRollingReload(activeWorkerPids: number[]): { retiredPids: number[]; spawnedPids: number[]; stepsTaken: number }`.",
     aLanguage: "typescript",
-    aStarter: lines("function applyAccountTransfer(accounts: Record<string, number>, fromId: string, toId: string, amount: number): Record<string, number> {", "  // Transfer balance between accounts", "  return {};", "}"),
-    aHint: "Check amount > 0 and sufficient balance in fromId. Return copy with updated balances.",
+    aStarter: lines(
+      "function simulateRollingReload(activeWorkerPids: number[]): { retiredPids: number[]; spawnedPids: number[]; stepsTaken: number } {",
+      "  // Replace workers sequentially without downtime",
+      "  return { retiredPids: [], spawnedPids: [], stepsTaken: 0 };",
+      "}"
+    ),
+    aHint: `const retiredPids: number[] = [];
+  const spawnedPids: number[] = [];
+  let nextPid = 2000;
+  for (const pid of activeWorkerPids) {
+    spawnedPids.push(nextPid++);
+    retiredPids.push(pid);
+  }
+  return { retiredPids, spawnedPids, stepsTaken: activeWorkerPids.length };`,
     aTest: lines(
-      "if (typeof applyAccountTransfer !== 'function') throw new Error('applyAccountTransfer not found');",
-      "const initial = { acc1: 100, acc2: 50 };",
-      "const res = applyAccountTransfer(initial, 'acc1', 'acc2', 30);",
-      "if (res.acc1 !== 70 || res.acc2 !== 80) throw new Error('Transfer failed');",
-      "if (initial.acc1 !== 100) throw new Error('Original accounts mutated');",
-      "let threw = false; try { applyAccountTransfer(initial, 'acc1', 'acc2', 200); } catch { threw = true; }",
-      "if (!threw) throw new Error('Insufficient funds should throw');"
+      "if (typeof simulateRollingReload !== 'function') throw new Error('simulateRollingReload not found');",
+      "const reload = simulateRollingReload([101, 102, 103]);",
+      "if (reload.retiredPids.length !== 3 || reload.spawnedPids.length !== 3) throw new Error('Reload counts failed');",
+      "if (reload.stepsTaken !== 3) throw new Error('Steps taken should match count');",
+      "const r2 = simulateRollingReload([501]);",
+      "if (r2.retiredPids.length !== 1 || r2.stepsTaken !== 1 || r2.retiredPids[0] !== 501) throw new Error('Single reload failed');",
+      "const r3 = simulateRollingReload([10, 20, 30, 40, 50]);",
+      "if (r3.retiredPids.length !== 5 || r3.stepsTaken !== 5 || r3.retiredPids[4] !== 50) throw new Error('Five reload failed');"
     )
   },
 
-  // ── DAY 24: In-Memory Caching & TTL Expiration ────────────────────────────
+  // ── DAY 24: Process Orchestration: child_process (spawn/fork/exec) ─────────
   {
     ...NODE_WEB_DAYS[23],
-    eTitle: "Create In-Memory TTL Cache",
-    eDesc: "Write `createTtlCache<V>(defaultTtlMs: number)` providing set, get, and has with timestamp expiration.",
+    eTitle: "Secure Command Argument Array Builder",
+    eDesc: "Write `buildSecureCommandArgs(binary: string, userArgs: string[]): { safeBinary: string; sanitizedArgs: string[] }`.",
     eLanguage: "typescript",
-    eStarter: lines("function createTtlCache<V>(defaultTtlMs: number) {", "  // In-memory cache with TTL", "  return {} as any;", "}"),
-    eHint: "Map key -> { value, expiresAt }. get and has check now > expiresAt.",
-    eTest: lines(
-      "if (typeof createTtlCache !== 'function') throw new Error('createTtlCache not found');",
-      "const now = Date.now();",
-      "const cache = createTtlCache(1000);",
-      "cache.set('k1', 'val1');",
-      "if (cache.get('k1', now + 500) !== 'val1' || !cache.has('k1', now + 500)) throw new Error('Cache hit failed');",
-      "if (cache.get('k1', now + 1500) !== null || cache.has('k1', now + 1500)) throw new Error('Cache expiry failed');",
-      "cache.set('k2', 'val2', 5000);",
-      "if (cache.get('k2', now + 2000) !== 'val2') throw new Error('Custom TTL failed');"
+    eStarter: lines(
+      "function buildSecureCommandArgs(binary: string, userArgs: string[]): { safeBinary: string; sanitizedArgs: string[] } {",
+      "  // Validate binary and enforce double-dash parameter boundary",
+      "  return { safeBinary: '', sanitizedArgs: [] };",
+      "}"
     ),
-    aTitle: "Cache-Aside Function Memoization",
-    aDesc: "Write `memoizeWithTtl<T>(fn: (arg: string) => Promise<T>, ttlMs: number): (arg: string, now?: number) => Promise<T>`.",
+    eHint: `if (/[;&|<>\\$]/.test(binary) || binary.indexOf(String.fromCharCode(96)) !== -1) {
+    throw new Error('COMMAND_INJECTION_DETECTED: Disallowed shell characters in binary');
+  }
+  return {
+    safeBinary: binary.trim(),
+    sanitizedArgs: ['--', ...userArgs]
+  };`,
+    eTest: lines(
+      "if (typeof buildSecureCommandArgs !== 'function') throw new Error('buildSecureCommandArgs not found');",
+      "const safe = buildSecureCommandArgs('git', ['checkout', 'feature-branch']);",
+      "if (safe.safeBinary !== 'git' || safe.sanitizedArgs[0] !== '--' || safe.sanitizedArgs[1] !== 'checkout') throw new Error('Safe build failed');",
+      "let threw = false;",
+      "try { buildSecureCommandArgs('git; rm -rf /', []); } catch (e) { threw = true; }",
+      "if (!threw) throw new Error('Should reject shell injection metacharacters');"
+    ),
+    aTitle: "Process Group Signal Dispatcher",
+    aDesc: "Write `buildProcessGroupSignal(pid: number, signal: string, targetEntireGroup: boolean): { targetPid: number; signal: string }`.",
     aLanguage: "typescript",
-    aStarter: lines("function memoizeWithTtl<T>(fn: (arg: string) => Promise<T>, ttlMs: number): (arg: string, now?: number) => Promise<T> {", "  // Cache-aside async wrapper", "  return async () => null as any;", "}"),
-    aHint: "Cache results by argument with expiry timestamp now + ttlMs.",
+    aStarter: lines(
+      "function buildProcessGroupSignal(pid: number, signal: string, targetEntireGroup: boolean): { targetPid: number; signal: string } {",
+      "  // Construct signal payload with negative PID for process groups",
+      "  return { targetPid: 0, signal: '' };",
+      "}"
+    ),
+    aHint: `const targetPid = targetEntireGroup ? -Math.abs(pid) : Math.abs(pid);
+  return { targetPid, signal };`,
     aTest: lines(
-      "if (typeof memoizeWithTtl !== 'function') throw new Error('memoizeWithTtl not found');",
-      "let calls = 0;",
-      "const getter = async (id) => { calls++; return 'user-' + id; };",
-      "const cached = memoizeWithTtl(getter, 1000);",
-      "const u1 = await cached('10', 0);",
-      "const u2 = await cached('10', 500);",
-      "if (u1 !== 'user-10' || u2 !== 'user-10' || calls !== 1) throw new Error('Memoization hit failed');",
-      "const u3 = await cached('10', 1500);",
-      "if (u3 !== 'user-10' || calls !== 2) throw new Error('TTL expiration re-fetch failed');"
+      "if (typeof buildProcessGroupSignal !== 'function') throw new Error('buildProcessGroupSignal not found');",
+      "const s1 = buildProcessGroupSignal(5012, 'SIGTERM', false);",
+      "if (s1.targetPid !== 5012 || s1.signal !== 'SIGTERM') throw new Error('s1 failed');",
+      "const s2 = buildProcessGroupSignal(5012, 'SIGKILL', true);",
+      "if (s2.targetPid !== -5012 || s2.signal !== 'SIGKILL') throw new Error('s2 failed');"
     )
   },
 
-  // ── DAY 25: Idempotency Keys & Safe Retries ───────────────────────────────
+  // ── DAY 25: Distributed Task Pipelines: Redis Job Queues & BullMQ ─────────
   {
     ...NODE_WEB_DAYS[24],
-    eTitle: "Handle Request with Idempotency Key",
-    eDesc: "Write `handleIdempotentRequest<T>(key: string | undefined, handler: () => T, store: Map<string, T>): { executed: boolean; data: T }`.",
+    eTitle: "Exponential Backoff with Full Jitter Calculator",
+    eDesc: "Write `calculateRetryDelay(baseDelayMs: number, attempt: number, maxDelayMs: number, jitterRatio: number): { ceilingDelayMs: number; finalDelayMs: number }`.",
     eLanguage: "typescript",
-    eStarter: lines("function handleIdempotentRequest<T>(key: string | undefined, handler: () => T, store: Map<string, T>): { executed: boolean; data: T } {", "  // Handle idempotency key caching", "  return { executed: false, data: null as any };", "}"),
-    eHint: "If key undefined execute handler. If store has key return cached data. Otherwise execute handler, store result, return executed: true.",
-    eTest: lines(
-      "if (typeof handleIdempotentRequest !== 'function') throw new Error('handleIdempotentRequest not found');",
-      "const store = new Map();",
-      "let count = 0;",
-      "const op = () => ({ orderId: ++count });",
-      "const r1 = handleIdempotentRequest('req-1', op, store);",
-      "if (!r1.executed || r1.data.orderId !== 1) throw new Error('First execution failed');",
-      "const r2 = handleIdempotentRequest('req-1', op, store);",
-      "if (r2.executed || r2.data.orderId !== 1 || count !== 1) throw new Error('Idempotent replay failed');",
-      "const r3 = handleIdempotentRequest(undefined, op, store);",
-      "if (!r3.executed || r3.data.orderId !== 2) throw new Error('Unkeyed execution failed');"
+    eStarter: lines(
+      "function calculateRetryDelay(baseDelayMs: number, attempt: number, maxDelayMs: number, jitterRatio: number): { ceilingDelayMs: number; finalDelayMs: number } {",
+      "  // Calculate exponential ceiling and apply full random jitter ratio",
+      "  return { ceilingDelayMs: 0, finalDelayMs: 0 };",
+      "}"
     ),
-    aTitle: "Calculate Exponential Backoff Delays",
-    aDesc: "Write `calculateBackoff(attempt: number, baseDelayMs?: number, maxDelayMs?: number): number` returning exponential backoff capped at maxDelayMs.",
+    eHint: `const raw = baseDelayMs * Math.pow(2, attempt - 1);
+  const ceilingDelayMs = Math.min(raw, maxDelayMs);
+  const finalDelayMs = Math.floor(ceilingDelayMs * jitterRatio);
+  return { ceilingDelayMs, finalDelayMs };`,
+    eTest: lines(
+      "if (typeof calculateRetryDelay !== 'function') throw new Error('calculateRetryDelay not found');",
+      "const d1 = calculateRetryDelay(1000, 1, 60000, 0.5);",
+      "if (d1.ceilingDelayMs !== 1000 || d1.finalDelayMs !== 500) throw new Error('d1 failed');",
+      "const d3 = calculateRetryDelay(1000, 3, 60000, 0.75);",
+      "if (d3.ceilingDelayMs !== 4000 || d3.finalDelayMs !== 3000) throw new Error('d3 failed');",
+      "const d10 = calculateRetryDelay(1000, 10, 30000, 1.0);",
+      "if (d10.ceilingDelayMs !== 30000 || d10.finalDelayMs !== 30000) throw new Error('Max ceiling failed');"
+    ),
+    aTitle: "Redis Idempotency Key Lock Command Builder",
+    aDesc: "Write `buildIdempotencyLockCommand(scope: string, identifier: string, ttlSeconds: number): { redisKey: string; command: string[] }`.",
     aLanguage: "typescript",
-    aStarter: lines("function calculateBackoff(attempt: number, baseDelayMs: number = 100, maxDelayMs: number = 5000): number {", "  // Calculate exponential backoff", "  return 0;", "}"),
-    aHint: "Return Math.min(maxDelayMs, baseDelayMs * Math.pow(2, attempt)).",
+    aStarter: lines(
+      "function buildIdempotencyLockCommand(scope: string, identifier: string, ttlSeconds: number): { redisKey: string; command: string[] } {",
+      "  // Build SET NX EX command tuple for atomic distributed lock",
+      "  return { redisKey: '', command: [] };",
+      "}"
+    ),
+    aHint: `const redisKey = 'idempotency:' + scope + ':' + identifier;
+  const command = ['SET', redisKey, 'LOCKED', 'NX', 'EX', String(ttlSeconds)];
+  return { redisKey, command };`,
     aTest: lines(
-      "if (typeof calculateBackoff !== 'function') throw new Error('calculateBackoff not found');",
-      "if (calculateBackoff(0, 100, 5000) !== 100) throw new Error('Attempt 0 should be 100');",
-      "if (calculateBackoff(1, 100, 5000) !== 200) throw new Error('Attempt 1 should be 200');",
-      "if (calculateBackoff(3, 100, 5000) !== 800) throw new Error('Attempt 3 should be 800');",
-      "if (calculateBackoff(10, 100, 5000) !== 5000) throw new Error('Cap at maxDelayMs failed');"
+      "if (typeof buildIdempotencyLockCommand !== 'function') throw new Error('buildIdempotencyLockCommand not found');",
+      "const cmd = buildIdempotencyLockCommand('payments', 'order_9812', 3600);",
+      "if (cmd.redisKey !== 'idempotency:payments:order_9812') throw new Error('Key format failed');",
+      "if (cmd.command.length !== 6 || cmd.command[3] !== 'NX' || cmd.command[5] !== '3600') throw new Error('Redis command tuple failed');",
+      "const cmd2 = buildIdempotencyLockCommand('auth', 'sess_1', 60);",
+      "if (cmd2.redisKey !== 'idempotency:auth:sess_1') throw new Error('cmd2 redisKey failed');",
+      "if (cmd2.command[5] !== '60') throw new Error('cmd2 ttl failed');",
+      "const cmd3 = buildIdempotencyLockCommand('billing', 'inv_99', 120);",
+      "if (cmd3.redisKey !== 'idempotency:billing:inv_99') throw new Error('cmd3 failed');"
     )
   },
-
-  // ── DAY 26: Automated Testing & Contracts ─────────────────────────────────
+  // ── DAY 26: Protocol Buffers, gRPC & HTTP/3 QUIC Transport Architecture ──
   {
     ...NODE_WEB_DAYS[25],
-    eTitle: "Verify API Response Schema Contract",
-    eDesc: "Write `assertResponseContract(res: { status: number; body: any }, expectedStatus: number, requiredKeys: string[]): { valid: boolean; errors: string[] }`.",
+    eTitle: "Varint ZigZag Integer Codec",
+    eDesc: "Write `processZigZag32(n: number): { encoded: number; decoded: number }` implementing Protocol Buffers 32-bit zigzag transformation and inverse decoding.",
     eLanguage: "typescript",
-    eStarter: lines("function assertResponseContract(res: { status: number; body: any }, expectedStatus: number, requiredKeys: string[]): { valid: boolean; errors: string[] } {", "  // Assert response contract", "  return { valid: false, errors: [] };", "}"),
-    eHint: "Check status matches and body contains each key in requiredKeys.",
-    eTest: lines(
-      "if (typeof assertResponseContract !== 'function') throw new Error('assertResponseContract not found');",
-      "const r1 = assertResponseContract({ status: 200, body: { id: 1, title: 'Engineer' } }, 200, ['id', 'title']);",
-      "if (!r1.valid || r1.errors.length !== 0) throw new Error('Valid contract failed');",
-      "const r2 = assertResponseContract({ status: 500, body: {} }, 200, ['id']);",
-      "if (r2.valid || r2.errors.length !== 2) throw new Error('Should report status mismatch and missing key');"
+    eStarter: lines(
+      "function processZigZag32(n: number): { encoded: number; decoded: number } {",
+      "  // Encode signed int n to unsigned zigzag int, and decode back",
+      "  return { encoded: 0, decoded: 0 };",
+      "}"
     ),
-    aTitle: "Simulate Route Dispatcher",
-    aDesc: "Write `simulateRoute(req: { method: string; path: string }, routes: Record<string, (req: any) => { status: number; body: any }>): { status: number; body: any }`.",
+    eHint: `const encoded = ((n << 1) ^ (n >> 31)) >>> 0;
+  const decoded = (encoded >>> 1) ^ -(encoded & 1);
+  return { encoded, decoded };`,
+    eTest: lines(
+      "if (typeof processZigZag32 !== 'function') throw new Error('processZigZag32 not found');",
+      "const r0 = processZigZag32(0);",
+      "if (r0.encoded !== 0 || r0.decoded !== 0) throw new Error('0 failed');",
+      "const r1 = processZigZag32(-1);",
+      "if (r1.encoded !== 1 || r1.decoded !== -1) throw new Error('-1 failed');",
+      "const r2 = processZigZag32(1);",
+      "if (r2.encoded !== 2 || r2.decoded !== 1) throw new Error('1 failed');",
+      "const r3 = processZigZag32(-2);",
+      "if (r3.encoded !== 3 || r3.decoded !== -2) throw new Error('-2 failed');",
+      "const r4 = processZigZag32(2147483647);",
+      "if (r4.decoded !== 2147483647) throw new Error('max int failed');"
+    ),
+    aTitle: "gRPC Framing 5-Byte Prefix Builder",
+    aDesc: "Write `buildGrpcPrefix(compressed: boolean, payloadByteLength: number): { hexPrefix: string; totalFrameBytes: number }`.",
     aLanguage: "typescript",
-    aStarter: lines("function simulateRoute(req: { method: string; path: string }, routes: Record<string, (req: any) => { status: number; body: any }>): { status: number; body: any } {", "  // Dispatch mock route", "  return { status: 404, body: null };", "}"),
-    aHint: "Look up `METHOD PATH` in routes. Return 404 with error body if not found.",
+    aStarter: lines(
+      "function buildGrpcPrefix(compressed: boolean, payloadByteLength: number): { hexPrefix: string; totalFrameBytes: number } {",
+      "  // Generate 5-byte gRPC framing prefix (1-byte flag + 4-byte length)",
+      "  return { hexPrefix: '', totalFrameBytes: 0 };",
+      "}"
+    ),
+    aHint: `const flagHex = compressed ? '01' : '00';
+  const lenHex = payloadByteLength.toString(16).padStart(8, '0');
+  const hexPrefix = flagHex + lenHex;
+  const totalFrameBytes = 5 + payloadByteLength;
+  return { hexPrefix, totalFrameBytes };`,
     aTest: lines(
-      "if (typeof simulateRoute !== 'function') throw new Error('simulateRoute not found');",
-      "const routes = { 'GET /health': () => ({ status: 200, body: { status: 'ok' } }), 'POST /jobs': () => ({ status: 201, body: { created: true } }) };",
-      "const r1 = simulateRoute({ method: 'GET', path: '/health' }, routes);",
-      "if (r1.status !== 200 || r1.body.status !== 'ok') throw new Error('GET /health failed');",
-      "const r2 = simulateRoute({ method: 'POST', path: '/jobs' }, routes);",
-      "if (r2.status !== 201 || !r2.body.created) throw new Error('POST /jobs failed');",
-      "const r3 = simulateRoute({ method: 'GET', path: '/unknown' }, routes);",
-      "if (r3.status !== 404 || r3.body.error !== 'Route not found') throw new Error('404 route failed');"
+      "if (typeof buildGrpcPrefix !== 'function') throw new Error('buildGrpcPrefix not found');",
+      "const f1 = buildGrpcPrefix(false, 72);",
+      "if (f1.hexPrefix !== '0000000048' || f1.totalFrameBytes !== 77) throw new Error('f1 failed');",
+      "const f2 = buildGrpcPrefix(true, 1024);",
+      "if (f2.hexPrefix !== '0100000400' || f2.totalFrameBytes !== 1029) throw new Error('f2 failed');"
     )
   },
 
-  // ── DAY 27: OpenAPI Specification & Documentation ─────────────────────────
+  // ── DAY 27: OpenTelemetry, Distributed Tracing & Production APM Architecture
   {
     ...NODE_WEB_DAYS[26],
-    eTitle: "Construct OpenAPI 3.0 Path Item",
-    eDesc: "Write `buildOpenApiPath(method: string, summary: string, operationId: string, responseStatus?: number, responseDescription?: string): Record<string, unknown>`.",
+    eTitle: "W3C Traceparent Header Parser",
+    eDesc: "Write `parseTraceparent(header: string): { valid: boolean; traceId?: string; spanId?: string; sampled?: boolean }`.",
     eLanguage: "typescript",
-    eStarter: lines("function buildOpenApiPath(method: string, summary: string, operationId: string, responseStatus: number = 200, responseDescription: string = 'Successful response'): Record<string, unknown> {", "  // Build OpenAPI 3.0 path object", "  return {};", "}"),
-    eHint: "Return object keyed by lowercased method containing summary, operationId, and responses object.",
-    eTest: lines(
-      "if (typeof buildOpenApiPath !== 'function') throw new Error('buildOpenApiPath not found');",
-      "const p1 = buildOpenApiPath('GET', 'List all jobs', 'listJobs');",
-      "if (!p1.get || p1.get.summary !== 'List all jobs' || p1.get.operationId !== 'listJobs' || !p1.get.responses['200']) throw new Error('Failed GET listJobs');",
-      "const p2 = buildOpenApiPath('POST', 'Create job', 'createJob', 201, 'Created');",
-      "if (!p2.post || p2.post.responses['201'].description !== 'Created') throw new Error('Failed POST createJob');"
+    eStarter: lines(
+      "function parseTraceparent(header: string): { valid: boolean; traceId?: string; spanId?: string; sampled?: boolean } {",
+      "  // Parse and validate W3C traceparent header",
+      "  return { valid: false };",
+      "}"
     ),
-    aTitle: "Generate OpenAPI Schema Object",
-    aDesc: "Write `buildSchemaObject(type: 'string' | 'number' | 'boolean' | 'object', description: string, optional?: boolean): Record<string, unknown>`.",
+    eHint: `const parts = header.trim().split('-');
+  if (parts.length !== 4) return { valid: false };
+  const [version, traceId, spanId, flags] = parts;
+  if (version !== '00') return { valid: false };
+  if (!/^[0-9a-f]{32}$/.test(traceId) || /^0+$/.test(traceId)) return { valid: false };
+  if (!/^[0-9a-f]{16}$/.test(spanId) || /^0+$/.test(spanId)) return { valid: false };
+  if (!/^[0-9a-f]{2}$/.test(flags)) return { valid: false };
+  const sampled = (parseInt(flags, 16) & 1) === 1;
+  return { valid: true, traceId, spanId, sampled };`,
+    eTest: lines(
+      "if (typeof parseTraceparent !== 'function') throw new Error('parseTraceparent not found');",
+      "const validH = '00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01';",
+      "const p1 = parseTraceparent(validH);",
+      "if (!p1.valid || p1.traceId !== '4bf92f3577b34da6a3ce929d0e0e4736' || p1.spanId !== '00f067aa0ba902b7' || p1.sampled !== true) throw new Error('p1 failed');",
+      "const p2 = parseTraceparent('00-00000000000000000000000000000000-00f067aa0ba902b7-01');",
+      "if (p2.valid !== false) throw new Error('p2 should reject all-zeros traceId');"
+    ),
+    aTitle: "Distributed Trace Bottleneck Span Finder",
+    aDesc: "Write `findCriticalPathBottleneck(spans: Array<{ spanId: string; parentSpanId?: string; durationMs: number }>): { bottleneckSpanId: string; maxDurationMs: number }`.",
     aLanguage: "typescript",
-    aStarter: lines("function buildSchemaObject(type: 'string' | 'number' | 'boolean' | 'object', description: string, optional: boolean = false): Record<string, unknown> {", "  // Build OpenAPI property schema", "  return {};", "}"),
-    aHint: "Return { type, description, nullable: optional }.",
+    aStarter: lines(
+      "function findCriticalPathBottleneck(spans: Array<{ spanId: string; parentSpanId?: string; durationMs: number }>): { bottleneckSpanId: string; maxDurationMs: number } {",
+      "  // Identify longest leaf operation in distributed trace tree",
+      "  return { bottleneckSpanId: '', maxDurationMs: 0 };",
+      "}"
+    ),
+    aHint: `const parentSpanIds = new Set(spans.map(s => s.parentSpanId).filter(Boolean));
+  const leafSpans = spans.filter(s => !parentSpanIds.has(s.spanId));
+  if (leafSpans.length === 0) return { bottleneckSpanId: '', maxDurationMs: 0 };
+  let bottleneck = leafSpans[0];
+  for (let i = 1; i < leafSpans.length; i++) {
+    if (leafSpans[i].durationMs > bottleneck.durationMs) {
+      bottleneck = leafSpans[i];
+    }
+  }
+  return { bottleneckSpanId: bottleneck.spanId, maxDurationMs: bottleneck.durationMs };`,
     aTest: lines(
-      "if (typeof buildSchemaObject !== 'function') throw new Error('buildSchemaObject not found');",
-      "const s1 = buildSchemaObject('string', 'User email address');",
-      "if (s1.type !== 'string' || s1.description !== 'User email address' || s1.nullable !== false) throw new Error('Non-optional string failed');",
-      "const s2 = buildSchemaObject('number', 'User age', true);",
-      "if (s2.type !== 'number' || s2.nullable !== true) throw new Error('Optional number failed');"
+      "if (typeof findCriticalPathBottleneck !== 'function') throw new Error('findCriticalPathBottleneck not found');",
+      "const spans = [",
+      "  { spanId: 'root', durationMs: 4000 },",
+      "  { spanId: 'db_query', parentSpanId: 'root', durationMs: 3800 },",
+      "  { spanId: 'cache_get', parentSpanId: 'root', durationMs: 50 }",
+      "];",
+      "const res = findCriticalPathBottleneck(spans);",
+      "if (res.bottleneckSpanId !== 'db_query' || res.maxDurationMs !== 3800) throw new Error('Bottleneck leaf identification failed');",
+      "const spans2 = [",
+      "  { spanId: 'root', durationMs: 1200 },",
+      "  { spanId: 'rpc_call', parentSpanId: 'root', durationMs: 950 },",
+      "  { spanId: 'redis_hget', parentSpanId: 'root', durationMs: 120 }",
+      "];",
+      "const res2 = findCriticalPathBottleneck(spans2);",
+      "if (res2.bottleneckSpanId !== 'rpc_call' || res2.maxDurationMs !== 950) throw new Error('res2 failed');"
     )
   },
 
-  // ── DAY 28: Asynchronous Task Queues & Workers ────────────────────────────
+  // ── DAY 28: Distributed Rate Limiting, Traffic Shaping & Leaky Bucket Algorithms
   {
     ...NODE_WEB_DAYS[27],
-    eTitle: "In-Memory FIFO Job Queue",
-    eDesc: "Write `createSimpleQueue<T>()` providing enqueue, dequeue, and size methods in FIFO order.",
+    eTitle: "Token Bucket Concurrency Refill Engine",
+    eDesc: "Write `computeTokenRefill(capacity: number, refillRatePerSec: number, currentTokens: number, elapsedMs: number, requestedTokens: number): { allowed: boolean; remainingTokens: number }`.",
     eLanguage: "typescript",
-    eStarter: lines("function createSimpleQueue<T>() {", "  // In-memory FIFO queue", "  return {} as any;", "}"),
-    eHint: "Array queue: enqueue pushes item, dequeue shifts item or returns null, size returns array length.",
-    eTest: lines(
-      "if (typeof createSimpleQueue !== 'function') throw new Error('createSimpleQueue not found');",
-      "const q = createSimpleQueue();",
-      "if (q.size() !== 0 || q.dequeue() !== null) throw new Error('Empty queue failed');",
-      "q.enqueue('job1');",
-      "q.enqueue('job2');",
-      "if (q.size() !== 2) throw new Error('Queue size failed');",
-      "if (q.dequeue() !== 'job1' || q.dequeue() !== 'job2' || q.size() !== 0) throw new Error('FIFO order failed');"
+    eStarter: lines(
+      "function computeTokenRefill(capacity: number, refillRatePerSec: number, currentTokens: number, elapsedMs: number, requestedTokens: number): { allowed: boolean; remainingTokens: number } {",
+      "  // Calculate refilled tokens and evaluate request allowance",
+      "  return { allowed: false, remainingTokens: 0 };",
+      "}"
     ),
-    aTitle: "Process Job with Max Retry Limit",
-    aDesc: "Write `processJobWithRetries<T>(job: () => Promise<T>, maxRetries?: number): Promise<{ ok: boolean; result?: T; attempts: number }>`.",
+    eHint: `const addedTokens = (elapsedMs / 1000) * refillRatePerSec;
+  const availableTokens = Math.min(capacity, currentTokens + addedTokens);
+  if (availableTokens >= requestedTokens) {
+    return { allowed: true, remainingTokens: availableTokens - requestedTokens };
+  }
+  return { allowed: false, remainingTokens: availableTokens };`,
+    eTest: lines(
+      "if (typeof computeTokenRefill !== 'function') throw new Error('computeTokenRefill not found');",
+      "const r1 = computeTokenRefill(10, 2, 5, 2000, 4);",
+      "if (!r1.allowed || r1.remainingTokens !== 5) throw new Error('r1 failed');",
+      "const r2 = computeTokenRefill(10, 2, 1, 500, 3);",
+      "if (r2.allowed !== false || r2.remainingTokens !== 2) throw new Error('r2 should reject');"
+    ),
+    aTitle: "Redis Sliding Window Score Boundary Calculator",
+    aDesc: "Write `calculateSlidingWindowBounds(windowSizeMs: number, currentTimestampMs: number): { minScore: string; maxScore: number; currentScore: number }`.",
     aLanguage: "typescript",
-    aStarter: lines("async function processJobWithRetries<T>(job: () => Promise<T>, maxRetries: number = 3): Promise<{ ok: boolean; result?: T; attempts: number }> {", "  // Retry job runner", "  return { ok: false, attempts: 0 };", "}"),
-    aHint: "Loop up to maxRetries attempts. Return ok: true and result on success; ok: false on exhaustion.",
+    aStarter: lines(
+      "function calculateSlidingWindowBounds(windowSizeMs: number, currentTimestampMs: number): { minScore: string; maxScore: number; currentScore: number } {",
+      "  // Calculate zremrangebyscore purge boundary and current score",
+      "  return { minScore: '', maxScore: 0, currentScore: 0 };",
+      "}"
+    ),
+    aHint: `return {
+    minScore: '-inf',
+    maxScore: currentTimestampMs - windowSizeMs,
+    currentScore: currentTimestampMs
+  };`,
     aTest: lines(
-      "if (typeof processJobWithRetries !== 'function') throw new Error('processJobWithRetries not found');",
-      "let failCount = 2;",
-      "const flaky = async () => { if (failCount-- > 0) throw new Error('blip'); return 'success'; };",
-      "const r1 = await processJobWithRetries(flaky, 3);",
-      "if (!r1.ok || r1.result !== 'success' || r1.attempts !== 3) throw new Error('Flaky job retry failed');",
-      "const alwaysFail = async () => { throw new Error('fatal'); };",
-      "const r2 = await processJobWithRetries(alwaysFail, 2);",
-      "if (r2.ok || r2.attempts !== 3) throw new Error('Exceeded max retries should return ok: false');"
+      "if (typeof calculateSlidingWindowBounds !== 'function') throw new Error('calculateSlidingWindowBounds not found');",
+      "const b1 = calculateSlidingWindowBounds(60000, 1700000000000);",
+      "if (b1.minScore !== '-inf' || b1.maxScore !== 1699999940000 || b1.currentScore !== 1700000000000) throw new Error('b1 bounds calculation failed');",
+      "const b2 = calculateSlidingWindowBounds(10000, 100000);",
+      "if (b2.maxScore !== 90000 || b2.currentScore !== 100000) throw new Error('b2 failed');"
     )
   },
 
-  // ── DAY 29: Health Checks & Readiness Probes ──────────────────────────────
+  // ── DAY 29: Resilience Patterns: Circuit Breakers, Bulkheads & Graceful Shutdown
   {
     ...NODE_WEB_DAYS[28],
-    eTitle: "Aggregate Health Check Indicators",
-    eDesc: "Write `evaluateHealthStatus(services: Record<string, boolean>): { status: 'healthy' | 'unhealthy'; checks: Record<string, 'UP' | 'DOWN'>; totalDown: number }`.",
+    eTitle: "Circuit Breaker 3-State FSM Transition Evaluator",
+    eDesc: "Write `evaluateBreakerTransition(currentState: 'CLOSED' | 'OPEN' | 'HALF_OPEN', consecutiveFailures: number, threshold: number, tripTimestampMs: number, resetTimeoutMs: number, nowMs: number): { nextState: 'CLOSED' | 'OPEN' | 'HALF_OPEN'; shouldTrip: boolean }`.",
     eLanguage: "typescript",
-    eStarter: lines("function evaluateHealthStatus(services: Record<string, boolean>): { status: 'healthy' | 'unhealthy'; checks: Record<string, 'UP' | 'DOWN'>; totalDown: number } {", "  // Evaluate health checks", "  return { status: 'unhealthy', checks: {}, totalDown: 0 };", "}"),
-    eHint: "Map each service to UP or DOWN. totalDown counts DOWN services. status is healthy when totalDown === 0.",
-    eTest: lines(
-      "if (typeof evaluateHealthStatus !== 'function') throw new Error('evaluateHealthStatus not found');",
-      "const h1 = evaluateHealthStatus({ database: true, redis: true });",
-      "if (h1.status !== 'healthy' || h1.checks.database !== 'UP' || h1.totalDown !== 0) throw new Error('Healthy state failed');",
-      "const h2 = evaluateHealthStatus({ database: true, redis: false, paymentGateway: false });",
-      "if (h2.status !== 'unhealthy' || h2.checks.redis !== 'DOWN' || h2.totalDown !== 2) throw new Error('Unhealthy state failed');"
+    eStarter: lines(
+      "function evaluateBreakerTransition(currentState: 'CLOSED' | 'OPEN' | 'HALF_OPEN', consecutiveFailures: number, threshold: number, tripTimestampMs: number, resetTimeoutMs: number, nowMs: number): { nextState: 'CLOSED' | 'OPEN' | 'HALF_OPEN'; shouldTrip: boolean } {",
+      "  // Evaluate 3-state transition triggers",
+      "  return { nextState: currentState, shouldTrip: false };",
+      "}"
     ),
-    aTitle: "Graceful Shutdown Cleanup Hooks",
-    aDesc: "Write `createShutdownManager()` providing register and shutdown methods executing cleanups in LIFO order.",
+    eHint: `if (currentState === 'CLOSED') {
+    if (consecutiveFailures >= threshold) {
+      return { nextState: 'OPEN', shouldTrip: true };
+    }
+    return { nextState: 'CLOSED', shouldTrip: false };
+  }
+  if (currentState === 'OPEN') {
+    if (nowMs >= tripTimestampMs + resetTimeoutMs) {
+      return { nextState: 'HALF_OPEN', shouldTrip: false };
+    }
+    return { nextState: 'OPEN', shouldTrip: false };
+  }
+  return { nextState: 'HALF_OPEN', shouldTrip: false };`,
+    eTest: lines(
+      "if (typeof evaluateBreakerTransition !== 'function') throw new Error('evaluateBreakerTransition not found');",
+      "const t1 = evaluateBreakerTransition('CLOSED', 3, 3, 0, 1000, 500);",
+      "if (t1.nextState !== 'OPEN' || !t1.shouldTrip) throw new Error('t1 trip failed');",
+      "const t2 = evaluateBreakerTransition('OPEN', 3, 3, 1000, 1000, 2050);",
+      "if (t2.nextState !== 'HALF_OPEN' || t2.shouldTrip) throw new Error('t2 half-open reset failed');"
+    ),
+    aTitle: "Bulkhead Resource Pool Limiter",
+    aDesc: "Write `evaluateBulkheadAllocation(serviceName: string, activeCount: number, maxConcurrent: number): { permitted: boolean; activeCount: number; saturationPct: number }`.",
     aLanguage: "typescript",
-    aStarter: lines("function createShutdownManager() {", "  // Graceful shutdown manager", "  return {} as any;", "}"),
-    aHint: "Array of cleanups. shutdown pops from end (LIFO) and awaits each cleanup callback.",
+    aStarter: lines(
+      "function evaluateBulkheadAllocation(serviceName: string, activeCount: number, maxConcurrent: number): { permitted: boolean; activeCount: number; saturationPct: number } {",
+      "  // Check bulkhead capacity limits",
+      "  return { permitted: false, activeCount: 0, saturationPct: 0 };",
+      "}"
+    ),
+    aHint: `const permitted = activeCount < maxConcurrent;
+  const saturationPct = Math.round((activeCount / maxConcurrent) * 100);
+  return { permitted, activeCount: permitted ? activeCount + 1 : activeCount, saturationPct };`,
     aTest: lines(
-      "if (typeof createShutdownManager !== 'function') throw new Error('createShutdownManager not found');",
-      "const sm = createShutdownManager();",
-      "const calls = [];",
-      "sm.register(async () => { calls.push('first-reg'); });",
-      "sm.register(async () => { calls.push('second-reg'); });",
-      "const count = await sm.shutdown();",
-      "if (count !== 2 || calls.join(',') !== 'second-reg,first-reg') throw new Error('LIFO shutdown order failed: ' + calls.join(','));",
-      "const emptyCount = await sm.shutdown();",
-      "if (emptyCount !== 0) throw new Error('Second shutdown should be 0');"
+      "if (typeof evaluateBulkheadAllocation !== 'function') throw new Error('evaluateBulkheadAllocation not found');",
+      "const b1 = evaluateBulkheadAllocation('Payment', 4, 10);",
+      "if (!b1.permitted || b1.activeCount !== 5 || b1.saturationPct !== 40) throw new Error('b1 failed');",
+      "const b2 = evaluateBulkheadAllocation('Recommendation', 5, 5);",
+      "if (b2.permitted !== false || b2.activeCount !== 5 || b2.saturationPct !== 100) throw new Error('b2 should reject on full capacity');"
     )
   },
 
-  // ── DAY 30: Capstone: Production Node.js & TypeScript API Engine ───────────
+  // ── DAY 30: Staff Backend Capstone: Production Edge Gateway Architecture ────
   {
     ...NODE_WEB_DAYS[29],
-    eTitle: "Unified REST API Engine Dispatcher",
-    eDesc: "Write `createApiEngine()` providing use(middleware), register(method, path, handler), and handle(req) execution.",
+    eTitle: "Hop-by-Hop Header Sanitizer & Tracing Injector",
+    eDesc: "Write `sanitizeGatewayHeaders(inbound: Record<string, string>, clientIp: string, requestId: string): Record<string, string>`.",
     eLanguage: "typescript",
-    eStarter: lines("function createApiEngine() {", "  // Unified API Engine", "  return {} as any;", "}"),
-    eHint: "Array of middlewares executed via recursive dispatch, then dispatching to route handler or returning 404.",
-    eTest: lines(
-      "if (typeof createApiEngine !== 'function') throw new Error('createApiEngine not found');",
-      "const app = createApiEngine();",
-      "app.use(async (req, next) => { req.headers = req.headers || {}; req.headers['x-custom'] = 'added'; return await next(); });",
-      "app.register('GET', '/api/ping', async (req) => ({ status: 200, body: { msg: 'pong', custom: req.headers['x-custom'] } }));",
-      "const res = await app.handle({ method: 'GET', path: '/api/ping' });",
-      "if (res.status !== 200 || res.body.msg !== 'pong' || res.body.custom !== 'added') throw new Error('Engine execution failed: ' + JSON.stringify(res));",
-      "const notFound = await app.handle({ method: 'POST', path: '/unknown' });",
-      "if (notFound.status !== 404) throw new Error('Unknown route should be 404');"
+    eStarter: lines(
+      "function sanitizeGatewayHeaders(inbound: Record<string, string>, clientIp: string, requestId: string): Record<string, string> {",
+      "  // Strip RFC 7230 hop-by-hop headers and inject distributed context",
+      "  return {};",
+      "}"
     ),
-    aTitle: "Format Service Operational Metrics",
-    aDesc: "Write `formatServiceMetrics(metrics: { requests: number; errors: number; totalDurationMs: number }): { requests: number; errorRate: string; avgDurationMs: number }`.",
+    eHint: `const hopByHop = new Set([
+    'connection', 'keep-alive', 'proxy-authenticate', 'proxy-authorization',
+    'te', 'trailer', 'transfer-encoding', 'upgrade'
+  ]);
+  const outbound: Record<string, string> = {};
+  for (const [k, v] of Object.entries(inbound)) {
+    const lk = k.toLowerCase();
+    if (!hopByHop.has(lk)) {
+      outbound[lk] = v;
+    }
+  }
+  const prevXff = inbound['x-forwarded-for'] || inbound['X-Forwarded-For'];
+  outbound['x-forwarded-for'] = prevXff ? prevXff + ', ' + clientIp : clientIp;
+  outbound['x-forwarded-proto'] = 'https';
+  outbound['x-request-id'] = requestId;
+  return outbound;`,
+    eTest: lines(
+      "if (typeof sanitizeGatewayHeaders !== 'function') throw new Error('sanitizeGatewayHeaders not found');",
+      "const raw = { 'Host': 'api.domain.com', 'Connection': 'keep-alive', 'Upgrade': 'websocket', 'Authorization': 'Bearer tok' };",
+      "const clean = sanitizeGatewayHeaders(raw, '1.2.3.4', 'req_101');",
+      "if (clean['connection'] || clean['upgrade']) throw new Error('Hop-by-hop headers not stripped');",
+      "if (clean['authorization'] !== 'Bearer tok') throw new Error('End-to-end header lost');",
+      "if (clean['x-forwarded-for'] !== '1.2.3.4' || clean['x-request-id'] !== 'req_101') throw new Error('Injected context missing');",
+      "const raw2 = { 'Host': 'svc.internal', 'Authorization': 'Basic xyz' };",
+      "const clean2 = sanitizeGatewayHeaders(raw2, '10.0.0.1', 'req_202');",
+      "if (clean2['x-forwarded-for'] !== '10.0.0.1' || clean2['x-request-id'] !== 'req_202') throw new Error('clean2 failed');"
+    ),
+    aTitle: "Power of Two Choices (P2C) Node Selector",
+    aDesc: "Write `selectNodeP2C(nodes: Array<{ id: string; isHealthy: boolean; activeConnections: number }>, indexA: number, indexB: number): string | null`.",
     aLanguage: "typescript",
-    aStarter: lines("function formatServiceMetrics(metrics: { requests: number; errors: number; totalDurationMs: number }): { requests: number; errorRate: string; avgDurationMs: number } {", "  // Compute operational metrics", "  return { requests: 0, errorRate: '0.00%', avgDurationMs: 0 };", "}"),
-    aHint: "Calculate avgDurationMs = Math.round((totalDurationMs / requests) * 100) / 100, errorRate = ((errors / requests) * 100).toFixed(2) + '%'. If requests === 0 return zeroes.",
+    aStarter: lines(
+      "function selectNodeP2C(nodes: Array<{ id: string; isHealthy: boolean; activeConnections: number }>, indexA: number, indexB: number): string | null {",
+      "  // Select healthy node with fewer active connections via P2C",
+      "  return null;",
+      "}"
+    ),
+    aHint: `const healthy = nodes.filter(n => n.isHealthy);
+  if (healthy.length === 0) return null;
+  if (healthy.length === 1) return healthy[0].id;
+  const nodeA = healthy[indexA % healthy.length];
+  const nodeB = healthy[indexB % healthy.length];
+  return nodeA.activeConnections <= nodeB.activeConnections ? nodeA.id : nodeB.id;`,
     aTest: lines(
-      "if (typeof formatServiceMetrics !== 'function') throw new Error('formatServiceMetrics not found');",
-      "const m1 = formatServiceMetrics({ requests: 200, errors: 5, totalDurationMs: 5000 });",
-      "if (m1.requests !== 200 || m1.errorRate !== '2.50%' || m1.avgDurationMs !== 25) throw new Error('Failed m1: ' + JSON.stringify(m1));",
-      "const m2 = formatServiceMetrics({ requests: 0, errors: 0, totalDurationMs: 0 });",
-      "if (m2.requests !== 0 || m2.errorRate !== '0.00%' || m2.avgDurationMs !== 0) throw new Error('Failed 0 requests');",
-      "const m3 = formatServiceMetrics({ requests: 1000, errors: 0, totalDurationMs: 12345 });",
-      "if (m3.errorRate !== '0.00%' || m3.avgDurationMs !== 12.35) throw new Error('Failed m3 rounding');"
+      "if (typeof selectNodeP2C !== 'function') throw new Error('selectNodeP2C not found');",
+      "const nodes = [",
+      "  { id: 'node-1', isHealthy: true, activeConnections: 10 },",
+      "  { id: 'node-2', isHealthy: false, activeConnections: 0 },",
+      "  { id: 'node-3', isHealthy: true, activeConnections: 4 }",
+      "];",
+      "const s1 = selectNodeP2C(nodes, 0, 1);",
+      "if (s1 !== 'node-3') throw new Error('P2C should select node-3 with 4 active connections');",
+      "const s2 = selectNodeP2C([{ id: 'bad', isHealthy: false, activeConnections: 0 }], 0, 0);",
+      "if (s2 !== null) throw new Error('Should return null if no healthy nodes');"
     )
   }
-
 ,
-  // ── DAY 31: Advanced Event-Driven Microservices ─────────────────────────────────────────────────────────────
   {
     ...NODE_WEB_DAYS[30],
     eTitle: "Calculate Event Loop Lag",

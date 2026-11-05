@@ -1,835 +1,306 @@
-{
-  "schemaVersion": 1,
-  "prefix": "node-web",
-  "day": 30,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
-    {
-      "partTitle": "Capstone Architectural Blueprint: Modular Controller, Service, and Repository Layers",
-      "codeHash": "89ac029cb70f693339ffe93a19885b6566bab9c952d79714fffb58af0d720784",
-      "spec": {
-        "template": "boxes",
-        "title": "Three-tier architecture job entity attributes",
-        "boxes": [
-          {
-            "id": "title",
-            "label": "title"
-          },
-          {
-            "id": "sal",
-            "label": "salary"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Enterprise backends rely on controller service and repository layers.",
-            "values": {
-              "title": {
-                "text": "Staff Engineer"
-              },
-              "sal": {
-                "text": "160000"
-              }
-            },
-            "tones": {
-              "title": "data",
-              "sal": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Services enforce domain validation without knowing database details.",
-            "values": {
-              "title": {
-                "text": "Staff Engineer"
-              },
-              "sal": {
-                "text": "160000"
-              }
-            },
-            "tones": {
-              "title": "data",
-              "sal": "data"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "This strict separation of concerns makes your backend highly modular.",
-            "values": {
-              "title": {
-                "text": "Staff Engineer"
-              },
-              "sal": {
-                "text": "160000"
-              }
-            },
-            "tones": {
-              "title": "ok",
-              "sal": "ok"
-            }
-          }
+[
+  {
+    "schemaVersion": 2,
+    "partIndex": 1,
+    "codeHash": "93abc40805c2bc6a45ee4ed1da67db0b5a031e60626ceb5f148363a0c00c0c8d",
+    "spec": {
+      "template": "flow",
+      "title": "Process Pipeline Architecture of an Enterprise API Edge Gateway.",
+      "nodes": [
+        {
+          "id": "stepA",
+          "label": "Client Ingress Gateway",
+          "type": "start"
+        },
+        {
+          "id": "stepB",
+          "label": "Security Rate Limiter",
+          "type": "process"
+        },
+        {
+          "id": "stepC",
+          "label": "Upstream Proxy Streamer",
+          "type": "process"
+        },
+        {
+          "id": "stepD",
+          "label": "Egress Observability",
+          "type": "end"
+        }
+      ],
+      "edges": [
+        {
+          "from": "stepA",
+          "to": "stepB",
+          "label": "Route"
+        },
+        {
+          "from": "stepB",
+          "to": "stepC",
+          "label": "Pass"
+        },
+        {
+          "from": "stepC",
+          "to": "stepD",
+          "label": "Emit"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Ingress gateway validates incoming request credentials and tokens.",
+        "highlight": [
+          "stepA"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Three-tier architecture job entity attributes",
-        "boxes": [
-          {
-            "id": "title",
-            "label": "title"
-          },
-          {
-            "id": "sal",
-            "label": "salary"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Enterprise backends rely on controller service and repository layers.",
-            "values": {
-              "title": "Staff Engineer",
-              "sal": "160000"
-            },
-            "tones": {
-              "title": "data",
-              "sal": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Services enforce domain validation without knowing database details.",
-            "values": {
-              "title": "Staff Engineer",
-              "sal": "160000"
-            },
-            "tones": {
-              "title": "data",
-              "sal": "data"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "This strict separation of concerns makes your backend highly modular.",
-            "values": {
-              "title": "Staff Engineer",
-              "sal": "160000"
-            },
-            "tones": {
-              "title": "ok",
-              "sal": "ok"
-            }
-          }
+      {
+        "step": 2,
+        "caption": "Traffic shaper verifies rate limit budgets before dispatching.",
+        "highlight": [
+          "stepB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Streaming reverse proxy forwards bytes to healthy upstream nodes.",
+        "highlight": [
+          "stepC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Observability hooks emit telemetry spans and structured metrics.",
+        "highlight": [
+          "stepD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 2,
+    "codeHash": "67c2d2d1aebaca62c79f26851f3c8f20ec98ac64d4112e539f09e00d17f7803c",
+    "spec": {
+      "template": "boxes",
+      "title": "Architectural Partitions High-Performance Reverse Proxying & HTTP/ Micros.",
+      "boxes": [
+        {
+          "id": "boxA",
+          "label": "Edge Router Ingress"
+        },
+        {
+          "id": "boxB",
+          "label": "Circuit Breaker FSM"
+        },
+        {
+          "id": "boxC",
+          "label": "Bulkhead Resource Pool"
+        },
+        {
+          "id": "boxD",
+          "label": "Telemetry Trace Exporter"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Ingress gateway validates incoming request credentials and tokens.",
+        "highlight": [
+          "boxA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Traffic shaper verifies rate limit budgets before dispatching.",
+        "highlight": [
+          "boxB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Streaming reverse proxy forwards bytes to healthy upstream nodes.",
+        "highlight": [
+          "boxC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Observability hooks emit telemetry spans and structured metrics.",
+        "highlight": [
+          "boxD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 3,
+    "codeHash": "c1f64d2433d354b1240b4f018e8e988e48ee8aefd1c349cd3012594f8034660e",
+    "spec": {
+      "template": "stackQueue",
+      "title": "Task Pipeline Queue Integrated Security, Rate Limiting & JWT Auth Middlew.",
+      "elements": [
+        {
+          "id": "elemA",
+          "label": "Incoming HTTP Stream"
+        },
+        {
+          "id": "elemB",
+          "label": "Sliding Token Bucket"
+        },
+        {
+          "id": "elemC",
+          "label": "Upstream Healthy Socket"
+        },
+        {
+          "id": "elemD",
+          "label": "Graceful Drain Buffer"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Ingress gateway validates incoming request credentials and tokens.",
+        "highlight": [
+          "elemA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Traffic shaper verifies rate limit budgets before dispatching.",
+        "highlight": [
+          "elemB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Streaming reverse proxy forwards bytes to healthy upstream nodes.",
+        "highlight": [
+          "elemC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Observability hooks emit telemetry spans and structured metrics.",
+        "highlight": [
+          "elemD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 4,
+    "codeHash": "2d2dd90280d145767072b95a2a52a8925deb0ce8235dd450d43bb45f0d670ef0",
+    "spec": {
+      "template": "sequence",
+      "title": "Sequence Coordination Dynamic Service Discovery, Health Probing & Active.",
+      "actors": [
+        {
+          "id": "client",
+          "label": "Client Caller"
+        },
+        {
+          "id": "gateway",
+          "label": "Edge Gateway"
+        },
+        {
+          "id": "breaker",
+          "label": "Circuit Breaker"
+        },
+        {
+          "id": "backend",
+          "label": "Upstream Service"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Ingress gateway validates incoming request credentials and tokens.",
+        "highlight": [
+          "elemA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Traffic shaper verifies rate limit budgets before dispatching.",
+        "highlight": [
+          "elemB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Streaming reverse proxy forwards bytes to healthy upstream nodes.",
+        "highlight": [
+          "elemC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Observability hooks emit telemetry spans and structured metrics.",
+        "highlight": [
+          "elemD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 5,
+    "codeHash": "8cf0a7bffa8975ef94d3917d28ca57dac77ee283f155a528d8bd0469c8dcc835",
+    "spec": {
+      "template": "compare",
+      "title": "Systems Architecture Production Capstone Gateway Synthesis & Resilient Te.",
+      "left": {
+        "title": "Resilient Mesh",
+        "items": [
+          "Circuit breaker protected",
+          "Sliding rate limits",
+          "Distributed context"
+        ]
+      },
+      "right": {
+        "title": "Unprotected Hub",
+        "items": [
+          "Cascading collapse",
+          "Socket exhaustion",
+          "Silent data loss"
         ]
       }
     },
-    {
-      "partTitle": "Unifying Middleware: Security Headers, Logging, and Rate Limiting",
-      "codeHash": "3f3bdd26bf8702cee262fd645c22b3a90c8c6945a386a7abdff5132e87403c74",
-      "spec": {
-        "template": "boxes",
-        "title": "Pipeline context request parameters",
-        "boxes": [
-          {
-            "id": "method",
-            "label": "method"
-          },
-          {
-            "id": "path",
-            "label": "path"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Requests pass through security and operational middleware pipelines.",
-            "values": {
-              "method": {
-                "text": "GET"
-              },
-              "path": {
-                "text": "/api/jobs"
-              }
-            },
-            "tones": {
-              "method": "data",
-              "path": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Structured logging middleware records request methods paths and durations.",
-            "values": {
-              "method": {
-                "text": "GET"
-              },
-              "path": {
-                "text": "/api/jobs"
-              }
-            },
-            "tones": {
-              "method": "data",
-              "path": "data"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Chaining middleware linearly ensures every incoming request is protected.",
-            "values": {
-              "method": {
-                "text": "GET"
-              },
-              "path": {
-                "text": "/api/jobs"
-              }
-            },
-            "tones": {
-              "method": "ok",
-              "path": "ok"
-            }
-          }
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Ingress gateway validates incoming request credentials and tokens.",
+        "highlight": [
+          "elemA"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Pipeline context request parameters",
-        "boxes": [
-          {
-            "id": "method",
-            "label": "method"
-          },
-          {
-            "id": "path",
-            "label": "path"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say1",
-            "caption": "Requests pass through security and operational middleware pipelines.",
-            "values": {
-              "method": "GET",
-              "path": "/api/jobs"
-            },
-            "tones": {
-              "method": "data",
-              "path": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Structured logging middleware records request methods paths and durations.",
-            "values": {
-              "method": "GET",
-              "path": "/api/jobs"
-            },
-            "tones": {
-              "method": "data",
-              "path": "data"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Chaining middleware linearly ensures every incoming request is protected.",
-            "values": {
-              "method": "GET",
-              "path": "/api/jobs"
-            },
-            "tones": {
-              "method": "ok",
-              "path": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Request Pipeline: Validation, Authentication, and Business Dispatch",
-      "codeHash": "68c6103669c2a54c36a6225a66097dac38a59441c3116dcf7291cb482a62cbb5",
-      "spec": {
-        "template": "boxes",
-        "title": "Authorized user authentication identity and role",
-        "boxes": [
-          {
-            "id": "id",
-            "label": "id"
-          },
-          {
-            "id": "role",
-            "label": "role"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Authentication verifies bearer tokens and extracts identity claims.",
-            "values": {
-              "id": {
-                "text": "usr_1"
-              },
-              "role": {
-                "text": "student"
-              }
-            },
-            "tones": {
-              "id": "data",
-              "role": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Role based access control halts requests if permissions are lacking.",
-            "values": {
-              "id": {
-                "text": "usr_1"
-              },
-              "role": {
-                "text": "student"
-              }
-            },
-            "tones": {
-              "id": "error",
-              "role": "error"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Only requests passing security checks dispatch to business handlers.",
-            "values": {
-              "id": {
-                "text": "usr_2"
-              },
-              "role": {
-                "text": "admin"
-              }
-            },
-            "tones": {
-              "id": "ok",
-              "role": "ok"
-            }
-          }
+      {
+        "step": 2,
+        "caption": "Traffic shaper verifies rate limit budgets before dispatching.",
+        "highlight": [
+          "elemB"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Authorized user authentication identity and role",
-        "boxes": [
-          {
-            "id": "id",
-            "label": "id"
-          },
-          {
-            "id": "role",
-            "label": "role"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Authentication verifies bearer tokens and extracts identity claims.",
-            "values": {
-              "id": "usr_1",
-              "role": "student"
-            },
-            "tones": {
-              "id": "data",
-              "role": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Role based access control halts requests if permissions are lacking.",
-            "values": {
-              "id": "usr_1",
-              "role": "student"
-            },
-            "tones": {
-              "id": "error",
-              "role": "error"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Only requests passing security checks dispatch to business handlers.",
-            "values": {
-              "id": "usr_2",
-              "role": "admin"
-            },
-            "tones": {
-              "id": "ok",
-              "role": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Observability, Metrics Collection, and Error Boundary Recovery",
-      "codeHash": "3ef458bbb32c81ae9abf0bc16ea5d32a57e4711b5e53a8908370ab285d16e8a0",
-      "spec": {
-        "template": "boxes",
-        "title": "Global error boundary status and sanitized title",
-        "boxes": [
-          {
-            "id": "status",
-            "label": "status"
-          },
-          {
-            "id": "title",
-            "label": "title"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say3",
-            "caption": "Global error boundary middleware wraps the request pipeline in a catch.",
-            "values": {
-              "status": {
-                "text": "200"
-              },
-              "title": {
-                "text": "Internal Server Error"
-              }
-            },
-            "tones": {
-              "status": "ok",
-              "title": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Unhandled exceptions are intercepted to return a sanitized RFC response.",
-            "values": {
-              "status": {
-                "text": "500"
-              },
-              "title": {
-                "text": "Internal Server Error"
-              }
-            },
-            "tones": {
-              "status": "error",
-              "title": "error"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Sanitizing errors protects infrastructure details while servers stay online.",
-            "values": {
-              "status": {
-                "text": "500"
-              },
-              "title": {
-                "text": "Internal Server Error"
-              }
-            },
-            "tones": {
-              "status": "ok",
-              "title": "ok"
-            }
-          }
+      {
+        "step": 3,
+        "caption": "Streaming reverse proxy forwards bytes to healthy upstream nodes.",
+        "highlight": [
+          "elemC"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Global error boundary status and sanitized title",
-        "boxes": [
-          {
-            "id": "status",
-            "label": "status"
-          },
-          {
-            "id": "title",
-            "label": "title"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say3",
-            "caption": "Global error boundary middleware wraps the request pipeline in a catch.",
-            "values": {
-              "status": "200",
-              "title": "Internal Server Error"
-            },
-            "tones": {
-              "status": "ok",
-              "title": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Unhandled exceptions are intercepted to return a sanitized RFC response.",
-            "values": {
-              "status": "500",
-              "title": "Internal Server Error"
-            },
-            "tones": {
-              "status": "error",
-              "title": "error"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Sanitizing errors protects infrastructure details while servers stay online.",
-            "values": {
-              "status": "500",
-              "title": "Internal Server Error"
-            },
-            "tones": {
-              "status": "ok",
-              "title": "ok"
-            }
-          }
+      {
+        "step": 4,
+        "caption": "Observability hooks emit telemetry spans and structured metrics.",
+        "highlight": [
+          "elemD"
         ]
       }
-    },
-    {
-      "partTitle": "End-to-End Request Trace: From Ingress to Idempotent Mutation",
-      "codeHash": "1561ab0c55703b129a10defbe3e8bcfd8c1cb47e9134891af2e07e12547e9de3",
-      "spec": {
-        "template": "boxes",
-        "title": "Request pipeline end-to-end trace context",
-        "boxes": [
-          {
-            "id": "trace",
-            "label": "traceId"
-          },
-          {
-            "id": "step",
-            "label": "stepLog"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "When clients send mutating requests with keys they enter the pipeline.",
-            "values": {
-              "trace": {
-                "text": "trace_abc_123"
-              },
-              "step": {
-                "text": "1. Security & Trace Headers attached"
-              }
-            },
-            "tones": {
-              "trace": "data",
-              "step": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Authentication validates tokens and services invoke the repository.",
-            "values": {
-              "trace": {
-                "text": "trace_abc_123"
-              },
-              "step": {
-                "text": "5. Application Entity Saved in Repository"
-              }
-            },
-            "tones": {
-              "trace": "data",
-              "step": "data"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "The response is cached under idempotency keys and returned to clients.",
-            "values": {
-              "trace": {
-                "text": "trace_abc_123"
-              },
-              "step": {
-                "text": "6. Emitted 201 Created"
-              }
-            },
-            "tones": {
-              "trace": "ok",
-              "step": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Request pipeline end-to-end trace context",
-        "boxes": [
-          {
-            "id": "trace",
-            "label": "traceId"
-          },
-          {
-            "id": "step",
-            "label": "stepLog"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "When clients send mutating requests with keys they enter the pipeline.",
-            "values": {
-              "trace": "trace_abc_123",
-              "step": "1. Security & Trace Headers attached"
-            },
-            "tones": {
-              "trace": "data",
-              "step": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Authentication validates tokens and services invoke the repository.",
-            "values": {
-              "trace": "trace_abc_123",
-              "step": "5. Application Entity Saved in Repository"
-            },
-            "tones": {
-              "trace": "data",
-              "step": "data"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "The response is cached under idempotency keys and returned to clients.",
-            "values": {
-              "trace": "trace_abc_123",
-              "step": "6. Emitted 201 Created"
-            },
-            "tones": {
-              "trace": "ok",
-              "step": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Building the Unified Production API Engine",
-      "codeHash": "92f8edd0b9eeade08b332ced7821505b039c7989fa8ea5ef99f2af42e4aba95c",
-      "spec": {
-        "template": "flow",
-        "title": "Building the Unified Production API Engine — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building the Unifie...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building the Unified Production API Engine [D30.P6.S1].",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building the Unifie... [D30.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D30.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building the Unified Production A.. [D30.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Building the Unified Production API Engine — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building the Unifie...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building the Unified Production API Engine [D30.P6.S1].",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building the Unifie... [D30.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D30.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building the Unified Production A.. [D30.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      }
-    }
-  ]
-}
+    ]
+  }
+]

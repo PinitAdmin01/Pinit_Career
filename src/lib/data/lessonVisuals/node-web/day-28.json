@@ -1,835 +1,306 @@
-{
-  "schemaVersion": 1,
-  "prefix": "node-web",
-  "day": 28,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
-    {
-      "partTitle": "Decoupling Heavy Background Work from HTTP Cycles",
-      "codeHash": "9b2e4061e35fc3744ee1b0a8b08aaa5b3d4435a1eeb703b1f5e43d1b7af1fd4a",
-      "spec": {
-        "template": "boxes",
-        "title": "Asynchronous task job attributes",
-        "boxes": [
-          {
-            "id": "name",
-            "label": "name"
-          },
-          {
-            "id": "student",
-            "label": "studentId"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Operations like pdf generation take seconds and degrade throughput.",
-            "values": {
-              "name": {
-                "text": "generate_transcript_pdf"
-              },
-              "student": {
-                "text": "stu_101"
-              }
-            },
-            "tones": {
-              "name": "data",
-              "student": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Offloading work to a task queue frees the HTTP worker immediately.",
-            "values": {
-              "name": {
-                "text": "generate_transcript_pdf"
-              },
-              "student": {
-                "text": "stu_101"
-              }
-            },
-            "tones": {
-              "name": "data",
-              "student": "data"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Background workers process queued jobs at a sustainable execution rate.",
-            "values": {
-              "name": {
-                "text": "generate_transcript_pdf"
-              },
-              "student": {
-                "text": "stu_101"
-              }
-            },
-            "tones": {
-              "name": "ok",
-              "student": "ok"
-            }
-          }
+[
+  {
+    "schemaVersion": 2,
+    "partIndex": 1,
+    "codeHash": "3f74942c489d862b66e47a4de890145305204acf95609580d47f717738b1afc5",
+    "spec": {
+      "template": "flow",
+      "title": "Process Pipeline The Anatomy of Traffic Shaping & The Fixed Window Flaw.",
+      "nodes": [
+        {
+          "id": "stepA",
+          "label": "Client Ingress Gateway",
+          "type": "start"
+        },
+        {
+          "id": "stepB",
+          "label": "Security Rate Limiter",
+          "type": "process"
+        },
+        {
+          "id": "stepC",
+          "label": "Upstream Proxy Streamer",
+          "type": "process"
+        },
+        {
+          "id": "stepD",
+          "label": "Egress Observability",
+          "type": "end"
+        }
+      ],
+      "edges": [
+        {
+          "from": "stepA",
+          "to": "stepB",
+          "label": "Route"
+        },
+        {
+          "from": "stepB",
+          "to": "stepC",
+          "label": "Pass"
+        },
+        {
+          "from": "stepC",
+          "to": "stepD",
+          "label": "Emit"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Ingress gateway validates incoming request credentials and tokens.",
+        "highlight": [
+          "stepA"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Asynchronous task job attributes",
-        "boxes": [
-          {
-            "id": "name",
-            "label": "name"
-          },
-          {
-            "id": "student",
-            "label": "studentId"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Operations like pdf generation take seconds and degrade throughput.",
-            "values": {
-              "name": "generate_transcript_pdf",
-              "student": "stu_101"
-            },
-            "tones": {
-              "name": "data",
-              "student": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Offloading work to a task queue frees the HTTP worker immediately.",
-            "values": {
-              "name": "generate_transcript_pdf",
-              "student": "stu_101"
-            },
-            "tones": {
-              "name": "data",
-              "student": "data"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Background workers process queued jobs at a sustainable execution rate.",
-            "values": {
-              "name": "generate_transcript_pdf",
-              "student": "stu_101"
-            },
-            "tones": {
-              "name": "ok",
-              "student": "ok"
-            }
-          }
+      {
+        "step": 2,
+        "caption": "Traffic shaper verifies rate limit budgets before dispatching.",
+        "highlight": [
+          "stepB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Streaming reverse proxy forwards bytes to healthy upstream nodes.",
+        "highlight": [
+          "stepC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Observability hooks emit telemetry spans and structured metrics.",
+        "highlight": [
+          "stepD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 2,
+    "codeHash": "d6fe0ae77f62074c50fa5792a9ec5ed5c79b9fb1217e1bc607db54b675469f2d",
+    "spec": {
+      "template": "boxes",
+      "title": "Architectural Partitions Token Bucket vs Leaky Bucket Algorithms.",
+      "boxes": [
+        {
+          "id": "boxA",
+          "label": "Edge Router Ingress"
+        },
+        {
+          "id": "boxB",
+          "label": "Circuit Breaker FSM"
+        },
+        {
+          "id": "boxC",
+          "label": "Bulkhead Resource Pool"
+        },
+        {
+          "id": "boxD",
+          "label": "Telemetry Trace Exporter"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Ingress gateway validates incoming request credentials and tokens.",
+        "highlight": [
+          "boxA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Traffic shaper verifies rate limit budgets before dispatching.",
+        "highlight": [
+          "boxB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Streaming reverse proxy forwards bytes to healthy upstream nodes.",
+        "highlight": [
+          "boxC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Observability hooks emit telemetry spans and structured metrics.",
+        "highlight": [
+          "boxD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 3,
+    "codeHash": "2a9b252dbb1d5b34a73cd716869600b78eb5db4138c54e826ada21effb32c46f",
+    "spec": {
+      "template": "stackQueue",
+      "title": "Task Pipeline Queue Sliding Window Log & Sliding Window Counter via Redis.",
+      "elements": [
+        {
+          "id": "elemA",
+          "label": "Incoming HTTP Stream"
+        },
+        {
+          "id": "elemB",
+          "label": "Sliding Token Bucket"
+        },
+        {
+          "id": "elemC",
+          "label": "Upstream Healthy Socket"
+        },
+        {
+          "id": "elemD",
+          "label": "Graceful Drain Buffer"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Ingress gateway validates incoming request credentials and tokens.",
+        "highlight": [
+          "elemA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Traffic shaper verifies rate limit budgets before dispatching.",
+        "highlight": [
+          "elemB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Streaming reverse proxy forwards bytes to healthy upstream nodes.",
+        "highlight": [
+          "elemC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Observability hooks emit telemetry spans and structured metrics.",
+        "highlight": [
+          "elemD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 4,
+    "codeHash": "c568caee20c3e78034454e0fe5b6b002cdd1ccbe1320c9098a8cd0095a457792",
+    "spec": {
+      "template": "sequence",
+      "title": "Sequence Coordination Atomic Rate Limiting with Redis Lua Scripts (EVALSH.",
+      "actors": [
+        {
+          "id": "client",
+          "label": "Client Caller"
+        },
+        {
+          "id": "gateway",
+          "label": "Edge Gateway"
+        },
+        {
+          "id": "breaker",
+          "label": "Circuit Breaker"
+        },
+        {
+          "id": "backend",
+          "label": "Upstream Service"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Ingress gateway validates incoming request credentials and tokens.",
+        "highlight": [
+          "elemA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Traffic shaper verifies rate limit budgets before dispatching.",
+        "highlight": [
+          "elemB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Streaming reverse proxy forwards bytes to healthy upstream nodes.",
+        "highlight": [
+          "elemC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Observability hooks emit telemetry spans and structured metrics.",
+        "highlight": [
+          "elemD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 5,
+    "codeHash": "c1763ea1a7cfcd67b69f6709952abfbb38e05cd00a85a4db6477c70481d9b3e0",
+    "spec": {
+      "template": "compare",
+      "title": "Systems Architecture Production Multi-Tier Rate Limiting & RFC Standard H.",
+      "left": {
+        "title": "Resilient Mesh",
+        "items": [
+          "Circuit breaker protected",
+          "Sliding rate limits",
+          "Distributed context"
+        ]
+      },
+      "right": {
+        "title": "Unprotected Hub",
+        "items": [
+          "Cascading collapse",
+          "Socket exhaustion",
+          "Silent data loss"
         ]
       }
     },
-    {
-      "partTitle": "Job Lifecycle State Machine (Queued, Processing, Completed, Failed)",
-      "codeHash": "ffae40a7ad6637c83a1deec46551809091e50816cfb7f72228ddaf3d53e3ff26",
-      "spec": {
-        "template": "boxes",
-        "title": "Job lifecycle state machine progression",
-        "boxes": [
-          {
-            "id": "id",
-            "label": "id"
-          },
-          {
-            "id": "status",
-            "label": "status"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "A new job enters the queued state waiting for an available worker.",
-            "values": {
-              "id": {
-                "text": "job_42"
-              },
-              "status": {
-                "text": "queued"
-              }
-            },
-            "tones": {
-              "id": "data",
-              "status": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "When workers pick up the task its state transitions to processing.",
-            "values": {
-              "id": {
-                "text": "job_42"
-              },
-              "status": {
-                "text": "processing"
-              }
-            },
-            "tones": {
-              "id": "data",
-              "status": "data"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Upon successful execution the job transitions to completed state.",
-            "values": {
-              "id": {
-                "text": "job_42"
-              },
-              "status": {
-                "text": "completed"
-              }
-            },
-            "tones": {
-              "id": "ok",
-              "status": "ok"
-            }
-          }
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Ingress gateway validates incoming request credentials and tokens.",
+        "highlight": [
+          "elemA"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Job lifecycle state machine progression",
-        "boxes": [
-          {
-            "id": "id",
-            "label": "id"
-          },
-          {
-            "id": "status",
-            "label": "status"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "A new job enters the queued state waiting for an available worker.",
-            "values": {
-              "id": "job_42",
-              "status": "queued"
-            },
-            "tones": {
-              "id": "data",
-              "status": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "When workers pick up the task its state transitions to processing.",
-            "values": {
-              "id": "job_42",
-              "status": "processing"
-            },
-            "tones": {
-              "id": "data",
-              "status": "data"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Upon successful execution the job transitions to completed state.",
-            "values": {
-              "id": "job_42",
-              "status": "completed"
-            },
-            "tones": {
-              "id": "ok",
-              "status": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Calculating Exponential Backoff with Jitter",
-      "codeHash": "435cb1fe46644adea0e13a078ff5e18173f25061e593d7c3e3f7ffe6b4aa2e6d",
-      "spec": {
-        "template": "boxes",
-        "title": "Exponential backoff delay scaling",
-        "boxes": [
-          {
-            "id": "attempt",
-            "label": "attempt"
-          },
-          {
-            "id": "base",
-            "label": "baseMs"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Retrying immediately when requests fail creates a damaging stampede.",
-            "values": {
-              "attempt": {
-                "text": "1"
-              },
-              "base": {
-                "text": "1000"
-              }
-            },
-            "tones": {
-              "attempt": "data",
-              "base": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Exponential backoff multiplies the retry delay with each failure.",
-            "values": {
-              "attempt": {
-                "text": "2"
-              },
-              "base": {
-                "text": "1000"
-              }
-            },
-            "tones": {
-              "attempt": "data",
-              "base": "data"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Capping backoff delay with a maximum ceiling prevents excessive waits.",
-            "values": {
-              "attempt": {
-                "text": "4"
-              },
-              "base": {
-                "text": "30000"
-              }
-            },
-            "tones": {
-              "attempt": "ok",
-              "base": "ok"
-            }
-          }
+      {
+        "step": 2,
+        "caption": "Traffic shaper verifies rate limit budgets before dispatching.",
+        "highlight": [
+          "elemB"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Exponential backoff delay scaling",
-        "boxes": [
-          {
-            "id": "attempt",
-            "label": "attempt"
-          },
-          {
-            "id": "base",
-            "label": "baseMs"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Retrying immediately when requests fail creates a damaging stampede.",
-            "values": {
-              "attempt": "1",
-              "base": "1000"
-            },
-            "tones": {
-              "attempt": "data",
-              "base": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Exponential backoff multiplies the retry delay with each failure.",
-            "values": {
-              "attempt": "2",
-              "base": "1000"
-            },
-            "tones": {
-              "attempt": "data",
-              "base": "data"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Capping backoff delay with a maximum ceiling prevents excessive waits.",
-            "values": {
-              "attempt": "4",
-              "base": "30000"
-            },
-            "tones": {
-              "attempt": "ok",
-              "base": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Dead-Letter Queue (DLQ) Mechanics for Poisoned Jobs",
-      "codeHash": "73250d6501a9a17128a68725d93a34f00674b9379a77797cd5bea604c44639f6",
-      "spec": {
-        "template": "boxes",
-        "title": "Dead-letter queue poisoned job quarantine",
-        "boxes": [
-          {
-            "id": "id",
-            "label": "id"
-          },
-          {
-            "id": "err",
-            "label": "lastError"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "A job that fails repeatedly and exhausts retries is a poison pill.",
-            "values": {
-              "id": {
-                "text": "job_poison_99"
-              },
-              "err": {
-                "text": "lastError"
-              }
-            },
-            "tones": {
-              "id": "data",
-              "err": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Dead letter queues route jobs that exceed retries to quarantine.",
-            "values": {
-              "id": {
-                "text": "job_poison_99"
-              },
-              "err": {
-                "text": "NullPointerException in template"
-              }
-            },
-            "tones": {
-              "id": "error",
-              "err": "error"
-            }
-          },
-          {
-            "at": "say7",
-            "caption": "Dead letter isolation guarantees corrupt payloads do not break queues.",
-            "values": {
-              "id": {
-                "text": "job_poison_99"
-              },
-              "err": {
-                "text": "NullPointerException in template"
-              }
-            },
-            "tones": {
-              "id": "ok",
-              "err": "ok"
-            }
-          }
+      {
+        "step": 3,
+        "caption": "Streaming reverse proxy forwards bytes to healthy upstream nodes.",
+        "highlight": [
+          "elemC"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Dead-letter queue poisoned job quarantine",
-        "boxes": [
-          {
-            "id": "id",
-            "label": "id"
-          },
-          {
-            "id": "err",
-            "label": "lastError"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "A job that fails repeatedly and exhausts retries is a poison pill.",
-            "values": {
-              "id": "job_poison_99",
-              "err": "lastError"
-            },
-            "tones": {
-              "id": "data",
-              "err": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Dead letter queues route jobs that exceed retries to quarantine.",
-            "values": {
-              "id": "job_poison_99",
-              "err": "NullPointerException in template"
-            },
-            "tones": {
-              "id": "error",
-              "err": "error"
-            }
-          },
-          {
-            "at": "say7",
-            "caption": "Dead letter isolation guarantees corrupt payloads do not break queues.",
-            "values": {
-              "id": "job_poison_99",
-              "err": "NullPointerException in template"
-            },
-            "tones": {
-              "id": "ok",
-              "err": "ok"
-            }
-          }
+      {
+        "step": 4,
+        "caption": "Observability hooks emit telemetry spans and structured metrics.",
+        "highlight": [
+          "elemD"
         ]
       }
-    },
-    {
-      "partTitle": "Worker Concurrency & Rate-Limited Batch Processing",
-      "codeHash": "7d641f05c806986c153091ddd3b58be5fa3bf3fd29557a13a53d99604fa27e85",
-      "spec": {
-        "template": "boxes",
-        "title": "Worker concurrency slot controller",
-        "boxes": [
-          {
-            "id": "active",
-            "label": "activeCount"
-          },
-          {
-            "id": "max",
-            "label": "maxConcurrency"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Worker concurrency limits restrict how many tasks run simultaneously.",
-            "values": {
-              "active": {
-                "text": "0"
-              },
-              "max": {
-                "text": "2"
-              }
-            },
-            "tones": {
-              "active": "data",
-              "max": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "When slots are saturated new jobs remain safely buffered in the queue.",
-            "values": {
-              "active": {
-                "text": "2"
-              },
-              "max": {
-                "text": "2"
-              }
-            },
-            "tones": {
-              "active": "error",
-              "max": "data"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Proper concurrency limits protect backend stability while maximizing capacity.",
-            "values": {
-              "active": {
-                "text": "0"
-              },
-              "max": {
-                "text": "2"
-              }
-            },
-            "tones": {
-              "active": "ok",
-              "max": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Worker concurrency slot controller",
-        "boxes": [
-          {
-            "id": "active",
-            "label": "activeCount"
-          },
-          {
-            "id": "max",
-            "label": "maxConcurrency"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Worker concurrency limits restrict how many tasks run simultaneously.",
-            "values": {
-              "active": "0",
-              "max": "2"
-            },
-            "tones": {
-              "active": "data",
-              "max": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "When slots are saturated new jobs remain safely buffered in the queue.",
-            "values": {
-              "active": "2",
-              "max": "2"
-            },
-            "tones": {
-              "active": "error",
-              "max": "data"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Proper concurrency limits protect backend stability while maximizing capacity.",
-            "values": {
-              "active": "0",
-              "max": "2"
-            },
-            "tones": {
-              "active": "ok",
-              "max": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Building a Reliable In-Memory Job Queue Worker System",
-      "codeHash": "aea0ecabf46255b69993e4798d3e3589c55c60231ee3a7a3bd28d3d97c1bff30",
-      "spec": {
-        "template": "flow",
-        "title": "Building a Reliable In-Memory Job Queue Worke... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building a Reliable...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building a Reliable In-Memory Job Queue .. [D28.P6.S1].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building a Reliable... [D28.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D28.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building a Reliable In-Memory Job.. [D28.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Building a Reliable In-Memory Job Queue Worke... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building a Reliable...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building a Reliable In-Memory Job Queue .. [D28.P6.S1].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building a Reliable... [D28.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D28.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building a Reliable In-Memory Job.. [D28.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      }
-    }
-  ]
-}
+    ]
+  }
+]

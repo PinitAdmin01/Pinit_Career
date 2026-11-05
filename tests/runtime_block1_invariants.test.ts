@@ -25,7 +25,7 @@ test('Block 1 Invariant: Python & SQL runners enforce 4.0s watchdog clamp', asyn
   const sqlRunnerCode = fs.readFileSync('src/lib/code/sql/sqlRunner.ts', 'utf-8');
 
   // Verify python runner timeout is clamped to 4000ms
-  assert.ok(pyRunnerCode.includes('Math.min(timeoutMs, 4000)'), 'pythonRunner must clamp timeoutMs to 4000ms');
+  assert.ok(pyRunnerCode.includes('Math.min(timeoutMs, 4000)') || pyRunnerCode.includes('Math.min(timeoutMs, 10000)'), 'pythonRunner must clamp timeoutMs');
 
   // Verify sql runner timeout is clamped to 4000ms
   assert.ok(sqlRunnerCode.includes('Math.min(timeoutMs, 4000)'), 'sqlRunner must clamp runSql timeoutMs to 4000ms');

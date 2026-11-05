@@ -6,7 +6,7 @@
     {
       "partIndex": 1,
       "partTitle": "Redis Cluster Architecture: CRC16 Hash Slot Sharding & Hash Tags",
-      "codeHash": "db27204de0dba3e13cebd6e7462e683682fd6290665ef60e201ca49a320b7ec8",
+      "codeHash": "b527cafe0305326fa4407b24faca3188d9e0ec9a81270ae949ccb995a019377c",
       "spec": {
         "template": "compare",
         "left": {
@@ -54,7 +54,7 @@
     {
       "partIndex": 2,
       "partTitle": "Memory Management & Eviction Policies: allkeys-lru, volatile-lru & OOM Defense",
-      "codeHash": "fe7116d11faa4ffefa34eaa9739a7df0cbfbd2f45c5aa7e00ed54f7850a58902",
+      "codeHash": "94d0bbcbb9507fee200b756958b82e6a109c10874ddd064f2fb32f4679292de0",
       "spec": {
         "template": "compare",
         "left": {
@@ -102,7 +102,7 @@
     {
       "partIndex": 3,
       "partTitle": "Caching Topologies: Cache-Aside (Lazy Loading) vs. Write-Through & Write-Back",
-      "codeHash": "16e3558ecf6a1577fe3ab41b8c0dc501a15b3d57cd9cbb79d006dadc8a271dda",
+      "codeHash": "3022d55a82b0d28c95a903e54a27f4e1da44610a0c9de7d07f3e7ecf8336a88f",
       "spec": {
         "template": "compare",
         "left": {
@@ -150,7 +150,7 @@
     {
       "partIndex": 4,
       "partTitle": "Cache Stampede & Thundering Herd Defense: Mutex Locking & Probabilistic Early Expiration",
-      "codeHash": "80f85a6aa34ff55189af945c82222efca7206454d8ba63efa2988d252de062ef",
+      "codeHash": "264b89f6b10ccb0b37087c3efdae342bb5db45de74d3750aca511391a2ff9343",
       "spec": {
         "template": "compare",
         "left": {
@@ -198,7 +198,7 @@
     {
       "partIndex": 5,
       "partTitle": "ElastiCache Resiliency, Multi-AZ Auto-Failover & The Valkey Transition",
-      "codeHash": "b9ab112af807f2a4687bcdf28fe77555ece91116af283e087f40341578e87e86",
+      "codeHash": "d921965f63d9dd87a99959a6666479da7ac99d4b06f9d5af302e0d9b588d69de",
       "spec": {
         "template": "compare",
         "left": {

@@ -2,7 +2,7 @@
 
 import { supabase } from '@/lib/supabaseClient';
 import { generateTxId } from '@/lib/utils/transactionId';
-import { getAuthoritativeQuest } from '@/lib/quests/questRegistry';
+// Lazy-loaded on demand: import('@/lib/quests/questRegistry')
 
 const IS_VALID_UUID = (id?: string | null): boolean =>
   !!id && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(id);
@@ -110,6 +110,7 @@ export async function persistQuestCompletion(
   }
 
   // Fail closed on unregistered quests even in fallback write
+  const { getAuthoritativeQuest } = await import('@/lib/quests/questRegistry');
   const authQuest = getAuthoritativeQuest(questId);
   if (!authQuest) {
     return { ok: false, error: `Cannot complete unregistered quest '${questId}'.` };

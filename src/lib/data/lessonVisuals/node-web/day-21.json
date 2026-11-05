@@ -1,835 +1,306 @@
-{
-  "schemaVersion": 1,
-  "prefix": "node-web",
-  "day": 21,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
-    {
-      "partTitle": "The Repository Pattern: Separation of Domain and Storage",
-      "codeHash": "76185cc366829f070799bfc988ba3dcf4a3ea93665c9becdd606776c820d77f1",
-      "spec": {
-        "template": "boxes",
-        "title": "Repository entity mediation buffer",
-        "boxes": [
-          {
-            "id": "id",
-            "label": "id"
-          },
-          {
-            "id": "title",
-            "label": "title"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say3",
-            "caption": "The repository pattern buffers business logic from storage tech.",
-            "values": {
-              "id": {
-                "text": "jp_1"
-              },
-              "title": {
-                "text": "Backend Engineer"
-              }
-            },
-            "tones": {
-              "id": "data",
-              "title": "idle"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Domain services communicate exclusively with the repository interface.",
-            "values": {
-              "id": {
-                "text": "jp_1"
-              },
-              "title": {
-                "text": "Backend Engineer"
-              }
-            },
-            "tones": {
-              "id": "data",
-              "title": "data"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Relying on abstractions allows teams to refactor storage backends.",
-            "values": {
-              "id": {
-                "text": "jp_1"
-              },
-              "title": {
-                "text": "Backend Engineer"
-              }
-            },
-            "tones": {
-              "id": "ok",
-              "title": "ok"
-            }
-          }
+[
+  {
+    "schemaVersion": 2,
+    "partIndex": 1,
+    "codeHash": "a0be41f8d1ec30d99065778c42421d5fc93fabffaf384b51d87df6b119df69ad",
+    "spec": {
+      "template": "flow",
+      "title": "Process Pipeline The Libuv Worker Pool vs V Isolate Worker Threads.",
+      "nodes": [
+        {
+          "id": "stepA",
+          "label": "Worker Thread Spawner",
+          "type": "start"
+        },
+        {
+          "id": "stepB",
+          "label": "Atomic Memory Buffer",
+          "type": "process"
+        },
+        {
+          "id": "stepC",
+          "label": "Execution Coordinator",
+          "type": "process"
+        },
+        {
+          "id": "stepD",
+          "label": "Output Event Stream",
+          "type": "end"
+        }
+      ],
+      "edges": [
+        {
+          "from": "stepA",
+          "to": "stepB",
+          "label": "Alloc"
+        },
+        {
+          "from": "stepB",
+          "to": "stepC",
+          "label": "Lock"
+        },
+        {
+          "from": "stepC",
+          "to": "stepD",
+          "label": "Emit"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Concurrency engine initializes parallel memory structures safely.",
+        "highlight": [
+          "stepA"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Repository entity mediation buffer",
-        "boxes": [
-          {
-            "id": "id",
-            "label": "id"
-          },
-          {
-            "id": "title",
-            "label": "title"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say3",
-            "caption": "The repository pattern buffers business logic from storage tech.",
-            "values": {
-              "id": "jp_1",
-              "title": "Backend Engineer"
-            },
-            "tones": {
-              "id": "data",
-              "title": "idle"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Domain services communicate exclusively with the repository interface.",
-            "values": {
-              "id": "jp_1",
-              "title": "Backend Engineer"
-            },
-            "tones": {
-              "id": "data",
-              "title": "data"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Relying on abstractions allows teams to refactor storage backends.",
-            "values": {
-              "id": "jp_1",
-              "title": "Backend Engineer"
-            },
-            "tones": {
-              "id": "ok",
-              "title": "ok"
-            }
-          }
+      {
+        "step": 2,
+        "caption": "Atomic operations enforce mutual exclusion without kernel pauses.",
+        "highlight": [
+          "stepB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Worker thread processes tasks and coordinates backpressured flow.",
+        "highlight": [
+          "stepC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Execution completes cleanly with bounded memory utilization.",
+        "highlight": [
+          "stepD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 2,
+    "codeHash": "48db00c638ac5bd8a62e6da3c48fd3225976553210094914cc24613d81cf32b2",
+    "spec": {
+      "template": "boxes",
+      "title": "Architectural Partitions Worker Threads Lifecycle & The Worker API.",
+      "boxes": [
+        {
+          "id": "boxA",
+          "label": "Cluster Primary Node"
+        },
+        {
+          "id": "boxB",
+          "label": "Worker Process Pool"
+        },
+        {
+          "id": "boxC",
+          "label": "Shared Ring Buffer"
+        },
+        {
+          "id": "boxD",
+          "label": "Persistent Task Broker"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Concurrency engine initializes parallel memory structures safely.",
+        "highlight": [
+          "boxA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Atomic operations enforce mutual exclusion without kernel pauses.",
+        "highlight": [
+          "boxB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Worker thread processes tasks and coordinates backpressured flow.",
+        "highlight": [
+          "boxC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Execution completes cleanly with bounded memory utilization.",
+        "highlight": [
+          "boxD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 3,
+    "codeHash": "82698d32ff39f7c7b90219892a04fa7789e92ef80dd234aa53f273b6c50856c6",
+    "spec": {
+      "template": "stackQueue",
+      "title": "Task Pipeline Queue Zero-Copy Memory Transfers (ArrayBuffer & Transfer Li.",
+      "elements": [
+        {
+          "id": "elemA",
+          "label": "Waiting Priority Task"
+        },
+        {
+          "id": "elemB",
+          "label": "Active Working Lease"
+        },
+        {
+          "id": "elemC",
+          "label": "Delayed Timer Task"
+        },
+        {
+          "id": "elemD",
+          "label": "Dead Letter Quarantine"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Concurrency engine initializes parallel memory structures safely.",
+        "highlight": [
+          "elemA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Atomic operations enforce mutual exclusion without kernel pauses.",
+        "highlight": [
+          "elemB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Worker thread processes tasks and coordinates backpressured flow.",
+        "highlight": [
+          "elemC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Execution completes cleanly with bounded memory utilization.",
+        "highlight": [
+          "elemD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 4,
+    "codeHash": "51e87551e63892ffcb768d41dd0f776e2b2c3410f3de585321c071a61e46c4a0",
+    "spec": {
+      "template": "sequence",
+      "title": "Sequence Coordination Bidirectional MessageChannels & Dedicated Worker To.",
+      "actors": [
+        {
+          "id": "primary",
+          "label": "Primary Process"
+        },
+        {
+          "id": "worker",
+          "label": "Compute Worker"
+        },
+        {
+          "id": "broker",
+          "label": "Redis Task Broker"
+        },
+        {
+          "id": "storage",
+          "label": "Durable Store"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Concurrency engine initializes parallel memory structures safely.",
+        "highlight": [
+          "elemA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Atomic operations enforce mutual exclusion without kernel pauses.",
+        "highlight": [
+          "elemB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Worker thread processes tasks and coordinates backpressured flow.",
+        "highlight": [
+          "elemC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Execution completes cleanly with bounded memory utilization.",
+        "highlight": [
+          "elemD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 5,
+    "codeHash": "34ff33d6c18ca897242eedd81295d5c629cc482fdb060a2e9d117f68140e46dc",
+    "spec": {
+      "template": "compare",
+      "title": "Concurrency Architecture Production Worker Thread Pool Architecture.",
+      "left": {
+        "title": "Distributed Queue",
+        "items": [
+          "Atomic transitions",
+          "Full jitter backoff",
+          "Durable state"
+        ]
+      },
+      "right": {
+        "title": "In Memory Async",
+        "items": [
+          "Lost on restart",
+          "Unbounded spikes",
+          "Zero fault isolation"
         ]
       }
     },
-    {
-      "partTitle": "Generic Entity Interfaces and Unique Identifiers",
-      "codeHash": "9b265520a16a809881a16005849903e32f8b400c144ef6921078f9e5b4ff2f4f",
-      "spec": {
-        "template": "boxes",
-        "title": "Domain student entity structural traits",
-        "boxes": [
-          {
-            "id": "name",
-            "label": "name"
-          },
-          {
-            "id": "course",
-            "label": "enrolledCourse"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "We define a generic base entity interface with shared traits.",
-            "values": {
-              "name": {
-                "text": "Vikram"
-              },
-              "course": {
-                "text": "node-web"
-              }
-            },
-            "tones": {
-              "name": "data",
-              "course": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Distributed systems prefer randomized unique string identifiers.",
-            "values": {
-              "name": {
-                "text": "Vikram"
-              },
-              "course": {
-                "text": "node-web"
-              }
-            },
-            "tones": {
-              "name": "data",
-              "course": "ok"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "String identifiers prevent enumeration attacks on primary keys.",
-            "values": {
-              "name": {
-                "text": "Vikram"
-              },
-              "course": {
-                "text": "node-web"
-              }
-            },
-            "tones": {
-              "name": "ok",
-              "course": "ok"
-            }
-          }
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Concurrency engine initializes parallel memory structures safely.",
+        "highlight": [
+          "elemA"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Domain student entity structural traits",
-        "boxes": [
-          {
-            "id": "name",
-            "label": "name"
-          },
-          {
-            "id": "course",
-            "label": "enrolledCourse"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "We define a generic base entity interface with shared traits.",
-            "values": {
-              "name": "Vikram",
-              "course": "node-web"
-            },
-            "tones": {
-              "name": "data",
-              "course": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Distributed systems prefer randomized unique string identifiers.",
-            "values": {
-              "name": "Vikram",
-              "course": "node-web"
-            },
-            "tones": {
-              "name": "data",
-              "course": "ok"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "String identifiers prevent enumeration attacks on primary keys.",
-            "values": {
-              "name": "Vikram",
-              "course": "node-web"
-            },
-            "tones": {
-              "name": "ok",
-              "course": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Standard CRUD Operations (create, findById, findAll, update, delete)",
-      "codeHash": "3eabc155c5645d568c59681c3163e56ce10c1893797ed424f1cfe0e078a8fa0b",
-      "spec": {
-        "template": "boxes",
-        "title": "Standard CRUD user repository contract",
-        "boxes": [
-          {
-            "id": "id",
-            "label": "id"
-          },
-          {
-            "id": "name",
-            "label": "name"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Create persists a new entity into storage with an identifier.",
-            "values": {
-              "id": {
-                "text": "usr_1"
-              },
-              "name": {
-                "text": "Alice"
-              }
-            },
-            "tones": {
-              "id": "data",
-              "name": "idle"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Update mutates an existing entity while adhering to invariants.",
-            "values": {
-              "id": {
-                "text": "usr_1"
-              },
-              "name": {
-                "text": "Alice Smith"
-              }
-            },
-            "tones": {
-              "id": "data",
-              "name": "data"
-            }
-          },
-          {
-            "at": "say7",
-            "caption": "Soft deletion preserves historical relational integrity for records.",
-            "values": {
-              "id": {
-                "text": "usr_1"
-              },
-              "name": {
-                "text": "Alice Smith"
-              }
-            },
-            "tones": {
-              "id": "ok",
-              "name": "ok"
-            }
-          }
+      {
+        "step": 2,
+        "caption": "Atomic operations enforce mutual exclusion without kernel pauses.",
+        "highlight": [
+          "elemB"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Standard CRUD user repository contract",
-        "boxes": [
-          {
-            "id": "id",
-            "label": "id"
-          },
-          {
-            "id": "name",
-            "label": "name"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Create persists a new entity into storage with an identifier.",
-            "values": {
-              "id": "usr_1",
-              "name": "Alice"
-            },
-            "tones": {
-              "id": "data",
-              "name": "idle"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Update mutates an existing entity while adhering to invariants.",
-            "values": {
-              "id": "usr_1",
-              "name": "Alice Smith"
-            },
-            "tones": {
-              "id": "data",
-              "name": "data"
-            }
-          },
-          {
-            "at": "say7",
-            "caption": "Soft deletion preserves historical relational integrity for records.",
-            "values": {
-              "id": "usr_1",
-              "name": "Alice Smith"
-            },
-            "tones": {
-              "id": "ok",
-              "name": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Handling Entity Not Found and Duplicate Key Conflicts",
-      "codeHash": "b472a59cb1bbba9131f7de9c6cd54e56830067bc7301c5d26dcbbbec7312c2ee",
-      "spec": {
-        "template": "boxes",
-        "title": "Duplicate key conflict detection attributes",
-        "boxes": [
-          {
-            "id": "key",
-            "label": "key"
-          },
-          {
-            "id": "value",
-            "label": "value"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The two most frequent repository scenarios are not found and duplicate key.",
-            "values": {
-              "key": {
-                "text": "email"
-              },
-              "value": {
-                "text": "alice@pin.it"
-              }
-            },
-            "tones": {
-              "key": "data",
-              "value": "idle"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Catching unique constraint violations allows throwing a duplicate key error.",
-            "values": {
-              "key": {
-                "text": "email"
-              },
-              "value": {
-                "text": "alice@pin.it"
-              }
-            },
-            "tones": {
-              "key": "error",
-              "value": "error"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Domain exception hierarchies translate errors into RFC problem details.",
-            "values": {
-              "key": {
-                "text": "email"
-              },
-              "value": {
-                "text": "alice@pin.it"
-              }
-            },
-            "tones": {
-              "key": "ok",
-              "value": "ok"
-            }
-          }
+      {
+        "step": 3,
+        "caption": "Worker thread processes tasks and coordinates backpressured flow.",
+        "highlight": [
+          "elemC"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Duplicate key conflict detection attributes",
-        "boxes": [
-          {
-            "id": "key",
-            "label": "key"
-          },
-          {
-            "id": "value",
-            "label": "value"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The two most frequent repository scenarios are not found and duplicate key.",
-            "values": {
-              "key": "email",
-              "value": "alice@pin.it"
-            },
-            "tones": {
-              "key": "data",
-              "value": "idle"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Catching unique constraint violations allows throwing a duplicate key error.",
-            "values": {
-              "key": "email",
-              "value": "alice@pin.it"
-            },
-            "tones": {
-              "key": "error",
-              "value": "error"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Domain exception hierarchies translate errors into RFC problem details.",
-            "values": {
-              "key": "email",
-              "value": "alice@pin.it"
-            },
-            "tones": {
-              "key": "ok",
-              "value": "ok"
-            }
-          }
+      {
+        "step": 4,
+        "caption": "Execution completes cleanly with bounded memory utilization.",
+        "highlight": [
+          "elemD"
         ]
       }
-    },
-    {
-      "partTitle": "In-Memory Storage Arrays and Maps for Unit Testing",
-      "codeHash": "9de9372f0d207425a583c6bf3e9096eea7bda9659f7bd8fb0534378ed00f5b25",
-      "spec": {
-        "template": "boxes",
-        "title": "High-speed in-memory testing double store",
-        "boxes": [
-          {
-            "id": "id",
-            "label": "id"
-          },
-          {
-            "id": "val",
-            "label": "val"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say3",
-            "caption": "Unit tests instantiate high speed in memory stores backed by maps.",
-            "values": {
-              "id": {
-                "text": "t1"
-              },
-              "val": {
-                "text": "42"
-              }
-            },
-            "tones": {
-              "id": "data",
-              "val": "idle"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Testing business logic with in memory doubles executes with blazing speed.",
-            "values": {
-              "id": {
-                "text": "t1"
-              },
-              "val": {
-                "text": "42"
-              }
-            },
-            "tones": {
-              "id": "data",
-              "val": "data"
-            }
-          },
-          {
-            "at": "say7",
-            "caption": "In memory doubles eliminate test runner contention and bottlenecks.",
-            "values": {
-              "id": {
-                "text": "t1"
-              },
-              "val": {
-                "text": "42"
-              }
-            },
-            "tones": {
-              "id": "ok",
-              "val": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "High-speed in-memory testing double store",
-        "boxes": [
-          {
-            "id": "id",
-            "label": "id"
-          },
-          {
-            "id": "val",
-            "label": "val"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say3",
-            "caption": "Unit tests instantiate high speed in memory stores backed by maps.",
-            "values": {
-              "id": "t1",
-              "val": "42"
-            },
-            "tones": {
-              "id": "data",
-              "val": "idle"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Testing business logic with in memory doubles executes with blazing speed.",
-            "values": {
-              "id": "t1",
-              "val": "42"
-            },
-            "tones": {
-              "id": "data",
-              "val": "data"
-            }
-          },
-          {
-            "at": "say7",
-            "caption": "In memory doubles eliminate test runner contention and bottlenecks.",
-            "values": {
-              "id": "t1",
-              "val": "42"
-            },
-            "tones": {
-              "id": "ok",
-              "val": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Building a Generic In-Memory Repository Class",
-      "codeHash": "27c862ada12e63960f0b3cb2d011b375758747cd27d3fbfc68521aa17351ecc9",
-      "spec": {
-        "template": "flow",
-        "title": "Building a Generic In-Memory Repository Class — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building a Generic ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building a Generic In-Memory Repository .. [D21.P6.S1].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building a Generic ... [D21.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D21.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building a Generic In-Memory Repo.. [D21.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Building a Generic In-Memory Repository Class — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building a Generic ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building a Generic In-Memory Repository .. [D21.P6.S1].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building a Generic ... [D21.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D21.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building a Generic In-Memory Repo.. [D21.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      }
-    }
-  ]
-}
+    ]
+  }
+]

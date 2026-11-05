@@ -1,943 +1,306 @@
-{
-  "schemaVersion": 1,
-  "prefix": "node-web",
-  "day": 23,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
-    {
-      "partTitle": "ACID Properties in Distributed Backends (Atomicity, Consistency, Isolation, Durability)",
-      "codeHash": "d36b5191bcdef060b2ba388357c5dd38b0f60b71964b7763a6e561b1228b24c3",
-      "spec": {
-        "template": "table",
-        "title": "ACID transactional guarantees summary",
-        "columns": [
-          "property",
-          "definition"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Atomicity guarantees all or nothing execution across all modifications.",
-            "rows": [
-              {
-                "cells": [
-                  "Atomicity",
-                  "All or nothing execution"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Consistency",
-                  "Constraint validation"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Isolation",
-                  "Concurrent independence"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Durability",
-                  "Persistent survival"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Isolation prevents concurrent transactions from interfering with each other.",
-            "rows": [
-              {
-                "cells": [
-                  "Atomicity",
-                  "All or nothing execution"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Consistency",
-                  "Constraint validation"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Isolation",
-                  "Concurrent independence"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Durability",
-                  "Persistent survival"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Durability ensures committed writes survive power outages or server crashes.",
-            "rows": [
-              {
-                "cells": [
-                  "Atomicity",
-                  "All or nothing execution"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Consistency",
-                  "Constraint validation"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Isolation",
-                  "Concurrent independence"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Durability",
-                  "Persistent survival"
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
+[
+  {
+    "schemaVersion": 2,
+    "partIndex": 1,
+    "codeHash": "eb5e9d9074d39f6efd67951da8e919deef8073860a148bbae7ae6d8dd0fb8795",
+    "spec": {
+      "template": "flow",
+      "title": "Process Pipeline Process Clustering vs Multithreading (Fault Isolation &.",
+      "nodes": [
+        {
+          "id": "stepA",
+          "label": "Worker Thread Spawner",
+          "type": "start"
+        },
+        {
+          "id": "stepB",
+          "label": "Atomic Memory Buffer",
+          "type": "process"
+        },
+        {
+          "id": "stepC",
+          "label": "Execution Coordinator",
+          "type": "process"
+        },
+        {
+          "id": "stepD",
+          "label": "Output Event Stream",
+          "type": "end"
+        }
+      ],
+      "edges": [
+        {
+          "from": "stepA",
+          "to": "stepB",
+          "label": "Alloc"
+        },
+        {
+          "from": "stepB",
+          "to": "stepC",
+          "label": "Lock"
+        },
+        {
+          "from": "stepC",
+          "to": "stepD",
+          "label": "Emit"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Concurrency engine initializes parallel memory structures safely.",
+        "highlight": [
+          "stepA"
         ]
       },
-      "filled": {
-        "template": "table",
-        "title": "ACID transactional guarantees summary",
-        "columns": [
-          "property",
-          "definition"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Atomicity guarantees all or nothing execution across all modifications.",
-            "rows": [
-              {
-                "cells": [
-                  "Atomicity",
-                  "All or nothing execution"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Consistency",
-                  "Constraint validation"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Isolation",
-                  "Concurrent independence"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Durability",
-                  "Persistent survival"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Isolation prevents concurrent transactions from interfering with each other.",
-            "rows": [
-              {
-                "cells": [
-                  "Atomicity",
-                  "All or nothing execution"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Consistency",
-                  "Constraint validation"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Isolation",
-                  "Concurrent independence"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Durability",
-                  "Persistent survival"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Durability ensures committed writes survive power outages or server crashes.",
-            "rows": [
-              {
-                "cells": [
-                  "Atomicity",
-                  "All or nothing execution"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Consistency",
-                  "Constraint validation"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Isolation",
-                  "Concurrent independence"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Durability",
-                  "Persistent survival"
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
+      {
+        "step": 2,
+        "caption": "Atomic operations enforce mutual exclusion without kernel pauses.",
+        "highlight": [
+          "stepB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Worker thread processes tasks and coordinates backpressured flow.",
+        "highlight": [
+          "stepC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Execution completes cleanly with bounded memory utilization.",
+        "highlight": [
+          "stepD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 2,
+    "codeHash": "4d98b345cd556c6d9cfce3d98eae3a387cb8909032dc81334690ab7163f40c8c",
+    "spec": {
+      "template": "boxes",
+      "title": "Architectural Partitions Port Sharing Mechanics & Operating System SO_REU.",
+      "boxes": [
+        {
+          "id": "boxA",
+          "label": "Cluster Primary Node"
+        },
+        {
+          "id": "boxB",
+          "label": "Worker Process Pool"
+        },
+        {
+          "id": "boxC",
+          "label": "Shared Ring Buffer"
+        },
+        {
+          "id": "boxD",
+          "label": "Persistent Task Broker"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Concurrency engine initializes parallel memory structures safely.",
+        "highlight": [
+          "boxA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Atomic operations enforce mutual exclusion without kernel pauses.",
+        "highlight": [
+          "boxB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Worker thread processes tasks and coordinates backpressured flow.",
+        "highlight": [
+          "boxC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Execution completes cleanly with bounded memory utilization.",
+        "highlight": [
+          "boxD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 3,
+    "codeHash": "15b8899bf2dc0643ac3af068357ed71d3538ae7659a9857b3b95705053fda2ca",
+    "spec": {
+      "template": "stackQueue",
+      "title": "Task Pipeline Queue Primary-Worker IPC & Cluster Coordination Events.",
+      "elements": [
+        {
+          "id": "elemA",
+          "label": "Waiting Priority Task"
+        },
+        {
+          "id": "elemB",
+          "label": "Active Working Lease"
+        },
+        {
+          "id": "elemC",
+          "label": "Delayed Timer Task"
+        },
+        {
+          "id": "elemD",
+          "label": "Dead Letter Quarantine"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Concurrency engine initializes parallel memory structures safely.",
+        "highlight": [
+          "elemA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Atomic operations enforce mutual exclusion without kernel pauses.",
+        "highlight": [
+          "elemB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Worker thread processes tasks and coordinates backpressured flow.",
+        "highlight": [
+          "elemC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Execution completes cleanly with bounded memory utilization.",
+        "highlight": [
+          "elemD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 4,
+    "codeHash": "b5df1c3fb9ca4234caceb9a61cf9cd95dd39cd6b81a8f3af179a213210c90744",
+    "spec": {
+      "template": "sequence",
+      "title": "Sequence Coordination Zero-Downtime Rolling Restarts (Phased Reloading).",
+      "actors": [
+        {
+          "id": "primary",
+          "label": "Primary Process"
+        },
+        {
+          "id": "worker",
+          "label": "Compute Worker"
+        },
+        {
+          "id": "broker",
+          "label": "Redis Task Broker"
+        },
+        {
+          "id": "storage",
+          "label": "Durable Store"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Concurrency engine initializes parallel memory structures safely.",
+        "highlight": [
+          "elemA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Atomic operations enforce mutual exclusion without kernel pauses.",
+        "highlight": [
+          "elemB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Worker thread processes tasks and coordinates backpressured flow.",
+        "highlight": [
+          "elemC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Execution completes cleanly with bounded memory utilization.",
+        "highlight": [
+          "elemD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 5,
+    "codeHash": "f12953269d833b6cf4dcd8df9fa5e052818c1abcec8b8af51fdd60c1ee11e030",
+    "spec": {
+      "template": "compare",
+      "title": "Concurrency Architecture Production Resilient Cluster Manager.",
+      "left": {
+        "title": "Distributed Queue",
+        "items": [
+          "Atomic transitions",
+          "Full jitter backoff",
+          "Durable state"
+        ]
+      },
+      "right": {
+        "title": "In Memory Async",
+        "items": [
+          "Lost on restart",
+          "Unbounded spikes",
+          "Zero fault isolation"
         ]
       }
     },
-    {
-      "partTitle": "The Unit of Work Pattern: Staging Multi-Step Mutations",
-      "codeHash": "1df8e2325a2805ffe520684e012a9654e910910d3a5be7b443a457dc47f04caf",
-      "spec": {
-        "template": "boxes",
-        "title": "Unit of Work staged operation attributes",
-        "boxes": [
-          {
-            "id": "type",
-            "label": "type"
-          },
-          {
-            "id": "entity",
-            "label": "entityId"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say4",
-            "caption": "The unit of work pattern maintains a list of objects in a transaction.",
-            "values": {
-              "type": {
-                "text": "UPDATE"
-              },
-              "entity": {
-                "text": "account_101"
-              }
-            },
-            "tones": {
-              "type": "data",
-              "entity": "idle"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Repositories stage their mutations inside the unit of work tracker.",
-            "values": {
-              "type": {
-                "text": "INSERT"
-              },
-              "entity": {
-                "text": "order_9901"
-              }
-            },
-            "tones": {
-              "type": "data",
-              "entity": "data"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Batching statements into a single transaction reduces database round trips.",
-            "values": {
-              "type": {
-                "text": "INSERT"
-              },
-              "entity": {
-                "text": "order_9901"
-              }
-            },
-            "tones": {
-              "type": "ok",
-              "entity": "ok"
-            }
-          }
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Concurrency engine initializes parallel memory structures safely.",
+        "highlight": [
+          "elemA"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Unit of Work staged operation attributes",
-        "boxes": [
-          {
-            "id": "type",
-            "label": "type"
-          },
-          {
-            "id": "entity",
-            "label": "entityId"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say4",
-            "caption": "The unit of work pattern maintains a list of objects in a transaction.",
-            "values": {
-              "type": "UPDATE",
-              "entity": "account_101"
-            },
-            "tones": {
-              "type": "data",
-              "entity": "idle"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Repositories stage their mutations inside the unit of work tracker.",
-            "values": {
-              "type": "INSERT",
-              "entity": "order_9901"
-            },
-            "tones": {
-              "type": "data",
-              "entity": "data"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Batching statements into a single transaction reduces database round trips.",
-            "values": {
-              "type": "INSERT",
-              "entity": "order_9901"
-            },
-            "tones": {
-              "type": "ok",
-              "entity": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Transaction Commit vs Rollback Mechanics",
-      "codeHash": "71f39d02e38468e3b8766ad75d078271cad6c0cc62c02bec548edc151284dab2",
-      "spec": {
-        "template": "boxes",
-        "title": "Transaction manager execution outcomes",
-        "boxes": [
-          {
-            "id": "success",
-            "label": "success"
-          },
-          {
-            "id": "rolledBack",
-            "label": "rolledBack"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say4",
-            "caption": "When business logic completes without errors changes commit permanently.",
-            "values": {
-              "success": {
-                "text": "true"
-              },
-              "rolledBack": {
-                "text": "false"
-              }
-            },
-            "tones": {
-              "success": "ok",
-              "rolledBack": "idle"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "If any operation throws an exception the transaction triggers rollback.",
-            "values": {
-              "success": {
-                "text": "false"
-              },
-              "rolledBack": {
-                "text": "true"
-              }
-            },
-            "tones": {
-              "success": "error",
-              "rolledBack": "error"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Rollback testing verifies systems leave zero orphan rows or invalid counters.",
-            "values": {
-              "success": {
-                "text": "true"
-              },
-              "rolledBack": {
-                "text": "false"
-              }
-            },
-            "tones": {
-              "success": "ok",
-              "rolledBack": "ok"
-            }
-          }
+      {
+        "step": 2,
+        "caption": "Atomic operations enforce mutual exclusion without kernel pauses.",
+        "highlight": [
+          "elemB"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Transaction manager execution outcomes",
-        "boxes": [
-          {
-            "id": "success",
-            "label": "success"
-          },
-          {
-            "id": "rolledBack",
-            "label": "rolledBack"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say4",
-            "caption": "When business logic completes without errors changes commit permanently.",
-            "values": {
-              "success": "true",
-              "rolledBack": "false"
-            },
-            "tones": {
-              "success": "ok",
-              "rolledBack": "idle"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "If any operation throws an exception the transaction triggers rollback.",
-            "values": {
-              "success": "false",
-              "rolledBack": "true"
-            },
-            "tones": {
-              "success": "error",
-              "rolledBack": "error"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Rollback testing verifies systems leave zero orphan rows or invalid counters.",
-            "values": {
-              "success": "true",
-              "rolledBack": "false"
-            },
-            "tones": {
-              "success": "ok",
-              "rolledBack": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Isolating Transactional State from Shared Storage",
-      "codeHash": "29dc64453d3c4241f623ff7f682f437e376cfc67808c36ff8965c8e69f38359d",
-      "spec": {
-        "template": "boxes",
-        "title": "Isolated transactional buffer state",
-        "boxes": [
-          {
-            "id": "key",
-            "label": "key"
-          },
-          {
-            "id": "mutate",
-            "label": "mutateValue"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "A dirty read occurs when uncommitted modifications are read by others.",
-            "values": {
-              "key": {
-                "text": "balance"
-              },
-              "mutate": {
-                "text": "0"
-              }
-            },
-            "tones": {
-              "key": "data",
-              "mutate": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Transactional state must remain isolated in local buffers until commit.",
-            "values": {
-              "key": {
-                "text": "balance"
-              },
-              "mutate": {
-                "text": "0"
-              }
-            },
-            "tones": {
-              "key": "data",
-              "mutate": "data"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Only when commit is called does the manager flush to shared storage.",
-            "values": {
-              "key": {
-                "text": "balance"
-              },
-              "mutate": {
-                "text": "50"
-              }
-            },
-            "tones": {
-              "key": "ok",
-              "mutate": "ok"
-            }
-          }
+      {
+        "step": 3,
+        "caption": "Worker thread processes tasks and coordinates backpressured flow.",
+        "highlight": [
+          "elemC"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Isolated transactional buffer state",
-        "boxes": [
-          {
-            "id": "key",
-            "label": "key"
-          },
-          {
-            "id": "mutate",
-            "label": "mutateValue"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "A dirty read occurs when uncommitted modifications are read by others.",
-            "values": {
-              "key": "balance",
-              "mutate": "0"
-            },
-            "tones": {
-              "key": "data",
-              "mutate": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Transactional state must remain isolated in local buffers until commit.",
-            "values": {
-              "key": "balance",
-              "mutate": "0"
-            },
-            "tones": {
-              "key": "data",
-              "mutate": "data"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Only when commit is called does the manager flush to shared storage.",
-            "values": {
-              "key": "balance",
-              "mutate": "50"
-            },
-            "tones": {
-              "key": "ok",
-              "mutate": "ok"
-            }
-          }
+      {
+        "step": 4,
+        "caption": "Execution completes cleanly with bounded memory utilization.",
+        "highlight": [
+          "elemD"
         ]
       }
-    },
-    {
-      "partTitle": "Handling Concurrency Conflicts and Optimistic Locking",
-      "codeHash": "cea9822e803c8e7e123f4a6e89be3f3d40e130ec34887bf2bdeb07a996430b33",
-      "spec": {
-        "template": "boxes",
-        "title": "Versioned entity optimistic locking attributes",
-        "boxes": [
-          {
-            "id": "val",
-            "label": "val"
-          },
-          {
-            "id": "version",
-            "label": "version"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say3",
-            "caption": "Production systems use optimistic locking with a version number.",
-            "values": {
-              "val": {
-                "text": "Draft"
-              },
-              "version": {
-                "text": "1"
-              }
-            },
-            "tones": {
-              "val": "data",
-              "version": "idle"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Version mismatches cause the update query to reject conflicting edits.",
-            "values": {
-              "val": {
-                "text": "Reviewed"
-              },
-              "version": {
-                "text": "1"
-              }
-            },
-            "tones": {
-              "val": "ok",
-              "version": "data"
-            }
-          },
-          {
-            "at": "say7",
-            "caption": "Optimistic locking avoids expensive row locks enabling massive concurrency.",
-            "values": {
-              "val": {
-                "text": "Reviewed"
-              },
-              "version": {
-                "text": "1"
-              }
-            },
-            "tones": {
-              "val": "ok",
-              "version": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Versioned entity optimistic locking attributes",
-        "boxes": [
-          {
-            "id": "val",
-            "label": "val"
-          },
-          {
-            "id": "version",
-            "label": "version"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say3",
-            "caption": "Production systems use optimistic locking with a version number.",
-            "values": {
-              "val": "Draft",
-              "version": "1"
-            },
-            "tones": {
-              "val": "data",
-              "version": "idle"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Version mismatches cause the update query to reject conflicting edits.",
-            "values": {
-              "val": "Reviewed",
-              "version": "1"
-            },
-            "tones": {
-              "val": "ok",
-              "version": "data"
-            }
-          },
-          {
-            "at": "say7",
-            "caption": "Optimistic locking avoids expensive row locks enabling massive concurrency.",
-            "values": {
-              "val": "Reviewed",
-              "version": "1"
-            },
-            "tones": {
-              "val": "ok",
-              "version": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Building an In-Memory Transactional Unit of Work",
-      "codeHash": "42534ea52fe88c40f7c76648df866834dc87aae3db84f8cab05c9760fb1158a4",
-      "spec": {
-        "template": "flow",
-        "title": "Building an In-Memory Transactional Unit of Work — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building an In-Memo...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building an In-Memory Transactional Unit.. [D23.P6.S1].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building an In-Memo... [D23.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D23.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building an In-Memory Transaction.. [D23.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Building an In-Memory Transactional Unit of Work — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building an In-Memo...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building an In-Memory Transactional Unit.. [D23.P6.S1].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building an In-Memo... [D23.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D23.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building an In-Memory Transaction.. [D23.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      }
-    }
-  ]
-}
+    ]
+  }
+]

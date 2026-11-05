@@ -6,7 +6,7 @@
     {
       "partIndex": 1,
       "partTitle": "Reliability Pillar: High Availability Engineering, MTTR Reduction & Fault Domains",
-      "codeHash": "5a569675f6af37c01e81393076ce2ff224f21c9d64bab79b013d3a07fb10a39c",
+      "codeHash": "da91569f97e46d45afec025edb2529988c5b37c71836cabc3829e9bc53414bf0",
       "spec": {
         "template": "compare",
         "left": {
@@ -54,7 +54,7 @@
     {
       "partIndex": 2,
       "partTitle": "Security Pillar: Zero-Trust Identity, KMS Envelope Encryption & Network Isolation",
-      "codeHash": "fdccaf87edd87d6065692ee1e8db0ef731fbe6440356ce0ac9db9a25f7d78a39",
+      "codeHash": "ea12a0fd1839976c784867290f5954e313c29a2755ff020438f52bfa0cb4ef35",
       "spec": {
         "template": "compare",
         "left": {
@@ -102,7 +102,7 @@
     {
       "partIndex": 3,
       "partTitle": "Cost Optimization: AWS Graviton Migration, S3 Intelligent-Tiering & FinOps Allocation",
-      "codeHash": "c4dee9342859e34fea538fa26d770c6168ed4a9afa3c1543e6d41585b1554393",
+      "codeHash": "8a70a534ce4ff4e53f4ad95ef4d0661d4d2032f355cf343e24e37e3ea3cba3ea",
       "spec": {
         "template": "compare",
         "left": {
@@ -150,7 +150,7 @@
     {
       "partIndex": 4,
       "partTitle": "Multi-Region Resilience: Active-Active Routing, Route 53 Health Checks & RTO/RPO",
-      "codeHash": "1bcbfc819d1a201d833162291bdd1a3a6339e2a644e4c92161f7a3dc76252ac6",
+      "codeHash": "677b8e339d9e7f2779d3565698da7b6b7b2c2723728c90aa4fea16085fde70f1",
       "spec": {
         "template": "compare",
         "left": {
@@ -198,7 +198,7 @@
     {
       "partIndex": 5,
       "partTitle": "Well-Architected Synthesis: Enterprise Review, Audit Scoring & Verification Token",
-      "codeHash": "9a67818467bd723a221c8bfb0ac54aecf2cfd7860395bfa5a8339ab3f9a3b5d4",
+      "codeHash": "0b40fe005a5059f41f6f21fcc9e58086df13d0da79b43bf8ec301947f7cf3f97",
       "spec": {
         "template": "compare",
         "left": {

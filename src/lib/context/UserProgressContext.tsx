@@ -15,7 +15,7 @@ import {
   clearPendingQuestCompletions,
   PendingQuestCompletion
 } from '@/lib/storage/careerStorage';
-import { generateDynamicStudentRoadmap } from '@/lib/data/roadmapFuser';
+// Lazy-loaded on demand: import('@/lib/data/roadmapFuser')
 import { resolveTrackFromGoal } from '@/lib/onboarding/trackResolver';
 
 export interface OnboardingAnswers {
@@ -701,6 +701,7 @@ export function UserProgressProvider({ children }: { children: React.ReactNode }
 
     // Client-side fallback fuser
     try {
+      const { generateDynamicStudentRoadmap } = await import('@/lib/data/roadmapFuser');
       const fallbackModules = generateDynamicStudentRoadmap({
         courseId: effectiveCourseId,
         goal: targetRole,

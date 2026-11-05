@@ -1,27 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import crypto from 'crypto';
 import { getUserProfile } from '@/lib/supabaseService';
 import { DEMO_ROLE_BY_EMAIL } from '@/lib/demoAuth';
+import { getVaultSecret, signVaultSessionToken } from '@/lib/server/vaultSessionToken';
 
-const devEphemeralKey = crypto.randomBytes(32).toString('hex');
-
-export function getVaultSecret(): string {
-  const secret = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.EXAM_SECRET || process.env.NEXTAUTH_SECRET;
-  if (!secret && process.env.NODE_ENV === 'production') {
-    throw new Error('[FATAL] Vault signing secret must be configured in production.');
-  }
-  return secret || devEphemeralKey;
-}
-
-function signSessionToken(payload: { uid: string; email?: string; role: string; exp: number }): string {
-  const header = Buffer.from(JSON.stringify({ alg: 'HS256', typ: 'JWT' })).toString('base64url');
-  const body = Buffer.from(JSON.stringify(payload)).toString('base64url');
-  const signature = crypto
-    .createHmac('sha256', getVaultSecret())
-    .update(`${header}.${body}`)
-    .digest('base64url');
-  return `${header}.${body}.${signature}`;
-}
+export { getVaultSecret };
 
 export async function POST(req: NextRequest) {
   try {
@@ -32,7 +14,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'INVALID_JSON', message: 'Malformed JSON payload' }, { status: 400 });
     }
 
-    const { userPayload, ticket } = body || {};
+    const { userPayload } = body || {};
     const rawUser = userPayload || body.user;
 
     if (!rawUser || !rawUser.id) {
@@ -67,9 +49,10 @@ export async function POST(req: NextRequest) {
     };
 
     const exp = Date.now() + 7 * 24 * 60 * 60 * 1000; // 7 days
-    const signedToken = signSessionToken({
+    const signedToken = signVaultSessionToken({
       uid: sanitizedUser.id,
       email: sanitizedUser.email,
+      displayName: sanitizedUser.displayName,
       role: sanitizedUser.role,
       exp
     });

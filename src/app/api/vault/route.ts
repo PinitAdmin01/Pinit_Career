@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabaseClient';
+import { requireUserFromRequest } from '@/lib/server/requireAuth';
+import { getSupabaseAdmin } from '@/lib/server/supabaseAdmin';
 
 export interface VaultItem {
   id: string;
@@ -16,67 +17,72 @@ export interface VaultItem {
   proof_url?: string;
 }
 
-const DEFAULT_VAULT_ITEMS: VaultItem[] = [
-  {
-    id: 'vault-item-1',
-    title: 'Full-Stack Web Development Foundations',
-    item_type: 'certification',
-    organization_name: 'PinIT Tech Labs',
-    description: 'Verified capstone competency in TypeScript, Next.js, and API architecture.',
-    verified: true,
-    ai_confidence_score: 96,
-    skill_tags: ['TypeScript', 'Next.js', 'React', 'REST APIs'],
-    is_public: true,
-  },
-  {
-    id: 'vault-item-2',
-    title: 'Enterprise Relational Database Design',
-    item_type: 'project',
-    organization_name: 'Campus Engineering Lab',
-    description: 'PostgreSQL schema optimization, ACID transactions, and query indexation benchmark.',
-    verified: true,
-    ai_confidence_score: 92,
-    skill_tags: ['PostgreSQL', 'SQL', 'Database Optimization'],
-    is_public: true,
-  },
-];
-
 export async function GET(req: Request) {
   try {
-    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-    const isConfigured = Boolean(url && key && !url.includes('placeholder') && !url.includes('127.0.0.1'));
-
-    if (isConfigured) {
-      const { data, error } = await supabase.from('vault_items').select('*').limit(50);
-      if (!error && Array.isArray(data) && data.length > 0) {
-        return NextResponse.json({ items: data });
-      }
+    const gated = await requireUserFromRequest(req);
+    const userId = gated.user?.id;
+    if (!userId) {
+      return NextResponse.json({ items: [] }, { status: 200 });
     }
 
-    return NextResponse.json({ items: DEFAULT_VAULT_ITEMS });
+    const admin = getSupabaseAdmin();
+    const { data, error } = await admin
+      .from('vault_items')
+      .select('*')
+      .eq('user_id', userId)
+      .neq('item_type', 'campus_kv')
+      .order('created_at', { ascending: false })
+      .limit(100);
+
+    if (error) {
+      return NextResponse.json({ items: [], error: error.message }, { status: 200 });
+    }
+
+    return NextResponse.json({ items: Array.isArray(data) ? data : [] });
   } catch (err: any) {
-    return NextResponse.json({ items: DEFAULT_VAULT_ITEMS, warning: err?.message || 'Local fallback' });
+    return NextResponse.json({ items: [], warning: err?.message || 'Vault unavailable' }, { status: 200 });
   }
 }
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
-    const newItem: VaultItem = {
-      id: body.id || `vault_${Date.now()}`,
-      title: body.title || 'Untitled Credential',
-      item_type: body.item_type || 'certificate',
-      organization_name: body.organization_name || 'PinIT Career OS',
-      description: body.description || '',
-      verified: body.verified ?? true,
-      ai_confidence_score: body.ai_confidence_score || 90,
-      skill_tags: Array.isArray(body.skill_tags) ? body.skill_tags : ['General'],
-      is_public: body.is_public ?? true,
-      proof_url: body.proof_url,
+    const gated = await requireUserFromRequest(req);
+    if (gated.error || !gated.user?.id) {
+      return gated.error || NextResponse.json({ error: 'UNAUTHORIZED' }, { status: 401 });
+    }
+
+    const userId = gated.user.id;
+    const body = await req.json().catch(() => ({}));
+    const title = String(body.title || '').trim();
+    if (!title) {
+      return NextResponse.json({ error: 'TITLE_REQUIRED', message: 'Credential title is required.' }, { status: 400 });
+    }
+
+    const admin = getSupabaseAdmin();
+    const payload = {
+      user_id: userId,
+      title,
+      item_type: String(body.item_type || body.type || 'certificate'),
+      organization_name: String(body.organization_name || 'PinIT Career OS'),
+      description: String(body.description || ''),
+      verified: false,
+      ai_confidence_score: Number(body.ai_confidence_score) || 0,
+      skill_tags: Array.isArray(body.skill_tags) ? body.skill_tags.map(String) : [],
+      is_public: Boolean(body.is_public),
+      proof_url: body.proof_url ? String(body.proof_url) : '',
     };
 
-    return NextResponse.json({ success: true, item: newItem });
+    const { data, error } = await admin
+      .from('vault_items')
+      .insert([payload])
+      .select()
+      .maybeSingle();
+
+    if (error) {
+      return NextResponse.json({ error: 'VAULT_INSERT_FAILED', message: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json({ success: true, item: data || { id: `vlt_${Date.now()}`, ...payload } });
   } catch (err: any) {
     return NextResponse.json({ error: 'Failed to record vault item', message: err?.message }, { status: 400 });
   }

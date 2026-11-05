@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { verifyVaultSessionToken } from '@/lib/server/vaultSessionToken';
 
 const ADMIN_ROLES = new Set(['admin', 'superadmin']);
 
@@ -30,6 +31,18 @@ export async function requireUserFromRequest(req: Request): Promise<
     const userId = token.startsWith('test-token-') && token.length > 11 ? token.slice(11) : 'test_user_001';
     return { user: { id: userId, email: `${userId}@pinit.in`, displayName: userId }, error: null };
   }
+  const vaultPayload = verifyVaultSessionToken(token);
+  if (vaultPayload) {
+    return {
+      user: {
+        id: vaultPayload.uid,
+        email: vaultPayload.email,
+        displayName: vaultPayload.displayName || (vaultPayload.email ? vaultPayload.email.split('@')[0] : 'Student'),
+      },
+      error: null,
+    };
+  }
+  // Vault session check complete; proceed to Supabase auth verification
 
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
   const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';

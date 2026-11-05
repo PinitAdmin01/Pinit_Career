@@ -1,883 +1,306 @@
-{
-  "schemaVersion": 1,
-  "prefix": "node-web",
-  "day": 16,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
-    {
-      "partTitle": "Why Fast Hashes (MD5, SHA-256) Are Dangerous for Passwords",
-      "codeHash": "21da32d0caa8cee5b20e0949b37d04499cff86f03996ecbc0138433351b64845",
-      "spec": {
-        "template": "table",
-        "title": "Hash algorithm password benchmark comparison",
-        "columns": [
-          "algorithm",
-          "category"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Fast hashes create a catastrophic vulnerability for password storage.",
-            "rows": [
-              {
-                "cells": [
-                  "SHA-256",
-                  "Fast / Unsafe for Passwords"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Argon2id",
-                  "Slow KDF / Safe for Passwords"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "GPU clusters execute brute force dictionary attacks testing passwords.",
-            "rows": [
-              {
-                "cells": [
-                  "SHA-256",
-                  "Fast / Unsafe for Passwords"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Argon2id",
-                  "Slow KDF / Safe for Passwords"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Slow algorithms make mass cracking attacks economically impossible.",
-            "rows": [
-              {
-                "cells": [
-                  "SHA-256",
-                  "Fast / Unsafe for Passwords"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Argon2id",
-                  "Slow KDF / Safe for Passwords"
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
+[
+  {
+    "schemaVersion": 2,
+    "partIndex": 1,
+    "codeHash": "abc46f19f86afdc8a686d26eddcee74cf9727b561bbd9e1d536954749976863b",
+    "spec": {
+      "template": "flow",
+      "title": "Process Pipeline Information Entropy & The Mechanics of Credential Attack.",
+      "nodes": [
+        {
+          "id": "stepA",
+          "label": "Security Boundary",
+          "type": "start"
+        },
+        {
+          "id": "stepB",
+          "label": "Cryptographic Engine",
+          "type": "process"
+        },
+        {
+          "id": "stepC",
+          "label": "Validation Check",
+          "type": "process"
+        },
+        {
+          "id": "stepD",
+          "label": "Authorized Access",
+          "type": "end"
+        }
+      ],
+      "edges": [
+        {
+          "from": "stepA",
+          "to": "stepB",
+          "label": "Forward"
+        },
+        {
+          "from": "stepB",
+          "to": "stepC",
+          "label": "Verify"
+        },
+        {
+          "from": "stepC",
+          "to": "stepD",
+          "label": "Permit"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Security engine initializes defensive state across execution phase.",
+        "highlight": [
+          "stepA"
         ]
       },
-      "filled": {
-        "template": "table",
-        "title": "Hash algorithm password benchmark comparison",
-        "columns": [
-          "algorithm",
-          "category"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Fast hashes create a catastrophic vulnerability for password storage.",
-            "rows": [
-              {
-                "cells": [
-                  "SHA-256",
-                  "Fast / Unsafe for Passwords"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Argon2id",
-                  "Slow KDF / Safe for Passwords"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "GPU clusters execute brute force dictionary attacks testing passwords.",
-            "rows": [
-              {
-                "cells": [
-                  "SHA-256",
-                  "Fast / Unsafe for Passwords"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Argon2id",
-                  "Slow KDF / Safe for Passwords"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Slow algorithms make mass cracking attacks economically impossible.",
-            "rows": [
-              {
-                "cells": [
-                  "SHA-256",
-                  "Fast / Unsafe for Passwords"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Argon2id",
-                  "Slow KDF / Safe for Passwords"
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
+      {
+        "step": 2,
+        "caption": "Cryptographic subsystem verifies credentials with bounded latency.",
+        "highlight": [
+          "stepB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Authorization checks validate attributes against defined security rules.",
+        "highlight": [
+          "stepC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Pipeline completes safely without credential leaks or bypasses.",
+        "highlight": [
+          "stepD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 2,
+    "codeHash": "bb6f9da663f7b056040cfdb468aee7e2f3dfedce9fc786ee52b29213d81b1a38",
+    "spec": {
+      "template": "boxes",
+      "title": "Architectural Partitions Cryptographic Salts & Key Stretching Functions.",
+      "boxes": [
+        {
+          "id": "boxA",
+          "label": "Public Perimeter"
+        },
+        {
+          "id": "boxB",
+          "label": "Identity Provider"
+        },
+        {
+          "id": "boxC",
+          "label": "Token Store"
+        },
+        {
+          "id": "boxD",
+          "label": "Internal Service"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Security engine initializes defensive state across execution phase.",
+        "highlight": [
+          "boxA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Cryptographic subsystem verifies credentials with bounded latency.",
+        "highlight": [
+          "boxB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Authorization checks validate attributes against defined security rules.",
+        "highlight": [
+          "boxC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Pipeline completes safely without credential leaks or bypasses.",
+        "highlight": [
+          "boxD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 3,
+    "codeHash": "278ce667c9bfbff4b2e5731718e897a84c5546cd8db72141accf58621d281b09",
+    "spec": {
+      "template": "stackQueue",
+      "title": "Queue Ordering The Argonid Standard: Memory-Hard Cryptography.",
+      "elements": [
+        {
+          "id": "elemA",
+          "label": "Active Token"
+        },
+        {
+          "id": "elemB",
+          "label": "Rotated Lease"
+        },
+        {
+          "id": "elemC",
+          "label": "Pending Auth"
+        },
+        {
+          "id": "elemD",
+          "label": "Revoked Session"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Security engine initializes defensive state across execution phase.",
+        "highlight": [
+          "elemA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Cryptographic subsystem verifies credentials with bounded latency.",
+        "highlight": [
+          "elemB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Authorization checks validate attributes against defined security rules.",
+        "highlight": [
+          "elemC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Pipeline completes safely without credential leaks or bypasses.",
+        "highlight": [
+          "elemD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 4,
+    "codeHash": "6d3893da726257550cbc34bce98bcb7e61adf561ad4ffdb45339f81d932d7bde",
+    "spec": {
+      "template": "sequence",
+      "title": "Sequence Coordination Side-Channel Timing Attacks & Constant-Time String.",
+      "actors": [
+        {
+          "id": "client",
+          "label": "Client Agent"
+        },
+        {
+          "id": "gateway",
+          "label": "Security Gateway"
+        },
+        {
+          "id": "idp",
+          "label": "Identity Service"
+        },
+        {
+          "id": "vault",
+          "label": "Key Vault"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Security engine initializes defensive state across execution phase.",
+        "highlight": [
+          "elemA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Cryptographic subsystem verifies credentials with bounded latency.",
+        "highlight": [
+          "elemB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Authorization checks validate attributes against defined security rules.",
+        "highlight": [
+          "elemC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Pipeline completes safely without credential leaks or bypasses.",
+        "highlight": [
+          "elemD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 5,
+    "codeHash": "742954dbbd4118f6972e23438e37aa48854e55fe643b15029558ee9c0ca27ffe",
+    "spec": {
+      "template": "compare",
+      "title": "Architectural Comparison Production Credential Security Engine & Timing-S.",
+      "left": {
+        "title": "Hardened Defense",
+        "items": [
+          "Asymmetric keys",
+          "Strict whitelists",
+          "Zero trust boundary"
+        ]
+      },
+      "right": {
+        "title": "Naive Design",
+        "items": [
+          "Shared secrets",
+          "Unchecked headers",
+          "Vulnerable surface"
         ]
       }
     },
-    {
-      "partTitle": "Salts, Work Factors, and Rainbow Table Defense",
-      "codeHash": "525bed46ccdd211a80305584ffe1af2232b73d934947accac1218e505e57992d",
-      "spec": {
-        "template": "boxes",
-        "title": "Unique salt generation defense",
-        "boxes": [
-          {
-            "id": "saltA",
-            "label": "saltA"
-          },
-          {
-            "id": "saltB",
-            "label": "saltB"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Attackers exploit precomputed lookup tables mapping common passwords.",
-            "values": {
-              "saltA": {
-                "text": "generateMockSalt"
-              },
-              "saltB": {
-                "text": "salt_"
-              }
-            },
-            "tones": {
-              "saltA": "data",
-              "saltB": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "A unique salt ensures identical passwords produce different hash outputs.",
-            "values": {
-              "saltA": {
-                "text": "generateMockSalt"
-              },
-              "saltB": {
-                "text": "salt_"
-              }
-            },
-            "tones": {
-              "saltA": "ok",
-              "saltB": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Modern algorithms include a work factor controlling hashing rounds.",
-            "values": {
-              "saltA": {
-                "text": "generateMockSalt"
-              },
-              "saltB": {
-                "text": "salt_"
-              }
-            },
-            "tones": {
-              "saltA": "ok",
-              "saltB": "ok"
-            }
-          }
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Security engine initializes defensive state across execution phase.",
+        "highlight": [
+          "elemA"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Unique salt generation defense",
-        "boxes": [
-          {
-            "id": "saltA",
-            "label": "saltA"
-          },
-          {
-            "id": "saltB",
-            "label": "saltB"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Attackers exploit precomputed lookup tables mapping common passwords.",
-            "values": {
-              "saltA": "generateMockSalt",
-              "saltB": "salt_"
-            },
-            "tones": {
-              "saltA": "data",
-              "saltB": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "A unique salt ensures identical passwords produce different hash outputs.",
-            "values": {
-              "saltA": "generateMockSalt",
-              "saltB": "salt_"
-            },
-            "tones": {
-              "saltA": "ok",
-              "saltB": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Modern algorithms include a work factor controlling hashing rounds.",
-            "values": {
-              "saltA": "generateMockSalt",
-              "saltB": "salt_"
-            },
-            "tones": {
-              "saltA": "ok",
-              "saltB": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Timing-Safe Comparisons to Prevent Side-Channel Timing Attacks",
-      "codeHash": "8710d8890727c57135497d1a2b091986e87ec09f42a8836eff471d840b5e1b3a",
-      "spec": {
-        "template": "boxes",
-        "title": "Constant time comparison routine",
-        "boxes": [
-          {
-            "id": "mismatch",
-            "label": "mismatch"
-          },
-          {
-            "id": "compare",
-            "label": "constantTimeCompare"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Standard string equality operators return false on the first mismatched byte.",
-            "values": {
-              "mismatch": {
-                "text": "0"
-              },
-              "compare": {
-                "text": "constantTimeCompare"
-              }
-            },
-            "tones": {
-              "mismatch": "idle",
-              "compare": "data"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "An attacker measures variations to execute side channel timing attacks.",
-            "values": {
-              "mismatch": {
-                "text": "0"
-              },
-              "compare": {
-                "text": "constantTimeCompare"
-              }
-            },
-            "tones": {
-              "mismatch": "error",
-              "compare": "data"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Constant time algorithms inspect every single byte ensuring uniform time.",
-            "values": {
-              "mismatch": {
-                "text": "0"
-              },
-              "compare": {
-                "text": "constantTimeCompare"
-              }
-            },
-            "tones": {
-              "mismatch": "ok",
-              "compare": "ok"
-            }
-          }
+      {
+        "step": 2,
+        "caption": "Cryptographic subsystem verifies credentials with bounded latency.",
+        "highlight": [
+          "elemB"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Constant time comparison routine",
-        "boxes": [
-          {
-            "id": "mismatch",
-            "label": "mismatch"
-          },
-          {
-            "id": "compare",
-            "label": "constantTimeCompare"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Standard string equality operators return false on the first mismatched byte.",
-            "values": {
-              "mismatch": "0",
-              "compare": "constantTimeCompare"
-            },
-            "tones": {
-              "mismatch": "idle",
-              "compare": "data"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "An attacker measures variations to execute side channel timing attacks.",
-            "values": {
-              "mismatch": "0",
-              "compare": "constantTimeCompare"
-            },
-            "tones": {
-              "mismatch": "error",
-              "compare": "data"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Constant time algorithms inspect every single byte ensuring uniform time.",
-            "values": {
-              "mismatch": "0",
-              "compare": "constantTimeCompare"
-            },
-            "tones": {
-              "mismatch": "ok",
-              "compare": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Work Factors and Key Stretching (bcrypt / Argon2 Concepts)",
-      "codeHash": "3448f285bc84ab887d4c314e388bfebc66caf3a6f59a26de89d896191c1036e9",
-      "spec": {
-        "template": "table",
-        "title": "Bcrypt work factor rounds and computation cost",
-        "columns": [
-          "costFactor",
-          "computedRounds"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Modern hashing algorithms incorporate key stretching with work factors.",
-            "rows": [
-              {
-                "cells": [
-                  "10",
-                  "computedRounds"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "12",
-                  "computedRounds"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Increasing the cost factor doubles the required computation time.",
-            "rows": [
-              {
-                "cells": [
-                  "10",
-                  "computedRounds"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "12",
-                  "computedRounds"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Memory hardness throttles parallel attacks from specialized cracking clusters.",
-            "rows": [
-              {
-                "cells": [
-                  "10",
-                  "computedRounds"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "12",
-                  "computedRounds"
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
+      {
+        "step": 3,
+        "caption": "Authorization checks validate attributes against defined security rules.",
+        "highlight": [
+          "elemC"
         ]
       },
-      "filled": {
-        "template": "table",
-        "title": "Bcrypt work factor rounds and computation cost",
-        "columns": [
-          "costFactor",
-          "computedRounds"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Modern hashing algorithms incorporate key stretching with work factors.",
-            "rows": [
-              {
-                "cells": [
-                  "10",
-                  "computedRounds"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "12",
-                  "computedRounds"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Increasing the cost factor doubles the required computation time.",
-            "rows": [
-              {
-                "cells": [
-                  "10",
-                  "computedRounds"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "12",
-                  "computedRounds"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "Memory hardness throttles parallel attacks from specialized cracking clusters.",
-            "rows": [
-              {
-                "cells": [
-                  "10",
-                  "computedRounds"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "12",
-                  "computedRounds"
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
+      {
+        "step": 4,
+        "caption": "Pipeline completes safely without credential leaks or bypasses.",
+        "highlight": [
+          "elemD"
         ]
       }
-    },
-    {
-      "partTitle": "Password Verification and Re-Hashing Upgraded Cost Factors",
-      "codeHash": "b9c411a63715aa239d49e349ec4c2e525e1094b0c83521c3835274ad5c39cd31",
-      "spec": {
-        "template": "boxes",
-        "title": "Work factor upgrade verification check",
-        "boxes": [
-          {
-            "id": "target",
-            "label": "TARGET_COST"
-          },
-          {
-            "id": "upgrade",
-            "label": "needsUpgrade"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Hashes are irreversible so a backend cannot upgrade stored records directly.",
-            "values": {
-              "target": {
-                "text": "12"
-              },
-              "upgrade": {
-                "text": "needsUpgrade"
-              }
-            },
-            "tones": {
-              "target": "data",
-              "upgrade": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Upon login the server checks if the hash used an outdated work factor.",
-            "values": {
-              "target": {
-                "text": "12"
-              },
-              "upgrade": {
-                "text": "needsUpgrade"
-              }
-            },
-            "tones": {
-              "target": "data",
-              "upgrade": "data"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "This allows seamless security migration without requiring password resets.",
-            "values": {
-              "target": {
-                "text": "12"
-              },
-              "upgrade": {
-                "text": "needsUpgrade"
-              }
-            },
-            "tones": {
-              "target": "ok",
-              "upgrade": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Work factor upgrade verification check",
-        "boxes": [
-          {
-            "id": "target",
-            "label": "TARGET_COST"
-          },
-          {
-            "id": "upgrade",
-            "label": "needsUpgrade"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Hashes are irreversible so a backend cannot upgrade stored records directly.",
-            "values": {
-              "target": "12",
-              "upgrade": "needsUpgrade"
-            },
-            "tones": {
-              "target": "data",
-              "upgrade": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Upon login the server checks if the hash used an outdated work factor.",
-            "values": {
-              "target": "12",
-              "upgrade": "needsUpgrade"
-            },
-            "tones": {
-              "target": "data",
-              "upgrade": "data"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "This allows seamless security migration without requiring password resets.",
-            "values": {
-              "target": "12",
-              "upgrade": "needsUpgrade"
-            },
-            "tones": {
-              "target": "ok",
-              "upgrade": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Building a Secure Password Hasher Engine",
-      "codeHash": "0b122cdeb3cc45b7cf057d91b4751a5883f4549a81d30e9abedac71db65ee777",
-      "spec": {
-        "template": "flow",
-        "title": "Building a Secure Password Hasher Engine — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building a Secure P...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building a Secure Password Hasher Engine [D16.P6.S1].",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building a Secure P... [D16.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D16.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building a Secure Password Hasher.. [D16.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Building a Secure Password Hasher Engine — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building a Secure P...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building a Secure Password Hasher Engine [D16.P6.S1].",
-            "values": {
-              "in": "Day 16 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building a Secure P... [D16.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D16.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building a Secure Password Hasher.. [D16.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      }
-    }
-  ]
-}
+    ]
+  }
+]

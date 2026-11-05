@@ -1,901 +1,306 @@
-{
-  "schemaVersion": 1,
-  "prefix": "node-web",
-  "day": 19,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
-    {
-      "partTitle": "Authentication vs Authorization (Who You Are vs What You Can Do)",
-      "codeHash": "f79de1c58b4ec06a69b3ddf0190dc176275524fbd6f71f420cae7112c6790b5b",
-      "spec": {
-        "template": "boxes",
-        "title": "User identity authentication and authorization role",
-        "boxes": [
-          {
-            "id": "email",
-            "label": "email"
-          },
-          {
-            "id": "role",
-            "label": "role"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Authentication verifies identity answering who you are.",
-            "values": {
-              "email": {
-                "text": "stu@pin.it"
-              },
-              "role": {
-                "text": "student"
-              }
-            },
-            "tones": {
-              "email": "data",
-              "role": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Authorization evaluates permissions determining what you can do.",
-            "values": {
-              "email": {
-                "text": "adm@pin.it"
-              },
-              "role": {
-                "text": "admin"
-              }
-            },
-            "tones": {
-              "email": "data",
-              "role": "ok"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Confusing identity with authorization leads to privilege escalation risks.",
-            "values": {
-              "email": {
-                "text": "adm@pin.it"
-              },
-              "role": {
-                "text": "admin"
-              }
-            },
-            "tones": {
-              "email": "ok",
-              "role": "ok"
-            }
-          }
+[
+  {
+    "schemaVersion": 2,
+    "partIndex": 1,
+    "codeHash": "a643ab9e72e5a82db74e76be25846b5f4837afbcdef77ebc9ddbe88a9707eefc",
+    "spec": {
+      "template": "flow",
+      "title": "Process Pipeline Authentication vs Authorization & RBAC Pitfalls (Role Ex.",
+      "nodes": [
+        {
+          "id": "stepA",
+          "label": "Security Boundary",
+          "type": "start"
+        },
+        {
+          "id": "stepB",
+          "label": "Cryptographic Engine",
+          "type": "process"
+        },
+        {
+          "id": "stepC",
+          "label": "Validation Check",
+          "type": "process"
+        },
+        {
+          "id": "stepD",
+          "label": "Authorized Access",
+          "type": "end"
+        }
+      ],
+      "edges": [
+        {
+          "from": "stepA",
+          "to": "stepB",
+          "label": "Forward"
+        },
+        {
+          "from": "stepB",
+          "to": "stepC",
+          "label": "Verify"
+        },
+        {
+          "from": "stepC",
+          "to": "stepD",
+          "label": "Permit"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Security engine initializes defensive state across execution phase.",
+        "highlight": [
+          "stepA"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "User identity authentication and authorization role",
-        "boxes": [
-          {
-            "id": "email",
-            "label": "email"
-          },
-          {
-            "id": "role",
-            "label": "role"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Authentication verifies identity answering who you are.",
-            "values": {
-              "email": "stu@pin.it",
-              "role": "student"
-            },
-            "tones": {
-              "email": "data",
-              "role": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "Authorization evaluates permissions determining what you can do.",
-            "values": {
-              "email": "adm@pin.it",
-              "role": "admin"
-            },
-            "tones": {
-              "email": "data",
-              "role": "ok"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Confusing identity with authorization leads to privilege escalation risks.",
-            "values": {
-              "email": "adm@pin.it",
-              "role": "admin"
-            },
-            "tones": {
-              "email": "ok",
-              "role": "ok"
-            }
-          }
+      {
+        "step": 2,
+        "caption": "Cryptographic subsystem verifies credentials with bounded latency.",
+        "highlight": [
+          "stepB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Authorization checks validate attributes against defined security rules.",
+        "highlight": [
+          "stepC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Pipeline completes safely without credential leaks or bypasses.",
+        "highlight": [
+          "stepD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 2,
+    "codeHash": "b0703eaf5023d242df825deeb40a289dc1c68eef80f0cfb198b445608c61a52b",
+    "spec": {
+      "template": "boxes",
+      "title": "Architectural Partitions High-Performance Permission Bitflags (Bitwise Op.",
+      "boxes": [
+        {
+          "id": "boxA",
+          "label": "Public Perimeter"
+        },
+        {
+          "id": "boxB",
+          "label": "Identity Provider"
+        },
+        {
+          "id": "boxC",
+          "label": "Token Store"
+        },
+        {
+          "id": "boxD",
+          "label": "Internal Service"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Security engine initializes defensive state across execution phase.",
+        "highlight": [
+          "boxA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Cryptographic subsystem verifies credentials with bounded latency.",
+        "highlight": [
+          "boxB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Authorization checks validate attributes against defined security rules.",
+        "highlight": [
+          "boxC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Pipeline completes safely without credential leaks or bypasses.",
+        "highlight": [
+          "boxD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 3,
+    "codeHash": "b527db83ef2ccbcd002eab94aa8f0e1efd2d999e3c0d529d626927b42bfede00",
+    "spec": {
+      "template": "stackQueue",
+      "title": "Queue Ordering Attribute-Based Access Control (ABAC) & Dynamic Policies.",
+      "elements": [
+        {
+          "id": "elemA",
+          "label": "Active Token"
+        },
+        {
+          "id": "elemB",
+          "label": "Rotated Lease"
+        },
+        {
+          "id": "elemC",
+          "label": "Pending Auth"
+        },
+        {
+          "id": "elemD",
+          "label": "Revoked Session"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Security engine initializes defensive state across execution phase.",
+        "highlight": [
+          "elemA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Cryptographic subsystem verifies credentials with bounded latency.",
+        "highlight": [
+          "elemB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Authorization checks validate attributes against defined security rules.",
+        "highlight": [
+          "elemC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Pipeline completes safely without credential leaks or bypasses.",
+        "highlight": [
+          "elemD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 4,
+    "codeHash": "eccebff55c44a6be6887c3f9567c83f711a35bab2d65eb911e71c8030d9ccde2",
+    "spec": {
+      "template": "sequence",
+      "title": "Sequence Coordination Hierarchical Resource Boundaries & Wildcard Globbin.",
+      "actors": [
+        {
+          "id": "client",
+          "label": "Client Agent"
+        },
+        {
+          "id": "gateway",
+          "label": "Security Gateway"
+        },
+        {
+          "id": "idp",
+          "label": "Identity Service"
+        },
+        {
+          "id": "vault",
+          "label": "Key Vault"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Security engine initializes defensive state across execution phase.",
+        "highlight": [
+          "elemA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Cryptographic subsystem verifies credentials with bounded latency.",
+        "highlight": [
+          "elemB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Authorization checks validate attributes against defined security rules.",
+        "highlight": [
+          "elemC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Pipeline completes safely without credential leaks or bypasses.",
+        "highlight": [
+          "elemD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 5,
+    "codeHash": "216c8f50db3bdf5a2ce0d1af07726b6bb3016d6a2953d4afe26c68f5ab303972",
+    "spec": {
+      "template": "compare",
+      "title": "Architectural Comparison Production Authorization Middleware & Policy Dec.",
+      "left": {
+        "title": "Hardened Defense",
+        "items": [
+          "Asymmetric keys",
+          "Strict whitelists",
+          "Zero trust boundary"
+        ]
+      },
+      "right": {
+        "title": "Naive Design",
+        "items": [
+          "Shared secrets",
+          "Unchecked headers",
+          "Vulnerable surface"
         ]
       }
     },
-    {
-      "partTitle": "The RBAC Data Model: Users, Roles, and Permission Scopes",
-      "codeHash": "ef2c972054591615850d4495df974968c02a133535f019db197a51e3dfc5a1b8",
-      "spec": {
-        "template": "table",
-        "title": "Role-based permission scopes mapping",
-        "columns": [
-          "role",
-          "permissions"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Assigning permissions directly to users creates unmaintainable overhead.",
-            "rows": [
-              {
-                "cells": [
-                  "viewer",
-                  "jobs:read"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "editor",
-                  "jobs:create"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "admin",
-                  "jobs:delete"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Permissions follow fine grained resource action patterns.",
-            "rows": [
-              {
-                "cells": [
-                  "viewer",
-                  "jobs:read"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "editor",
-                  "jobs:create"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "admin",
-                  "jobs:delete"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Updating role definitions grants new capabilities across all team members.",
-            "rows": [
-              {
-                "cells": [
-                  "viewer",
-                  "jobs:read"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "editor",
-                  "jobs:create"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "admin",
-                  "jobs:delete"
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Security engine initializes defensive state across execution phase.",
+        "highlight": [
+          "elemA"
         ]
       },
-      "filled": {
-        "template": "table",
-        "title": "Role-based permission scopes mapping",
-        "columns": [
-          "role",
-          "permissions"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Assigning permissions directly to users creates unmaintainable overhead.",
-            "rows": [
-              {
-                "cells": [
-                  "viewer",
-                  "jobs:read"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "editor",
-                  "jobs:create"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "admin",
-                  "jobs:delete"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Permissions follow fine grained resource action patterns.",
-            "rows": [
-              {
-                "cells": [
-                  "viewer",
-                  "jobs:read"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "editor",
-                  "jobs:create"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "admin",
-                  "jobs:delete"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Updating role definitions grants new capabilities across all team members.",
-            "rows": [
-              {
-                "cells": [
-                  "viewer",
-                  "jobs:read"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "editor",
-                  "jobs:create"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "admin",
-                  "jobs:delete"
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Hierarchical Roles and Permission Inheritance",
-      "codeHash": "6a10eed56cbc17e014e2a63aca3789b7b3f1fb301782add8c953d67f1f475baf",
-      "spec": {
-        "template": "boxes",
-        "title": "Hierarchical role levels and weights",
-        "boxes": [
-          {
-            "id": "user",
-            "label": "VIEWER"
-          },
-          {
-            "id": "admin",
-            "label": "ADMIN"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say3",
-            "caption": "Hierarchical RBAC enables higher tiers to inherit permissions automatically.",
-            "values": {
-              "user": {
-                "text": "10"
-              },
-              "admin": {
-                "text": "30"
-              }
-            },
-            "tones": {
-              "user": "data",
-              "admin": "idle"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Guards evaluate tier weights allowing higher roles while rejecting lower ones.",
-            "values": {
-              "user": {
-                "text": "10"
-              },
-              "admin": {
-                "text": "30"
-              }
-            },
-            "tones": {
-              "user": "error",
-              "admin": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Automated tests validate role hierarchies preventing configuration drift.",
-            "values": {
-              "user": {
-                "text": "10"
-              },
-              "admin": {
-                "text": "30"
-              }
-            },
-            "tones": {
-              "user": "ok",
-              "admin": "ok"
-            }
-          }
+      {
+        "step": 2,
+        "caption": "Cryptographic subsystem verifies credentials with bounded latency.",
+        "highlight": [
+          "elemB"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Hierarchical role levels and weights",
-        "boxes": [
-          {
-            "id": "user",
-            "label": "VIEWER"
-          },
-          {
-            "id": "admin",
-            "label": "ADMIN"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say3",
-            "caption": "Hierarchical RBAC enables higher tiers to inherit permissions automatically.",
-            "values": {
-              "user": "10",
-              "admin": "30"
-            },
-            "tones": {
-              "user": "data",
-              "admin": "idle"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Guards evaluate tier weights allowing higher roles while rejecting lower ones.",
-            "values": {
-              "user": "10",
-              "admin": "30"
-            },
-            "tones": {
-              "user": "error",
-              "admin": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Automated tests validate role hierarchies preventing configuration drift.",
-            "values": {
-              "user": "10",
-              "admin": "30"
-            },
-            "tones": {
-              "user": "ok",
-              "admin": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Route Guards: Distinguishing 401 Unauthorized from 403 Forbidden",
-      "codeHash": "b7fa2206e92a738256b3ad449d06372fb24c46f1e63eead7e3b96697d43e6ae7",
-      "spec": {
-        "template": "boxes",
-        "title": "Route status and access decision evaluation",
-        "boxes": [
-          {
-            "id": "status",
-            "label": "status"
-          },
-          {
-            "id": "decision",
-            "label": "decision"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say3",
-            "caption": "Status 401 indicates missing or invalid authentication credentials.",
-            "values": {
-              "status": {
-                "text": "401"
-              },
-              "decision": {
-                "text": "401 Unauthorized: Invalid or missing token"
-              }
-            },
-            "tones": {
-              "status": "error",
-              "decision": "error"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Status 403 indicates authenticated users lack required route permissions.",
-            "values": {
-              "status": {
-                "text": "403"
-              },
-              "decision": {
-                "text": "403 Forbidden: Admin role required"
-              }
-            },
-            "tones": {
-              "status": "error",
-              "decision": "data"
-            }
-          },
-          {
-            "at": "say7",
-            "caption": "Security compliance logging tracks forbidden access attempts for auditing.",
-            "values": {
-              "status": {
-                "text": "200"
-              },
-              "decision": {
-                "text": "200 OK: Access granted"
-              }
-            },
-            "tones": {
-              "status": "ok",
-              "decision": "ok"
-            }
-          }
+      {
+        "step": 3,
+        "caption": "Authorization checks validate attributes against defined security rules.",
+        "highlight": [
+          "elemC"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Route status and access decision evaluation",
-        "boxes": [
-          {
-            "id": "status",
-            "label": "status"
-          },
-          {
-            "id": "decision",
-            "label": "decision"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say3",
-            "caption": "Status 401 indicates missing or invalid authentication credentials.",
-            "values": {
-              "status": "401",
-              "decision": "401 Unauthorized: Invalid or missing token"
-            },
-            "tones": {
-              "status": "error",
-              "decision": "error"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Status 403 indicates authenticated users lack required route permissions.",
-            "values": {
-              "status": "403",
-              "decision": "403 Forbidden: Admin role required"
-            },
-            "tones": {
-              "status": "error",
-              "decision": "data"
-            }
-          },
-          {
-            "at": "say7",
-            "caption": "Security compliance logging tracks forbidden access attempts for auditing.",
-            "values": {
-              "status": "200",
-              "decision": "200 OK: Access granted"
-            },
-            "tones": {
-              "status": "ok",
-              "decision": "ok"
-            }
-          }
+      {
+        "step": 4,
+        "caption": "Pipeline completes safely without credential leaks or bypasses.",
+        "highlight": [
+          "elemD"
         ]
       }
-    },
-    {
-      "partTitle": "Contextual & Attribute-Based Authorization (ABAC Ownership Checks)",
-      "codeHash": "53908d68964d7aa4e0fb8393fc10dde4f6c0163eeb4c1307ec57e251bcf46fcd",
-      "spec": {
-        "template": "boxes",
-        "title": "Resource ownership attributes evaluation",
-        "boxes": [
-          {
-            "id": "owner",
-            "label": "ownerId"
-          },
-          {
-            "id": "title",
-            "label": "title"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Naive role checks allow users to modify records belonging to other people.",
-            "values": {
-              "owner": {
-                "text": "usr_alice"
-              },
-              "title": {
-                "text": "Backend Dev"
-              }
-            },
-            "tones": {
-              "owner": "data",
-              "title": "idle"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Contextual authorization evaluates attributes of users and target resources.",
-            "values": {
-              "owner": {
-                "text": "usr_alice"
-              },
-              "title": {
-                "text": "Backend Dev"
-              }
-            },
-            "tones": {
-              "owner": "data",
-              "title": "data"
-            }
-          },
-          {
-            "at": "say7",
-            "caption": "Enforcing ownership rules prevents direct object reference vulnerabilities.",
-            "values": {
-              "owner": {
-                "text": "usr_alice"
-              },
-              "title": {
-                "text": "Backend Dev"
-              }
-            },
-            "tones": {
-              "owner": "ok",
-              "title": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Resource ownership attributes evaluation",
-        "boxes": [
-          {
-            "id": "owner",
-            "label": "ownerId"
-          },
-          {
-            "id": "title",
-            "label": "title"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Naive role checks allow users to modify records belonging to other people.",
-            "values": {
-              "owner": "usr_alice",
-              "title": "Backend Dev"
-            },
-            "tones": {
-              "owner": "data",
-              "title": "idle"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Contextual authorization evaluates attributes of users and target resources.",
-            "values": {
-              "owner": "usr_alice",
-              "title": "Backend Dev"
-            },
-            "tones": {
-              "owner": "data",
-              "title": "data"
-            }
-          },
-          {
-            "at": "say7",
-            "caption": "Enforcing ownership rules prevents direct object reference vulnerabilities.",
-            "values": {
-              "owner": "usr_alice",
-              "title": "Backend Dev"
-            },
-            "tones": {
-              "owner": "ok",
-              "title": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Building an Extensible Route Authorization Guard Middleware",
-      "codeHash": "4ecf931365055fe4a603f08b2845c7d020bfc41b76f889737a47d44c520e1c5c",
-      "spec": {
-        "template": "flow",
-        "title": "Building an Extensible Route Authorization Gu... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building an Extensi...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building an Extensible Route Authorizati.. [D19.P6.S1].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building an Extensi... [D19.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D19.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building an Extensible Route Auth.. [D19.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Building an Extensible Route Authorization Gu... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building an Extensi...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building an Extensible Route Authorizati.. [D19.P6.S1].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building an Extensi... [D19.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D19.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building an Extensible Route Auth.. [D19.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      }
-    }
-  ]
-}
+    ]
+  }
+]

@@ -147,6 +147,8 @@ CREATE TABLE IF NOT EXISTS public.grievances_tickets (
     resolution TEXT,
     created_at TIMESTAMPTZ DEFAULT NOW()
 );
+ALTER TABLE public.grievances_tickets ADD COLUMN IF NOT EXISTS user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE;
+ALTER TABLE public.grievances_tickets ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ DEFAULT NOW();
 
 CREATE TABLE IF NOT EXISTS public.infrastructure_tickets (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -259,6 +261,8 @@ CREATE TABLE IF NOT EXISTS public.study_notes (
     created_at TIMESTAMPTZ DEFAULT NOW(),
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );
+ALTER TABLE public.study_notes ADD COLUMN IF NOT EXISTS user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE;
+ALTER TABLE public.study_notes ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ DEFAULT NOW();
 
 CREATE TABLE IF NOT EXISTS public.services_appointments (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),

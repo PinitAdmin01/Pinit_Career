@@ -4,7 +4,7 @@ import { useFacialEmotionDetection }  from './hooks/useFacialEmotionDetection';
 import { matchBestAlternative, matchNavigationIntent, getGrammarVocabulary } from './hooks/useVoiceNavigation';
 import { parseWakeWord } from '@/lib/avatar/wakeWordParser';
 import { isNextTaskIntent, isValidSnapshotTimestamp, getAuthoritativeNextTask } from '@/lib/avatar/deterministicAdvisor';
-import { COURSES_REGISTRY } from '@/lib/data/coursesData';
+// Lazy-loaded on demand: import('@/lib/data/coursesData')
 import { analyzeVoiceFrames, analyzeVoiceSamples, verifyVoiceSignature, calculateSpectralFeatures, extractMelFilterbank, AcousticFrame, VoicePrint } from './hooks/useVoiceBiometrics';
 import { saveVoicePrintToSupabase, getVoicePrintFromSupabase } from '@/lib/supabaseService';
 import * as THREE from 'three';
@@ -823,6 +823,7 @@ export default function AvatarMentorWidget({
           }
 
           if (snapshotToUse) {
+            const { COURSES_REGISTRY } = await import('@/lib/data/coursesData');
             const course = COURSES_REGISTRY.find(c => c.id === snapshotToUse.courseId) || COURSES_REGISTRY[0];
             const localCurriculum = (course?.quests || []).map(q => ({
               questId: q.id,

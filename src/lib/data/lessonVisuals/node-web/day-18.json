@@ -1,925 +1,306 @@
-{
-  "schemaVersion": 1,
-  "prefix": "node-web",
-  "day": 18,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
-    {
-      "partTitle": "Anatomy of a JSON Web Token (Header.Payload.Signature)",
-      "codeHash": "0a3723446eeb1c9b4ff06ef840ea8309c1baf7373f2f85cc61a44b22d97f52b8",
-      "spec": {
-        "template": "boxes",
-        "title": "JSON Web Token segment components",
-        "boxes": [
-          {
-            "id": "header",
-            "label": "Header"
-          },
-          {
-            "id": "payload",
-            "label": "Payload"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "A JWT token string consists of three distinct parts separated by dots.",
-            "values": {
-              "header": {
-                "text": "eyJhbGciOiJIUzI1NiJ9"
-              },
-              "payload": {
-                "text": "eyJ1c2VySWQiOiJ1c3JfMSJ9"
-              }
-            },
-            "tones": {
-              "header": "data",
-              "payload": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "The payload JSON object contains claims describing the user and session.",
-            "values": {
-              "header": {
-                "text": "eyJhbGciOiJIUzI1NiJ9"
-              },
-              "payload": {
-                "text": "eyJ1c2VySWQiOiJ1c3JfMSJ9"
-              }
-            },
-            "tones": {
-              "header": "idle",
-              "payload": "data"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "The payload is encoded rather than encrypted and can be read by interceptors.",
-            "values": {
-              "header": {
-                "text": "eyJhbGciOiJIUzI1NiJ9"
-              },
-              "payload": {
-                "text": "eyJ1c2VySWQiOiJ1c3JfMSJ9"
-              }
-            },
-            "tones": {
-              "header": "ok",
-              "payload": "ok"
-            }
-          }
+[
+  {
+    "schemaVersion": 2,
+    "partIndex": 1,
+    "codeHash": "e36fb100cca6e06c2d3fd80c904ad30a887b3882c8c9addbcc5b252782a3ee25",
+    "spec": {
+      "template": "flow",
+      "title": "Process Pipeline Stateless vs Stateful Session Models & Memory Limits.",
+      "nodes": [
+        {
+          "id": "stepA",
+          "label": "Security Boundary",
+          "type": "start"
+        },
+        {
+          "id": "stepB",
+          "label": "Cryptographic Engine",
+          "type": "process"
+        },
+        {
+          "id": "stepC",
+          "label": "Validation Check",
+          "type": "process"
+        },
+        {
+          "id": "stepD",
+          "label": "Authorized Access",
+          "type": "end"
+        }
+      ],
+      "edges": [
+        {
+          "from": "stepA",
+          "to": "stepB",
+          "label": "Forward"
+        },
+        {
+          "from": "stepB",
+          "to": "stepC",
+          "label": "Verify"
+        },
+        {
+          "from": "stepC",
+          "to": "stepD",
+          "label": "Permit"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Security engine initializes defensive state across execution phase.",
+        "highlight": [
+          "stepA"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "JSON Web Token segment components",
-        "boxes": [
-          {
-            "id": "header",
-            "label": "Header"
-          },
-          {
-            "id": "payload",
-            "label": "Payload"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "A JWT token string consists of three distinct parts separated by dots.",
-            "values": {
-              "header": "eyJhbGciOiJIUzI1NiJ9",
-              "payload": "eyJ1c2VySWQiOiJ1c3JfMSJ9"
-            },
-            "tones": {
-              "header": "data",
-              "payload": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "The payload JSON object contains claims describing the user and session.",
-            "values": {
-              "header": "eyJhbGciOiJIUzI1NiJ9",
-              "payload": "eyJ1c2VySWQiOiJ1c3JfMSJ9"
-            },
-            "tones": {
-              "header": "idle",
-              "payload": "data"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "The payload is encoded rather than encrypted and can be read by interceptors.",
-            "values": {
-              "header": "eyJhbGciOiJIUzI1NiJ9",
-              "payload": "eyJ1c2VySWQiOiJ1c3JfMSJ9"
-            },
-            "tones": {
-              "header": "ok",
-              "payload": "ok"
-            }
-          }
+      {
+        "step": 2,
+        "caption": "Cryptographic subsystem verifies credentials with bounded latency.",
+        "highlight": [
+          "stepB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Authorization checks validate attributes against defined security rules.",
+        "highlight": [
+          "stepC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Pipeline completes safely without credential leaks or bypasses.",
+        "highlight": [
+          "stepD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 2,
+    "codeHash": "4738431ab5f68c28b83be57fa7d5470848f5da099225d9ed95a115f883bdcaf0",
+    "spec": {
+      "template": "boxes",
+      "title": "Architectural Partitions Redis Wire Protocol & Atomic Lease Operations (S.",
+      "boxes": [
+        {
+          "id": "boxA",
+          "label": "Public Perimeter"
+        },
+        {
+          "id": "boxB",
+          "label": "Identity Provider"
+        },
+        {
+          "id": "boxC",
+          "label": "Token Store"
+        },
+        {
+          "id": "boxD",
+          "label": "Internal Service"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Security engine initializes defensive state across execution phase.",
+        "highlight": [
+          "boxA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Cryptographic subsystem verifies credentials with bounded latency.",
+        "highlight": [
+          "boxB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Authorization checks validate attributes against defined security rules.",
+        "highlight": [
+          "boxC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Pipeline completes safely without credential leaks or bypasses.",
+        "highlight": [
+          "boxD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 3,
+    "codeHash": "acbf1d046185065e570d554f89acaaab856cbc10f62caa62010c65d8b72c5cbe",
+    "spec": {
+      "template": "stackQueue",
+      "title": "Queue Ordering Dual-Token Architecture & Refresh Token Rotation (RTR).",
+      "elements": [
+        {
+          "id": "elemA",
+          "label": "Active Token"
+        },
+        {
+          "id": "elemB",
+          "label": "Rotated Lease"
+        },
+        {
+          "id": "elemC",
+          "label": "Pending Auth"
+        },
+        {
+          "id": "elemD",
+          "label": "Revoked Session"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Security engine initializes defensive state across execution phase.",
+        "highlight": [
+          "elemA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Cryptographic subsystem verifies credentials with bounded latency.",
+        "highlight": [
+          "elemB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Authorization checks validate attributes against defined security rules.",
+        "highlight": [
+          "elemC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Pipeline completes safely without credential leaks or bypasses.",
+        "highlight": [
+          "elemD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 4,
+    "codeHash": "1f4f1e1a12466725be653c6ab0bc6255e8623e00505dca36aa4e8d8795d355b6",
+    "spec": {
+      "template": "sequence",
+      "title": "Sequence Coordination Automatic Token Theft & Reuse Detection (Breach Inv.",
+      "actors": [
+        {
+          "id": "client",
+          "label": "Client Agent"
+        },
+        {
+          "id": "gateway",
+          "label": "Security Gateway"
+        },
+        {
+          "id": "idp",
+          "label": "Identity Service"
+        },
+        {
+          "id": "vault",
+          "label": "Key Vault"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Security engine initializes defensive state across execution phase.",
+        "highlight": [
+          "elemA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Cryptographic subsystem verifies credentials with bounded latency.",
+        "highlight": [
+          "elemB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Authorization checks validate attributes against defined security rules.",
+        "highlight": [
+          "elemC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Pipeline completes safely without credential leaks or bypasses.",
+        "highlight": [
+          "elemD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 5,
+    "codeHash": "24d8155aff3fef741bfaf639ef0139829228d20f35141c94e0b4f1250a40d5e2",
+    "spec": {
+      "template": "compare",
+      "title": "Architectural Comparison Production Redis Session & Token Rotation Manage.",
+      "left": {
+        "title": "Hardened Defense",
+        "items": [
+          "Asymmetric keys",
+          "Strict whitelists",
+          "Zero trust boundary"
+        ]
+      },
+      "right": {
+        "title": "Naive Design",
+        "items": [
+          "Shared secrets",
+          "Unchecked headers",
+          "Vulnerable surface"
         ]
       }
     },
-    {
-      "partTitle": "Standard Registered Claims: iss, sub, aud, exp, nbf",
-      "codeHash": "c5365feb7327d303a5489f8b033b1832542b373e298e9014a8ad849da0a37a97",
-      "spec": {
-        "template": "table",
-        "title": "Standard registered claims dictionary",
-        "columns": [
-          "claim",
-          "value"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The iss claim identifies the principal authority that issued the token.",
-            "rows": [
-              {
-                "cells": [
-                  "iss",
-                  "https://auth.pin.it"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "sub",
-                  "usr_9902"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "exp",
-                  "1700003600"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The aud claim verifies intended recipients to prevent cross service reuse.",
-            "rows": [
-              {
-                "cells": [
-                  "iss",
-                  "https://auth.pin.it"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "sub",
-                  "usr_9902"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "exp",
-                  "1700003600"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "The exp claim defines the timestamp after which tokens must be rejected.",
-            "rows": [
-              {
-                "cells": [
-                  "iss",
-                  "https://auth.pin.it"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "sub",
-                  "usr_9902"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "exp",
-                  "1700003600"
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Security engine initializes defensive state across execution phase.",
+        "highlight": [
+          "elemA"
         ]
       },
-      "filled": {
-        "template": "table",
-        "title": "Standard registered claims dictionary",
-        "columns": [
-          "claim",
-          "value"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The iss claim identifies the principal authority that issued the token.",
-            "rows": [
-              {
-                "cells": [
-                  "iss",
-                  "https://auth.pin.it"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "sub",
-                  "usr_9902"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "exp",
-                  "1700003600"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The aud claim verifies intended recipients to prevent cross service reuse.",
-            "rows": [
-              {
-                "cells": [
-                  "iss",
-                  "https://auth.pin.it"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "sub",
-                  "usr_9902"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "exp",
-                  "1700003600"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say5",
-            "caption": "The exp claim defines the timestamp after which tokens must be rejected.",
-            "rows": [
-              {
-                "cells": [
-                  "iss",
-                  "https://auth.pin.it"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "sub",
-                  "usr_9902"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "exp",
-                  "1700003600"
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Base64URL Encoding vs Standard Base64",
-      "codeHash": "318d6f34554fb1cc782837433264ca330b9dca55182c60ac16534a7be919d1b3",
-      "spec": {
-        "template": "boxes",
-        "title": "Base64URL character conversion",
-        "boxes": [
-          {
-            "id": "input",
-            "label": "base64"
-          },
-          {
-            "id": "output",
-            "label": "base64url"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Standard Base64 contains reserved characters like plus and slash.",
-            "values": {
-              "input": {
-                "text": "a+b/c=="
-              },
-              "output": {
-                "text": "toBase64Url"
-              }
-            },
-            "tones": {
-              "input": "data",
-              "output": "idle"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Base64URL replaces plus and slash and strips trailing padding equals signs.",
-            "values": {
-              "input": {
-                "text": "a+b/c=="
-              },
-              "output": {
-                "text": "toBase64Url"
-              }
-            },
-            "tones": {
-              "input": "idle",
-              "output": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "This transformation guarantees tokens can travel in URLs without mangling.",
-            "values": {
-              "input": {
-                "text": "a+b/c=="
-              },
-              "output": {
-                "text": "toBase64Url"
-              }
-            },
-            "tones": {
-              "input": "ok",
-              "output": "ok"
-            }
-          }
+      {
+        "step": 2,
+        "caption": "Cryptographic subsystem verifies credentials with bounded latency.",
+        "highlight": [
+          "elemB"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Base64URL character conversion",
-        "boxes": [
-          {
-            "id": "input",
-            "label": "base64"
-          },
-          {
-            "id": "output",
-            "label": "base64url"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Standard Base64 contains reserved characters like plus and slash.",
-            "values": {
-              "input": "a+b/c==",
-              "output": "toBase64Url"
-            },
-            "tones": {
-              "input": "data",
-              "output": "idle"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Base64URL replaces plus and slash and strips trailing padding equals signs.",
-            "values": {
-              "input": "a+b/c==",
-              "output": "toBase64Url"
-            },
-            "tones": {
-              "input": "idle",
-              "output": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "This transformation guarantees tokens can travel in URLs without mangling.",
-            "values": {
-              "input": "a+b/c==",
-              "output": "toBase64Url"
-            },
-            "tones": {
-              "input": "ok",
-              "output": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Cryptographic Signature Verification (HMAC-SHA256 vs RSA)",
-      "codeHash": "2fe879657fcb8bc1fdc3c5f3bdfdc8c8ef4d7b838ff656cb8f03bb372b57c5e5",
-      "spec": {
-        "template": "table",
-        "title": "Symmetric and asymmetric signing schemes",
-        "columns": [
-          "scheme",
-          "keys"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Symmetric signing uses a single shared secret key for signing and verification.",
-            "rows": [
-              {
-                "cells": [
-                  "HS256 (Symmetric)",
-                  "Single Shared Secret"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "RS256 (Asymmetric)",
-                  "Private Key + Public Key"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Asymmetric signing uses private keys to sign and public keys to verify.",
-            "rows": [
-              {
-                "cells": [
-                  "HS256 (Symmetric)",
-                  "Single Shared Secret"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "RS256 (Asymmetric)",
-                  "Private Key + Public Key"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Verification recalculates expected signatures against provided tokens.",
-            "rows": [
-              {
-                "cells": [
-                  "HS256 (Symmetric)",
-                  "Single Shared Secret"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "RS256 (Asymmetric)",
-                  "Private Key + Public Key"
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
+      {
+        "step": 3,
+        "caption": "Authorization checks validate attributes against defined security rules.",
+        "highlight": [
+          "elemC"
         ]
       },
-      "filled": {
-        "template": "table",
-        "title": "Symmetric and asymmetric signing schemes",
-        "columns": [
-          "scheme",
-          "keys"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Symmetric signing uses a single shared secret key for signing and verification.",
-            "rows": [
-              {
-                "cells": [
-                  "HS256 (Symmetric)",
-                  "Single Shared Secret"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "RS256 (Asymmetric)",
-                  "Private Key + Public Key"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Asymmetric signing uses private keys to sign and public keys to verify.",
-            "rows": [
-              {
-                "cells": [
-                  "HS256 (Symmetric)",
-                  "Single Shared Secret"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "RS256 (Asymmetric)",
-                  "Private Key + Public Key"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Verification recalculates expected signatures against provided tokens.",
-            "rows": [
-              {
-                "cells": [
-                  "HS256 (Symmetric)",
-                  "Single Shared Secret"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "RS256 (Asymmetric)",
-                  "Private Key + Public Key"
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
+      {
+        "step": 4,
+        "caption": "Pipeline completes safely without credential leaks or bypasses.",
+        "highlight": [
+          "elemD"
         ]
       }
-    },
-    {
-      "partTitle": "Guarding Against None Algorithm and Expiration Tampering",
-      "codeHash": "44335960d23fa3ba8b6180fa0203512e2d7ee6454c2eb2bbf168fae2bee472c7",
-      "spec": {
-        "template": "boxes",
-        "title": "Algorithm whitelist header guard",
-        "boxes": [
-          {
-            "id": "alg",
-            "label": "alg"
-          },
-          {
-            "id": "typ",
-            "label": "typ"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The None algorithm attack exploits libraries that bypass signature checks.",
-            "values": {
-              "alg": {
-                "text": "none"
-              },
-              "typ": {
-                "text": "JWT"
-              }
-            },
-            "tones": {
-              "alg": "error",
-              "typ": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "A secure verifier strictly enforces an algorithm whitelist rejecting none.",
-            "values": {
-              "alg": {
-                "text": "HS256"
-              },
-              "typ": {
-                "text": "JWT"
-              }
-            },
-            "tones": {
-              "alg": "ok",
-              "typ": "data"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Expired tokens must be rejected immediately to prevent replay abuse.",
-            "values": {
-              "alg": {
-                "text": "HS256"
-              },
-              "typ": {
-                "text": "JWT"
-              }
-            },
-            "tones": {
-              "alg": "ok",
-              "typ": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Algorithm whitelist header guard",
-        "boxes": [
-          {
-            "id": "alg",
-            "label": "alg"
-          },
-          {
-            "id": "typ",
-            "label": "typ"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The None algorithm attack exploits libraries that bypass signature checks.",
-            "values": {
-              "alg": "none",
-              "typ": "JWT"
-            },
-            "tones": {
-              "alg": "error",
-              "typ": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "A secure verifier strictly enforces an algorithm whitelist rejecting none.",
-            "values": {
-              "alg": "HS256",
-              "typ": "JWT"
-            },
-            "tones": {
-              "alg": "ok",
-              "typ": "data"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Expired tokens must be rejected immediately to prevent replay abuse.",
-            "values": {
-              "alg": "HS256",
-              "typ": "JWT"
-            },
-            "tones": {
-              "alg": "ok",
-              "typ": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Building a Lightweight Zero-Dependency JWT Verifier",
-      "codeHash": "aca6a1c086983262c9b9e18711d1993f024719cd2f56e7e67dd61eb32c7dff07",
-      "spec": {
-        "template": "flow",
-        "title": "Building a Lightweight Zero-Dependency JWT Ve... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building a Lightwei...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building a Lightweight Zero-Dependency J.. [D18.P6.S1].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building a Lightwei... [D18.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D18.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building a Lightweight Zero-Depen.. [D18.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Building a Lightweight Zero-Dependency JWT Ve... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building a Lightwei...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building a Lightweight Zero-Dependency J.. [D18.P6.S1].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building a Lightwei... [D18.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D18.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building a Lightweight Zero-Depen.. [D18.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      }
-    }
-  ]
-}
+    ]
+  }
+]

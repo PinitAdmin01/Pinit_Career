@@ -1,835 +1,306 @@
-{
-  "schemaVersion": 1,
-  "prefix": "node-web",
-  "day": 25,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
-    {
-      "partTitle": "Network Flakiness and The Danger of Non-Idempotent Retries",
-      "codeHash": "491cf027d8cb6138c57c6e91a63ac4f1a5bfda7ae31073266a1a8a48a164888e",
-      "spec": {
-        "template": "boxes",
-        "title": "Non-idempotent payment request mutations",
-        "boxes": [
-          {
-            "id": "id",
-            "label": "id"
-          },
-          {
-            "id": "amount",
-            "label": "amount"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say3",
-            "caption": "When network drops occur client devices cannot verify server outcomes.",
-            "values": {
-              "id": {
-                "text": "tx_1"
-              },
-              "amount": {
-                "text": "100"
-              }
-            },
-            "tones": {
-              "id": "data",
-              "amount": "idle"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Because HTTP POST is non idempotent retries duplicate mutations.",
-            "values": {
-              "id": {
-                "text": "tx_1"
-              },
-              "amount": {
-                "text": "100"
-              }
-            },
-            "tones": {
-              "id": "error",
-              "amount": "error"
-            }
-          },
-          {
-            "at": "say7",
-            "caption": "Processors mandate idempotency keys so charges execute exactly once.",
-            "values": {
-              "id": {
-                "text": "tx_1"
-              },
-              "amount": {
-                "text": "100"
-              }
-            },
-            "tones": {
-              "id": "ok",
-              "amount": "ok"
-            }
-          }
+[
+  {
+    "schemaVersion": 2,
+    "partIndex": 1,
+    "codeHash": "6857eaae4b599b882680bc615fd7df6b2493300382fede00a816f6ef8fd6f722",
+    "spec": {
+      "template": "flow",
+      "title": "Process Pipeline Ephemeral vs Persistent Tasks & Anatomy of a Job Queue.",
+      "nodes": [
+        {
+          "id": "stepA",
+          "label": "Worker Thread Spawner",
+          "type": "start"
+        },
+        {
+          "id": "stepB",
+          "label": "Atomic Memory Buffer",
+          "type": "process"
+        },
+        {
+          "id": "stepC",
+          "label": "Execution Coordinator",
+          "type": "process"
+        },
+        {
+          "id": "stepD",
+          "label": "Output Event Stream",
+          "type": "end"
+        }
+      ],
+      "edges": [
+        {
+          "from": "stepA",
+          "to": "stepB",
+          "label": "Alloc"
+        },
+        {
+          "from": "stepB",
+          "to": "stepC",
+          "label": "Lock"
+        },
+        {
+          "from": "stepC",
+          "to": "stepD",
+          "label": "Emit"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Concurrency engine initializes parallel memory structures safely.",
+        "highlight": [
+          "stepA"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Non-idempotent payment request mutations",
-        "boxes": [
-          {
-            "id": "id",
-            "label": "id"
-          },
-          {
-            "id": "amount",
-            "label": "amount"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say3",
-            "caption": "When network drops occur client devices cannot verify server outcomes.",
-            "values": {
-              "id": "tx_1",
-              "amount": "100"
-            },
-            "tones": {
-              "id": "data",
-              "amount": "idle"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Because HTTP POST is non idempotent retries duplicate mutations.",
-            "values": {
-              "id": "tx_1",
-              "amount": "100"
-            },
-            "tones": {
-              "id": "error",
-              "amount": "error"
-            }
-          },
-          {
-            "at": "say7",
-            "caption": "Processors mandate idempotency keys so charges execute exactly once.",
-            "values": {
-              "id": "tx_1",
-              "amount": "100"
-            },
-            "tones": {
-              "id": "ok",
-              "amount": "ok"
-            }
-          }
+      {
+        "step": 2,
+        "caption": "Atomic operations enforce mutual exclusion without kernel pauses.",
+        "highlight": [
+          "stepB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Worker thread processes tasks and coordinates backpressured flow.",
+        "highlight": [
+          "stepC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Execution completes cleanly with bounded memory utilization.",
+        "highlight": [
+          "stepD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 2,
+    "codeHash": "d1f333b9f1b69429c2413e52b2896a5d17bc5fad8feadd3fbff758e38b7fbbd3",
+    "spec": {
+      "template": "boxes",
+      "title": "Architectural Partitions BullMQ State Machine & Redis Atomic Primitives.",
+      "boxes": [
+        {
+          "id": "boxA",
+          "label": "Cluster Primary Node"
+        },
+        {
+          "id": "boxB",
+          "label": "Worker Process Pool"
+        },
+        {
+          "id": "boxC",
+          "label": "Shared Ring Buffer"
+        },
+        {
+          "id": "boxD",
+          "label": "Persistent Task Broker"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Concurrency engine initializes parallel memory structures safely.",
+        "highlight": [
+          "boxA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Atomic operations enforce mutual exclusion without kernel pauses.",
+        "highlight": [
+          "boxB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Worker thread processes tasks and coordinates backpressured flow.",
+        "highlight": [
+          "boxC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Execution completes cleanly with bounded memory utilization.",
+        "highlight": [
+          "boxD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 3,
+    "codeHash": "207b1a4bad5f7af34d8994c6ad3e0583af92b8d09ad2449ef3ef1bf73bdf7991",
+    "spec": {
+      "template": "stackQueue",
+      "title": "Task Pipeline Queue Exponential Backoff, Full Jitter & Dead-Letter Queues.",
+      "elements": [
+        {
+          "id": "elemA",
+          "label": "Waiting Priority Task"
+        },
+        {
+          "id": "elemB",
+          "label": "Active Working Lease"
+        },
+        {
+          "id": "elemC",
+          "label": "Delayed Timer Task"
+        },
+        {
+          "id": "elemD",
+          "label": "Dead Letter Quarantine"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Concurrency engine initializes parallel memory structures safely.",
+        "highlight": [
+          "elemA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Atomic operations enforce mutual exclusion without kernel pauses.",
+        "highlight": [
+          "elemB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Worker thread processes tasks and coordinates backpressured flow.",
+        "highlight": [
+          "elemC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Execution completes cleanly with bounded memory utilization.",
+        "highlight": [
+          "elemD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 4,
+    "codeHash": "8ed1ed957704a2d540e4d5cf702a45239f71aff51a9a21d29f61eff2a3decb33",
+    "spec": {
+      "template": "sequence",
+      "title": "Sequence Coordination Idempotency Keys & Distributed Deduplication in Red.",
+      "actors": [
+        {
+          "id": "primary",
+          "label": "Primary Process"
+        },
+        {
+          "id": "worker",
+          "label": "Compute Worker"
+        },
+        {
+          "id": "broker",
+          "label": "Redis Task Broker"
+        },
+        {
+          "id": "storage",
+          "label": "Durable Store"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Concurrency engine initializes parallel memory structures safely.",
+        "highlight": [
+          "elemA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Atomic operations enforce mutual exclusion without kernel pauses.",
+        "highlight": [
+          "elemB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Worker thread processes tasks and coordinates backpressured flow.",
+        "highlight": [
+          "elemC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Execution completes cleanly with bounded memory utilization.",
+        "highlight": [
+          "elemD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 5,
+    "codeHash": "1e9b818936a08b46314df7e2be8356a4220ac2dedaffa168a90e7c9f800374f2",
+    "spec": {
+      "template": "compare",
+      "title": "Concurrency Architecture Production BullMQ Worker & Graceful Shutdown Orc.",
+      "left": {
+        "title": "Distributed Queue",
+        "items": [
+          "Atomic transitions",
+          "Full jitter backoff",
+          "Durable state"
+        ]
+      },
+      "right": {
+        "title": "In Memory Async",
+        "items": [
+          "Lost on restart",
+          "Unbounded spikes",
+          "Zero fault isolation"
         ]
       }
     },
-    {
-      "partTitle": "The Idempotency-Key Header Standard (IETF Specification)",
-      "codeHash": "7a7f6b4ecdd6590d675581dfdba2b57b114d7b091d2fc0199db7c8ade8ca9ff6",
-      "spec": {
-        "template": "boxes",
-        "title": "Standard idempotency record attributes",
-        "boxes": [
-          {
-            "id": "key",
-            "label": "key"
-          },
-          {
-            "id": "status",
-            "label": "statusCode"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Clients generate a unique UUID header when initiating mutations.",
-            "values": {
-              "key": {
-                "text": "idemp_abc_123"
-              },
-              "status": {
-                "text": "201"
-              }
-            },
-            "tones": {
-              "key": "data",
-              "status": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Retried requests transmit the exact same idempotency key header.",
-            "values": {
-              "key": {
-                "text": "idemp_abc_123"
-              },
-              "status": {
-                "text": "201"
-              }
-            },
-            "tones": {
-              "key": "data",
-              "status": "data"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "The client retry succeeds while the database records one mutation.",
-            "values": {
-              "key": {
-                "text": "idemp_abc_123"
-              },
-              "status": {
-                "text": "201"
-              }
-            },
-            "tones": {
-              "key": "ok",
-              "status": "ok"
-            }
-          }
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Concurrency engine initializes parallel memory structures safely.",
+        "highlight": [
+          "elemA"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Standard idempotency record attributes",
-        "boxes": [
-          {
-            "id": "key",
-            "label": "key"
-          },
-          {
-            "id": "status",
-            "label": "statusCode"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Clients generate a unique UUID header when initiating mutations.",
-            "values": {
-              "key": "idemp_abc_123",
-              "status": "201"
-            },
-            "tones": {
-              "key": "data",
-              "status": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Retried requests transmit the exact same idempotency key header.",
-            "values": {
-              "key": "idemp_abc_123",
-              "status": "201"
-            },
-            "tones": {
-              "key": "data",
-              "status": "data"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "The client retry succeeds while the database records one mutation.",
-            "values": {
-              "key": "idemp_abc_123",
-              "status": "201"
-            },
-            "tones": {
-              "key": "ok",
-              "status": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Storing and Replaying Cached Mutation Responses",
-      "codeHash": "43614e0d64b286da098d417b313335d4248f0db5bbafd3aaf084b60e618a89f7",
-      "spec": {
-        "template": "boxes",
-        "title": "Cached mutation response replay fields",
-        "boxes": [
-          {
-            "id": "key",
-            "label": "key_1"
-          },
-          {
-            "id": "body",
-            "label": "body"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say3",
-            "caption": "If no record exists the server executes logic and caches responses.",
-            "values": {
-              "key": {
-                "text": "key_1"
-              },
-              "body": {
-                "text": "Created #1"
-              }
-            },
-            "tones": {
-              "key": "data",
-              "body": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "If completed records exist the server returns cached response bodies.",
-            "values": {
-              "key": {
-                "text": "key_1"
-              },
-              "body": {
-                "text": "Created #1"
-              }
-            },
-            "tones": {
-              "key": "data",
-              "body": "data"
-            }
-          },
-          {
-            "at": "say7",
-            "caption": "Payload hashing detects tampered requests with identical keys.",
-            "values": {
-              "key": {
-                "text": "key_1"
-              },
-              "body": {
-                "text": "Created #1"
-              }
-            },
-            "tones": {
-              "key": "ok",
-              "body": "ok"
-            }
-          }
+      {
+        "step": 2,
+        "caption": "Atomic operations enforce mutual exclusion without kernel pauses.",
+        "highlight": [
+          "elemB"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Cached mutation response replay fields",
-        "boxes": [
-          {
-            "id": "key",
-            "label": "key_1"
-          },
-          {
-            "id": "body",
-            "label": "body"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say3",
-            "caption": "If no record exists the server executes logic and caches responses.",
-            "values": {
-              "key": "key_1",
-              "body": "Created #1"
-            },
-            "tones": {
-              "key": "data",
-              "body": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "If completed records exist the server returns cached response bodies.",
-            "values": {
-              "key": "key_1",
-              "body": "Created #1"
-            },
-            "tones": {
-              "key": "data",
-              "body": "data"
-            }
-          },
-          {
-            "at": "say7",
-            "caption": "Payload hashing detects tampered requests with identical keys.",
-            "values": {
-              "key": "key_1",
-              "body": "Created #1"
-            },
-            "tones": {
-              "key": "ok",
-              "body": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Detecting Concurrent In-Flight Requests with Identical Keys",
-      "codeHash": "05cee14e13f5fc40151afa9d071ad9b935b8977978c52f066019b22c3e66608d",
-      "spec": {
-        "template": "boxes",
-        "title": "In-flight lock manager states",
-        "boxes": [
-          {
-            "id": "state1",
-            "label": "PENDING"
-          },
-          {
-            "id": "state2",
-            "label": "RESOLVED"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say4",
-            "caption": "The idempotency layer acquires an atomic lock when requests arrive.",
-            "values": {
-              "state1": {
-                "text": "PENDING"
-              },
-              "state2": {
-                "text": "RESOLVED"
-              }
-            },
-            "tones": {
-              "state1": "data",
-              "state2": "idle"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "The key is marked in progress while execution proceeds.",
-            "values": {
-              "state1": {
-                "text": "PENDING"
-              },
-              "state2": {
-                "text": "RESOLVED"
-              }
-            },
-            "tones": {
-              "state1": "data",
-              "state2": "data"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Concurrent requests with identical keys return conflict until finished.",
-            "values": {
-              "state1": {
-                "text": "PENDING"
-              },
-              "state2": {
-                "text": "RESOLVED"
-              }
-            },
-            "tones": {
-              "state1": "ok",
-              "state2": "ok"
-            }
-          }
+      {
+        "step": 3,
+        "caption": "Worker thread processes tasks and coordinates backpressured flow.",
+        "highlight": [
+          "elemC"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "In-flight lock manager states",
-        "boxes": [
-          {
-            "id": "state1",
-            "label": "PENDING"
-          },
-          {
-            "id": "state2",
-            "label": "RESOLVED"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say4",
-            "caption": "The idempotency layer acquires an atomic lock when requests arrive.",
-            "values": {
-              "state1": "PENDING",
-              "state2": "RESOLVED"
-            },
-            "tones": {
-              "state1": "data",
-              "state2": "idle"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "The key is marked in progress while execution proceeds.",
-            "values": {
-              "state1": "PENDING",
-              "state2": "RESOLVED"
-            },
-            "tones": {
-              "state1": "data",
-              "state2": "data"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Concurrent requests with identical keys return conflict until finished.",
-            "values": {
-              "state1": "PENDING",
-              "state2": "RESOLVED"
-            },
-            "tones": {
-              "state1": "ok",
-              "state2": "ok"
-            }
-          }
+      {
+        "step": 4,
+        "caption": "Execution completes cleanly with bounded memory utilization.",
+        "highlight": [
+          "elemD"
         ]
       }
-    },
-    {
-      "partTitle": "Error Handling and Transient vs Permanent Retries",
-      "codeHash": "3f1585c0f1c1d5ee2755888dd0e1c79cc4dbb0634a9f40f26d7dd9ed1e9d687c",
-      "spec": {
-        "template": "boxes",
-        "title": "Idempotent response status caching decision",
-        "boxes": [
-          {
-            "id": "code",
-            "label": "statusCode"
-          },
-          {
-            "id": "fn",
-            "label": "shouldCacheIdempotentResponse"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "A transient failure is temporary and means mutations did not occur.",
-            "values": {
-              "code": {
-                "text": "500"
-              },
-              "fn": {
-                "text": "shouldCacheIdempotentResponse"
-              }
-            },
-            "tones": {
-              "code": "error",
-              "fn": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Permanent failures like client validation errors are deterministic.",
-            "values": {
-              "code": {
-                "text": "500"
-              },
-              "fn": {
-                "text": "shouldCacheIdempotentResponse"
-              }
-            },
-            "tones": {
-              "code": "data",
-              "fn": "ok"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Permanent failure responses should be cached to preserve outcomes.",
-            "values": {
-              "code": {
-                "text": "500"
-              },
-              "fn": {
-                "text": "shouldCacheIdempotentResponse"
-              }
-            },
-            "tones": {
-              "code": "ok",
-              "fn": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Idempotent response status caching decision",
-        "boxes": [
-          {
-            "id": "code",
-            "label": "statusCode"
-          },
-          {
-            "id": "fn",
-            "label": "shouldCacheIdempotentResponse"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "A transient failure is temporary and means mutations did not occur.",
-            "values": {
-              "code": "500",
-              "fn": "shouldCacheIdempotentResponse"
-            },
-            "tones": {
-              "code": "error",
-              "fn": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Permanent failures like client validation errors are deterministic.",
-            "values": {
-              "code": "500",
-              "fn": "shouldCacheIdempotentResponse"
-            },
-            "tones": {
-              "code": "data",
-              "fn": "ok"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Permanent failure responses should be cached to preserve outcomes.",
-            "values": {
-              "code": "500",
-              "fn": "shouldCacheIdempotentResponse"
-            },
-            "tones": {
-              "code": "ok",
-              "fn": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Building an Idempotency Middleware Engine",
-      "codeHash": "21823892a1cacfc22a2b10808a58b17aaee33ef044f8182aeafd06842deba596",
-      "spec": {
-        "template": "flow",
-        "title": "Building an Idempotency Middleware Engine — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building an Idempot...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building an Idempotency Middleware Engine [D25.P6.S1].",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building an Idempot... [D25.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D25.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building an Idempotency Middlewar.. [D25.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Building an Idempotency Middleware Engine — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building an Idempot...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building an Idempotency Middleware Engine [D25.P6.S1].",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building an Idempot... [D25.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D25.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building an Idempotency Middlewar.. [D25.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      }
-    }
-  ]
-}
+    ]
+  }
+]

@@ -67,6 +67,9 @@ async function request<T>(method:string, path:string, body?:unknown): Promise<T>
         const { data: { session } } = await supabase.auth.getSession();
         if (session?.access_token) {
           authHeader = { Authorization: `Bearer ${session.access_token}` };
+        } else if (typeof window !== 'undefined') {
+          const vaultJwt = localStorage.getItem('pinit_vault_jwt');
+          if (vaultJwt) authHeader = { Authorization: `Bearer ${vaultJwt}` };
         }
       } catch { /* ignore */ }
       const isFormData = typeof FormData !== 'undefined' && body instanceof FormData;

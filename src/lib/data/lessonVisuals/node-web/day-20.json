@@ -1,859 +1,306 @@
-{
-  "schemaVersion": 1,
-  "prefix": "node-web",
-  "day": 20,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
-    {
-      "partTitle": "The API Threat Landscape: Brute-Force & Denial of Service",
-      "codeHash": "8fe17dcadd43b7810df37a5d3822e62c89397f62b0f53f1e3fe4a34204c351c7",
-      "spec": {
-        "template": "table",
-        "title": "API attack vectors and defensive countermeasures",
-        "columns": [
-          "attackType",
-          "countermeasure"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Attackers submit automated scripts attempting brute force attacks.",
-            "rows": [
-              {
-                "cells": [
-                  "Credential Stuffing",
-                  "IP Rate Limiting + Captcha"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "DoS Flood",
-                  "Sliding Window Throttling"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Without rate limiting server databases spike causing severe outages.",
-            "rows": [
-              {
-                "cells": [
-                  "Credential Stuffing",
-                  "IP Rate Limiting + Captcha"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "DoS Flood",
-                  "Sliding Window Throttling"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Defense in depth implements multiple protection layers across API boundaries.",
-            "rows": [
-              {
-                "cells": [
-                  "Credential Stuffing",
-                  "IP Rate Limiting + Captcha"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "DoS Flood",
-                  "Sliding Window Throttling"
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
+[
+  {
+    "schemaVersion": 2,
+    "partIndex": 1,
+    "codeHash": "990c6b6688d4aae9c93893e1cf4be575f34b95e9d6fbec01adbfe13fb91bd6f5",
+    "spec": {
+      "template": "flow",
+      "title": "Process Pipeline Cross-Origin Resource Sharing (CORS) & Preflight Mechani.",
+      "nodes": [
+        {
+          "id": "stepA",
+          "label": "Security Boundary",
+          "type": "start"
+        },
+        {
+          "id": "stepB",
+          "label": "Cryptographic Engine",
+          "type": "process"
+        },
+        {
+          "id": "stepC",
+          "label": "Validation Check",
+          "type": "process"
+        },
+        {
+          "id": "stepD",
+          "label": "Authorized Access",
+          "type": "end"
+        }
+      ],
+      "edges": [
+        {
+          "from": "stepA",
+          "to": "stepB",
+          "label": "Forward"
+        },
+        {
+          "from": "stepB",
+          "to": "stepC",
+          "label": "Verify"
+        },
+        {
+          "from": "stepC",
+          "to": "stepD",
+          "label": "Permit"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Security engine initializes defensive state across execution phase.",
+        "highlight": [
+          "stepA"
         ]
       },
-      "filled": {
-        "template": "table",
-        "title": "API attack vectors and defensive countermeasures",
-        "columns": [
-          "attackType",
-          "countermeasure"
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Attackers submit automated scripts attempting brute force attacks.",
-            "rows": [
-              {
-                "cells": [
-                  "Credential Stuffing",
-                  "IP Rate Limiting + Captcha"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "DoS Flood",
-                  "Sliding Window Throttling"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say3",
-            "caption": "Without rate limiting server databases spike causing severe outages.",
-            "rows": [
-              {
-                "cells": [
-                  "Credential Stuffing",
-                  "IP Rate Limiting + Captcha"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "DoS Flood",
-                  "Sliding Window Throttling"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "Defense in depth implements multiple protection layers across API boundaries.",
-            "rows": [
-              {
-                "cells": [
-                  "Credential Stuffing",
-                  "IP Rate Limiting + Captcha"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "DoS Flood",
-                  "Sliding Window Throttling"
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
+      {
+        "step": 2,
+        "caption": "Cryptographic subsystem verifies credentials with bounded latency.",
+        "highlight": [
+          "stepB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Authorization checks validate attributes against defined security rules.",
+        "highlight": [
+          "stepC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Pipeline completes safely without credential leaks or bypasses.",
+        "highlight": [
+          "stepD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 2,
+    "codeHash": "be4c20a28126b2c656025cddcf068898bf780bfa7ade9d8f49e4ecbec760dd35",
+    "spec": {
+      "template": "boxes",
+      "title": "Architectural Partitions Defense-in-Depth HTTP Headers & Helmet Architect.",
+      "boxes": [
+        {
+          "id": "boxA",
+          "label": "Public Perimeter"
+        },
+        {
+          "id": "boxB",
+          "label": "Identity Provider"
+        },
+        {
+          "id": "boxC",
+          "label": "Token Store"
+        },
+        {
+          "id": "boxD",
+          "label": "Internal Service"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Security engine initializes defensive state across execution phase.",
+        "highlight": [
+          "boxA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Cryptographic subsystem verifies credentials with bounded latency.",
+        "highlight": [
+          "boxB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Authorization checks validate attributes against defined security rules.",
+        "highlight": [
+          "boxC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Pipeline completes safely without credential leaks or bypasses.",
+        "highlight": [
+          "boxD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 3,
+    "codeHash": "d78371c10662cc8422d92bb097c0c7ff772e39924d9b7c46cfa6ce9f0e4ed359",
+    "spec": {
+      "template": "stackQueue",
+      "title": "Queue Ordering Content Security Policy (CSP) & Cryptographic Nonces.",
+      "elements": [
+        {
+          "id": "elemA",
+          "label": "Active Token"
+        },
+        {
+          "id": "elemB",
+          "label": "Rotated Lease"
+        },
+        {
+          "id": "elemC",
+          "label": "Pending Auth"
+        },
+        {
+          "id": "elemD",
+          "label": "Revoked Session"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Security engine initializes defensive state across execution phase.",
+        "highlight": [
+          "elemA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Cryptographic subsystem verifies credentials with bounded latency.",
+        "highlight": [
+          "elemB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Authorization checks validate attributes against defined security rules.",
+        "highlight": [
+          "elemC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Pipeline completes safely without credential leaks or bypasses.",
+        "highlight": [
+          "elemD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 4,
+    "codeHash": "4d617966f78d4dde6c9e3a530bb8dd7cd8689bad178f7a95ba3d3253dd11c943",
+    "spec": {
+      "template": "sequence",
+      "title": "Sequence Coordination Cross-Site Request Forgery (CSRF) & Double-Submit C.",
+      "actors": [
+        {
+          "id": "client",
+          "label": "Client Agent"
+        },
+        {
+          "id": "gateway",
+          "label": "Security Gateway"
+        },
+        {
+          "id": "idp",
+          "label": "Identity Service"
+        },
+        {
+          "id": "vault",
+          "label": "Key Vault"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Security engine initializes defensive state across execution phase.",
+        "highlight": [
+          "elemA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Cryptographic subsystem verifies credentials with bounded latency.",
+        "highlight": [
+          "elemB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Authorization checks validate attributes against defined security rules.",
+        "highlight": [
+          "elemC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Pipeline completes safely without credential leaks or bypasses.",
+        "highlight": [
+          "elemD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 5,
+    "codeHash": "69e914b4d1e8c253825d7c19e7b5151b1e2f56ddbd346fff954c30f4b02b7c23",
+    "spec": {
+      "template": "compare",
+      "title": "Architectural Comparison Production Perimeter Security & Attack Mitigatio.",
+      "left": {
+        "title": "Hardened Defense",
+        "items": [
+          "Asymmetric keys",
+          "Strict whitelists",
+          "Zero trust boundary"
+        ]
+      },
+      "right": {
+        "title": "Naive Design",
+        "items": [
+          "Shared secrets",
+          "Unchecked headers",
+          "Vulnerable surface"
         ]
       }
     },
-    {
-      "partTitle": "Rate Limiting Algorithms: Fixed Window vs Token Bucket vs Sliding Window",
-      "codeHash": "779742c160f4da483d6c74631aaf3228b9316ea50cad38ddff14170b3d655d11",
-      "spec": {
-        "template": "boxes",
-        "title": "IP rate limiter parameters",
-        "boxes": [
-          {
-            "id": "ip",
-            "label": "ip"
-          },
-          {
-            "id": "max",
-            "label": "maxRequests"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Fixed window counting allows request bursts across reset boundaries.",
-            "values": {
-              "ip": {
-                "text": "192.168.1.1"
-              },
-              "max": {
-                "text": "2"
-              }
-            },
-            "tones": {
-              "ip": "data",
-              "max": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Sliding windows calculate rolling request volumes dynamically over time.",
-            "values": {
-              "ip": {
-                "text": "192.168.1.1"
-              },
-              "max": {
-                "text": "2"
-              }
-            },
-            "tones": {
-              "ip": "data",
-              "max": "data"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Production backends store atomic counters inside fast memory stores.",
-            "values": {
-              "ip": {
-                "text": "192.168.1.1"
-              },
-              "max": {
-                "text": "2"
-              }
-            },
-            "tones": {
-              "ip": "ok",
-              "max": "ok"
-            }
-          }
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Security engine initializes defensive state across execution phase.",
+        "highlight": [
+          "elemA"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "IP rate limiter parameters",
-        "boxes": [
-          {
-            "id": "ip",
-            "label": "ip"
-          },
-          {
-            "id": "max",
-            "label": "maxRequests"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Fixed window counting allows request bursts across reset boundaries.",
-            "values": {
-              "ip": "192.168.1.1",
-              "max": "2"
-            },
-            "tones": {
-              "ip": "data",
-              "max": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Sliding windows calculate rolling request volumes dynamically over time.",
-            "values": {
-              "ip": "192.168.1.1",
-              "max": "2"
-            },
-            "tones": {
-              "ip": "data",
-              "max": "data"
-            }
-          },
-          {
-            "at": "say6",
-            "caption": "Production backends store atomic counters inside fast memory stores.",
-            "values": {
-              "ip": "192.168.1.1",
-              "max": "2"
-            },
-            "tones": {
-              "ip": "ok",
-              "max": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Returning Standard Rate Limit Headers (RateLimit-Limit, Remaining, Reset)",
-      "codeHash": "08b53dbca4b17600807590e413dde440bf805fc0c7fda08e8d198db4ca22086c",
-      "spec": {
-        "template": "boxes",
-        "title": "Standard IETF rate limit headers",
-        "boxes": [
-          {
-            "id": "limit",
-            "label": "RateLimit-Limit"
-          },
-          {
-            "id": "rem",
-            "label": "RateLimit-Remaining"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say3",
-            "caption": "The limit header declares the maximum permitted requests per window.",
-            "values": {
-              "limit": {
-                "text": "100"
-              },
-              "rem": {
-                "text": "0"
-              }
-            },
-            "tones": {
-              "limit": "data",
-              "rem": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "The remaining header reveals the quota allocation left for the client.",
-            "values": {
-              "limit": {
-                "text": "100"
-              },
-              "rem": {
-                "text": "0"
-              }
-            },
-            "tones": {
-              "limit": "data",
-              "rem": "error"
-            }
-          },
-          {
-            "at": "say7",
-            "caption": "Clear rate limit headers allow client applications to back off gracefully.",
-            "values": {
-              "limit": {
-                "text": "100"
-              },
-              "rem": {
-                "text": "0"
-              }
-            },
-            "tones": {
-              "limit": "ok",
-              "rem": "ok"
-            }
-          }
+      {
+        "step": 2,
+        "caption": "Cryptographic subsystem verifies credentials with bounded latency.",
+        "highlight": [
+          "elemB"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Standard IETF rate limit headers",
-        "boxes": [
-          {
-            "id": "limit",
-            "label": "RateLimit-Limit"
-          },
-          {
-            "id": "rem",
-            "label": "RateLimit-Remaining"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say3",
-            "caption": "The limit header declares the maximum permitted requests per window.",
-            "values": {
-              "limit": "100",
-              "rem": "0"
-            },
-            "tones": {
-              "limit": "data",
-              "rem": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "The remaining header reveals the quota allocation left for the client.",
-            "values": {
-              "limit": "100",
-              "rem": "0"
-            },
-            "tones": {
-              "limit": "data",
-              "rem": "error"
-            }
-          },
-          {
-            "at": "say7",
-            "caption": "Clear rate limit headers allow client applications to back off gracefully.",
-            "values": {
-              "limit": "100",
-              "rem": "0"
-            },
-            "tones": {
-              "limit": "ok",
-              "rem": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Cross-Origin Resource Sharing (CORS): Origins, Preflights & Credentials",
-      "codeHash": "0682f9c259336753adcbee837ca4b269d77b80f174c15a252c107f97c44f1945",
-      "spec": {
-        "template": "boxes",
-        "title": "CORS approved origin resolution",
-        "boxes": [
-          {
-            "id": "origin",
-            "label": "ALLOWED_ORIGINS"
-          },
-          {
-            "id": "res",
-            "label": "resolveCorsOrigin"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say3",
-            "caption": "Browsers require cross origin headers specifying authorized domains.",
-            "values": {
-              "origin": {
-                "text": "https://pin.it"
-              },
-              "res": {
-                "text": "resolveCorsOrigin"
-              }
-            },
-            "tones": {
-              "origin": "data",
-              "res": "idle"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Servers answer preflight options queries declaring permitted methods.",
-            "values": {
-              "origin": {
-                "text": "https://app.pin.it"
-              },
-              "res": {
-                "text": "resolveCorsOrigin"
-              }
-            },
-            "tones": {
-              "origin": "ok",
-              "res": "data"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Dynamic origin verification matches incoming requests against safe whitelists.",
-            "values": {
-              "origin": {
-                "text": "https://app.pin.it"
-              },
-              "res": {
-                "text": "resolveCorsOrigin"
-              }
-            },
-            "tones": {
-              "origin": "ok",
-              "res": "ok"
-            }
-          }
+      {
+        "step": 3,
+        "caption": "Authorization checks validate attributes against defined security rules.",
+        "highlight": [
+          "elemC"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "CORS approved origin resolution",
-        "boxes": [
-          {
-            "id": "origin",
-            "label": "ALLOWED_ORIGINS"
-          },
-          {
-            "id": "res",
-            "label": "resolveCorsOrigin"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say3",
-            "caption": "Browsers require cross origin headers specifying authorized domains.",
-            "values": {
-              "origin": "https://pin.it",
-              "res": "resolveCorsOrigin"
-            },
-            "tones": {
-              "origin": "data",
-              "res": "idle"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Servers answer preflight options queries declaring permitted methods.",
-            "values": {
-              "origin": "https://app.pin.it",
-              "res": "resolveCorsOrigin"
-            },
-            "tones": {
-              "origin": "ok",
-              "res": "data"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Dynamic origin verification matches incoming requests against safe whitelists.",
-            "values": {
-              "origin": "https://app.pin.it",
-              "res": "resolveCorsOrigin"
-            },
-            "tones": {
-              "origin": "ok",
-              "res": "ok"
-            }
-          }
+      {
+        "step": 4,
+        "caption": "Pipeline completes safely without credential leaks or bypasses.",
+        "highlight": [
+          "elemD"
         ]
       }
-    },
-    {
-      "partTitle": "Defensive Input Sanitization: Neutralizing XSS and Injection Strings",
-      "codeHash": "7dde313d0d749acecc9cd6031e2d1d556635bbb0a8bd9cfda0724c7076f92981",
-      "spec": {
-        "template": "boxes",
-        "title": "Input HTML entity encoding sanitizer",
-        "boxes": [
-          {
-            "id": "input",
-            "label": "input"
-          },
-          {
-            "id": "fn",
-            "label": "sanitizeHtml"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Untrusted strings carrying script tags exploit cross site scripting flaws.",
-            "values": {
-              "input": {
-                "text": "input"
-              },
-              "fn": {
-                "text": "sanitizeHtml"
-              }
-            },
-            "tones": {
-              "input": "error",
-              "fn": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Input sanitization replaces hostile characters with safe HTML entities.",
-            "values": {
-              "input": {
-                "text": "input"
-              },
-              "fn": {
-                "text": "sanitizeHtml"
-              }
-            },
-            "tones": {
-              "input": "data",
-              "fn": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Layered sanitization combines encoding with context aware escaping.",
-            "values": {
-              "input": {
-                "text": "input"
-              },
-              "fn": {
-                "text": "sanitizeHtml"
-              }
-            },
-            "tones": {
-              "input": "ok",
-              "fn": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Input HTML entity encoding sanitizer",
-        "boxes": [
-          {
-            "id": "input",
-            "label": "input"
-          },
-          {
-            "id": "fn",
-            "label": "sanitizeHtml"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Untrusted strings carrying script tags exploit cross site scripting flaws.",
-            "values": {
-              "input": "input",
-              "fn": "sanitizeHtml"
-            },
-            "tones": {
-              "input": "error",
-              "fn": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Input sanitization replaces hostile characters with safe HTML entities.",
-            "values": {
-              "input": "input",
-              "fn": "sanitizeHtml"
-            },
-            "tones": {
-              "input": "data",
-              "fn": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Layered sanitization combines encoding with context aware escaping.",
-            "values": {
-              "input": "input",
-              "fn": "sanitizeHtml"
-            },
-            "tones": {
-              "input": "ok",
-              "fn": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Building an Integrated API Security Guardrail Pipeline",
-      "codeHash": "cd98fce98412abbdc24bbff1612a78af9b06f240451cc1a01b0daf2530e29faf",
-      "spec": {
-        "template": "flow",
-        "title": "Building an Integrated API Security Guardrail... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building an Integra...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building an Integrated API Security Guar.. [D20.P6.S1].",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building an Integra... [D20.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D20.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building an Integrated API Securi.. [D20.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Building an Integrated API Security Guardrail... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building an Integra...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building an Integrated API Security Guar.. [D20.P6.S1].",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building an Integra... [D20.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D20.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building an Integrated API Securi.. [D20.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      }
-    }
-  ]
-}
+    ]
+  }
+]

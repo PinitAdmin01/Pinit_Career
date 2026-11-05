@@ -1229,7 +1229,7 @@ export function useOnboardingWizard() {
     router.replace('/dashboard');
     if (typeof window === 'undefined') return;
     setTimeout(() => { if (window.location.pathname === '/onboarding') router.replace('/dashboard'); }, 1500);
-    setTimeout(() => { if (window.location.pathname === '/onboarding') window.location.href = '/dashboard'; }, 6000);
+    setTimeout(() => { if (window.location.pathname === '/onboarding') window.location.replace('/dashboard'); }, 3000);
   };
 
   // Complete Onboarding: Sync to database & generate dynamic quest roadmap

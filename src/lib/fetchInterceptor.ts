@@ -1,20 +1,10 @@
-// Adds the signed-in user's Supabase token to same-origin fetch('/api/*') calls that carry none.
-//
-// API routes accept only `Authorization: Bearer <token>` (requireUserFromRequest: "Cookie-only
-// auth is not accepted"). Until 2026-09-18 this interceptor rerouted every plain /api/* fetch
-// through the api client, which adds the token. When that rerouting was removed, the ~100 plain
-// fetch('/api/…') calls in the app (quest completion, interview, TTS, friends, code runners, …)
-// started reaching the routes without a token and failing with 401.
-//
-// This version only adds the header. It never reroutes, never changes the method, body or
-// response (streams keep streaming), and leaves alone requests that already have an
-// Authorization header, other origins (Supabase, CDNs) and non-API paths.
+// Adds the signed-in user's Supabase or Vault session token to same-origin fetch('/api/*') calls that carry none.
 import { supabase, isSupabaseConfigured } from './supabaseClient';
 
 let installed = false;
 let cachedToken: string = '';
 let tokenCachedAt: number = 0;
-const TOKEN_CACHE_TTL = 30_000; // 30s in-memory cache to prevent blocking every fetch
+const TOKEN_CACHE_TTL = 10_000;
 
 if (typeof window !== 'undefined' && isSupabaseConfigured()) {
   try {
@@ -23,6 +13,11 @@ if (typeof window !== 'undefined' && isSupabaseConfigured()) {
       tokenCachedAt = Date.now();
     });
   } catch {}
+}
+
+export function clearCachedAccessToken() {
+  cachedToken = '';
+  tokenCachedAt = 0;
 }
 
 function isSameOriginApi(input: RequestInfo | URL): boolean {
@@ -36,19 +31,31 @@ function isSameOriginApi(input: RequestInfo | URL): boolean {
 }
 
 async function currentAccessToken(): Promise<string> {
-  if (!isSupabaseConfigured()) return '';
   const now = Date.now();
   if (cachedToken && (now - tokenCachedAt < TOKEN_CACHE_TTL)) {
     return cachedToken;
   }
-  try {
-    const { data } = await supabase.auth.getSession();
-    cachedToken = data.session?.access_token ?? '';
-    tokenCachedAt = now;
-    return cachedToken;
-  } catch {
-    return '';
+  if (isSupabaseConfigured()) {
+    try {
+      const { data } = await supabase.auth.getSession();
+      if (data.session?.access_token) {
+        cachedToken = data.session.access_token;
+        tokenCachedAt = now;
+        return cachedToken;
+      }
+    } catch {}
   }
+  if (typeof window !== 'undefined') {
+    try {
+      const vaultJwt = localStorage.getItem('pinit_vault_jwt') || '';
+      if (vaultJwt) {
+        cachedToken = vaultJwt;
+        tokenCachedAt = now;
+        return vaultJwt;
+      }
+    } catch {}
+  }
+  return '';
 }
 
 export function installFetchInterceptor() {

@@ -1,859 +1,306 @@
-{
-  "schemaVersion": 1,
-  "prefix": "node-web",
-  "day": 17,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
-  "entries": [
-    {
-      "partTitle": "Authentication Paradigms: Stateful vs Stateless",
-      "codeHash": "69cdbc1f70d9913fc0f164ef66bf8603547d2bf75a5f421289d4d130560b401c",
-      "spec": {
-        "template": "table",
-        "title": "Stateful sessions vs stateless tokens paradigm trade-offs",
-        "columns": [
-          "paradigm",
-          "serverStorage"
-        ],
-        "steps": [
-          {
-            "at": "say3",
-            "caption": "In stateful authentication the server maintains authoritative session state.",
-            "rows": [
-              {
-                "cells": [
-                  "Stateful Session",
-                  "Required (Redis / DB)"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Stateless Token",
-                  "None (cryptographic verify)"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "In stateless authentication the client attaches a signed token to each request.",
-            "rows": [
-              {
-                "cells": [
-                  "Stateful Session",
-                  "Required (Redis / DB)"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Stateless Token",
-                  "None (cryptographic verify)"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Each model offers trade offs for server memory scalability and revocation.",
-            "rows": [
-              {
-                "cells": [
-                  "Stateful Session",
-                  "Required (Redis / DB)"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Stateless Token",
-                  "None (cryptographic verify)"
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
+[
+  {
+    "schemaVersion": 2,
+    "partIndex": 1,
+    "codeHash": "a06b26a13cb839f28d3642f227f07328f13e67352a75ffa1de4daefd6e03ae7a",
+    "spec": {
+      "template": "flow",
+      "title": "Process Pipeline Anatomy of RFC JSON Web Tokens.",
+      "nodes": [
+        {
+          "id": "stepA",
+          "label": "Security Boundary",
+          "type": "start"
+        },
+        {
+          "id": "stepB",
+          "label": "Cryptographic Engine",
+          "type": "process"
+        },
+        {
+          "id": "stepC",
+          "label": "Validation Check",
+          "type": "process"
+        },
+        {
+          "id": "stepD",
+          "label": "Authorized Access",
+          "type": "end"
+        }
+      ],
+      "edges": [
+        {
+          "from": "stepA",
+          "to": "stepB",
+          "label": "Forward"
+        },
+        {
+          "from": "stepB",
+          "to": "stepC",
+          "label": "Verify"
+        },
+        {
+          "from": "stepC",
+          "to": "stepD",
+          "label": "Permit"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Security engine initializes defensive state across execution phase.",
+        "highlight": [
+          "stepA"
         ]
       },
-      "filled": {
-        "template": "table",
-        "title": "Stateful sessions vs stateless tokens paradigm trade-offs",
-        "columns": [
-          "paradigm",
-          "serverStorage"
-        ],
-        "steps": [
-          {
-            "at": "say3",
-            "caption": "In stateful authentication the server maintains authoritative session state.",
-            "rows": [
-              {
-                "cells": [
-                  "Stateful Session",
-                  "Required (Redis / DB)"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Stateless Token",
-                  "None (cryptographic verify)"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "In stateless authentication the client attaches a signed token to each request.",
-            "rows": [
-              {
-                "cells": [
-                  "Stateful Session",
-                  "Required (Redis / DB)"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Stateless Token",
-                  "None (cryptographic verify)"
-                ],
-                "tone": "ok"
-              }
-            ]
-          },
-          {
-            "at": "say8",
-            "caption": "Each model offers trade offs for server memory scalability and revocation.",
-            "rows": [
-              {
-                "cells": [
-                  "Stateful Session",
-                  "Required (Redis / DB)"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Stateless Token",
-                  "None (cryptographic verify)"
-                ],
-                "tone": "ok"
-              }
-            ]
-          }
+      {
+        "step": 2,
+        "caption": "Cryptographic subsystem verifies credentials with bounded latency.",
+        "highlight": [
+          "stepB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Authorization checks validate attributes against defined security rules.",
+        "highlight": [
+          "stepC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Pipeline completes safely without credential leaks or bypasses.",
+        "highlight": [
+          "stepD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 2,
+    "codeHash": "ceeec3ee7b89d0da8dcace4e856b525165b44d48fd24736efd9681903a614938",
+    "spec": {
+      "template": "boxes",
+      "title": "Architectural Partitions Symmetric HMAC vs Asymmetric RSA/ECDSA Signature.",
+      "boxes": [
+        {
+          "id": "boxA",
+          "label": "Public Perimeter"
+        },
+        {
+          "id": "boxB",
+          "label": "Identity Provider"
+        },
+        {
+          "id": "boxC",
+          "label": "Token Store"
+        },
+        {
+          "id": "boxD",
+          "label": "Internal Service"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Security engine initializes defensive state across execution phase.",
+        "highlight": [
+          "boxA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Cryptographic subsystem verifies credentials with bounded latency.",
+        "highlight": [
+          "boxB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Authorization checks validate attributes against defined security rules.",
+        "highlight": [
+          "boxC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Pipeline completes safely without credential leaks or bypasses.",
+        "highlight": [
+          "boxD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 3,
+    "codeHash": "62af950639fd4f65124658a51a07dbed21b33afce89c5216a0d481397056122b",
+    "spec": {
+      "template": "stackQueue",
+      "title": "Queue Ordering The 'None' Algorithm & Algorithm Confusion Attacks.",
+      "elements": [
+        {
+          "id": "elemA",
+          "label": "Active Token"
+        },
+        {
+          "id": "elemB",
+          "label": "Rotated Lease"
+        },
+        {
+          "id": "elemC",
+          "label": "Pending Auth"
+        },
+        {
+          "id": "elemD",
+          "label": "Revoked Session"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Security engine initializes defensive state across execution phase.",
+        "highlight": [
+          "elemA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Cryptographic subsystem verifies credentials with bounded latency.",
+        "highlight": [
+          "elemB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Authorization checks validate attributes against defined security rules.",
+        "highlight": [
+          "elemC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Pipeline completes safely without credential leaks or bypasses.",
+        "highlight": [
+          "elemD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 4,
+    "codeHash": "28049b657afecb0fa5c094b3825f298d9bc10c8c2a52dea7f623062771eb2d80",
+    "spec": {
+      "template": "sequence",
+      "title": "Sequence Coordination Distributed Key Rotation & JSON Web Key Sets (JWKS).",
+      "actors": [
+        {
+          "id": "client",
+          "label": "Client Agent"
+        },
+        {
+          "id": "gateway",
+          "label": "Security Gateway"
+        },
+        {
+          "id": "idp",
+          "label": "Identity Service"
+        },
+        {
+          "id": "vault",
+          "label": "Key Vault"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Security engine initializes defensive state across execution phase.",
+        "highlight": [
+          "elemA"
+        ]
+      },
+      {
+        "step": 2,
+        "caption": "Cryptographic subsystem verifies credentials with bounded latency.",
+        "highlight": [
+          "elemB"
+        ]
+      },
+      {
+        "step": 3,
+        "caption": "Authorization checks validate attributes against defined security rules.",
+        "highlight": [
+          "elemC"
+        ]
+      },
+      {
+        "step": 4,
+        "caption": "Pipeline completes safely without credential leaks or bypasses.",
+        "highlight": [
+          "elemD"
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "partIndex": 5,
+    "codeHash": "e10ffbefccf8d5c7c23cfbbe135865bf7433109eb0656b45db326c6faf639760",
+    "spec": {
+      "template": "compare",
+      "title": "Architectural Comparison Production JWT Signer & Verifier Engine.",
+      "left": {
+        "title": "Hardened Defense",
+        "items": [
+          "Asymmetric keys",
+          "Strict whitelists",
+          "Zero trust boundary"
+        ]
+      },
+      "right": {
+        "title": "Naive Design",
+        "items": [
+          "Shared secrets",
+          "Unchecked headers",
+          "Vulnerable surface"
         ]
       }
     },
-    {
-      "partTitle": "Session Stores, Memory Leaks & Redis Centralization",
-      "codeHash": "85167fe8cf5797d1bb8664c2a7d32b5219bba5b970e410f2aa56600eb0ac9cb4",
-      "spec": {
-        "template": "boxes",
-        "title": "Redis centralized session store entry",
-        "boxes": [
-          {
-            "id": "user",
-            "label": "userId"
-          },
-          {
-            "id": "expiry",
-            "label": "expiresAt"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Storing session objects in memory causes logouts when servers restart.",
-            "values": {
-              "user": {
-                "text": "userId"
-              },
-              "expiry": {
-                "text": "expiresAt"
-              }
-            },
-            "tones": {
-              "user": "error",
-              "expiry": "idle"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Production stateful architectures mandate a centralized Redis session store.",
-            "values": {
-              "user": {
-                "text": "userId"
-              },
-              "expiry": {
-                "text": "expiresAt"
-              }
-            },
-            "tones": {
-              "user": "data",
-              "expiry": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Redis stores keys in memory and shares session state across worker instances.",
-            "values": {
-              "user": {
-                "text": "userId"
-              },
-              "expiry": {
-                "text": "expiresAt"
-              }
-            },
-            "tones": {
-              "user": "ok",
-              "expiry": "ok"
-            }
-          }
+    "steps": [
+      {
+        "step": 1,
+        "caption": "Security engine initializes defensive state across execution phase.",
+        "highlight": [
+          "elemA"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Redis centralized session store entry",
-        "boxes": [
-          {
-            "id": "user",
-            "label": "userId"
-          },
-          {
-            "id": "expiry",
-            "label": "expiresAt"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Storing session objects in memory causes logouts when servers restart.",
-            "values": {
-              "user": "userId",
-              "expiry": "expiresAt"
-            },
-            "tones": {
-              "user": "error",
-              "expiry": "idle"
-            }
-          },
-          {
-            "at": "say5",
-            "caption": "Production stateful architectures mandate a centralized Redis session store.",
-            "values": {
-              "user": "userId",
-              "expiry": "expiresAt"
-            },
-            "tones": {
-              "user": "data",
-              "expiry": "ok"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Redis stores keys in memory and shares session state across worker instances.",
-            "values": {
-              "user": "userId",
-              "expiry": "expiresAt"
-            },
-            "tones": {
-              "user": "ok",
-              "expiry": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Hardening Session Cookies: HttpOnly, Secure & SameSite",
-      "codeHash": "4381b9bf230ce2e6b001b6a5c3c9f873b4f2e14e8b0fc2618bb3b7f8e6821717",
-      "spec": {
-        "template": "boxes",
-        "title": "Hardened session cookie attributes",
-        "boxes": [
-          {
-            "id": "name",
-            "label": "name"
-          },
-          {
-            "id": "value",
-            "label": "value"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The HttpOnly flag forbids client JavaScript from accessing session cookies.",
-            "values": {
-              "name": {
-                "text": "sid"
-              },
-              "value": {
-                "text": "sess_99018"
-              }
-            },
-            "tones": {
-              "name": "data",
-              "value": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "HttpOnly defense ensures an attacker cannot steal the session cookie.",
-            "values": {
-              "name": {
-                "text": "sid"
-              },
-              "value": {
-                "text": "sess_99018"
-              }
-            },
-            "tones": {
-              "name": "ok",
-              "value": "data"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Configuring HttpOnly Secure and SameSite hardens session cookie security.",
-            "values": {
-              "name": {
-                "text": "sid"
-              },
-              "value": {
-                "text": "sess_99018"
-              }
-            },
-            "tones": {
-              "name": "ok",
-              "value": "ok"
-            }
-          }
+      {
+        "step": 2,
+        "caption": "Cryptographic subsystem verifies credentials with bounded latency.",
+        "highlight": [
+          "elemB"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Hardened session cookie attributes",
-        "boxes": [
-          {
-            "id": "name",
-            "label": "name"
-          },
-          {
-            "id": "value",
-            "label": "value"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "The HttpOnly flag forbids client JavaScript from accessing session cookies.",
-            "values": {
-              "name": "sid",
-              "value": "sess_99018"
-            },
-            "tones": {
-              "name": "data",
-              "value": "idle"
-            }
-          },
-          {
-            "at": "say3",
-            "caption": "HttpOnly defense ensures an attacker cannot steal the session cookie.",
-            "values": {
-              "name": "sid",
-              "value": "sess_99018"
-            },
-            "tones": {
-              "name": "ok",
-              "value": "data"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Configuring HttpOnly Secure and SameSite hardens session cookie security.",
-            "values": {
-              "name": "sid",
-              "value": "sess_99018"
-            },
-            "tones": {
-              "name": "ok",
-              "value": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Stateless Bearer Tokens via the Authorization Header",
-      "codeHash": "850b8deae6f60fd221b9941d4f9669fbc95dedb5a401456d72b1febc8e05a562",
-      "spec": {
-        "template": "boxes",
-        "title": "Bearer token authorization header parser",
-        "boxes": [
-          {
-            "id": "auth",
-            "label": "authHeader"
-          },
-          {
-            "id": "fn",
-            "label": "extractBearerToken"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say3",
-            "caption": "Clients attach bearer tokens inside the HTTP Authorization request header.",
-            "values": {
-              "auth": {
-                "text": "Bearer "
-              },
-              "fn": {
-                "text": "extractBearerToken"
-              }
-            },
-            "tones": {
-              "auth": "data",
-              "fn": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "The server middleware extracts the token and verifies the signature.",
-            "values": {
-              "auth": {
-                "text": "Bearer "
-              },
-              "fn": {
-                "text": "extractBearerToken"
-              }
-            },
-            "tones": {
-              "auth": "data",
-              "fn": "data"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Decoded tokens provide user claims without needing database session queries.",
-            "values": {
-              "auth": {
-                "text": "Bearer "
-              },
-              "fn": {
-                "text": "extractBearerToken"
-              }
-            },
-            "tones": {
-              "auth": "ok",
-              "fn": "ok"
-            }
-          }
+      {
+        "step": 3,
+        "caption": "Authorization checks validate attributes against defined security rules.",
+        "highlight": [
+          "elemC"
         ]
       },
-      "filled": {
-        "template": "boxes",
-        "title": "Bearer token authorization header parser",
-        "boxes": [
-          {
-            "id": "auth",
-            "label": "authHeader"
-          },
-          {
-            "id": "fn",
-            "label": "extractBearerToken"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say3",
-            "caption": "Clients attach bearer tokens inside the HTTP Authorization request header.",
-            "values": {
-              "auth": "Bearer ",
-              "fn": "extractBearerToken"
-            },
-            "tones": {
-              "auth": "data",
-              "fn": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "The server middleware extracts the token and verifies the signature.",
-            "values": {
-              "auth": "Bearer ",
-              "fn": "extractBearerToken"
-            },
-            "tones": {
-              "auth": "data",
-              "fn": "data"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Decoded tokens provide user claims without needing database session queries.",
-            "values": {
-              "auth": "Bearer ",
-              "fn": "extractBearerToken"
-            },
-            "tones": {
-              "auth": "ok",
-              "fn": "ok"
-            }
-          }
+      {
+        "step": 4,
+        "caption": "Pipeline completes safely without credential leaks or bypasses.",
+        "highlight": [
+          "elemD"
         ]
       }
-    },
-    {
-      "partTitle": "Token Revocation, Blocklists & The Instant-Logout Dilemma",
-      "codeHash": "acc508d1e7cbd9a69337d56b5d56eaf02c14fbe44319be874b7539ef711492d1",
-      "spec": {
-        "template": "boxes",
-        "title": "Token blocklist revocation store",
-        "boxes": [
-          {
-            "id": "tok",
-            "label": "tokenId"
-          },
-          {
-            "id": "check",
-            "label": "isRevoked"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say3",
-            "caption": "Stateless tokens remain valid until expiration making revocation difficult.",
-            "values": {
-              "tok": {
-                "text": "tok_compromised_42"
-              },
-              "check": {
-                "text": "isRevoked"
-              }
-            },
-            "tones": {
-              "tok": "data",
-              "check": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Architectures maintain token blocklists backed by high speed Redis caches.",
-            "values": {
-              "tok": {
-                "text": "tok_compromised_42"
-              },
-              "check": {
-                "text": "isRevoked"
-              }
-            },
-            "tones": {
-              "tok": "error",
-              "check": "data"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Short lived access tokens reduce the vulnerability window if keys leak.",
-            "values": {
-              "tok": {
-                "text": "tok_compromised_42"
-              },
-              "check": {
-                "text": "isRevoked"
-              }
-            },
-            "tones": {
-              "tok": "ok",
-              "check": "ok"
-            }
-          }
-        ]
-      },
-      "filled": {
-        "template": "boxes",
-        "title": "Token blocklist revocation store",
-        "boxes": [
-          {
-            "id": "tok",
-            "label": "tokenId"
-          },
-          {
-            "id": "check",
-            "label": "isRevoked"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say3",
-            "caption": "Stateless tokens remain valid until expiration making revocation difficult.",
-            "values": {
-              "tok": "tok_compromised_42",
-              "check": "isRevoked"
-            },
-            "tones": {
-              "tok": "data",
-              "check": "idle"
-            }
-          },
-          {
-            "at": "say4",
-            "caption": "Architectures maintain token blocklists backed by high speed Redis caches.",
-            "values": {
-              "tok": "tok_compromised_42",
-              "check": "isRevoked"
-            },
-            "tones": {
-              "tok": "error",
-              "check": "data"
-            }
-          },
-          {
-            "at": "say8",
-            "caption": "Short lived access tokens reduce the vulnerability window if keys leak.",
-            "values": {
-              "tok": "tok_compromised_42",
-              "check": "isRevoked"
-            },
-            "tones": {
-              "tok": "ok",
-              "check": "ok"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Designing a Unified Authentication Strategy Matrix",
-      "codeHash": "10bee2d0992066a06c59a313689b73989cf59b106f55dffc4294503e22fe0cc4",
-      "spec": {
-        "template": "flow",
-        "title": "Designing a Unified Authentication Strategy M... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Designing a Unified...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Designing a Unified Authentication Strat.. [D17.P6.S1].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Designing a Unified... [D17.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D17.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Designing a Unified Authenticatio.. [D17.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Designing a Unified Authentication Strategy M... — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Designing a Unified...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Designing a Unified Authentication Strat.. [D17.P6.S1].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Execute core transformation in Designing a Unified... [D17.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D17.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Designing a Unified Authenticatio.. [D17.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          }
-        ]
-      }
-    }
-  ]
-}
+    ]
+  }
+]

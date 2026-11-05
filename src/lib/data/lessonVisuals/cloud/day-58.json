@@ -6,7 +6,7 @@
     {
       "partIndex": 1,
       "partTitle": "Serverless API Ingress: REST vs HTTP vs WebSocket Gateway Architectures",
-      "codeHash": "3c154bc5d9222c71a27ae8ca2d895b681360b411ac52f94155510de2f1a67a85",
+      "codeHash": "c9f5c6cd5c86ce215490d74632e4381d55931886ee51f5caa62cb9b7a869d909",
       "spec": {
         "template": "compare",
         "left": {
@@ -54,7 +54,7 @@
     {
       "partIndex": 2,
       "partTitle": "Ingress Governance: Token Bucket Throttling, Usage Plans & Lambda Authorizers",
-      "codeHash": "728802f63e67396d12723cc04fb7174ecc5aedd6f8e3dfccbd2747a7f018f6e0",
+      "codeHash": "534a9b99ffb0c5f134bf5e416237aa49ab8022822c39ed2e9240dee8340aba84",
       "spec": {
         "template": "compare",
         "left": {
@@ -102,7 +102,7 @@
     {
       "partIndex": 3,
       "partTitle": "Managed GraphQL: AWS AppSync Schema Directives, Pipeline & JS Resolvers",
-      "codeHash": "9132f14229ccd23ef0a7a6484c78551f8b6149074ad2751306d70b93604ba09e",
+      "codeHash": "0f10af03e37fda3ae5190f18a3dac9399414ff87518127eec7d86af4c1fcba90",
       "spec": {
         "template": "compare",
         "left": {
@@ -150,7 +150,7 @@
     {
       "partIndex": 4,
       "partTitle": "Real-Time Ingress: API Gateway WebSockets & Managed AppSync Subscriptions",
-      "codeHash": "f13572b4f482b8d7de15119e20ac66fa1ef5d81e2244aea8789fff9df9e31ade",
+      "codeHash": "9616171e80c64e2443ada3b620f25d952af59ea3ff2a09664df2102b084b1e30",
       "spec": {
         "template": "compare",
         "left": {
@@ -198,7 +198,7 @@
     {
       "partIndex": 5,
       "partTitle": "Enterprise Ingress Synthesis: Unified REST, GraphQL & WebSocket Edge Tier",
-      "codeHash": "3f60904b938b6f677a792c6e80d57f00ca348069f4a09b57a3f4b88cdc2501dc",
+      "codeHash": "9e573749d99da94d47eb0748f2107414b52aa4a2c242d7ea84ca46ab509f979a",
       "spec": {
         "template": "compare",
         "left": {

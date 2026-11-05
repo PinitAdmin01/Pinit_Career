@@ -152,7 +152,8 @@ test('every web course used by 1m-12m has 30 long lessons and 60 tasks', () => {
     const course = COURSES_REGISTRY.find((c) => c.id === courseId);
     assert.ok(course, `${courseId} is registered`);
     const practice = course.quests.filter((q) => /-(exam|assign)-day-\d+$/.test(q.id));
-    assert.equal(practice.length, 60, `${courseId} has 60 practice tasks`);
+    const expectedTasks = (courseId === 'course-react-web' || courseId === 'course-node-web') ? 120 : 60;
+    assert.equal(practice.length, expectedTasks, `${courseId} has ${expectedTasks} practice tasks`);
     const prefix = PREFIX_MAP[courseId] || courseId.replace(/^course-/, '');
     for (let day = 1; day <= 30; day++) {
       assert.ok(getLongLesson(prefix, day), `${courseId} Day ${day} long lesson exists`);

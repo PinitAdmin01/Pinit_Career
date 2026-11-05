@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { crashCourseEnrollmentService, CrashCourseEnrollment } from '@/lib/services/crashCourseEnrollmentService';
 import { CRASH_COURSE_PLANS } from '@/lib/data/crashPlansData';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
-import { COURSES_REGISTRY } from '@/lib/data/coursesData';
+// Lazy-loaded on demand: import('@/lib/data/coursesData')
 import { getCrashCourseProgress } from '@/lib/courses/crashCourseProgress';
 
 const TIMELINE_STYLES = `
@@ -105,9 +105,10 @@ export default function CareerCourseProgressBar() {
     return idx !== -1 ? idx : milestones.length - 1;
   }, [milestones, currentIncompleteDay, isAllComplete]);
 
-  const handleResumeDay = () => {
+  const handleResumeDay = async () => {
     if (plan && enrollment) {
       try {
+        const { COURSES_REGISTRY } = await import('@/lib/data/coursesData');
         const prog = getCrashCourseProgress(plan, enrollment.track, COURSES_REGISTRY, completedQuests, enrollment);
         if (prog.next?.questId) {
           router.push(`/quests/lesson?questId=${encodeURIComponent(prog.next.questId)}`);

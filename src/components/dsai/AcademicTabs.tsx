@@ -11,10 +11,10 @@ import { inboxSyncService } from '@/lib/chat/inboxSyncService';
 async function fetchAcademicData(collection: string) {
   try {
     const routeMap: Record<string, string> = {
-      'exam_results': '/api/exams/results',
-      'exam_schedule': '/api/exams/schedule',
-      'notifications': '/api/notifications',
-      'news': '/api/news'
+      'exam_results': '/api/exams/student-results',
+      'exam_schedule': '/api/exams/student-schedule',
+      'news': '/api/notifications',
+      'notifications': '/api/notifications'
     };
     if (routeMap[collection]) {
       const res: any = await api.get(routeMap[collection]);
@@ -324,7 +324,7 @@ export function NotesTab({ student }: any) {
 
   const load = useCallback(async () => {
     try {
-      const data = await api.get<any>(`/api/notes/stats?batch=${student.batch || 'CSE-2026'}`);
+      const data = await api.get<any>(`/api/notes?batch=${student.batch || 'CSE-2026'}`);
       setNotes(data.notes || []);
     } catch {
       // Fallback

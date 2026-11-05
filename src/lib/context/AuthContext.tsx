@@ -267,7 +267,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       });
       if (res.ok) {
         const data = await res.json();
-        if (data.token) serverToken = data.token;
+        if (data.token) {
+          serverToken = data.token;
+          if (typeof window !== 'undefined') {
+            try { localStorage.setItem('pinit_vault_jwt', data.token); } catch {}
+          }
+        }
         if (data.user) {
           authoritativeUser = data.user;
           role = data.user.role || role;
@@ -329,7 +334,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   // Defect 003: Sync session with server via HttpOnly cookies endpoint instead of client document.cookie
   useEffect(() => {
+    if (loading) return;
     if (user) {
+      if (typeof window !== 'undefined' && !localStorage.getItem('pinit_vault_jwt')) {
+        fetch('/api/auth/vault-exchange', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userPayload: user }),
+        })
+          .then(r => (r.ok ? r.json() : null))
+          .then(d => {
+            if (d?.token) localStorage.setItem('pinit_vault_jwt', d.token);
+          })
+          .catch(() => {});
+      }
       fetch('/api/auth/session', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -352,7 +370,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       document.cookie = "pinit_role=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
       document.cookie = "pinit_uid=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
     }
-  }, [user]);
+  }, [user, loading]);
 
   // Defect 004: Multi-tab session synchronization listener
   useEffect(() => {
