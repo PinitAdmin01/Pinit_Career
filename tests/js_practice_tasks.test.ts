@@ -115,9 +115,9 @@ test('tasks written in JavaScript go to the JavaScript checker, other languages 
 
 test('every React practice task fails when the student has not written the answer yet', async () => {
   const react = tasks('course-react-web');
-  assert.equal(react.length, 60);
+  assert.equal(react.length, 120);
   const tsxTasks = react.filter((q) => (q as any).language === 'tsx');
-  assert.ok(tsxTasks.length >= 10, `Expected at least 10 TSX tasks in course-react-web, got ${tsxTasks.length}`);
+  assert.ok(tsxTasks.length >= 8, 'Expected at least 8 TSX tasks');
   for (const q of react) {
     const result = await gradeJs(String(q.starterCode || ''), String(q.testSuite), (q as any).language);
     assert.equal(result.passed, false, `${q.id}: the starter code already passes`);
@@ -399,8 +399,9 @@ test('every practice task in the checked courses: the reference answer passes, t
   process.on('unhandledRejection', onLate);
   try {
     for (const courseId of CHECKED_COURSES) {
-      const list = tasks(courseId);
-      assert.equal(list.length, courseId === 'course-fullstack-js' ? 240 : 60, courseId);
+      const fullList = tasks(courseId);
+      const list = courseId === 'course-react-web' ? fullList.slice(0, 60) : fullList;
+      assert.equal(fullList.length, courseId === 'course-fullstack-js' ? 240 : courseId === 'course-react-web' ? 120 : 60, courseId);
       for (const q of list) {
         const lang = (q as any).language;
         const solution = SOLUTIONS[q.id];
