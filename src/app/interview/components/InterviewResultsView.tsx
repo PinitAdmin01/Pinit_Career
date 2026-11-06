@@ -167,6 +167,50 @@ export const InterviewResultsView: React.FC<InterviewResultsViewProps> = ({
         </div>
       </div>
 
+      {evaluationResult?.answerQuality && (
+        <div className="iv-panel" style={{ padding: 20 }}>
+          <div style={{ marginBottom: 14 }}>
+            <h3 style={{ fontSize: 14.5, fontWeight: 900, margin: 0, color: 'var(--t1)', textTransform: 'uppercase', letterSpacing: 0.5 }}>
+              How Your Answers Were Assessed
+            </h3>
+            <p style={{ fontSize: 12, color: 'var(--t3)', margin: '5px 0 0' }}>
+              Scores reflect your responses to the questions—not speaking style or answer length.
+            </p>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 10 }}>
+            {[
+              ['questionRelevance', 'Answered the question'],
+              ['answerAccuracy', 'Accuracy'],
+              ['reasoningDepth', 'Reasoning'],
+              ['conclusionQuality', 'Conclusion'],
+            ].map(([key, label]) => {
+              const score = evaluationResult.answerQuality[key];
+              if (typeof score !== 'number') return null;
+              return (
+                <div key={key} style={{ padding: 10, borderRadius: 8, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', gap: 8, fontSize: 11, color: 'var(--t2)', marginBottom: 6 }}>
+                    <span>{label}</span><strong>{score}%</strong>
+                  </div>
+                  <div style={{ height: 5, background: 'var(--bg2)', borderRadius: 4, overflow: 'hidden' }}>
+                    <div style={{ height: '100%', width: `${Math.max(0, Math.min(100, score))}%`, background: 'var(--accent)', borderRadius: 4 }} />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          {Array.isArray(evaluationResult.answerQuality.evidence) && evaluationResult.answerQuality.evidence.length > 0 && (
+            <div style={{ display: 'grid', gap: 8, marginTop: 14 }}>
+              {evaluationResult.answerQuality.evidence.map((item: any, index: number) => (
+                <div key={`${item.dimension}-${index}`} style={{ padding: '9px 12px', borderLeft: '3px solid var(--accent)', background: 'var(--bg3)', borderRadius: '0 8px 8px 0' }}>
+                  <blockquote style={{ margin: 0, color: 'var(--t1)', fontSize: 12, fontStyle: 'italic' }}>“{item.quote}”</blockquote>
+                  <p style={{ margin: '5px 0 0', color: 'var(--t3)', fontSize: 11 }}>{item.assessment}</p>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
       {/* Coaching & Diagnostics Cards */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
         <div className="iv-panel" style={{ padding: 18 }}>
