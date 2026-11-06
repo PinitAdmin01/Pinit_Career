@@ -51,7 +51,7 @@ export const BCOM_ACCOUNTING_30_DAYS_CONFIGS: DayConfig[] = [
       "Compound Entries: Transactions with multiple debits and/or credits (e.g. Sales with GST).",
       "Narration Integrity: Clear legal and contextual description of the transaction."
     ],
-    "eTitle": "Two-Sided Compound Journal Entry Balancer",
+    "eTitle": "Two-Sided Compound Journal Entry Balancer (Advanced Cost Accounting)",
     "eDesc": "Implement function `validateJournalEntry(debitLines, creditLines)` calculating total debits and credits and verifying two-sided equilibrium.",
     "eStarter": "function validateJournalEntry(debits, credits) {\n  // TODO: Sum debit lines and credit lines to verify two-sided accounting equilibrium\n  \n}",
     "eHint": "Sum debits with reduce((s, d) => s + d.amount, 0), sum credits similarly; check Math.abs(sumDebits - sumCredits) < 0.01 and return status object.",

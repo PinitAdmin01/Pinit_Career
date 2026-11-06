@@ -1,0 +1,1339 @@
+{
+  "schemaVersion": 1,
+  "prefix": "cyber-py",
+  "day": 52,
+  "promptSha": "c936b9aa3d5b43379038fd0d3fa968840f1f3f4a8bdf66dc1117eeae5048ceb8",
+  "model": "gate-v2-verified",
+  "entries": [
+    {
+      "partTitle": "YARA-Style Byte Signature Matching & File Magic Header Verification — Foundations & Mathematical Invariants",
+      "codeHash": "28c5bf9ceab0b165a29dbd2f5674382e85284d623058efaf4e09eea3b04a2d26",
+      "spec": {
+        "template": "flow",
+        "title": "YARA-Style Byte Signature Matching & File Magic Header Verification — ",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "YARA-Style Byte Signature Matching & File Magic Header Verification — ",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "YARA-Style Byte Signature Matching & File Magic Header Verification — Core Algorithm & State Representation",
+      "codeHash": "5055a9489abd11c9052d1ea7831cf98dd8dc1eba5b54f6de3286503224ad5b84",
+      "spec": {
+        "template": "flow",
+        "title": "YARA-Style Byte Signature Matching & File Magic Header Verification — ",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "YARA-Style Byte Signature Matching & File Magic Header Verification — ",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "YARA-Style Byte Signature Matching & File Magic Header Verification — Throughput Optimization & Edge-Case Handling",
+      "codeHash": "ffdc6c57ad5af09a732bc90dde1bb85f1ec8fd64c48a1f45604a62bb616ed583",
+      "spec": {
+        "template": "flow",
+        "title": "YARA-Style Byte Signature Matching & File Magic Header Verification — ",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "YARA-Style Byte Signature Matching & File Magic Header Verification — ",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "YARA-Style Byte Signature Matching & File Magic Header Verification — Resilience Guardrails & Failure Recovery",
+      "codeHash": "57bb71fd3cad42c8e00ce205dca4db6691d9f8130ae3c32b1b375b0cc0ba4da2",
+      "spec": {
+        "template": "flow",
+        "title": "YARA-Style Byte Signature Matching & File Magic Header Verification — ",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "YARA-Style Byte Signature Matching & File Magic Header Verification — ",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "YARA-Style Byte Signature Matching & File Magic Header Verification — Production Telemetry & Verification Audit",
+      "codeHash": "7adf55a42a4052d42d18c097e9ef390289459c4c180c697c36e5b987803431a5",
+      "spec": {
+        "template": "flow",
+        "title": "YARA-Style Byte Signature Matching & File Magic Header Verification — ",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "YARA-Style Byte Signature Matching & File Magic Header Verification — ",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

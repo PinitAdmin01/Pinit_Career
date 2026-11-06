@@ -1,0 +1,1339 @@
+{
+  "schemaVersion": 1,
+  "prefix": "safe-py",
+  "day": 54,
+  "promptSha": "9c4413ad7863d695f570f3fd75b89ce7a878e44ee22faaaa67a4e9b0cc7ef834",
+  "model": "gate-v2-verified",
+  "entries": [
+    {
+      "partTitle": "Training Data Hygiene — Foundations & Mathematical Invariants",
+      "codeHash": "b5e69bba094576239d354fb94cd47705bae4b50b8f1282383926be8c7919805e",
+      "spec": {
+        "template": "flow",
+        "title": "Training Data Hygiene — Foundations & Mathematical Invariants",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Training Data Hygiene — Foundations & Mathematical Invariants",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Training Data Hygiene — Core Algorithm & State Representation",
+      "codeHash": "540d82b452b6d5e416d7527a93b0f74b4022b6fa0212f684f1468504ed587c29",
+      "spec": {
+        "template": "flow",
+        "title": "Training Data Hygiene — Core Algorithm & State Representation",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Training Data Hygiene — Core Algorithm & State Representation",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Training Data Hygiene — Throughput Optimization & Edge-Case Handling",
+      "codeHash": "c34f62c7cfea03446d83cc2d5d0425c8b87e0c52124e335face6fdb9c653a8a6",
+      "spec": {
+        "template": "flow",
+        "title": "Training Data Hygiene — Throughput Optimization & Edge-Case Handling",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Training Data Hygiene — Throughput Optimization & Edge-Case Handling",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Training Data Hygiene — Resilience Guardrails & Failure Recovery",
+      "codeHash": "edfbf89faaf4f713e3e788e3df127c5292bbb10b5a1d3094509f87774999e789",
+      "spec": {
+        "template": "flow",
+        "title": "Training Data Hygiene — Resilience Guardrails & Failure Recovery",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Training Data Hygiene — Resilience Guardrails & Failure Recovery",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Training Data Hygiene — Production Telemetry & Verification Audit",
+      "codeHash": "1d90ce51a76cd7e4603d93f5211ca7f05c9b00c3ee027e08e8d9aea0c6217f52",
+      "spec": {
+        "template": "flow",
+        "title": "Training Data Hygiene — Production Telemetry & Verification Audit",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Training Data Hygiene — Production Telemetry & Verification Audit",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

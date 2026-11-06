@@ -1,0 +1,1339 @@
+{
+  "schemaVersion": 1,
+  "prefix": "cloud-py",
+  "day": 41,
+  "promptSha": "af08cdd9610ef5eca296e62c97b2bacc9fdc81642f15fcdf3edcdfbd3216bf3c",
+  "model": "gate-v2-verified",
+  "entries": [
+    {
+      "partTitle": "Serverless Cold-Start Optimization, Provisioned Concurrency & SnapStart Economics — Foundations & Mathematical Invariants",
+      "codeHash": "12158327bcf2a5ff06850c548dc0f26d07b840b606e0a6248170467ffbd9d171",
+      "spec": {
+        "template": "flow",
+        "title": "Serverless Cold-Start Optimization, Provisioned Concurrency & SnapStar",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Serverless Cold-Start Optimization, Provisioned Concurrency & SnapStar",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Serverless Cold-Start Optimization, Provisioned Concurrency & SnapStart Economics — Core Algorithm & State Representation",
+      "codeHash": "8ce07651d10604b828e12be9742b7a600ac536b9469720b3d169bb16b205c9b7",
+      "spec": {
+        "template": "flow",
+        "title": "Serverless Cold-Start Optimization, Provisioned Concurrency & SnapStar",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Serverless Cold-Start Optimization, Provisioned Concurrency & SnapStar",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Serverless Cold-Start Optimization, Provisioned Concurrency & SnapStart Economics — Throughput Optimization & Edge-Case Handling",
+      "codeHash": "49c0322bb4191bac5acf857af2642287c2d590c1f3922457858972dc6efb8c44",
+      "spec": {
+        "template": "flow",
+        "title": "Serverless Cold-Start Optimization, Provisioned Concurrency & SnapStar",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Serverless Cold-Start Optimization, Provisioned Concurrency & SnapStar",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Serverless Cold-Start Optimization, Provisioned Concurrency & SnapStart Economics — Resilience Guardrails & Failure Recovery",
+      "codeHash": "78e95b8fc58701876ac9d2a346c1d86193bb97c25c024fe35437fc2da80b9f76",
+      "spec": {
+        "template": "flow",
+        "title": "Serverless Cold-Start Optimization, Provisioned Concurrency & SnapStar",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Serverless Cold-Start Optimization, Provisioned Concurrency & SnapStar",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Serverless Cold-Start Optimization, Provisioned Concurrency & SnapStart Economics — Production Telemetry & Verification Audit",
+      "codeHash": "5926f93cf81e04443c937f97958f70b4dde958b4a0d8afa011a0ab0b118b2772",
+      "spec": {
+        "template": "flow",
+        "title": "Serverless Cold-Start Optimization, Provisioned Concurrency & SnapStar",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Serverless Cold-Start Optimization, Provisioned Concurrency & SnapStar",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

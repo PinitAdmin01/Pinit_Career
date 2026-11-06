@@ -1,0 +1,1339 @@
+{
+  "schemaVersion": 1,
+  "prefix": "sre-web",
+  "day": 32,
+  "promptSha": "f3eb1da23f8ce9d1535a9489f43954f259dcdc64ffbd7c5dfd9586a4085b304d",
+  "model": "gate-v2-verified",
+  "entries": [
+    {
+      "partTitle": "Composite Service SLOs — Foundations & Mathematical Invariants",
+      "codeHash": "03c44c438df17cbfc0ec7e8880ecf0210af73c8b178e6934c0928a075a33ddbb",
+      "spec": {
+        "template": "flow",
+        "title": "Composite Service SLOs — Foundations & Mathematical Invariants",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Composite Service SLOs — Foundations & Mathematical Invariants",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Composite Service SLOs — Core Algorithm & State Representation",
+      "codeHash": "43fa4d17edb36d6a4d1368bbf82c37f08d53e74cf76a19ada022f120e0826674",
+      "spec": {
+        "template": "flow",
+        "title": "Composite Service SLOs — Core Algorithm & State Representation",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Composite Service SLOs — Core Algorithm & State Representation",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Composite Service SLOs — Throughput Optimization & Edge-Case Handling",
+      "codeHash": "ef0ac0cd8aa22b0329d1e3565f808bc6dd073f0d847d6f511c2ff99a780e970e",
+      "spec": {
+        "template": "flow",
+        "title": "Composite Service SLOs — Throughput Optimization & Edge-Case Handling",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Composite Service SLOs — Throughput Optimization & Edge-Case Handling",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Composite Service SLOs — Resilience Guardrails & Failure Recovery",
+      "codeHash": "b8fd55fa66274aafbee2e2babd943c76dc45ce99147865be0476c7620cc19b1e",
+      "spec": {
+        "template": "flow",
+        "title": "Composite Service SLOs — Resilience Guardrails & Failure Recovery",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Composite Service SLOs — Resilience Guardrails & Failure Recovery",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Composite Service SLOs — Production Telemetry & Verification Audit",
+      "codeHash": "8aa61696e85da2e89caa96ed5a2cbde1fbd8ae45c6fe97d4151ff1dc5f79c209",
+      "spec": {
+        "template": "flow",
+        "title": "Composite Service SLOs — Production Telemetry & Verification Audit",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Composite Service SLOs — Production Telemetry & Verification Audit",
+        "nodes": [
+          {
+            "id": "input",
+            "label": "Input Stream"
+          },
+          {
+            "id": "core",
+            "label": "Core Engine"
+          },
+          {
+            "id": "verify",
+            "label": "Safety Gate"
+          },
+          {
+            "id": "out",
+            "label": "Verified Output"
+          }
+        ],
+        "edges": [
+          {
+            "from": "input",
+            "to": "core",
+            "label": "ingest"
+          },
+          {
+            "from": "core",
+            "to": "verify",
+            "label": "evaluate"
+          },
+          {
+            "from": "verify",
+            "to": "out",
+            "label": "commit"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Incoming parameters enter the validation pipeline.",
+            "activeNodes": [
+              "input",
+              "core"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "active"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "idle"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say4",
+            "caption": "The core engine evaluates thresholds and safety invariants.",
+            "activeNodes": [
+              "core",
+              "verify"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "active"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "active"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Verified telemetry and status flags are emitted downstream.",
+            "activeNodes": [
+              "verify",
+              "out"
+            ],
+            "nodes": [
+              {
+                "id": "input",
+                "label": "Input Stream",
+                "tone": "done"
+              },
+              {
+                "id": "core",
+                "label": "Core Engine",
+                "tone": "done"
+              },
+              {
+                "id": "verify",
+                "label": "Safety Gate",
+                "tone": "done"
+              },
+              {
+                "id": "out",
+                "label": "Verified Output",
+                "tone": "active"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

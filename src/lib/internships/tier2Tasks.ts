@@ -96,6 +96,48 @@ export const TIER2_WEB_TASK_SPECS: Tier2TaskSpec[] = [
  * 2 tasks per week (1 Python/TSX/TS, 1 SQL) across 4 weekly sprints.
  * Week 1 Task 1 is open; subsequent tasks are locked.
  */
+
+export const TIER2_SYSTEMS_IOT_TASK_SPECS: Tier2TaskSpec[] = [
+  { seq: 1, week: 1, kind: 'sensor_frame_validation', language: 'python' },
+  { seq: 2, week: 1, kind: 'query_filter', language: 'sql' },
+  { seq: 3, week: 2, kind: 'ring_buffer_scheduler', language: 'python' },
+  { seq: 4, week: 2, kind: 'multi_table_join', language: 'sql' },
+  { seq: 5, week: 3, kind: 'mqtt_topic_triage', language: 'python' },
+  { seq: 6, week: 3, kind: 'subquery_filter', language: 'sql' },
+  { seq: 7, week: 4, kind: 'ota_manifest_audit', language: 'python' },
+  { seq: 8, week: 4, kind: 'revenue_report', language: 'sql' },
+];
+
+export const TIER2_CYBER_TASK_SPECS: Tier2TaskSpec[] = [
+  { seq: 1, week: 1, kind: 'token_validation', language: 'python' },
+  { seq: 2, week: 1, kind: 'query_filter', language: 'sql' },
+  { seq: 3, week: 2, kind: 'rate_limit_guard', language: 'python' },
+  { seq: 4, week: 2, kind: 'multi_table_join', language: 'sql' },
+  { seq: 5, week: 3, kind: 'siem_alert_triage', language: 'python' },
+  { seq: 6, week: 3, kind: 'subquery_filter', language: 'sql' },
+  { seq: 7, week: 4, kind: 'audit_log_verifier', language: 'python' },
+  { seq: 8, week: 4, kind: 'revenue_report', language: 'sql' },
+];
+
+export const TIER2_COMMERCE_TASK_SPECS: Tier2TaskSpec[] = [
+  { seq: 1, week: 1, kind: 'voucher_validation', language: 'python' },
+  { seq: 2, week: 1, kind: 'query_filter', language: 'sql' },
+  { seq: 3, week: 2, kind: 'working_capital_calc', language: 'python' },
+  { seq: 4, week: 2, kind: 'multi_table_join', language: 'sql' },
+  { seq: 5, week: 3, kind: 'receivables_aging_triage', language: 'python' },
+  { seq: 6, week: 3, kind: 'subquery_filter', language: 'sql' },
+  { seq: 7, week: 4, kind: 'ledger_audit', language: 'python' },
+  { seq: 8, week: 4, kind: 'revenue_report', language: 'sql' },
+];
+
+export const TIER2_TRACK_SPECS: Record<string, Tier2TaskSpec[]> = {
+  python_ai: TIER2_TASK_SPECS,
+  web_fullstack: TIER2_WEB_TASK_SPECS,
+  systems_iot: TIER2_SYSTEMS_IOT_TASK_SPECS,
+  cybersecurity: TIER2_CYBER_TASK_SPECS,
+  commerce_erp: TIER2_COMMERCE_TASK_SPECS,
+};
+
 export async function generateTier2MemberTasks(opts: {
   enrollmentId: string;
   studentId: string;
@@ -110,7 +152,7 @@ export async function generateTier2MemberTasks(opts: {
   const admin = getSupabaseAdmin();
   const getStoryId = (idx: number) => (opts.stories[idx % opts.stories.length]?.id || `US-0${idx + 1}`);
 
-  const specs = isWeb ? TIER2_WEB_TASK_SPECS : TIER2_TASK_SPECS;
+  const specs = (opts.track && TIER2_TRACK_SPECS[opts.track]) ? TIER2_TRACK_SPECS[opts.track] : (isWeb ? TIER2_WEB_TASK_SPECS : TIER2_TASK_SPECS);
   const tasksToInsert: Tier2TaskItem[] = [];
 
   for (let i = 0; i < specs.length; i++) {

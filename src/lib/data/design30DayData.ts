@@ -161,7 +161,7 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "<form>\n  <!-- Provide accessible labeled input -->\n</form>",
     "eHint": "Connect label and input with for/id attributes.",
     "eTest": "assertInputsHaveLabels(html);\nconst labels = queryAll(html, 'label');\nconst inputs = queryAll(html, 'input');\nif (labels.length < 1 || inputs.length < 1) throw new Error('At least 1 label and 1 input required');\nif (attr(inputs[0], 'type') !== 'email') throw new Error('Input must be type=email');",
-    "aTitle": "FormField Component TSX",
+    "aTitle": "FormField Component TSX (Form Controls, Inputs & Validation States)",
     "aDesc": "Implement component `export function FormField({ id, label, error, defaultValue }: any)` connecting label and input via `htmlFor`/`id`, setting `aria-invalid`, and rendering error message with `role=\"alert\"`.",
     "aStarter": "export function FormField(props: any) {\n  // Return label, input, error message\n  return null;\n}",
     "aHint": "Render label with htmlFor, input with id, and conditional error with role=\"alert\".",
@@ -283,7 +283,7 @@ export const DESIGN_30_DAYS_CONFIGS: DayConfig[] = [
       "Practical Applications: Component architectures, layout formulas, and interactive states.",
       "Production Best Practices: Accessibility benchmarks, performance profiling, and design system governance."
     ],
-    "eTitle": "AlertBanner Component TSX",
+    "eTitle": "AlertBanner Component TSX (Toast Notifications & Global Alert Banners)",
     "eDesc": "Implement component `export function AlertBanner({ type = \"info\", title, message }: any)` with `role=\"alert\"` and `className={`alert alert-${type}`}`.",
     "eStarter": "export function AlertBanner(props: any) {\n  return null;\n}",
     "eHint": "Render alert with role=\"alert\" and alert-${type} class.",

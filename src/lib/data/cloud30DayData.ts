@@ -116,7 +116,7 @@ export const CLOUD_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function evaluateIamPermission(statements, req) {\n  // TODO: Check for explicit Deny matches first, then check for Allow matches, defaulting to Implicit Deny\n  \n}",
     "eHint": "Iterate statements: if any matching statement has effect 'Deny' return 'DENY'; if any matches with 'Allow' return 'ALLOW'; otherwise default to 'DENY'.",
     "eTest": "const statements = [\n  { effect: 'Allow', action: 's3:GetObject', resource: 'arn:aws:s3:::my-bucket/*' },\n  { effect: 'Deny', action: 's3:GetObject', resource: 'arn:aws:s3:::my-bucket/confidential/*' }\n];\nif (evaluateIamPermission(statements, { action: 's3:GetObject', resource: 'arn:aws:s3:::my-bucket/photo.jpg' }) !== 'ALLOW') throw new Error('Photo read should be allowed');\nif (evaluateIamPermission(statements, { action: 's3:GetObject', resource: 'arn:aws:s3:::my-bucket/confidential/keys.txt' }) !== 'DENY') throw new Error('Explicit Deny failed to override Allow');\nif (evaluateIamPermission(statements, { action: 'sqs:SendMessage', resource: 'arn:aws:sqs:::queue' }) !== 'DENY') throw new Error('Implicit deny failed for unlisted action');",
-    "aTitle": "ARN String Parser",
+    "aTitle": "ARN String Parser (IAM Role Least-Privilege, Policies & Principal Trust)",
     "aDesc": "Implement function `parseArn(arnString)` extracting service, region, accountId, and resource path components.",
     "aStarter": "function parseArn(arn) {\n  // TODO: Split ARN by colon delimiter and map to { partition, service, region, account, resource }\n  \n}",
     "aHint": "Split string by ':'; parts[2] is service, parts[3] is region, parts[4] is account, parts[5] is resource.",

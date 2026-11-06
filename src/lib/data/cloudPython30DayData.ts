@@ -103,7 +103,7 @@ const DAYS: Day[] = [
       "test": "statements = [\n    {'effect': 'Allow', 'action': 's3:GetObject', 'resource': 'arn:aws:s3:::my-bucket/*'},\n    {'effect': 'Deny', 'action': 's3:*', 'resource': 'arn:aws:s3:::my-bucket/confidential/*'},\n]\nassert evaluate_iam(statements, {'action': 's3:GetObject', 'resource': 'arn:aws:s3:::my-bucket/photo.jpg'}) == 'ALLOW', 'The Allow matches'\nassert evaluate_iam(statements, {'action': 's3:GetObject', 'resource': 'arn:aws:s3:::my-bucket/confidential/keys.txt'}) == 'DENY', 'Explicit Deny beats Allow'\nassert evaluate_iam(statements, {'action': 's3:PutObject', 'resource': 'arn:aws:s3:::my-bucket/photo.jpg'}) == 'DENY', 'Nothing allows PutObject: implicit deny'\nassert evaluate_iam([], {'action': 'ec2:RunInstances', 'resource': '*'}) == 'DENY', 'No statements: deny'\nprint('All checks passed.')"
     },
     "a": {
-      "title": "ARN Parser",
+      "title": "ARN Parser (IAM Role Least-Privilege, Policies & Principal Trust)",
       "desc": "Write `parse_arn(arn)` for strings shaped 'arn:partition:service:region:account:resource'. Return {'partition', 'service', 'region', 'account', 'resource'}. The resource part may itself contain ':' characters, so split at most 5 times. If the text does not start with 'arn:' or has fewer than 6 parts, return None.",
       "starter": "def parse_arn(arn):\n    pass",
       "hint": "parts = arn.split(':', 5); check len(parts) == 6 and parts[0] == 'arn'",
@@ -439,7 +439,7 @@ const DAYS: Day[] = [
       "test": "rules = [{'type': 'IP_BLOCK', 'ips': ['6.6.6.6']}, {'type': 'SQLI'}, {'type': 'RATE_LIMIT', 'limit': 100}]\nclean = {'ip': '1.2.3.4', 'query': 'page=1', 'count_5min': 50}\nassert inspect_request(rules, clean) == {'action': 'ALLOW', 'rule': None}, 'A clean request'\nassert inspect_request(rules, dict(clean, query=\"id=1' OR 1=1\")) == {'action': 'BLOCK', 'rule': 'SQLI'}, 'Classic SQL injection'\nassert inspect_request(rules, dict(clean, query='q=1 UNION SELECT password FROM users')) == {'action': 'BLOCK', 'rule': 'SQLI'}, 'UNION attack'\nassert inspect_request(rules, dict(clean, count_5min=150)) == {'action': 'BLOCK', 'rule': 'RATE_LIMIT'}, 'Too many calls'\nassert inspect_request(rules, dict(clean, ip='6.6.6.6', count_5min=500)) == {'action': 'BLOCK', 'rule': 'IP_BLOCK'}, 'The first matching rule is reported'\nprint('All checks passed.')"
     },
     "a": {
-      "title": "WAF IP Set Validator",
+      "title": "WAF IP Set Validator (AWS WAF & AWS Shield)",
       "desc": "Write `valid_ip_set(ranges)`. Every entry must be a CIDR block with an explicit '/' prefix length that the standard `ipaddress` module accepts (IPv4 or IPv6) with strict=True (no host bits set). Return True only if all entries are valid and the list is not empty.",
       "starter": "import ipaddress\n\n\ndef valid_ip_set(ranges):\n    pass",
       "hint": "try: ipaddress.ip_network(r, strict=True) except ValueError: return False; also require '/' in r",

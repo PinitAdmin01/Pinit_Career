@@ -176,7 +176,7 @@ const DAYS: Day[] = [
   },
   {
     "e": {
-      "title": "BIO Tag Validator",
+      "title": "BIO Tag Validator (Named Entity Recognition)",
       "desc": "Write `valid_bio(tags)`. In the BIO scheme, 'B-X' begins an entity of type X, 'I-X' continues it and 'O' is outside any entity. Return True only if every 'I-X' comes right after a 'B-X' or an 'I-X' of the SAME type.",
       "starter": "def valid_bio(tags):\n    pass",
       "hint": "prev = 'O'; for t in tags: if t.startswith('I-') and prev[2:] != t[2:] or prev == 'O': invalid",

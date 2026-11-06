@@ -320,7 +320,7 @@ const DAYS: Day[] = [
   },
   {
     "e": {
-      "title": "PII Redactor",
+      "title": "PII Redactor (Privacy, Security & Prompt Injection Defense)",
       "desc": "Before sending text to an AI service, remove personal data. Write `redact_pii(text)` replacing, in this order: card numbers (16 digits, optionally in groups of 4 separated by spaces or dashes) with [CARD]; email addresses with [EMAIL]; Indian mobile numbers (optional +91 and space, then 10 digits starting with 6-9) with [PHONE]. Return {'text': redacted text, 'counts': {'CARD': n, 'EMAIL': n, 'PHONE': n}}.",
       "starter": "import re\n\n\ndef redact_pii(text):\n    pass",
       "hint": "Use re.subn to replace and count at once: text, n = re.subn(pattern, '[CARD]', text)",

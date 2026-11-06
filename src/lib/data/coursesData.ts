@@ -54,6 +54,7 @@ import { SRE_WEB_30_DAYS_QUESTS } from './sreWeb30DayData';
 import { STREAM_WEB_30_DAYS_QUESTS } from './streamWeb30DayData';
 import { AI_DEPLOY_WEB_30_DAYS_QUESTS } from './aiDeployWeb30DayData';
 import { addBlockTests } from './blockTests';
+import { withMonth2Lessons } from './month2Quests';
 
 
 import type { CodeLanguage } from '../code/types';
@@ -588,7 +589,7 @@ const RAW_COURSES: Course[] = [
 ];
 
 /** Every day-based course gets a short test after every 5 days (see courseTests.ts). */
-export const COURSES_REGISTRY: Course[] = RAW_COURSES.map((course) => ({
+export const COURSES_REGISTRY: Course[] = RAW_COURSES.map(withMonth2Lessons).map((course) => ({
   ...course,
   quests: addBlockTests(course.quests),
 }));

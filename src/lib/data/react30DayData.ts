@@ -25,7 +25,7 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
       "HTTP evolution: HTTP/1.1 head-of-line blocking versus HTTP/2 binary framing and multiplexed streams.",
       "Browser rendering engines: HTML/CSS tokenization, DOM/CSSOM trees, layout geometry, and GPU compositing."
     ],
-    eTitle: "App Title Formatter",
+    eTitle: "App Title Formatter (How a Website Works)",
     eDesc: "Write a function `formatAppTitle(name)` that returns `'PinIT - '` followed by the app name. Example: `formatAppTitle('Job Tracker')` returns `'PinIT - Job Tracker'`.",
     eStarter: lines("function formatAppTitle(name) {", "  // Return 'PinIT - ' followed by name", "  return '';", "}"),
     eHint: "return 'PinIT - ' + name;",
@@ -53,7 +53,7 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
       "Primitive scalars vs composite heap references: Pointer semantics and garbage collection scavenger cycles.",
       "Type safety dynamics: Coercion pitfalls, IEEE 754 precision, and production TypeScript schema validation."
     ],
-    eTitle: "Describe a Job",
+    eTitle: "Describe a Job (Variables and Data Types)",
     eDesc: "Write `describeJob(title, salary)` that returns text like `'Frontend Developer pays 400000'`.",
     eStarter: lines("function describeJob(title, salary) {", "  // Join title, ' pays ', and salary", "  return '';", "}"),
     eHint: "return title + ' pays ' + salary;",
@@ -63,7 +63,7 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
       "if (describeJob('Backend Engineer', 600000) !== 'Backend Engineer pays 600000') throw new Error('Wrong text 2');",
       "if (describeJob('DevOps Specialist', 800000) !== 'DevOps Specialist pays 800000') throw new Error('Wrong text 3');"
     ),
-    aTitle: "Is It a Good Salary?",
+    aTitle: "Is It a Good Salary? (Variables and Data Types)",
     aDesc: "Write `isGoodSalary(salary)` that returns `true` when the salary is 500000 or more, otherwise `false`.",
     aStarter: lines("function isGoodSalary(salary) {", "  // Compare salary with 500000 using >=", "}"),
     aHint: "return salary >= 500000;",
@@ -109,7 +109,7 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
       "Structural sharing and shallow copying: Preserving referential immutability without recursive allocation penalties.",
       "Relational state normalization: Architecting byId entity dictionaries and allIds sequences for O(1) atomic updates."
     ],
-    eTitle: "Make a Job",
+    eTitle: "Make a Job (Arrays and Objects)",
     eDesc: "Write `makeJob(title, company)` that returns an object `{ title, company, status: 'applied' }`.",
     eStarter: lines("function makeJob(title, company) {", "  return {", "    // add title, company and status here", "  };", "}"),
     eHint: "return { title: title, company: company, status: 'applied' };",
@@ -408,7 +408,7 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
       "if (nextCount(2, 'minus') !== 1) throw new Error('2 minus should be 1');",
       "if (nextCount(0, 'minus') !== 0) throw new Error('Count must not go below 0');"
     ),
-    aTitle: "Toggle",
+    aTitle: "Toggle (The useState Hook & React State Mechanics)",
     aDesc: "Write `toggle(value)` that returns the opposite true/false value. This is how a show/hide button works.",
     aStarter: lines("function toggle(value) {", "  // return the opposite", "}"),
     aHint: "return !value;",
@@ -718,7 +718,7 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     eStarter: lines("function calculateBundleReduction(monolithicKb, initialChunksKb) {", "  // return percentage of deferred bytes rounded to whole number", "  return 0;", "}"),
     eHint: "const deferred = monolithicKb - initialChunksKb; return Math.round((deferred / monolithicKb) * 100);",
     eTest: lines("if (typeof calculateBundleReduction !== 'function') throw new Error('calculateBundleReduction not found');", "if (calculateBundleReduction(1000, 300) !== 70) throw new Error('Expected 70% reduction');", "if (calculateBundleReduction(500, 250) !== 50) throw new Error('Expected 50% reduction');"),
-    aTitle: "Status Grouping Utility",
+    aTitle: "Status Grouping Utility (Code Splitting, Dynamic Imports & React.lazy)",
     aDesc: "Write `groupByStatus(jobs)` that returns an object grouped by status.",
     aStarter: lines("function groupByStatus(jobs) {", "  const groups = {};", "  // add each job to groups[job.status]", "  return groups;", "}"),
     aHint: lines("for (const job of jobs) {", "  if (!groups[job.status]) groups[job.status] = [];", "  groups[job.status].push(job);", "}", "return groups;"),
@@ -756,7 +756,7 @@ export const REACT_30_DAYS_CONFIGS: DayConfig[] = [
     eStarter: lines("function inventoryReducer(stock, action) {", "  // RESERVE decrements stock if sufficient, RESTOCK increments stock", "  return stock;", "}"),
     eHint: lines("if (action.type === 'RESERVE') {", "  return stock >= action.quantity ? stock - action.quantity : stock;", "}", "if (action.type === 'RESTOCK') {", "  return stock + action.quantity;", "}", "return stock;"),
     eTest: lines("if (typeof inventoryReducer !== 'function') throw new Error('inventoryReducer not found');", "if (inventoryReducer(100, { type: 'RESERVE', quantity: 30 }) !== 70) throw new Error('Failed to reserve stock');", "if (inventoryReducer(20, { type: 'RESERVE', quantity: 50 }) !== 20) throw new Error('Over-reservation should keep stock unchanged');", "if (inventoryReducer(50, { type: 'RESTOCK', quantity: 25 }) !== 75) throw new Error('Failed to restock');"),
-    aTitle: "Discounted Cart Total Calculator",
+    aTitle: "Discounted Cart Total Calculator (The useReducer Hook & Enterprise State Machines)",
     aDesc: "Write `calculateDiscountedTotal(items, discountRate)` returning discounted total rounded to 2 decimal places.",
     aStarter: lines("function calculateDiscountedTotal(items, discountRate) {", "  // return final discounted total rounded to 2 decimal places", "  return 0;", "}"),
     aHint: lines("const subtotal = items.reduce((acc, i) => acc + (i.price * i.qty), 0);", "const total = subtotal * (1 - discountRate);", "return Number(total.toFixed(2));"),

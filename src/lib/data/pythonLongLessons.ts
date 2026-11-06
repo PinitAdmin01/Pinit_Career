@@ -1197,7 +1197,7 @@ export const PYTHON_LONG_LESSONS: LongLesson[] = [
           "Imagine you have 100 expenses and want to print each one. You could write 100 print lines, but that is slow, boring and easy to get wrong. Computers are good at repeating work, and a loop is how you tell Python to repeat.",
           "Today you meet the for loop. It goes through a group of values one at a time and runs the same indented lines for each one. When there are no values left, the loop ends and Python carries on with the next line.",
           "To have something to loop over, you need a group of values. The simplest group is a list: values inside square brackets, separated by commas, like [20, 45, 120]. You will learn lists properly on Day 8. Today you just loop over them.",
-          "Like if, a for line ends with a colon, and the lines that repeat are indented by four spaces underneath. The indentation tells Python which lines are inside the loop."
+          "Like if, a for line ends with a colon, and the lines that repeat are indented by four spaces underneath. The indentation tells Python which lines are inside the loop. In our coding practice below, your helper function will compute and return the result so automated checks can verify it."
         ],
         "example": "A teacher correcting 40 answer sheets does the same steps for each sheet: pick it up, check the answers, write the marks, put it on the done pile. She does not need 40 different instructions, just one set of steps repeated for each sheet. That is a loop.",
         "code": "expenses = [20, 45, 120]\nfor amount in expenses:\n    print(\"Expense:\", amount)\nprint(\"Done\")",

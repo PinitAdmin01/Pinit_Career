@@ -31,7 +31,7 @@ export const GIT_VERSION_CONTROL_30_DAYS_CONFIGS: DayConfig[] = [
       "Configuring Git identity hierarchy: System vs Global vs Local.",
       "Modern branch naming conventions (`main` vs legacy `master`)."
     ],
-    "eTitle": "Git Configuration Identity & Email Validator",
+    "eTitle": "Git Configuration Identity & Email Validator (Git Branching Mechanics, Merge Conflicts & Rebase Invariants)",
     "eDesc": "Implement function validateGitAuthorIdentity(authorName, authorEmail) certifying that author credentials satisfy Git conventional commit identity requirements.",
     "eStarter": "function validateGitAuthorIdentity(name, email) {\n  // TODO: Verify name length >= 2 and email satisfies regex.\n  \n}",
     "eHint": "Verify name length >= 2 and email satisfies regex.",

@@ -5,7 +5,7 @@ export type { DayConfig };
 export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   {
     "day": 1,
-    "title": "Client-Server Separation, Node.js Runtime & Modern JS",
+    "title": "React Server Components & Streaming SSR Architecture",
     "desc": "Understand client-server boundaries, non-blocking asynchronous event loop, and isomorphic JavaScript.",
     "syllabus": [
       "Client vs Server Execution: Browser DOM environment vs Node.js runtime process.",
@@ -25,7 +25,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 2,
-    "title": "Node.js Core Modules, EventEmitters & Stream Buffers",
+    "title": "Streaming SSR Pipelines, Server Actions & Real-Time Event Architectures",
     "desc": "Master event-driven architecture, EventEmitter listeners, memory buffers, and streaming large payloads.",
     "syllabus": [
       "EventEmitters: .on(event, handler), .emit(event, payload), and .once() patterns.",
@@ -45,7 +45,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 3,
-    "title": "HTTP Request/Response Cycle & Status Code Design",
+    "title": "Production Infrastructure: WebSockets, Redis Sessions, Connection Pools & Rate Limiting",
     "desc": "Design REST API resources, headers, JSON body parsing, and semantic HTTP status codes.",
     "syllabus": [
       "HTTP Verbs: GET (Safe/Idempotent), POST (Create), PUT (Replace), PATCH (Partial), DELETE.",
@@ -65,7 +65,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 4,
-    "title": "Express.js Middleware Pipelines & Chain of Responsibility",
+    "title": "Micro-Frontends, OpenTelemetry, Zero-Downtime Blue-Green & CQRS",
     "desc": "Build modular request interceptors, logging middleware, authentication gates, and error handlers.",
     "syllabus": [
       "Middleware Signature: (req, res, next) => void.",
@@ -85,7 +85,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 5,
-    "title": "⭐ MILESTONE 1: High-Throughput RESTful API Gateway with Rate Limiting",
+    "title": "Edge Computing, Distributed Consensus & Resilient Global Architecture",
     "desc": "Milestone 1: Build a production-ready Express API Gateway featuring request validation, route dispatching, structured logging, and token-bucket rate limiting.",
     "syllabus": [
       "API Gateway Pattern: Reverse proxying, routing requests, and centralized middleware enforcement.",
@@ -105,7 +105,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 6,
-    "title": "Request Schema Validation & Type Safety (Zod & Joi)",
+    "title": "Next.js App Router Data Fetching, Request Memoization & Cache Revalidation",
     "desc": "Enforce strict runtime boundary validation, type coercion, and safe error reporting for incoming JSON payloads.",
     "syllabus": [
       "Runtime vs Compile-Time Type Safety: Why TypeScript types disappear at runtime and require Zod validation.",
@@ -125,7 +125,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 7,
-    "title": "CORS, Security Headers (Helmet) & CSP Directives",
+    "title": "Server Actions, Form Mutations & Optimistic UI Architecture",
     "desc": "Configure Cross-Origin Resource Sharing (CORS), preflight OPTIONS requests, and security response headers.",
     "syllabus": [
       "Same-Origin Policy (SOP): Why browsers restrict cross-domain API calls by default.",
@@ -145,7 +145,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 8,
-    "title": "REST Resource Design, Pagination, Filtering & Sorting",
+    "title": "Edge Middleware, Distributed Session Verification & Request Routing",
     "desc": "Implement scalable query parameter parsing for offset/cursor pagination, multi-field sorting, and relational filters.",
     "syllabus": [
       "Offset Pagination: ?page=2&limit=20 vs Cursor-Based Pagination (?cursor=xyz).",
@@ -165,7 +165,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 9,
-    "title": "JSON Web Tokens (JWT), Cryptographic Signatures & Verification",
+    "title": "Advanced Routing Architecture: Intercepting Routes & Parallel Slots",
     "desc": "Master stateless authentication, HMAC-SHA256 signatures, header-payload-signature tokens, and token tampering detection.",
     "syllabus": [
       "Core Foundations: Principles and mechanisms of JSON Web Tokens (JWT), Cryptographic Signatures & Verification.",
@@ -177,7 +177,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function verifyJwtSignature(token, secret) {\n  // Split the token into header, payload and signature.\n  // Expected signature: btoa(header + '.' + payload + ':' + secret).\n  // If it matches, return JSON.parse(atob(payload)); otherwise throw new Error('Invalid signature').\n  \n}",
     "eHint": "const [h, p, s] = token.split('.'); compare s with btoa(`${h}.${p}:${secret}`).",
     "eTest": "const payload = JSON.stringify({ userId: 101, role: 'ADMIN' });\nconst h = btoa(JSON.stringify({ alg: 'HS256' }));\nconst p = btoa(payload);\nconst s = btoa(`${h}.${p}:my-secret`);\nconst validToken = `${h}.${p}.${s}`;\nconst user = verifyJwtSignature(validToken, 'my-secret');\nif (user.userId !== 101 || user.role !== 'ADMIN') throw new Error('Valid JWT verification failed');\nlet tampered = false;\ntry { verifyJwtSignature(validToken, 'wrong-secret'); } catch (e) { tampered = true; }\nif (!tampered) throw new Error('Tampered JWT was not rejected');",
-    "aTitle": "JWT Expiration Validator",
+    "aTitle": "JWT Expiration Validator (Advanced Routing Architecture)",
     "aDesc": "Implement function isJwtExpired(expTimestamp) returning true if expired.",
     "aStarter": "function isJwtExpired(expTimestamp) {\n  // Compare current unix timestamp with expiration.\n  \n}",
     "aHint": "Compare current unix timestamp with expiration.",
@@ -185,7 +185,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 10,
-    "title": "Secure HttpOnly Cookies & Refresh Token Rotation",
+    "title": "⭐ Milestone 2 Capstone: Distributed Enterprise SaaS & E-Commerce Core Architecture",
     "desc": "Protect against XSS token theft with HttpOnly, Secure, SameSite cookies and refresh token rotation pipelines.",
     "syllabus": [
       "Core Foundations: Principles and mechanisms of Secure HttpOnly Cookies & Refresh Token Rotation.",
@@ -285,7 +285,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 15,
-    "title": "⭐ MILESTONE 2: Enterprise Multi-Tenant Authentication & Session Hub",
+    "title": "⭐ Milestone 3 Capstone: Enterprise Multi-Tenant Authentication & Session Hub",
     "desc": "Milestone 2: Build an enterprise-grade authentication system featuring multi-tenancy, JWT access tokens, HttpOnly refresh token rotation, and Redis session blacklisting.",
     "syllabus": [
       "Core Foundations: Principles and mechanisms of ⭐ MILESTONE 2: Enterprise Multi-Tenant Authentication & Session Hub.",
@@ -305,7 +305,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 16,
-    "title": "WebSockets & Real-Time Bidirectional Event Streaming",
+    "title": "GraphQL APIs, Resolvers & Query Complexity Cost Analysis",
     "desc": "Build bi-directional real-time communication channels, room broadcasting, and connection heartbeat ping-pongs.",
     "syllabus": [
       "Core Foundations: Principles and mechanisms of WebSockets & Real-Time Bidirectional Event Streaming.",
@@ -325,7 +325,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 17,
-    "title": "Rate Limiting Algorithms: Token Bucket & Leaky Bucket",
+    "title": "End-to-End Type Safety with tRPC & Zod Invariants",
     "desc": "Protect API endpoints against DDoS attacks and brute-force cracking using memory-efficient Token Bucket rate limiters.",
     "syllabus": [
       "Core Foundations: Principles and mechanisms of Rate Limiting Algorithms: Token Bucket & Leaky Bucket.",
@@ -345,14 +345,14 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 18,
-    "title": "Multipart Streaming File Uploads & Cloud Object Storage (S3)",
+    "title": "Real-Time Bidirectional Streaming with WebSockets & Server-Sent Events (SSE)",
     "desc": "Process multi-gigabyte file uploads using streaming parsers (Busboy/Multer) and S3 presigned upload URLs.",
     "syllabus": [
       "Core Foundations: Principles and mechanisms of Multipart Streaming File Uploads & Cloud Object Storage (S3).",
       "Operational Architecture: Implementation details and execution flow.",
       "Production Best Practices: Safety checks, error handling, and performance optimization."
     ],
-    "eTitle": "Presigned S3 Upload URL Generator",
+    "eTitle": "Presigned S3 Upload URL Generator (Real-Time Bidirectional Streaming with WebSockets & Server-Sent Events)",
     "eDesc": "Implement function generatePresignedUploadUrl(bucket, key, expiresInSeconds = 900) returning signed upload URL structure. The result must have the field: `uploadUrl`.",
     "eStarter": "function generatePresignedUploadUrl(bucket, key, expiresInSeconds = 900) {\n  // Generate S3 bucket URL with expiration and signed query parameters.\n  \n}",
     "eHint": "Generate S3 bucket URL with expiration and signed query parameters.",
@@ -365,7 +365,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 19,
-    "title": "Next.js App Router Architecture: Server vs Client Components",
+    "title": "Message Queues & Background Job Processing with BullMQ, Redis & Dead-Letter Queues (DLQ)",
     "desc": "Master Next.js App Router directory structures, Server Component rendering on the server, and 'use client' boundaries.",
     "syllabus": [
       "Core Foundations: Principles and mechanisms of Next.js App Router Architecture: Server vs Client Components.",
@@ -385,7 +385,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 20,
-    "title": "Rendering Paradigms: SSR vs SSG vs ISR (Incremental Static Regeneration)",
+    "title": "⭐ Milestone 4 Capstone: Real-Time Event-Driven Collaboration & Background Processing Engine",
     "desc": "Compare Server-Side Rendering (SSR), Static Site Generation (SSG), and Incremental Static Regeneration (ISR) with Cache-Control headers.",
     "syllabus": [
       "Core Foundations: Principles and mechanisms of Rendering Paradigms: SSR vs SSG vs ISR (Incremental Static Regeneration).",
@@ -405,7 +405,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 21,
-    "title": "⭐ MILESTONE 3: Real-Time Collaborative Canvas & Multi-Room Chat Hub",
+    "title": "Next.js Route Handlers, Web Streams & Edge Streaming Architecture",
     "desc": "Milestone 3: Build a production real-time full-stack application with WebSocket rooms, client reconnection recovery, and optimistic UI mutations.",
     "syllabus": [
       "Core Foundations: Principles and mechanisms of ⭐ MILESTONE 3: Real-Time Collaborative Canvas & Multi-Room Chat Hub.",
@@ -425,7 +425,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 22,
-    "title": "Next.js Server Actions, Optimistic Updates & Form Mutations",
+    "title": "Distributed Microservices, gRPC & Protocol Buffers (Protobuf)",
     "desc": "Execute type-safe server mutations directly from client forms using Next.js Server Actions with automatic revalidation.",
     "syllabus": [
       "Core Foundations: Principles and mechanisms of Next.js Server Actions, Optimistic Updates & Form Mutations.",
@@ -445,7 +445,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 23,
-    "title": "Next.js Route Handlers & Edge Streaming API Responses",
+    "title": "Event-Driven Architecture with Apache Kafka & Distributed Log Streaming",
     "desc": "Build streaming response route handlers (AI completions and SSE) using Web Streams and ReadableStream.",
     "syllabus": [
       "Core Foundations: Principles and mechanisms of Next.js Route Handlers & Edge Streaming API Responses.",
@@ -465,7 +465,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 24,
-    "title": "Microservices Communication, gRPC & API Gateways",
+    "title": "Docker Containerization, Multi-Stage Production Builds & Alpine Security",
     "desc": "Design service-to-service communication architectures, circuit breakers, and gRPC protocol buffers.",
     "syllabus": [
       "Core Foundations: Principles and mechanisms of Microservices Communication, gRPC & API Gateways.",
@@ -485,7 +485,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 25,
-    "title": "Event-Driven Asynchronous Message Queues (RabbitMQ/Kafka)",
+    "title": "⭐ Milestone 5 Capstone: Distributed Event-Driven Cloud Microservices Architecture",
     "desc": "Decouple background worker tasks with job queues, consumer acknowledgments (ACK/NACK), and dead-letter queues.",
     "syllabus": [
       "Core Foundations: Principles and mechanisms of Event-Driven Asynchronous Message Queues (RabbitMQ/Kafka).",
@@ -505,7 +505,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 26,
-    "title": "Docker Containerization & Multi-Stage Production Builds",
+    "title": "Kubernetes Microservices Orchestration, Helm Charts, ConfigMaps & Secrets",
     "desc": "Containerize Node.js applications with multi-stage Docker builds, non-root security users, and tiny Alpine images.",
     "syllabus": [
       "Core Foundations: Principles and mechanisms of Docker Containerization & Multi-Stage Production Builds.",
@@ -525,7 +525,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 27,
-    "title": "Health Checks, Liveness/Readiness Probes & OpenTelemetry",
+    "title": "CI/CD Pipelines with GitHub Actions, Semantic Versioning & Automated Multi-Arch Docker Builds",
     "desc": "Build Kubernetes-compliant /healthz and /readyz endpoints with database connection probes and distributed tracing.",
     "syllabus": [
       "Core Foundations: Principles and mechanisms of Health Checks, Liveness/Readiness Probes & OpenTelemetry.",
@@ -537,7 +537,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function createK8sHealthProbes(dbCheck, redisCheck) {\n  // Liveness confirms process runs (200); Readiness checks DB & Redis dependencies (503 if any dependency down).\n  \n}",
     "eHint": "Liveness confirms process runs (200); Readiness checks DB & Redis dependencies (503 if any dependency down).",
     "eTest": "const probes = createK8sHealthProbes(async () => true, async () => false);\nconst resLive = {}, resReady = {};\nprobes.liveness({}, resLive);\nif (resLive.status !== 200) throw new Error('Liveness probe should return 200');\nawait probes.readiness({}, resReady);\nif (resReady.status !== 503 || resReady.body.redis !== false) throw new Error('Readiness probe should return 503 when Redis is down');",
-    "aTitle": "Trace Context Header Formatter",
+    "aTitle": "Trace Context Header Formatter (CI/CD Pipelines with GitHub Actions, Semantic Versioning & Automated Multi-Arch Docker Builds)",
     "aDesc": "Implement function formatTraceparent(traceId, spanId) returning W3C traceparent string.",
     "aStarter": "function formatTraceparent(traceId, spanId) {\n  // TODO: write your code here\n}",
     "aHint": "Format 00-traceId-spanId-01.",
@@ -545,7 +545,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 28,
-    "title": "Why Component Architecture Exists",
+    "title": "Cloud Observability, OpenTelemetry (OTel), Prometheus Metrics & Distributed Tracing with Grafana/Jaeger",
     "desc": "Understand UI decomposition, moving from monolithic templates to modular Component Trees that encapsulate structure, styling, and behavior.",
     "syllabus": [
       "Monolith vs Component Trees: Decomposing complex UIs into independent, reusable building blocks.",
@@ -565,7 +565,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 29,
-    "title": "What Is a React Component?",
+    "title": "Cloud Infrastructure as Code (IaC) with Terraform, Cloudflare CDN & Edge Security",
     "desc": "Understand the React component model: functions that receive props and return lightweight virtual element descriptors (React Elements) via pure UI calculations.",
     "syllabus": [
       "Pure UI Functions: The formula UI = f(props) and virtual element descriptor objects.",
@@ -585,7 +585,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 30,
-    "title": "JSX: JavaScript + UI Structure",
+    "title": "⭐ Milestone 6 Capstone: Enterprise Cloud-Native Production Platform & Grand Master Full-Stack Certification",
     "desc": "Understand JSX transpilation into React.createElement, embedding JavaScript expressions in curly braces, and JSX attribute rules (className, htmlFor, camelCase, inline style objects).",
     "syllabus": [
       "JSX Transpilation: How build tools convert JSX markup into nested React.createElement calls.",
@@ -597,7 +597,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "// [TEACHING SIMULATION — JSX Expression Parser & Attribute Normalizer]\nclass JsxExpressionParser {\n  normalizeAttributes(rawAttrs) {\n    // Convert: 'class' -> 'className', 'for' -> 'htmlFor', 'onclick' -> 'onClick', 'tabindex' -> 'tabIndex'\n    // If style is a string (e.g. 'color: red; font-size: 14px') -> parse to object { color: 'red', fontSize: '14px' }\n    // Return normalized props object\n    \n  }\n  evaluateExpression(context, expressionFn) {\n    // Execute expressionFn(context) and return evaluated result\n    // Handle primitives, arrays, and null/undefined values\n    \n  }\n  transpileTag(tagName, rawAttrs, evaluatedChildren) {\n    const props = this.normalizeAttributes(rawAttrs);\n    if (evaluatedChildren !== undefined) props.children = evaluatedChildren;\n    return { type: tagName, props };\n  }\n}",
     "eHint": "In normalizeAttributes map class/for/onclick/tabindex and parse style strings into camelCase objects.",
     "eTest": "const parser = new JsxExpressionParser();\nconst attrs = parser.normalizeAttributes({\n  class: 'header',\n  for: 'username-input',\n  onclick: 'handleClick',\n  style: 'color: blue; font-size: 16px'\n});\nif (attrs.className !== 'header' || attrs.htmlFor !== 'username-input' || attrs.onClick !== 'handleClick') {\n  throw new Error('Attribute normalization failed');\n}\nif (!attrs.style || attrs.style.color !== 'blue' || attrs.style.fontSize !== '16px') {\n  throw new Error('Style object parsing failed');\n}\nconst exprRes = parser.evaluateExpression({ isOnline: true }, (ctx) => ctx.isOnline ? 'Online' : 'Offline');\nif (exprRes !== 'Online') throw new Error('Expression evaluation failed');",
-    "aTitle": "JSX Attribute Normalizer",
+    "aTitle": "JSX Attribute Normalizer (Enterprise Cloud-Native Production Platform & Grand Master Full-Stack Certification)",
     "aDesc": "Implement function normalizeJsxAttributeName(attrName) converting HTML attribute names ('class', 'for', 'onclick') to JSX conventions.",
     "aStarter": "function normalizeJsxAttributeName(attrName) {\n  // 'class' -> 'className', 'for' -> 'htmlFor', 'onclick' -> 'onClick', otherwise return attrName\n  \n}",
     "aHint": "Use if/else or switch to map class, for, onclick.",
@@ -605,7 +605,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 31,
-    "title": "Props & One-Way Data Flow",
+    "title": "V8 Engine Internals & libuv Threadpool Architecture",
     "desc": "Understand props as read-only inputs, unidirectional top-to-bottom data flow, passing callbacks for child-to-parent event communication, and component composition via props.children.",
     "syllabus": [
       "Props & Unidirectional Data Flow: Read-only arguments passed from parent to child.",
@@ -617,7 +617,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "// [TEACHING SIMULATION — Unidirectional Data Flow Engine]\nclass UnidirectionalDataFlowEngine {\n  createFrozenProps(rawProps) {\n    // Return deeply frozen copy of rawProps (Object.freeze) to enforce read-only immutability\n    \n  }\n  simulateChildAction(frozenProps, callbackPropName, payload) {\n    // Verify frozenProps is immutable (cannot mutate frozenProps[key] = val)\n    // If callbackPropName exists on frozenProps and is a function -> invoke with payload\n    // Return { callbackInvoked: true, payload }\n    \n  }\n  renderWithChildren(ContainerComponent, containerProps, childrenArray) {\n    const propsWithChildren = { ...containerProps, children: childrenArray };\n    return ContainerComponent(this.createFrozenProps(propsWithChildren));\n  }\n}",
     "eHint": "Use Object.freeze(rawProps) and invoke frozenProps[callbackPropName](payload).",
     "eTest": "const engine = new UnidirectionalDataFlowEngine();\nlet parentReceived = null;\nconst props = engine.createFrozenProps({\n  title: 'Task',\n  onToggle: (id) => { parentReceived = id; }\n});\n// Test immutability\ntry { props.title = 'Mutated'; } catch(e) {}\nif (props.title !== 'Task') throw new Error('Props must be immutable');\n// Test callback invocation\nengine.simulateChildAction(props, 'onToggle', 42);\nif (parentReceived !== 42) throw new Error('Callback prop communication failed');\n// Test children composition\nfunction Box(p) { return `<div class=\"box\">${p.children.join('')}</div>`; }\nconst rendered = engine.renderWithChildren(Box, {}, ['<span>Child 1</span>', '<span>Child 2</span>']);\nif (!rendered.includes('<span>Child 1</span><span>Child 2</span>')) throw new Error('Children composition failed');",
-    "aTitle": "Props Immutability Validator",
+    "aTitle": "Props Immutability Validator (V8 Engine Internals & libuv Threadpool Architecture)",
     "aDesc": "Implement function validatePropsImmutability(propsObj) returning true if object is frozen and false otherwise.",
     "aStarter": "function validatePropsImmutability(propsObj) {\n  // Return Object.isFrozen(propsObj)\n  \n}",
     "aHint": "Return Object.isFrozen(propsObj);",
@@ -625,7 +625,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 32,
-    "title": "State & useState",
+    "title": "C++ Native Addons with Node-API (N-API)",
     "desc": "Understand component memory via the useState hook, state snapshots during render, automatic batching, functional updaters for sequential changes, and immutable state updates.",
     "syllabus": [
       "State vs Local Variables: Why local variables reset on render and cannot trigger UI updates.",
@@ -645,7 +645,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 33,
-    "title": "Conditional Rendering, Lists & Keys",
+    "title": "Advanced Event Loop Profiling & Latency Diagnostics",
     "desc": "Understand conditional rendering patterns (ternary, short-circuit &&, null returns), array.map() transformations, and why stable unique keys are essential for React reconciliation.",
     "syllabus": [
       "Conditional Rendering: Ternary choices, safe boolean short-circuiting, and returning null.",
@@ -665,7 +665,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 34,
-    "title": "Forms & Controlled Inputs",
+    "title": "AsyncLocalStorage & Distributed Execution Tracing",
     "desc": "Understand controlled components where React state is the single source of truth, intercepting form submission with preventDefault(), and calculating derived validation during render.",
     "syllabus": [
       "Controlled Inputs: Synchronizing value={state} and onChange={e => setState(e.target.value)}.",
@@ -685,7 +685,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 35,
-    "title": "Why useEffect Exists",
+    "title": "Milestone 7 Capstone: High-Throughput Node.js C++ Acceleration & Distributed Request Tracing Suite",
     "desc": "Understand why useEffect exists: synchronizing React components with external systems (browser APIs, document title, storage, timers) after DOM commit and paint.",
     "syllabus": [
       "External Synchronization: Why effects are for synchronizing with systems outside React, not a generic lifecycle hook.",
@@ -697,7 +697,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "// [TEACHING SIMULATION — External System State Synchronizer Engine]\nclass ExternalSyncEngine {\n  constructor() {\n    this.externalDocumentTitle = '';\n    this.externalStorage = new Map();\n    this.syncLog = [];\n  }\n  renderComponent(state) {\n    this.syncLog.push(`RENDER:${state.title}`);\n  }\n  commitAndPaint() {\n    this.syncLog.push('COMMIT_AND_PAINT');\n  }\n  runEffectSync(state) {\n    // Synchronize external title and storage after paint:\n    this.externalDocumentTitle = `${state.title} | PinIT`;\n    this.externalStorage.set('active_title', state.title);\n    this.syncLog.push(`EFFECT_SYNC:${this.externalDocumentTitle}`);\n  }\n  executeTurn(state) {\n    // Execute in exact specification order: 1. renderComponent -> 2. commitAndPaint -> 3. runEffectSync\n    // Return this.syncLog\n    \n  }\n}",
     "eHint": "Call renderComponent, commitAndPaint, and runEffectSync in order and return syncLog.",
     "eTest": "const engine = new ExternalSyncEngine();\nconst log = engine.executeTurn({ title: 'Dashboard' });\nif (log[0] !== 'RENDER:Dashboard') throw new Error('Render phase must happen first');\nif (log[1] !== 'COMMIT_AND_PAINT') throw new Error('Commit and paint must precede effect execution');\nif (log[2] !== 'EFFECT_SYNC:Dashboard | PinIT') throw new Error('Effect synchronization failed');\nif (engine.externalDocumentTitle !== 'Dashboard | PinIT') throw new Error('External document title sync failed');",
-    "aTitle": "Title Synchronization Formatter",
+    "aTitle": "Title Synchronization Formatter (Milestone 7 Capstone)",
     "aDesc": "Implement function formatDocumentTitle(pageName, appName) returning formatted title string for external document synchronization.",
     "aStarter": "function formatDocumentTitle(page, app) {\n  // Return `${page} - ${app}`\n  \n}",
     "aHint": "Return template string `${page} - ${app}`.",
@@ -705,7 +705,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 36,
-    "title": "Effect Dependencies & Cleanup",
+    "title": "Advanced Streams & Backpressure Management",
     "desc": "Understand effect dependency diffing with Object.is, returning cleanup functions to prevent memory leaks, and avoiding stale closures and infinite loops.",
     "syllabus": [
       "Cleanup Functions: Returning teardown callbacks to clear timers, disconnect sockets, and remove window listeners.",
@@ -717,7 +717,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "class EffectLifecycleScheduler {\n  constructor() {\n    this.activeCleanup = null;\n    this.prevDeps = null;\n    this.executionLog = [];\n  }\n  scheduleEffect(effectFn, nextDeps) {\n    // TODO: write your code here\n  }\n  unmount() {\n    // TODO: write your code here\n  }\n}",
     "eHint": "In scheduleEffect compare dependencies using Object.is, call previous activeCleanup if running, store return value in activeCleanup.",
     "eTest": "const scheduler = new EffectLifecycleScheduler();\nlet cleanupCalled = 0;\nlet setupCalled = 0;\n// 1. Initial run\nscheduler.scheduleEffect(() => {\n  setupCalled++;\n  return () => { cleanupCalled++; };\n}, ['room-1']);\nif (setupCalled !== 1 || cleanupCalled !== 0) throw new Error('Initial effect setup failed');\n// 2. Unchanged deps -> effect skipped\nscheduler.scheduleEffect(() => { setupCalled++; }, ['room-1']);\nif (setupCalled !== 1) throw new Error('Effect should skip when deps are unchanged');\n// 3. Changed deps -> cleanup previous then setup new\nscheduler.scheduleEffect(() => {\n  setupCalled++;\n  return () => { cleanupCalled++; };\n}, ['room-2']);\nif (cleanupCalled !== 1 || setupCalled !== 2) throw new Error('Cleanup before re-sync failed');\n// 4. Unmount\nscheduler.unmount();\nif (cleanupCalled !== 2) throw new Error('Unmount cleanup failed');",
-    "aTitle": "Dependency Equality Comparator",
+    "aTitle": "Dependency Equality Comparator (Advanced Streams & Backpressure Management)",
     "aDesc": "Implement function haveDependenciesChanged(prevDeps, nextDeps) returning true if any item differs by Object.is and false otherwise.",
     "aStarter": "function haveDependenciesChanged(prev, next) {\n  // If prev is null or next is null -> return true\n  // If lengths differ -> return true\n  // Return true if any prev[i] !== next[i] by Object.is, else false\n  \n}",
     "aHint": "Check null, lengths, then some() with !Object.is(prev[i], next[i]).",
@@ -725,7 +725,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 37,
-    "title": "useRef: Persistent Values Without Rendering",
+    "title": "Zero-Downtime Cluster Architecture & IPC",
     "desc": "Understand useRef for silent mutable values that persist across renders without triggering re-renders, accessing browser DOM nodes for focus/scroll, and storing interval IDs.",
     "syllabus": [
       "useState vs useRef: Why state triggers re-renders while mutating ref.current does not.",
@@ -745,7 +745,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 38,
-    "title": "Explicit State Transitions with Reducers",
+    "title": "High-Performance Network Protocols: HTTP/2, HTTP/3 QUIC & gRPC",
     "desc": "Understand useReducer for consolidating complex state transitions, intent-based action dispatching (what happened vs generic setters), and modeling discriminated union states.",
     "syllabus": [
       "Impossible States: Eliminating contradictory boolean combinations with discriminated union state.",
@@ -765,7 +765,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 39,
-    "title": "Custom Hooks: Sharing Stateful Logic",
+    "title": "WebAssembly (Wasm) Integration & High-Performance Interop",
     "desc": "Understand custom hooks as abstractions that share stateful logic rather than state memory, the Rules of Hooks for stable call order, and designing debounced custom hooks.",
     "syllabus": [
       "Custom Hook Abstraction: Extracting reusable behavior into functions starting with 'use...'.",
@@ -777,7 +777,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "// [TEACHING SIMULATION — Teaching Model: Custom Hook Logic & State Isolation Engine]\nclass CustomHookLogicIsolationEngine {\n  constructor() {\n    this.componentStateCells = new Map(); // componentId -> { value, updateCount }\n  }\n  registerComponentInstance(componentId, initialValue) {\n    this.componentStateCells.set(componentId, { value: initialValue, updateCount: 0 });\n  }\n  executeCustomHook(componentId, actionFn) {\n    // Retrieves component's isolated state cell, applies actionFn(cell), and increments updateCount\n    // Return updated cell\n    \n  }\n  verifyIsolation(compAId, compBId) {\n    // Return true if compA and compB have different references and independent values\n    \n  }\n}",
     "eHint": "Get cell from componentStateCells, mutate or replace, update map, and verify both cells are separate objects.",
     "eTest": "const engine = new CustomHookLogicIsolationEngine();\nengine.registerComponentInstance('HeaderCounter', 0);\nengine.registerComponentInstance('SidebarCounter', 0);\n// Increment Header only\nengine.executeCustomHook('HeaderCounter', cell => { cell.value += 1; });\nconst headerCell = engine.componentStateCells.get('HeaderCounter');\nconst sidebarCell = engine.componentStateCells.get('SidebarCounter');\nif (headerCell.value !== 1 || sidebarCell.value !== 0) throw new Error('Custom hook state instances must be isolated');\nif (!engine.verifyIsolation('HeaderCounter', 'SidebarCounter')) throw new Error('Isolation verification failed');",
-    "aTitle": "Debounce Logic Calculator",
+    "aTitle": "Debounce Logic Calculator (WebAssembly)",
     "aDesc": "Implement function useDebounceLogic(currentVal, incomingVal, hasElapsed) returning incomingVal if hasElapsed is true, else currentVal.",
     "aStarter": "function useDebounceLogic(current, incoming, hasElapsed) {\n  // If hasElapsed is true -> return incoming, otherwise return current\n  \n}",
     "aHint": "Return hasElapsed ? incoming : current;",
@@ -785,7 +785,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 40,
-    "title": "Context: Passing Dependencies Through the Tree",
+    "title": "Milestone 8 Capstone: Autonomous High-Throughput Streaming & Clustering Engine",
     "desc": "Understand React Context for passing dependencies across deep component subtrees without prop drilling, Provider value object identity re-renders, and Context vs props decisions.",
     "syllabus": [
       "Dependency Propagation: Using createContext and useContext to pass data across disparate subtrees.",
@@ -805,7 +805,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 41,
-    "title": "State Ownership & Component Boundaries",
+    "title": "Distributed Caching Architecture & Redis Clusters",
     "desc": "Understand state ownership questions, the colocation principle, derived state calculations without redundant variables, and the Container vs Presentational heuristic.",
     "syllabus": [
       "State Ownership: Asking who owns, reads, changes, and derives data to place state accurately.",
@@ -825,7 +825,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 42,
-    "title": "React Architecture Capstone",
+    "title": "Distributed Job Queues & Asynchronous Workflows with BullMQ & Kafka",
     "desc": "Synthesize reducers, custom hooks, context, state colocation, and data normalization into an interactive Normalized Kanban Engine with multi-level state ownership.",
     "syllabus": [
       "Normalized Entity State: Managing tasksById, columnsById, and columnTaskIds to eliminate duplicate data.",
@@ -845,7 +845,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 43,
-    "title": "Client-Side Routing & Deep Linking",
+    "title": "API Gateway Architecture, Dynamic Reverse Proxies & Rate Limiting",
     "desc": "Understand client-side route pattern matching, parameterized segments (:id), wildcard catch-alls (*), trailing slash & query/hash normalization, and client navigation vs direct deep-link server fallback.",
     "syllabus": [
       "Client Navigation vs Direct Navigation: Intercepting link clicks without full HTML document reloads vs server fallback entry point configuration.",
@@ -866,7 +866,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 44,
-    "title": "Nested Routes & Layout Architecture",
+    "title": "Zero-Trust Security, Mutual TLS (mTLS) & Cryptographic Payload Signing",
     "desc": "Master nested route hierarchies, outlet layout slots, and preserving ancestor layout state via stable component identity in the UI tree.",
     "syllabus": [
       "Nested Route Hierarchy: Parent layout shells wrapping dynamic sub-outlets.",
@@ -887,7 +887,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 45,
-    "title": "URL State & Navigation",
+    "title": "Milestone 9 Capstone: Sovereign Distributed Gateway & Resilient Asynchronous Task Mesh",
     "desc": "Master elevating shareable parameters (search queries, filters, pagination, sort orders) to URL query strings vs transient local component state, with full history synchronization verification.",
     "syllabus": [
       "URL as Shareable State: Representing intentionally shareable navigation, filtering, and pagination in the URL.",
@@ -908,7 +908,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 46,
-    "title": "Route-Level State Ownership & Transitions",
+    "title": "Distributed Database Sharding, Read Replicas & Connection Pooling",
     "desc": "Architect state lifespan boundaries across route transitions: transient view state vs route parameters vs ancestor layouts vs normalized stores vs remote server data, with 3-way resource error handling.",
     "syllabus": [
       "5-Tier State Lifespan Taxonomy: Transient view state, route parameter pointer, ancestor layout, normalized client store, and remote server data.",
@@ -928,7 +928,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 47,
-    "title": "Routing Architecture Capstone & Defense",
+    "title": "Write-Ahead Logging (WAL) & Distributed Transaction Sagas",
     "desc": "Synthesize multi-view routing, nested layouts, URL query state, normalized entity stores, architecture extensibility, and refactor broken monolithic architectures into clean boundaries.",
     "syllabus": [
       "Multi-View Routing Architecture: Multi-view app synthesis with persistent layout shells and deep-linkable URLs.",
@@ -949,7 +949,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 48,
-    "title": "Design Tokens, Variant Systems & Component Contracts",
+    "title": "Distributed Consensus Algorithms: Raft Protocol in Node.js",
     "desc": "Master 3-tier design token hierarchies, discriminated variant matrices, semantic element selection, and safe prop destructuring boundaries.",
     "syllabus": [
       "3-Tier Design Tokens: Primitive, semantic, and component tokens bound to CSS Custom Properties.",
@@ -970,7 +970,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 49,
-    "title": "Headless UI Patterns & Compound Components",
+    "title": "High-Availability Event Sourcing & CQRS Architecture",
     "desc": "Master the native-first evaluation principle, headless UI state inversion, and compound component architectures with scoped Context guardrails.",
     "syllabus": [
       "Native-First Evaluation: Deciding between native semantic HTML controls (<dialog>, <details>) and custom headless widgets.",
@@ -991,7 +991,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 50,
-    "title": "Advanced Accessibility (A11y), Focus Management & ARIA (WCAG 2.2 AA)",
+    "title": "Milestone 10 Capstone: Sovereign Distributed Ledger & Fault-Tolerant Consensus Cluster",
     "desc": "Architect accessible web applications according to WCAG 2.2 AA across three practical widget patterns: native modal dialogs with focus restoration, composite widgets with roving tabIndex, and live status regions.",
     "syllabus": [
       "Modal Dialog Focus Lifecycle: Native <dialog> top-layer inert mechanics and focus restoration on dismissal.",
@@ -1012,7 +1012,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 51,
-    "title": "Frontend Component Testing Pyramid & Interaction Simulation (RTL & MSW)",
+    "title": "Enterprise Micro-Frontends & Module Federation in Modern JavaScript",
     "desc": "Master testing observable user behavior rather than internal component state: accessible query priority guidance, high-fidelity interaction simulation via userEvent.setup(), and dual-mode MSW network boundary mocking.",
     "syllabus": [
       "Behavior vs Implementation: Testing what users see and interact with instead of private component state.",
@@ -1033,7 +1033,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 52,
-    "title": "Core Web Vitals (INP, LCP, CLS), Main-Thread Task Yielding & PR Review Defense",
+    "title": "WebAssembly (Wasm) Edge Acceleration & SIMD Compute Pipelines in Node.js",
     "desc": "Master the measure-first performance workflow, Interaction to Next Paint (INP) task yielding via scheduler.yield() with progressive fallbacks, avoiding microtask starvation, and defending design system PR reviews.",
     "syllabus": [
       "Measure-First Invariant: Diagnostics workflow (Measure -> Identify Root Cause -> Intervene -> Re-measure).",
@@ -1054,7 +1054,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 53,
-    "title": "Node.js Runtime Architecture, libuv & The Server Process Model",
+    "title": "Distributed Tracing, OpenTelemetry Context Propagation & W3C Trace Context",
     "desc": "Master the Node.js server process model: single-threaded JavaScript callback execution, libuv event loop coordination vs worker pool delegation, monitorEventLoopDelay metrics, and raw HTTP server listeners.",
     "syllabus": [
       "Process & Threading Architecture: Single event-loop thread vs OS non-blocking socket polling vs libuv worker pool (fs, crypto).",
@@ -1075,7 +1075,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 54,
-    "title": "The HTTP Request/Response Lifecycle, Streaming & Backpressure",
+    "title": "High-Throughput Real-Time State Synchronization: CRDTs & Operational Transformation",
     "desc": "Master HTTP/1.1 stream mechanics over TCP: byte-level bounded buffering with 413 guards, NDJSON streaming with drain backpressure, and response stream state invariants (headersSent vs writableEnded).",
     "syllabus": [
       "Bounded Body Buffering: Counting incoming chunk bytes (receivedBytes += chunk.length) to reject payloads exceeding size limits with HTTP 413.",
@@ -1096,7 +1096,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 55,
-    "title": "The Middleware Pipeline & Nested Control Flow Architecture",
+    "title": "Milestone 11 Capstone: Sovereign Edge-Native Distributed Application Mesh & High-Velocity Federation Architecture",
     "desc": "Master composable middleware pipelines, Express 5 async error forwarding vs detached floating Promises, and proxy-aware client IP rate limiting.",
     "syllabus": [
       "Middleware Pipeline Pattern: Composable (req, res, next) sequential execution with explicit runner architecture.",
@@ -1117,7 +1117,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 56,
-    "title": "Request Validation Boundaries & Standardized Error Contracts (RFC 9457)",
+    "title": "Micro-Frontend Architectures, Module Federation & Shared Dependency Singletons",
     "desc": "Master wire-edge schema validation (Zod) to defend against mass-assignment, RFC 9457 Problem Details formatting (obsoleting RFC 7807), and course API error taxonomy.",
     "syllabus": [
       "Wire-Edge Validation: Parsing params, query, and body at controller boundary before business logic.",
@@ -1130,7 +1130,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "class ZodValidationAndRfc9457Engine {\n  sanitizeProfileInput(raw) {\n    // TODO: write your code here\n  }\n  formatProblemDetails(status, title, detail, instance, fieldErrors = []) {\n    // TODO: write your code here\n  }\n  mapError(type) {\n    // TODO: write your code here\n  }\n}",
     "eHint": "Strip undeclared keys into stripped array, assemble RFC 9457 object with errors extension, and map error types to course status codes.",
     "eTest": "const engine = new ZodValidationAndRfc9457Engine();\n// 1. Mass assignment allowlist defense\nconst raw = { name: 'Alice', role: 'ADMIN', bio: 'Dev' };\nconst clean = engine.sanitizeProfileInput(raw);\nif (!clean.isMassAssignmentBlocked || 'role' in clean.data || clean.data.name !== 'Alice') {\n  throw new Error('Mass assignment sanitization failed');\n}\n// 2. RFC 9457 Problem Details formatting\nconst problem = engine.formatProblemDetails(422, 'Unprocessable Content', 'Validation failed', '/api/users', [{ field: 'email', message: 'Required' }]);\nif (problem.contentType !== 'application/problem+json' || problem.body.status !== 422 || !problem.body.errors) {\n  throw new Error('RFC 9457 problem details format failed');\n}\n// 3. Status taxonomy mapping\nif (engine.mapError('SCHEMA_VALIDATION').status !== 422) throw new Error('Validation error must map to 422');\nif (engine.mapError('MALFORMED_JSON').status !== 400) throw new Error('Syntax error must map to 400');\nif (engine.mapError('STATE_CONFLICT').status !== 409) throw new Error('Conflict error must map to 409');",
-    "aTitle": "RFC 9457 Problem Formatter",
+    "aTitle": "RFC 9457 Problem Formatter (Micro-Frontend Architectures, Module Federation & Shared Dependency Singletons)",
     "aDesc": "Implement function formatRfc9457(status, title, detail) returning RFC 9457 problem details JSON object.",
     "aStarter": "function formatRfc9457(status, title, detail) {\n  // TODO: write your code here\n}",
     "aHint": "Return object with type, title, status, and detail.",
@@ -1138,7 +1138,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 57,
-    "title": "Production-Style API Foundations, Observability & Architecture Defense",
+    "title": "Real-World Architecture Deep Dive: High-Scale E-Commerce Checkout Engine",
     "desc": "Master production-style API foundations: structured JSON logs with correlation IDs, request metrics, liveness/readiness probes, real in-flight graceful shutdown with timeout escalation, and OpenAPI 3.x contract defense.",
     "syllabus": [
       "Three Pillars of Observability: Structured JSON logging (Pino format), request metrics (counts, durations), and distributed trace concepts.",
@@ -1152,7 +1152,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "class ProductionApiArchitectureEngine {\n  constructor() {\n    this.isLive = true;\n    this.isReady = true;\n  }\n  validateCorrelationId(incomingId) {\n    // TODO: write your code here\n  }\n  createLogAndMetrics(correlationId, method, url, status, durationMs) {\n    // TODO: write your code here\n  }\n  simulateShutdown(inFlightMs, deadlineMs) {\n    // TODO: write your code here\n  }\n  validateOpenApiRoutes(specRoutes, implementedRoutes) {\n    // TODO: write your code here\n  }\n}",
     "eHint": "Validate correlationId format, assemble log and metrics, flip isReady on shutdown, and diff routes against spec.",
     "eTest": "const api = new ProductionApiArchitectureEngine();\n// 1. Correlation ID validation boundary\nconst validId = api.validateCorrelationId('valid-corr-12345');\nif (!validId.isReused || validId.correlationId !== 'valid-corr-12345') throw new Error('Valid correlation ID reuse failed');\nconst badId = api.validateCorrelationId('<bad!id>');\nif (badId.isReused || badId.correlationId !== 'gen_uuid_001') throw new Error('Invalid correlation ID rejection failed');\n// 2. Structured logging & metrics\nconst obs = api.createLogAndMetrics('c_1', 'GET', '/health', 200, 5.5);\nif (obs.log.level !== 'info' || obs.metrics.requestCount !== 1) throw new Error('Observability output failed');\n// 3. Graceful shutdown drainage\nconst cleanDrain = api.simulateShutdown(1000, 3000);\nif (!cleanDrain.drainedSuccessfully || cleanDrain.isReady) throw new Error('Graceful drainage failed');\nconst timeoutDrain = api.simulateShutdown(5000, 2000);\nif (timeoutDrain.drainedSuccessfully || !timeoutDrain.timedOut) throw new Error('Shutdown timeout escalation failed');\n// 4. OpenAPI Contract Consistency\nconst contractRes = api.validateOpenApiRoutes(['GET /health', 'POST /orders'], ['GET /health', 'POST /orders']);\nif (!contractRes.isConsistent) throw new Error('OpenAPI contract verification failed');",
-    "aTitle": "Correlation ID Sanitizer",
+    "aTitle": "Correlation ID Sanitizer (Real-World Architecture Deep Dive)",
     "aDesc": "Implement function sanitizeCorrelationId(rawId) returning rawId if valid (8-36 chars alphanumeric/dash/underscore) or fallback 'gen_fallback_id'.",
     "aStarter": "function sanitizeCorrelationId(rawId) {\n  // TODO: write your code here\n}",
     "aHint": "Test rawId against regex /^[a-zA-Z0-9_-]{8,36}$/.",
@@ -1160,7 +1160,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 58,
-    "title": "The Relational Model, Constraints & Three-Valued Logic",
+    "title": "Real-World Architecture Deep Dive: Enterprise Real-Time Collaborative Workspaces",
     "desc": "Master relational schema design, PostgreSQL server architecture, integrity constraints (PK, FK, CHECK, UNIQUE), and SQL three-valued logic (NULL semantics).",
     "syllabus": [
       "Relational Foundations: Relations, Tuples, Attributes, and Domains.",
@@ -1181,7 +1181,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 59,
-    "title": "Normalization Theory, Functional Dependencies & Anomaly Elimination",
+    "title": "Principal Full-Stack Engineer RFC: Architectural Trade-Off Analysis & System Design",
     "desc": "Master relational algebra, functional dependency analysis, 1NF, 2NF, 3NF formal definitions, anomaly elimination, and lossless schema decomposition.",
     "syllabus": [
       "Modification Anomalies: Insertion, Update, and Deletion anomalies in flat tables.",
@@ -1202,7 +1202,7 @@ export const FULLSTACK_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 60,
-    "title": "Relational Querying, Execution Strategies, Aggregations & Window Functions",
+    "title": "Master Capstone: ApexCommerce Globally Distributed Omnichannel Full-Stack Enterprise Platform Master Capstone Viva Gate",
     "desc": "Master set-based SQL joins, physical join algorithms, aggregation pipelines, window functions, running totals, and Common Table Expressions.",
     "syllabus": [
       "Relational Joins: INNER JOIN, LEFT JOIN anti-join pattern (LEFT JOIN ... WHERE right.id IS NULL).",

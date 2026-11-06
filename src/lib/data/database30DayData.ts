@@ -451,7 +451,7 @@ export const DATABASE_30_DAYS_CONFIGS: DayConfig[] = [
       'Frames: ROWS BETWEEN n PRECEDING AND CURRENT ROW.',
       'LAG and LEAD: comparing a row with the one before.'
     ],
-    eTitle: 'Revenue So Far',
+    eTitle: "Revenue So Far (Running Totals and Moving Averages)",
     eDesc: 'Table: daily_sales (day, amount). Show `day`, `amount` and the running total of amount up to that day as `running_total`.',
     eStarter: lines('SELECT day, amount,', '       sum(amount) OVER () AS running_total', 'FROM daily_sales;'),
     eHint: 'A running total needs an order: sum(amount) OVER (ORDER BY day)',
@@ -702,7 +702,7 @@ export const DATABASE_30_DAYS_CONFIGS: DayConfig[] = [
     eTest: task(CANTEEN_TABLES,
       "SELECT count(*) = 1 AS ok, 'returns one row' AS msg FROM answer;",
       "SELECT (SELECT name FROM answer) = 'Tea' AND (SELECT units FROM answer) = 4 AS ok, 'Tea is the best seller with 4 units' AS msg;"),
-    aTitle: 'Revenue per Day',
+    aTitle: "Revenue per Day (Project)",
     aDesc: 'Same tables. Show each day (the date part of ordered_at) as `day` and the money taken that day (quantity times price) as `revenue`.',
     aStarter: lines('SELECT co.ordered_at AS day, sum(ci.quantity * m.price) AS revenue', 'FROM canteen_orders co', 'JOIN canteen_order_items ci ON ci.order_id = co.id', 'JOIN menu_items m ON m.id = ci.item_id', 'GROUP BY co.ordered_at;'),
     aHint: 'Use co.ordered_at::date AS day, and GROUP BY co.ordered_at::date.',
