@@ -28,14 +28,14 @@ const DB_STYLES = `
   /* Page wrapper */
   .db-page { display:flex; flex-direction:column; gap:20px; max-width:1340px; margin:0 auto; padding:0 4px; }
 
-  /* Glass card base */
+  /* Glass card base (Continuous with CareerCourseProgressBar) */
   .db-glass {
-    background: var(--dash-card);
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.06) 0%, var(--dash-card) 100%);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--dash-border);
+    border: 1.5px solid rgba(99, 102, 241, 0.22);
     border-radius: 16px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 30px -4px rgba(99, 102, 241, 0.16);
     will-change: transform, border-color;
     transform: translateZ(0);
     backface-visibility: hidden;
@@ -43,7 +43,7 @@ const DB_STYLES = `
     overflow: hidden;
     position: relative;
   }
-  .db-glass:hover { border-color: var(--border2); transform: translateY(-2px) translateZ(0); box-shadow: 0 8px 30px rgba(0,0,0,0.25); }
+  .db-glass:hover { border-color: rgba(99, 102, 241, 0.38); transform: translateY(-2px) translateZ(0); box-shadow: 0 12px 36px -4px rgba(99, 102, 241, 0.24); }
 
   /* Section label */
   .db-label { font-size:9.5px; font-family:var(--font-mono); font-weight:800; text-transform:uppercase; letter-spacing:1.5px; color:var(--accent); display:block; }

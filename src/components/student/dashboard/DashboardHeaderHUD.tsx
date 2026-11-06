@@ -227,14 +227,15 @@ export default function DashboardHeaderHUD({
       className="db-glass"
       data-testid="dashboard-header-hud"
       style={{
-        background: 'var(--dash-banner)',
+        background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.07) 0%, var(--dash-card) 100%)',
+        border: '1.5px solid rgba(99, 102, 241, 0.22)',
+        boxShadow: '0 8px 30px -4px rgba(99, 102, 241, 0.16)',
         padding: '20px 24px',
         display: 'flex',
         flexDirection: 'column',
         gap: 16,
         position: 'relative',
         overflow: 'hidden',
-        boxShadow: 'var(--shadow-sm)',
       }}
     >
       {/* Ambient glowing radial lights */}

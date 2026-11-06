@@ -61,7 +61,7 @@ export default function DashboardTrajectoryMap({
   const [open, setOpen] = useState(false);
 
   return (
-    <div id="trajectory-selector" style={{ background:'var(--bg2)', border:'1px solid var(--border)', borderRadius:20, overflow:'hidden', boxShadow:'var(--shadow-sm)' }}>
+    <div id="trajectory-selector" className="db-glass" style={{ background:'linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, var(--dash-card) 100%)', border:'1.5px solid rgba(99, 102, 241, 0.22)', borderRadius:16, overflow:'hidden', boxShadow:'0 8px 30px -4px rgba(99, 102, 241, 0.16)' }}>
       {/* Header — always visible, click to expand */}
       <div
         role="button"
