@@ -2,15 +2,36 @@ import { NextResponse } from 'next/server';
 import { requireUserFromRequest } from '@/lib/server/requireAuth';
 import { recordActiveLiveInterview } from '@/lib/interview/activeSessionRegistry';
 
-interface QuestionRequest {
+export interface QuestionRequest {
   domainStream?: 'tech' | 'non_tech';
   domainSubTopic?: string;
   difficulty?: 'easy' | 'normal' | 'hard';
 }
 
-type DifficultyLevel = 'easy' | 'normal' | 'hard';
+export type DifficultyLevel = 'easy' | 'normal' | 'hard';
 
-const NON_TECH_QUESTIONS: Record<string, Record<DifficultyLevel, any[]>> = {
+export interface InterviewQuestionItem {
+  id: number;
+  title: string;
+  description: string;
+  type: 'code' | 'worksheet';
+  defaultCode?: string;
+  methodName?: string;
+  tests?: Array<{
+    label: string;
+    args: any[];
+    expected: any;
+    verify?: (res: any) => boolean;
+  }>;
+  fields?: Array<{
+    key: string;
+    label: string;
+    placeholder: string;
+  }>;
+  promptHint?: string;
+}
+
+export const NON_TECH_QUESTIONS: Record<string, Record<DifficultyLevel, InterviewQuestionItem[]>> = {
   finance: {
     easy: [
       {
@@ -148,6 +169,48 @@ const NON_TECH_QUESTIONS: Record<string, Record<DifficultyLevel, any[]>> = {
       }
     ]
   },
+  hr: {
+    easy: [
+      {
+        id: 1,
+        title: '1. Employee Retention & Turnover Rate',
+        description: 'A tech enterprise starts the year with 250 employees. During the year, 15 leave voluntarily and 5 leave involuntarily. 40 new engineers are hired. Calculate (a) Annual Turnover Rate % and (b) Net Headcount Growth %.',
+        type: 'worksheet',
+        fields: [
+          { key: 'turnoverRate', label: 'Annual Turnover Rate (%)', placeholder: 'e.g. 8.0%' },
+          { key: 'netGrowth', label: 'Net Headcount Growth (%)', placeholder: 'e.g. 8.0%' }
+        ],
+        promptHint: 'Identify leading indicators of early voluntary attrition.'
+      }
+    ],
+    normal: [
+      {
+        id: 1,
+        title: '1. Compensation Compa-Ratio & Pay Parity Calibration',
+        description: 'An engineering department has a salary midpoint of $140,000 for Senior SDE. Three engineers in the cohort earn $122,000, $138,000, and $154,000. Calculate individual Compa-Ratios and propose merit budget reallocation to address pay disparity.',
+        type: 'worksheet',
+        fields: [
+          { key: 'minCompa', label: 'Lowest Compa-Ratio (x)', placeholder: 'e.g. 0.87x' },
+          { key: 'maxCompa', label: 'Highest Compa-Ratio (x)', placeholder: 'e.g. 1.10x' },
+          { key: 'adjustment', label: 'Recommended Adjustment ($)', placeholder: 'e.g. 12000' }
+        ],
+        promptHint: 'How do you defend compensation adjustments during annual merit cycles while keeping morale high?'
+      }
+    ],
+    hard: [
+      {
+        id: 1,
+        title: '1. Executive Succession Planning & RIF Flight-Risk Modeling',
+        description: 'Following a merger, 18% workforce reduction is mandated across redundant regional offices. Design a 9-box talent matrix calibration preventing loss of Tier-1 IP creators and key customer-facing leads.',
+        type: 'worksheet',
+        fields: [
+          { key: 'keyTalentRetention', label: 'Target Critical Talent Retention (%)', placeholder: 'e.g. 96%' },
+          { key: 'severanceRunway', label: 'Estimated Transition Runway (Months)', placeholder: 'e.g. 3.5' }
+        ],
+        promptHint: 'Balance legal WARN Act compliance with maintaining engineering continuity.'
+      }
+    ]
+  },
   operations: {
     easy: [
       {
@@ -190,7 +253,7 @@ const NON_TECH_QUESTIONS: Record<string, Record<DifficultyLevel, any[]>> = {
   }
 };
 
-const TECH_QUESTIONS_BY_DIFFICULTY: Record<DifficultyLevel, any[]> = {
+export const TECH_QUESTIONS_BY_DIFFICULTY: Record<DifficultyLevel, InterviewQuestionItem[]> = {
   easy: [
     {
       id: 1,
@@ -274,6 +337,41 @@ const TECH_QUESTIONS_BY_DIFFICULTY: Record<DifficultyLevel, any[]> = {
 };
 
 /**
+ * Pure deterministic resolver for interview questions with multi-tier progressive fallback.
+ * Guaranteed to never throw and always maintain contract parity.
+ */
+export function resolveInterviewQuestions(
+  domainStream?: 'tech' | 'non_tech',
+  domainSubTopic?: string,
+  difficulty?: 'easy' | 'normal' | 'hard'
+): { questions: InterviewQuestionItem[]; difficulty: DifficultyLevel; stream: string; topic: string } {
+  const diff: DifficultyLevel = difficulty === 'easy' || difficulty === 'hard' ? difficulty : 'normal';
+  const isNonTech = domainStream === 'non_tech';
+
+  if (isNonTech) {
+    const rawTopic = (domainSubTopic || 'finance').toLowerCase().trim();
+    const topicBucket = NON_TECH_QUESTIONS[rawTopic] || NON_TECH_QUESTIONS.finance;
+    const questions = topicBucket[diff] || topicBucket.normal || topicBucket.easy || NON_TECH_QUESTIONS.finance.normal;
+    return {
+      questions,
+      difficulty: diff,
+      stream: 'non_tech',
+      topic: rawTopic in NON_TECH_QUESTIONS ? rawTopic : 'finance',
+    };
+  }
+
+  // Tech stream
+  const rawTopic = (domainSubTopic || 'software').toLowerCase().trim();
+  const questions = TECH_QUESTIONS_BY_DIFFICULTY[diff] || TECH_QUESTIONS_BY_DIFFICULTY.normal;
+  return {
+    questions,
+    difficulty: diff,
+    stream: 'tech',
+    topic: rawTopic,
+  };
+}
+
+/**
  * POST /api/interview/generate-questions
  * Generates tailored questions based on domain stream, specialization, and difficulty.
  */
@@ -286,25 +384,27 @@ export async function POST(req: Request) {
       return gated.error;
     }
 
-    const { domainStream, domainSubTopic, difficulty } = (await req.json().catch(() => ({}))) as QuestionRequest;
-    const diff: DifficultyLevel = difficulty === 'easy' || difficulty === 'hard' ? difficulty : 'normal';
-    console.log(`[Question Generator API] User: ${gated.user.id} | Stream: ${domainStream} | SubTopic: ${domainSubTopic} | Difficulty: ${diff}`);
+    const body = (await req.json().catch(() => ({}))) as QuestionRequest;
+    const resolved = resolveInterviewQuestions(body.domainStream, body.domainSubTopic, body.difficulty);
 
-    recordActiveLiveInterview(gated.user.id, domainSubTopic || 'Technical Interview', 'round2_coding');
+    console.log(`[Question Generator API] User: ${gated.user.id} | Stream: ${resolved.stream} | SubTopic: ${resolved.topic} | Difficulty: ${resolved.difficulty}`);
 
-    if (domainStream === 'non_tech') {
-      const topicKey = (domainSubTopic || 'finance').toLowerCase();
-      const topicBucket = NON_TECH_QUESTIONS[topicKey] || NON_TECH_QUESTIONS.finance;
-      const matched = topicBucket[diff] || topicBucket.normal || topicBucket.easy;
-      console.log(`[Question Generator API] Returned ${matched.length} non-tech worksheet questions for ${topicKey} (${diff})`);
-      return NextResponse.json({ questions: matched, difficulty: diff });
-    } else {
-      const matched = TECH_QUESTIONS_BY_DIFFICULTY[diff] || TECH_QUESTIONS_BY_DIFFICULTY.normal;
-      console.log(`[Question Generator API] Returned ${matched.length} tech coding questions (${diff})`);
-      return NextResponse.json({ questions: matched, difficulty: diff });
-    }
+    recordActiveLiveInterview(gated.user.id, body.domainSubTopic || 'Technical Interview', 'round2_coding');
+
+    return NextResponse.json({
+      questions: resolved.questions,
+      difficulty: resolved.difficulty,
+      topic: resolved.topic,
+      stream: resolved.stream,
+    });
   } catch (err: any) {
     console.error('[Question Generator API Error]:', err);
-    return NextResponse.json({ questions: TECH_QUESTIONS_BY_DIFFICULTY.normal, difficulty: 'normal' });
+    const fallback = resolveInterviewQuestions('tech', 'software', 'normal');
+    return NextResponse.json({
+      questions: fallback.questions,
+      difficulty: fallback.difficulty,
+      topic: fallback.topic,
+      stream: fallback.stream,
+    });
   }
 }

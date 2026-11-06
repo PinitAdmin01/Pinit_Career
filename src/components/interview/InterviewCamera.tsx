@@ -5,7 +5,7 @@ import React from 'react';
 export interface InterviewCameraProps {
   showCameraPreview: boolean;
   toggleCameraPreview: () => void;
-  videoRef: React.RefObject<HTMLVideoElement | null>;
+  videoRef: React.RefObject<any>;
   eyeContactScore?: number | null;
   isInterviewActive?: boolean;
 }
