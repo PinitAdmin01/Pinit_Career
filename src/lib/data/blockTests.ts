@@ -39,7 +39,14 @@ export function withAnswerAt(options: string[], correct: number | string, seed: 
     resolvedCorrect = correct;
   } else if (typeof correct === 'string') {
     const idx = options.findIndex((opt) => opt.trim() === correct.trim());
-    resolvedCorrect = idx >= 0 ? idx : 0;
+    if (idx >= 0) {
+      resolvedCorrect = idx;
+    } else if (/^\d+$/.test(correct.trim())) {
+      const parsed = parseInt(correct.trim(), 10);
+      resolvedCorrect = parsed >= 0 && parsed < options.length ? parsed : 0;
+    } else {
+      resolvedCorrect = 0;
+    }
   }
   const answer = options[resolvedCorrect];
   const wrong = options.filter((_, i) => i !== resolvedCorrect);

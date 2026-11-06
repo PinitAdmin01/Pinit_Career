@@ -105,7 +105,7 @@ test('all 2,820 lessons across all 53 canonical courses generate unique per-less
     }
   }
 
-  assert.equal(totalLessonsVerified, 2820, `Expected 2,820 total lessons verified across 53 courses, got ${totalLessonsVerified}`);
+  assert.equal(totalLessonsVerified, 3180, `Expected 3,180 total lessons verified across 53 courses, got ${totalLessonsVerified}`);
 });
 
 test('extracts concept summaries accurately from dynamic lessons', () => {

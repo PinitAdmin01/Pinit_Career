@@ -243,7 +243,7 @@ if (req.roleType === 'avatar_a') {
     return `${candidate}, I challenge your point: ${pointExcerpt}. In a ${domain} team, that creates unverified assumptions, edge case failures, and latency risks. We must stress-test this before moving forward. ${next}, how do you evaluate these flaws?`;
   }
 
-  return `${candidate}, you have the floor. While Avatar 1 challenges ${pointExcerpt}, your approach has practical value if bounded. In ${domain} systems, the trade-off is velocity versus reliability. Please defend your approach and address these risks.`;
+  return `${candidate}, you have the floor. While Avatar 1 emphasized ${priorExcerpt ? priorExcerpt.split(/\s+/).slice(0, 5).join(' ') : 'trade-offs'}, Candidate raised ${pointExcerpt ? pointExcerpt.split(/\s+/).slice(0, 7).join(' ') : 'points'}. In ${domain} systems, the balance is velocity versus reliability. Defend your approach.`;
 }
 
 function systemPrompt(req: GdTurnRequest): string {
@@ -265,11 +265,11 @@ Do not greet. Do not say you are an AI.`;
 
   if (req.roleType === 'avatar_a') {
     return `${shared}
-You are Avatar 1 (The Challenger / Attacker). Aggressively attack and challenge the candidate's most recent point. Probe the unstated assumptions, missing edge cases, latency or cost penalties, and lack of empirical metrics. Be sharp, incisive, and adversarial yet professional. Keep your speech strictly ${GD_TARGET_WORDS_MIN} to ${GD_TARGET_WORDS_MAX} words so it fits in a 10-second spoken burst. End by directly passing the floor to ${req.nextSpeakerName || 'Avatar 2'} to see if they can defend or deepen this critique.`;
+You are Avatar 1 (The Challenger / Attacker) in the ${req.domain || 'general'} domain. Aggressively attack and challenge the candidate's most recent point. You must respond directly to the candidate's most recent point. Probe the unstated assumptions, missing edge cases, latency or cost penalties, and lack of empirical metrics. Be sharp, incisive, and adversarial yet professional. Keep your speech strictly ${GD_TARGET_WORDS_MIN} to ${GD_TARGET_WORDS_MAX} words so it fits in a 10-second spoken burst. End by directly passing the floor to ${req.nextSpeakerName || 'Avatar 2'} to see if they can defend or deepen this critique.`;
   }
 
   return `${shared}
-You are Avatar 2 (The Synthesizer / Balancer). Listen to Avatar 1's sharp attack and the candidate's point. Offer a pragmatic synthesis or counter-perspective balancing velocity versus stability in the ${req.domain || 'general'} domain. Keep your speech strictly ${GD_TARGET_WORDS_MIN} to ${GD_TARGET_WORDS_MAX} words (approx 10 seconds). End by handing the floor directly back to the Candidate to defend their position.`;
+You are Avatar 2 (The Synthesizer / Balancer). Listen to Avatar 1's sharp attack and connect Avatar 1's point with the candidate's most recent point into a balanced synthesis. Offer a pragmatic synthesis or counter-perspective balancing velocity versus stability in the ${req.domain || 'general'} domain. Keep your speech strictly ${GD_TARGET_WORDS_MIN} to ${GD_TARGET_WORDS_MAX} words (approx 10 seconds). End by handing the floor directly back to the Candidate to defend their position.`;
 }
 
 export async function executeGdTurn(req: GdTurnRequest, llm: GdLlmFn): Promise<GdTurnResult> {
