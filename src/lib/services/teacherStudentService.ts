@@ -188,7 +188,7 @@ export const teacherStudentService = {
     try {
       const hasTable = await tableExists('student_institutional_profiles');
       if (hasTable) {
-        await supabase.from('student_institutional_profiles').upsert({
+        const { error: upsertErr } = await supabase.from('student_institutional_profiles').upsert({
           student_id: updatedRecord.studentId,
           student_name: updatedRecord.studentName,
           email: updatedRecord.email,

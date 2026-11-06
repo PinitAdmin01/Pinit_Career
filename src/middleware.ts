@@ -73,6 +73,8 @@ const CSP = [
     'https://pinit-backend-v8pd.onrender.com',
     'https://api.github.com',
     'https://cdn.jsdelivr.net',
+    'https://openrouter.ai',
+    'https://api.groq.com',
   ].join(' '),
 
   // ── UPDATED frame-src ──────────────────────────────────────────

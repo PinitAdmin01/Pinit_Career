@@ -138,7 +138,7 @@ export const teacherEventService = {
     try {
       const hasTable = await tableExists('teacher_events_audit');
       if (hasTable) {
-        await supabase.from('teacher_events_audit').update({
+        const { error: updErr } = await supabase.from('teacher_events_audit').update({
           audit_status: updated.auditStatus,
           audit_notes: updated.auditNotes,
           audited_by: updated.auditedBy,
@@ -167,7 +167,7 @@ export const teacherEventService = {
     try {
       const hasTable = await tableExists('teacher_events_audit');
       if (hasTable) {
-        await supabase.from('teacher_events_audit').update({
+        const { error: updErr } = await supabase.from('teacher_events_audit').update({
           status: 'live',
           started_at: updated.startedAt
         }).eq('id', id);
@@ -201,7 +201,7 @@ export const teacherEventService = {
     try {
       const hasTable = await tableExists('teacher_events_audit');
       if (hasTable) {
-        await supabase.from('teacher_events_audit').insert({
+        const { error: insErr } = await supabase.from('teacher_events_audit').insert({
           id: newEvent.id,
           title: newEvent.title,
           category: newEvent.category,

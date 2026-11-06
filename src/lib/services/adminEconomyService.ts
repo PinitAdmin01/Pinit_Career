@@ -330,7 +330,7 @@ export const adminEconomyService = {
     try {
       const hasTable = await tableExists('admin_course_rates');
       if (hasTable) {
-        await supabase.from('admin_course_rates').upsert({
+        const { error: rateErr } = await supabase.from('admin_course_rates').upsert({
           id: updatedRecord.id,
           title: updatedRecord.title,
           category: updatedRecord.category,
@@ -382,7 +382,7 @@ export const adminEconomyService = {
     try {
       const hasTable = await tableExists('admin_pins_economy');
       if (hasTable) {
-        await supabase.from('admin_pins_economy').upsert({
+        const { error: pinErr } = await supabase.from('admin_pins_economy').upsert({
           id: 'canonical_config',
           inr_per_pin: updated.inrPerPin,
           daily_login_bonus: updated.dailyLoginBonusPins,
@@ -435,7 +435,7 @@ export const adminEconomyService = {
     try {
       const hasTable = await tableExists('admin_pin_grants');
       if (hasTable) {
-        await supabase.from('admin_pin_grants').insert({
+        const { error: grantErr } = await supabase.from('admin_pin_grants').insert({
           id: newGrant.id,
           student_id: newGrant.studentId,
           student_name: newGrant.studentName,
@@ -455,7 +455,7 @@ export const adminEconomyService = {
         const { data: userRow } = await supabase.from('users').select('pins').eq('id', params.studentId).maybeSingle();
         if (userRow) {
           const currentPins = Number(userRow.pins) || 0;
-          await supabase.from('users').update({ pins: currentPins + newGrant.amount }).eq('id', params.studentId);
+          const { error: userErr } = await supabase.from('users').update({ pins: currentPins + newGrant.amount }).eq('id', params.studentId);
         }
       }
     } catch {}
@@ -541,7 +541,7 @@ export const adminEconomyService = {
     try {
       const hasTable = await tableExists('admin_tournaments');
       if (hasTable) {
-        await supabase.from('admin_tournaments').insert({
+        const { error: tourInsErr } = await supabase.from('admin_tournaments').insert({
           id: newTournament.id,
           title: newTournament.title,
           domain: newTournament.domain,
@@ -579,7 +579,7 @@ export const adminEconomyService = {
     try {
       const hasTable = await tableExists('admin_tournaments');
       if (hasTable) {
-        await supabase.from('admin_tournaments').update({
+        const { error: tourUpdErr } = await supabase.from('admin_tournaments').update({
           status: 'live',
           start_date: updated.startDate
         }).eq('id', id);
@@ -605,7 +605,7 @@ export const adminEconomyService = {
     try {
       const hasTable = await tableExists('admin_tournaments');
       if (hasTable) {
-        await supabase.from('admin_tournaments').update({
+        const { error: tourUpdErr } = await supabase.from('admin_tournaments').update({
           status: 'completed'
         }).eq('id', id);
       }

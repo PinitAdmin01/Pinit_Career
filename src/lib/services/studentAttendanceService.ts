@@ -166,7 +166,7 @@ export const studentAttendanceService = {
 
     // Option 1 (Background authoritative persist to Supabase)
     try {
-      await supabase.from('student_attendance').upsert({
+      const { error } = await supabase.from('student_attendance').upsert({
         student_id: studentId,
         focus_streak: nextStreak,
         last_check_in: today,
@@ -176,6 +176,7 @@ export const studentAttendanceService = {
         percentage: nextPct,
         updated_at: new Date().toISOString(),
       });
+      if (error) throw error;
     } catch (err) {
       console.warn('[AttendanceService] Supabase background sync notice:', err);
     }
