@@ -1141,7 +1141,7 @@ export default function InterviewPage() {
     }
   };
 
-  const exportInterviewTranscript = (format: 'markdown' | 'json' = 'markdown') => {
+  const exportInterviewTranscript = (format: 'markdown' | 'json' | 'pdf' = 'markdown') => {
     exportInterviewTranscriptFile({
       format, activeTopicName, domainStream,
       teacherName: activeTeacher.name,
