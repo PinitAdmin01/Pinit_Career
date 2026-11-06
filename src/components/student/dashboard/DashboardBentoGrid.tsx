@@ -1,7 +1,6 @@
 'use client';
 
 import { useMemo } from 'react';
-import DashboardAttendanceMarker from './DashboardAttendanceMarker';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 
 const EVO_STAGES = [
@@ -130,9 +129,6 @@ export default function DashboardBentoGrid({
           Clear coding quests, pass lab experiments, verify vault credentials, and pass mock interviews to rank up to Placement Ready.
         </p>
       </div>
-
-      {/* Row 1.5: Campus Attendance Marker & 75% Eligibility HUD (Automatic check-in) */}
-      <DashboardAttendanceMarker />
 
       {/* Row 2: Competencies Radar card */}
       <div className="db-glass" style={{ padding: 22 }}>

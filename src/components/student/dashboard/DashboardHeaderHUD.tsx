@@ -1,6 +1,5 @@
 'use client';
 import { useEffect, useRef, useState, useMemo } from 'react';
-import Link from 'next/link';
 import { DynamicRoleReadiness, StudentSkillProfile } from '@/lib/pathway/competencySchema';
 
 // ── Canvas Hologram ──────────────────────────────────────────────────────────
@@ -274,71 +273,6 @@ export default function DashboardHeaderHUD({
             <p style={{ fontSize: 13.5, color: 'var(--dash-subtext)', margin: '0 0 10px', lineHeight: 1.5 }}>
               {greetingInfo.subtitle}
             </p>
-
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '4px 10px', borderRadius: 8, background: 'var(--bg3)', border: '1px solid var(--dash-border)' }}>
-              <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--green)', display: 'inline-block', boxShadow: '0 0 8px var(--green)', animation: 'hud-pulse 2s infinite ease-in-out' }} />
-              <span style={{ fontSize: 12.5, color: 'var(--dash-subtext)' }}>
-                Active Pathway: <strong style={{ color: 'var(--dash-text)' }}>{trajectory}</strong>
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* Right: Trust Button + Track switcher */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
-          
-          {/* Top Trust button */}
-          <Link
-            href="/trust"
-            data-testid="btn-trust-top"
-            aria-label="View institutional Trust Quotient and verification"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 7,
-              padding: '8px 16px',
-              borderRadius: 10,
-              background: 'rgba(16, 185, 129, 0.12)',
-              border: '1.5px solid rgba(16, 185, 129, 0.35)',
-              color: '#10b981',
-              fontWeight: 800,
-              fontSize: 13,
-              fontFamily: 'var(--font-mono)',
-              textDecoration: 'none',
-              transition: 'all 0.2s ease',
-              boxShadow: '0 2px 10px rgba(16,185,129,0.12)',
-            }}
-          >
-            <span>🛡️</span>
-            <span>Trust</span>
-          </Link>
-
-          {/* Track Switcher */}
-          <div 
-            role="radiogroup" 
-            aria-label="Engineering Career Trajectory Track"
-            style={{ display: 'flex', background: 'var(--bg3)', borderRadius: 10, padding: 3, border: '1px solid var(--dash-border)' }}
-          >
-            {(['sde', 'iot'] as const).map(t => (
-              <button
-                key={t}
-                type="button"
-                role="radio"
-                aria-checked={activeTrack === t}
-                tabIndex={activeTrack === t ? 0 : -1}
-                onClick={() => onTrackChange(t)}
-                style={{
-                  padding: '7px 14px', borderRadius: 8, border: 'none',
-                  background: activeTrack === t ? 'var(--bg3)' : 'none',
-                  color: activeTrack === t ? (t === 'sde' ? 'var(--accent)' : 'var(--teal-mid)') : 'var(--t2)',
-                  fontSize: 12, fontWeight: 800, cursor: 'pointer', transition: 'all 0.15s',
-                  fontFamily: 'var(--font-mono)',
-                  outline: 'none',
-                }}
-              >
-                {t === 'sde' ? 'SDE Software' : 'IoT Hardware'}
-              </button>
-            ))}
           </div>
         </div>
 

@@ -9,7 +9,6 @@ import WhatToDoToday from '@/components/ui/WhatToDoToday';
 
 // Sub-components
 import DashboardHeaderHUD      from '@/components/student/dashboard/DashboardHeaderHUD';
-import DashboardKpiStrip       from '@/components/student/dashboard/DashboardKpiStrip';
 import CareerCourseProgressBar from '@/components/student/dashboard/CareerCourseProgressBar';
 import DashboardBentoGrid      from '@/components/student/dashboard/DashboardBentoGrid';
 import DashboardTrajectoryMap  from '@/components/student/dashboard/DashboardTrajectoryMap';
@@ -304,16 +303,6 @@ export default function DashboardPage() {
         onTrackChange={setActiveTrack}
         skillProfile={skillProfile}
         roleReadiness={roleReadiness}
-      />
-
-      {/* 2. Operational KPI Strip: Streak, Pins, Mastery Level, Trust, Attendance */}
-      <DashboardKpiStrip
-        streak={cOS.missionStreak || 1}
-        pins={cOS.pins || 0}
-        xp={cOS.xp || 0}
-        trustScore={trustScore}
-        attendancePct={attendancePct}
-        verifiedVaultCount={verifiedVaultCount}
       />
 
       {/* 3. Creative Career Course Progress Bar (Task 4) */}
