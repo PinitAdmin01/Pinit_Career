@@ -2,6 +2,7 @@
 
 import { useMemo } from 'react';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
+import WhatToDoToday, { ActionProfile } from '@/components/ui/WhatToDoToday';
 
 const EVO_STAGES = [
   { stage: 1, icon: '1', name: 'Syntax & Logic Novice', minScore: 0, desc: 'Variables, loops & conditional logic' },
@@ -19,6 +20,7 @@ interface Props {
   getContributionsForDate?: (date: Date) => number;
   activeStageIndex: number;
   learningMistakes?: any[];
+  actionProfile?: ActionProfile | null;
 }
 
 export default function DashboardBentoGrid({
@@ -27,6 +29,7 @@ export default function DashboardBentoGrid({
   activeTrack,
   activeStageIndex,
   learningMistakes = [],
+  actionProfile,
 }: Props) {
   const cOS = useCareerOS();
   const accentRgb = activeTrack === 'iot' ? '20,184,166' : '99,102,241';
@@ -130,55 +133,80 @@ export default function DashboardBentoGrid({
         </p>
       </div>
 
-      {/* Row 2: Competencies Radar card */}
-      <div className="db-glass" style={{ padding: 22 }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10, marginBottom: 12 }}>
-          <div>
-            <span className="db-label">SOCRATIC COMPETENCIES RADAR</span>
-            <h3 style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', margin: '2px 0 0', fontFamily: 'var(--font-display)' }}>
-              Multi-Dimensional Competency Matrix
-            </h3>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 11.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
-            <span style={{ width: 8, height: 8, borderRadius: 2, background: activeTrack === 'sde' ? 'var(--accent)' : 'var(--teal-mid)' }} />
-            Active Track: <strong style={{ color: 'var(--t1)' }}>{activeTrack === 'sde' ? 'SDE Full-Stack' : 'IoT Embedded'}</strong>
-          </div>
-        </div>
+      {/* Row 2: Left 50% What to do today (vertical) + Right 50% Competencies Radar */}
+      <div
+        data-testid="dashboard-action-radar-row"
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+          gap: 16,
+          alignItems: 'stretch',
+        }}
+      >
+        {/* Left Column (50%): What to do today (Vertical) */}
+        <WhatToDoToday profile={actionProfile} layout="vertical" />
 
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '10px 0' }}>
-          <svg viewBox="0 0 120 120" style={{ width: 220, height: 220, overflow: 'visible' }}>
-            {[0.25, 0.5, 0.75, 1.0].map((scale, i) => (
+        {/* Right Column (50%): Socratic Competencies Radar card */}
+        <div
+          data-testid="competencies-radar-card"
+          className="db-glass"
+          style={{
+            padding: '20px 22px',
+            borderRadius: 16,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            height: '100%',
+          }}
+        >
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10, marginBottom: 12 }}>
+            <div>
+              <span className="db-label">SOCRATIC COMPETENCIES RADAR</span>
+              <h3 style={{ fontSize: 15, fontWeight: 900, color: 'var(--t1)', margin: '2px 0 0', fontFamily: 'var(--font-display)' }}>
+                Multi-Dimensional Competency Matrix
+              </h3>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 11.5, color: 'var(--t3)', fontFamily: 'var(--font-mono)' }}>
+              <span style={{ width: 8, height: 8, borderRadius: 2, background: activeTrack === 'sde' ? 'var(--accent)' : 'var(--teal-mid)' }} />
+              Active Track: <strong style={{ color: 'var(--t1)' }}>{activeTrack === 'sde' ? 'SDE Full-Stack' : 'IoT Embedded'}</strong>
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flex: 1, padding: '10px 0' }}>
+            <svg viewBox="0 0 120 120" style={{ width: 210, height: 210, overflow: 'visible' }}>
+              {[0.25, 0.5, 0.75, 1.0].map((scale, i) => (
+                <polygon
+                  key={i}
+                  points={[0, 72, 144, 216, 288].map(ang => {
+                    const r = 46 * scale;
+                    const rad = ang * (Math.PI / 180);
+                    return `${+(60 + r * Math.sin(rad)).toFixed(1)},${+(60 - r * Math.cos(rad)).toFixed(1)}`;
+                  }).join(' ')}
+                  fill="none"
+                  stroke="rgba(255,255,255,0.06)"
+                  strokeWidth="0.8"
+                />
+              ))}
+              {[0, 72, 144, 216, 288].map((ang, i) => {
+                const rad = ang * (Math.PI / 180);
+                const x2 = +(60 + 46 * Math.sin(rad)).toFixed(1);
+                const y2 = +(60 - 46 * Math.cos(rad)).toFixed(1);
+                return <line key={i} x1="60" y1="60" x2={x2} y2={y2} stroke="rgba(255,255,255,0.06)" strokeWidth="0.8" />;
+              })}
               <polygon
-                key={i}
-                points={[0, 72, 144, 216, 288].map(ang => {
-                  const r = 46 * scale;
-                  const rad = ang * (Math.PI / 180);
-                  return `${+(60 + r * Math.sin(rad)).toFixed(1)},${+(60 - r * Math.cos(rad)).toFixed(1)}`;
-                }).join(' ')}
-                fill="none"
-                stroke="rgba(255,255,255,0.06)"
-                strokeWidth="0.8"
+                points={radarPoints}
+                fill={`rgba(${accentRgb},0.22)`}
+                stroke={accentVar}
+                strokeWidth="2"
+                style={{ transition: 'all 0.5s ease' }}
               />
-            ))}
-            {[0, 72, 144, 216, 288].map((ang, i) => {
-              const rad = ang * (Math.PI / 180);
-              const x2 = +(60 + 46 * Math.sin(rad)).toFixed(1);
-              const y2 = +(60 - 46 * Math.cos(rad)).toFixed(1);
-              return <line key={i} x1="60" y1="60" x2={x2} y2={y2} stroke="rgba(255,255,255,0.06)" strokeWidth="0.8" />;
-            })}
-            <polygon
-              points={radarPoints}
-              fill={`rgba(${accentRgb},0.22)`}
-              stroke={accentVar}
-              strokeWidth="2"
-              style={{ transition: 'all 0.5s ease' }}
-            />
-            <text x="60" y="8" fill="var(--t3)" fontSize="6" fontFamily="var(--font-mono)" textAnchor="middle">CODING</text>
-            <text x="110" y="44" fill="var(--t3)" fontSize="6" fontFamily="var(--font-mono)" textAnchor="middle">ARCH</text>
-            <text x="96" y="112" fill="var(--t3)" fontSize="6" fontFamily="var(--font-mono)" textAnchor="middle">DATA</text>
-            <text x="24" y="112" fill="var(--t3)" fontSize="6" fontFamily="var(--font-mono)" textAnchor="middle">SOCRATIC</text>
-            <text x="10" y="44" fill="var(--t3)" fontSize="6" fontFamily="var(--font-mono)" textAnchor="middle">IoT</text>
-          </svg>
+              <text x="60" y="8" fill="var(--t3)" fontSize="6" fontFamily="var(--font-mono)" textAnchor="middle">CODING</text>
+              <text x="110" y="44" fill="var(--t3)" fontSize="6" fontFamily="var(--font-mono)" textAnchor="middle">ARCH</text>
+              <text x="96" y="112" fill="var(--t3)" fontSize="6" fontFamily="var(--font-mono)" textAnchor="middle">DATA</text>
+              <text x="24" y="112" fill="var(--t3)" fontSize="6" fontFamily="var(--font-mono)" textAnchor="middle">SOCRATIC</text>
+              <text x="10" y="44" fill="var(--t3)" fontSize="6" fontFamily="var(--font-mono)" textAnchor="middle">IoT</text>
+            </svg>
+          </div>
         </div>
       </div>
 

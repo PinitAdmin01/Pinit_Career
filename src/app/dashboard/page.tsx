@@ -5,7 +5,6 @@ import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/context/AuthContext';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
-import WhatToDoToday from '@/components/ui/WhatToDoToday';
 
 // Sub-components
 import DashboardHeaderHUD      from '@/components/student/dashboard/DashboardHeaderHUD';
@@ -308,17 +307,15 @@ export default function DashboardPage() {
       {/* 3. Creative Career Course Progress Bar (Task 4) */}
       <CareerCourseProgressBar />
 
-      {/* 4. Bento Grid: Evolution Timeline, Automatic Attendance Marker, Competencies Radar */}
+      {/* 4. Bento Grid: Evolution Timeline, Left 50% What To Do Today & Right 50% Competencies Radar */}
       <DashboardBentoGrid
         careerScore={careerScore}
         dnaScore={dnaScore}
         activeTrack={activeTrack}
         activeStageIndex={activeStageIndex}
         learningMistakes={cOS.onboardingAnswers?.learning_mistakes || []}
+        actionProfile={memoizedProfileForActions}
       />
-
-      {/* 5. Priority Action Checklist: 3 concise, dynamic actions */}
-      <WhatToDoToday profile={memoizedProfileForActions} />
 
       {/* 5. Trajectory Map (Roadmap generator) */}
       <DashboardTrajectoryMap
