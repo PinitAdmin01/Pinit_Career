@@ -251,7 +251,7 @@ export default function WhatToDoToday({
                     </span>
                   </div>
                   {isVertical && (
-                    <span style={{ fontSize: 11, fontWeight: 800, color: action.color, fontFamily: 'var(--font-mono)' }}>
+                    <span style={{ fontSize: 11, fontWeight: 800, color: action.color, fontFamily: 'var(--font-mono)', whiteSpace: 'nowrap', flexShrink: 0 }}>
                       {action.cta.replace(' →', '')} →
                     </span>
                   )}

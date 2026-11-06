@@ -60,7 +60,7 @@ describe('BRUTAL FRESH-EYES DEEP AUDIT: STUDENT DASHBOARD OVERHAUL', () => {
   describe('Audit 3: Row 2 Layout & Responsiveness Contract', () => {
     test('BentoGrid Row 2 encapsulates WhatToDoToday and Competencies Radar', () => {
       assert.ok(files.bento.includes('data-testid="dashboard-action-radar-row"'));
-      assert.ok(files.bento.includes('minmax(340px, 1fr)'));
+      assert.ok(files.bento.includes('min(100%, 340px)'));
       assert.ok(files.bento.includes('<WhatToDoToday profile={actionProfile} layout="vertical" />'));
       assert.ok(files.bento.includes('data-testid="competencies-radar-card"'));
     });

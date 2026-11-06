@@ -157,29 +157,22 @@ function CareerTwinHologram({ track }: { track: 'sde' | 'iot' }) {
 
 interface Props {
   user: any;
-  careerScore: number;
-  trustScore: number;
-  onboardingAnswers: any;
+  careerScore?: number;
+  trustScore?: number;
+  onboardingAnswers?: any;
   activeTrack: 'sde' | 'iot';
-  onTrackChange: (t: 'sde' | 'iot') => void;
+  onTrackChange?: (t: 'sde' | 'iot') => void;
   skillProfile?: StudentSkillProfile | null;
   roleReadiness?: DynamicRoleReadiness | null;
 }
 
 export default function DashboardHeaderHUD({
   user,
-  careerScore,
-  trustScore,
-  onboardingAnswers,
   activeTrack,
-  onTrackChange,
-  roleReadiness,
 }: Props) {
   const firstName = useMemo(() => {
-    return user?.displayName?.split(' ')[0] || user?.username?.split('@')[0] || 'Student';
+    return user?.displayName?.trim()?.split(/\s+/)[0] || user?.username?.split('@')[0] || 'Student';
   }, [user]);
-
-  const trajectory = roleReadiness?.targetRole || onboardingAnswers?.targetRole || onboardingAnswers?.role || 'Full-Stack Software Engineer';
 
   // Dynamic greeting calculation:
   // If student returns after >= 2 days: "Hello [Name], it's been [X] days! Welcome back."
@@ -248,7 +241,7 @@ export default function DashboardHeaderHUD({
       <div style={{ position: 'absolute', top: -60, right: -60, width: 240, height: 240, background: 'rgba(99,102,241,0.12)', borderRadius: '50%', filter: 'blur(80px)', pointerEvents: 'none' }} />
       <div style={{ position: 'absolute', bottom: -40, left: -40, width: 180, height: 180, background: 'rgba(14,165,233,0.08)', borderRadius: '50%', filter: 'blur(60px)', pointerEvents: 'none' }} />
 
-      {/* Main Row: Hologram + Greeting + Trust Button + Track Switcher */}
+      {/* Main Row: Hologram + Clean Greeting */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 20, position: 'relative', zIndex: 1 }}>
         
         {/* Left: Hologram + Clean Greeting */}

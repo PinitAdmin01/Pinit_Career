@@ -138,7 +138,7 @@ export default function DashboardBentoGrid({
         data-testid="dashboard-action-radar-row"
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))',
           gap: 16,
           alignItems: 'stretch',
         }}
@@ -200,11 +200,11 @@ export default function DashboardBentoGrid({
                 strokeWidth="2"
                 style={{ transition: 'all 0.5s ease' }}
               />
-              <text x="60" y="8" fill="var(--t3)" fontSize="6" fontFamily="var(--font-mono)" textAnchor="middle">CODING</text>
-              <text x="110" y="44" fill="var(--t3)" fontSize="6" fontFamily="var(--font-mono)" textAnchor="middle">ARCH</text>
-              <text x="96" y="112" fill="var(--t3)" fontSize="6" fontFamily="var(--font-mono)" textAnchor="middle">DATA</text>
-              <text x="24" y="112" fill="var(--t3)" fontSize="6" fontFamily="var(--font-mono)" textAnchor="middle">SOCRATIC</text>
-              <text x="10" y="44" fill="var(--t3)" fontSize="6" fontFamily="var(--font-mono)" textAnchor="middle">IoT</text>
+              <text x="60" y="8" fill="var(--t2, #94a3b8)" fontSize="6" fontWeight="700" fontFamily="var(--font-mono)" textAnchor="middle">CODING</text>
+              <text x="110" y="44" fill="var(--t2, #94a3b8)" fontSize="6" fontWeight="700" fontFamily="var(--font-mono)" textAnchor="middle">ARCH</text>
+              <text x="96" y="112" fill="var(--t2, #94a3b8)" fontSize="6" fontWeight="700" fontFamily="var(--font-mono)" textAnchor="middle">DATA</text>
+              <text x="24" y="112" fill="var(--t2, #94a3b8)" fontSize="6" fontWeight="700" fontFamily="var(--font-mono)" textAnchor="middle">SOCRATIC</text>
+              <text x="10" y="44" fill="var(--t2, #94a3b8)" fontSize="6" fontWeight="700" fontFamily="var(--font-mono)" textAnchor="middle">IoT</text>
             </svg>
           </div>
         </div>

@@ -18,8 +18,8 @@ describe('STUDENT DASHBOARD: TASK 2 RADAR & WHAT TO DO TODAY LAYOUT AUDIT', () =
       'DashboardBentoGrid must contain dashboard-action-radar-row container'
     );
     assert.ok(
-      bentoGridFile.includes('gridTemplateColumns: \'repeat(auto-fit, minmax(340px, 1fr))\'') ||
-      bentoGridFile.includes('minmax(340px, 1fr)'),
+      bentoGridFile.includes('gridTemplateColumns: \'repeat(auto-fit, min(100%, 340px))\'') ||
+      bentoGridFile.includes('min(100%, 340px)'),
       'Row 2 must use responsive 2-column split (50% on desktop)'
     );
     assert.ok(
