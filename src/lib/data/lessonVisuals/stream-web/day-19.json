@@ -152,7 +152,7 @@
         "steps": [
           {
             "at": "say3",
-            "caption": "Events arriving within gapMs (200ms) extend the current session end boundary.",
+            "caption": "Events arriving within gapMs (OKms) extend the current session end.",
             "rows": [
               {
                 "cells": [
@@ -167,7 +167,7 @@
           },
           {
             "at": "say4",
-            "caption": "When elapsed time (390ms at 600ms) exceeds gapMs (200ms), Session 1 terminates.",
+            "caption": "When elapsed time (ms at ms) exceeds gapMs (OKms), Session one terminates.",
             "rows": [
               {
                 "cells": [
@@ -271,7 +271,7 @@
           },
           {
             "at": "say6",
-            "caption": "When timestamp minus lastSeen is within gapMs (300ms), the session is extended.",
+            "caption": "When timestamp minus lastSeen is within gapMs (ms), the session is.",
             "activeState": "s1Ext",
             "transition": {
               "from": "s1New",
@@ -326,7 +326,7 @@
         "steps": [
           {
             "at": "say2",
-            "caption": "Two sessions are recorded: Session 1 [100, 200] and Session 2 [500, 600].",
+            "caption": "Two sessions are recorded: Session one [one hundred, OK] and Session two.",
             "items": [
               {
                 "text": "s-1 [100..200]"
@@ -348,7 +348,7 @@
           },
           {
             "at": "say7",
-            "caption": "Late event 350ms bridges both sessions into a unified session [100, 600].",
+            "caption": "Late event ms bridges both sessions into a unified session [one hundred.",
             "items": [
               {
                 "text": "s-1 [100..200]"
@@ -424,7 +424,7 @@
         "steps": [
           {
             "at": "say6",
-            "caption": "If true, the sessions overlap or bridge: we extend the span to [10, 60].",
+            "caption": "If true, the sessions overlap or bridge: we extend the span to [ten.",
             "rows": [
               {
                 "cells": [
@@ -541,7 +541,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Full User Journey Sessionizer Engine [D19.P6.S1].",
+            "caption": "Initialize input state for Full User Journey Sessionizer Engine.",
             "values": {
               "in": "Day 19 Input",
               "proc": "Standby",
@@ -561,7 +561,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Full User Journey S... [D19.P6.S2].",
+            "caption": "Execute core transformation in Full User Journey S... [D.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -585,7 +585,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D19.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -605,7 +605,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Full User Journey Sessionizer Eng.. [D19.P6.S4].",
+            "caption": "End-to-end execution verified for Full User Journey Sessionizer Eng.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

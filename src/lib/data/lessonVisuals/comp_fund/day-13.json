@@ -96,7 +96,7 @@
             "focus": [
               1
             ],
-            "caption": "say1 (Cloud Storage Architecture: Object )"
+            "caption": "Sayone (Cloud Storage Architecture: Object )."
           },
           {
             "label": "example",
@@ -264,7 +264,7 @@
             "focus": [
               1
             ],
-            "caption": "say1 (Differential Synchronization & Roll)"
+            "caption": "Sayone (Differential Synchronization & Roll)."
           },
           {
             "label": "example",
@@ -432,7 +432,7 @@
             "focus": [
               1
             ],
-            "caption": "say1 (Concurrent Modification Conflict Re)"
+            "caption": "Sayone (Concurrent Modification Conflict Re)."
           },
           {
             "label": "example",
@@ -592,7 +592,7 @@
             "focus": [
               0
             ],
-            "caption": "intro (Enterprise Disaster Recovery: The 3)"
+            "caption": "Intro (Enterprise Disaster Recovery: The three)."
           },
           {
             "label": "say1",
@@ -600,7 +600,7 @@
             "focus": [
               1
             ],
-            "caption": "say1 (Enterprise Disaster Recovery: The 3)"
+            "caption": "Sayone (Enterprise Disaster Recovery: The three)."
           },
           {
             "label": "example",
@@ -608,7 +608,7 @@
             "focus": [
               1
             ],
-            "caption": "example (Enterprise Disaster Recovery: The 3)"
+            "caption": "Example (Enterprise Disaster Recovery: The three)."
           },
           {
             "label": "tryIt",
@@ -616,7 +616,7 @@
             "focus": [
               2
             ],
-            "caption": "tryIt (Enterprise Disaster Recovery: The 3)"
+            "caption": "TryIt (Enterprise Disaster Recovery: The three)."
           }
         ]
       },
@@ -768,7 +768,7 @@
             "focus": [
               1
             ],
-            "caption": "say1 (Autonomous Cloud Backup & Distribut)"
+            "caption": "Sayone (Autonomous Cloud Backup & Distribut)."
           },
           {
             "label": "example",

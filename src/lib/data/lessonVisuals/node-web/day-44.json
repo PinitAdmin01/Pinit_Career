@@ -30,14 +30,14 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "HTTP/1.1 queues sequential requests on a single socket, causing severe blocking.",
+            "caption": "HTTP legacy queues sequential requests on a single socket, causing severe.",
             "values": {
               "activeSide": "left"
             }
           },
           {
             "at": "say3",
-            "caption": "HTTP/2 introduces a binary framing layer over a single persistent TCP connection.",
+            "caption": "HTTP multiplexed introduces a binary framing layer over a single.",
             "values": {
               "activeSide": "right"
             }
@@ -51,7 +51,7 @@
           },
           {
             "at": "say7",
-            "caption": "A slow payload on Stream 1 does not impede fast responses on Stream 3.",
+            "caption": "A slow payload on Stream one does not impede fast responses on Stream.",
             "values": {
               "activeSide": "both"
             }
@@ -111,7 +111,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Client advertises HTTP/2 support via ALPN extension in TLS ClientHello.",
+            "caption": "Client advertises HTTP multiplexed support via ALPN extension in TLS.",
             "values": {
               "hello": {
                 "status": "Online"
@@ -129,7 +129,7 @@
           },
           {
             "at": "say3",
-            "caption": "Server confirms 'h2' negotiation in ServerHello without extra round trips.",
+            "caption": "Server confirms 'htwo' negotiation in ServerHello without extra round.",
             "values": {
               "hello": {
                 "status": "Processing"
@@ -219,7 +219,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Every gRPC method call maps directly to an HTTP/2 POST request path.",
+            "caption": "Every gRPC method call maps directly to an HTTP multiplexed POST request.",
             "values": {
               "path": {
                 "status": "Inspecting"
@@ -255,7 +255,7 @@
           },
           {
             "at": "say5",
-            "caption": "5-byte framing enables length-prefixed streaming over DATA frames.",
+            "caption": "Byte framing enables length-prefixed streaming over DATA frames.",
             "values": {
               "path": {
                 "status": "Synchronized"
@@ -522,7 +522,7 @@
           },
           {
             "at": "say7",
-            "caption": "Trace interceptor extracts W3C traceparent and binds AsyncLocalStorage context.",
+            "caption": "Trace interceptor extracts WthreeC traceparent and binds.",
             "values": {
               "inbound": {
                 "status": "Online"

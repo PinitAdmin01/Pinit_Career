@@ -10,12 +10,12 @@
       "codeHash": "ceb38da27d84ec73407c5096b0bf3182ac75b8cee66feec566acb79dc9269bd3",
       "spec": {
         "template": "ledger-sheet",
-        "title": "The Auditor's Responses to Assessed Risks: Tests o \u2014 Statutory Audit Ledger",
+        "title": "The Auditor's Responses to Assessed Risks: Tests o — Statutory Audit Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open statutory audit assurance verification ledger (995000) for The Auditor's Responses to Assessed Risk...",
-            "title": "Day 7 Statutory Assurance Ledger \u2014 Initial Posting",
+            "caption": "Open statutory audit assurance verification ledger (multiple) for The.",
+            "title": "Day 7 Statutory Assurance Ledger — Initial Posting",
             "isBalanced": true,
             "totalDebit": 995000,
             "totalCredit": 995000,
@@ -40,8 +40,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / sampling precision entry (145000) under applicable SA.",
-            "title": "Day 7 Statutory Assurance Ledger \u2014 Precision Adjustment",
+            "caption": "Record statutory adjustment / sampling precision entry (multiple) under.",
+            "title": "Day 7 Statutory Assurance Ledger — Precision Adjustment",
             "isBalanced": true,
             "totalDebit": 1140000,
             "totalCredit": 1140000,
@@ -72,8 +72,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated enterprise audit case study for The Auditor's Responses to Assessed Risk...",
-            "title": "Day 7 Statutory Assurance Ledger \u2014 Substantive Audit",
+            "caption": "Execute simulated enterprise audit case study for The Auditor's Responses.",
+            "title": "Day 7 Statutory Assurance Ledger — Substantive Audit",
             "isBalanced": true,
             "totalDebit": 1140000,
             "totalCredit": 1140000,
@@ -103,8 +103,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify 100% balanced ledger closure and working paper archival for The Auditor's Responses to Assessed Risk...",
-            "title": "Day 7 Statutory Assurance Ledger \u2014 Final Certified Balances",
+            "caption": "Verify one hundred% balanced ledger closure and working paper archival.",
+            "title": "Day 7 Statutory Assurance Ledger — Final Certified Balances",
             "isBalanced": true,
             "totalDebit": 1140000,
             "totalCredit": 1140000,
@@ -141,12 +141,12 @@
       "codeHash": "2ddcbbcaf07c057a176aea616cd23090461d8eaccb092c25cb191cc015151ccd",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Internal Financial Controls over Financial Reporti \u2014 Statutory Audit Ledger",
+        "title": "Internal Financial Controls over Financial Reporti — Statutory Audit Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open statutory audit assurance verification ledger (1013000) for Internal Financial Controls over Financi...",
-            "title": "Day 7 Statutory Assurance Ledger \u2014 Initial Posting",
+            "caption": "Open statutory audit assurance verification ledger (multiple) for.",
+            "title": "Day 7 Statutory Assurance Ledger — Initial Posting",
             "isBalanced": true,
             "totalDebit": 1013000,
             "totalCredit": 1013000,
@@ -171,8 +171,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / sampling precision entry (153500) under applicable SA.",
-            "title": "Day 7 Statutory Assurance Ledger \u2014 Precision Adjustment",
+            "caption": "Record statutory adjustment / sampling precision entry (multiple) under.",
+            "title": "Day 7 Statutory Assurance Ledger — Precision Adjustment",
             "isBalanced": true,
             "totalDebit": 1166500,
             "totalCredit": 1166500,
@@ -203,8 +203,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated enterprise audit case study for Internal Financial Controls over Financi...",
-            "title": "Day 7 Statutory Assurance Ledger \u2014 Substantive Audit",
+            "caption": "Execute simulated enterprise audit case study for Internal Financial.",
+            "title": "Day 7 Statutory Assurance Ledger — Substantive Audit",
             "isBalanced": true,
             "totalDebit": 1166500,
             "totalCredit": 1166500,
@@ -234,8 +234,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify 100% balanced ledger closure and working paper archival for Internal Financial Controls over Financi...",
-            "title": "Day 7 Statutory Assurance Ledger \u2014 Final Certified Balances",
+            "caption": "Verify one hundred% balanced ledger closure and working paper archival.",
+            "title": "Day 7 Statutory Assurance Ledger — Final Certified Balances",
             "isBalanced": true,
             "totalDebit": 1166500,
             "totalCredit": 1166500,
@@ -272,12 +272,12 @@
       "codeHash": "c43fce4bef97b1b29b0aa529e130c9240c3ebccd0d079d0267f53af0d07aac93",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Evaluation of Misstatements Identified During the  \u2014 Statutory Audit Ledger",
+        "title": "Evaluation of Misstatements Identified During the  — Statutory Audit Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open statutory audit assurance verification ledger (1031000) for Evaluation of Misstatements Identified D...",
-            "title": "Day 7 Statutory Assurance Ledger \u2014 Initial Posting",
+            "caption": "Open statutory audit assurance verification ledger (multiple) for.",
+            "title": "Day 7 Statutory Assurance Ledger — Initial Posting",
             "isBalanced": true,
             "totalDebit": 1031000,
             "totalCredit": 1031000,
@@ -302,8 +302,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / sampling precision entry (162000) under applicable SA.",
-            "title": "Day 7 Statutory Assurance Ledger \u2014 Precision Adjustment",
+            "caption": "Record statutory adjustment / sampling precision entry (multiple) under.",
+            "title": "Day 7 Statutory Assurance Ledger — Precision Adjustment",
             "isBalanced": true,
             "totalDebit": 1193000,
             "totalCredit": 1193000,
@@ -334,8 +334,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated enterprise audit case study for Evaluation of Misstatements Identified D...",
-            "title": "Day 7 Statutory Assurance Ledger \u2014 Substantive Audit",
+            "caption": "Execute simulated enterprise audit case study for Evaluation of.",
+            "title": "Day 7 Statutory Assurance Ledger — Substantive Audit",
             "isBalanced": true,
             "totalDebit": 1193000,
             "totalCredit": 1193000,
@@ -365,8 +365,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify 100% balanced ledger closure and working paper archival for Evaluation of Misstatements Identified D...",
-            "title": "Day 7 Statutory Assurance Ledger \u2014 Final Certified Balances",
+            "caption": "Verify one hundred% balanced ledger closure and working paper archival.",
+            "title": "Day 7 Statutory Assurance Ledger — Final Certified Balances",
             "isBalanced": true,
             "totalDebit": 1193000,
             "totalCredit": 1193000,
@@ -403,12 +403,12 @@
       "codeHash": "ae40ef82440c521195725f852d28fc029b57e58aa40f5bf65d677c7d48981b1f",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Audit Sampling Architecture & Sample Size Determin \u2014 Statutory Audit Ledger",
+        "title": "Audit Sampling Architecture & Sample Size Determin — Statutory Audit Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open statutory audit assurance verification ledger (1049000) for Audit Sampling Architecture & Sample Siz...",
-            "title": "Day 7 Statutory Assurance Ledger \u2014 Initial Posting",
+            "caption": "Open statutory audit assurance verification ledger (multiple) for Audit.",
+            "title": "Day 7 Statutory Assurance Ledger — Initial Posting",
             "isBalanced": true,
             "totalDebit": 1049000,
             "totalCredit": 1049000,
@@ -433,8 +433,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / sampling precision entry (170500) under applicable SA.",
-            "title": "Day 7 Statutory Assurance Ledger \u2014 Precision Adjustment",
+            "caption": "Record statutory adjustment / sampling precision entry (multiple) under.",
+            "title": "Day 7 Statutory Assurance Ledger — Precision Adjustment",
             "isBalanced": true,
             "totalDebit": 1219500,
             "totalCredit": 1219500,
@@ -465,8 +465,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated enterprise audit case study for Audit Sampling Architecture & Sample Siz...",
-            "title": "Day 7 Statutory Assurance Ledger \u2014 Substantive Audit",
+            "caption": "Execute simulated enterprise audit case study for Audit Sampling.",
+            "title": "Day 7 Statutory Assurance Ledger — Substantive Audit",
             "isBalanced": true,
             "totalDebit": 1219500,
             "totalCredit": 1219500,
@@ -496,8 +496,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify 100% balanced ledger closure and working paper archival for Audit Sampling Architecture & Sample Siz...",
-            "title": "Day 7 Statutory Assurance Ledger \u2014 Final Certified Balances",
+            "caption": "Verify one hundred% balanced ledger closure and working paper archival.",
+            "title": "Day 7 Statutory Assurance Ledger — Final Certified Balances",
             "isBalanced": true,
             "totalDebit": 1219500,
             "totalCredit": 1219500,
@@ -534,12 +534,12 @@
       "codeHash": "e5f83c82ca4c79358def8789712e26c6280a79254448759a9730f1b4b97cc239",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Projecting Sample Misstatements & Upper Error Limi \u2014 Statutory Audit Ledger",
+        "title": "Projecting Sample Misstatements & Upper Error Limi — Statutory Audit Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open statutory audit assurance verification ledger (1067000) for Projecting Sample Misstatements & Upper ...",
-            "title": "Day 7 Statutory Assurance Ledger \u2014 Initial Posting",
+            "caption": "Open statutory audit assurance verification ledger (multiple) for.",
+            "title": "Day 7 Statutory Assurance Ledger — Initial Posting",
             "isBalanced": true,
             "totalDebit": 1067000,
             "totalCredit": 1067000,
@@ -564,8 +564,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / sampling precision entry (179000) under applicable SA.",
-            "title": "Day 7 Statutory Assurance Ledger \u2014 Precision Adjustment",
+            "caption": "Record statutory adjustment / sampling precision entry (multiple) under.",
+            "title": "Day 7 Statutory Assurance Ledger — Precision Adjustment",
             "isBalanced": true,
             "totalDebit": 1246000,
             "totalCredit": 1246000,
@@ -596,8 +596,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated enterprise audit case study for Projecting Sample Misstatements & Upper ...",
-            "title": "Day 7 Statutory Assurance Ledger \u2014 Substantive Audit",
+            "caption": "Execute simulated enterprise audit case study for Projecting Sample.",
+            "title": "Day 7 Statutory Assurance Ledger — Substantive Audit",
             "isBalanced": true,
             "totalDebit": 1246000,
             "totalCredit": 1246000,
@@ -627,8 +627,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify 100% balanced ledger closure and working paper archival for Projecting Sample Misstatements & Upper ...",
-            "title": "Day 7 Statutory Assurance Ledger \u2014 Final Certified Balances",
+            "caption": "Verify one hundred% balanced ledger closure and working paper archival.",
+            "title": "Day 7 Statutory Assurance Ledger — Final Certified Balances",
             "isBalanced": true,
             "totalDebit": 1246000,
             "totalCredit": 1246000,

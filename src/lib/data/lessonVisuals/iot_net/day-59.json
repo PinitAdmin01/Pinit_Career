@@ -89,7 +89,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Stage 2048 KB firmware image into passive Slot B while maintaining control loop execution.",
+            "caption": "Stage multiple KB firmware image into passive Slot B while maintaining.",
             "registerName": "DUAL_BANK_CTRL_REG",
             "bitWidth": 8,
             "hexValue": "0xDC",
@@ -371,7 +371,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Stream passive bank flash bytes through hardware SHA-256 accelerator: Calculate image digest.",
+            "caption": "Stream passive bank flash bytes through hardware SHA digest accelerator.",
             "registerName": "FW_SIG_VERIFY_REG",
             "bitWidth": 8,
             "hexValue": "0xDF",
@@ -507,7 +507,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Compute ECDSA P-256 signature verification: Assert OEM authenticity and permit bootloader swap.",
+            "caption": "Compute ECDSA P-two-fifty-six signature verification: Assert OEM.",
             "registerName": "FW_SIG_VERIFY_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -585,7 +585,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize Anti-Rollback Protection Engine: Read hardware monotonic counter (Epoch 4) from silicon.",
+            "caption": "Initialize Anti-Rollback Protection Engine: Read hardware monotonic.",
             "registerName": "ANTI_ROLLBACK_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -653,7 +653,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Intercept downgrade exploit attempt: Incoming binary carries vulnerable Security Epoch 2.",
+            "caption": "Intercept downgrade exploit attempt: Incoming binary carries vulnerable.",
             "registerName": "ANTI_ROLLBACK_REG",
             "bitWidth": 8,
             "hexValue": "0xB9",
@@ -789,7 +789,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Process legitimate update (Epoch 5): Permanently blow hardware eFuse and advance security baseline.",
+            "caption": "Process legitimate update (Epoch five): Permanently blow hardware eFuse.",
             "registerName": "ANTI_ROLLBACK_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -867,7 +867,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize Resumable Chunked Ingester: Configure 512-byte block size for low-bandwidth cellular link.",
+            "caption": "Initialize Resumable Chunked Ingester: Configure multiple-byte block size.",
             "registerName": "CHUNK_INGEST_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -935,7 +935,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Receive and verify Block 0: Confirm CRC32 checksum and update persistent reception bitmap.",
+            "caption": "Receive and verify Block zero: Confirm CRCthirty-two checksum and update.",
             "registerName": "CHUNK_INGEST_REG",
             "bitWidth": 8,
             "hexValue": "0xDC",
@@ -1003,7 +1003,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Recover from transient cellular drop: Resume ingestion at Block 1 without restarting from byte 0.",
+            "caption": "Recover from transient cellular drop: Resume ingestion at Block one.",
             "registerName": "CHUNK_INGEST_REG",
             "bitWidth": 8,
             "hexValue": "0xBE",
@@ -1217,7 +1217,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Intercept malicious downgrade attack: Intercept epoch 2 payload and increment incident telemetry.",
+            "caption": "Intercept malicious downgrade attack: Intercept epoch two payload and.",
             "registerName": "OTA_MASTER_ENGINE_REG",
             "bitWidth": 8,
             "hexValue": "0xDF",
@@ -1285,7 +1285,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Process genuine production upgrade: Verify signature, advance epoch to 4, and swap active slot.",
+            "caption": "Process genuine production upgrade: Verify signature, advance epoch to.",
             "registerName": "OTA_MASTER_ENGINE_REG",
             "bitWidth": 8,
             "hexValue": "0xEF",

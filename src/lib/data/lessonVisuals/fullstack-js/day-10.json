@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress request through edge gateway and parallel layout for Pillar 1: Edge-Terminated Request Gat....",
+            "caption": "Ingress request through edge gateway and parallel layout for Pillar one.",
             "values": {
               "in": "Day 10 Input",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute server component rendering and data caching in Pillar 1: Edge-Terminated Request Gat....",
+            "caption": "Execute server component rendering and data caching in Pillar one.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -75,7 +75,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate optimistic mutation and tag revalidation invariants.",
+            "caption": "Evaluate optimistic mutation and tag revalidation invariants.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Pillar 1: Edge-Terminated Request Gat....",
+            "caption": "End-to-end execution verified for Pillar one: Edge-Terminated Request.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -257,7 +257,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress request through edge gateway and parallel layout for Pillar 2: Hierarchical RSC Layout Tre....",
+            "caption": "Ingress request through edge gateway and parallel layout for Pillar two.",
             "values": {
               "in": "Day 10 Input",
               "proc": "Standby",
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute server component rendering and data caching in Pillar 2: Hierarchical RSC Layout Tre....",
+            "caption": "Execute server component rendering and data caching in Pillar two.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -301,7 +301,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate optimistic mutation and tag revalidation invariants.",
+            "caption": "Evaluate optimistic mutation and tag revalidation invariants.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -321,7 +321,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Pillar 2: Hierarchical RSC Layout Tre....",
+            "caption": "End-to-end execution verified for Pillar two: Hierarchical RSC Layout.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -483,7 +483,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress request through edge gateway and parallel layout for Pillar 3: Multi-Tier Data Fetching wi....",
+            "caption": "Ingress request through edge gateway and parallel layout for Pillar.",
             "values": {
               "in": "Day 10 Input",
               "proc": "Standby",
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute server component rendering and data caching in Pillar 3: Multi-Tier Data Fetching wi....",
+            "caption": "Execute server component rendering and data caching in Pillar three.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -527,7 +527,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate optimistic mutation and tag revalidation invariants.",
+            "caption": "Evaluate optimistic mutation and tag revalidation invariants.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -547,7 +547,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Pillar 3: Multi-Tier Data Fetching wi....",
+            "caption": "End-to-end execution verified for Pillar three: Multi-Tier Data Fetching.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -709,7 +709,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress request through edge gateway and parallel layout for Pillar 4: Optimistic Server Action Mu....",
+            "caption": "Ingress request through edge gateway and parallel layout for Pillar four.",
             "values": {
               "in": "Day 10 Input",
               "proc": "Standby",
@@ -729,7 +729,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute server component rendering and data caching in Pillar 4: Optimistic Server Action Mu....",
+            "caption": "Execute server component rendering and data caching in Pillar four.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -753,7 +753,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate optimistic mutation and tag revalidation invariants.",
+            "caption": "Evaluate optimistic mutation and tag revalidation invariants.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -773,7 +773,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Pillar 4: Optimistic Server Action Mu....",
+            "caption": "End-to-end execution verified for Pillar four: Optimistic Server Action.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -935,7 +935,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress request through edge gateway and parallel layout for Pillar 5: Grand Milestone Synthesis: ....",
+            "caption": "Ingress request through edge gateway and parallel layout for Pillar five.",
             "values": {
               "in": "Day 10 Input",
               "proc": "Standby",
@@ -955,7 +955,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute server component rendering and data caching in Pillar 5: Grand Milestone Synthesis: ....",
+            "caption": "Execute server component rendering and data caching in Pillar five: Grand.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -979,7 +979,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate optimistic mutation and tag revalidation invariants.",
+            "caption": "Evaluate optimistic mutation and tag revalidation invariants.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -999,7 +999,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Pillar 5: Grand Milestone Synthesis: ....",
+            "caption": "End-to-end execution verified for Pillar five: Grand Milestone Synthesis.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

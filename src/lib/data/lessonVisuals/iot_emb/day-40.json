@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize Dual-Task Architecture & Thread- with EN=1 & peripheral clock enabled.",
+            "caption": "Initialize Dual-Task Architecture & Thread- with EN=one & peripheral.",
             "registerName": "BRDG_SYS_CR1",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Core processing active - RDY=1 and DMA streaming enabled.",
+            "caption": "Core processing active - RDY=one and DMA streaming enabled.",
             "registerName": "BRDG_SYS_CR1",
             "bitWidth": 8,
             "hexValue": "0xD0",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Transfer complete - TC=1 asserted and IRQ interrupt raised.",
+            "caption": "Transfer complete - TC=one asserted and IRQ interrupt raised.",
             "registerName": "BRDG_SYS_CR1",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Certified state - TXE buffer clean and all status flags verified.",
+            "caption": "Certified state - TXE buffer clean and all status flags verified.",
             "registerName": "BRDG_SYS_CR1",
             "bitWidth": 8,
             "hexValue": "0xFC",
@@ -266,7 +266,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize Defensive Modbus RTU Ingestion,  with EN=1 & peripheral clock enabled.",
+            "caption": "Initialize Defensive Modbus RTU Ingestion, with EN=one & peripheral clock.",
             "registerName": "BRDG_SYS_CR2",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -326,7 +326,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Core processing active - RDY=1 and DMA streaming enabled.",
+            "caption": "Core processing active - RDY=one and DMA streaming enabled.",
             "registerName": "BRDG_SYS_CR2",
             "bitWidth": 8,
             "hexValue": "0xD0",
@@ -387,7 +387,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Transfer complete - TC=1 asserted and IRQ interrupt raised.",
+            "caption": "Transfer complete - TC=one asserted and IRQ interrupt raised.",
             "registerName": "BRDG_SYS_CR2",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -448,7 +448,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Certified state - TXE buffer clean and all status flags verified.",
+            "caption": "Certified state - TXE buffer clean and all status flags verified.",
             "registerName": "BRDG_SYS_CR2",
             "bitWidth": 8,
             "hexValue": "0xFC",
@@ -518,7 +518,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize NanoPB Binary Serialization & Va with EN=1 & peripheral clock enabled.",
+            "caption": "Initialize NanoPB Binary Serialization & Va with EN=one & peripheral.",
             "registerName": "BRDG_SYS_CR3",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -578,7 +578,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Core processing active - RDY=1 and DMA streaming enabled.",
+            "caption": "Core processing active - RDY=one and DMA streaming enabled.",
             "registerName": "BRDG_SYS_CR3",
             "bitWidth": 8,
             "hexValue": "0xD0",
@@ -639,7 +639,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Transfer complete - TC=1 asserted and IRQ interrupt raised.",
+            "caption": "Transfer complete - TC=one asserted and IRQ interrupt raised.",
             "registerName": "BRDG_SYS_CR3",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -700,7 +700,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Certified state - TXE buffer clean and all status flags verified.",
+            "caption": "Certified state - TXE buffer clean and all status flags verified.",
             "registerName": "BRDG_SYS_CR3",
             "bitWidth": 8,
             "hexValue": "0xFC",
@@ -770,7 +770,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize TLS MQTT Publishing with QoS 1 H with EN=1 & peripheral clock enabled.",
+            "caption": "Initialize TLS MQTT Publishing with QoS one H with EN=one & peripheral.",
             "registerName": "BRDG_SYS_CR4",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -830,7 +830,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Core processing active - RDY=1 and DMA streaming enabled.",
+            "caption": "Core processing active - RDY=one and DMA streaming enabled.",
             "registerName": "BRDG_SYS_CR4",
             "bitWidth": 8,
             "hexValue": "0xD0",
@@ -891,7 +891,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Transfer complete - TC=1 asserted and IRQ interrupt raised.",
+            "caption": "Transfer complete - TC=one asserted and IRQ interrupt raised.",
             "registerName": "BRDG_SYS_CR4",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -952,7 +952,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Certified state - TXE buffer clean and all status flags verified.",
+            "caption": "Certified state - TXE buffer clean and all status flags verified.",
             "registerName": "BRDG_SYS_CR4",
             "bitWidth": 8,
             "hexValue": "0xFC",
@@ -1022,7 +1022,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize Flash Store-and-Forward Failover with EN=1 & peripheral clock enabled.",
+            "caption": "Initialize Flash Store-and-Forward Failover with EN=one & peripheral.",
             "registerName": "BRDG_SYS_CR5",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1082,7 +1082,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Core processing active - RDY=1 and DMA streaming enabled.",
+            "caption": "Core processing active - RDY=one and DMA streaming enabled.",
             "registerName": "BRDG_SYS_CR5",
             "bitWidth": 8,
             "hexValue": "0xD0",
@@ -1143,7 +1143,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Transfer complete - TC=1 asserted and IRQ interrupt raised.",
+            "caption": "Transfer complete - TC=one asserted and IRQ interrupt raised.",
             "registerName": "BRDG_SYS_CR5",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -1204,7 +1204,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Certified state - TXE buffer clean and all status flags verified.",
+            "caption": "Certified state - TXE buffer clean and all status flags verified.",
             "registerName": "BRDG_SYS_CR5",
             "bitWidth": 8,
             "hexValue": "0xFC",

@@ -6,7 +6,7 @@
   "entries": [
     {
       "partTitle": "The Failure Of Unconstrained Generation: Why Prompt Directives Cannot Guarantee Syntactic Correctness",
-      "codeHash": "a4c60ed27d74492bc8b876529a8d3b46d0132c5d87bedce9e920016b497e70cb",
+      "codeHash": "f1c1e5ecde526fb155a7d2d3be7587114065594966147d298e62a6cb1fd45b59",
       "spec": {
         "template": "table",
         "title": "Unconstrained Generation Pitfalls And Logit Masking Foundations.",
@@ -160,7 +160,7 @@
     },
     {
       "partTitle": "Automata-Driven Decoding Mechanics: Deterministic Finite Automata & Logit Masking Physics",
-      "codeHash": "a4c60ed27d74492bc8b876529a8d3b46d0132c5d87bedce9e920016b497e70cb",
+      "codeHash": "f1c1e5ecde526fb155a7d2d3be7587114065594966147d298e62a6cb1fd45b59",
       "spec": {
         "template": "table",
         "title": "Automata Driven Decoding Physics And Token Transition Indexing.",
@@ -314,7 +314,7 @@
     },
     {
       "partTitle": "Context-Free Grammars & EBNF Parsers: Enforcing Arbitrary Hierarchical Data Schemas",
-      "codeHash": "a4c60ed27d74492bc8b876529a8d3b46d0132c5d87bedce9e920016b497e70cb",
+      "codeHash": "f1c1e5ecde526fb155a7d2d3be7587114065594966147d298e62a6cb1fd45b59",
       "spec": {
         "template": "table",
         "title": "Context Free Grammars And Pushdown Automata Schema Validation.",
@@ -468,7 +468,7 @@
     },
     {
       "partTitle": "Constrained Decoding Frameworks: Outlines, Guidance, GBNF & High-Speed Token Indexers",
-      "codeHash": "a4c60ed27d74492bc8b876529a8d3b46d0132c5d87bedce9e920016b497e70cb",
+      "codeHash": "f1c1e5ecde526fb155a7d2d3be7587114065594966147d298e62a6cb1fd45b59",
       "spec": {
         "template": "table",
         "title": "Constrained Decoding Frameworks And High Speed Kernel Runtimes.",
@@ -622,7 +622,7 @@
     },
     {
       "partTitle": "Enterprise Grammar Engineering: Hardening Production Constrained Generation Systems In Python",
-      "codeHash": "a4c60ed27d74492bc8b876529a8d3b46d0132c5d87bedce9e920016b497e70cb",
+      "codeHash": "f1c1e5ecde526fb155a7d2d3be7587114065594966147d298e62a6cb1fd45b59",
       "spec": {
         "template": "table",
         "title": "Enterprise Grammar Engineering And Production Service Deployment.",

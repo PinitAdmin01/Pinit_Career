@@ -10,11 +10,11 @@
       "codeHash": "80a3fe0107641e28fe812c5fe0d0e3ec82a3d15f5b2f2ba63beec1458eefeed6",
       "spec": {
         "template": "bars",
-        "title": "LBO Transaction Architecture: Sources & ... \u2014 LBO & Waterfall Metrics",
+        "title": "LBO Transaction Architecture: Sources & ... — LBO & Waterfall Metrics",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline LBO capital structure metrics for LBO Transaction Architecture: Sourc...",
+            "caption": "Baseline LBO capital structure metrics for LBO Transaction Architecture.",
             "max": 100,
             "bars": [
               {
@@ -41,7 +41,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Debt schedule and deleveraging dynamics for LBO Transaction Architecture: Sourc...",
+            "caption": "Debt schedule and deleveraging dynamics for LBO Transaction Architecture.",
             "max": 100,
             "bars": [
               {
@@ -68,7 +68,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Applied institutional case study and cash sweep for LBO Transaction Architecture: Sourc...",
+            "caption": "Applied institutional case study and cash sweep for LBO Transaction.",
             "max": 100,
             "bars": [
               {
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive waterfall and carried interest bounds for LBO Transaction Architecture: Sourc...",
+            "caption": "Interactive waterfall and carried interest bounds for LBO Transaction.",
             "max": 100,
             "bars": [
               {
@@ -128,11 +128,11 @@
       "codeHash": "25a83114d6a93c1f81dcabde92bca3aa714b3385fe19505e4ff7aa8c3bb0c5fa",
       "spec": {
         "template": "bars",
-        "title": "Multi-Tranche Debt Financing: Revolver, ... \u2014 LBO & Waterfall Metrics",
+        "title": "Multi-Tranche Debt Financing: Revolver, ... — LBO & Waterfall Metrics",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline LBO capital structure metrics for Multi-Tranche Debt Financing: Revol...",
+            "caption": "Baseline LBO capital structure metrics for Multi-Tranche Debt Financing.",
             "max": 100,
             "bars": [
               {
@@ -159,7 +159,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Debt schedule and deleveraging dynamics for Multi-Tranche Debt Financing: Revol...",
+            "caption": "Debt schedule and deleveraging dynamics for Multi-Tranche Debt Financing.",
             "max": 100,
             "bars": [
               {
@@ -186,7 +186,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Applied institutional case study and cash sweep for Multi-Tranche Debt Financing: Revol...",
+            "caption": "Applied institutional case study and cash sweep for Multi-Tranche Debt.",
             "max": 100,
             "bars": [
               {
@@ -213,7 +213,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive waterfall and carried interest bounds for Multi-Tranche Debt Financing: Revol...",
+            "caption": "Interactive waterfall and carried interest bounds for Multi-Tranche Debt.",
             "max": 100,
             "bars": [
               {
@@ -246,11 +246,11 @@
       "codeHash": "b2752775b7d4d9d6eaa06f17c3cf35ab9edc641945ef63ae0555daa7e82cf752",
       "spec": {
         "template": "bars",
-        "title": "Cash Flow Sweep Mechanics, Debt Paydown ... \u2014 LBO & Waterfall Metrics",
+        "title": "Cash Flow Sweep Mechanics, Debt Paydown ... — LBO & Waterfall Metrics",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline LBO capital structure metrics for Cash Flow Sweep Mechanics, Debt Pay...",
+            "caption": "Baseline LBO capital structure metrics for Cash Flow Sweep Mechanics.",
             "max": 100,
             "bars": [
               {
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Debt schedule and deleveraging dynamics for Cash Flow Sweep Mechanics, Debt Pay...",
+            "caption": "Debt schedule and deleveraging dynamics for Cash Flow Sweep Mechanics.",
             "max": 100,
             "bars": [
               {
@@ -304,7 +304,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Applied institutional case study and cash sweep for Cash Flow Sweep Mechanics, Debt Pay...",
+            "caption": "Applied institutional case study and cash sweep for Cash Flow Sweep.",
             "max": 100,
             "bars": [
               {
@@ -331,7 +331,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive waterfall and carried interest bounds for Cash Flow Sweep Mechanics, Debt Pay...",
+            "caption": "Interactive waterfall and carried interest bounds for Cash Flow Sweep.",
             "max": 100,
             "bars": [
               {
@@ -364,11 +364,11 @@
       "codeHash": "4f814a3b6a3507af2336a6d34314e9910390eb8e3fa5ba9916c1753b4c09ad2a",
       "spec": {
         "template": "bars",
-        "title": "Private Equity Returns Engine: Internal ... \u2014 LBO & Waterfall Metrics",
+        "title": "Private Equity Returns Engine: Internal ... — LBO & Waterfall Metrics",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline LBO capital structure metrics for Private Equity Returns Engine: Inte...",
+            "caption": "Baseline LBO capital structure metrics for Private Equity Returns Engine.",
             "max": 100,
             "bars": [
               {
@@ -395,7 +395,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Debt schedule and deleveraging dynamics for Private Equity Returns Engine: Inte...",
+            "caption": "Debt schedule and deleveraging dynamics for Private Equity Returns.",
             "max": 100,
             "bars": [
               {
@@ -422,7 +422,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Applied institutional case study and cash sweep for Private Equity Returns Engine: Inte...",
+            "caption": "Applied institutional case study and cash sweep for Private Equity.",
             "max": 100,
             "bars": [
               {
@@ -449,7 +449,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive waterfall and carried interest bounds for Private Equity Returns Engine: Inte...",
+            "caption": "Interactive waterfall and carried interest bounds for Private Equity.",
             "max": 100,
             "bars": [
               {
@@ -482,11 +482,11 @@
       "codeHash": "4212ff91b98fb7c3b3415ebf00fd4aeb4166c3888496d900f20834569cf093b1",
       "spec": {
         "template": "bars",
-        "title": "Institutional Private Equity LBO Underwr... \u2014 LBO & Waterfall Metrics",
+        "title": "Institutional Private Equity LBO Underwr... — LBO & Waterfall Metrics",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline LBO capital structure metrics for Institutional Private Equity LBO Un...",
+            "caption": "Baseline LBO capital structure metrics for Institutional Private Equity.",
             "max": 100,
             "bars": [
               {
@@ -513,7 +513,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Debt schedule and deleveraging dynamics for Institutional Private Equity LBO Un...",
+            "caption": "Debt schedule and deleveraging dynamics for Institutional Private Equity.",
             "max": 100,
             "bars": [
               {
@@ -540,7 +540,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Applied institutional case study and cash sweep for Institutional Private Equity LBO Un...",
+            "caption": "Applied institutional case study and cash sweep for Institutional Private.",
             "max": 100,
             "bars": [
               {
@@ -567,7 +567,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive waterfall and carried interest bounds for Institutional Private Equity LBO Un...",
+            "caption": "Interactive waterfall and carried interest bounds for Institutional.",
             "max": 100,
             "bars": [
               {

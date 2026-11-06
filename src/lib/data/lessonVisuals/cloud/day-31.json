@@ -54,7 +54,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Simulated single-AZ outage proves zero downtime under 99.95% SLA.",
+            "caption": "Simulated single-AZ outage proves zero downtime under multiple.multiple%.",
             "activeStageId": "workerEni",
             "statusBadge": "verified"
           }
@@ -95,13 +95,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The AWS VPC CNI allocates native VPC private IPv4 addresses directly to Pods.",
+            "caption": "The AWS VPC CNI allocates native VPC private IPvfour addresses directly.",
             "activeStageId": "daemon",
             "statusBadge": "active"
           },
           {
             "at": "say2",
-            "caption": "Secondary ENIs attach to the EC2 worker node to provide IP allocation slots.",
+            "caption": "Secondary ENIs attach to the compute-node worker node to provide IP.",
             "activeStageId": "ec2api",
             "statusBadge": "active"
           },
@@ -113,7 +113,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Prefix Delegation assigns /28 blocks expanding m5.large density to 432 pods.",
+            "caption": "Prefix Delegation assigns /multiple blocks expanding mfive.large density.",
             "activeStageId": "veth",
             "statusBadge": "verified"
           }
@@ -154,13 +154,13 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Large EKS clusters quickly exhaust private RFC 1918 corporate IP subnets.",
+            "caption": "Large EKS clusters quickly exhaust private RFC multiple corporate IP.",
             "activeStageId": "cgnat",
             "statusBadge": "active"
           },
           {
             "at": "say2",
-            "caption": "Secondary 100.64.0.0/16 CGNAT address block provides over 65,000 dedicated Pod IPs.",
+            "caption": "Secondary one hundred.sixty-four.zero.zero/sixteen CGNAT address block.",
             "activeStageId": "subnets",
             "statusBadge": "active"
           },
@@ -213,7 +213,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "IRSA decouples microservice AWS permissions from the worker node EC2 role.",
+            "caption": "IRSA decouples microservice AWS permissions from the worker node.",
             "activeStageId": "sa",
             "statusBadge": "active"
           },
@@ -225,13 +225,13 @@
           },
           {
             "at": "example",
-            "caption": "AWS STS validates token claims and issues 1-hour temporary scoped credentials.",
+            "caption": "AWS STS validates token claims and issues one-hour temporary scoped.",
             "activeStageId": "sts",
             "statusBadge": "verified"
           },
           {
             "at": "tryIt",
-            "caption": "IMDSv2 hop limit 1 prevents containers from querying host EC2 metadata.",
+            "caption": "IMDSvtwo hop limit one prevents containers from querying host.",
             "activeStageId": "imds",
             "statusBadge": "verified"
           }
@@ -284,13 +284,13 @@
           },
           {
             "at": "example",
-            "caption": "Pods receive isolated CGNAT addresses with zero RFC 1918 consumption.",
+            "caption": "Pods receive isolated CGNAT addresses with zero RFC multiple consumption.",
             "activeStageId": "cgnatAlloc",
             "statusBadge": "verified"
           },
           {
             "at": "tryIt",
-            "caption": "Full platform test confirms 100% deterministic execution and health status.",
+            "caption": "Full platform test confirms one hundred% deterministic execution and.",
             "activeStageId": "gradeA",
             "statusBadge": "verified"
           }

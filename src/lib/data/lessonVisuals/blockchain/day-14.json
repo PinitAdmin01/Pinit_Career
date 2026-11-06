@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol initiates multi-oracle price query for Spot Price Oracles & Single-Bloc",
+            "caption": "Protocol initiates multi-oracle price query for Spot Price Oracles &.",
             "activeActor": "Lending Protocol",
             "messages": [
               {
@@ -33,7 +33,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Chainlink nodes submit threshold-signed median price with heartbeat check",
+            "caption": "Chainlink nodes submit threshold-signed median price with heartbeat check.",
             "activeActor": "Chainlink DON Oracle",
             "messages": [
               {
@@ -46,7 +46,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Protocol samples Uniswap TWAP accumulator to cross-check deviation",
+            "caption": "Protocol samples Uniswap TWAP accumulator to cross-check deviation.",
             "activeActor": "Uniswap TWAP Pool",
             "messages": [
               {
@@ -59,7 +59,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Dual-oracle consensus validates spread < 200 bps; liquidations proceed safely",
+            "caption": "Dual-oracle consensus validates spread < OK bps; liquidations proceed.",
             "activeActor": "Liquidation Vault",
             "messages": [
               {
@@ -164,7 +164,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol initiates multi-oracle price query for Uniswap v2 & v3 Time-Weighted Av",
+            "caption": "Protocol initiates multi-oracle price query for Uniswap vtwo & vthree.",
             "activeActor": "Lending Protocol",
             "messages": [
               {
@@ -177,7 +177,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Chainlink nodes submit threshold-signed median price with heartbeat check",
+            "caption": "Chainlink nodes submit threshold-signed median price with heartbeat check.",
             "activeActor": "Chainlink DON Oracle",
             "messages": [
               {
@@ -190,7 +190,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Protocol samples Uniswap TWAP accumulator to cross-check deviation",
+            "caption": "Protocol samples Uniswap TWAP accumulator to cross-check deviation.",
             "activeActor": "Uniswap TWAP Pool",
             "messages": [
               {
@@ -203,7 +203,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Dual-oracle consensus validates spread < 200 bps; liquidations proceed safely",
+            "caption": "Dual-oracle consensus validates spread < OK bps; liquidations proceed.",
             "activeActor": "Liquidation Vault",
             "messages": [
               {
@@ -308,7 +308,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol initiates multi-oracle price query for Chainlink Decentralized Oracle N",
+            "caption": "Protocol initiates multi-oracle price query for Chainlink Decentralized.",
             "activeActor": "Lending Protocol",
             "messages": [
               {
@@ -321,7 +321,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Chainlink nodes submit threshold-signed median price with heartbeat check",
+            "caption": "Chainlink nodes submit threshold-signed median price with heartbeat check.",
             "activeActor": "Chainlink DON Oracle",
             "messages": [
               {
@@ -334,7 +334,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Protocol samples Uniswap TWAP accumulator to cross-check deviation",
+            "caption": "Protocol samples Uniswap TWAP accumulator to cross-check deviation.",
             "activeActor": "Uniswap TWAP Pool",
             "messages": [
               {
@@ -347,7 +347,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Dual-oracle consensus validates spread < 200 bps; liquidations proceed safely",
+            "caption": "Dual-oracle consensus validates spread < OK bps; liquidations proceed.",
             "activeActor": "Liquidation Vault",
             "messages": [
               {
@@ -452,7 +452,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol initiates multi-oracle price query for Oracle Security Invariants: Stal",
+            "caption": "Protocol initiates multi-oracle price query for Oracle Security.",
             "activeActor": "Lending Protocol",
             "messages": [
               {
@@ -465,7 +465,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Chainlink nodes submit threshold-signed median price with heartbeat check",
+            "caption": "Chainlink nodes submit threshold-signed median price with heartbeat check.",
             "activeActor": "Chainlink DON Oracle",
             "messages": [
               {
@@ -478,7 +478,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Protocol samples Uniswap TWAP accumulator to cross-check deviation",
+            "caption": "Protocol samples Uniswap TWAP accumulator to cross-check deviation.",
             "activeActor": "Uniswap TWAP Pool",
             "messages": [
               {
@@ -491,7 +491,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Dual-oracle consensus validates spread < 200 bps; liquidations proceed safely",
+            "caption": "Dual-oracle consensus validates spread < OK bps; liquidations proceed.",
             "activeActor": "Liquidation Vault",
             "messages": [
               {
@@ -596,7 +596,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol initiates multi-oracle price query for Master Dual-Oracle Defense & Fal",
+            "caption": "Protocol initiates multi-oracle price query for Master Dual-Oracle.",
             "activeActor": "Lending Protocol",
             "messages": [
               {
@@ -609,7 +609,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Chainlink nodes submit threshold-signed median price with heartbeat check",
+            "caption": "Chainlink nodes submit threshold-signed median price with heartbeat check.",
             "activeActor": "Chainlink DON Oracle",
             "messages": [
               {
@@ -622,7 +622,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Protocol samples Uniswap TWAP accumulator to cross-check deviation",
+            "caption": "Protocol samples Uniswap TWAP accumulator to cross-check deviation.",
             "activeActor": "Uniswap TWAP Pool",
             "messages": [
               {
@@ -635,7 +635,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Dual-oracle consensus validates spread < 200 bps; liquidations proceed safely",
+            "caption": "Dual-oracle consensus validates spread < OK bps; liquidations proceed.",
             "activeActor": "Liquidation Vault",
             "messages": [
               {

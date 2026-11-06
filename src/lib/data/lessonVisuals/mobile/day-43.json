@@ -50,7 +50,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Parse and authenticate external entry vectors for Foreground Notification Presen.",
+            "caption": "Parse and authenticate external entry vectors for Foreground Notification.",
             "activeId": "DeepLinkCoordinator",
             "tone": "primary",
             "nodes": [
@@ -66,7 +66,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Dispatch push tokens and synchronize silent background SQLite deltas.",
+            "caption": "Dispatch push tokens and synchronize silent background SQLite deltas.",
             "activeId": "PushNotificationEngine",
             "tone": "accent",
             "nodes": [
@@ -82,7 +82,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Coordinate AppState transitions and gracefully suspend background sockets.",
+            "caption": "Coordinate AppState transitions and gracefully suspend background sockets.",
             "activeId": "AppStateController",
             "tone": "data",
             "nodes": [
@@ -98,7 +98,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Drain pending navigation queue on NavigationContainer ready with zero crashes.",
+            "caption": "Drain pending navigation queue on NavigationContainer ready with zero.",
             "activeId": "AppRoot",
             "tone": "ok",
             "nodes": [
@@ -266,7 +266,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Parse and authenticate external entry vectors for Cold-Start vs Warm-Start Notif.",
+            "caption": "Parse and authenticate external entry vectors for Cold-Start vs.",
             "activeId": "DeepLinkCoordinator",
             "tone": "primary",
             "nodes": [
@@ -282,7 +282,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Dispatch push tokens and synchronize silent background SQLite deltas.",
+            "caption": "Dispatch push tokens and synchronize silent background SQLite deltas.",
             "activeId": "PushNotificationEngine",
             "tone": "accent",
             "nodes": [
@@ -298,7 +298,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Coordinate AppState transitions and gracefully suspend background sockets.",
+            "caption": "Coordinate AppState transitions and gracefully suspend background sockets.",
             "activeId": "AppStateController",
             "tone": "data",
             "nodes": [
@@ -314,7 +314,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Drain pending navigation queue on NavigationContainer ready with zero crashes.",
+            "caption": "Drain pending navigation queue on NavigationContainer ready with zero.",
             "activeId": "AppRoot",
             "tone": "ok",
             "nodes": [
@@ -482,7 +482,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Parse and authenticate external entry vectors for Silent Background Push Executi.",
+            "caption": "Parse and authenticate external entry vectors for Silent Background Push.",
             "activeId": "DeepLinkCoordinator",
             "tone": "primary",
             "nodes": [
@@ -498,7 +498,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Dispatch push tokens and synchronize silent background SQLite deltas.",
+            "caption": "Dispatch push tokens and synchronize silent background SQLite deltas.",
             "activeId": "PushNotificationEngine",
             "tone": "accent",
             "nodes": [
@@ -514,7 +514,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Coordinate AppState transitions and gracefully suspend background sockets.",
+            "caption": "Coordinate AppState transitions and gracefully suspend background sockets.",
             "activeId": "AppStateController",
             "tone": "data",
             "nodes": [
@@ -530,7 +530,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Drain pending navigation queue on NavigationContainer ready with zero crashes.",
+            "caption": "Drain pending navigation queue on NavigationContainer ready with zero.",
             "activeId": "AppRoot",
             "tone": "ok",
             "nodes": [
@@ -698,7 +698,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Parse and authenticate external entry vectors for Idempotency Key De-duplication.",
+            "caption": "Parse and authenticate external entry vectors for Idempotency Key.",
             "activeId": "DeepLinkCoordinator",
             "tone": "primary",
             "nodes": [
@@ -714,7 +714,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Dispatch push tokens and synchronize silent background SQLite deltas.",
+            "caption": "Dispatch push tokens and synchronize silent background SQLite deltas.",
             "activeId": "PushNotificationEngine",
             "tone": "accent",
             "nodes": [
@@ -730,7 +730,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Coordinate AppState transitions and gracefully suspend background sockets.",
+            "caption": "Coordinate AppState transitions and gracefully suspend background sockets.",
             "activeId": "AppStateController",
             "tone": "data",
             "nodes": [
@@ -746,7 +746,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Drain pending navigation queue on NavigationContainer ready with zero crashes.",
+            "caption": "Drain pending navigation queue on NavigationContainer ready with zero.",
             "activeId": "AppRoot",
             "tone": "ok",
             "nodes": [
@@ -914,7 +914,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Parse and authenticate external entry vectors for Interactive Notification Actio.",
+            "caption": "Parse and authenticate external entry vectors for Interactive.",
             "activeId": "DeepLinkCoordinator",
             "tone": "primary",
             "nodes": [
@@ -930,7 +930,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Dispatch push tokens and synchronize silent background SQLite deltas.",
+            "caption": "Dispatch push tokens and synchronize silent background SQLite deltas.",
             "activeId": "PushNotificationEngine",
             "tone": "accent",
             "nodes": [
@@ -946,7 +946,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Coordinate AppState transitions and gracefully suspend background sockets.",
+            "caption": "Coordinate AppState transitions and gracefully suspend background sockets.",
             "activeId": "AppStateController",
             "tone": "data",
             "nodes": [
@@ -962,7 +962,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Drain pending navigation queue on NavigationContainer ready with zero crashes.",
+            "caption": "Drain pending navigation queue on NavigationContainer ready with zero.",
             "activeId": "AppRoot",
             "tone": "ok",
             "nodes": [

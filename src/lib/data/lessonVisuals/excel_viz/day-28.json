@@ -12,7 +12,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingesting multi-entity trial balances and scope for GAAP & IFRS Dual Reporting & Bal...",
+            "caption": "Ingesting multi-entity trial balances and scope for GAAP & IFRS Dual.",
             "max": 100,
             "bars": [
               {
@@ -39,7 +39,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing translation adjustments and elimination entries for GAAP & IFRS Dual Reporting & Bal...",
+            "caption": "Processing translation adjustments and elimination entries for GAAP &.",
             "max": 100,
             "bars": [
               {
@@ -66,7 +66,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluating multinational group institutional reporting for GAAP & IFRS Dual Reporting & Bal...",
+            "caption": "Evaluating multinational group institutional reporting for GAAP & IFRS.",
             "max": 100,
             "bars": [
               {
@@ -93,7 +93,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Statutory balance sheet certification and SHA-256 seal for GAAP & IFRS Dual Reporting & Bal...",
+            "caption": "Statutory balance sheet certification and SHA digest seal for GAAP & IFRS.",
             "max": 100,
             "bars": [
               {
@@ -244,7 +244,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingesting multi-entity trial balances and scope for ASC 830 / IAS 21 Multi-Currency ...",
+            "caption": "Ingesting multi-entity trial balances and scope for ASC multiple / IAS.",
             "max": 100,
             "bars": [
               {
@@ -271,7 +271,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing translation adjustments and elimination entries for ASC 830 / IAS 21 Multi-Currency ...",
+            "caption": "Processing translation adjustments and elimination entries for ASC.",
             "max": 100,
             "bars": [
               {
@@ -298,7 +298,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluating multinational group institutional reporting for ASC 830 / IAS 21 Multi-Currency ...",
+            "caption": "Evaluating multinational group institutional reporting for ASC multiple /.",
             "max": 100,
             "bars": [
               {
@@ -325,7 +325,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Statutory balance sheet certification and SHA-256 seal for ASC 830 / IAS 21 Multi-Currency ...",
+            "caption": "Statutory balance sheet certification and SHA digest seal for ASC.",
             "max": 100,
             "bars": [
               {
@@ -476,7 +476,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingesting multi-entity trial balances and scope for Intercompany Eliminations & Unre...",
+            "caption": "Ingesting multi-entity trial balances and scope for Intercompany.",
             "max": 100,
             "bars": [
               {
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing translation adjustments and elimination entries for Intercompany Eliminations & Unre...",
+            "caption": "Processing translation adjustments and elimination entries for.",
             "max": 100,
             "bars": [
               {
@@ -530,7 +530,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluating multinational group institutional reporting for Intercompany Eliminations & Unre...",
+            "caption": "Evaluating multinational group institutional reporting for Intercompany.",
             "max": 100,
             "bars": [
               {
@@ -557,7 +557,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Statutory balance sheet certification and SHA-256 seal for Intercompany Eliminations & Unre...",
+            "caption": "Statutory balance sheet certification and SHA digest seal for.",
             "max": 100,
             "bars": [
               {
@@ -708,7 +708,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingesting multi-entity trial balances and scope for Segment Reporting Disclosures & ...",
+            "caption": "Ingesting multi-entity trial balances and scope for Segment Reporting.",
             "max": 100,
             "bars": [
               {
@@ -735,7 +735,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing translation adjustments and elimination entries for Segment Reporting Disclosures & ...",
+            "caption": "Processing translation adjustments and elimination entries for Segment.",
             "max": 100,
             "bars": [
               {
@@ -762,7 +762,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluating multinational group institutional reporting for Segment Reporting Disclosures & ...",
+            "caption": "Evaluating multinational group institutional reporting for Segment.",
             "max": 100,
             "bars": [
               {
@@ -789,7 +789,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Statutory balance sheet certification and SHA-256 seal for Segment Reporting Disclosures & ...",
+            "caption": "Statutory balance sheet certification and SHA digest seal for Segment.",
             "max": 100,
             "bars": [
               {
@@ -940,7 +940,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingesting multi-entity trial balances and scope for Enterprise Global Financial Cons...",
+            "caption": "Ingesting multi-entity trial balances and scope for Enterprise Global.",
             "max": 100,
             "bars": [
               {
@@ -967,7 +967,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing translation adjustments and elimination entries for Enterprise Global Financial Cons...",
+            "caption": "Processing translation adjustments and elimination entries for Enterprise.",
             "max": 100,
             "bars": [
               {
@@ -994,7 +994,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluating multinational group institutional reporting for Enterprise Global Financial Cons...",
+            "caption": "Evaluating multinational group institutional reporting for Enterprise.",
             "max": 100,
             "bars": [
               {
@@ -1021,7 +1021,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Statutory balance sheet certification and SHA-256 seal for Enterprise Global Financial Cons...",
+            "caption": "Statutory balance sheet certification and SHA digest seal for Enterprise.",
             "max": 100,
             "bars": [
               {

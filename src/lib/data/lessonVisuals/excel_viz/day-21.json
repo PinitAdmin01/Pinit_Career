@@ -12,7 +12,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline budget parameters for Static vs Flexible Budgets & Varian...",
+            "caption": "Baseline budget parameters for Static vs Flexible Budgets & Varian...",
             "max": 100,
             "bars": [
               {
@@ -39,7 +39,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Flexible budget re-indexing and cost variance scans in Static vs Flexible Budgets & Varian...",
+            "caption": "Flexible budget re-indexing and cost variance scans in Static vs Flexible.",
             "max": 100,
             "bars": [
               {
@@ -66,7 +66,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: PVM decomposition and EBITDA waterfall bridge in Static vs Flexible Budgets & Varian...",
+            "caption": "PVM decomposition and EBITDA waterfall bridge in Static vs Flexible.",
             "max": 100,
             "bars": [
               {
@@ -93,7 +93,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full MOR certification and cryptographic sign-off seal applied for Static vs Flexible Budgets & Varian...",
+            "caption": "Full MOR certification and cryptographic sign-off seal applied for Static.",
             "max": 100,
             "bars": [
               {
@@ -244,7 +244,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline budget parameters for Price-Volume-Mix (PVM) Multi-Produc...",
+            "caption": "Baseline budget parameters for Price-Volume-Mix (PVM) Multi-Produc...",
             "max": 100,
             "bars": [
               {
@@ -271,7 +271,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Flexible budget re-indexing and cost variance scans in Price-Volume-Mix (PVM) Multi-Produc...",
+            "caption": "Flexible budget re-indexing and cost variance scans in Price-Volume-Mix.",
             "max": 100,
             "bars": [
               {
@@ -298,7 +298,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: PVM decomposition and EBITDA waterfall bridge in Price-Volume-Mix (PVM) Multi-Produc...",
+            "caption": "PVM decomposition and EBITDA waterfall bridge in Price-Volume-Mix (PVM).",
             "max": 100,
             "bars": [
               {
@@ -325,7 +325,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full MOR certification and cryptographic sign-off seal applied for Price-Volume-Mix (PVM) Multi-Produc...",
+            "caption": "Full MOR certification and cryptographic sign-off seal applied for.",
             "max": 100,
             "bars": [
               {
@@ -476,7 +476,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline budget parameters for Cost Variances: Direct Materials, D...",
+            "caption": "Baseline budget parameters for Cost Variances: Direct Materials, D...",
             "max": 100,
             "bars": [
               {
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Flexible budget re-indexing and cost variance scans in Cost Variances: Direct Materials, D...",
+            "caption": "Flexible budget re-indexing and cost variance scans in Cost Variances.",
             "max": 100,
             "bars": [
               {
@@ -530,7 +530,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: PVM decomposition and EBITDA waterfall bridge in Cost Variances: Direct Materials, D...",
+            "caption": "PVM decomposition and EBITDA waterfall bridge in Cost Variances: Direct.",
             "max": 100,
             "bars": [
               {
@@ -557,7 +557,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full MOR certification and cryptographic sign-off seal applied for Cost Variances: Direct Materials, D...",
+            "caption": "Full MOR certification and cryptographic sign-off seal applied for Cost.",
             "max": 100,
             "bars": [
               {
@@ -708,7 +708,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline budget parameters for Dynamic Variance Bridges & Waterfal...",
+            "caption": "Baseline budget parameters for Dynamic Variance Bridges & Waterfal...",
             "max": 100,
             "bars": [
               {
@@ -735,7 +735,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Flexible budget re-indexing and cost variance scans in Dynamic Variance Bridges & Waterfal...",
+            "caption": "Flexible budget re-indexing and cost variance scans in Dynamic Variance.",
             "max": 100,
             "bars": [
               {
@@ -762,7 +762,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: PVM decomposition and EBITDA waterfall bridge in Dynamic Variance Bridges & Waterfal...",
+            "caption": "PVM decomposition and EBITDA waterfall bridge in Dynamic Variance Bridges.",
             "max": 100,
             "bars": [
               {
@@ -789,7 +789,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full MOR certification and cryptographic sign-off seal applied for Dynamic Variance Bridges & Waterfal...",
+            "caption": "Full MOR certification and cryptographic sign-off seal applied for.",
             "max": 100,
             "bars": [
               {
@@ -940,7 +940,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline budget parameters for Enterprise Corporate FP&A Monthly O...",
+            "caption": "Baseline budget parameters for Enterprise Corporate FP&A Monthly O...",
             "max": 100,
             "bars": [
               {
@@ -967,7 +967,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Flexible budget re-indexing and cost variance scans in Enterprise Corporate FP&A Monthly O...",
+            "caption": "Flexible budget re-indexing and cost variance scans in Enterprise.",
             "max": 100,
             "bars": [
               {
@@ -994,7 +994,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: PVM decomposition and EBITDA waterfall bridge in Enterprise Corporate FP&A Monthly O...",
+            "caption": "PVM decomposition and EBITDA waterfall bridge in Enterprise Corporate.",
             "max": 100,
             "bars": [
               {
@@ -1021,7 +1021,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full MOR certification and cryptographic sign-off seal applied for Enterprise Corporate FP&A Monthly O...",
+            "caption": "Full MOR certification and cryptographic sign-off seal applied for.",
             "max": 100,
             "bars": [
               {

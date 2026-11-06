@@ -10,11 +10,11 @@
       "codeHash": "76da7002144216de35be7a5f834444055c191000711db8e5624219b447732ab6",
       "spec": {
         "template": "bars",
-        "title": "Strategic M&A Architecture, Exchange Rat... \u2014 Strategic M&A Capstone Metrics",
+        "title": "Strategic M&A Architecture, Exchange Rat... — Strategic M&A Capstone Metrics",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline strategic M&A metrics for Strategic M&A Architecture, Exchang...",
+            "caption": "Baseline strategic M&A metrics for Strategic M&A Architecture, Exchang...",
             "max": 100,
             "bars": [
               {
@@ -41,7 +41,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Valuation bridge and financing mechanics for Strategic M&A Architecture, Exchang...",
+            "caption": "Valuation bridge and financing mechanics for Strategic M&A Architecture.",
             "max": 100,
             "bars": [
               {
@@ -68,7 +68,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Applied institutional case study and accretion analysis for Strategic M&A Architecture, Exchang...",
+            "caption": "Applied institutional case study and accretion analysis for Strategic M&A.",
             "max": 100,
             "bars": [
               {
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive board scorecard and covenant stress testing for Strategic M&A Architecture, Exchang...",
+            "caption": "Interactive board scorecard and covenant stress testing for Strategic M&A.",
             "max": 100,
             "bars": [
               {
@@ -128,11 +128,11 @@
       "codeHash": "e8a6253644865b37d9a57ce09b6f54a82c4ace501d64856efd24af287bc5ad84",
       "spec": {
         "template": "bars",
-        "title": "Pro Forma Combined Income Statement, Goo... \u2014 Strategic M&A Capstone Metrics",
+        "title": "Pro Forma Combined Income Statement, Goo... — Strategic M&A Capstone Metrics",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline strategic M&A metrics for Pro Forma Combined Income Statement...",
+            "caption": "Baseline strategic M&A metrics for Pro Forma Combined Income Statement...",
             "max": 100,
             "bars": [
               {
@@ -159,7 +159,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Valuation bridge and financing mechanics for Pro Forma Combined Income Statement...",
+            "caption": "Valuation bridge and financing mechanics for Pro Forma Combined Income.",
             "max": 100,
             "bars": [
               {
@@ -186,7 +186,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Applied institutional case study and accretion analysis for Pro Forma Combined Income Statement...",
+            "caption": "Applied institutional case study and accretion analysis for Pro Forma.",
             "max": 100,
             "bars": [
               {
@@ -213,7 +213,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive board scorecard and covenant stress testing for Pro Forma Combined Income Statement...",
+            "caption": "Interactive board scorecard and covenant stress testing for Pro Forma.",
             "max": 100,
             "bars": [
               {
@@ -246,11 +246,11 @@
       "codeHash": "bde33af7f9e5a01df2cc164c5351fdafbd7b827a50a6d304f4d8e3c5eb3724e0",
       "spec": {
         "template": "bars",
-        "title": "Revenue & Cost Synergies, Realization Ph... \u2014 Strategic M&A Capstone Metrics",
+        "title": "Revenue & Cost Synergies, Realization Ph... — Strategic M&A Capstone Metrics",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline strategic M&A metrics for Revenue & Cost Synergies, Realizati...",
+            "caption": "Baseline strategic M&A metrics for Revenue & Cost Synergies, Realizati...",
             "max": 100,
             "bars": [
               {
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Valuation bridge and financing mechanics for Revenue & Cost Synergies, Realizati...",
+            "caption": "Valuation bridge and financing mechanics for Revenue & Cost Synergies.",
             "max": 100,
             "bars": [
               {
@@ -304,7 +304,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Applied institutional case study and accretion analysis for Revenue & Cost Synergies, Realizati...",
+            "caption": "Applied institutional case study and accretion analysis for Revenue &.",
             "max": 100,
             "bars": [
               {
@@ -331,7 +331,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive board scorecard and covenant stress testing for Revenue & Cost Synergies, Realizati...",
+            "caption": "Interactive board scorecard and covenant stress testing for Revenue &.",
             "max": 100,
             "bars": [
               {
@@ -364,11 +364,11 @@
       "codeHash": "56b92716e7ffe8726b7134097452c0bc68fa0ba24d4d59ca5dbdaa582ad6a4d4",
       "spec": {
         "template": "bars",
-        "title": "Pro Forma Earnings Per Share (EPS) Accre... \u2014 Strategic M&A Capstone Metrics",
+        "title": "Pro Forma Earnings Per Share (EPS) Accre... — Strategic M&A Capstone Metrics",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline strategic M&A metrics for Pro Forma Earnings Per Share (EPS) ...",
+            "caption": "Baseline strategic M&A metrics for Pro Forma Earnings Per Share (EPS) ...",
             "max": 100,
             "bars": [
               {
@@ -395,7 +395,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Valuation bridge and financing mechanics for Pro Forma Earnings Per Share (EPS) ...",
+            "caption": "Valuation bridge and financing mechanics for Pro Forma Earnings Per Share.",
             "max": 100,
             "bars": [
               {
@@ -422,7 +422,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Applied institutional case study and accretion analysis for Pro Forma Earnings Per Share (EPS) ...",
+            "caption": "Applied institutional case study and accretion analysis for Pro Forma.",
             "max": 100,
             "bars": [
               {
@@ -449,7 +449,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive board scorecard and covenant stress testing for Pro Forma Earnings Per Share (EPS) ...",
+            "caption": "Interactive board scorecard and covenant stress testing for Pro Forma.",
             "max": 100,
             "bars": [
               {
@@ -482,11 +482,11 @@
       "codeHash": "e9af3217dd07faa7a202c85e5247e91a21d285d1939ea0cc500af180a6bb0aa6",
       "spec": {
         "template": "bars",
-        "title": "Grand Master Milestone 3 Capstone Enterp... \u2014 Strategic M&A Capstone Metrics",
+        "title": "Grand Master Milestone 3 Capstone Enterp... — Strategic M&A Capstone Metrics",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline strategic M&A metrics for Grand Master Milestone 3 Capstone E...",
+            "caption": "Baseline strategic M&A metrics for Grand Master Milestone three Capstone.",
             "max": 100,
             "bars": [
               {
@@ -513,7 +513,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Valuation bridge and financing mechanics for Grand Master Milestone 3 Capstone E...",
+            "caption": "Valuation bridge and financing mechanics for Grand Master Milestone three.",
             "max": 100,
             "bars": [
               {
@@ -540,7 +540,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Applied institutional case study and accretion analysis for Grand Master Milestone 3 Capstone E...",
+            "caption": "Applied institutional case study and accretion analysis for Grand Master.",
             "max": 100,
             "bars": [
               {
@@ -567,7 +567,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive board scorecard and covenant stress testing for Grand Master Milestone 3 Capstone E...",
+            "caption": "Interactive board scorecard and covenant stress testing for Grand Master.",
             "max": 100,
             "bars": [
               {

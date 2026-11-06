@@ -10,12 +10,12 @@
       "codeHash": "629443f47aefaa16c83256a66fe085c05e736806a50ff0a9ea7b61b1d02904ad",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Going Concern Assumption & SA 570 Revised Responsi \u2014 Forensic Audit Ledger",
+        "title": "Going Concern Assumption & SA 570 Revised Responsi — Forensic Audit Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open forensic assurance verification ledger (1710000) for Going Concern Assumption & SA 570 Revise...",
-            "title": "Day 19 Forensic Assurance Ledger \u2014 Initial Posting",
+            "caption": "Open forensic assurance verification ledger (multiple) for Going Concern.",
+            "title": "Day 19 Forensic Assurance Ledger — Initial Posting",
             "isBalanced": true,
             "totalDebit": 1710000,
             "totalCredit": 1710000,
@@ -40,8 +40,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record substantive adjustment / governance entry (185000) under applicable standard.",
-            "title": "Day 19 Forensic Assurance Ledger \u2014 Substantive Adjustment",
+            "caption": "Record substantive adjustment / governance entry (multiple) under.",
+            "title": "Day 19 Forensic Assurance Ledger — Substantive Adjustment",
             "isBalanced": true,
             "totalDebit": 1895000,
             "totalCredit": 1895000,
@@ -72,8 +72,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated enterprise forensic case study for Going Concern Assumption & SA 570 Revise...",
-            "title": "Day 19 Forensic Assurance Ledger \u2014 Substantive Audit",
+            "caption": "Execute simulated enterprise forensic case study for Going Concern.",
+            "title": "Day 19 Forensic Assurance Ledger — Substantive Audit",
             "isBalanced": true,
             "totalDebit": 1895000,
             "totalCredit": 1895000,
@@ -103,8 +103,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify 100% balanced ledger closure and working paper archival for Going Concern Assumption & SA 570 Revise...",
-            "title": "Day 19 Forensic Assurance Ledger \u2014 Final Certified Balances",
+            "caption": "Verify one hundred% balanced ledger closure and working paper archival.",
+            "title": "Day 19 Forensic Assurance Ledger — Final Certified Balances",
             "isBalanced": true,
             "totalDebit": 1895000,
             "totalCredit": 1895000,
@@ -141,12 +141,12 @@
       "codeHash": "1c1e92e7700a0709dbcf8efdb284899cb3684eed60f348c11a4b4cfe4c89c5c5",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Evaluating Management's Mitigation Plans & Cash Fl \u2014 Forensic Audit Ledger",
+        "title": "Evaluating Management's Mitigation Plans & Cash Fl — Forensic Audit Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open forensic assurance verification ledger (1730000) for Evaluating Management's Mitigation Plans...",
-            "title": "Day 19 Forensic Assurance Ledger \u2014 Initial Posting",
+            "caption": "Open forensic assurance verification ledger (multiple) for Evaluating.",
+            "title": "Day 19 Forensic Assurance Ledger — Initial Posting",
             "isBalanced": true,
             "totalDebit": 1730000,
             "totalCredit": 1730000,
@@ -171,8 +171,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record substantive adjustment / governance entry (194500) under applicable standard.",
-            "title": "Day 19 Forensic Assurance Ledger \u2014 Substantive Adjustment",
+            "caption": "Record substantive adjustment / governance entry (multiple) under.",
+            "title": "Day 19 Forensic Assurance Ledger — Substantive Adjustment",
             "isBalanced": true,
             "totalDebit": 1924500,
             "totalCredit": 1924500,
@@ -203,8 +203,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated enterprise forensic case study for Evaluating Management's Mitigation Plans...",
-            "title": "Day 19 Forensic Assurance Ledger \u2014 Substantive Audit",
+            "caption": "Execute simulated enterprise forensic case study for Evaluating.",
+            "title": "Day 19 Forensic Assurance Ledger — Substantive Audit",
             "isBalanced": true,
             "totalDebit": 1924500,
             "totalCredit": 1924500,
@@ -234,8 +234,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify 100% balanced ledger closure and working paper archival for Evaluating Management's Mitigation Plans...",
-            "title": "Day 19 Forensic Assurance Ledger \u2014 Final Certified Balances",
+            "caption": "Verify one hundred% balanced ledger closure and working paper archival.",
+            "title": "Day 19 Forensic Assurance Ledger — Final Certified Balances",
             "isBalanced": true,
             "totalDebit": 1924500,
             "totalCredit": 1924500,
@@ -272,12 +272,12 @@
       "codeHash": "fed7b90052ffaf5e2b90791c53049d4c9f965d4eec7aee04f153313792d8dc4a",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Audit Reporting Scenarios: Material Uncertainty Re \u2014 Forensic Audit Ledger",
+        "title": "Audit Reporting Scenarios: Material Uncertainty Re — Forensic Audit Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open forensic assurance verification ledger (1750000) for Audit Reporting Scenarios: Material Unce...",
-            "title": "Day 19 Forensic Assurance Ledger \u2014 Initial Posting",
+            "caption": "Open forensic assurance verification ledger (multiple) for Audit.",
+            "title": "Day 19 Forensic Assurance Ledger — Initial Posting",
             "isBalanced": true,
             "totalDebit": 1750000,
             "totalCredit": 1750000,
@@ -302,8 +302,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record substantive adjustment / governance entry (204000) under applicable standard.",
-            "title": "Day 19 Forensic Assurance Ledger \u2014 Substantive Adjustment",
+            "caption": "Record substantive adjustment / governance entry (multiple) under.",
+            "title": "Day 19 Forensic Assurance Ledger — Substantive Adjustment",
             "isBalanced": true,
             "totalDebit": 1954000,
             "totalCredit": 1954000,
@@ -334,8 +334,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated enterprise forensic case study for Audit Reporting Scenarios: Material Unce...",
-            "title": "Day 19 Forensic Assurance Ledger \u2014 Substantive Audit",
+            "caption": "Execute simulated enterprise forensic case study for Audit Reporting.",
+            "title": "Day 19 Forensic Assurance Ledger — Substantive Audit",
             "isBalanced": true,
             "totalDebit": 1954000,
             "totalCredit": 1954000,
@@ -365,8 +365,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify 100% balanced ledger closure and working paper archival for Audit Reporting Scenarios: Material Unce...",
-            "title": "Day 19 Forensic Assurance Ledger \u2014 Final Certified Balances",
+            "caption": "Verify one hundred% balanced ledger closure and working paper archival.",
+            "title": "Day 19 Forensic Assurance Ledger — Final Certified Balances",
             "isBalanced": true,
             "totalDebit": 1954000,
             "totalCredit": 1954000,
@@ -403,12 +403,12 @@
       "codeHash": "5333733a037dd4e5f6208c7a4f5bed2d27802490d60eadff7d21ef017f7a4303",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Statutory Reporting: CARO 2020 Clause (xvii) Cash  \u2014 Forensic Audit Ledger",
+        "title": "Statutory Reporting: CARO 2020 Clause (xvii) Cash  — Forensic Audit Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open forensic assurance verification ledger (1770000) for Statutory Reporting: CARO 2020 Clause (x...",
-            "title": "Day 19 Forensic Assurance Ledger \u2014 Initial Posting",
+            "caption": "Open forensic assurance verification ledger (multiple) for Statutory.",
+            "title": "Day 19 Forensic Assurance Ledger — Initial Posting",
             "isBalanced": true,
             "totalDebit": 1770000,
             "totalCredit": 1770000,
@@ -433,8 +433,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record substantive adjustment / governance entry (213500) under applicable standard.",
-            "title": "Day 19 Forensic Assurance Ledger \u2014 Substantive Adjustment",
+            "caption": "Record substantive adjustment / governance entry (multiple) under.",
+            "title": "Day 19 Forensic Assurance Ledger — Substantive Adjustment",
             "isBalanced": true,
             "totalDebit": 1983500,
             "totalCredit": 1983500,
@@ -465,8 +465,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated enterprise forensic case study for Statutory Reporting: CARO 2020 Clause (x...",
-            "title": "Day 19 Forensic Assurance Ledger \u2014 Substantive Audit",
+            "caption": "Execute simulated enterprise forensic case study for Statutory Reporting.",
+            "title": "Day 19 Forensic Assurance Ledger — Substantive Audit",
             "isBalanced": true,
             "totalDebit": 1983500,
             "totalCredit": 1983500,
@@ -496,8 +496,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify 100% balanced ledger closure and working paper archival for Statutory Reporting: CARO 2020 Clause (x...",
-            "title": "Day 19 Forensic Assurance Ledger \u2014 Final Certified Balances",
+            "caption": "Verify one hundred% balanced ledger closure and working paper archival.",
+            "title": "Day 19 Forensic Assurance Ledger — Final Certified Balances",
             "isBalanced": true,
             "totalDebit": 1983500,
             "totalCredit": 1983500,
@@ -534,12 +534,12 @@
       "codeHash": "7ab7847db21de2a66dca39dff61f59b17ca850f945c3671ca577492dc7efd70b",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Comprehensive Going Concern Audit Program & Docume \u2014 Forensic Audit Ledger",
+        "title": "Comprehensive Going Concern Audit Program & Docume — Forensic Audit Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open forensic assurance verification ledger (1790000) for Comprehensive Going Concern Audit Progra...",
-            "title": "Day 19 Forensic Assurance Ledger \u2014 Initial Posting",
+            "caption": "Open forensic assurance verification ledger (multiple) for Comprehensive.",
+            "title": "Day 19 Forensic Assurance Ledger — Initial Posting",
             "isBalanced": true,
             "totalDebit": 1790000,
             "totalCredit": 1790000,
@@ -564,8 +564,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record substantive adjustment / governance entry (223000) under applicable standard.",
-            "title": "Day 19 Forensic Assurance Ledger \u2014 Substantive Adjustment",
+            "caption": "Record substantive adjustment / governance entry (multiple) under.",
+            "title": "Day 19 Forensic Assurance Ledger — Substantive Adjustment",
             "isBalanced": true,
             "totalDebit": 2013000,
             "totalCredit": 2013000,
@@ -596,8 +596,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated enterprise forensic case study for Comprehensive Going Concern Audit Progra...",
-            "title": "Day 19 Forensic Assurance Ledger \u2014 Substantive Audit",
+            "caption": "Execute simulated enterprise forensic case study for Comprehensive Going.",
+            "title": "Day 19 Forensic Assurance Ledger — Substantive Audit",
             "isBalanced": true,
             "totalDebit": 2013000,
             "totalCredit": 2013000,
@@ -627,8 +627,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify 100% balanced ledger closure and working paper archival for Comprehensive Going Concern Audit Progra...",
-            "title": "Day 19 Forensic Assurance Ledger \u2014 Final Certified Balances",
+            "caption": "Verify one hundred% balanced ledger closure and working paper archival.",
+            "title": "Day 19 Forensic Assurance Ledger — Final Certified Balances",
             "isBalanced": true,
             "totalDebit": 2013000,
             "totalCredit": 2013000,

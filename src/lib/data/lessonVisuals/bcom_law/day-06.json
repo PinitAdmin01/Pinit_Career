@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary facility debit entry ($46,000) for Patentable Subject Matter & The Ali...",
+            "caption": "Open primary facility debit entry ($multiple,multiple) for Patentable.",
             "title": "Day 6 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 46000,
@@ -40,7 +40,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary interest & fee accrual adjustment ($9,200).",
+            "caption": "Record secondary interest & fee accrual adjustment ($nine,OK).",
             "title": "Day 6 Journal — Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 55200,
@@ -71,7 +71,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of institutional reserve provisioning & counterparty collateral.",
+            "caption": "Verification of institutional reserve provisioning & counterparty.",
             "title": "Day 6 Journal — Collateral & Reserve Alignment",
             "isBalanced": true,
             "totalDebit": 55200,
@@ -102,7 +102,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Real-time balance sheet reconciliation and regulatory capital confirmation.",
+            "caption": "Real-time balance sheet reconciliation and regulatory capital confirmation.",
             "title": "Day 6 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 55200,
@@ -143,7 +143,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary facility debit entry ($47,250) for Novelty & Prior Art Anticipation In...",
+            "caption": "Open primary facility debit entry ($multiple,multiple) for Novelty &.",
             "title": "Day 6 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 47250,
@@ -169,7 +169,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary interest & fee accrual adjustment ($9,450).",
+            "caption": "Record secondary interest & fee accrual adjustment ($nine,multiple).",
             "title": "Day 6 Journal — Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 56700,
@@ -200,7 +200,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of institutional reserve provisioning & counterparty collateral.",
+            "caption": "Verification of institutional reserve provisioning & counterparty.",
             "title": "Day 6 Journal — Collateral & Reserve Alignment",
             "isBalanced": true,
             "totalDebit": 56700,
@@ -231,7 +231,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Real-time balance sheet reconciliation and regulatory capital confirmation.",
+            "caption": "Real-time balance sheet reconciliation and regulatory capital confirmation.",
             "title": "Day 6 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 56700,
@@ -272,7 +272,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary facility debit entry ($48,500) for Non-Obviousness & The Graham v. Joh...",
+            "caption": "Open primary facility debit entry ($multiple,server-error) for.",
             "title": "Day 6 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 48500,
@@ -298,7 +298,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary interest & fee accrual adjustment ($9,700).",
+            "caption": "Record secondary interest & fee accrual adjustment ($nine,multiple).",
             "title": "Day 6 Journal — Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 58200,
@@ -329,7 +329,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of institutional reserve provisioning & counterparty collateral.",
+            "caption": "Verification of institutional reserve provisioning & counterparty.",
             "title": "Day 6 Journal — Collateral & Reserve Alignment",
             "isBalanced": true,
             "totalDebit": 58200,
@@ -360,7 +360,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Real-time balance sheet reconciliation and regulatory capital confirmation.",
+            "caption": "Real-time balance sheet reconciliation and regulatory capital confirmation.",
             "title": "Day 6 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 58200,
@@ -401,7 +401,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary facility debit entry ($49,750) for Patent Prosecution, Claim Drafting ...",
+            "caption": "Open primary facility debit entry ($multiple,multiple) for Patent.",
             "title": "Day 6 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 49750,
@@ -427,7 +427,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary interest & fee accrual adjustment ($9,950).",
+            "caption": "Record secondary interest & fee accrual adjustment ($nine,multiple).",
             "title": "Day 6 Journal — Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 59700,
@@ -458,7 +458,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of institutional reserve provisioning & counterparty collateral.",
+            "caption": "Verification of institutional reserve provisioning & counterparty.",
             "title": "Day 6 Journal — Collateral & Reserve Alignment",
             "isBalanced": true,
             "totalDebit": 59700,
@@ -489,7 +489,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Real-time balance sheet reconciliation and regulatory capital confirmation.",
+            "caption": "Real-time balance sheet reconciliation and regulatory capital confirmation.",
             "title": "Day 6 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 59700,
@@ -530,7 +530,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary facility debit entry ($51,000) for Patent Litigation, Willful Infringe...",
+            "caption": "Open primary facility debit entry ($multiple,multiple) for Patent.",
             "title": "Day 6 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 51000,
@@ -556,7 +556,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary interest & fee accrual adjustment ($10,200).",
+            "caption": "Record secondary interest & fee accrual adjustment ($ten,OK).",
             "title": "Day 6 Journal — Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 61200,
@@ -587,7 +587,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of institutional reserve provisioning & counterparty collateral.",
+            "caption": "Verification of institutional reserve provisioning & counterparty.",
             "title": "Day 6 Journal — Collateral & Reserve Alignment",
             "isBalanced": true,
             "totalDebit": 61200,
@@ -618,7 +618,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Real-time balance sheet reconciliation and regulatory capital confirmation.",
+            "caption": "Real-time balance sheet reconciliation and regulatory capital confirmation.",
             "title": "Day 6 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 61200,

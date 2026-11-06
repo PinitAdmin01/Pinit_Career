@@ -21,7 +21,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize RPL control protocol: Register ICMPv6 Type 155 handler and parse RPL Instance ID.",
+            "caption": "Initialize RPL control protocol: Register ICMPvsix Type multiple handler.",
             "registerName": "RPL_CONTROL_MSG_REG",
             "bitWidth": 8,
             "hexValue": "0x84",
@@ -89,7 +89,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Construct DIO advertisement: Encode DODAG ID, Grounded flag, Storing Mode MOP, and Rank 256.",
+            "caption": "Construct DIO advertisement: Encode DODAG ID, Grounded flag, Storing Mode.",
             "registerName": "RPL_CONTROL_MSG_REG",
             "bitWidth": 8,
             "hexValue": "0xA6",
@@ -157,7 +157,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Broadcast DIO message across link-local all-RPL-nodes multicast address (FF02::1A).",
+            "caption": "Broadcast DIO message across link-local all-RPL-nodes multicast address.",
             "registerName": "RPL_CONTROL_MSG_REG",
             "bitWidth": 8,
             "hexValue": "0xAF",
@@ -303,7 +303,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Arm RFC 6206 Trickle timer: Initialize interval I to I_min (10 ms) and select random broadcast time t in [I/2, I).",
+            "caption": "Arm RFC multiple Trickle timer: Initialize interval I to I_min (ten ms).",
             "registerName": "RPL_TRICKLE_TIMER_REG",
             "bitWidth": 8,
             "hexValue": "0xC0",
@@ -371,7 +371,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Listen across interval: Increment consistency counter c upon hearing 3 consistent neighbor DIO announcements.",
+            "caption": "Listen across interval: Increment consistency counter c upon hearing.",
             "registerName": "RPL_TRICKLE_TIMER_REG",
             "bitWidth": 8,
             "hexValue": "0xD8",
@@ -439,7 +439,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Evaluate at time t: Consistency counter c exceeds redundancy constant k (3 >= 2), suppress DIO transmission.",
+            "caption": "Evaluate at time t: Consistency counter c exceeds redundancy constant k.",
             "registerName": "RPL_TRICKLE_TIMER_REG",
             "bitWidth": 8,
             "hexValue": "0xDC",
@@ -653,7 +653,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Evaluate candidate NODE_B with minor improvement (76 units): Hysteresis threshold (192) suppresses route flap.",
+            "caption": "Evaluate candidate NODE_B with minor improvement (multiple units).",
             "registerName": "RPL_RANK_MRHOF_REG",
             "bitWidth": 8,
             "hexValue": "0xE0",
@@ -721,7 +721,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "NODE_B link improves to ETX 1.0 (204 units improvement): Execute atomic parent switch and update rank to 512.",
+            "caption": "NODE_B link improves to ETX one.zero (multiple units improvement).",
             "registerName": "RPL_RANK_MRHOF_REG",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -867,7 +867,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Configure Mode of Operation (MOP): Select Storing Mode (MOP=2) for localized routing table lookups.",
+            "caption": "Configure Mode of Operation (MOP): Select Storing Mode (MOP=two) for.",
             "registerName": "RPL_DOWNWARD_ROUT_REG",
             "bitWidth": 8,
             "hexValue": "0xA4",
@@ -935,7 +935,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Ingest child DAO message: Populate local forwarding table mapping destination IPv6 to next-hop MAC.",
+            "caption": "Ingest child DAO message: Populate local forwarding table mapping.",
             "registerName": "RPL_DOWNWARD_ROUT_REG",
             "bitWidth": 8,
             "hexValue": "0xB5",
@@ -1003,7 +1003,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Switch root to Non-Storing Mode (MOP=1): Compute full BFS graph path and generate Source Routing Header (SRH).",
+            "caption": "Switch root to Non-Storing Mode (MOP=one): Compute full BFS graph path.",
             "registerName": "RPL_DOWNWARD_ROUT_REG",
             "bitWidth": 8,
             "hexValue": "0x5A",
@@ -1149,7 +1149,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize RPLMasterMeshEngine: Establish ROOT_GW at baseline Rank 256 and arm Trickle timers.",
+            "caption": "Initialize RPLMasterMeshEngine: Establish ROOT_GW at baseline Rank.",
             "registerName": "RPL_MASTER_ENGINE_REG",
             "bitWidth": 8,
             "hexValue": "0xC0",
@@ -1217,7 +1217,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Form 6-node DODAG mesh tree across 3 hops: Nodes select optimal parents via MRHOF ETX path cost.",
+            "caption": "Form six-node DODAG mesh tree across three hops: Nodes select optimal.",
             "registerName": "RPL_MASTER_ENGINE_REG",
             "bitWidth": 8,
             "hexValue": "0xF0",
@@ -1285,7 +1285,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Route upward telemetry from leaf NODE_5 through intermediate hops: Validate strictly decreasing ranks.",
+            "caption": "Route upward telemetry from leaf NODE_five through intermediate hops.",
             "registerName": "RPL_MASTER_ENGINE_REG",
             "bitWidth": 8,
             "hexValue": "0xFC",

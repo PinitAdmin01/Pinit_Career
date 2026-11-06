@@ -12,7 +12,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: DuPont ratio breakdown and KPI architecture for Executive KPI Architecture & DuP...",
+            "caption": "DuPont ratio breakdown and KPI architecture for Executive KPI.",
             "max": 100,
             "bars": [
               {
@@ -39,7 +39,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing dynamic slicers and scenario sensitivities for Executive KPI Architecture & DuP...",
+            "caption": "Processing dynamic slicers and scenario sensitivities for Executive KPI.",
             "max": 100,
             "bars": [
               {
@@ -66,7 +66,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Variance waterfall attribution and cognitive storytelling for Executive KPI Architecture & DuP...",
+            "caption": "Variance waterfall attribution and cognitive storytelling for Executive.",
             "max": 100,
             "bars": [
               {
@@ -93,7 +93,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Executive cockpit certification and SHA-256 seal for Executive KPI Architecture & DuP...",
+            "caption": "Executive cockpit certification and SHA digest seal for Executive KPI.",
             "max": 100,
             "bars": [
               {
@@ -244,7 +244,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: DuPont ratio breakdown and KPI architecture for Dynamic Multi-Table Slicers & Sc...",
+            "caption": "DuPont ratio breakdown and KPI architecture for Dynamic Multi-Table.",
             "max": 100,
             "bars": [
               {
@@ -271,7 +271,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing dynamic slicers and scenario sensitivities for Dynamic Multi-Table Slicers & Sc...",
+            "caption": "Processing dynamic slicers and scenario sensitivities for Dynamic.",
             "max": 100,
             "bars": [
               {
@@ -298,7 +298,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Variance waterfall attribution and cognitive storytelling for Dynamic Multi-Table Slicers & Sc...",
+            "caption": "Variance waterfall attribution and cognitive storytelling for Dynamic.",
             "max": 100,
             "bars": [
               {
@@ -325,7 +325,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Executive cockpit certification and SHA-256 seal for Dynamic Multi-Table Slicers & Sc...",
+            "caption": "Executive cockpit certification and SHA digest seal for Dynamic.",
             "max": 100,
             "bars": [
               {
@@ -476,7 +476,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: DuPont ratio breakdown and KPI architecture for Financial Variance Waterfall & P...",
+            "caption": "DuPont ratio breakdown and KPI architecture for Financial Variance.",
             "max": 100,
             "bars": [
               {
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing dynamic slicers and scenario sensitivities for Financial Variance Waterfall & P...",
+            "caption": "Processing dynamic slicers and scenario sensitivities for Financial.",
             "max": 100,
             "bars": [
               {
@@ -530,7 +530,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Variance waterfall attribution and cognitive storytelling for Financial Variance Waterfall & P...",
+            "caption": "Variance waterfall attribution and cognitive storytelling for Financial.",
             "max": 100,
             "bars": [
               {
@@ -557,7 +557,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Executive cockpit certification and SHA-256 seal for Financial Variance Waterfall & P...",
+            "caption": "Executive cockpit certification and SHA digest seal for Financial.",
             "max": 100,
             "bars": [
               {
@@ -708,7 +708,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: DuPont ratio breakdown and KPI architecture for Boardroom Cognitive Chart Archit...",
+            "caption": "DuPont ratio breakdown and KPI architecture for Boardroom Cognitive Chart.",
             "max": 100,
             "bars": [
               {
@@ -735,7 +735,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing dynamic slicers and scenario sensitivities for Boardroom Cognitive Chart Archit...",
+            "caption": "Processing dynamic slicers and scenario sensitivities for Boardroom.",
             "max": 100,
             "bars": [
               {
@@ -762,7 +762,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Variance waterfall attribution and cognitive storytelling for Boardroom Cognitive Chart Archit...",
+            "caption": "Variance waterfall attribution and cognitive storytelling for Boardroom.",
             "max": 100,
             "bars": [
               {
@@ -789,7 +789,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Executive cockpit certification and SHA-256 seal for Boardroom Cognitive Chart Archit...",
+            "caption": "Executive cockpit certification and SHA digest seal for Boardroom.",
             "max": 100,
             "bars": [
               {
@@ -940,7 +940,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: DuPont ratio breakdown and KPI architecture for Master C-Suite Financial Telemet...",
+            "caption": "DuPont ratio breakdown and KPI architecture for Master C-Suite Financial.",
             "max": 100,
             "bars": [
               {
@@ -967,7 +967,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing dynamic slicers and scenario sensitivities for Master C-Suite Financial Telemet...",
+            "caption": "Processing dynamic slicers and scenario sensitivities for Master C-Suite.",
             "max": 100,
             "bars": [
               {
@@ -994,7 +994,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Variance waterfall attribution and cognitive storytelling for Master C-Suite Financial Telemet...",
+            "caption": "Variance waterfall attribution and cognitive storytelling for Master.",
             "max": 100,
             "bars": [
               {
@@ -1021,7 +1021,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Executive cockpit certification and SHA-256 seal for Master C-Suite Financial Telemet...",
+            "caption": "Executive cockpit certification and SHA digest seal for Master C-Suite.",
             "max": 100,
             "bars": [
               {

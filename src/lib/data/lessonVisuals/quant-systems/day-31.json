@@ -10,7 +10,7 @@
       "codeHash": "6e627d6e1c969f104d58890c8e66ebbaa9a270b2425f0836c14ae97142b84ece",
       "spec": {
         "template": "states",
-        "title": "Black-Scholes-Merton PDE & Closed-Form Analytical Solution \u2014 Quant Systems State Engine",
+        "title": "Black-Scholes-Merton PDE & Closed-Form Analytical Solution — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Black-Scholes-Merton PDE & Closed-Form Analytical Solution.",
+            "caption": "State one (Init State): Initialize deterministic state for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -60,7 +60,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -77,7 +77,7 @@
       "codeHash": "306ac87cdd7910b192f61ac5a1b7f5b66e2febc2edd91604f6e093d0f957a366",
       "spec": {
         "template": "states",
-        "title": "High-Performance Cumulative Normal Polynomial Approximations \u2014 Quant Systems State Engine",
+        "title": "High-Performance Cumulative Normal Polynomial Approximations — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -99,7 +99,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for High-Performance Cumulative Normal Polynomial Approximations.",
+            "caption": "State one (Init State): Initialize deterministic state for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -127,7 +127,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -144,7 +144,7 @@
       "codeHash": "88b69e90150af8233fffc06ca2e11975c3e83db76e7b46313ba9eed46bc39f18",
       "spec": {
         "template": "states",
-        "title": "Vanishing Vega Forensics & Guardrailed Newton-Raphson IV Engine \u2014 Quant Systems State Engine",
+        "title": "Vanishing Vega Forensics & Guardrailed Newton-Raphson IV Engine — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -166,7 +166,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Vanishing Vega Forensics & Guardrailed Newton-Raphson IV Engine.",
+            "caption": "State one (Init State): Initialize deterministic state for Vanishing Vega.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -194,7 +194,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -211,7 +211,7 @@
       "codeHash": "74874b6d66d595a8406e9f540ef3204f89e554a83b5eac0bcc795331f1261990",
       "spec": {
         "template": "states",
-        "title": "Halley Third-Order Method & SIMD Vectorized Multi-Contract Pricer \u2014 Quant Systems State Engine",
+        "title": "Halley Third-Order Method & SIMD Vectorized Multi-Contract Pricer — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -233,7 +233,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Halley Third-Order Method & SIMD Vectorized Multi-Contract Pricer.",
+            "caption": "State one (Init State): Initialize deterministic state for Halley.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -261,7 +261,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -278,7 +278,7 @@
       "codeHash": "20ab28c6227b87e346eeed2f1ddbed3891ee0773f6eb56fa625a6f4738bb1aa9",
       "spec": {
         "template": "states",
-        "title": "Institutional Pre-Trade Quoting Boundaries & FINRA Defense \u2014 Quant Systems State Engine",
+        "title": "Institutional Pre-Trade Quoting Boundaries & FINRA Defense — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -300,7 +300,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Institutional Pre-Trade Quoting Boundaries & FINRA Defense.",
+            "caption": "State one (Init State): Initialize deterministic state for Institutional.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -328,7 +328,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",

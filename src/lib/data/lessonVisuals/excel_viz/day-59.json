@@ -12,7 +12,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Architectural baseline configuration and parameter ingestion for Enterprise Shadow IT Architecture & The $15M Modernization Imperative: Unmanaged Workbook Sprawl & Operational Risk",
+            "caption": "Architectural baseline configuration and parameter ingestion for.",
             "max": 100,
             "bars": [
               {
@@ -39,7 +39,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing pipeline execution and intermediate simulation for Enterprise Shadow IT Architecture & The $15M Modernization Imperative: Unmanaged Workbook Sprawl & Operational Risk",
+            "caption": "Processing pipeline execution and intermediate simulation for Enterprise.",
             "max": 100,
             "bars": [
               {
@@ -66,7 +66,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stress testing, boundary verification, and anomaly detection for Enterprise Shadow IT Architecture & The $15M Modernization Imperative: Unmanaged Workbook Sprawl & Operational Risk",
+            "caption": "Stress testing, boundary verification, and anomaly detection for.",
             "max": 100,
             "bars": [
               {
@@ -93,7 +93,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Sovereign institutional governance and production certification for Enterprise Shadow IT Architecture & The $15M Modernization Imperative: Unmanaged Workbook Sprawl & Operational Risk",
+            "caption": "Sovereign institutional governance and production certification for.",
             "max": 100,
             "bars": [
               {
@@ -244,7 +244,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Architectural baseline configuration and parameter ingestion for The Cost-Benefit & Risk Analysis Detective: Quantifying Technical Debt, Operational Failure Probabilities & Modernization ROI",
+            "caption": "Architectural baseline configuration and parameter ingestion for The.",
             "max": 100,
             "bars": [
               {
@@ -271,7 +271,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing pipeline execution and intermediate simulation for The Cost-Benefit & Risk Analysis Detective: Quantifying Technical Debt, Operational Failure Probabilities & Modernization ROI",
+            "caption": "Processing pipeline execution and intermediate simulation for The.",
             "max": 100,
             "bars": [
               {
@@ -298,7 +298,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stress testing, boundary verification, and anomaly detection for The Cost-Benefit & Risk Analysis Detective: Quantifying Technical Debt, Operational Failure Probabilities & Modernization ROI",
+            "caption": "Stress testing, boundary verification, and anomaly detection for The.",
             "max": 100,
             "bars": [
               {
@@ -325,7 +325,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Sovereign institutional governance and production certification for The Cost-Benefit & Risk Analysis Detective: Quantifying Technical Debt, Operational Failure Probabilities & Modernization ROI",
+            "caption": "Sovereign institutional governance and production certification for The.",
             "max": 100,
             "bars": [
               {
@@ -476,7 +476,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Architectural baseline configuration and parameter ingestion for The Coexistence Architecture: Governed Lakehouse Core, Power BI Semantic Layer & Live XMLA / Direct Lake Excel Endpoints",
+            "caption": "Architectural baseline configuration and parameter ingestion for The.",
             "max": 100,
             "bars": [
               {
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing pipeline execution and intermediate simulation for The Coexistence Architecture: Governed Lakehouse Core, Power BI Semantic Layer & Live XMLA / Direct Lake Excel Endpoints",
+            "caption": "Processing pipeline execution and intermediate simulation for The.",
             "max": 100,
             "bars": [
               {
@@ -530,7 +530,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stress testing, boundary verification, and anomaly detection for The Coexistence Architecture: Governed Lakehouse Core, Power BI Semantic Layer & Live XMLA / Direct Lake Excel Endpoints",
+            "caption": "Stress testing, boundary verification, and anomaly detection for The.",
             "max": 100,
             "bars": [
               {
@@ -557,7 +557,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Sovereign institutional governance and production certification for The Coexistence Architecture: Governed Lakehouse Core, Power BI Semantic Layer & Live XMLA / Direct Lake Excel Endpoints",
+            "caption": "Sovereign institutional governance and production certification for The.",
             "max": 100,
             "bars": [
               {
@@ -708,7 +708,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Architectural baseline configuration and parameter ingestion for Principal Architect Enterprise Modernization RFC Blueprint: Phased Migration Roadmap, Change Management & Governance Gates",
+            "caption": "Architectural baseline configuration and parameter ingestion for.",
             "max": 100,
             "bars": [
               {
@@ -735,7 +735,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing pipeline execution and intermediate simulation for Principal Architect Enterprise Modernization RFC Blueprint: Phased Migration Roadmap, Change Management & Governance Gates",
+            "caption": "Processing pipeline execution and intermediate simulation for Principal.",
             "max": 100,
             "bars": [
               {
@@ -762,7 +762,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stress testing, boundary verification, and anomaly detection for Principal Architect Enterprise Modernization RFC Blueprint: Phased Migration Roadmap, Change Management & Governance Gates",
+            "caption": "Stress testing, boundary verification, and anomaly detection for.",
             "max": 100,
             "bars": [
               {
@@ -789,7 +789,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Sovereign institutional governance and production certification for Principal Architect Enterprise Modernization RFC Blueprint: Phased Migration Roadmap, Change Management & Governance Gates",
+            "caption": "Sovereign institutional governance and production certification for.",
             "max": 100,
             "bars": [
               {
@@ -940,7 +940,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Architectural baseline configuration and parameter ingestion for Master Architecture Review Board Gateway: Multi-Year Modernization Synthesis, Board Defense & Sovereign RFC Approval",
+            "caption": "Architectural baseline configuration and parameter ingestion for Master.",
             "max": 100,
             "bars": [
               {
@@ -967,7 +967,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing pipeline execution and intermediate simulation for Master Architecture Review Board Gateway: Multi-Year Modernization Synthesis, Board Defense & Sovereign RFC Approval",
+            "caption": "Processing pipeline execution and intermediate simulation for Master.",
             "max": 100,
             "bars": [
               {
@@ -994,7 +994,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stress testing, boundary verification, and anomaly detection for Master Architecture Review Board Gateway: Multi-Year Modernization Synthesis, Board Defense & Sovereign RFC Approval",
+            "caption": "Stress testing, boundary verification, and anomaly detection for Master.",
             "max": 100,
             "bars": [
               {
@@ -1021,7 +1021,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Sovereign institutional governance and production certification for Master Architecture Review Board Gateway: Multi-Year Modernization Synthesis, Board Defense & Sovereign RFC Approval",
+            "caption": "Sovereign institutional governance and production certification for.",
             "max": 100,
             "bars": [
               {

@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialization of cryptographic payload or UserOperation for Mempool Threat Monitoring & Te...",
+            "caption": "Initialization of cryptographic payload or UserOperation for Mempool.",
             "activeActor": "Forta Threat Sentinel",
             "messages": [
               {
@@ -33,7 +33,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Constraint evaluation, simulation, or mempool validation",
+            "caption": "Constraint evaluation, simulation, or mempool validation.",
             "activeActor": "SRE Emergency Guardian",
             "messages": [
               {
@@ -46,7 +46,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of pairing precompile, paymaster signature, or emergency containment",
+            "caption": "Verification of pairing precompile, paymaster signature, or emergency.",
             "activeActor": "Private MEV Bundle (Flashbots)",
             "messages": [
               {
@@ -59,7 +59,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Cryptographic verification settled and confirmed; state invariant sealed",
+            "caption": "Cryptographic verification settled and confirmed; state invariant sealed.",
             "activeActor": "SRE Emergency Guardian",
             "messages": [
               {
@@ -152,7 +152,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialization of cryptographic payload or UserOperation for Private Routing vs Public Memp...",
+            "caption": "Initialization of cryptographic payload or UserOperation for Private.",
             "activeActor": "Forta Threat Sentinel",
             "messages": [
               {
@@ -165,7 +165,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Constraint evaluation, simulation, or mempool validation",
+            "caption": "Constraint evaluation, simulation, or mempool validation.",
             "activeActor": "SRE Emergency Guardian",
             "messages": [
               {
@@ -178,7 +178,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of pairing precompile, paymaster signature, or emergency containment",
+            "caption": "Verification of pairing precompile, paymaster signature, or emergency.",
             "activeActor": "Private MEV Bundle (Flashbots)",
             "messages": [
               {
@@ -191,7 +191,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Cryptographic verification settled and confirmed; state invariant sealed",
+            "caption": "Cryptographic verification settled and confirmed; state invariant sealed.",
             "activeActor": "SRE Emergency Guardian",
             "messages": [
               {
@@ -284,7 +284,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialization of cryptographic payload or UserOperation for Detective Lab: Asymmetric Emer...",
+            "caption": "Initialization of cryptographic payload or UserOperation for Detective.",
             "activeActor": "Forta Threat Sentinel",
             "messages": [
               {
@@ -297,7 +297,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Constraint evaluation, simulation, or mempool validation",
+            "caption": "Constraint evaluation, simulation, or mempool validation.",
             "activeActor": "SRE Emergency Guardian",
             "messages": [
               {
@@ -310,7 +310,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of pairing precompile, paymaster signature, or emergency containment",
+            "caption": "Verification of pairing precompile, paymaster signature, or emergency.",
             "activeActor": "Private MEV Bundle (Flashbots)",
             "messages": [
               {
@@ -323,7 +323,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Cryptographic verification settled and confirmed; state invariant sealed",
+            "caption": "Cryptographic verification settled and confirmed; state invariant sealed.",
             "activeActor": "SRE Emergency Guardian",
             "messages": [
               {
@@ -416,7 +416,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialization of cryptographic payload or UserOperation for White-Hat Rescue Operations: P...",
+            "caption": "Initialization of cryptographic payload or UserOperation for White-Hat.",
             "activeActor": "Forta Threat Sentinel",
             "messages": [
               {
@@ -429,7 +429,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Constraint evaluation, simulation, or mempool validation",
+            "caption": "Constraint evaluation, simulation, or mempool validation.",
             "activeActor": "SRE Emergency Guardian",
             "messages": [
               {
@@ -442,7 +442,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of pairing precompile, paymaster signature, or emergency containment",
+            "caption": "Verification of pairing precompile, paymaster signature, or emergency.",
             "activeActor": "Private MEV Bundle (Flashbots)",
             "messages": [
               {
@@ -455,7 +455,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Cryptographic verification settled and confirmed; state invariant sealed",
+            "caption": "Cryptographic verification settled and confirmed; state invariant sealed.",
             "activeActor": "SRE Emergency Guardian",
             "messages": [
               {
@@ -548,7 +548,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialization of cryptographic payload or UserOperation for Production Web3 Incident Triag...",
+            "caption": "Initialization of cryptographic payload or UserOperation for Production.",
             "activeActor": "Forta Threat Sentinel",
             "messages": [
               {
@@ -561,7 +561,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Constraint evaluation, simulation, or mempool validation",
+            "caption": "Constraint evaluation, simulation, or mempool validation.",
             "activeActor": "SRE Emergency Guardian",
             "messages": [
               {
@@ -574,7 +574,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of pairing precompile, paymaster signature, or emergency containment",
+            "caption": "Verification of pairing precompile, paymaster signature, or emergency.",
             "activeActor": "Private MEV Bundle (Flashbots)",
             "messages": [
               {
@@ -587,7 +587,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Cryptographic verification settled and confirmed; state invariant sealed",
+            "caption": "Cryptographic verification settled and confirmed; state invariant sealed.",
             "activeActor": "SRE Emergency Guardian",
             "messages": [
               {

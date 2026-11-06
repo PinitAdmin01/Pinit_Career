@@ -1,0 +1,771 @@
+{
+  "schemaVersion": 1,
+  "prefix": "cyber-py",
+  "day": 11,
+  "promptSha": "a7156492b3708c1cb59540cae3cabc1a22fe1d61d108820f309494d95954c953",
+  "model": "gpt-4o",
+  "entries": [
+    {
+      "partTitle": "Authentication versus authorisation",
+      "codeHash": "1293399e1ac8c18603a93df3b03a8e2c1bcf734854559856b5775787d4483d2d",
+      "spec": {
+        "template": "compare",
+        "title": "Authentication identity verification versus authorization access governance",
+        "left": {
+          "title": "Authentication Identity",
+          "items": [
+            "Verifies who the user claims to be",
+            "Evaluates passwords or one-time codes",
+            "Establishes authenticated principal id"
+          ]
+        },
+        "right": {
+          "title": "Authorization Access",
+          "items": [
+            "Governs what principals may perform",
+            "Evaluates permissions against actions",
+            "Groups permissions into assigned roles"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Authentication verifies the identity of an authenticated principal.",
+            "highlightSide": "left",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say5",
+            "caption": "Individual permissions are grouped into roles assigned to users.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Authentication Identity",
+        "rightLabel": "Authorization Access"
+      },
+      "filled": {
+        "template": "compare",
+        "title": "Authentication identity verification versus authorization access governance",
+        "left": {
+          "title": "Authentication Identity",
+          "items": [
+            "Verifies who the user claims to be",
+            "Evaluates passwords or one-time codes",
+            "Establishes authenticated principal id"
+          ]
+        },
+        "right": {
+          "title": "Authorization Access",
+          "items": [
+            "Governs what principals may perform",
+            "Evaluates permissions against actions",
+            "Groups permissions into assigned roles"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Authentication verifies the identity of an authenticated principal.",
+            "highlightSide": "left",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say5",
+            "caption": "Individual permissions are grouped into roles assigned to users.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Authentication Identity",
+        "rightLabel": "Authorization Access"
+      }
+    },
+    {
+      "partTitle": "Role-based access control",
+      "codeHash": "bef58aa19b50fab1554578164e7bfffbb26759eeb52923db92b7a0b61d49c761",
+      "spec": {
+        "template": "flow",
+        "title": "Hierarchical role inheritance directed acyclic graph and transitive closure",
+        "nodes": [
+          {
+            "id": "superAdmin",
+            "label": "SuperAdmin"
+          },
+          {
+            "id": "manager",
+            "label": "Manager"
+          },
+          {
+            "id": "staffMember",
+            "label": "StaffMember"
+          }
+        ],
+        "edges": [
+          {
+            "from": "superAdmin",
+            "to": "manager",
+            "label": "Inherits"
+          },
+          {
+            "from": "manager",
+            "to": "staffMember",
+            "label": "Inherits"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "SuperAdmin inherits all permissions from Manager and StaffMember.",
+            "activeNodes": [
+              "superAdmin",
+              "manager"
+            ],
+            "statusBadge": "active"
+          },
+          {
+            "at": "say6",
+            "caption": "The authorizer traverses the role hierarchy tree to resolve all roles.",
+            "activeNodes": [
+              "manager",
+              "staffMember"
+            ],
+            "statusBadge": "completed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Hierarchical role inheritance directed acyclic graph and transitive closure",
+        "nodes": [
+          {
+            "id": "superAdmin",
+            "label": "SuperAdmin"
+          },
+          {
+            "id": "manager",
+            "label": "Manager"
+          },
+          {
+            "id": "staffMember",
+            "label": "StaffMember"
+          }
+        ],
+        "edges": [
+          {
+            "from": "superAdmin",
+            "to": "manager",
+            "label": "Inherits"
+          },
+          {
+            "from": "manager",
+            "to": "staffMember",
+            "label": "Inherits"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "SuperAdmin inherits all permissions from Manager and StaffMember.",
+            "activeNodes": [
+              "superAdmin",
+              "manager"
+            ],
+            "statusBadge": "active"
+          },
+          {
+            "at": "say6",
+            "caption": "The authorizer traverses the role hierarchy tree to resolve all roles.",
+            "activeNodes": [
+              "manager",
+              "staffMember"
+            ],
+            "statusBadge": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Attribute-based access control",
+      "codeHash": "196accb5b73e62158828690b9bcabed7a311078495c0049e4751727e5bf65fd1",
+      "spec": {
+        "template": "table",
+        "title": "Attribute-based access control evaluation dimensions and categories",
+        "columns": [
+          "Attribute Family",
+          "Context Category",
+          "Representative Parameters",
+          "Evaluation Scope"
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "Subject attributes describe characteristics of the requesting actor.",
+            "activeRowIndex": 0,
+            "statusBadge": "active",
+            "rows": [
+              {
+                "cells": [
+                  "Subject Attributes",
+                  "Requesting Actor",
+                  "Department and Clearance Level",
+                  "Identity Claims"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Resource Attributes",
+                  "Target Object",
+                  "Classification and Owner Identifier",
+                  "Data Governance"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Action Attributes",
+                  "Operation Type",
+                  "Read Write and Export Requests",
+                  "Operational Intent"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Environment Attributes",
+                  "Runtime Posture",
+                  "Subnet Geolocation and Device Health",
+                  "Zero Trust Posture"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Policy rules combine attributes into mathematical predicates.",
+            "activeRowIndex": 3,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "Subject Attributes",
+                  "Requesting Actor",
+                  "Department and Clearance Level",
+                  "Identity Claims"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Resource Attributes",
+                  "Target Object",
+                  "Classification and Owner Identifier",
+                  "Data Governance"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Action Attributes",
+                  "Operation Type",
+                  "Read Write and Export Requests",
+                  "Operational Intent"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Environment Attributes",
+                  "Runtime Posture",
+                  "Subnet Geolocation and Device Health",
+                  "Zero Trust Posture"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Attribute-based access control evaluation dimensions and categories",
+        "columns": [
+          "Attribute Family",
+          "Context Category",
+          "Representative Parameters",
+          "Evaluation Scope"
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "Subject attributes describe characteristics of the requesting actor.",
+            "activeRowIndex": 0,
+            "statusBadge": "active",
+            "rows": [
+              {
+                "cells": [
+                  "Subject Attributes",
+                  "Requesting Actor",
+                  "Department and Clearance Level",
+                  "Identity Claims"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Resource Attributes",
+                  "Target Object",
+                  "Classification and Owner Identifier",
+                  "Data Governance"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Action Attributes",
+                  "Operation Type",
+                  "Read Write and Export Requests",
+                  "Operational Intent"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Environment Attributes",
+                  "Runtime Posture",
+                  "Subnet Geolocation and Device Health",
+                  "Zero Trust Posture"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Policy rules combine attributes into mathematical predicates.",
+            "activeRowIndex": 3,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "Subject Attributes",
+                  "Requesting Actor",
+                  "Department and Clearance Level",
+                  "Identity Claims"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Resource Attributes",
+                  "Target Object",
+                  "Classification and Owner Identifier",
+                  "Data Governance"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Action Attributes",
+                  "Operation Type",
+                  "Read Write and Export Requests",
+                  "Operational Intent"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Environment Attributes",
+                  "Runtime Posture",
+                  "Subnet Geolocation and Device Health",
+                  "Zero Trust Posture"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Least privilege and privilege creep",
+      "codeHash": "ce87ae5ca640798f51a477f47d5f5c959575ab9c8737bc13e56d1a74bd7e365a",
+      "spec": {
+        "template": "states",
+        "title": "Environmental posture evaluation stages and contextual verification",
+        "states": [
+          {
+            "id": "subnetVerified",
+            "label": "Subnet Geolocation Checked"
+          },
+          {
+            "id": "hoursEnforced",
+            "label": "Business Hours Evaluated"
+          },
+          {
+            "id": "deviceScored",
+            "label": "Device Compliance Scored"
+          },
+          {
+            "id": "accessPermitted",
+            "label": "Environmental Posture Permitted"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Network rules evaluate corporate subnets and internal access.",
+            "activeStateId": "subnetVerified",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say6",
+            "caption": "Unexpected IP addresses trigger an immediate authentication challenge.",
+            "activeStateId": "accessPermitted",
+            "statusBadge": "completed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Environmental posture evaluation stages and contextual verification",
+        "states": [
+          {
+            "id": "subnetVerified",
+            "label": "Subnet Geolocation Checked"
+          },
+          {
+            "id": "hoursEnforced",
+            "label": "Business Hours Evaluated"
+          },
+          {
+            "id": "deviceScored",
+            "label": "Device Compliance Scored"
+          },
+          {
+            "id": "accessPermitted",
+            "label": "Environmental Posture Permitted"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Network rules evaluate corporate subnets and internal access.",
+            "activeStateId": "subnetVerified",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say6",
+            "caption": "Unexpected IP addresses trigger an immediate authentication challenge.",
+            "activeStateId": "accessPermitted",
+            "statusBadge": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Testing authorisation",
+      "codeHash": "9d7521c75b61b3976d427178ae0167d89917a89df0548c3ec96f67cf2ccbf880",
+      "spec": {
+        "template": "compare",
+        "title": "Vertical administrative escalation versus horizontal tenant tampering",
+        "left": {
+          "title": "Vertical Privilege Escalation",
+          "items": [
+            "Low privilege users acquire rights of superior roles",
+            "Endpoints assume only administrators will call them",
+            "Missing server side role and capability validation"
+          ]
+        },
+        "right": {
+          "title": "Horizontal Privilege Escalation",
+          "items": [
+            "Attackers access resources of peer privilege tiers",
+            "Tampering with object identifiers in request paths",
+            "Failing to enforce tenant and ownership query scoping"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Vertical privilege escalation occurs when users acquire superior rights.",
+            "highlightSide": "left",
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say7",
+            "caption": "Data access queries must enforce ownership scoping to protect resources.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Vertical Privilege Escalation",
+        "rightLabel": "Horizontal Privilege Escalation"
+      },
+      "filled": {
+        "template": "compare",
+        "title": "Vertical administrative escalation versus horizontal tenant tampering",
+        "left": {
+          "title": "Vertical Privilege Escalation",
+          "items": [
+            "Low privilege users acquire rights of superior roles",
+            "Endpoints assume only administrators will call them",
+            "Missing server side role and capability validation"
+          ]
+        },
+        "right": {
+          "title": "Horizontal Privilege Escalation",
+          "items": [
+            "Attackers access resources of peer privilege tiers",
+            "Tampering with object identifiers in request paths",
+            "Failing to enforce tenant and ownership query scoping"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Vertical privilege escalation occurs when users acquire superior rights.",
+            "highlightSide": "left",
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say7",
+            "caption": "Data access queries must enforce ownership scoping to protect resources.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Vertical Privilege Escalation",
+        "rightLabel": "Horizontal Privilege Escalation"
+      }
+    },
+    {
+      "partTitle": "Practice time: RBAC and ABAC",
+      "codeHash": "69d765846a129ebb92c6bcbf2a6aac749bacb8e6992591dd690adde263378083",
+      "spec": {
+        "template": "flow",
+        "title": "Engineering an Enterprise Policy Decision Poi... — Execution Pipeline",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "1. Input & State",
+            "tappable": true
+          },
+          {
+            "id": "proc",
+            "label": "2. Engineering an Ente...",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "3. Verified Output",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize input state for Engineering an Enterprise Policy Decisio.",
+            "values": {
+              "in": "Day 11 Input",
+              "proc": "Standby",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "data",
+              "proc": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Execute core transformation in Engineering an Ente... [Deleven.Psix.Stwo].",
+            "values": {
+              "in": "Validated",
+              "proc": "Processing...",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Inspect concrete example output and invariants.",
+            "values": {
+              "in": "Validated",
+              "proc": "Invariant OK",
+              "out": "Emitting"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "End-to-end execution verified for Engineering an Enterprise Policy .",
+            "values": {
+              "in": "Committed",
+              "proc": "Verified",
+              "out": "Complete ✓"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Engineering an Enterprise Policy Decision Poi... — Execution Pipeline",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "1. Input & State",
+            "tappable": true
+          },
+          {
+            "id": "proc",
+            "label": "2. Engineering an Ente...",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "3. Verified Output",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Step 1: Initialize input state for Engineering an Enterprise Policy Decisio.. [D11.P6.S1].",
+            "values": {
+              "in": "Day 11 Input",
+              "proc": "Standby",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "data",
+              "proc": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Step 2: Execute core transformation in Engineering an Ente... [D11.P6.S2].",
+            "values": {
+              "in": "Validated",
+              "proc": "Processing...",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Step 3: Inspect concrete example output and invariants [D11.P6.S3].",
+            "values": {
+              "in": "Validated",
+              "proc": "Invariant OK",
+              "out": "Emitting"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Step 4: End-to-end execution verified for Engineering an Enterprise Policy .. [D11.P6.S4].",
+            "values": {
+              "in": "Committed",
+              "proc": "Verified",
+              "out": "Complete ✓"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

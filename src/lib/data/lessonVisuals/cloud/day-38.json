@@ -280,25 +280,25 @@
             "at": "say1",
             "focus": "producers",
             "annotation": "Producers emit streaming events with idempotent sequence tracking.",
-            "caption": "Producers emit streaming events with idempotent sequence tracking. (Enterprise MSK Security: TLS 1.3 En)"
+            "caption": "Producers emit streaming events with idempotent sequence tracking."
           },
           {
             "at": "say2",
             "focus": "leader",
             "annotation": "Partition leader commits record to local EBS log volume.",
-            "caption": "Partition leader commits record to local EBS log volume. (Enterprise MSK Security: TLS 1.3 En)"
+            "caption": "Partition leader commits record to local EBS log volume. (Enterprise MSK."
           },
           {
             "at": "example",
             "focus": "followers",
             "annotation": "Follower brokers replicate record to satisfy min.insync.replicas threshold.",
-            "caption": "Follower brokers replicate record to satisfy min.insync.replicas threshold. (Enterprise MSK Security: TLS 1.3 En)"
+            "caption": "Follower brokers replicate record to satisfy min.insync.replicas."
           },
           {
             "at": "tryIt",
             "focus": "consumers",
             "annotation": "Consumer group workers process assigned partitions with cooperative sticky rebalancing.",
-            "caption": "Consumer group workers process assigned partitions with cooperative sticky rebalancing. (Enterprise MSK Security: TLS 1.3 En)"
+            "caption": "Consumer group workers process assigned partitions with cooperative."
           }
         ]
       }

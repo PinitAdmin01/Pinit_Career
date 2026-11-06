@@ -40,7 +40,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Strategic Framing): Initialize Strategic Enterprise Architecture Valuation: ...",
+            "caption": "Stage one (Strategic Framing): Initialize Strategic Enterprise.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Capital Allocation): Model financial ROI & loss exposure.",
+            "caption": "Stage two (Capital Allocation): Model financial ROI & loss exposure.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active Flow",
@@ -108,7 +108,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Multi-Year Roadmap): Structure Strangler Fig evolutionary milestones.",
+            "caption": "Stage three (Multi-Year Roadmap): Structure Strangler Fig evolutionary.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "High Signal",
@@ -142,7 +142,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Boardroom Consensus): Ratify sovereign technical strategy.",
+            "caption": "Stage four (Boardroom Consensus): Ratify sovereign technical strategy.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "Chief Strategist ✓",
@@ -380,7 +380,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Strategic Framing): Initialize ApexStrategy 3-Year Master Blueprint: Self-Fu...",
+            "caption": "Stage one (Strategic Framing): Initialize ApexStrategy three-Year Master.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -414,7 +414,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Capital Allocation): Model financial ROI & loss exposure.",
+            "caption": "Stage two (Capital Allocation): Model financial ROI & loss exposure.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active Flow",
@@ -448,7 +448,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Multi-Year Roadmap): Structure Strangler Fig evolutionary milestones.",
+            "caption": "Stage three (Multi-Year Roadmap): Structure Strangler Fig evolutionary.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "High Signal",
@@ -482,7 +482,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Boardroom Consensus): Ratify sovereign technical strategy.",
+            "caption": "Stage four (Boardroom Consensus): Ratify sovereign technical strategy.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "Chief Strategist ✓",
@@ -720,7 +720,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Strategic Framing): Initialize ApexStrategy Executive Decision Support Tool:...",
+            "caption": "Stage one (Strategic Framing): Initialize ApexStrategy Executive Decision.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -754,7 +754,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Capital Allocation): Model financial ROI & loss exposure.",
+            "caption": "Stage two (Capital Allocation): Model financial ROI & loss exposure.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active Flow",
@@ -788,7 +788,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Multi-Year Roadmap): Structure Strangler Fig evolutionary milestones.",
+            "caption": "Stage three (Multi-Year Roadmap): Structure Strangler Fig evolutionary.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "High Signal",
@@ -822,7 +822,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Boardroom Consensus): Ratify sovereign technical strategy.",
+            "caption": "Stage four (Boardroom Consensus): Ratify sovereign technical strategy.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "Chief Strategist ✓",
@@ -1060,7 +1060,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Strategic Framing): Initialize Board of Directors Strategy Viva Voce Examina...",
+            "caption": "Stage one (Strategic Framing): Initialize Board of Directors Strategy.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -1094,7 +1094,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Capital Allocation): Model financial ROI & loss exposure.",
+            "caption": "Stage two (Capital Allocation): Model financial ROI & loss exposure.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active Flow",
@@ -1128,7 +1128,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Multi-Year Roadmap): Structure Strangler Fig evolutionary milestones.",
+            "caption": "Stage three (Multi-Year Roadmap): Structure Strangler Fig evolutionary.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "High Signal",
@@ -1162,7 +1162,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Boardroom Consensus): Ratify sovereign technical strategy.",
+            "caption": "Stage four (Boardroom Consensus): Ratify sovereign technical strategy.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "Chief Strategist ✓",
@@ -1400,7 +1400,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Strategic Framing): Initialize Milestone 6 ApexStrategy Grand Capstone Certi...",
+            "caption": "Stage one (Strategic Framing): Initialize Milestone six ApexStrategy.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -1434,7 +1434,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Capital Allocation): Model financial ROI & loss exposure.",
+            "caption": "Stage two (Capital Allocation): Model financial ROI & loss exposure.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active Flow",
@@ -1468,7 +1468,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Multi-Year Roadmap): Structure Strangler Fig evolutionary milestones.",
+            "caption": "Stage three (Multi-Year Roadmap): Structure Strangler Fig evolutionary.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "High Signal",
@@ -1502,7 +1502,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Boardroom Consensus): Ratify sovereign technical strategy.",
+            "caption": "Stage four (Boardroom Consensus): Ratify sovereign technical strategy.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "Chief Strategist ✓",

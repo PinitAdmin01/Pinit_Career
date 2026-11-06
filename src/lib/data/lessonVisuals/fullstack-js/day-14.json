@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress cache key and initialize In-Memory Key-Value Architecture & ....",
+            "caption": "Ingress cache key and initialize In-Memory Key-Value Architecture & ....",
             "values": {
               "in": "Day 14 Input",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute key lookup, TTL evaluation, and stampede protection in In-Memory Key-Value Architecture & ....",
+            "caption": "Execute key lookup, TTL evaluation, and stampede protection in In-Memory.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -75,7 +75,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate cache hit/miss or atomic Lua mutation invariant.",
+            "caption": "Evaluate cache hit/miss or atomic Lua mutation invariant.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end caching resolution confirmed for In-Memory Key-Value Architecture & ....",
+            "caption": "End-to-end caching resolution confirmed for In-Memory Key-Value.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -257,7 +257,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress cache key and initialize The Cache-Aside (Lazy-Loading) Patt....",
+            "caption": "Ingress cache key and initialize The Cache-Aside (Lazy-Loading) Patt....",
             "values": {
               "in": "Day 14 Input",
               "proc": "Standby",
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute key lookup, TTL evaluation, and stampede protection in The Cache-Aside (Lazy-Loading) Patt....",
+            "caption": "Execute key lookup, TTL evaluation, and stampede protection in The.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -301,7 +301,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate cache hit/miss or atomic Lua mutation invariant.",
+            "caption": "Evaluate cache hit/miss or atomic Lua mutation invariant.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -321,7 +321,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end caching resolution confirmed for The Cache-Aside (Lazy-Loading) Patt....",
+            "caption": "End-to-end caching resolution confirmed for The Cache-Aside.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -483,7 +483,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress cache key and initialize Cache Invalidation, TTL Invariants ....",
+            "caption": "Ingress cache key and initialize Cache Invalidation, TTL Invariants ....",
             "values": {
               "in": "Day 14 Input",
               "proc": "Standby",
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute key lookup, TTL evaluation, and stampede protection in Cache Invalidation, TTL Invariants ....",
+            "caption": "Execute key lookup, TTL evaluation, and stampede protection in Cache.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -527,7 +527,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate cache hit/miss or atomic Lua mutation invariant.",
+            "caption": "Evaluate cache hit/miss or atomic Lua mutation invariant.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -547,7 +547,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end caching resolution confirmed for Cache Invalidation, TTL Invariants ....",
+            "caption": "End-to-end caching resolution confirmed for Cache Invalidation, TTL.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -709,7 +709,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress cache key and initialize Redis Transactions (MULTI/EXEC), Pi....",
+            "caption": "Ingress cache key and initialize Redis Transactions (MULTI/EXEC), Pi....",
             "values": {
               "in": "Day 14 Input",
               "proc": "Standby",
@@ -729,7 +729,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute key lookup, TTL evaluation, and stampede protection in Redis Transactions (MULTI/EXEC), Pi....",
+            "caption": "Execute key lookup, TTL evaluation, and stampede protection in Redis.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -753,7 +753,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate cache hit/miss or atomic Lua mutation invariant.",
+            "caption": "Evaluate cache hit/miss or atomic Lua mutation invariant.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -773,7 +773,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end caching resolution confirmed for Redis Transactions (MULTI/EXEC), Pi....",
+            "caption": "End-to-end caching resolution confirmed for Redis Transactions.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -935,7 +935,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress cache key and initialize Enterprise Distributed Cache Manage....",
+            "caption": "Ingress cache key and initialize Enterprise Distributed Cache Manage....",
             "values": {
               "in": "Day 14 Input",
               "proc": "Standby",
@@ -955,7 +955,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute key lookup, TTL evaluation, and stampede protection in Enterprise Distributed Cache Manage....",
+            "caption": "Execute key lookup, TTL evaluation, and stampede protection in Enterprise.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -979,7 +979,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate cache hit/miss or atomic Lua mutation invariant.",
+            "caption": "Evaluate cache hit/miss or atomic Lua mutation invariant.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -999,7 +999,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end caching resolution confirmed for Enterprise Distributed Cache Manage....",
+            "caption": "End-to-end caching resolution confirmed for Enterprise Distributed Cache.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

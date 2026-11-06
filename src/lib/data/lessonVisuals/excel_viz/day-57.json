@@ -12,7 +12,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Architectural baseline configuration and parameter ingestion for Forensic Analysis of the Reinhart-Rogoff Omission Error: Historical Context, Policy Impact & Range Truncation Mechanics",
+            "caption": "Architectural baseline configuration and parameter ingestion for Forensic.",
             "max": 100,
             "bars": [
               {
@@ -39,7 +39,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing pipeline execution and intermediate simulation for Forensic Analysis of the Reinhart-Rogoff Omission Error: Historical Context, Policy Impact & Range Truncation Mechanics",
+            "caption": "Processing pipeline execution and intermediate simulation for Forensic.",
             "max": 100,
             "bars": [
               {
@@ -66,7 +66,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stress testing, boundary verification, and anomaly detection for Forensic Analysis of the Reinhart-Rogoff Omission Error: Historical Context, Policy Impact & Range Truncation Mechanics",
+            "caption": "Stress testing, boundary verification, and anomaly detection for Forensic.",
             "max": 100,
             "bars": [
               {
@@ -93,7 +93,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Sovereign institutional governance and production certification for Forensic Analysis of the Reinhart-Rogoff Omission Error: Historical Context, Policy Impact & Range Truncation Mechanics",
+            "caption": "Sovereign institutional governance and production certification for.",
             "max": 100,
             "bars": [
               {
@@ -244,7 +244,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Architectural baseline configuration and parameter ingestion for The Truncated Macroeconomic Dataset Detective Challenge: Isolating Omitted Observations & Calculating the Growth Delta",
+            "caption": "Architectural baseline configuration and parameter ingestion for The.",
             "max": 100,
             "bars": [
               {
@@ -271,7 +271,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing pipeline execution and intermediate simulation for The Truncated Macroeconomic Dataset Detective Challenge: Isolating Omitted Observations & Calculating the Growth Delta",
+            "caption": "Processing pipeline execution and intermediate simulation for The.",
             "max": 100,
             "bars": [
               {
@@ -298,7 +298,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stress testing, boundary verification, and anomaly detection for The Truncated Macroeconomic Dataset Detective Challenge: Isolating Omitted Observations & Calculating the Growth Delta",
+            "caption": "Stress testing, boundary verification, and anomaly detection for The.",
             "max": 100,
             "bars": [
               {
@@ -325,7 +325,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Sovereign institutional governance and production certification for The Truncated Macroeconomic Dataset Detective Challenge: Isolating Omitted Observations & Calculating the Growth Delta",
+            "caption": "Sovereign institutional governance and production certification for The.",
             "max": 100,
             "bars": [
               {
@@ -476,7 +476,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Architectural baseline configuration and parameter ingestion for Country Weighting Distortions & Selective Exclusion: Uncovering Methodological Pitfalls in Macroeconomic Research",
+            "caption": "Architectural baseline configuration and parameter ingestion for Country.",
             "max": 100,
             "bars": [
               {
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing pipeline execution and intermediate simulation for Country Weighting Distortions & Selective Exclusion: Uncovering Methodological Pitfalls in Macroeconomic Research",
+            "caption": "Processing pipeline execution and intermediate simulation for Country.",
             "max": 100,
             "bars": [
               {
@@ -530,7 +530,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stress testing, boundary verification, and anomaly detection for Country Weighting Distortions & Selective Exclusion: Uncovering Methodological Pitfalls in Macroeconomic Research",
+            "caption": "Stress testing, boundary verification, and anomaly detection for Country.",
             "max": 100,
             "bars": [
               {
@@ -557,7 +557,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Sovereign institutional governance and production certification for Country Weighting Distortions & Selective Exclusion: Uncovering Methodological Pitfalls in Macroeconomic Research",
+            "caption": "Sovereign institutional governance and production certification for.",
             "max": 100,
             "bars": [
               {
@@ -708,7 +708,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Architectural baseline configuration and parameter ingestion for Auto-Expanding Empirical Analytics Engine with Excel Structured Tables (ListObject) & Power Query",
+            "caption": "Architectural baseline configuration and parameter ingestion for.",
             "max": 100,
             "bars": [
               {
@@ -735,7 +735,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing pipeline execution and intermediate simulation for Auto-Expanding Empirical Analytics Engine with Excel Structured Tables (ListObject) & Power Query",
+            "caption": "Processing pipeline execution and intermediate simulation for.",
             "max": 100,
             "bars": [
               {
@@ -762,7 +762,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stress testing, boundary verification, and anomaly detection for Auto-Expanding Empirical Analytics Engine with Excel Structured Tables (ListObject) & Power Query",
+            "caption": "Stress testing, boundary verification, and anomaly detection for.",
             "max": 100,
             "bars": [
               {
@@ -789,7 +789,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Sovereign institutional governance and production certification for Auto-Expanding Empirical Analytics Engine with Excel Structured Tables (ListObject) & Power Query",
+            "caption": "Sovereign institutional governance and production certification for.",
             "max": 100,
             "bars": [
               {
@@ -940,7 +940,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Architectural baseline configuration and parameter ingestion for Master Reinhart-Rogoff Forensic Gateway: Data Integrity, Self-Expanding Aggregations & Sovereign Policy Audit",
+            "caption": "Architectural baseline configuration and parameter ingestion for Master.",
             "max": 100,
             "bars": [
               {
@@ -967,7 +967,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing pipeline execution and intermediate simulation for Master Reinhart-Rogoff Forensic Gateway: Data Integrity, Self-Expanding Aggregations & Sovereign Policy Audit",
+            "caption": "Processing pipeline execution and intermediate simulation for Master.",
             "max": 100,
             "bars": [
               {
@@ -994,7 +994,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stress testing, boundary verification, and anomaly detection for Master Reinhart-Rogoff Forensic Gateway: Data Integrity, Self-Expanding Aggregations & Sovereign Policy Audit",
+            "caption": "Stress testing, boundary verification, and anomaly detection for Master.",
             "max": 100,
             "bars": [
               {
@@ -1021,7 +1021,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Sovereign institutional governance and production certification for Master Reinhart-Rogoff Forensic Gateway: Data Integrity, Self-Expanding Aggregations & Sovereign Policy Audit",
+            "caption": "Sovereign institutional governance and production certification for.",
             "max": 100,
             "bars": [
               {

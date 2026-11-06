@@ -51,7 +51,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <CryptoVaultApp /> for Cryptographic Key Derivation &...",
+            "caption": "Mount root <CryptoVaultApp /> for Cryptographic Key Derivation &...",
             "activeId": "AppShell",
             "tone": "data",
             "nodes": [
@@ -94,7 +94,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Bind C++ hardware enclave bridge into <SecureEnclaveJsiBridge />.",
+            "caption": "Bind C++ hardware enclave bridge into <SecureEnclaveJsiBridge />.",
             "activeId": "EnclaveBridge",
             "reRenderingIds": [
               "EnclaveBridge",
@@ -147,7 +147,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stage idempotent offline transactions in <SQLiteWalOutboxLedger />.",
+            "caption": "Stage idempotent offline transactions in <SQLiteWalOutboxLedger />.",
             "activeId": "LedgerWAL",
             "reRenderingIds": [
               "LedgerWAL"
@@ -193,7 +193,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute 120 FPS biometric unlock via <BiometricVaultDrawer />.",
+            "caption": "Execute multiple FPS biometric unlock via <BiometricVaultDrawer />.",
             "activeId": "VaultUI",
             "tone": "accent",
             "nodes": [
@@ -511,7 +511,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <CryptoVaultApp /> for Offline SQLite WAL Ledger & Mo...",
+            "caption": "Mount root <CryptoVaultApp /> for Offline SQLite WAL Ledger & Mo...",
             "activeId": "AppShell",
             "tone": "data",
             "nodes": [
@@ -554,7 +554,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Bind C++ hardware enclave bridge into <SecureEnclaveJsiBridge />.",
+            "caption": "Bind C++ hardware enclave bridge into <SecureEnclaveJsiBridge />.",
             "activeId": "EnclaveBridge",
             "reRenderingIds": [
               "EnclaveBridge",
@@ -607,7 +607,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stage idempotent offline transactions in <SQLiteWalOutboxLedger />.",
+            "caption": "Stage idempotent offline transactions in <SQLiteWalOutboxLedger />.",
             "activeId": "LedgerWAL",
             "reRenderingIds": [
               "LedgerWAL"
@@ -653,7 +653,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute 120 FPS biometric unlock via <BiometricVaultDrawer />.",
+            "caption": "Execute multiple FPS biometric unlock via <BiometricVaultDrawer />.",
             "activeId": "VaultUI",
             "tone": "accent",
             "nodes": [
@@ -971,7 +971,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <CryptoVaultApp /> for 120 FPS Reanimated 3 Biometric...",
+            "caption": "Mount root <CryptoVaultApp /> for multiple FPS Reanimated three.",
             "activeId": "AppShell",
             "tone": "data",
             "nodes": [
@@ -1014,7 +1014,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Bind C++ hardware enclave bridge into <SecureEnclaveJsiBridge />.",
+            "caption": "Bind C++ hardware enclave bridge into <SecureEnclaveJsiBridge />.",
             "activeId": "EnclaveBridge",
             "reRenderingIds": [
               "EnclaveBridge",
@@ -1067,7 +1067,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stage idempotent offline transactions in <SQLiteWalOutboxLedger />.",
+            "caption": "Stage idempotent offline transactions in <SQLiteWalOutboxLedger />.",
             "activeId": "LedgerWAL",
             "reRenderingIds": [
               "LedgerWAL"
@@ -1113,7 +1113,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute 120 FPS biometric unlock via <BiometricVaultDrawer />.",
+            "caption": "Execute multiple FPS biometric unlock via <BiometricVaultDrawer />.",
             "activeId": "VaultUI",
             "tone": "accent",
             "nodes": [
@@ -1431,7 +1431,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <CryptoVaultApp /> for C++ JSI Native TurboModule Har...",
+            "caption": "Mount root <CryptoVaultApp /> for C++ JSI Native TurboModule Har...",
             "activeId": "AppShell",
             "tone": "data",
             "nodes": [
@@ -1474,7 +1474,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Bind C++ hardware enclave bridge into <SecureEnclaveJsiBridge />.",
+            "caption": "Bind C++ hardware enclave bridge into <SecureEnclaveJsiBridge />.",
             "activeId": "EnclaveBridge",
             "reRenderingIds": [
               "EnclaveBridge",
@@ -1527,7 +1527,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stage idempotent offline transactions in <SQLiteWalOutboxLedger />.",
+            "caption": "Stage idempotent offline transactions in <SQLiteWalOutboxLedger />.",
             "activeId": "LedgerWAL",
             "reRenderingIds": [
               "LedgerWAL"
@@ -1573,7 +1573,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute 120 FPS biometric unlock via <BiometricVaultDrawer />.",
+            "caption": "Execute multiple FPS biometric unlock via <BiometricVaultDrawer />.",
             "activeId": "VaultUI",
             "tone": "accent",
             "nodes": [
@@ -1891,7 +1891,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <CryptoVaultApp /> for Memory Profiling, Bitmap Downs...",
+            "caption": "Mount root <CryptoVaultApp /> for Memory Profiling, Bitmap Downs...",
             "activeId": "AppShell",
             "tone": "data",
             "nodes": [
@@ -1934,7 +1934,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Bind C++ hardware enclave bridge into <SecureEnclaveJsiBridge />.",
+            "caption": "Bind C++ hardware enclave bridge into <SecureEnclaveJsiBridge />.",
             "activeId": "EnclaveBridge",
             "reRenderingIds": [
               "EnclaveBridge",
@@ -1987,7 +1987,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stage idempotent offline transactions in <SQLiteWalOutboxLedger />.",
+            "caption": "Stage idempotent offline transactions in <SQLiteWalOutboxLedger />.",
             "activeId": "LedgerWAL",
             "reRenderingIds": [
               "LedgerWAL"
@@ -2033,7 +2033,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute 120 FPS biometric unlock via <BiometricVaultDrawer />.",
+            "caption": "Execute multiple FPS biometric unlock via <BiometricVaultDrawer />.",
             "activeId": "VaultUI",
             "tone": "accent",
             "nodes": [

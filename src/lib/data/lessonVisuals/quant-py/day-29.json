@@ -859,7 +859,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Costs and trade-offs [D29.P5.S1].",
+            "caption": "Initialize input state for Costs and trade-offs [D.Pfive.Sone].",
             "values": {
               "in": "Day 29 Input",
               "proc": "Standby",
@@ -879,7 +879,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Costs and trade-offs [D29.P5.S2].",
+            "caption": "Execute core transformation in Costs and trade-offs [D.Pfive.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -903,7 +903,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D29.P5.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -923,7 +923,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Costs and trade-offs [D29.P5.S4].",
+            "caption": "End-to-end execution verified for Costs and trade-offs [D.Pfive.Sfour].",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -1085,7 +1085,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: pipeline and resources [D29.P6.S1].",
+            "caption": "Initialize input state for Practice time: pipeline and resources.",
             "values": {
               "in": "Day 29 Input",
               "proc": "Standby",
@@ -1105,7 +1105,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: pipe... [D29.P6.S2].",
+            "caption": "Execute core transformation in Practice time: pipe... [D.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -1129,7 +1129,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D29.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -1149,7 +1149,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: pipeline and resou.. [D29.P6.S4].",
+            "caption": "End-to-end execution verified for Practice time: pipeline and resou.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

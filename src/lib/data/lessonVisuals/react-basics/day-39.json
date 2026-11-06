@@ -66,7 +66,7 @@
           },
           {
             "at": "say2",
-            "caption": "Phase 1 renders immediately in SyncLane returning stale value 'Rea' to keep inputs fast.",
+            "caption": "Phase one renders immediately in SyncLane returning stale value 'Rea' to.",
             "values": {
               "dv_prop": {
                 "text": "\"'React'\""
@@ -126,7 +126,7 @@
           },
           {
             "at": "say4",
-            "caption": "Phase 2 renders in background TransitionLane with new value 'React' and commits smoothly.",
+            "caption": "Phase two renders in background TransitionLane with new value 'React' and.",
             "values": {
               "dv_prop": {
                 "text": "\"'React'\""
@@ -316,7 +316,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Fixed debounce forces 300ms of dead idle wait time even on high-end desktop hardware.",
+            "caption": "Fixed debounce forces ms of dead idle wait time even on high-end desktop.",
             "left": {
               "code": "setTimeout(fn, 300); // 308ms total",
               "result": {
@@ -334,7 +334,7 @@
           },
           {
             "at": "say2",
-            "caption": "On fast hardware, useDeferredValue delivers results over 34x faster than fixed debouncing.",
+            "caption": "On fast hardware, useDeferredValue delivers results over x faster than.",
             "left": {
               "code": "console.log(speedup);",
               "result": {
@@ -496,25 +496,25 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Initial state: raw query matches deferred query; visual opacity is 1.0 (SYNCED).",
+            "caption": "Initial state: raw query matches deferred query; visual opacity is.",
             "activeId": "vs1",
             "tone": "idle"
           },
           {
             "at": "say2",
-            "caption": "User types; raw query updates immediately in Phase 1, creating intentional STALE state.",
+            "caption": "User types; raw query updates immediately in Phase one, creating.",
             "activeId": "vs2",
             "tone": "data"
           },
           {
             "at": "say3",
-            "caption": "Container dims to 0.6 opacity with 'Updating results...' badge during BACKGROUND_RECONCILING.",
+            "caption": "Container dims to zero.six opacity with 'Updating results...' badge.",
             "activeId": "vs3",
             "tone": "data"
           },
           {
             "at": "say4",
-            "caption": "Phase 2 commits new data; query matches deferredQuery again, restoring COMMITTED_SYNCED.",
+            "caption": "Phase two commits new data; query matches deferredQuery again, restoring.",
             "activeId": "vs4",
             "tone": "ok"
           }
@@ -600,7 +600,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Without React.memo, children re-render unconditionally in Phase 1, destroying responsiveness.",
+            "caption": "Without React.memo, children re-render unconditionally in Phase one.",
             "values": {
               "b_parent": {
                 "text": "\"Rendered\""
@@ -624,7 +624,7 @@
           },
           {
             "at": "say2",
-            "caption": "With React.memo, Phase 1 passes identical props ('Rea' === 'Rea'), triggering instant bailout.",
+            "caption": "With React.memo, Phase one passes identical props ('Rea' === 'Rea').",
             "values": {
               "b_parent": {
                 "text": "\"Phase 1 Urgent\""
@@ -648,7 +648,7 @@
           },
           {
             "at": "say3",
-            "caption": "Expensive child tree reconciliation is skipped in Phase 1, keeping keystroke latency under 1ms.",
+            "caption": "Expensive child tree reconciliation is skipped in Phase one, keeping.",
             "values": {
               "b_parent": {
                 "text": "\"Committed\""
@@ -672,7 +672,7 @@
           },
           {
             "at": "say4",
-            "caption": "Phase 2 receives new prop 'React' and executes heavy reconciliation concurrently in background.",
+            "caption": "Phase two receives new prop 'React' and executes heavy reconciliation.",
             "values": {
               "b_parent": {
                 "text": "\"Synced\""
@@ -854,7 +854,7 @@
           },
           {
             "at": "say2",
-            "caption": "query !== deferredQuery evaluates to true; results grid dims to 0.6 opacity.",
+            "caption": "Query !== deferredQuery evaluates to true; results grid dims to zero.six.",
             "values": {
               "staleness": {
                 "text": "\"isStale: true (Opacity 0.6)\""
@@ -878,7 +878,7 @@
           },
           {
             "at": "say4",
-            "caption": "Deferred pass completes; 4 matches rendered at opacity 1.0 with 'Synced' badge.",
+            "caption": "Deferred pass completes; four matches rendered at opacity one.zero with.",
             "values": {
               "status": {
                 "text": "\"Synced (4 Matches)\""

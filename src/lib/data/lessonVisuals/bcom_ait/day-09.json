@@ -10,7 +10,7 @@
       "codeHash": "73f5e597043ce41a76a2fa4148f8084292b6bc8c355c763823faf44075a97336",
       "spec": {
         "template": "tree-graph",
-        "title": "The 4 Tiers of Analytics Evolution: Desc... \u2014 Enterprise AI Decision Graph",
+        "title": "The 4 Tiers of Analytics Evolution: Desc... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -54,7 +54,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for The 4 Tiers of Analytics Evolution: Desc....",
+            "caption": "Ingest enterprise Context Query for The four Tiers of Analytics.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -68,7 +68,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -87,7 +87,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & hallucination bounds in Policy Guardrail.",
+            "caption": "Validate compliance & hallucination bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -107,7 +107,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -134,7 +134,7 @@
       "codeHash": "8372c949b1e86b21604d1294d7f62d7c50851d4587bee7e7685dcc04b6055bed",
       "spec": {
         "template": "tree-graph",
-        "title": "Feature Engineering for Enterprise BI: A... \u2014 Enterprise AI Decision Graph",
+        "title": "Feature Engineering for Enterprise BI: A... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -178,7 +178,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for Feature Engineering for Enterprise BI: A....",
+            "caption": "Ingest enterprise Context Query for Feature Engineering for Enterprise.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -192,7 +192,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -211,7 +211,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & hallucination bounds in Policy Guardrail.",
+            "caption": "Validate compliance & hallucination bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -231,7 +231,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -258,7 +258,7 @@
       "codeHash": "dd3146378de13c463f4e2aee8f65ef17565b661c0cf2fa90860feab869f26111",
       "spec": {
         "template": "tree-graph",
-        "title": "Supervised Classification for Churn: Mod... \u2014 Enterprise AI Decision Graph",
+        "title": "Supervised Classification for Churn: Mod... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -302,7 +302,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for Supervised Classification for Churn: Mod....",
+            "caption": "Ingest enterprise Context Query for Supervised Classification for Churn.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -316,7 +316,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -335,7 +335,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & hallucination bounds in Policy Guardrail.",
+            "caption": "Validate compliance & hallucination bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -355,7 +355,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -382,7 +382,7 @@
       "codeHash": "0e259e8e0ccdf1f47c539b5e7b916d778c9fad4c7287871f6973bf40e274b96f",
       "spec": {
         "template": "tree-graph",
-        "title": "Automated Next-Best-Action (NBA) Decisio... \u2014 Enterprise AI Decision Graph",
+        "title": "Automated Next-Best-Action (NBA) Decisio... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -426,7 +426,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for Automated Next-Best-Action (NBA) Decisio....",
+            "caption": "Ingest enterprise Context Query for Automated Next-Best-Action (NBA).",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -440,7 +440,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -459,7 +459,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & hallucination bounds in Policy Guardrail.",
+            "caption": "Validate compliance & hallucination bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -479,7 +479,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -506,7 +506,7 @@
       "codeHash": "8c77761a7306d9a48692a8b5973f06d7f5bdab831f4c975ca0694dc682647ad3",
       "spec": {
         "template": "tree-graph",
-        "title": "Executive Decision Intelligence Dashboar... \u2014 Enterprise AI Decision Graph",
+        "title": "Executive Decision Intelligence Dashboar... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -550,7 +550,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for Executive Decision Intelligence Dashboar....",
+            "caption": "Ingest enterprise Context Query for Executive Decision Intelligence.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -564,7 +564,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -583,7 +583,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & hallucination bounds in Policy Guardrail.",
+            "caption": "Validate compliance & hallucination bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -603,7 +603,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",

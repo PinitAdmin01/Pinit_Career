@@ -296,7 +296,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Client 1 acquires lock (Token 1001) but enters prolonged GC pause.",
+            "caption": "Client one acquires lock (Token multiple) but enters prolonged GC pause.",
             "values": {
               "client1": {
                 "status": "Online"
@@ -314,7 +314,7 @@
           },
           {
             "at": "say3",
-            "caption": "Lease expires; Client 2 acquires lock (Token 1002) and commits cleanly.",
+            "caption": "Lease expires; Client two acquires lock (Token multiple) and commits.",
             "values": {
               "client1": {
                 "status": "Processing"
@@ -332,7 +332,7 @@
           },
           {
             "at": "say5",
-            "caption": "Client 1 resumes and attempts write with stale Token 1001.",
+            "caption": "Client one resumes and attempts write with stale Token multiple.",
             "values": {
               "client1": {
                 "status": "Committed"
@@ -350,7 +350,7 @@
           },
           {
             "at": "say7",
-            "caption": "Storage gate rejects Client 1 write, protecting data integrity.",
+            "caption": "Storage gate rejects Client one write, protecting data integrity.",
             "values": {
               "client1": {
                 "status": "Online"
@@ -534,7 +534,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Full verification harness executes 100 concurrent lease operations.",
+            "caption": "Full verification harness executes one hundred concurrent lease operations.",
             "values": {
               "election": {
                 "status": "Inspecting"

@@ -243,7 +243,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for FOREIGN KEY: letting PostgreSQL protect .. [D10.P3.S1].",
+            "caption": "Initialize input state for FOREIGN KEY: letting PostgreSQL protect .",
             "values": {
               "in": "Day 10 Input",
               "proc": "Standby",
@@ -263,7 +263,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in FOREIGN KEY: lettin... [D10.P3.S2].",
+            "caption": "Execute core transformation in FOREIGN KEY: lettin... [Dten.Pthree.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -287,7 +287,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D10.P3.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -307,7 +307,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for FOREIGN KEY: letting PostgreSQL p.. [D10.P3.S4].",
+            "caption": "End-to-end execution verified for FOREIGN KEY: letting PostgreSQL p.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -585,7 +585,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Reading a database design [D10.P5.S1].",
+            "caption": "Initialize input state for Reading a database design [Dten.Pfive.Sone].",
             "values": {
               "in": "Day 10 Input",
               "proc": "Standby",
@@ -605,7 +605,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Reading a database ... [D10.P5.S2].",
+            "caption": "Execute core transformation in Reading a database ... [Dten.Pfive.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -629,7 +629,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D10.P5.S3].",
+            "caption": "Inspect concrete example output and invariants [Dten.Pfive.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -649,7 +649,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Reading a database design [D10.P5.S4].",
+            "caption": "End-to-end execution verified for Reading a database design.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

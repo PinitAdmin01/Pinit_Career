@@ -1,0 +1,777 @@
+{
+  "schemaVersion": 1,
+  "prefix": "cyber-py",
+  "day": 17,
+  "promptSha": "496959d5010b73e96467375af3738dbf652aced6ced433cde7101dce0f4cc29a",
+  "model": "gpt-4o",
+  "entries": [
+    {
+      "partTitle": "Serialisation and its dangers",
+      "codeHash": "ee1f55b3be82cf14597c5dd5324edd77199fd19ee7315c9304f06535d7537ca8",
+      "spec": {
+        "template": "states",
+        "title": "Insecure deserialization payload inspection and magic header verification",
+        "states": [
+          {
+            "id": "payloadReceived",
+            "label": "Serialized Stream Received Over Network"
+          },
+          {
+            "id": "magicHeaderChecked",
+            "label": "Magic Byte Header Inspected"
+          },
+          {
+            "id": "hookIntercepted",
+            "label": "Dynamic Lifecycle Hook Intercepted"
+          },
+          {
+            "id": "payloadQuarantined",
+            "label": "Untrusted Gadget Chain Blocked"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say6",
+            "caption": "Language runtimes trigger special hooks without checking authorization.",
+            "activeStateId": "hookIntercepted",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say8",
+            "caption": "A gadget chain invokes operating system commands leading to code execution.",
+            "activeStateId": "payloadQuarantined",
+            "statusBadge": "failed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Insecure deserialization payload inspection and magic header verification",
+        "states": [
+          {
+            "id": "payloadReceived",
+            "label": "Serialized Stream Received Over Network"
+          },
+          {
+            "id": "magicHeaderChecked",
+            "label": "Magic Byte Header Inspected"
+          },
+          {
+            "id": "hookIntercepted",
+            "label": "Dynamic Lifecycle Hook Intercepted"
+          },
+          {
+            "id": "payloadQuarantined",
+            "label": "Untrusted Gadget Chain Blocked"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say6",
+            "caption": "Language runtimes trigger special hooks without checking authorization.",
+            "activeStateId": "hookIntercepted",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say8",
+            "caption": "A gadget chain invokes operating system commands leading to code execution.",
+            "activeStateId": "payloadQuarantined",
+            "statusBadge": "failed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Type allow-lists",
+      "codeHash": "5edd2e1026b132f2b6fb3bd610a0b1d6f1d15ea754aefef1f2fa419465428f10",
+      "spec": {
+        "template": "flow",
+        "title": "Reflection transformer gadget chain pipeline culminating in execution sink",
+        "nodes": [
+          {
+            "id": "kickoffClass",
+            "label": "Kick-Off Gadget Invocation",
+            "tappable": false
+          },
+          {
+            "id": "intermediateGadget",
+            "label": "Reflection Transformer Chain",
+            "tappable": false
+          },
+          {
+            "id": "executionSink",
+            "label": "Command Execution Sink",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "kickoffClass",
+            "to": "intermediateGadget",
+            "label": "Chains"
+          },
+          {
+            "from": "intermediateGadget",
+            "to": "executionSink",
+            "label": "Invokes"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "A gadget chain begins with a class that invokes an innocent method.",
+            "activeNodes": [
+              "kickoffClass",
+              "intermediateGadget"
+            ],
+            "statusBadge": "active"
+          },
+          {
+            "at": "say7",
+            "caption": "An attacker specifies an arbitrary shell command string as the payload.",
+            "activeNodes": [
+              "intermediateGadget",
+              "executionSink"
+            ],
+            "statusBadge": "failed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Reflection transformer gadget chain pipeline culminating in execution sink",
+        "nodes": [
+          {
+            "id": "kickoffClass",
+            "label": "Kick-Off Gadget Invocation",
+            "tappable": false
+          },
+          {
+            "id": "intermediateGadget",
+            "label": "Reflection Transformer Chain",
+            "tappable": false
+          },
+          {
+            "id": "executionSink",
+            "label": "Command Execution Sink",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "kickoffClass",
+            "to": "intermediateGadget",
+            "label": "Chains"
+          },
+          {
+            "from": "intermediateGadget",
+            "to": "executionSink",
+            "label": "Invokes"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "A gadget chain begins with a class that invokes an innocent method.",
+            "activeNodes": [
+              "kickoffClass",
+              "intermediateGadget"
+            ],
+            "statusBadge": "active"
+          },
+          {
+            "at": "say7",
+            "caption": "An attacker specifies an arbitrary shell command string as the payload.",
+            "activeNodes": [
+              "intermediateGadget",
+              "executionSink"
+            ],
+            "statusBadge": "failed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "YAML and other loaders",
+      "codeHash": "a0c86b35233baceff35482cc2ff9e389ca7845dbfc5d21f12ebc9e06c2f2d5ae",
+      "spec": {
+        "template": "compare",
+        "title": "Unsafe binary object serialization versus declarative JSON schema validation",
+        "left": {
+          "title": "Unsafe Binary Serialization",
+          "items": [
+            "Encodes complex class hierarchies and method pointers",
+            "Triggers automatic lifecycle magic hooks upon hydration",
+            "Vulnerable to reflection gadget chains and code execution"
+          ]
+        },
+        "right": {
+          "title": "Declarative JSON Schema Validation",
+          "items": [
+            "Carries pure primitive data structures without class methods",
+            "Enforces strict property types and rejects unknown fields",
+            "Eliminates hidden lifecycle hooks and executable payloads"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "Safe formats contain no class metadata or hidden lifecycle hooks.",
+            "highlightSide": "right",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say7",
+            "caption": "A robust schema validator inspects all required properties and types.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Unsafe Binary Serialization",
+        "rightLabel": "Declarative JSON Schema Validation"
+      },
+      "filled": {
+        "template": "compare",
+        "title": "Unsafe binary object serialization versus declarative JSON schema validation",
+        "left": {
+          "title": "Unsafe Binary Serialization",
+          "items": [
+            "Encodes complex class hierarchies and method pointers",
+            "Triggers automatic lifecycle magic hooks upon hydration",
+            "Vulnerable to reflection gadget chains and code execution"
+          ]
+        },
+        "right": {
+          "title": "Declarative JSON Schema Validation",
+          "items": [
+            "Carries pure primitive data structures without class methods",
+            "Enforces strict property types and rejects unknown fields",
+            "Eliminates hidden lifecycle hooks and executable payloads"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "Safe formats contain no class metadata or hidden lifecycle hooks.",
+            "highlightSide": "right",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say7",
+            "caption": "A robust schema validator inspects all required properties and types.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Unsafe Binary Serialization",
+        "rightLabel": "Declarative JSON Schema Validation"
+      }
+    },
+    {
+      "partTitle": "Scanning code for dangerous calls",
+      "codeHash": "2c9b0b871523c9851c8f69c70f16349b75478a4672c31f0849bb39d8a4eeaa77",
+      "spec": {
+        "template": "table",
+        "title": "Prototype pollution injection properties and object sanitization rules",
+        "columns": [
+          "Pollution Key",
+          "Target Prototype Object",
+          "Vulnerability Impact",
+          "Sanitization Action"
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Prototype pollution occurs when untrusted input is recursively merged.",
+            "activeRowIndex": 0,
+            "statusBadge": "failed",
+            "rows": [
+              {
+                "cells": [
+                  "__proto__ Key",
+                  "Global Object Prototype",
+                  "Overwrites Base Object Properties",
+                  "Strip Unconditionally"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "constructor Key",
+                  "Function Constructor Pointer",
+                  "Arbitrary Code Execution Exploit",
+                  "Strip Unconditionally"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "prototype Key",
+                  "Function Prototype Descriptor",
+                  "Modifies Inherited Class Properties",
+                  "Strip Unconditionally"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Clean Dictionary",
+                  "Object Create Null Instance",
+                  "Zero Prototype Inheritance Chain",
+                  "Immune to Pollution"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Dangerous property keys must be stripped unconditionally before assignment.",
+            "activeRowIndex": 1,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "__proto__ Key",
+                  "Global Object Prototype",
+                  "Overwrites Base Object Properties",
+                  "Strip Unconditionally"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "constructor Key",
+                  "Function Constructor Pointer",
+                  "Arbitrary Code Execution Exploit",
+                  "Strip Unconditionally"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "prototype Key",
+                  "Function Prototype Descriptor",
+                  "Modifies Inherited Class Properties",
+                  "Strip Unconditionally"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Clean Dictionary",
+                  "Object Create Null Instance",
+                  "Zero Prototype Inheritance Chain",
+                  "Immune to Pollution"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Prototype pollution injection properties and object sanitization rules",
+        "columns": [
+          "Pollution Key",
+          "Target Prototype Object",
+          "Vulnerability Impact",
+          "Sanitization Action"
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Prototype pollution occurs when untrusted input is recursively merged.",
+            "activeRowIndex": 0,
+            "statusBadge": "failed",
+            "rows": [
+              {
+                "cells": [
+                  "__proto__ Key",
+                  "Global Object Prototype",
+                  "Overwrites Base Object Properties",
+                  "Strip Unconditionally"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "constructor Key",
+                  "Function Constructor Pointer",
+                  "Arbitrary Code Execution Exploit",
+                  "Strip Unconditionally"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "prototype Key",
+                  "Function Prototype Descriptor",
+                  "Modifies Inherited Class Properties",
+                  "Strip Unconditionally"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Clean Dictionary",
+                  "Object Create Null Instance",
+                  "Zero Prototype Inheritance Chain",
+                  "Immune to Pollution"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Dangerous property keys must be stripped unconditionally before assignment.",
+            "activeRowIndex": 1,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "__proto__ Key",
+                  "Global Object Prototype",
+                  "Overwrites Base Object Properties",
+                  "Strip Unconditionally"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "constructor Key",
+                  "Function Constructor Pointer",
+                  "Arbitrary Code Execution Exploit",
+                  "Strip Unconditionally"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "prototype Key",
+                  "Function Prototype Descriptor",
+                  "Modifies Inherited Class Properties",
+                  "Strip Unconditionally"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Clean Dictionary",
+                  "Object Create Null Instance",
+                  "Zero Prototype Inheritance Chain",
+                  "Immune to Pollution"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Integrity of data and updates",
+      "codeHash": "e9ba68d8536db114ae56243b1e47cbb9568f054df7ffc73bf2f7f23a1042f330",
+      "spec": {
+        "template": "compare",
+        "title": "PHP magic method object injection versus strict class whitelisting",
+        "left": {
+          "title": "Vulnerable Magic Methods",
+          "items": [
+            "Unserialize triggers wakeup and destruct automatically",
+            "Attacker properties hijack internal object methods",
+            "Constructs Property-Oriented Programming gadget chains"
+          ]
+        },
+        "right": {
+          "title": "Strict Allowed Classes Whitelist",
+          "items": [
+            "Replaces native unserialize with safe json decode",
+            "Restricts deserialization strictly to trusted classes",
+            "Blocks unauthorized object instantiation at runtime"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Magic methods include lifecycle hooks called during object deserialization.",
+            "highlightSide": "left",
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say8",
+            "caption": "Preventing injection requires replacing unsafe calls with strict whitelists.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Vulnerable Magic Methods",
+        "rightLabel": "Strict Allowed Classes Whitelist"
+      },
+      "filled": {
+        "template": "compare",
+        "title": "PHP magic method object injection versus strict class whitelisting",
+        "left": {
+          "title": "Vulnerable Magic Methods",
+          "items": [
+            "Unserialize triggers wakeup and destruct automatically",
+            "Attacker properties hijack internal object methods",
+            "Constructs Property-Oriented Programming gadget chains"
+          ]
+        },
+        "right": {
+          "title": "Strict Allowed Classes Whitelist",
+          "items": [
+            "Replaces native unserialize with safe json decode",
+            "Restricts deserialization strictly to trusted classes",
+            "Blocks unauthorized object instantiation at runtime"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Magic methods include lifecycle hooks called during object deserialization.",
+            "highlightSide": "left",
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say8",
+            "caption": "Preventing injection requires replacing unsafe calls with strict whitelists.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Vulnerable Magic Methods",
+        "rightLabel": "Strict Allowed Classes Whitelist"
+      }
+    },
+    {
+      "partTitle": "Practice time: safe loading and scanning",
+      "codeHash": "58626eccdb170ab4df095587fc9bee08c6d791cbab324405bb997e9aed53ce1b",
+      "spec": {
+        "template": "flow",
+        "title": "Cryptographic Blob Signing & HMAC Tamper Prev... — Execution Pipeline",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "1. Input & State",
+            "tappable": true
+          },
+          {
+            "id": "proc",
+            "label": "2. Cryptographic Blob ...",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "3. Verified Output",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize input state for Cryptographic Blob Signing & HMAC Tamper.",
+            "values": {
+              "in": "Day 17 Input",
+              "proc": "Standby",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "data",
+              "proc": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Execute core transformation in Cryptographic Blob ... [D.Psix.Stwo].",
+            "values": {
+              "in": "Validated",
+              "proc": "Processing...",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "values": {
+              "in": "Validated",
+              "proc": "Invariant OK",
+              "out": "Emitting"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "End-to-end execution verified for Cryptographic Blob Signing & HMAC.",
+            "values": {
+              "in": "Committed",
+              "proc": "Verified",
+              "out": "Complete ✓"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Cryptographic Blob Signing & HMAC Tamper Prev... — Execution Pipeline",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "1. Input & State",
+            "tappable": true
+          },
+          {
+            "id": "proc",
+            "label": "2. Cryptographic Blob ...",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "3. Verified Output",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Step 1: Initialize input state for Cryptographic Blob Signing & HMAC Tamper.. [D17.P6.S1].",
+            "values": {
+              "in": "Day 17 Input",
+              "proc": "Standby",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "data",
+              "proc": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Step 2: Execute core transformation in Cryptographic Blob ... [D17.P6.S2].",
+            "values": {
+              "in": "Validated",
+              "proc": "Processing...",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Step 3: Inspect concrete example output and invariants [D17.P6.S3].",
+            "values": {
+              "in": "Validated",
+              "proc": "Invariant OK",
+              "out": "Emitting"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Step 4: End-to-end execution verified for Cryptographic Blob Signing & HMAC.. [D17.P6.S4].",
+            "values": {
+              "in": "Committed",
+              "proc": "Verified",
+              "out": "Complete ✓"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

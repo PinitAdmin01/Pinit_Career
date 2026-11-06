@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (World Coordinate Space): Initialize state architecture for Subpixel Motion Vectors & Velocity Buffers.",
+            "caption": "State one (World Coordinate Space): Initialize state architecture for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -60,7 +60,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Transition to 2D Velocity Vector with verified deterministic output.",
+            "caption": "Transition to two-dimensional Velocity Vector with verified deterministic.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -99,7 +99,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Halton (2, 3) Generator): Initialize state architecture for Temporal Anti-Aliasing (TAA) & Halton Low-Discrepancy Jitter.",
+            "caption": "State one (Halton (two, three) Generator): Initialize state architecture.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -166,7 +166,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (3x3 Linear RGB Samples): Initialize state architecture for Neighborhood Clamping & Variance Clipping in YCoCg Space.",
+            "caption": "State one (threexthree Linear RGB Samples): Initialize state architecture.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -233,7 +233,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (1440p Render Input): Initialize state architecture for Temporal Super-Resolution (TSR / FSR 2.0 Style) & Contrast-Adaptive Sharpening (CAS).",
+            "caption": "State one (p Render Input): Initialize state architecture for Temporal.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -250,7 +250,7 @@
           },
           {
             "at": "example",
-            "caption": "Transition to CAS 5-Tap Cross Filter and evaluate hot-path shader invariants.",
+            "caption": "Transition to CAS five-Tap Cross Filter and evaluate hot-path shader.",
             "currentState": "st3",
             "transition": {
               "from": "st2",
@@ -261,7 +261,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Transition to Pristine 4K Output with verified deterministic output.",
+            "caption": "Transition to Pristine fourK Output with verified deterministic output.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -300,7 +300,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Jitter Phase Sequence): Initialize state architecture for Production Real-Time TAA & Temporal Upscaling Engine.",
+            "caption": "State one (Jitter Phase Sequence): Initialize state architecture for.",
             "currentState": "st1",
             "tone": "data"
           },

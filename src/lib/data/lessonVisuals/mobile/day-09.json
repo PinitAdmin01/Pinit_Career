@@ -51,7 +51,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <MemoryMonitorRoot /> for Mobile Memory Topologies: Virt...",
+            "caption": "Mount root <MemoryMonitorRoot /> for Mobile Memory Topologies: Virt...",
             "activeId": "AppShell",
             "tone": "data",
             "nodes": [
@@ -94,7 +94,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Subsample bitmap allocations in <NativeImageDownsampler />.",
+            "caption": "Subsample bitmap allocations in <NativeImageDownsampler />.",
             "activeId": "ImagePipeline",
             "reRenderingIds": [
               "ImagePipeline",
@@ -147,7 +147,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Coalesce network packets in <CoalescedRadioSync /> to save battery.",
+            "caption": "Coalesce network packets in <CoalescedRadioSync /> to save battery.",
             "activeId": "RadioOptimizer",
             "reRenderingIds": [
               "RadioOptimizer"
@@ -193,7 +193,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Assert leak-free heap stability via <LeakCanaryProfiler />.",
+            "caption": "Assert leak-free heap stability via <LeakCanaryProfiler />.",
             "activeId": "ProfilerAgent",
             "tone": "accent",
             "nodes": [
@@ -511,7 +511,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <MemoryMonitorRoot /> for JavaScript vs Native Leaks: He...",
+            "caption": "Mount root <MemoryMonitorRoot /> for JavaScript vs Native Leaks: He...",
             "activeId": "AppShell",
             "tone": "data",
             "nodes": [
@@ -554,7 +554,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Subsample bitmap allocations in <NativeImageDownsampler />.",
+            "caption": "Subsample bitmap allocations in <NativeImageDownsampler />.",
             "activeId": "ImagePipeline",
             "reRenderingIds": [
               "ImagePipeline",
@@ -607,7 +607,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Coalesce network packets in <CoalescedRadioSync /> to save battery.",
+            "caption": "Coalesce network packets in <CoalescedRadioSync /> to save battery.",
             "activeId": "RadioOptimizer",
             "reRenderingIds": [
               "RadioOptimizer"
@@ -653,7 +653,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Assert leak-free heap stability via <LeakCanaryProfiler />.",
+            "caption": "Assert leak-free heap stability via <LeakCanaryProfiler />.",
             "activeId": "ProfilerAgent",
             "tone": "accent",
             "nodes": [
@@ -971,7 +971,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <MemoryMonitorRoot /> for Image Memory Optimization: Dec...",
+            "caption": "Mount root <MemoryMonitorRoot /> for Image Memory Optimization: Dec...",
             "activeId": "AppShell",
             "tone": "data",
             "nodes": [
@@ -1014,7 +1014,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Subsample bitmap allocations in <NativeImageDownsampler />.",
+            "caption": "Subsample bitmap allocations in <NativeImageDownsampler />.",
             "activeId": "ImagePipeline",
             "reRenderingIds": [
               "ImagePipeline",
@@ -1067,7 +1067,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Coalesce network packets in <CoalescedRadioSync /> to save battery.",
+            "caption": "Coalesce network packets in <CoalescedRadioSync /> to save battery.",
             "activeId": "RadioOptimizer",
             "reRenderingIds": [
               "RadioOptimizer"
@@ -1113,7 +1113,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Assert leak-free heap stability via <LeakCanaryProfiler />.",
+            "caption": "Assert leak-free heap stability via <LeakCanaryProfiler />.",
             "activeId": "ProfilerAgent",
             "tone": "accent",
             "nodes": [
@@ -1431,7 +1431,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <MemoryMonitorRoot /> for Battery Diagnostics & Backgrou...",
+            "caption": "Mount root <MemoryMonitorRoot /> for Battery Diagnostics & Backgrou...",
             "activeId": "AppShell",
             "tone": "data",
             "nodes": [
@@ -1474,7 +1474,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Subsample bitmap allocations in <NativeImageDownsampler />.",
+            "caption": "Subsample bitmap allocations in <NativeImageDownsampler />.",
             "activeId": "ImagePipeline",
             "reRenderingIds": [
               "ImagePipeline",
@@ -1527,7 +1527,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Coalesce network packets in <CoalescedRadioSync /> to save battery.",
+            "caption": "Coalesce network packets in <CoalescedRadioSync /> to save battery.",
             "activeId": "RadioOptimizer",
             "reRenderingIds": [
               "RadioOptimizer"
@@ -1573,7 +1573,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Assert leak-free heap stability via <LeakCanaryProfiler />.",
+            "caption": "Assert leak-free heap stability via <LeakCanaryProfiler />.",
             "activeId": "ProfilerAgent",
             "tone": "accent",
             "nodes": [
@@ -1891,7 +1891,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <MemoryMonitorRoot /> for Profiling Toolchains: Xcode In...",
+            "caption": "Mount root <MemoryMonitorRoot /> for Profiling Toolchains: Xcode In...",
             "activeId": "AppShell",
             "tone": "data",
             "nodes": [
@@ -1934,7 +1934,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Subsample bitmap allocations in <NativeImageDownsampler />.",
+            "caption": "Subsample bitmap allocations in <NativeImageDownsampler />.",
             "activeId": "ImagePipeline",
             "reRenderingIds": [
               "ImagePipeline",
@@ -1987,7 +1987,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Coalesce network packets in <CoalescedRadioSync /> to save battery.",
+            "caption": "Coalesce network packets in <CoalescedRadioSync /> to save battery.",
             "activeId": "RadioOptimizer",
             "reRenderingIds": [
               "RadioOptimizer"
@@ -2033,7 +2033,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Assert leak-free heap stability via <LeakCanaryProfiler />.",
+            "caption": "Assert leak-free heap stability via <LeakCanaryProfiler />.",
             "activeId": "ProfilerAgent",
             "tone": "accent",
             "nodes": [

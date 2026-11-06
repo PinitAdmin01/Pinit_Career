@@ -55,25 +55,25 @@
             "at": "say1",
             "focus": "producers",
             "annotation": "Distributed IoT device fleets emit 1,000,000 telemetry events per second.",
-            "caption": "Distributed IoT device fleets emit 1,000,000 telemetry events per second. (⭐ Milestone 7 Architecture: 1,000,0)"
+            "caption": "Distributed IoT device fleets emit one,multiple,multiple telemetry events."
           },
           {
             "at": "say2",
             "focus": "kinesis",
             "annotation": "1,000 Kinesis shards buffer 500 MB/s ingress with Enhanced Fan-Out delivery.",
-            "caption": "1,000 Kinesis shards buffer 500 MB/s ingress with Enhanced Fan-Out delivery. (⭐ Milestone 7 Architecture: 1,000,0)"
+            "caption": "One,multiple Kinesis shards buffer server-error MB/s ingress with."
           },
           {
             "at": "example",
             "focus": "flink",
             "annotation": "Apache Flink executes stateful windowing and anomaly detection with RocksDB.",
-            "caption": "Apache Flink executes stateful windowing and anomaly detection with RocksDB. (⭐ Milestone 7 Architecture: 1,000,0)"
+            "caption": "Apache Flink executes stateful windowing and anomaly detection with."
           },
           {
             "at": "tryIt",
             "focus": "dual_egress",
             "annotation": "Dual egress routes real-time alerts to Amazon MSK and historical data to S3 Parquet.",
-            "caption": "Dual egress routes real-time alerts to Amazon MSK and historical data to S3 Parquet. (⭐ Milestone 7 Architecture: 1,000,0)"
+            "caption": "Dual egress routes real-time alerts to Amazon MSK and historical data to."
           }
         ]
       }
@@ -130,13 +130,13 @@
             "at": "say1",
             "focus": "producers",
             "annotation": "Distributed IoT device fleets emit 1,000,000 telemetry events per second.",
-            "caption": "Distributed IoT device fleets emit 1,000,000 telemetry events per second. (Amazon Managed Service for Apache F)"
+            "caption": "Distributed IoT device fleets emit one,multiple,multiple telemetry events."
           },
           {
             "at": "say2",
             "focus": "kinesis",
             "annotation": "1,000 Kinesis shards buffer 500 MB/s ingress with Enhanced Fan-Out delivery.",
-            "caption": "1,000 Kinesis shards buffer 500 MB/s ingress with Enhanced Fan-Out delivery. (Amazon Managed Service for Apache F)"
+            "caption": "One,multiple Kinesis shards buffer server-error MB/s ingress with."
           },
           {
             "at": "example",
@@ -148,7 +148,7 @@
             "at": "tryIt",
             "focus": "dual_egress",
             "annotation": "Dual egress routes real-time alerts to Amazon MSK and historical data to S3 Parquet.",
-            "caption": "Dual egress routes real-time alerts to Amazon MSK and historical data to S3 Parquet. (Amazon Managed Service for Apache F)"
+            "caption": "Dual egress routes real-time alerts to Amazon MSK and historical data to."
           }
         ]
       }
@@ -205,13 +205,13 @@
             "at": "say1",
             "focus": "producers",
             "annotation": "Distributed IoT device fleets emit 1,000,000 telemetry events per second.",
-            "caption": "Distributed IoT device fleets emit 1,000,000 telemetry events per second. (Sliding & Tumbling Windows: RocksDB)"
+            "caption": "Distributed IoT device fleets emit one,multiple,multiple telemetry events."
           },
           {
             "at": "say2",
             "focus": "kinesis",
             "annotation": "1,000 Kinesis shards buffer 500 MB/s ingress with Enhanced Fan-Out delivery.",
-            "caption": "1,000 Kinesis shards buffer 500 MB/s ingress with Enhanced Fan-Out delivery. (Sliding & Tumbling Windows: RocksDB)"
+            "caption": "One,multiple Kinesis shards buffer server-error MB/s ingress with."
           },
           {
             "at": "example",
@@ -223,7 +223,7 @@
             "at": "tryIt",
             "focus": "dual_egress",
             "annotation": "Dual egress routes real-time alerts to Amazon MSK and historical data to S3 Parquet.",
-            "caption": "Dual egress routes real-time alerts to Amazon MSK and historical data to S3 Parquet. (Sliding & Tumbling Windows: RocksDB)"
+            "caption": "Dual egress routes real-time alerts to Amazon MSK and historical data to."
           }
         ]
       }
@@ -280,13 +280,13 @@
             "at": "say1",
             "focus": "producers",
             "annotation": "Distributed IoT device fleets emit 1,000,000 telemetry events per second.",
-            "caption": "Distributed IoT device fleets emit 1,000,000 telemetry events per second. (High-Throughput Dual Egress: Real-T)"
+            "caption": "Distributed IoT device fleets emit one,multiple,multiple telemetry events."
           },
           {
             "at": "say2",
             "focus": "kinesis",
             "annotation": "1,000 Kinesis shards buffer 500 MB/s ingress with Enhanced Fan-Out delivery.",
-            "caption": "1,000 Kinesis shards buffer 500 MB/s ingress with Enhanced Fan-Out delivery. (High-Throughput Dual Egress: Real-T)"
+            "caption": "One,multiple Kinesis shards buffer server-error MB/s ingress with."
           },
           {
             "at": "example",
@@ -298,7 +298,7 @@
             "at": "tryIt",
             "focus": "dual_egress",
             "annotation": "Dual egress routes real-time alerts to Amazon MSK and historical data to S3 Parquet.",
-            "caption": "Dual egress routes real-time alerts to Amazon MSK and historical data to S3 Parquet. (High-Throughput Dual Egress: Real-T)"
+            "caption": "Dual egress routes real-time alerts to Amazon MSK and historical data to."
           }
         ]
       }
@@ -355,25 +355,25 @@
             "at": "say1",
             "focus": "producers",
             "annotation": "Distributed IoT device fleets emit 1,000,000 telemetry events per second.",
-            "caption": "Distributed IoT device fleets emit 1,000,000 telemetry events per second. (⭐ Milestone 7 Synthesis: Production)"
+            "caption": "Distributed IoT device fleets emit one,multiple,multiple telemetry events."
           },
           {
             "at": "say2",
             "focus": "kinesis",
             "annotation": "1,000 Kinesis shards buffer 500 MB/s ingress with Enhanced Fan-Out delivery.",
-            "caption": "1,000 Kinesis shards buffer 500 MB/s ingress with Enhanced Fan-Out delivery. (⭐ Milestone 7 Synthesis: Production)"
+            "caption": "One,multiple Kinesis shards buffer server-error MB/s ingress with."
           },
           {
             "at": "example",
             "focus": "flink",
             "annotation": "Apache Flink executes stateful windowing and anomaly detection with RocksDB.",
-            "caption": "Apache Flink executes stateful windowing and anomaly detection with RocksDB. (⭐ Milestone 7 Synthesis: Production)"
+            "caption": "Apache Flink executes stateful windowing and anomaly detection with."
           },
           {
             "at": "tryIt",
             "focus": "dual_egress",
             "annotation": "Dual egress routes real-time alerts to Amazon MSK and historical data to S3 Parquet.",
-            "caption": "Dual egress routes real-time alerts to Amazon MSK and historical data to S3 Parquet. (⭐ Milestone 7 Synthesis: Production)"
+            "caption": "Dual egress routes real-time alerts to Amazon MSK and historical data to."
           }
         ]
       }

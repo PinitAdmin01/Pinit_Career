@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "say6",
-            "caption": "A stream-stream join is bounded by a temporal correlation window (500ms).",
+            "caption": "A stream-stream join is bounded by a temporal correlation window.",
             "rows": [
               {
                 "cells": [
@@ -35,7 +35,7 @@
           },
           {
             "at": "say7",
-            "caption": "Two events with matching keys join only if their timestamps differ <= 500ms.",
+            "caption": "Two events with matching keys join only if their timestamps differ <=.",
             "rows": [
               {
                 "cells": [
@@ -126,7 +126,7 @@
         "steps": [
           {
             "at": "say5",
-            "caption": "Both topics must have the exact same number of partitions (16 partitions).",
+            "caption": "Both topics must have the exact same number of partitions (sixteen.",
             "rows": [
               {
                 "cells": [
@@ -141,7 +141,7 @@
           },
           {
             "at": "say7",
-            "caption": "Mismatched partition counts (16 vs 32) fail with PARTITION_COUNT_MISMATCH.",
+            "caption": "Mismatched partition counts (sixteen vs thirty-two) fail with.",
             "rows": [
               {
                 "cells": [
@@ -240,7 +240,7 @@
         "steps": [
           {
             "at": "say5",
-            "caption": "When L1 arrives, the engine stores it in LeftStore and scans RightStore.",
+            "caption": "When level-one arrives, the engine stores it in LeftStore and scans.",
             "messages": [
               {
                 "from": "joiner",
@@ -257,7 +257,7 @@
           },
           {
             "at": "say6",
-            "caption": "When R1 arrives at ts=180, it stores in RightStore and matches L1 in LeftStore.",
+            "caption": "When Rone arrives at ts=multiple, it stores in RightStore and matches.",
             "messages": [
               {
                 "from": "joiner",
@@ -338,7 +338,7 @@
         "steps": [
           {
             "at": "say2",
-            "caption": "Once watermark advances past timestamp + windowMs (100), item-1 expires.",
+            "caption": "Once watermark advances past timestamp + windowMs (one hundred), item-one.",
             "items": [
               {
                 "text": "item-1 (ts:100, exp:200)"
@@ -360,7 +360,7 @@
           },
           {
             "at": "say4",
-            "caption": "As watermark advances to 220, expired events are evicted, leaving 2 items.",
+            "caption": "As watermark advances to multiple, expired events are evicted, leaving.",
             "items": [
               {
                 "text": "item-2 (ts:150)"
@@ -455,7 +455,7 @@
         "steps": [
           {
             "at": "say2",
-            "caption": "The pipeline correlates Ad Click and Order Purchase streams in a 1000ms window.",
+            "caption": "The pipeline correlates Ad Click and Order Purchase streams in a ms window.",
             "activeNodes": [
               "clickNode",
               "purchaseNode"
@@ -464,7 +464,7 @@
           },
           {
             "at": "say5",
-            "caption": "Matching pairs emit an AttributionRecord with revenue and 550ms latency.",
+            "caption": "Matching pairs emit an AttributionRecord with revenue and ms latency.",
             "activeNodes": [
               "purchaseNode",
               "attribOut"
@@ -553,7 +553,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Co-Partitioned Partition Balancing & Key.. [D24.P6.S1].",
+            "caption": "Initialize input state for Co-Partitioned Partition Balancing & Key.",
             "values": {
               "in": "Day 24 Input",
               "proc": "Standby",
@@ -573,7 +573,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Co-Partitioned Part... [D24.P6.S2].",
+            "caption": "Execute core transformation in Co-Partitioned Part... [D.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -597,7 +597,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D24.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -617,7 +617,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Co-Partitioned Partition Balancin.. [D24.P6.S4].",
+            "caption": "End-to-end execution verified for Co-Partitioned Partition Balancin.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

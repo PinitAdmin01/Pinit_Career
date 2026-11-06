@@ -62,7 +62,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Readable stream emits bounded 16KB data chunks incrementally.",
+            "caption": "Readable stream emits bounded sixteenKB data chunks incrementally.",
             "values": {
               "src": {
                 "status": "Online"
@@ -80,7 +80,7 @@
           },
           {
             "at": "say3",
-            "caption": "Transform stream projects and mutates chunks in isolated V8 heap buffers.",
+            "caption": "Transform stream projects and mutates chunks in isolated engine heap.",
             "values": {
               "src": {
                 "status": "Processing"
@@ -344,7 +344,7 @@
           },
           {
             "at": "say3",
-            "caption": "Batch aggregator buffers items until count threshold (5 items) is reached.",
+            "caption": "Batch aggregator buffers items until count threshold (five items) is.",
             "values": {
               "ingress": {
                 "status": "Processing"
@@ -479,7 +479,7 @@
           },
           {
             "at": "say5",
-            "caption": "Length-prefixed binary parser extracts 100% intact records.",
+            "caption": "Length-prefixed binary parser extracts one hundred% intact records.",
             "values": {
               "mem": {
                 "status": "Synchronized"

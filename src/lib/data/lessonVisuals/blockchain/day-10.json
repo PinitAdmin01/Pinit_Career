@@ -10,7 +10,7 @@
       "codeHash": "1a45127777271ac6d35ac43326efe5e4710ed601e482684af019346f6dba180b",
       "spec": {
         "template": "sequence",
-        "title": "Mappings & Storage Hash Allocation: keccak256(key . slot) Mechanics \u2014 Decentralized Vault Sequence",
+        "title": "Mappings & Storage Hash Allocation: keccak256(key . slot) Mechanics — Decentralized Vault Sequence",
         "actors": [
           "Vault Depositor",
           "Decentralized Vault Engine",
@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Vault Depositor initiates interaction for Mappings & Storage Hash Allocati",
+            "caption": "Vault Depositor initiates interaction for Mappings & Storage Hash Allocati.",
             "activeActor": "Vault Depositor",
             "messages": [
               {
@@ -33,7 +33,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Decentralized Vault Engine calculates storage slot mapping and FSM state",
+            "caption": "Decentralized Vault Engine calculates storage slot mapping and FSM state.",
             "activeActor": "Decentralized Vault Engine",
             "messages": [
               {
@@ -46,7 +46,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: EVM Storage Controller verifies storage pointers, packing and gas refunds",
+            "caption": "EVM Storage Controller verifies storage pointers, packing and gas refunds.",
             "activeActor": "EVM Storage Controller",
             "messages": [
               {
@@ -59,7 +59,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: PoS Consensus Coordinator finalizes checkpoint and certifies Milestone 2",
+            "caption": "PoS Consensus Coordinator finalizes checkpoint and certifies Milestone two.",
             "activeActor": "PoS Consensus Coordinator",
             "messages": [
               {
@@ -83,7 +83,7 @@
               {
                 "from": "PoS Consensus Coordinator",
                 "to": "Decentralized Vault Engine",
-                "label": "Milestone2Certified(Optimal \u2713)",
+                "label": "Milestone2Certified(Optimal ✓)",
                 "tone": "ok"
               }
             ]
@@ -92,7 +92,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Mappings & Storage Hash Allocation: keccak256(key . slot) Mechanics \u2014 Decentralized Vault Sequence",
+        "title": "Mappings & Storage Hash Allocation: keccak256(key . slot) Mechanics — Decentralized Vault Sequence",
         "actors": [
           "Vault Depositor",
           "Decentralized Vault Engine",
@@ -165,7 +165,7 @@
               {
                 "from": "PoS Consensus Coordinator",
                 "to": "Decentralized Vault Engine",
-                "label": "Milestone2Certified(Optimal \u2713)",
+                "label": "Milestone2Certified(Optimal ✓)",
                 "tone": "ok"
               }
             ]
@@ -178,7 +178,7 @@
       "codeHash": "7b4218c6d23f04efa3de1e9c86aab61ea618fa76c68292db5ab38b4981ef289e",
       "spec": {
         "template": "sequence",
-        "title": "Dynamic Arrays in Storage vs Memory: Length Slots & Element Indexing \u2014 Decentralized Vault Sequence",
+        "title": "Dynamic Arrays in Storage vs Memory: Length Slots & Element Indexing — Decentralized Vault Sequence",
         "actors": [
           "Vault Depositor",
           "Decentralized Vault Engine",
@@ -188,7 +188,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Vault Depositor initiates interaction for Dynamic Arrays in Storage vs Mem",
+            "caption": "Vault Depositor initiates interaction for Dynamic Arrays in Storage vs Mem.",
             "activeActor": "Vault Depositor",
             "messages": [
               {
@@ -201,7 +201,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Decentralized Vault Engine calculates storage slot mapping and FSM state",
+            "caption": "Decentralized Vault Engine calculates storage slot mapping and FSM state.",
             "activeActor": "Decentralized Vault Engine",
             "messages": [
               {
@@ -214,7 +214,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: EVM Storage Controller verifies storage pointers, packing and gas refunds",
+            "caption": "EVM Storage Controller verifies storage pointers, packing and gas refunds.",
             "activeActor": "EVM Storage Controller",
             "messages": [
               {
@@ -227,7 +227,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: PoS Consensus Coordinator finalizes checkpoint and certifies Milestone 2",
+            "caption": "PoS Consensus Coordinator finalizes checkpoint and certifies Milestone two.",
             "activeActor": "PoS Consensus Coordinator",
             "messages": [
               {
@@ -251,7 +251,7 @@
               {
                 "from": "PoS Consensus Coordinator",
                 "to": "Decentralized Vault Engine",
-                "label": "Milestone2Certified(Optimal \u2713)",
+                "label": "Milestone2Certified(Optimal ✓)",
                 "tone": "ok"
               }
             ]
@@ -260,7 +260,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Dynamic Arrays in Storage vs Memory: Length Slots & Element Indexing \u2014 Decentralized Vault Sequence",
+        "title": "Dynamic Arrays in Storage vs Memory: Length Slots & Element Indexing — Decentralized Vault Sequence",
         "actors": [
           "Vault Depositor",
           "Decentralized Vault Engine",
@@ -333,7 +333,7 @@
               {
                 "from": "PoS Consensus Coordinator",
                 "to": "Decentralized Vault Engine",
-                "label": "Milestone2Certified(Optimal \u2713)",
+                "label": "Milestone2Certified(Optimal ✓)",
                 "tone": "ok"
               }
             ]
@@ -346,7 +346,7 @@
       "codeHash": "ed66846886a1586d8e6ce927edb2243c9398efab690917012c4b7429282f557c",
       "spec": {
         "template": "sequence",
-        "title": "Storage Pointers vs Memory Copies: Mutation Hazards & Pointer Mechanics \u2014 Decentralized Vault Sequence",
+        "title": "Storage Pointers vs Memory Copies: Mutation Hazards & Pointer Mechanics — Decentralized Vault Sequence",
         "actors": [
           "Vault Depositor",
           "Decentralized Vault Engine",
@@ -356,7 +356,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Vault Depositor initiates interaction for Storage Pointers vs Memory Copie",
+            "caption": "Vault Depositor initiates interaction for Storage Pointers vs Memory Copie.",
             "activeActor": "Vault Depositor",
             "messages": [
               {
@@ -369,7 +369,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Decentralized Vault Engine calculates storage slot mapping and FSM state",
+            "caption": "Decentralized Vault Engine calculates storage slot mapping and FSM state.",
             "activeActor": "Decentralized Vault Engine",
             "messages": [
               {
@@ -382,7 +382,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: EVM Storage Controller verifies storage pointers, packing and gas refunds",
+            "caption": "EVM Storage Controller verifies storage pointers, packing and gas refunds.",
             "activeActor": "EVM Storage Controller",
             "messages": [
               {
@@ -395,7 +395,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: PoS Consensus Coordinator finalizes checkpoint and certifies Milestone 2",
+            "caption": "PoS Consensus Coordinator finalizes checkpoint and certifies Milestone two.",
             "activeActor": "PoS Consensus Coordinator",
             "messages": [
               {
@@ -419,7 +419,7 @@
               {
                 "from": "PoS Consensus Coordinator",
                 "to": "Decentralized Vault Engine",
-                "label": "Milestone2Certified(Optimal \u2713)",
+                "label": "Milestone2Certified(Optimal ✓)",
                 "tone": "ok"
               }
             ]
@@ -428,7 +428,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Storage Pointers vs Memory Copies: Mutation Hazards & Pointer Mechanics \u2014 Decentralized Vault Sequence",
+        "title": "Storage Pointers vs Memory Copies: Mutation Hazards & Pointer Mechanics — Decentralized Vault Sequence",
         "actors": [
           "Vault Depositor",
           "Decentralized Vault Engine",
@@ -501,7 +501,7 @@
               {
                 "from": "PoS Consensus Coordinator",
                 "to": "Decentralized Vault Engine",
-                "label": "Milestone2Certified(Optimal \u2713)",
+                "label": "Milestone2Certified(Optimal ✓)",
                 "tone": "ok"
               }
             ]
@@ -514,7 +514,7 @@
       "codeHash": "bf999e74aab914b4350b1d505c2f61cd72b9f1cab65088f0743db44edacee890",
       "spec": {
         "template": "sequence",
-        "title": "Gas Refund Optimization, EIP-3529 Pruning & SSTORE Cleansing \u2014 Decentralized Vault Sequence",
+        "title": "Gas Refund Optimization, EIP-3529 Pruning & SSTORE Cleansing — Decentralized Vault Sequence",
         "actors": [
           "Vault Depositor",
           "Decentralized Vault Engine",
@@ -524,7 +524,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Vault Depositor initiates interaction for Gas Refund Optimization, EIP-352",
+            "caption": "Vault Depositor initiates interaction for Gas Refund Optimization.",
             "activeActor": "Vault Depositor",
             "messages": [
               {
@@ -537,7 +537,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Decentralized Vault Engine calculates storage slot mapping and FSM state",
+            "caption": "Decentralized Vault Engine calculates storage slot mapping and FSM state.",
             "activeActor": "Decentralized Vault Engine",
             "messages": [
               {
@@ -550,7 +550,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: EVM Storage Controller verifies storage pointers, packing and gas refunds",
+            "caption": "EVM Storage Controller verifies storage pointers, packing and gas refunds.",
             "activeActor": "EVM Storage Controller",
             "messages": [
               {
@@ -563,7 +563,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: PoS Consensus Coordinator finalizes checkpoint and certifies Milestone 2",
+            "caption": "PoS Consensus Coordinator finalizes checkpoint and certifies Milestone two.",
             "activeActor": "PoS Consensus Coordinator",
             "messages": [
               {
@@ -587,7 +587,7 @@
               {
                 "from": "PoS Consensus Coordinator",
                 "to": "Decentralized Vault Engine",
-                "label": "Milestone2Certified(Optimal \u2713)",
+                "label": "Milestone2Certified(Optimal ✓)",
                 "tone": "ok"
               }
             ]
@@ -596,7 +596,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Gas Refund Optimization, EIP-3529 Pruning & SSTORE Cleansing \u2014 Decentralized Vault Sequence",
+        "title": "Gas Refund Optimization, EIP-3529 Pruning & SSTORE Cleansing — Decentralized Vault Sequence",
         "actors": [
           "Vault Depositor",
           "Decentralized Vault Engine",
@@ -669,7 +669,7 @@
               {
                 "from": "PoS Consensus Coordinator",
                 "to": "Decentralized Vault Engine",
-                "label": "Milestone2Certified(Optimal \u2713)",
+                "label": "Milestone2Certified(Optimal ✓)",
                 "tone": "ok"
               }
             ]
@@ -682,7 +682,7 @@
       "codeHash": "41089bf235f0ab0db46a309c296a0e62d0b7613fa38f93be9953af9c98e59032",
       "spec": {
         "template": "sequence",
-        "title": "Milestone 2 Capstone: The Decentralized Vault Engine Architecture \u2014 Decentralized Vault Sequence",
+        "title": "Milestone 2 Capstone: The Decentralized Vault Engine Architecture — Decentralized Vault Sequence",
         "actors": [
           "Vault Depositor",
           "Decentralized Vault Engine",
@@ -692,7 +692,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Vault Depositor initiates interaction for Milestone 2 Capstone: The Decent",
+            "caption": "Vault Depositor initiates interaction for Milestone two Capstone: The.",
             "activeActor": "Vault Depositor",
             "messages": [
               {
@@ -705,7 +705,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Decentralized Vault Engine calculates storage slot mapping and FSM state",
+            "caption": "Decentralized Vault Engine calculates storage slot mapping and FSM state.",
             "activeActor": "Decentralized Vault Engine",
             "messages": [
               {
@@ -718,7 +718,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: EVM Storage Controller verifies storage pointers, packing and gas refunds",
+            "caption": "EVM Storage Controller verifies storage pointers, packing and gas refunds.",
             "activeActor": "EVM Storage Controller",
             "messages": [
               {
@@ -731,7 +731,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: PoS Consensus Coordinator finalizes checkpoint and certifies Milestone 2",
+            "caption": "PoS Consensus Coordinator finalizes checkpoint and certifies Milestone two.",
             "activeActor": "PoS Consensus Coordinator",
             "messages": [
               {
@@ -755,7 +755,7 @@
               {
                 "from": "PoS Consensus Coordinator",
                 "to": "Decentralized Vault Engine",
-                "label": "Milestone2Certified(Optimal \u2713)",
+                "label": "Milestone2Certified(Optimal ✓)",
                 "tone": "ok"
               }
             ]
@@ -764,7 +764,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Milestone 2 Capstone: The Decentralized Vault Engine Architecture \u2014 Decentralized Vault Sequence",
+        "title": "Milestone 2 Capstone: The Decentralized Vault Engine Architecture — Decentralized Vault Sequence",
         "actors": [
           "Vault Depositor",
           "Decentralized Vault Engine",
@@ -837,7 +837,7 @@
               {
                 "from": "PoS Consensus Coordinator",
                 "to": "Decentralized Vault Engine",
-                "label": "Milestone2Certified(Optimal \u2713)",
+                "label": "Milestone2Certified(Optimal ✓)",
                 "tone": "ok"
               }
             ]

@@ -6,7 +6,7 @@
   "entries": [
     {
       "partTitle": "Context Inflation & Economics: The Hidden Cost Of Bloated Enterprise Prompts",
-      "codeHash": "5c9d3d683e84943c2572793c0e3f85cf33a4abfb0dec51c6b45472939b6c6dd4",
+      "codeHash": "2e9157cbbf407adf39faecbb2c568d2f60416965c8d063973f40cb36b5f20315",
       "spec": {
         "template": "table",
         "title": "Context Inflation Economics And Pre Fill Latency Degradation Dynamics.",
@@ -160,7 +160,7 @@
     },
     {
       "partTitle": "LLMLingua Algorithmic Foundations: Small Language Models & Perplexity Calculation",
-      "codeHash": "5c9d3d683e84943c2572793c0e3f85cf33a4abfb0dec51c6b45472939b6c6dd4",
+      "codeHash": "2e9157cbbf407adf39faecbb2c568d2f60416965c8d063973f40cb36b5f20315",
       "spec": {
         "template": "table",
         "title": "LLMLingua Foundations And Perplexity Calculation Architecture.",
@@ -314,7 +314,7 @@
     },
     {
       "partTitle": "Budgeted Token Pruning: Dynamic Coarse-to-Fine Compression & Information Density",
-      "codeHash": "5c9d3d683e84943c2572793c0e3f85cf33a4abfb0dec51c6b45472939b6c6dd4",
+      "codeHash": "2e9157cbbf407adf39faecbb2c568d2f60416965c8d063973f40cb36b5f20315",
       "spec": {
         "template": "table",
         "title": "Budgeted Token Pruning And Coarse To Fine Hierarchical Compression.",
@@ -468,7 +468,7 @@
     },
     {
       "partTitle": "KV-Cache Physics & Latency Acceleration: Pre-Fill Optimization & Memory Footprints",
-      "codeHash": "5c9d3d683e84943c2572793c0e3f85cf33a4abfb0dec51c6b45472939b6c6dd4",
+      "codeHash": "2e9157cbbf407adf39faecbb2c568d2f60416965c8d063973f40cb36b5f20315",
       "spec": {
         "template": "table",
         "title": "Key Value Cache Physics And High Concurrency Serving Optimization.",
@@ -622,7 +622,7 @@
     },
     {
       "partTitle": "Enterprise Compression Engineering: Building A Production Prompt Pruner In Python",
-      "codeHash": "5c9d3d683e84943c2572793c0e3f85cf33a4abfb0dec51c6b45472939b6c6dd4",
+      "codeHash": "2e9157cbbf407adf39faecbb2c568d2f60416965c8d063973f40cb36b5f20315",
       "spec": {
         "template": "table",
         "title": "Enterprise Compression Engineering And Production Service Deployment.",

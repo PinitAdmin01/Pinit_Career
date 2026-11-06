@@ -12,7 +12,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline WACC and hurdle rate architecture for The Capital Allocation Hierarchy...",
+            "caption": "Baseline WACC and hurdle rate architecture for The Capital Allocation.",
             "max": 100,
             "bars": [
               {
@@ -39,7 +39,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Capital rationing and ROIC-WACC spread analysis for The Capital Allocation Hierarchy...",
+            "caption": "Capital rationing and ROIC-WACC spread analysis for The Capital.",
             "max": 100,
             "bars": [
               {
@@ -66,7 +66,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stern Stewart EVA adjustments and multi-division DuPont decomposition in The Capital Allocation Hierarchy...",
+            "caption": "Stern Stewart EVA adjustments and multi-division DuPont decomposition in.",
             "max": 100,
             "bars": [
               {
@@ -93,7 +93,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Boardroom capital allocation scorecard certification and SHA-256 seal for The Capital Allocation Hierarchy...",
+            "caption": "Boardroom capital allocation scorecard certification and SHA digest seal.",
             "max": 100,
             "bars": [
               {
@@ -244,7 +244,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline WACC and hurdle rate architecture for Return on Invested Capital (ROIC...",
+            "caption": "Baseline WACC and hurdle rate architecture for Return on Invested Capital.",
             "max": 100,
             "bars": [
               {
@@ -271,7 +271,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Capital rationing and ROIC-WACC spread analysis for Return on Invested Capital (ROIC...",
+            "caption": "Capital rationing and ROIC-WACC spread analysis for Return on Invested.",
             "max": 100,
             "bars": [
               {
@@ -298,7 +298,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stern Stewart EVA adjustments and multi-division DuPont decomposition in Return on Invested Capital (ROIC...",
+            "caption": "Stern Stewart EVA adjustments and multi-division DuPont decomposition in.",
             "max": 100,
             "bars": [
               {
@@ -325,7 +325,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Boardroom capital allocation scorecard certification and SHA-256 seal for Return on Invested Capital (ROIC...",
+            "caption": "Boardroom capital allocation scorecard certification and SHA digest seal.",
             "max": 100,
             "bars": [
               {
@@ -476,7 +476,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline WACC and hurdle rate architecture for Stern Stewart Economic Value Add...",
+            "caption": "Baseline WACC and hurdle rate architecture for Stern Stewart Economic.",
             "max": 100,
             "bars": [
               {
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Capital rationing and ROIC-WACC spread analysis for Stern Stewart Economic Value Add...",
+            "caption": "Capital rationing and ROIC-WACC spread analysis for Stern Stewart.",
             "max": 100,
             "bars": [
               {
@@ -530,7 +530,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stern Stewart EVA adjustments and multi-division DuPont decomposition in Stern Stewart Economic Value Add...",
+            "caption": "Stern Stewart EVA adjustments and multi-division DuPont decomposition in.",
             "max": 100,
             "bars": [
               {
@@ -557,7 +557,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Boardroom capital allocation scorecard certification and SHA-256 seal for Stern Stewart Economic Value Add...",
+            "caption": "Boardroom capital allocation scorecard certification and SHA digest seal.",
             "max": 100,
             "bars": [
               {
@@ -708,7 +708,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline WACC and hurdle rate architecture for Multi-Division ROIC Decompositio...",
+            "caption": "Baseline WACC and hurdle rate architecture for Multi-Division ROIC.",
             "max": 100,
             "bars": [
               {
@@ -735,7 +735,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Capital rationing and ROIC-WACC spread analysis for Multi-Division ROIC Decompositio...",
+            "caption": "Capital rationing and ROIC-WACC spread analysis for Multi-Division ROIC.",
             "max": 100,
             "bars": [
               {
@@ -762,7 +762,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stern Stewart EVA adjustments and multi-division DuPont decomposition in Multi-Division ROIC Decompositio...",
+            "caption": "Stern Stewart EVA adjustments and multi-division DuPont decomposition in.",
             "max": 100,
             "bars": [
               {
@@ -789,7 +789,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Boardroom capital allocation scorecard certification and SHA-256 seal for Multi-Division ROIC Decompositio...",
+            "caption": "Boardroom capital allocation scorecard certification and SHA digest seal.",
             "max": 100,
             "bars": [
               {
@@ -940,7 +940,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline WACC and hurdle rate architecture for Enterprise Corporate Capital All...",
+            "caption": "Baseline WACC and hurdle rate architecture for Enterprise Corporate.",
             "max": 100,
             "bars": [
               {
@@ -967,7 +967,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Capital rationing and ROIC-WACC spread analysis for Enterprise Corporate Capital All...",
+            "caption": "Capital rationing and ROIC-WACC spread analysis for Enterprise Corporate.",
             "max": 100,
             "bars": [
               {
@@ -994,7 +994,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stern Stewart EVA adjustments and multi-division DuPont decomposition in Enterprise Corporate Capital All...",
+            "caption": "Stern Stewart EVA adjustments and multi-division DuPont decomposition in.",
             "max": 100,
             "bars": [
               {
@@ -1021,7 +1021,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Boardroom capital allocation scorecard certification and SHA-256 seal for Enterprise Corporate Capital All...",
+            "caption": "Boardroom capital allocation scorecard certification and SHA digest seal.",
             "max": 100,
             "bars": [
               {

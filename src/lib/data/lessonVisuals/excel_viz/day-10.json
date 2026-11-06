@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Tier 1: Enterprise Multi-Table Star Sche...",
+            "caption": "Baseline KPI cohort metrics for Tier one: Enterprise Multi-Table Star.",
             "max": 100,
             "bars": [
               {
@@ -41,7 +41,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate operational drivers and margin trends for Tier 1: Enterprise Multi-Table Star Sche...",
+            "caption": "Isolate operational drivers and margin trends for Tier one: Enterprise.",
             "max": 100,
             "bars": [
               {
@@ -68,7 +68,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Tier 1: Enterprise Multi-Table Star Sche...",
+            "caption": "Commit audited analytical dashboard for Tier one: Enterprise Multi-Table.",
             "max": 100,
             "bars": [
               {
@@ -132,7 +132,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Tier 2: Automated Ingestion, Cleaning & ...",
+            "caption": "Baseline KPI cohort metrics for Tier two: Automated Ingestion, Cleaning &.",
             "max": 100,
             "bars": [
               {
@@ -159,7 +159,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate operational drivers and margin trends for Tier 2: Automated Ingestion, Cleaning & ...",
+            "caption": "Isolate operational drivers and margin trends for Tier two: Automated.",
             "max": 100,
             "bars": [
               {
@@ -186,7 +186,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -213,7 +213,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Tier 2: Automated Ingestion, Cleaning & ...",
+            "caption": "Commit audited analytical dashboard for Tier two: Automated Ingestion.",
             "max": 100,
             "bars": [
               {
@@ -250,7 +250,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Tier 3: Dynamic DAX Time Intelligence, Y...",
+            "caption": "Baseline KPI cohort metrics for Tier three: Dynamic DAX Time.",
             "max": 100,
             "bars": [
               {
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate operational drivers and margin trends for Tier 3: Dynamic DAX Time Intelligence, Y...",
+            "caption": "Isolate operational drivers and margin trends for Tier three: Dynamic DAX.",
             "max": 100,
             "bars": [
               {
@@ -304,7 +304,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -331,7 +331,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Tier 3: Dynamic DAX Time Intelligence, Y...",
+            "caption": "Commit audited analytical dashboard for Tier three: Dynamic DAX Time.",
             "max": 100,
             "bars": [
               {
@@ -368,7 +368,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Tier 4: Interactive Scenario Switchboard...",
+            "caption": "Baseline KPI cohort metrics for Tier four: Interactive Scenario.",
             "max": 100,
             "bars": [
               {
@@ -395,7 +395,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate operational drivers and margin trends for Tier 4: Interactive Scenario Switchboard...",
+            "caption": "Isolate operational drivers and margin trends for Tier four: Interactive.",
             "max": 100,
             "bars": [
               {
@@ -422,7 +422,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -449,7 +449,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Tier 4: Interactive Scenario Switchboard...",
+            "caption": "Commit audited analytical dashboard for Tier four: Interactive Scenario.",
             "max": 100,
             "bars": [
               {
@@ -486,7 +486,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Tier 5: Grand Master Milestone 2 Capston...",
+            "caption": "Baseline KPI cohort metrics for Tier five: Grand Master Milestone two.",
             "max": 100,
             "bars": [
               {
@@ -513,7 +513,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate operational drivers and margin trends for Tier 5: Grand Master Milestone 2 Capston...",
+            "caption": "Isolate operational drivers and margin trends for Tier five: Grand Master.",
             "max": 100,
             "bars": [
               {
@@ -540,7 +540,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -567,7 +567,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Tier 5: Grand Master Milestone 2 Capston...",
+            "caption": "Commit audited analytical dashboard for Tier five: Grand Master Milestone.",
             "max": 100,
             "bars": [
               {

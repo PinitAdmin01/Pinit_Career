@@ -135,7 +135,7 @@
           },
           {
             "at": "say2",
-            "caption": "Python runs exactly one of the two blocks: fee is 40.",
+            "caption": "Python runs exactly one of the two blocks: fee is multiple.",
             "values": {
               "bill": {
                 "var": "bill",
@@ -340,7 +340,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for and, or, not: combining conditions [D5.P4.S1].",
+            "caption": "Initialize input state for and, or, not: combining conditions.",
             "values": {
               "in": "Day 5 Input",
               "proc": "Standby",
@@ -360,7 +360,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in and, or, not: combi... [D5.P4.S2].",
+            "caption": "Execute core transformation in and, or, not: combi... [Dfive.Pfour.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -384,7 +384,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D5.P4.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -404,7 +404,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for and, or, not: combining conditions [D5.P4.S4].",
+            "caption": "End-to-end execution verified for and, or, not: combining conditions.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -566,7 +566,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Short one-line choices [D5.P5.S1].",
+            "caption": "Initialize input state for Short one-line choices [Dfive.Pfive.Sone].",
             "values": {
               "in": "Day 5 Input",
               "proc": "Standby",
@@ -586,7 +586,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Short one-line choices [D5.P5.S2].",
+            "caption": "Execute core transformation in Short one-line choices [Dfive.Pfive.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -610,7 +610,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D5.P5.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -630,7 +630,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Short one-line choices [D5.P5.S4].",
+            "caption": "End-to-end execution verified for Short one-line choices.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

@@ -4,7 +4,7 @@ import { CourseQuest } from './coursesData';
 export const COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS: DayConfig[] = [
   {
     "day": 1,
-    "title": "What is a Computer? — Input, Process, Output & Files",
+    "title": "POSIX File System Navigation, Pipelines & File Streams",
     "desc": "Every computer follows three steps: Input (you provide information), Process (the computer does something with it), and Output (the computer shows or saves the result). Everything you do on a computer — typing a message, saving a photo, searching the web — follows this same pattern.",
     "syllabus": [
       "The Input → Process → Output (IPO) model: how every computer task works.",
@@ -24,7 +24,7 @@ export const COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 2,
-    "title": "Operating System Architecture: Kernel, System Calls & Process States",
+    "title": "POSIX Permissions, Stream Slicing & Shell Automation Pipelines",
     "desc": "Understand how software controls physical silicon: Operating System Kernels (Monolithic vs Microkernel), User Space (Ring 3) vs Kernel Space (Ring 0) Protection Rings, POSIX System Calls (`fork`, `exec`, `read`, `write`), Process Lifecycle States (Ready $\\to$ Running $\\to$ Blocked/Waiting $\\to$ Terminated), and Context Switching.",
     "syllabus": [
       "Kernel space privilege separation vs unprivileged user space.",
@@ -44,7 +44,7 @@ export const COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 3,
-    "title": "File Systems & Directory Hierarchy: POSIX Inodes & Chmod Permissions (755)",
+    "title": "Linux Process Lifecycle, POSIX Signals, Virtual Memory Paging & CFS Scheduling",
     "desc": "Master hierarchical data organization on disk: Directory Trees (Absolute paths `/var/log` vs Relative paths `../config`), File Allocation Tables (NTFS, EXT4, APFS), Inodes, Hard Links vs Soft Symlinks, and Unix Octal File Permissions (Chmod $755 = \\text{rwxr-xr-x} = (4+2+1)(4+0+1)(4+0+1)$).",
     "syllabus": [
       "Absolute filesystem root paths vs relative path traversal.",
@@ -64,7 +64,7 @@ export const COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 4,
-    "title": "Command Line Interface (CLI) Mastery: Piping, Redirection & Grep Filters",
+    "title": "POSIX Network Sockets, TCP/IP Handshake, High-Concurrency epoll & TLS 1.3",
     "desc": "Harness the power of the terminal command line: Standard Streams (`stdin 0`, `stdout 1`, `stderr 2`), File Redirection (`>`, `>>`, `2>&1`), Unix Pipe Chains (`|`), Directory Navigation (`cd`, `ls -la`, `mkdir -p`), and Pattern Filtering (`grep -rn 'ERROR' /var/log | wc -l`).",
     "syllabus": [
       "Standard input, standard output, and standard error streams.",
@@ -84,7 +84,7 @@ export const COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 5,
-    "title": "⭐ MILESTONE 1: Complete Computer Hardware, Kernel Architecture & Terminal CLI Engine",
+    "title": "Linux Storage Engines, Virtual Memory & Kernel Container Internals",
     "desc": "Milestone 1: Build a complete foundational OS & computing engine: High-speed memory bus bandwidth calculation ($25,600$ MB/s), Ring 0 POSIX syscall verification, Chmod octal permission decoding (`755` $\\to$ `rwxr-xr-x`), and Unix pipeline grep filtering.",
     "syllabus": [
       "Synthesis of hardware data transfer, kernel traps, POSIX permissions, and CLI pipelines.",
@@ -104,7 +104,7 @@ export const COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 6,
-    "title": "Process Management & Multitasking: Process ID (PID), Threads & CPU Throttling",
+    "title": "Process Management, Multitasking & Linux CPU Scheduling",
     "desc": "Master how the operating system juggles hundreds of concurrent tasks: Process Control Blocks (PCB), Unique Process IDs (PID), Preemptive vs Cooperative Scheduling, CPU Time Slices, Context Switch Overhead ($< 5\\,\\mu\\text{s}$), Threads vs Processes, and CPU Thermal Throttling.",
     "syllabus": [
       "Process lifecycle, memory address space isolation, and Process Control Blocks.",
@@ -224,7 +224,7 @@ export const COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 12,
-    "title": "Digital Productivity & Advanced Keyboard Shortcuts: Touch Typing & OS Ergonomics",
+    "title": "Digital Productivity & Advanced Keyboard Shortcuts: Touch Typing, Window Management & OS Ergonomics",
     "desc": "Supercharge your digital workflow speed: Ergonomic Touch Typing (Target $\\ge 60$ Words Per Minute WPM), Window Management Shortcuts (Windows Snap, macOS Mission Control, Virtual Desktops), Advanced Text Navigation (Word-by-word `Ctrl+Arrows`, multi-cursor editing, Line jumping), Clipboard History (`Win+V`), and Global Spotlight Search.",
     "syllabus": [
       "Core Foundations: Principles and architecture of Digital Productivity & Advanced Keyboard Shortcuts: Touch Typing & OS Ergonomics.",
@@ -244,7 +244,7 @@ export const COMPUTER_FUNDAMENTALS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 13,
-    "title": "Cloud Storage & Distributed Sync: Block Deltas & The 3-2-1 Backup Rule",
+    "title": "Cloud Storage & Distributed Sync: Block Deltas, Conflict Resolution & The 3-2-1 Backup Rule",
     "desc": "Never lose a byte of critical data: Cloud File Synchronization Mechanics (Block-level delta syncing), Conflict Resolution Strategies (Last-Write-Wins vs Branching copies), End-to-End Zero-Knowledge Encryption, and The Gold-Standard 3-2-1 Enterprise Backup Rule (3 total copies of data, across 2 different physical media types, with 1 copy stored securely off-site in the cloud).",
     "syllabus": [
       "Core Foundations: Principles and architecture of Cloud Storage & Distributed Sync: Block Deltas & The 3-2-1 Backup Rule.",

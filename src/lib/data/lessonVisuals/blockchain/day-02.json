@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Wallet Signer signs payload for Automated Market Maker (AMM) Consta...",
+            "caption": "Wallet Signer signs payload for Automated Market Maker (AMM) Consta...",
             "activeActor": "Wallet Signer",
             "messages": [
               {
@@ -33,7 +33,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Mempool Node validates nonce & gas limit, forwards to EVM.",
+            "caption": "Mempool Node validates nonce & gas limit, forwards to EVM.",
             "activeActor": "Mempool Node",
             "messages": [
               {
@@ -52,7 +52,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: EVM Contract verifies invariants and mutates state root.",
+            "caption": "EVM Contract verifies invariants and mutates state root.",
             "activeActor": "EVM Contract",
             "messages": [
               {
@@ -77,7 +77,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block Ledger seals Merkle root and returns receipt.",
+            "caption": "Block Ledger seals Merkle root and returns receipt.",
             "activeActor": "Block Ledger",
             "messages": [
               {
@@ -224,7 +224,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Wallet Signer signs payload for Decentralized Oracles, Cumulative P...",
+            "caption": "Wallet Signer signs payload for Decentralized Oracles, Cumulative P...",
             "activeActor": "Wallet Signer",
             "messages": [
               {
@@ -237,7 +237,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Mempool Node validates nonce & gas limit, forwards to EVM.",
+            "caption": "Mempool Node validates nonce & gas limit, forwards to EVM.",
             "activeActor": "Mempool Node",
             "messages": [
               {
@@ -256,7 +256,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: EVM Contract verifies invariants and mutates state root.",
+            "caption": "EVM Contract verifies invariants and mutates state root.",
             "activeActor": "EVM Contract",
             "messages": [
               {
@@ -281,7 +281,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block Ledger seals Merkle root and returns receipt.",
+            "caption": "Block Ledger seals Merkle root and returns receipt.",
             "activeActor": "Block Ledger",
             "messages": [
               {
@@ -428,7 +428,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Wallet Signer signs payload for EIP-712 Structured Data Hashing & G...",
+            "caption": "Wallet Signer signs payload for EIP-multiple Structured Data Hashing & G...",
             "activeActor": "Wallet Signer",
             "messages": [
               {
@@ -441,7 +441,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Mempool Node validates nonce & gas limit, forwards to EVM.",
+            "caption": "Mempool Node validates nonce & gas limit, forwards to EVM.",
             "activeActor": "Mempool Node",
             "messages": [
               {
@@ -460,7 +460,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: EVM Contract verifies invariants and mutates state root.",
+            "caption": "EVM Contract verifies invariants and mutates state root.",
             "activeActor": "EVM Contract",
             "messages": [
               {
@@ -485,7 +485,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block Ledger seals Merkle root and returns receipt.",
+            "caption": "Block Ledger seals Merkle root and returns receipt.",
             "activeActor": "Block Ledger",
             "messages": [
               {
@@ -632,7 +632,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Wallet Signer signs payload for Layer 2 Rollup State Commitments & ...",
+            "caption": "Wallet Signer signs payload for Layer two Rollup State Commitments & ...",
             "activeActor": "Wallet Signer",
             "messages": [
               {
@@ -645,7 +645,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Mempool Node validates nonce & gas limit, forwards to EVM.",
+            "caption": "Mempool Node validates nonce & gas limit, forwards to EVM.",
             "activeActor": "Mempool Node",
             "messages": [
               {
@@ -664,7 +664,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: EVM Contract verifies invariants and mutates state root.",
+            "caption": "EVM Contract verifies invariants and mutates state root.",
             "activeActor": "EVM Contract",
             "messages": [
               {
@@ -689,7 +689,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block Ledger seals Merkle root and returns receipt.",
+            "caption": "Block Ledger seals Merkle root and returns receipt.",
             "activeActor": "Block Ledger",
             "messages": [
               {
@@ -836,7 +836,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Wallet Signer signs payload for Upgradeable Smart Contracts: ERC-19...",
+            "caption": "Wallet Signer signs payload for Upgradeable Smart Contracts.",
             "activeActor": "Wallet Signer",
             "messages": [
               {
@@ -849,7 +849,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Mempool Node validates nonce & gas limit, forwards to EVM.",
+            "caption": "Mempool Node validates nonce & gas limit, forwards to EVM.",
             "activeActor": "Mempool Node",
             "messages": [
               {
@@ -868,7 +868,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: EVM Contract verifies invariants and mutates state root.",
+            "caption": "EVM Contract verifies invariants and mutates state root.",
             "activeActor": "EVM Contract",
             "messages": [
               {
@@ -893,7 +893,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block Ledger seals Merkle root and returns receipt.",
+            "caption": "Block Ledger seals Merkle root and returns receipt.",
             "activeActor": "Block Ledger",
             "messages": [
               {

@@ -12,7 +12,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline parameters and constraints for Tier 1: Multi-Scenario Switchboard ...",
+            "caption": "Baseline parameters and constraints for Tier one: Multi-Scenario.",
             "max": 100,
             "bars": [
               {
@@ -39,7 +39,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Dynamic optimization and stochastic shock analysis in Tier 1: Multi-Scenario Switchboard ...",
+            "caption": "Dynamic optimization and stochastic shock analysis in Tier one.",
             "max": 100,
             "bars": [
               {
@@ -66,7 +66,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Correlated Monte Carlo simulation and circularity breaker checks in Tier 1: Multi-Scenario Switchboard ...",
+            "caption": "Correlated Monte Carlo simulation and circularity breaker checks in Tier.",
             "max": 100,
             "bars": [
               {
@@ -93,7 +93,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Grand Master Capstone execution and cryptographic audit seal applied for Tier 1: Multi-Scenario Switchboard ...",
+            "caption": "Grand Master Capstone execution and cryptographic audit seal applied for.",
             "max": 100,
             "bars": [
               {
@@ -244,7 +244,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline parameters and constraints for Tier 2: Non-Linear Constrained Trea...",
+            "caption": "Baseline parameters and constraints for Tier two: Non-Linear Constrained.",
             "max": 100,
             "bars": [
               {
@@ -271,7 +271,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Dynamic optimization and stochastic shock analysis in Tier 2: Non-Linear Constrained Trea...",
+            "caption": "Dynamic optimization and stochastic shock analysis in Tier two.",
             "max": 100,
             "bars": [
               {
@@ -298,7 +298,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Correlated Monte Carlo simulation and circularity breaker checks in Tier 2: Non-Linear Constrained Trea...",
+            "caption": "Correlated Monte Carlo simulation and circularity breaker checks in Tier.",
             "max": 100,
             "bars": [
               {
@@ -325,7 +325,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Grand Master Capstone execution and cryptographic audit seal applied for Tier 2: Non-Linear Constrained Trea...",
+            "caption": "Grand Master Capstone execution and cryptographic audit seal applied for.",
             "max": 100,
             "bars": [
               {
@@ -476,7 +476,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline parameters and constraints for Tier 3: 10,000-Path Correlated Mont...",
+            "caption": "Baseline parameters and constraints for Tier three: ten,multiple-Path.",
             "max": 100,
             "bars": [
               {
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Dynamic optimization and stochastic shock analysis in Tier 3: 10,000-Path Correlated Mont...",
+            "caption": "Dynamic optimization and stochastic shock analysis in Tier three.",
             "max": 100,
             "bars": [
               {
@@ -530,7 +530,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Correlated Monte Carlo simulation and circularity breaker checks in Tier 3: 10,000-Path Correlated Mont...",
+            "caption": "Correlated Monte Carlo simulation and circularity breaker checks in Tier.",
             "max": 100,
             "bars": [
               {
@@ -557,7 +557,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Grand Master Capstone execution and cryptographic audit seal applied for Tier 3: 10,000-Path Correlated Mont...",
+            "caption": "Grand Master Capstone execution and cryptographic audit seal applied for.",
             "max": 100,
             "bars": [
               {
@@ -708,7 +708,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline parameters and constraints for Tier 4: FAST-Standard Circularity-F...",
+            "caption": "Baseline parameters and constraints for Tier four: FAST-Standard.",
             "max": 100,
             "bars": [
               {
@@ -735,7 +735,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Dynamic optimization and stochastic shock analysis in Tier 4: FAST-Standard Circularity-F...",
+            "caption": "Dynamic optimization and stochastic shock analysis in Tier four.",
             "max": 100,
             "bars": [
               {
@@ -762,7 +762,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Correlated Monte Carlo simulation and circularity breaker checks in Tier 4: FAST-Standard Circularity-F...",
+            "caption": "Correlated Monte Carlo simulation and circularity breaker checks in Tier.",
             "max": 100,
             "bars": [
               {
@@ -789,7 +789,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Grand Master Capstone execution and cryptographic audit seal applied for Tier 4: FAST-Standard Circularity-F...",
+            "caption": "Grand Master Capstone execution and cryptographic audit seal applied for.",
             "max": 100,
             "bars": [
               {
@@ -940,7 +940,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline parameters and constraints for Tier 5: Grand Master Milestone 4 Ca...",
+            "caption": "Baseline parameters and constraints for Tier five: Grand Master Milestone.",
             "max": 100,
             "bars": [
               {
@@ -967,7 +967,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Dynamic optimization and stochastic shock analysis in Tier 5: Grand Master Milestone 4 Ca...",
+            "caption": "Dynamic optimization and stochastic shock analysis in Tier five: Grand.",
             "max": 100,
             "bars": [
               {
@@ -994,7 +994,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Correlated Monte Carlo simulation and circularity breaker checks in Tier 5: Grand Master Milestone 4 Ca...",
+            "caption": "Correlated Monte Carlo simulation and circularity breaker checks in Tier.",
             "max": 100,
             "bars": [
               {
@@ -1021,7 +1021,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Grand Master Capstone execution and cryptographic audit seal applied for Tier 5: Grand Master Milestone 4 Ca...",
+            "caption": "Grand Master Capstone execution and cryptographic audit seal applied for.",
             "max": 100,
             "bars": [
               {

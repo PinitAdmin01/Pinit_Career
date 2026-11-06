@@ -10,12 +10,12 @@
       "codeHash": "9965548b59267c0f48c3807900f3f0ccdd1caa15c317c3a52b996cc5d89be204",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Corporate Tax Strategy & ESG Tax Transparency in t \u2014 Tax Governance Ledger",
+        "title": "Corporate Tax Strategy & ESG Tax Transparency in t — Tax Governance Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary enterprise tax / governance ledger (1520000) for Corporate Tax Strategy & ESG Tax Transpa...",
-            "title": "Day 29 Enterprise Tax Ledger \u2014 Master Entry",
+            "caption": "Open primary enterprise tax / governance ledger (multiple) for Corporate.",
+            "title": "Day 29 Enterprise Tax Ledger — Master Entry",
             "isBalanced": true,
             "totalDebit": 1520000,
             "totalCredit": 1520000,
@@ -40,8 +40,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / reconciliation entry (125000) under applicable code.",
-            "title": "Day 29 Enterprise Tax Ledger \u2014 Statutory Adjustment",
+            "caption": "Record statutory adjustment / reconciliation entry (multiple) under.",
+            "title": "Day 29 Enterprise Tax Ledger — Statutory Adjustment",
             "isBalanced": true,
             "totalDebit": 1645000,
             "totalCredit": 1645000,
@@ -72,8 +72,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated enterprise case study for Corporate Tax Strategy & ESG Tax Transpa...",
-            "title": "Day 29 Enterprise Tax Ledger \u2014 Executive Audit",
+            "caption": "Execute simulated enterprise case study for Corporate Tax Strategy & ESG.",
+            "title": "Day 29 Enterprise Tax Ledger — Executive Audit",
             "isBalanced": true,
             "totalDebit": 1645000,
             "totalCredit": 1645000,
@@ -103,8 +103,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and enterprise tax signoff.",
-            "title": "Day 29 Enterprise Tax Ledger \u2014 Final Signoff",
+            "caption": "Verify ledger equilibrium and enterprise tax signoff.",
+            "title": "Day 29 Enterprise Tax Ledger — Final Signoff",
             "isBalanced": true,
             "totalDebit": 1645000,
             "totalCredit": 1645000,
@@ -141,12 +141,12 @@
       "codeHash": "3422c7d7c5db993afedaecfc1c322b8dd358c5e3811173714bf5db2b91816e73",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Effective Tax Rate (ETR) Architecture & Multi-Juri \u2014 Tax Governance Ledger",
+        "title": "Effective Tax Rate (ETR) Architecture & Multi-Juri — Tax Governance Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary enterprise tax / governance ledger (1535000) for Effective Tax Rate (ETR) Architecture & ...",
-            "title": "Day 29 Enterprise Tax Ledger \u2014 Master Entry",
+            "caption": "Open primary enterprise tax / governance ledger (multiple) for Effective.",
+            "title": "Day 29 Enterprise Tax Ledger — Master Entry",
             "isBalanced": true,
             "totalDebit": 1535000,
             "totalCredit": 1535000,
@@ -171,8 +171,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / reconciliation entry (132500) under applicable code.",
-            "title": "Day 29 Enterprise Tax Ledger \u2014 Statutory Adjustment",
+            "caption": "Record statutory adjustment / reconciliation entry (multiple) under.",
+            "title": "Day 29 Enterprise Tax Ledger — Statutory Adjustment",
             "isBalanced": true,
             "totalDebit": 1667500,
             "totalCredit": 1667500,
@@ -203,8 +203,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated enterprise case study for Effective Tax Rate (ETR) Architecture & ...",
-            "title": "Day 29 Enterprise Tax Ledger \u2014 Executive Audit",
+            "caption": "Execute simulated enterprise case study for Effective Tax Rate (ETR).",
+            "title": "Day 29 Enterprise Tax Ledger — Executive Audit",
             "isBalanced": true,
             "totalDebit": 1667500,
             "totalCredit": 1667500,
@@ -234,8 +234,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and enterprise tax signoff.",
-            "title": "Day 29 Enterprise Tax Ledger \u2014 Final Signoff",
+            "caption": "Verify ledger equilibrium and enterprise tax signoff.",
+            "title": "Day 29 Enterprise Tax Ledger — Final Signoff",
             "isBalanced": true,
             "totalDebit": 1667500,
             "totalCredit": 1667500,
@@ -272,12 +272,12 @@
       "codeHash": "f6ad842a90a8a8f644831c8c59fc2e8418f2b0fe2689ae7a7269c4df12589a71",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Ind AS 12 Deferred Taxes: Temporary Differences &  \u2014 Tax Governance Ledger",
+        "title": "Ind AS 12 Deferred Taxes: Temporary Differences &  — Tax Governance Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary enterprise tax / governance ledger (1550000) for Ind AS 12 Deferred Taxes: Temporary Diff...",
-            "title": "Day 29 Enterprise Tax Ledger \u2014 Master Entry",
+            "caption": "Open primary enterprise tax / governance ledger (multiple) for Ind AS.",
+            "title": "Day 29 Enterprise Tax Ledger — Master Entry",
             "isBalanced": true,
             "totalDebit": 1550000,
             "totalCredit": 1550000,
@@ -302,8 +302,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / reconciliation entry (140000) under applicable code.",
-            "title": "Day 29 Enterprise Tax Ledger \u2014 Statutory Adjustment",
+            "caption": "Record statutory adjustment / reconciliation entry (multiple) under.",
+            "title": "Day 29 Enterprise Tax Ledger — Statutory Adjustment",
             "isBalanced": true,
             "totalDebit": 1690000,
             "totalCredit": 1690000,
@@ -334,8 +334,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated enterprise case study for Ind AS 12 Deferred Taxes: Temporary Diff...",
-            "title": "Day 29 Enterprise Tax Ledger \u2014 Executive Audit",
+            "caption": "Execute simulated enterprise case study for Ind AS twelve Deferred Taxes.",
+            "title": "Day 29 Enterprise Tax Ledger — Executive Audit",
             "isBalanced": true,
             "totalDebit": 1690000,
             "totalCredit": 1690000,
@@ -365,8 +365,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and enterprise tax signoff.",
-            "title": "Day 29 Enterprise Tax Ledger \u2014 Final Signoff",
+            "caption": "Verify ledger equilibrium and enterprise tax signoff.",
+            "title": "Day 29 Enterprise Tax Ledger — Final Signoff",
             "isBalanced": true,
             "totalDebit": 1690000,
             "totalCredit": 1690000,
@@ -403,12 +403,12 @@
       "codeHash": "595c45b0e0d674a522a7abb30bbe0fa00f3fce0b88bacea32d12e87c9249c497",
       "spec": {
         "template": "ledger-sheet",
-        "title": "M&A Tax Due Diligence & Section 79 Loss Continuity \u2014 Tax Governance Ledger",
+        "title": "M&A Tax Due Diligence & Section 79 Loss Continuity — Tax Governance Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary enterprise tax / governance ledger (1565000) for M&A Tax Due Diligence & Section 79 Loss ...",
-            "title": "Day 29 Enterprise Tax Ledger \u2014 Master Entry",
+            "caption": "Open primary enterprise tax / governance ledger (multiple) for M&A Tax.",
+            "title": "Day 29 Enterprise Tax Ledger — Master Entry",
             "isBalanced": true,
             "totalDebit": 1565000,
             "totalCredit": 1565000,
@@ -433,8 +433,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / reconciliation entry (147500) under applicable code.",
-            "title": "Day 29 Enterprise Tax Ledger \u2014 Statutory Adjustment",
+            "caption": "Record statutory adjustment / reconciliation entry (multiple) under.",
+            "title": "Day 29 Enterprise Tax Ledger — Statutory Adjustment",
             "isBalanced": true,
             "totalDebit": 1712500,
             "totalCredit": 1712500,
@@ -465,8 +465,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated enterprise case study for M&A Tax Due Diligence & Section 79 Loss ...",
-            "title": "Day 29 Enterprise Tax Ledger \u2014 Executive Audit",
+            "caption": "Execute simulated enterprise case study for M&A Tax Due Diligence &.",
+            "title": "Day 29 Enterprise Tax Ledger — Executive Audit",
             "isBalanced": true,
             "totalDebit": 1712500,
             "totalCredit": 1712500,
@@ -496,8 +496,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and enterprise tax signoff.",
-            "title": "Day 29 Enterprise Tax Ledger \u2014 Final Signoff",
+            "caption": "Verify ledger equilibrium and enterprise tax signoff.",
+            "title": "Day 29 Enterprise Tax Ledger — Final Signoff",
             "isBalanced": true,
             "totalDebit": 1712500,
             "totalCredit": 1712500,
@@ -534,12 +534,12 @@
       "codeHash": "59f7a869e40231a1688a96e75373127e08ddc61d4344aecb5247ca29f929a892",
       "spec": {
         "template": "ledger-sheet",
-        "title": "OECD Pillar Two Global Minimum Tax (GloBE) Prepare \u2014 Tax Governance Ledger",
+        "title": "OECD Pillar Two Global Minimum Tax (GloBE) Prepare — Tax Governance Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary enterprise tax / governance ledger (1580000) for OECD Pillar Two Global Minimum Tax (GloB...",
-            "title": "Day 29 Enterprise Tax Ledger \u2014 Master Entry",
+            "caption": "Open primary enterprise tax / governance ledger (multiple) for OECD.",
+            "title": "Day 29 Enterprise Tax Ledger — Master Entry",
             "isBalanced": true,
             "totalDebit": 1580000,
             "totalCredit": 1580000,
@@ -564,8 +564,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / reconciliation entry (155000) under applicable code.",
-            "title": "Day 29 Enterprise Tax Ledger \u2014 Statutory Adjustment",
+            "caption": "Record statutory adjustment / reconciliation entry (multiple) under.",
+            "title": "Day 29 Enterprise Tax Ledger — Statutory Adjustment",
             "isBalanced": true,
             "totalDebit": 1735000,
             "totalCredit": 1735000,
@@ -596,8 +596,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated enterprise case study for OECD Pillar Two Global Minimum Tax (GloB...",
-            "title": "Day 29 Enterprise Tax Ledger \u2014 Executive Audit",
+            "caption": "Execute simulated enterprise case study for OECD Pillar Two Global.",
+            "title": "Day 29 Enterprise Tax Ledger — Executive Audit",
             "isBalanced": true,
             "totalDebit": 1735000,
             "totalCredit": 1735000,
@@ -627,8 +627,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and enterprise tax signoff.",
-            "title": "Day 29 Enterprise Tax Ledger \u2014 Final Signoff",
+            "caption": "Verify ledger equilibrium and enterprise tax signoff.",
+            "title": "Day 29 Enterprise Tax Ledger — Final Signoff",
             "isBalanced": true,
             "totalDebit": 1735000,
             "totalCredit": 1735000,

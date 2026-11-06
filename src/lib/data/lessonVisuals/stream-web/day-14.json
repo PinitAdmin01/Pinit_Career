@@ -44,7 +44,7 @@
           },
           {
             "at": "say6",
-            "caption": "When buffer holds 500 messages and latency hits 100ms, throughput drops.",
+            "caption": "When buffer holds server-error messages and latency hits one hundredms.",
             "rows": [
               {
                 "cells": [
@@ -156,7 +156,7 @@
         "steps": [
           {
             "at": "say4",
-            "caption": "Applying Little's Law at 1000 msg/sec and 200ms yields 200 concurrent ops.",
+            "caption": "Applying Little's Law at multiple msg/sec and OKms yields OK concurrent.",
             "bars": [
               {
                 "label": "Normal DB (200ms)",
@@ -394,7 +394,7 @@
         "steps": [
           {
             "at": "say6",
-            "caption": "Increasing send and receive buffers to 8 MB unleashes multi-gigabit throughput.",
+            "caption": "Increasing send and receive buffers to eight MB unleashes multi-gigabit.",
             "rows": [
               {
                 "cells": [
@@ -494,7 +494,7 @@
         "steps": [
           {
             "at": "say5",
-            "caption": "Network (20ms), consumer (30ms), and DB write (25ms) leave a 25ms linger budget.",
+            "caption": "Network (twentyms), consumer (ms), and DB write (ms) leave a ms linger.",
             "bars": [
               {
                 "label": "Budget 1 (15ms linger)",
@@ -514,7 +514,7 @@
           },
           {
             "at": "say7",
-            "caption": "A 15ms linger stays compliant, whereas a 35ms linger violates the 100ms SLA.",
+            "caption": "A ms linger stays compliant, whereas a ms linger violates the one.",
             "bars": [
               {
                 "label": "Budget 1 (15ms linger)",
@@ -611,7 +611,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Building a Stream Performance & Sizing C.. [D14.P6.S1].",
+            "caption": "Initialize input state for Building a Stream Performance & Sizing C.",
             "values": {
               "in": "Day 14 Input",
               "proc": "Standby",
@@ -631,7 +631,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building a Stream P... [D14.P6.S2].",
+            "caption": "Execute core transformation in Building a Stream P... [D.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -655,7 +655,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D14.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -675,7 +675,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building a Stream Performance & S.. [D14.P6.S4].",
+            "caption": "End-to-end execution verified for Building a Stream Performance & S.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

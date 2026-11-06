@@ -10,7 +10,7 @@
       "codeHash": "10ea59e9c5a92bdc5cfc65df3e9d458020a3a09e4bdc518f2b0a039905fd5b1d",
       "spec": {
         "template": "sequence",
-        "title": "Core Pool Architecture & State Storage \u2014 Concentrated DEX Capstone Sequence",
+        "title": "Core Pool Architecture & State Storage — Concentrated DEX Capstone Sequence",
         "actors": [
           "Liquidity Provider",
           "SwapRouter",
@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol initializes concentrated pool state for Core Pool Architecture & State S",
+            "caption": "Protocol initializes concentrated pool state for Core Pool Architecture &.",
             "activeActor": "Liquidity Provider",
             "messages": [
               {
@@ -33,7 +33,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Router decodes tick bitmap and sets active virtual liquidity",
+            "caption": "Router decodes tick bitmap and sets active virtual liquidity.",
             "activeActor": "SwapRouter",
             "messages": [
               {
@@ -46,26 +46,26 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Pool executes swap step and traverses initialized tick boundary",
+            "caption": "Pool executes swap step and traverses initialized tick boundary.",
             "activeActor": "UniswapV3Pool",
             "messages": [
               {
                 "from": "UniswapV3Pool",
                 "to": "TickBitmapManager",
-                "label": "crossTick(targetTick, zeroForOne) [L \u00b1 \u0394L Transition]",
+                "label": "crossTick(targetTick, zeroForOne) [L ± ΔL Transition]",
                 "tone": "alert"
               }
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Swap settled; O(1) fee growth recorded and outputs transferred",
+            "caption": "Swap settled; constant-time fee growth recorded and outputs transferred.",
             "activeActor": "SwapRouter",
             "messages": [
               {
                 "from": "SwapRouter",
                 "to": "Liquidity Provider",
-                "label": "SwapSettled(FeeInsideAccrued \u2713)",
+                "label": "SwapSettled(FeeInsideAccrued ✓)",
                 "tone": "ok"
               }
             ]
@@ -74,7 +74,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Core Pool Architecture & State Storage \u2014 Concentrated DEX Capstone Sequence",
+        "title": "Core Pool Architecture & State Storage — Concentrated DEX Capstone Sequence",
         "actors": [
           "Liquidity Provider",
           "SwapRouter",
@@ -116,7 +116,7 @@
               {
                 "from": "UniswapV3Pool",
                 "to": "TickBitmapManager",
-                "label": "crossTick(targetTick, zeroForOne) [L \u00b1 \u0394L Transition]",
+                "label": "crossTick(targetTick, zeroForOne) [L ± ΔL Transition]",
                 "tone": "alert"
               }
             ]
@@ -129,7 +129,7 @@
               {
                 "from": "SwapRouter",
                 "to": "Liquidity Provider",
-                "label": "SwapSettled(FeeInsideAccrued \u2713)",
+                "label": "SwapSettled(FeeInsideAccrued ✓)",
                 "tone": "ok"
               }
             ]
@@ -142,7 +142,7 @@
       "codeHash": "a10ace09360018d26533a697e9fae0a28e72c6106be0ec6b276eb758a7ce1ef4",
       "spec": {
         "template": "sequence",
-        "title": "Tick Bitmap Navigation & Zero/One Swap Stepping \u2014 Concentrated DEX Capstone Sequence",
+        "title": "Tick Bitmap Navigation & Zero/One Swap Stepping — Concentrated DEX Capstone Sequence",
         "actors": [
           "Liquidity Provider",
           "SwapRouter",
@@ -152,7 +152,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol initializes concentrated pool state for Tick Bitmap Navigation & Zero/On",
+            "caption": "Protocol initializes concentrated pool state for Tick Bitmap Navigation &.",
             "activeActor": "Liquidity Provider",
             "messages": [
               {
@@ -165,7 +165,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Router decodes tick bitmap and sets active virtual liquidity",
+            "caption": "Router decodes tick bitmap and sets active virtual liquidity.",
             "activeActor": "SwapRouter",
             "messages": [
               {
@@ -178,26 +178,26 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Pool executes swap step and traverses initialized tick boundary",
+            "caption": "Pool executes swap step and traverses initialized tick boundary.",
             "activeActor": "UniswapV3Pool",
             "messages": [
               {
                 "from": "UniswapV3Pool",
                 "to": "TickBitmapManager",
-                "label": "crossTick(targetTick, zeroForOne) [L \u00b1 \u0394L Transition]",
+                "label": "crossTick(targetTick, zeroForOne) [L ± ΔL Transition]",
                 "tone": "alert"
               }
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Swap settled; O(1) fee growth recorded and outputs transferred",
+            "caption": "Swap settled; constant-time fee growth recorded and outputs transferred.",
             "activeActor": "SwapRouter",
             "messages": [
               {
                 "from": "SwapRouter",
                 "to": "Liquidity Provider",
-                "label": "SwapSettled(FeeInsideAccrued \u2713)",
+                "label": "SwapSettled(FeeInsideAccrued ✓)",
                 "tone": "ok"
               }
             ]
@@ -206,7 +206,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Tick Bitmap Navigation & Zero/One Swap Stepping \u2014 Concentrated DEX Capstone Sequence",
+        "title": "Tick Bitmap Navigation & Zero/One Swap Stepping — Concentrated DEX Capstone Sequence",
         "actors": [
           "Liquidity Provider",
           "SwapRouter",
@@ -248,7 +248,7 @@
               {
                 "from": "UniswapV3Pool",
                 "to": "TickBitmapManager",
-                "label": "crossTick(targetTick, zeroForOne) [L \u00b1 \u0394L Transition]",
+                "label": "crossTick(targetTick, zeroForOne) [L ± ΔL Transition]",
                 "tone": "alert"
               }
             ]
@@ -261,7 +261,7 @@
               {
                 "from": "SwapRouter",
                 "to": "Liquidity Provider",
-                "label": "SwapSettled(FeeInsideAccrued \u2713)",
+                "label": "SwapSettled(FeeInsideAccrued ✓)",
                 "tone": "ok"
               }
             ]
@@ -274,7 +274,7 @@
       "codeHash": "f0e4dfd6de6c893f657aafb1d9a5bb57322ed85792e013fea7777d7d6996f5c3",
       "spec": {
         "template": "sequence",
-        "title": "Position Accounting, Range Orders & Unclaimed Fee Harvest Math \u2014 Concentrated DEX Capstone Sequence",
+        "title": "Position Accounting, Range Orders & Unclaimed Fee Harvest Math — Concentrated DEX Capstone Sequence",
         "actors": [
           "Liquidity Provider",
           "SwapRouter",
@@ -284,7 +284,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol initializes concentrated pool state for Position Accounting, Range Order",
+            "caption": "Protocol initializes concentrated pool state for Position Accounting.",
             "activeActor": "Liquidity Provider",
             "messages": [
               {
@@ -297,7 +297,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Router decodes tick bitmap and sets active virtual liquidity",
+            "caption": "Router decodes tick bitmap and sets active virtual liquidity.",
             "activeActor": "SwapRouter",
             "messages": [
               {
@@ -310,26 +310,26 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Pool executes swap step and traverses initialized tick boundary",
+            "caption": "Pool executes swap step and traverses initialized tick boundary.",
             "activeActor": "UniswapV3Pool",
             "messages": [
               {
                 "from": "UniswapV3Pool",
                 "to": "TickBitmapManager",
-                "label": "crossTick(targetTick, zeroForOne) [L \u00b1 \u0394L Transition]",
+                "label": "crossTick(targetTick, zeroForOne) [L ± ΔL Transition]",
                 "tone": "alert"
               }
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Swap settled; O(1) fee growth recorded and outputs transferred",
+            "caption": "Swap settled; constant-time fee growth recorded and outputs transferred.",
             "activeActor": "SwapRouter",
             "messages": [
               {
                 "from": "SwapRouter",
                 "to": "Liquidity Provider",
-                "label": "SwapSettled(FeeInsideAccrued \u2713)",
+                "label": "SwapSettled(FeeInsideAccrued ✓)",
                 "tone": "ok"
               }
             ]
@@ -338,7 +338,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Position Accounting, Range Orders & Unclaimed Fee Harvest Math \u2014 Concentrated DEX Capstone Sequence",
+        "title": "Position Accounting, Range Orders & Unclaimed Fee Harvest Math — Concentrated DEX Capstone Sequence",
         "actors": [
           "Liquidity Provider",
           "SwapRouter",
@@ -380,7 +380,7 @@
               {
                 "from": "UniswapV3Pool",
                 "to": "TickBitmapManager",
-                "label": "crossTick(targetTick, zeroForOne) [L \u00b1 \u0394L Transition]",
+                "label": "crossTick(targetTick, zeroForOne) [L ± ΔL Transition]",
                 "tone": "alert"
               }
             ]
@@ -393,7 +393,7 @@
               {
                 "from": "SwapRouter",
                 "to": "Liquidity Provider",
-                "label": "SwapSettled(FeeInsideAccrued \u2713)",
+                "label": "SwapSettled(FeeInsideAccrued ✓)",
                 "tone": "ok"
               }
             ]
@@ -406,7 +406,7 @@
       "codeHash": "8d23f5004d1bdc5971d56a7aafb097c21ce7c285db03a4ac03b803e7ceca4056",
       "spec": {
         "template": "sequence",
-        "title": "Multi-Hop Smart Order Router & Slippage Guards \u2014 Concentrated DEX Capstone Sequence",
+        "title": "Multi-Hop Smart Order Router & Slippage Guards — Concentrated DEX Capstone Sequence",
         "actors": [
           "Liquidity Provider",
           "SwapRouter",
@@ -416,7 +416,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol initializes concentrated pool state for Multi-Hop Smart Order Router & S",
+            "caption": "Protocol initializes concentrated pool state for Multi-Hop Smart Order.",
             "activeActor": "Liquidity Provider",
             "messages": [
               {
@@ -429,7 +429,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Router decodes tick bitmap and sets active virtual liquidity",
+            "caption": "Router decodes tick bitmap and sets active virtual liquidity.",
             "activeActor": "SwapRouter",
             "messages": [
               {
@@ -442,26 +442,26 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Pool executes swap step and traverses initialized tick boundary",
+            "caption": "Pool executes swap step and traverses initialized tick boundary.",
             "activeActor": "UniswapV3Pool",
             "messages": [
               {
                 "from": "UniswapV3Pool",
                 "to": "TickBitmapManager",
-                "label": "crossTick(targetTick, zeroForOne) [L \u00b1 \u0394L Transition]",
+                "label": "crossTick(targetTick, zeroForOne) [L ± ΔL Transition]",
                 "tone": "alert"
               }
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Swap settled; O(1) fee growth recorded and outputs transferred",
+            "caption": "Swap settled; constant-time fee growth recorded and outputs transferred.",
             "activeActor": "SwapRouter",
             "messages": [
               {
                 "from": "SwapRouter",
                 "to": "Liquidity Provider",
-                "label": "SwapSettled(FeeInsideAccrued \u2713)",
+                "label": "SwapSettled(FeeInsideAccrued ✓)",
                 "tone": "ok"
               }
             ]
@@ -470,7 +470,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Multi-Hop Smart Order Router & Slippage Guards \u2014 Concentrated DEX Capstone Sequence",
+        "title": "Multi-Hop Smart Order Router & Slippage Guards — Concentrated DEX Capstone Sequence",
         "actors": [
           "Liquidity Provider",
           "SwapRouter",
@@ -512,7 +512,7 @@
               {
                 "from": "UniswapV3Pool",
                 "to": "TickBitmapManager",
-                "label": "crossTick(targetTick, zeroForOne) [L \u00b1 \u0394L Transition]",
+                "label": "crossTick(targetTick, zeroForOne) [L ± ΔL Transition]",
                 "tone": "alert"
               }
             ]
@@ -525,7 +525,7 @@
               {
                 "from": "SwapRouter",
                 "to": "Liquidity Provider",
-                "label": "SwapSettled(FeeInsideAccrued \u2713)",
+                "label": "SwapSettled(FeeInsideAccrued ✓)",
                 "tone": "ok"
               }
             ]
@@ -538,7 +538,7 @@
       "codeHash": "12d70c9e1cf830cc2edbbbc2bc2c4d0a562358c79190000344de4c7173d109a7",
       "spec": {
         "template": "sequence",
-        "title": "Enterprise Milestone 5 Synthesis & Institutional DEX Auditor Certification \u2014 Concentrated DEX Capstone Sequence",
+        "title": "Enterprise Milestone 5 Synthesis & Institutional DEX Auditor Certification — Concentrated DEX Capstone Sequence",
         "actors": [
           "Liquidity Provider",
           "SwapRouter",
@@ -548,7 +548,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol initializes concentrated pool state for Enterprise Milestone 5 Synthesis",
+            "caption": "Protocol initializes concentrated pool state for Enterprise Milestone.",
             "activeActor": "Liquidity Provider",
             "messages": [
               {
@@ -561,7 +561,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Router decodes tick bitmap and sets active virtual liquidity",
+            "caption": "Router decodes tick bitmap and sets active virtual liquidity.",
             "activeActor": "SwapRouter",
             "messages": [
               {
@@ -574,26 +574,26 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Pool executes swap step and traverses initialized tick boundary",
+            "caption": "Pool executes swap step and traverses initialized tick boundary.",
             "activeActor": "UniswapV3Pool",
             "messages": [
               {
                 "from": "UniswapV3Pool",
                 "to": "TickBitmapManager",
-                "label": "crossTick(targetTick, zeroForOne) [L \u00b1 \u0394L Transition]",
+                "label": "crossTick(targetTick, zeroForOne) [L ± ΔL Transition]",
                 "tone": "alert"
               }
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Swap settled; O(1) fee growth recorded and outputs transferred",
+            "caption": "Swap settled; constant-time fee growth recorded and outputs transferred.",
             "activeActor": "SwapRouter",
             "messages": [
               {
                 "from": "SwapRouter",
                 "to": "Liquidity Provider",
-                "label": "SwapSettled(FeeInsideAccrued \u2713)",
+                "label": "SwapSettled(FeeInsideAccrued ✓)",
                 "tone": "ok"
               }
             ]
@@ -602,7 +602,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Enterprise Milestone 5 Synthesis & Institutional DEX Auditor Certification \u2014 Concentrated DEX Capstone Sequence",
+        "title": "Enterprise Milestone 5 Synthesis & Institutional DEX Auditor Certification — Concentrated DEX Capstone Sequence",
         "actors": [
           "Liquidity Provider",
           "SwapRouter",
@@ -644,7 +644,7 @@
               {
                 "from": "UniswapV3Pool",
                 "to": "TickBitmapManager",
-                "label": "crossTick(targetTick, zeroForOne) [L \u00b1 \u0394L Transition]",
+                "label": "crossTick(targetTick, zeroForOne) [L ± ΔL Transition]",
                 "tone": "alert"
               }
             ]
@@ -657,7 +657,7 @@
               {
                 "from": "SwapRouter",
                 "to": "Liquidity Provider",
-                "label": "SwapSettled(FeeInsideAccrued \u2713)",
+                "label": "SwapSettled(FeeInsideAccrued ✓)",
                 "tone": "ok"
               }
             ]

@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for The Curse of Full Fine-Tuning & The Intr...",
+            "caption": "Initialize input state for The Curse of Full Fine-Tuning & The Intr...",
             "values": {
               "in": "Day 42 Input",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The Curse of Full F....",
+            "caption": "Execute core transformation in The Curse of Full F....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -75,7 +75,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The Curse of Full Fine-Tuning & T...",
+            "caption": "End-to-end execution verified for The Curse of Full Fine-Tuning & T...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -257,7 +257,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Low-Rank Adaptation (LoRA) Mechanics: Fo...",
+            "caption": "Initialize input state for Low-Rank Adaptation (LoRA) Mechanics: Fo...",
             "values": {
               "in": "Day 42 Input",
               "proc": "Standby",
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Low-Rank Adaptation....",
+            "caption": "Execute core transformation in Low-Rank Adaptation....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -301,7 +301,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -321,7 +321,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Low-Rank Adaptation (LoRA) Mechan...",
+            "caption": "End-to-end execution verified for Low-Rank Adaptation (LoRA) Mechan...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -483,7 +483,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Quantized LoRA (QLoRA): 4-bit NormalFloa...",
+            "caption": "Initialize input state for Quantized LoRA (QLoRA): four-bit NormalFloa...",
             "values": {
               "in": "Day 42 Input",
               "proc": "Standby",
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Quantized LoRA (QLo....",
+            "caption": "Execute core transformation in Quantized LoRA (QLo....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -527,7 +527,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -547,7 +547,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Quantized LoRA (QLoRA): 4-bit Nor...",
+            "caption": "End-to-end execution verified for Quantized LoRA (QLoRA): four-bit Nor...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -709,7 +709,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Adapter Swapping, Multi-LoRA Serving & I...",
+            "caption": "Initialize input state for Adapter Swapping, Multi-LoRA Serving & I...",
             "values": {
               "in": "Day 42 Input",
               "proc": "Standby",
@@ -729,7 +729,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Adapter Swapping, M....",
+            "caption": "Execute core transformation in Adapter Swapping, M....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -753,7 +753,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -773,7 +773,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Adapter Swapping, Multi-LoRA Serv...",
+            "caption": "End-to-end execution verified for Adapter Swapping, Multi-LoRA Serv...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -935,7 +935,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Masterclass Synthesis: Building the Apex...",
+            "caption": "Initialize input state for Masterclass Synthesis: Building the Apex...",
             "values": {
               "in": "Day 42 Input",
               "proc": "Standby",
@@ -955,7 +955,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Masterclass Synthes....",
+            "caption": "Execute core transformation in Masterclass Synthes....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -979,7 +979,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -999,7 +999,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Masterclass Synthesis: Building t...",
+            "caption": "End-to-end execution verified for Masterclass Synthesis: Building t...",
             "values": {
               "in": "Committed",
               "proc": "Verified",

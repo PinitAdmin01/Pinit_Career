@@ -61,7 +61,7 @@
             "at": "say2",
             "focus": "kms_hsm_gateway",
             "annotation": "KMS and CloudHSM enforce FIPS 140-2 Level 3 hardware boundaries and M-of-N quorum dual-party authentication.",
-            "caption": "KMS and CloudHSM enforce FIPS 140-2 Level 3 hardware boundaries and M-of-N quorum dual-party authentication. (AWS KMS Architecture & Multi-Region)"
+            "caption": "KMS and CloudHSM enforce FIPS multiple-two Level three hardware."
           },
           {
             "at": "example",
@@ -136,7 +136,7 @@
             "at": "say2",
             "focus": "kms_hsm_gateway",
             "annotation": "KMS and CloudHSM enforce FIPS 140-2 Level 3 hardware boundaries and M-of-N quorum dual-party authentication.",
-            "caption": "KMS and CloudHSM enforce FIPS 140-2 Level 3 hardware boundaries and M-of-N quorum dual-party authentication. (Dedicated Hardware Security: AWS Cl)"
+            "caption": "KMS and CloudHSM enforce FIPS multiple-two Level three hardware."
           },
           {
             "at": "example",
@@ -211,7 +211,7 @@
             "at": "say2",
             "focus": "kms_hsm_gateway",
             "annotation": "KMS and CloudHSM enforce FIPS 140-2 Level 3 hardware boundaries and M-of-N quorum dual-party authentication.",
-            "caption": "KMS and CloudHSM enforce FIPS 140-2 Level 3 hardware boundaries and M-of-N quorum dual-party authentication. (Envelope Encryption & High-Throughp)"
+            "caption": "KMS and CloudHSM enforce FIPS multiple-two Level three hardware."
           },
           {
             "at": "example",
@@ -286,7 +286,7 @@
             "at": "say2",
             "focus": "kms_hsm_gateway",
             "annotation": "KMS and CloudHSM enforce FIPS 140-2 Level 3 hardware boundaries and M-of-N quorum dual-party authentication.",
-            "caption": "KMS and CloudHSM enforce FIPS 140-2 Level 3 hardware boundaries and M-of-N quorum dual-party authentication. (Cryptographic Erasure (Crypto-Shred)"
+            "caption": "KMS and CloudHSM enforce FIPS multiple-two Level three hardware."
           },
           {
             "at": "example",
@@ -361,7 +361,7 @@
             "at": "say2",
             "focus": "kms_hsm_gateway",
             "annotation": "KMS and CloudHSM enforce FIPS 140-2 Level 3 hardware boundaries and M-of-N quorum dual-party authentication.",
-            "caption": "KMS and CloudHSM enforce FIPS 140-2 Level 3 hardware boundaries and M-of-N quorum dual-party authentication. (Masterclass Synthesis: Enterprise K)"
+            "caption": "KMS and CloudHSM enforce FIPS multiple-two Level three hardware."
           },
           {
             "at": "example",

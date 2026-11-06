@@ -126,7 +126,7 @@
           },
           {
             "at": "say4",
-            "caption": "Target host (Terminal CLI, Canvas, 3D WebGL) renders the updated scene.",
+            "caption": "Target host (Terminal CLI, Canvas, three-dimensional WebGL) renders the.",
             "values": {
               "jsx_el": {
                 "text": "\"Rendered\""
@@ -492,7 +492,7 @@
           },
           {
             "at": "say2",
-            "caption": "Custom reconcilers allow React to render to CLI terminals, PDFs, or 3D engines.",
+            "caption": "Custom reconcilers allow React to render to CLI terminals, PDFs, or.",
             "values": {
               "left": {
                 "items": [
@@ -518,7 +518,7 @@
           },
           {
             "at": "say3",
-            "caption": "Headless reconcilers run 10,000 automated UI component tests in under 5 seconds.",
+            "caption": "Headless reconcilers run ten,multiple automated UI component tests in.",
             "values": {
               "left": {
                 "items": [

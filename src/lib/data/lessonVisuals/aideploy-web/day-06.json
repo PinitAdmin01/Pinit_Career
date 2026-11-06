@@ -861,7 +861,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Enterprise Streaming Client Pipeline [D6.P6.S1].",
+            "caption": "Initialize input state for Enterprise Streaming Client Pipeline.",
             "values": {
               "in": "Day 6 Input",
               "proc": "Standby",
@@ -881,7 +881,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Enterprise Streamin... [D6.P6.S2].",
+            "caption": "Execute core transformation in Enterprise Streamin... [Dsix.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -905,7 +905,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D6.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [Dsix.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -925,7 +925,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Enterprise Streaming Client Pipel.. [D6.P6.S4].",
+            "caption": "End-to-end execution verified for Enterprise Streaming Client Pipel.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

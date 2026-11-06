@@ -268,7 +268,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize WISUN_PHY_MOD_REG: Arm 868/915 MHz Sub-GHz multi-rate PHY.",
+            "caption": "Initialize WISUN_PHY_MOD_REG: Arm multiple/multiple MHz Sub-GHz.",
             "registerName": "WISUN_PHY_MOD_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -329,7 +329,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Configure 2-FSK 150 kbps modulation with Reed-Solomon forward error correction.",
+            "caption": "Configure two-FSK multiple kbps modulation with Reed-Solomon forward.",
             "registerName": "WISUN_PHY_MOD_REG",
             "bitWidth": 8,
             "hexValue": "0xA6",
@@ -390,7 +390,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Validate 100 kHz channel spacing and RF receiver sensitivity of -108 dBm.",
+            "caption": "Validate one hundred kHz channel spacing and RF receiver sensitivity of.",
             "registerName": "WISUN_PHY_MOD_REG",
             "bitWidth": 8,
             "hexValue": "0xFE",
@@ -451,7 +451,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Commit Sub-GHz IEEE 802.15.4g physical layer lock for long-range utility mesh.",
+            "caption": "Commit Sub-GHz IEEE multiple.multiple.fourg physical layer lock for.",
             "registerName": "WISUN_PHY_MOD_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -522,7 +522,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize WISUN_TSCH_SLOT_REG: Enable IEEE 802.15.4e Time-Slotted Channel Hopping.",
+            "caption": "Initialize WISUN_TSCH_SLOT_REG: Enable IEEE multiple.multiple.foure.",
             "registerName": "WISUN_TSCH_SLOT_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -583,7 +583,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Program 10 ms slotframe timing and initialize Absolute Slot Number (ASN) progression.",
+            "caption": "Program ten ms slotframe timing and initialize Absolute Slot Number (ASN).",
             "registerName": "WISUN_TSCH_SLOT_REG",
             "bitWidth": 8,
             "hexValue": "0xEC",
@@ -644,7 +644,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Execute pseudo-random frequency hopping sequence across 64 channels to defeat RF jamming.",
+            "caption": "Execute pseudo-random frequency hopping sequence across sixty-four.",
             "registerName": "WISUN_TSCH_SLOT_REG",
             "bitWidth": 8,
             "hexValue": "0xFE",
@@ -776,7 +776,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize WISUN_SEC_KEY_REG: Initiate IEEE 802.1X certificate-based EAP-TLS authentication.",
+            "caption": "Initialize WISUN_SEC_KEY_REG: Initiate IEEE multiple.oneX.",
             "registerName": "WISUN_SEC_KEY_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -837,7 +837,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Derive Group Transient Keys (GTK) and arm AES-128-CCM link-layer encryption.",
+            "caption": "Derive Group Transient Keys (GTK) and arm AES-one-twenty-eight-CCM.",
             "registerName": "WISUN_SEC_KEY_REG",
             "bitWidth": 8,
             "hexValue": "0xBA",
@@ -898,7 +898,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Enforce 32-bit Frame Counter replay protection and trigger scheduled GTK rotation.",
+            "caption": "Enforce thirty-two-bit Frame Counter replay protection and trigger.",
             "registerName": "WISUN_SEC_KEY_REG",
             "bitWidth": 8,
             "hexValue": "0xFE",
@@ -1152,7 +1152,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Select primary parent node and compute DAG rank with 1.2 dB link hysteresis.",
+            "caption": "Select primary parent node and compute DAG rank with one.two dB link.",
             "registerName": "WISUN_RPL_ROUTING_REG",
             "bitWidth": 8,
             "hexValue": "0xFE",
@@ -1345,7 +1345,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Validate 802.1X mutual authentication and RPL DODAG mesh routing convergence.",
+            "caption": "Validate multiple.oneX mutual authentication and RPL DODAG mesh routing.",
             "registerName": "WISUN_MASTER_MESH_REG",
             "bitWidth": 8,
             "hexValue": "0xF0",
@@ -1406,7 +1406,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Execute 10-hop deterministic mesh delivery simulation with 99.999% packet reliability.",
+            "caption": "Execute ten-hop deterministic mesh delivery simulation with.",
             "registerName": "WISUN_MASTER_MESH_REG",
             "bitWidth": 8,
             "hexValue": "0xFE",

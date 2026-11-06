@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state for Anatomy of DeFi Liquidations: ",
+            "caption": "Protocol monitors state for Anatomy of DeFi Liquidations.",
             "activeActor": "Liquidator Bot",
             "messages": [
               {
@@ -33,7 +33,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes liquidation calculation or uncollateralized loan dispatch",
+            "caption": "Engine executes liquidation calculation or uncollateralized loan dispatch.",
             "activeActor": "LendingPoolEngine",
             "messages": [
               {
@@ -46,7 +46,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Protocol settles seized collateral or verifies safety backstop waterfall",
+            "caption": "Protocol settles seized collateral or verifies safety backstop waterfall.",
             "activeActor": "PriceOracleRegistry",
             "messages": [
               {
@@ -59,7 +59,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Liquidation settled; debt extinguished and state committed",
+            "caption": "Liquidation settled; debt extinguished and state committed.",
             "activeActor": "LendingPoolEngine",
             "messages": [
               {
@@ -152,7 +152,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state for Keeper Bots & MEV Priority Gas",
+            "caption": "Protocol monitors state for Keeper Bots & MEV Priority Gas.",
             "activeActor": "Keeper Daemon",
             "messages": [
               {
@@ -165,7 +165,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes liquidation calculation or uncollateralized loan dispatch",
+            "caption": "Engine executes liquidation calculation or uncollateralized loan dispatch.",
             "activeActor": "FlashbotsRelay",
             "messages": [
               {
@@ -178,7 +178,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Protocol settles seized collateral or verifies safety backstop waterfall",
+            "caption": "Protocol settles seized collateral or verifies safety backstop waterfall.",
             "activeActor": "BlockBuilder",
             "messages": [
               {
@@ -191,7 +191,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Liquidation settled; debt extinguished and state committed",
+            "caption": "Liquidation settled; debt extinguished and state committed.",
             "activeActor": "FlashbotsRelay",
             "messages": [
               {
@@ -284,7 +284,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state for Flash Loan-Powered Atomic Liqu",
+            "caption": "Protocol monitors state for Flash Loan-Powered Atomic Liqu.",
             "activeActor": "FlashPoolVault",
             "messages": [
               {
@@ -297,7 +297,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes liquidation calculation or uncollateralized loan dispatch",
+            "caption": "Engine executes liquidation calculation or uncollateralized loan dispatch.",
             "activeActor": "KeeperContract",
             "messages": [
               {
@@ -310,7 +310,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Protocol settles seized collateral or verifies safety backstop waterfall",
+            "caption": "Protocol settles seized collateral or verifies safety backstop waterfall.",
             "activeActor": "LendingPoolEngine",
             "messages": [
               {
@@ -323,7 +323,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Liquidation settled; debt extinguished and state committed",
+            "caption": "Liquidation settled; debt extinguished and state committed.",
             "activeActor": "KeeperContract",
             "messages": [
               {
@@ -416,7 +416,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state for Bad Debt Mechanics, Deficit So",
+            "caption": "Protocol monitors state for Bad Debt Mechanics, Deficit So.",
             "activeActor": "Risk DAO Sentinel",
             "messages": [
               {
@@ -429,7 +429,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes liquidation calculation or uncollateralized loan dispatch",
+            "caption": "Engine executes liquidation calculation or uncollateralized loan dispatch.",
             "activeActor": "ReserveTreasury",
             "messages": [
               {
@@ -442,7 +442,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Protocol settles seized collateral or verifies safety backstop waterfall",
+            "caption": "Protocol settles seized collateral or verifies safety backstop waterfall.",
             "activeActor": "SafetyModulePool",
             "messages": [
               {
@@ -455,7 +455,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Liquidation settled; debt extinguished and state committed",
+            "caption": "Liquidation settled; debt extinguished and state committed.",
             "activeActor": "ReserveTreasury",
             "messages": [
               {
@@ -548,7 +548,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state for Enterprise Liquidation Sentine",
+            "caption": "Protocol monitors state for Enterprise Liquidation Sentine.",
             "activeActor": "Institutional Sentinel",
             "messages": [
               {
@@ -561,7 +561,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes liquidation calculation or uncollateralized loan dispatch",
+            "caption": "Engine executes liquidation calculation or uncollateralized loan dispatch.",
             "activeActor": "LiquidationEngine",
             "messages": [
               {
@@ -574,7 +574,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Protocol settles seized collateral or verifies safety backstop waterfall",
+            "caption": "Protocol settles seized collateral or verifies safety backstop waterfall.",
             "activeActor": "SolvencyAuditor",
             "messages": [
               {
@@ -587,7 +587,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Liquidation settled; debt extinguished and state committed",
+            "caption": "Liquidation settled; debt extinguished and state committed.",
             "activeActor": "LiquidationEngine",
             "messages": [
               {

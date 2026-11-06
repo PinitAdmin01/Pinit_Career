@@ -4,7 +4,7 @@ import { CourseQuest } from './coursesData';
 export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
   {
     "day": 1,
-    "title": "Spreadsheet Grid Architecture: Cells, 2D Coordinates & Data Types",
+    "title": "Tabular Schema Invariants, Exact Relational Lookups & Vectorized Analytics",
     "desc": "Master the fundamental coordinate geometry of modern spreadsheets: 2D Grid Spaces (Columns A to XFD = 16,384 columns, Rows 1 to 1,048,576 = 17.1 billion cells), Native Data Types, and Formula Execution syntax.",
     "syllabus": [
       "2D grid coordinates and addressing geometry.",
@@ -24,7 +24,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 2,
-    "title": "Core Mathematical & Aggregation Functions: SUM, AVERAGE, COUNT & ROUND",
+    "title": "Dynamic Array Spill Engines, Monte Carlo Risk, Power Pivot DAX & Sensitivity Bridges",
     "desc": "Compute robust descriptive statistics across numerical column vectors including SUM, AVERAGE, COUNT (numbers only), COUNTA (non-empty), MIN, MAX, and precision rounding.",
     "syllabus": [
       "Core mathematical aggregation functions across numerical arrays.",
@@ -44,7 +44,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 3,
-    "title": "Cell Referencing Mechanics: Relative (A1), Absolute ($A$1) & Mixed ($A1, A$1)",
+    "title": "Enterprise Financial Modeling: Power Query M-Pipelines, Advanced LAMBDAs, 3-Statement Linking & Executive Dashboards",
     "desc": "Control formula propagation across rows and columns: Relative Referencing (A1 shifts both), Absolute Referencing ($A$1 locks both), and Mixed Referencing ($A1 vs A$1).",
     "syllabus": [
       "Mechanics of the dollar sign $ coordinate lock anchor.",
@@ -64,7 +64,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 4,
-    "title": "Logical Evaluation Functions: Single IF, Nested IF & Multi-Condition AND/OR",
+    "title": "Advanced Capital Budgeting, DCF Valuation, LBO Debt Waterfall & Real-Time Sensitivity Surfaces",
     "desc": "Implement conditional branching logic in spreadsheets using IF(condition, value_if_true, value_if_false), nested IF tiers, and boolean AND/OR multi-criteria evaluations.",
     "syllabus": [
       "Logical operators and boolean conditions in Excel formulas.",
@@ -84,7 +84,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 5,
-    "title": "⭐ MILESTONE 1: Complete Spreadsheet Grid Architecture, Aggregation & Logical Evaluation Engine",
+    "title": "Financial Modeling Audit, Circularity Breakers, Monte Carlo VaR & Boardroom Visualizations",
     "desc": "Milestone 1: Construct a complete spreadsheet execution pipeline integrating 2D grid cell parsing, coordinate arithmetic, core statistical aggregations, and logical formula evaluation.",
     "syllabus": [
       "End-to-End Workbook Engine Architecture.",
@@ -104,7 +104,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 6,
-    "title": "Statistical Conditional Aggregations: SUMIF, SUMIFS, COUNTIF & AVERAGEIFS",
+    "title": "Advanced Statistical Functions, Regression Analysis & Trend Forecasting",
     "desc": "Aggregate subsets of data meeting single or multiple criteria using SUMIF, SUMIFS, COUNTIF, and AVERAGEIFS with comparison operators and wildcards.",
     "syllabus": [
       "Single-condition aggregations with SUMIF and COUNTIF.",
@@ -124,7 +124,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 7,
-    "title": "Text Manipulation & Cleaning Functions: TRIM, CLEAN, PROPER & TEXTJOIN",
+    "title": "Power Query ETL Pipeline, Data Cleansing & Fuzzy Matching",
     "desc": "Clean, sanitize, and format messy string inputs in spreadsheets using TRIM, CLEAN (non-printables), PROPER (title case), UPPER, LOWER, and delimited TEXTJOIN.",
     "syllabus": [
       "Text sanitization: Removing leading, trailing, and duplicate inner spaces.",
@@ -144,7 +144,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 8,
-    "title": "Date & Time Calculation Mechanics: Excel Serial Numbers, DATEDIF & EOMONTH",
+    "title": "Advanced PivotTables, Slicers & Dynamic Relational Data Models",
     "desc": "Master Excel's date serial system (Day 1 = January 1, 1900), date arithmetic, age calculations with DATEDIF, and end-of-month projections with EOMONTH.",
     "syllabus": [
       "Excel Date Serial Numbers: Integer days and fractional time components.",
@@ -164,7 +164,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 9,
-    "title": "Classic Lookup Functions: VLOOKUP (Exact Match FALSE / 0), HLOOKUP & #N/A",
+    "title": "Financial & Loan Amortization Models, NPV, IRR & XIRR",
     "desc": "Retrieve associated row attributes across tables using vertical lookup VLOOKUP(lookup_value, table_array, col_index, [range_lookup]) and horizontal HLOOKUP.",
     "syllabus": [
       "VLOOKUP syntax and the critical exact-match flag FALSE / 0.",
@@ -184,7 +184,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 10,
-    "title": "Advanced Two-Way Lookups: INDEX & MATCH Dynamic Matrix Retrieval",
+    "title": "⭐ Milestone 2 Capstone: Enterprise Financial & Operational Analytics Dashboard",
     "desc": "Break free from VLOOKUP constraints using INDEX(array, row_num, col_num) and MATCH(lookup_val, lookup_array, [match_type]) for flexible bidirectional retrieval.",
     "syllabus": [
       "INDEX() positional array slicing mechanics.",
@@ -204,7 +204,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 11,
-    "title": "Modern Universal Lookup Function: XLOOKUP (Leftward, Defaults & Search Modes)",
+    "title": "Dynamic Financial Modeling, Working Capital Cycles & Cash Flow Forecasting",
     "desc": "Master modern Excel data retrieval with XLOOKUP: simultaneous support for leftward lookups, default if_not_found fallbacks, exact match by default, and binary search.",
     "syllabus": [
       "XLOOKUP syntax: lookup_value, lookup_array, return_array, [if_not_found].",
@@ -224,7 +224,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 12,
-    "title": "Dynamic Array Formulas & Spill Ranges: FILTER, UNIQUE, SORT & #SPILL!",
+    "title": "Capital Budgeting, Sensitivity Grids, Data Tables & Tornado Charts",
     "desc": "Harness the power of dynamic array calculation engines: single formulas that return multi-cell results spilling into adjacent ranges (FILTER, UNIQUE, SORT, SORTBY, and #SPILL!).",
     "syllabus": [
       "Dynamic array evaluation and the spill range operator (#).",
@@ -244,7 +244,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 13,
-    "title": "Error Trapping & Formula Debugging: IFERROR, IFNA, #DIV/0! & Precedents",
+    "title": "Advanced Corporate Valuation: Multi-Stage Discounted Cash Flow (DCF), Terminal Value & WACC Sensitivity",
     "desc": "Build resilient, production-ready spreadsheets by wrapping volatile calculations with IFERROR and IFNA, and diagnosing #DIV/0!, #VALUE!, #REF!, and circular references.",
     "syllabus": [
       "Common spreadsheet errors: #DIV/0!, #N/A, #VALUE!, #REF!, and #NUM!.",
@@ -264,7 +264,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 14,
-    "title": "Data Validation & Dropdown Integrity: In-Cell Lists & Input Constraints",
+    "title": "Leveraged Buyout (LBO) Debt Schedule, Returns Waterfall & Carried Interest Modeling",
     "desc": "Enforce strict spreadsheet data integrity using Data Validation: In-Cell Dropdown Lists, whole number / decimal bounds, date limits, and custom formula validation rules.",
     "syllabus": [
       "In-Cell dropdown list constraints and named range sources.",
@@ -284,7 +284,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 15,
-    "title": "⭐ MILESTONE 2: Advanced Lookup, Dynamic Arrays, Aggregations & Error Trapping Engine",
+    "title": "⭐ Milestone 3 Capstone: Enterprise Strategic M&A, Accretion/Dilution & Synergy Valuation Model",
     "desc": "Milestone 2: Construct an executive data analytics pipeline combining multi-condition SUMIFS, dynamic XLOOKUP retrieval, spilled array transformations, and defensive IFERROR shields.",
     "syllabus": [
       "Multi-Condition Aggregations: SUMIFS, COUNTIFS, and AVERAGEIFS.",
@@ -305,7 +305,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 16,
-    "title": "Conditional Formatting & Visual Highlighting: Data Bars, Color Scales & Custom Rules",
+    "title": "Dynamic Financial Dashboards, KPI Cards, Form Controls & Conditional Formatting Architecture",
     "desc": "Transform dense numeric grids into intuitive visual heatmaps using Conditional Formatting: 3-Color Scales, gradient Data Bars, Icon Sets, and custom formula rules.",
     "syllabus": [
       "Rule evaluation hierarchy and 'Stop If True' execution order.",
@@ -325,7 +325,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 17,
-    "title": "Excel Tables (Ctrl + T) & Structured Referencing: Table1[@Sales] Syntax",
+    "title": "Scenario Manager, Goal Seek & Complex Constrained Optimization with Excel Solver",
     "desc": "Upgrade static grids into dynamic structured Excel Tables: automatic formula propagation, Total Rows with calculated metrics, and structured references Table[@Column].",
     "syllabus": [
       "Table conversion advantages: Dynamic expansion and automatic range naming.",
@@ -345,7 +345,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 18,
-    "title": "Pivot Tables I: Field List Architecture (Rows, Columns, Values & Filters)",
+    "title": "Monte Carlo Simulation & Stochastic Risk Modeling in Excel",
     "desc": "Summarize multi-thousand-row datasets instantly without formulas using Pivot Tables: the 4-quadrant field architecture (Filters, Columns, Rows, and Values).",
     "syllabus": [
       "The PivotTable cache and multidimensional aggregation architecture.",
@@ -365,7 +365,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 19,
-    "title": "Pivot Tables II: Grouping Dates, Value Field Settings & Calculated Fields",
+    "title": "Financial Modeling Audit, Error Trapping, Circularity Breakers & FAST Standard Compliance",
     "desc": "Perform advanced Pivot Table modeling: grouping timestamps into Years/Quarters/Months, displaying values as '% of Grand Total' or 'Running Total', and Calculated Fields.",
     "syllabus": [
       "Automatic and manual date/time grouping hierarchies.",
@@ -385,7 +385,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 20,
-    "title": "Pivot Charts & Interactive Slicers: Multi-Pivot Dashboard Connections",
+    "title": "⭐ Milestone 4 Capstone: Enterprise Monte Carlo Risk & Corporate Treasury Optimizer",
     "desc": "Build dynamic interactive reporting dashboards connecting visual Pivot Charts to multiple Pivot Tables using interactive Slicers and Timelines.",
     "syllabus": [
       "Pivot Chart synchronization with underlying pivot caches.",
@@ -405,7 +405,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 21,
-    "title": "⭐ MILESTONE 3: Complete Conditional Formatting, Structured Tables, Pivot Tables & Slicers Engine",
+    "title": "Advanced Budgeting & Variance Analysis: Price-Volume-Mix (PVM) Decomposition & Flexible Budgets",
     "desc": "Milestone 3: Construct a comprehensive Business Intelligence dashboard suite combining structured Excel Tables, multi-table Pivot summaries, interactive Slicers, and heatmap formats.",
     "syllabus": [
       "End-to-end BI Pipeline: Structured tables -> Pivot Tables -> Interactive Slicers.",
@@ -425,7 +425,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 22,
-    "title": "Business Charting & Data Visualization: Chart Type Selection & Secondary Axes",
+    "title": "Revenue Recognition & Deferred Revenue Waterfall Modeling under ASC 606 / IFRS 15",
     "desc": "Communicate insights effectively with professional business charts: Clustered Column vs Stacked Bar, Dual-Axis Combo Charts, Pareto Charts, and clean layout typography.",
     "syllabus": [
       "Chart selection taxonomy: Comparison, Composition, Distribution, and Relationship.",
@@ -445,7 +445,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 23,
-    "title": "Financial Modeling Functions: PMT Loan Repayments, NPV, PV, FV & IRR",
+    "title": "Rolling 13-Week Cash Flow Forecasting (TWCF) & Direct Method Working Capital Telemetry",
     "desc": "Build institutional-grade financial models using discounted cash flow functions: PMT (loan amortizations), NPV (Net Present Value), PV, FV (compound growth), and IRR.",
     "syllabus": [
       "Time Value of Money (TVM) principles and discount rates.",
@@ -465,7 +465,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 24,
-    "title": "What-If Analysis & Scenario Planning: Goal Seek & Sensitivity Data Tables",
+    "title": "Enterprise Capital Allocation, Hurdle Rates, Economic Value Added (EVA) & ROIC vs WACC Bridges",
     "desc": "Perform dynamic financial forecasting and risk assessment using What-If Analysis: Goal Seek back-solving, 1-Variable / 2-Variable Data Tables, and Scenario Manager.",
     "syllabus": [
       "Goal Seek reverse engineering: Finding the required input to reach a target KPI.",
@@ -485,7 +485,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 25,
-    "title": "Power Query (Get & Transform) I: Data Cleaning, Splitting & Unpivoting",
+    "title": "⭐ Milestone 5 Capstone: Enterprise Corporate FP&A Planning, Variance Analysis & Capital Allocation Platform",
     "desc": "Automate recurring data preparation pipelines with Power Query: importing external files, unpivoting cross-tabulated reports, splitting columns, and trimming text.",
     "syllabus": [
       "The Power Query ETL architecture (Extract, Transform, Load).",
@@ -505,7 +505,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 26,
-    "title": "Power Query (Get & Transform) II: Merging Queries (Joins), Appending & Refresh",
+    "title": "Advanced Excel Automation: Dynamic Office Scripts, TypeScript & REST API Integrations",
     "desc": "Build multi-source data models with advanced Power Query operations: Inner/Left Outer Joins (Merge Queries), vertical stacking (Append Queries), and M-Code functions.",
     "syllabus": [
       "Merge Queries: Left Outer, Right Outer, Full Outer, and Inner Join semantics.",
@@ -525,7 +525,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 27,
-    "title": "Executive Dashboard Design & Layout Principles: KPI Metric Cards & Visual Flow",
+    "title": "Big Data Excel: Power Query Advanced M Engine, Web Scraping & Multi-Source Reconciliation",
     "desc": "Design clean executive dashboards following human visual hierarchy: KPI Summary Cards with actual vs target variances, structured grid layouts, and color restraint.",
     "syllabus": [
       "Executive Dashboard Architecture: Summary cards, trend charts, and breakdown tables.",
@@ -545,7 +545,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 28,
-    "title": "Spreadsheet Security, Protection & Auditing: Sheet Protection & Formula Locks",
+    "title": "Enterprise Financial Reporting: GAAP / IFRS Statements, Multi-Currency Translation & Consolidation",
     "desc": "Protect sensitive corporate financial models: unlocking data-entry cells, locking formula cells, password-protecting worksheets, and auditing circular calculation loops.",
     "syllabus": [
       "Cell Locked / Hidden properties and Worksheet Protection activation.",
@@ -565,7 +565,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 29,
-    "title": "AI in Spreadsheets & Future Trends: Excel Copilot & Python in Excel (=PY())",
+    "title": "Real-Time Financial Telemetry: Executive KPI Cockpits, Dynamic Slicers & Boardroom Storytelling",
     "desc": "Leverage modern AI and programmatic capabilities in Excel: natural language formula generation with Copilot, running Python inside cells with =PY(), and pandas DataFrames.",
     "syllabus": [
       "Natural language prompts to complex spreadsheet formulas.",
@@ -585,7 +585,7 @@ export const EXCEL_DATA_VIZ_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 30,
-    "title": "🏆 FINAL CAPSTONE: Sovereign Excel & Master Data Analysis Suite",
+    "title": "⭐ Grand Final Milestone 6 Capstone: Sovereign Enterprise Corporate Financial OS & Autonomous Treasury Platform",
     "desc": "The ultimate capstone synthesis of PinIT Excel & Data Analytics Engineering: end-to-end multi-sheet corporate financial model, dynamic XLOOKUP pipelines, Pivot BI dashboards, What-If sensitivity tables, and Python analytics.",
     "syllabus": [
       "Full 5-Pillar Architecture: Foundations, Advanced Analytics, Business Intelligence, Financial Modeling, and Executive Dashboards.",

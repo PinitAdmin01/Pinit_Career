@@ -36,7 +36,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The 60Hz display refreshes every 16.6ms; all browser work must finish within this window.",
+            "caption": "The Hz display refreshes every sixteen.sixms; all browser work must.",
             "values": {
               "vsync": {
                 "text": "\"60Hz Tick\""
@@ -66,7 +66,7 @@
           },
           {
             "at": "say2",
-            "caption": "Monolithic synchronous JavaScript exceeding 16.6ms causes dropped frames and visible jank.",
+            "caption": "Monolithic synchronous JavaScript exceeding sixteen.sixms causes dropped.",
             "values": {
               "vsync": {
                 "text": "\"Tick Missed\""
@@ -96,7 +96,7 @@
           },
           {
             "at": "say3",
-            "caption": "Cooperative multitasking breaks JavaScript work into 5ms slices, preserving layout and paint time.",
+            "caption": "Cooperative multitasking breaks JavaScript work into fivems slices.",
             "values": {
               "vsync": {
                 "text": "\"Stable 60fps\""
@@ -324,7 +324,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "HTML5 mandates a 4ms minimum delay once setTimeout nests deeper than 5 consecutive levels.",
+            "caption": "HTMLfive mandates a fourms minimum delay once setTimeout nests deeper.",
             "left": {
               "code": "setTimeout(fn, 0); // clamped to 4ms",
               "result": {
@@ -342,7 +342,7 @@
           },
           {
             "at": "say2",
-            "caption": "In a 20-slice computation, 4ms clamping introduces 60ms of dead idle time with zero CPU utilization.",
+            "caption": "In a twenty-slice computation, fourms clamping introduces ms of dead idle.",
             "left": {
               "code": "console.log(wastedClampTime);",
               "result": {
@@ -510,19 +510,19 @@
           },
           {
             "at": "say2",
-            "caption": "Calling postMacroTask() triggers channel.port2.postMessage and moves to MACRO_TASK_SCHEDULED.",
+            "caption": "Calling postMacroTask() triggers channel.porttwo.postMessage and moves to.",
             "activeId": "ms2",
             "tone": "data"
           },
           {
             "at": "say3",
-            "caption": "port1.onmessage fires; workLoop reconciles fiber nodes in RECONCILING_SLICE.",
+            "caption": "Portone.onmessage fires; workLoop reconciles fiber nodes in.",
             "activeId": "ms3",
             "tone": "data"
           },
           {
             "at": "say4",
-            "caption": "When slice exceeds 5ms, scheduler yields control to browser paint and re-queues.",
+            "caption": "When slice exceeds fivems, scheduler yields control to browser paint and.",
             "activeId": "ms4",
             "tone": "ok"
           }
@@ -608,7 +608,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The 16.6ms frame budget must accommodate all JavaScript, style recalculation, layout, and paint.",
+            "caption": "The sixteen.sixms frame budget must accommodate all JavaScript, style.",
             "values": {
               "b_budget": {
                 "text": "\"16.6ms\""
@@ -632,7 +632,7 @@
           },
           {
             "at": "say2",
-            "caption": "React Scheduler fixes slice duration to 5ms, guaranteeing ample headroom for browser layout.",
+            "caption": "React Scheduler fixes slice duration to fivems, guaranteeing ample.",
             "values": {
               "b_budget": {
                 "text": "\"Active Frame\""
@@ -680,7 +680,7 @@
           },
           {
             "at": "say4",
-            "caption": "Zero frames are dropped because rendering yields cleanly before the 16.6ms hardware V-Sync pulse.",
+            "caption": "Zero frames are dropped because rendering yields cleanly before the.",
             "values": {
               "b_budget": {
                 "text": "\"0 Dropped\""
@@ -845,13 +845,13 @@
           "viewport": {
             "totalHeightPx": 240,
             "renderedRange": "Main Thread: 5ms Slices [||||] (Zero Red Hatched Long Tasks)",
-            "opacity": 1.0
+            "opacity": 1
           }
         },
         "steps": [
           {
             "at": "say1",
-            "caption": "Traditional monolithic tasks display red-hatched long task warnings exceeding 50ms.",
+            "caption": "Traditional monolithic tasks display red-hatched long task warnings.",
             "values": {
               "timeline": {
                 "text": "\"Long Task: 150ms (FAIL)\""
@@ -863,7 +863,7 @@
           },
           {
             "at": "say2",
-            "caption": "Cooperative scheduler segments execution into uniform 5ms macro-tasks.",
+            "caption": "Cooperative scheduler segments execution into uniform fivems macro-tasks.",
             "values": {
               "timeline": {
                 "text": "\"5ms Slices: [||||]\""
@@ -875,7 +875,7 @@
           },
           {
             "at": "say3",
-            "caption": "Chrome DevTools reports Total Blocking Time (TBT) drops to exactly 0 milliseconds.",
+            "caption": "Chrome DevTools reports Total Blocking Time (TBT) drops to exactly zero.",
             "values": {
               "tbt": {
                 "text": "\"TBT: 0ms (PASS)\""
@@ -912,7 +912,7 @@
           "viewport": {
             "totalHeightPx": 240,
             "renderedRange": "Main Thread: 5ms Slices [||||] (Zero Red Hatched Long Tasks)",
-            "opacity": 1.0
+            "opacity": 1
           }
         },
         "steps": [

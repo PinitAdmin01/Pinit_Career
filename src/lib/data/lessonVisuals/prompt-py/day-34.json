@@ -6,7 +6,7 @@
   "entries": [
     {
       "partTitle": "The Physics Of Transformer Context Windows: Rotary Positional Embeddings & Attention Dynamics",
-      "codeHash": "80f5f387b9ccc7f2c8c674ac5e2d9dcd932bc1567514346b6179e0f2170890e5",
+      "codeHash": "56ba2f1a329284487a2fffd81838cb95507093adbfc1fa356459f9f7f8b7e9cc",
       "spec": {
         "template": "table",
         "title": "Transformer Context Physics And Positional Softmax Attention Mechanics.",
@@ -160,7 +160,7 @@
     },
     {
       "partTitle": "The Lost-In-The-Middle Phenomenon: Primacy, Recency & The U-Shaped Attention Dip",
-      "codeHash": "80f5f387b9ccc7f2c8c674ac5e2d9dcd932bc1567514346b6179e0f2170890e5",
+      "codeHash": "56ba2f1a329284487a2fffd81838cb95507093adbfc1fa356459f9f7f8b7e9cc",
       "spec": {
         "template": "table",
         "title": "The Lost In The Middle Phenomenon And U Shaped Attention Degradation.",
@@ -314,7 +314,7 @@
     },
     {
       "partTitle": "Needle-In-A-Haystack Benchmarking: Multi-Hop Retrieval, Reasoning Horizons & Distractor Testing",
-      "codeHash": "80f5f387b9ccc7f2c8c674ac5e2d9dcd932bc1567514346b6179e0f2170890e5",
+      "codeHash": "56ba2f1a329284487a2fffd81838cb95507093adbfc1fa356459f9f7f8b7e9cc",
       "spec": {
         "template": "table",
         "title": "Needle In A Haystack Diagnostics And Multi Hop Reasoning Horizons.",
@@ -468,7 +468,7 @@
     },
     {
       "partTitle": "Long-Context Architecture & Layout Hygiene: Placement Optimization & Structured Tagging",
-      "codeHash": "80f5f387b9ccc7f2c8c674ac5e2d9dcd932bc1567514346b6179e0f2170890e5",
+      "codeHash": "56ba2f1a329284487a2fffd81838cb95507093adbfc1fa356459f9f7f8b7e9cc",
       "spec": {
         "template": "table",
         "title": "Long Context Layout Architecture And Structured Tagging Hygiene.",
@@ -622,7 +622,7 @@
     },
     {
       "partTitle": "Enterprise Context Engineering: Implementing A Production Context Hygiene Controller In Python",
-      "codeHash": "80f5f387b9ccc7f2c8c674ac5e2d9dcd932bc1567514346b6179e0f2170890e5",
+      "codeHash": "56ba2f1a329284487a2fffd81838cb95507093adbfc1fa356459f9f7f8b7e9cc",
       "spec": {
         "template": "table",
         "title": "Enterprise Context Engineering And Production Python Controller Systems.",

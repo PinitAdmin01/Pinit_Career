@@ -16,7 +16,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Independent booleans allow 2^N state combinations, creating impossible UI states.",
+            "caption": "Independent booleans allow two^N state combinations, creating impossible.",
             "left": {
               "code": "isLoading && isError && data",
               "result": {
@@ -600,7 +600,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Reducers remain 100% pure, delegating side effects to external orchestration.",
+            "caption": "Reducers remain one hundred% pure, delegating side effects to external.",
             "values": {
               "e1": {
                 "text": "\"Pure State v2\""
@@ -902,19 +902,19 @@
           },
           {
             "at": "say2",
-            "caption": "Search query triggers FETCHING with incremented token #1.",
+            "caption": "Search query triggers FETCHING with incremented token #one.",
             "activeId": "t2",
             "tone": "data"
           },
           {
             "at": "say3",
-            "caption": "A second keystroke increments active token to #2, leaving token #1 obsolete.",
+            "caption": "A second keystroke increments active token to #two, leaving token #one.",
             "activeId": "t2",
             "tone": "data"
           },
           {
             "at": "say4",
-            "caption": "Late response for token #1 is discarded safely; token #2 commits to SUCCESS.",
+            "caption": "Late response for token #one is discarded safely; token #two commits to.",
             "activeId": "t3",
             "tone": "ok"
           }

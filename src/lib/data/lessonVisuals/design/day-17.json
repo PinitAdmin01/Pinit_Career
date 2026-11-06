@@ -34,7 +34,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Establish horizontal flex-row container for The 2D Grid Mental Mode...",
+            "caption": "Establish horizontal flex-row container for The two-dimensional Grid.",
             "layoutMode": "flex-row",
             "justifyContent": "space-between",
             "alignItems": "center",
@@ -63,7 +63,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Structure responsive grid hierarchy around Primary Hero Viewport.",
+            "caption": "Structure responsive grid hierarchy around Primary Hero Viewport.",
             "layoutMode": "grid",
             "justifyContent": "center",
             "alignItems": "stretch",
@@ -92,7 +92,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect CSS box-model padding, border, and margin tokens.",
+            "caption": "Inspect CSS box-model padding, border, and margin tokens.",
             "layoutMode": "box-model",
             "activeBoxId": "cta",
             "tone": "data",
@@ -119,7 +119,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify mobile-first flex-col stacking & WCAG contrast.",
+            "caption": "Verify mobile-first flex-col stacking & WCAG contrast.",
             "layoutMode": "flex-col",
             "justifyContent": "flex-start",
             "alignItems": "stretch",
@@ -318,7 +318,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Establish horizontal flex-row container for Fluid Columns without M...",
+            "caption": "Establish horizontal flex-row container for Fluid Columns without M...",
             "layoutMode": "flex-row",
             "justifyContent": "space-between",
             "alignItems": "center",
@@ -347,7 +347,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Structure responsive grid hierarchy around Primary Hero Viewport.",
+            "caption": "Structure responsive grid hierarchy around Primary Hero Viewport.",
             "layoutMode": "grid",
             "justifyContent": "center",
             "alignItems": "stretch",
@@ -376,7 +376,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect CSS box-model padding, border, and margin tokens.",
+            "caption": "Inspect CSS box-model padding, border, and margin tokens.",
             "layoutMode": "box-model",
             "activeBoxId": "cta",
             "tone": "data",
@@ -403,7 +403,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify mobile-first flex-col stacking & WCAG contrast.",
+            "caption": "Verify mobile-first flex-col stacking & WCAG contrast.",
             "layoutMode": "flex-col",
             "justifyContent": "flex-start",
             "alignItems": "stretch",
@@ -602,7 +602,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Establish horizontal flex-row container for auto-fit vs auto-fill: ...",
+            "caption": "Establish horizontal flex-row container for auto-fit vs auto-fill: ...",
             "layoutMode": "flex-row",
             "justifyContent": "space-between",
             "alignItems": "center",
@@ -631,7 +631,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Structure responsive grid hierarchy around Primary Hero Viewport.",
+            "caption": "Structure responsive grid hierarchy around Primary Hero Viewport.",
             "layoutMode": "grid",
             "justifyContent": "center",
             "alignItems": "stretch",
@@ -660,7 +660,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect CSS box-model padding, border, and margin tokens.",
+            "caption": "Inspect CSS box-model padding, border, and margin tokens.",
             "layoutMode": "box-model",
             "activeBoxId": "cta",
             "tone": "data",
@@ -687,7 +687,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify mobile-first flex-col stacking & WCAG contrast.",
+            "caption": "Verify mobile-first flex-col stacking & WCAG contrast.",
             "layoutMode": "flex-col",
             "justifyContent": "flex-start",
             "alignItems": "stretch",
@@ -886,7 +886,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Establish horizontal flex-row container for Named Grid Template Are...",
+            "caption": "Establish horizontal flex-row container for Named Grid Template Are...",
             "layoutMode": "flex-row",
             "justifyContent": "space-between",
             "alignItems": "center",
@@ -915,7 +915,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Structure responsive grid hierarchy around Primary Hero Viewport.",
+            "caption": "Structure responsive grid hierarchy around Primary Hero Viewport.",
             "layoutMode": "grid",
             "justifyContent": "center",
             "alignItems": "stretch",
@@ -944,7 +944,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect CSS box-model padding, border, and margin tokens.",
+            "caption": "Inspect CSS box-model padding, border, and margin tokens.",
             "layoutMode": "box-model",
             "activeBoxId": "cta",
             "tone": "data",
@@ -971,7 +971,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify mobile-first flex-col stacking & WCAG contrast.",
+            "caption": "Verify mobile-first flex-col stacking & WCAG contrast.",
             "layoutMode": "flex-col",
             "justifyContent": "flex-start",
             "alignItems": "stretch",
@@ -1170,7 +1170,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Establish horizontal flex-row container for Grid Gap, Cell Alignmen...",
+            "caption": "Establish horizontal flex-row container for Grid Gap, Cell Alignmen...",
             "layoutMode": "flex-row",
             "justifyContent": "space-between",
             "alignItems": "center",
@@ -1199,7 +1199,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Structure responsive grid hierarchy around Primary Hero Viewport.",
+            "caption": "Structure responsive grid hierarchy around Primary Hero Viewport.",
             "layoutMode": "grid",
             "justifyContent": "center",
             "alignItems": "stretch",
@@ -1228,7 +1228,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect CSS box-model padding, border, and margin tokens.",
+            "caption": "Inspect CSS box-model padding, border, and margin tokens.",
             "layoutMode": "box-model",
             "activeBoxId": "cta",
             "tone": "data",
@@ -1255,7 +1255,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify mobile-first flex-col stacking & WCAG contrast.",
+            "caption": "Verify mobile-first flex-col stacking & WCAG contrast.",
             "layoutMode": "flex-col",
             "justifyContent": "flex-start",
             "alignItems": "stretch",
@@ -1454,7 +1454,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Establish horizontal flex-row container for CSS Grid Engine Synthes...",
+            "caption": "Establish horizontal flex-row container for CSS Grid Engine Synthes...",
             "layoutMode": "flex-row",
             "justifyContent": "space-between",
             "alignItems": "center",
@@ -1483,7 +1483,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Structure responsive grid hierarchy around Primary Hero Viewport.",
+            "caption": "Structure responsive grid hierarchy around Primary Hero Viewport.",
             "layoutMode": "grid",
             "justifyContent": "center",
             "alignItems": "stretch",
@@ -1512,7 +1512,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect CSS box-model padding, border, and margin tokens.",
+            "caption": "Inspect CSS box-model padding, border, and margin tokens.",
             "layoutMode": "box-model",
             "activeBoxId": "cta",
             "tone": "data",
@@ -1539,7 +1539,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify mobile-first flex-col stacking & WCAG contrast.",
+            "caption": "Verify mobile-first flex-col stacking & WCAG contrast.",
             "layoutMode": "flex-col",
             "justifyContent": "flex-start",
             "alignItems": "stretch",

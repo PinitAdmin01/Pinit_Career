@@ -124,7 +124,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for The with statement [D16.P2.S1].",
+            "caption": "Initialize input state for The with statement [Dsixteen.Ptwo.Sone].",
             "values": {
               "in": "Day 16 Input",
               "proc": "Standby",
@@ -144,7 +144,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The with statement [D16.P2.S2].",
+            "caption": "Execute core transformation in The with statement [Dsixteen.Ptwo.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -168,7 +168,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D16.P2.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -188,7 +188,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The with statement [D16.P2.S4].",
+            "caption": "End-to-end execution verified for The with statement [Dsixteen.Ptwo.Sfour].",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -350,7 +350,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Appending and reading line by line [D16.P3.S1].",
+            "caption": "Initialize input state for Appending and reading line by line.",
             "values": {
               "in": "Day 16 Input",
               "proc": "Standby",
@@ -370,7 +370,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Appending and readi... [D16.P3.S2].",
+            "caption": "Execute core transformation in Appending and readi.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -394,7 +394,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D16.P3.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -414,7 +414,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Appending and reading line by line [D16.P3.S4].",
+            "caption": "End-to-end execution verified for Appending and reading line by line.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -765,7 +765,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Putting it together: a tracker that reme.. [D16.P6.S1].",
+            "caption": "Initialize input state for Putting it together: a tracker that reme.",
             "values": {
               "in": "Day 16 Input",
               "proc": "Standby",
@@ -785,7 +785,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Putting it together... [D16.P6.S2].",
+            "caption": "Execute core transformation in Putting it together... [Dsixteen.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -809,7 +809,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D16.P6.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -829,7 +829,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Putting it together: a tracker th.. [D16.P6.S4].",
+            "caption": "End-to-end execution verified for Putting it together: a tracker th.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

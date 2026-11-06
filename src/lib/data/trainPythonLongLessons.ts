@@ -3313,7 +3313,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
             "4"
           ],
           "answer": 1,
-          "why": "m and v."
+          "why": "Adam maintains two FP32 optimizer states per parameter: the first moment (m) and second moment (v)."
         }
       },
       {
@@ -5610,7 +5610,7 @@ export const TRAIN_PYTHON_LONG_LESSONS: LongLesson[] = [
             "It speeds up training"
           ],
           "answer": 1,
-          "why": "Measure first."
+          "why": "Profiling empirically identifies the true hardware or kernel bottleneck before engineering effort is spent optimizing."
         }
       },
       {

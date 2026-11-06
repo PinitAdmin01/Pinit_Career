@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Multi-Entity Consolidated Financial...",
+            "caption": "Baseline KPI cohort metrics for Multi-Entity Consolidated Financial...",
             "max": 100,
             "bars": [
               {
@@ -41,7 +41,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate Contribution Margin & Operating Cash Flow drivers.",
+            "caption": "Isolate Contribution Margin & Operating Cash Flow drivers.",
             "max": 100,
             "bars": [
               {
@@ -68,7 +68,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds.",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Multi-Entity Consolidated F...",
+            "caption": "Commit audited analytical dashboard for Multi-Entity Consolidated F...",
             "max": 100,
             "bars": [
               {
@@ -246,7 +246,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Beneish M-Score Earnings Manipulati...",
+            "caption": "Baseline KPI cohort metrics for Beneish M-Score Earnings Manipulati...",
             "max": 100,
             "bars": [
               {
@@ -273,7 +273,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate Contribution Margin & Operating Cash Flow drivers.",
+            "caption": "Isolate Contribution Margin & Operating Cash Flow drivers.",
             "max": 100,
             "bars": [
               {
@@ -300,7 +300,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds.",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -327,7 +327,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Beneish M-Score Earnings Ma...",
+            "caption": "Commit audited analytical dashboard for Beneish M-Score Earnings Ma...",
             "max": 100,
             "bars": [
               {
@@ -478,7 +478,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Altman Z-Score Corporate Insolvency...",
+            "caption": "Baseline KPI cohort metrics for Altman Z-Score Corporate Insolvency...",
             "max": 100,
             "bars": [
               {
@@ -505,7 +505,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate Contribution Margin & Operating Cash Flow drivers.",
+            "caption": "Isolate Contribution Margin & Operating Cash Flow drivers.",
             "max": 100,
             "bars": [
               {
@@ -532,7 +532,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds.",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -559,7 +559,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Altman Z-Score Corporate In...",
+            "caption": "Commit audited analytical dashboard for Altman Z-Score Corporate In...",
             "max": 100,
             "bars": [
               {
@@ -710,7 +710,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Cash Flow Statement Quality of Earn...",
+            "caption": "Baseline KPI cohort metrics for Cash Flow Statement Quality of Earn...",
             "max": 100,
             "bars": [
               {
@@ -737,7 +737,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate Contribution Margin & Operating Cash Flow drivers.",
+            "caption": "Isolate Contribution Margin & Operating Cash Flow drivers.",
             "max": 100,
             "bars": [
               {
@@ -764,7 +764,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds.",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -791,7 +791,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Cash Flow Statement Quality...",
+            "caption": "Commit audited analytical dashboard for Cash Flow Statement Quality...",
             "max": 100,
             "bars": [
               {
@@ -942,7 +942,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Capstone Verification: End-to-End E...",
+            "caption": "Baseline KPI cohort metrics for Capstone Verification: End-to-End E...",
             "max": 100,
             "bars": [
               {
@@ -969,7 +969,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate Contribution Margin & Operating Cash Flow drivers.",
+            "caption": "Isolate Contribution Margin & Operating Cash Flow drivers.",
             "max": 100,
             "bars": [
               {
@@ -996,7 +996,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds.",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -1023,7 +1023,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Capstone Verification: End-...",
+            "caption": "Commit audited analytical dashboard for Capstone Verification: End-...",
             "max": 100,
             "bars": [
               {

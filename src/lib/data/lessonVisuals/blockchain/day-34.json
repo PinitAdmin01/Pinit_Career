@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state and pool parameters for Uncollateralized Borrowing Sup...",
+            "caption": "Protocol monitors state and pool parameters for Uncollateralized.",
             "activeActor": "Arbitrageur Bot",
             "messages": [
               {
@@ -33,7 +33,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes mathematical transition and updates core invariant",
+            "caption": "Engine executes mathematical transition and updates core invariant.",
             "activeActor": "Flash Lender Pool",
             "messages": [
               {
@@ -46,7 +46,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of fee accounting, tick boundary or solvency thresholds",
+            "caption": "Verification of fee accounting, tick boundary or solvency thresholds.",
             "activeActor": "DEX Swap Router",
             "messages": [
               {
@@ -59,7 +59,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; invariant preserved and state committed",
+            "caption": "Block settled atomically; invariant preserved and state committed.",
             "activeActor": "Flash Lender Pool",
             "messages": [
               {
@@ -152,7 +152,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state and pool parameters for Cross-Pool Atomic Arbitrage Me...",
+            "caption": "Protocol monitors state and pool parameters for Cross-Pool Atomic.",
             "activeActor": "Arbitrageur Bot",
             "messages": [
               {
@@ -165,7 +165,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes mathematical transition and updates core invariant",
+            "caption": "Engine executes mathematical transition and updates core invariant.",
             "activeActor": "Flash Lender Pool",
             "messages": [
               {
@@ -178,7 +178,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of fee accounting, tick boundary or solvency thresholds",
+            "caption": "Verification of fee accounting, tick boundary or solvency thresholds.",
             "activeActor": "DEX Swap Router",
             "messages": [
               {
@@ -191,7 +191,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; invariant preserved and state committed",
+            "caption": "Block settled atomically; invariant preserved and state committed.",
             "activeActor": "Flash Lender Pool",
             "messages": [
               {
@@ -284,7 +284,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state and pool parameters for Detective Lab: Pool Balance Co...",
+            "caption": "Protocol monitors state and pool parameters for Detective Lab: Pool.",
             "activeActor": "Arbitrageur Bot",
             "messages": [
               {
@@ -297,7 +297,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes mathematical transition and updates core invariant",
+            "caption": "Engine executes mathematical transition and updates core invariant.",
             "activeActor": "Flash Lender Pool",
             "messages": [
               {
@@ -310,7 +310,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of fee accounting, tick boundary or solvency thresholds",
+            "caption": "Verification of fee accounting, tick boundary or solvency thresholds.",
             "activeActor": "DEX Swap Router",
             "messages": [
               {
@@ -323,7 +323,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; invariant preserved and state committed",
+            "caption": "Block settled atomically; invariant preserved and state committed.",
             "activeActor": "Flash Lender Pool",
             "messages": [
               {
@@ -416,7 +416,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state and pool parameters for Mempool Front-Running, MEV Sea...",
+            "caption": "Protocol monitors state and pool parameters for Mempool Front-Running.",
             "activeActor": "Arbitrageur Bot",
             "messages": [
               {
@@ -429,7 +429,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes mathematical transition and updates core invariant",
+            "caption": "Engine executes mathematical transition and updates core invariant.",
             "activeActor": "Flash Lender Pool",
             "messages": [
               {
@@ -442,7 +442,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of fee accounting, tick boundary or solvency thresholds",
+            "caption": "Verification of fee accounting, tick boundary or solvency thresholds.",
             "activeActor": "DEX Swap Router",
             "messages": [
               {
@@ -455,7 +455,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; invariant preserved and state committed",
+            "caption": "Block settled atomically; invariant preserved and state committed.",
             "activeActor": "Flash Lender Pool",
             "messages": [
               {
@@ -548,7 +548,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state and pool parameters for Flash Loan System Audit & Veri...",
+            "caption": "Protocol monitors state and pool parameters for Flash Loan System Audit &.",
             "activeActor": "Arbitrageur Bot",
             "messages": [
               {
@@ -561,7 +561,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes mathematical transition and updates core invariant",
+            "caption": "Engine executes mathematical transition and updates core invariant.",
             "activeActor": "Flash Lender Pool",
             "messages": [
               {
@@ -574,7 +574,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of fee accounting, tick boundary or solvency thresholds",
+            "caption": "Verification of fee accounting, tick boundary or solvency thresholds.",
             "activeActor": "DEX Swap Router",
             "messages": [
               {
@@ -587,7 +587,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; invariant preserved and state committed",
+            "caption": "Block settled atomically; invariant preserved and state committed.",
             "activeActor": "Flash Lender Pool",
             "messages": [
               {

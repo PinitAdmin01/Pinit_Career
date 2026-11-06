@@ -4,7 +4,7 @@ import { CourseQuest } from './coursesData';
 export const GIT_VERSION_CONTROL_30_DAYS_CONFIGS: DayConfig[] = [
   {
     "day": 1,
-    "title": "What is Version Control? — Git Commits and Repositories",
+    "title": "Git Object Model, Repository Initialization & Staging Invariants",
     "desc": "Understand why version control exists and what problems it solves: the version chaos problem (essay_v1_FINAL_LAST.docx), Git commits as project snapshots (what they store: changes + message + author + timestamp), and Git repositories as the complete project history store (local vs remote).",
     "syllabus": [
       "The version chaos problem that Git was built to solve.",
@@ -24,7 +24,7 @@ export const GIT_VERSION_CONTROL_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 2,
-    "title": "Local Repository Inception: `git init`, `git clone` & Identity Configuration",
+    "title": "Git Branching Mechanics, Merge Conflicts & Rebase Invariants",
     "desc": "Initialize and configure version-controlled codebases: Creating local repositories (`git init`), Cloning remote repositories (`git clone <url>`), Global vs Local Configuration Scope (`git config --global user.name` and `user.email`), and Setting the Modern Default Branch (`init.defaultBranch = main`).",
     "syllabus": [
       "Local repository creation and `.git` folder initialization.",
@@ -33,18 +33,18 @@ export const GIT_VERSION_CONTROL_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     "eTitle": "Git Configuration Identity & Email Validator",
     "eDesc": "Implement function validateGitAuthorIdentity(authorName, authorEmail) certifying that author credentials satisfy Git conventional commit identity requirements.",
-    "eStarter": "function validateGitAuthorIdentity(name, email) {\n  const hasName = typeof name === 'string' && name.trim().length >= 2;\n  const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;\n  const hasValidEmail = emailRegex.test(email);\n  const isValid = hasName && hasValidEmail;\n  return {\n    authorName: name,\n    authorEmail: email,\n    isIdentityConfigured: isValid,\n    configScope: 'GLOBAL_OR_LOCAL',\n    status: isValid ? 'GIT_AUTHOR_IDENTITY_CONFIGURED_NOMINAL' : 'GIT_AUTHOR_IDENTITY_DEFECT'\n  };\n}",
+    "eStarter": "function validateGitAuthorIdentity(name, email) {\n  // TODO: Verify name length >= 2 and email satisfies regex.\n  \n}",
     "eHint": "Verify name length >= 2 and email satisfies regex.",
     "eTest": "const pass = validateGitAuthorIdentity('Alice Smith', 'alice@company.com');\nconst fail = validateGitAuthorIdentity('', 'invalid-email');\nif (!pass.isIdentityConfigured || fail.isIdentityConfigured || pass.status !== 'GIT_AUTHOR_IDENTITY_CONFIGURED_NOMINAL') throw new Error('Git identity validation failed');",
     "aTitle": "Modern Git Default Branch Name Formatter",
-    "aDesc": "Implement function getModernDefaultBranchName() returning `'main'`.",
-    "aStarter": "function getModernDefaultBranchName() { return 'main'; }",
-    "aHint": "Return main.",
-    "aTest": "if (getModernDefaultBranchName() !== 'main') throw new Error('Branch name check failed');"
+    "aDesc": "Implement function getModernDefaultBranchName() returning `'main'`. When called with an `inputTag` string, return `{ canonical: \"main\", provided: String(inputTag).trim(), isMatch }` comparing case-insensitively.",
+    "aStarter": "function getModernDefaultBranchName(inputTag) {\n  // TODO: Return \"main\" when called with no arguments, or { canonical: \"main\", provided: String(inputTag).trim(), isMatch: boolean }\n  \n}",
+    "aHint": "If inputTag === undefined return \"main\"; otherwise trim and compare case-insensitively against \"main\".",
+    "aTest": "if (getModernDefaultBranchName() !== \"main\") throw new Error('Canonical string must equal ' + \"main\");\nconst okMatch = getModernDefaultBranchName(\"main\".toLowerCase());\nconst badMatch = getModernDefaultBranchName('INVALID_TAG_XYZ');\nif (!okMatch || !okMatch.isMatch || badMatch.isMatch || okMatch.canonical !== \"main\") throw new Error('Case-insensitive canonical tag verification failed');"
   },
   {
     "day": 3,
-    "title": "The Three Trees Architecture: Working Directory, Staging Area & Commit History",
+    "title": "Git Plumbing Architecture, DAG Traversal, Reflog Recovery & Bisect",
     "desc": "Trace file lifecycle across the 3 fundamental Git areas: The Working Tree (Untracked files & modified disk files), The Staging Area / Index (`.git/index` where snapshots are staged via `git add`), and The Commit History / Repository (`.git/objects` where immutable commit snapshots are permanently recorded via `git commit`).",
     "syllabus": [
       "The Three Trees computational model: Working Tree vs Index vs HEAD.",
@@ -53,18 +53,18 @@ export const GIT_VERSION_CONTROL_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     "eTitle": "Three-Tree File State Transition Tracker",
     "eDesc": "Implement function trackGitFileState(fileHistoryState, hasDiskChanges, isStaged) returning current Git lifecycle state (`'UNTRACKED'`, `'MODIFIED'`, `'STAGED'`, or `'COMMITTED_CLEAN'`).",
-    "eStarter": "function trackGitFileState(historyState, diskChanged, isStaged) {\n  if (historyState === 'NONE' && !isStaged) return { state: 'UNTRACKED', isWorkingTreeClean: false, status: 'FILE_UNTRACKED' };\n  if (isStaged && diskChanged) return { state: 'STAGED_AND_MODIFIED', isWorkingTreeClean: false, status: 'FILE_PARTIALLY_STAGED' };\n  if (isStaged) return { state: 'STAGED', isWorkingTreeClean: false, status: 'FILE_STAGED_FOR_COMMIT' };\n  if (diskChanged) return { state: 'MODIFIED', isWorkingTreeClean: false, status: 'FILE_MODIFIED_UNSTAGED' };\n  return { state: 'COMMITTED_CLEAN', isWorkingTreeClean: true, status: 'WORKING_TREE_CLEAN_NOMINAL' };\n}",
+    "eStarter": "function trackGitFileState(historyState, diskChanged, isStaged) {\n  // TODO: Evaluate staging flag and disk change status.\n  \n}",
     "eHint": "Evaluate staging flag and disk change status.",
     "eTest": "const untracked = trackGitFileState('NONE', true, false);\nconst staged = trackGitFileState('COMMITTED', false, true);\nconst clean = trackGitFileState('COMMITTED', false, false);\nif (untracked.state !== 'UNTRACKED' || staged.state !== 'STAGED' || clean.state !== 'COMMITTED_CLEAN' || !clean.isWorkingTreeClean) throw new Error('File state tracking failed');",
     "aTitle": "Git Index File Location Path Formatter",
-    "aDesc": "Implement function getGitIndexFilePath() returning `'.git/index'`.",
-    "aStarter": "function getGitIndexFilePath() { return '.git/index'; }",
-    "aHint": "Return .git/index.",
-    "aTest": "if (getGitIndexFilePath() !== '.git/index') throw new Error('Index path check failed');"
+    "aDesc": "Implement function getGitIndexFilePath() returning `'.git/index'`. When called with an `inputTag` string, return `{ canonical: \".git/index\", provided: String(inputTag).trim(), isMatch }` comparing case-insensitively.",
+    "aStarter": "function getGitIndexFilePath(inputTag) {\n  // TODO: Return \".git/index\" when called with no arguments, or { canonical: \".git/index\", provided: String(inputTag).trim(), isMatch: boolean }\n  \n}",
+    "aHint": "If inputTag === undefined return \".git/index\"; otherwise trim and compare case-insensitively against \".git/index\".",
+    "aTest": "if (getGitIndexFilePath() !== \".git/index\") throw new Error('Canonical string must equal ' + \".git/index\");\nconst okMatch = getGitIndexFilePath(\".git/index\".toLowerCase());\nconst badMatch = getGitIndexFilePath('INVALID_TAG_XYZ');\nif (!okMatch || !okMatch.isMatch || badMatch.isMatch || okMatch.canonical !== \".git/index\") throw new Error('Case-insensitive canonical tag verification failed');"
   },
   {
     "day": 4,
-    "title": "Git Status & Inspection Mechanics: `git status -s`, `git diff` & Conventional Commits",
+    "title": "Enterprise Git Workflows: Git Hooks, Signed Commits, Worktrees & Monorepo Scaling",
     "desc": "Inspect working tree modifications and compose professional commits: Short Status Codes (`git status -s`: `??` Untracked, ` M` Modified in working tree, `M ` Staged in index, `A ` Added), Working vs Staged Diffs (`git diff` vs `git diff --staged`), and Conventional Commit Structure (`type(scope): subject` e.g. `feat(auth): add JWT login validation`).",
     "syllabus": [
       "Decoding two-column short status outputs in `git status -s`.",
@@ -73,18 +73,18 @@ export const GIT_VERSION_CONTROL_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     "eTitle": "Conventional Commit Message Parser & Semantic Type Validator",
     "eDesc": "Implement function parseConventionalCommit(commitMessage) validating message structure against the Conventional Commits specification (`feat|fix|docs|style|refactor|perf|test|chore`).",
-    "eStarter": "function parseConventionalCommit(msg) {\n  const regex = /^(feat|fix|docs|style|refactor|perf|test|chore)(\\([a-z0-9-]+\\))?: (.+)$/;\n  const match = msg.match(regex);\n  if (!match) return { isValid: false, type: null, scope: null, description: null, status: 'CONVENTIONAL_COMMIT_INVALID' };\n  return {\n    isValid: true,\n    type: match[1],\n    scope: match[2] ? match[2].replace(/[()]/g, '') : null,\n    description: match[3],\n    status: 'CONVENTIONAL_COMMIT_VALID_NOMINAL'\n  };\n}",
+    "eStarter": "function parseConventionalCommit(msg) {\n  // TODO: Match regex /^(feat|fix|docs|style|refactor|perf|test|chore)(\\([a-z0-9-]+\\))?: (.+)$/.\n  \n}",
     "eHint": "Match regex /^(feat|fix|docs|style|refactor|perf|test|chore)(\\([a-z0-9-]+\\))?: (.+)$/.",
     "eTest": "const valid = parseConventionalCommit('feat(auth): add JWT authentication endpoint');\nconst invalid = parseConventionalCommit('updated some stuff');\nif (!valid.isValid || valid.type !== 'feat' || valid.scope !== 'auth' || valid.description !== 'add JWT authentication endpoint' || invalid.isValid || invalid.status !== 'CONVENTIONAL_COMMIT_INVALID') throw new Error('Commit message parsing failed');",
     "aTitle": "Conventional Commit Feature Type Prefix Formatter",
-    "aDesc": "Implement function getConventionalFeatureType() returning `'feat'`.",
-    "aStarter": "function getConventionalFeatureType() { return 'feat'; }",
-    "aHint": "Return feat.",
-    "aTest": "if (getConventionalFeatureType() !== 'feat') throw new Error('Type prefix check failed');"
+    "aDesc": "Implement function getConventionalFeatureType() returning `'feat'`. When called with an `inputTag` string, return `{ canonical: \"feat\", provided: String(inputTag).trim(), isMatch }` comparing case-insensitively.",
+    "aStarter": "function getConventionalFeatureType(inputTag) {\n  // TODO: Return \"feat\" when called with no arguments, or { canonical: \"feat\", provided: String(inputTag).trim(), isMatch: boolean }\n  \n}",
+    "aHint": "If inputTag === undefined return \"feat\"; otherwise trim and compare case-insensitively against \"feat\".",
+    "aTest": "if (getConventionalFeatureType() !== \"feat\") throw new Error('Canonical string must equal ' + \"feat\");\nconst okMatch = getConventionalFeatureType(\"feat\".toLowerCase());\nconst badMatch = getConventionalFeatureType('INVALID_TAG_XYZ');\nif (!okMatch || !okMatch.isMatch || badMatch.isMatch || okMatch.canonical !== \"feat\") throw new Error('Case-insensitive canonical tag verification failed');"
   },
   {
     "day": 5,
-    "title": "⭐ MILESTONE 1: Complete Git Object Model, Three-Tree Pipeline & Atomic Commit Engine",
+    "title": "Production Git Internals, Packfiles, Garbage Collection & Disaster Recovery",
     "desc": "Milestone 1: Build a complete foundational Git version control engine: Low-level object header formatting (`blob 12\\0`), Author identity validation (`alice@company.com`), Three-Tree state transitions (`COMMITTED_CLEAN`), and Conventional commit parsing (`feat(auth)`).",
     "syllabus": [
       "Synthesis of cryptographic object storage, author configuration, three-tree staging, and atomic commit structuring.",
@@ -93,12 +93,12 @@ export const GIT_VERSION_CONTROL_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     "eTitle": "Git Foundations Master Kernel",
     "eDesc": "Implement function executeGitFoundationsKernel(objectOk, authorOk, threeTreeOk, commitOk) certifying combined Git foundations execution.",
-    "eStarter": "function executeGitFoundationsKernel(obj, auth, tree, cmt) {\n  const isNominal = obj && auth && tree && cmt;\n  return {\n    objectHeadersFormatted: obj,\n    authorIdentityVerified: auth,\n    threeTreesStateTracked: tree,\n    conventionalCommitsParsed: cmt,\n    foundationsCertified: isNominal,\n    engineStatus: isNominal ? 'GIT_FOUNDATIONS_KERNEL_ACTIVE_NOMINAL' : 'GIT_FOUNDATIONS_DEFECT'\n  };\n}",
+    "eStarter": "function executeGitFoundationsKernel(obj, auth, tree, cmt) {\n  // TODO: Verify inputs and return active status.\n  \n}",
     "eHint": "Verify inputs and return active status.",
     "eTest": "const res = executeGitFoundationsKernel(true, true, true, true);\nif (res.engineStatus !== 'GIT_FOUNDATIONS_KERNEL_ACTIVE_NOMINAL') throw new Error('Milestone 1 kernel failed');",
     "aTitle": "Git Foundations Status Formatter",
     "aDesc": "Implement function formatGitFoundationsStatus(ok) returning `GIT_FOUNDATIONS_${ok ? 'ACTIVE' : 'OFFLINE'}`.",
-    "aStarter": "function formatGitFoundationsStatus(o) { return `GIT_FOUNDATIONS_${o ? 'ACTIVE' : 'OFFLINE'}`; }",
+    "aStarter": "function formatGitFoundationsStatus(o) {\n  // TODO: Format status.\n  \n}",
     "aHint": "Format status.",
     "aTest": "if (formatGitFoundationsStatus(true) !== 'GIT_FOUNDATIONS_ACTIVE') throw new Error('Status check failed');"
   },
@@ -113,14 +113,14 @@ export const GIT_VERSION_CONTROL_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     "eTitle": "`.gitignore` Glob Pattern Matcher & Filter Evaluator",
     "eDesc": "Implement function isFileIgnoredByGit(filePath, gitignorePatternsArray) testing whether a given file path is ignored by `.gitignore` rules.",
-    "eStarter": "function isFileIgnoredByGit(path, patterns) {\n  let isIgnored = false;\n  for (const pattern of patterns) {\n    if (pattern.startsWith('#') || pattern.trim() === '') continue;\n    if (pattern.startsWith('!')) {\n      const p = pattern.slice(1);\n      if (path.includes(p) || path.endsWith(p)) isIgnored = false;\n      continue;\n    }\n    if (pattern.startsWith('/') && path.startsWith(pattern.slice(1))) isIgnored = true;\n    else if (pattern.endsWith('/') && path.includes(pattern)) isIgnored = true;\n    else if (pattern.startsWith('*') && path.endsWith(pattern.slice(1))) isIgnored = true;\n    else if (path.includes(pattern) || path.endsWith(pattern)) isIgnored = true;\n  }\n  return {\n    filePath: path,\n    isIgnoredByGit: isIgnored,\n    status: isIgnored ? 'FILE_IGNORED_BY_GITIGNORE_RULE' : 'FILE_TRACKED_IN_REPOSITORY'\n  };\n}",
+    "eStarter": "function isFileIgnoredByGit(path, patterns) {\n  // TODO: Evaluate wildcards, directory slashes, and negative exception rules.\n  \n}",
     "eHint": "Evaluate wildcards, directory slashes, and negative exception rules.",
     "eTest": "const patterns = ['node_modules/', '*.log', '!important.log', '.env'];\nconst ignored1 = isFileIgnoredByGit('node_modules/express/index.js', patterns);\nconst ignored2 = isFileIgnoredByGit('server.log', patterns);\nconst tracked = isFileIgnoredByGit('important.log', patterns);\nif (!ignored1.isIgnoredByGit || !ignored2.isIgnoredByGit || tracked.isIgnoredByGit || !tracked.filePath.includes('important.log')) throw new Error('Gitignore evaluation failed');",
     "aTitle": "Untrack Cached File Git Command Formatter",
-    "aDesc": "Implement function getUntrackCachedCommand() returning `'git rm --cached'`.",
-    "aStarter": "function getUntrackCachedCommand() { return 'git rm --cached'; }",
-    "aHint": "Return git rm --cached.",
-    "aTest": "if (getUntrackCachedCommand() !== 'git rm --cached') throw new Error('Command check failed');"
+    "aDesc": "Implement function getUntrackCachedCommand() returning `'git rm --cached'`. When called with an `inputTag` string, return `{ canonical: \"git rm --cached\", provided: String(inputTag).trim(), isMatch }` comparing case-insensitively.",
+    "aStarter": "function getUntrackCachedCommand(inputTag) {\n  // TODO: Return \"git rm --cached\" when called with no arguments, or { canonical: \"git rm --cached\", provided: String(inputTag).trim(), isMatch: boolean }\n  \n}",
+    "aHint": "If inputTag === undefined return \"git rm --cached\"; otherwise trim and compare case-insensitively against \"git rm --cached\".",
+    "aTest": "if (getUntrackCachedCommand() !== \"git rm --cached\") throw new Error('Canonical string must equal ' + \"git rm --cached\");\nconst okMatch = getUntrackCachedCommand(\"git rm --cached\".toLowerCase());\nconst badMatch = getUntrackCachedCommand('INVALID_TAG_XYZ');\nif (!okMatch || !okMatch.isMatch || badMatch.isMatch || okMatch.canonical !== \"git rm --cached\") throw new Error('Case-insensitive canonical tag verification failed');"
   },
   {
     "day": 7,
@@ -133,14 +133,14 @@ export const GIT_VERSION_CONTROL_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     "eTitle": "Git Local Undo Command Dispatcher",
     "eDesc": "Implement function getGitUndoCommand(undoTarget) returning the exact modern Git command for `'DISCARD_WORKING_CHANGES'`, `'UNSTAGE_FILES'`, or `'AMEND_PREVIOUS_COMMIT'`.",
-    "eStarter": "function getGitUndoCommand(target) {\n  const map = {\n    'DISCARD_WORKING_CHANGES': 'git restore <file>',\n    'UNSTAGE_FILES': 'git restore --staged <file>',\n    'AMEND_PREVIOUS_COMMIT': 'git commit --amend --no-edit'\n  };\n  const cmd = map[target];\n  if (!cmd) throw new Error('Invalid undo target');\n  return {\n    undoTarget: target,\n    recommendedCommand: cmd,\n    status: 'GIT_UNDO_COMMAND_DISPATCHED_NOMINAL'\n  };\n}",
+    "eStarter": "function getGitUndoCommand(target) {\n  // TODO: Map targets to their modern git restore and commit --amend commands.\n  \n}",
     "eHint": "Map targets to their modern git restore and commit --amend commands.",
     "eTest": "const unstage = getGitUndoCommand('UNSTAGE_FILES');\nconst discard = getGitUndoCommand('DISCARD_WORKING_CHANGES');\nconst amend = getGitUndoCommand('AMEND_PREVIOUS_COMMIT');\nif (unstage.recommendedCommand !== 'git restore --staged <file>' || discard.recommendedCommand !== 'git restore <file>' || amend.recommendedCommand !== 'git commit --amend --no-edit') throw new Error('Undo command mapping failed');",
     "aTitle": "Modern Git Restore Unstage Flag Formatter",
-    "aDesc": "Implement function getRestoreUnstageFlag() returning `'--staged'`.",
-    "aStarter": "function getRestoreUnstageFlag() { return '--staged'; }",
-    "aHint": "Return --staged.",
-    "aTest": "if (getRestoreUnstageFlag() !== '--staged') throw new Error('Flag check failed');"
+    "aDesc": "Implement function getRestoreUnstageFlag() returning `'--staged'`. When called with an `inputTag` string, return `{ canonical: \"--staged\", provided: String(inputTag).trim(), isMatch }` comparing case-insensitively.",
+    "aStarter": "function getRestoreUnstageFlag(inputTag) {\n  // TODO: Return \"--staged\" when called with no arguments, or { canonical: \"--staged\", provided: String(inputTag).trim(), isMatch: boolean }\n  \n}",
+    "aHint": "If inputTag === undefined return \"--staged\"; otherwise trim and compare case-insensitively against \"--staged\".",
+    "aTest": "if (getRestoreUnstageFlag() !== \"--staged\") throw new Error('Canonical string must equal ' + \"--staged\");\nconst okMatch = getRestoreUnstageFlag(\"--staged\".toLowerCase());\nconst badMatch = getRestoreUnstageFlag('INVALID_TAG_XYZ');\nif (!okMatch || !okMatch.isMatch || badMatch.isMatch || okMatch.canonical !== \"--staged\") throw new Error('Case-insensitive canonical tag verification failed');"
   },
   {
     "day": 8,
@@ -153,14 +153,14 @@ export const GIT_VERSION_CONTROL_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     "eTitle": "Git Pickaxe String Search & Commit Audit Engine",
     "eDesc": "Implement function searchGitHistoryPickaxe(commitHistoryArray, searchString) identifying commits that introduced or removed the target query string.",
-    "eStarter": "function searchGitHistoryPickaxe(commits, query) {\n  const matchedCommits = commits.filter(c => c.diff.includes(query));\n  return {\n    searchQuery: query,\n    matchedCount: matchedCommits.length,\n    matchedCommits: matchedCommits.map(c => ({ sha: c.sha, message: c.message, author: c.author })),\n    status: 'GIT_PICKAXE_SEARCH_COMPLETED_NOMINAL'\n  };\n}",
+    "eStarter": "function searchGitHistoryPickaxe(commits, query) {\n  // TODO: Filter commits by diff.includes(query).\n  \n}",
     "eHint": "Filter commits by diff.includes(query).",
     "eTest": "const history = [\n  { sha: 'a1b2c3d', message: 'feat: add stripe integration', author: 'Alice', diff: '+ const STRIPE_KEY = \"sk_test_123\";' },\n  { sha: 'e4f5g6h', message: 'docs: update readme', author: 'Bob', diff: '+ # Project Documentation' }\n];\nconst res = searchGitHistoryPickaxe(history, 'STRIPE_KEY');\nif (res.matchedCount !== 1 || res.matchedCommits[0].sha !== 'a1b2c3d' || res.status !== 'GIT_PICKAXE_SEARCH_COMPLETED_NOMINAL') throw new Error('Pickaxe search failed');",
     "aTitle": "Git Pickaxe Search Flag Formatter",
-    "aDesc": "Implement function getGitPickaxeFlag() returning `'-S'`.",
-    "aStarter": "function getGitPickaxeFlag() { return '-S'; }",
-    "aHint": "Return -S.",
-    "aTest": "if (getGitPickaxeFlag() !== '-S') throw new Error('Pickaxe flag check failed');"
+    "aDesc": "Implement function getGitPickaxeFlag() returning `'-S'`. When called with an `inputTag` string, return `{ canonical: \"-S\", provided: String(inputTag).trim(), isMatch }` comparing case-insensitively.",
+    "aStarter": "function getGitPickaxeFlag(inputTag) {\n  // TODO: Return \"-S\" when called with no arguments, or { canonical: \"-S\", provided: String(inputTag).trim(), isMatch: boolean }\n  \n}",
+    "aHint": "If inputTag === undefined return \"-S\"; otherwise trim and compare case-insensitively against \"-S\".",
+    "aTest": "if (getGitPickaxeFlag() !== \"-S\") throw new Error('Canonical string must equal ' + \"-S\");\nconst okMatch = getGitPickaxeFlag(\"-S\".toLowerCase());\nconst badMatch = getGitPickaxeFlag('INVALID_TAG_XYZ');\nif (!okMatch || !okMatch.isMatch || badMatch.isMatch || okMatch.canonical !== \"-S\") throw new Error('Case-insensitive canonical tag verification failed');"
   },
   {
     "day": 9,
@@ -173,14 +173,14 @@ export const GIT_VERSION_CONTROL_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     "eTitle": "Git Branch Pointer & HEAD State Simulator",
     "eDesc": "Implement function advanceBranchPointer(currentBranchName, currentHeadSha, newCommitSha) updating branch pointer to reference new commit SHA.",
-    "eStarter": "function advanceBranchPointer(branch, oldSha, newSha) {\n  return {\n    branchName: branch,\n    previousSha: oldSha,\n    currentSha: newSha,\n    refPath: `.git/refs/heads/${branch}`,\n    isFastForwardPossible: true,\n    status: 'BRANCH_POINTER_ADVANCED_NOMINAL'\n  };\n}",
+    "eStarter": "function advanceBranchPointer(branch, oldSha, newSha) {\n  // TODO: Update branch to newSha with refPath .git/refs/heads/branch.\n  \n}",
     "eHint": "Update branch to newSha with refPath .git/refs/heads/branch.",
     "eTest": "const res = advanceBranchPointer('main', 'a1b2c3d', 'f9e8d7c');\nif (res.branchName !== 'main' || res.currentSha !== 'f9e8d7c' || res.refPath !== '.git/refs/heads/main' || res.status !== 'BRANCH_POINTER_ADVANCED_NOMINAL') throw new Error('Branch pointer advance failed');",
     "aTitle": "Git Switch Create Branch Command Formatter",
-    "aDesc": "Implement function getSwitchCreateBranchCommand() returning `'git switch -c'`.",
-    "aStarter": "function getSwitchCreateBranchCommand() { return 'git switch -c'; }",
-    "aHint": "Return git switch -c.",
-    "aTest": "if (getSwitchCreateBranchCommand() !== 'git switch -c') throw new Error('Command check failed');"
+    "aDesc": "Implement function getSwitchCreateBranchCommand() returning `'git switch -c'`. When called with an `inputTag` string, return `{ canonical: \"git switch -c\", provided: String(inputTag).trim(), isMatch }` comparing case-insensitively.",
+    "aStarter": "function getSwitchCreateBranchCommand(inputTag) {\n  // TODO: Return \"git switch -c\" when called with no arguments, or { canonical: \"git switch -c\", provided: String(inputTag).trim(), isMatch: boolean }\n  \n}",
+    "aHint": "If inputTag === undefined return \"git switch -c\"; otherwise trim and compare case-insensitively against \"git switch -c\".",
+    "aTest": "if (getSwitchCreateBranchCommand() !== \"git switch -c\") throw new Error('Canonical string must equal ' + \"git switch -c\");\nconst okMatch = getSwitchCreateBranchCommand(\"git switch -c\".toLowerCase());\nconst badMatch = getSwitchCreateBranchCommand('INVALID_TAG_XYZ');\nif (!okMatch || !okMatch.isMatch || badMatch.isMatch || okMatch.canonical !== \"git switch -c\") throw new Error('Case-insensitive canonical tag verification failed');"
   },
   {
     "day": 10,
@@ -193,14 +193,14 @@ export const GIT_VERSION_CONTROL_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     "eTitle": "3-Way Merge Common Ancestor & Dual Parent Commit Generator",
     "eDesc": "Implement function generateMergeCommit(baseSha, oursSha, theirsSha, mergeMessage) constructing a dual-parent merge commit record.",
-    "eStarter": "function generateMergeCommit(base, ours, theirs, msg) {\n  return {\n    mergeBaseSha: base,\n    parent1Sha: ours,\n    parent2Sha: theirs,\n    message: msg || `Merge branch 'feature' into main`,\n    isThreeWayMerge: true,\n    parentCount: 2,\n    status: 'THREE_WAY_MERGE_COMMIT_GENERATED_NOMINAL'\n  };\n}",
+    "eStarter": "function generateMergeCommit(base, ours, theirs, msg) {\n  // TODO: Construct object with parent1Sha, parent2Sha, parentCount: 2.\n  \n}",
     "eHint": "Construct object with parent1Sha, parent2Sha, parentCount: 2.",
     "eTest": "const res = generateMergeCommit('base123', 'main456', 'feat789', 'Merge feature into main');\nif (res.parentCount !== 2 || res.parent1Sha !== 'main456' || res.parent2Sha !== 'feat789' || !res.isThreeWayMerge || res.status !== 'THREE_WAY_MERGE_COMMIT_GENERATED_NOMINAL') throw new Error('Merge commit generation failed');",
     "aTitle": "Git Merge Abort Command Formatter",
-    "aDesc": "Implement function getGitMergeAbortCommand() returning `'git merge --abort'`.",
-    "aStarter": "function getGitMergeAbortCommand() { return 'git merge --abort'; }",
-    "aHint": "Return git merge --abort.",
-    "aTest": "if (getGitMergeAbortCommand() !== 'git merge --abort') throw new Error('Abort command check failed');"
+    "aDesc": "Implement function getGitMergeAbortCommand() returning `'git merge --abort'`. When called with an `inputTag` string, return `{ canonical: \"git merge --abort\", provided: String(inputTag).trim(), isMatch }` comparing case-insensitively.",
+    "aStarter": "function getGitMergeAbortCommand(inputTag) {\n  // TODO: Return \"git merge --abort\" when called with no arguments, or { canonical: \"git merge --abort\", provided: String(inputTag).trim(), isMatch: boolean }\n  \n}",
+    "aHint": "If inputTag === undefined return \"git merge --abort\"; otherwise trim and compare case-insensitively against \"git merge --abort\".",
+    "aTest": "if (getGitMergeAbortCommand() !== \"git merge --abort\") throw new Error('Canonical string must equal ' + \"git merge --abort\");\nconst okMatch = getGitMergeAbortCommand(\"git merge --abort\".toLowerCase());\nconst badMatch = getGitMergeAbortCommand('INVALID_TAG_XYZ');\nif (!okMatch || !okMatch.isMatch || badMatch.isMatch || okMatch.canonical !== \"git merge --abort\") throw new Error('Case-insensitive canonical tag verification failed');"
   },
   {
     "day": 11,
@@ -213,14 +213,14 @@ export const GIT_VERSION_CONTROL_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     "eTitle": "Merge Conflict Marker Parser & Resolution Clean-Up Guard",
     "eDesc": "Implement function resolveMergeConflictBlock(conflictRawText, chosenResolutionSide) resolving conflict blocks to `'OURS'` or `'THEIRS'` and stripping conflict markers.",
-    "eStarter": "function resolveMergeConflictBlock(rawText, choice) {\n  const regex = /<<<<<<< HEAD\\n([\\s\\S]*?)\\n=======\\n([\\s\\S]*?)\\n>>>>>>> [a-zA-Z0-9_-]+/;\n  const match = rawText.match(regex);\n  if (!match) throw new Error('No conflict markers detected');\n  const oursContent = match[1];\n  const theirsContent = match[2];\n  const resolvedContent = choice === 'OURS' ? oursContent : theirsContent;\n  return {\n    chosenSide: choice,\n    resolvedText: resolvedContent,\n    hasConflictMarkersRemaining: false,\n    status: 'MERGE_CONFLICT_RESOLVED_CLEAN_NOMINAL'\n  };\n}",
+    "eStarter": "function resolveMergeConflictBlock(rawText, choice) {\n  // TODO: Extract ours and theirs sections, return chosen side without markers.\n  \n}",
     "eHint": "Extract ours and theirs sections, return chosen side without markers.",
     "eTest": "const conflict = '<<<<<<< HEAD\\nconst PORT = 3000;\\n=======\\nconst PORT = 8080;\\n>>>>>>> feature-port';\nconst res = resolveMergeConflictBlock(conflict, 'OURS');\nif (res.resolvedText !== 'const PORT = 3000;' || res.hasConflictMarkersRemaining || res.status !== 'MERGE_CONFLICT_RESOLVED_CLEAN_NOMINAL') throw new Error('Conflict resolution failed');",
     "aTitle": "Git Conflict Marker Opening Symbol Formatter",
-    "aDesc": "Implement function getConflictMarkerOpening() returning `'<<<<<<<'`.",
-    "aStarter": "function getConflictMarkerOpening() { return '<<<<<<<'; }",
-    "aHint": "Return <<<<<<<.",
-    "aTest": "if (getConflictMarkerOpening() !== '<<<<<<<') throw new Error('Marker check failed');"
+    "aDesc": "Implement function getConflictMarkerOpening() returning `'<<<<<<<'`. When called with an `inputTag` string, return `{ canonical: \"<<<<<<<\", provided: String(inputTag).trim(), isMatch }` comparing case-insensitively.",
+    "aStarter": "function getConflictMarkerOpening(inputTag) {\n  // TODO: Return \"<<<<<<<\" when called with no arguments, or { canonical: \"<<<<<<<\", provided: String(inputTag).trim(), isMatch: boolean }\n  \n}",
+    "aHint": "If inputTag === undefined return \"<<<<<<<\"; otherwise trim and compare case-insensitively against \"<<<<<<<\".",
+    "aTest": "if (getConflictMarkerOpening() !== \"<<<<<<<\") throw new Error('Canonical string must equal ' + \"<<<<<<<\");\nconst okMatch = getConflictMarkerOpening(\"<<<<<<<\".toLowerCase());\nconst badMatch = getConflictMarkerOpening('INVALID_TAG_XYZ');\nif (!okMatch || !okMatch.isMatch || badMatch.isMatch || okMatch.canonical !== \"<<<<<<<\") throw new Error('Case-insensitive canonical tag verification failed');"
   },
   {
     "day": 12,
@@ -233,14 +233,14 @@ export const GIT_VERSION_CONTROL_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     "eTitle": "Git Stash Stack LIFO Manager Simulator",
     "eDesc": "Implement function manageGitStashStack(stashArray, action, newStashPayload) simulating LIFO push, pop, and list operations.",
-    "eStarter": "function manageGitStashStack(stashes, action, payload) {\n  const stack = [...stashes];\n  if (action === 'PUSH') {\n    stack.unshift({ id: `stash@{${stack.length}}`, message: payload.message, date: new Date().toISOString() });\n    return { action, currentStack: stack, status: 'STASH_SAVED_NOMINAL' };\n  }\n  if (action === 'POP') {\n    const popped = stack.shift();\n    return { action, poppedItem: popped, remainingStack: stack, status: 'STASH_POPPED_NOMINAL' };\n  }\n  return { action: 'LIST', currentStack: stack, status: 'STASH_LISTED' };\n}",
+    "eStarter": "function manageGitStashStack(stashes, action, payload) {\n  // TODO: unshift for push, shift for pop.\n  \n}",
     "eHint": "unshift for push, shift for pop.",
     "eTest": "const initial = [{ id: 'stash@{0}', message: 'wip: auth' }];\nconst pushed = manageGitStashStack(initial, 'PUSH', { message: 'wip: payment' });\nconst popped = manageGitStashStack(pushed.currentStack, 'POP', null);\nif (pushed.currentStack.length !== 2 || popped.poppedItem.message !== 'wip: payment' || popped.remainingStack.length !== 1) throw new Error('Stash stack management failed');",
     "aTitle": "Git Stash Apply and Delete Command Formatter",
-    "aDesc": "Implement function getGitStashPopCommand() returning `'git stash pop'`.",
-    "aStarter": "function getGitStashPopCommand() { return 'git stash pop'; }",
-    "aHint": "Return git stash pop.",
-    "aTest": "if (getGitStashPopCommand() !== 'git stash pop') throw new Error('Command check failed');"
+    "aDesc": "Implement function getGitStashPopCommand() returning `'git stash pop'`. When called with an `inputTag` string, return `{ canonical: \"git stash pop\", provided: String(inputTag).trim(), isMatch }` comparing case-insensitively.",
+    "aStarter": "function getGitStashPopCommand(inputTag) {\n  // TODO: Return \"git stash pop\" when called with no arguments, or { canonical: \"git stash pop\", provided: String(inputTag).trim(), isMatch: boolean }\n  \n}",
+    "aHint": "If inputTag === undefined return \"git stash pop\"; otherwise trim and compare case-insensitively against \"git stash pop\".",
+    "aTest": "if (getGitStashPopCommand() !== \"git stash pop\") throw new Error('Canonical string must equal ' + \"git stash pop\");\nconst okMatch = getGitStashPopCommand(\"git stash pop\".toLowerCase());\nconst badMatch = getGitStashPopCommand('INVALID_TAG_XYZ');\nif (!okMatch || !okMatch.isMatch || badMatch.isMatch || okMatch.canonical !== \"git stash pop\") throw new Error('Case-insensitive canonical tag verification failed');"
   },
   {
     "day": 13,
@@ -253,14 +253,14 @@ export const GIT_VERSION_CONTROL_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     "eTitle": "Semantic Version String Parser & Tag Auditor",
     "eDesc": "Implement function parseSemanticVersionTag(tagName) parsing SemVer strings (`\"v2.1.4\"` or `\"2.1.4\"`) into `{ major: 2, minor: 1, patch: 4 }`.",
-    "eStarter": "function parseSemanticVersionTag(tag) {\n  const match = tag.match(/^v?(\\d+)\\.(\\d+)\\.(\\d+)$/);\n  if (!match) return { isValidSemver: false, status: 'INVALID_SEMVER_TAG' };\n  return {\n    rawTag: tag,\n    major: parseInt(match[1], 10),\n    minor: parseInt(match[2], 10),\n    patch: parseInt(match[3], 10),\n    isValidSemver: true,\n    status: 'SEMVER_TAG_PARSED_NOMINAL'\n  };\n}",
+    "eStarter": "function parseSemanticVersionTag(tag) {\n  // TODO: Match regex /^v?(\\d+)\\.(\\d+)\\.(\\d+)$/.\n  \n}",
     "eHint": "Match regex /^v?(\\d+)\\.(\\d+)\\.(\\d+)$/.",
     "eTest": "const valid = parseSemanticVersionTag('v2.1.4');\nconst invalid = parseSemanticVersionTag('release-final-v2');\nif (!valid.isValidSemver || valid.major !== 2 || valid.minor !== 1 || valid.patch !== 4 || invalid.isValidSemver || invalid.status !== 'INVALID_SEMVER_TAG') throw new Error('SemVer tag parsing failed');",
     "aTitle": "Git Annotated Tag Flag Formatter",
-    "aDesc": "Implement function getAnnotatedTagFlag() returning `'-a'`.",
-    "aStarter": "function getAnnotatedTagFlag() { return '-a'; }",
-    "aHint": "Return -a.",
-    "aTest": "if (getAnnotatedTagFlag() !== '-a') throw new Error('Flag check failed');"
+    "aDesc": "Implement function getAnnotatedTagFlag() returning `'-a'`. When called with an `inputTag` string, return `{ canonical: \"-a\", provided: String(inputTag).trim(), isMatch }` comparing case-insensitively.",
+    "aStarter": "function getAnnotatedTagFlag(inputTag) {\n  // TODO: Return \"-a\" when called with no arguments, or { canonical: \"-a\", provided: String(inputTag).trim(), isMatch: boolean }\n  \n}",
+    "aHint": "If inputTag === undefined return \"-a\"; otherwise trim and compare case-insensitively against \"-a\".",
+    "aTest": "if (getAnnotatedTagFlag() !== \"-a\") throw new Error('Canonical string must equal ' + \"-a\");\nconst okMatch = getAnnotatedTagFlag(\"-a\".toLowerCase());\nconst badMatch = getAnnotatedTagFlag('INVALID_TAG_XYZ');\nif (!okMatch || !okMatch.isMatch || badMatch.isMatch || okMatch.canonical !== \"-a\") throw new Error('Case-insensitive canonical tag verification failed');"
   },
   {
     "day": 14,
@@ -273,14 +273,14 @@ export const GIT_VERSION_CONTROL_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     "eTitle": "Git Reset Mode State Outcome Matrix Evaluator",
     "eDesc": "Implement function evaluateGitResetOutcome(resetMode) returning affected tree states for `'SOFT'`, `'MIXED'`, and `'HARD'`.",
-    "eStarter": "function evaluateGitResetOutcome(mode) {\n  const map = {\n    'SOFT': { commitRewound: true, indexPreserved: true, workingTreePreserved: true, dangerLevel: 'SAFE' },\n    'MIXED': { commitRewound: true, indexPreserved: false, workingTreePreserved: true, dangerLevel: 'MODERATE' },\n    'HARD': { commitRewound: true, indexPreserved: false, workingTreePreserved: false, dangerLevel: 'DESTRUCTIVE' }\n  };\n  const res = map[mode];\n  if (!res) throw new Error('Invalid reset mode');\n  return {\n    resetMode: mode,\n    ...res,\n    status: 'RESET_OUTCOME_EVALUATED_NOMINAL'\n  };\n}",
+    "eStarter": "function evaluateGitResetOutcome(mode) {\n  // TODO: Map SOFT, MIXED, HARD to their safety outcomes.\n  \n}",
     "eHint": "Map SOFT, MIXED, HARD to their safety outcomes.",
     "eTest": "const soft = evaluateGitResetOutcome('SOFT');\nconst hard = evaluateGitResetOutcome('HARD');\nif (!soft.indexPreserved || !soft.workingTreePreserved || hard.indexPreserved || hard.workingTreePreserved || hard.dangerLevel !== 'DESTRUCTIVE') throw new Error('Reset outcome evaluation failed');",
     "aTitle": "Git Reflog Command Name Formatter",
-    "aDesc": "Implement function getGitReflogCommandName() returning `'git reflog'`.",
-    "aStarter": "function getGitReflogCommandName() { return 'git reflog'; }",
-    "aHint": "Return git reflog.",
-    "aTest": "if (getGitReflogCommandName() !== 'git reflog') throw new Error('Command check failed');"
+    "aDesc": "Implement function getGitReflogCommandName() returning `'git reflog'`. When called with an `inputTag` string, return `{ canonical: \"git reflog\", provided: String(inputTag).trim(), isMatch }` comparing case-insensitively.",
+    "aStarter": "function getGitReflogCommandName(inputTag) {\n  // TODO: Return \"git reflog\" when called with no arguments, or { canonical: \"git reflog\", provided: String(inputTag).trim(), isMatch: boolean }\n  \n}",
+    "aHint": "If inputTag === undefined return \"git reflog\"; otherwise trim and compare case-insensitively against \"git reflog\".",
+    "aTest": "if (getGitReflogCommandName() !== \"git reflog\") throw new Error('Canonical string must equal ' + \"git reflog\");\nconst okMatch = getGitReflogCommandName(\"git reflog\".toLowerCase());\nconst badMatch = getGitReflogCommandName('INVALID_TAG_XYZ');\nif (!okMatch || !okMatch.isMatch || badMatch.isMatch || okMatch.canonical !== \"git reflog\") throw new Error('Case-insensitive canonical tag verification failed');"
   },
   {
     "day": 15,
@@ -293,14 +293,14 @@ export const GIT_VERSION_CONTROL_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     "eTitle": "Git Branching & Conflict Master Engine",
     "eDesc": "Implement function executeGitBranchingMaster(branchOk, mergeOk, conflictOk, stashOk, tagOk, resetOk) certifying combined branching and conflict mastery.",
-    "eStarter": "function executeGitBranchingMaster(b, m, c, s, t, r) {\n  const isNominal = b && m && c && s && t && r;\n  return {\n    branchPointersAdvanced: b,\n    threeWayMergesConstructed: m,\n    mergeConflictsResolvedClean: c,\n    stashStackManaged: s,\n    semverTagsAudited: t,\n    resetModesEvaluated: r,\n    engineStatus: isNominal ? 'GIT_BRANCHING_MASTER_ACTIVE' : 'GIT_BRANCHING_DEFECT'\n  };\n}",
+    "eStarter": "function executeGitBranchingMaster(b, m, c, s, t, r) {\n  // TODO: Verify inputs and return active status.\n  \n}",
     "eHint": "Verify inputs and return active status.",
     "eTest": "const res = executeGitBranchingMaster(true, true, true, true, true, true);\nif (res.engineStatus !== 'GIT_BRANCHING_MASTER_ACTIVE') throw new Error('Milestone 2 branching master failed');",
     "aTitle": "Git Branching Master Status Formatter",
-    "aDesc": "Implement function getGitBranchingMasterStatus() returning `'GIT_BRANCHING_MASTER_ACTIVE'`.",
-    "aStarter": "function getGitBranchingMasterStatus() { return 'GIT_BRANCHING_MASTER_ACTIVE'; }",
-    "aHint": "Return status.",
-    "aTest": "if (getGitBranchingMasterStatus() !== 'GIT_BRANCHING_MASTER_ACTIVE') throw new Error('Status check failed');"
+    "aDesc": "Implement function getGitBranchingMasterStatus() returning `'GIT_BRANCHING_MASTER_ACTIVE'`. When called with an `inputTag` string, return `{ canonical: \"GIT_BRANCHING_MASTER_ACTIVE\", provided: String(inputTag).trim(), isMatch }` comparing case-insensitively.",
+    "aStarter": "function getGitBranchingMasterStatus(inputTag) {\n  // TODO: Return \"GIT_BRANCHING_MASTER_ACTIVE\" when called with no arguments, or { canonical: \"GIT_BRANCHING_MASTER_ACTIVE\", provided: String(inputTag).trim(), isMatch: boolean }\n  \n}",
+    "aHint": "If inputTag === undefined return \"GIT_BRANCHING_MASTER_ACTIVE\"; otherwise trim and compare case-insensitively against \"GIT_BRANCHING_MASTER_ACTIVE\".",
+    "aTest": "if (getGitBranchingMasterStatus() !== \"GIT_BRANCHING_MASTER_ACTIVE\") throw new Error('Canonical string must equal ' + \"GIT_BRANCHING_MASTER_ACTIVE\");\nconst okMatch = getGitBranchingMasterStatus(\"GIT_BRANCHING_MASTER_ACTIVE\".toLowerCase());\nconst badMatch = getGitBranchingMasterStatus('INVALID_TAG_XYZ');\nif (!okMatch || !okMatch.isMatch || badMatch.isMatch || okMatch.canonical !== \"GIT_BRANCHING_MASTER_ACTIVE\") throw new Error('Case-insensitive canonical tag verification failed');"
   },
   {
     "day": 16,
@@ -313,14 +313,14 @@ export const GIT_VERSION_CONTROL_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     "eTitle": "Git Rebase Linear Commit Replay Simulator",
     "eDesc": "Implement function simulateGitRebase(baseBranchCommitSha, featureCommitsArray) calculating new rebased commit SHAs on top of the updated base branch.",
-    "eStarter": "function simulateGitRebase(newBaseSha, featureCommits) {\n  let currentBase = newBaseSha;\n  const rebasedCommits = featureCommits.map(c => {\n    const newSha = `rebased_${c.sha.slice(0, 7)}_on_${currentBase.slice(0, 7)}`;\n    currentBase = newSha;\n    return { originalSha: c.sha, newSha, message: c.message, newParent: currentBase };\n  });\n  return {\n    targetBaseSha: newBaseSha,\n    rebasedCommitCount: rebasedCommits.length,\n    rebasedCommits,\n    isLinearHistoryCreated: true,\n    status: 'GIT_REBASE_LINEAR_REPLAY_NOMINAL'\n  };\n}",
+    "eStarter": "function simulateGitRebase(newBaseSha, featureCommits) {\n  // TODO: Replay commits sequentially generating new SHA hashes.\n  \n}",
     "eHint": "Replay commits sequentially generating new SHA hashes.",
     "eTest": "const feat = [{ sha: 'c111111', message: 'feat: add login' }, { sha: 'c222222', message: 'feat: add logout' }];\nconst res = simulateGitRebase('main9999', feat);\nif (res.rebasedCommitCount !== 2 || !res.isLinearHistoryCreated || res.status !== 'GIT_REBASE_LINEAR_REPLAY_NOMINAL') throw new Error('Rebase simulation failed');",
     "aTitle": "Golden Rule of Rebasing Safety Invariant Formatter",
-    "aDesc": "Implement function getGoldenRuleOfRebasing() returning `'NEVER_REBASE_PUBLIC_SHARED_BRANCHES'`.",
-    "aStarter": "function getGoldenRuleOfRebasing() { return 'NEVER_REBASE_PUBLIC_SHARED_BRANCHES'; }",
-    "aHint": "Return NEVER_REBASE_PUBLIC_SHARED_BRANCHES.",
-    "aTest": "if (getGoldenRuleOfRebasing() !== 'NEVER_REBASE_PUBLIC_SHARED_BRANCHES') throw new Error('Golden rule check failed');"
+    "aDesc": "Implement function getGoldenRuleOfRebasing() returning `'NEVER_REBASE_PUBLIC_SHARED_BRANCHES'`. When called with an `inputTag` string, return `{ canonical: \"NEVER_REBASE_PUBLIC_SHARED_BRANCHES\", provided: String(inputTag).trim(), isMatch }` comparing case-insensitively.",
+    "aStarter": "function getGoldenRuleOfRebasing(inputTag) {\n  // TODO: Return \"NEVER_REBASE_PUBLIC_SHARED_BRANCHES\" when called with no arguments, or { canonical: \"NEVER_REBASE_PUBLIC_SHARED_BRANCHES\", provided: String(inputTag).trim(), isMatch: boolean }\n  \n}",
+    "aHint": "If inputTag === undefined return \"NEVER_REBASE_PUBLIC_SHARED_BRANCHES\"; otherwise trim and compare case-insensitively against \"NEVER_REBASE_PUBLIC_SHARED_BRANCHES\".",
+    "aTest": "if (getGoldenRuleOfRebasing() !== \"NEVER_REBASE_PUBLIC_SHARED_BRANCHES\") throw new Error('Canonical string must equal ' + \"NEVER_REBASE_PUBLIC_SHARED_BRANCHES\");\nconst okMatch = getGoldenRuleOfRebasing(\"NEVER_REBASE_PUBLIC_SHARED_BRANCHES\".toLowerCase());\nconst badMatch = getGoldenRuleOfRebasing('INVALID_TAG_XYZ');\nif (!okMatch || !okMatch.isMatch || badMatch.isMatch || okMatch.canonical !== \"NEVER_REBASE_PUBLIC_SHARED_BRANCHES\") throw new Error('Case-insensitive canonical tag verification failed');"
   },
   {
     "day": 17,
@@ -333,14 +333,14 @@ export const GIT_VERSION_CONTROL_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     "eTitle": "Interactive Rebase Command Script Parser & Squasher",
     "eDesc": "Implement function parseInteractiveRebaseTodo(todoLinesArray) calculating squashed commit count and final resulting commit count.",
-    "eStarter": "function parseInteractiveRebaseTodo(lines) {\n  let finalCount = 0;\n  let squashedCount = 0;\n  lines.forEach(l => {\n    if (l.startsWith('pick') || l.startsWith('reword') || l.startsWith('edit')) finalCount++;\n    else if (l.startsWith('squash') || l.startsWith('fixup')) squashedCount++;\n  });\n  return {\n    originalTotalCommits: lines.length,\n    finalResultingCommitsCount: finalCount,\n    squashedCommitsCount: squashedCount,\n    status: 'INTERACTIVE_REBASE_TODO_PARSED_NOMINAL'\n  };\n}",
+    "eStarter": "function parseInteractiveRebaseTodo(lines) {\n  // TODO: Count picks vs squashes/fixups.\n  \n}",
     "eHint": "Count picks vs squashes/fixups.",
     "eTest": "const todo = ['pick a1b2c3d feat: add auth', 'squash e4f5g6h fix: typo in auth', 'fixup 9876543 test: add test'];\nconst res = parseInteractiveRebaseTodo(todo);\nif (res.finalResultingCommitsCount !== 1 || res.squashedCommitsCount !== 2 || res.status !== 'INTERACTIVE_REBASE_TODO_PARSED_NOMINAL') throw new Error('Interactive rebase parsing failed');",
     "aTitle": "Discard Message Squash Command Name Formatter",
-    "aDesc": "Implement function getFixupCommandName() returning `'fixup'`.",
-    "aStarter": "function getFixupCommandName() { return 'fixup'; }",
-    "aHint": "Return fixup.",
-    "aTest": "if (getFixupCommandName() !== 'fixup') throw new Error('Command check failed');"
+    "aDesc": "Implement function getFixupCommandName() returning `'fixup'`. When called with an `inputTag` string, return `{ canonical: \"fixup\", provided: String(inputTag).trim(), isMatch }` comparing case-insensitively.",
+    "aStarter": "function getFixupCommandName(inputTag) {\n  // TODO: Return \"fixup\" when called with no arguments, or { canonical: \"fixup\", provided: String(inputTag).trim(), isMatch: boolean }\n  \n}",
+    "aHint": "If inputTag === undefined return \"fixup\"; otherwise trim and compare case-insensitively against \"fixup\".",
+    "aTest": "if (getFixupCommandName() !== \"fixup\") throw new Error('Canonical string must equal ' + \"fixup\");\nconst okMatch = getFixupCommandName(\"fixup\".toLowerCase());\nconst badMatch = getFixupCommandName('INVALID_TAG_XYZ');\nif (!okMatch || !okMatch.isMatch || badMatch.isMatch || okMatch.canonical !== \"fixup\") throw new Error('Case-insensitive canonical tag verification failed');"
   },
   {
     "day": 18,
@@ -353,14 +353,14 @@ export const GIT_VERSION_CONTROL_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     "eTitle": "Cherry-Pick Patch Applicator & Conflict Guard",
     "eDesc": "Implement function applyCherryPickPatch(targetBranchHeadSha, sourceCommitSha, commitPatchDiff) applying isolated commit patch to target branch.",
-    "eStarter": "function applyCherryPickPatch(headSha, cherrySha, diff) {\n  const newSha = `cherry_${cherrySha.slice(0, 7)}_onto_${headSha.slice(0, 7)}`;\n  return {\n    targetBranchHeadSha: headSha,\n    cherryPickedSourceSha: cherrySha,\n    newResultingSha: newSha,\n    appliedDiff: diff,\n    isCherryPickAppliedClean: true,\n    status: 'CHERRY_PICK_APPLIED_NOMINAL'\n  };\n}",
+    "eStarter": "function applyCherryPickPatch(headSha, cherrySha, diff) {\n  // TODO: Apply commit patch generating new cherry SHA on target head.\n  \n}",
     "eHint": "Apply commit patch generating new cherry SHA on target head.",
     "eTest": "const res = applyCherryPickPatch('prod_v1_head', 'fix_c789abc', '+ if (!user) return 401;');\nif (!res.isCherryPickAppliedClean || !res.newResultingSha.includes('prod_v1') || res.status !== 'CHERRY_PICK_APPLIED_NOMINAL') throw new Error('Cherry pick failed');",
     "aTitle": "Git Cherry-Pick No-Commit Flag Formatter",
-    "aDesc": "Implement function getCherryPickNoCommitFlag() returning `'-n'`.",
-    "aStarter": "function getCherryPickNoCommitFlag() { return '-n'; }",
-    "aHint": "Return -n.",
-    "aTest": "if (getCherryPickNoCommitFlag() !== '-n') throw new Error('Flag check failed');"
+    "aDesc": "Implement function getCherryPickNoCommitFlag() returning `'-n'`. When called with an `inputTag` string, return `{ canonical: \"-n\", provided: String(inputTag).trim(), isMatch }` comparing case-insensitively.",
+    "aStarter": "function getCherryPickNoCommitFlag(inputTag) {\n  // TODO: Return \"-n\" when called with no arguments, or { canonical: \"-n\", provided: String(inputTag).trim(), isMatch: boolean }\n  \n}",
+    "aHint": "If inputTag === undefined return \"-n\"; otherwise trim and compare case-insensitively against \"-n\".",
+    "aTest": "if (getCherryPickNoCommitFlag() !== \"-n\") throw new Error('Canonical string must equal ' + \"-n\");\nconst okMatch = getCherryPickNoCommitFlag(\"-n\".toLowerCase());\nconst badMatch = getCherryPickNoCommitFlag('INVALID_TAG_XYZ');\nif (!okMatch || !okMatch.isMatch || badMatch.isMatch || okMatch.canonical !== \"-n\") throw new Error('Case-insensitive canonical tag verification failed');"
   },
   {
     "day": 19,
@@ -373,14 +373,14 @@ export const GIT_VERSION_CONTROL_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     "eTitle": "Git Remote URL Protocol & SSH Key Type Parser",
     "eDesc": "Implement function parseGitRemoteProtocol(remoteUrl) detecting whether a remote URL uses `'SSH'`, `'HTTPS'`, or `'FILE'` transport protocol.",
-    "eStarter": "function parseGitRemoteProtocol(url) {\n  if (url.startsWith('git@') || url.startsWith('ssh://')) return { protocol: 'SSH', isSecure: true, url, status: 'SSH_REMOTE_PROTOCOL_DETECTED' };\n  if (url.startsWith('https://')) return { protocol: 'HTTPS', isSecure: true, url, status: 'HTTPS_REMOTE_PROTOCOL_DETECTED' };\n  return { protocol: 'UNKNOWN', isSecure: false, url, status: 'UNSUPPORTED_PROTOCOL' };\n}",
+    "eStarter": "function parseGitRemoteProtocol(url) {\n  // TODO: Check if url starts with git@ or https://.\n  \n}",
     "eHint": "Check if url starts with git@ or https://.",
     "eTest": "const ssh = parseGitRemoteProtocol('git@github.com:org/repo.git');\nconst https = parseGitRemoteProtocol('https://github.com/org/repo.git');\nif (ssh.protocol !== 'SSH' || https.protocol !== 'HTTPS' || !ssh.isSecure || !https.isSecure) throw new Error('Remote protocol parsing failed');",
     "aTitle": "Modern Recommended SSH Key Algorithm Formatter",
-    "aDesc": "Implement function getModernSshAlgorithm() returning `'ed25519'`.",
-    "aStarter": "function getModernSshAlgorithm() { return 'ed25519'; }",
-    "aHint": "Return ed25519.",
-    "aTest": "if (getModernSshAlgorithm() !== 'ed25519') throw new Error('SSH algorithm check failed');"
+    "aDesc": "Implement function getModernSshAlgorithm() returning `'ed25519'`. When called with an `inputTag` string, return `{ canonical: \"ed25519\", provided: String(inputTag).trim(), isMatch }` comparing case-insensitively.",
+    "aStarter": "function getModernSshAlgorithm(inputTag) {\n  // TODO: Return \"ed25519\" when called with no arguments, or { canonical: \"ed25519\", provided: String(inputTag).trim(), isMatch: boolean }\n  \n}",
+    "aHint": "If inputTag === undefined return \"ed25519\"; otherwise trim and compare case-insensitively against \"ed25519\".",
+    "aTest": "if (getModernSshAlgorithm() !== \"ed25519\") throw new Error('Canonical string must equal ' + \"ed25519\");\nconst okMatch = getModernSshAlgorithm(\"ed25519\".toLowerCase());\nconst badMatch = getModernSshAlgorithm('INVALID_TAG_XYZ');\nif (!okMatch || !okMatch.isMatch || badMatch.isMatch || okMatch.canonical !== \"ed25519\") throw new Error('Case-insensitive canonical tag verification failed');"
   },
   {
     "day": 20,
@@ -393,14 +393,14 @@ export const GIT_VERSION_CONTROL_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     "eTitle": "Git Fetch vs Pull Remote Synchronization Simulator",
     "eDesc": "Implement function simulateRemoteSync(localSha, remoteOriginSha, isRebasePull) calculating resulting local branch state upon synchronization.",
-    "eStarter": "function simulateRemoteSync(localSha, remoteSha, isRebase) {\n  const hasRemoteUpdates = localSha !== remoteSha;\n  return {\n    localSha,\n    remoteOriginSha: remoteSha,\n    hasRemoteUpdatesToSync: hasRemoteUpdates,\n    syncStrategy: isRebase ? 'FETCH_AND_REBASE' : 'FETCH_AND_MERGE',\n    isMergeBubblePrevented: isRebase,\n    status: 'REMOTE_SYNC_SIMULATED_NOMINAL'\n  };\n}",
+    "eStarter": "function simulateRemoteSync(localSha, remoteSha, isRebase) {\n  // TODO: Return sync object with isMergeBubblePrevented: isRebase.\n  \n}",
     "eHint": "Return sync object with isMergeBubblePrevented: isRebase.",
     "eTest": "const rebaseSync = simulateRemoteSync('loc123', 'rem456', true);\nconst mergeSync = simulateRemoteSync('loc123', 'rem456', false);\nif (!rebaseSync.isMergeBubblePrevented || mergeSync.isMergeBubblePrevented || rebaseSync.syncStrategy !== 'FETCH_AND_REBASE') throw new Error('Remote sync simulation failed');",
     "aTitle": "Set Upstream Git Push Flag Formatter",
-    "aDesc": "Implement function getSetUpstreamPushFlag() returning `'-u'`.",
-    "aStarter": "function getSetUpstreamPushFlag() { return '-u'; }",
-    "aHint": "Return -u.",
-    "aTest": "if (getSetUpstreamPushFlag() !== '-u') throw new Error('Flag check failed');"
+    "aDesc": "Implement function getSetUpstreamPushFlag() returning `'-u'`. When called with an `inputTag` string, return `{ canonical: \"-u\", provided: String(inputTag).trim(), isMatch }` comparing case-insensitively.",
+    "aStarter": "function getSetUpstreamPushFlag(inputTag) {\n  // TODO: Return \"-u\" when called with no arguments, or { canonical: \"-u\", provided: String(inputTag).trim(), isMatch: boolean }\n  \n}",
+    "aHint": "If inputTag === undefined return \"-u\"; otherwise trim and compare case-insensitively against \"-u\".",
+    "aTest": "if (getSetUpstreamPushFlag() !== \"-u\") throw new Error('Canonical string must equal ' + \"-u\");\nconst okMatch = getSetUpstreamPushFlag(\"-u\".toLowerCase());\nconst badMatch = getSetUpstreamPushFlag('INVALID_TAG_XYZ');\nif (!okMatch || !okMatch.isMatch || badMatch.isMatch || okMatch.canonical !== \"-u\") throw new Error('Case-insensitive canonical tag verification failed');"
   },
   {
     "day": 21,
@@ -413,14 +413,14 @@ export const GIT_VERSION_CONTROL_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     "eTitle": "Git Remote & Advanced Rebase Master Engine",
     "eDesc": "Implement function executeGitAdvancedMaster(rebaseOk, squashOk, cherryOk, sshOk, syncOk) certifying combined advanced Git execution.",
-    "eStarter": "function executeGitAdvancedMaster(reb, sq, ch, ssh, sync) {\n  const isNominal = reb && sq && ch && ssh && sync;\n  return {\n    linearRebaseSimulated: reb,\n    interactiveSquashParsed: sq,\n    cherryPickPatchesApplied: ch,\n    sshRemoteProtocolsVerified: ssh,\n    remoteRebaseSyncCompleted: sync,\n    engineStatus: isNominal ? 'GIT_ADVANCED_MASTER_ACTIVE' : 'GIT_ADVANCED_DEFECT'\n  };\n}",
+    "eStarter": "function executeGitAdvancedMaster(reb, sq, ch, ssh, sync) {\n  // TODO: Verify inputs and return active status.\n  \n}",
     "eHint": "Verify inputs and return active status.",
     "eTest": "const res = executeGitAdvancedMaster(true, true, true, true, true);\nif (res.engineStatus !== 'GIT_ADVANCED_MASTER_ACTIVE') throw new Error('Milestone 3 advanced master failed');",
     "aTitle": "Git Advanced Master Status Formatter",
-    "aDesc": "Implement function getGitAdvancedMasterStatus() returning `'GIT_ADVANCED_MASTER_ACTIVE'`.",
-    "aStarter": "function getGitAdvancedMasterStatus() { return 'GIT_ADVANCED_MASTER_ACTIVE'; }",
-    "aHint": "Return status.",
-    "aTest": "if (getGitAdvancedMasterStatus() !== 'GIT_ADVANCED_MASTER_ACTIVE') throw new Error('Status check failed');"
+    "aDesc": "Implement function getGitAdvancedMasterStatus() returning `'GIT_ADVANCED_MASTER_ACTIVE'`. When called with an `inputTag` string, return `{ canonical: \"GIT_ADVANCED_MASTER_ACTIVE\", provided: String(inputTag).trim(), isMatch }` comparing case-insensitively.",
+    "aStarter": "function getGitAdvancedMasterStatus(inputTag) {\n  // TODO: Return \"GIT_ADVANCED_MASTER_ACTIVE\" when called with no arguments, or { canonical: \"GIT_ADVANCED_MASTER_ACTIVE\", provided: String(inputTag).trim(), isMatch: boolean }\n  \n}",
+    "aHint": "If inputTag === undefined return \"GIT_ADVANCED_MASTER_ACTIVE\"; otherwise trim and compare case-insensitively against \"GIT_ADVANCED_MASTER_ACTIVE\".",
+    "aTest": "if (getGitAdvancedMasterStatus() !== \"GIT_ADVANCED_MASTER_ACTIVE\") throw new Error('Canonical string must equal ' + \"GIT_ADVANCED_MASTER_ACTIVE\");\nconst okMatch = getGitAdvancedMasterStatus(\"GIT_ADVANCED_MASTER_ACTIVE\".toLowerCase());\nconst badMatch = getGitAdvancedMasterStatus('INVALID_TAG_XYZ');\nif (!okMatch || !okMatch.isMatch || badMatch.isMatch || okMatch.canonical !== \"GIT_ADVANCED_MASTER_ACTIVE\") throw new Error('Case-insensitive canonical tag verification failed');"
   },
   {
     "day": 22,
@@ -433,14 +433,14 @@ export const GIT_VERSION_CONTROL_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     "eTitle": "GitHub Pull Request Issue Linker & Metadata Auditor",
     "eDesc": "Implement function auditPullRequestMetadata(prTitle, prBody) extracting linked closing issue IDs (`Fixes #123` / `Closes #456`) and validating PR description completeness.",
-    "eStarter": "function auditPullRequestMetadata(title, body) {\n  const issueMatch = body.match(/(?:Fixes|Closes|Resolves)\\s+#(\\d+)/i);\n  const hasLinkedIssue = !!issueMatch;\n  const isBodySubstantive = typeof body === 'string' && body.trim().length >= 30;\n  const isPrReady = isBodySubstantive && hasLinkedIssue;\n  return {\n    prTitle: title,\n    linkedIssueId: issueMatch ? parseInt(issueMatch[1], 10) : null,\n    isIssueLinked: hasLinkedIssue,\n    isDescriptionSubstantive: isBodySubstantive,\n    isPrReadyForReview: isPrReady,\n    status: isPrReady ? 'PULL_REQUEST_METADATA_READY_FOR_REVIEW_NOMINAL' : 'PR_METADATA_INCOMPLETE'\n  };\n}",
+    "eStarter": "function auditPullRequestMetadata(title, body) {\n  // TODO: Match /(?:Fixes|Closes|Resolves)\\s+#(\\d+)/i and verify body length >= 30.\n  \n}",
     "eHint": "Match /(?:Fixes|Closes|Resolves)\\s+#(\\d+)/i and verify body length >= 30.",
     "eTest": "const ready = auditPullRequestMetadata('feat: add stripe checkout', 'This PR implements Stripe webhooks.\\n\\nCloses #108.');\nconst incomplete = auditPullRequestMetadata('update', 'fixed stuff');\nif (!ready.isPrReadyForReview || ready.linkedIssueId !== 108 || incomplete.isPrReadyForReview || incomplete.isIssueLinked) throw new Error('PR metadata audit failed');",
     "aTitle": "GitHub Automatic Issue Closing Keyword Formatter",
-    "aDesc": "Implement function getIssueClosingKeyword() returning `'Closes'`.",
-    "aStarter": "function getIssueClosingKeyword() { return 'Closes'; }",
-    "aHint": "Return Closes.",
-    "aTest": "if (getIssueClosingKeyword() !== 'Closes') throw new Error('Keyword check failed');"
+    "aDesc": "Implement function getIssueClosingKeyword() returning `'Closes'`. When called with an `inputTag` string, return `{ canonical: \"Closes\", provided: String(inputTag).trim(), isMatch }` comparing case-insensitively.",
+    "aStarter": "function getIssueClosingKeyword(inputTag) {\n  // TODO: Return \"Closes\" when called with no arguments, or { canonical: \"Closes\", provided: String(inputTag).trim(), isMatch: boolean }\n  \n}",
+    "aHint": "If inputTag === undefined return \"Closes\"; otherwise trim and compare case-insensitively against \"Closes\".",
+    "aTest": "if (getIssueClosingKeyword() !== \"Closes\") throw new Error('Canonical string must equal ' + \"Closes\");\nconst okMatch = getIssueClosingKeyword(\"Closes\".toLowerCase());\nconst badMatch = getIssueClosingKeyword('INVALID_TAG_XYZ');\nif (!okMatch || !okMatch.isMatch || badMatch.isMatch || okMatch.canonical !== \"Closes\") throw new Error('Case-insensitive canonical tag verification failed');"
   },
   {
     "day": 23,
@@ -453,18 +453,18 @@ export const GIT_VERSION_CONTROL_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     "eTitle": "GitHub Code Review Verdict Evaluator & Suggested Change Validator",
     "eDesc": "Implement function evaluateReviewVerdict(reviewCommentsArray, hasBlockingBugs) determining whether review qualifies for `'APPROVE'` (LGTM), `'REQUEST_CHANGES'`, or `'COMMENT'`.",
-    "eStarter": "function evaluateReviewVerdict(comments, hasBlockers) {\n  if (hasBlockers) return { verdict: 'REQUEST_CHANGES', isApproved: false, status: 'CHANGES_REQUESTED_BLOCKING_BUGS_FOUND' };\n  const isApproved = comments.length === 0 || comments.every(c => c.isNitpick);\n  return {\n    totalComments: comments.length,\n    verdict: isApproved ? 'APPROVE' : 'COMMENT',\n    isApproved,\n    status: isApproved ? 'PULL_REQUEST_APPROVED_LGTM_NOMINAL' : 'REVIEW_COMMENTS_SUBMITTED'\n  };\n}",
+    "eStarter": "function evaluateReviewVerdict(comments, hasBlockers) {\n  // TODO: If hasBlockers return REQUEST_CHANGES. If only nits return APPROVE.\n  \n}",
     "eHint": "If hasBlockers return REQUEST_CHANGES. If only nits return APPROVE.",
     "eTest": "const lgtm = evaluateReviewVerdict([{ isNitpick: true, text: 'nit: rename var' }], false);\nconst blocked = evaluateReviewVerdict([], true);\nif (!lgtm.isApproved || lgtm.verdict !== 'APPROVE' || blocked.isApproved || blocked.verdict !== 'REQUEST_CHANGES') throw new Error('Review verdict evaluation failed');",
     "aTitle": "GitHub Standard Approval Acronym Formatter",
-    "aDesc": "Implement function getLgtmAcronym() returning `'LGTM'`.",
-    "aStarter": "function getLgtmAcronym() { return 'LGTM'; }",
-    "aHint": "Return LGTM.",
-    "aTest": "if (getLgtmAcronym() !== 'LGTM') throw new Error('Acronym check failed');"
+    "aDesc": "Implement function getLgtmAcronym() returning `'LGTM'`. When called with an `inputTag` string, return `{ canonical: \"LGTM\", provided: String(inputTag).trim(), isMatch }` comparing case-insensitively.",
+    "aStarter": "function getLgtmAcronym(inputTag) {\n  // TODO: Return \"LGTM\" when called with no arguments, or { canonical: \"LGTM\", provided: String(inputTag).trim(), isMatch: boolean }\n  \n}",
+    "aHint": "If inputTag === undefined return \"LGTM\"; otherwise trim and compare case-insensitively against \"LGTM\".",
+    "aTest": "if (getLgtmAcronym() !== \"LGTM\") throw new Error('Canonical string must equal ' + \"LGTM\");\nconst okMatch = getLgtmAcronym(\"LGTM\".toLowerCase());\nconst badMatch = getLgtmAcronym('INVALID_TAG_XYZ');\nif (!okMatch || !okMatch.isMatch || badMatch.isMatch || okMatch.canonical !== \"LGTM\") throw new Error('Case-insensitive canonical tag verification failed');"
   },
   {
     "day": 24,
-    "title": "GitHub Branch Protection Rules: Required CI Status Checks & Protected `main`",
+    "title": "GitHub Branch Protection Rules: Required CI Status Checks & Protected main",
     "desc": "Enforce enterprise governance on production branches: Branch Protection Rules (Protecting `main` from direct pushes), Require Pull Request Reviews before Merging (Minimum 1 or 2 approvals), Require Status Checks to Pass (Automated GitHub Actions CI unit tests), Dismiss Stale Approvals on New Pushes, and Block Force Pushes (`--force`).",
     "syllabus": [
       "Core Foundations: Principles and version control mechanics of GitHub Branch Protection Rules: Required CI Status Checks & Protected `main`.",
@@ -473,14 +473,14 @@ export const GIT_VERSION_CONTROL_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     "eTitle": "GitHub Branch Protection Rule Gatekeeper & Merge Auditor",
     "eDesc": "Implement function auditBranchMergeEligibility(approvalCount, minApprovalsRequired, isCiPassed, isBranchProtected) validating whether PR satisfies all branch protection requirements.",
-    "eStarter": "function auditBranchMergeEligibility(approvals, minRequired, ciPassed, isProtected) {\n  if (!isProtected) return { mergeAllowed: true, status: 'BRANCH_UNPROTECTED_MERGE_ALLOWED' };\n  const hasApprovals = approvals >= minRequired;\n  const isEligible = hasApprovals && ciPassed;\n  return {\n    approvalsReceived: approvals,\n    minApprovalsRequired: minRequired,\n    isCiPassing: ciPassed,\n    isMergeEligible: isEligible,\n    status: isEligible ? 'BRANCH_PROTECTION_PASSED_MERGE_PERMITTED_NOMINAL' : 'BRANCH_PROTECTION_BLOCKED_UNMET_CRITERIA'\n  };\n}",
+    "eStarter": "function auditBranchMergeEligibility(approvals, minRequired, ciPassed, isProtected) {\n  // TODO: Eligible if approvals >= minRequired and ciPassed is true.\n  \n}",
     "eHint": "Eligible if approvals >= minRequired and ciPassed is true.",
     "eTest": "const pass = auditBranchMergeEligibility(2, 1, true, true);\nconst failCi = auditBranchMergeEligibility(2, 1, false, true);\nconst failApp = auditBranchMergeEligibility(0, 1, true, true);\nif (!pass.isMergeEligible || failCi.isMergeEligible || failApp.isMergeEligible || pass.status !== 'BRANCH_PROTECTION_PASSED_MERGE_PERMITTED_NOMINAL') throw new Error('Branch protection audit failed');",
     "aTitle": "Minimum Recommended Code Review Approvals Formatter",
-    "aDesc": "Implement function getMinRecommendedApprovalsCount() returning `1`.",
-    "aStarter": "function getMinRecommendedApprovalsCount() { return 1; }",
-    "aHint": "Return 1.",
-    "aTest": "if (getMinRecommendedApprovalsCount() !== 1) throw new Error('Approvals count check failed');"
+    "aDesc": "Implement function getMinRecommendedApprovalsCount() returning `1`. When called with a numeric `candidateValue`, return `{ benchmark: 1, candidate: candidateValue, meetsBenchmark: candidateValue >= 1, delta: Number((candidateValue - 1).toFixed(4)) }`.",
+    "aStarter": "function getMinRecommendedApprovalsCount(candidateValue) {\n  // TODO: Return 1 when called with no arguments, or { benchmark: 1, candidate: candidateValue, meetsBenchmark: candidateValue >= 1, delta: Number((candidateValue - 1).toFixed(4)) }\n  \n}",
+    "aHint": "If candidateValue === undefined return 1; otherwise return { benchmark: 1, candidate: candidateValue, meetsBenchmark: candidateValue >= 1, delta: Number((candidateValue - 1).toFixed(4)) }.",
+    "aTest": "if (getMinRecommendedApprovalsCount() !== 1) throw new Error('Default benchmark value must be 1');\nconst passRes = getMinRecommendedApprovalsCount(6);\nconst failRes = getMinRecommendedApprovalsCount(-4);\nif (!passRes || !passRes.meetsBenchmark || failRes.meetsBenchmark || passRes.benchmark !== 1) throw new Error('Parameterized benchmark comparison failed');"
   },
   {
     "day": 25,
@@ -493,14 +493,14 @@ export const GIT_VERSION_CONTROL_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     "eTitle": "Team Workflow Strategy Matcher: Trunk-Based vs GitFlow",
     "eDesc": "Implement function matchTeamGitWorkflow(deploymentFrequency, usesFeatureFlags) recommending `'TRUNK_BASED_DEVELOPMENT'` or `'GIT_FLOW'`.",
-    "eStarter": "function matchTeamGitWorkflow(freq, flags) {\n  if (freq === 'CONTINUOUS_DEPLOYMENT_DAILY' || flags) {\n    return { strategy: 'TRUNK_BASED_DEVELOPMENT', branchLifespanHours: 24, status: 'HIGH_VELOCITY_TRUNK_BASED_MATCHED' };\n  }\n  return { strategy: 'GIT_FLOW', branchLifespanHours: 168, status: 'STRUCTURED_RELEASE_GITFLOW_MATCHED' };\n}",
+    "eStarter": "function matchTeamGitWorkflow(freq, flags) {\n  // TODO: If continuous or flags return TRUNK_BASED_DEVELOPMENT.\n  \n}",
     "eHint": "If continuous or flags return TRUNK_BASED_DEVELOPMENT.",
     "eTest": "const trunk = matchTeamGitWorkflow('CONTINUOUS_DEPLOYMENT_DAILY', true);\nconst gitflow = matchTeamGitWorkflow('SCHEDULED_MONTHLY_RELEASES', false);\nif (trunk.strategy !== 'TRUNK_BASED_DEVELOPMENT' || gitflow.strategy !== 'GIT_FLOW' || trunk.branchLifespanHours !== 24) throw new Error('Workflow matching failed');",
     "aTitle": "High Velocity Modern Git Workflow Name Formatter",
-    "aDesc": "Implement function getHighVelocityWorkflowName() returning `'TRUNK_BASED_DEVELOPMENT'`.",
-    "aStarter": "function getHighVelocityWorkflowName() { return 'TRUNK_BASED_DEVELOPMENT'; }",
-    "aHint": "Return TRUNK_BASED_DEVELOPMENT.",
-    "aTest": "if (getHighVelocityWorkflowName() !== 'TRUNK_BASED_DEVELOPMENT') throw new Error('Workflow check failed');"
+    "aDesc": "Implement function getHighVelocityWorkflowName() returning `'TRUNK_BASED_DEVELOPMENT'`. When called with an `inputTag` string, return `{ canonical: \"TRUNK_BASED_DEVELOPMENT\", provided: String(inputTag).trim(), isMatch }` comparing case-insensitively.",
+    "aStarter": "function getHighVelocityWorkflowName(inputTag) {\n  // TODO: Return \"TRUNK_BASED_DEVELOPMENT\" when called with no arguments, or { canonical: \"TRUNK_BASED_DEVELOPMENT\", provided: String(inputTag).trim(), isMatch: boolean }\n  \n}",
+    "aHint": "If inputTag === undefined return \"TRUNK_BASED_DEVELOPMENT\"; otherwise trim and compare case-insensitively against \"TRUNK_BASED_DEVELOPMENT\".",
+    "aTest": "if (getHighVelocityWorkflowName() !== \"TRUNK_BASED_DEVELOPMENT\") throw new Error('Canonical string must equal ' + \"TRUNK_BASED_DEVELOPMENT\");\nconst okMatch = getHighVelocityWorkflowName(\"TRUNK_BASED_DEVELOPMENT\".toLowerCase());\nconst badMatch = getHighVelocityWorkflowName('INVALID_TAG_XYZ');\nif (!okMatch || !okMatch.isMatch || badMatch.isMatch || okMatch.canonical !== \"TRUNK_BASED_DEVELOPMENT\") throw new Error('Case-insensitive canonical tag verification failed');"
   },
   {
     "day": 26,
@@ -513,18 +513,18 @@ export const GIT_VERSION_CONTROL_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     "eTitle": "GitHub Issue Template & Milestone Burndown Calculator",
     "eDesc": "Implement function calculateMilestoneProgress(closedIssuesCount, openIssuesCount) calculating sprint completion percentage ($Completion = \\frac{\\text{Closed}}{\\text{Total}} \\times 100$).",
-    "eStarter": "function calculateMilestoneProgress(closed, open) {\n  const total = closed + open;\n  if (total === 0) return { totalIssues: 0, completionPercentage: 0, isSprintComplete: false, status: 'EMPTY_MILESTONE' };\n  const pct = Number(((closed / total) * 100).toFixed(1));\n  const isDone = open === 0;\n  return {\n    closedIssues: closed,\n    openIssues: open,\n    totalIssues: total,\n    completionPercentage: pct,\n    isSprintComplete: isDone,\n    status: isDone ? 'MILESTONE_COMPLETED_NOMINAL' : 'MILESTONE_IN_PROGRESS'\n  };\n}",
+    "eStarter": "function calculateMilestoneProgress(closed, open) {\n  // TODO: pct = ((closed / total) * 100).toFixed(1).\n  \n}",
     "eHint": "pct = ((closed / total) * 100).toFixed(1).",
     "eTest": "const half = calculateMilestoneProgress(5, 5); // 50.0%\nconst done = calculateMilestoneProgress(10, 0); // 100.0%\nif (half.completionPercentage !== 50.0 || !done.isSprintComplete || done.completionPercentage !== 100.0) throw new Error('Milestone calculation failed');",
     "aTitle": "Sprint Target Container GitHub Feature Name Formatter",
-    "aDesc": "Implement function getSprintContainerName() returning `'Milestone'`.",
-    "aStarter": "function getSprintContainerName() { return 'Milestone'; }",
-    "aHint": "Return Milestone.",
-    "aTest": "if (getSprintContainerName() !== 'Milestone') throw new Error('Feature check failed');"
+    "aDesc": "Implement function getSprintContainerName() returning `'Milestone'`. When called with an `inputTag` string, return `{ canonical: \"Milestone\", provided: String(inputTag).trim(), isMatch }` comparing case-insensitively.",
+    "aStarter": "function getSprintContainerName(inputTag) {\n  // TODO: Return \"Milestone\" when called with no arguments, or { canonical: \"Milestone\", provided: String(inputTag).trim(), isMatch: boolean }\n  \n}",
+    "aHint": "If inputTag === undefined return \"Milestone\"; otherwise trim and compare case-insensitively against \"Milestone\".",
+    "aTest": "if (getSprintContainerName() !== \"Milestone\") throw new Error('Canonical string must equal ' + \"Milestone\");\nconst okMatch = getSprintContainerName(\"Milestone\".toLowerCase());\nconst badMatch = getSprintContainerName('INVALID_TAG_XYZ');\nif (!okMatch || !okMatch.isMatch || badMatch.isMatch || okMatch.canonical !== \"Milestone\") throw new Error('Case-insensitive canonical tag verification failed');"
   },
   {
     "day": 27,
-    "title": "GitHub Actions CI/CD Basics: Automated Workflow Pipelines (`.github/workflows`)",
+    "title": "GitHub Actions CI/CD Basics: Automated Workflow Pipelines (.github/workflows)",
     "desc": "Automate code quality testing on every commit: The `.github/workflows/ci.yml` Structure, Workflow Triggers (`on: [push, pull_request]`), Jobs and Runners (`runs-on: ubuntu-latest`), Matrix Testing across Node/Python versions, Checkout Action (`actions/checkout@v4`), and Running Automated Test Suites (`npm test`).",
     "syllabus": [
       "Core Foundations: Principles and version control mechanics of GitHub Actions CI/CD Basics: Automated Workflow Pipelines (`.github/workflows`).",
@@ -533,18 +533,18 @@ export const GIT_VERSION_CONTROL_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     "eTitle": "GitHub Actions Workflow YAML Structure Validator",
     "eDesc": "Implement function validateGitHubActionsWorkflow(workflowYamlString) validating that workflow contains valid `name`, `on` trigger, and `jobs` definition.",
-    "eStarter": "function validateGitHubActionsWorkflow(yaml) {\n  const hasName = yaml.includes('name:');\n  const hasTrigger = yaml.includes('on:');\n  const hasJobs = yaml.includes('jobs:');\n  const hasCheckout = yaml.includes('actions/checkout');\n  const isValid = hasName && hasTrigger && hasJobs && hasCheckout;\n  return {\n    hasName,\n    hasTrigger,\n    hasJobs,\n    hasCheckoutAction: hasCheckout,\n    isWorkflowValid: isValid,\n    status: isValid ? 'GITHUB_ACTIONS_WORKFLOW_VALID_NOMINAL' : 'WORKFLOW_CONFIG_DEFECT'\n  };\n}",
+    "eStarter": "function validateGitHubActionsWorkflow(yaml) {\n  // TODO: Verify name:, on:, jobs:, and actions/checkout presence.\n  \n}",
     "eHint": "Verify name:, on:, jobs:, and actions/checkout presence.",
     "eTest": "const validYaml = 'name: CI\\non: [push, pull_request]\\njobs:\\n  test:\\n    runs-on: ubuntu-latest\\n    steps:\\n      - uses: actions/checkout@v4\\n      - run: npm test';\nconst invalidYaml = 'name: Broken';\nconst pass = validateGitHubActionsWorkflow(validYaml);\nconst fail = validateGitHubActionsWorkflow(invalidYaml);\nif (!pass.isWorkflowValid || fail.isWorkflowValid || pass.status !== 'GITHUB_ACTIONS_WORKFLOW_VALID_NOMINAL') throw new Error('Workflow validation failed');",
     "aTitle": "GitHub Actions Workflow Directory Path Formatter",
-    "aDesc": "Implement function getWorkflowDirectoryPath() returning `'.github/workflows'`.",
-    "aStarter": "function getWorkflowDirectoryPath() { return '.github/workflows'; }",
-    "aHint": "Return .github/workflows.",
-    "aTest": "if (getWorkflowDirectoryPath() !== '.github/workflows') throw new Error('Directory path check failed');"
+    "aDesc": "Implement function getWorkflowDirectoryPath() returning `'.github/workflows'`. When called with an `inputTag` string, return `{ canonical: \".github/workflows\", provided: String(inputTag).trim(), isMatch }` comparing case-insensitively.",
+    "aStarter": "function getWorkflowDirectoryPath(inputTag) {\n  // TODO: Return \".github/workflows\" when called with no arguments, or { canonical: \".github/workflows\", provided: String(inputTag).trim(), isMatch: boolean }\n  \n}",
+    "aHint": "If inputTag === undefined return \".github/workflows\"; otherwise trim and compare case-insensitively against \".github/workflows\".",
+    "aTest": "if (getWorkflowDirectoryPath() !== \".github/workflows\") throw new Error('Canonical string must equal ' + \".github/workflows\");\nconst okMatch = getWorkflowDirectoryPath(\".github/workflows\".toLowerCase());\nconst badMatch = getWorkflowDirectoryPath('INVALID_TAG_XYZ');\nif (!okMatch || !okMatch.isMatch || badMatch.isMatch || okMatch.canonical !== \".github/workflows\") throw new Error('Case-insensitive canonical tag verification failed');"
   },
   {
     "day": 28,
-    "title": "Git Submodules & Monorepo Multi-Package Management: `git submodule` Mechanics",
+    "title": "Git Submodules & Monorepo Multi-Package Management: git submodule Mechanics",
     "desc": "Manage multi-repository dependencies and monorepo architectures: Adding Submodules (`git submodule add <url> <path>` recording commit pointer in `.gitmodules`), Cloning Repos with Submodules (`git clone --recursive`), Initializing Existing Submodules (`git submodule update --init --recursive`), and Monorepos (Turborepo / Nx) vs Polyrepos.",
     "syllabus": [
       "Core Foundations: Principles and version control mechanics of Git Submodules & Monorepo Multi-Package Management: `git submodule` Mechanics.",
@@ -553,14 +553,14 @@ export const GIT_VERSION_CONTROL_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     "eTitle": "Git Submodule `.gitmodules` Config Parser & Pointer Validator",
     "eDesc": "Implement function parseGitmodulesConfig(gitmodulesText) extracting submodule path, URL, and recording repository status.",
-    "eStarter": "function parseGitmodulesConfig(text) {\n  const pathMatch = text.match(/path\\s*=\\s*(\\S+)/);\n  const urlMatch = text.match(/url\\s*=\\s*(\\S+)/);\n  if (!pathMatch || !urlMatch) return { isValidSubmodule: false, status: 'INVALID_GITMODULES' };\n  return {\n    submodulePath: pathMatch[1],\n    submoduleUrl: urlMatch[1],\n    isValidSubmodule: true,\n    status: 'GITMODULES_PARSED_NOMINAL'\n  };\n}",
+    "eStarter": "function parseGitmodulesConfig(text) {\n  // TODO: Match path = ... and url = ... regexes.\n  \n}",
     "eHint": "Match path = ... and url = ... regexes.",
     "eTest": "const config = '[submodule \"lib/shared\"]\\n\\tpath = lib/shared\\n\\turl = https://github.com/org/shared.git';\nconst res = parseGitmodulesConfig(config);\nif (!res.isValidSubmodule || res.submodulePath !== 'lib/shared' || res.submoduleUrl !== 'https://github.com/org/shared.git') throw new Error('Gitmodules parsing failed');",
     "aTitle": "Git Clone Recursive Submodules Flag Formatter",
-    "aDesc": "Implement function getCloneRecursiveFlag() returning `'--recursive'`.",
-    "aStarter": "function getCloneRecursiveFlag() { return '--recursive'; }",
-    "aHint": "Return --recursive.",
-    "aTest": "if (getCloneRecursiveFlag() !== '--recursive') throw new Error('Flag check failed');"
+    "aDesc": "Implement function getCloneRecursiveFlag() returning `'--recursive'`. When called with an `inputTag` string, return `{ canonical: \"--recursive\", provided: String(inputTag).trim(), isMatch }` comparing case-insensitively.",
+    "aStarter": "function getCloneRecursiveFlag(inputTag) {\n  // TODO: Return \"--recursive\" when called with no arguments, or { canonical: \"--recursive\", provided: String(inputTag).trim(), isMatch: boolean }\n  \n}",
+    "aHint": "If inputTag === undefined return \"--recursive\"; otherwise trim and compare case-insensitively against \"--recursive\".",
+    "aTest": "if (getCloneRecursiveFlag() !== \"--recursive\") throw new Error('Canonical string must equal ' + \"--recursive\");\nconst okMatch = getCloneRecursiveFlag(\"--recursive\".toLowerCase());\nconst badMatch = getCloneRecursiveFlag('INVALID_TAG_XYZ');\nif (!okMatch || !okMatch.isMatch || badMatch.isMatch || okMatch.canonical !== \"--recursive\") throw new Error('Case-insensitive canonical tag verification failed');"
   },
   {
     "day": 29,
@@ -573,14 +573,14 @@ export const GIT_VERSION_CONTROL_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     "eTitle": "Pre-Commit Hook Lint-Staged Execution Gatekeeper",
     "eDesc": "Implement function evaluatePreCommitHook(isLinterPassed, isTypeCheckPassed, isCommitMessageValid) certifying pre-commit verification before allowing `git commit` to proceed.",
-    "eStarter": "function evaluatePreCommitHook(linterOk, typeOk, msgOk) {\n  const isApproved = linterOk && typeOk && msgOk;\n  return {\n    linterPassed: linterOk,\n    typeCheckPassed: typeOk,\n    commitMessageValid: msgOk,\n    isCommitAllowed: isApproved,\n    status: isApproved ? 'PRE_COMMIT_HOOK_PASSED_COMMIT_ALLOWED_NOMINAL' : 'PRE_COMMIT_HOOK_FAILED_COMMIT_ABORTED'\n  };\n}",
+    "eStarter": "function evaluatePreCommitHook(linterOk, typeOk, msgOk) {\n  // TODO: Commit allowed only if linterOk, typeOk, and msgOk are true.\n  \n}",
     "eHint": "Commit allowed only if linterOk, typeOk, and msgOk are true.",
     "eTest": "const pass = evaluatePreCommitHook(true, true, true);\nconst fail = evaluatePreCommitHook(true, false, true);\nif (!pass.isCommitAllowed || fail.isCommitAllowed || pass.status !== 'PRE_COMMIT_HOOK_PASSED_COMMIT_ALLOWED_NOMINAL') throw new Error('Pre-commit evaluation failed');",
     "aTitle": "Standard Pre-Commit Git Hook File Name Formatter",
-    "aDesc": "Implement function getPreCommitHookFileName() returning `'pre-commit'`.",
-    "aStarter": "function getPreCommitHookFileName() { return 'pre-commit'; }",
-    "aHint": "Return pre-commit.",
-    "aTest": "if (getPreCommitHookFileName() !== 'pre-commit') throw new Error('Hook name check failed');"
+    "aDesc": "Implement function getPreCommitHookFileName() returning `'pre-commit'`. When called with an `inputTag` string, return `{ canonical: \"pre-commit\", provided: String(inputTag).trim(), isMatch }` comparing case-insensitively.",
+    "aStarter": "function getPreCommitHookFileName(inputTag) {\n  // TODO: Return \"pre-commit\" when called with no arguments, or { canonical: \"pre-commit\", provided: String(inputTag).trim(), isMatch: boolean }\n  \n}",
+    "aHint": "If inputTag === undefined return \"pre-commit\"; otherwise trim and compare case-insensitively against \"pre-commit\".",
+    "aTest": "if (getPreCommitHookFileName() !== \"pre-commit\") throw new Error('Canonical string must equal ' + \"pre-commit\");\nconst okMatch = getPreCommitHookFileName(\"pre-commit\".toLowerCase());\nconst badMatch = getPreCommitHookFileName('INVALID_TAG_XYZ');\nif (!okMatch || !okMatch.isMatch || badMatch.isMatch || okMatch.canonical !== \"pre-commit\") throw new Error('Case-insensitive canonical tag verification failed');"
   },
   {
     "day": 30,
@@ -593,14 +593,14 @@ export const GIT_VERSION_CONTROL_30_DAYS_CONFIGS: DayConfig[] = [
     ],
     "eTitle": "Sovereign Git & Master Version Control Suite Orchestrator",
     "eDesc": "Implement function orchestrateGitMasterSuite(foundationsOk, branchingOk, advancedOk, collaborationOk, automationOk) certifying comprehensive Git and GitHub version control mastery.",
-    "eStarter": "function orchestrateGitMasterSuite(foundations, branching, advanced, collab, auto) {\n  const isCertified = foundations && branching && advanced && collab && auto;\n  return {\n    gitFoundationsModule: foundations,\n    branchingAndConflictsModule: branching,\n    advancedHistoryAndRemotesModule: advanced,\n    githubCollaborationModule: collab,\n    automationAndQualityGatesModule: auto,\n    sovereignGitMasterCertified: isCertified,\n    certified: true,\n    status: isCertified ? 'SOVEREIGN_GIT_AND_VERSION_CONTROL_MASTER_CERTIFIED_NOMINAL' : 'GIT_MASTER_SUITE_DEFECT'\n  };\n}",
+    "eStarter": "function orchestrateGitMasterSuite(foundations, branching, advanced, collab, auto) {\n  // TODO: Verify all 5 Git mastery pillars evaluate to true.\n  \n}",
     "eHint": "Verify all 5 Git mastery pillars evaluate to true.",
     "eTest": "const ok = orchestrateGitMasterSuite(true, true, true, true, true);\nconst fail = orchestrateGitMasterSuite(true, true, false, true, true);\nif (!ok.sovereignGitMasterCertified || fail.sovereignGitMasterCertified || !ok.certified || ok.status !== 'SOVEREIGN_GIT_AND_VERSION_CONTROL_MASTER_CERTIFIED_NOMINAL') throw new Error('Capstone orchestrator failed');",
     "aTitle": "Git & Version Control Master Certification Auditor",
-    "aDesc": "Implement function auditGitMasterCert() returning `{ certified: true, score: '100/100', tier: 'SOVEREIGN_GIT_AND_VERSION_CONTROL_MASTER_CERTIFIED' }`.",
-    "aStarter": "function auditGitMasterCert() { return { certified: true, score: '100/100', tier: 'SOVEREIGN_GIT_AND_VERSION_CONTROL_MASTER_CERTIFIED' }; }",
-    "aHint": "Return certification object.",
-    "aTest": "if (!auditGitMasterCert().certified) throw new Error('Capstone cert failed');"
+    "aDesc": "Implement function auditGitMasterCert() returning `{ certified: true, score: '100/100', tier: 'SOVEREIGN_GIT_AND_VERSION_CONTROL_MASTER_CERTIFIED' }`. When called with `overrideProps`, return the base object merged with `overrideProps`.",
+    "aStarter": "function auditGitMasterCert(overrideProps) {\n  // TODO: Return {\"certified\":true,\"score\":\"100/100\",\"tier\":\"SOVEREIGN_GIT_AND_VERSION_CONTROL_MASTER_CERTIFIED\"} merged with optional overrideProps\n  \n}",
+    "aHint": "Return { ...{\"certified\":true,\"score\":\"100/100\",\"tier\":\"SOVEREIGN_GIT_AND_VERSION_CONTROL_MASTER_CERTIFIED\"}, ...(overrideProps || {}) }.",
+    "aTest": "const base = auditGitMasterCert();\nconst custom = auditGitMasterCert({ verifiedOverride: true });\nif (!base || !custom.verifiedOverride) throw new Error('Object configuration merge failed');"
   }
 ];
 

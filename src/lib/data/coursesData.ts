@@ -41,6 +41,10 @@ import { BCOM_ENTREPRENEURSHIP_30_DAYS_QUESTS } from './bcomEntrepreneurship30Da
 import { BCOM_SALES_CRM_30_DAYS_QUESTS } from './bcomSalesCrm30DayData';
 import { BCOM_OPERATIONS_30_DAYS_QUESTS } from './bcomOperations30DayData';
 import { BCOM_AI_TRANSFORMATION_30_DAYS_QUESTS } from './bcomAiTransformation30DayData';
+import { BCOM_AUDITING_30_DAYS_QUESTS } from './bcomAuditing30DayData';
+import { BCOM_BANKING_30_DAYS_QUESTS } from './bcomBanking30DayData';
+import { BCOM_LAW_30_DAYS_QUESTS } from './bcomLaw30DayData';
+import { BCOM_TAXATION_30_DAYS_QUESTS } from './bcomTaxation30DayData';
 import { COMPUTER_FUNDAMENTALS_30_DAYS_QUESTS } from './computerFundamentals30DayData';
 import { AI_PROMPT_LITERACY_30_DAYS_QUESTS } from './aiPromptLiteracy30DayData';
 import { EXCEL_DATA_VIZ_30_DAYS_QUESTS } from './excelDataViz30DayData';
@@ -471,6 +475,42 @@ const RAW_COURSES: Course[] = [
     durationWeeks: 4,
     icon: '🤖',
     quests: BCOM_AI_TRANSFORMATION_30_DAYS_QUESTS as any
+  },
+  {
+    id: 'course-statutory-auditing',
+    title: 'Statutory Audit, Forensic Accounting & Corporate Assurance (B.Com / BBA / CA)',
+    desc: 'University-grade curriculum covering audit risk models, Benford fraud analytics, SOX 404 internal controls, Monetary Unit Sampling (MUS), substantive verification, and ISA 700 statutory reporting.',
+    difficulty: 'Intermediate',
+    durationWeeks: 4,
+    icon: '🔍',
+    quests: BCOM_AUDITING_30_DAYS_QUESTS as any
+  },
+  {
+    id: 'course-banking-treasury',
+    title: 'Commercial Banking, Treasury & Credit Risk Operations (B.Com / BBA / MBA)',
+    desc: 'University-grade curriculum covering fractional reserve banking, Asset-Liability Management (ALM) duration gaps, Basel III capital ratios, Liquidity Coverage Ratios (LCR), and Expected Credit Loss (ECL) modeling.',
+    difficulty: 'Intermediate',
+    durationWeeks: 4,
+    icon: '🏦',
+    quests: BCOM_BANKING_30_DAYS_QUESTS as any
+  },
+  {
+    id: 'course-corporate-law',
+    title: 'Corporate & Commercial Law, Contracts & Governance (B.Com / BBA / LLB)',
+    desc: 'University-grade curriculum covering commercial contracts, liquidated damages, corporate veil piercing, director fiduciary duties, securities compliance, and M&A antitrust HHI regulation.',
+    difficulty: 'Intermediate',
+    durationWeeks: 4,
+    icon: '⚖️',
+    quests: BCOM_LAW_30_DAYS_QUESTS as any
+  },
+  {
+    id: 'course-corporate-taxation',
+    title: 'Corporate Taxation, Direct Taxes & Tax Shield Strategy (B.Com / BBA / MBA)',
+    desc: 'University-grade curriculum covering ASC 740 / IAS 12 deferred taxes (DTA/DTL), Modigliani-Miller debt tax shields, OECD arm-length transfer pricing, NOL carryforwards, and GST/VAT input tax credit chains.',
+    difficulty: 'Intermediate',
+    durationWeeks: 4,
+    icon: '📑',
+    quests: BCOM_TAXATION_30_DAYS_QUESTS as any
   },
   // 🌐 UNIVERSAL FOUNDATIONAL COURSES (ESSENTIAL FOR BOTH TECH & NON-TECH)
   {

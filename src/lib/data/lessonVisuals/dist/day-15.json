@@ -587,7 +587,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Synthesizing the Complete Milestone 2 Di.. [D15.P6.S1].",
+            "caption": "Initialize input state for Synthesizing the Complete Milestone two Di.",
             "values": {
               "in": "Day 15 Input",
               "proc": "Standby",
@@ -607,7 +607,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Synthesizing the Co... [D15.P6.S2].",
+            "caption": "Execute core transformation in Synthesizing the Co... [D.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -631,7 +631,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D15.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -651,7 +651,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Synthesizing the Complete Milesto.. [D15.P6.S4].",
+            "caption": "End-to-end execution verified for Synthesizing the Complete Milesto.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

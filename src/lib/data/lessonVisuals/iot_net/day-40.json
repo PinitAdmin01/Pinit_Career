@@ -583,7 +583,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Compute weighted utility scores across all 4 RATs combining RF margin and energy cost.",
+            "caption": "Compute weighted utility scores across all four RATs combining RF margin.",
             "registerName": "MULTI_RAT_SCORING_REG",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -776,7 +776,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize MULTI_RAT_DEFENSE_REG: Arm 2.0 dB link hysteresis and 60s minimum dwell timer.",
+            "caption": "Initialize MULTI_RAT_DEFENSE_REG: Arm two.zero dB link hysteresis and s.",
             "registerName": "MULTI_RAT_DEFENSE_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -898,7 +898,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Force low-power NB-IoT fallback on critical battery (<20% SOC) and route video to RedCap.",
+            "caption": "Force low-power NB-IoT fallback on critical battery (<twenty% SOC) and.",
             "registerName": "MULTI_RAT_DEFENSE_REG",
             "bitWidth": 8,
             "hexValue": "0xFE",
@@ -1152,7 +1152,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Verify 100% SLA fulfillment, 0 packet loss, and 95% fleet energy optimization.",
+            "caption": "Verify one hundred% SLA fulfillment, zero packet loss, and multiple%.",
             "registerName": "MULTI_RAT_PORT_SIM_REG",
             "bitWidth": 8,
             "hexValue": "0xFE",
@@ -1284,7 +1284,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize CONVERGENCE_MASTER_ENGINE_REG: Verify all 4 RAT interfaces and scoring policies.",
+            "caption": "Initialize CONVERGENCE_MASTER_ENGINE_REG: Verify all four RAT interfaces.",
             "registerName": "CONVERGENCE_MASTER_ENGINE_REG",
             "bitWidth": 8,
             "hexValue": "0xC0",
@@ -1467,7 +1467,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Commit Grade A+ Milestone 8 Convergence Edge Gateway Engine certification.",
+            "caption": "Commit Grade A+ Milestone eight Convergence Edge Gateway Engine.",
             "registerName": "CONVERGENCE_MASTER_ENGINE_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

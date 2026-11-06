@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Anatomy of SFT: From Pre-Trained Base Mo...",
+            "caption": "Initialize input state for Anatomy of SFT: From Pre-Trained Base Mo...",
             "values": {
               "in": "Day 41 Input",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Anatomy of SFT: Fro....",
+            "caption": "Execute core transformation in Anatomy of SFT: Fro....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -75,7 +75,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Anatomy of SFT: From Pre-Trained ...",
+            "caption": "End-to-end execution verified for Anatomy of SFT: From Pre-Trained ...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -257,7 +257,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Chat Templates & Tokenization Protocols:...",
+            "caption": "Initialize input state for Chat Templates & Tokenization Protocols:...",
             "values": {
               "in": "Day 41 Input",
               "proc": "Standby",
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Chat Templates & To....",
+            "caption": "Execute core transformation in Chat Templates & To....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -301,7 +301,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -321,7 +321,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Chat Templates & Tokenization Pro...",
+            "caption": "End-to-end execution verified for Chat Templates & Tokenization Pro...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -483,7 +483,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Prompt Loss Masking & Selective Cross-En...",
+            "caption": "Initialize input state for Prompt Loss Masking & Selective Cross-En...",
             "values": {
               "in": "Day 41 Input",
               "proc": "Standby",
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Prompt Loss Masking....",
+            "caption": "Execute core transformation in Prompt Loss Masking....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -527,7 +527,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -547,7 +547,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Prompt Loss Masking & Selective C...",
+            "caption": "End-to-end execution verified for Prompt Loss Masking & Selective C...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -709,7 +709,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Data Mixture Balancing, Sample Packing &...",
+            "caption": "Initialize input state for Data Mixture Balancing, Sample Packing &...",
             "values": {
               "in": "Day 41 Input",
               "proc": "Standby",
@@ -729,7 +729,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Data Mixture Balanc....",
+            "caption": "Execute core transformation in Data Mixture Balanc....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -753,7 +753,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -773,7 +773,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Data Mixture Balancing, Sample Pa...",
+            "caption": "End-to-end execution verified for Data Mixture Balancing, Sample Pa...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -935,7 +935,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Diagnostic Outages: Mode Collapse, Repet...",
+            "caption": "Initialize input state for Diagnostic Outages: Mode Collapse, Repet...",
             "values": {
               "in": "Day 41 Input",
               "proc": "Standby",
@@ -955,7 +955,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Diagnostic Outages:....",
+            "caption": "Execute core transformation in Diagnostic Outages:....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -979,7 +979,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -999,7 +999,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Diagnostic Outages: Mode Collapse...",
+            "caption": "End-to-end execution verified for Diagnostic Outages: Mode Collapse...",
             "values": {
               "in": "Committed",
               "proc": "Verified",

@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize ASGI and dependency runtime for JWT Cryptographic Anatomy & OAuth2 Password Bearer Handshake.",
+            "caption": "State one (Init State): Initialize ASGI and dependency runtime for JWT.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -60,7 +60,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Production Verified): Production certification complete with verified terminal output.",
+            "caption": "State four (Production Verified): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -99,7 +99,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize ASGI and dependency runtime for Algorithm Confusion (RS256 vs HS256) Exploit Forensics.",
+            "caption": "State one (Init State): Initialize ASGI and dependency runtime for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -127,7 +127,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Production Verified): Production certification complete with verified terminal output.",
+            "caption": "State four (Production Verified): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -166,7 +166,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize ASGI and dependency runtime for OAuth2 Stateless Token & Refresh Rotation Engine Implementation.",
+            "caption": "State one (Init State): Initialize ASGI and dependency runtime for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -194,7 +194,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Production Verified): Production certification complete with verified terminal output.",
+            "caption": "State four (Production Verified): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -233,7 +233,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize ASGI and dependency runtime for Redis Distributed Blocklist Token Revocation & Replay Defense.",
+            "caption": "State one (Init State): Initialize ASGI and dependency runtime for Redis.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -261,7 +261,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Production Verified): Production certification complete with verified terminal output.",
+            "caption": "State four (Production Verified): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -300,7 +300,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize ASGI and dependency runtime for Hardened Microservice Security Engine Synthesis Lab.",
+            "caption": "State one (Init State): Initialize ASGI and dependency runtime for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -328,7 +328,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Production Verified): Production certification complete with verified terminal output.",
+            "caption": "State four (Production Verified): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",

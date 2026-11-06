@@ -46,7 +46,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Register cryptographic device token via <PushTokenRegistrar />.",
+            "caption": "Register cryptographic device token via <PushTokenRegistrar />.",
             "activeId": "root",
             "tone": "primary",
             "nodes": [
@@ -62,7 +62,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Decrypt encrypted payload and attach media via <NotificationServiceExtension />.",
+            "caption": "Decrypt encrypted payload and attach media via.",
             "activeId": "ServiceExtension",
             "tone": "accent",
             "nodes": [
@@ -78,7 +78,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Render real-time glanceable updates via <ActivityKitDynamicIsland />.",
+            "caption": "Render real-time glanceable updates via <ActivityKitDynamicIsland />.",
             "activeId": "DynamicIsland",
             "tone": "data",
             "nodes": [
@@ -94,7 +94,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute comprehensive Milestone 4 benchmark certification.",
+            "caption": "Execute comprehensive Milestone four benchmark certification.",
             "activeId": "root",
             "tone": "ok",
             "nodes": [
@@ -254,7 +254,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Register cryptographic device token via <PushTokenRegistra.",
+            "caption": "Register cryptographic device token via <PushTokenRegistra.",
             "activeId": "root",
             "tone": "primary",
             "nodes": [
@@ -270,7 +270,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Decrypt encrypted payload and attach media via <NotificationServiceExtension />.",
+            "caption": "Decrypt encrypted payload and attach media via.",
             "activeId": "ServiceExtension",
             "tone": "accent",
             "nodes": [
@@ -286,7 +286,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Render real-time glanceable updates via <ActivityKitDynamicIsland />.",
+            "caption": "Render real-time glanceable updates via <ActivityKitDynamicIsland />.",
             "activeId": "DynamicIsland",
             "tone": "data",
             "nodes": [
@@ -302,7 +302,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute comprehensive Milestone 4 benchmark certification.",
+            "caption": "Execute comprehensive Milestone four benchmark certification.",
             "activeId": "root",
             "tone": "ok",
             "nodes": [
@@ -462,7 +462,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Register cryptographic device token via <PushTokenRegistra.",
+            "caption": "Register cryptographic device token via <PushTokenRegistra.",
             "activeId": "root",
             "tone": "primary",
             "nodes": [
@@ -478,7 +478,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Decrypt encrypted payload and attach media via <NotificationServiceExtension />.",
+            "caption": "Decrypt encrypted payload and attach media via.",
             "activeId": "ServiceExtension",
             "tone": "accent",
             "nodes": [
@@ -494,7 +494,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Render real-time glanceable updates via <ActivityKitDynamicIsland />.",
+            "caption": "Render real-time glanceable updates via <ActivityKitDynamicIsland />.",
             "activeId": "DynamicIsland",
             "tone": "data",
             "nodes": [
@@ -510,7 +510,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute comprehensive Milestone 4 benchmark certification.",
+            "caption": "Execute comprehensive Milestone four benchmark certification.",
             "activeId": "root",
             "tone": "ok",
             "nodes": [
@@ -670,7 +670,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Register cryptographic device token via <PushTokenRegistra.",
+            "caption": "Register cryptographic device token via <PushTokenRegistra.",
             "activeId": "root",
             "tone": "primary",
             "nodes": [
@@ -686,7 +686,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Decrypt encrypted payload and attach media via <NotificationServiceExtension />.",
+            "caption": "Decrypt encrypted payload and attach media via.",
             "activeId": "ServiceExtension",
             "tone": "accent",
             "nodes": [
@@ -702,7 +702,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Render real-time glanceable updates via <ActivityKitDynamicIsland />.",
+            "caption": "Render real-time glanceable updates via <ActivityKitDynamicIsland />.",
             "activeId": "DynamicIsland",
             "tone": "data",
             "nodes": [
@@ -718,7 +718,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute comprehensive Milestone 4 benchmark certification.",
+            "caption": "Execute comprehensive Milestone four benchmark certification.",
             "activeId": "root",
             "tone": "ok",
             "nodes": [
@@ -878,7 +878,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Register cryptographic device token via <PushTokenRegistra.",
+            "caption": "Register cryptographic device token via <PushTokenRegistra.",
             "activeId": "root",
             "tone": "primary",
             "nodes": [
@@ -894,7 +894,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Decrypt encrypted payload and attach media via <NotificationServiceExtension />.",
+            "caption": "Decrypt encrypted payload and attach media via.",
             "activeId": "ServiceExtension",
             "tone": "accent",
             "nodes": [
@@ -910,7 +910,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Render real-time glanceable updates via <ActivityKitDynamicIsland />.",
+            "caption": "Render real-time glanceable updates via <ActivityKitDynamicIsland />.",
             "activeId": "DynamicIsland",
             "tone": "data",
             "nodes": [
@@ -926,7 +926,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute comprehensive Milestone 4 benchmark certification.",
+            "caption": "Execute comprehensive Milestone four benchmark certification.",
             "activeId": "root",
             "tone": "ok",
             "nodes": [

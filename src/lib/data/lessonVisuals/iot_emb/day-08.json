@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize Open-Drain Electrical Physics & Pul with hardware clock gate & EN=1.",
+            "caption": "Initialize Open-Drain Electrical Physics & Pul with hardware clock gate &.",
             "registerName": "I2C_CR1",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Assert RDY and IRQ flags under hardware interrupt preemption.",
+            "caption": "Assert RDY and IRQ flags under hardware interrupt preemption.",
             "registerName": "I2C_CR1",
             "bitWidth": 8,
             "hexValue": "0xE0",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enable DMA burst and hardware CRC error verification.",
+            "caption": "Enable DMA burst and hardware CRC error verification.",
             "registerName": "I2C_CR1",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full TX/RX transceiver active with 0% error verified.",
+            "caption": "Full TX/RX transceiver active with zero% error verified.",
             "registerName": "I2C_CR1",
             "bitWidth": 8,
             "hexValue": "0xFE",
@@ -267,7 +267,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize START / STOP Framing, 7-Bit Address with hardware clock gate & EN=1.",
+            "caption": "Initialize START / STOP Framing, seven-Bit Address with hardware clock.",
             "registerName": "I2C_CR2",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -327,7 +327,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Assert RDY and IRQ flags under hardware interrupt preemption.",
+            "caption": "Assert RDY and IRQ flags under hardware interrupt preemption.",
             "registerName": "I2C_CR2",
             "bitWidth": 8,
             "hexValue": "0xE0",
@@ -388,7 +388,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enable DMA burst and hardware CRC error verification.",
+            "caption": "Enable DMA burst and hardware CRC error verification.",
             "registerName": "I2C_CR2",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -449,7 +449,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full TX/RX transceiver active with 0% error verified.",
+            "caption": "Full TX/RX transceiver active with zero% error verified.",
             "registerName": "I2C_CR2",
             "bitWidth": 8,
             "hexValue": "0xFE",
@@ -520,7 +520,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize Clock Stretching Mechanics & Slave  with hardware clock gate & EN=1.",
+            "caption": "Initialize Clock Stretching Mechanics & Slave with hardware clock gate &.",
             "registerName": "I2C_CR3",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -580,7 +580,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Assert RDY and IRQ flags under hardware interrupt preemption.",
+            "caption": "Assert RDY and IRQ flags under hardware interrupt preemption.",
             "registerName": "I2C_CR3",
             "bitWidth": 8,
             "hexValue": "0xE0",
@@ -641,7 +641,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enable DMA burst and hardware CRC error verification.",
+            "caption": "Enable DMA burst and hardware CRC error verification.",
             "registerName": "I2C_CR3",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -702,7 +702,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full TX/RX transceiver active with 0% error verified.",
+            "caption": "Full TX/RX transceiver active with zero% error verified.",
             "registerName": "I2C_CR3",
             "bitWidth": 8,
             "hexValue": "0xFE",
@@ -773,7 +773,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize Automated 9-Clock Bus Unjamming & F with hardware clock gate & EN=1.",
+            "caption": "Initialize Automated nine-Clock Bus Unjamming & F with hardware clock.",
             "registerName": "I2C_CR4",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -833,7 +833,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Assert RDY and IRQ flags under hardware interrupt preemption.",
+            "caption": "Assert RDY and IRQ flags under hardware interrupt preemption.",
             "registerName": "I2C_CR4",
             "bitWidth": 8,
             "hexValue": "0xE0",
@@ -894,7 +894,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enable DMA burst and hardware CRC error verification.",
+            "caption": "Enable DMA burst and hardware CRC error verification.",
             "registerName": "I2C_CR4",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -955,7 +955,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full TX/RX transceiver active with 0% error verified.",
+            "caption": "Full TX/RX transceiver active with zero% error verified.",
             "registerName": "I2C_CR4",
             "bitWidth": 8,
             "hexValue": "0xFE",
@@ -1026,7 +1026,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize Industrial Multi-Sensor I2C Polling with hardware clock gate & EN=1.",
+            "caption": "Initialize Industrial Multi-Sensor ItwoC Polling with hardware clock gate.",
             "registerName": "I2C_CR5",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1086,7 +1086,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Assert RDY and IRQ flags under hardware interrupt preemption.",
+            "caption": "Assert RDY and IRQ flags under hardware interrupt preemption.",
             "registerName": "I2C_CR5",
             "bitWidth": 8,
             "hexValue": "0xE0",
@@ -1147,7 +1147,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enable DMA burst and hardware CRC error verification.",
+            "caption": "Enable DMA burst and hardware CRC error verification.",
             "registerName": "I2C_CR5",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -1208,7 +1208,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full TX/RX transceiver active with 0% error verified.",
+            "caption": "Full TX/RX transceiver active with zero% error verified.",
             "registerName": "I2C_CR5",
             "bitWidth": 8,
             "hexValue": "0xFE",

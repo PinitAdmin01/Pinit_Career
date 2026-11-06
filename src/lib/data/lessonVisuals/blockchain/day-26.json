@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol initializes state for Architecture of Over-Collatera",
+            "caption": "Protocol initializes state for Architecture of Over-Collatera.",
             "activeActor": "Liquidity Supplier",
             "messages": [
               {
@@ -33,7 +33,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes state transition and updates interest/collateral invariant",
+            "caption": "Engine executes state transition and updates interest/collateral invariant.",
             "activeActor": "LendingPoolVault",
             "messages": [
               {
@@ -46,7 +46,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Protocol computes accounting checkpoint and verifies risk boundary",
+            "caption": "Protocol computes accounting checkpoint and verifies risk boundary.",
             "activeActor": "CTokenEngine",
             "messages": [
               {
@@ -59,7 +59,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Transaction settled; accounting reconciled and state committed",
+            "caption": "Transaction settled; accounting reconciled and state committed.",
             "activeActor": "LendingPoolVault",
             "messages": [
               {
@@ -152,7 +152,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol initializes state for Two-Slope Kink Interest Rate M",
+            "caption": "Protocol initializes state for Two-Slope Kink Interest Rate M.",
             "activeActor": "Borrower Account",
             "messages": [
               {
@@ -165,7 +165,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes state transition and updates interest/collateral invariant",
+            "caption": "Engine executes state transition and updates interest/collateral invariant.",
             "activeActor": "LendingPoolVault",
             "messages": [
               {
@@ -178,7 +178,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Protocol computes accounting checkpoint and verifies risk boundary",
+            "caption": "Protocol computes accounting checkpoint and verifies risk boundary.",
             "activeActor": "InterestRateModel",
             "messages": [
               {
@@ -191,7 +191,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Transaction settled; accounting reconciled and state committed",
+            "caption": "Transaction settled; accounting reconciled and state committed.",
             "activeActor": "LendingPoolVault",
             "messages": [
               {
@@ -284,7 +284,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol initializes state for Cumulative Borrow Index & O(1)",
+            "caption": "Protocol initializes state for Cumulative Borrow Index & constant-time.",
             "activeActor": "Borrower Account",
             "messages": [
               {
@@ -297,7 +297,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes state transition and updates interest/collateral invariant",
+            "caption": "Engine executes state transition and updates interest/collateral invariant.",
             "activeActor": "CumulativeBorrowIndex",
             "messages": [
               {
@@ -310,7 +310,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Protocol computes accounting checkpoint and verifies risk boundary",
+            "caption": "Protocol computes accounting checkpoint and verifies risk boundary.",
             "activeActor": "StorageRegistry",
             "messages": [
               {
@@ -323,7 +323,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Transaction settled; accounting reconciled and state committed",
+            "caption": "Transaction settled; accounting reconciled and state committed.",
             "activeActor": "CumulativeBorrowIndex",
             "messages": [
               {
@@ -416,7 +416,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol initializes state for Real-Time Multi-Asset Health F",
+            "caption": "Protocol initializes state for Real-Time Multi-Asset Health F.",
             "activeActor": "Risk Engine Sentinel",
             "messages": [
               {
@@ -429,7 +429,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes state transition and updates interest/collateral invariant",
+            "caption": "Engine executes state transition and updates interest/collateral invariant.",
             "activeActor": "ChainlinkOracleNetwork",
             "messages": [
               {
@@ -442,7 +442,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Protocol computes accounting checkpoint and verifies risk boundary",
+            "caption": "Protocol computes accounting checkpoint and verifies risk boundary.",
             "activeActor": "HealthFactorEvaluator",
             "messages": [
               {
@@ -455,7 +455,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Transaction settled; accounting reconciled and state committed",
+            "caption": "Transaction settled; accounting reconciled and state committed.",
             "activeActor": "ChainlinkOracleNetwork",
             "messages": [
               {
@@ -548,7 +548,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol initializes state for Enterprise DeFi Lending Protoc",
+            "caption": "Protocol initializes state for Enterprise DeFi Lending Protoc.",
             "activeActor": "Institutional Risk DAO",
             "messages": [
               {
@@ -561,7 +561,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes state transition and updates interest/collateral invariant",
+            "caption": "Engine executes state transition and updates interest/collateral invariant.",
             "activeActor": "LendingPoolMasterVault",
             "messages": [
               {
@@ -574,7 +574,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Protocol computes accounting checkpoint and verifies risk boundary",
+            "caption": "Protocol computes accounting checkpoint and verifies risk boundary.",
             "activeActor": "AuditVerificationEngine",
             "messages": [
               {
@@ -587,7 +587,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Transaction settled; accounting reconciled and state committed",
+            "caption": "Transaction settled; accounting reconciled and state committed.",
             "activeActor": "LendingPoolMasterVault",
             "messages": [
               {

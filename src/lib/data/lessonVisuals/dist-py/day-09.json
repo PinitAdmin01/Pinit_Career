@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Replicated state machines [D9.P1.S1].",
+            "caption": "Initialize input state for Replicated state machines [Dnine.Pone.Sone].",
             "values": {
               "in": "Day 9 Input",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Replicated state ma... [D9.P1.S2].",
+            "caption": "Execute core transformation in Replicated state ma... [Dnine.Pone.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -75,7 +75,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D9.P1.S3].",
+            "caption": "Inspect concrete example output and invariants [Dnine.Pone.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Replicated state machines [D9.P1.S4].",
+            "caption": "End-to-end execution verified for Replicated state machines.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -1017,7 +1017,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Reads, snapshots and Raft in practice [D9.P6.S1].",
+            "caption": "Initialize input state for Reads, snapshots and Raft in practice.",
             "values": {
               "in": "Day 9 Input",
               "proc": "Standby",
@@ -1037,7 +1037,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Reads, snapshots an... [D9.P6.S2].",
+            "caption": "Execute core transformation in Reads, snapshots an... [Dnine.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -1061,7 +1061,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D9.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [Dnine.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -1081,7 +1081,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Reads, snapshots and Raft in prac.. [D9.P6.S4].",
+            "caption": "End-to-end execution verified for Reads, snapshots and Raft in prac.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

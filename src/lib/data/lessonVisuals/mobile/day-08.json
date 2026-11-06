@@ -51,7 +51,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <TurboModuleRoot /> for The C++ JavaScript Interface (...",
+            "caption": "Mount root <TurboModuleRoot /> for The C++ JavaScript Interface (...",
             "activeId": "AppShell",
             "tone": "data",
             "nodes": [
@@ -94,7 +94,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Bind C++ Host Object pointers into <CppHostObjectBridge />.",
+            "caption": "Bind C++ Host Object pointers into <CppHostObjectBridge />.",
             "activeId": "HostBridge",
             "reRenderingIds": [
               "HostBridge",
@@ -147,7 +147,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware instructions directly in <NativeHardwareEnclave />.",
+            "caption": "Execute hardware instructions directly in <NativeHardwareEnclave />.",
             "activeId": "HardwareLayer",
             "reRenderingIds": [
               "HardwareLayer"
@@ -193,7 +193,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Synchronize zero-copy memory buffer to <HermesJsiRuntime />.",
+            "caption": "Synchronize zero-copy memory buffer to <HermesJsiRuntime />.",
             "activeId": "JsiRuntime",
             "tone": "accent",
             "nodes": [
@@ -511,7 +511,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <TurboModuleRoot /> for Codegen & Strongly Typed Specs...",
+            "caption": "Mount root <TurboModuleRoot /> for Codegen & Strongly Typed Specs...",
             "activeId": "AppShell",
             "tone": "data",
             "nodes": [
@@ -554,7 +554,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Bind C++ Host Object pointers into <CppHostObjectBridge />.",
+            "caption": "Bind C++ Host Object pointers into <CppHostObjectBridge />.",
             "activeId": "HostBridge",
             "reRenderingIds": [
               "HostBridge",
@@ -607,7 +607,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware instructions directly in <NativeHardwareEnclave />.",
+            "caption": "Execute hardware instructions directly in <NativeHardwareEnclave />.",
             "activeId": "HardwareLayer",
             "reRenderingIds": [
               "HardwareLayer"
@@ -653,7 +653,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Synchronize zero-copy memory buffer to <HermesJsiRuntime />.",
+            "caption": "Synchronize zero-copy memory buffer to <HermesJsiRuntime />.",
             "activeId": "JsiRuntime",
             "tone": "accent",
             "nodes": [
@@ -971,7 +971,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <TurboModuleRoot /> for TurboModules on iOS: Objective...",
+            "caption": "Mount root <TurboModuleRoot /> for TurboModules on iOS: Objective...",
             "activeId": "AppShell",
             "tone": "data",
             "nodes": [
@@ -1014,7 +1014,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Bind C++ Host Object pointers into <CppHostObjectBridge />.",
+            "caption": "Bind C++ Host Object pointers into <CppHostObjectBridge />.",
             "activeId": "HostBridge",
             "reRenderingIds": [
               "HostBridge",
@@ -1067,7 +1067,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware instructions directly in <NativeHardwareEnclave />.",
+            "caption": "Execute hardware instructions directly in <NativeHardwareEnclave />.",
             "activeId": "HardwareLayer",
             "reRenderingIds": [
               "HardwareLayer"
@@ -1113,7 +1113,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Synchronize zero-copy memory buffer to <HermesJsiRuntime />.",
+            "caption": "Synchronize zero-copy memory buffer to <HermesJsiRuntime />.",
             "activeId": "JsiRuntime",
             "tone": "accent",
             "nodes": [
@@ -1431,7 +1431,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <TurboModuleRoot /> for TurboModules on Android: JNI, ...",
+            "caption": "Mount root <TurboModuleRoot /> for TurboModules on Android: JNI, ...",
             "activeId": "AppShell",
             "tone": "data",
             "nodes": [
@@ -1474,7 +1474,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Bind C++ Host Object pointers into <CppHostObjectBridge />.",
+            "caption": "Bind C++ Host Object pointers into <CppHostObjectBridge />.",
             "activeId": "HostBridge",
             "reRenderingIds": [
               "HostBridge",
@@ -1527,7 +1527,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware instructions directly in <NativeHardwareEnclave />.",
+            "caption": "Execute hardware instructions directly in <NativeHardwareEnclave />.",
             "activeId": "HardwareLayer",
             "reRenderingIds": [
               "HardwareLayer"
@@ -1573,7 +1573,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Synchronize zero-copy memory buffer to <HermesJsiRuntime />.",
+            "caption": "Synchronize zero-copy memory buffer to <HermesJsiRuntime />.",
             "activeId": "JsiRuntime",
             "tone": "accent",
             "nodes": [
@@ -1891,7 +1891,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <TurboModuleRoot /> for Cross-Platform Hardware Accele...",
+            "caption": "Mount root <TurboModuleRoot /> for Cross-Platform Hardware Accele...",
             "activeId": "AppShell",
             "tone": "data",
             "nodes": [
@@ -1934,7 +1934,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Bind C++ Host Object pointers into <CppHostObjectBridge />.",
+            "caption": "Bind C++ Host Object pointers into <CppHostObjectBridge />.",
             "activeId": "HostBridge",
             "reRenderingIds": [
               "HostBridge",
@@ -1987,7 +1987,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware instructions directly in <NativeHardwareEnclave />.",
+            "caption": "Execute hardware instructions directly in <NativeHardwareEnclave />.",
             "activeId": "HardwareLayer",
             "reRenderingIds": [
               "HardwareLayer"
@@ -2033,7 +2033,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Synchronize zero-copy memory buffer to <HermesJsiRuntime />.",
+            "caption": "Synchronize zero-copy memory buffer to <HermesJsiRuntime />.",
             "activeId": "JsiRuntime",
             "tone": "accent",
             "nodes": [

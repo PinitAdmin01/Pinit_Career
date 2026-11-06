@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Market Feed): Initialize state for Kernel Bypass Networking & User...",
+            "caption": "State one (Market Feed): Initialize state for Kernel Bypass Networking &.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -162,7 +162,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Market Feed): Initialize state for SIMD Vectorized Execution: AVX2...",
+            "caption": "State one (Market Feed): Initialize state for SIMD Vectorized Execution.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -292,7 +292,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Market Feed): Initialize state for Order Book Microstructure: Orde...",
+            "caption": "State one (Market Feed): Initialize state for Order Book Microstructure.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -422,7 +422,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Market Feed): Initialize state for Optimal Execution & Almgren-Chr...",
+            "caption": "State one (Market Feed): Initialize state for Optimal Execution &.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -552,7 +552,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Market Feed): Initialize state for The Financial Information eXcha...",
+            "caption": "State one (Market Feed): Initialize state for The Financial Information.",
             "currentState": "st1",
             "tone": "data"
           },

@@ -21,7 +21,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Configure dual interfaces: Bring up Ethernet eth0 and IEEE 802.15.4 wpan0.",
+            "caption": "Configure dual interfaces: Bring up Ethernet ethzero and IEEE.",
             "registerName": "THREAD_BORDER_ROUTER_REG",
             "bitWidth": 8,
             "hexValue": "0x83",
@@ -225,7 +225,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Execute bidirectional packet forwarding: Resolve RLOC16 and apply LOWPAN_IPHC compression.",
+            "caption": "Execute bidirectional packet forwarding: Resolve RLOCsixteen and apply.",
             "registerName": "THREAD_BORDER_ROUTER_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -303,7 +303,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Enable DNS64 resolver: Intercept AAAA queries and detect missing IPv6 records.",
+            "caption": "Enable DNSsixty-four resolver: Intercept AAAA queries and detect missing.",
             "registerName": "THREAD_NAT64_DNS64_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -371,7 +371,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Synthesize IPv6 address: Prepend RFC 6052 64:ff9b::/96 prefix to 32-bit IPv4 address.",
+            "caption": "Synthesize IPvsix address: Prepend RFC multiple.",
             "registerName": "THREAD_NAT64_DNS64_REG",
             "bitWidth": 8,
             "hexValue": "0x87",
@@ -439,7 +439,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Allocate stateful NAT64 5-tuple session binding and assign ephemeral public port.",
+            "caption": "Allocate stateful NATsixty-four five-tuple session binding and assign.",
             "registerName": "THREAD_NAT64_DNS64_REG",
             "bitWidth": 8,
             "hexValue": "0xBF",
@@ -507,7 +507,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Translate outbound IPv6 datagram to IPv4 and execute RFC 1624 incremental checksum update.",
+            "caption": "Translate outbound IPvsix datagram to IPvfour and execute RFC multiple.",
             "registerName": "THREAD_NAT64_DNS64_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -721,7 +721,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Listen to on-mesh MLD reports and register realm-local multicast group ff05:: on backbone.",
+            "caption": "Listen to on-mesh MLD reports and register realm-local multicast group.",
             "registerName": "THREAD_BBR_SYNC_REG",
             "bitWidth": 8,
             "hexValue": "0xBF",
@@ -789,7 +789,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Proxy external Matter/mDNS multicast queries into 802.15.4 mesh while suppressing duplicates.",
+            "caption": "Proxy external Matter/mDNS multicast queries into multiple.multiple.four.",
             "registerName": "THREAD_BBR_SYNC_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -867,7 +867,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize Matter transport: Bind operational socket to UDP port 5540.",
+            "caption": "Initialize Matter transport: Bind operational socket to UDP port multiple.",
             "registerName": "THREAD_MATTER_TRANS_REG",
             "bitWidth": 8,
             "hexValue": "0x83",
@@ -1003,7 +1003,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Transmit multi-hop Matter command frame: Fragment 300-byte payload across 6LoWPAN frames.",
+            "caption": "Transmit multi-hop Matter command frame: Fragment multiple-byte payload.",
             "registerName": "THREAD_MATTER_TRANS_REG",
             "bitWidth": 8,
             "hexValue": "0xBF",
@@ -1071,7 +1071,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Deliver end-to-end encrypted cluster command to edge node with sub-20ms verified latency.",
+            "caption": "Deliver end-to-end encrypted cluster command to edge node with.",
             "registerName": "THREAD_MATTER_TRANS_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1149,7 +1149,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize ThreadBorderRouterGateway: Bind Linux kernel interfaces wpan0 and eth0.",
+            "caption": "Initialize ThreadBorderRouterGateway: Bind Linux kernel interfaces.",
             "registerName": "THREAD_MASTER_BR_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -1217,7 +1217,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Route inbound enterprise Matter traffic to edge RLOC and translate cloud telemetry via NAT64.",
+            "caption": "Route inbound enterprise Matter traffic to edge RLOC and translate cloud.",
             "registerName": "THREAD_MASTER_BR_REG",
             "bitWidth": 8,
             "hexValue": "0x8F",

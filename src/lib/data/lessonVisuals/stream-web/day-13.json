@@ -122,7 +122,7 @@
         "steps": [
           {
             "at": "say3",
-            "caption": "Snappy and LZ4 are speed-optimized codecs with fast decompression speeds.",
+            "caption": "Snappy and LZfour are speed-optimized codecs with fast decompression.",
             "rows": [
               {
                 "cells": [
@@ -368,7 +368,7 @@
         "steps": [
           {
             "at": "say4",
-            "caption": "Enabling LZ4 or Zstandard frees network capacity, doubling cluster throughput.",
+            "caption": "Enabling LZfour or Zstandard frees network capacity, doubling cluster.",
             "bars": [
               {
                 "label": "LZ4 Saved (Gbps)",
@@ -388,7 +388,7 @@
           },
           {
             "at": "say8",
-            "caption": "Lightweight codecs like LZ4 and Snappy deliver byte savings with low CPU cost.",
+            "caption": "Lightweight codecs like LZfour and Snappy deliver byte savings with low.",
             "bars": [
               {
                 "label": "LZ4 CPU Cores",
@@ -615,7 +615,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Building a Batch Compression Benchmark &.. [D13.P6.S1].",
+            "caption": "Initialize input state for Building a Batch Compression Benchmark &.",
             "values": {
               "in": "Day 13 Input",
               "proc": "Standby",
@@ -635,7 +635,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building a Batch Co... [D13.P6.S2].",
+            "caption": "Execute core transformation in Building a Batch Co... [D.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -659,7 +659,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D13.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -679,7 +679,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building a Batch Compression Benc.. [D13.P6.S4].",
+            "caption": "End-to-end execution verified for Building a Batch Compression Benc.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Radiance Environment): Initialize state architecture for Spherical Harmonics (SH) Ambient Irradiance & Basis Projections.",
+            "caption": "State one (Radiance Environment): Initialize state architecture for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -99,7 +99,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Probe Grid Coordinates): Initialize state architecture for Irradiance Volume Probes & Normal-Weighted Trilinear Interpolation.",
+            "caption": "State one (Probe Grid Coordinates): Initialize state architecture for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -166,13 +166,13 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (RSM Virtual Point Lights): Initialize state architecture for Light Propagation Volumes (LPV) & Virtual Point Light (VPL) Injection.",
+            "caption": "State one (RSM Virtual Point Lights): Initialize state architecture for.",
             "currentState": "st1",
             "tone": "data"
           },
           {
             "at": "say1",
-            "caption": "Transition to 3D Grid SH Injection with zero-allocation buffer pipeline.",
+            "caption": "Transition to three-dimensional Grid SH Injection with zero-allocation.",
             "currentState": "st2",
             "transition": {
               "from": "st1",
@@ -233,13 +233,13 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Conservative Voxelize): Initialize state architecture for Voxel Global Illumination (VXGI) & Voxel Cone Tracing.",
+            "caption": "State one (Conservative Voxelize): Initialize state architecture for.",
             "currentState": "st1",
             "tone": "data"
           },
           {
             "at": "say1",
-            "caption": "Transition to 3D Anisotropic Mipmap with zero-allocation buffer pipeline.",
+            "caption": "Transition to three-dimensional Anisotropic Mipmap with zero-allocation.",
             "currentState": "st2",
             "transition": {
               "from": "st1",
@@ -300,7 +300,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (G-Buffer Properties): Initialize state architecture for Real-Time Indirect Diffuse Global Illumination Master Engine.",
+            "caption": "State one (G-Buffer Properties): Initialize state architecture for.",
             "currentState": "st1",
             "tone": "data"
           },

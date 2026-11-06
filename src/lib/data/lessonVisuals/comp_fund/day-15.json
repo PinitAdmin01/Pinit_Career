@@ -88,7 +88,7 @@
             "focus": [
               0
             ],
-            "caption": "intro (Hardware Memory Hierarchy: L1/L2/L3)"
+            "caption": "Intro (Hardware Memory Hierarchy: level-one/level-two/level-three)."
           },
           {
             "label": "say1",
@@ -96,7 +96,7 @@
             "focus": [
               1
             ],
-            "caption": "say1 (Hardware Memory Hierarchy: L1/L2/L3)"
+            "caption": "Sayone (Hardware Memory Hierarchy: level-one/level-two/level-three)."
           },
           {
             "label": "example",
@@ -104,7 +104,7 @@
             "focus": [
               1
             ],
-            "caption": "example (Hardware Memory Hierarchy: L1/L2/L3)"
+            "caption": "Example (Hardware Memory Hierarchy: level-one/level-two/level-three)."
           },
           {
             "label": "tryIt",
@@ -112,7 +112,7 @@
             "focus": [
               2
             ],
-            "caption": "tryIt (Hardware Memory Hierarchy: L1/L2/L3)"
+            "caption": "TryIt (Hardware Memory Hierarchy: level-one/level-two/level-three)."
           }
         ]
       },
@@ -264,7 +264,7 @@
             "focus": [
               1
             ],
-            "caption": "say1 (Network Architecture & Socket Multi)"
+            "caption": "Sayone (Network Architecture & Socket Multi)."
           },
           {
             "label": "example",
@@ -432,7 +432,7 @@
             "focus": [
               1
             ],
-            "caption": "say1 (Web Application Protocols & Securit)"
+            "caption": "Sayone (Web Application Protocols & Securit)."
           },
           {
             "label": "example",
@@ -600,7 +600,7 @@
             "focus": [
               1
             ],
-            "caption": "say1 (Distributed Persistence & Data Stan)"
+            "caption": "Sayone (Distributed Persistence & Data Stan)."
           },
           {
             "label": "example",
@@ -760,7 +760,7 @@
             "focus": [
               0
             ],
-            "caption": "intro (⭐ MILESTONE 2 CAPSTONE: Sovereign F)"
+            "caption": "Intro (⭐ MILESTONE two CAPSTONE: Sovereign F)."
           },
           {
             "label": "say1",
@@ -768,7 +768,7 @@
             "focus": [
               1
             ],
-            "caption": "say1 (⭐ MILESTONE 2 CAPSTONE: Sovereign F)"
+            "caption": "Sayone (⭐ MILESTONE two CAPSTONE: Sovereign F)."
           },
           {
             "label": "example",
@@ -776,7 +776,7 @@
             "focus": [
               1
             ],
-            "caption": "example (⭐ MILESTONE 2 CAPSTONE: Sovereign F)"
+            "caption": "Example (⭐ MILESTONE two CAPSTONE: Sovereign F)."
           },
           {
             "label": "tryIt",
@@ -784,7 +784,7 @@
             "focus": [
               2
             ],
-            "caption": "tryIt (⭐ MILESTONE 2 CAPSTONE: Sovereign F)"
+            "caption": "TryIt (⭐ MILESTONE two CAPSTONE: Sovereign F)."
           }
         ]
       },

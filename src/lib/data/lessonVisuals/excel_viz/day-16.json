@@ -10,11 +10,11 @@
       "codeHash": "b690cce7ed76545367900b25489c40ddc6281363514c2d358ac68418c322a1b4",
       "spec": {
         "template": "bars",
-        "title": "Executive Dashboard Architecture & Visua... \u2014 Executive Dashboard Metrics",
+        "title": "Executive Dashboard Architecture & Visua... — Executive Dashboard Metrics",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline visual hierarchy indicators for Executive Dashboard Architecture & ...",
+            "caption": "Baseline visual hierarchy indicators for Executive Dashboard Architecture.",
             "max": 100,
             "bars": [
               {
@@ -41,7 +41,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Component design and layout principles for Executive Dashboard Architecture & ...",
+            "caption": "Component design and layout principles for Executive Dashboard.",
             "max": 100,
             "bars": [
               {
@@ -68,7 +68,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Applied institutional case study and dynamic controls for Executive Dashboard Architecture & ...",
+            "caption": "Applied institutional case study and dynamic controls for Executive.",
             "max": 100,
             "bars": [
               {
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive parameter testing and alert thresholds for Executive Dashboard Architecture & ...",
+            "caption": "Interactive parameter testing and alert thresholds for Executive.",
             "max": 100,
             "bars": [
               {
@@ -128,11 +128,11 @@
       "codeHash": "51b3989769272a4826ce0ca7b625e17fba8c81ce1b931bb877be167d7d2d652e",
       "spec": {
         "template": "bars",
-        "title": "Dynamic KPI Cards, Variance Sparklines &... \u2014 Executive Dashboard Metrics",
+        "title": "Dynamic KPI Cards, Variance Sparklines &... — Executive Dashboard Metrics",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline visual hierarchy indicators for Dynamic KPI Cards, Variance Sparkli...",
+            "caption": "Baseline visual hierarchy indicators for Dynamic KPI Cards, Variance.",
             "max": 100,
             "bars": [
               {
@@ -159,7 +159,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Component design and layout principles for Dynamic KPI Cards, Variance Sparkli...",
+            "caption": "Component design and layout principles for Dynamic KPI Cards, Variance.",
             "max": 100,
             "bars": [
               {
@@ -186,7 +186,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Applied institutional case study and dynamic controls for Dynamic KPI Cards, Variance Sparkli...",
+            "caption": "Applied institutional case study and dynamic controls for Dynamic KPI.",
             "max": 100,
             "bars": [
               {
@@ -213,7 +213,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive parameter testing and alert thresholds for Dynamic KPI Cards, Variance Sparkli...",
+            "caption": "Interactive parameter testing and alert thresholds for Dynamic KPI Cards.",
             "max": 100,
             "bars": [
               {
@@ -246,11 +246,11 @@
       "codeHash": "f714ed396f02f99daac22628728578822b9ee611f9ed35af11136e1810ded8f1",
       "spec": {
         "template": "bars",
-        "title": "Interactive Form Controls, Option Button... \u2014 Executive Dashboard Metrics",
+        "title": "Interactive Form Controls, Option Button... — Executive Dashboard Metrics",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline visual hierarchy indicators for Interactive Form Controls, Option B...",
+            "caption": "Baseline visual hierarchy indicators for Interactive Form Controls.",
             "max": 100,
             "bars": [
               {
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Component design and layout principles for Interactive Form Controls, Option B...",
+            "caption": "Component design and layout principles for Interactive Form Controls.",
             "max": 100,
             "bars": [
               {
@@ -304,7 +304,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Applied institutional case study and dynamic controls for Interactive Form Controls, Option B...",
+            "caption": "Applied institutional case study and dynamic controls for Interactive.",
             "max": 100,
             "bars": [
               {
@@ -331,7 +331,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive parameter testing and alert thresholds for Interactive Form Controls, Option B...",
+            "caption": "Interactive parameter testing and alert thresholds for Interactive Form.",
             "max": 100,
             "bars": [
               {
@@ -364,11 +364,11 @@
       "codeHash": "c0d818283c89b63f8bad911454272cb5412bc7f663d7bf26f2240449673b348a",
       "spec": {
         "template": "bars",
-        "title": "Rule-Based Dynamic Conditional Formattin... \u2014 Executive Dashboard Metrics",
+        "title": "Rule-Based Dynamic Conditional Formattin... — Executive Dashboard Metrics",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline visual hierarchy indicators for Rule-Based Dynamic Conditional Form...",
+            "caption": "Baseline visual hierarchy indicators for Rule-Based Dynamic Conditional.",
             "max": 100,
             "bars": [
               {
@@ -395,7 +395,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Component design and layout principles for Rule-Based Dynamic Conditional Form...",
+            "caption": "Component design and layout principles for Rule-Based Dynamic Conditional.",
             "max": 100,
             "bars": [
               {
@@ -422,7 +422,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Applied institutional case study and dynamic controls for Rule-Based Dynamic Conditional Form...",
+            "caption": "Applied institutional case study and dynamic controls for Rule-Based.",
             "max": 100,
             "bars": [
               {
@@ -449,7 +449,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive parameter testing and alert thresholds for Rule-Based Dynamic Conditional Form...",
+            "caption": "Interactive parameter testing and alert thresholds for Rule-Based Dynamic.",
             "max": 100,
             "bars": [
               {
@@ -482,11 +482,11 @@
       "codeHash": "5c2c3ee0eb4bae8ac1967015e5220b6e6747faa71409be82830aef235fb7bbbf",
       "spec": {
         "template": "bars",
-        "title": "Institutional Executive Financial Comman... \u2014 Executive Dashboard Metrics",
+        "title": "Institutional Executive Financial Comman... — Executive Dashboard Metrics",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline visual hierarchy indicators for Institutional Executive Financial C...",
+            "caption": "Baseline visual hierarchy indicators for Institutional Executive.",
             "max": 100,
             "bars": [
               {
@@ -513,7 +513,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Component design and layout principles for Institutional Executive Financial C...",
+            "caption": "Component design and layout principles for Institutional Executive.",
             "max": 100,
             "bars": [
               {
@@ -540,7 +540,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Applied institutional case study and dynamic controls for Institutional Executive Financial C...",
+            "caption": "Applied institutional case study and dynamic controls for Institutional.",
             "max": 100,
             "bars": [
               {
@@ -567,7 +567,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive parameter testing and alert thresholds for Institutional Executive Financial C...",
+            "caption": "Interactive parameter testing and alert thresholds for Institutional.",
             "max": 100,
             "bars": [
               {

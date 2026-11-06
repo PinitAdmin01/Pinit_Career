@@ -10,7 +10,7 @@
       "codeHash": "af8a36e0ec802776fdd30d62b6bbd67befb12b93e78248f910f85b659c62bc26",
       "spec": {
         "template": "component-tree",
-        "title": "Biometric Hardware Sensing & Isolated Silicon... \u2014 Mobile Component Hierarchy",
+        "title": "Biometric Hardware Sensing & Isolated Silicon... — Mobile Component Hierarchy",
         "nodes": [
           {
             "id": "BiometricRoot",
@@ -51,7 +51,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <BiometricAuthApp /> for Biometric Hardware Sensing & I...",
+            "caption": "Mount root <BiometricAuthApp /> for Biometric Hardware Sensing & I...",
             "activeId": "BiometricRoot",
             "tone": "data",
             "nodes": [
@@ -67,7 +67,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Initialize <SecureEnclaveBoundary /> isolated hardware security coprocessor",
+            "caption": "Initialize <SecureEnclaveBoundary /> isolated hardware security.",
             "activeId": "EnclaveGuard",
             "tone": "accent",
             "nodes": [
@@ -83,7 +83,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Sign challenge nonce via <HardwareAttestationWorker /> inside Secure Enclave",
+            "caption": "Sign challenge nonce via <HardwareAttestationWorker /> inside Secure.",
             "activeId": "AttestationSigner",
             "tone": "data",
             "nodes": [
@@ -99,7 +99,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Engage <LockoutPasscodeFallbackView /> if user cancels or incurs 5 consecutive errors",
+            "caption": "Engage <LockoutPasscodeFallbackView /> if user cancels or incurs five.",
             "activeId": "LockoutFallback",
             "tone": "ok",
             "nodes": [
@@ -117,7 +117,7 @@
       },
       "filled": {
         "template": "component-tree",
-        "title": "Biometric Hardware Sensing & Isolated Silicon... \u2014 Mobile Component Hierarchy",
+        "title": "Biometric Hardware Sensing & Isolated Silicon... — Mobile Component Hierarchy",
         "nodes": [
           {
             "id": "BiometricRoot",
@@ -228,7 +228,7 @@
       "codeHash": "0cd6f42d133cbf268d35fc133cce5e00c79b8187a9765580251ee658565fb420",
       "spec": {
         "template": "component-tree",
-        "title": "The Native Biometric Lifecycle: Availability,... \u2014 Mobile Component Hierarchy",
+        "title": "The Native Biometric Lifecycle: Availability,... — Mobile Component Hierarchy",
         "nodes": [
           {
             "id": "BiometricRoot",
@@ -269,7 +269,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <BiometricAuthApp /> for The Native Biometric Lifecycle...",
+            "caption": "Mount root <BiometricAuthApp /> for The Native Biometric Lifecycle...",
             "activeId": "BiometricRoot",
             "tone": "data",
             "nodes": [
@@ -285,7 +285,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Initialize <SecureEnclaveBoundary /> isolated hardware security coprocessor",
+            "caption": "Initialize <SecureEnclaveBoundary /> isolated hardware security.",
             "activeId": "EnclaveGuard",
             "tone": "accent",
             "nodes": [
@@ -301,7 +301,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Sign challenge nonce via <HardwareAttestationWorker /> inside Secure Enclave",
+            "caption": "Sign challenge nonce via <HardwareAttestationWorker /> inside Secure.",
             "activeId": "AttestationSigner",
             "tone": "data",
             "nodes": [
@@ -317,7 +317,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Engage <LockoutPasscodeFallbackView /> if user cancels or incurs 5 consecutive errors",
+            "caption": "Engage <LockoutPasscodeFallbackView /> if user cancels or incurs five.",
             "activeId": "LockoutFallback",
             "tone": "ok",
             "nodes": [
@@ -335,7 +335,7 @@
       },
       "filled": {
         "template": "component-tree",
-        "title": "The Native Biometric Lifecycle: Availability,... \u2014 Mobile Component Hierarchy",
+        "title": "The Native Biometric Lifecycle: Availability,... — Mobile Component Hierarchy",
         "nodes": [
           {
             "id": "BiometricRoot",
@@ -446,7 +446,7 @@
       "codeHash": "754048ac54efce214d3b1b2f818feaaf735f6aeec2d94d56e7c8667a9c9117d3",
       "spec": {
         "template": "component-tree",
-        "title": "Cryptographic Hardware Key Attestation: P-256... \u2014 Mobile Component Hierarchy",
+        "title": "Cryptographic Hardware Key Attestation: P-256... — Mobile Component Hierarchy",
         "nodes": [
           {
             "id": "BiometricRoot",
@@ -487,7 +487,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <BiometricAuthApp /> for Cryptographic Hardware Key Att...",
+            "caption": "Mount root <BiometricAuthApp /> for Cryptographic Hardware Key Att...",
             "activeId": "BiometricRoot",
             "tone": "data",
             "nodes": [
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Initialize <SecureEnclaveBoundary /> isolated hardware security coprocessor",
+            "caption": "Initialize <SecureEnclaveBoundary /> isolated hardware security.",
             "activeId": "EnclaveGuard",
             "tone": "accent",
             "nodes": [
@@ -519,7 +519,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Sign challenge nonce via <HardwareAttestationWorker /> inside Secure Enclave",
+            "caption": "Sign challenge nonce via <HardwareAttestationWorker /> inside Secure.",
             "activeId": "AttestationSigner",
             "tone": "data",
             "nodes": [
@@ -535,7 +535,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Engage <LockoutPasscodeFallbackView /> if user cancels or incurs 5 consecutive errors",
+            "caption": "Engage <LockoutPasscodeFallbackView /> if user cancels or incurs five.",
             "activeId": "LockoutFallback",
             "tone": "ok",
             "nodes": [
@@ -553,7 +553,7 @@
       },
       "filled": {
         "template": "component-tree",
-        "title": "Cryptographic Hardware Key Attestation: P-256... \u2014 Mobile Component Hierarchy",
+        "title": "Cryptographic Hardware Key Attestation: P-256... — Mobile Component Hierarchy",
         "nodes": [
           {
             "id": "BiometricRoot",
@@ -664,7 +664,7 @@
       "codeHash": "6f749824a4a8375090f49513ba5d2c409338f9f3481d7aecc49218ec093c11e2",
       "spec": {
         "template": "component-tree",
-        "title": "User Cancellation, Biometric Lockouts & Defen... \u2014 Mobile Component Hierarchy",
+        "title": "User Cancellation, Biometric Lockouts & Defen... — Mobile Component Hierarchy",
         "nodes": [
           {
             "id": "BiometricRoot",
@@ -705,7 +705,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <BiometricAuthApp /> for User Cancellation, Biometric L...",
+            "caption": "Mount root <BiometricAuthApp /> for User Cancellation, Biometric L...",
             "activeId": "BiometricRoot",
             "tone": "data",
             "nodes": [
@@ -721,7 +721,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Initialize <SecureEnclaveBoundary /> isolated hardware security coprocessor",
+            "caption": "Initialize <SecureEnclaveBoundary /> isolated hardware security.",
             "activeId": "EnclaveGuard",
             "tone": "accent",
             "nodes": [
@@ -737,7 +737,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Sign challenge nonce via <HardwareAttestationWorker /> inside Secure Enclave",
+            "caption": "Sign challenge nonce via <HardwareAttestationWorker /> inside Secure.",
             "activeId": "AttestationSigner",
             "tone": "data",
             "nodes": [
@@ -753,7 +753,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Engage <LockoutPasscodeFallbackView /> if user cancels or incurs 5 consecutive errors",
+            "caption": "Engage <LockoutPasscodeFallbackView /> if user cancels or incurs five.",
             "activeId": "LockoutFallback",
             "tone": "ok",
             "nodes": [
@@ -771,7 +771,7 @@
       },
       "filled": {
         "template": "component-tree",
-        "title": "User Cancellation, Biometric Lockouts & Defen... \u2014 Mobile Component Hierarchy",
+        "title": "User Cancellation, Biometric Lockouts & Defen... — Mobile Component Hierarchy",
         "nodes": [
           {
             "id": "BiometricRoot",
@@ -882,7 +882,7 @@
       "codeHash": "6e420fc21ecb22435d5606313b7f40fa3dbd1bce0e777ebc61bd8f02e3677f07",
       "spec": {
         "template": "component-tree",
-        "title": "Enterprise Biometric Vault & Attestation Mast... \u2014 Mobile Component Hierarchy",
+        "title": "Enterprise Biometric Vault & Attestation Mast... — Mobile Component Hierarchy",
         "nodes": [
           {
             "id": "BiometricRoot",
@@ -923,7 +923,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <BiometricAuthApp /> for Enterprise Biometric Vault & A...",
+            "caption": "Mount root <BiometricAuthApp /> for Enterprise Biometric Vault & A...",
             "activeId": "BiometricRoot",
             "tone": "data",
             "nodes": [
@@ -939,7 +939,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Initialize <SecureEnclaveBoundary /> isolated hardware security coprocessor",
+            "caption": "Initialize <SecureEnclaveBoundary /> isolated hardware security.",
             "activeId": "EnclaveGuard",
             "tone": "accent",
             "nodes": [
@@ -955,7 +955,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Sign challenge nonce via <HardwareAttestationWorker /> inside Secure Enclave",
+            "caption": "Sign challenge nonce via <HardwareAttestationWorker /> inside Secure.",
             "activeId": "AttestationSigner",
             "tone": "data",
             "nodes": [
@@ -971,7 +971,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Engage <LockoutPasscodeFallbackView /> if user cancels or incurs 5 consecutive errors",
+            "caption": "Engage <LockoutPasscodeFallbackView /> if user cancels or incurs five.",
             "activeId": "LockoutFallback",
             "tone": "ok",
             "nodes": [
@@ -989,7 +989,7 @@
       },
       "filled": {
         "template": "component-tree",
-        "title": "Enterprise Biometric Vault & Attestation Mast... \u2014 Mobile Component Hierarchy",
+        "title": "Enterprise Biometric Vault & Attestation Mast... — Mobile Component Hierarchy",
         "nodes": [
           {
             "id": "BiometricRoot",

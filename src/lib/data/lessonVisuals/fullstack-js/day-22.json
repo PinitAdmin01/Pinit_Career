@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream payload and initialize Protocol Buffers (Protobuf) Binary ....",
+            "caption": "Ingress stream payload and initialize Protocol Buffers (Protobuf) Binary.",
             "values": {
               "in": "Stream Ingress",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute protocol handling, encoding, and routing in Protocol Buffers (Protobuf) Binary ....",
+            "caption": "Execute protocol handling, encoding, and routing in Protocol Buffers.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -71,7 +71,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world distributed microservices interaction in Protocol Buffers (Protobuf) Binary ....",
+            "caption": "Real-world distributed microservices interaction in Protocol Buffers.",
             "values": {
               "in": "Active Flow",
               "proc": "Executing",
@@ -91,7 +91,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify backpressure, container bounds, and telemetry health in Protocol Buffers (Protobuf) Binary ....",
+            "caption": "Verify backpressure, container bounds, and telemetry health in Protocol.",
             "values": {
               "in": "Terminal State",
               "proc": "Quiesced",
@@ -138,7 +138,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream payload and initialize gRPC Architecture & HTTP/2 Multiple....",
+            "caption": "Ingress stream payload and initialize gRPC Architecture & HTTP.",
             "values": {
               "in": "Stream Ingress",
               "proc": "Standby",
@@ -158,7 +158,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute protocol handling, encoding, and routing in gRPC Architecture & HTTP/2 Multiple....",
+            "caption": "Execute protocol handling, encoding, and routing in gRPC Architecture &.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -178,7 +178,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world distributed microservices interaction in gRPC Architecture & HTTP/2 Multiple....",
+            "caption": "Real-world distributed microservices interaction in gRPC Architecture &.",
             "values": {
               "in": "Active Flow",
               "proc": "Executing",
@@ -198,7 +198,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify backpressure, container bounds, and telemetry health in gRPC Architecture & HTTP/2 Multiple....",
+            "caption": "Verify backpressure, container bounds, and telemetry health in gRPC.",
             "values": {
               "in": "Terminal State",
               "proc": "Quiesced",
@@ -245,7 +245,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream payload and initialize Deadlines, Context Cancellation & C....",
+            "caption": "Ingress stream payload and initialize Deadlines, Context Cancellation &.",
             "values": {
               "in": "Stream Ingress",
               "proc": "Standby",
@@ -265,7 +265,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute protocol handling, encoding, and routing in Deadlines, Context Cancellation & C....",
+            "caption": "Execute protocol handling, encoding, and routing in Deadlines, Context.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -285,7 +285,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world distributed microservices interaction in Deadlines, Context Cancellation & C....",
+            "caption": "Real-world distributed microservices interaction in Deadlines, Context.",
             "values": {
               "in": "Active Flow",
               "proc": "Executing",
@@ -305,7 +305,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify backpressure, container bounds, and telemetry health in Deadlines, Context Cancellation & C....",
+            "caption": "Verify backpressure, container bounds, and telemetry health in Deadlines.",
             "values": {
               "in": "Terminal State",
               "proc": "Quiesced",
@@ -352,7 +352,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream payload and initialize Bidirectional Streaming & High-Thro....",
+            "caption": "Ingress stream payload and initialize Bidirectional Streaming &.",
             "values": {
               "in": "Stream Ingress",
               "proc": "Standby",
@@ -372,7 +372,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute protocol handling, encoding, and routing in Bidirectional Streaming & High-Thro....",
+            "caption": "Execute protocol handling, encoding, and routing in Bidirectional.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -392,7 +392,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world distributed microservices interaction in Bidirectional Streaming & High-Thro....",
+            "caption": "Real-world distributed microservices interaction in Bidirectional.",
             "values": {
               "in": "Active Flow",
               "proc": "Executing",
@@ -412,7 +412,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify backpressure, container bounds, and telemetry health in Bidirectional Streaming & High-Thro....",
+            "caption": "Verify backpressure, container bounds, and telemetry health in.",
             "values": {
               "in": "Terminal State",
               "proc": "Quiesced",
@@ -459,7 +459,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream payload and initialize Service Mesh Architecture & gRPC-to....",
+            "caption": "Ingress stream payload and initialize Service Mesh Architecture &.",
             "values": {
               "in": "Stream Ingress",
               "proc": "Standby",
@@ -479,7 +479,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute protocol handling, encoding, and routing in Service Mesh Architecture & gRPC-to....",
+            "caption": "Execute protocol handling, encoding, and routing in Service Mesh.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -499,7 +499,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world distributed microservices interaction in Service Mesh Architecture & gRPC-to....",
+            "caption": "Real-world distributed microservices interaction in Service Mesh.",
             "values": {
               "in": "Active Flow",
               "proc": "Executing",
@@ -519,7 +519,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify backpressure, container bounds, and telemetry health in Service Mesh Architecture & gRPC-to....",
+            "caption": "Verify backpressure, container bounds, and telemetry health in Service.",
             "values": {
               "in": "Terminal State",
               "proc": "Quiesced",

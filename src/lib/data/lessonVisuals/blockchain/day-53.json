@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialization of cryptographic payload or UserOperation for The EOA Limitation & ERC-4337 ...",
+            "caption": "Initialization of cryptographic payload or UserOperation for The EOA.",
             "activeActor": "User / Smart Account",
             "messages": [
               {
@@ -33,7 +33,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Constraint evaluation, simulation, or mempool validation",
+            "caption": "Constraint evaluation, simulation, or mempool validation.",
             "activeActor": "Bundler Mempool",
             "messages": [
               {
@@ -46,7 +46,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of pairing precompile, paymaster signature, or emergency containment",
+            "caption": "Verification of pairing precompile, paymaster signature, or emergency.",
             "activeActor": "Canonical EntryPoint (0x5FF1)",
             "messages": [
               {
@@ -59,7 +59,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Cryptographic verification settled and confirmed; state invariant sealed",
+            "caption": "Cryptographic verification settled and confirmed; state invariant sealed.",
             "activeActor": "Bundler Mempool",
             "messages": [
               {
@@ -152,7 +152,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialization of cryptographic payload or UserOperation for UserOperation Struct & Two-Pha...",
+            "caption": "Initialization of cryptographic payload or UserOperation for.",
             "activeActor": "User / Smart Account",
             "messages": [
               {
@@ -165,7 +165,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Constraint evaluation, simulation, or mempool validation",
+            "caption": "Constraint evaluation, simulation, or mempool validation.",
             "activeActor": "Bundler Mempool",
             "messages": [
               {
@@ -178,7 +178,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of pairing precompile, paymaster signature, or emergency containment",
+            "caption": "Verification of pairing precompile, paymaster signature, or emergency.",
             "activeActor": "Canonical EntryPoint (0x5FF1)",
             "messages": [
               {
@@ -191,7 +191,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Cryptographic verification settled and confirmed; state invariant sealed",
+            "caption": "Cryptographic verification settled and confirmed; state invariant sealed.",
             "activeActor": "Bundler Mempool",
             "messages": [
               {
@@ -284,7 +284,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialization of cryptographic payload or UserOperation for Detective Lab: Paymaster Reser...",
+            "caption": "Initialization of cryptographic payload or UserOperation for Detective.",
             "activeActor": "User / Smart Account",
             "messages": [
               {
@@ -297,7 +297,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Constraint evaluation, simulation, or mempool validation",
+            "caption": "Constraint evaluation, simulation, or mempool validation.",
             "activeActor": "Bundler Mempool",
             "messages": [
               {
@@ -310,7 +310,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of pairing precompile, paymaster signature, or emergency containment",
+            "caption": "Verification of pairing precompile, paymaster signature, or emergency.",
             "activeActor": "Canonical EntryPoint (0x5FF1)",
             "messages": [
               {
@@ -323,7 +323,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Cryptographic verification settled and confirmed; state invariant sealed",
+            "caption": "Cryptographic verification settled and confirmed; state invariant sealed.",
             "activeActor": "Bundler Mempool",
             "messages": [
               {
@@ -416,7 +416,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialization of cryptographic payload or UserOperation for Sponsoring Paymaster & Gasless...",
+            "caption": "Initialization of cryptographic payload or UserOperation for Sponsoring.",
             "activeActor": "User / Smart Account",
             "messages": [
               {
@@ -429,7 +429,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Constraint evaluation, simulation, or mempool validation",
+            "caption": "Constraint evaluation, simulation, or mempool validation.",
             "activeActor": "Bundler Mempool",
             "messages": [
               {
@@ -442,7 +442,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of pairing precompile, paymaster signature, or emergency containment",
+            "caption": "Verification of pairing precompile, paymaster signature, or emergency.",
             "activeActor": "Canonical EntryPoint (0x5FF1)",
             "messages": [
               {
@@ -455,7 +455,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Cryptographic verification settled and confirmed; state invariant sealed",
+            "caption": "Cryptographic verification settled and confirmed; state invariant sealed.",
             "activeActor": "Bundler Mempool",
             "messages": [
               {
@@ -548,7 +548,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialization of cryptographic payload or UserOperation for Production ERC-4337 Smart Acco...",
+            "caption": "Initialization of cryptographic payload or UserOperation for Production.",
             "activeActor": "User / Smart Account",
             "messages": [
               {
@@ -561,7 +561,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Constraint evaluation, simulation, or mempool validation",
+            "caption": "Constraint evaluation, simulation, or mempool validation.",
             "activeActor": "Bundler Mempool",
             "messages": [
               {
@@ -574,7 +574,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of pairing precompile, paymaster signature, or emergency containment",
+            "caption": "Verification of pairing precompile, paymaster signature, or emergency.",
             "activeActor": "Canonical EntryPoint (0x5FF1)",
             "messages": [
               {
@@ -587,7 +587,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Cryptographic verification settled and confirmed; state invariant sealed",
+            "caption": "Cryptographic verification settled and confirmed; state invariant sealed.",
             "activeActor": "Bundler Mempool",
             "messages": [
               {

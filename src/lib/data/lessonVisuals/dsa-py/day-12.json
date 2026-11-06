@@ -463,7 +463,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Merging sorted linked lists [D12.P4.S1].",
+            "caption": "Initialize input state for Merging sorted linked lists.",
             "values": {
               "in": "Day 12 Input",
               "proc": "Standby",
@@ -483,7 +483,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Merging sorted link... [D12.P4.S2].",
+            "caption": "Execute core transformation in Merging sorted link... [Dtwelve.Pfour.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -507,7 +507,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D12.P4.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -527,7 +527,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Merging sorted linked lists [D12.P4.S4].",
+            "caption": "End-to-end execution verified for Merging sorted linked lists.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -689,7 +689,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Counting inversions with merge sort [D12.P5.S1].",
+            "caption": "Initialize input state for Counting inversions with merge sort.",
             "values": {
               "in": "Day 12 Input",
               "proc": "Standby",
@@ -709,7 +709,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Counting inversions... [D12.P5.S2].",
+            "caption": "Execute core transformation in Counting inversions... [Dtwelve.Pfive.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -733,7 +733,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D12.P5.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -753,7 +753,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Counting inversions with merge sort [D12.P5.S4].",
+            "caption": "End-to-end execution verified for Counting inversions with merge sort.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

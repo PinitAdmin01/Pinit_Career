@@ -10,7 +10,7 @@
       "codeHash": "027fc8565be713f52d2216c9ec104164788b822c5c26629ba895097ad01af979",
       "spec": {
         "template": "states",
-        "title": "Discrete Delta Hedging Economics: Fee Drag vs Variance \u2014 Quant Systems State Engine",
+        "title": "Discrete Delta Hedging Economics: Fee Drag vs Variance — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Discrete Delta Hedging Economics.",
+            "caption": "State one (Init State): Initialize deterministic state for Discrete Delta.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -60,7 +60,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -77,7 +77,7 @@
       "codeHash": "a4bedbe7fe35f258798ab348f1261111fc89a9a52c6666e81dd7b15a1e8fc4e8",
       "spec": {
         "template": "states",
-        "title": "Whalley-Wilmott Asymptotic Hedging Bands & Thresholds \u2014 Quant Systems State Engine",
+        "title": "Whalley-Wilmott Asymptotic Hedging Bands & Thresholds — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -99,7 +99,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Whalley-Wilmott Asymptotic Hedging Bands & Thresholds.",
+            "caption": "State one (Init State): Initialize deterministic state for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -127,7 +127,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -144,7 +144,7 @@
       "codeHash": "3c6742ed3599d820d959aac39b9c9f176c1eda46728c40f8039dfed949e2c2a8",
       "spec": {
         "template": "states",
-        "title": "Over-Hedging Fee Cannibalization Forensics & Audit \u2014 Quant Systems State Engine",
+        "title": "Over-Hedging Fee Cannibalization Forensics & Audit — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -166,7 +166,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Over-Hedging Fee Cannibalization Forensics & Audit.",
+            "caption": "State one (Init State): Initialize deterministic state for Over-Hedging.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -194,7 +194,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -211,7 +211,7 @@
       "codeHash": "74bc221980755bef09873916fc24c9488467daf4da71caa462c0b51b0d7f3e02",
       "spec": {
         "template": "states",
-        "title": "Real-Time Automated Gamma Scalping & Inventory Engine \u2014 Quant Systems State Engine",
+        "title": "Real-Time Automated Gamma Scalping & Inventory Engine — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -233,7 +233,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Real-Time Automated Gamma Scalping & Inventory Engine.",
+            "caption": "State one (Init State): Initialize deterministic state for Real-Time.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -261,7 +261,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -278,7 +278,7 @@
       "codeHash": "322ccd3732ace684383ecb870ee31b77ed41cf3d21aed642540a9786498afab8",
       "spec": {
         "template": "states",
-        "title": "Institutional Hedging Execution Gateway & Slippage Audit \u2014 Quant Systems State Engine",
+        "title": "Institutional Hedging Execution Gateway & Slippage Audit — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -300,7 +300,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Institutional Hedging Execution Gateway & Slippage Audit.",
+            "caption": "State one (Init State): Initialize deterministic state for Institutional.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -328,7 +328,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",

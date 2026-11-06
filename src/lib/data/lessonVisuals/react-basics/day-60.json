@@ -57,7 +57,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "synthesizeHyperGridTopology probes all 4 core platform subsystems.",
+            "caption": "SynthesizeHyperGridTopology probes all four core platform subsystems.",
             "values": {
               "ingress": {
                 "status": "Checking"
@@ -81,7 +81,7 @@
           },
           {
             "at": "say2",
-            "caption": "Edge Ingress verifies HTTP/3 QUIC protocol with 2.1ms ingress latency.",
+            "caption": "Edge Ingress verifies HTTP QUIC QUIC protocol with two.onems ingress.",
             "values": {
               "ingress": {
                 "status": "ONLINE (2.1ms)"
@@ -105,7 +105,7 @@
           },
           {
             "at": "say3",
-            "caption": "Trading Engine confirms 100k msg/s throughput with zero-GC circular buffers.",
+            "caption": "Trading Engine confirms one hundredk msg/s throughput with zero-GC.",
             "values": {
               "ingress": {
                 "status": "ONLINE (2.1ms)"
@@ -206,7 +206,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Rollout initiates at PHASE_BASELINE with 100% traffic on stable Blue.",
+            "caption": "Rollout initiates at PHASE_BASELINE with one hundred% traffic on stable.",
             "values": {
               "p1": {
                 "active": true
@@ -230,7 +230,7 @@
           },
           {
             "at": "say2",
-            "caption": "10% of edge traffic shifts to Green; automated telemetry monitors 99.999% health.",
+            "caption": "Ten% of edge traffic shifts to Green; automated telemetry monitors.",
             "values": {
               "p1": {
                 "active": false
@@ -254,7 +254,7 @@
           },
           {
             "at": "say3",
-            "caption": "Traffic splits 50/50 without dropping a single active WebSocket connection.",
+            "caption": "Traffic splits multiple/multiple without dropping a single active.",
             "values": {
               "p1": {
                 "active": false
@@ -278,7 +278,7 @@
           },
           {
             "at": "say4",
-            "caption": "Blue cluster safely drains; 100% traffic cutover completes with zero downtime.",
+            "caption": "Blue cluster safely drains; one hundred% traffic cutover completes with.",
             "values": {
               "p1": {
                 "active": false
@@ -342,7 +342,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Audit engine benchmarks all 10 SLA vectors against mathematical thresholds.",
+            "caption": "Audit engine benchmarks all ten SLA vectors against mathematical.",
             "values": {
               "v1": {
                 "val": "Benchmarking"
@@ -366,7 +366,7 @@
           },
           {
             "at": "say2",
-            "caption": "Static Shell TTFB registers 14.2ms and Cumulative Layout Shift achieves 0.000.",
+            "caption": "Static Shell TTFB registers multiple.twoms and Cumulative Layout Shift.",
             "values": {
               "v1": {
                 "val": "14.2ms (Pass)"
@@ -390,7 +390,7 @@
           },
           {
             "at": "say3",
-            "caption": "High-Frequency Ticker hits 120 FPS and multi-region failover clocks at 32.0ms.",
+            "caption": "High-Frequency Ticker hits multiple FPS and multi-region failover clocks.",
             "values": {
               "v1": {
                 "val": "14.2ms (Pass)"
@@ -414,7 +414,7 @@
           },
           {
             "at": "say4",
-            "caption": "All 10 vectors pass; verifyProductionSlaSuite awards Grade A+ Production Certification.",
+            "caption": "All ten vectors pass; verifyProductionSlaSuite awards Grade A+ Production.",
             "values": {
               "v1": {
                 "val": "Grade A+"
@@ -515,7 +515,7 @@
           },
           {
             "at": "say2",
-            "caption": "Health detector catches HTTP 503 errors and signals the circuit breaker.",
+            "caption": "Health detector catches HTTP unavailable errors and signals the circuit.",
             "values": {
               "chaos": {
                 "status": "Origin Dead"
@@ -563,7 +563,7 @@
           },
           {
             "at": "say4",
-            "caption": "All global traffic reroutes to eu-west in 28.4ms, resolving fault automatically.",
+            "caption": "All global traffic reroutes to eu-west in multiple.fourms, resolving.",
             "values": {
               "chaos": {
                 "status": "Contained"
@@ -600,29 +600,29 @@
           "children": [
             {
               "id": "m1",
-              "name": "Month 1: Client Primitives & React Core (Days 1\u201330, Milestones 1\u20135)",
+              "name": "Month 1: Client Primitives & React Core (Days 1–30, Milestones 1–5)",
               "children": [
                 {
                   "id": "b1_3",
-                  "name": "Blocks 1\u20133: Reconciliation, Hooks & Reducers"
+                  "name": "Blocks 1–3: Reconciliation, Hooks & Reducers"
                 },
                 {
                   "id": "b4_6",
-                  "name": "Blocks 4\u20136: Forms, Performance, TS & State Machines"
+                  "name": "Blocks 4–6: Forms, Performance, TS & State Machines"
                 }
               ]
             },
             {
               "id": "m2",
-              "name": "Month 2: Enterprise Distributed Systems (Days 31\u201360, Milestones 6\u201310)",
+              "name": "Month 2: Enterprise Distributed Systems (Days 31–60, Milestones 6–10)",
               "children": [
                 {
                   "id": "b7_9",
-                  "name": "Blocks 7\u20139: Next.js App Router, RSC, PPR & WebSockets"
+                  "name": "Blocks 7–9: Next.js App Router, RSC, PPR & WebSockets"
                 },
                 {
                   "id": "b10_12",
-                  "name": "Blocks 10\u201312: Micro-Frontends, CRDTs, SDUI & Capstone"
+                  "name": "Blocks 10–12: Micro-Frontends, CRDTs, SDUI & Capstone"
                 }
               ]
             }
@@ -631,7 +631,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "60-day curriculum comprehensively reviewed across Month 1 and Month 2.",
+            "caption": "Day curriculum comprehensively reviewed across Month one and Month two.",
             "values": {
               "full_course": {
                 "state": "Auditing"
@@ -667,7 +667,7 @@
           },
           {
             "at": "say2",
-            "caption": "All 10 project milestones confirmed completed with 0 regressions.",
+            "caption": "All ten project milestones confirmed completed with zero regressions.",
             "values": {
               "full_course": {
                 "state": "10/10 Milestones"
@@ -703,7 +703,7 @@
           },
           {
             "at": "say3",
-            "caption": "Architectural excellence score achieves 99.8% with zero hallucinations.",
+            "caption": "Architectural excellence score achieves multiple.eight% with zero.",
             "values": {
               "full_course": {
                 "state": "Score 99.8%"

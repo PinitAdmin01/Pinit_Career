@@ -54,7 +54,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for Fiduciary Compliance in Automat...",
+            "caption": "Ingest enterprise Context Query for Fiduciary Compliance in Automat...",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -68,7 +68,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -87,7 +87,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & hallucination bounds in Policy Guardrail.",
+            "caption": "Validate compliance & hallucination bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -107,7 +107,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -298,7 +298,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for Mathematical Fairness Metrics: ...",
+            "caption": "Ingest enterprise Context Query for Mathematical Fairness Metrics: ...",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -312,7 +312,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -331,7 +331,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & hallucination bounds in Policy Guardrail.",
+            "caption": "Validate compliance & hallucination bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -351,7 +351,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -542,7 +542,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for Explainable AI (XAI) Post-Hoc A...",
+            "caption": "Ingest enterprise Context Query for Explainable AI (XAI) Post-Hoc A...",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -556,7 +556,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -575,7 +575,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & hallucination bounds in Policy Guardrail.",
+            "caption": "Validate compliance & hallucination bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -595,7 +595,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -786,7 +786,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for Local Interpretable Model-Agnos...",
+            "caption": "Ingest enterprise Context Query for Local Interpretable Model-Agnos...",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -800,7 +800,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -819,7 +819,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & hallucination bounds in Policy Guardrail.",
+            "caption": "Validate compliance & hallucination bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -839,7 +839,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -1030,7 +1030,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for Masterclass Synthesis:.",
+            "caption": "Ingest enterprise Context Query for Masterclass Synthesis:.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -1044,7 +1044,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -1063,7 +1063,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & hallucination bounds in Policy Guardrail.",
+            "caption": "Validate compliance & hallucination bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -1083,7 +1083,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",

@@ -6,7 +6,7 @@
     {
       "partIndex": 1,
       "partTitle": "Distributed State Machines: AWS Step Functions & Saga Pattern Orchestration",
-      "codeHash": "76563f9eb1b27bb1866c594e26a21127fb42e9354cc33f9d6a11598f2885d8eb",
+      "codeHash": "0e862aff85084ce158fc9ba277d4a621b433a8206e6d5c9471ecb84ec3b8a90a",
       "spec": {
         "template": "compare",
         "left": {
@@ -54,7 +54,7 @@
     {
       "partIndex": 2,
       "partTitle": "Task Integrations: Optimized Service Calls & Asynchronous Task Tokens",
-      "codeHash": "52bcb7ce605ebe08b4caa45cfbe8dc1f05c3615e43cb8883d4356fea6824ff78",
+      "codeHash": "c40f08fcad2cdfcb1c820776e5a646f8fd34158bf9f9f223cd0897d5df90a763",
       "spec": {
         "template": "compare",
         "left": {
@@ -102,7 +102,7 @@
     {
       "partIndex": 3,
       "partTitle": "High-Concurrency Workflows: Parallel State Branching & Distributed Map Processing",
-      "codeHash": "cfdd70dc102dd00fff0cf1050210538a99ce85a376b34e8443e433e3e5a87fa0",
+      "codeHash": "b01864fae4c19b54a48fdc31df00e6f9aff2a89ac40b5f0cd428ecf1ba871b43",
       "spec": {
         "template": "compare",
         "left": {
@@ -150,7 +150,7 @@
     {
       "partIndex": 4,
       "partTitle": "Resilient Error Handling: Retries, Catch Blocks & Compensating Rollbacks",
-      "codeHash": "7d4b95192e6e459f09e2073eb86bc9e9441ee37373c39e500c14cf31591a8101",
+      "codeHash": "0c2285bb2d9c979f9afc3154ab15a9339942af441bb442b711f985e86094b762",
       "spec": {
         "template": "compare",
         "left": {
@@ -198,7 +198,7 @@
     {
       "partIndex": 5,
       "partTitle": "Enterprise Saga Synthesis: End-to-End Orchestration & Verification Token",
-      "codeHash": "0ae4dea1959b78a12ff1a24f23e9ff38d3552b399855ca6e022bab03bd07dcaa",
+      "codeHash": "4004a6b5250b9f0034590a4e7fa656f7b0ba5e34382e05cffcd0afea5bce7c69",
       "spec": {
         "template": "compare",
         "left": {

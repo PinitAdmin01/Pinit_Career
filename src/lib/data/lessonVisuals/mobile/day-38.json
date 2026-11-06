@@ -25,7 +25,7 @@
                 "name": "<JsiHostObjectRuntime />",
                 "props": {
                   "memoryMode": "DIRECT_C_POINTER",
-                  "serializationCostMs": 0.0
+                  "serializationCostMs": 0
                 }
               },
               {
@@ -50,7 +50,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Bind JSI HostObject memory pointers for TurboModules Lazy Loading Arch.",
+            "caption": "Bind JSI HostObject memory pointers for TurboModules Lazy Loading Arch.",
             "activeId": "JsiRuntimeHost",
             "tone": "primary",
             "nodes": [
@@ -66,7 +66,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Clone immutable C++ Shadow Tree and compute Yoga layout concurrently.",
+            "caption": "Clone immutable C++ Shadow Tree and compute Yoga layout concurrently.",
             "activeId": "FabricShadowTree",
             "tone": "accent",
             "nodes": [
@@ -82,7 +82,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Resolve lazy TurboModule specifications and execute synchronous native C++ methods.",
+            "caption": "Resolve lazy TurboModule specifications and execute synchronous native.",
             "activeId": "TurboModuleManager",
             "tone": "data",
             "nodes": [
@@ -98,7 +98,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify zero bridge serialization overhead and zero native memory leaks.",
+            "caption": "Verify zero bridge serialization overhead and zero native memory leaks.",
             "activeId": "AppRoot",
             "tone": "ok",
             "nodes": [
@@ -131,7 +131,7 @@
                 "name": "<JsiHostObjectRuntime />",
                 "props": {
                   "memoryMode": "DIRECT_C_POINTER",
-                  "serializationCostMs": 0.0
+                  "serializationCostMs": 0
                 }
               },
               {
@@ -241,7 +241,7 @@
                 "name": "<JsiHostObjectRuntime />",
                 "props": {
                   "memoryMode": "DIRECT_C_POINTER",
-                  "serializationCostMs": 0.0
+                  "serializationCostMs": 0
                 }
               },
               {
@@ -266,7 +266,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Bind JSI HostObject memory pointers for React Native Codegen: TypeScri.",
+            "caption": "Bind JSI HostObject memory pointers for React Native Codegen: TypeScri.",
             "activeId": "JsiRuntimeHost",
             "tone": "primary",
             "nodes": [
@@ -282,7 +282,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Clone immutable C++ Shadow Tree and compute Yoga layout concurrently.",
+            "caption": "Clone immutable C++ Shadow Tree and compute Yoga layout concurrently.",
             "activeId": "FabricShadowTree",
             "tone": "accent",
             "nodes": [
@@ -298,7 +298,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Resolve lazy TurboModule specifications and execute synchronous native C++ methods.",
+            "caption": "Resolve lazy TurboModule specifications and execute synchronous native.",
             "activeId": "TurboModuleManager",
             "tone": "data",
             "nodes": [
@@ -314,7 +314,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify zero bridge serialization overhead and zero native memory leaks.",
+            "caption": "Verify zero bridge serialization overhead and zero native memory leaks.",
             "activeId": "AppRoot",
             "tone": "ok",
             "nodes": [
@@ -347,7 +347,7 @@
                 "name": "<JsiHostObjectRuntime />",
                 "props": {
                   "memoryMode": "DIRECT_C_POINTER",
-                  "serializationCostMs": 0.0
+                  "serializationCostMs": 0
                 }
               },
               {
@@ -457,7 +457,7 @@
                 "name": "<JsiHostObjectRuntime />",
                 "props": {
                   "memoryMode": "DIRECT_C_POINTER",
-                  "serializationCostMs": 0.0
+                  "serializationCostMs": 0
                 }
               },
               {
@@ -482,7 +482,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Bind JSI HostObject memory pointers for TurboModuleRegistry Resolution.",
+            "caption": "Bind JSI HostObject memory pointers for TurboModuleRegistry Resolution.",
             "activeId": "JsiRuntimeHost",
             "tone": "primary",
             "nodes": [
@@ -498,7 +498,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Clone immutable C++ Shadow Tree and compute Yoga layout concurrently.",
+            "caption": "Clone immutable C++ Shadow Tree and compute Yoga layout concurrently.",
             "activeId": "FabricShadowTree",
             "tone": "accent",
             "nodes": [
@@ -514,7 +514,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Resolve lazy TurboModule specifications and execute synchronous native C++ methods.",
+            "caption": "Resolve lazy TurboModule specifications and execute synchronous native.",
             "activeId": "TurboModuleManager",
             "tone": "data",
             "nodes": [
@@ -530,7 +530,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify zero bridge serialization overhead and zero native memory leaks.",
+            "caption": "Verify zero bridge serialization overhead and zero native memory leaks.",
             "activeId": "AppRoot",
             "tone": "ok",
             "nodes": [
@@ -563,7 +563,7 @@
                 "name": "<JsiHostObjectRuntime />",
                 "props": {
                   "memoryMode": "DIRECT_C_POINTER",
-                  "serializationCostMs": 0.0
+                  "serializationCostMs": 0
                 }
               },
               {
@@ -673,7 +673,7 @@
                 "name": "<JsiHostObjectRuntime />",
                 "props": {
                   "memoryMode": "DIRECT_C_POINTER",
-                  "serializationCostMs": 0.0
+                  "serializationCostMs": 0
                 }
               },
               {
@@ -698,7 +698,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Bind JSI HostObject memory pointers for Synchronous Cryptographic Hash.",
+            "caption": "Bind JSI HostObject memory pointers for Synchronous Cryptographic Hash.",
             "activeId": "JsiRuntimeHost",
             "tone": "primary",
             "nodes": [
@@ -714,7 +714,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Clone immutable C++ Shadow Tree and compute Yoga layout concurrently.",
+            "caption": "Clone immutable C++ Shadow Tree and compute Yoga layout concurrently.",
             "activeId": "FabricShadowTree",
             "tone": "accent",
             "nodes": [
@@ -730,7 +730,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Resolve lazy TurboModule specifications and execute synchronous native C++ methods.",
+            "caption": "Resolve lazy TurboModule specifications and execute synchronous native.",
             "activeId": "TurboModuleManager",
             "tone": "data",
             "nodes": [
@@ -746,7 +746,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify zero bridge serialization overhead and zero native memory leaks.",
+            "caption": "Verify zero bridge serialization overhead and zero native memory leaks.",
             "activeId": "AppRoot",
             "tone": "ok",
             "nodes": [
@@ -779,7 +779,7 @@
                 "name": "<JsiHostObjectRuntime />",
                 "props": {
                   "memoryMode": "DIRECT_C_POINTER",
-                  "serializationCostMs": 0.0
+                  "serializationCostMs": 0
                 }
               },
               {
@@ -889,7 +889,7 @@
                 "name": "<JsiHostObjectRuntime />",
                 "props": {
                   "memoryMode": "DIRECT_C_POINTER",
-                  "serializationCostMs": 0.0
+                  "serializationCostMs": 0
                 }
               },
               {
@@ -914,7 +914,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Bind JSI HostObject memory pointers for Codegen Build Pipeline, Header.",
+            "caption": "Bind JSI HostObject memory pointers for Codegen Build Pipeline, Header.",
             "activeId": "JsiRuntimeHost",
             "tone": "primary",
             "nodes": [
@@ -930,7 +930,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Clone immutable C++ Shadow Tree and compute Yoga layout concurrently.",
+            "caption": "Clone immutable C++ Shadow Tree and compute Yoga layout concurrently.",
             "activeId": "FabricShadowTree",
             "tone": "accent",
             "nodes": [
@@ -946,7 +946,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Resolve lazy TurboModule specifications and execute synchronous native C++ methods.",
+            "caption": "Resolve lazy TurboModule specifications and execute synchronous native.",
             "activeId": "TurboModuleManager",
             "tone": "data",
             "nodes": [
@@ -962,7 +962,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify zero bridge serialization overhead and zero native memory leaks.",
+            "caption": "Verify zero bridge serialization overhead and zero native memory leaks.",
             "activeId": "AppRoot",
             "tone": "ok",
             "nodes": [
@@ -995,7 +995,7 @@
                 "name": "<JsiHostObjectRuntime />",
                 "props": {
                   "memoryMode": "DIRECT_C_POINTER",
-                  "serializationCostMs": 0.0
+                  "serializationCostMs": 0
                 }
               },
               {

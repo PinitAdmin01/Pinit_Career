@@ -1,0 +1,925 @@
+{
+  "schemaVersion": 1,
+  "prefix": "cyber-py",
+  "day": 14,
+  "promptSha": "0828177743ee822d6759b2eaf7afe8850a3baf08a63b5eabdf546b55683baf58",
+  "model": "gpt-4o",
+  "entries": [
+    {
+      "partTitle": "Why security headers matter",
+      "codeHash": "f7b91d535429789a6b61c08e3b93f78f800d3d8293e64662b7b9a96f7d0e091b",
+      "spec": {
+        "template": "table",
+        "title": "Enterprise defensive HTTP security headers inventory and mitigations",
+        "columns": [
+          "Security Header",
+          "Directive Value",
+          "Mitigated Vulnerability",
+          "Severity If Missing"
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "Setting defensive headers allows systems to enforce transport encryption.",
+            "activeRowIndex": 0,
+            "statusBadge": "active",
+            "rows": [
+              {
+                "cells": [
+                  "Strict-Transport-Security",
+                  "max-age=31536000; preload",
+                  "SSL Stripping & Downgrades",
+                  "Critical Risk"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "X-Frame-Options",
+                  "DENY / SAMEORIGIN",
+                  "UI Redressing & Clickjacking",
+                  "High Risk"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "X-Content-Type-Options",
+                  "nosniff",
+                  "MIME-Type Sniffing Attacks",
+                  "High Risk"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Referrer-Policy",
+                  "strict-origin-when-cross-origin",
+                  "Credential & URL Token Leakage",
+                  "Medium Risk"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "The suite includes transport security and frame options directives.",
+            "activeRowIndex": 1,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "Strict-Transport-Security",
+                  "max-age=31536000; preload",
+                  "SSL Stripping & Downgrades",
+                  "Critical Risk"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "X-Frame-Options",
+                  "DENY / SAMEORIGIN",
+                  "UI Redressing & Clickjacking",
+                  "High Risk"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "X-Content-Type-Options",
+                  "nosniff",
+                  "MIME-Type Sniffing Attacks",
+                  "High Risk"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Referrer-Policy",
+                  "strict-origin-when-cross-origin",
+                  "Credential & URL Token Leakage",
+                  "Medium Risk"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Enterprise defensive HTTP security headers inventory and mitigations",
+        "columns": [
+          "Security Header",
+          "Directive Value",
+          "Mitigated Vulnerability",
+          "Severity If Missing"
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "Setting defensive headers allows systems to enforce transport encryption.",
+            "activeRowIndex": 0,
+            "statusBadge": "active",
+            "rows": [
+              {
+                "cells": [
+                  "Strict-Transport-Security",
+                  "max-age=31536000; preload",
+                  "SSL Stripping & Downgrades",
+                  "Critical Risk"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "X-Frame-Options",
+                  "DENY / SAMEORIGIN",
+                  "UI Redressing & Clickjacking",
+                  "High Risk"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "X-Content-Type-Options",
+                  "nosniff",
+                  "MIME-Type Sniffing Attacks",
+                  "High Risk"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Referrer-Policy",
+                  "strict-origin-when-cross-origin",
+                  "Credential & URL Token Leakage",
+                  "Medium Risk"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "The suite includes transport security and frame options directives.",
+            "activeRowIndex": 1,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "Strict-Transport-Security",
+                  "max-age=31536000; preload",
+                  "SSL Stripping & Downgrades",
+                  "Critical Risk"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "X-Frame-Options",
+                  "DENY / SAMEORIGIN",
+                  "UI Redressing & Clickjacking",
+                  "High Risk"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "X-Content-Type-Options",
+                  "nosniff",
+                  "MIME-Type Sniffing Attacks",
+                  "High Risk"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Referrer-Policy",
+                  "strict-origin-when-cross-origin",
+                  "Credential & URL Token Leakage",
+                  "Medium Risk"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "HSTS",
+      "codeHash": "1a98dae43f91a5db988cb283a418b768ff581429fa383bba22d79493a5e652c3",
+      "spec": {
+        "template": "states",
+        "title": "HTTP Strict Transport Security upgrade enforcement and preload stages",
+        "states": [
+          {
+            "id": "unencryptedRedirect",
+            "label": "Insecure HTTP Initial Request Redirected"
+          },
+          {
+            "id": "hstsHeaderDelivered",
+            "label": "HSTS Directive Caches HTTPS Requirement"
+          },
+          {
+            "id": "upgradeEnforced",
+            "label": "Browser Automatically Upgrades HTTP to HTTPS"
+          },
+          {
+            "id": "preloadedProtection",
+            "label": "Preload List Blocks Cleartext Transmissions"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Initial unencrypted redirects create vulnerabilities exploited by attackers.",
+            "activeStateId": "unencryptedRedirect",
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say8",
+            "caption": "The browser automatically transforms unencrypted links into secure requests.",
+            "activeStateId": "upgradeEnforced",
+            "statusBadge": "completed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "HTTP Strict Transport Security upgrade enforcement and preload stages",
+        "states": [
+          {
+            "id": "unencryptedRedirect",
+            "label": "Insecure HTTP Initial Request Redirected"
+          },
+          {
+            "id": "hstsHeaderDelivered",
+            "label": "HSTS Directive Caches HTTPS Requirement"
+          },
+          {
+            "id": "upgradeEnforced",
+            "label": "Browser Automatically Upgrades HTTP to HTTPS"
+          },
+          {
+            "id": "preloadedProtection",
+            "label": "Preload List Blocks Cleartext Transmissions"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Initial unencrypted redirects create vulnerabilities exploited by attackers.",
+            "activeStateId": "unencryptedRedirect",
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say8",
+            "caption": "The browser automatically transforms unencrypted links into secure requests.",
+            "activeStateId": "upgradeEnforced",
+            "statusBadge": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Content types and clickjacking",
+      "codeHash": "a463af2e5d480bb7119f08c829e6bc1898ba19537e44148d8afcb0a8b309951a",
+      "spec": {
+        "template": "flow",
+        "title": "Clickjacking UI redressing attack vector and frame-ancestors defense",
+        "nodes": [
+          {
+            "id": "parentHost",
+            "label": "Malicious Attacker Webpage",
+            "tappable": false
+          },
+          {
+            "id": "invisibleFrame",
+            "label": "Invisible Transparent IFrame",
+            "tappable": false
+          },
+          {
+            "id": "targetApp",
+            "label": "Target Banking Application",
+            "tappable": false
+          },
+          {
+            "id": "browserPolicy",
+            "label": "Frame Ancestors Security Guard",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "parentHost",
+            "to": "invisibleFrame",
+            "label": "Embeds"
+          },
+          {
+            "from": "invisibleFrame",
+            "to": "targetApp",
+            "label": "Overlays"
+          },
+          {
+            "from": "targetApp",
+            "to": "browserPolicy",
+            "label": "Enforces"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "Victims click decoy buttons that land on underlying framed actions.",
+            "activeNodes": [
+              "parentHost",
+              "invisibleFrame"
+            ],
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say7",
+            "caption": "Deny directives instruct the browser to never render the page in frames.",
+            "activeNodes": [
+              "targetApp",
+              "browserPolicy"
+            ],
+            "statusBadge": "completed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Clickjacking UI redressing attack vector and frame-ancestors defense",
+        "nodes": [
+          {
+            "id": "parentHost",
+            "label": "Malicious Attacker Webpage",
+            "tappable": false
+          },
+          {
+            "id": "invisibleFrame",
+            "label": "Invisible Transparent IFrame",
+            "tappable": false
+          },
+          {
+            "id": "targetApp",
+            "label": "Target Banking Application",
+            "tappable": false
+          },
+          {
+            "id": "browserPolicy",
+            "label": "Frame Ancestors Security Guard",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "parentHost",
+            "to": "invisibleFrame",
+            "label": "Embeds"
+          },
+          {
+            "from": "invisibleFrame",
+            "to": "targetApp",
+            "label": "Overlays"
+          },
+          {
+            "from": "targetApp",
+            "to": "browserPolicy",
+            "label": "Enforces"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "Victims click decoy buttons that land on underlying framed actions.",
+            "activeNodes": [
+              "parentHost",
+              "invisibleFrame"
+            ],
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say7",
+            "caption": "Deny directives instruct the browser to never render the page in frames.",
+            "activeNodes": [
+              "targetApp",
+              "browserPolicy"
+            ],
+            "statusBadge": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Auditing headers",
+      "codeHash": "eaca3f2dd4eefb60084b149a20e79cc1ecab25334fa7e6dd605195abae12a935",
+      "spec": {
+        "template": "compare",
+        "title": "Permissive browser MIME sniffing versus strict nosniff directive",
+        "left": {
+          "title": "Permissive MIME Sniffing",
+          "items": [
+            "Browser inspects initial response bytes to deduce type",
+            "Malicious uploads containing script executed as code",
+            "Enables cross site scripting through media uploads"
+          ]
+        },
+        "right": {
+          "title": "Strict Nosniff Directive",
+          "items": [
+            "Browser strictly respects declared response content type",
+            "Non script files refused execution as executable code",
+            "Completely neutralizes media mime confusion attacks"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say5",
+            "caption": "Older browsers might sniff script tags and execute files as JavaScript.",
+            "highlightSide": "left",
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say8",
+            "caption": "The browser is forced to adhere strictly to declared header types.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Permissive MIME Sniffing",
+        "rightLabel": "Strict Nosniff Directive"
+      },
+      "filled": {
+        "template": "compare",
+        "title": "Permissive browser MIME sniffing versus strict nosniff directive",
+        "left": {
+          "title": "Permissive MIME Sniffing",
+          "items": [
+            "Browser inspects initial response bytes to deduce type",
+            "Malicious uploads containing script executed as code",
+            "Enables cross site scripting through media uploads"
+          ]
+        },
+        "right": {
+          "title": "Strict Nosniff Directive",
+          "items": [
+            "Browser strictly respects declared response content type",
+            "Non script files refused execution as executable code",
+            "Completely neutralizes media mime confusion attacks"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say5",
+            "caption": "Older browsers might sniff script tags and execute files as JavaScript.",
+            "highlightSide": "left",
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say8",
+            "caption": "The browser is forced to adhere strictly to declared header types.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Permissive MIME Sniffing",
+        "rightLabel": "Strict Nosniff Directive"
+      }
+    },
+    {
+      "partTitle": "Other hardening details",
+      "codeHash": "a7f603b5d4cf3a688abab0fbf75b11d0f297a27ddeaa1f9c03f1db242e1cfad4",
+      "spec": {
+        "template": "table",
+        "title": "Privacy and permission security header directives and hardware limits",
+        "columns": [
+          "Policy Directive",
+          "Target Header",
+          "Enforced Capability",
+          "Security Impact"
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Query parameters containing secret tokens can leak to external websites.",
+            "activeRowIndex": 0,
+            "statusBadge": "failed",
+            "rows": [
+              {
+                "cells": [
+                  "No Referrer Directive",
+                  "Referrer-Policy",
+                  "Never Transmit Previous URL",
+                  "Eliminates URL Secret Token Leaks"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Strict Origin Policy",
+                  "Referrer-Policy",
+                  "Origin Only on Cross-Origin HTTPS",
+                  "Protects Private Query Path Data"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Disable Hardware Features",
+                  "Permissions-Policy",
+                  "Disable Camera and Microphone",
+                  "Prevents Malicious Device Hijacks"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Disable Geolocation",
+                  "Permissions-Policy",
+                  "Deny Geographic Position Probing",
+                  "Guarantees User Privacy Boundary"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Policy rules guarantee third party scripts cannot activate device cameras.",
+            "activeRowIndex": 2,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "No Referrer Directive",
+                  "Referrer-Policy",
+                  "Never Transmit Previous URL",
+                  "Eliminates URL Secret Token Leaks"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Strict Origin Policy",
+                  "Referrer-Policy",
+                  "Origin Only on Cross-Origin HTTPS",
+                  "Protects Private Query Path Data"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Disable Hardware Features",
+                  "Permissions-Policy",
+                  "Disable Camera and Microphone",
+                  "Prevents Malicious Device Hijacks"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Disable Geolocation",
+                  "Permissions-Policy",
+                  "Deny Geographic Position Probing",
+                  "Guarantees User Privacy Boundary"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Privacy and permission security header directives and hardware limits",
+        "columns": [
+          "Policy Directive",
+          "Target Header",
+          "Enforced Capability",
+          "Security Impact"
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Query parameters containing secret tokens can leak to external websites.",
+            "activeRowIndex": 0,
+            "statusBadge": "failed",
+            "rows": [
+              {
+                "cells": [
+                  "No Referrer Directive",
+                  "Referrer-Policy",
+                  "Never Transmit Previous URL",
+                  "Eliminates URL Secret Token Leaks"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Strict Origin Policy",
+                  "Referrer-Policy",
+                  "Origin Only on Cross-Origin HTTPS",
+                  "Protects Private Query Path Data"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Disable Hardware Features",
+                  "Permissions-Policy",
+                  "Disable Camera and Microphone",
+                  "Prevents Malicious Device Hijacks"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Disable Geolocation",
+                  "Permissions-Policy",
+                  "Deny Geographic Position Probing",
+                  "Guarantees User Privacy Boundary"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Policy rules guarantee third party scripts cannot activate device cameras.",
+            "activeRowIndex": 2,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "No Referrer Directive",
+                  "Referrer-Policy",
+                  "Never Transmit Previous URL",
+                  "Eliminates URL Secret Token Leaks"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Strict Origin Policy",
+                  "Referrer-Policy",
+                  "Origin Only on Cross-Origin HTTPS",
+                  "Protects Private Query Path Data"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Disable Hardware Features",
+                  "Permissions-Policy",
+                  "Disable Camera and Microphone",
+                  "Prevents Malicious Device Hijacks"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Disable Geolocation",
+                  "Permissions-Policy",
+                  "Deny Geographic Position Probing",
+                  "Guarantees User Privacy Boundary"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Practice time: audit and parse",
+      "codeHash": "c43a093a739c32038fd2c8d0ccf9f40b151032363edc4cc4a16d87f553c1728f",
+      "spec": {
+        "template": "flow",
+        "title": "Building an Enterprise HTTP Security Header A... — Execution Pipeline",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "1. Input & State",
+            "tappable": true
+          },
+          {
+            "id": "proc",
+            "label": "2. Building an Enterpr...",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "3. Verified Output",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize input state for Building an Enterprise HTTP Security Hea.",
+            "values": {
+              "in": "Day 14 Input",
+              "proc": "Standby",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "data",
+              "proc": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Execute core transformation in Building an Enterpr... [D.Psix.Stwo].",
+            "values": {
+              "in": "Validated",
+              "proc": "Processing...",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "values": {
+              "in": "Validated",
+              "proc": "Invariant OK",
+              "out": "Emitting"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "End-to-end execution verified for Building an Enterprise HTTP Secur.",
+            "values": {
+              "in": "Committed",
+              "proc": "Verified",
+              "out": "Complete ✓"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Building an Enterprise HTTP Security Header A... — Execution Pipeline",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "1. Input & State",
+            "tappable": true
+          },
+          {
+            "id": "proc",
+            "label": "2. Building an Enterpr...",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "3. Verified Output",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Step 1: Initialize input state for Building an Enterprise HTTP Security Hea.. [D14.P6.S1].",
+            "values": {
+              "in": "Day 14 Input",
+              "proc": "Standby",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "data",
+              "proc": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Step 2: Execute core transformation in Building an Enterpr... [D14.P6.S2].",
+            "values": {
+              "in": "Validated",
+              "proc": "Processing...",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Step 3: Inspect concrete example output and invariants [D14.P6.S3].",
+            "values": {
+              "in": "Validated",
+              "proc": "Invariant OK",
+              "out": "Emitting"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Step 4: End-to-end execution verified for Building an Enterprise HTTP Secur.. [D14.P6.S4].",
+            "values": {
+              "in": "Committed",
+              "proc": "Verified",
+              "out": "Complete ✓"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

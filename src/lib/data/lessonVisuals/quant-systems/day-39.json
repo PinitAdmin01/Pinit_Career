@@ -10,7 +10,7 @@
       "codeHash": "c76c11220620cead75506cf9a1d313df358fe08ba59264f754d9850b6171489b",
       "spec": {
         "template": "states",
-        "title": "FIFO Matching Priority & Competing Risks Queue Dynamics \u2014 Quant Systems State Engine",
+        "title": "FIFO Matching Priority & Competing Risks Queue Dynamics — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for FIFO Matching Priority & Competing Risks Queue Dynamics.",
+            "caption": "State one (Init State): Initialize deterministic state for FIFO Matching.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -60,7 +60,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -77,7 +77,7 @@
       "codeHash": "ad9c92fddd45993b5143d39728c0bef3dc54b87f5089962bd72566676c86fa4e",
       "spec": {
         "template": "states",
-        "title": "Adverse Selection & Flawed Queue Simulation Forensics \u2014 Quant Systems State Engine",
+        "title": "Adverse Selection & Flawed Queue Simulation Forensics — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -99,7 +99,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Adverse Selection & Flawed Queue Simulation Forensics.",
+            "caption": "State one (Init State): Initialize deterministic state for Adverse.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -127,7 +127,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -144,7 +144,7 @@
       "codeHash": "b491b9c92f64628c5e398633542437a6d0814aa3123804e735492fdc4f9e5345",
       "spec": {
         "template": "states",
-        "title": "Level 3 Queue Priority & Hazard Rate Tracker Implementation \u2014 Quant Systems State Engine",
+        "title": "Level 3 Queue Priority & Hazard Rate Tracker Implementation — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -166,7 +166,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Level 3 Queue Priority & Hazard Rate Tracker Implementation.",
+            "caption": "State one (Init State): Initialize deterministic state for Level three.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -194,7 +194,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -211,7 +211,7 @@
       "codeHash": "b4fc93fe07ce12da9571900b0f1d8ac3af05cfa5b8b3c938e579e127efebca9a",
       "spec": {
         "template": "states",
-        "title": "Adverse Fill Shock & Queue Depletion Simulation Lab \u2014 Quant Systems State Engine",
+        "title": "Adverse Fill Shock & Queue Depletion Simulation Lab — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -233,7 +233,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Adverse Fill Shock & Queue Depletion Simulation Lab.",
+            "caption": "State one (Init State): Initialize deterministic state for Adverse Fill.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -261,7 +261,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -278,7 +278,7 @@
       "codeHash": "b2493212cf13ad90540205e2974671f6dff409fb80af0e73ff65b86cf726936a",
       "spec": {
         "template": "states",
-        "title": "Comprehensive Cont-Stoikov Queue Position & Fill Estimator Gate \u2014 Quant Systems State Engine",
+        "title": "Comprehensive Cont-Stoikov Queue Position & Fill Estimator Gate — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -300,7 +300,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Comprehensive Cont-Stoikov Queue Position & Fill Estimator Gate.",
+            "caption": "State one (Init State): Initialize deterministic state for Comprehensive.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -328,7 +328,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",

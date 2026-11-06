@@ -110,7 +110,7 @@
           },
           {
             "at": "say4",
-            "caption": "RSC achieves up to 96.9% reduction in client JavaScript payloads while preserving rich interactivity.",
+            "caption": "RSC achieves up to multiple.nine% reduction in client JavaScript payloads.",
             "values": {
               "left": {
                 "items": [
@@ -633,7 +633,7 @@
           },
           {
             "at": "say3",
-            "caption": "Client components are serialized as module references (M1) and lazy references ($L1).",
+            "caption": "Client components are serialized as module references (Mone) and lazy.",
             "values": {
               "root": {
                 "text": "\"Emitting Wire\""

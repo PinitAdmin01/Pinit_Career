@@ -50,7 +50,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize Hermes memory profiler and allocation monitor for Fast Hermetic Unit Testing Top.",
+            "caption": "Initialize Hermes memory profiler and allocation monitor for Fast.",
             "activeId": "HermesProfilerNode",
             "tone": "primary",
             "nodes": [
@@ -66,7 +66,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute hermetic component tests and query accessible role nodes.",
+            "caption": "Execute hermetic component tests and query accessible role nodes.",
             "activeId": "RntlComponentTestNode",
             "tone": "accent",
             "nodes": [
@@ -82,7 +82,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute declarative Maestro E2E flows with automatic visual settling.",
+            "caption": "Execute declarative Maestro EtwoE flows with automatic visual settling.",
             "activeId": "MaestroE2eRunnerNode",
             "tone": "data",
             "nodes": [
@@ -98,7 +98,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Certify zero-leak retention and complete CI verification gate.",
+            "caption": "Certify zero-leak retention and complete CI verification gate.",
             "activeId": "AppRoot",
             "tone": "ok",
             "nodes": [
@@ -266,7 +266,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize Hermes memory profiler and allocation monitor for React Native Testing Library (.",
+            "caption": "Initialize Hermes memory profiler and allocation monitor for React Native.",
             "activeId": "HermesProfilerNode",
             "tone": "primary",
             "nodes": [
@@ -282,7 +282,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute hermetic component tests and query accessible role nodes.",
+            "caption": "Execute hermetic component tests and query accessible role nodes.",
             "activeId": "RntlComponentTestNode",
             "tone": "accent",
             "nodes": [
@@ -298,7 +298,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute declarative Maestro E2E flows with automatic visual settling.",
+            "caption": "Execute declarative Maestro EtwoE flows with automatic visual settling.",
             "activeId": "MaestroE2eRunnerNode",
             "tone": "data",
             "nodes": [
@@ -314,7 +314,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Certify zero-leak retention and complete CI verification gate.",
+            "caption": "Certify zero-leak retention and complete CI verification gate.",
             "activeId": "AppRoot",
             "tone": "ok",
             "nodes": [
@@ -482,7 +482,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize Hermes memory profiler and allocation monitor for Mocking Native TurboModules & .",
+            "caption": "Initialize Hermes memory profiler and allocation monitor for Mocking.",
             "activeId": "HermesProfilerNode",
             "tone": "primary",
             "nodes": [
@@ -498,7 +498,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute hermetic component tests and query accessible role nodes.",
+            "caption": "Execute hermetic component tests and query accessible role nodes.",
             "activeId": "RntlComponentTestNode",
             "tone": "accent",
             "nodes": [
@@ -514,7 +514,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute declarative Maestro E2E flows with automatic visual settling.",
+            "caption": "Execute declarative Maestro EtwoE flows with automatic visual settling.",
             "activeId": "MaestroE2eRunnerNode",
             "tone": "data",
             "nodes": [
@@ -530,7 +530,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Certify zero-leak retention and complete CI verification gate.",
+            "caption": "Certify zero-leak retention and complete CI verification gate.",
             "activeId": "AppRoot",
             "tone": "ok",
             "nodes": [
@@ -698,7 +698,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize Hermes memory profiler and allocation monitor for Testing Async State Transition.",
+            "caption": "Initialize Hermes memory profiler and allocation monitor for Testing.",
             "activeId": "HermesProfilerNode",
             "tone": "primary",
             "nodes": [
@@ -714,7 +714,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute hermetic component tests and query accessible role nodes.",
+            "caption": "Execute hermetic component tests and query accessible role nodes.",
             "activeId": "RntlComponentTestNode",
             "tone": "accent",
             "nodes": [
@@ -730,7 +730,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute declarative Maestro E2E flows with automatic visual settling.",
+            "caption": "Execute declarative Maestro EtwoE flows with automatic visual settling.",
             "activeId": "MaestroE2eRunnerNode",
             "tone": "data",
             "nodes": [
@@ -746,7 +746,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Certify zero-leak retention and complete CI verification gate.",
+            "caption": "Certify zero-leak retention and complete CI verification gate.",
             "activeId": "AppRoot",
             "tone": "ok",
             "nodes": [
@@ -914,7 +914,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize Hermes memory profiler and allocation monitor for Snapshot Testing Invariants & .",
+            "caption": "Initialize Hermes memory profiler and allocation monitor for Snapshot.",
             "activeId": "HermesProfilerNode",
             "tone": "primary",
             "nodes": [
@@ -930,7 +930,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute hermetic component tests and query accessible role nodes.",
+            "caption": "Execute hermetic component tests and query accessible role nodes.",
             "activeId": "RntlComponentTestNode",
             "tone": "accent",
             "nodes": [
@@ -946,7 +946,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute declarative Maestro E2E flows with automatic visual settling.",
+            "caption": "Execute declarative Maestro EtwoE flows with automatic visual settling.",
             "activeId": "MaestroE2eRunnerNode",
             "tone": "data",
             "nodes": [
@@ -962,7 +962,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Certify zero-leak retention and complete CI verification gate.",
+            "caption": "Certify zero-leak retention and complete CI verification gate.",
             "activeId": "AppRoot",
             "tone": "ok",
             "nodes": [

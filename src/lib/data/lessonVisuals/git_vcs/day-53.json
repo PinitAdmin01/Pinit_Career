@@ -40,7 +40,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Working Tree): Initialize The Compare-and-Swap (CAS) Rem...",
+            "caption": "Stage one (Working Tree): Initialize The Compare-and-Swap (CAS) Rem...",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Staging Index): Verify per-worktree index & UNTR/FSMN extensions.",
+            "caption": "Stage two (Staging Index): Verify per-worktree index & UNTR/FSMN.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -108,7 +108,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Object Store): Audit .git/objects/ bitmaps, commit-graph & fsck.",
+            "caption": "Stage three (Object Store): Audit .git/objects/ bitmaps, commit-graph &.",
             "activeStageId": "s3",
             "statusBadge": "PROCESSING",
             "throughput": "Nominal",
@@ -142,7 +142,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Remote DAG): Certify CAS lease & historical migration provenance.",
+            "caption": "Stage four (Remote DAG): Certify CAS lease & historical migration.",
             "activeStageId": "s4",
             "statusBadge": "VERIFIED",
             "throughput": "Complete",
@@ -212,7 +212,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Working Tree): Initialize The Background IDE Fetch Lease...",
+            "caption": "Stage one (Working Tree): Initialize The Background IDE Fetch Lease...",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -246,7 +246,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Staging Index): Verify per-worktree index & UNTR/FSMN extensions.",
+            "caption": "Stage two (Staging Index): Verify per-worktree index & UNTR/FSMN.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -280,7 +280,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Object Store): Audit .git/objects/ bitmaps, commit-graph & fsck.",
+            "caption": "Stage three (Object Store): Audit .git/objects/ bitmaps, commit-graph &.",
             "activeStageId": "s3",
             "statusBadge": "PROCESSING",
             "throughput": "Nominal",
@@ -314,7 +314,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Remote DAG): Certify CAS lease & historical migration provenance.",
+            "caption": "Stage four (Remote DAG): Certify CAS lease & historical migration.",
             "activeStageId": "s4",
             "statusBadge": "VERIFIED",
             "throughput": "Complete",
@@ -384,7 +384,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Working Tree): Initialize Server-Side Pre-Receive Non-Fa...",
+            "caption": "Stage one (Working Tree): Initialize Server-Side Pre-Receive Non-Fa...",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -418,7 +418,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Staging Index): Verify per-worktree index & UNTR/FSMN extensions.",
+            "caption": "Stage two (Staging Index): Verify per-worktree index & UNTR/FSMN.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -452,7 +452,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Object Store): Audit .git/objects/ bitmaps, commit-graph & fsck.",
+            "caption": "Stage three (Object Store): Audit .git/objects/ bitmaps, commit-graph &.",
             "activeStageId": "s3",
             "statusBadge": "PROCESSING",
             "throughput": "Nominal",
@@ -486,7 +486,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Remote DAG): Certify CAS lease & historical migration provenance.",
+            "caption": "Stage four (Remote DAG): Certify CAS lease & historical migration.",
             "activeStageId": "s4",
             "statusBadge": "VERIFIED",
             "throughput": "Complete",
@@ -556,7 +556,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Working Tree): Initialize 10-Worker Concurrent Force-Wit...",
+            "caption": "Stage one (Working Tree): Initialize ten-Worker Concurrent Force-Wit...",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -590,7 +590,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Staging Index): Verify per-worktree index & UNTR/FSMN extensions.",
+            "caption": "Stage two (Staging Index): Verify per-worktree index & UNTR/FSMN.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -624,7 +624,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Object Store): Audit .git/objects/ bitmaps, commit-graph & fsck.",
+            "caption": "Stage three (Object Store): Audit .git/objects/ bitmaps, commit-graph &.",
             "activeStageId": "s3",
             "statusBadge": "PROCESSING",
             "throughput": "Nominal",
@@ -658,7 +658,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Remote DAG): Certify CAS lease & historical migration provenance.",
+            "caption": "Stage four (Remote DAG): Certify CAS lease & historical migration.",
             "activeStageId": "s4",
             "statusBadge": "VERIFIED",
             "throughput": "Complete",
@@ -728,7 +728,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Working Tree): Initialize Master Safe Force-Push Gateway...",
+            "caption": "Stage one (Working Tree): Initialize Master Safe Force-Push Gateway...",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -762,7 +762,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Staging Index): Verify per-worktree index & UNTR/FSMN extensions.",
+            "caption": "Stage two (Staging Index): Verify per-worktree index & UNTR/FSMN.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -796,7 +796,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Object Store): Audit .git/objects/ bitmaps, commit-graph & fsck.",
+            "caption": "Stage three (Object Store): Audit .git/objects/ bitmaps, commit-graph &.",
             "activeStageId": "s3",
             "statusBadge": "PROCESSING",
             "throughput": "Nominal",
@@ -830,7 +830,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Remote DAG): Certify CAS lease & historical migration provenance.",
+            "caption": "Stage four (Remote DAG): Certify CAS lease & historical migration.",
             "activeStageId": "s4",
             "statusBadge": "VERIFIED",
             "throughput": "Complete",

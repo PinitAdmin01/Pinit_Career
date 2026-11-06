@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Unified Telemetry Ingestion): Initialize operational telemetry pipeline for Milestone 10 Architecture & Telemetry Contracts.",
+            "caption": "State one (Unified Telemetry Ingestion): Initialize operational telemetry.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -60,7 +60,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Milestone 10 Certified): Production invariant verified with zero telemetry loss.",
+            "caption": "State four (Milestone ten Certified): Production invariant verified with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -99,7 +99,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Unified Telemetry Ingestion): Initialize operational telemetry pipeline for Trace-to-Log Correlation Mechanics.",
+            "caption": "State one (Unified Telemetry Ingestion): Initialize operational telemetry.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -127,7 +127,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Milestone 10 Certified): Production invariant verified with zero telemetry loss.",
+            "caption": "State four (Milestone ten Certified): Production invariant verified with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -166,7 +166,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Unified Telemetry Ingestion): Initialize operational telemetry pipeline for Real-Time RED Metrics Aggregation Engine.",
+            "caption": "State one (Unified Telemetry Ingestion): Initialize operational telemetry.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -194,7 +194,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Milestone 10 Certified): Production invariant verified with zero telemetry loss.",
+            "caption": "State four (Milestone ten Certified): Production invariant verified with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -233,7 +233,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Unified Telemetry Ingestion): Initialize operational telemetry pipeline for Resilient Lifecycle & Connection Draining Controller.",
+            "caption": "State one (Unified Telemetry Ingestion): Initialize operational telemetry.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -261,7 +261,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Milestone 10 Certified): Production invariant verified with zero telemetry loss.",
+            "caption": "State four (Milestone ten Certified): Production invariant verified with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -300,7 +300,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Unified Telemetry Ingestion): Initialize operational telemetry pipeline for Milestone 10 Production Defense & Verification Gate.",
+            "caption": "State one (Unified Telemetry Ingestion): Initialize operational telemetry.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -328,7 +328,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Milestone 10 Certified): Production invariant verified with zero telemetry loss.",
+            "caption": "State four (Milestone ten Certified): Production invariant verified with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",

@@ -102,7 +102,7 @@
           },
           {
             "at": "say3",
-            "caption": "Each remote negotiates against shared scope and shares single React 18 runtime.",
+            "caption": "Each remote negotiates against shared scope and shares single React.",
             "values": {
               "host_shell": {
                 "text": "\"Scope Bound\""
@@ -416,7 +416,7 @@
           },
           {
             "at": "say4",
-            "caption": "Shared scope saves 130 KB gzipped JavaScript per remote across the platform.",
+            "caption": "Shared scope saves multiple KB gzipped JavaScript per remote across the.",
             "values": {
               "left": {
                 "items": [
@@ -498,7 +498,7 @@
           },
           {
             "at": "say2",
-            "caption": "If CDN latency spikes beyond 3 seconds, timeout guard aborts the hanging request.",
+            "caption": "If CDN latency spikes beyond three seconds, timeout guard aborts the.",
             "values": {
               "host_loader": {
                 "text": "\"Timeout Abort!\""

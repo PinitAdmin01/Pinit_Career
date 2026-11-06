@@ -48,7 +48,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Fetch instruction cell at 0x00: OPCODE for Type 1 vs Type 2 Hypervi...",
+            "caption": "Fetch instruction cell at zerox: OPCODE for Type one vs Type two Hypervi...",
             "items": [
               "0x00: OPCODE",
               "0x04: REG_A",
@@ -75,7 +75,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Decode operands in 0x04: REG_A and 0x08: REG_B.",
+            "caption": "Decode operands in zerox: REG_A and zerox: REG_B.",
             "items": [
               "0x00: OPCODE",
               "0x04: REG_A",
@@ -107,7 +107,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute ALU operation and stage output toward 0x0C: ACCUM.",
+            "caption": "Execute ALU operation and stage output toward zeroxzeroC: ACCUM.",
             "items": [
               "0x00: OPCODE",
               "0x04: REG_A",
@@ -134,7 +134,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit verified word into 0x0C: ACCUM memory cell.",
+            "caption": "Commit verified word into zeroxzeroC: ACCUM memory cell.",
             "items": [
               "0x00: OPCODE",
               "0x04: REG_A",
@@ -327,7 +327,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Fetch instruction cell at 0x00: OPCODE for Detective Challenge: Dia...",
+            "caption": "Fetch instruction cell at zerox: OPCODE for Detective Challenge: Dia...",
             "items": [
               "0x00: OPCODE",
               "0x04: REG_A",
@@ -354,7 +354,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Decode operands in 0x04: REG_A and 0x08: REG_B.",
+            "caption": "Decode operands in zerox: REG_A and zerox: REG_B.",
             "items": [
               "0x00: OPCODE",
               "0x04: REG_A",
@@ -386,7 +386,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute ALU operation and stage output toward 0x0C: ACCUM.",
+            "caption": "Execute ALU operation and stage output toward zeroxzeroC: ACCUM.",
             "items": [
               "0x00: OPCODE",
               "0x04: REG_A",
@@ -413,7 +413,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit verified word into 0x0C: ACCUM memory cell.",
+            "caption": "Commit verified word into zeroxzeroC: ACCUM memory cell.",
             "items": [
               "0x00: OPCODE",
               "0x04: REG_A",
@@ -606,7 +606,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Fetch instruction cell at 0x00: OPCODE for Mastery Assignment: Mini...",
+            "caption": "Fetch instruction cell at zerox: OPCODE for Mastery Assignment: Mini...",
             "items": [
               "0x00: OPCODE",
               "0x04: REG_A",
@@ -633,7 +633,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Decode operands in 0x04: REG_A and 0x08: REG_B.",
+            "caption": "Decode operands in zerox: REG_A and zerox: REG_B.",
             "items": [
               "0x00: OPCODE",
               "0x04: REG_A",
@@ -665,7 +665,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute ALU operation and stage output toward 0x0C: ACCUM.",
+            "caption": "Execute ALU operation and stage output toward zeroxzeroC: ACCUM.",
             "items": [
               "0x00: OPCODE",
               "0x04: REG_A",
@@ -692,7 +692,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit verified word into 0x0C: ACCUM memory cell.",
+            "caption": "Commit verified word into zeroxzeroC: ACCUM memory cell.",
             "items": [
               "0x00: OPCODE",
               "0x04: REG_A",
@@ -885,7 +885,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Fetch instruction cell at 0x00: OPCODE for Incident Lab: Two-Dimens...",
+            "caption": "Fetch instruction cell at zerox: OPCODE for Incident Lab: Two-Dimens...",
             "items": [
               "0x00: OPCODE",
               "0x04: REG_A",
@@ -912,7 +912,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Decode operands in 0x04: REG_A and 0x08: REG_B.",
+            "caption": "Decode operands in zerox: REG_A and zerox: REG_B.",
             "items": [
               "0x00: OPCODE",
               "0x04: REG_A",
@@ -944,7 +944,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute ALU operation and stage output toward 0x0C: ACCUM.",
+            "caption": "Execute ALU operation and stage output toward zeroxzeroC: ACCUM.",
             "items": [
               "0x00: OPCODE",
               "0x04: REG_A",
@@ -971,7 +971,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit verified word into 0x0C: ACCUM memory cell.",
+            "caption": "Commit verified word into zeroxzeroC: ACCUM memory cell.",
             "items": [
               "0x00: OPCODE",
               "0x04: REG_A",
@@ -1164,7 +1164,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Fetch instruction cell at 0x00: OPCODE for Day 31 Mastery Certifica...",
+            "caption": "Fetch instruction cell at zerox: OPCODE for Day multiple Mastery.",
             "items": [
               "0x00: OPCODE",
               "0x04: REG_A",
@@ -1191,7 +1191,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Decode operands in 0x04: REG_A and 0x08: REG_B.",
+            "caption": "Decode operands in zerox: REG_A and zerox: REG_B.",
             "items": [
               "0x00: OPCODE",
               "0x04: REG_A",
@@ -1223,7 +1223,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute ALU operation and stage output toward 0x0C: ACCUM.",
+            "caption": "Execute ALU operation and stage output toward zeroxzeroC: ACCUM.",
             "items": [
               "0x00: OPCODE",
               "0x04: REG_A",
@@ -1250,7 +1250,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit verified word into 0x0C: ACCUM memory cell.",
+            "caption": "Commit verified word into zeroxzeroC: ACCUM memory cell.",
             "items": [
               "0x00: OPCODE",
               "0x04: REG_A",

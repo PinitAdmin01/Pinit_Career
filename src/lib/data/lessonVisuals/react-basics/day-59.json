@@ -44,7 +44,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "RFC-0104 establishes four mandatory architectural pillars.",
+            "caption": "RFC-multiple establishes four mandatory architectural pillars.",
             "values": {
               "p1": {
                 "val": "Audited"
@@ -68,7 +68,7 @@
           },
           {
             "at": "say2",
-            "caption": "Edge Routing and Hybrid Streaming guarantee sub-50ms end-to-end latency.",
+            "caption": "Edge Routing and Hybrid Streaming guarantee sub-ms end-to-end latency.",
             "values": {
               "p1": {
                 "val": "5ms Ingress"
@@ -116,7 +116,7 @@
           },
           {
             "at": "say4",
-            "caption": "Change Advisory Board certifies RFC-0104 with 100% specification score.",
+            "caption": "Change Advisory Board certifies RFC-multiple with one hundred%.",
             "values": {
               "p1": {
                 "val": "CAB Approved"
@@ -193,7 +193,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Anycast DNS resolves browser request in 4.2ms to nearest edge node.",
+            "caption": "Anycast DNS resolves browser request in four.twoms to nearest edge node.",
             "values": {
               "dns": {
                 "status": "4.2ms Done"
@@ -217,7 +217,7 @@
           },
           {
             "at": "say2",
-            "caption": "Edge middleware validates JWT claims in 1.8ms without touching origin databases.",
+            "caption": "Edge middleware validates JWT claims in one.eightms without touching.",
             "values": {
               "dns": {
                 "status": "4.2ms Done"
@@ -241,7 +241,7 @@
           },
           {
             "at": "say3",
-            "caption": "Static application shell delivers in 12.5ms, triggering instantaneous FCP.",
+            "caption": "Static application shell delivers in twelve.fivems, triggering.",
             "values": {
               "dns": {
                 "status": "4.2ms Done"
@@ -265,7 +265,7 @@
           },
           {
             "at": "say4",
-            "caption": "Total request completes in 40.5ms, well within the 50.0ms budget SLA.",
+            "caption": "Total request completes in multiple.fivems, well within the.",
             "values": {
               "dns": {
                 "status": "4.2ms Done"
@@ -371,7 +371,7 @@
           },
           {
             "at": "say2",
-            "caption": "Upstream datacenter emits consecutive 503 errors, recording failure counts.",
+            "caption": "Upstream datacenter emits consecutive unavailable errors, recording.",
             "values": {
               "closed": {
                 "active": false
@@ -395,7 +395,7 @@
           },
           {
             "at": "say3",
-            "caption": "Threshold reached; circuit trips to CIRCUIT_OPEN in under 1 millisecond.",
+            "caption": "Threshold reached; circuit trips to CIRCUIT_OPEN in under one millisecond.",
             "values": {
               "closed": {
                 "active": false
@@ -547,7 +547,7 @@
           },
           {
             "at": "say3",
-            "caption": "CI pipelines audit 100% Zod validation coverage across all SDUI endpoints.",
+            "caption": "CI pipelines audit one hundred% Zod validation coverage across all SDUI.",
             "values": {
               "arch_guild": {
                 "state": "Auditing"
@@ -639,7 +639,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Legacy origin architecture spends $2,500,000 annually on compute infrastructure.",
+            "caption": "Legacy origin architecture spends $two,server-error,multiple annually on.",
             "values": {
               "left": {
                 "items": [
@@ -665,7 +665,7 @@
           },
           {
             "at": "say2",
-            "caption": "Edge caching offloads 70% of static and dynamic load, saving $1,750,000/yr.",
+            "caption": "Edge caching offloads multiple% of static and dynamic load, saving.",
             "values": {
               "left": {
                 "items": [
@@ -691,7 +691,7 @@
           },
           {
             "at": "say3",
-            "caption": "Sub-50ms speed lift generates a conservative 4.5% conversion increase.",
+            "caption": "Sub-ms speed lift generates a conservative four.five% conversion increase.",
             "values": {
               "left": {
                 "items": [
@@ -717,7 +717,7 @@
           },
           {
             "at": "say4",
-            "caption": "Total net economic benefit reaches $4,000,000 annually (660% first-year ROI).",
+            "caption": "Total net economic benefit reaches $four,multiple,multiple annually.",
             "values": {
               "left": {
                 "items": [

@@ -10,7 +10,7 @@
       "codeHash": "b3a220d3ce479ed850e0dd8dbd6693f1dbf1eeee34fc5cfdf78398277e809eca",
       "spec": {
         "template": "tree-graph",
-        "title": "Pillar 1: Cognitive Multi-Agent Swarms &... \u2014 Enterprise AI Decision Graph",
+        "title": "Pillar 1: Cognitive Multi-Agent Swarms &... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -54,7 +54,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for Pillar 1: Cognitive Multi-Agent Swarms &....",
+            "caption": "Ingest enterprise Context Query for Pillar one: Cognitive Multi-Agent.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -68,7 +68,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -87,7 +87,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & governance bounds in Policy Guardrail.",
+            "caption": "Validate compliance & governance bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -107,7 +107,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -134,7 +134,7 @@
       "codeHash": "65a29a5ef7b5f83af2fbf690aa9b4589664507adb11a52c02a71b91bec911fab",
       "spec": {
         "template": "tree-graph",
-        "title": "Pillar 2: Medallion Lakehouse Data Linea... \u2014 Enterprise AI Decision Graph",
+        "title": "Pillar 2: Medallion Lakehouse Data Linea... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -178,7 +178,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for Pillar 2: Medallion Lakehouse Data Linea....",
+            "caption": "Ingest enterprise Context Query for Pillar two: Medallion Lakehouse Data.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -192,7 +192,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -211,7 +211,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & governance bounds in Policy Guardrail.",
+            "caption": "Validate compliance & governance bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -231,7 +231,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -258,7 +258,7 @@
       "codeHash": "6e3e4f53aa36771899148ba6eac0ad787793397d1cb4f1f7c412d327e6be8335",
       "spec": {
         "template": "tree-graph",
-        "title": "Pillar 3: Zero-Trust AI Security, Advers... \u2014 Enterprise AI Decision Graph",
+        "title": "Pillar 3: Zero-Trust AI Security, Advers... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -302,7 +302,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for Pillar 3: Zero-Trust AI Security, Advers....",
+            "caption": "Ingest enterprise Context Query for Pillar three: Zero-Trust AI Security.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -316,7 +316,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -335,7 +335,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & governance bounds in Policy Guardrail.",
+            "caption": "Validate compliance & governance bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -355,7 +355,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -382,7 +382,7 @@
       "codeHash": "c07907d416068a47552f98ed491a390bfe57d1a2479aa4667ab24aa3de1ddfce",
       "spec": {
         "template": "tree-graph",
-        "title": "Pillar 4: Closed-Loop Autonomous Supply ... \u2014 Enterprise AI Decision Graph",
+        "title": "Pillar 4: Closed-Loop Autonomous Supply ... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -426,7 +426,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for Pillar 4: Closed-Loop Autonomous Supply ....",
+            "caption": "Ingest enterprise Context Query for Pillar four: Closed-Loop Autonomous.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -440,7 +440,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -459,7 +459,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & governance bounds in Policy Guardrail.",
+            "caption": "Validate compliance & governance bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -479,7 +479,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -506,7 +506,7 @@
       "codeHash": "5fa07d1a3c3bdaa41ca14fcabca184c60303eb43d6d59497f4a1d685b158af02",
       "spec": {
         "template": "tree-graph",
-        "title": "Grand Synthesis & Executive Certificatio... \u2014 Enterprise AI Decision Graph",
+        "title": "Grand Synthesis & Executive Certificatio... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -550,7 +550,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for Grand Synthesis & Executive Certificatio....",
+            "caption": "Ingest enterprise Context Query for Grand Synthesis & Executive.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -564,7 +564,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -583,7 +583,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & governance bounds in Policy Guardrail.",
+            "caption": "Validate compliance & governance bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -603,7 +603,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",

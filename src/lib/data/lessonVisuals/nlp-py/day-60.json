@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for ApexLinguist v2 Sovereign Architecture: ...",
+            "caption": "Initialize input state for ApexLinguist vtwo Sovereign Architecture: ...",
             "values": {
               "in": "Day 60 Input",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in ApexLinguist v2 Sov....",
+            "caption": "Execute core transformation in ApexLinguist vtwo Sov....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -75,7 +75,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for ApexLinguist v2 Sovereign Archite...",
+            "caption": "End-to-end execution verified for ApexLinguist vtwo Sovereign Archite...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -257,7 +257,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for The End-to-End Training & Alignment Pipe...",
+            "caption": "Initialize input state for The End-to-End Training & Alignment Pipe...",
             "values": {
               "in": "Day 60 Input",
               "proc": "Standby",
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The End-to-End Trai....",
+            "caption": "Execute core transformation in The End-to-End Trai....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -301,7 +301,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -321,7 +321,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The End-to-End Training & Alignme...",
+            "caption": "End-to-end execution verified for The End-to-End Training & Alignme...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -483,7 +483,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Industrial Serving, High-Throughput KV P...",
+            "caption": "Initialize input state for Industrial Serving, High-Throughput KV P...",
             "values": {
               "in": "Day 60 Input",
               "proc": "Standby",
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Industrial Serving,....",
+            "caption": "Execute core transformation in Industrial Serving,....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -527,7 +527,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -547,7 +547,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Industrial Serving, High-Throughp...",
+            "caption": "End-to-end execution verified for Industrial Serving, High-Throughp...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -709,7 +709,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Autonomous Tool Calling, Multi-Step ReAc...",
+            "caption": "Initialize input state for Autonomous Tool Calling, Multi-Step ReAc...",
             "values": {
               "in": "Day 60 Input",
               "proc": "Standby",
@@ -729,7 +729,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Autonomous Tool Cal....",
+            "caption": "Execute core transformation in Autonomous Tool Cal....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -753,7 +753,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -773,7 +773,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Autonomous Tool Calling, Multi-St...",
+            "caption": "End-to-end execution verified for Autonomous Tool Calling, Multi-St...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -935,7 +935,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Masterclass Implementation & Boardroom D...",
+            "caption": "Initialize input state for Masterclass Implementation & Boardroom D...",
             "values": {
               "in": "Day 60 Input",
               "proc": "Standby",
@@ -955,7 +955,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Masterclass Impleme....",
+            "caption": "Execute core transformation in Masterclass Impleme....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -979,7 +979,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -999,7 +999,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Masterclass Implementation & Boar...",
+            "caption": "End-to-end execution verified for Masterclass Implementation & Boar...",
             "values": {
               "in": "Committed",
               "proc": "Verified",

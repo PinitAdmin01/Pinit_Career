@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for The Direct Preference Optimization (DPO)...",
+            "caption": "Initialize input state for The Direct Preference Optimization (DPO)...",
             "values": {
               "in": "Day 44 Input",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The Direct Preferen....",
+            "caption": "Execute core transformation in The Direct Preferen....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -75,7 +75,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The Direct Preference Optimizatio...",
+            "caption": "End-to-end execution verified for The Direct Preference Optimizatio...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -257,7 +257,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for DPO Closed-Form Loss Derivation & Token-...",
+            "caption": "Initialize input state for DPO Closed-Form Loss Derivation & Token-...",
             "values": {
               "in": "Day 44 Input",
               "proc": "Standby",
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in DPO Closed-Form Los....",
+            "caption": "Execute core transformation in DPO Closed-Form Los....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -301,7 +301,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -321,7 +321,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for DPO Closed-Form Loss Derivation &...",
+            "caption": "End-to-end execution verified for DPO Closed-Form Loss Derivation &...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -483,7 +483,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Reference-Free Alignment: KTO (Prospect ...",
+            "caption": "Initialize input state for Reference-Free Alignment: KTO (Prospect ...",
             "values": {
               "in": "Day 44 Input",
               "proc": "Standby",
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Reference-Free Alig....",
+            "caption": "Execute core transformation in Reference-Free Alig....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -527,7 +527,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -547,7 +547,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Reference-Free Alignment: KTO (Pr...",
+            "caption": "End-to-end execution verified for Reference-Free Alignment: KTO (Pr...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -709,7 +709,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Length Normalization in DPO & Mitigating...",
+            "caption": "Initialize input state for Length Normalization in DPO & Mitigating...",
             "values": {
               "in": "Day 44 Input",
               "proc": "Standby",
@@ -729,7 +729,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Length Normalizatio....",
+            "caption": "Execute core transformation in Length Normalizatio....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -753,7 +753,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -773,7 +773,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Length Normalization in DPO & Mit...",
+            "caption": "End-to-end execution verified for Length Normalization in DPO & Mit...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -935,7 +935,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Masterclass Synthesis: Building.",
+            "caption": "Initialize input state for Masterclass Synthesis: Building.",
             "values": {
               "in": "Day 44 Input",
               "proc": "Standby",
@@ -955,7 +955,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Masterclass Synthes....",
+            "caption": "Execute core transformation in Masterclass Synthes....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -979,7 +979,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -999,7 +999,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Masterclass Synthesis: Building t...",
+            "caption": "End-to-end execution verified for Masterclass Synthesis: Building t...",
             "values": {
               "in": "Committed",
               "proc": "Verified",

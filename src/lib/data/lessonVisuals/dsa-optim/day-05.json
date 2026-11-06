@@ -563,7 +563,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Full Milestone 1 Production LRUCache Eng.. [D5.P6.S1].",
+            "caption": "Initialize input state for Full Milestone one Production LRUCache Eng.",
             "values": {
               "in": "Day 5 Input",
               "proc": "Standby",
@@ -583,7 +583,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Full Milestone 1 Pr... [D5.P6.S2].",
+            "caption": "Execute core transformation in Full Milestone one Pr... [Dfive.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -607,7 +607,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D5.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [Dfive.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -627,7 +627,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Full Milestone 1 Production LRUCa.. [D5.P6.S4].",
+            "caption": "End-to-end execution verified for Full Milestone one Production LRUCa.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

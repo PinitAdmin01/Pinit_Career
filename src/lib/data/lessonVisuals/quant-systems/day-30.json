@@ -10,7 +10,7 @@
       "codeHash": "beef9af042d4c606d89c6c6bb032c4048464d65f202c3092ca3961f114902818",
       "spec": {
         "template": "states",
-        "title": "Sovereign High-Frequency Market Making System \u2014 High-Frequency Systems State Machine",
+        "title": "Sovereign High-Frequency Market Making System — High-Frequency Systems State Machine",
         "states": [
           {
             "id": "st1",
@@ -32,13 +32,13 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Core Affinity): Initialize deterministic state for Sovereign High-Frequency Market Mak...",
+            "caption": "State one (Core Affinity): Initialize deterministic state for Sovereign.",
             "currentState": "st1",
             "tone": "data"
           },
           {
             "at": "say1",
-            "caption": "Transition to 2MB HugePages with zero-allocation buffer pipeline.",
+            "caption": "Transition to twoMB HugePages with zero-allocation buffer pipeline.",
             "currentState": "st2",
             "transition": {
               "from": "st1",
@@ -60,7 +60,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Sovereign Setup): Execute deterministic verification with zero heap allocations.",
+            "caption": "State four (Sovereign Setup): Execute deterministic verification with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -77,7 +77,7 @@
       "codeHash": "4b1147cc3906518fd112fc93d5616f169ea05800727d5d217a15ca844519fb3d",
       "spec": {
         "template": "states",
-        "title": "Sub-Microsecond Lock-Free Kernel & Inter-Core \u2014 High-Frequency Systems State Machine",
+        "title": "Sub-Microsecond Lock-Free Kernel & Inter-Core — High-Frequency Systems State Machine",
         "states": [
           {
             "id": "st1",
@@ -99,7 +99,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (SPSC Producer): Initialize deterministic state for Sub-Microsecond Lock-Free Kernel & ...",
+            "caption": "State one (SPSC Producer): Initialize deterministic state for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -127,7 +127,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (SPSC Consumer): Execute deterministic verification with zero heap allocations.",
+            "caption": "State four (SPSC Consumer): Execute deterministic verification with zero.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -144,7 +144,7 @@
       "codeHash": "ac48863d6b86670a5082ff99b0d78feb173db32d1500dbe04a135ff42ac3535b",
       "spec": {
         "template": "states",
-        "title": "Deterministic Matching Engine Core & Price-Ti \u2014 High-Frequency Systems State Machine",
+        "title": "Deterministic Matching Engine Core & Price-Ti — High-Frequency Systems State Machine",
         "states": [
           {
             "id": "st1",
@@ -166,7 +166,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Resting Book): Initialize deterministic state for Deterministic Matching Engine Core ...",
+            "caption": "State one (Resting Book): Initialize deterministic state for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -194,7 +194,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Fill Execution): Execute deterministic verification with zero heap allocations.",
+            "caption": "State four (Fill Execution): Execute deterministic verification with zero.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -211,7 +211,7 @@
       "codeHash": "22ed39f3777ba8276837567aa4280f663ed20916078bf746c210ebb0f0c0ea0e",
       "spec": {
         "template": "states",
-        "title": "Multi-Venue Quantitative Market Making Strate \u2014 High-Frequency Systems State Machine",
+        "title": "Multi-Venue Quantitative Market Making Strate — High-Frequency Systems State Machine",
         "states": [
           {
             "id": "st1",
@@ -233,7 +233,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Mid Price Feed): Initialize deterministic state for Multi-Venue Quantitative Market Mak...",
+            "caption": "State one (Mid Price Feed): Initialize deterministic state for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -261,7 +261,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Quoting Grid): Execute deterministic verification with zero heap allocations.",
+            "caption": "State four (Quoting Grid): Execute deterministic verification with zero.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -278,7 +278,7 @@
       "codeHash": "e2e5d5f9c277ccb276b51303bf2b64e600cfce038a9591a4ce74dc01dc6bf66c",
       "spec": {
         "template": "states",
-        "title": "Grand Master Final Capstone Defense: End-to-E \u2014 High-Frequency Systems State Machine",
+        "title": "Grand Master Final Capstone Defense: End-to-E — High-Frequency Systems State Machine",
         "states": [
           {
             "id": "st1",
@@ -300,13 +300,13 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Gate 1 Latency): Initialize deterministic state for Grand Master Final Capstone Defense...",
+            "caption": "State one (Gate one Latency): Initialize deterministic state for Grand.",
             "currentState": "st1",
             "tone": "data"
           },
           {
             "at": "say1",
-            "caption": "Transition to Gate 2 Matching with zero-allocation buffer pipeline.",
+            "caption": "Transition to Gate two Matching with zero-allocation buffer pipeline.",
             "currentState": "st2",
             "transition": {
               "from": "st1",
@@ -317,7 +317,7 @@
           },
           {
             "at": "example",
-            "caption": "Transition to Gate 3 15c3-5 Risk and evaluate hot-path latency invariant.",
+            "caption": "Transition to Gate three cthree-five Risk and evaluate hot-path latency.",
             "currentState": "st3",
             "transition": {
               "from": "st2",
@@ -328,7 +328,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Grand Master Cert): Execute deterministic verification with zero heap allocations.",
+            "caption": "State four (Grand Master Cert): Execute deterministic verification with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",

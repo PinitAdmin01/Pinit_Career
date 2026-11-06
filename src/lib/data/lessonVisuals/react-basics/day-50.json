@@ -46,7 +46,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "TradingDeskHostShell boots and initializes the shared React 18 singleton scope.",
+            "caption": "TradingDeskHostShell boots and initializes the shared React multiple.",
             "values": {
               "desk_shell": {
                 "text": "\"Host Shell Active\""
@@ -470,7 +470,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Host initializes shared React 18 singleton scope across all federated remotes.",
+            "caption": "Host initializes shared React multiple singleton scope across all.",
             "values": {
               "shared_react": {
                 "text": "\"React 18.3.1 Active\""
@@ -594,7 +594,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Milestone 9 guarantees 0 torn frames under 1,000 tick/sec market volatility.",
+            "caption": "Milestone nine guarantees zero torn frames under one,multiple tick/sec.",
             "values": {
               "left": {
                 "items": [
@@ -620,7 +620,7 @@
           },
           {
             "at": "say2",
-            "caption": "Selective subscriptions reduce render latency from 52ms down to 3.2ms.",
+            "caption": "Selective subscriptions reduce render latency from ms down to three.twoms.",
             "values": {
               "left": {
                 "items": [

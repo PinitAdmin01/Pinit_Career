@@ -46,7 +46,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Scale location provider and radio power based on motion via <DynamicPowerPacingEngine />.",
+            "caption": "Scale location provider and radio power based on motion via.",
             "activeId": "PowerPacer",
             "tone": "primary",
             "nodes": [
@@ -62,7 +62,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Monitor cell tower handoffs and wake terminated app via <SignificantChangeService />.",
+            "caption": "Monitor cell tower handoffs and wake terminated app via.",
             "activeId": "SlcResurrection",
             "tone": "accent",
             "nodes": [
@@ -78,7 +78,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Offload up to 20 circular perimeters to motion coprocessor via <HardwareGeofenceMonitor />.",
+            "caption": "Offload up to twenty circular perimeters to motion coprocessor via.",
             "activeId": "GeofenceCoprocessor",
             "tone": "data",
             "nodes": [
@@ -94,7 +94,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute comprehensive background telemetry and WakeLock verification audit.",
+            "caption": "Execute comprehensive background telemetry and WakeLock verification audit.",
             "activeId": "root",
             "tone": "ok",
             "nodes": [
@@ -254,7 +254,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Scale location provider and radio power based on motion vi.",
+            "caption": "Scale location provider and radio power based on motion vi.",
             "activeId": "PowerPacer",
             "tone": "primary",
             "nodes": [
@@ -270,7 +270,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Monitor cell tower handoffs and wake terminated app via <SignificantChangeService />.",
+            "caption": "Monitor cell tower handoffs and wake terminated app via.",
             "activeId": "SlcResurrection",
             "tone": "accent",
             "nodes": [
@@ -286,7 +286,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Offload up to 20 circular perimeters to motion coprocessor via <HardwareGeofenceMonitor />.",
+            "caption": "Offload up to twenty circular perimeters to motion coprocessor via.",
             "activeId": "GeofenceCoprocessor",
             "tone": "data",
             "nodes": [
@@ -302,7 +302,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute comprehensive background telemetry and WakeLock verification audit.",
+            "caption": "Execute comprehensive background telemetry and WakeLock verification audit.",
             "activeId": "root",
             "tone": "ok",
             "nodes": [
@@ -462,7 +462,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Scale location provider and radio power based on motion vi.",
+            "caption": "Scale location provider and radio power based on motion vi.",
             "activeId": "PowerPacer",
             "tone": "primary",
             "nodes": [
@@ -478,7 +478,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Monitor cell tower handoffs and wake terminated app via <SignificantChangeService />.",
+            "caption": "Monitor cell tower handoffs and wake terminated app via.",
             "activeId": "SlcResurrection",
             "tone": "accent",
             "nodes": [
@@ -494,7 +494,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Offload up to 20 circular perimeters to motion coprocessor via <HardwareGeofenceMonitor />.",
+            "caption": "Offload up to twenty circular perimeters to motion coprocessor via.",
             "activeId": "GeofenceCoprocessor",
             "tone": "data",
             "nodes": [
@@ -510,7 +510,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute comprehensive background telemetry and WakeLock verification audit.",
+            "caption": "Execute comprehensive background telemetry and WakeLock verification audit.",
             "activeId": "root",
             "tone": "ok",
             "nodes": [
@@ -670,7 +670,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Scale location provider and radio power based on motion vi.",
+            "caption": "Scale location provider and radio power based on motion vi.",
             "activeId": "PowerPacer",
             "tone": "primary",
             "nodes": [
@@ -686,7 +686,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Monitor cell tower handoffs and wake terminated app via <SignificantChangeService />.",
+            "caption": "Monitor cell tower handoffs and wake terminated app via.",
             "activeId": "SlcResurrection",
             "tone": "accent",
             "nodes": [
@@ -702,7 +702,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Offload up to 20 circular perimeters to motion coprocessor via <HardwareGeofenceMonitor />.",
+            "caption": "Offload up to twenty circular perimeters to motion coprocessor via.",
             "activeId": "GeofenceCoprocessor",
             "tone": "data",
             "nodes": [
@@ -718,7 +718,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute comprehensive background telemetry and WakeLock verification audit.",
+            "caption": "Execute comprehensive background telemetry and WakeLock verification audit.",
             "activeId": "root",
             "tone": "ok",
             "nodes": [
@@ -878,7 +878,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Scale location provider and radio power based on motion vi.",
+            "caption": "Scale location provider and radio power based on motion vi.",
             "activeId": "PowerPacer",
             "tone": "primary",
             "nodes": [
@@ -894,7 +894,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Monitor cell tower handoffs and wake terminated app via <SignificantChangeService />.",
+            "caption": "Monitor cell tower handoffs and wake terminated app via.",
             "activeId": "SlcResurrection",
             "tone": "accent",
             "nodes": [
@@ -910,7 +910,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Offload up to 20 circular perimeters to motion coprocessor via <HardwareGeofenceMonitor />.",
+            "caption": "Offload up to twenty circular perimeters to motion coprocessor via.",
             "activeId": "GeofenceCoprocessor",
             "tone": "data",
             "nodes": [
@@ -926,7 +926,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute comprehensive background telemetry and WakeLock verification audit.",
+            "caption": "Execute comprehensive background telemetry and WakeLock verification audit.",
             "activeId": "root",
             "tone": "ok",
             "nodes": [

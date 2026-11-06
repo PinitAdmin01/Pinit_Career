@@ -6,7 +6,7 @@
   "entries": [
     {
       "partTitle": "The Evolution Of LLM Function Calling: From Single-Turn Tool Invocation To Autonomous Agent Meshes",
-      "codeHash": "68ac7645e57d7d95683dec08fbbbe1a954f1640b798d9ff3036e25ea1972fad1",
+      "codeHash": "6098b2794981281dabeb5dc57994f69ca02c2d8f3fc8a5be57fdc29502dae39a",
       "spec": {
         "template": "table",
         "title": "Function Calling Evolution And Parallel Tool Execution Fundamentals.",
@@ -160,7 +160,7 @@
     },
     {
       "partTitle": "Parallel Tool Execution Architecture: Asynchronous Worker Pools & Concurrency Optimization",
-      "codeHash": "68ac7645e57d7d95683dec08fbbbe1a954f1640b798d9ff3036e25ea1972fad1",
+      "codeHash": "6098b2794981281dabeb5dc57994f69ca02c2d8f3fc8a5be57fdc29502dae39a",
       "spec": {
         "template": "table",
         "title": "Asynchronous Worker Pools And Concurrency Optimization Architectures.",
@@ -314,7 +314,7 @@
     },
     {
       "partTitle": "Parameter Schema Validation: Pydantic Contracts, Type Coercion & Zero-Shot Tool Arguments",
-      "codeHash": "68ac7645e57d7d95683dec08fbbbe1a954f1640b798d9ff3036e25ea1972fad1",
+      "codeHash": "6098b2794981281dabeb5dc57994f69ca02c2d8f3fc8a5be57fdc29502dae39a",
       "spec": {
         "template": "table",
         "title": "Parameter Schema Validation And Pydantic Type Coercion Contracts.",
@@ -468,7 +468,7 @@
     },
     {
       "partTitle": "Automated Tool Error Recovery: Self-Correction Loops, Idempotency Keys & Fault Handlers",
-      "codeHash": "68ac7645e57d7d95683dec08fbbbe1a954f1640b798d9ff3036e25ea1972fad1",
+      "codeHash": "6098b2794981281dabeb5dc57994f69ca02c2d8f3fc8a5be57fdc29502dae39a",
       "spec": {
         "template": "table",
         "title": "Automated Error Recovery Handlers And Dynamic Self Correction Loops.",
@@ -622,7 +622,7 @@
     },
     {
       "partTitle": "Enterprise Orchestration Engineering: Building A Resilient Multi-Tool Python Engine",
-      "codeHash": "68ac7645e57d7d95683dec08fbbbe1a954f1640b798d9ff3036e25ea1972fad1",
+      "codeHash": "6098b2794981281dabeb5dc57994f69ca02c2d8f3fc8a5be57fdc29502dae39a",
       "spec": {
         "template": "table",
         "title": "Enterprise Multi Tool Orchestration And Production System Deployment.",

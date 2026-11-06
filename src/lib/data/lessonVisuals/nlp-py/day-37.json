@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Distributed GPU Memory Architecture: The...",
+            "caption": "Initialize input state for Distributed GPU Memory Architecture: The...",
             "values": {
               "in": "Day 37 Input",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Distributed GPU Mem....",
+            "caption": "Execute core transformation in Distributed GPU Mem....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -75,7 +75,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Distributed GPU Memory Architectu...",
+            "caption": "End-to-end execution verified for Distributed GPU Memory Architectu...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -257,7 +257,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for ZeRO Memory Partitioning (Stage 1, Stage...",
+            "caption": "Initialize input state for ZeRO Memory Partitioning (Stage one, Stage...",
             "values": {
               "in": "Day 37 Input",
               "proc": "Standby",
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in ZeRO Memory Partiti....",
+            "caption": "Execute core transformation in ZeRO Memory Partiti....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -301,7 +301,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -321,7 +321,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for ZeRO Memory Partitioning (Stage 1...",
+            "caption": "End-to-end execution verified for ZeRO Memory Partitioning (Stage one...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -483,7 +483,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Megatron-LM Tensor Parallelism: Column a...",
+            "caption": "Initialize input state for Megatron-LM Tensor Parallelism: Column a...",
             "values": {
               "in": "Day 37 Input",
               "proc": "Standby",
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Megatron-LM Tensor ....",
+            "caption": "Execute core transformation in Megatron-LM Tensor ....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -527,7 +527,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -547,7 +547,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Megatron-LM Tensor Parallelism: C...",
+            "caption": "End-to-end execution verified for Megatron-LM Tensor Parallelism: C...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -709,7 +709,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Pipeline Parallelism (1F1B Scheduling) &...",
+            "caption": "Initialize input state for Pipeline Parallelism (oneFoneB Scheduling) &...",
             "values": {
               "in": "Day 37 Input",
               "proc": "Standby",
@@ -729,7 +729,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Pipeline Parallelis....",
+            "caption": "Execute core transformation in Pipeline Parallelis....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -753,7 +753,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -773,7 +773,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Pipeline Parallelism (1F1B Schedu...",
+            "caption": "End-to-end execution verified for Pipeline Parallelism (oneFoneB Schedu...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -935,7 +935,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Simulating ZeRO-3 Memory Allocation & Te...",
+            "caption": "Initialize input state for Simulating ZeRO-three Memory Allocation & Te...",
             "values": {
               "in": "Day 37 Input",
               "proc": "Standby",
@@ -955,7 +955,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Simulating ZeRO-3 M....",
+            "caption": "Execute core transformation in Simulating ZeRO-three M....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -979,7 +979,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -999,7 +999,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Simulating ZeRO-3 Memory Allocati...",
+            "caption": "End-to-end execution verified for Simulating ZeRO-three Memory Allocati...",
             "values": {
               "in": "Committed",
               "proc": "Verified",

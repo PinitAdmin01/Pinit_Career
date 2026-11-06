@@ -291,7 +291,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Amortized O(1): the average cost [D2.P3.S1].",
+            "caption": "Initialize input state for Amortized constant-time: the average cost.",
             "values": {
               "in": "Day 2 Input",
               "proc": "Standby",
@@ -311,7 +311,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Amortized O(1): the... [D2.P3.S2].",
+            "caption": "Execute core transformation in Amortized constant-time: the.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -335,7 +335,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D2.P3.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -355,7 +355,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Amortized O(1): the average cost [D2.P3.S4].",
+            "caption": "End-to-end execution verified for Amortized constant-time: the average.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -833,7 +833,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Lists of lists and the copy trap [D2.P6.S1].",
+            "caption": "Initialize input state for Lists of lists and the copy trap.",
             "values": {
               "in": "Day 2 Input",
               "proc": "Standby",
@@ -853,7 +853,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Lists of lists and ... [D2.P6.S2].",
+            "caption": "Execute core transformation in Lists of lists and ... [Dtwo.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -877,7 +877,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D2.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [Dtwo.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -897,7 +897,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Lists of lists and the copy trap [D2.P6.S4].",
+            "caption": "End-to-end execution verified for Lists of lists and the copy trap.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

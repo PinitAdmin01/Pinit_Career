@@ -421,7 +421,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Regional Service Scopes vs Global AWS Se.. [D2.P6.S1].",
+            "caption": "Initialize input state for Regional Service Scopes vs Global AWS Se.",
             "values": {
               "in": "Day 2 Input",
               "proc": "Standby",
@@ -441,7 +441,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Regional Service Sc... [D2.P6.S2].",
+            "caption": "Execute core transformation in Regional Service Sc... [Dtwo.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -465,7 +465,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D2.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [Dtwo.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -485,7 +485,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Regional Service Scopes vs Global.. [D2.P6.S4].",
+            "caption": "End-to-end execution verified for Regional Service Scopes vs Global.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Anatomy of a Multi-Trillion-Token Pre-Tr...",
+            "caption": "Initialize input state for Anatomy of a Multi-Trillion-Token Pre-Tr...",
             "values": {
               "in": "Day 39 Input",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Anatomy of a Multi-....",
+            "caption": "Execute core transformation in Anatomy of a Multi-....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -75,7 +75,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Anatomy of a Multi-Trillion-Token...",
+            "caption": "End-to-end execution verified for Anatomy of a Multi-Trillion-Token...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -257,7 +257,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Text Quality Filtering: Perplexity Filte...",
+            "caption": "Initialize input state for Text Quality Filtering: Perplexity Filte...",
             "values": {
               "in": "Day 39 Input",
               "proc": "Standby",
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Text Quality Filter....",
+            "caption": "Execute core transformation in Text Quality Filter....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -301,7 +301,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -321,7 +321,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Text Quality Filtering: Perplexit...",
+            "caption": "End-to-end execution verified for Text Quality Filtering: Perplexit...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -483,7 +483,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Near-Deduplication at Scale: MinHash Has...",
+            "caption": "Initialize input state for Near-Deduplication at Scale: MinHash Has...",
             "values": {
               "in": "Day 39 Input",
               "proc": "Standby",
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Near-Deduplication ....",
+            "caption": "Execute core transformation in Near-Deduplication ....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -527,7 +527,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -547,7 +547,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Near-Deduplication at Scale: MinH...",
+            "caption": "End-to-end execution verified for Near-Deduplication at Scale: MinH...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -709,7 +709,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Data Mixture Optimization, Domain Curric...",
+            "caption": "Initialize input state for Data Mixture Optimization, Domain Curric...",
             "values": {
               "in": "Day 39 Input",
               "proc": "Standby",
@@ -729,7 +729,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Data Mixture Optimi....",
+            "caption": "Execute core transformation in Data Mixture Optimi....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -753,7 +753,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -773,7 +773,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Data Mixture Optimization, Domain...",
+            "caption": "End-to-end execution verified for Data Mixture Optimization, Domain...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -935,7 +935,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Building an Industrial MinHash LSH Dedup...",
+            "caption": "Initialize input state for Building an Industrial MinHash LSH Dedup...",
             "values": {
               "in": "Day 39 Input",
               "proc": "Standby",
@@ -955,7 +955,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building an Industr....",
+            "caption": "Execute core transformation in Building an Industr....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -979,7 +979,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -999,7 +999,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building an Industrial MinHash LS...",
+            "caption": "End-to-end execution verified for Building an Industrial MinHash LS...",
             "values": {
               "in": "Committed",
               "proc": "Verified",

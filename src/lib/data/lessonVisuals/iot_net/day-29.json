@@ -10,11 +10,11 @@
       "codeHash": "55432891ef9a901dcf9b03c558b0c3594b56b63dd69c492b2568527be7c81d18",
       "spec": {
         "template": "register-bits",
-        "title": "Day 29 Part 1 \u2014 Composite Link Quality Scoring \u2014 Register Architecture",
+        "title": "Day 29 Part 1 — Composite Link Quality Scoring — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register EDGE_LQI_SCORE_REG for Composite Link Quality Scoring &.",
+            "caption": "Arm hardware register EDGE_LQI_SCORE_REG for Composite Link Quality.",
             "registerName": "EDGE_LQI_SCORE_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into EDGE_LQI_SCORE_REG and assert validation flag.",
+            "caption": "Latch sampling bits into EDGE_LQI_SCORE_REG and assert validation flag.",
             "registerName": "EDGE_LQI_SCORE_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in EDGE_LQI_SCORE_REG with pipeline status.",
+            "caption": "Execute hardware transformation in EDGE_LQI_SCORE_REG with pipeline status.",
             "registerName": "EDGE_LQI_SCORE_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register EDGE_LQI_SCORE_REG upon verified hardware completion.",
+            "caption": "Lock register EDGE_LQI_SCORE_REG upon verified hardware completion.",
             "registerName": "EDGE_LQI_SCORE_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -262,11 +262,11 @@
       "codeHash": "93abc0db2f0e173bc2c5a20f1ce9309af0bf0f7c21b36dcb1094b8ea8f8793bc",
       "spec": {
         "template": "register-bits",
-        "title": "Day 29 Part 2 \u2014 Zero-Loss Seamless Failover St \u2014 Register Architecture",
+        "title": "Day 29 Part 2 — Zero-Loss Seamless Failover St — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register EDGE_WAN_FAILOVER_REG for Zero-Loss Seamless Failover Stat.",
+            "caption": "Arm hardware register EDGE_WAN_FAILOVER_REG for Zero-Loss Seamless.",
             "registerName": "EDGE_WAN_FAILOVER_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -326,7 +326,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into EDGE_WAN_FAILOVER_REG and assert validation flag.",
+            "caption": "Latch sampling bits into EDGE_WAN_FAILOVER_REG and assert validation flag.",
             "registerName": "EDGE_WAN_FAILOVER_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -387,7 +387,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in EDGE_WAN_FAILOVER_REG with pipeline status.",
+            "caption": "Execute hardware transformation in EDGE_WAN_FAILOVER_REG with pipeline.",
             "registerName": "EDGE_WAN_FAILOVER_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -448,7 +448,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register EDGE_WAN_FAILOVER_REG upon verified hardware completion.",
+            "caption": "Lock register EDGE_WAN_FAILOVER_REG upon verified hardware completion.",
             "registerName": "EDGE_WAN_FAILOVER_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -514,11 +514,11 @@
       "codeHash": "e8ae9e6214c5f848970d672b05d548b2c18d27a2304e4aea6138c5bdf626b6e1",
       "spec": {
         "template": "register-bits",
-        "title": "Day 29 Part 3 \u2014 RPL Mesh Self-Healing, MRHOF O \u2014 Register Architecture",
+        "title": "Day 29 Part 3 — RPL Mesh Self-Healing, MRHOF O — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register EDGE_RPL_HEALING_REG for RPL Mesh Self-Healing, MRHOF Obj.",
+            "caption": "Arm hardware register EDGE_RPL_HEALING_REG for RPL Mesh Self-Healing.",
             "registerName": "EDGE_RPL_HEALING_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -578,7 +578,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into EDGE_RPL_HEALING_REG and assert validation flag.",
+            "caption": "Latch sampling bits into EDGE_RPL_HEALING_REG and assert validation flag.",
             "registerName": "EDGE_RPL_HEALING_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -639,7 +639,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in EDGE_RPL_HEALING_REG with pipeline status.",
+            "caption": "Execute hardware transformation in EDGE_RPL_HEALING_REG with pipeline.",
             "registerName": "EDGE_RPL_HEALING_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -700,7 +700,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register EDGE_RPL_HEALING_REG upon verified hardware completion.",
+            "caption": "Lock register EDGE_RPL_HEALING_REG upon verified hardware completion.",
             "registerName": "EDGE_RPL_HEALING_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -766,11 +766,11 @@
       "codeHash": "622d69c14547123ceedfd9988eda75a8960fe26413c708471e0d5aa60803f7b1",
       "spec": {
         "template": "register-bits",
-        "title": "Day 29 Part 4 \u2014 Store-and-Forward Flash Journa \u2014 Register Architecture",
+        "title": "Day 29 Part 4 — Store-and-Forward Flash Journa — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register EDGE_STORE_FWD_REG for Store-and-Forward Flash Journali.",
+            "caption": "Arm hardware register EDGE_STORE_FWD_REG for Store-and-Forward Flash.",
             "registerName": "EDGE_STORE_FWD_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -830,7 +830,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into EDGE_STORE_FWD_REG and assert validation flag.",
+            "caption": "Latch sampling bits into EDGE_STORE_FWD_REG and assert validation flag.",
             "registerName": "EDGE_STORE_FWD_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -891,7 +891,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in EDGE_STORE_FWD_REG with pipeline status.",
+            "caption": "Execute hardware transformation in EDGE_STORE_FWD_REG with pipeline status.",
             "registerName": "EDGE_STORE_FWD_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -952,7 +952,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register EDGE_STORE_FWD_REG upon verified hardware completion.",
+            "caption": "Lock register EDGE_STORE_FWD_REG upon verified hardware completion.",
             "registerName": "EDGE_STORE_FWD_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1018,11 +1018,11 @@
       "codeHash": "98a19262ec74e6cc050a0308db05881a1018865f86165fe0d19205be9a69ef25",
       "spec": {
         "template": "register-bits",
-        "title": "Day 29 Part 5 \u2014 Milestone 6 Prep: Full Edge Ne \u2014 Register Architecture",
+        "title": "Day 29 Part 5 — Milestone 6 Prep: Full Edge Ne — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register EDGE_ORCH_MAST_REG for Milestone 6 Prep: Full Edge Netw.",
+            "caption": "Arm hardware register EDGE_ORCH_MAST_REG for Milestone six Prep: Full.",
             "registerName": "EDGE_ORCH_MAST_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1082,7 +1082,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into EDGE_ORCH_MAST_REG and assert validation flag.",
+            "caption": "Latch sampling bits into EDGE_ORCH_MAST_REG and assert validation flag.",
             "registerName": "EDGE_ORCH_MAST_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -1143,7 +1143,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in EDGE_ORCH_MAST_REG with pipeline status.",
+            "caption": "Execute hardware transformation in EDGE_ORCH_MAST_REG with pipeline status.",
             "registerName": "EDGE_ORCH_MAST_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -1204,7 +1204,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register EDGE_ORCH_MAST_REG upon verified hardware completion.",
+            "caption": "Lock register EDGE_ORCH_MAST_REG upon verified hardware completion.",
             "registerName": "EDGE_ORCH_MAST_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

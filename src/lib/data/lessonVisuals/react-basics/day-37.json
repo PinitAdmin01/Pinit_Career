@@ -70,7 +70,7 @@
           },
           {
             "at": "say4",
-            "caption": "31-bit bitmasks completely eliminate garbage collection churn in the hot reconciliation loop.",
+            "caption": "Bit bitmasks completely eliminate garbage collection churn in the hot.",
             "left": {
               "code": "console.log(gcPauses);",
               "result": {
@@ -200,7 +200,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "SyncLane (bit 0) handles discrete keystrokes and clicks with synchronous un-interruptible priority.",
+            "caption": "SyncLane (bit zero) handles discrete keystrokes and clicks with.",
             "values": {
               "l_sync": {
                 "text": "\"Urgent Discrete\""
@@ -224,7 +224,7 @@
           },
           {
             "at": "say2",
-            "caption": "InputContinuousLane (bit 1) handles high-frequency scrolling and dragging interactions.",
+            "caption": "InputContinuousLane (bit one) handles high-frequency scrolling and.",
             "values": {
               "l_sync": {
                 "text": "\"Complete\""
@@ -248,7 +248,7 @@
           },
           {
             "at": "say3",
-            "caption": "DefaultLane (bit 2) processes standard async promise resolutions and setState calls.",
+            "caption": "DefaultLane (bit two) processes standard async promise resolutions and.",
             "values": {
               "l_sync": {
                 "text": "\"Idle\""
@@ -272,7 +272,7 @@
           },
           {
             "at": "say4",
-            "caption": "TransitionLanes (bits 3-4) process interruptible background renders scheduled via useTransition.",
+            "caption": "TransitionLanes (bits three-four) process interruptible background.",
             "values": {
               "l_sync": {
                 "text": "\"Idle\""
@@ -452,7 +452,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Multiple lanes can be pending simultaneously on the Fiber root (e.g. Default + Transition = 0b1100).",
+            "caption": "Multiple lanes can be pending simultaneously on the Fiber root (e.g.",
             "values": {
               "fn_pending": {
                 "text": "\"0b1100 (12)\""
@@ -482,7 +482,7 @@
           },
           {
             "at": "say2",
-            "caption": "Negating in two's complement inverts all bits and adds 1 (~x + 1 = -x).",
+            "caption": "Negating in two's complement inverts all bits and adds one (~x + one = -x).",
             "values": {
               "fn_pending": {
                 "text": "\"0b1100\""
@@ -542,7 +542,7 @@
           },
           {
             "at": "say4",
-            "caption": "The reconciler selects Bit 2 (DefaultLane) instantly without any loops, arrays, or branches.",
+            "caption": "The reconciler selects Bit two (DefaultLane) instantly without any loops.",
             "values": {
               "fn_pending": {
                 "text": "\"Processed\""
@@ -748,7 +748,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Update is scheduled into TransitionLane with a 5,000ms expiration timeout.",
+            "caption": "Update is scheduled into TransitionLane with a five,ms expiration timeout.",
             "activeId": "ls1",
             "tone": "idle"
           },
@@ -837,13 +837,13 @@
           "viewport": {
             "totalHeightPx": 200,
             "renderedRange": "Priority: SyncLane preempting DefaultLane and TransitionLane",
-            "opacity": 1.0
+            "opacity": 1
           }
         },
         "steps": [
           {
             "at": "say1",
-            "caption": "Fiber root tracks pending updates in a 31-bit integer register pendingLanes.",
+            "caption": "Fiber root tracks pending updates in a multiple-bit integer register.",
             "values": {
               "registers": {
                 "text": "\"pending: 0b00010100\""
@@ -855,7 +855,7 @@
           },
           {
             "at": "say2",
-            "caption": "Urgent SyncLane arrives; bitwise OR sets bit 0 (pending becomes 0b00010101).",
+            "caption": "Urgent SyncLane arrives; bitwise OR sets bit zero (pending becomes zerob).",
             "values": {
               "registers": {
                 "text": "\"pending: 0b00010101\""
@@ -867,7 +867,7 @@
           },
           {
             "at": "say3",
-            "caption": "lanes & -lanes isolates bit 0; SyncLane preempts all background rendering.",
+            "caption": "Lanes & -lanes isolates bit zero; SyncLane preempts all background.",
             "values": {
               "preemption": {
                 "text": "\"Preempted to Bit 0\""
@@ -879,7 +879,7 @@
           },
           {
             "at": "say4",
-            "caption": "Upon commit, bitwise AND with NOT clears bit 0, restoring background lanes.",
+            "caption": "Upon commit, bitwise AND with NOT clears bit zero, restoring background.",
             "values": {
               "registers": {
                 "text": "\"pending: 0b00010100\""
@@ -904,7 +904,7 @@
           "viewport": {
             "totalHeightPx": 200,
             "renderedRange": "Priority: SyncLane preempting DefaultLane and TransitionLane",
-            "opacity": 1.0
+            "opacity": 1
           }
         },
         "steps": [

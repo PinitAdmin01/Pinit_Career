@@ -10,12 +10,12 @@
       "codeHash": "f03f9030fd29c07cf02367e6bbf5d8d61b5c0dd671727a114b91559c3979290e",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Core Banking Architecture: Next-Gen Cloud-... \u2014 General Ledger Verification",
+        "title": "Core Banking Architecture: Next-Gen Cloud-... — General Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary facility debit entry ($91,500) for Core Banking Architecture: Next-Gen...",
-            "title": "Day 19 Journal \u2014 Initial Posting",
+            "caption": "Open primary facility debit entry ($multiple,server-error) for Core.",
+            "title": "Day 19 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 91500,
             "totalCredit": 91500,
@@ -40,8 +40,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary interest & fee accrual adjustment ($18,300).",
-            "title": "Day 19 Journal \u2014 Accrual Adjustment",
+            "caption": "Record secondary interest & fee accrual adjustment ($multiple,multiple).",
+            "title": "Day 19 Journal — Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 109800,
             "totalCredit": 109800,
@@ -71,8 +71,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of institutional reserve provisioning & counterparty collateral.",
-            "title": "Day 19 Journal \u2014 Collateral & Reserve Alignment",
+            "caption": "Verification of institutional reserve provisioning & counterparty.",
+            "title": "Day 19 Journal — Collateral & Reserve Alignment",
             "isBalanced": true,
             "totalDebit": 109800,
             "totalCredit": 109800,
@@ -102,8 +102,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Real-time balance sheet reconciliation and regulatory capital confirmation.",
-            "title": "Day 19 Journal \u2014 Balanced Closure",
+            "caption": "Real-time balance sheet reconciliation and regulatory capital confirmation.",
+            "title": "Day 19 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 109800,
             "totalCredit": 109800,
@@ -139,12 +139,12 @@
       "codeHash": "b99082581a1951fabaaf8a6ed6d1bb935d019a4dc96a2950dc23a985fc95b68f",
       "spec": {
         "template": "ledger-sheet",
-        "title": "ISO 20022 Universal Financial Industry Mes... \u2014 General Ledger Verification",
+        "title": "ISO 20022 Universal Financial Industry Mes... — General Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary facility debit entry ($92,750) for ISO 20022 Universal Financial Indus...",
-            "title": "Day 19 Journal \u2014 Initial Posting",
+            "caption": "Open primary facility debit entry ($multiple,multiple) for ISO multiple.",
+            "title": "Day 19 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 92750,
             "totalCredit": 92750,
@@ -169,8 +169,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary interest & fee accrual adjustment ($18,550).",
-            "title": "Day 19 Journal \u2014 Accrual Adjustment",
+            "caption": "Record secondary interest & fee accrual adjustment ($multiple,multiple).",
+            "title": "Day 19 Journal — Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 111300,
             "totalCredit": 111300,
@@ -200,8 +200,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of institutional reserve provisioning & counterparty collateral.",
-            "title": "Day 19 Journal \u2014 Collateral & Reserve Alignment",
+            "caption": "Verification of institutional reserve provisioning & counterparty.",
+            "title": "Day 19 Journal — Collateral & Reserve Alignment",
             "isBalanced": true,
             "totalDebit": 111300,
             "totalCredit": 111300,
@@ -231,8 +231,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Real-time balance sheet reconciliation and regulatory capital confirmation.",
-            "title": "Day 19 Journal \u2014 Balanced Closure",
+            "caption": "Real-time balance sheet reconciliation and regulatory capital confirmation.",
+            "title": "Day 19 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 111300,
             "totalCredit": 111300,
@@ -268,12 +268,12 @@
       "codeHash": "ea05e0933b8d2ee919720105fab0cf5be2ab80ca1674ada0e294c0c632ca26b5",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Open Banking & Payment Services Directive ... \u2014 General Ledger Verification",
+        "title": "Open Banking & Payment Services Directive ... — General Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary facility debit entry ($94,000) for Open Banking & Payment Services Dir...",
-            "title": "Day 19 Journal \u2014 Initial Posting",
+            "caption": "Open primary facility debit entry ($multiple,multiple) for Open Banking &.",
+            "title": "Day 19 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 94000,
             "totalCredit": 94000,
@@ -298,8 +298,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary interest & fee accrual adjustment ($18,800).",
-            "title": "Day 19 Journal \u2014 Accrual Adjustment",
+            "caption": "Record secondary interest & fee accrual adjustment ($multiple,multiple).",
+            "title": "Day 19 Journal — Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 112800,
             "totalCredit": 112800,
@@ -329,8 +329,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of institutional reserve provisioning & counterparty collateral.",
-            "title": "Day 19 Journal \u2014 Collateral & Reserve Alignment",
+            "caption": "Verification of institutional reserve provisioning & counterparty.",
+            "title": "Day 19 Journal — Collateral & Reserve Alignment",
             "isBalanced": true,
             "totalDebit": 112800,
             "totalCredit": 112800,
@@ -360,8 +360,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Real-time balance sheet reconciliation and regulatory capital confirmation.",
-            "title": "Day 19 Journal \u2014 Balanced Closure",
+            "caption": "Real-time balance sheet reconciliation and regulatory capital confirmation.",
+            "title": "Day 19 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 112800,
             "totalCredit": 112800,
@@ -397,12 +397,12 @@
       "codeHash": "731d4618c433d1ec4d1bd920b84e940229345b9fdca058f33ea947185bbaf304",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Instant Payment Rails & Embedded Finance: ... \u2014 General Ledger Verification",
+        "title": "Instant Payment Rails & Embedded Finance: ... — General Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary facility debit entry ($95,250) for Instant Payment Rails & Embedded Fi...",
-            "title": "Day 19 Journal \u2014 Initial Posting",
+            "caption": "Open primary facility debit entry ($multiple,multiple) for Instant.",
+            "title": "Day 19 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 95250,
             "totalCredit": 95250,
@@ -427,8 +427,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary interest & fee accrual adjustment ($19,050).",
-            "title": "Day 19 Journal \u2014 Accrual Adjustment",
+            "caption": "Record secondary interest & fee accrual adjustment ($multiple,multiple).",
+            "title": "Day 19 Journal — Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 114300,
             "totalCredit": 114300,
@@ -458,8 +458,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of institutional reserve provisioning & counterparty collateral.",
-            "title": "Day 19 Journal \u2014 Collateral & Reserve Alignment",
+            "caption": "Verification of institutional reserve provisioning & counterparty.",
+            "title": "Day 19 Journal — Collateral & Reserve Alignment",
             "isBalanced": true,
             "totalDebit": 114300,
             "totalCredit": 114300,
@@ -489,8 +489,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Real-time balance sheet reconciliation and regulatory capital confirmation.",
-            "title": "Day 19 Journal \u2014 Balanced Closure",
+            "caption": "Real-time balance sheet reconciliation and regulatory capital confirmation.",
+            "title": "Day 19 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 114300,
             "totalCredit": 114300,
@@ -526,12 +526,12 @@
       "codeHash": "ecba259d96caeb9444dee315fd35bc60652f387c161aef1523a27b43a337d05a",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Cyber Resilience & Fraud Telemetry: FFIEC ... \u2014 General Ledger Verification",
+        "title": "Cyber Resilience & Fraud Telemetry: FFIEC ... — General Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary facility debit entry ($96,500) for Cyber Resilience & Fraud Telemetry:...",
-            "title": "Day 19 Journal \u2014 Initial Posting",
+            "caption": "Open primary facility debit entry ($multiple,server-error) for Cyber.",
+            "title": "Day 19 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 96500,
             "totalCredit": 96500,
@@ -556,8 +556,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary interest & fee accrual adjustment ($19,300).",
-            "title": "Day 19 Journal \u2014 Accrual Adjustment",
+            "caption": "Record secondary interest & fee accrual adjustment ($multiple,multiple).",
+            "title": "Day 19 Journal — Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 115800,
             "totalCredit": 115800,
@@ -587,8 +587,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of institutional reserve provisioning & counterparty collateral.",
-            "title": "Day 19 Journal \u2014 Collateral & Reserve Alignment",
+            "caption": "Verification of institutional reserve provisioning & counterparty.",
+            "title": "Day 19 Journal — Collateral & Reserve Alignment",
             "isBalanced": true,
             "totalDebit": 115800,
             "totalCredit": 115800,
@@ -618,8 +618,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Real-time balance sheet reconciliation and regulatory capital confirmation.",
-            "title": "Day 19 Journal \u2014 Balanced Closure",
+            "caption": "Real-time balance sheet reconciliation and regulatory capital confirmation.",
+            "title": "Day 19 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 115800,
             "totalCredit": 115800,

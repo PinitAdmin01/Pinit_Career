@@ -438,7 +438,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Add Lunch and recalculate the total to show 185 on screen.",
+            "caption": "Add Lunch and recalculate the total to show multiple on screen.",
             "rows": [
               {
                 "cells": [
@@ -811,7 +811,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Try prnt to see line 1 run then stop with a NameError on line 2.",
+            "caption": "Try prnt to see line one run then stop with a NameError on line two.",
             "rows": [
               {
                 "cells": [
@@ -1084,7 +1084,7 @@
           },
           {
             "at": "example",
-            "caption": "Like passwords, Mango123 and mango123 are completely different.",
+            "caption": "Like passwords, Mango and mango are completely different.",
             "left": {
               "code": "print(\"Mango123\" == \"Mango123\")",
               "result": "True",
@@ -1764,7 +1764,7 @@
           },
           {
             "at": "say3",
-            "caption": "20, 45 and 120 are typed twice; tomorrow variables fix this.",
+            "caption": "Twenty, multiple and multiple are typed twice; tomorrow variables fix this.",
             "rows": [
               {
                 "cells": [
@@ -1857,7 +1857,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Add Notebook 60 and update math to verify the total is 245.",
+            "caption": "Add Notebook multiple and update math to verify the total is multiple.",
             "rows": [
               {
                 "cells": [

@@ -1,0 +1,805 @@
+{
+  "schemaVersion": 1,
+  "prefix": "cyber-py",
+  "day": 12,
+  "promptSha": "b738770fba55575d6663fa1d188fc6520b97cddbeb502ff56184701987332312",
+  "model": "gpt-4o",
+  "entries": [
+    {
+      "partTitle": "What BOLA and IDOR are",
+      "codeHash": "c97950c6777176275bd0cbb997745c7977fb1368a8918a72fee73e576f6ef11b",
+      "spec": {
+        "template": "sequence",
+        "title": "Vulnerable direct object reference request flow and unauthorized access",
+        "actors": [
+          {
+            "id": "client",
+            "label": "Client Browser"
+          },
+          {
+            "id": "api",
+            "label": "API Endpoint"
+          },
+          {
+            "id": "db",
+            "label": "Database Record"
+          }
+        ],
+        "messages": [
+          {
+            "from": "client",
+            "to": "api",
+            "label": "Request Document by Numeric Identifier",
+            "tone": "data"
+          },
+          {
+            "from": "api",
+            "to": "db",
+            "label": "Fetch Record Directly Without Ownership Check",
+            "tone": "error"
+          },
+          {
+            "from": "db",
+            "to": "api",
+            "label": "Return Private Record of Different User",
+            "tone": "error"
+          },
+          {
+            "from": "api",
+            "to": "client",
+            "label": "Disclose Confidential Document to Attacker",
+            "tone": "error"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "A vulnerable server fetches the record directly from the database.",
+            "activeMessageIndex": 1,
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say9",
+            "caption": "Securing APIs requires enforcing authorization checks on database lookups.",
+            "activeMessageIndex": 3,
+            "statusBadge": "completed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "sequence",
+        "title": "Vulnerable direct object reference request flow and unauthorized access",
+        "actors": [
+          {
+            "id": "client",
+            "label": "Client Browser"
+          },
+          {
+            "id": "api",
+            "label": "API Endpoint"
+          },
+          {
+            "id": "db",
+            "label": "Database Record"
+          }
+        ],
+        "messages": [
+          {
+            "from": "client",
+            "to": "api",
+            "label": "Request Document by Numeric Identifier",
+            "tone": "data"
+          },
+          {
+            "from": "api",
+            "to": "db",
+            "label": "Fetch Record Directly Without Ownership Check",
+            "tone": "error"
+          },
+          {
+            "from": "db",
+            "to": "api",
+            "label": "Return Private Record of Different User",
+            "tone": "error"
+          },
+          {
+            "from": "api",
+            "to": "client",
+            "label": "Disclose Confidential Document to Attacker",
+            "tone": "error"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "A vulnerable server fetches the record directly from the database.",
+            "activeMessageIndex": 1,
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say9",
+            "caption": "Securing APIs requires enforcing authorization checks on database lookups.",
+            "activeMessageIndex": 3,
+            "statusBadge": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Object-level checks",
+      "codeHash": "93c58166365e3dc27e8b990b275729820193cd1039854f306f0f157cd84a4e8e",
+      "spec": {
+        "template": "compare",
+        "title": "Sequential predictable numeric identifiers versus cryptographic random UUIDs",
+        "left": {
+          "title": "Sequential Numeric Identifiers",
+          "items": [
+            "Predictable auto incrementing integer sequences",
+            "Attackers systematically scrape and enumerate records",
+            "Leaks operational business intelligence and sales rates"
+          ]
+        },
+        "right": {
+          "title": "Cryptographic UUID Identifiers",
+          "items": [
+            "Random one hundred twenty eight bit cryptographic keys",
+            "Predicting another valid object identifier is impossible",
+            "Prevents enumeration while requiring ownership checks"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Attackers can easily predict and enumerate sequential numbers in an API.",
+            "highlightSide": "left",
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say8",
+            "caption": "Random identifiers prevent enumeration but never replace authorization.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Sequential Numeric Identifiers",
+        "rightLabel": "Cryptographic UUID Identifiers"
+      },
+      "filled": {
+        "template": "compare",
+        "title": "Sequential predictable numeric identifiers versus cryptographic random UUIDs",
+        "left": {
+          "title": "Sequential Numeric Identifiers",
+          "items": [
+            "Predictable auto incrementing integer sequences",
+            "Attackers systematically scrape and enumerate records",
+            "Leaks operational business intelligence and sales rates"
+          ]
+        },
+        "right": {
+          "title": "Cryptographic UUID Identifiers",
+          "items": [
+            "Random one hundred twenty eight bit cryptographic keys",
+            "Predicting another valid object identifier is impossible",
+            "Prevents enumeration while requiring ownership checks"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Attackers can easily predict and enumerate sequential numbers in an API.",
+            "highlightSide": "left",
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say8",
+            "caption": "Random identifiers prevent enumeration but never replace authorization.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Sequential Numeric Identifiers",
+        "rightLabel": "Cryptographic UUID Identifiers"
+      }
+    },
+    {
+      "partTitle": "Guessable IDs",
+      "codeHash": "616571ac31ef4b418d8ac4d6a94e5b8c8146b2c2f8364726feb8125502c7842c",
+      "spec": {
+        "template": "states",
+        "title": "Database query layer tenant and user context scoping lifecycle",
+        "states": [
+          {
+            "id": "requestReceived",
+            "label": "Incoming Request Provides Document Key"
+          },
+          {
+            "id": "contextInjected",
+            "label": "Tenant and User Identifier Scoped"
+          },
+          {
+            "id": "queryExecuted",
+            "label": "Database Queries Compound Ownership"
+          },
+          {
+            "id": "accessGuarded",
+            "label": "Empty Result Set Yields Not Found"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "The query automatically scopes to the authenticated user in the database.",
+            "activeStateId": "contextInjected",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say6",
+            "caption": "The database query returns zero rows when users request unauthorized data.",
+            "activeStateId": "accessGuarded",
+            "statusBadge": "completed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Database query layer tenant and user context scoping lifecycle",
+        "states": [
+          {
+            "id": "requestReceived",
+            "label": "Incoming Request Provides Document Key"
+          },
+          {
+            "id": "contextInjected",
+            "label": "Tenant and User Identifier Scoped"
+          },
+          {
+            "id": "queryExecuted",
+            "label": "Database Queries Compound Ownership"
+          },
+          {
+            "id": "accessGuarded",
+            "label": "Empty Result Set Yields Not Found"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "The query automatically scopes to the authenticated user in the database.",
+            "activeStateId": "contextInjected",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say6",
+            "caption": "The database query returns zero rows when users request unauthorized data.",
+            "activeStateId": "accessGuarded",
+            "statusBadge": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Finding risky routes",
+      "codeHash": "27d1817a5d10b28671931baf508beee8048f4fc8d4dd1e85b2f57885022494e2",
+      "spec": {
+        "template": "flow",
+        "title": "Data transfer object allowlist filter eliminating mass assignment tampering",
+        "nodes": [
+          {
+            "id": "clientPayload",
+            "label": "Raw Client Request Body",
+            "tappable": false
+          },
+          {
+            "id": "schemaValidator",
+            "label": "Zod Schema Allowlist Filter",
+            "tappable": false
+          },
+          {
+            "id": "sanitizedDto",
+            "label": "Sanitized DTO Model",
+            "tappable": false
+          },
+          {
+            "id": "databaseStore",
+            "label": "Database Model Update",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "clientPayload",
+            "to": "schemaValidator",
+            "label": "Submits"
+          },
+          {
+            "from": "schemaValidator",
+            "to": "sanitizedDto",
+            "label": "Filters"
+          },
+          {
+            "from": "sanitizedDto",
+            "to": "databaseStore",
+            "label": "Writes"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "Attackers add unexpected fields to request bodies to target the database.",
+            "activeNodes": [
+              "clientPayload",
+              "schemaValidator"
+            ],
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say7",
+            "caption": "Explicitly pick and validate permitted fields using strict schemas.",
+            "activeNodes": [
+              "schemaValidator",
+              "sanitizedDto"
+            ],
+            "statusBadge": "completed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Data transfer object allowlist filter eliminating mass assignment tampering",
+        "nodes": [
+          {
+            "id": "clientPayload",
+            "label": "Raw Client Request Body",
+            "tappable": false
+          },
+          {
+            "id": "schemaValidator",
+            "label": "Zod Schema Allowlist Filter",
+            "tappable": false
+          },
+          {
+            "id": "sanitizedDto",
+            "label": "Sanitized DTO Model",
+            "tappable": false
+          },
+          {
+            "id": "databaseStore",
+            "label": "Database Model Update",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "clientPayload",
+            "to": "schemaValidator",
+            "label": "Submits"
+          },
+          {
+            "from": "schemaValidator",
+            "to": "sanitizedDto",
+            "label": "Filters"
+          },
+          {
+            "from": "sanitizedDto",
+            "to": "databaseStore",
+            "label": "Writes"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "Attackers add unexpected fields to request bodies to target the database.",
+            "activeNodes": [
+              "clientPayload",
+              "schemaValidator"
+            ],
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say7",
+            "caption": "Explicitly pick and validate permitted fields using strict schemas.",
+            "activeNodes": [
+              "schemaValidator",
+              "sanitizedDto"
+            ],
+            "statusBadge": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Mass assignment and excessive data",
+      "codeHash": "afeae3b57cce9e5adffd3c574519a674eb8b83f72b569620fb33d9cbfbfbeeda",
+      "spec": {
+        "template": "table",
+        "title": "Object reference mapping strategies and security isolation properties",
+        "columns": [
+          "Reference Type",
+          "Client Facing Token",
+          "Internal Database Key",
+          "Isolation Scope"
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "An indirect reference map replaces true database keys with transient tokens.",
+            "activeRowIndex": 1,
+            "statusBadge": "active",
+            "rows": [
+              {
+                "cells": [
+                  "Direct Numeric Reference",
+                  "Sequential Integer Key",
+                  "Exposed Internal Primary Key",
+                  "Vulnerable to Global Enumeration"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Session Reference Map",
+                  "Transient Reference Token",
+                  "Private Session Cached Map",
+                  "Strict User Session Isolation"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Opaque Capability Token",
+                  "Signed Capability Macaroon",
+                  "Encrypted Payload Structure",
+                  "Cryptographic Proof of Access"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Attackers cannot guess or substitute tokens outside an individual session.",
+            "activeRowIndex": 1,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "Direct Numeric Reference",
+                  "Sequential Integer Key",
+                  "Exposed Internal Primary Key",
+                  "Vulnerable to Global Enumeration"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Session Reference Map",
+                  "Transient Reference Token",
+                  "Private Session Cached Map",
+                  "Strict User Session Isolation"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Opaque Capability Token",
+                  "Signed Capability Macaroon",
+                  "Encrypted Payload Structure",
+                  "Cryptographic Proof of Access"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Object reference mapping strategies and security isolation properties",
+        "columns": [
+          "Reference Type",
+          "Client Facing Token",
+          "Internal Database Key",
+          "Isolation Scope"
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "An indirect reference map replaces true database keys with transient tokens.",
+            "activeRowIndex": 1,
+            "statusBadge": "active",
+            "rows": [
+              {
+                "cells": [
+                  "Direct Numeric Reference",
+                  "Sequential Integer Key",
+                  "Exposed Internal Primary Key",
+                  "Vulnerable to Global Enumeration"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Session Reference Map",
+                  "Transient Reference Token",
+                  "Private Session Cached Map",
+                  "Strict User Session Isolation"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Opaque Capability Token",
+                  "Signed Capability Macaroon",
+                  "Encrypted Payload Structure",
+                  "Cryptographic Proof of Access"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Attackers cannot guess or substitute tokens outside an individual session.",
+            "activeRowIndex": 1,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "Direct Numeric Reference",
+                  "Sequential Integer Key",
+                  "Exposed Internal Primary Key",
+                  "Vulnerable to Global Enumeration"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Session Reference Map",
+                  "Transient Reference Token",
+                  "Private Session Cached Map",
+                  "Strict User Session Isolation"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Opaque Capability Token",
+                  "Signed Capability Macaroon",
+                  "Encrypted Payload Structure",
+                  "Cryptographic Proof of Access"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Practice time: object checks and route scans",
+      "codeHash": "815f8562f7cf4cf3f5c5b41b333b73a686b1c4391a462074093087158c0d38a8",
+      "spec": {
+        "template": "flow",
+        "title": "Building an Enterprise Multi-Tenant Data Acce... — Execution Pipeline",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "1. Input & State",
+            "tappable": true
+          },
+          {
+            "id": "proc",
+            "label": "2. Building an Enterpr...",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "3. Verified Output",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize input state for Building an Enterprise Multi-Tenant Data.",
+            "values": {
+              "in": "Day 12 Input",
+              "proc": "Standby",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "data",
+              "proc": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Execute core transformation in Building an Enterpr... [Dtwelve.Psix.Stwo].",
+            "values": {
+              "in": "Validated",
+              "proc": "Processing...",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Inspect concrete example output and invariants.",
+            "values": {
+              "in": "Validated",
+              "proc": "Invariant OK",
+              "out": "Emitting"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "End-to-end execution verified for Building an Enterprise Multi-Tena.",
+            "values": {
+              "in": "Committed",
+              "proc": "Verified",
+              "out": "Complete ✓"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Building an Enterprise Multi-Tenant Data Acce... — Execution Pipeline",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "1. Input & State",
+            "tappable": true
+          },
+          {
+            "id": "proc",
+            "label": "2. Building an Enterpr...",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "3. Verified Output",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Step 1: Initialize input state for Building an Enterprise Multi-Tenant Data.. [D12.P6.S1].",
+            "values": {
+              "in": "Day 12 Input",
+              "proc": "Standby",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "data",
+              "proc": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Step 2: Execute core transformation in Building an Enterpr... [D12.P6.S2].",
+            "values": {
+              "in": "Validated",
+              "proc": "Processing...",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Step 3: Inspect concrete example output and invariants [D12.P6.S3].",
+            "values": {
+              "in": "Validated",
+              "proc": "Invariant OK",
+              "out": "Emitting"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Step 4: End-to-end execution verified for Building an Enterprise Multi-Tena.. [D12.P6.S4].",
+            "values": {
+              "in": "Committed",
+              "proc": "Verified",
+              "out": "Complete ✓"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

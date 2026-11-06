@@ -21,7 +21,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Parse Semtech UDP binary header: Validate protocol version 2 and correlate 16-bit transaction token.",
+            "caption": "Parse Semtech UDP binary header: Validate protocol version two and.",
             "registerName": "LORA_PACKET_FWD_REG",
             "bitWidth": 8,
             "hexValue": "0xC0",
@@ -157,7 +157,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Emit 4-byte PUSH_ACK response datagram over UDP port 1700 to confirm receipt of RF frame.",
+            "caption": "Emit four-byte PUSH_ACK response datagram over UDP port multiple to.",
             "registerName": "LORA_PACKET_FWD_REG",
             "bitWidth": 8,
             "hexValue": "0xF4",
@@ -303,7 +303,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Ingest first gateway report: Open 150-millisecond deduplication window indexed by payload SHA-256 hash.",
+            "caption": "Ingest first gateway report: Open multiple-millisecond deduplication.",
             "registerName": "LORA_GW_DEDUP_REG",
             "bitWidth": 8,
             "hexValue": "0xC0",
@@ -507,7 +507,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Dispatch single deduplicated uplink to Application Server with 11.3 dB macro-diversity gain.",
+            "caption": "Dispatch single deduplicated uplink to Application Server with.",
             "registerName": "LORA_GW_DEDUP_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -653,7 +653,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Select GW_ALPHA (+6.8 dB SNR, 24.0s airtime remaining) while bypassing duty-exhausted GW_BRAVO.",
+            "caption": "Select GW_ALPHA (+six.eight dB SNR, multiple.zeros airtime remaining).",
             "registerName": "LORA_DOWNLINK_SCHED_REG",
             "bitWidth": 8,
             "hexValue": "0xF0",
@@ -721,7 +721,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Calculate microsecond target timestamp: tmst = uplink_tmst + 1,000,000 us for Class A RX1 reception.",
+            "caption": "Calculate microsecond target timestamp: tmst = uplink_tmst +.",
             "registerName": "LORA_DOWNLINK_SCHED_REG",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -1217,7 +1217,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Ingest multi-gateway datagrams: Lock optimal path at GW_METRO_02 (+8.6 dB SNR, -81 dBm RSSI).",
+            "caption": "Ingest multi-gateway datagrams: Lock optimal path at GW_METRO_.",
             "registerName": "LORA_MASTER_LNS_REG",
             "bitWidth": 8,
             "hexValue": "0xF0",
@@ -1285,7 +1285,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Schedule Class A downlink ACK at tmst=11,000,020 us and deduct airtime from gateway regulatory budget.",
+            "caption": "Schedule Class A downlink ACK at tmst=eleven,multiple,multiple us and.",
             "registerName": "LORA_MASTER_LNS_REG",
             "bitWidth": 8,
             "hexValue": "0xFC",

@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register IEC62443_SL4_REG for Industrial Cybersecurity Framewo.",
+            "caption": "Arm hardware register IEC_SLfour_REG for Industrial Cybersecurity Framewo.",
             "registerName": "IEC62443_SL4_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into IEC62443_SL4_REG and assert validation flag.",
+            "caption": "Latch sampling bits into IEC_SLfour_REG and assert validation flag.",
             "registerName": "IEC62443_SL4_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in IEC62443_SL4_REG with pipeline status.",
+            "caption": "Execute hardware transformation in IEC_SLfour_REG with pipeline status.",
             "registerName": "IEC62443_SL4_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register IEC62443_SL4_REG upon verified hardware completion.",
+            "caption": "Lock register IEC_SLfour_REG upon verified hardware completion.",
             "registerName": "IEC62443_SL4_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -266,7 +266,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register MERKLE_LOG_REG for Encrypted Black-Box Flight Recor.",
+            "caption": "Arm hardware register MERKLE_LOG_REG for Encrypted Black-Box Flight Recor.",
             "registerName": "MERKLE_LOG_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -326,7 +326,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into MERKLE_LOG_REG and assert validation flag.",
+            "caption": "Latch sampling bits into MERKLE_LOG_REG and assert validation flag.",
             "registerName": "MERKLE_LOG_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -387,7 +387,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in MERKLE_LOG_REG with pipeline status.",
+            "caption": "Execute hardware transformation in MERKLE_LOG_REG with pipeline status.",
             "registerName": "MERKLE_LOG_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -448,7 +448,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register MERKLE_LOG_REG upon verified hardware completion.",
+            "caption": "Lock register MERKLE_LOG_REG upon verified hardware completion.",
             "registerName": "MERKLE_LOG_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -518,7 +518,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register TAMPER_TRAP_REG for Physical & Environmental Forensi.",
+            "caption": "Arm hardware register TAMPER_TRAP_REG for Physical & Environmental Forensi.",
             "registerName": "TAMPER_TRAP_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -578,7 +578,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into TAMPER_TRAP_REG and assert validation flag.",
+            "caption": "Latch sampling bits into TAMPER_TRAP_REG and assert validation flag.",
             "registerName": "TAMPER_TRAP_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -639,7 +639,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in TAMPER_TRAP_REG with pipeline status.",
+            "caption": "Execute hardware transformation in TAMPER_TRAP_REG with pipeline status.",
             "registerName": "TAMPER_TRAP_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -700,7 +700,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register TAMPER_TRAP_REG upon verified hardware completion.",
+            "caption": "Lock register TAMPER_TRAP_REG upon verified hardware completion.",
             "registerName": "TAMPER_TRAP_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -770,7 +770,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register ZEROIZATION_REG for Emergency Zeroization & Autonomo.",
+            "caption": "Arm hardware register ZEROIZATION_REG for Emergency Zeroization & Autonomo.",
             "registerName": "ZEROIZATION_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -830,7 +830,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into ZEROIZATION_REG and assert validation flag.",
+            "caption": "Latch sampling bits into ZEROIZATION_REG and assert validation flag.",
             "registerName": "ZEROIZATION_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -891,7 +891,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in ZEROIZATION_REG with pipeline status.",
+            "caption": "Execute hardware transformation in ZEROIZATION_REG with pipeline status.",
             "registerName": "ZEROIZATION_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -952,7 +952,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register ZEROIZATION_REG upon verified hardware completion.",
+            "caption": "Lock register ZEROIZATION_REG upon verified hardware completion.",
             "registerName": "ZEROIZATION_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1022,7 +1022,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register INCIDENT_SIREN_REG for End-to-End IEC 62443 SL4 Forensi.",
+            "caption": "Arm hardware register INCIDENT_SIREN_REG for End-to-End IEC multiple.",
             "registerName": "INCIDENT_SIREN_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1082,7 +1082,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into INCIDENT_SIREN_REG and assert validation flag.",
+            "caption": "Latch sampling bits into INCIDENT_SIREN_REG and assert validation flag.",
             "registerName": "INCIDENT_SIREN_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -1143,7 +1143,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in INCIDENT_SIREN_REG with pipeline status.",
+            "caption": "Execute hardware transformation in INCIDENT_SIREN_REG with pipeline status.",
             "registerName": "INCIDENT_SIREN_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -1204,7 +1204,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register INCIDENT_SIREN_REG upon verified hardware completion.",
+            "caption": "Lock register INCIDENT_SIREN_REG upon verified hardware completion.",
             "registerName": "INCIDENT_SIREN_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

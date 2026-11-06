@@ -170,7 +170,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Inbound request carries standard W3C traceparent header.",
+            "caption": "Inbound request carries standard WthreeC traceparent header.",
             "values": {
               "gateway": {
                 "status": "Online"
@@ -336,7 +336,7 @@
           },
           {
             "at": "say5",
-            "caption": "PromQL evaluates true P99 tail latency via linear bucket interpolation.",
+            "caption": "PromQL evaluates true P tail latency via linear bucket interpolation.",
             "values": {
               "obs": {
                 "status": "Committed"
@@ -556,7 +556,7 @@
           },
           {
             "at": "say3",
-            "caption": "W3C trace context is extracted, child spans created, and injected downstream.",
+            "caption": "WthreeC trace context is extracted, child spans created, and injected.",
             "values": {
               "trace_sla": {
                 "status": "Synchronized"

@@ -57,7 +57,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Thousands of sensor gateways multiplex telemetry streams over persistent HTTP/2 connections.",
+            "caption": "Thousands of sensor gateways multiplex telemetry streams over persistent.",
             "values": {
               "sensors": {
                 "status": "Online"
@@ -219,7 +219,7 @@
           },
           {
             "at": "say7",
-            "caption": "Buffers return to the pool immediately, keeping V8 GC pressure near zero.",
+            "caption": "Buffers return to the pool immediately, keeping engine GC pressure near.",
             "values": {
               "pool": {
                 "status": "Synchronized"
@@ -308,7 +308,7 @@
           },
           {
             "at": "say3",
-            "caption": "In-place accumulators update count, sum, average, min, and max in O(1) space.",
+            "caption": "In-place accumulators update count, sum, average, min, and max in.",
             "values": {
               "ingest": {
                 "status": "Processing"
@@ -394,7 +394,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Interceptor extracts 32-character traceId and tenantId from gRPC metadata.",
+            "caption": "Interceptor extracts thirty-two-character traceId and tenantId from gRPC.",
             "values": {
               "st_extract": {
                 "state": "idle"
@@ -502,7 +502,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Comprehensive stress harness streams 500 binary batches across multi-tenant streams.",
+            "caption": "Comprehensive stress harness streams server-error binary batches across.",
             "values": {
               "throughput": {
                 "status": "Inspecting"
@@ -538,7 +538,7 @@
           },
           {
             "at": "say5",
-            "caption": "Memory profiling confirms 100% buffer pool recycling with zero GC thrashing.",
+            "caption": "Memory profiling confirms one hundred% buffer pool recycling with zero GC.",
             "values": {
               "throughput": {
                 "status": "Synchronized"
@@ -556,7 +556,7 @@
           },
           {
             "at": "say7",
-            "caption": "Evaluation suite certifies Milestone 8 with Grade A+ Enterprise Certification.",
+            "caption": "Evaluation suite certifies Milestone eight with Grade A+ Enterprise.",
             "values": {
               "throughput": {
                 "status": "Synchronized"

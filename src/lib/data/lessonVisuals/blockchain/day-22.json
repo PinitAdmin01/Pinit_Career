@@ -10,7 +10,7 @@
       "codeHash": "94e769c260579b540e855b23e37da119da061bd9fe9577644b54ff4f3c3f4b7b",
       "spec": {
         "template": "sequence",
-        "title": "Discrete Price Ticks, Tick Spacing & Tick-to-Price Mapping \u2014 Concentrated Liquidity Sequence",
+        "title": "Discrete Price Ticks, Tick Spacing & Tick-to-Price Mapping — Concentrated Liquidity Sequence",
         "actors": [
           "Trader / LP",
           "Swap Router",
@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Trader calls Swap Router for Discrete Price Ticks, Tick Spaci",
+            "caption": "Trader calls Swap Router for Discrete Price Ticks, Tick Spaci.",
             "activeActor": "Trader / LP",
             "messages": [
               {
@@ -33,7 +33,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Pool queries TickBitmap to find next initialized tick in direction",
+            "caption": "Pool queries TickBitmap to find next initialized tick in direction.",
             "activeActor": "Uniswap v3 Pool",
             "messages": [
               {
@@ -46,7 +46,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Pool executes swap step using Q64.96 sqrtPriceX96 and virtual liquidity L",
+            "caption": "Pool executes swap step using Qsixty-four.multiple sqrtPriceX and virtual.",
             "activeActor": "Uniswap v3 Pool",
             "messages": [
               {
@@ -59,13 +59,13 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Swap step settled; real reserves adjusted and output tokens transferred",
+            "caption": "Swap step settled; real reserves adjusted and output tokens transferred.",
             "activeActor": "Swap Router",
             "messages": [
               {
                 "from": "Swap Router",
                 "to": "Trader / LP",
-                "label": "TokensTransferred(ConcentratedEfficiency \u2713)",
+                "label": "TokensTransferred(ConcentratedEfficiency ✓)",
                 "tone": "ok"
               }
             ]
@@ -74,7 +74,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Discrete Price Ticks, Tick Spacing & Tick-to-Price Mapping \u2014 Concentrated Liquidity Sequence",
+        "title": "Discrete Price Ticks, Tick Spacing & Tick-to-Price Mapping — Concentrated Liquidity Sequence",
         "actors": [
           "Trader / LP",
           "Swap Router",
@@ -129,7 +129,7 @@
               {
                 "from": "Swap Router",
                 "to": "Trader / LP",
-                "label": "TokensTransferred(ConcentratedEfficiency \u2713)",
+                "label": "TokensTransferred(ConcentratedEfficiency ✓)",
                 "tone": "ok"
               }
             ]
@@ -142,7 +142,7 @@
       "codeHash": "4fc49382bc607fe6546e1d461f4e954e67164c67f6e436a7217a94e37ac61176",
       "spec": {
         "template": "sequence",
-        "title": "Q64.96 Fixed-Point Square Root Price Math (sqrtPriceX96) \u2014 Concentrated Liquidity Sequence",
+        "title": "Q64.96 Fixed-Point Square Root Price Math (sqrtPriceX96) — Concentrated Liquidity Sequence",
         "actors": [
           "Trader / LP",
           "Swap Router",
@@ -152,7 +152,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Trader calls Swap Router for Q64.96 Fixed-Point Square Root P",
+            "caption": "Trader calls Swap Router for Qsixty-four.multiple Fixed-Point Square Root.",
             "activeActor": "Trader / LP",
             "messages": [
               {
@@ -165,7 +165,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Pool queries TickBitmap to find next initialized tick in direction",
+            "caption": "Pool queries TickBitmap to find next initialized tick in direction.",
             "activeActor": "Uniswap v3 Pool",
             "messages": [
               {
@@ -178,7 +178,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Pool executes swap step using Q64.96 sqrtPriceX96 and virtual liquidity L",
+            "caption": "Pool executes swap step using Qsixty-four.multiple sqrtPriceX and virtual.",
             "activeActor": "Uniswap v3 Pool",
             "messages": [
               {
@@ -191,13 +191,13 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Swap step settled; real reserves adjusted and output tokens transferred",
+            "caption": "Swap step settled; real reserves adjusted and output tokens transferred.",
             "activeActor": "Swap Router",
             "messages": [
               {
                 "from": "Swap Router",
                 "to": "Trader / LP",
-                "label": "TokensTransferred(ConcentratedEfficiency \u2713)",
+                "label": "TokensTransferred(ConcentratedEfficiency ✓)",
                 "tone": "ok"
               }
             ]
@@ -206,7 +206,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Q64.96 Fixed-Point Square Root Price Math (sqrtPriceX96) \u2014 Concentrated Liquidity Sequence",
+        "title": "Q64.96 Fixed-Point Square Root Price Math (sqrtPriceX96) — Concentrated Liquidity Sequence",
         "actors": [
           "Trader / LP",
           "Swap Router",
@@ -261,7 +261,7 @@
               {
                 "from": "Swap Router",
                 "to": "Trader / LP",
-                "label": "TokensTransferred(ConcentratedEfficiency \u2713)",
+                "label": "TokensTransferred(ConcentratedEfficiency ✓)",
                 "tone": "ok"
               }
             ]
@@ -274,7 +274,7 @@
       "codeHash": "c1b4ea971a2b941c35b6e2450dc9f57dec58c4d079550a0d4274d536ff569a45",
       "spec": {
         "template": "sequence",
-        "title": "Virtual Liquidity (L), Real vs Virtual Reserves & Delta Equations \u2014 Concentrated Liquidity Sequence",
+        "title": "Virtual Liquidity (L), Real vs Virtual Reserves & Delta Equations — Concentrated Liquidity Sequence",
         "actors": [
           "Trader / LP",
           "Swap Router",
@@ -284,7 +284,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Trader calls Swap Router for Virtual Liquidity (L), Real vs V",
+            "caption": "Trader calls Swap Router for Virtual Liquidity (L), Real vs V.",
             "activeActor": "Trader / LP",
             "messages": [
               {
@@ -297,7 +297,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Pool queries TickBitmap to find next initialized tick in direction",
+            "caption": "Pool queries TickBitmap to find next initialized tick in direction.",
             "activeActor": "Uniswap v3 Pool",
             "messages": [
               {
@@ -310,7 +310,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Pool executes swap step using Q64.96 sqrtPriceX96 and virtual liquidity L",
+            "caption": "Pool executes swap step using Qsixty-four.multiple sqrtPriceX and virtual.",
             "activeActor": "Uniswap v3 Pool",
             "messages": [
               {
@@ -323,13 +323,13 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Swap step settled; real reserves adjusted and output tokens transferred",
+            "caption": "Swap step settled; real reserves adjusted and output tokens transferred.",
             "activeActor": "Swap Router",
             "messages": [
               {
                 "from": "Swap Router",
                 "to": "Trader / LP",
-                "label": "TokensTransferred(ConcentratedEfficiency \u2713)",
+                "label": "TokensTransferred(ConcentratedEfficiency ✓)",
                 "tone": "ok"
               }
             ]
@@ -338,7 +338,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Virtual Liquidity (L), Real vs Virtual Reserves & Delta Equations \u2014 Concentrated Liquidity Sequence",
+        "title": "Virtual Liquidity (L), Real vs Virtual Reserves & Delta Equations — Concentrated Liquidity Sequence",
         "actors": [
           "Trader / LP",
           "Swap Router",
@@ -393,7 +393,7 @@
               {
                 "from": "Swap Router",
                 "to": "Trader / LP",
-                "label": "TokensTransferred(ConcentratedEfficiency \u2713)",
+                "label": "TokensTransferred(ConcentratedEfficiency ✓)",
                 "tone": "ok"
               }
             ]
@@ -406,7 +406,7 @@
       "codeHash": "bc8821accaaa2f2acfa8f054481364adc39ef36d38beb2bb87336e6c431289df",
       "spec": {
         "template": "sequence",
-        "title": "Tick Bitmap Navigation, Initialized Ticks & BitMath Architecture \u2014 Concentrated Liquidity Sequence",
+        "title": "Tick Bitmap Navigation, Initialized Ticks & BitMath Architecture — Concentrated Liquidity Sequence",
         "actors": [
           "Trader / LP",
           "Swap Router",
@@ -416,7 +416,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Trader calls Swap Router for Tick Bitmap Navigation, Initiali",
+            "caption": "Trader calls Swap Router for Tick Bitmap Navigation, Initiali.",
             "activeActor": "Trader / LP",
             "messages": [
               {
@@ -429,7 +429,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Pool queries TickBitmap to find next initialized tick in direction",
+            "caption": "Pool queries TickBitmap to find next initialized tick in direction.",
             "activeActor": "Uniswap v3 Pool",
             "messages": [
               {
@@ -442,7 +442,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Pool executes swap step using Q64.96 sqrtPriceX96 and virtual liquidity L",
+            "caption": "Pool executes swap step using Qsixty-four.multiple sqrtPriceX and virtual.",
             "activeActor": "Uniswap v3 Pool",
             "messages": [
               {
@@ -455,13 +455,13 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Swap step settled; real reserves adjusted and output tokens transferred",
+            "caption": "Swap step settled; real reserves adjusted and output tokens transferred.",
             "activeActor": "Swap Router",
             "messages": [
               {
                 "from": "Swap Router",
                 "to": "Trader / LP",
-                "label": "TokensTransferred(ConcentratedEfficiency \u2713)",
+                "label": "TokensTransferred(ConcentratedEfficiency ✓)",
                 "tone": "ok"
               }
             ]
@@ -470,7 +470,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Tick Bitmap Navigation, Initialized Ticks & BitMath Architecture \u2014 Concentrated Liquidity Sequence",
+        "title": "Tick Bitmap Navigation, Initialized Ticks & BitMath Architecture — Concentrated Liquidity Sequence",
         "actors": [
           "Trader / LP",
           "Swap Router",
@@ -525,7 +525,7 @@
               {
                 "from": "Swap Router",
                 "to": "Trader / LP",
-                "label": "TokensTransferred(ConcentratedEfficiency \u2713)",
+                "label": "TokensTransferred(ConcentratedEfficiency ✓)",
                 "tone": "ok"
               }
             ]
@@ -538,7 +538,7 @@
       "codeHash": "cf27b3d7ca1384e12d5a240f8e2d83927756db84169c49316dbd28ba10138d13",
       "spec": {
         "template": "sequence",
-        "title": "Master Concentrated Liquidity Engine & Milestone Verification \u2014 Concentrated Liquidity Sequence",
+        "title": "Master Concentrated Liquidity Engine & Milestone Verification — Concentrated Liquidity Sequence",
         "actors": [
           "Trader / LP",
           "Swap Router",
@@ -548,7 +548,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Trader calls Swap Router for Master Concentrated Liquidity En",
+            "caption": "Trader calls Swap Router for Master Concentrated Liquidity En.",
             "activeActor": "Trader / LP",
             "messages": [
               {
@@ -561,7 +561,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Pool queries TickBitmap to find next initialized tick in direction",
+            "caption": "Pool queries TickBitmap to find next initialized tick in direction.",
             "activeActor": "Uniswap v3 Pool",
             "messages": [
               {
@@ -574,7 +574,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Pool executes swap step using Q64.96 sqrtPriceX96 and virtual liquidity L",
+            "caption": "Pool executes swap step using Qsixty-four.multiple sqrtPriceX and virtual.",
             "activeActor": "Uniswap v3 Pool",
             "messages": [
               {
@@ -587,13 +587,13 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Swap step settled; real reserves adjusted and output tokens transferred",
+            "caption": "Swap step settled; real reserves adjusted and output tokens transferred.",
             "activeActor": "Swap Router",
             "messages": [
               {
                 "from": "Swap Router",
                 "to": "Trader / LP",
-                "label": "TokensTransferred(ConcentratedEfficiency \u2713)",
+                "label": "TokensTransferred(ConcentratedEfficiency ✓)",
                 "tone": "ok"
               }
             ]
@@ -602,7 +602,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Master Concentrated Liquidity Engine & Milestone Verification \u2014 Concentrated Liquidity Sequence",
+        "title": "Master Concentrated Liquidity Engine & Milestone Verification — Concentrated Liquidity Sequence",
         "actors": [
           "Trader / LP",
           "Swap Router",
@@ -657,7 +657,7 @@
               {
                 "from": "Swap Router",
                 "to": "Trader / LP",
-                "label": "TokensTransferred(ConcentratedEfficiency \u2713)",
+                "label": "TokensTransferred(ConcentratedEfficiency ✓)",
                 "tone": "ok"
               }
             ]

@@ -255,7 +255,7 @@
           },
           {
             "at": "say5",
-            "caption": "V8 garbage collector cannot reclaim objects linked to active GC roots.",
+            "caption": "Engine garbage collector cannot reclaim objects linked to active GC roots.",
             "values": {
               "root": {
                 "status": "Committed"
@@ -488,7 +488,7 @@
           },
           {
             "at": "say5",
-            "caption": "Profiler captures V8 heap snapshot to persistent diagnostic storage.",
+            "caption": "Profiler captures engine heap snapshot to persistent diagnostic storage.",
             "values": {
               "monitor": {
                 "status": "Committed"

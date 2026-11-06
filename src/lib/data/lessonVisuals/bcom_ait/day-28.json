@@ -10,7 +10,7 @@
       "codeHash": "b216415448cc4da8d3d38963da4408181e6f86acaeca9aed89361932264e7bee",
       "spec": {
         "template": "tree-graph",
-        "title": "Human-in-the-Loop (HITL) vs Human-on-the... \u2014 Enterprise AI Decision Graph",
+        "title": "Human-in-the-Loop (HITL) vs Human-on-the... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -54,7 +54,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for Human-in-the-Loop (HITL) vs Human-on-the....",
+            "caption": "Ingest enterprise Context Query for Human-in-the-Loop (HITL) vs.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -68,7 +68,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -87,7 +87,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & governance bounds in Policy Guardrail.",
+            "caption": "Validate compliance & governance bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -107,7 +107,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -134,7 +134,7 @@
       "codeHash": "d1be8a2c2b5239d5ac8a9fac17cd1ddee0ae4d9dfd90e3eb0c668f0b4e1303e3",
       "spec": {
         "template": "tree-graph",
-        "title": "Workforce Reskilling Pathways: Prompt En... \u2014 Enterprise AI Decision Graph",
+        "title": "Workforce Reskilling Pathways: Prompt En... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -178,7 +178,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for Workforce Reskilling Pathways: Prompt En....",
+            "caption": "Ingest enterprise Context Query for Workforce Reskilling Pathways: Prompt.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -192,7 +192,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -211,7 +211,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & governance bounds in Policy Guardrail.",
+            "caption": "Validate compliance & governance bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -231,7 +231,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -258,7 +258,7 @@
       "codeHash": "80549001a1341d33663221a7b5b0d459054265811b09f92e9e1995c033d79ce3",
       "spec": {
         "template": "tree-graph",
-        "title": "Agent Operations (AgentOps): Observabili... \u2014 Enterprise AI Decision Graph",
+        "title": "Agent Operations (AgentOps): Observabili... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -302,7 +302,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for Agent Operations (AgentOps): Observabili....",
+            "caption": "Ingest enterprise Context Query for Agent Operations (AgentOps).",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -316,7 +316,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -335,7 +335,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & governance bounds in Policy Guardrail.",
+            "caption": "Validate compliance & governance bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -355,7 +355,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -382,7 +382,7 @@
       "codeHash": "a928678899deea4d671178f65501651fd167902fd50db3f1cdef150a7dd630d1",
       "spec": {
         "template": "tree-graph",
-        "title": "Change Management Frameworks (ADKAR, Kot... \u2014 Enterprise AI Decision Graph",
+        "title": "Change Management Frameworks (ADKAR, Kot... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -426,7 +426,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for Change Management Frameworks (ADKAR, Kot....",
+            "caption": "Ingest enterprise Context Query for Change Management Frameworks (ADKAR.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -440,7 +440,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -459,7 +459,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & governance bounds in Policy Guardrail.",
+            "caption": "Validate compliance & governance bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -479,7 +479,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -506,7 +506,7 @@
       "codeHash": "e5be3a18ceee75b72259907ad2eb214bae994a232af3805d6df150d808ae955f",
       "spec": {
         "template": "tree-graph",
-        "title": "Autonomous Workforce & Culture Control T... \u2014 Enterprise AI Decision Graph",
+        "title": "Autonomous Workforce & Culture Control T... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -550,7 +550,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for Autonomous Workforce & Culture Control T....",
+            "caption": "Ingest enterprise Context Query for Autonomous Workforce & Culture.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -564,7 +564,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -583,7 +583,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & governance bounds in Policy Guardrail.",
+            "caption": "Validate compliance & governance bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -603,7 +603,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",

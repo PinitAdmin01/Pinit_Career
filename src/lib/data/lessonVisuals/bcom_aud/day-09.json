@@ -10,12 +10,12 @@
       "codeHash": "781162ab451ec41fd844131ba93ff9603e9ef43f0666d0445dafbbca58a84495",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Companies Act Statutory Audit Powers, Duties & Dut \u2014 Statutory Audit Ledger",
+        "title": "Companies Act Statutory Audit Powers, Duties & Dut — Statutory Audit Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open statutory audit assurance verification ledger (1065000) for Companies Act Statutory Audit Powers, Du...",
-            "title": "Day 9 Statutory Assurance Ledger \u2014 Initial Posting",
+            "caption": "Open statutory audit assurance verification ledger (multiple) for.",
+            "title": "Day 9 Statutory Assurance Ledger — Initial Posting",
             "isBalanced": true,
             "totalDebit": 1065000,
             "totalCredit": 1065000,
@@ -40,8 +40,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / sampling precision entry (145000) under applicable SA.",
-            "title": "Day 9 Statutory Assurance Ledger \u2014 Precision Adjustment",
+            "caption": "Record statutory adjustment / sampling precision entry (multiple) under.",
+            "title": "Day 9 Statutory Assurance Ledger — Precision Adjustment",
             "isBalanced": true,
             "totalDebit": 1210000,
             "totalCredit": 1210000,
@@ -72,8 +72,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated enterprise audit case study for Companies Act Statutory Audit Powers, Du...",
-            "title": "Day 9 Statutory Assurance Ledger \u2014 Substantive Audit",
+            "caption": "Execute simulated enterprise audit case study for Companies Act Statutory.",
+            "title": "Day 9 Statutory Assurance Ledger — Substantive Audit",
             "isBalanced": true,
             "totalDebit": 1210000,
             "totalCredit": 1210000,
@@ -103,8 +103,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify 100% balanced ledger closure and working paper archival for Companies Act Statutory Audit Powers, Du...",
-            "title": "Day 9 Statutory Assurance Ledger \u2014 Final Certified Balances",
+            "caption": "Verify one hundred% balanced ledger closure and working paper archival.",
+            "title": "Day 9 Statutory Assurance Ledger — Final Certified Balances",
             "isBalanced": true,
             "totalDebit": 1210000,
             "totalCredit": 1210000,
@@ -141,12 +141,12 @@
       "codeHash": "cb879c8a57c1942d31c4905ff49d348301db1156062a0ba7b637d0874c18acfd",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Companies (Auditor's Report) Order, 2020: Property \u2014 Statutory Audit Ledger",
+        "title": "Companies (Auditor's Report) Order, 2020: Property — Statutory Audit Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open statutory audit assurance verification ledger (1083000) for Companies (Auditor's Report) Order, 2020...",
-            "title": "Day 9 Statutory Assurance Ledger \u2014 Initial Posting",
+            "caption": "Open statutory audit assurance verification ledger (multiple) for.",
+            "title": "Day 9 Statutory Assurance Ledger — Initial Posting",
             "isBalanced": true,
             "totalDebit": 1083000,
             "totalCredit": 1083000,
@@ -171,8 +171,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / sampling precision entry (153500) under applicable SA.",
-            "title": "Day 9 Statutory Assurance Ledger \u2014 Precision Adjustment",
+            "caption": "Record statutory adjustment / sampling precision entry (multiple) under.",
+            "title": "Day 9 Statutory Assurance Ledger — Precision Adjustment",
             "isBalanced": true,
             "totalDebit": 1236500,
             "totalCredit": 1236500,
@@ -203,8 +203,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated enterprise audit case study for Companies (Auditor's Report) Order, 2020...",
-            "title": "Day 9 Statutory Assurance Ledger \u2014 Substantive Audit",
+            "caption": "Execute simulated enterprise audit case study for Companies (Auditor's.",
+            "title": "Day 9 Statutory Assurance Ledger — Substantive Audit",
             "isBalanced": true,
             "totalDebit": 1236500,
             "totalCredit": 1236500,
@@ -234,8 +234,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify 100% balanced ledger closure and working paper archival for Companies (Auditor's Report) Order, 2020...",
-            "title": "Day 9 Statutory Assurance Ledger \u2014 Final Certified Balances",
+            "caption": "Verify one hundred% balanced ledger closure and working paper archival.",
+            "title": "Day 9 Statutory Assurance Ledger — Final Certified Balances",
             "isBalanced": true,
             "totalDebit": 1236500,
             "totalCredit": 1236500,
@@ -272,12 +272,12 @@
       "codeHash": "03e8e599aea5acaff84f1fd565d4b5394ef78da9f7c5c9057f683f843727a1fe",
       "spec": {
         "template": "ledger-sheet",
-        "title": "CARO 2020: Loans, Investments, Guarantees & Deposi \u2014 Statutory Audit Ledger",
+        "title": "CARO 2020: Loans, Investments, Guarantees & Deposi — Statutory Audit Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open statutory audit assurance verification ledger (1101000) for CARO 2020: Loans, Investments, Guarantee...",
-            "title": "Day 9 Statutory Assurance Ledger \u2014 Initial Posting",
+            "caption": "Open statutory audit assurance verification ledger (multiple) for CARO.",
+            "title": "Day 9 Statutory Assurance Ledger — Initial Posting",
             "isBalanced": true,
             "totalDebit": 1101000,
             "totalCredit": 1101000,
@@ -302,8 +302,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / sampling precision entry (162000) under applicable SA.",
-            "title": "Day 9 Statutory Assurance Ledger \u2014 Precision Adjustment",
+            "caption": "Record statutory adjustment / sampling precision entry (multiple) under.",
+            "title": "Day 9 Statutory Assurance Ledger — Precision Adjustment",
             "isBalanced": true,
             "totalDebit": 1263000,
             "totalCredit": 1263000,
@@ -334,8 +334,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated enterprise audit case study for CARO 2020: Loans, Investments, Guarantee...",
-            "title": "Day 9 Statutory Assurance Ledger \u2014 Substantive Audit",
+            "caption": "Execute simulated enterprise audit case study for CARO multiple: Loans.",
+            "title": "Day 9 Statutory Assurance Ledger — Substantive Audit",
             "isBalanced": true,
             "totalDebit": 1263000,
             "totalCredit": 1263000,
@@ -365,8 +365,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify 100% balanced ledger closure and working paper archival for CARO 2020: Loans, Investments, Guarantee...",
-            "title": "Day 9 Statutory Assurance Ledger \u2014 Final Certified Balances",
+            "caption": "Verify one hundred% balanced ledger closure and working paper archival.",
+            "title": "Day 9 Statutory Assurance Ledger — Final Certified Balances",
             "isBalanced": true,
             "totalDebit": 1263000,
             "totalCredit": 1263000,
@@ -403,12 +403,12 @@
       "codeHash": "c661d3443b96e8300686c3fa7926c909f4f64d2e826485d8ec9f53fe5dda5350",
       "spec": {
         "template": "ledger-sheet",
-        "title": "CARO 2020: Statutory Dues, Unrecorded Income, Defa \u2014 Statutory Audit Ledger",
+        "title": "CARO 2020: Statutory Dues, Unrecorded Income, Defa — Statutory Audit Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open statutory audit assurance verification ledger (1119000) for CARO 2020: Statutory Dues, Unrecorded In...",
-            "title": "Day 9 Statutory Assurance Ledger \u2014 Initial Posting",
+            "caption": "Open statutory audit assurance verification ledger (multiple) for CARO.",
+            "title": "Day 9 Statutory Assurance Ledger — Initial Posting",
             "isBalanced": true,
             "totalDebit": 1119000,
             "totalCredit": 1119000,
@@ -433,8 +433,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / sampling precision entry (170500) under applicable SA.",
-            "title": "Day 9 Statutory Assurance Ledger \u2014 Precision Adjustment",
+            "caption": "Record statutory adjustment / sampling precision entry (multiple) under.",
+            "title": "Day 9 Statutory Assurance Ledger — Precision Adjustment",
             "isBalanced": true,
             "totalDebit": 1289500,
             "totalCredit": 1289500,
@@ -465,8 +465,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated enterprise audit case study for CARO 2020: Statutory Dues, Unrecorded In...",
-            "title": "Day 9 Statutory Assurance Ledger \u2014 Substantive Audit",
+            "caption": "Execute simulated enterprise audit case study for CARO multiple.",
+            "title": "Day 9 Statutory Assurance Ledger — Substantive Audit",
             "isBalanced": true,
             "totalDebit": 1289500,
             "totalCredit": 1289500,
@@ -496,8 +496,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify 100% balanced ledger closure and working paper archival for CARO 2020: Statutory Dues, Unrecorded In...",
-            "title": "Day 9 Statutory Assurance Ledger \u2014 Final Certified Balances",
+            "caption": "Verify one hundred% balanced ledger closure and working paper archival.",
+            "title": "Day 9 Statutory Assurance Ledger — Final Certified Balances",
             "isBalanced": true,
             "totalDebit": 1289500,
             "totalCredit": 1289500,
@@ -534,12 +534,12 @@
       "codeHash": "56b13d4d83a2922a055b2a821b1043aa8f89aa448267a419c2906bbf4d6be2e6",
       "spec": {
         "template": "ledger-sheet",
-        "title": "CARO 2020: Fraud, Whistleblower, Nidhi, Internal A \u2014 Statutory Audit Ledger",
+        "title": "CARO 2020: Fraud, Whistleblower, Nidhi, Internal A — Statutory Audit Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open statutory audit assurance verification ledger (1137000) for CARO 2020: Fraud, Whistleblower, Nidhi, ...",
-            "title": "Day 9 Statutory Assurance Ledger \u2014 Initial Posting",
+            "caption": "Open statutory audit assurance verification ledger (multiple) for CARO.",
+            "title": "Day 9 Statutory Assurance Ledger — Initial Posting",
             "isBalanced": true,
             "totalDebit": 1137000,
             "totalCredit": 1137000,
@@ -564,8 +564,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / sampling precision entry (179000) under applicable SA.",
-            "title": "Day 9 Statutory Assurance Ledger \u2014 Precision Adjustment",
+            "caption": "Record statutory adjustment / sampling precision entry (multiple) under.",
+            "title": "Day 9 Statutory Assurance Ledger — Precision Adjustment",
             "isBalanced": true,
             "totalDebit": 1316000,
             "totalCredit": 1316000,
@@ -596,8 +596,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated enterprise audit case study for CARO 2020: Fraud, Whistleblower, Nidhi, ...",
-            "title": "Day 9 Statutory Assurance Ledger \u2014 Substantive Audit",
+            "caption": "Execute simulated enterprise audit case study for CARO multiple: Fraud.",
+            "title": "Day 9 Statutory Assurance Ledger — Substantive Audit",
             "isBalanced": true,
             "totalDebit": 1316000,
             "totalCredit": 1316000,
@@ -627,8 +627,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify 100% balanced ledger closure and working paper archival for CARO 2020: Fraud, Whistleblower, Nidhi, ...",
-            "title": "Day 9 Statutory Assurance Ledger \u2014 Final Certified Balances",
+            "caption": "Verify one hundred% balanced ledger closure and working paper archival.",
+            "title": "Day 9 Statutory Assurance Ledger — Final Certified Balances",
             "isBalanced": true,
             "totalDebit": 1316000,
             "totalCredit": 1316000,

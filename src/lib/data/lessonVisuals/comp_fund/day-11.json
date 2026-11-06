@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Inspecting browser runtime and DOM tree structures for Modern Browser Multi-Proc...",
+            "caption": "Inspecting browser runtime and DOM tree structures for Modern Browser.",
             "items": [
               "0x00: DOM_TREE",
               "0x40: NET_WATERFALL",
@@ -41,7 +41,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Critical rendering path and waterfall evaluation for Modern Browser Multi-Proc...",
+            "caption": "Critical rendering path and waterfall evaluation for Modern Browser.",
             "items": [
               "0x00: DOM_TREE",
               "0x40: NET_WATERFALL",
@@ -68,7 +68,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world operational state and storage security for Modern Browser Multi-Proc...",
+            "caption": "Real-world operational state and storage security for Modern Browser.",
             "items": [
               "0x00: DOM_TREE",
               "0x40: NET_WATERFALL",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive verification and browser audit diagnostics for Modern Browser Multi-Proc...",
+            "caption": "Interactive verification and browser audit diagnostics for Modern Browser.",
             "items": [
               "0x00: DOM_TREE",
               "0x40: NET_WATERFALL",
@@ -132,7 +132,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Inspecting browser runtime and DOM tree structures for Network Waterfall Telemet...",
+            "caption": "Inspecting browser runtime and DOM tree structures for Network Waterfall.",
             "items": [
               "0x00: DOM_TREE",
               "0x40: NET_WATERFALL",
@@ -159,7 +159,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Critical rendering path and waterfall evaluation for Network Waterfall Telemet...",
+            "caption": "Critical rendering path and waterfall evaluation for Network Waterfall.",
             "items": [
               "0x00: DOM_TREE",
               "0x40: NET_WATERFALL",
@@ -186,7 +186,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world operational state and storage security for Network Waterfall Telemet...",
+            "caption": "Real-world operational state and storage security for Network Waterfall.",
             "items": [
               "0x00: DOM_TREE",
               "0x40: NET_WATERFALL",
@@ -213,7 +213,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive verification and browser audit diagnostics for Network Waterfall Telemet...",
+            "caption": "Interactive verification and browser audit diagnostics for Network.",
             "items": [
               "0x00: DOM_TREE",
               "0x40: NET_WATERFALL",
@@ -250,7 +250,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Inspecting browser runtime and DOM tree structures for Client-Side Storage Engin...",
+            "caption": "Inspecting browser runtime and DOM tree structures for Client-Side.",
             "items": [
               "0x00: DOM_TREE",
               "0x40: NET_WATERFALL",
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Critical rendering path and waterfall evaluation for Client-Side Storage Engin...",
+            "caption": "Critical rendering path and waterfall evaluation for Client-Side Storage.",
             "items": [
               "0x00: DOM_TREE",
               "0x40: NET_WATERFALL",
@@ -304,7 +304,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world operational state and storage security for Client-Side Storage Engin...",
+            "caption": "Real-world operational state and storage security for Client-Side Storage.",
             "items": [
               "0x00: DOM_TREE",
               "0x40: NET_WATERFALL",
@@ -331,7 +331,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive verification and browser audit diagnostics for Client-Side Storage Engin...",
+            "caption": "Interactive verification and browser audit diagnostics for Client-Side.",
             "items": [
               "0x00: DOM_TREE",
               "0x40: NET_WATERFALL",
@@ -368,7 +368,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Inspecting browser runtime and DOM tree structures for The JavaScript Runtime & ...",
+            "caption": "Inspecting browser runtime and DOM tree structures for The JavaScript.",
             "items": [
               "0x00: DOM_TREE",
               "0x40: NET_WATERFALL",
@@ -395,7 +395,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Critical rendering path and waterfall evaluation for The JavaScript Runtime & ...",
+            "caption": "Critical rendering path and waterfall evaluation for The JavaScript.",
             "items": [
               "0x00: DOM_TREE",
               "0x40: NET_WATERFALL",
@@ -422,7 +422,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world operational state and storage security for The JavaScript Runtime & ...",
+            "caption": "Real-world operational state and storage security for The JavaScript.",
             "items": [
               "0x00: DOM_TREE",
               "0x40: NET_WATERFALL",
@@ -449,7 +449,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive verification and browser audit diagnostics for The JavaScript Runtime & ...",
+            "caption": "Interactive verification and browser audit diagnostics for The JavaScript.",
             "items": [
               "0x00: DOM_TREE",
               "0x40: NET_WATERFALL",
@@ -486,7 +486,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Inspecting browser runtime and DOM tree structures for Master Full-Stack Browser...",
+            "caption": "Inspecting browser runtime and DOM tree structures for Master Full-Stack.",
             "items": [
               "0x00: DOM_TREE",
               "0x40: NET_WATERFALL",
@@ -513,7 +513,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Critical rendering path and waterfall evaluation for Master Full-Stack Browser...",
+            "caption": "Critical rendering path and waterfall evaluation for Master Full-Stack.",
             "items": [
               "0x00: DOM_TREE",
               "0x40: NET_WATERFALL",
@@ -540,7 +540,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world operational state and storage security for Master Full-Stack Browser...",
+            "caption": "Real-world operational state and storage security for Master Full-Stack.",
             "items": [
               "0x00: DOM_TREE",
               "0x40: NET_WATERFALL",
@@ -567,7 +567,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive verification and browser audit diagnostics for Master Full-Stack Browser...",
+            "caption": "Interactive verification and browser audit diagnostics for Master.",
             "items": [
               "0x00: DOM_TREE",
               "0x40: NET_WATERFALL",

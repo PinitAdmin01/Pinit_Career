@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Borrower initiates uncollateralized flash loan for Flash Loan Fundamentals & Atomic",
+            "caption": "Borrower initiates uncollateralized flash loan for Flash Loan.",
             "activeActor": "Flash Borrower",
             "messages": [
               {
@@ -33,7 +33,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Lender disburses capital and triggers execution callback",
+            "caption": "Lender disburses capital and triggers execution callback.",
             "activeActor": "ERC3156 Lender Pool",
             "messages": [
               {
@@ -46,7 +46,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Borrower executes cross-DEX arbitrage and captures spread",
+            "caption": "Borrower executes cross-DEX arbitrage and captures spread.",
             "activeActor": "DEX Automated Market Maker",
             "messages": [
               {
@@ -59,7 +59,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Borrower repays principal + fee; lender verifies solvency invariant",
+            "caption": "Borrower repays principal + fee; lender verifies solvency invariant.",
             "activeActor": "Profit Vault",
             "messages": [
               {
@@ -176,7 +176,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Borrower initiates uncollateralized flash loan for The ERC-3156 Flash Lending Stand",
+            "caption": "Borrower initiates uncollateralized flash loan for The ERC-multiple Flash.",
             "activeActor": "Flash Borrower",
             "messages": [
               {
@@ -189,7 +189,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Lender disburses capital and triggers execution callback",
+            "caption": "Lender disburses capital and triggers execution callback.",
             "activeActor": "ERC3156 Lender Pool",
             "messages": [
               {
@@ -202,7 +202,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Borrower executes cross-DEX arbitrage and captures spread",
+            "caption": "Borrower executes cross-DEX arbitrage and captures spread.",
             "activeActor": "DEX Automated Market Maker",
             "messages": [
               {
@@ -215,7 +215,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Borrower repays principal + fee; lender verifies solvency invariant",
+            "caption": "Borrower repays principal + fee; lender verifies solvency invariant.",
             "activeActor": "Profit Vault",
             "messages": [
               {
@@ -332,7 +332,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Borrower initiates uncollateralized flash loan for Decentralized Arbitrage & Liquid",
+            "caption": "Borrower initiates uncollateralized flash loan for Decentralized.",
             "activeActor": "Flash Borrower",
             "messages": [
               {
@@ -345,7 +345,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Lender disburses capital and triggers execution callback",
+            "caption": "Lender disburses capital and triggers execution callback.",
             "activeActor": "ERC3156 Lender Pool",
             "messages": [
               {
@@ -358,7 +358,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Borrower executes cross-DEX arbitrage and captures spread",
+            "caption": "Borrower executes cross-DEX arbitrage and captures spread.",
             "activeActor": "DEX Automated Market Maker",
             "messages": [
               {
@@ -371,7 +371,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Borrower repays principal + fee; lender verifies solvency invariant",
+            "caption": "Borrower repays principal + fee; lender verifies solvency invariant.",
             "activeActor": "Profit Vault",
             "messages": [
               {
@@ -488,7 +488,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Borrower initiates uncollateralized flash loan for Flash Loan Security Invariants &",
+            "caption": "Borrower initiates uncollateralized flash loan for Flash Loan Security.",
             "activeActor": "Flash Borrower",
             "messages": [
               {
@@ -501,7 +501,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Lender disburses capital and triggers execution callback",
+            "caption": "Lender disburses capital and triggers execution callback.",
             "activeActor": "ERC3156 Lender Pool",
             "messages": [
               {
@@ -514,7 +514,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Borrower executes cross-DEX arbitrage and captures spread",
+            "caption": "Borrower executes cross-DEX arbitrage and captures spread.",
             "activeActor": "DEX Automated Market Maker",
             "messages": [
               {
@@ -527,7 +527,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Borrower repays principal + fee; lender verifies solvency invariant",
+            "caption": "Borrower repays principal + fee; lender verifies solvency invariant.",
             "activeActor": "Profit Vault",
             "messages": [
               {
@@ -644,7 +644,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Borrower initiates uncollateralized flash loan for Master Flash Loan & Arbitrage Ex",
+            "caption": "Borrower initiates uncollateralized flash loan for Master Flash Loan &.",
             "activeActor": "Flash Borrower",
             "messages": [
               {
@@ -657,7 +657,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Lender disburses capital and triggers execution callback",
+            "caption": "Lender disburses capital and triggers execution callback.",
             "activeActor": "ERC3156 Lender Pool",
             "messages": [
               {
@@ -670,7 +670,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Borrower executes cross-DEX arbitrage and captures spread",
+            "caption": "Borrower executes cross-DEX arbitrage and captures spread.",
             "activeActor": "DEX Automated Market Maker",
             "messages": [
               {
@@ -683,7 +683,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Borrower repays principal + fee; lender verifies solvency invariant",
+            "caption": "Borrower repays principal + fee; lender verifies solvency invariant.",
             "activeActor": "Profit Vault",
             "messages": [
               {

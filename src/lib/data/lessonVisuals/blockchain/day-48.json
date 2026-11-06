@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingestion and initialization of L2 state payload for ZK-Rollup Validity Proofs & Su...",
+            "caption": "Ingestion and initialization of level-two state payload for ZK-Rollup.",
             "activeActor": "L2 Batch Aggregator",
             "messages": [
               {
@@ -33,7 +33,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine verifies data availability, state transition, and routing",
+            "caption": "Engine verifies data availability, state transition, and routing.",
             "activeActor": "GPU ZK Prover Cluster",
             "messages": [
               {
@@ -46,7 +46,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of mathematical validity, fraud challenge, or KZG opening",
+            "caption": "Verification of mathematical validity, fraud challenge, or KZG opening.",
             "activeActor": "L1 Verifier Contract (0x08)",
             "messages": [
               {
@@ -59,7 +59,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Canonical state settled on Layer 1; invariant verified and committed",
+            "caption": "Canonical state settled on Layer one; invariant verified and committed.",
             "activeActor": "GPU ZK Prover Cluster",
             "messages": [
               {
@@ -152,7 +152,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingestion and initialization of L2 state payload for Vitalik's zkEVM Taxonomy: Type...",
+            "caption": "Ingestion and initialization of level-two state payload for Vitalik's.",
             "activeActor": "L2 Batch Aggregator",
             "messages": [
               {
@@ -165,7 +165,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine verifies data availability, state transition, and routing",
+            "caption": "Engine verifies data availability, state transition, and routing.",
             "activeActor": "GPU ZK Prover Cluster",
             "messages": [
               {
@@ -178,7 +178,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of mathematical validity, fraud challenge, or KZG opening",
+            "caption": "Verification of mathematical validity, fraud challenge, or KZG opening.",
             "activeActor": "L1 Verifier Contract (0x08)",
             "messages": [
               {
@@ -191,7 +191,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Canonical state settled on Layer 1; invariant verified and committed",
+            "caption": "Canonical state settled on Layer one; invariant verified and committed.",
             "activeActor": "GPU ZK Prover Cluster",
             "messages": [
               {
@@ -284,7 +284,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingestion and initialization of L2 state payload for Detective Lab: The Data Availa...",
+            "caption": "Ingestion and initialization of level-two state payload for Detective.",
             "activeActor": "L2 Batch Aggregator",
             "messages": [
               {
@@ -297,7 +297,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine verifies data availability, state transition, and routing",
+            "caption": "Engine verifies data availability, state transition, and routing.",
             "activeActor": "GPU ZK Prover Cluster",
             "messages": [
               {
@@ -310,7 +310,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of mathematical validity, fraud challenge, or KZG opening",
+            "caption": "Verification of mathematical validity, fraud challenge, or KZG opening.",
             "activeActor": "L1 Verifier Contract (0x08)",
             "messages": [
               {
@@ -323,7 +323,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Canonical state settled on Layer 1; invariant verified and committed",
+            "caption": "Canonical state settled on Layer one; invariant verified and committed.",
             "activeActor": "GPU ZK Prover Cluster",
             "messages": [
               {
@@ -416,7 +416,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingestion and initialization of L2 state payload for Elliptic Curve Pairing Checks ...",
+            "caption": "Ingestion and initialization of level-two state payload for Elliptic.",
             "activeActor": "L2 Batch Aggregator",
             "messages": [
               {
@@ -429,7 +429,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine verifies data availability, state transition, and routing",
+            "caption": "Engine verifies data availability, state transition, and routing.",
             "activeActor": "GPU ZK Prover Cluster",
             "messages": [
               {
@@ -442,7 +442,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of mathematical validity, fraud challenge, or KZG opening",
+            "caption": "Verification of mathematical validity, fraud challenge, or KZG opening.",
             "activeActor": "L1 Verifier Contract (0x08)",
             "messages": [
               {
@@ -455,7 +455,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Canonical state settled on Layer 1; invariant verified and committed",
+            "caption": "Canonical state settled on Layer one; invariant verified and committed.",
             "activeActor": "GPU ZK Prover Cluster",
             "messages": [
               {
@@ -548,7 +548,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingestion and initialization of L2 state payload for Production ZK-Rollup Settlemen...",
+            "caption": "Ingestion and initialization of level-two state payload for Production.",
             "activeActor": "L2 Batch Aggregator",
             "messages": [
               {
@@ -561,7 +561,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine verifies data availability, state transition, and routing",
+            "caption": "Engine verifies data availability, state transition, and routing.",
             "activeActor": "GPU ZK Prover Cluster",
             "messages": [
               {
@@ -574,7 +574,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of mathematical validity, fraud challenge, or KZG opening",
+            "caption": "Verification of mathematical validity, fraud challenge, or KZG opening.",
             "activeActor": "L1 Verifier Contract (0x08)",
             "messages": [
               {
@@ -587,7 +587,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Canonical state settled on Layer 1; invariant verified and committed",
+            "caption": "Canonical state settled on Layer one; invariant verified and committed.",
             "activeActor": "GPU ZK Prover Cluster",
             "messages": [
               {

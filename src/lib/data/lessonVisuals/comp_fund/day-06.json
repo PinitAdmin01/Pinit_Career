@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Inspecting PID process control block and registers for Process Abstraction, Process Con...",
+            "caption": "Inspecting PID process control block and registers for Process.",
             "items": [
               "0x00: PID",
               "0x04: STATE",
@@ -41,7 +41,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Context switching and thread dispatch cycle for Process Abstraction, Process Con...",
+            "caption": "Context switching and thread dispatch cycle for Process Abstraction.",
             "items": [
               "0x00: PID",
               "0x04: STATE",
@@ -68,7 +68,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Scheduling runqueue and vruntime evaluation for Process Abstraction, Process Con...",
+            "caption": "Scheduling runqueue and vruntime evaluation for Process Abstraction.",
             "items": [
               "0x00: PID",
               "0x04: STATE",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: SRE process health verification and SHA-256 seal for Process Abstraction, Process Con...",
+            "caption": "SRE process health verification and SHA digest seal for Process.",
             "items": [
               "0x00: PID",
               "0x04: STATE",
@@ -132,7 +132,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Inspecting PID process control block and registers for Multithreading Architecture, Sha...",
+            "caption": "Inspecting PID process control block and registers for Multithreading.",
             "items": [
               "0x00: PID",
               "0x04: STATE",
@@ -159,7 +159,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Context switching and thread dispatch cycle for Multithreading Architecture, Sha...",
+            "caption": "Context switching and thread dispatch cycle for Multithreading.",
             "items": [
               "0x00: PID",
               "0x04: STATE",
@@ -186,7 +186,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Scheduling runqueue and vruntime evaluation for Multithreading Architecture, Sha...",
+            "caption": "Scheduling runqueue and vruntime evaluation for Multithreading.",
             "items": [
               "0x00: PID",
               "0x04: STATE",
@@ -213,7 +213,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: SRE process health verification and SHA-256 seal for Multithreading Architecture, Sha...",
+            "caption": "SRE process health verification and SHA digest seal for Multithreading.",
             "items": [
               "0x00: PID",
               "0x04: STATE",
@@ -250,7 +250,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Inspecting PID process control block and registers for CPU Scheduling Algorithms, Quant...",
+            "caption": "Inspecting PID process control block and registers for CPU Scheduling.",
             "items": [
               "0x00: PID",
               "0x04: STATE",
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Context switching and thread dispatch cycle for CPU Scheduling Algorithms, Quant...",
+            "caption": "Context switching and thread dispatch cycle for CPU Scheduling.",
             "items": [
               "0x00: PID",
               "0x04: STATE",
@@ -304,7 +304,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Scheduling runqueue and vruntime evaluation for CPU Scheduling Algorithms, Quant...",
+            "caption": "Scheduling runqueue and vruntime evaluation for CPU Scheduling.",
             "items": [
               "0x00: PID",
               "0x04: STATE",
@@ -331,7 +331,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: SRE process health verification and SHA-256 seal for CPU Scheduling Algorithms, Quant...",
+            "caption": "SRE process health verification and SHA digest seal for CPU Scheduling.",
             "items": [
               "0x00: PID",
               "0x04: STATE",
@@ -368,7 +368,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Inspecting PID process control block and registers for Context Switching Mechanics, CPU...",
+            "caption": "Inspecting PID process control block and registers for Context Switching.",
             "items": [
               "0x00: PID",
               "0x04: STATE",
@@ -395,7 +395,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Context switching and thread dispatch cycle for Context Switching Mechanics, CPU...",
+            "caption": "Context switching and thread dispatch cycle for Context Switching.",
             "items": [
               "0x00: PID",
               "0x04: STATE",
@@ -422,7 +422,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Scheduling runqueue and vruntime evaluation for Context Switching Mechanics, CPU...",
+            "caption": "Scheduling runqueue and vruntime evaluation for Context Switching.",
             "items": [
               "0x00: PID",
               "0x04: STATE",
@@ -449,7 +449,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: SRE process health verification and SHA-256 seal for Context Switching Mechanics, CPU...",
+            "caption": "SRE process health verification and SHA digest seal for Context Switching.",
             "items": [
               "0x00: PID",
               "0x04: STATE",
@@ -486,7 +486,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Inspecting PID process control block and registers for Master Linux Process Telemetry &...",
+            "caption": "Inspecting PID process control block and registers for Master Linux.",
             "items": [
               "0x00: PID",
               "0x04: STATE",
@@ -513,7 +513,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Context switching and thread dispatch cycle for Master Linux Process Telemetry &...",
+            "caption": "Context switching and thread dispatch cycle for Master Linux Process.",
             "items": [
               "0x00: PID",
               "0x04: STATE",
@@ -540,7 +540,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Scheduling runqueue and vruntime evaluation for Master Linux Process Telemetry &...",
+            "caption": "Scheduling runqueue and vruntime evaluation for Master Linux Process.",
             "items": [
               "0x00: PID",
               "0x04: STATE",
@@ -567,7 +567,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: SRE process health verification and SHA-256 seal for Master Linux Process Telemetry &...",
+            "caption": "SRE process health verification and SHA digest seal for Master Linux.",
             "items": [
               "0x00: PID",
               "0x04: STATE",

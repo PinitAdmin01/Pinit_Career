@@ -10,12 +10,12 @@
       "codeHash": "b608fe1bd2449c71d4f622a32183a2f777e1e247feb51b96bfd28f0ea33c58fa",
       "spec": {
         "template": "ledger-sheet",
-        "title": "The Foreign Corrupt Practices Act (FCPA): ... \u2014 General Ledger Verification",
+        "title": "The Foreign Corrupt Practices Act (FCPA): ... — General Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary facility debit entry ($126,500) for The Foreign Corrupt Practices Act (...",
-            "title": "Day 29 Journal \u2014 Initial Posting",
+            "caption": "Open primary facility debit entry ($multiple,server-error) for The.",
+            "title": "Day 29 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 126500,
             "totalCredit": 126500,
@@ -40,8 +40,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary interest & fee accrual adjustment ($25,300).",
-            "title": "Day 29 Journal \u2014 Accrual Adjustment",
+            "caption": "Record secondary interest & fee accrual adjustment ($multiple,multiple).",
+            "title": "Day 29 Journal — Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 151800,
             "totalCredit": 151800,
@@ -71,8 +71,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of institutional reserve provisioning & counterparty collateral.",
-            "title": "Day 29 Journal \u2014 Collateral & Reserve Alignment",
+            "caption": "Verification of institutional reserve provisioning & counterparty.",
+            "title": "Day 29 Journal — Collateral & Reserve Alignment",
             "isBalanced": true,
             "totalDebit": 151800,
             "totalCredit": 151800,
@@ -102,8 +102,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Real-time balance sheet reconciliation and regulatory capital confirmation.",
-            "title": "Day 29 Journal \u2014 Balanced Closure",
+            "caption": "Real-time balance sheet reconciliation and regulatory capital confirmation.",
+            "title": "Day 29 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 151800,
             "totalCredit": 151800,
@@ -139,12 +139,12 @@
       "codeHash": "b9f0d3373fef56177a1ec5cc1eddaf8f601c4ead7a90a56e529537fb7aeaa58d",
       "spec": {
         "template": "ledger-sheet",
-        "title": "FCPA Books-and-Records & Internal Accounti... \u2014 General Ledger Verification",
+        "title": "FCPA Books-and-Records & Internal Accounti... — General Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary facility debit entry ($127,750) for FCPA Books-and-Records & Internal A...",
-            "title": "Day 29 Journal \u2014 Initial Posting",
+            "caption": "Open primary facility debit entry ($multiple,multiple) for FCPA.",
+            "title": "Day 29 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 127750,
             "totalCredit": 127750,
@@ -169,8 +169,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary interest & fee accrual adjustment ($25,550).",
-            "title": "Day 29 Journal \u2014 Accrual Adjustment",
+            "caption": "Record secondary interest & fee accrual adjustment ($multiple,multiple).",
+            "title": "Day 29 Journal — Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 153300,
             "totalCredit": 153300,
@@ -200,8 +200,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of institutional reserve provisioning & counterparty collateral.",
-            "title": "Day 29 Journal \u2014 Collateral & Reserve Alignment",
+            "caption": "Verification of institutional reserve provisioning & counterparty.",
+            "title": "Day 29 Journal — Collateral & Reserve Alignment",
             "isBalanced": true,
             "totalDebit": 153300,
             "totalCredit": 153300,
@@ -231,8 +231,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Real-time balance sheet reconciliation and regulatory capital confirmation.",
-            "title": "Day 29 Journal \u2014 Balanced Closure",
+            "caption": "Real-time balance sheet reconciliation and regulatory capital confirmation.",
+            "title": "Day 29 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 153300,
             "totalCredit": 153300,
@@ -268,12 +268,12 @@
       "codeHash": "25d77bb1fd93abb827fa2f38618d24ff16088fbc5a7f4fd10b6d243afe12d008",
       "spec": {
         "template": "ledger-sheet",
-        "title": "The UK Bribery Act 2010: Section 7 & The '... \u2014 General Ledger Verification",
+        "title": "The UK Bribery Act 2010: Section 7 & The '... — General Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary facility debit entry ($129,000) for The UK Bribery Act 2010: Section 7 ...",
-            "title": "Day 29 Journal \u2014 Initial Posting",
+            "caption": "Open primary facility debit entry ($multiple,multiple) for The UK Bribery.",
+            "title": "Day 29 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 129000,
             "totalCredit": 129000,
@@ -298,8 +298,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary interest & fee accrual adjustment ($25,800).",
-            "title": "Day 29 Journal \u2014 Accrual Adjustment",
+            "caption": "Record secondary interest & fee accrual adjustment ($multiple,multiple).",
+            "title": "Day 29 Journal — Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 154800,
             "totalCredit": 154800,
@@ -329,8 +329,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of institutional reserve provisioning & counterparty collateral.",
-            "title": "Day 29 Journal \u2014 Collateral & Reserve Alignment",
+            "caption": "Verification of institutional reserve provisioning & counterparty.",
+            "title": "Day 29 Journal — Collateral & Reserve Alignment",
             "isBalanced": true,
             "totalDebit": 154800,
             "totalCredit": 154800,
@@ -360,8 +360,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Real-time balance sheet reconciliation and regulatory capital confirmation.",
-            "title": "Day 29 Journal \u2014 Balanced Closure",
+            "caption": "Real-time balance sheet reconciliation and regulatory capital confirmation.",
+            "title": "Day 29 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 154800,
             "totalCredit": 154800,
@@ -397,12 +397,12 @@
       "codeHash": "98f38489356579015b3ffd43eada2a609a29a82c87372a8460ea294f7b579c43",
       "spec": {
         "template": "ledger-sheet",
-        "title": "The DOJ Corporate Enforcement Policy (CEP)... \u2014 General Ledger Verification",
+        "title": "The DOJ Corporate Enforcement Policy (CEP)... — General Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary facility debit entry ($130,250) for The DOJ Corporate Enforcement Polic...",
-            "title": "Day 29 Journal \u2014 Initial Posting",
+            "caption": "Open primary facility debit entry ($multiple,multiple) for The DOJ.",
+            "title": "Day 29 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 130250,
             "totalCredit": 130250,
@@ -427,8 +427,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary interest & fee accrual adjustment ($26,050).",
-            "title": "Day 29 Journal \u2014 Accrual Adjustment",
+            "caption": "Record secondary interest & fee accrual adjustment ($multiple,multiple).",
+            "title": "Day 29 Journal — Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 156300,
             "totalCredit": 156300,
@@ -458,8 +458,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of institutional reserve provisioning & counterparty collateral.",
-            "title": "Day 29 Journal \u2014 Collateral & Reserve Alignment",
+            "caption": "Verification of institutional reserve provisioning & counterparty.",
+            "title": "Day 29 Journal — Collateral & Reserve Alignment",
             "isBalanced": true,
             "totalDebit": 156300,
             "totalCredit": 156300,
@@ -489,8 +489,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Real-time balance sheet reconciliation and regulatory capital confirmation.",
-            "title": "Day 29 Journal \u2014 Balanced Closure",
+            "caption": "Real-time balance sheet reconciliation and regulatory capital confirmation.",
+            "title": "Day 29 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 156300,
             "totalCredit": 156300,
@@ -526,12 +526,12 @@
       "codeHash": "71247bb94fdaba5b41e960d756d375902b42d5508ecbbcc2f84732c39afb47eb",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Sovereign Anti-Corruption Forensic Triage ... \u2014 General Ledger Verification",
+        "title": "Sovereign Anti-Corruption Forensic Triage ... — General Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary facility debit entry ($131,500) for Sovereign Anti-Corruption Forensic ...",
-            "title": "Day 29 Journal \u2014 Initial Posting",
+            "caption": "Open primary facility debit entry ($multiple,server-error) for Sovereign.",
+            "title": "Day 29 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 131500,
             "totalCredit": 131500,
@@ -556,8 +556,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary interest & fee accrual adjustment ($26,300).",
-            "title": "Day 29 Journal \u2014 Accrual Adjustment",
+            "caption": "Record secondary interest & fee accrual adjustment ($multiple,multiple).",
+            "title": "Day 29 Journal — Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 157800,
             "totalCredit": 157800,
@@ -587,8 +587,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of institutional reserve provisioning & counterparty collateral.",
-            "title": "Day 29 Journal \u2014 Collateral & Reserve Alignment",
+            "caption": "Verification of institutional reserve provisioning & counterparty.",
+            "title": "Day 29 Journal — Collateral & Reserve Alignment",
             "isBalanced": true,
             "totalDebit": 157800,
             "totalCredit": 157800,
@@ -618,8 +618,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Real-time balance sheet reconciliation and regulatory capital confirmation.",
-            "title": "Day 29 Journal \u2014 Balanced Closure",
+            "caption": "Real-time balance sheet reconciliation and regulatory capital confirmation.",
+            "title": "Day 29 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 157800,
             "totalCredit": 157800,

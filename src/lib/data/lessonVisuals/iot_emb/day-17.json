@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize The Continuous Streaming Dilemma &  with hardware clock gate & EN=1.",
+            "caption": "Initialize The Continuous Streaming Dilemma & with hardware clock gate &.",
             "registerName": "DMA_SxNDTR1",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Assert RDY and IRQ flags under hardware interrupt preemption.",
+            "caption": "Assert RDY and IRQ flags under hardware interrupt preemption.",
             "registerName": "DMA_SxNDTR1",
             "bitWidth": 8,
             "hexValue": "0xE0",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enable DMA burst and Transfer Complete flags.",
+            "caption": "Enable DMA burst and Transfer Complete flags.",
             "registerName": "DMA_SxNDTR1",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full ping-pong streaming active with zero-drop verified.",
+            "caption": "Full ping-pong streaming active with zero-drop verified.",
             "registerName": "DMA_SxNDTR1",
             "bitWidth": 8,
             "hexValue": "0xFE",
@@ -267,7 +267,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize Half-Transfer (HT) & Transfer-Compl with hardware clock gate & EN=1.",
+            "caption": "Initialize Half-Transfer (HT) & Transfer-Compl with hardware clock gate &.",
             "registerName": "DMA_SxNDTR2",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -327,7 +327,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Assert RDY and IRQ flags under hardware interrupt preemption.",
+            "caption": "Assert RDY and IRQ flags under hardware interrupt preemption.",
             "registerName": "DMA_SxNDTR2",
             "bitWidth": 8,
             "hexValue": "0xE0",
@@ -388,7 +388,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enable DMA burst and Transfer Complete flags.",
+            "caption": "Enable DMA burst and Transfer Complete flags.",
             "registerName": "DMA_SxNDTR2",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -449,7 +449,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full ping-pong streaming active with zero-drop verified.",
+            "caption": "Full ping-pong streaming active with zero-drop verified.",
             "registerName": "DMA_SxNDTR2",
             "bitWidth": 8,
             "hexValue": "0xFE",
@@ -520,7 +520,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize Real-Time Processing Latency Budget with hardware clock gate & EN=1.",
+            "caption": "Initialize Real-Time Processing Latency Budget with hardware clock gate &.",
             "registerName": "DMA_SxNDTR3",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -580,7 +580,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Assert RDY and IRQ flags under hardware interrupt preemption.",
+            "caption": "Assert RDY and IRQ flags under hardware interrupt preemption.",
             "registerName": "DMA_SxNDTR3",
             "bitWidth": 8,
             "hexValue": "0xE0",
@@ -641,7 +641,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enable DMA burst and Transfer Complete flags.",
+            "caption": "Enable DMA burst and Transfer Complete flags.",
             "registerName": "DMA_SxNDTR3",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -702,7 +702,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full ping-pong streaming active with zero-drop verified.",
+            "caption": "Full ping-pong streaming active with zero-drop verified.",
             "registerName": "DMA_SxNDTR3",
             "bitWidth": 8,
             "hexValue": "0xFE",
@@ -773,7 +773,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize Zero-Copy Data Pipeline: Transferri with hardware clock gate & EN=1.",
+            "caption": "Initialize Zero-Copy Data Pipeline: Transferri with hardware clock gate &.",
             "registerName": "DMA_SxNDTR4",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -833,7 +833,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Assert RDY and IRQ flags under hardware interrupt preemption.",
+            "caption": "Assert RDY and IRQ flags under hardware interrupt preemption.",
             "registerName": "DMA_SxNDTR4",
             "bitWidth": 8,
             "hexValue": "0xE0",
@@ -894,7 +894,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enable DMA burst and Transfer Complete flags.",
+            "caption": "Enable DMA burst and Transfer Complete flags.",
             "registerName": "DMA_SxNDTR4",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -955,7 +955,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full ping-pong streaming active with zero-drop verified.",
+            "caption": "Full ping-pong streaming active with zero-drop verified.",
             "registerName": "DMA_SxNDTR4",
             "bitWidth": 8,
             "hexValue": "0xFE",
@@ -1026,7 +1026,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize Building a Fault-Tolerant Audio Pin with hardware clock gate & EN=1.",
+            "caption": "Initialize Building a Fault-Tolerant Audio Pin with hardware clock gate &.",
             "registerName": "DMA_SxNDTR5",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1086,7 +1086,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Assert RDY and IRQ flags under hardware interrupt preemption.",
+            "caption": "Assert RDY and IRQ flags under hardware interrupt preemption.",
             "registerName": "DMA_SxNDTR5",
             "bitWidth": 8,
             "hexValue": "0xE0",
@@ -1147,7 +1147,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enable DMA burst and Transfer Complete flags.",
+            "caption": "Enable DMA burst and Transfer Complete flags.",
             "registerName": "DMA_SxNDTR5",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -1208,7 +1208,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full ping-pong streaming active with zero-drop verified.",
+            "caption": "Full ping-pong streaming active with zero-drop verified.",
             "registerName": "DMA_SxNDTR5",
             "bitWidth": 8,
             "hexValue": "0xFE",

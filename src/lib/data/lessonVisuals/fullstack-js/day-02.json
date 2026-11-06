@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Next.js App Router Streaming SSR & Out-o...",
+            "caption": "Initialize input state for Next.js App Router Streaming SSR & Out-o...",
             "values": {
               "in": "Day 2 Input",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Next.js App Router ....",
+            "caption": "Execute core transformation in Next.js App Router ....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -75,7 +75,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Next.js App Router Streaming SSR ...",
+            "caption": "End-to-end execution verified for Next.js App Router Streaming SSR ...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -257,7 +257,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for React Server Actions with Optimistic Rol...",
+            "caption": "Initialize input state for React Server Actions with Optimistic Rol...",
             "values": {
               "in": "Day 2 Input",
               "proc": "Standby",
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in React Server Action....",
+            "caption": "Execute core transformation in React Server Action....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -301,7 +301,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -321,7 +321,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for React Server Actions with Optimis...",
+            "caption": "End-to-end execution verified for React Server Actions with Optimis...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -483,7 +483,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Edge Middleware JWT Authentication & Geo...",
+            "caption": "Initialize input state for Edge Middleware JWT Authentication & Geo...",
             "values": {
               "in": "Day 2 Input",
               "proc": "Standby",
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Edge Middleware JWT....",
+            "caption": "Execute core transformation in Edge Middleware JWT....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -527,7 +527,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -547,7 +547,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Edge Middleware JWT Authenticatio...",
+            "caption": "End-to-end execution verified for Edge Middleware JWT Authenticatio...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -709,7 +709,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for tRPC End-to-End Type-Safe Remote Procedu...",
+            "caption": "Initialize input state for tRPC End-to-End Type-Safe Remote Procedu...",
             "values": {
               "in": "Day 2 Input",
               "proc": "Standby",
@@ -729,7 +729,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in tRPC End-to-End Typ....",
+            "caption": "Execute core transformation in tRPC End-to-End Typ....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -753,7 +753,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -773,7 +773,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for tRPC End-to-End Type-Safe Remote ...",
+            "caption": "End-to-end execution verified for tRPC End-to-End Type-Safe Remote ...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -935,7 +935,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Server-Sent Events (SSE) Real-Time Strea...",
+            "caption": "Initialize input state for Server-Sent Events (SSE) Real-Time Strea...",
             "values": {
               "in": "Day 2 Input",
               "proc": "Standby",
@@ -955,7 +955,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Server-Sent Events ....",
+            "caption": "Execute core transformation in Server-Sent Events ....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -979,7 +979,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -999,7 +999,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Server-Sent Events (SSE) Real-Tim...",
+            "caption": "End-to-end execution verified for Server-Sent Events (SSE) Real-Tim...",
             "values": {
               "in": "Committed",
               "proc": "Verified",

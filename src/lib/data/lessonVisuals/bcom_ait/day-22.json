@@ -10,7 +10,7 @@
       "codeHash": "8047511a3c4444822a1a83ba7ca4513a93fe6017ea99d5ef87d72185262925e9",
       "spec": {
         "template": "tree-graph",
-        "title": "Dynamic Safety Stock & Service Level Eco... \u2014 Enterprise AI Decision Graph",
+        "title": "Dynamic Safety Stock & Service Level Eco... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -54,7 +54,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for Dynamic Safety Stock & Service Level Eco....",
+            "caption": "Ingest enterprise Context Query for Dynamic Safety Stock & Service Level.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -68,7 +68,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -87,7 +87,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & governance bounds in Policy Guardrail.",
+            "caption": "Validate compliance & governance bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -107,7 +107,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -134,7 +134,7 @@
       "codeHash": "07d4a67621ee2ec83e32f29b8fa9fd67fe8d487641ba04cb4c0d5beedcdb4858",
       "spec": {
         "template": "tree-graph",
-        "title": "AI-Driven ABC-XYZ Inventory Stratificati... \u2014 Enterprise AI Decision Graph",
+        "title": "AI-Driven ABC-XYZ Inventory Stratificati... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -178,7 +178,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for AI-Driven ABC-XYZ Inventory Stratificati....",
+            "caption": "Ingest enterprise Context Query for AI-Driven ABC-XYZ Inventory.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -192,7 +192,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -211,7 +211,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & governance bounds in Policy Guardrail.",
+            "caption": "Validate compliance & governance bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -231,7 +231,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -258,7 +258,7 @@
       "codeHash": "233dceaa07c70885d070242fa29597749f2b49aa317d60940dbf6bf87a25b759",
       "spec": {
         "template": "tree-graph",
-        "title": "Multi-Echelon Inventory Optimization (ME... \u2014 Enterprise AI Decision Graph",
+        "title": "Multi-Echelon Inventory Optimization (ME... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -302,7 +302,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for Multi-Echelon Inventory Optimization (ME....",
+            "caption": "Ingest enterprise Context Query for Multi-Echelon Inventory Optimization.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -316,7 +316,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -335,7 +335,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & governance bounds in Policy Guardrail.",
+            "caption": "Validate compliance & governance bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -355,7 +355,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -382,7 +382,7 @@
       "codeHash": "084f25ada24a6f1323592cbe98cf625308723eba891316ac75e8f8f66c0c0358",
       "spec": {
         "template": "tree-graph",
-        "title": "Continuous Review (s, Q) vs Periodic Rev... \u2014 Enterprise AI Decision Graph",
+        "title": "Continuous Review (s, Q) vs Periodic Rev... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -426,7 +426,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for Continuous Review (s, Q) vs Periodic Rev....",
+            "caption": "Ingest enterprise Context Query for Continuous Review (s, Q) vs Periodic.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -440,7 +440,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -459,7 +459,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & governance bounds in Policy Guardrail.",
+            "caption": "Validate compliance & governance bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -479,7 +479,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -506,7 +506,7 @@
       "codeHash": "0ddc55628ad078b1821c2beeae3d9a8f9e77162e342530073f632862694364d6",
       "spec": {
         "template": "tree-graph",
-        "title": "Autonomous Inventory Optimization Contro... \u2014 Enterprise AI Decision Graph",
+        "title": "Autonomous Inventory Optimization Contro... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -550,7 +550,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for Autonomous Inventory Optimization Contro....",
+            "caption": "Ingest enterprise Context Query for Autonomous Inventory Optimization.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -564,7 +564,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -583,7 +583,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & governance bounds in Policy Guardrail.",
+            "caption": "Validate compliance & governance bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -603,7 +603,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",

@@ -10,7 +10,7 @@
       "codeHash": "d86680ae926de3a79d68c762c588e1dce8b7746c103e582306953cbfda3c4a76",
       "spec": {
         "template": "tree-graph",
-        "title": "No-Code AI Paradigm: Visual Workflow Bui... \u2014 Enterprise AI Decision Graph",
+        "title": "No-Code AI Paradigm: Visual Workflow Bui... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -54,7 +54,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for No-Code AI Paradigm: Visual Workflow Bui....",
+            "caption": "Ingest enterprise Context Query for No-Code AI Paradigm: Visual Workflow.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -68,7 +68,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -87,7 +87,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & governance bounds in Policy Guardrail.",
+            "caption": "Validate compliance & governance bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -107,7 +107,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -134,7 +134,7 @@
       "codeHash": "08cd090d4d4fccdc4bddd8ea495d73fd6770e06b67c6a480bb8dffc9437fa78d",
       "spec": {
         "template": "tree-graph",
-        "title": "Custom GPT Architecture: System Instruct... \u2014 Enterprise AI Decision Graph",
+        "title": "Custom GPT Architecture: System Instruct... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -178,7 +178,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Workflow Trigger for Custom GPT Architecture: System Instruct....",
+            "caption": "Ingest enterprise Workflow Trigger for Custom GPT Architecture: System.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -192,7 +192,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Citizen Builder for grounded domain knowledge.",
+            "caption": "Traverse Citizen Builder for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -211,7 +211,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & governance bounds in HMAC Security Gate.",
+            "caption": "Validate compliance & governance bounds in HMAC Security Gate.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -231,7 +231,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Production Deploy with audit provenance.",
+            "caption": "Emit verified Production Deploy with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -258,7 +258,7 @@
       "codeHash": "b20be79fdd96e1976951bdd96964ab66103528d1656b5778be38db9ae15a9d46",
       "spec": {
         "template": "tree-graph",
-        "title": "REST API Webhooks & External Triggers: H... \u2014 Enterprise AI Decision Graph",
+        "title": "REST API Webhooks & External Triggers: H... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -302,7 +302,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Master Objective for REST API Webhooks & External Triggers: H....",
+            "caption": "Ingest enterprise Master Objective for REST API Webhooks & External.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -316,7 +316,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Task Decomposition for grounded domain knowledge.",
+            "caption": "Traverse Task Decomposition for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -335,7 +335,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & governance bounds in Swarm Consensus.",
+            "caption": "Validate compliance & governance bounds in Swarm Consensus.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -355,7 +355,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Boardroom Strategy with audit provenance.",
+            "caption": "Emit verified Boardroom Strategy with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -382,7 +382,7 @@
       "codeHash": "d290a3a163053088d58630c8d80a226f39aa994e5b5919fcad1b3f0f1a37004b",
       "spec": {
         "template": "tree-graph",
-        "title": "Structured JSON Function Calling: Schema... \u2014 Enterprise AI Decision Graph",
+        "title": "Structured JSON Function Calling: Schema... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -426,7 +426,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Inference Workload for Structured JSON Function Calling: Schema....",
+            "caption": "Ingest enterprise Inference Workload for Structured JSON Function.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -440,7 +440,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Semantic Cache for grounded domain knowledge.",
+            "caption": "Traverse Semantic Cache for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -459,7 +459,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & governance bounds in FinOps Budget Gate.",
+            "caption": "Validate compliance & governance bounds in FinOps Budget Gate.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -479,7 +479,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Sub-Cent SLA Passed with audit provenance.",
+            "caption": "Emit verified Sub-Cent SLA Passed with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -506,7 +506,7 @@
       "codeHash": "9ddcdbccbde41615b85b819b6d77d78405f215a213a71b89664c9e28b99c51f2",
       "spec": {
         "template": "tree-graph",
-        "title": "Enterprise No-Code Application Gateway: ... \u2014 Enterprise AI Decision Graph",
+        "title": "Enterprise No-Code Application Gateway: ... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -550,7 +550,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Raw Bronze Feed for Enterprise No-Code Application Gateway: ....",
+            "caption": "Ingest enterprise Raw Bronze Feed for Enterprise No-Code Application.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -564,7 +564,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Silver Delta Clean for grounded domain knowledge.",
+            "caption": "Traverse Silver Delta Clean for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -583,7 +583,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & governance bounds in DQI Quality Check.",
+            "caption": "Validate compliance & governance bounds in DQI Quality Check.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -603,7 +603,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Gold Feature Store with audit provenance.",
+            "caption": "Emit verified Gold Feature Store with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",

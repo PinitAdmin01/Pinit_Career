@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for The Multimodal Paradigm: Unifying Vision...",
+            "caption": "Initialize input state for The Multimodal Paradigm: Unifying Vision...",
             "values": {
               "in": "Day 51 Input",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The Multimodal Para....",
+            "caption": "Execute core transformation in The Multimodal Para....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -75,7 +75,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The Multimodal Paradigm: Unifying...",
+            "caption": "End-to-end execution verified for The Multimodal Paradigm: Unifying...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -257,7 +257,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Dual Encoders & Symmetric InfoNCE Contra...",
+            "caption": "Initialize input state for Dual Encoders & Symmetric InfoNCE Contra...",
             "values": {
               "in": "Day 51 Input",
               "proc": "Standby",
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Dual Encoders & Sym....",
+            "caption": "Execute core transformation in Dual Encoders & Sym....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -301,7 +301,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -321,7 +321,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Dual Encoders & Symmetric InfoNCE...",
+            "caption": "End-to-end execution verified for Dual Encoders & Symmetric InfoNCE...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -483,7 +483,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Zero-Shot Classification: Prompt Ensembl...",
+            "caption": "Initialize input state for Zero-Shot Classification: Prompt Ensembl...",
             "values": {
               "in": "Day 51 Input",
               "proc": "Standby",
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Zero-Shot Classific....",
+            "caption": "Execute core transformation in Zero-Shot Classific....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -527,7 +527,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -547,7 +547,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Zero-Shot Classification: Prompt ...",
+            "caption": "End-to-end execution verified for Zero-Shot Classification: Prompt ...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -709,7 +709,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Modality Gap Phenomenon & Geometric Alig...",
+            "caption": "Initialize input state for Modality Gap Phenomenon & Geometric Alig...",
             "values": {
               "in": "Day 51 Input",
               "proc": "Standby",
@@ -729,7 +729,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Modality Gap Phenom....",
+            "caption": "Execute core transformation in Modality Gap Phenom....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -753,7 +753,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -773,7 +773,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Modality Gap Phenomenon & Geometr...",
+            "caption": "End-to-end execution verified for Modality Gap Phenomenon & Geometr...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -935,7 +935,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Masterclass Synthesis: Building.",
+            "caption": "Initialize input state for Masterclass Synthesis: Building.",
             "values": {
               "in": "Day 51 Input",
               "proc": "Standby",
@@ -955,7 +955,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Masterclass Synthes....",
+            "caption": "Execute core transformation in Masterclass Synthes....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -979,7 +979,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -999,7 +999,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Masterclass Synthesis: Building t...",
+            "caption": "End-to-end execution verified for Masterclass Synthesis: Building t...",
             "values": {
               "in": "Committed",
               "proc": "Verified",

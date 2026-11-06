@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize ARM Cortex-M Vector Table Layout &  with hardware clock gate & EN=1.",
+            "caption": "Initialize ARM Cortex-M Vector Table Layout & with hardware clock gate &.",
             "registerName": "NVIC_ISER1",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Assert RDY and IRQ flags under hardware interrupt preemption.",
+            "caption": "Assert RDY and IRQ flags under hardware interrupt preemption.",
             "registerName": "NVIC_ISER1",
             "bitWidth": 8,
             "hexValue": "0xE0",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enable DMA burst and Transfer Complete flags.",
+            "caption": "Enable DMA burst and Transfer Complete flags.",
             "registerName": "NVIC_ISER1",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full ping-pong streaming active with zero-drop verified.",
+            "caption": "Full ping-pong streaming active with zero-drop verified.",
             "registerName": "NVIC_ISER1",
             "bitWidth": 8,
             "hexValue": "0xFE",
@@ -267,7 +267,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize Hardware Exception Stacking (The 8- with hardware clock gate & EN=1.",
+            "caption": "Initialize Hardware Exception Stacking (The eight- with hardware clock.",
             "registerName": "NVIC_ISER2",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -327,7 +327,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Assert RDY and IRQ flags under hardware interrupt preemption.",
+            "caption": "Assert RDY and IRQ flags under hardware interrupt preemption.",
             "registerName": "NVIC_ISER2",
             "bitWidth": 8,
             "hexValue": "0xE0",
@@ -388,7 +388,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enable DMA burst and Transfer Complete flags.",
+            "caption": "Enable DMA burst and Transfer Complete flags.",
             "registerName": "NVIC_ISER2",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -449,7 +449,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full ping-pong streaming active with zero-drop verified.",
+            "caption": "Full ping-pong streaming active with zero-drop verified.",
             "registerName": "NVIC_ISER2",
             "bitWidth": 8,
             "hexValue": "0xFE",
@@ -520,7 +520,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize SCB->AIRCR Priority Grouping: Preem with hardware clock gate & EN=1.",
+            "caption": "Initialize SCB->AIRCR Priority Grouping: Preem with hardware clock gate &.",
             "registerName": "NVIC_ISER3",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -580,7 +580,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Assert RDY and IRQ flags under hardware interrupt preemption.",
+            "caption": "Assert RDY and IRQ flags under hardware interrupt preemption.",
             "registerName": "NVIC_ISER3",
             "bitWidth": 8,
             "hexValue": "0xE0",
@@ -641,7 +641,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enable DMA burst and Transfer Complete flags.",
+            "caption": "Enable DMA burst and Transfer Complete flags.",
             "registerName": "NVIC_ISER3",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -702,7 +702,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full ping-pong streaming active with zero-drop verified.",
+            "caption": "Full ping-pong streaming active with zero-drop verified.",
             "registerName": "NVIC_ISER3",
             "bitWidth": 8,
             "hexValue": "0xFE",
@@ -773,7 +773,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize NVIC Interrupt Enable (NVIC_ISER),  with hardware clock gate & EN=1.",
+            "caption": "Initialize NVIC Interrupt Enable (NVIC_ISER), with hardware clock gate &.",
             "registerName": "NVIC_ISER4",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -833,7 +833,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Assert RDY and IRQ flags under hardware interrupt preemption.",
+            "caption": "Assert RDY and IRQ flags under hardware interrupt preemption.",
             "registerName": "NVIC_ISER4",
             "bitWidth": 8,
             "hexValue": "0xE0",
@@ -894,7 +894,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enable DMA burst and Transfer Complete flags.",
+            "caption": "Enable DMA burst and Transfer Complete flags.",
             "registerName": "NVIC_ISER4",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -955,7 +955,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full ping-pong streaming active with zero-drop verified.",
+            "caption": "Full ping-pong streaming active with zero-drop verified.",
             "registerName": "NVIC_ISER4",
             "bitWidth": 8,
             "hexValue": "0xFE",
@@ -1026,7 +1026,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize External Interrupt Lines (EXTI), Ed with hardware clock gate & EN=1.",
+            "caption": "Initialize External Interrupt Lines (EXTI), Ed with hardware clock gate &.",
             "registerName": "NVIC_ISER5",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1086,7 +1086,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Assert RDY and IRQ flags under hardware interrupt preemption.",
+            "caption": "Assert RDY and IRQ flags under hardware interrupt preemption.",
             "registerName": "NVIC_ISER5",
             "bitWidth": 8,
             "hexValue": "0xE0",
@@ -1147,7 +1147,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enable DMA burst and Transfer Complete flags.",
+            "caption": "Enable DMA burst and Transfer Complete flags.",
             "registerName": "NVIC_ISER5",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -1208,7 +1208,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full ping-pong streaming active with zero-drop verified.",
+            "caption": "Full ping-pong streaming active with zero-drop verified.",
             "registerName": "NVIC_ISER5",
             "bitWidth": 8,
             "hexValue": "0xFE",

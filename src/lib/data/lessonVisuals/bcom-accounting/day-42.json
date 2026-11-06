@@ -11,12 +11,12 @@
       "filled": {},
       "spec": {
         "template": "ledger-sheet",
-        "title": "The Control Principle & Scope of Consoli... \u2014 Ledger Verification",
+        "title": "The Control Principle & Scope of Consoli... — Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary Ind AS ledger posting ($66,005,000) for The Control Principle & Scope of Consoli...",
-            "title": "Day 42 Journal \u2014 Initial Posting",
+            "caption": "Open primary Ind AS ledger posting ($multiple,multiple,multiple) for The.",
+            "title": "Day 42 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 66005000,
             "totalCredit": 66005000,
@@ -41,8 +41,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary valuation & consolidation elimination accrual ($250,000).",
-            "title": "Day 42 Journal \u2014 Consolidation & Adjustment Posting",
+            "caption": "Record secondary valuation & consolidation elimination accrual.",
+            "title": "Day 42 Journal — Consolidation & Adjustment Posting",
             "isBalanced": true,
             "totalDebit": 66255000,
             "totalCredit": 66255000,
@@ -72,8 +72,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of balance sheet carrying values and statutory group disclosures.",
-            "title": "Day 42 Journal \u2014 Balance Sheet Realignment",
+            "caption": "Verification of balance sheet carrying values and statutory group.",
+            "title": "Day 42 Journal — Balance Sheet Realignment",
             "isBalanced": true,
             "totalDebit": 66255000,
             "totalCredit": 66255000,
@@ -103,8 +103,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute deterministic Python engine and verify mathematical equilibrium.",
-            "title": "Day 42 Journal \u2014 Balanced Closure",
+            "caption": "Execute deterministic Python engine and verify mathematical equilibrium.",
+            "title": "Day 42 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 66255000,
             "totalCredit": 66255000,
@@ -141,12 +141,12 @@
       "filled": {},
       "spec": {
         "template": "ledger-sheet",
-        "title": "Mechanics of Consolidation & Acquisition... \u2014 Ledger Verification",
+        "title": "Mechanics of Consolidation & Acquisition... — Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary Ind AS ledger posting ($66,010,000) for Mechanics of Consolidation & Acquisition...",
-            "title": "Day 42 Journal \u2014 Initial Posting",
+            "caption": "Open primary Ind AS ledger posting ($multiple,multiple,multiple) for.",
+            "title": "Day 42 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 66010000,
             "totalCredit": 66010000,
@@ -171,8 +171,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary valuation & consolidation elimination accrual ($250,000).",
-            "title": "Day 42 Journal \u2014 Consolidation & Adjustment Posting",
+            "caption": "Record secondary valuation & consolidation elimination accrual.",
+            "title": "Day 42 Journal — Consolidation & Adjustment Posting",
             "isBalanced": true,
             "totalDebit": 66260000,
             "totalCredit": 66260000,
@@ -202,8 +202,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of balance sheet carrying values and statutory group disclosures.",
-            "title": "Day 42 Journal \u2014 Balance Sheet Realignment",
+            "caption": "Verification of balance sheet carrying values and statutory group.",
+            "title": "Day 42 Journal — Balance Sheet Realignment",
             "isBalanced": true,
             "totalDebit": 66260000,
             "totalCredit": 66260000,
@@ -233,8 +233,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute deterministic Python engine and verify mathematical equilibrium.",
-            "title": "Day 42 Journal \u2014 Balanced Closure",
+            "caption": "Execute deterministic Python engine and verify mathematical equilibrium.",
+            "title": "Day 42 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 66260000,
             "totalCredit": 66260000,
@@ -271,12 +271,12 @@
       "filled": {},
       "spec": {
         "template": "ledger-sheet",
-        "title": "Elimination of Intra-Group Transactions ... \u2014 Ledger Verification",
+        "title": "Elimination of Intra-Group Transactions ... — Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary Ind AS ledger posting ($66,015,000) for Elimination of Intra-Group Transactions ...",
-            "title": "Day 42 Journal \u2014 Initial Posting",
+            "caption": "Open primary Ind AS ledger posting ($multiple,multiple,multiple) for.",
+            "title": "Day 42 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 66015000,
             "totalCredit": 66015000,
@@ -301,8 +301,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary valuation & consolidation elimination accrual ($250,000).",
-            "title": "Day 42 Journal \u2014 Consolidation & Adjustment Posting",
+            "caption": "Record secondary valuation & consolidation elimination accrual.",
+            "title": "Day 42 Journal — Consolidation & Adjustment Posting",
             "isBalanced": true,
             "totalDebit": 66265000,
             "totalCredit": 66265000,
@@ -332,8 +332,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of balance sheet carrying values and statutory group disclosures.",
-            "title": "Day 42 Journal \u2014 Balance Sheet Realignment",
+            "caption": "Verification of balance sheet carrying values and statutory group.",
+            "title": "Day 42 Journal — Balance Sheet Realignment",
             "isBalanced": true,
             "totalDebit": 66265000,
             "totalCredit": 66265000,
@@ -363,8 +363,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute deterministic Python engine and verify mathematical equilibrium.",
-            "title": "Day 42 Journal \u2014 Balanced Closure",
+            "caption": "Execute deterministic Python engine and verify mathematical equilibrium.",
+            "title": "Day 42 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 66265000,
             "totalCredit": 66265000,
@@ -401,12 +401,12 @@
       "filled": {},
       "spec": {
         "template": "ledger-sheet",
-        "title": "Intercompany Financing, Dividends & Prof... \u2014 Ledger Verification",
+        "title": "Intercompany Financing, Dividends & Prof... — Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary Ind AS ledger posting ($66,020,000) for Intercompany Financing, Dividends & Prof...",
-            "title": "Day 42 Journal \u2014 Initial Posting",
+            "caption": "Open primary Ind AS ledger posting ($multiple,multiple,multiple) for.",
+            "title": "Day 42 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 66020000,
             "totalCredit": 66020000,
@@ -431,8 +431,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary valuation & consolidation elimination accrual ($250,000).",
-            "title": "Day 42 Journal \u2014 Consolidation & Adjustment Posting",
+            "caption": "Record secondary valuation & consolidation elimination accrual.",
+            "title": "Day 42 Journal — Consolidation & Adjustment Posting",
             "isBalanced": true,
             "totalDebit": 66270000,
             "totalCredit": 66270000,
@@ -462,8 +462,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of balance sheet carrying values and statutory group disclosures.",
-            "title": "Day 42 Journal \u2014 Balance Sheet Realignment",
+            "caption": "Verification of balance sheet carrying values and statutory group.",
+            "title": "Day 42 Journal — Balance Sheet Realignment",
             "isBalanced": true,
             "totalDebit": 66270000,
             "totalCredit": 66270000,
@@ -493,8 +493,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute deterministic Python engine and verify mathematical equilibrium.",
-            "title": "Day 42 Journal \u2014 Balanced Closure",
+            "caption": "Execute deterministic Python engine and verify mathematical equilibrium.",
+            "title": "Day 42 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 66270000,
             "totalCredit": 66270000,
@@ -531,12 +531,12 @@
       "filled": {},
       "spec": {
         "template": "ledger-sheet",
-        "title": "Executing the Python Consolidation Suite... \u2014 Ledger Verification",
+        "title": "Executing the Python Consolidation Suite... — Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary Ind AS ledger posting ($66,025,000) for Executing the Python Consolidation Suite...",
-            "title": "Day 42 Journal \u2014 Initial Posting",
+            "caption": "Open primary Ind AS ledger posting ($multiple,multiple,multiple) for.",
+            "title": "Day 42 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 66025000,
             "totalCredit": 66025000,
@@ -561,8 +561,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary valuation & consolidation elimination accrual ($250,000).",
-            "title": "Day 42 Journal \u2014 Consolidation & Adjustment Posting",
+            "caption": "Record secondary valuation & consolidation elimination accrual.",
+            "title": "Day 42 Journal — Consolidation & Adjustment Posting",
             "isBalanced": true,
             "totalDebit": 66275000,
             "totalCredit": 66275000,
@@ -592,8 +592,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of balance sheet carrying values and statutory group disclosures.",
-            "title": "Day 42 Journal \u2014 Balance Sheet Realignment",
+            "caption": "Verification of balance sheet carrying values and statutory group.",
+            "title": "Day 42 Journal — Balance Sheet Realignment",
             "isBalanced": true,
             "totalDebit": 66275000,
             "totalCredit": 66275000,
@@ -623,8 +623,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute deterministic Python engine and verify mathematical equilibrium.",
-            "title": "Day 42 Journal \u2014 Balanced Closure",
+            "caption": "Execute deterministic Python engine and verify mathematical equilibrium.",
+            "title": "Day 42 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 66275000,
             "totalCredit": 66275000,

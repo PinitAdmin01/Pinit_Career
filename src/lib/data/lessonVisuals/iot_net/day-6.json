@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register PHY_CHANNEL_REG for IEEE 802.15.4 PHY.",
+            "caption": "Arm hardware register PHY_CHANNEL_REG for IEEE multiple.multiple.four PHY.",
             "registerName": "PHY_CHANNEL_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into PHY_CHANNEL_REG and assert validation flag.",
+            "caption": "Latch sampling bits into PHY_CHANNEL_REG and assert validation flag.",
             "registerName": "PHY_CHANNEL_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in PHY_CHANNEL_REG with pipeline status.",
+            "caption": "Execute hardware transformation in PHY_CHANNEL_REG with pipeline status.",
             "registerName": "PHY_CHANNEL_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register PHY_CHANNEL_REG upon verified hardware completion.",
+            "caption": "Lock register PHY_CHANNEL_REG upon verified hardware completion.",
             "registerName": "PHY_CHANNEL_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -266,7 +266,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register OQPSK_MOD_REG for Offset Quadrature P.",
+            "caption": "Arm hardware register OQPSK_MOD_REG for Offset Quadrature P.",
             "registerName": "OQPSK_MOD_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -326,7 +326,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into OQPSK_MOD_REG and assert validation flag.",
+            "caption": "Latch sampling bits into OQPSK_MOD_REG and assert validation flag.",
             "registerName": "OQPSK_MOD_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -387,7 +387,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in OQPSK_MOD_REG with pipeline status.",
+            "caption": "Execute hardware transformation in OQPSK_MOD_REG with pipeline status.",
             "registerName": "OQPSK_MOD_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -448,7 +448,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register OQPSK_MOD_REG upon verified hardware completion.",
+            "caption": "Lock register OQPSK_MOD_REG upon verified hardware completion.",
             "registerName": "OQPSK_MOD_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -518,7 +518,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register DSSS_CHIP_REG for Direct Sequence Spr.",
+            "caption": "Arm hardware register DSSS_CHIP_REG for Direct Sequence Spr.",
             "registerName": "DSSS_CHIP_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -578,7 +578,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into DSSS_CHIP_REG and assert validation flag.",
+            "caption": "Latch sampling bits into DSSS_CHIP_REG and assert validation flag.",
             "registerName": "DSSS_CHIP_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -639,7 +639,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in DSSS_CHIP_REG with pipeline status.",
+            "caption": "Execute hardware transformation in DSSS_CHIP_REG with pipeline status.",
             "registerName": "DSSS_CHIP_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -700,7 +700,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register DSSS_CHIP_REG upon verified hardware completion.",
+            "caption": "Lock register DSSS_CHIP_REG upon verified hardware completion.",
             "registerName": "DSSS_CHIP_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -770,7 +770,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register COEXIST_FILTER_REG for Wi-Fi (802.11).",
+            "caption": "Arm hardware register COEXIST_FILTER_REG for Wi-Fi (multiple.eleven).",
             "registerName": "COEXIST_FILTER_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -830,7 +830,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into COEXIST_FILTER_REG and assert validation flag.",
+            "caption": "Latch sampling bits into COEXIST_FILTER_REG and assert validation flag.",
             "registerName": "COEXIST_FILTER_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -891,7 +891,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in COEXIST_FILTER_REG with pipeline status.",
+            "caption": "Execute hardware transformation in COEXIST_FILTER_REG with pipeline status.",
             "registerName": "COEXIST_FILTER_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -952,7 +952,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register COEXIST_FILTER_REG upon verified hardware completion.",
+            "caption": "Lock register COEXIST_FILTER_REG upon verified hardware completion.",
             "registerName": "COEXIST_FILTER_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1022,7 +1022,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register CORRELATOR_REG for Complete 802.15.4.",
+            "caption": "Arm hardware register CORRELATOR_REG for Complete multiple.multiple.four.",
             "registerName": "CORRELATOR_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1082,7 +1082,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into CORRELATOR_REG and assert validation flag.",
+            "caption": "Latch sampling bits into CORRELATOR_REG and assert validation flag.",
             "registerName": "CORRELATOR_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -1143,7 +1143,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in CORRELATOR_REG with pipeline status.",
+            "caption": "Execute hardware transformation in CORRELATOR_REG with pipeline status.",
             "registerName": "CORRELATOR_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -1204,7 +1204,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register CORRELATOR_REG upon verified hardware completion.",
+            "caption": "Lock register CORRELATOR_REG upon verified hardware completion.",
             "registerName": "CORRELATOR_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

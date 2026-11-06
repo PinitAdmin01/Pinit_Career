@@ -88,7 +88,7 @@
             "focus": [
               0
             ],
-            "caption": "intro (Symmetric Block Ciphers, AES-256-GC)"
+            "caption": "Intro (Symmetric Block Ciphers, AES cipher-GC)."
           },
           {
             "label": "say1",
@@ -96,7 +96,7 @@
             "focus": [
               1
             ],
-            "caption": "say1 (Symmetric Block Ciphers, AES-256-GC)"
+            "caption": "Sayone (Symmetric Block Ciphers, AES cipher-GC)."
           },
           {
             "label": "example",
@@ -104,7 +104,7 @@
             "focus": [
               1
             ],
-            "caption": "example (Symmetric Block Ciphers, AES-256-GC)"
+            "caption": "Example (Symmetric Block Ciphers, AES cipher-GC)."
           },
           {
             "label": "tryIt",
@@ -112,7 +112,7 @@
             "focus": [
               2
             ],
-            "caption": "tryIt (Symmetric Block Ciphers, AES-256-GC)"
+            "caption": "TryIt (Symmetric Block Ciphers, AES cipher-GC)."
           }
         ]
       },
@@ -264,7 +264,7 @@
             "focus": [
               1
             ],
-            "caption": "say1 (Asymmetric Public Key Cryptography:)"
+            "caption": "Sayone (Asymmetric Public Key Cryptography:)."
           },
           {
             "label": "example",
@@ -432,7 +432,7 @@
             "focus": [
               1
             ],
-            "caption": "say1 (SSH Key Cryptography: OpenSSH Archi)"
+            "caption": "Sayone (SSH Key Cryptography: OpenSSH Archi)."
           },
           {
             "label": "example",
@@ -600,7 +600,7 @@
             "focus": [
               1
             ],
-            "caption": "say1 (Digital Signatures & Public Key Inf)"
+            "caption": "Sayone (Digital Signatures & Public Key Inf)."
           },
           {
             "label": "example",
@@ -768,7 +768,7 @@
             "focus": [
               1
             ],
-            "caption": "say1 (Master Cryptographic Engine & Key M)"
+            "caption": "Sayone (Master Cryptographic Engine & Key M)."
           },
           {
             "label": "example",

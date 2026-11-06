@@ -1,0 +1,879 @@
+{
+  "schemaVersion": 1,
+  "prefix": "cyber-py",
+  "day": 3,
+  "promptSha": "7e36b4dfc076965d96dcbcc1f759a313ee0c68a8d4ac45c0e59c59ee76b701a4",
+  "model": "gpt-4o",
+  "entries": [
+    {
+      "partTitle": "What XSS is",
+      "codeHash": "fba7cfb22e66483d1f13ceb4f2b0a65392ff594165279d7ca420885bb95149f5",
+      "spec": {
+        "template": "table",
+        "title": "Cross-site scripting taxonomy classification and execution contexts",
+        "columns": [
+          "XSS Category",
+          "Persistence Mode",
+          "Injection Source",
+          "Remediation Strategy"
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "Vulnerabilities are classified into three distinct categories.",
+            "activeRowIndex": 0,
+            "statusBadge": "active",
+            "rows": [
+              {
+                "cells": [
+                  "Reflected XSS",
+                  "Transient Request",
+                  "HTTP query parameters and search forms",
+                  "Contextual Output Encoding"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Stored XSS",
+                  "Database Persistent",
+                  "Comments, bios, and support tickets",
+                  "Input Sanitization and CSP"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "DOM-Based XSS",
+                  "Client State Only",
+                  "location.hash and document.referrer",
+                  "Eliminate Dangerous Sinks"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Consequences include session hijacking credential theft and logging.",
+            "activeRowIndex": 1,
+            "statusBadge": "failed",
+            "rows": [
+              {
+                "cells": [
+                  "Reflected XSS",
+                  "Transient Request",
+                  "HTTP query parameters and search forms",
+                  "Contextual Output Encoding"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Stored XSS",
+                  "Database Persistent",
+                  "Comments, bios, and support tickets",
+                  "Input Sanitization and CSP"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "DOM-Based XSS",
+                  "Client State Only",
+                  "location.hash and document.referrer",
+                  "Eliminate Dangerous Sinks"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Cross-site scripting taxonomy classification and execution contexts",
+        "columns": [
+          "XSS Category",
+          "Persistence Mode",
+          "Injection Source",
+          "Remediation Strategy"
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "Vulnerabilities are classified into three distinct categories.",
+            "activeRowIndex": 0,
+            "statusBadge": "active",
+            "rows": [
+              {
+                "cells": [
+                  "Reflected XSS",
+                  "Transient Request",
+                  "HTTP query parameters and search forms",
+                  "Contextual Output Encoding"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Stored XSS",
+                  "Database Persistent",
+                  "Comments, bios, and support tickets",
+                  "Input Sanitization and CSP"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "DOM-Based XSS",
+                  "Client State Only",
+                  "location.hash and document.referrer",
+                  "Eliminate Dangerous Sinks"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Consequences include session hijacking credential theft and logging.",
+            "activeRowIndex": 1,
+            "statusBadge": "failed",
+            "rows": [
+              {
+                "cells": [
+                  "Reflected XSS",
+                  "Transient Request",
+                  "HTTP query parameters and search forms",
+                  "Contextual Output Encoding"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Stored XSS",
+                  "Database Persistent",
+                  "Comments, bios, and support tickets",
+                  "Input Sanitization and CSP"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "DOM-Based XSS",
+                  "Client State Only",
+                  "location.hash and document.referrer",
+                  "Eliminate Dangerous Sinks"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Escaping output",
+      "codeHash": "67fe99a672514c33d20993ae68ae8f6f62395aca638ffdbe734ead2175cd38ee",
+      "spec": {
+        "template": "sequence",
+        "title": "Reflected cross-site scripting attack payload reflection sequence",
+        "actors": [
+          {
+            "id": "attacker",
+            "label": "Malicious Actor"
+          },
+          {
+            "id": "victim",
+            "label": "Victim Browser"
+          },
+          {
+            "id": "server",
+            "label": "Vulnerable Server"
+          }
+        ],
+        "messages": [
+          {
+            "from": "attacker",
+            "to": "victim",
+            "label": "Send Phishing Link with Script in Query String",
+            "tone": "error"
+          },
+          {
+            "from": "victim",
+            "to": "server",
+            "label": "Forward HTTP Request with Unsanitized Parameter",
+            "tone": "data"
+          },
+          {
+            "from": "server",
+            "to": "victim",
+            "label": "Echo Raw Script Unescaped in HTML Response",
+            "tone": "error"
+          },
+          {
+            "from": "victim",
+            "to": "attacker",
+            "label": "Injected Script Executes and Steals Cookies",
+            "tone": "error"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "The server processes the request and echoes parameters directly.",
+            "activeMessageIndex": 2,
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say8",
+            "caption": "The durable defense encodes all reflected values for output context.",
+            "activeMessageIndex": 1,
+            "statusBadge": "ok"
+          }
+        ]
+      },
+      "filled": {
+        "template": "sequence",
+        "title": "Reflected cross-site scripting attack payload reflection sequence",
+        "actors": [
+          {
+            "id": "attacker",
+            "label": "Malicious Actor"
+          },
+          {
+            "id": "victim",
+            "label": "Victim Browser"
+          },
+          {
+            "id": "server",
+            "label": "Vulnerable Server"
+          }
+        ],
+        "messages": [
+          {
+            "from": "attacker",
+            "to": "victim",
+            "label": "Send Phishing Link with Script in Query String",
+            "tone": "error"
+          },
+          {
+            "from": "victim",
+            "to": "server",
+            "label": "Forward HTTP Request with Unsanitized Parameter",
+            "tone": "data"
+          },
+          {
+            "from": "server",
+            "to": "victim",
+            "label": "Echo Raw Script Unescaped in HTML Response",
+            "tone": "error"
+          },
+          {
+            "from": "victim",
+            "to": "attacker",
+            "label": "Injected Script Executes and Steals Cookies",
+            "tone": "error"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "The server processes the request and echoes parameters directly.",
+            "activeMessageIndex": 2,
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say8",
+            "caption": "The durable defense encodes all reflected values for output context.",
+            "activeMessageIndex": 1,
+            "statusBadge": "ok"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Content Security Policy",
+      "codeHash": "0666201a707f6d955bf89c1e8b9d388b027c20b5753ad94ca2e3abcae96f43e9",
+      "spec": {
+        "template": "states",
+        "title": "Stored cross-site scripting lifecycle and administrative compromise",
+        "states": [
+          {
+            "id": "payloadSubmitted",
+            "label": "Attacker Submits Script in Profile Bio"
+          },
+          {
+            "id": "storedInDb",
+            "label": "Unescaped Payload Stored in Database"
+          },
+          {
+            "id": "adminFetches",
+            "label": "Admin Dashboard Fetches Compromised Record"
+          },
+          {
+            "id": "scriptExecutes",
+            "label": "Injected JavaScript Runs with Admin Rights"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "The server stores the unescaped payload directly into the database.",
+            "activeStateId": "storedInDb",
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say5",
+            "caption": "Injected scripts execute with administrative privileges in the portal.",
+            "activeStateId": "scriptExecutes",
+            "statusBadge": "active"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Stored cross-site scripting lifecycle and administrative compromise",
+        "states": [
+          {
+            "id": "payloadSubmitted",
+            "label": "Attacker Submits Script in Profile Bio"
+          },
+          {
+            "id": "storedInDb",
+            "label": "Unescaped Payload Stored in Database"
+          },
+          {
+            "id": "adminFetches",
+            "label": "Admin Dashboard Fetches Compromised Record"
+          },
+          {
+            "id": "scriptExecutes",
+            "label": "Injected JavaScript Runs with Admin Rights"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "The server stores the unescaped payload directly into the database.",
+            "activeStateId": "storedInDb",
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say5",
+            "caption": "Injected scripts execute with administrative privileges in the portal.",
+            "activeStateId": "scriptExecutes",
+            "statusBadge": "active"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Dangerous patterns in code",
+      "codeHash": "60c69743e4771065a6e254ca9105b8a68350e68597eccf37b1431a705d7ecd43",
+      "spec": {
+        "template": "compare",
+        "title": "Client-side tainted input sources versus dangerous execution sinks",
+        "left": {
+          "title": "Tainted Sources",
+          "items": [
+            "location.search query string parameters",
+            "location.hash fragment identifiers",
+            "document.referrer header values"
+          ]
+        },
+        "right": {
+          "title": "Dangerous Sinks",
+          "items": [
+            "element.innerHTML and outerHTML parsers",
+            "document.write direct DOM markup injection",
+            "eval and Function dynamic script evaluators"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "A source is a property through which untrusted data enters the dom.",
+            "highlightSide": "left",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say4",
+            "caption": "A sink is a dangerous function that parses input as html markup.",
+            "highlightSide": "right",
+            "statusBadge": "failed"
+          }
+        ],
+        "leftLabel": "Tainted Sources",
+        "rightLabel": "Dangerous Sinks"
+      },
+      "filled": {
+        "template": "compare",
+        "title": "Client-side tainted input sources versus dangerous execution sinks",
+        "left": {
+          "title": "Tainted Sources",
+          "items": [
+            "location.search query string parameters",
+            "location.hash fragment identifiers",
+            "document.referrer header values"
+          ]
+        },
+        "right": {
+          "title": "Dangerous Sinks",
+          "items": [
+            "element.innerHTML and outerHTML parsers",
+            "document.write direct DOM markup injection",
+            "eval and Function dynamic script evaluators"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "A source is a property through which untrusted data enters the dom.",
+            "highlightSide": "left",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say4",
+            "caption": "A sink is a dangerous function that parses input as html markup.",
+            "highlightSide": "right",
+            "statusBadge": "failed"
+          }
+        ],
+        "leftLabel": "Tainted Sources",
+        "rightLabel": "Dangerous Sinks"
+      }
+    },
+    {
+      "partTitle": "Protecting sessions from XSS",
+      "codeHash": "6d2bbd1dbff45bd8154c1f90ffea2d74c506cdb2c4dac612c9280aaa8903bcd0",
+      "spec": {
+        "template": "table",
+        "title": "Context-aware entity escaping rules across browser parsing contexts",
+        "columns": [
+          "Parsing Context",
+          "Dangerous Characters",
+          "Safe Encoding Entity",
+          "Defensive Rule"
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Escaping for the body converts characters into standard named entities.",
+            "activeRowIndex": 0,
+            "statusBadge": "active",
+            "rows": [
+              {
+                "cells": [
+                  "HTML Body",
+                  "< and >",
+                  "&lt; and &gt;",
+                  "HTML Entity Encoding"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "HTML Attribute",
+                  "Double and single quotes",
+                  "&quot; and &#x27;",
+                  "Strict Attribute Quoting"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "JavaScript Variable",
+                  "Quotes and backslashes",
+                  "Hex character escapes",
+                  "JSON Serialization"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "URL Href Attribute",
+                  "javascript: pseudo-protocol",
+                  "Allowlist http and https",
+                  "Protocol Allowlisting"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Applications must enforce an explicit allowlist permitting protocols.",
+            "activeRowIndex": 3,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "HTML Body",
+                  "< and >",
+                  "&lt; and &gt;",
+                  "HTML Entity Encoding"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "HTML Attribute",
+                  "Double and single quotes",
+                  "&quot; and &#x27;",
+                  "Strict Attribute Quoting"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "JavaScript Variable",
+                  "Quotes and backslashes",
+                  "Hex character escapes",
+                  "JSON Serialization"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "URL Href Attribute",
+                  "javascript: pseudo-protocol",
+                  "Allowlist http and https",
+                  "Protocol Allowlisting"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Context-aware entity escaping rules across browser parsing contexts",
+        "columns": [
+          "Parsing Context",
+          "Dangerous Characters",
+          "Safe Encoding Entity",
+          "Defensive Rule"
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Escaping for the body converts characters into standard named entities.",
+            "activeRowIndex": 0,
+            "statusBadge": "active",
+            "rows": [
+              {
+                "cells": [
+                  "HTML Body",
+                  "< and >",
+                  "&lt; and &gt;",
+                  "HTML Entity Encoding"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "HTML Attribute",
+                  "Double and single quotes",
+                  "&quot; and &#x27;",
+                  "Strict Attribute Quoting"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "JavaScript Variable",
+                  "Quotes and backslashes",
+                  "Hex character escapes",
+                  "JSON Serialization"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "URL Href Attribute",
+                  "javascript: pseudo-protocol",
+                  "Allowlist http and https",
+                  "Protocol Allowlisting"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Applications must enforce an explicit allowlist permitting protocols.",
+            "activeRowIndex": 3,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "HTML Body",
+                  "< and >",
+                  "&lt; and &gt;",
+                  "HTML Entity Encoding"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "HTML Attribute",
+                  "Double and single quotes",
+                  "&quot; and &#x27;",
+                  "Strict Attribute Quoting"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "JavaScript Variable",
+                  "Quotes and backslashes",
+                  "Hex character escapes",
+                  "JSON Serialization"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "URL Href Attribute",
+                  "javascript: pseudo-protocol",
+                  "Allowlist http and https",
+                  "Protocol Allowlisting"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Practice time: escape and CSP",
+      "codeHash": "1029bc684d55d3e0268e005c5974646253310fac542996f3f3b733da3693cdd8",
+      "spec": {
+        "template": "flow",
+        "title": "Content Security Policy (CSP): Nonces, Hashes... — Execution Pipeline",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "1. Input & State",
+            "tappable": true
+          },
+          {
+            "id": "proc",
+            "label": "2. Content Security Po...",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "3. Verified Output",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize input state for Content Security Policy (CSP): Nonces, H.",
+            "values": {
+              "in": "Day 3 Input",
+              "proc": "Standby",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "data",
+              "proc": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Execute core transformation in Content Security Po... [Dthree.Psix.Stwo].",
+            "values": {
+              "in": "Validated",
+              "proc": "Processing...",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Inspect concrete example output and invariants.",
+            "values": {
+              "in": "Validated",
+              "proc": "Invariant OK",
+              "out": "Emitting"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "End-to-end execution verified for Content Security Policy (CSP): No.",
+            "values": {
+              "in": "Committed",
+              "proc": "Verified",
+              "out": "Complete ✓"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Content Security Policy (CSP): Nonces, Hashes... — Execution Pipeline",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "1. Input & State",
+            "tappable": true
+          },
+          {
+            "id": "proc",
+            "label": "2. Content Security Po...",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "3. Verified Output",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Step 1: Initialize input state for Content Security Policy (CSP): Nonces, H.. [D3.P6.S1].",
+            "values": {
+              "in": "Day 3 Input",
+              "proc": "Standby",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "data",
+              "proc": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Step 2: Execute core transformation in Content Security Po... [D3.P6.S2].",
+            "values": {
+              "in": "Validated",
+              "proc": "Processing...",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Step 3: Inspect concrete example output and invariants [D3.P6.S3].",
+            "values": {
+              "in": "Validated",
+              "proc": "Invariant OK",
+              "out": "Emitting"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Step 4: End-to-end execution verified for Content Security Policy (CSP): No.. [D3.P6.S4].",
+            "values": {
+              "in": "Committed",
+              "proc": "Verified",
+              "out": "Complete ✓"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

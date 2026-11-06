@@ -10,7 +10,7 @@
       "codeHash": "77b79204354e72dbd4055329de44f5089f13214c128d4a802217f08bb5afef17",
       "spec": {
         "template": "states",
-        "title": "Post-Trade Lifecycle, FIX Drop Copy & CAT Rules \u2014 Quant Systems State Engine",
+        "title": "Post-Trade Lifecycle, FIX Drop Copy & CAT Rules — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Post-Trade Lifecycle, FIX Drop Copy & CAT Rules.",
+            "caption": "State one (Init State): Initialize deterministic state for Post-Trade.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -60,7 +60,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -77,7 +77,7 @@
       "codeHash": "ef88281dcf9eaf97574fdef09f1a42f1d12408a9360466fd1eb9ea0946a7904f",
       "spec": {
         "template": "states",
-        "title": "Spoofing, Layering & Wash Sale Surveillance \u2014 Quant Systems State Engine",
+        "title": "Spoofing, Layering & Wash Sale Surveillance — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -99,7 +99,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Spoofing, Layering & Wash Sale Surveillance.",
+            "caption": "State one (Init State): Initialize deterministic state for Spoofing.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -127,7 +127,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -144,7 +144,7 @@
       "codeHash": "434a3a669e2b0826bfbe92877d0cc64742db27468559fb6a2b6aa0f263b2f1ce",
       "spec": {
         "template": "states",
-        "title": "Real-Time Surveillance & CAT Event Implementation \u2014 Quant Systems State Engine",
+        "title": "Real-Time Surveillance & CAT Event Implementation — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -166,7 +166,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Real-Time Surveillance & CAT Event Implementation.",
+            "caption": "State one (Init State): Initialize deterministic state for Real-Time.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -194,7 +194,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -211,7 +211,7 @@
       "codeHash": "d84b1bb51443b4e374d12114a8e00f91ebf41591a3b4f5d77c285fa7b0d13f44",
       "spec": {
         "template": "states",
-        "title": "Simulated Wash-Sale Interception & Audit Lab \u2014 Quant Systems State Engine",
+        "title": "Simulated Wash-Sale Interception & Audit Lab — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -233,7 +233,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Simulated Wash-Sale Interception & Audit Lab.",
+            "caption": "State one (Init State): Initialize deterministic state for Simulated.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -261,7 +261,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -278,7 +278,7 @@
       "codeHash": "ed4bf45bdf2657470f017c5472ee9be8fc8af9f5766b7441573704b0231e8218",
       "spec": {
         "template": "states",
-        "title": "Multi-Venue Settlement Reconciliation & Reporting \u2014 Quant Systems State Engine",
+        "title": "Multi-Venue Settlement Reconciliation & Reporting — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -300,7 +300,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Multi-Venue Settlement Reconciliation & Reporting.",
+            "caption": "State one (Init State): Initialize deterministic state for Multi-Venue.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -328,7 +328,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",

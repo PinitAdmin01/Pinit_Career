@@ -40,7 +40,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Working Tree): Initialize Distributed Version Control Architecture...",
+            "caption": "Stage one (Working Tree): Initialize Distributed Version Control.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Staging Index): Process core workflow stage.",
+            "caption": "Stage two (Staging Index): Process core workflow stage.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -108,7 +108,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Feature Branch): Verify quality and invariants.",
+            "caption": "Stage three (Feature Branch): Verify quality and invariants.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "Zero Defects",
@@ -142,7 +142,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Mainline CI): Commit end-to-end delivery.",
+            "caption": "Stage four (Mainline CI): Commit end-to-end delivery.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "SLA Met ✓",
@@ -380,7 +380,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Working Tree): Initialize Network Protocols & Cryptographic Securi...",
+            "caption": "Stage one (Working Tree): Initialize Network Protocols & Cryptographic.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -414,7 +414,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Staging Index): Process core workflow stage.",
+            "caption": "Stage two (Staging Index): Process core workflow stage.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -448,7 +448,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Feature Branch): Verify quality and invariants.",
+            "caption": "Stage three (Feature Branch): Verify quality and invariants.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "Zero Defects",
@@ -482,7 +482,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Mainline CI): Commit end-to-end delivery.",
+            "caption": "Stage four (Mainline CI): Commit end-to-end delivery.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "SLA Met ✓",
@@ -720,7 +720,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Working Tree): Initialize Multi-Remote Topologies: Orchestrating `...",
+            "caption": "Stage one (Working Tree): Initialize Multi-Remote Topologies.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -754,7 +754,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Staging Index): Process core workflow stage.",
+            "caption": "Stage two (Staging Index): Process core workflow stage.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -788,7 +788,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Feature Branch): Verify quality and invariants.",
+            "caption": "Stage three (Feature Branch): Verify quality and invariants.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "Zero Defects",
@@ -822,7 +822,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Mainline CI): Commit end-to-end delivery.",
+            "caption": "Stage four (Mainline CI): Commit end-to-end delivery.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "SLA Met ✓",
@@ -1060,7 +1060,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Working Tree): Initialize Remote Management Plumbing: URL Migratio...",
+            "caption": "Stage one (Working Tree): Initialize Remote Management Plumbing: URL.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -1094,7 +1094,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Staging Index): Process core workflow stage.",
+            "caption": "Stage two (Staging Index): Process core workflow stage.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -1128,7 +1128,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Feature Branch): Verify quality and invariants.",
+            "caption": "Stage three (Feature Branch): Verify quality and invariants.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "Zero Defects",
@@ -1162,7 +1162,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Mainline CI): Commit end-to-end delivery.",
+            "caption": "Stage four (Mainline CI): Commit end-to-end delivery.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "SLA Met ✓",
@@ -1400,7 +1400,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Working Tree): Initialize Master Remote Architecture Suite: Distri...",
+            "caption": "Stage one (Working Tree): Initialize Master Remote Architecture Suite.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -1434,7 +1434,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Staging Index): Process core workflow stage.",
+            "caption": "Stage two (Staging Index): Process core workflow stage.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -1468,7 +1468,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Feature Branch): Verify quality and invariants.",
+            "caption": "Stage three (Feature Branch): Verify quality and invariants.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "Zero Defects",
@@ -1502,7 +1502,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Mainline CI): Commit end-to-end delivery.",
+            "caption": "Stage four (Mainline CI): Commit end-to-end delivery.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "SLA Met ✓",

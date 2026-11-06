@@ -10,11 +10,11 @@
       "codeHash": "e6bf57641dac3081b5a403ebedcd68be66091460e106663be1889095aa44d0a8",
       "spec": {
         "template": "funnel",
-        "title": "Post-Purchase Psychology & The Where Is My... \u2014 Conversion Funnel",
+        "title": "Post-Purchase Psychology & The Where Is My... — Conversion Funnel",
         "steps": [
           {
             "at": "intro",
-            "caption": "Top-of-funnel reach baseline (29,300 total audience entities).",
+            "caption": "Top-of-funnel reach baseline (multiple,multiple total audience entities).",
             "activeStageId": "top",
             "stages": [
               {
@@ -52,7 +52,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filters screen for economic viability (14,064 qualified entities).",
+            "caption": "Qualification filters screen for economic viability (multiple,multiple.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -90,7 +90,7 @@
           },
           {
             "at": "example",
-            "caption": "Targeting alignment yields high engagement depth (5,906 evaluating alternatives).",
+            "caption": "Targeting alignment yields high engagement depth (five,multiple.",
             "activeStageId": "target",
             "stages": [
               {
@@ -128,7 +128,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final unit conversion achieves stable unit economics (2,244 retained units).",
+            "caption": "Final unit conversion achieves stable unit economics (two,multiple.",
             "activeStageId": "final",
             "stages": [
               {
@@ -172,11 +172,11 @@
       "codeHash": "dd68d2ed6e2e3ffe15d64b8e10482a077d367c1d119531b721617254dcaf111c",
       "spec": {
         "template": "funnel",
-        "title": "Omnichannel Support Workflows, Routing & C... \u2014 Conversion Funnel",
+        "title": "Omnichannel Support Workflows, Routing & C... — Conversion Funnel",
         "steps": [
           {
             "at": "intro",
-            "caption": "Top-of-funnel reach baseline (28,750 total audience entities).",
+            "caption": "Top-of-funnel reach baseline (multiple,multiple total audience entities).",
             "activeStageId": "top",
             "stages": [
               {
@@ -214,7 +214,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filters screen for economic viability (13,800 qualified entities).",
+            "caption": "Qualification filters screen for economic viability (multiple,multiple.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -252,7 +252,7 @@
           },
           {
             "at": "example",
-            "caption": "Targeting alignment yields high engagement depth (5,796 evaluating alternatives).",
+            "caption": "Targeting alignment yields high engagement depth (five,multiple.",
             "activeStageId": "target",
             "stages": [
               {
@@ -290,7 +290,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final unit conversion achieves stable unit economics (2,202 retained units).",
+            "caption": "Final unit conversion achieves stable unit economics (two,multiple.",
             "activeStageId": "final",
             "stages": [
               {
@@ -334,11 +334,11 @@
       "codeHash": "1fb0454ef9228031c9f8f0e0d711cce173e0530e1b9c2bbb75d0a79cac524c1c",
       "spec": {
         "template": "funnel",
-        "title": "AI Customer Service Automation: Rule-Based... \u2014 Conversion Funnel",
+        "title": "AI Customer Service Automation: Rule-Based... — Conversion Funnel",
         "steps": [
           {
             "at": "intro",
-            "caption": "Top-of-funnel reach baseline (28,200 total audience entities).",
+            "caption": "Top-of-funnel reach baseline (multiple,OK total audience entities).",
             "activeStageId": "top",
             "stages": [
               {
@@ -376,7 +376,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filters screen for economic viability (13,536 qualified entities).",
+            "caption": "Qualification filters screen for economic viability (multiple,multiple.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -414,7 +414,7 @@
           },
           {
             "at": "example",
-            "caption": "Targeting alignment yields high engagement depth (5,685 evaluating alternatives).",
+            "caption": "Targeting alignment yields high engagement depth (five,multiple.",
             "activeStageId": "target",
             "stages": [
               {
@@ -452,7 +452,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final unit conversion achieves stable unit economics (2,160 retained units).",
+            "caption": "Final unit conversion achieves stable unit economics (two,multiple.",
             "activeStageId": "final",
             "stages": [
               {
@@ -496,11 +496,11 @@
       "codeHash": "9825ca4399f1a65124969a35dbb00cdb2abcdc71362943299f873df59a85a9a0",
       "spec": {
         "template": "funnel",
-        "title": "Queuing Theory in Support Operations: Erla... \u2014 Conversion Funnel",
+        "title": "Queuing Theory in Support Operations: Erla... — Conversion Funnel",
         "steps": [
           {
             "at": "intro",
-            "caption": "Top-of-funnel reach baseline (27,650 total audience entities).",
+            "caption": "Top-of-funnel reach baseline (multiple,multiple total audience entities).",
             "activeStageId": "top",
             "stages": [
               {
@@ -538,7 +538,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filters screen for economic viability (13,272 qualified entities).",
+            "caption": "Qualification filters screen for economic viability (multiple,multiple.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -576,7 +576,7 @@
           },
           {
             "at": "example",
-            "caption": "Targeting alignment yields high engagement depth (5,574 evaluating alternatives).",
+            "caption": "Targeting alignment yields high engagement depth (five,multiple.",
             "activeStageId": "target",
             "stages": [
               {
@@ -614,7 +614,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final unit conversion achieves stable unit economics (2,118 retained units).",
+            "caption": "Final unit conversion achieves stable unit economics (two,multiple.",
             "activeStageId": "final",
             "stages": [
               {
@@ -658,11 +658,11 @@
       "codeHash": "07f6674d3ebdc0f6af9f32a026319d3f7405d0d3435ae7fb9984d61574d9b899",
       "spec": {
         "template": "funnel",
-        "title": "Enterprise Post-Purchase Customer Experien... \u2014 Conversion Funnel",
+        "title": "Enterprise Post-Purchase Customer Experien... — Conversion Funnel",
         "steps": [
           {
             "at": "intro",
-            "caption": "Top-of-funnel reach baseline (27,100 total audience entities).",
+            "caption": "Top-of-funnel reach baseline (multiple,one hundred total audience.",
             "activeStageId": "top",
             "stages": [
               {
@@ -700,7 +700,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filters screen for economic viability (13,008 qualified entities).",
+            "caption": "Qualification filters screen for economic viability (multiple,multiple.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -738,7 +738,7 @@
           },
           {
             "at": "example",
-            "caption": "Targeting alignment yields high engagement depth (5,463 evaluating alternatives).",
+            "caption": "Targeting alignment yields high engagement depth (five,multiple.",
             "activeStageId": "target",
             "stages": [
               {
@@ -776,7 +776,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final unit conversion achieves stable unit economics (2,075 retained units).",
+            "caption": "Final unit conversion achieves stable unit economics (two,multiple.",
             "activeStageId": "final",
             "stages": [
               {

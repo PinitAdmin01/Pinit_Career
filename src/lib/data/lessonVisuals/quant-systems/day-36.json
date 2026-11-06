@@ -10,7 +10,7 @@
       "codeHash": "3c274d9f12a3f6659d3193e37b23a9dcefbc716d3ee8cdbde0984895a7e14279",
       "spec": {
         "template": "states",
-        "title": "Cross-Market Fragmentation & Geographic Speed-of-Light Physics \u2014 Quant Systems State Engine",
+        "title": "Cross-Market Fragmentation & Geographic Speed-of-Light Physics — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Cross-Market Fragmentation & Geographic Speed-of-Light Physics.",
+            "caption": "State one (Init State): Initialize deterministic state for Cross-Market.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -60,7 +60,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -77,7 +77,7 @@
       "codeHash": "da657f211223b4a90fef18482b9355fa18ecc8936e6fb0537ffd9a5999342844",
       "spec": {
         "template": "states",
-        "title": "Legging Risk & Asymmetric Fill Failure Forensics \u2014 Quant Systems State Engine",
+        "title": "Legging Risk & Asymmetric Fill Failure Forensics — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -99,7 +99,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Legging Risk & Asymmetric Fill Failure Forensics.",
+            "caption": "State one (Init State): Initialize deterministic state for Legging Risk &.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -127,7 +127,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -144,7 +144,7 @@
       "codeHash": "a719d784e1c15f872d71b822ba9695b6b60db878410c3d7ea53a34fba387fef8",
       "spec": {
         "template": "states",
-        "title": "Multi-Venue Order Book Router & Concurrent Arbitrage Engine \u2014 Quant Systems State Engine",
+        "title": "Multi-Venue Order Book Router & Concurrent Arbitrage Engine — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -166,7 +166,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Multi-Venue Order Book Router & Concurrent Arbitrage Engine.",
+            "caption": "State one (Init State): Initialize deterministic state for Multi-Venue.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -194,7 +194,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -211,7 +211,7 @@
       "codeHash": "3543f542fbb97d4b2fb405a71b020ce58403e2c414fc9ea40f6fa25f9d843e50",
       "spec": {
         "template": "states",
-        "title": "Simulated Dual-Venue Speed Race & Panic Unwind Lab \u2014 Quant Systems State Engine",
+        "title": "Simulated Dual-Venue Speed Race & Panic Unwind Lab — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -233,7 +233,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Simulated Dual-Venue Speed Race & Panic Unwind Lab.",
+            "caption": "State one (Init State): Initialize deterministic state for Simulated.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -261,7 +261,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -278,7 +278,7 @@
       "codeHash": "2343a50216483eff446e4dd8d1b99a87a87fd8d47861481fa02b134e3206106b",
       "spec": {
         "template": "states",
-        "title": "Comprehensive Cross-Venue Smart Order Router & Execution Risk Gate \u2014 Quant Systems State Engine",
+        "title": "Comprehensive Cross-Venue Smart Order Router & Execution Risk Gate — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -300,7 +300,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Comprehensive Cross-Venue Smart Order Router & Execution Risk Gate.",
+            "caption": "State one (Init State): Initialize deterministic state for Comprehensive.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -328,7 +328,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",

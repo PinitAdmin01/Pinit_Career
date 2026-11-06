@@ -10,7 +10,7 @@
       "codeHash": "9bd0bca7f7410889e26dbb6877c7e800d5901ba8e513d586d38879bc81fcb3a8",
       "spec": {
         "template": "sequence",
-        "title": "EVM Gas Architecture, Opcode Costs & Custom Errors vs Require Strings \u2014 Gas Optimization Sequence",
+        "title": "EVM Gas Architecture, Opcode Costs & Custom Errors vs Require Strings — Gas Optimization Sequence",
         "actors": [
           "Solidity Contract",
           "EVM Stack & Opcodes",
@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Contract initiates execution for EVM Gas Architecture, Opcode Cos",
+            "caption": "Contract initiates execution for EVM Gas Architecture, Opcode Cos.",
             "activeActor": "Solidity Contract",
             "messages": [
               {
@@ -33,7 +33,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: EVM checks free memory pointer and scratch space bounds",
+            "caption": "EVM checks free memory pointer and scratch space bounds.",
             "activeActor": "EVM Stack & Opcodes",
             "messages": [
               {
@@ -46,26 +46,26 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Contract compresses variables into dense 256-bit storage slot",
+            "caption": "Contract compresses variables into dense two-fifty-six-bit storage slot.",
             "activeActor": "Linear Memory (0x40)",
             "messages": [
               {
                 "from": "Linear Memory (0x40)",
                 "to": "State Storage Slots",
-                "label": "bitwisePack(SSTORE, 1 Slot) [-60k gas \u2713]",
+                "label": "bitwisePack(SSTORE, 1 Slot) [-60k gas ✓]",
                 "tone": "alert"
               }
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execution completes; zero-copy calldata and custom errors verified",
+            "caption": "Execution completes; zero-copy calldata and custom errors verified.",
             "activeActor": "State Storage Slots",
             "messages": [
               {
                 "from": "State Storage Slots",
                 "to": "Solidity Contract",
-                "label": "GasOptimizationCertified(MinimalGasProfile \u2713)",
+                "label": "GasOptimizationCertified(MinimalGasProfile ✓)",
                 "tone": "ok"
               }
             ]
@@ -74,7 +74,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "EVM Gas Architecture, Opcode Costs & Custom Errors vs Require Strings \u2014 Gas Optimization Sequence",
+        "title": "EVM Gas Architecture, Opcode Costs & Custom Errors vs Require Strings — Gas Optimization Sequence",
         "actors": [
           "Solidity Contract",
           "EVM Stack & Opcodes",
@@ -116,7 +116,7 @@
               {
                 "from": "Linear Memory (0x40)",
                 "to": "State Storage Slots",
-                "label": "bitwisePack(SSTORE, 1 Slot) [-60k gas \u2713]",
+                "label": "bitwisePack(SSTORE, 1 Slot) [-60k gas ✓]",
                 "tone": "alert"
               }
             ]
@@ -129,7 +129,7 @@
               {
                 "from": "State Storage Slots",
                 "to": "Solidity Contract",
-                "label": "GasOptimizationCertified(MinimalGasProfile \u2713)",
+                "label": "GasOptimizationCertified(MinimalGasProfile ✓)",
                 "tone": "ok"
               }
             ]
@@ -142,7 +142,7 @@
       "codeHash": "28aafb5366f0ff05232afd59bc9309d4e5d3e2b54725d8920c8353bdb56b9f92",
       "spec": {
         "template": "sequence",
-        "title": "Storage Slot Packing, Bitwise Bitshifts & Transient Storage Optimization \u2014 Gas Optimization Sequence",
+        "title": "Storage Slot Packing, Bitwise Bitshifts & Transient Storage Optimization — Gas Optimization Sequence",
         "actors": [
           "Solidity Contract",
           "EVM Stack & Opcodes",
@@ -152,7 +152,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Contract initiates execution for Storage Slot Packing, Bitwise Bi",
+            "caption": "Contract initiates execution for Storage Slot Packing, Bitwise Bi.",
             "activeActor": "Solidity Contract",
             "messages": [
               {
@@ -165,7 +165,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: EVM checks free memory pointer and scratch space bounds",
+            "caption": "EVM checks free memory pointer and scratch space bounds.",
             "activeActor": "EVM Stack & Opcodes",
             "messages": [
               {
@@ -178,26 +178,26 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Contract compresses variables into dense 256-bit storage slot",
+            "caption": "Contract compresses variables into dense two-fifty-six-bit storage slot.",
             "activeActor": "Linear Memory (0x40)",
             "messages": [
               {
                 "from": "Linear Memory (0x40)",
                 "to": "State Storage Slots",
-                "label": "bitwisePack(SSTORE, 1 Slot) [-60k gas \u2713]",
+                "label": "bitwisePack(SSTORE, 1 Slot) [-60k gas ✓]",
                 "tone": "alert"
               }
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execution completes; zero-copy calldata and custom errors verified",
+            "caption": "Execution completes; zero-copy calldata and custom errors verified.",
             "activeActor": "State Storage Slots",
             "messages": [
               {
                 "from": "State Storage Slots",
                 "to": "Solidity Contract",
-                "label": "GasOptimizationCertified(MinimalGasProfile \u2713)",
+                "label": "GasOptimizationCertified(MinimalGasProfile ✓)",
                 "tone": "ok"
               }
             ]
@@ -206,7 +206,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Storage Slot Packing, Bitwise Bitshifts & Transient Storage Optimization \u2014 Gas Optimization Sequence",
+        "title": "Storage Slot Packing, Bitwise Bitshifts & Transient Storage Optimization — Gas Optimization Sequence",
         "actors": [
           "Solidity Contract",
           "EVM Stack & Opcodes",
@@ -248,7 +248,7 @@
               {
                 "from": "Linear Memory (0x40)",
                 "to": "State Storage Slots",
-                "label": "bitwisePack(SSTORE, 1 Slot) [-60k gas \u2713]",
+                "label": "bitwisePack(SSTORE, 1 Slot) [-60k gas ✓]",
                 "tone": "alert"
               }
             ]
@@ -261,7 +261,7 @@
               {
                 "from": "State Storage Slots",
                 "to": "Solidity Contract",
-                "label": "GasOptimizationCertified(MinimalGasProfile \u2713)",
+                "label": "GasOptimizationCertified(MinimalGasProfile ✓)",
                 "tone": "ok"
               }
             ]
@@ -274,7 +274,7 @@
       "codeHash": "ada17507200a2f1a1d04657ae687d4b6239b256e12d059728552a54329f873b1",
       "spec": {
         "template": "sequence",
-        "title": "Yul Inline Assembly Memory Management, Free Memory Pointer & Scratch Space \u2014 Gas Optimization Sequence",
+        "title": "Yul Inline Assembly Memory Management, Free Memory Pointer & Scratch Space — Gas Optimization Sequence",
         "actors": [
           "Solidity Contract",
           "EVM Stack & Opcodes",
@@ -284,7 +284,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Contract initiates execution for Yul Inline Assembly Memory Manag",
+            "caption": "Contract initiates execution for Yul Inline Assembly Memory Manag.",
             "activeActor": "Solidity Contract",
             "messages": [
               {
@@ -297,7 +297,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: EVM checks free memory pointer and scratch space bounds",
+            "caption": "EVM checks free memory pointer and scratch space bounds.",
             "activeActor": "EVM Stack & Opcodes",
             "messages": [
               {
@@ -310,26 +310,26 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Contract compresses variables into dense 256-bit storage slot",
+            "caption": "Contract compresses variables into dense two-fifty-six-bit storage slot.",
             "activeActor": "Linear Memory (0x40)",
             "messages": [
               {
                 "from": "Linear Memory (0x40)",
                 "to": "State Storage Slots",
-                "label": "bitwisePack(SSTORE, 1 Slot) [-60k gas \u2713]",
+                "label": "bitwisePack(SSTORE, 1 Slot) [-60k gas ✓]",
                 "tone": "alert"
               }
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execution completes; zero-copy calldata and custom errors verified",
+            "caption": "Execution completes; zero-copy calldata and custom errors verified.",
             "activeActor": "State Storage Slots",
             "messages": [
               {
                 "from": "State Storage Slots",
                 "to": "Solidity Contract",
-                "label": "GasOptimizationCertified(MinimalGasProfile \u2713)",
+                "label": "GasOptimizationCertified(MinimalGasProfile ✓)",
                 "tone": "ok"
               }
             ]
@@ -338,7 +338,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Yul Inline Assembly Memory Management, Free Memory Pointer & Scratch Space \u2014 Gas Optimization Sequence",
+        "title": "Yul Inline Assembly Memory Management, Free Memory Pointer & Scratch Space — Gas Optimization Sequence",
         "actors": [
           "Solidity Contract",
           "EVM Stack & Opcodes",
@@ -380,7 +380,7 @@
               {
                 "from": "Linear Memory (0x40)",
                 "to": "State Storage Slots",
-                "label": "bitwisePack(SSTORE, 1 Slot) [-60k gas \u2713]",
+                "label": "bitwisePack(SSTORE, 1 Slot) [-60k gas ✓]",
                 "tone": "alert"
               }
             ]
@@ -393,7 +393,7 @@
               {
                 "from": "State Storage Slots",
                 "to": "Solidity Contract",
-                "label": "GasOptimizationCertified(MinimalGasProfile \u2713)",
+                "label": "GasOptimizationCertified(MinimalGasProfile ✓)",
                 "tone": "ok"
               }
             ]
@@ -406,7 +406,7 @@
       "codeHash": "8af8471d51549d5b1a54e7a82c7305a575cf331554c70f187ec9c1a1677f5c14",
       "spec": {
         "template": "sequence",
-        "title": "Calldata vs Memory Optimization & Zero-Copy Loops \u2014 Gas Optimization Sequence",
+        "title": "Calldata vs Memory Optimization & Zero-Copy Loops — Gas Optimization Sequence",
         "actors": [
           "Solidity Contract",
           "EVM Stack & Opcodes",
@@ -416,7 +416,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Contract initiates execution for Calldata vs Memory Optimization ",
+            "caption": "Contract initiates execution for Calldata vs Memory Optimization.",
             "activeActor": "Solidity Contract",
             "messages": [
               {
@@ -429,7 +429,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: EVM checks free memory pointer and scratch space bounds",
+            "caption": "EVM checks free memory pointer and scratch space bounds.",
             "activeActor": "EVM Stack & Opcodes",
             "messages": [
               {
@@ -442,26 +442,26 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Contract compresses variables into dense 256-bit storage slot",
+            "caption": "Contract compresses variables into dense two-fifty-six-bit storage slot.",
             "activeActor": "Linear Memory (0x40)",
             "messages": [
               {
                 "from": "Linear Memory (0x40)",
                 "to": "State Storage Slots",
-                "label": "bitwisePack(SSTORE, 1 Slot) [-60k gas \u2713]",
+                "label": "bitwisePack(SSTORE, 1 Slot) [-60k gas ✓]",
                 "tone": "alert"
               }
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execution completes; zero-copy calldata and custom errors verified",
+            "caption": "Execution completes; zero-copy calldata and custom errors verified.",
             "activeActor": "State Storage Slots",
             "messages": [
               {
                 "from": "State Storage Slots",
                 "to": "Solidity Contract",
-                "label": "GasOptimizationCertified(MinimalGasProfile \u2713)",
+                "label": "GasOptimizationCertified(MinimalGasProfile ✓)",
                 "tone": "ok"
               }
             ]
@@ -470,7 +470,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Calldata vs Memory Optimization & Zero-Copy Loops \u2014 Gas Optimization Sequence",
+        "title": "Calldata vs Memory Optimization & Zero-Copy Loops — Gas Optimization Sequence",
         "actors": [
           "Solidity Contract",
           "EVM Stack & Opcodes",
@@ -512,7 +512,7 @@
               {
                 "from": "Linear Memory (0x40)",
                 "to": "State Storage Slots",
-                "label": "bitwisePack(SSTORE, 1 Slot) [-60k gas \u2713]",
+                "label": "bitwisePack(SSTORE, 1 Slot) [-60k gas ✓]",
                 "tone": "alert"
               }
             ]
@@ -525,7 +525,7 @@
               {
                 "from": "State Storage Slots",
                 "to": "Solidity Contract",
-                "label": "GasOptimizationCertified(MinimalGasProfile \u2713)",
+                "label": "GasOptimizationCertified(MinimalGasProfile ✓)",
                 "tone": "ok"
               }
             ]
@@ -538,7 +538,7 @@
       "codeHash": "c757eeba824eb251c5dc95cd2067ee3d4fcebf143deda7fb9b6328f8fb5057bf",
       "spec": {
         "template": "sequence",
-        "title": "Master Gas Optimization Architecture & Assembly Benchmark Engine \u2014 Gas Optimization Sequence",
+        "title": "Master Gas Optimization Architecture & Assembly Benchmark Engine — Gas Optimization Sequence",
         "actors": [
           "Solidity Contract",
           "EVM Stack & Opcodes",
@@ -548,7 +548,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Contract initiates execution for Master Gas Optimization Architec",
+            "caption": "Contract initiates execution for Master Gas Optimization Architec.",
             "activeActor": "Solidity Contract",
             "messages": [
               {
@@ -561,7 +561,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: EVM checks free memory pointer and scratch space bounds",
+            "caption": "EVM checks free memory pointer and scratch space bounds.",
             "activeActor": "EVM Stack & Opcodes",
             "messages": [
               {
@@ -574,26 +574,26 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Contract compresses variables into dense 256-bit storage slot",
+            "caption": "Contract compresses variables into dense two-fifty-six-bit storage slot.",
             "activeActor": "Linear Memory (0x40)",
             "messages": [
               {
                 "from": "Linear Memory (0x40)",
                 "to": "State Storage Slots",
-                "label": "bitwisePack(SSTORE, 1 Slot) [-60k gas \u2713]",
+                "label": "bitwisePack(SSTORE, 1 Slot) [-60k gas ✓]",
                 "tone": "alert"
               }
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execution completes; zero-copy calldata and custom errors verified",
+            "caption": "Execution completes; zero-copy calldata and custom errors verified.",
             "activeActor": "State Storage Slots",
             "messages": [
               {
                 "from": "State Storage Slots",
                 "to": "Solidity Contract",
-                "label": "GasOptimizationCertified(MinimalGasProfile \u2713)",
+                "label": "GasOptimizationCertified(MinimalGasProfile ✓)",
                 "tone": "ok"
               }
             ]
@@ -602,7 +602,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Master Gas Optimization Architecture & Assembly Benchmark Engine \u2014 Gas Optimization Sequence",
+        "title": "Master Gas Optimization Architecture & Assembly Benchmark Engine — Gas Optimization Sequence",
         "actors": [
           "Solidity Contract",
           "EVM Stack & Opcodes",
@@ -644,7 +644,7 @@
               {
                 "from": "Linear Memory (0x40)",
                 "to": "State Storage Slots",
-                "label": "bitwisePack(SSTORE, 1 Slot) [-60k gas \u2713]",
+                "label": "bitwisePack(SSTORE, 1 Slot) [-60k gas ✓]",
                 "tone": "alert"
               }
             ]
@@ -657,7 +657,7 @@
               {
                 "from": "State Storage Slots",
                 "to": "Solidity Contract",
-                "label": "GasOptimizationCertified(MinimalGasProfile \u2713)",
+                "label": "GasOptimizationCertified(MinimalGasProfile ✓)",
                 "tone": "ok"
               }
             ]

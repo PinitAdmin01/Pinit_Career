@@ -10,7 +10,7 @@
       "codeHash": "fc36b05b539b39239f075076d2f131c622b20201b54a3f04416bb7415a350e47",
       "spec": {
         "template": "states",
-        "title": "Milestone 6 Architecture: Surface, Risk & Quoting Core \u2014 Quant Systems State Engine",
+        "title": "Milestone 6 Architecture: Surface, Risk & Quoting Core — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Milestone 6 Architecture.",
+            "caption": "State one (Init State): Initialize deterministic state for Milestone six.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -60,7 +60,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -77,7 +77,7 @@
       "codeHash": "b3083b8d610132b989644346895677253bac989482cce5f5ffb28ece48b94651",
       "spec": {
         "template": "states",
-        "title": "Contract Multipliers & Stale Quote Pick-Off Forensics \u2014 Quant Systems State Engine",
+        "title": "Contract Multipliers & Stale Quote Pick-Off Forensics — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -99,7 +99,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Contract Multipliers & Stale Quote Pick-Off Forensics.",
+            "caption": "State one (Init State): Initialize deterministic state for Contract.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -127,7 +127,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -144,7 +144,7 @@
       "codeHash": "99ab7feac060dc3e54b86e54d3c8af1da7ca655966b7e847c94c89f4ff1b4fc1",
       "spec": {
         "template": "states",
-        "title": "Institutional Two-Sided Quoting Engine with Inventory Skew \u2014 Quant Systems State Engine",
+        "title": "Institutional Two-Sided Quoting Engine with Inventory Skew — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -166,7 +166,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Institutional Two-Sided Quoting Engine with Inventory Skew.",
+            "caption": "State one (Init State): Initialize deterministic state for Institutional.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -194,7 +194,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -211,7 +211,7 @@
       "codeHash": "62e13d3ea053eaa22a062adc237d6128aef39e8952a2dfbe366413f86cfd181c",
       "spec": {
         "template": "states",
-        "title": "Automated Whalley-Wilmott Delta Rebalancing Gateway \u2014 Quant Systems State Engine",
+        "title": "Automated Whalley-Wilmott Delta Rebalancing Gateway — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -233,7 +233,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Automated Whalley-Wilmott Delta Rebalancing Gateway.",
+            "caption": "State one (Init State): Initialize deterministic state for Automated.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -261,7 +261,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -278,7 +278,7 @@
       "codeHash": "00944c78e125c166d51a7e99efad193bb472d5b5a09909a7eb98646cdc982719",
       "spec": {
         "template": "states",
-        "title": "Milestone 6 Institutional Certification & Grand Master Defense \u2014 Quant Systems State Engine",
+        "title": "Milestone 6 Institutional Certification & Grand Master Defense — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -300,7 +300,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Milestone 6 Institutional Certification & Grand Master Defense.",
+            "caption": "State one (Init State): Initialize deterministic state for Milestone six.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -328,7 +328,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",

@@ -6,7 +6,7 @@
   "entries": [
     {
       "partTitle": "The Collapse Of Monolithic Omniprompts: Why Single Prompts Fail Across Multi-Domain Systems",
-      "codeHash": "b46423711288f2f588b59c690888e400b561c4eb81a583d8a8193305c53fa0b8",
+      "codeHash": "8a5ab1671652912f8bd6b332d5c4e5fc2b77ba1846189ad202e3f3400faa5858",
       "spec": {
         "template": "table",
         "title": "Monolithic Omniprompt Failures And Cross Directive Attention Collapse.",
@@ -160,7 +160,7 @@
     },
     {
       "partTitle": "Semantic Intent Classification & Vector Routers: Fast Embeddings & Lightweight Classifiers",
-      "codeHash": "b46423711288f2f588b59c690888e400b561c4eb81a583d8a8193305c53fa0b8",
+      "codeHash": "8a5ab1671652912f8bd6b332d5c4e5fc2b77ba1846189ad202e3f3400faa5858",
       "spec": {
         "template": "table",
         "title": "Semantic Intent Classification And Sub Fifty Millisecond Vector Routing.",
@@ -314,7 +314,7 @@
     },
     {
       "partTitle": "Hierarchical Dispatch Architecture: Dynamic Schema Injection & Multi-Tier Model Serving",
-      "codeHash": "b46423711288f2f588b59c690888e400b561c4eb81a583d8a8193305c53fa0b8",
+      "codeHash": "8a5ab1671652912f8bd6b332d5c4e5fc2b77ba1846189ad202e3f3400faa5858",
       "spec": {
         "template": "table",
         "title": "Hierarchical Dispatch Architecture And Multi Tier Model Serving.",
@@ -468,7 +468,7 @@
     },
     {
       "partTitle": "Omniprompt Decomposition & Modular Prompts: Negative Constraint Specialization & Context Isolation",
-      "codeHash": "b46423711288f2f588b59c690888e400b561c4eb81a583d8a8193305c53fa0b8",
+      "codeHash": "8a5ab1671652912f8bd6b332d5c4e5fc2b77ba1846189ad202e3f3400faa5858",
       "spec": {
         "template": "table",
         "title": "Omniprompt Decomposition And Modular Negative Constraint Specialization.",
@@ -622,7 +622,7 @@
     },
     {
       "partTitle": "Enterprise Routing Engineering: Implementing A Sub-50ms Dynamic Prompt Dispatcher In Python",
-      "codeHash": "b46423711288f2f588b59c690888e400b561c4eb81a583d8a8193305c53fa0b8",
+      "codeHash": "8a5ab1671652912f8bd6b332d5c4e5fc2b77ba1846189ad202e3f3400faa5858",
       "spec": {
         "template": "table",
         "title": "Enterprise Routing Engineering And Production Python Service Deployment.",

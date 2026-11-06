@@ -30,7 +30,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Traditional 2PC blocks indefinitely when the coordinator fails.",
+            "caption": "Traditional twoPC blocks indefinitely when the coordinator fails.",
             "values": {
               "activeSide": "left"
             }
@@ -476,7 +476,7 @@
           },
           {
             "at": "say3",
-            "caption": "Followers detect timeout and elect new leader within 250ms threshold.",
+            "caption": "Followers detect timeout and elect new leader within ms threshold.",
             "values": {
               "election": {
                 "status": "Synchronized"

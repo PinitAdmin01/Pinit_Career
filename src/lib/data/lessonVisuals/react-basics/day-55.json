@@ -36,7 +36,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Edge layer terminates unauthorized requests and enriches headers in < 3ms.",
+            "caption": "Edge layer terminates unauthorized requests and enriches headers in <.",
             "values": {
               "edge_layer": {
                 "text": "\"Edge PoP Active (iad1, fra1, sin1)\""
@@ -84,7 +84,7 @@
           },
           {
             "at": "say3",
-            "caption": "Dynamic SDUI components stream into reserved bounding box holes with CLS = 0.000.",
+            "caption": "Dynamic SDUI components stream into reserved bounding box holes with CLS.",
             "values": {
               "edge_layer": {
                 "text": "\"Pass\""
@@ -194,7 +194,7 @@
           },
           {
             "at": "say2",
-            "caption": "Rate limiter allows valid traffic; rejects bot floods immediately with HTTP 429.",
+            "caption": "Rate limiter allows valid traffic; rejects bot floods immediately with.",
             "values": {
               "client_req": {
                 "text": "\"Traffic Cleared\""
@@ -310,7 +310,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Chunk 0 delivers the static shell in the very first TCP packet (TTFB 18ms).",
+            "caption": "Chunk zero delivers the static shell in the very first TCP packet (TTFB.",
             "values": {
               "chunk_0": {
                 "text": "\"Flushed Instantly (0ms)\""
@@ -334,7 +334,7 @@
           },
           {
             "at": "say2",
-            "caption": "Dynamic Hole #1 resolves at T=25ms and replaces the feed skeleton in-place.",
+            "caption": "Dynamic Hole #one resolves at T=ms and replaces the feed skeleton in-place.",
             "values": {
               "chunk_0": {
                 "text": "\"Painted\""
@@ -358,7 +358,7 @@
           },
           {
             "at": "say3",
-            "caption": "Dynamic Hole #2 resolves at T=45ms, streaming real-time equity quotes.",
+            "caption": "Dynamic Hole #two resolves at T=ms, streaming real-time equity quotes.",
             "values": {
               "chunk_0": {
                 "text": "\"Painted\""
@@ -382,7 +382,7 @@
           },
           {
             "at": "say4",
-            "caption": "Entire page reaches interactive state in 45ms with absolute zero layout shift.",
+            "caption": "Entire page reaches interactive state in ms with absolute zero layout.",
             "values": {
               "chunk_0": {
                 "text": "\"Zero Reflow\""
@@ -584,7 +584,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Sub-5ms edge authentication ensures instant, secure perimeter verification.",
+            "caption": "Sub-fivems edge authentication ensures instant, secure perimeter.",
             "values": {
               "left": {
                 "items": [
@@ -610,7 +610,7 @@
           },
           {
             "at": "say2",
-            "caption": "PPR delivers sub-20ms TTFB and 42ms total streaming completion.",
+            "caption": "PPR delivers sub-twentyms TTFB and ms total streaming completion.",
             "values": {
               "left": {
                 "items": [
@@ -636,7 +636,7 @@
           },
           {
             "at": "say3",
-            "caption": "Skeleton bounding box contracts guarantee a pristine CLS score of 0.000.",
+            "caption": "Skeleton bounding box contracts guarantee a pristine CLS score of.",
             "values": {
               "left": {
                 "items": [
@@ -662,7 +662,7 @@
           },
           {
             "at": "say4",
-            "caption": "Milestone 10 achieves 6/6 SLAs Passed with Grade A+ Enterprise Production Certification.",
+            "caption": "Milestone ten achieves six/six SLAs Passed with Grade A+ Enterprise.",
             "values": {
               "left": {
                 "items": [

@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (10000 Scene Meshlets): Initialize state architecture for Tier 1: GPU-Driven Meshlet Geometry & Hi-Z Occlusion Pipeline.",
+            "caption": "State one (multiple Scene Meshlets): Initialize state architecture for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -99,7 +99,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (3D Probe Lattice): Initialize state architecture for Tier 2: Real-Time Indirect Global Illumination & Probe Grid.",
+            "caption": "State one (three-dimensional Probe Lattice): Initialize state.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -166,7 +166,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (4-Cascade Log Splits): Initialize state architecture for Tier 3: 4-Cascade Directional Shadows & PCSS Contact Hardening.",
+            "caption": "State one (four-Cascade Log Splits): Initialize state architecture for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -233,7 +233,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Halton Camera Jitter): Initialize state architecture for Tier 4: Temporal Anti-Aliasing (TAA) & Subpixel Velocity Reprojection.",
+            "caption": "State one (Halton Camera Jitter): Initialize state architecture for Tier.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -261,7 +261,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Transition to CAS Sharpened 4K with verified deterministic output.",
+            "caption": "Transition to CAS Sharpened fourK with verified deterministic output.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -300,13 +300,13 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Tier 1-4 Pipeline Engine): Initialize state architecture for Tier 5: 5-Gate 3D Graphics Architecture Viva Voce Defense & Master Certification.",
+            "caption": "State one (Tier one-four Pipeline Engine): Initialize state architecture.",
             "currentState": "st1",
             "tone": "data"
           },
           {
             "at": "say1",
-            "caption": "Transition to 5-Gate Architecture Review with zero-allocation buffer pipeline.",
+            "caption": "Transition to five-Gate Architecture Review with zero-allocation buffer.",
             "currentState": "st2",
             "transition": {
               "from": "st1",
@@ -317,7 +317,7 @@
           },
           {
             "at": "example",
-            "caption": "Transition to 4K 109 FPS Frame Budget and evaluate hot-path shader invariants.",
+            "caption": "Transition to fourK multiple FPS Frame Budget and evaluate hot-path.",
             "currentState": "st3",
             "transition": {
               "from": "st2",

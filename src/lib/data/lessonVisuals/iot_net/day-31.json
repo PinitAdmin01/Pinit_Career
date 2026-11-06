@@ -10,11 +10,11 @@
       "codeHash": "fa8e9f158f2e2f3ed61523cbbf2535b5824f4df65b1aca8f340a70198a917198",
       "spec": {
         "template": "register-bits",
-        "title": "Day 31 Part 1 \u2014 Modbus RTU Binary Protocol Archi \u2014 Register Architecture",
+        "title": "Day 31 Part 1 — Modbus RTU Binary Protocol Archi — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register MODBUS_CRC16_IBM_REG for Modbus RTU Binary Protocol Archi.",
+            "caption": "Arm hardware register MODBUS_CRCsixteen_IBM_REG for Modbus RTU Binary.",
             "registerName": "MODBUS_CRC16_IBM_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into MODBUS_CRC16_IBM_REG and assert validation flag.",
+            "caption": "Latch sampling bits into MODBUS_CRCsixteen_IBM_REG and assert validation.",
             "registerName": "MODBUS_CRC16_IBM_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in MODBUS_CRC16_IBM_REG with pipeline status.",
+            "caption": "Execute hardware transformation in MODBUS_CRCsixteen_IBM_REG with.",
             "registerName": "MODBUS_CRC16_IBM_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register MODBUS_CRC16_IBM_REG upon verified hardware completion.",
+            "caption": "Lock register MODBUS_CRCsixteen_IBM_REG upon verified hardware completion.",
             "registerName": "MODBUS_CRC16_IBM_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -262,11 +262,11 @@
       "codeHash": "a25842e779a665ad189b304ae1e1775c7c21512f48464c63b940279fc8793c27",
       "spec": {
         "template": "register-bits",
-        "title": "Day 31 Part 2 \u2014 RS-485 Differential Physical Lay \u2014 Register Architecture",
+        "title": "Day 31 Part 2 — RS-485 Differential Physical Lay — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register MODBUS_RS485_T35_REG for RS-485 Differential Physical Lay.",
+            "caption": "Arm hardware register MODBUS_RS_T_REG for RS-multiple Differential.",
             "registerName": "MODBUS_RS485_T35_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -326,7 +326,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into MODBUS_RS485_T35_REG and assert validation flag.",
+            "caption": "Latch sampling bits into MODBUS_RS_T_REG and assert validation flag.",
             "registerName": "MODBUS_RS485_T35_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -387,7 +387,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in MODBUS_RS485_T35_REG with pipeline status.",
+            "caption": "Execute hardware transformation in MODBUS_RS_T_REG with pipeline status.",
             "registerName": "MODBUS_RS485_T35_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -448,7 +448,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register MODBUS_RS485_T35_REG upon verified hardware completion.",
+            "caption": "Lock register MODBUS_RS_T_REG upon verified hardware completion.",
             "registerName": "MODBUS_RS485_T35_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -514,11 +514,11 @@
       "codeHash": "13725da097d1b9e31897441f9688c1e90a0f16e6e6534b1754f23e3bcc810809",
       "spec": {
         "template": "register-bits",
-        "title": "Day 31 Part 3 \u2014 Modbus TCP Protocol Architecture \u2014 Register Architecture",
+        "title": "Day 31 Part 3 — Modbus TCP Protocol Architecture — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register MODBUS_MBAP_TRANS_REG for Modbus TCP Protocol Architecture.",
+            "caption": "Arm hardware register MODBUS_MBAP_TRANS_REG for Modbus TCP Protocol.",
             "registerName": "MODBUS_MBAP_TRANS_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -578,7 +578,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into MODBUS_MBAP_TRANS_REG and assert validation flag.",
+            "caption": "Latch sampling bits into MODBUS_MBAP_TRANS_REG and assert validation flag.",
             "registerName": "MODBUS_MBAP_TRANS_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -639,7 +639,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in MODBUS_MBAP_TRANS_REG with pipeline status.",
+            "caption": "Execute hardware transformation in MODBUS_MBAP_TRANS_REG with pipeline.",
             "registerName": "MODBUS_MBAP_TRANS_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -700,7 +700,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register MODBUS_MBAP_TRANS_REG upon verified hardware completion.",
+            "caption": "Lock register MODBUS_MBAP_TRANS_REG upon verified hardware completion.",
             "registerName": "MODBUS_MBAP_TRANS_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -766,11 +766,11 @@
       "codeHash": "4bbd6a150808e3ca4db2131fe0575e3d0442f63ab09e811a78f2e4386b419f32",
       "spec": {
         "template": "register-bits",
-        "title": "Day 31 Part 4 \u2014 Industrial Multi-Slave Polling E \u2014 Register Architecture",
+        "title": "Day 31 Part 4 — Industrial Multi-Slave Polling E — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register MODBUS_POLL_FSM_REG for Industrial Multi-Slave Polling E.",
+            "caption": "Arm hardware register MODBUS_POLL_FSM_REG for Industrial Multi-Slave.",
             "registerName": "MODBUS_POLL_FSM_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -830,7 +830,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into MODBUS_POLL_FSM_REG and assert validation flag.",
+            "caption": "Latch sampling bits into MODBUS_POLL_FSM_REG and assert validation flag.",
             "registerName": "MODBUS_POLL_FSM_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -891,7 +891,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in MODBUS_POLL_FSM_REG with pipeline status.",
+            "caption": "Execute hardware transformation in MODBUS_POLL_FSM_REG with pipeline.",
             "registerName": "MODBUS_POLL_FSM_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -952,7 +952,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register MODBUS_POLL_FSM_REG upon verified hardware completion.",
+            "caption": "Lock register MODBUS_POLL_FSM_REG upon verified hardware completion.",
             "registerName": "MODBUS_POLL_FSM_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1018,11 +1018,11 @@
       "codeHash": "3c87f2a1995824d0c5e11958c960b990ad41d0d78ed287f0249ae3e3ba3255cb",
       "spec": {
         "template": "register-bits",
-        "title": "Day 31 Part 5 \u2014 Masterclass Synthesis: Full Indu \u2014 Register Architecture",
+        "title": "Day 31 Part 5 — Masterclass Synthesis: Full Indu — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register MODBUS_AUDIT_MAST_REG for Masterclass Synthesis: Full Indu.",
+            "caption": "Arm hardware register MODBUS_AUDIT_MAST_REG for Masterclass Synthesis.",
             "registerName": "MODBUS_AUDIT_MAST_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1082,7 +1082,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into MODBUS_AUDIT_MAST_REG and assert validation flag.",
+            "caption": "Latch sampling bits into MODBUS_AUDIT_MAST_REG and assert validation flag.",
             "registerName": "MODBUS_AUDIT_MAST_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -1143,7 +1143,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in MODBUS_AUDIT_MAST_REG with pipeline status.",
+            "caption": "Execute hardware transformation in MODBUS_AUDIT_MAST_REG with pipeline.",
             "registerName": "MODBUS_AUDIT_MAST_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -1204,7 +1204,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register MODBUS_AUDIT_MAST_REG upon verified hardware completion.",
+            "caption": "Lock register MODBUS_AUDIT_MAST_REG upon verified hardware completion.",
             "registerName": "MODBUS_AUDIT_MAST_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

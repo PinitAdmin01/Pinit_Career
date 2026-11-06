@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (3D Rotation Repres Setup): Initialize pipeline state for 3D Rotation Representations: Euler Angles, Gimbal Lock & Unit Quaternions.",
+            "caption": "State one (three-dimensional Rotation Repres Setup): Initialize pipeline.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -99,7 +99,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Spherical Linear I Setup): Initialize pipeline state for Spherical Linear Interpolation (SLERP) Algorithm.",
+            "caption": "State one (Spherical Linear I Setup): Initialize pipeline state for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -166,7 +166,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (glTF 2.0 Animation Setup): Initialize pipeline state for glTF 2.0 Animation Channels, Time Samplers & Binary Search.",
+            "caption": "State one (glTF two.zero Animation Setup): Initialize pipeline state for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -233,7 +233,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Cubic Spline & Her Setup): Initialize pipeline state for Cubic Spline & Hermite Tangent Interpolation.",
+            "caption": "State one (Cubic Spline & Her Setup): Initialize pipeline state for Cubic.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -300,7 +300,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Multi-Track Animat Setup): Initialize pipeline state for Multi-Track Animation Player & Skeletal Pose Evaluator.",
+            "caption": "State one (Multi-Track Animat Setup): Initialize pipeline state for.",
             "currentState": "st1",
             "tone": "data"
           },

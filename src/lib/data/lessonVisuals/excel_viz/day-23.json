@@ -12,7 +12,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline cash parameters and weekly cadence for The Architecture of the 13-Week ...",
+            "caption": "Baseline cash parameters and weekly cadence for The Architecture of the.",
             "max": 100,
             "bars": [
               {
@@ -39,7 +39,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: AR collection curves and critical vendor stratification for The Architecture of the 13-Week ...",
+            "caption": "AR collection curves and critical vendor stratification for The.",
             "max": 100,
             "bars": [
               {
@@ -66,7 +66,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Revolver borrowing base and automated cash sweep execution for The Architecture of the 13-Week ...",
+            "caption": "Revolver borrowing base and automated cash sweep execution for The.",
             "max": 100,
             "bars": [
               {
@@ -93,7 +93,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full treasury scorecard certification and SHA-256 seal for The Architecture of the 13-Week ...",
+            "caption": "Full treasury scorecard certification and SHA digest seal for The.",
             "max": 100,
             "bars": [
               {
@@ -244,7 +244,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline cash parameters and weekly cadence for Direct Receipts Modeling: AR Agi...",
+            "caption": "Baseline cash parameters and weekly cadence for Direct Receipts Modeling.",
             "max": 100,
             "bars": [
               {
@@ -271,7 +271,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: AR collection curves and critical vendor stratification for Direct Receipts Modeling: AR Agi...",
+            "caption": "AR collection curves and critical vendor stratification for Direct.",
             "max": 100,
             "bars": [
               {
@@ -298,7 +298,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Revolver borrowing base and automated cash sweep execution for Direct Receipts Modeling: AR Agi...",
+            "caption": "Revolver borrowing base and automated cash sweep execution for Direct.",
             "max": 100,
             "bars": [
               {
@@ -325,7 +325,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full treasury scorecard certification and SHA-256 seal for Direct Receipts Modeling: AR Agi...",
+            "caption": "Full treasury scorecard certification and SHA digest seal for Direct.",
             "max": 100,
             "bars": [
               {
@@ -476,7 +476,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline cash parameters and weekly cadence for Direct Disbursements Modeling: A...",
+            "caption": "Baseline cash parameters and weekly cadence for Direct Disbursements.",
             "max": 100,
             "bars": [
               {
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: AR collection curves and critical vendor stratification for Direct Disbursements Modeling: A...",
+            "caption": "AR collection curves and critical vendor stratification for Direct.",
             "max": 100,
             "bars": [
               {
@@ -530,7 +530,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Revolver borrowing base and automated cash sweep execution for Direct Disbursements Modeling: A...",
+            "caption": "Revolver borrowing base and automated cash sweep execution for Direct.",
             "max": 100,
             "bars": [
               {
@@ -557,7 +557,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full treasury scorecard certification and SHA-256 seal for Direct Disbursements Modeling: A...",
+            "caption": "Full treasury scorecard certification and SHA digest seal for Direct.",
             "max": 100,
             "bars": [
               {
@@ -708,7 +708,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline cash parameters and weekly cadence for Liquidity Buffers, Revolver Borr...",
+            "caption": "Baseline cash parameters and weekly cadence for Liquidity Buffers.",
             "max": 100,
             "bars": [
               {
@@ -735,7 +735,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: AR collection curves and critical vendor stratification for Liquidity Buffers, Revolver Borr...",
+            "caption": "AR collection curves and critical vendor stratification for Liquidity.",
             "max": 100,
             "bars": [
               {
@@ -762,7 +762,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Revolver borrowing base and automated cash sweep execution for Liquidity Buffers, Revolver Borr...",
+            "caption": "Revolver borrowing base and automated cash sweep execution for Liquidity.",
             "max": 100,
             "bars": [
               {
@@ -789,7 +789,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full treasury scorecard certification and SHA-256 seal for Liquidity Buffers, Revolver Borr...",
+            "caption": "Full treasury scorecard certification and SHA digest seal for Liquidity.",
             "max": 100,
             "bars": [
               {
@@ -940,7 +940,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline cash parameters and weekly cadence for Enterprise Treasury 13-Week Cash...",
+            "caption": "Baseline cash parameters and weekly cadence for Enterprise Treasury.",
             "max": 100,
             "bars": [
               {
@@ -967,7 +967,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: AR collection curves and critical vendor stratification for Enterprise Treasury 13-Week Cash...",
+            "caption": "AR collection curves and critical vendor stratification for Enterprise.",
             "max": 100,
             "bars": [
               {
@@ -994,7 +994,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Revolver borrowing base and automated cash sweep execution for Enterprise Treasury 13-Week Cash...",
+            "caption": "Revolver borrowing base and automated cash sweep execution for Enterprise.",
             "max": 100,
             "bars": [
               {
@@ -1021,7 +1021,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full treasury scorecard certification and SHA-256 seal for Enterprise Treasury 13-Week Cash...",
+            "caption": "Full treasury scorecard certification and SHA digest seal for Enterprise.",
             "max": 100,
             "bars": [
               {

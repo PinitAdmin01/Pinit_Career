@@ -431,7 +431,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Flexible window: shortest stretch reachi.. [D9.P4.S1].",
+            "caption": "Initialize input state for Flexible window: shortest stretch reachi.",
             "values": {
               "in": "Day 9 Input",
               "proc": "Standby",
@@ -451,7 +451,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Flexible window: sh... [D9.P4.S2].",
+            "caption": "Execute core transformation in Flexible window: sh... [Dnine.Pfour.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -475,7 +475,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D9.P4.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -495,7 +495,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Flexible window: shortest stretch.. [D9.P4.S4].",
+            "caption": "End-to-end execution verified for Flexible window: shortest stretch.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -839,7 +839,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Spotting a window problem [D9.P6.S1].",
+            "caption": "Initialize input state for Spotting a window problem [Dnine.Psix.Sone].",
             "values": {
               "in": "Day 9 Input",
               "proc": "Standby",
@@ -859,7 +859,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Spotting a window p... [D9.P6.S2].",
+            "caption": "Execute core transformation in Spotting a window p... [Dnine.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -883,7 +883,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D9.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [Dnine.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -903,7 +903,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Spotting a window problem [D9.P6.S4].",
+            "caption": "End-to-end execution verified for Spotting a window problem.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

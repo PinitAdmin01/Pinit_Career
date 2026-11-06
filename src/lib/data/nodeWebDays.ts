@@ -671,7 +671,7 @@ export const NODE_WEB_DAYS: DayConfig[] = [
   },
   {
     day: 60,
-    title: "🏆 Milestone 10 Capstone: High-Throughput Event-Driven Microservices Hub with Kafka Streaming, Outbox Pattern & Distributed Sagas",
+    title: "Milestone 10 Capstone: High-Throughput Event-Driven Microservices Hub with Kafka Streaming, Outbox Pattern & Distributed Sagas",
     desc: "Architect, build, and certify the Milestone 10 Capstone Hub: a unified high-throughput event-driven microservices platform integrating atomic Transactional Outbox with CDC streaming, distributed checkout sagas with LIFO compensation, strict idempotency barriers, Redis Cluster hash tag sharding with stampede mutex locks, and high-speed write-behind batch coalescing.",
     syllabus: [
       "Milestone architecture blueprint: Unified event-driven hub, service topology registry, and Kafka cluster integration.",

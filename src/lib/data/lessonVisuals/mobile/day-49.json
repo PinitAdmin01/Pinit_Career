@@ -50,7 +50,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Authenticate via Secure Enclave hardware vault for Public Key Pinning (HPKP / Tru.",
+            "caption": "Authenticate via Secure Enclave hardware vault for Public Key Pinning.",
             "activeId": "HardwareKeyVault",
             "tone": "primary",
             "nodes": [
@@ -66,7 +66,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute indexed queries across 1,000,000 records in SQLite JSI WAL mode.",
+            "caption": "Execute indexed queries across one,multiple,multiple records in SQLite.",
             "activeId": "SqliteJsiEngine",
             "tone": "accent",
             "nodes": [
@@ -82,7 +82,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply monotonic delta changesets with ACID transactional atomicity.",
+            "caption": "Apply monotonic delta changesets with ACID transactional atomicity.",
             "activeId": "DeltaSyncCoordinator",
             "tone": "data",
             "nodes": [
@@ -98,7 +98,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify zero data corruption and 10,000-record batch processing in 380ms.",
+            "caption": "Verify zero data corruption and ten,multiple-record batch processing in ms.",
             "activeId": "AppRoot",
             "tone": "ok",
             "nodes": [
@@ -266,7 +266,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Authenticate via Secure Enclave hardware vault for Man-In-The-Middle (MITM) Proxy.",
+            "caption": "Authenticate via Secure Enclave hardware vault for Man-In-The-Middle.",
             "activeId": "HardwareKeyVault",
             "tone": "primary",
             "nodes": [
@@ -282,7 +282,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute indexed queries across 1,000,000 records in SQLite JSI WAL mode.",
+            "caption": "Execute indexed queries across one,multiple,multiple records in SQLite.",
             "activeId": "SqliteJsiEngine",
             "tone": "accent",
             "nodes": [
@@ -298,7 +298,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply monotonic delta changesets with ACID transactional atomicity.",
+            "caption": "Apply monotonic delta changesets with ACID transactional atomicity.",
             "activeId": "DeltaSyncCoordinator",
             "tone": "data",
             "nodes": [
@@ -314,7 +314,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify zero data corruption and 10,000-record batch processing in 380ms.",
+            "caption": "Verify zero data corruption and ten,multiple-record batch processing in ms.",
             "activeId": "AppRoot",
             "tone": "ok",
             "nodes": [
@@ -482,7 +482,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Authenticate via Secure Enclave hardware vault for Jailbreak & Root Detection Heu.",
+            "caption": "Authenticate via Secure Enclave hardware vault for Jailbreak & Root.",
             "activeId": "HardwareKeyVault",
             "tone": "primary",
             "nodes": [
@@ -498,7 +498,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute indexed queries across 1,000,000 records in SQLite JSI WAL mode.",
+            "caption": "Execute indexed queries across one,multiple,multiple records in SQLite.",
             "activeId": "SqliteJsiEngine",
             "tone": "accent",
             "nodes": [
@@ -514,7 +514,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply monotonic delta changesets with ACID transactional atomicity.",
+            "caption": "Apply monotonic delta changesets with ACID transactional atomicity.",
             "activeId": "DeltaSyncCoordinator",
             "tone": "data",
             "nodes": [
@@ -530,7 +530,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify zero data corruption and 10,000-record batch processing in 380ms.",
+            "caption": "Verify zero data corruption and ten,multiple-record batch processing in ms.",
             "activeId": "AppRoot",
             "tone": "ok",
             "nodes": [
@@ -698,7 +698,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Authenticate via Secure Enclave hardware vault for Anti-Tamper Shields: Defending.",
+            "caption": "Authenticate via Secure Enclave hardware vault for Anti-Tamper Shields.",
             "activeId": "HardwareKeyVault",
             "tone": "primary",
             "nodes": [
@@ -714,7 +714,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute indexed queries across 1,000,000 records in SQLite JSI WAL mode.",
+            "caption": "Execute indexed queries across one,multiple,multiple records in SQLite.",
             "activeId": "SqliteJsiEngine",
             "tone": "accent",
             "nodes": [
@@ -730,7 +730,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply monotonic delta changesets with ACID transactional atomicity.",
+            "caption": "Apply monotonic delta changesets with ACID transactional atomicity.",
             "activeId": "DeltaSyncCoordinator",
             "tone": "data",
             "nodes": [
@@ -746,7 +746,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify zero data corruption and 10,000-record batch processing in 380ms.",
+            "caption": "Verify zero data corruption and ten,multiple-record batch processing in ms.",
             "activeId": "AppRoot",
             "tone": "ok",
             "nodes": [
@@ -914,7 +914,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Authenticate via Secure Enclave hardware vault for R8 Bytecode Obfuscation & Herm.",
+            "caption": "Authenticate via Secure Enclave hardware vault for Reight Bytecode.",
             "activeId": "HardwareKeyVault",
             "tone": "primary",
             "nodes": [
@@ -930,7 +930,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute indexed queries across 1,000,000 records in SQLite JSI WAL mode.",
+            "caption": "Execute indexed queries across one,multiple,multiple records in SQLite.",
             "activeId": "SqliteJsiEngine",
             "tone": "accent",
             "nodes": [
@@ -946,7 +946,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply monotonic delta changesets with ACID transactional atomicity.",
+            "caption": "Apply monotonic delta changesets with ACID transactional atomicity.",
             "activeId": "DeltaSyncCoordinator",
             "tone": "data",
             "nodes": [
@@ -962,7 +962,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify zero data corruption and 10,000-record batch processing in 380ms.",
+            "caption": "Verify zero data corruption and ten,multiple-record batch processing in ms.",
             "activeId": "AppRoot",
             "tone": "ok",
             "nodes": [

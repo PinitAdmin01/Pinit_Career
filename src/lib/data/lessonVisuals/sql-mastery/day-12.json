@@ -393,7 +393,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for The WHERE trap with LEFT JOIN [D12.P4.S1].",
+            "caption": "Initialize input state for The WHERE trap with LEFT JOIN.",
             "values": {
               "in": "Day 12 Input",
               "proc": "Standby",
@@ -413,7 +413,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The WHERE trap with... [D12.P4.S2].",
+            "caption": "Execute core transformation in The WHERE trap with... [Dtwelve.Pfour.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -437,7 +437,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D12.P4.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -457,7 +457,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The WHERE trap with LEFT JOIN [D12.P4.S4].",
+            "caption": "End-to-end execution verified for The WHERE trap with LEFT JOIN.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -619,7 +619,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for RIGHT JOIN and FULL JOIN [D12.P5.S1].",
+            "caption": "Initialize input state for RIGHT JOIN and FULL JOIN [Dtwelve.Pfive.Sone].",
             "values": {
               "in": "Day 12 Input",
               "proc": "Standby",
@@ -639,7 +639,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in RIGHT JOIN and FULL... [D12.P5.S2].",
+            "caption": "Execute core transformation in RIGHT JOIN and FULL... [Dtwelve.Pfive.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -663,7 +663,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D12.P5.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -683,7 +683,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for RIGHT JOIN and FULL JOIN [D12.P5.S4].",
+            "caption": "End-to-end execution verified for RIGHT JOIN and FULL JOIN.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

@@ -16,7 +16,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Urgent updates echo character inputs immediately at 60 FPS without delay.",
+            "caption": "Urgent updates echo character inputs immediately at multiple FPS without.",
             "left": {
               "code": "setSearchText('A');",
               "result": {
@@ -592,7 +592,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Job 1 starts computing filtered records for initial query 'E'.",
+            "caption": "Job one starts computing filtered records for initial query 'E'.",
             "values": {
               "c1": {
                 "text": "\"Active\""
@@ -622,7 +622,7 @@
           },
           {
             "at": "say2",
-            "caption": "Job 1 yields at chunk boundary to allow browser event dispatch.",
+            "caption": "Job one yields at chunk boundary to allow browser event dispatch.",
             "values": {
               "c1": {
                 "text": "\"Yielding\""
@@ -652,7 +652,7 @@
           },
           {
             "at": "say3",
-            "caption": "User types 'n', triggering urgent interruption that invalidates Job 1.",
+            "caption": "User types 'n', triggering urgent interruption that invalidates Job one.",
             "values": {
               "c1": {
                 "text": "\"Preempted\""
@@ -682,7 +682,7 @@
           },
           {
             "at": "say4",
-            "caption": "Job 2 takes priority and computes against 'En' with fresh state.",
+            "caption": "Job two takes priority and computes against 'En' with fresh state.",
             "values": {
               "c1": {
                 "text": "\"Discarded\""

@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Cash Conversion Cycle (CCC) & Opera...",
+            "caption": "Baseline KPI cohort metrics for Cash Conversion Cycle (CCC) & Opera...",
             "max": 100,
             "bars": [
               {
@@ -41,7 +41,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate Contribution Margin & Operating Cash Flow drivers.",
+            "caption": "Isolate Contribution Margin & Operating Cash Flow drivers.",
             "max": 100,
             "bars": [
               {
@@ -68,7 +68,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds.",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Cash Conversion Cycle (CCC)...",
+            "caption": "Commit audited analytical dashboard for Cash Conversion Cycle (CCC)...",
             "max": 100,
             "bars": [
               {
@@ -246,7 +246,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Economic Order Quantity (EOQ) & Tot...",
+            "caption": "Baseline KPI cohort metrics for Economic Order Quantity (EOQ) & Tot...",
             "max": 100,
             "bars": [
               {
@@ -273,7 +273,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate Contribution Margin & Operating Cash Flow drivers.",
+            "caption": "Isolate Contribution Margin & Operating Cash Flow drivers.",
             "max": 100,
             "bars": [
               {
@@ -300,7 +300,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds.",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -327,7 +327,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Economic Order Quantity (EO...",
+            "caption": "Commit audited analytical dashboard for Economic Order Quantity (EO...",
             "max": 100,
             "bars": [
               {
@@ -478,7 +478,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Stochastic Demand Reorder Points (R...",
+            "caption": "Baseline KPI cohort metrics for Stochastic Demand Reorder Points (R...",
             "max": 100,
             "bars": [
               {
@@ -505,7 +505,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate Contribution Margin & Operating Cash Flow drivers.",
+            "caption": "Isolate Contribution Margin & Operating Cash Flow drivers.",
             "max": 100,
             "bars": [
               {
@@ -532,7 +532,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds.",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -559,7 +559,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Stochastic Demand Reorder P...",
+            "caption": "Commit audited analytical dashboard for Stochastic Demand Reorder P...",
             "max": 100,
             "bars": [
               {
@@ -710,7 +710,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Accounts Receivable Aging Matrix & ...",
+            "caption": "Baseline KPI cohort metrics for Accounts Receivable Aging Matrix & ...",
             "max": 100,
             "bars": [
               {
@@ -737,7 +737,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate Contribution Margin & Operating Cash Flow drivers.",
+            "caption": "Isolate Contribution Margin & Operating Cash Flow drivers.",
             "max": 100,
             "bars": [
               {
@@ -764,7 +764,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds.",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -791,7 +791,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Accounts Receivable Aging M...",
+            "caption": "Commit audited analytical dashboard for Accounts Receivable Aging M...",
             "max": 100,
             "bars": [
               {
@@ -942,7 +942,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Working Capital Liquidity Stress Te...",
+            "caption": "Baseline KPI cohort metrics for Working Capital Liquidity Stress Te...",
             "max": 100,
             "bars": [
               {
@@ -969,7 +969,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate Contribution Margin & Operating Cash Flow drivers.",
+            "caption": "Isolate Contribution Margin & Operating Cash Flow drivers.",
             "max": 100,
             "bars": [
               {
@@ -996,7 +996,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds.",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -1023,7 +1023,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Working Capital Liquidity S...",
+            "caption": "Commit audited analytical dashboard for Working Capital Liquidity S...",
             "max": 100,
             "bars": [
               {

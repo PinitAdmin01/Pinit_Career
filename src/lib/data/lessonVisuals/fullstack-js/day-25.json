@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream payload and initialize Unified Topology: Edge Streaming In....",
+            "caption": "Ingress stream payload and initialize Unified Topology: Edge Streaming.",
             "values": {
               "in": "Stream Ingress",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute protocol handling, encoding, and routing in Unified Topology: Edge Streaming In....",
+            "caption": "Execute protocol handling, encoding, and routing in Unified Topology.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -71,7 +71,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world distributed microservices interaction in Unified Topology: Edge Streaming In....",
+            "caption": "Real-world distributed microservices interaction in Unified Topology.",
             "values": {
               "in": "Active Flow",
               "proc": "Executing",
@@ -91,7 +91,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify backpressure, container bounds, and telemetry health in Unified Topology: Edge Streaming In....",
+            "caption": "Verify backpressure, container bounds, and telemetry health in Unified.",
             "values": {
               "in": "Terminal State",
               "proc": "Quiesced",
@@ -138,7 +138,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream payload and initialize gRPC Inter-Service Communication & ....",
+            "caption": "Ingress stream payload and initialize gRPC Inter-Service Communication &.",
             "values": {
               "in": "Stream Ingress",
               "proc": "Standby",
@@ -158,7 +158,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute protocol handling, encoding, and routing in gRPC Inter-Service Communication & ....",
+            "caption": "Execute protocol handling, encoding, and routing in gRPC Inter-Service.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -178,7 +178,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world distributed microservices interaction in gRPC Inter-Service Communication & ....",
+            "caption": "Real-world distributed microservices interaction in gRPC Inter-Service.",
             "values": {
               "in": "Active Flow",
               "proc": "Executing",
@@ -198,7 +198,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify backpressure, container bounds, and telemetry health in gRPC Inter-Service Communication & ....",
+            "caption": "Verify backpressure, container bounds, and telemetry health in gRPC.",
             "values": {
               "in": "Terminal State",
               "proc": "Quiesced",
@@ -245,7 +245,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream payload and initialize Apache Kafka Event Streaming Fabric....",
+            "caption": "Ingress stream payload and initialize Apache Kafka Event Streaming.",
             "values": {
               "in": "Stream Ingress",
               "proc": "Standby",
@@ -265,7 +265,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute protocol handling, encoding, and routing in Apache Kafka Event Streaming Fabric....",
+            "caption": "Execute protocol handling, encoding, and routing in Apache Kafka Event.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -285,7 +285,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world distributed microservices interaction in Apache Kafka Event Streaming Fabric....",
+            "caption": "Real-world distributed microservices interaction in Apache Kafka Event.",
             "values": {
               "in": "Active Flow",
               "proc": "Executing",
@@ -305,7 +305,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify backpressure, container bounds, and telemetry health in Apache Kafka Event Streaming Fabric....",
+            "caption": "Verify backpressure, container bounds, and telemetry health in Apache.",
             "values": {
               "in": "Terminal State",
               "proc": "Quiesced",
@@ -352,7 +352,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream payload and initialize Containerized Worker Supervisor & M....",
+            "caption": "Ingress stream payload and initialize Containerized Worker Supervisor &.",
             "values": {
               "in": "Stream Ingress",
               "proc": "Standby",
@@ -372,7 +372,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute protocol handling, encoding, and routing in Containerized Worker Supervisor & M....",
+            "caption": "Execute protocol handling, encoding, and routing in Containerized Worker.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -392,7 +392,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world distributed microservices interaction in Containerized Worker Supervisor & M....",
+            "caption": "Real-world distributed microservices interaction in Containerized Worker.",
             "values": {
               "in": "Active Flow",
               "proc": "Executing",
@@ -412,7 +412,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify backpressure, container bounds, and telemetry health in Containerized Worker Supervisor & M....",
+            "caption": "Verify backpressure, container bounds, and telemetry health in.",
             "values": {
               "in": "Terminal State",
               "proc": "Quiesced",
@@ -459,7 +459,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream payload and initialize Milestone 5 Capstone Verification: ....",
+            "caption": "Ingress stream payload and initialize Milestone five Capstone.",
             "values": {
               "in": "Stream Ingress",
               "proc": "Standby",
@@ -479,7 +479,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute protocol handling, encoding, and routing in Milestone 5 Capstone Verification: ....",
+            "caption": "Execute protocol handling, encoding, and routing in Milestone five.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -499,7 +499,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world distributed microservices interaction in Milestone 5 Capstone Verification: ....",
+            "caption": "Real-world distributed microservices interaction in Milestone five.",
             "values": {
               "in": "Active Flow",
               "proc": "Executing",
@@ -519,7 +519,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify backpressure, container bounds, and telemetry health in Milestone 5 Capstone Verification: ....",
+            "caption": "Verify backpressure, container bounds, and telemetry health in Milestone.",
             "values": {
               "in": "Terminal State",
               "proc": "Quiesced",

@@ -1,0 +1,841 @@
+{
+  "schemaVersion": 1,
+  "prefix": "cyber-py",
+  "day": 16,
+  "promptSha": "19dc3477092d10a9366b4760cd785afd6d689f4a7349832f983fc86afbe12b18",
+  "model": "gpt-4o",
+  "entries": [
+    {
+      "partTitle": "What SSRF is",
+      "codeHash": "38c8336bfe16197ef18a4c2b0dbcb4b8efff98983016e1be6d7efc74d1130add",
+      "spec": {
+        "template": "sequence",
+        "title": "Server-side request forgery metadata exploitation and credential theft",
+        "actors": [
+          {
+            "id": "attacker",
+            "label": "External Attacker"
+          },
+          {
+            "id": "backend",
+            "label": "Vulnerable Backend"
+          },
+          {
+            "id": "metadata",
+            "label": "Cloud Metadata Service"
+          }
+        ],
+        "messages": [
+          {
+            "from": "attacker",
+            "to": "backend",
+            "label": "Submit Malicious URL with Link-Local Address",
+            "tone": "data"
+          },
+          {
+            "from": "backend",
+            "to": "metadata",
+            "label": "Issue Unsanitized HTTP Request to Internal Host",
+            "tone": "error"
+          },
+          {
+            "from": "metadata",
+            "to": "backend",
+            "label": "Disclose Temporary Security Credentials and Tokens",
+            "tone": "error"
+          },
+          {
+            "from": "backend",
+            "to": "attacker",
+            "label": "Exfiltrate Stolen Cloud Credentials in Response",
+            "tone": "error"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Attackers exploit this capability to force servers to query internal networks.",
+            "activeMessageIndex": 1,
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say5",
+            "caption": "An attacker can harvest temporary security tokens and session credentials.",
+            "activeMessageIndex": 3,
+            "statusBadge": "failed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "sequence",
+        "title": "Server-side request forgery metadata exploitation and credential theft",
+        "actors": [
+          {
+            "id": "attacker",
+            "label": "External Attacker"
+          },
+          {
+            "id": "backend",
+            "label": "Vulnerable Backend"
+          },
+          {
+            "id": "metadata",
+            "label": "Cloud Metadata Service"
+          }
+        ],
+        "messages": [
+          {
+            "from": "attacker",
+            "to": "backend",
+            "label": "Submit Malicious URL with Link-Local Address",
+            "tone": "data"
+          },
+          {
+            "from": "backend",
+            "to": "metadata",
+            "label": "Issue Unsanitized HTTP Request to Internal Host",
+            "tone": "error"
+          },
+          {
+            "from": "metadata",
+            "to": "backend",
+            "label": "Disclose Temporary Security Credentials and Tokens",
+            "tone": "error"
+          },
+          {
+            "from": "backend",
+            "to": "attacker",
+            "label": "Exfiltrate Stolen Cloud Credentials in Response",
+            "tone": "error"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Attackers exploit this capability to force servers to query internal networks.",
+            "activeMessageIndex": 1,
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say5",
+            "caption": "An attacker can harvest temporary security tokens and session credentials.",
+            "activeMessageIndex": 3,
+            "statusBadge": "failed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Cloud metadata endpoints",
+      "codeHash": "580c7f69a4df430cf0bb5fd468c4fc6809d492db055e7c92c3ef2529815caa9d",
+      "spec": {
+        "template": "table",
+        "title": "Private IPv4 address allocations and SSRF boundary filtering rules",
+        "columns": [
+          "Address Family",
+          "Network CIDR Range",
+          "Designated Purpose",
+          "SSRF Filter Policy"
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "Reserved ranges include loopback networks and private address allocations.",
+            "activeRowIndex": 0,
+            "statusBadge": "active",
+            "rows": [
+              {
+                "cells": [
+                  "Host Loopback Network",
+                  "Standard Loopback Space",
+                  "Internal Host IPC",
+                  "Drop Immediately"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Class A Private Subnet",
+                  "Enterprise VPC Allocation",
+                  "Internal Corporate Network",
+                  "Drop Immediately"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Class B Private Subnet",
+                  "Enterprise VPC Allocation",
+                  "Internal Staging Network",
+                  "Drop Immediately"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Link-Local Cloud Metadata",
+                  "Instance Metadata IP",
+                  "Cloud Runtime Tokens",
+                  "Drop Immediately"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Requests resolving to private addresses must be discarded immediately.",
+            "activeRowIndex": 3,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "Host Loopback Network",
+                  "Standard Loopback Space",
+                  "Internal Host IPC",
+                  "Drop Immediately"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Class A Private Subnet",
+                  "Enterprise VPC Allocation",
+                  "Internal Corporate Network",
+                  "Drop Immediately"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Class B Private Subnet",
+                  "Enterprise VPC Allocation",
+                  "Internal Staging Network",
+                  "Drop Immediately"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Link-Local Cloud Metadata",
+                  "Instance Metadata IP",
+                  "Cloud Runtime Tokens",
+                  "Drop Immediately"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Private IPv4 address allocations and SSRF boundary filtering rules",
+        "columns": [
+          "Address Family",
+          "Network CIDR Range",
+          "Designated Purpose",
+          "SSRF Filter Policy"
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "Reserved ranges include loopback networks and private address allocations.",
+            "activeRowIndex": 0,
+            "statusBadge": "active",
+            "rows": [
+              {
+                "cells": [
+                  "Host Loopback Network",
+                  "Standard Loopback Space",
+                  "Internal Host IPC",
+                  "Drop Immediately"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Class A Private Subnet",
+                  "Enterprise VPC Allocation",
+                  "Internal Corporate Network",
+                  "Drop Immediately"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Class B Private Subnet",
+                  "Enterprise VPC Allocation",
+                  "Internal Staging Network",
+                  "Drop Immediately"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Link-Local Cloud Metadata",
+                  "Instance Metadata IP",
+                  "Cloud Runtime Tokens",
+                  "Drop Immediately"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Requests resolving to private addresses must be discarded immediately.",
+            "activeRowIndex": 3,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "Host Loopback Network",
+                  "Standard Loopback Space",
+                  "Internal Host IPC",
+                  "Drop Immediately"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Class A Private Subnet",
+                  "Enterprise VPC Allocation",
+                  "Internal Corporate Network",
+                  "Drop Immediately"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Class B Private Subnet",
+                  "Enterprise VPC Allocation",
+                  "Internal Staging Network",
+                  "Drop Immediately"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Link-Local Cloud Metadata",
+                  "Instance Metadata IP",
+                  "Cloud Runtime Tokens",
+                  "Drop Immediately"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Validating URLs",
+      "codeHash": "84f1a7b96cb014967384bbe89bd7c0531c928edd8a1ea84466d8cb4bf37ecf1a",
+      "spec": {
+        "template": "states",
+        "title": "DNS rebinding time-of-check race conditions and resolution pinning defense",
+        "states": [
+          {
+            "id": "initialLookup",
+            "label": "Attacker Nameserver Returns Public IP"
+          },
+          {
+            "id": "filterApproved",
+            "label": "SSRF Validator Approves Safe Public IP"
+          },
+          {
+            "id": "rebindTriggered",
+            "label": "Subsequent DNS Resolves Loopback Target"
+          },
+          {
+            "id": "pinningEnforced",
+            "label": "Resolution Pinning Connects to First IP"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "The attacker nameserver returns a public address during initial resolution.",
+            "activeStateId": "initialLookup",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say7",
+            "caption": "The application resolves the record once and connects directly to that IP.",
+            "activeStateId": "pinningEnforced",
+            "statusBadge": "completed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "DNS rebinding time-of-check race conditions and resolution pinning defense",
+        "states": [
+          {
+            "id": "initialLookup",
+            "label": "Attacker Nameserver Returns Public IP"
+          },
+          {
+            "id": "filterApproved",
+            "label": "SSRF Validator Approves Safe Public IP"
+          },
+          {
+            "id": "rebindTriggered",
+            "label": "Subsequent DNS Resolves Loopback Target"
+          },
+          {
+            "id": "pinningEnforced",
+            "label": "Resolution Pinning Connects to First IP"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "The attacker nameserver returns a public address during initial resolution.",
+            "activeStateId": "initialLookup",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say7",
+            "caption": "The application resolves the record once and connects directly to that IP.",
+            "activeStateId": "pinningEnforced",
+            "statusBadge": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Allow-lists for outbound requests",
+      "codeHash": "77a00f161be781a2107c2cb2bbfe0910d6337401a4cd63b2dfa604c5f1bda9d4",
+      "spec": {
+        "template": "compare",
+        "title": "Unauthenticated IMDSv1 protocol versus session-token hardened IMDSv2",
+        "left": {
+          "title": "Vulnerable IMDSv1 Architecture",
+          "items": [
+            "Serves sensitive credentials over simple GET requests",
+            "Exploitable through standard single request SSRF bugs",
+            "Lacks mandatory session tokens or cryptographic checks"
+          ]
+        },
+        "right": {
+          "title": "Hardened IMDSv2 Protocol",
+          "items": [
+            "Mandates session-oriented PUT request with token header",
+            "Requires secret session token on all subsequent GETs",
+            "Neutralizes typical SSRF exploits lacking custom headers"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "IMDS requires a session oriented request with a mandatory token header.",
+            "highlightSide": "right",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say6",
+            "caption": "Attackers cannot inject arbitrary headers to acquire session tokens.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Vulnerable IMDSv1 Architecture",
+        "rightLabel": "Hardened IMDSv2 Protocol"
+      },
+      "filled": {
+        "template": "compare",
+        "title": "Unauthenticated IMDSv1 protocol versus session-token hardened IMDSv2",
+        "left": {
+          "title": "Vulnerable IMDSv1 Architecture",
+          "items": [
+            "Serves sensitive credentials over simple GET requests",
+            "Exploitable through standard single request SSRF bugs",
+            "Lacks mandatory session tokens or cryptographic checks"
+          ]
+        },
+        "right": {
+          "title": "Hardened IMDSv2 Protocol",
+          "items": [
+            "Mandates session-oriented PUT request with token header",
+            "Requires secret session token on all subsequent GETs",
+            "Neutralizes typical SSRF exploits lacking custom headers"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "IMDS requires a session oriented request with a mandatory token header.",
+            "highlightSide": "right",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say6",
+            "caption": "Attackers cannot inject arbitrary headers to acquire session tokens.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Vulnerable IMDSv1 Architecture",
+        "rightLabel": "Hardened IMDSv2 Protocol"
+      }
+    },
+    {
+      "partTitle": "Designing features safely",
+      "codeHash": "bad6affe4117262b1c53ea2f3263a3c2cfbdee99a1bac5f1bd12720074e9a247",
+      "spec": {
+        "template": "flow",
+        "title": "HTTP redirect evaluation filter preventing recursive SSRF bypass vectors",
+        "nodes": [
+          {
+            "id": "initialRequest",
+            "label": "Initial Whitelisted External URL",
+            "tappable": false
+          },
+          {
+            "id": "externalHost",
+            "label": "External Server Returns HTTP Redirect",
+            "tappable": false
+          },
+          {
+            "id": "hopEvaluator",
+            "label": "Recursive Redirect Inspection Guard",
+            "tappable": false
+          },
+          {
+            "id": "blockedHop",
+            "label": "Private Internal Hop Quarantined",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "initialRequest",
+            "to": "externalHost",
+            "label": "Fetches"
+          },
+          {
+            "from": "externalHost",
+            "to": "hopEvaluator",
+            "label": "Redirects"
+          },
+          {
+            "from": "hopEvaluator",
+            "to": "blockedHop",
+            "label": "Blocks"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "An attacker can supply an external domain that redirects to internal IPs.",
+            "activeNodes": [
+              "initialRequest",
+              "externalHost"
+            ],
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say7",
+            "caption": "Inspect every redirect hop against the filter before following requests.",
+            "activeNodes": [
+              "hopEvaluator",
+              "blockedHop"
+            ],
+            "statusBadge": "completed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "HTTP redirect evaluation filter preventing recursive SSRF bypass vectors",
+        "nodes": [
+          {
+            "id": "initialRequest",
+            "label": "Initial Whitelisted External URL",
+            "tappable": false
+          },
+          {
+            "id": "externalHost",
+            "label": "External Server Returns HTTP Redirect",
+            "tappable": false
+          },
+          {
+            "id": "hopEvaluator",
+            "label": "Recursive Redirect Inspection Guard",
+            "tappable": false
+          },
+          {
+            "id": "blockedHop",
+            "label": "Private Internal Hop Quarantined",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "initialRequest",
+            "to": "externalHost",
+            "label": "Fetches"
+          },
+          {
+            "from": "externalHost",
+            "to": "hopEvaluator",
+            "label": "Redirects"
+          },
+          {
+            "from": "hopEvaluator",
+            "to": "blockedHop",
+            "label": "Blocks"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "An attacker can supply an external domain that redirects to internal IPs.",
+            "activeNodes": [
+              "initialRequest",
+              "externalHost"
+            ],
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say7",
+            "caption": "Inspect every redirect hop against the filter before following requests.",
+            "activeNodes": [
+              "hopEvaluator",
+              "blockedHop"
+            ],
+            "statusBadge": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Practice time: SSRF checks and allow-lists",
+      "codeHash": "05960c9cbe98cabb13c6b4fc8ec192a0061a8d1eadf2263f67b364554a467143",
+      "spec": {
+        "template": "flow",
+        "title": "IMDSv2 Session Token Protocol & Network Hop L... — Execution Pipeline",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "1. Input & State",
+            "tappable": true
+          },
+          {
+            "id": "proc",
+            "label": "2. IMDSv2 Session Toke...",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "3. Verified Output",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize input state for IMDSvtwo Session Token Protocol & Network .",
+            "values": {
+              "in": "Day 16 Input",
+              "proc": "Standby",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "data",
+              "proc": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Execute core transformation in IMDSvtwo Session Toke.",
+            "values": {
+              "in": "Validated",
+              "proc": "Processing...",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Inspect concrete example output and invariants.",
+            "values": {
+              "in": "Validated",
+              "proc": "Invariant OK",
+              "out": "Emitting"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "End-to-end execution verified for IMDSvtwo Session Token Protocol & N.",
+            "values": {
+              "in": "Committed",
+              "proc": "Verified",
+              "out": "Complete ✓"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "IMDSv2 Session Token Protocol & Network Hop L... — Execution Pipeline",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "1. Input & State",
+            "tappable": true
+          },
+          {
+            "id": "proc",
+            "label": "2. IMDSv2 Session Toke...",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "3. Verified Output",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Step 1: Initialize input state for IMDSv2 Session Token Protocol & Network .. [D16.P6.S1].",
+            "values": {
+              "in": "Day 16 Input",
+              "proc": "Standby",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "data",
+              "proc": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Step 2: Execute core transformation in IMDSv2 Session Toke... [D16.P6.S2].",
+            "values": {
+              "in": "Validated",
+              "proc": "Processing...",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Step 3: Inspect concrete example output and invariants [D16.P6.S3].",
+            "values": {
+              "in": "Validated",
+              "proc": "Invariant OK",
+              "out": "Emitting"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Step 4: End-to-end execution verified for IMDSv2 Session Token Protocol & N.. [D16.P6.S4].",
+            "values": {
+              "in": "Committed",
+              "proc": "Verified",
+              "out": "Complete ✓"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -531,7 +531,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Fast-Slow Pointer Finding Middle of List [D3.P6.S1].",
+            "caption": "Initialize input state for Fast-Slow Pointer Finding Middle of List.",
             "values": {
               "in": "Day 3 Input",
               "proc": "Standby",
@@ -551,7 +551,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Fast-Slow Pointer F... [D3.P6.S2].",
+            "caption": "Execute core transformation in Fast-Slow Pointer F... [Dthree.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -575,7 +575,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D3.P6.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -595,7 +595,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Fast-Slow Pointer Finding Middle .. [D3.P6.S4].",
+            "caption": "End-to-end execution verified for Fast-Slow Pointer Finding Middle .",
             "values": {
               "in": "Committed",
               "proc": "Verified",

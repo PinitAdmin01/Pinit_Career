@@ -40,7 +40,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Context Framing): Initialize The Minto Pyramid Principle & Bottom-...",
+            "caption": "Stage one (Context Framing): Initialize The Minto Pyramid Principle &.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Structured Thesis): Process core workflow stage.",
+            "caption": "Stage two (Structured Thesis): Process core workflow stage.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -108,7 +108,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Objection Defense): Verify quality and invariants.",
+            "caption": "Stage three (Objection Defense): Verify quality and invariants.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "Zero Defects",
@@ -142,7 +142,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Executive Alignment): Commit end-to-end delivery.",
+            "caption": "Stage four (Executive Alignment): Commit end-to-end delivery.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "SLA Met ✓",
@@ -380,7 +380,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Context Framing): Initialize Managing Technical Disagreements: Dis...",
+            "caption": "Stage one (Context Framing): Initialize Managing Technical Disagreements.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -414,7 +414,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Structured Thesis): Process core workflow stage.",
+            "caption": "Stage two (Structured Thesis): Process core workflow stage.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -448,7 +448,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Objection Defense): Verify quality and invariants.",
+            "caption": "Stage three (Objection Defense): Verify quality and invariants.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "Zero Defects",
@@ -482,7 +482,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Executive Alignment): Commit end-to-end delivery.",
+            "caption": "Stage four (Executive Alignment): Commit end-to-end delivery.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "SLA Met ✓",
@@ -720,7 +720,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Context Framing): Initialize Cross-Functional Stakeholder Alignmen...",
+            "caption": "Stage one (Context Framing): Initialize Cross-Functional Stakeholder.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -754,7 +754,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Structured Thesis): Process core workflow stage.",
+            "caption": "Stage two (Structured Thesis): Process core workflow stage.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -788,7 +788,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Objection Defense): Verify quality and invariants.",
+            "caption": "Stage three (Objection Defense): Verify quality and invariants.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "Zero Defects",
@@ -822,7 +822,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Executive Alignment): Commit end-to-end delivery.",
+            "caption": "Stage four (Executive Alignment): Commit end-to-end delivery.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "SLA Met ✓",
@@ -1060,7 +1060,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Context Framing): Initialize High-Leverage Code Reviews & Psycholo...",
+            "caption": "Stage one (Context Framing): Initialize High-Leverage Code Reviews &.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -1094,7 +1094,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Structured Thesis): Process core workflow stage.",
+            "caption": "Stage two (Structured Thesis): Process core workflow stage.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -1128,7 +1128,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Objection Defense): Verify quality and invariants.",
+            "caption": "Stage three (Objection Defense): Verify quality and invariants.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "Zero Defects",
@@ -1162,7 +1162,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Executive Alignment): Commit end-to-end delivery.",
+            "caption": "Stage four (Executive Alignment): Commit end-to-end delivery.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "SLA Met ✓",
@@ -1400,7 +1400,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Context Framing): Initialize Staff+ Influence Without Authority & ...",
+            "caption": "Stage one (Context Framing): Initialize Staff+ Influence Without.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -1434,7 +1434,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Structured Thesis): Process core workflow stage.",
+            "caption": "Stage two (Structured Thesis): Process core workflow stage.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -1468,7 +1468,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Objection Defense): Verify quality and invariants.",
+            "caption": "Stage three (Objection Defense): Verify quality and invariants.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "Zero Defects",
@@ -1502,7 +1502,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Executive Alignment): Commit end-to-end delivery.",
+            "caption": "Stage four (Executive Alignment): Commit end-to-end delivery.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "SLA Met ✓",

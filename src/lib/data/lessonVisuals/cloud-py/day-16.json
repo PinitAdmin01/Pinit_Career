@@ -703,7 +703,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Code at the edge [D16.P5.S1].",
+            "caption": "Initialize input state for Code at the edge [Dsixteen.Pfive.Sone].",
             "values": {
               "in": "Day 16 Input",
               "proc": "Standby",
@@ -723,7 +723,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Code at the edge [D16.P5.S2].",
+            "caption": "Execute core transformation in Code at the edge [Dsixteen.Pfive.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -747,7 +747,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D16.P5.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -767,7 +767,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Code at the edge [D16.P5.S4].",
+            "caption": "End-to-end execution verified for Code at the edge [Dsixteen.Pfive.Sfour].",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -929,7 +929,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: TTLs and cache keys [D16.P6.S1].",
+            "caption": "Initialize input state for Practice time: TTLs and cache keys.",
             "values": {
               "in": "Day 16 Input",
               "proc": "Standby",
@@ -949,7 +949,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: TTLs... [D16.P6.S2].",
+            "caption": "Execute core transformation in Practice time: TTLs... [Dsixteen.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -973,7 +973,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D16.P6.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -993,7 +993,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: TTLs and cache keys [D16.P6.S4].",
+            "caption": "End-to-end execution verified for Practice time: TTLs and cache keys.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

@@ -58,7 +58,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount sovereign architecture core engine and Hermes JSI pointers for Part 1",
+            "caption": "Mount sovereign architecture core engine and Hermes JSI pointers for Part.",
             "activeId": "Part1ArchEngine",
             "tone": "primary",
             "nodes": [
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Coordinate native hardware sensors, FaceID enclave and SQLite WAL for Part 1",
+            "caption": "Coordinate native hardware sensors, FaceID enclave and SQLite WAL for.",
             "activeId": "Part1HardwareHub",
             "tone": "accent",
             "nodes": [
@@ -90,7 +90,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enforce 120 FPS Reanimated worklet spring physics and cell recycling for Part 1",
+            "caption": "Enforce multiple FPS Reanimated worklet spring physics and cell recycling.",
             "activeId": "Part1PhysicsEngine",
             "tone": "data",
             "nodes": [
@@ -106,7 +106,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute comprehensive Sovereign Mobile Application Master Release Certification for Part 1",
+            "caption": "Execute comprehensive Sovereign Mobile Application Master Release.",
             "activeId": "root",
             "tone": "ok",
             "nodes": [
@@ -290,7 +290,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount sovereign architecture core engine and Hermes JSI pointers for Part 2",
+            "caption": "Mount sovereign architecture core engine and Hermes JSI pointers for Part.",
             "activeId": "Part2ArchEngine",
             "tone": "primary",
             "nodes": [
@@ -306,7 +306,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Coordinate native hardware sensors, FaceID enclave and SQLite WAL for Part 2",
+            "caption": "Coordinate native hardware sensors, FaceID enclave and SQLite WAL for.",
             "activeId": "Part2HardwareHub",
             "tone": "accent",
             "nodes": [
@@ -322,7 +322,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enforce 120 FPS Reanimated worklet spring physics and cell recycling for Part 2",
+            "caption": "Enforce multiple FPS Reanimated worklet spring physics and cell recycling.",
             "activeId": "Part2PhysicsEngine",
             "tone": "data",
             "nodes": [
@@ -338,7 +338,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute comprehensive Sovereign Mobile Application Master Release Certification for Part 2",
+            "caption": "Execute comprehensive Sovereign Mobile Application Master Release.",
             "activeId": "root",
             "tone": "ok",
             "nodes": [
@@ -522,7 +522,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount sovereign architecture core engine and Hermes JSI pointers for Part 3",
+            "caption": "Mount sovereign architecture core engine and Hermes JSI pointers for Part.",
             "activeId": "Part3ArchEngine",
             "tone": "primary",
             "nodes": [
@@ -538,7 +538,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Coordinate native hardware sensors, FaceID enclave and SQLite WAL for Part 3",
+            "caption": "Coordinate native hardware sensors, FaceID enclave and SQLite WAL for.",
             "activeId": "Part3HardwareHub",
             "tone": "accent",
             "nodes": [
@@ -554,7 +554,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enforce 120 FPS Reanimated worklet spring physics and cell recycling for Part 3",
+            "caption": "Enforce multiple FPS Reanimated worklet spring physics and cell recycling.",
             "activeId": "Part3PhysicsEngine",
             "tone": "data",
             "nodes": [
@@ -570,7 +570,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute comprehensive Sovereign Mobile Application Master Release Certification for Part 3",
+            "caption": "Execute comprehensive Sovereign Mobile Application Master Release.",
             "activeId": "root",
             "tone": "ok",
             "nodes": [
@@ -754,7 +754,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount sovereign architecture core engine and Hermes JSI pointers for Part 4",
+            "caption": "Mount sovereign architecture core engine and Hermes JSI pointers for Part.",
             "activeId": "Part4ArchEngine",
             "tone": "primary",
             "nodes": [
@@ -770,7 +770,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Coordinate native hardware sensors, FaceID enclave and SQLite WAL for Part 4",
+            "caption": "Coordinate native hardware sensors, FaceID enclave and SQLite WAL for.",
             "activeId": "Part4HardwareHub",
             "tone": "accent",
             "nodes": [
@@ -786,7 +786,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enforce 120 FPS Reanimated worklet spring physics and cell recycling for Part 4",
+            "caption": "Enforce multiple FPS Reanimated worklet spring physics and cell recycling.",
             "activeId": "Part4PhysicsEngine",
             "tone": "data",
             "nodes": [
@@ -802,7 +802,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute comprehensive Sovereign Mobile Application Master Release Certification for Part 4",
+            "caption": "Execute comprehensive Sovereign Mobile Application Master Release.",
             "activeId": "root",
             "tone": "ok",
             "nodes": [
@@ -986,7 +986,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount sovereign architecture core engine and Hermes JSI pointers for Part 5",
+            "caption": "Mount sovereign architecture core engine and Hermes JSI pointers for Part.",
             "activeId": "Part5ArchEngine",
             "tone": "primary",
             "nodes": [
@@ -1002,7 +1002,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Coordinate native hardware sensors, FaceID enclave and SQLite WAL for Part 5",
+            "caption": "Coordinate native hardware sensors, FaceID enclave and SQLite WAL for.",
             "activeId": "Part5HardwareHub",
             "tone": "accent",
             "nodes": [
@@ -1018,7 +1018,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enforce 120 FPS Reanimated worklet spring physics and cell recycling for Part 5",
+            "caption": "Enforce multiple FPS Reanimated worklet spring physics and cell recycling.",
             "activeId": "Part5PhysicsEngine",
             "tone": "data",
             "nodes": [
@@ -1034,7 +1034,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute comprehensive Sovereign Mobile Application Master Release Certification for Part 5",
+            "caption": "Execute comprehensive Sovereign Mobile Application Master Release.",
             "activeId": "root",
             "tone": "ok",
             "nodes": [

@@ -721,7 +721,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Automated Incident Alert Prioritization .. [D24.P6.S1].",
+            "caption": "Initialize input state for Automated Incident Alert Prioritization .",
             "values": {
               "in": "Day 24 Input",
               "proc": "Standby",
@@ -741,7 +741,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Automated Incident ... [D24.P6.S2].",
+            "caption": "Execute core transformation in Automated Incident ... [D.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -765,7 +765,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D24.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -785,7 +785,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Automated Incident Alert Prioriti.. [D24.P6.S4].",
+            "caption": "End-to-end execution verified for Automated Incident Alert Prioriti.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

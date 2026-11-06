@@ -12,7 +12,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingestion and distributional baseline setup for Classical Time-Series Decomposition: Level, Trend & Seasonal Indices",
+            "caption": "Ingestion and distributional baseline setup for Classical Time-Series.",
             "max": 100,
             "bars": [
               {
@@ -39,7 +39,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Algorithmic calculation and statistical analysis for Classical Time-Series Decomposition: Level, Trend & Seasonal Indices",
+            "caption": "Algorithmic calculation and statistical analysis for Classical.",
             "max": 100,
             "bars": [
               {
@@ -66,7 +66,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stress testing and statistical validation for Classical Time-Series Decomposition: Level, Trend & Seasonal Indices",
+            "caption": "Stress testing and statistical validation for Classical Time-Series.",
             "max": 100,
             "bars": [
               {
@@ -93,7 +93,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Econometric gating and production verification for Classical Time-Series Decomposition: Level, Trend & Seasonal Indices",
+            "caption": "Econometric gating and production verification for Classical Time-Series.",
             "max": 100,
             "bars": [
               {
@@ -244,7 +244,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingestion and distributional baseline setup for Holt-Winters Exponential Triple Smoothing (ETS) Mathematical Formulation",
+            "caption": "Ingestion and distributional baseline setup for Holt-Winters Exponential.",
             "max": 100,
             "bars": [
               {
@@ -271,7 +271,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Algorithmic calculation and statistical analysis for Holt-Winters Exponential Triple Smoothing (ETS) Mathematical Formulation",
+            "caption": "Algorithmic calculation and statistical analysis for Holt-Winters.",
             "max": 100,
             "bars": [
               {
@@ -298,7 +298,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stress testing and statistical validation for Holt-Winters Exponential Triple Smoothing (ETS) Mathematical Formulation",
+            "caption": "Stress testing and statistical validation for Holt-Winters Exponential.",
             "max": 100,
             "bars": [
               {
@@ -325,7 +325,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Econometric gating and production verification for Holt-Winters Exponential Triple Smoothing (ETS) Mathematical Formulation",
+            "caption": "Econometric gating and production verification for Holt-Winters.",
             "max": 100,
             "bars": [
               {
@@ -476,7 +476,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingestion and distributional baseline setup for Forecast Error Diagnostics: MAE, RMSE, MAPE & Tracking Signals",
+            "caption": "Ingestion and distributional baseline setup for Forecast Error.",
             "max": 100,
             "bars": [
               {
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Algorithmic calculation and statistical analysis for Forecast Error Diagnostics: MAE, RMSE, MAPE & Tracking Signals",
+            "caption": "Algorithmic calculation and statistical analysis for Forecast Error.",
             "max": 100,
             "bars": [
               {
@@ -530,7 +530,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stress testing and statistical validation for Forecast Error Diagnostics: MAE, RMSE, MAPE & Tracking Signals",
+            "caption": "Stress testing and statistical validation for Forecast Error Diagnostics.",
             "max": 100,
             "bars": [
               {
@@ -557,7 +557,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Econometric gating and production verification for Forecast Error Diagnostics: MAE, RMSE, MAPE & Tracking Signals",
+            "caption": "Econometric gating and production verification for Forecast Error.",
             "max": 100,
             "bars": [
               {
@@ -708,7 +708,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingestion and distributional baseline setup for Prediction Confidence Cones & Dynamic Inventory Buffer Sizing",
+            "caption": "Ingestion and distributional baseline setup for Prediction Confidence.",
             "max": 100,
             "bars": [
               {
@@ -735,7 +735,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Algorithmic calculation and statistical analysis for Prediction Confidence Cones & Dynamic Inventory Buffer Sizing",
+            "caption": "Algorithmic calculation and statistical analysis for Prediction.",
             "max": 100,
             "bars": [
               {
@@ -762,7 +762,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stress testing and statistical validation for Prediction Confidence Cones & Dynamic Inventory Buffer Sizing",
+            "caption": "Stress testing and statistical validation for Prediction Confidence Cones.",
             "max": 100,
             "bars": [
               {
@@ -789,7 +789,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Econometric gating and production verification for Prediction Confidence Cones & Dynamic Inventory Buffer Sizing",
+            "caption": "Econometric gating and production verification for Prediction Confidence.",
             "max": 100,
             "bars": [
               {
@@ -940,7 +940,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingestion and distributional baseline setup for Master Time-Series ETS Forecasting Gateway: Enterprise Seasonal Projection Suite",
+            "caption": "Ingestion and distributional baseline setup for Master Time-Series ETS.",
             "max": 100,
             "bars": [
               {
@@ -967,7 +967,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Algorithmic calculation and statistical analysis for Master Time-Series ETS Forecasting Gateway: Enterprise Seasonal Projection Suite",
+            "caption": "Algorithmic calculation and statistical analysis for Master Time-Series.",
             "max": 100,
             "bars": [
               {
@@ -994,7 +994,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stress testing and statistical validation for Master Time-Series ETS Forecasting Gateway: Enterprise Seasonal Projection Suite",
+            "caption": "Stress testing and statistical validation for Master Time-Series ETS.",
             "max": 100,
             "bars": [
               {
@@ -1021,7 +1021,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Econometric gating and production verification for Master Time-Series ETS Forecasting Gateway: Enterprise Seasonal Projection Suite",
+            "caption": "Econometric gating and production verification for Master Time-Series ETS.",
             "max": 100,
             "bars": [
               {

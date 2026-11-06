@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Hardware Instanced Setup): Initialize pipeline state for Hardware Instanced Rendering & Vertex Attribute Divisors.",
+            "caption": "State one (Hardware Instanced Setup): Initialize pipeline state for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -99,7 +99,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Camera-Facing Bill Setup): Initialize pipeline state for Camera-Facing Billboarding Matrices: Spherical vs Cylindrical.",
+            "caption": "State one (Camera-Facing Bill Setup): Initialize pipeline state for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -166,7 +166,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (GPU Compute via Tr Setup): Initialize pipeline state for GPU Compute via Transform Feedback Ping-Pong Buffers.",
+            "caption": "State one (GPU Compute via Tr Setup): Initialize pipeline state for GPU.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -233,7 +233,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Particle Simulatio Setup): Initialize pipeline state for Particle Simulation Integrators: Verlet vs Euler & Lifetime Color Gradients.",
+            "caption": "State one (Particle Simulatio Setup): Initialize pipeline state for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -300,7 +300,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (High-Throughput 10 Setup): Initialize pipeline state for High-Throughput 100,000 Particle Physics & GPU Instancing Engine.",
+            "caption": "State one (High-Throughput ten Setup): Initialize pipeline state for.",
             "currentState": "st1",
             "tone": "data"
           },

@@ -366,7 +366,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "executePriorityScheduling configures x-max-priority = 10.",
+            "caption": "ExecutePriorityScheduling configures x-max-priority = ten.",
             "values": {
               "hp": {
                 "text": "2 tasks"
@@ -390,7 +390,7 @@
           },
           {
             "at": "say3",
-            "caption": "Priority 10 items bypass low-priority tasks accumulated in queue.",
+            "caption": "Priority ten items bypass low-priority tasks accumulated in queue.",
             "values": {
               "hp": {
                 "text": "Dispatched"

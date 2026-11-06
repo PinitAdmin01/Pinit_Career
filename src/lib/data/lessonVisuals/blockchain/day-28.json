@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: System monitors transaction lifecycle and mempool state for Foundations of MEV: The Flash ...",
+            "caption": "System monitors transaction lifecycle and mempool state for Foundations.",
             "activeActor": "Searcher Bot",
             "messages": [
               {
@@ -33,7 +33,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine optimizes transaction ordering, bundle bids, or defensive routing",
+            "caption": "Engine optimizes transaction ordering, bundle bids, or defensive routing.",
             "activeActor": "Builder Relay",
             "messages": [
               {
@@ -46,7 +46,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of slippage bounds, builder relay inclusion, or uniform clearing",
+            "caption": "Verification of slippage bounds, builder relay inclusion, or uniform.",
             "activeActor": "Proposer Validator",
             "messages": [
               {
@@ -59,7 +59,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; MEV extracted or user value fully protected",
+            "caption": "Block settled atomically; MEV extracted or user value fully protected.",
             "activeActor": "Builder Relay",
             "messages": [
               {
@@ -152,7 +152,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: System monitors transaction lifecycle and mempool state for Sandwich Attacks & Frontrunnin...",
+            "caption": "System monitors transaction lifecycle and mempool state for Sandwich.",
             "activeActor": "Sandwich Bot",
             "messages": [
               {
@@ -165,7 +165,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine optimizes transaction ordering, bundle bids, or defensive routing",
+            "caption": "Engine optimizes transaction ordering, bundle bids, or defensive routing.",
             "activeActor": "AMM Liquidity Pool",
             "messages": [
               {
@@ -178,7 +178,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of slippage bounds, builder relay inclusion, or uniform clearing",
+            "caption": "Verification of slippage bounds, builder relay inclusion, or uniform.",
             "activeActor": "Victim Trader",
             "messages": [
               {
@@ -191,7 +191,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; MEV extracted or user value fully protected",
+            "caption": "Block settled atomically; MEV extracted or user value fully protected.",
             "activeActor": "AMM Liquidity Pool",
             "messages": [
               {
@@ -284,7 +284,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: System monitors transaction lifecycle and mempool state for Cross-DEX Arbitrage & Cyclic B...",
+            "caption": "System monitors transaction lifecycle and mempool state for Cross-DEX.",
             "activeActor": "Arbitrage Searcher",
             "messages": [
               {
@@ -297,7 +297,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine optimizes transaction ordering, bundle bids, or defensive routing",
+            "caption": "Engine optimizes transaction ordering, bundle bids, or defensive routing.",
             "activeActor": "Uniswap Pool",
             "messages": [
               {
@@ -310,7 +310,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of slippage bounds, builder relay inclusion, or uniform clearing",
+            "caption": "Verification of slippage bounds, builder relay inclusion, or uniform.",
             "activeActor": "SushiSwap Pool",
             "messages": [
               {
@@ -323,7 +323,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; MEV extracted or user value fully protected",
+            "caption": "Block settled atomically; MEV extracted or user value fully protected.",
             "activeActor": "Uniswap Pool",
             "messages": [
               {
@@ -416,7 +416,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: System monitors transaction lifecycle and mempool state for MEV Defense Architectures: Pri...",
+            "caption": "System monitors transaction lifecycle and mempool state for MEV Defense.",
             "activeActor": "Trader Wallet",
             "messages": [
               {
@@ -429,7 +429,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine optimizes transaction ordering, bundle bids, or defensive routing",
+            "caption": "Engine optimizes transaction ordering, bundle bids, or defensive routing.",
             "activeActor": "Flashbots Protect",
             "messages": [
               {
@@ -442,7 +442,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of slippage bounds, builder relay inclusion, or uniform clearing",
+            "caption": "Verification of slippage bounds, builder relay inclusion, or uniform.",
             "activeActor": "MEV-Share Relay",
             "messages": [
               {
@@ -455,7 +455,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; MEV extracted or user value fully protected",
+            "caption": "Block settled atomically; MEV extracted or user value fully protected.",
             "activeActor": "Flashbots Protect",
             "messages": [
               {
@@ -548,7 +548,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: System monitors transaction lifecycle and mempool state for Enterprise MEV Sentinel & Arbi...",
+            "caption": "System monitors transaction lifecycle and mempool state for Enterprise.",
             "activeActor": "Enterprise MEV Sentinel",
             "messages": [
               {
@@ -561,7 +561,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine optimizes transaction ordering, bundle bids, or defensive routing",
+            "caption": "Engine optimizes transaction ordering, bundle bids, or defensive routing.",
             "activeActor": "PBS Architecture Gate",
             "messages": [
               {
@@ -574,7 +574,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of slippage bounds, builder relay inclusion, or uniform clearing",
+            "caption": "Verification of slippage bounds, builder relay inclusion, or uniform.",
             "activeActor": "Sandwich Defense Gate",
             "messages": [
               {
@@ -587,7 +587,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; MEV extracted or user value fully protected",
+            "caption": "Block settled atomically; MEV extracted or user value fully protected.",
             "activeActor": "PBS Architecture Gate",
             "messages": [
               {

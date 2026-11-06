@@ -3049,7 +3049,7 @@ export const CYBER_PYTHON_LONG_LESSONS: LongLesson[] = [
             "None"
           ],
           "answer": 1,
-          "why": "Default deny."
+          "why": "Zero-trust and secure firewall architectures enforce a default-deny posture whenever no explicit rule matches."
         }
       }
     ],

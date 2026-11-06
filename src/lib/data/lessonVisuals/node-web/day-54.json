@@ -197,7 +197,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Web client submits standard RESTful JSON request over HTTP/1.1.",
+            "caption": "Web client submits standard RESTful JSON request over HTTP legacy.",
             "values": {
               "rest": {
                 "status": "Online"
@@ -233,7 +233,7 @@
           },
           {
             "at": "say5",
-            "caption": "Constructs 5-byte gRPC frame and dispatches over HTTP/2 stream.",
+            "caption": "Constructs five-byte gRPC frame and dispatches over HTTP multiplexed.",
             "values": {
               "rest": {
                 "status": "Committed"
@@ -332,7 +332,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Edge hub completes RFC 6455 upgrade handshake and maintains persistent socket.",
+            "caption": "Edge hub completes RFC multiple upgrade handshake and maintains.",
             "values": {
               "browser": {
                 "status": "Online"
@@ -457,7 +457,7 @@
           },
           {
             "at": "say3",
-            "caption": "Instance encountering 3 consecutive errors trips circuit breaker to OPEN.",
+            "caption": "Instance encountering three consecutive errors trips circuit breaker to.",
             "values": {
               "activeState": "OPEN"
             }

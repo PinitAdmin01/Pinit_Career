@@ -133,7 +133,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for IN with a subquery [D15.P2.S1].",
+            "caption": "Initialize input state for IN with a subquery [D.Ptwo.Sone].",
             "values": {
               "in": "Day 15 Input",
               "proc": "Standby",
@@ -153,7 +153,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in IN with a subquery [D15.P2.S2].",
+            "caption": "Execute core transformation in IN with a subquery [D.Ptwo.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -177,7 +177,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D15.P2.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Ptwo.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -197,7 +197,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for IN with a subquery [D15.P2.S4].",
+            "caption": "End-to-end execution verified for IN with a subquery [D.Ptwo.Sfour].",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -359,7 +359,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Subqueries in FROM [D15.P3.S1].",
+            "caption": "Initialize input state for Subqueries in FROM [D.Pthree.Sone].",
             "values": {
               "in": "Day 15 Input",
               "proc": "Standby",
@@ -379,7 +379,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Subqueries in FROM [D15.P3.S2].",
+            "caption": "Execute core transformation in Subqueries in FROM [D.Pthree.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -403,7 +403,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D15.P3.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Pthree.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -423,7 +423,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Subqueries in FROM [D15.P3.S4].",
+            "caption": "End-to-end execution verified for Subqueries in FROM [D.Pthree.Sfour].",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -689,7 +689,7 @@
           },
           {
             "at": "say2",
-            "caption": "This naturally gives 0 for customers with no orders without a join trap.",
+            "caption": "This naturally gives zero for customers with no orders without a join trap.",
             "rows": [
               {
                 "cells": [

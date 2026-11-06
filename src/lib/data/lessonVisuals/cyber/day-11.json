@@ -567,7 +567,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Engineering an Enterprise Policy Decisio.. [D11.P6.S1].",
+            "caption": "Initialize input state for Engineering an Enterprise Policy Decisio.",
             "values": {
               "in": "Day 11 Input",
               "proc": "Standby",
@@ -587,7 +587,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Engineering an Ente... [D11.P6.S2].",
+            "caption": "Execute core transformation in Engineering an Ente... [Deleven.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -611,7 +611,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D11.P6.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -631,7 +631,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Engineering an Enterprise Policy .. [D11.P6.S4].",
+            "caption": "End-to-end execution verified for Engineering an Enterprise Policy .",
             "values": {
               "in": "Committed",
               "proc": "Verified",

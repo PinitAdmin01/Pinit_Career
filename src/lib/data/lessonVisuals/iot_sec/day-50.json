@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register PUF_HARVEST_REG for Milestone 10 Architecture & Root.",
+            "caption": "Arm hardware register PUF_HARVEST_REG for Milestone ten Architecture &.",
             "registerName": "PUF_HARVEST_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into PUF_HARVEST_REG and assert validation flag.",
+            "caption": "Latch sampling bits into PUF_HARVEST_REG and assert validation flag.",
             "registerName": "PUF_HARVEST_REG",
             "bitWidth": 8,
             "hexValue": "0xC2",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware verification cycle and lock verified status.",
+            "caption": "Execute hardware verification cycle and lock verified status.",
             "registerName": "PUF_HARVEST_REG",
             "bitWidth": 8,
             "hexValue": "0xF7",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Finalize hardware state and assert zero-residual lock.",
+            "caption": "Finalize hardware state and assert zero-residual lock.",
             "registerName": "PUF_HARVEST_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -516,7 +516,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register THERMAL_CORNER_REG for Multi-Die Silicon PUF Harvester:.",
+            "caption": "Arm hardware register THERMAL_CORNER_REG for Multi-Die Silicon PUF.",
             "registerName": "THERMAL_CORNER_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -576,7 +576,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into THERMAL_CORNER_REG and assert validation flag.",
+            "caption": "Latch sampling bits into THERMAL_CORNER_REG and assert validation flag.",
             "registerName": "THERMAL_CORNER_REG",
             "bitWidth": 8,
             "hexValue": "0xC2",
@@ -637,7 +637,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware verification cycle and lock verified status.",
+            "caption": "Execute hardware verification cycle and lock verified status.",
             "registerName": "THERMAL_CORNER_REG",
             "bitWidth": 8,
             "hexValue": "0xF7",
@@ -698,7 +698,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Finalize hardware state and assert zero-residual lock.",
+            "caption": "Finalize hardware state and assert zero-residual lock.",
             "registerName": "THERMAL_CORNER_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -1018,7 +1018,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register BCH_RECON_REG for Multi-Block BCH Code-Offset Fuzz.",
+            "caption": "Arm hardware register BCH_RECON_REG for Multi-Block BCH Code-Offset Fuzz.",
             "registerName": "BCH_RECON_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1078,7 +1078,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into BCH_RECON_REG and assert validation flag.",
+            "caption": "Latch sampling bits into BCH_RECON_REG and assert validation flag.",
             "registerName": "BCH_RECON_REG",
             "bitWidth": 8,
             "hexValue": "0xC2",
@@ -1139,7 +1139,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware verification cycle and lock verified status.",
+            "caption": "Execute hardware verification cycle and lock verified status.",
             "registerName": "BCH_RECON_REG",
             "bitWidth": 8,
             "hexValue": "0xF7",
@@ -1200,7 +1200,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Finalize hardware state and assert zero-residual lock.",
+            "caption": "Finalize hardware state and assert zero-residual lock.",
             "registerName": "BCH_RECON_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -1520,7 +1520,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register ONLINE_AUDIT_REG for NIST SP 800-90B & SP 800-22 Inte.",
+            "caption": "Arm hardware register ONLINE_AUDIT_REG for NIST SP multiple-B & SP.",
             "registerName": "ONLINE_AUDIT_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1580,7 +1580,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into ONLINE_AUDIT_REG and assert validation flag.",
+            "caption": "Latch sampling bits into ONLINE_AUDIT_REG and assert validation flag.",
             "registerName": "ONLINE_AUDIT_REG",
             "bitWidth": 8,
             "hexValue": "0xC2",
@@ -1641,7 +1641,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware verification cycle and lock verified status.",
+            "caption": "Execute hardware verification cycle and lock verified status.",
             "registerName": "ONLINE_AUDIT_REG",
             "bitWidth": 8,
             "hexValue": "0xF7",
@@ -1702,7 +1702,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Finalize hardware state and assert zero-residual lock.",
+            "caption": "Finalize hardware state and assert zero-residual lock.",
             "registerName": "ONLINE_AUDIT_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -2022,7 +2022,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register CAPSTONE_CERT_REG for Milestone 10 Capstone Execution:.",
+            "caption": "Arm hardware register CAPSTONE_CERT_REG for Milestone ten Capstone.",
             "registerName": "CAPSTONE_CERT_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -2082,7 +2082,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into CAPSTONE_CERT_REG and assert validation flag.",
+            "caption": "Latch sampling bits into CAPSTONE_CERT_REG and assert validation flag.",
             "registerName": "CAPSTONE_CERT_REG",
             "bitWidth": 8,
             "hexValue": "0xC2",
@@ -2143,7 +2143,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware verification cycle and lock verified status.",
+            "caption": "Execute hardware verification cycle and lock verified status.",
             "registerName": "CAPSTONE_CERT_REG",
             "bitWidth": 8,
             "hexValue": "0xF7",
@@ -2204,7 +2204,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Finalize hardware state and assert zero-residual lock.",
+            "caption": "Finalize hardware state and assert zero-residual lock.",
             "registerName": "CAPSTONE_CERT_REG",
             "bitWidth": 8,
             "hexValue": "0x81",

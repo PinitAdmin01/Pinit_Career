@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state and pool parameters for Milestone 6 Architecture Topol...",
+            "caption": "Protocol monitors state and pool parameters for Milestone six.",
             "activeActor": "Senior DeFi Architect",
             "messages": [
               {
@@ -33,7 +33,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes mathematical transition and updates core invariant",
+            "caption": "Engine executes mathematical transition and updates core invariant.",
             "activeActor": "Concentrated Pair Core",
             "messages": [
               {
@@ -46,7 +46,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of fee accounting, tick boundary or solvency thresholds",
+            "caption": "Verification of fee accounting, tick boundary or solvency thresholds.",
             "activeActor": "Tick Traversal Loop",
             "messages": [
               {
@@ -59,7 +59,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; invariant preserved and state committed",
+            "caption": "Block settled atomically; invariant preserved and state committed.",
             "activeActor": "Concentrated Pair Core",
             "messages": [
               {
@@ -152,7 +152,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state and pool parameters for Strict Rounding Direction Inva...",
+            "caption": "Protocol monitors state and pool parameters for Strict Rounding Direction.",
             "activeActor": "Senior DeFi Architect",
             "messages": [
               {
@@ -165,7 +165,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes mathematical transition and updates core invariant",
+            "caption": "Engine executes mathematical transition and updates core invariant.",
             "activeActor": "Concentrated Pair Core",
             "messages": [
               {
@@ -178,7 +178,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of fee accounting, tick boundary or solvency thresholds",
+            "caption": "Verification of fee accounting, tick boundary or solvency thresholds.",
             "activeActor": "Tick Traversal Loop",
             "messages": [
               {
@@ -191,7 +191,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; invariant preserved and state committed",
+            "caption": "Block settled atomically; invariant preserved and state committed.",
             "activeActor": "Concentrated Pair Core",
             "messages": [
               {
@@ -284,7 +284,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state and pool parameters for Multi-Tick Step-Loop Swap Exec...",
+            "caption": "Protocol monitors state and pool parameters for Multi-Tick Step-Loop Swap.",
             "activeActor": "Senior DeFi Architect",
             "messages": [
               {
@@ -297,7 +297,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes mathematical transition and updates core invariant",
+            "caption": "Engine executes mathematical transition and updates core invariant.",
             "activeActor": "Concentrated Pair Core",
             "messages": [
               {
@@ -310,7 +310,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of fee accounting, tick boundary or solvency thresholds",
+            "caption": "Verification of fee accounting, tick boundary or solvency thresholds.",
             "activeActor": "Tick Traversal Loop",
             "messages": [
               {
@@ -323,7 +323,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; invariant preserved and state committed",
+            "caption": "Block settled atomically; invariant preserved and state committed.",
             "activeActor": "Concentrated Pair Core",
             "messages": [
               {
@@ -416,7 +416,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state and pool parameters for Integrated Flash Loan Facility...",
+            "caption": "Protocol monitors state and pool parameters for Integrated Flash Loan.",
             "activeActor": "Senior DeFi Architect",
             "messages": [
               {
@@ -429,7 +429,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes mathematical transition and updates core invariant",
+            "caption": "Engine executes mathematical transition and updates core invariant.",
             "activeActor": "Concentrated Pair Core",
             "messages": [
               {
@@ -442,7 +442,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of fee accounting, tick boundary or solvency thresholds",
+            "caption": "Verification of fee accounting, tick boundary or solvency thresholds.",
             "activeActor": "Tick Traversal Loop",
             "messages": [
               {
@@ -455,7 +455,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; invariant preserved and state committed",
+            "caption": "Block settled atomically; invariant preserved and state committed.",
             "activeActor": "Concentrated Pair Core",
             "messages": [
               {
@@ -548,7 +548,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state and pool parameters for Milestone 6 Viva Gate: Product...",
+            "caption": "Protocol monitors state and pool parameters for Milestone six Viva Gate.",
             "activeActor": "Senior DeFi Architect",
             "messages": [
               {
@@ -561,7 +561,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes mathematical transition and updates core invariant",
+            "caption": "Engine executes mathematical transition and updates core invariant.",
             "activeActor": "Concentrated Pair Core",
             "messages": [
               {
@@ -574,7 +574,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of fee accounting, tick boundary or solvency thresholds",
+            "caption": "Verification of fee accounting, tick boundary or solvency thresholds.",
             "activeActor": "Tick Traversal Loop",
             "messages": [
               {
@@ -587,7 +587,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; invariant preserved and state committed",
+            "caption": "Block settled atomically; invariant preserved and state committed.",
             "activeActor": "Concentrated Pair Core",
             "messages": [
               {

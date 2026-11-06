@@ -15,7 +15,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Allocate stack frame and inspect reference pointers for Metaspace vs Heap: Class-Level Variables.",
+            "caption": "Allocate stack frame and inspect reference pointers for Metaspace vs.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -32,7 +32,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Push active validation frame onto JVM thread call stack.",
+            "caption": "Push active validation frame onto JVM thread call stack.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -51,7 +51,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Pop completed validator frame after confirming heap state invariant.",
+            "caption": "Pop completed validator frame after confirming heap state invariant.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -68,7 +68,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute state transition and verify heap reference pointers intact.",
+            "caption": "Execute state transition and verify heap reference pointers intact.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -96,7 +96,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Allocate stack frame and inspect reference pointers for Static Methods, Math Utility Patterns & .",
+            "caption": "Allocate stack frame and inspect reference pointers for Static Methods.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -113,7 +113,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Push active validation frame onto JVM thread call stack.",
+            "caption": "Push active validation frame onto JVM thread call stack.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -132,7 +132,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Pop completed validator frame after confirming heap state invariant.",
+            "caption": "Pop completed validator frame after confirming heap state invariant.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -149,7 +149,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute state transition and verify heap reference pointers intact.",
+            "caption": "Execute state transition and verify heap reference pointers intact.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -177,7 +177,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Allocate stack frame and inspect reference pointers for Static Initialization Blocks (static { ..",
+            "caption": "Allocate stack frame and inspect reference pointers for Static.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -194,7 +194,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Push active validation frame onto JVM thread call stack.",
+            "caption": "Push active validation frame onto JVM thread call stack.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -213,7 +213,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Pop completed validator frame after confirming heap state invariant.",
+            "caption": "Pop completed validator frame after confirming heap state invariant.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -230,7 +230,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute state transition and verify heap reference pointers intact.",
+            "caption": "Execute state transition and verify heap reference pointers intact.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -258,7 +258,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Allocate stack frame and inspect reference pointers for Multi-Tenant Disaster: Inappropriate Sta.",
+            "caption": "Allocate stack frame and inspect reference pointers for Multi-Tenant.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -275,7 +275,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Push active validation frame onto JVM thread call stack.",
+            "caption": "Push active validation frame onto JVM thread call stack.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -294,7 +294,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Pop completed validator frame after confirming heap state invariant.",
+            "caption": "Pop completed validator frame after confirming heap state invariant.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -311,7 +311,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute state transition and verify heap reference pointers intact.",
+            "caption": "Execute state transition and verify heap reference pointers intact.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -339,7 +339,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Allocate stack frame and inspect reference pointers for Diagnostic Lab: Thread-Safe Global Seque.",
+            "caption": "Allocate stack frame and inspect reference pointers for Diagnostic Lab.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -356,7 +356,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Push active validation frame onto JVM thread call stack.",
+            "caption": "Push active validation frame onto JVM thread call stack.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -375,7 +375,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Pop completed validator frame after confirming heap state invariant.",
+            "caption": "Pop completed validator frame after confirming heap state invariant.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -392,7 +392,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute state transition and verify heap reference pointers intact.",
+            "caption": "Execute state transition and verify heap reference pointers intact.",
             "mode": "stack",
             "items": [
               "main() Frame",

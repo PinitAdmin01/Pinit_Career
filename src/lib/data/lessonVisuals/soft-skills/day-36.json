@@ -40,7 +40,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Algorithmic Grounding): Initialize Cognitive Load in Dual-Task Execution: Speaki...",
+            "caption": "Stage one (Algorithmic Grounding): Initialize Cognitive Load in Dual-Task.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Hypothesis & Structure): Model state transitions and trace matrices.",
+            "caption": "Stage two (Hypothesis & Structure): Model state transitions and trace.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active Flow",
@@ -108,7 +108,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Grassroots Adoption): Align stakeholder incentives and bridge chasm.",
+            "caption": "Stage three (Grassroots Adoption): Align stakeholder incentives and.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "High Signal",
@@ -142,7 +142,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (ApexInfluence Ratification): Ratify enterprise technical sovereignty.",
+            "caption": "Stage four (ApexInfluence Ratification): Ratify enterprise technical.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "Principal Strategist ✓",
@@ -380,7 +380,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Algorithmic Grounding): Initialize The Babbly Noise Filter: Pruning Keystroke Mo...",
+            "caption": "Stage one (Algorithmic Grounding): Initialize The Babbly Noise Filter.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -414,7 +414,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Hypothesis & Structure): Model state transitions and trace matrices.",
+            "caption": "Stage two (Hypothesis & Structure): Model state transitions and trace.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active Flow",
@@ -448,7 +448,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Grassroots Adoption): Align stakeholder incentives and bridge chasm.",
+            "caption": "Stage three (Grassroots Adoption): Align stakeholder incentives and.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "High Signal",
@@ -482,7 +482,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (ApexInfluence Ratification): Ratify enterprise technical sovereignty.",
+            "caption": "Stage four (ApexInfluence Ratification): Ratify enterprise technical.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "Principal Strategist ✓",
@@ -720,7 +720,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Algorithmic Grounding): Initialize Test-Driven Verbalization Framework: State-Tr...",
+            "caption": "Stage one (Algorithmic Grounding): Initialize Test-Driven Verbalization.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -754,7 +754,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Hypothesis & Structure): Model state transitions and trace matrices.",
+            "caption": "Stage two (Hypothesis & Structure): Model state transitions and trace.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active Flow",
@@ -788,7 +788,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Grassroots Adoption): Align stakeholder incentives and bridge chasm.",
+            "caption": "Stage three (Grassroots Adoption): Align stakeholder incentives and.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "High Signal",
@@ -822,7 +822,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (ApexInfluence Ratification): Ratify enterprise technical sovereignty.",
+            "caption": "Stage four (ApexInfluence Ratification): Ratify enterprise technical.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "Principal Strategist ✓",
@@ -1060,7 +1060,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Algorithmic Grounding): Initialize High-Pressure Live Coding Verbalization Lab: ...",
+            "caption": "Stage one (Algorithmic Grounding): Initialize High-Pressure Live Coding.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -1094,7 +1094,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Hypothesis & Structure): Model state transitions and trace matrices.",
+            "caption": "Stage two (Hypothesis & Structure): Model state transitions and trace.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active Flow",
@@ -1128,7 +1128,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Grassroots Adoption): Align stakeholder incentives and bridge chasm.",
+            "caption": "Stage three (Grassroots Adoption): Align stakeholder incentives and.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "High Signal",
@@ -1162,7 +1162,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (ApexInfluence Ratification): Ratify enterprise technical sovereignty.",
+            "caption": "Stage four (ApexInfluence Ratification): Ratify enterprise technical.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "Principal Strategist ✓",
@@ -1400,7 +1400,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Algorithmic Grounding): Initialize Master Live Coding Communication Dossier & Da...",
+            "caption": "Stage one (Algorithmic Grounding): Initialize Master Live Coding.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -1434,7 +1434,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Hypothesis & Structure): Model state transitions and trace matrices.",
+            "caption": "Stage two (Hypothesis & Structure): Model state transitions and trace.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active Flow",
@@ -1468,7 +1468,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Grassroots Adoption): Align stakeholder incentives and bridge chasm.",
+            "caption": "Stage three (Grassroots Adoption): Align stakeholder incentives and.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "High Signal",
@@ -1502,7 +1502,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (ApexInfluence Ratification): Ratify enterprise technical sovereignty.",
+            "caption": "Stage four (ApexInfluence Ratification): Ratify enterprise technical.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "Principal Strategist ✓",

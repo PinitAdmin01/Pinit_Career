@@ -10,11 +10,11 @@
       "codeHash": "4d8717d604a8c74e3d01b1f21c12a182a6a103b5e4d8b08435cfd149a9f89c8e",
       "spec": {
         "template": "register-bits",
-        "title": "Day 17 Part 1 \u2014 MQTT-SN Protocol Anatomy & 2-B \u2014 Register Architecture",
+        "title": "Day 17 Part 1 — MQTT-SN Protocol Anatomy & 2-B — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register MQTTSN_REG_TOPIC_REG for MQTT-SN Protocol Anatomy & 2-Byt.",
+            "caption": "Arm hardware register MQTTSN_REG_TOPIC_REG for MQTT-SN Protocol Anatomy &.",
             "registerName": "MQTTSN_REG_TOPIC_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into MQTTSN_REG_TOPIC_REG and assert validation flag.",
+            "caption": "Latch sampling bits into MQTTSN_REG_TOPIC_REG and assert validation flag.",
             "registerName": "MQTTSN_REG_TOPIC_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in MQTTSN_REG_TOPIC_REG with pipeline status.",
+            "caption": "Execute hardware transformation in MQTTSN_REG_TOPIC_REG with pipeline.",
             "registerName": "MQTTSN_REG_TOPIC_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register MQTTSN_REG_TOPIC_REG upon verified hardware completion.",
+            "caption": "Lock register MQTTSN_REG_TOPIC_REG upon verified hardware completion.",
             "registerName": "MQTTSN_REG_TOPIC_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -262,11 +262,11 @@
       "codeHash": "97e2e1dc9d191130e668aae3e82e64ed123d9d2ab35a4a23483b95fabf4b3a17",
       "spec": {
         "template": "register-bits",
-        "title": "Day 17 Part 2 \u2014 Disconnected & Asynchronous AS \u2014 Register Architecture",
+        "title": "Day 17 Part 2 — Disconnected & Asynchronous AS — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register MQTTSN_SLEEP_Q_REG for Disconnected & Asynchronous ASYN.",
+            "caption": "Arm hardware register MQTTSN_SLEEP_Q_REG for Disconnected & Asynchronous.",
             "registerName": "MQTTSN_SLEEP_Q_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -326,7 +326,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into MQTTSN_SLEEP_Q_REG and assert validation flag.",
+            "caption": "Latch sampling bits into MQTTSN_SLEEP_Q_REG and assert validation flag.",
             "registerName": "MQTTSN_SLEEP_Q_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -387,7 +387,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in MQTTSN_SLEEP_Q_REG with pipeline status.",
+            "caption": "Execute hardware transformation in MQTTSN_SLEEP_Q_REG with pipeline status.",
             "registerName": "MQTTSN_SLEEP_Q_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -448,7 +448,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register MQTTSN_SLEEP_Q_REG upon verified hardware completion.",
+            "caption": "Lock register MQTTSN_SLEEP_Q_REG upon verified hardware completion.",
             "registerName": "MQTTSN_SLEEP_Q_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -514,11 +514,11 @@
       "codeHash": "df790c88389ef31156b6a9609cd6fb79eb5a187779319e27cda1cab7b8d0a2ed",
       "spec": {
         "template": "register-bits",
-        "title": "Day 17 Part 3 \u2014 Transparent vs Aggregating MQT \u2014 Register Architecture",
+        "title": "Day 17 Part 3 — Transparent vs Aggregating MQT — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register MQTTSN_GW_XLAT_REG for Transparent vs Aggregating MQTT-.",
+            "caption": "Arm hardware register MQTTSN_GW_XLAT_REG for Transparent vs Aggregating.",
             "registerName": "MQTTSN_GW_XLAT_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -578,7 +578,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into MQTTSN_GW_XLAT_REG and assert validation flag.",
+            "caption": "Latch sampling bits into MQTTSN_GW_XLAT_REG and assert validation flag.",
             "registerName": "MQTTSN_GW_XLAT_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -639,7 +639,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in MQTTSN_GW_XLAT_REG with pipeline status.",
+            "caption": "Execute hardware transformation in MQTTSN_GW_XLAT_REG with pipeline status.",
             "registerName": "MQTTSN_GW_XLAT_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -700,7 +700,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register MQTTSN_GW_XLAT_REG upon verified hardware completion.",
+            "caption": "Lock register MQTTSN_GW_XLAT_REG upon verified hardware completion.",
             "registerName": "MQTTSN_GW_XLAT_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -766,11 +766,11 @@
       "codeHash": "01c05497bb40284cfa12fdd24450a06a51d3e37f53bd8ff0d2079d716538835c",
       "spec": {
         "template": "register-bits",
-        "title": "Day 17 Part 4 \u2014 QoS -1 (Broadcast / Fire-and-F \u2014 Register Architecture",
+        "title": "Day 17 Part 4 — QoS -1 (Broadcast / Fire-and-F — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register MQTTSN_QOS_M1_REG for QoS -1 (Broadcast / Fire-and-For.",
+            "caption": "Arm hardware register MQTTSN_QOS_Mone_REG for QoS -one (Broadcast /.",
             "registerName": "MQTTSN_QOS_M1_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -830,7 +830,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into MQTTSN_QOS_M1_REG and assert validation flag.",
+            "caption": "Latch sampling bits into MQTTSN_QOS_Mone_REG and assert validation flag.",
             "registerName": "MQTTSN_QOS_M1_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -891,7 +891,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in MQTTSN_QOS_M1_REG with pipeline status.",
+            "caption": "Execute hardware transformation in MQTTSN_QOS_Mone_REG with pipeline.",
             "registerName": "MQTTSN_QOS_M1_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -952,7 +952,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register MQTTSN_QOS_M1_REG upon verified hardware completion.",
+            "caption": "Lock register MQTTSN_QOS_Mone_REG upon verified hardware completion.",
             "registerName": "MQTTSN_QOS_M1_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1018,11 +1018,11 @@
       "codeHash": "0ce3c505be6ebb5ce79efa3157d93ef76ccbd37f80dc1d3fb1ea84d7005dfc96",
       "spec": {
         "template": "register-bits",
-        "title": "Day 17 Part 5 \u2014 Complete MQTT-SN Protocol & Ga \u2014 Register Architecture",
+        "title": "Day 17 Part 5 — Complete MQTT-SN Protocol & Ga — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register MQTTSN_BROKER_REG for Complete MQTT-SN Protocol & Gate.",
+            "caption": "Arm hardware register MQTTSN_BROKER_REG for Complete MQTT-SN Protocol &.",
             "registerName": "MQTTSN_BROKER_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1082,7 +1082,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into MQTTSN_BROKER_REG and assert validation flag.",
+            "caption": "Latch sampling bits into MQTTSN_BROKER_REG and assert validation flag.",
             "registerName": "MQTTSN_BROKER_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -1143,7 +1143,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in MQTTSN_BROKER_REG with pipeline status.",
+            "caption": "Execute hardware transformation in MQTTSN_BROKER_REG with pipeline status.",
             "registerName": "MQTTSN_BROKER_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -1204,7 +1204,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register MQTTSN_BROKER_REG upon verified hardware completion.",
+            "caption": "Lock register MQTTSN_BROKER_REG upon verified hardware completion.",
             "registerName": "MQTTSN_BROKER_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

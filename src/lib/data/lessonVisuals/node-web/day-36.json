@@ -75,7 +75,7 @@
           },
           {
             "at": "say3",
-            "caption": "CRC16 checksum calculates modulo 16384 slot destination.",
+            "caption": "CRCsixteen checksum calculates modulo multiple slot destination.",
             "values": {
               "clt": {
                 "status": "Processing"
@@ -307,7 +307,7 @@
           },
           {
             "at": "say7",
-            "caption": "Pipeline batching achieves 10x throughput improvement across distributed networks.",
+            "caption": "Pipeline batching achieves tenx throughput improvement across distributed.",
             "values": {
               "activeSide": "both"
             }

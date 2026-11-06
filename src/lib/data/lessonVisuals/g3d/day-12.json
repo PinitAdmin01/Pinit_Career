@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Linear Wave Theory Setup): Initialize pipeline state for Linear Wave Theory, Statistical Oceanography, and the Tessendorf Framework.",
+            "caption": "State one (Linear Wave Theory Setup): Initialize pipeline state for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -99,7 +99,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Time-Domain Disper Setup): Initialize pipeline state for Time-Domain Dispersion, Angular Frequency, and Complex Euler Evolution.",
+            "caption": "State one (Time-Domain Disper Setup): Initialize pipeline state for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -166,7 +166,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Horizontal Choppy  Setup): Initialize pipeline state for Horizontal Choppy Wave Displacement and Inverse Fast Fourier Transform (IFFT).",
+            "caption": "State one (Horizontal Choppy Setup): Initialize pipeline state for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -233,7 +233,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Jacobian Determina Setup): Initialize pipeline state for Jacobian Determinant, Wave Inversion Detection, and Dynamic Whitecap Foam.",
+            "caption": "State one (Jacobian Determina Setup): Initialize pipeline state for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -300,7 +300,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Real-Time Hydrodyn Setup): Initialize pipeline state for Real-Time Hydrodynamic Shading: Screen-Space Refraction, Caustics, and Subsurface Absorption.",
+            "caption": "State one (Real-Time Hydrodyn Setup): Initialize pipeline state for.",
             "currentState": "st1",
             "tone": "data"
           },

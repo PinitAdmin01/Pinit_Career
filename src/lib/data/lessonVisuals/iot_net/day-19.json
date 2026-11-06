@@ -10,11 +10,11 @@
       "codeHash": "0601b81b9f4e022e170ef1da8b5d73383a23d4575395c6d98efc755c01ed54ab",
       "spec": {
         "template": "register-bits",
-        "title": "Day 19 Part 1 \u2014 DTLS Record Layer Framing & Ep \u2014 Register Architecture",
+        "title": "Day 19 Part 1 — DTLS Record Layer Framing & Ep — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register DTLS_REC_HDR_REG for DTLS Record Layer Framing & Epoc.",
+            "caption": "Arm hardware register DTLS_REC_HDR_REG for DTLS Record Layer Framing &.",
             "registerName": "DTLS_REC_HDR_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into DTLS_REC_HDR_REG and assert validation flag.",
+            "caption": "Latch sampling bits into DTLS_REC_HDR_REG and assert validation flag.",
             "registerName": "DTLS_REC_HDR_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in DTLS_REC_HDR_REG with pipeline status.",
+            "caption": "Execute hardware transformation in DTLS_REC_HDR_REG with pipeline status.",
             "registerName": "DTLS_REC_HDR_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register DTLS_REC_HDR_REG upon verified hardware completion.",
+            "caption": "Lock register DTLS_REC_HDR_REG upon verified hardware completion.",
             "registerName": "DTLS_REC_HDR_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -262,11 +262,11 @@
       "codeHash": "888bb8ecc8ce0fce868fa9b0cbdc9e65ab3589eac5df8c32f91391f897274ebd",
       "spec": {
         "template": "register-bits",
-        "title": "Day 19 Part 2 \u2014 DTLS Handshake Sequence, Retra \u2014 Register Architecture",
+        "title": "Day 19 Part 2 — DTLS Handshake Sequence, Retra — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register DTLS_COOKIE_REG for DTLS Handshake Sequence, Retrans.",
+            "caption": "Arm hardware register DTLS_COOKIE_REG for DTLS Handshake Sequence, Retrans.",
             "registerName": "DTLS_COOKIE_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -326,7 +326,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into DTLS_COOKIE_REG and assert validation flag.",
+            "caption": "Latch sampling bits into DTLS_COOKIE_REG and assert validation flag.",
             "registerName": "DTLS_COOKIE_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -387,7 +387,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in DTLS_COOKIE_REG with pipeline status.",
+            "caption": "Execute hardware transformation in DTLS_COOKIE_REG with pipeline status.",
             "registerName": "DTLS_COOKIE_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -448,7 +448,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register DTLS_COOKIE_REG upon verified hardware completion.",
+            "caption": "Lock register DTLS_COOKIE_REG upon verified hardware completion.",
             "registerName": "DTLS_COOKIE_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -514,11 +514,11 @@
       "codeHash": "c09abb76613863e0f264412b407000ad7ba71ea6d696cc6af3b1d371e12b958f",
       "spec": {
         "template": "register-bits",
-        "title": "Day 19 Part 3 \u2014 Sliding-Window Anti-Replay Def \u2014 Register Architecture",
+        "title": "Day 19 Part 3 — Sliding-Window Anti-Replay Def — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register DTLS_REPLAY_WIN_REG for Sliding-Window Anti-Replay Defen.",
+            "caption": "Arm hardware register DTLS_REPLAY_WIN_REG for Sliding-Window Anti-Replay.",
             "registerName": "DTLS_REPLAY_WIN_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -578,7 +578,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into DTLS_REPLAY_WIN_REG and assert validation flag.",
+            "caption": "Latch sampling bits into DTLS_REPLAY_WIN_REG and assert validation flag.",
             "registerName": "DTLS_REPLAY_WIN_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -639,7 +639,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in DTLS_REPLAY_WIN_REG with pipeline status.",
+            "caption": "Execute hardware transformation in DTLS_REPLAY_WIN_REG with pipeline.",
             "registerName": "DTLS_REPLAY_WIN_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -700,7 +700,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register DTLS_REPLAY_WIN_REG upon verified hardware completion.",
+            "caption": "Lock register DTLS_REPLAY_WIN_REG upon verified hardware completion.",
             "registerName": "DTLS_REPLAY_WIN_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -766,11 +766,11 @@
       "codeHash": "4e060cac1733e0b816bbb21d0f344d78d8c88c4e7d1c2805543dfd86f403a503",
       "spec": {
         "template": "register-bits",
-        "title": "Day 19 Part 4 \u2014 Pre-Shared Key (PSK) vs Ellipt \u2014 Register Architecture",
+        "title": "Day 19 Part 4 — Pre-Shared Key (PSK) vs Ellipt — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register DTLS_PSK_ECDHE_REG for Pre-Shared Key (PSK) vs Elliptic.",
+            "caption": "Arm hardware register DTLS_PSK_ECDHE_REG for Pre-Shared Key (PSK) vs.",
             "registerName": "DTLS_PSK_ECDHE_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -830,7 +830,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into DTLS_PSK_ECDHE_REG and assert validation flag.",
+            "caption": "Latch sampling bits into DTLS_PSK_ECDHE_REG and assert validation flag.",
             "registerName": "DTLS_PSK_ECDHE_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -891,7 +891,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in DTLS_PSK_ECDHE_REG with pipeline status.",
+            "caption": "Execute hardware transformation in DTLS_PSK_ECDHE_REG with pipeline status.",
             "registerName": "DTLS_PSK_ECDHE_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -952,7 +952,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register DTLS_PSK_ECDHE_REG upon verified hardware completion.",
+            "caption": "Lock register DTLS_PSK_ECDHE_REG upon verified hardware completion.",
             "registerName": "DTLS_PSK_ECDHE_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1018,11 +1018,11 @@
       "codeHash": "19232cae6e5dccbc376cadd3477b02cec8befc54f542586779227029e767218a",
       "spec": {
         "template": "register-bits",
-        "title": "Day 19 Part 5 \u2014 Complete DTLS Record Layer & A \u2014 Register Architecture",
+        "title": "Day 19 Part 5 — Complete DTLS Record Layer & A — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register DTLS_AEAD_ENG_REG for Complete DTLS Record Layer & Ant.",
+            "caption": "Arm hardware register DTLS_AEAD_ENG_REG for Complete DTLS Record Layer &.",
             "registerName": "DTLS_AEAD_ENG_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1082,7 +1082,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into DTLS_AEAD_ENG_REG and assert validation flag.",
+            "caption": "Latch sampling bits into DTLS_AEAD_ENG_REG and assert validation flag.",
             "registerName": "DTLS_AEAD_ENG_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -1143,7 +1143,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in DTLS_AEAD_ENG_REG with pipeline status.",
+            "caption": "Execute hardware transformation in DTLS_AEAD_ENG_REG with pipeline status.",
             "registerName": "DTLS_AEAD_ENG_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -1204,7 +1204,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register DTLS_AEAD_ENG_REG upon verified hardware completion.",
+            "caption": "Lock register DTLS_AEAD_ENG_REG upon verified hardware completion.",
             "registerName": "DTLS_AEAD_ENG_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

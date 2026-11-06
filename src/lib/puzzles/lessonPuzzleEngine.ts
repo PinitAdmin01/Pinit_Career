@@ -1,11 +1,13 @@
 /**
- * PinIT Career OS - Interactive 2.5D/3D Lesson Puzzle & Rapid-Fire Battle Engine
- * 
+ * PinIT Career OS - Interactive 3D Lesson Puzzle & Rapid-Fire Battle Engine
+ *
  * Standards:
- * 1. Exactly 1 synthesis puzzle per lesson (appearing after all concepts are completed).
- * 2. Exactly 5 rapid-fire MCQ questions answered within 60 seconds total.
- * 3. 100% domain-specific coverage across all 59 Tech, AI, Systems, and Commerce tracks.
- * 4. Realistic decoy blocks representing critical domain pitfalls.
+ * 1. Every single lesson day (across all 53+ courses, Month 1 & Month 2) generates a 100% unique
+ *    per-lesson 3D puzzle directly from that lesson's actual parts, code snippets, analogies, and checks.
+ * 2. Supports both Slow Readers (plain-language explanations + real-world analogies) and Fast Readers
+ *    (concise code invariants + rapid keyboard/click assembly).
+ * 3. Realistic decoy blocks synthesized from the lesson's own Socratic misconception distractors.
+ * 4. Exactly 5 rapid-fire MCQ questions answered within 60 seconds total.
  */
 
 export interface PuzzleBlock {
@@ -16,14 +18,18 @@ export interface PuzzleBlock {
   category?: 'init' | 'logic' | 'condition' | 'transform' | 'output' | 'decoy' | 'debit' | 'credit' | 'audit' | 'security';
   badge?: string; // e.g., "DR", "CR", "HOOK", "SQL", "MMIO", "AST", "EVM"
   codeSnippet?: string;
+  /** Everyday analogy from the lesson part for slow/visual readers */
+  analogy?: string;
+  /** Plain-language explanation of why this stage sits at this position in the 3D pipeline */
+  explanation?: string;
 }
 
-export type PuzzleType = 
-  | 'code-reorder' 
-  | 'pipeline-router' 
-  | 'ledger-balancer' 
-  | 'architecture-flow' 
-  | 'decision-tree' 
+export type PuzzleType =
+  | 'code-reorder'
+  | 'pipeline-router'
+  | 'ledger-balancer'
+  | 'architecture-flow'
+  | 'decision-tree'
   | 'state-switcher';
 
 export interface LessonPuzzleSpec {
@@ -37,6 +43,8 @@ export interface LessonPuzzleSpec {
   decoyBlockIds?: string[];
   hint: string;
   successExplanation: string;
+  /** Summary of the day's project milestone connected to this 3D architecture puzzle */
+  projectConnection?: string;
 }
 
 export interface RapidBattleQuestion {
@@ -112,6 +120,60 @@ export function detectCourseDomain(prefix: string, title: string = '', textConte
   return 'general';
 }
 
+const DOMAIN_BADGE_PROGRESSION: Record<string, string[]> = {
+  python: ['SETUP', 'PARSE', 'TRANSFORM', 'VERIFY', 'OUTPUT'],
+  react: ['IMPORT', 'STATE', 'HOOK', 'EFFECT', 'RENDER'],
+  mobile: ['SCREEN', 'STATE', 'GESTURE', 'BRIDGE', 'RENDER'],
+  sql: ['SCHEMA', 'SELECT', 'JOIN/WHERE', 'GROUP BY', 'COMMIT'],
+  java: ['CLASS', 'MEMORY', 'THREAD', 'DISPATCH', 'RETURN'],
+  accounting: ['SOURCE DOC', 'DEBIT (DR)', 'CREDIT (CR)', 'RECONCILE', 'POST LEDGER'],
+  finance: ['CASH FLOW', 'DISCOUNT', 'VALUATION', 'HEDGE', 'ALLOCATE'],
+  banking: ['KYC/AML', 'APPRAISAL', 'COLLATERAL', 'SANCTION', 'DISBURSE'],
+  auditing: ['SA 210 PLAN', 'SA 315 RISK', 'CONTROL TEST', 'SA 500 VOUCH', 'SA 700 OPINION'],
+  taxation: ['GSTR-2B ITC', 'ASSESSMENT', 'OFFSET', 'COMPLIANCE', 'CHALLAN'],
+  'corporate-law': ['NOTICE', 'QUORUM', 'RESOLUTION', 'MINUTES', 'ROC FILING'],
+  'supply-chain': ['REQUISITION', 'PO ISSUE', 'GRN CHECK', '3-WAY MATCH', 'SETTLEMENT'],
+  'digital-marketing': ['UTM TAG', 'FUNNEL PIXEL', 'SEGMENT', 'ATTRIBUTION', 'ROAS'],
+  ecommerce: ['CART TOKEN', 'STOCK HOLD', 'GATEWAY', 'FULFILLMENT', 'DISPATCH'],
+  marketing: ['RESEARCH', 'SEGMENT', 'POSITION', 'CHANNEL MIX', 'BRAND EQUITY'],
+  analytics: ['INGEST', 'CLEANSE', 'MODEL', 'VALIDATE', 'VISUALIZE'],
+  entrepreneurship: ['JTBD DISCOVERY', 'MVP BUILD', 'UNIT ECON', 'GTM LOOP', 'SCALE'],
+  'enterprise-ai': ['INGEST', 'EMBED/RAG', 'GUARDRAIL', 'ORCHESTRATE', 'AUDIT'],
+  'devops-cloud': ['LINT/BUILD', 'TEST GATE', 'CONTAINER', 'CANARY', 'PROMOTE'],
+  'embedded-iot': ['CLOCK/RCC', 'GPIO/MMIO', 'ISR/DMA', 'PROTOCOL', 'TELEMETRY'],
+  blockchain: ['CHECK', 'STATE EFFECT', 'INTERACT', 'GAS PACK', 'EMIT EVENT'],
+  cybersecurity: ['THREAT ID', 'AUTH GUARD', 'CIPHER/KDF', 'ZERO TRUST', 'AUDIT SEAL'],
+  nodejs: ['INGEST', 'AUTH/GUARD', 'SERVICE', 'PERSIST', 'RESPONSE'],
+  'git-vcs': ['BRANCH', 'STAGE', 'COMMIT', 'REBASE', 'PUSH'],
+  '3d-graphics': ['VERTICES', 'MATRICES', 'SHADER', 'RASTERIZE', 'FRAMEBUFFER'],
+  'soft-skills': ['CONTEXT', 'STRUCTURE', 'EVIDENCE', 'ALIGNMENT', 'ACTION'],
+  'comp-fund': ['FETCH', 'DECODE', 'ALU EXEC', 'CACHE/MMU', 'WRITEBACK'],
+  general: ['INIT', 'VALIDATE', 'TRANSFORM', 'VERIFY', 'DELIVER'],
+};
+
+const DOMAIN_PUZZLE_TYPE: Record<string, PuzzleType> = {
+  python: 'code-reorder',
+  react: 'architecture-flow',
+  mobile: 'architecture-flow',
+  sql: 'code-reorder',
+  java: 'architecture-flow',
+  accounting: 'ledger-balancer',
+  finance: 'pipeline-router',
+  banking: 'decision-tree',
+  auditing: 'architecture-flow',
+  taxation: 'ledger-balancer',
+  'corporate-law': 'decision-tree',
+  'supply-chain': 'pipeline-router',
+  'digital-marketing': 'pipeline-router',
+  ecommerce: 'pipeline-router',
+  'devops-cloud': 'pipeline-router',
+  'embedded-iot': 'architecture-flow',
+  blockchain: 'state-switcher',
+  cybersecurity: 'architecture-flow',
+  nodejs: 'code-reorder',
+  'git-vcs': 'code-reorder',
+};
+
 /**
  * Step 1: Deep Content & Structure Extractor
  */
@@ -126,7 +188,7 @@ export function extractLessonConceptSummary(lessonData: any, coursePrefix: strin
   const title = lessonData?.title || 'Daily Concept Mastery';
   const parts = Array.isArray(lessonData?.parts) ? lessonData.parts : [];
   const effectivePrefix = coursePrefix || lessonData?.coursePrefix || lessonData?.course || '';
-  
+
   const concepts: string[] = [];
   const codeSnippets: string[] = [];
   const keyTerms: string[] = [];
@@ -136,7 +198,10 @@ export function extractLessonConceptSummary(lessonData: any, coursePrefix: strin
     if (p.title) concepts.push(p.title);
     if (p.code) {
       codeSnippets.push(p.code);
-      const cleanLine = p.code.split('\n').map((l: string) => l.trim()).find((l: string) => l.length > 3 && !l.startsWith('//') && !l.startsWith('#') && !l.startsWith('import ') && !l.startsWith('#include'));
+      const cleanLine = p.code
+        .split('\n')
+        .map((l: string) => l.trim())
+        .find((l: string) => l.length > 3 && !l.startsWith('//') && !l.startsWith('#') && !l.startsWith('import ') && !l.startsWith('#include'));
       if (cleanLine) firstCodeLines.push(cleanLine);
     }
     if (p.check?.question) keyTerms.push(p.check.question);
@@ -147,7 +212,142 @@ export function extractLessonConceptSummary(lessonData: any, coursePrefix: strin
 }
 
 /**
- * Step 2: Generate a 100% Tailored 2.5D Puzzle for Any Lesson
+ * Synthesizes a 100% Lesson-Specific 3D Puzzle directly from a LongLesson's parts.
+ * Ensures every single day across all 53+ courses has its own unique 3D puzzle
+ * teaching ONLY the concepts, code, and analogies covered in that lesson.
+ */
+function buildPerLesson3DPuzzleFromParts(
+  prefix: string,
+  dayNum: number,
+  domain: string,
+  lessonData: any
+): LessonPuzzleSpec {
+  const parts: any[] = lessonData.parts.slice(0, 5);
+  const colors: Array<PuzzleBlock['color']> = ['emerald', 'cyan', 'amber', 'purple', 'indigo'];
+  const badges = DOMAIN_BADGE_PROGRESSION[domain] || DOMAIN_BADGE_PROGRESSION.general;
+  const puzzleType: PuzzleType = DOMAIN_PUZZLE_TYPE[domain] || 'pipeline-router';
+
+  const blockList: PuzzleBlock[] = [];
+  const order: string[] = [];
+
+  parts.forEach((p: any, idx: number) => {
+    const bId = `step-${dayNum}-${idx + 1}`;
+    const rawPartTitle = String(p.title || `Stage ${idx + 1}`)
+      .replace(/^(part\s*\d+\s*[:\-–.]?\s*)/i, '')
+      .trim();
+    const shortTitle = rawPartTitle.length > 48 ? rawPartTitle.slice(0, 45).trim() + '…' : rawPartTitle;
+
+    // Extract meaningful executable code line for fast readers
+    let codeLine = '';
+    if (p.code) {
+      const candidateLines = String(p.code)
+        .split('\n')
+        .map((l: string) => l.trim())
+        .filter(
+          (l: string) =>
+            l.length > 4 &&
+            !l.startsWith('//') &&
+            !l.startsWith('#') &&
+            !l.startsWith('/*') &&
+            !l.startsWith('*') &&
+            !l.startsWith('import ') &&
+            !l.startsWith('from ') &&
+            !l.startsWith('#include')
+        );
+      codeLine = candidateLines[0] || '';
+      if (codeLine.length > 68) codeLine = codeLine.slice(0, 65) + '…';
+    }
+
+    // Extract plain-language explanation & analogy for slow readers
+    const sayParagraphs = Array.isArray(p.say) ? p.say : typeof p.say === 'string' ? [p.say] : [];
+    const firstSentence = (sayParagraphs[0] || '')
+      .split(/(?<=[.!?])\s+/)[0]
+      ?.trim() || `Master ${rawPartTitle} in the ${lessonData.title} workflow.`;
+    const analogyText = p.example ? String(p.example).trim() : undefined;
+
+    const category: PuzzleBlock['category'] =
+      idx === 0
+        ? domain === 'accounting' || domain === 'taxation'
+          ? 'debit'
+          : 'init'
+        : idx === parts.length - 1
+        ? domain === 'accounting' || domain === 'taxation'
+          ? 'credit'
+          : 'output'
+        : idx === 1
+        ? 'condition'
+        : 'transform';
+
+    blockList.push({
+      id: bId,
+      label: `${idx + 1}. ${shortTitle}`,
+      subtext: codeLine || (analogyText ? analogyText.slice(0, 68) : firstSentence.slice(0, 68)),
+      color: colors[idx % colors.length],
+      category,
+      badge: badges[idx % badges.length],
+      codeSnippet: p.code ? String(p.code).split('\n').slice(0, 6).join('\n') : undefined,
+      analogy: analogyText,
+      explanation: p.check?.why || p.check?.explanation || firstSentence,
+    });
+    order.push(bId);
+  });
+
+  // Extract a lesson-specific decoy from one of the wrong MCQ options in this lesson!
+  let decoySubtext = 'Execute downstream output before initializing prerequisite state and validation guards';
+  let decoyExplanation = 'This block represents a critical anti-pattern taught in today’s lesson.';
+  for (const p of parts) {
+    const chk = p.check;
+    if (chk && Array.isArray(chk.options) && chk.options.length >= 2) {
+      const correctIdx = typeof chk.answer === 'number' ? chk.answer : chk.answerIndex ?? 0;
+      const wrongOpt = chk.options.find((_: string, i: number) => i !== correctIdx && _.length >= 12);
+      if (wrongOpt) {
+        decoySubtext = wrongOpt.length > 74 ? wrongOpt.slice(0, 71) + '…' : wrongOpt;
+        decoyExplanation = chk.why || chk.explanation || decoyExplanation;
+        break;
+      }
+    }
+  }
+
+  const decoyId = `decoy-${dayNum}-trap`;
+  blockList.push({
+    id: decoyId,
+    label: `Decoy Trap: Anti-Pattern Violation`,
+    subtext: decoySubtext,
+    color: 'rose',
+    category: 'decoy',
+    badge: 'ANTI-PATTERN',
+    explanation: `Why this is a trap: ${decoyExplanation}`,
+  });
+
+  const cleanLessonTitle = String(lessonData.title || `Day ${dayNum}`)
+    .replace(/^Day\s+\d+\s*[:\-–]\s*/i, '')
+    .trim();
+
+  const firstPartName = String(parts[0]?.title || 'Initialization').replace(/^(part\s*\d+\s*[:\-–.]?\s*)/i, '');
+  const lastPartName = String(parts[parts.length - 1]?.title || 'Final Verification').replace(/^(part\s*\d+\s*[:\-–.]?\s*)/i, '');
+
+  return {
+    id: `puzzle-${prefix}-${dayNum}`,
+    title: `Day ${dayNum} 3D Architecture Puzzle: ${cleanLessonTitle}`,
+    missionPrompt: `Construct the 3D execution pipeline for "${cleanLessonTitle}" in the exact 5-stage progression taught today, while rejecting the anti-pattern decoy cube!`,
+    type: puzzleType,
+    domain,
+    blocks: blockList,
+    correctOrder: order,
+    decoyBlockIds: [decoyId],
+    hint: `Start with Stage 1 ("${firstPartName}"), progress through the intermediate transformations, and finish with Stage ${parts.length} ("${lastPartName}"). Avoid the rose-colored Anti-Pattern decoy!`,
+    successExplanation:
+      lessonData.summary && Array.isArray(lessonData.summary) && lessonData.summary.length > 0
+        ? `3D Architecture Verified! ${lessonData.summary[0]}`
+        : `All ${order.length} stages of "${cleanLessonTitle}" are locked into the 3D pipeline in deterministic order.`,
+    projectConnection: lessonData.projectStep?.title
+      ? `Project Milestone: ${lessonData.projectStep.title}`
+      : undefined,
+  };
+}
+
+/**
+ * Step 2: Generate a 100% Tailored 3D Puzzle for Any Lesson
  */
 export function generateLessonPuzzle(
   questId: string,
@@ -155,8 +355,13 @@ export function generateLessonPuzzle(
   dayNum: number,
   lessonData: any
 ): LessonPuzzleSpec {
-  // If explicitly authored in lesson data, use it directly!
-  if (lessonData?.puzzle && Array.isArray(lessonData.puzzle.blocks) && Array.isArray(lessonData.puzzle.correctOrder) && lessonData.puzzle.blocks.length >= 3) {
+  // 1. If explicitly authored in lesson data, use it directly
+  if (
+    lessonData?.puzzle &&
+    Array.isArray(lessonData.puzzle.blocks) &&
+    Array.isArray(lessonData.puzzle.correctOrder) &&
+    lessonData.puzzle.blocks.length >= 3
+  ) {
     return lessonData.puzzle;
   }
 
@@ -164,8 +369,14 @@ export function generateLessonPuzzle(
   const parts = Array.isArray(lessonData?.parts) ? lessonData.parts : [];
   const domain = summary.domain;
 
+  // 2. PRIMARY PATH: Whenever the lesson has >= 3 real parts (all 2,820 LongLessons across 53+ courses),
+  // build an authentic per-lesson 3D puzzle directly from that day's parts, code, analogies, and checks!
+  if (parts.length >= 3) {
+    return buildPerLesson3DPuzzleFromParts(prefix, dayNum, domain, lessonData);
+  }
+
   // -------------------------------------------------------------------------
-  // DOMAIN 1: PYTHON & DATA SCIENCE TRACKS
+  // DOMAIN FALLBACKS (Used only when lessonData is null or lacks parts[])
   // -------------------------------------------------------------------------
   if (domain === 'python') {
     if (dayNum === 1) {
@@ -207,32 +418,27 @@ export function generateLessonPuzzle(
         successExplanation: "Chronological pipeline verified: All arithmetic expressions executed with zero NameErrors."
       };
     }
-    if (dayNum <= 15) {
-      return {
-        id: `puzzle-${prefix}-${dayNum}`,
-        title: `Day ${dayNum} Python Puzzle: Function Definition & Invocation`,
-        missionPrompt: "Assemble the modular function structure: define parameters, execute validation, return the transformed payload, and invoke!",
-        type: 'code-reorder',
-        domain: 'python',
-        blocks: [
-          { id: 'fn1', label: '1. Define Function', subtext: 'def calculate_metric(values: list):', color: 'emerald', category: 'init', badge: 'DEF' },
-          { id: 'fn2', label: '2. Guard Clause', subtext: 'if not values: return 0.0', color: 'cyan', category: 'condition', badge: 'GUARD' },
-          { id: 'fn3', label: '3. Computation', subtext: 'result = sum(values) / len(values)', color: 'amber', category: 'transform', badge: 'CALC' },
-          { id: 'fn4', label: '4. Return Statement', subtext: 'return round(result, 2)', color: 'purple', category: 'output', badge: 'RETURN' },
-          { id: 'fn5', label: '5. Function Call', subtext: 'score = calculate_metric([85, 92, 78])', color: 'indigo', category: 'logic', badge: 'CALL' },
-          { id: 'decoy1', label: 'Decoy: Call Before Definition', subtext: 'score = calculate_metric() # (Before def)', color: 'rose', category: 'decoy', badge: 'NAME_ERR' },
-        ],
-        correctOrder: ['fn1', 'fn2', 'fn3', 'fn4', 'fn5'],
-        decoyBlockIds: ['decoy1'],
-        hint: "Functions in Python must be defined before they can be called. Guard clauses protect against division by zero.",
-        successExplanation: "Modular function pipeline verified: Definition $\\to$ Guard $\\to$ Calculation $\\to$ Return $\\to$ Call."
-      };
-    }
+    return {
+      id: `puzzle-${prefix}-${dayNum}`,
+      title: `Day ${dayNum} Python Puzzle: Function Definition & Invocation`,
+      missionPrompt: "Assemble the modular function structure: define parameters, execute validation, return the transformed payload, and invoke!",
+      type: 'code-reorder',
+      domain: 'python',
+      blocks: [
+        { id: 'fn1', label: '1. Define Function', subtext: 'def calculate_metric(values: list):', color: 'emerald', category: 'init', badge: 'DEF' },
+        { id: 'fn2', label: '2. Guard Clause', subtext: 'if not values: return 0.0', color: 'cyan', category: 'condition', badge: 'GUARD' },
+        { id: 'fn3', label: '3. Computation', subtext: 'result = sum(values) / len(values)', color: 'amber', category: 'transform', badge: 'CALC' },
+        { id: 'fn4', label: '4. Return Statement', subtext: 'return round(result, 2)', color: 'purple', category: 'output', badge: 'RETURN' },
+        { id: 'fn5', label: '5. Function Call', subtext: 'score = calculate_metric([85, 92, 78])', color: 'indigo', category: 'logic', badge: 'CALL' },
+        { id: 'decoy1', label: 'Decoy: Call Before Definition', subtext: 'score = calculate_metric() # (Before def)', color: 'rose', category: 'decoy', badge: 'NAME_ERR' },
+      ],
+      correctOrder: ['fn1', 'fn2', 'fn3', 'fn4', 'fn5'],
+      decoyBlockIds: ['decoy1'],
+      hint: "Functions in Python must be defined before they can be called. Guard clauses protect against division by zero.",
+      successExplanation: "Modular function pipeline verified: Definition -> Guard -> Calculation -> Return -> Call."
+    };
   }
 
-  // -------------------------------------------------------------------------
-  // DOMAIN 2: REACT & FRONTEND UI
-  // -------------------------------------------------------------------------
   if (domain === 'react' || domain === 'mobile') {
     return {
       id: `puzzle-${prefix}-${dayNum}`,
@@ -255,9 +461,6 @@ export function generateLessonPuzzle(
     };
   }
 
-  // -------------------------------------------------------------------------
-  // DOMAIN 3: SQL & DATABASE QUERY ENGINES
-  // -------------------------------------------------------------------------
   if (domain === 'sql') {
     return {
       id: `puzzle-${prefix}-${dayNum}`,
@@ -280,9 +483,6 @@ export function generateLessonPuzzle(
     };
   }
 
-  // -------------------------------------------------------------------------
-  // DOMAIN 4: JAVA & JVM ARCHITECTURE
-  // -------------------------------------------------------------------------
   if (domain === 'java') {
     return {
       id: `puzzle-${prefix}-${dayNum}`,
@@ -305,456 +505,25 @@ export function generateLessonPuzzle(
     };
   }
 
-  // -------------------------------------------------------------------------
-  // DOMAIN 5: B.COM - ACCOUNTING & FORENSIC BOOKKEEPING
-  // -------------------------------------------------------------------------
-  if (domain === 'accounting') {
-    return {
-      id: `puzzle-${prefix}-${dayNum}`,
-      title: `Day ${dayNum} Double-Entry Ledger Puzzle: Accrual Accounting Invariants`,
-      missionPrompt: "Balance the fundamental accounting equation (Assets = Liabilities + Equity) under GAAP/IFRS accrual rules!",
-      type: 'ledger-balancer',
-      domain: 'accounting',
-      blocks: [
-        { id: 'ac1', label: '1. Incur Receivable Asset', subtext: 'Debit: Accounts Receivable $120,000', color: 'emerald', category: 'debit', badge: 'DR +ASSET' },
-        { id: 'ac2', label: '2. Recognize Deferred Liability', subtext: 'Credit: Deferred Revenue (Unearned) $120,000', color: 'cyan', category: 'credit', badge: 'CR +LIAB' },
-        { id: 'ac3', label: '3. Deliver Monthly Service', subtext: 'Debit: Deferred Revenue $10,000', color: 'amber', category: 'debit', badge: 'DR -LIAB' },
-        { id: 'ac4', label: '4. Realize Earned Revenue', subtext: 'Credit: Subscription Revenue $10,000', color: 'purple', category: 'credit', badge: 'CR +EQUITY' },
-        { id: 'decoy1', label: 'Decoy: Cash-Basis Violation', subtext: 'Credit: Immediate Revenue $120,000 (Before delivery)', color: 'rose', category: 'decoy', badge: 'GAAP_BREACH' },
-      ],
-      correctOrder: ['ac1', 'ac2', 'ac3', 'ac4'],
-      decoyBlockIds: ['decoy1'],
-      hint: "Under GAAP accrual rules, unearned customer payments must sit in Deferred Revenue (Liability) until performance obligations are satisfied month-by-month.",
-      successExplanation: "Double-entry integrity verified: The Matching Principle is upheld, and debits equal credits at every operational stage."
-    };
-  }
-
-  // -------------------------------------------------------------------------
-  // DOMAIN 6: B.COM - CORPORATE FINANCE & CAPITAL MARKETS
-  // -------------------------------------------------------------------------
-  if (domain === 'finance') {
-    return {
-      id: `puzzle-${prefix}-${dayNum}`,
-      title: `Day ${dayNum} Corporate Finance Puzzle: DCF Valuation & Capital Allocation`,
-      missionPrompt: "Arrange the discounted cash flow (DCF) enterprise valuation pipeline from operating cash flows to net equity value!",
-      type: 'pipeline-router',
-      domain: 'finance',
-      blocks: [
-        { id: 'fin1', label: '1. Forecast Operating Cash Flows', subtext: 'Compute Free Cash Flow to Firm (FCFF = EBIT(1-t) + D&A - CapEx - ΔNWC)', color: 'emerald', category: 'init', badge: 'FCFF' },
-        { id: 'fin2', label: '2. Calculate Hurdle Rate (WACC)', subtext: 'Weight cost of equity (CAPM: Rf + β*ERP) + after-tax cost of debt', color: 'cyan', category: 'transform', badge: 'WACC' },
-        { id: 'fin3', label: '3. Discount Explicit Forecast', subtext: 'Discount 5-year projected cash flows to Present Value (PV)', color: 'amber', category: 'logic', badge: 'PV' },
-        { id: 'fin4', label: '4. Capitalize Terminal Value', subtext: 'Apply Gordon Growth Model: [FCFF*(1+g)] / (WACC - g)', color: 'purple', category: 'transform', badge: 'TERMINAL' },
-        { id: 'fin5', label: '5. Bridge to Equity Value', subtext: 'Enterprise Value + Cash - Outstanding Debt = Total Equity Value', color: 'indigo', category: 'output', badge: 'EQUITY' },
-        { id: 'decoy1', label: 'Decoy: Unhedged Book Value', subtext: 'Equity Value = Historical Accounting Book Value of Assets', color: 'rose', category: 'decoy', badge: 'ERR_MODEL' },
-      ],
-      correctOrder: ['fin1', 'fin2', 'fin3', 'fin4', 'fin5'],
-      decoyBlockIds: ['decoy1'],
-      hint: "Enterprise valuation requires forecasting FCFF, discounting by WACC, adding Terminal Value, and adjusting for net debt to find intrinsic equity value.",
-      successExplanation: "Valuation model validated: Enterprise Value and Equity Value mathematically balanced against cost of capital."
-    };
-  }
-
-  // -------------------------------------------------------------------------
-  // DOMAIN 7: B.COM - BANKING, TREASURY & CREDIT OPERATIONS
-  // -------------------------------------------------------------------------
-  if (domain === 'banking') {
-    return {
-      id: `puzzle-${prefix}-${dayNum}`,
-      title: `Day ${dayNum} Banking Operations Puzzle: Credit Underwriting & Disbursement`,
-      missionPrompt: "Assemble the regulatory loan underwriting and credit appraisal sequence in accordance with RBI / Basel III norms!",
-      type: 'decision-tree',
-      domain: 'banking',
-      blocks: [
-        { id: 'ban1', label: '1. KYC & AML Sanction Screening', subtext: 'Verify PAN, Aadhaar, CIBIL bureau history & OFAC sanction lists', color: 'emerald', category: 'init', badge: 'KYC/AML' },
-        { id: 'ban2', label: '2. Cash Flow & DSCR Appraisal', subtext: 'Compute Debt Service Coverage Ratio (DSCR >= 1.5x) from audited financials', color: 'cyan', category: 'logic', badge: 'DSCR' },
-        { id: 'ban3', label: '3. Collateral Valuation & Legal Search', subtext: 'Perform title deed search and create first charge with CERSAI registry', color: 'amber', category: 'condition', badge: 'SECURITY' },
-        { id: 'ban4', label: '4. Credit Committee Sanction', subtext: 'Issue formal Sanction Letter with covenants and interest rate spread', color: 'purple', category: 'transform', badge: 'SANCTION' },
-        { id: 'ban5', label: '5. Loan Account Disbursement', subtext: 'Disburse tranches directly to vendor escrow account against milestone invoice', color: 'indigo', category: 'output', badge: 'DISBURSE' },
-        { id: 'decoy1', label: 'Decoy: Regulatory Non-Compliance', subtext: 'Disburse funds directly in cash prior to collateral charge creation', color: 'rose', category: 'decoy', badge: 'VIO_RBI' },
-      ],
-      correctOrder: ['ban1', 'ban2', 'ban3', 'ban4', 'ban5'],
-      decoyBlockIds: ['decoy1'],
-      hint: "Bank credit policy forbids disbursement before KYC, cash flow appraisal, and CERSAI collateral registration are completed.",
-      successExplanation: "Banking credit lifecycle verified: Prudential underwriting and Basel III capital risk requirements satisfied."
-    };
-  }
-
-  // -------------------------------------------------------------------------
-  // DOMAIN 8: B.COM - STATUTORY AUDIT & CORPORATE ASSURANCE
-  // -------------------------------------------------------------------------
-  if (domain === 'auditing') {
-    return {
-      id: `puzzle-${prefix}-${dayNum}`,
-      title: `Day ${dayNum} Statutory Audit Puzzle: Standards on Auditing (SA) Evidence Chain`,
-      missionPrompt: "Construct the statutory audit verification sequence from risk assessment down to independent audit opinion under ICAI / ISA standards!",
-      type: 'architecture-flow',
-      domain: 'auditing',
-      blocks: [
-        { id: 'aud1', label: '1. Engagement & Independence (SQC 1)', subtext: 'Verify auditor independence, issue formal Engagement Letter under SA 210', color: 'emerald', category: 'init', badge: 'SA 210' },
-        { id: 'aud2', label: '2. Risk Assessment & Materiality (SA 315)', subtext: 'Understand internal controls and benchmark Materiality threshold at 1% of Revenue', color: 'cyan', category: 'condition', badge: 'SA 315' },
-        { id: 'aud3', label: '3. Test of Controls (TOC)', subtext: 'Sample automated ERP segregation of duties and dual-authorization gates', color: 'amber', category: 'logic', badge: 'TOC' },
-        { id: 'aud4', label: '4. Substantive Testing & External Vouching', subtext: 'Obtain direct external bank confirmations (SA 505) and physical inventory counts', color: 'purple', category: 'transform', badge: 'SA 500' },
-        { id: 'aud5', label: '5. Form Independent Audit Opinion (SA 700)', subtext: 'Evaluate unadjusted misstatements and issue Unqualified ("True & Fair") Audit Report', color: 'indigo', category: 'output', badge: 'SA 700' },
-        { id: 'decoy1', label: 'Decoy: Self-Review Threat', subtext: 'Audit financial statements prepared by the auditor\'s own bookkeeping team', color: 'rose', category: 'decoy', badge: 'ETHICS_FAIL' },
-      ],
-      correctOrder: ['aud1', 'aud2', 'aud3', 'aud4', 'aud5'],
-      decoyBlockIds: ['decoy1'],
-      hint: "Auditors must establish independence, determine materiality, test controls, gather sufficient appropriate evidence, and only then issue their audit opinion.",
-      successExplanation: "Audit evidence chain complete: Standards on Auditing verified with zero self-review conflict of interest."
-    };
-  }
-
-  // -------------------------------------------------------------------------
-  // DOMAIN 9: B.COM - TAXATION, GST & INTERNATIONAL TAX
-  // -------------------------------------------------------------------------
-  if (domain === 'taxation') {
-    return {
-      id: `puzzle-${prefix}-${dayNum}`,
-      title: `Day ${dayNum} Taxation Puzzle: GST Input Tax Credit (ITC) Offset Waterfall`,
-      missionPrompt: "Arrange the statutory Goods and Services Tax (GST) settlement sequence to calculate output liability, utilize eligible ITC, and remit net cash!",
-      type: 'ledger-balancer',
-      domain: 'taxation',
-      blocks: [
-        { id: 'tax1', label: '1. Inward Supply Ingestion', subtext: 'Match vendor invoices in GSTR-2B to verify eligible Input Tax Credit (ITC)', color: 'emerald', category: 'init', badge: 'GSTR-2B' },
-        { id: 'tax2', label: '2. Compute Gross Output Tax', subtext: 'Calculate CGST, SGST and IGST liability on outward taxable supplies in GSTR-1', color: 'cyan', category: 'transform', badge: 'GSTR-1' },
-        { id: 'tax3', label: '3. Offset Integrated Tax (IGST)', subtext: 'Utilize IGST credit completely against IGST, then CGST/SGST liability', color: 'amber', category: 'logic', badge: 'IGST_ITC' },
-        { id: 'tax4', label: '4. Offset State/Central Credits', subtext: 'Utilize CGST against CGST and SGST against SGST (No cross-utilization allowed!)', color: 'purple', category: 'condition', badge: 'ITC_RULES' },
-        { id: 'tax5', label: '5. Electronic Cash Ledger Discharge', subtext: 'Generate Challan PMT-06 and remit remaining balance through bank payment', color: 'indigo', category: 'output', badge: 'PAYMENT' },
-        { id: 'decoy1', label: 'Decoy: Illegal Cross-Credit Transfer', subtext: 'Utilize CGST Input Credit directly to offset SGST State Liability', color: 'rose', category: 'decoy', badge: 'GST_ILLEGAL' },
-      ],
-      correctOrder: ['tax1', 'tax2', 'tax3', 'tax4', 'tax5'],
-      decoyBlockIds: ['decoy1'],
-      hint: "GST rules strictly forbid cross-utilization between CGST and SGST. IGST credit must be exhausted first before other credits are touched.",
-      successExplanation: "GST settlement waterfall verified: Input Tax Credit legally claimed and net liability remitted."
-    };
-  }
-
-  // -------------------------------------------------------------------------
-  // DOMAIN 10: DEVOPS, SRE & CLOUD INFRASTRUCTURE
-  // -------------------------------------------------------------------------
-  if (domain === 'devops-cloud') {
-    return {
-      id: `puzzle-${prefix}-${dayNum}`,
-      title: `Day ${dayNum} Cloud & DevOps Puzzle: Zero-Downtime Deployment Pipeline`,
-      missionPrompt: "Sequence the continuous integration and deployment pipeline to build, test, package, and rollout with automated rollback guards!",
-      type: 'pipeline-router',
-      domain: 'devops-cloud',
-      blocks: [
-        { id: 'dp1', label: '1. Source Commit & Lint', subtext: 'Git webhook triggers runner; execute ESLint, Prettier & TypeScript check', color: 'emerald', category: 'init', badge: 'LINT' },
-        { id: 'dp2', label: '2. Automated Unit & Integration Tests', subtext: 'Execute test suites with coverage gate (>= 85% pass threshold)', color: 'cyan', category: 'condition', badge: 'TEST' },
-        { id: 'dp3', label: '3. Multi-Stage Container Build', subtext: 'Compile minimal dist container and scan image for CVE vulnerabilities', color: 'amber', category: 'transform', badge: 'DOCKER' },
-        { id: 'dp4', label: '4. Blue/Green Canary Deployment', subtext: 'Route 5% of production traffic to canary pods; monitor latency & error rate', color: 'purple', category: 'logic', badge: 'CANARY' },
-        { id: 'dp5', label: '5. Full Traffic Promotion & Cutover', subtext: 'Scale new deployment to 100%; decommission legacy replica sets', color: 'indigo', category: 'output', badge: 'PROMOTE' },
-        { id: 'decoy1', label: 'Decoy: Direct Production Push', subtext: 'Push untested code directly to master branch and restart production server', color: 'rose', category: 'decoy', badge: 'OUTAGE' },
-      ],
-      correctOrder: ['dp1', 'dp2', 'dp3', 'dp4', 'dp5'],
-      decoyBlockIds: ['decoy1'],
-      hint: "Never deploy untested code. A modern CI/CD pipeline requires static analysis -> automated tests -> container security scan -> canary testing -> promotion.",
-      successExplanation: "CI/CD automated pipeline validated: Zero-downtime canary deployment with full quality gates."
-    };
-  }
-
-  // -------------------------------------------------------------------------
-  // DOMAIN 11: EMBEDDED SYSTEMS & IOT HARDWARE
-  // -------------------------------------------------------------------------
-  if (domain === 'embedded-iot') {
-    return {
-      id: `puzzle-${prefix}-${dayNum}`,
-      title: `Day ${dayNum} Embedded IoT Puzzle: Microcontroller Peripherals & MMIO Pipeline`,
-      missionPrompt: "Arrange the bare-metal hardware initialization steps to configure clocks, configure GPIO, attach interrupts, and transmit telemetry!",
-      type: 'architecture-flow',
-      domain: 'embedded-iot',
-      blocks: [
-        { id: 'emb1', label: '1. System Clock Tree Configuration', subtext: 'Enable Phase-Locked Loop (PLL) to configure system core clock at 168MHz', color: 'emerald', category: 'init', badge: 'RCC/PLL' },
-        { id: 'emb2', label: '2. Peripheral Bus Clock Gating', subtext: 'Enable clock gating for GPIO Port A in RCC->AHB1ENR register', color: 'cyan', category: 'init', badge: 'AHB1' },
-        { id: 'emb3', label: '3. Pin Mode Configuration (MODER)', subtext: 'Configure Pin PA5 as Alternate Function / Push-Pull output via bitmasking', color: 'amber', category: 'transform', badge: 'GPIO' },
-        { id: 'emb4', label: '4. Nested Vector Interrupt (NVIC)', subtext: 'Configure priority and unmask EXTI external interrupt line', color: 'purple', category: 'condition', badge: 'NVIC' },
-        { id: 'emb5', label: '5. DMA / UART Telemetry Transmit', subtext: 'Stream sensor buffer payload via circular DMA buffer to avoid CPU blocking', color: 'indigo', category: 'output', badge: 'DMA/UART' },
-        { id: 'decoy1', label: 'Decoy: Access Before Clock Enabled', subtext: 'Write to GPIO->MODER register before enabling peripheral clock in RCC', color: 'rose', category: 'decoy', badge: 'HARD_FAULT' },
-      ],
-      correctOrder: ['emb1', 'emb2', 'emb3', 'emb4', 'emb5'],
-      decoyBlockIds: ['decoy1'],
-      hint: "In ARM Cortex microcontrollers, accessing a peripheral register before enabling its clock in the RCC will trigger an immediate HardFault exception!",
-      successExplanation: "Bare-metal hardware initialization verified: Clock Tree -> Bus Enable -> Pin Mode -> Interrupt Setup -> DMA Stream."
-    };
-  }
-
-  // -------------------------------------------------------------------------
-  // DOMAIN 12: BLOCKCHAIN, EVM & SMART CONTRACTS
-  // -------------------------------------------------------------------------
-  if (domain === 'blockchain') {
-    return {
-      id: `puzzle-${prefix}-${dayNum}`,
-      title: `Day ${dayNum} Blockchain Puzzle: Checks-Effects-Interactions Security`,
-      missionPrompt: "Arrange the smart contract withdrawal sequence to guarantee immunity against reentrancy attacks and preserve state consistency!",
-      type: 'state-switcher',
-      domain: 'blockchain',
-      blocks: [
-        { id: 'bc1', label: '1. Checks: Validate Conditions', subtext: 'require(balances[msg.sender] >= amount, "Insufficient funds");', color: 'emerald', category: 'condition', badge: 'CHECK' },
-        { id: 'bc2', label: '2. Effects: Update Internal State First', subtext: 'balances[msg.sender] -= amount;  // State updated BEFORE transfer', color: 'cyan', category: 'transform', badge: 'EFFECT' },
-        { id: 'bc3', label: '3. Interactions: External Call', subtext: '(bool ok, ) = msg.sender.call{value: amount}(""); require(ok);', color: 'amber', category: 'output', badge: 'INTERACT' },
-        { id: 'bc4', label: '4. Emit Cryptographic Event', subtext: 'emit Withdrawal(msg.sender, amount, block.timestamp);', color: 'purple', category: 'output', badge: 'EVENT' },
-        { id: 'decoy1', label: 'Decoy: Reentrancy Vulnerability (DAO Hack)', subtext: 'msg.sender.call{value: amount}(""); balances[msg.sender] -= amount;', color: 'rose', category: 'decoy', badge: 'REENTRANCY' },
-      ],
-      correctOrder: ['bc1', 'bc2', 'bc3', 'bc4'],
-      decoyBlockIds: ['decoy1'],
-      hint: "Checks-Effects-Interactions pattern: Always update user balance state to 0 BEFORE transferring ether out to prevent recursive reentrancy!",
-      successExplanation: "Smart contract security verified: Checks-Effects-Interactions pattern protects against reentrancy exploits."
-    };
-  }
-
-  // -------------------------------------------------------------------------
-  // DOMAIN 13: B.COM - CORPORATE LAW & SECRETARIAL GOVERNANCE
-  // -------------------------------------------------------------------------
-  if (domain === 'corporate-law') {
-    return {
-      id: `puzzle-${prefix}-${dayNum}`,
-      title: `Day ${dayNum} Corporate Law Puzzle: Board Governance & MCA ROC Filing`,
-      missionPrompt: "Arrange the statutory secretarial procedure to convene a Board Meeting, pass a valid resolution, and file with the Registrar of Companies under the Companies Act 2013!",
-      type: 'decision-tree',
-      domain: 'corporate-law',
-      blocks: [
-        { id: 'law1', label: '1. Issue Meeting Notice (Sec 173)', subtext: 'Deliver formal 7-day written notice with agenda to all registered directors', color: 'emerald', category: 'init', badge: 'NOTICE' },
-        { id: 'law2', label: '2. Verify Statutory Quorum', subtext: 'Ensure attendance of at least 1/3rd of total directors or 2 directors (whichever is higher)', color: 'cyan', category: 'condition', badge: 'QUORUM' },
-        { id: 'law3', label: '3. Pass Board Resolution', subtext: 'Record majority affirmative vote on the corporate action in meeting agenda', color: 'amber', category: 'logic', badge: 'RESOLUTION' },
-        { id: 'law4', label: '4. Sign Minutes of Meeting', subtext: 'Chairperson signs and dates minutes within 30 days in statutory minute book', color: 'purple', category: 'transform', badge: 'MINUTES' },
-        { id: 'law5', label: '5. File e-Form MGT-14 with MCA', subtext: 'Upload certified resolution copy with DSC on Ministry of Corporate Affairs portal', color: 'indigo', category: 'output', badge: 'ROC_FILING' },
-        { id: 'decoy1', label: 'Decoy: Ultra Vires Action', subtext: 'File resolution with ROC when meeting lacked valid statutory quorum', color: 'rose', category: 'decoy', badge: 'INVALID_VOID' },
-      ],
-      correctOrder: ['law1', 'law2', 'law3', 'law4', 'law5'],
-      decoyBlockIds: ['decoy1'],
-      hint: "Secretarial compliance: Notice -> Quorum confirmation -> Resolution passage -> Minutes execution -> ROC e-filing. Actions without quorum are void ab initio!",
-      successExplanation: "Corporate governance workflow verified: Companies Act procedural requirements fully satisfied."
-    };
-  }
-
-  // -------------------------------------------------------------------------
-  // DOMAIN 14: B.COM - SUPPLY CHAIN & OPERATIONS
-  // -------------------------------------------------------------------------
-  if (domain === 'supply-chain') {
-    return {
-      id: `puzzle-${prefix}-${dayNum}`,
-      title: `Day ${dayNum} Supply Chain Puzzle: Procure-to-Pay (P2P) 3-Way Match`,
-      missionPrompt: "Construct the fraud-proof Procure-to-Pay workflow to verify purchase authorization, physical receiving, and invoice matching before settlement!",
-      type: 'pipeline-router',
-      domain: 'supply-chain',
-      blocks: [
-        { id: 'p2p1', label: '1. Approved Purchase Requisition', subtext: 'Department submits requisition; verified against department quarterly budget', color: 'emerald', category: 'init', badge: 'REQUISITION' },
-        { id: 'p2p2', label: '2. Purchase Order (PO) Issuance', subtext: 'Procurement selects approved vendor and issues legally binding PO with item prices', color: 'cyan', category: 'init', badge: 'PO' },
-        { id: 'p2p3', label: '3. Goods Receipt Note (GRN)', subtext: 'Warehouse inspects physical delivery, verifies SKU quantities and logs GRN', color: 'amber', category: 'condition', badge: 'GRN' },
-        { id: 'p2p4', label: '4. ERP 3-Way Matching Gate', subtext: 'Automated tolerance check matches PO price, GRN quantity, and Vendor Invoice amount', color: 'purple', category: 'logic', badge: '3-WAY MATCH' },
-        { id: 'p2p5', label: '5. Accounts Payable Disbursement', subtext: 'Release payment voucher to vendor within agreed credit terms (e.g. Net 30)', color: 'indigo', category: 'output', badge: 'PAYMENT' },
-        { id: 'decoy1', label: 'Decoy: Ghost Vendor Vulnerability', subtext: 'Pay vendor invoice directly without physical Goods Receipt Note (GRN) verification', color: 'rose', category: 'decoy', badge: 'FRAUD_RISK' },
-      ],
-      correctOrder: ['p2p1', 'p2p2', 'p2p3', 'p2p4', 'p2p5'],
-      decoyBlockIds: ['decoy1'],
-      hint: "Procure-to-pay controls mandate a strict 3-Way Match (Purchase Order + Goods Receipt Note + Vendor Invoice) prior to releasing corporate funds.",
-      successExplanation: "Procure-to-Pay pipeline validated: Invariant controls protect against inventory discrepancies and ghost billing."
-    };
-  }
-
-  // -------------------------------------------------------------------------
-  // DOMAIN 15: B.COM - DIGITAL MARKETING & PERFORMANCE ANALYTICS
-  // -------------------------------------------------------------------------
-  if (domain === 'digital-marketing') {
-    return {
-      id: `puzzle-${prefix}-${dayNum}`,
-      title: `Day ${dayNum} Digital Marketing Puzzle: Multi-Touch Conversion Attribution`,
-      missionPrompt: "Sequence the user acquisition funnel to trace campaign tracking, pixel events, and server-side deduplication to calculate ROAS!",
-      type: 'pipeline-router',
-      domain: 'digital-marketing',
-      blocks: [
-        { id: 'mkt1', label: '1. UTM Campaign Link Building', subtext: 'Tag creative with utm_source, utm_medium, utm_campaign, and utm_content', color: 'emerald', category: 'init', badge: 'UTM' },
-        { id: 'mkt2', label: '2. Landing Page View & Cookie Consent', subtext: 'Fire PageView pixel event and establish anonymous first-party visitor session', color: 'cyan', category: 'init', badge: 'PIXEL' },
-        { id: 'mkt3', label: '3. Cart Add & Funnel Progress', subtext: 'Trigger AddToCart event with dynamic product ID, quantity, and currency payload', color: 'amber', category: 'logic', badge: 'EVENT' },
-        { id: 'mkt4', label: '4. Server-Side CAPI Purchase Webhook', subtext: 'Dispatch hashed transaction payload via Server-Side Conversion API to avoid ad-blockers', color: 'purple', category: 'transform', badge: 'CAPI' },
-        { id: 'mkt5', label: '5. Multi-Touch ROAS Attribution', subtext: 'Credit incremental revenue across touchpoints to optimize customer acquisition cost (CAC)', color: 'indigo', category: 'output', badge: 'ROAS' },
-        { id: 'decoy1', label: 'Decoy: Misleading Last-Click Blindspot', subtext: 'Attribute 100% credit to branded search while ignoring top-of-funnel discovery ads', color: 'rose', category: 'decoy', badge: 'ATTR_BIAS' },
-      ],
-      correctOrder: ['mkt1', 'mkt2', 'mkt3', 'mkt4', 'mkt5'],
-      decoyBlockIds: ['decoy1'],
-      hint: "Performance tracking pipeline: UTM parameters -> First-party pixel -> Cart event -> Server-side CAPI -> Attribution modeling.",
-      successExplanation: "Marketing attribution pipeline verified: Full-funnel tracking enabled with reliable return on ad spend (ROAS) analytics."
-    };
-  }
-
-  // -------------------------------------------------------------------------
-  // DOMAIN 16: B.COM - E-COMMERCE PLATFORM ARCHITECTURE
-  // -------------------------------------------------------------------------
-  if (domain === 'ecommerce') {
-    return {
-      id: `puzzle-${prefix}-${dayNum}`,
-      title: `Day ${dayNum} E-Commerce Puzzle: High-Concurrency Checkout Pipeline`,
-      missionPrompt: "Arrange the checkout microservices pipeline to process payments, atomically reserve inventory, and prevent overbooking!",
-      type: 'pipeline-router',
-      domain: 'ecommerce',
-      blocks: [
-        { id: 'ecom1', label: '1. Cart Checkout & Payment Token', subtext: 'Client submits cart; tokenizes card details securely via PCI-DSS payment gateway', color: 'emerald', category: 'init', badge: 'CHECKOUT' },
-        { id: 'ecom2', label: '2. Atomic Inventory Hold in Redis', subtext: 'Execute Redis DECR transaction to reserve stock with 15-minute TTL expiration', color: 'cyan', category: 'condition', badge: 'REDIS_HOLD' },
-        { id: 'ecom3', label: '3. Payment Gateway Webhook Capture', subtext: 'Receive cryptographic webhook confirming fund capture from payment provider', color: 'amber', category: 'logic', badge: 'WEBHOOK' },
-        { id: 'ecom4', label: '4. Order Persistence & Invoice Generation', subtext: 'Write immutable order record to SQL database and emit OrderCreated message to Kafka', color: 'purple', category: 'transform', badge: 'KAFKA' },
-        { id: 'ecom5', label: '5. Warehouse Fulfillment & AWB Label', subtext: 'Logistics API generates Air Waybill (AWB) shipping barcode for carrier pickup', color: 'indigo', category: 'output', badge: 'SHIP' },
-        { id: 'decoy1', label: 'Decoy: Race Condition Overbooking', subtext: 'Capture payment before checking or holding stock in high-traffic sales', color: 'rose', category: 'decoy', badge: 'RACE_BUG' },
-      ],
-      correctOrder: ['ecom1', 'ecom2', 'ecom3', 'ecom4', 'ecom5'],
-      decoyBlockIds: ['decoy1'],
-      hint: "E-Commerce checkout invariants: Tokenize payment -> Atomic stock hold -> Capture webhook -> Order creation -> Carrier dispatch.",
-      successExplanation: "E-Commerce checkout pipeline verified: Distributed transactions protected against inventory race conditions."
-    };
-  }
-
-  // -------------------------------------------------------------------------
-  // DOMAIN 17: CYBERSECURITY & NETWORK DEFENSE
-  // -------------------------------------------------------------------------
-  if (domain === 'cybersecurity') {
-    return {
-      id: `puzzle-${prefix}-${dayNum}`,
-      title: `Day ${dayNum} Cybersecurity Puzzle: Cryptographic Authentication & TLS Handshake`,
-      missionPrompt: "Arrange the cryptographic authentication steps to establish an encrypted, tamper-proof channel and verify identity!",
-      type: 'architecture-flow',
-      domain: 'cybersecurity',
-      blocks: [
-        { id: 'cy1', label: '1. ClientHello & Cipher Negotiation', subtext: 'Client sends supported TLS 1.3 cipher suites and ephemeral KeyShare', color: 'emerald', category: 'init', badge: 'HELLOCLIENT' },
-        { id: 'cy2', label: '2. Server Certificate Verification', subtext: 'Validate server X.509 certificate chain against trusted Root Certificate Authority (CA)', color: 'cyan', category: 'condition', badge: 'CERT_CHECK' },
-        { id: 'cy3', label: '3. Ephemeral Key Exchange (ECDHE)', subtext: 'Compute shared secret via Elliptic Curve Diffie-Hellman to guarantee Forward Secrecy', color: 'amber', category: 'logic', badge: 'ECDHE' },
-        { id: 'cy4', label: '4. Derive Symmetric Session Keys', subtext: 'Derive AES-256-GCM encryption keys using HKDF extract-and-expand pipeline', color: 'purple', category: 'transform', badge: 'SESSION_KEYS' },
-        { id: 'cy5', label: '5. Encrypted Application Data Flow', subtext: 'Transmit authenticated application payloads protected by AEAD integrity tags', color: 'indigo', category: 'output', badge: 'ENCRYPTED' },
-        { id: 'decoy1', label: 'Decoy: Man-in-the-Middle Bypass', subtext: 'Disable certificate revocation and trust self-signed certificate blindly', color: 'rose', category: 'decoy', badge: 'MITM_ATTACK' },
-      ],
-      correctOrder: ['cy1', 'cy2', 'cy3', 'cy4', 'cy5'],
-      decoyBlockIds: ['decoy1'],
-      hint: "Secure communication requires: ClientHello -> Certificate trust verification -> Key agreement -> Session key derivation -> Encrypted transfer.",
-      successExplanation: "Cryptographic pipeline verified: Perfect Forward Secrecy established and immune to Man-in-the-Middle tampering."
-    };
-  }
-
-  // -------------------------------------------------------------------------
-  // DOMAIN 18: NODE.JS, EXPRESS & SERVERLESS
-  // -------------------------------------------------------------------------
-  if (domain === 'nodejs') {
-    return {
-      id: `puzzle-${prefix}-${dayNum}`,
-      title: `Day ${dayNum} Node.js Puzzle: Express Middleware Request Pipeline`,
-      missionPrompt: "Sequence the asynchronous HTTP request pipeline: parse body, validate authentication, enforce rate limits, and dispatch response!",
-      type: 'code-reorder',
-      domain: 'nodejs',
-      blocks: [
-        { id: 'nd1', label: '1. JSON Body Parser Middleware', subtext: 'app.use(express.json({ limit: "1mb" }));', color: 'emerald', category: 'init', badge: 'PARSER' },
-        { id: 'nd2', label: '2. Bearer JWT Authentication Guard', subtext: 'const user = await verifyToken(req.headers.authorization);', color: 'cyan', category: 'condition', badge: 'AUTH' },
-        { id: 'nd3', label: '3. Sliding-Window Rate Limiter', subtext: 'if (await isRateLimited(user.id)) return res.status(429).json();', color: 'amber', category: 'condition', badge: 'RATE_LIMIT' },
-        { id: 'nd4', label: '4. Controller Service Execution', subtext: 'const result = await OrderService.createOrder(req.body, user);', color: 'purple', category: 'transform', badge: 'CONTROLLER' },
-        { id: 'nd5', label: '5. HTTP 201 Created Response', subtext: 'return res.status(201).json({ success: true, data: result });', color: 'indigo', category: 'output', badge: 'SEND' },
-        { id: 'decoy1', label: 'Decoy: Double-Response Exception', subtext: 'res.json(data); next(); // (Calling next after response terminates)', color: 'rose', category: 'decoy', badge: 'HEADER_ERR' },
-      ],
-      correctOrder: ['nd1', 'nd2', 'nd3', 'nd4', 'nd5'],
-      decoyBlockIds: ['decoy1'],
-      hint: "Express middleware executes in order: Parse JSON -> Authenticate -> Rate Limit -> Controller Execution -> Response Return. Never call next() after sending a response!",
-      successExplanation: "Node.js HTTP request lifecycle verified: Guard clauses protect controller logic and prevent ERR_HTTP_HEADERS_SENT."
-    };
-  }
-
-  // -------------------------------------------------------------------------
-  // DOMAIN 19: GIT VERSION CONTROL & COLLABORATION
-  // -------------------------------------------------------------------------
-  if (domain === 'git-vcs') {
-    return {
-      id: `puzzle-${prefix}-${dayNum}`,
-      title: `Day ${dayNum} Git Puzzle: Feature Branching & Rebase Workflow`,
-      missionPrompt: "Arrange the professional Git commands to create a feature branch, commit changes atomically, rebase onto main, and push!",
-      type: 'code-reorder',
-      domain: 'git-vcs',
-      blocks: [
-        { id: 'git1', label: '1. Create Isolated Feature Branch', subtext: 'git checkout -b feature/order-validation origin/main', color: 'emerald', category: 'init', badge: 'BRANCH' },
-        { id: 'git2', label: '2. Stage Atomic Changes', subtext: 'git add src/services/orderValidator.ts', color: 'cyan', category: 'init', badge: 'STAGE' },
-        { id: 'git3', label: '3. Conventional Git Commit', subtext: 'git commit -m "feat(orders): validate line item amounts"', color: 'amber', category: 'transform', badge: 'COMMIT' },
-        { id: 'git4', label: '4. Fetch & Rebase from Upstream', subtext: 'git fetch origin && git rebase origin/main', color: 'purple', category: 'logic', badge: 'REBASE' },
-        { id: 'git5', label: '5. Safe Force Push with Lease', subtext: 'git push --force-with-lease origin feature/order-validation', color: 'indigo', category: 'output', badge: 'PUSH' },
-        { id: 'decoy1', label: 'Decoy: Destructive Force Push', subtext: 'git push --force origin main  # (Overwrites team work on main branch!)', color: 'rose', category: 'decoy', badge: 'DISASTER' },
-      ],
-      correctOrder: ['git1', 'git2', 'git3', 'git4', 'git5'],
-      decoyBlockIds: ['decoy1'],
-      hint: "Professional Git hygiene: Create branch -> Stage atomic changes -> Commit -> Rebase on main -> Push with --force-with-lease. Never force-push to main!",
-      successExplanation: "Git version control workflow validated: Linear commit history preserved without merge commit pollution."
-    };
-  }
-
-  // -------------------------------------------------------------------------
-  // DYNAMIC FALLBACK: SYNTHESIS FROM ACTUAL LESSON PARTS
-  // -------------------------------------------------------------------------
-  // If no static domain matched, build an authentic puzzle directly from the lesson's actual parts!
-  const blockList: PuzzleBlock[] = [];
-  const order: string[] = [];
-  const colors: Array<PuzzleBlock['color']> = ['emerald', 'cyan', 'amber', 'purple', 'indigo'];
-
-  if (parts.length >= 3) {
-    const activeParts = parts.slice(0, 5);
-    activeParts.forEach((p: any, idx: number) => {
-      const bId = `dyn-${idx + 1}`;
-      const partTitle = p.title ? p.title.split(':')[0].replace(/^(part\s*\d+[:\-.]?)/i, '').trim().slice(0, 32) : `Step ${idx + 1}`;
-      
-      // Extract genuine code snippet if available
-      let snippet = '';
-      if (p.code) {
-        const lines = p.code.split('\n').map((l: string) => l.trim()).filter((l: string) => l.length > 2 && !l.startsWith('//') && !l.startsWith('#'));
-        snippet = lines[0] ? lines[0].slice(0, 48) : '';
-      }
-
-      blockList.push({
-        id: bId,
-        label: `${idx + 1}. ${partTitle}`,
-        subtext: snippet || (p.example ? p.example.slice(0, 48) : `Execute operational step ${idx + 1}`),
-        color: colors[idx % colors.length],
-        category: idx === 0 ? 'init' : (idx === activeParts.length - 1 ? 'output' : 'transform'),
-        badge: idx === 0 ? 'INIT' : (idx === activeParts.length - 1 ? 'OUTPUT' : 'STEP'),
-        codeSnippet: p.code || undefined
-      });
-      order.push(bId);
-    });
-
-    // Inject an authentic decoy block
-    const decoyId = 'dyn-decoy';
-    blockList.push({
-      id: decoyId,
-      label: 'Decoy: Invalid Precedence Inversion',
-      subtext: 'Attempt to execute final output before prerequisite state is initialized',
-      color: 'rose',
-      category: 'decoy',
-      badge: 'INVALID'
-    });
-
-    return {
-      id: `puzzle-${prefix}-${dayNum}`,
-      title: `Day ${dayNum} Architectural Puzzle: ${summary.title.slice(0, 40)}`,
-      missionPrompt: `Arrange the operational lifecycle blocks in the exact chronological sequence taught in today's lesson!`,
-      type: 'pipeline-router',
-      domain: domain,
-      blocks: blockList,
-      correctOrder: order,
-      decoyBlockIds: [decoyId],
-      hint: "Think about dependencies: What must be defined or initialized before downstream transformations can execute?",
-      successExplanation: `All ${order.length} operational stages are positioned in correct sequence. System invariants validated!`
-    };
-  }
-
-  // Minimum fallback if lesson has fewer than 3 parts
-  blockList.push(
+  // Generic fallback when lessonData has < 3 parts
+  const blockList: PuzzleBlock[] = [
     { id: 'b1', label: '1. Initialize Input Context', subtext: 'Acquire verified operational parameters', color: 'emerald', category: 'init', badge: 'INIT' },
-    { id: 'b2', label: '2. Execute Core Transformation', subtext: 'Apply business logic & state constraints', color: 'cyan', category: 'transform', badge: 'LOGIC' },
-    { id: 'b3', label: '3. Verify & Deliver Output', subtext: 'Ensure deterministic result delivery', color: 'purple', category: 'output', badge: 'DELIVER' },
+    { id: 'b2', label: '2. Validate Domain Constraints', subtext: 'Enforce schema & boundary invariants', color: 'cyan', category: 'condition', badge: 'GUARD' },
+    { id: 'b3', label: '3. Execute Core Transformation', subtext: 'Apply business logic & state computation', color: 'amber', category: 'transform', badge: 'LOGIC' },
+    { id: 'b4', label: '4. Verify & Deliver Output', subtext: 'Ensure deterministic result delivery', color: 'purple', category: 'output', badge: 'DELIVER' },
     { id: 'decoy1', label: 'Decoy: Premature Output Delivery', subtext: 'Deliver unverified payload before transformation completes', color: 'rose', category: 'decoy', badge: 'ERROR' }
-  );
-  order.push('b1', 'b2', 'b3');
+  ];
 
   return {
     id: `puzzle-${prefix}-${dayNum}`,
-    title: `Day ${dayNum} Puzzle: ${summary.title.slice(0, 40)}`,
-    missionPrompt: `Arrange the operational blocks in chronological order to complete the day's challenge!`,
-    type: 'pipeline-router',
-    domain: domain,
+    title: `Day ${dayNum} 3D Puzzle: ${summary.title.slice(0, 48)}`,
+    missionPrompt: `Arrange the operational blocks in chronological order to complete today's 3D architecture challenge!`,
+    type: DOMAIN_PUZZLE_TYPE[domain] || 'pipeline-router',
+    domain,
     blocks: blockList,
-    correctOrder: order,
+    correctOrder: ['b1', 'b2', 'b3', 'b4'],
     decoyBlockIds: ['decoy1'],
-    hint: "Remember: Input initialization must always precede transformation, and transformation must precede final delivery.",
+    hint: "Remember: Input initialization and guard validation must precede core transformation and final delivery.",
     successExplanation: "Execution sequence verified: All operations succeeded deterministically."
   };
 }
@@ -802,7 +571,6 @@ export function generateRapidFireBattle(
     if (questions.length >= 5) break;
   }
 
-  // Domain-aware fallback reflexes
   const domain = detectCourseDomain(prefix, lessonData?.title || '');
   const domainReflexes: Record<string, Array<{ q: string; opts: [string, string, string, string]; ans: number; why: string }>> = {
     accounting: [
@@ -824,28 +592,28 @@ export function generateRapidFireBattle(
   const reflexes = domainReflexes[domain] || [
     { q: "What is the primary purpose of writing modular code?", opts: ["Improves reusability, testability and cognitive clarity", "Makes file size larger", "Required to access the internet", "Prevents comments from compiling"], ans: 0, why: "Modular code separates concerns and makes systems maintainable." },
     { q: "What occurs when an instruction contains an uncaught syntax error?", opts: ["The interpreter/compiler throws an error and execution halts", "The computer ignores it and guesses", "The code runs 10x faster", "The screen brightness changes"], ans: 0, why: "Syntax errors violate language grammar rules and stop execution." },
-    { q: "What does deterministic execution mean?", opts: ["Given the same inputs, it always produces identical outputs", "It changes randomly every time", "It runs only on weekends", "It requires user mouse movement"], ans: 0, why: "Deterministic operations are repeatable, predictable, and verifiable." },
-    { q: "Why should dependencies be explicitly declared and initialized?", opts: ["Prevents runtime null reference errors and unexpected crashes", "Consumes extra memory unnecessarily", "Slows down computer hardware", "Required by monitor drivers"], ans: 0, why: "Explicit initialization guarantees state invariants before invocation." },
-    { q: "What is the best way to verify system correctness?", opts: ["Automated assertion testing against defined specifications", "Assuming it works without running", "Changing variable names until it looks good", "Deleting failing tests"], ans: 0, why: "Automated assertion testing proves code satisfies required specifications." }
+    { q: "What does deterministic execution mean?", opts: ["Given the same inputs, it always produces identical outputs", "It changes randomly every time", "It runs only on Sundays", "It deletes variables automatically"], ans: 0, why: "Deterministic logic guarantees predictable, repeatable outputs for any valid input." },
+    { q: "Why are guard clauses and input validations placed at the start of functions?", opts: ["To catch invalid edge cases early before expensive computation", "To slow down the CPU", "To hide variables from the caller", "Because return statements only work on line 1"], ans: 0, why: "Fail-fast guard clauses prevent corrupted state and division/null errors downstream." },
+    { q: "Why should secrets and API keys never be hardcoded in source files?", opts: ["Anyone with repository access can extract and abuse credentials", "They make strings too long", "Compilers reject uppercase letters", "Environment variables are slower"], ans: 0, why: "Hardcoded credentials in version control are a critical security vulnerability." }
   ];
 
   let rIdx = 0;
   while (questions.length < 5) {
-    const rf = reflexes[rIdx % reflexes.length];
+    const item = reflexes[rIdx % reflexes.length];
     questions.push({
-      id: `battle-fb-${questions.length + 1}`,
-      question: rf.q,
-      options: rf.opts,
-      correctIndex: rf.ans,
-      explanation: rf.why
+      id: `battle-fallback-${questions.length + 1}`,
+      question: item.q,
+      options: item.opts,
+      correctIndex: item.ans,
+      explanation: item.why
     });
     rIdx++;
   }
 
   return {
-    title: `⚡ Day ${dayNum} Rapid-Fire Battle (60s)`,
+    title: `Day ${dayNum} 60-Second Rapid-Fire Mastery Battle`,
     timeLimitSeconds: 60,
     questions: questions.slice(0, 5),
-    passScore: 4
+    passScore: 4,
   };
 }

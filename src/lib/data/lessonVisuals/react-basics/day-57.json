@@ -81,7 +81,7 @@
           },
           {
             "at": "say2",
-            "caption": "Edge Anycast routes traffic in 3.8ms to local edge worker runtime.",
+            "caption": "Edge Anycast routes traffic in three.eightms to local edge worker runtime.",
             "values": {
               "client": {
                 "status": "Connected"
@@ -190,7 +190,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Static Navigation and Hero Banner flush to browser immediately at 15ms.",
+            "caption": "Static Navigation and Hero Banner flush to browser immediately at ms.",
             "values": {
               "nav": {
                 "status": "Flushed"
@@ -214,7 +214,7 @@
           },
           {
             "at": "say2",
-            "caption": "Browser paints First Contentful Paint with zero layout shift (CLS 0.000).",
+            "caption": "Browser paints First Contentful Paint with zero layout shift (CLS.",
             "values": {
               "nav": {
                 "status": "Visible"
@@ -262,7 +262,7 @@
           },
           {
             "at": "say4",
-            "caption": "Live inventory completes streaming; full interactive page ready in sub-50ms.",
+            "caption": "Live inventory completes streaming; full interactive page ready in sub-ms.",
             "values": {
               "nav": {
                 "status": "Active"
@@ -326,7 +326,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Chunk 0 streams immediately from edge cache within 15ms TTFB.",
+            "caption": "Chunk zero streams immediately from edge cache within ms TTFB.",
             "values": {
               "c1": {
                 "val": "Delivered"
@@ -350,7 +350,7 @@
           },
           {
             "at": "say2",
-            "caption": "Chunk 1 arrives over open HTTP connection, hydrating user navigation badge.",
+            "caption": "Chunk one arrives over open HTTP connection, hydrating user navigation.",
             "values": {
               "c1": {
                 "val": "Rendered"
@@ -374,7 +374,7 @@
           },
           {
             "at": "say3",
-            "caption": "Chunk 2 populates product prices with pre-calculated layout aspect ratios.",
+            "caption": "Chunk two populates product prices with pre-calculated layout aspect.",
             "values": {
               "c1": {
                 "val": "Rendered"
@@ -398,7 +398,7 @@
           },
           {
             "at": "say4",
-            "caption": "Chunk 3 concludes progressive stream, achieving sub-50ms full interactive render.",
+            "caption": "Chunk three concludes progressive stream, achieving sub-ms full.",
             "values": {
               "c1": {
                 "val": "Rendered"
@@ -528,7 +528,7 @@
           },
           {
             "at": "say4",
-            "caption": "Tag-based edge invalidation guarantees 99.9% edge cache hit ratios.",
+            "caption": "Tag-based edge invalidation guarantees multiple.nine% edge cache hit.",
             "values": {
               "left": {
                 "items": [
@@ -631,7 +631,7 @@
           },
           {
             "at": "say2",
-            "caption": "Agents measure Core Web Vitals under 4G throttling conditions.",
+            "caption": "Agents measure Core Web Vitals under fourG throttling conditions.",
             "values": {
               "init": {
                 "active": false
@@ -655,7 +655,7 @@
           },
           {
             "at": "say3",
-            "caption": "EVALUATING_SLA confirms TTFB 14.5ms, FCP 45ms, and CLS 0.000.",
+            "caption": "EVALUATING_SLA confirms TTFB multiple.fivems, FCP ms, and CLS.",
             "values": {
               "init": {
                 "active": false

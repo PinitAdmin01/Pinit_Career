@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Standard Costing & Multi-Level Flex...",
+            "caption": "Baseline KPI cohort metrics for Standard Costing & Multi-Level Flex...",
             "max": 100,
             "bars": [
               {
@@ -41,7 +41,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate Contribution Margin & Operating Cash Flow drivers.",
+            "caption": "Isolate Contribution Margin & Operating Cash Flow drivers.",
             "max": 100,
             "bars": [
               {
@@ -68,7 +68,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds.",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Standard Costing & Multi-Le...",
+            "caption": "Commit audited analytical dashboard for Standard Costing & Multi-Le...",
             "max": 100,
             "bars": [
               {
@@ -246,7 +246,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Multi-Product Cost-Volume-Profit (C...",
+            "caption": "Baseline KPI cohort metrics for Multi-Product Cost-Volume-Profit (C...",
             "max": 100,
             "bars": [
               {
@@ -273,7 +273,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate Contribution Margin & Operating Cash Flow drivers.",
+            "caption": "Isolate Contribution Margin & Operating Cash Flow drivers.",
             "max": 100,
             "bars": [
               {
@@ -300,7 +300,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds.",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -327,7 +327,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Multi-Product Cost-Volume-P...",
+            "caption": "Commit audited analytical dashboard for Multi-Product Cost-Volume-P...",
             "max": 100,
             "bars": [
               {
@@ -478,7 +478,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Activity-Based Costing (ABC) Cost P...",
+            "caption": "Baseline KPI cohort metrics for Activity-Based Costing (ABC) Cost P...",
             "max": 100,
             "bars": [
               {
@@ -505,7 +505,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate Contribution Margin & Operating Cash Flow drivers.",
+            "caption": "Isolate Contribution Margin & Operating Cash Flow drivers.",
             "max": 100,
             "bars": [
               {
@@ -532,7 +532,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds.",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -559,7 +559,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Activity-Based Costing (ABC...",
+            "caption": "Commit audited analytical dashboard for Activity-Based Costing (ABC...",
             "max": 100,
             "bars": [
               {
@@ -710,7 +710,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Capital Budgeting Decision Engine: ...",
+            "caption": "Baseline KPI cohort metrics for Capital Budgeting Decision Engine: ...",
             "max": 100,
             "bars": [
               {
@@ -737,7 +737,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate Contribution Margin & Operating Cash Flow drivers.",
+            "caption": "Isolate Contribution Margin & Operating Cash Flow drivers.",
             "max": 100,
             "bars": [
               {
@@ -764,7 +764,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds.",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -791,7 +791,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Capital Budgeting Decision ...",
+            "caption": "Commit audited analytical dashboard for Capital Budgeting Decision ...",
             "max": 100,
             "bars": [
               {
@@ -942,7 +942,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Three-Tier DuPont Return on Equity ...",
+            "caption": "Baseline KPI cohort metrics for Three-Tier DuPont Return on Equity ...",
             "max": 100,
             "bars": [
               {
@@ -969,7 +969,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate Contribution Margin & Operating Cash Flow drivers.",
+            "caption": "Isolate Contribution Margin & Operating Cash Flow drivers.",
             "max": 100,
             "bars": [
               {
@@ -996,7 +996,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds.",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -1023,7 +1023,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Three-Tier DuPont Return on...",
+            "caption": "Commit audited analytical dashboard for Three-Tier DuPont Return on...",
             "max": 100,
             "bars": [
               {

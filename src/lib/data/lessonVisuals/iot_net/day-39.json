@@ -268,7 +268,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize LTEM_CE_MODE_REG: Configure 1.4 MHz channel bandwidth (6 PRBs).",
+            "caption": "Initialize LTEM_CE_MODE_REG: Configure one.four MHz channel bandwidth.",
             "registerName": "LTEM_CE_MODE_REG",
             "bitWidth": 8,
             "hexValue": "0xC0",
@@ -329,7 +329,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Evaluate RSRP link margin and dynamically assign Coverage Enhancement Mode A (8 reps).",
+            "caption": "Evaluate RSRP link margin and dynamically assign Coverage Enhancement.",
             "registerName": "LTEM_CE_MODE_REG",
             "bitWidth": 8,
             "hexValue": "0xB2",
@@ -390,7 +390,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Escalate to CE Mode B (256 repetitions) to achieve 155.7 dB MCL penetration.",
+            "caption": "Escalate to CE Mode B (two-fifty-six repetitions) to achieve.",
             "registerName": "LTEM_CE_MODE_REG",
             "bitWidth": 8,
             "hexValue": "0xFE",
@@ -522,7 +522,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize LTEM_A3_HANDOVER_REG: Arm 3GPP TS 36.331 Event A3 measurement evaluator.",
+            "caption": "Initialize LTEM_Athree_HANDOVER_REG: Arm threeGPP TS multiple.multiple.",
             "registerName": "LTEM_A3_HANDOVER_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -583,7 +583,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Detect neighbor cell offset > serving cell + 2 dB; start 120 ms Time-To-Trigger timer.",
+            "caption": "Detect neighbor cell offset > serving cell + two dB; start multiple ms.",
             "registerName": "LTEM_A3_HANDOVER_REG",
             "bitWidth": 8,
             "hexValue": "0xBE",
@@ -644,7 +644,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Execute X2-AP connected-mode handover with 45 ms duration and zero packet loss.",
+            "caption": "Execute Xtwo-AP connected-mode handover with multiple ms duration and.",
             "registerName": "LTEM_A3_HANDOVER_REG",
             "bitWidth": 8,
             "hexValue": "0xFE",
@@ -776,7 +776,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize LTEM_VOLTE_SPS_REG: Establish QCI 1 bearer for carrier-grade voice.",
+            "caption": "Initialize LTEM_VOLTE_SPS_REG: Establish QCI one bearer for carrier-grade.",
             "registerName": "LTEM_VOLTE_SPS_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -837,7 +837,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Configure AMR-WB codec and 20 ms Semi-Persistent Scheduling with ROHC compression.",
+            "caption": "Configure AMR-WB codec and twenty ms Semi-Persistent Scheduling with ROHC.",
             "registerName": "LTEM_VOLTE_SPS_REG",
             "bitWidth": 8,
             "hexValue": "0xDC",
@@ -898,7 +898,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Arm 4-subframe TTI bundling to ensure voice coverage at cell edges without jitter.",
+            "caption": "Arm four-subframe TTI bundling to ensure voice coverage at cell edges.",
             "registerName": "LTEM_VOLTE_SPS_REG",
             "bitWidth": 8,
             "hexValue": "0xFE",
@@ -1030,7 +1030,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize LTEM_OTDOA_POS_REG: Sample Positioning Reference Signals (PRS) from 3 eNodeBs.",
+            "caption": "Initialize LTEM_OTDOA_POS_REG: Sample Positioning Reference Signals (PRS).",
             "registerName": "LTEM_OTDOA_POS_REG",
             "bitWidth": 8,
             "hexValue": "0x91",
@@ -1152,7 +1152,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Solve non-linear least squares multilateration to yield 4.2m horizontal position fix.",
+            "caption": "Solve non-linear least squares multilateration to yield four.twom.",
             "registerName": "LTEM_OTDOA_POS_REG",
             "bitWidth": 8,
             "hexValue": "0xFE",
@@ -1284,7 +1284,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize LTEM_MASTER_ENGINE_REG: Lock 1.4 MHz narrowband and verify CE Mode A/B state.",
+            "caption": "Initialize LTEM_MASTER_ENGINE_REG: Lock one.four MHz narrowband and.",
             "registerName": "LTEM_MASTER_ENGINE_REG",
             "bitWidth": 8,
             "hexValue": "0xC0",
@@ -1345,7 +1345,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Assert Event A3 handover readiness and activate VoLTE semi-persistent scheduling.",
+            "caption": "Assert Event Athree handover readiness and activate VoLTE semi-persistent.",
             "registerName": "LTEM_MASTER_ENGINE_REG",
             "bitWidth": 8,
             "hexValue": "0xF0",

@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Discounted Cash Flow (DCF) Valuatio...",
+            "caption": "Baseline KPI cohort metrics for Discounted Cash Flow (DCF) Valuatio...",
             "max": 100,
             "bars": [
               {
@@ -41,7 +41,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate Contribution Margin & Operating Cash Flow drivers.",
+            "caption": "Isolate Contribution Margin & Operating Cash Flow drivers.",
             "max": 100,
             "bars": [
               {
@@ -68,7 +68,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds.",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Discounted Cash Flow (DCF) ...",
+            "caption": "Commit audited analytical dashboard for Discounted Cash Flow (DCF) ...",
             "max": 100,
             "bars": [
               {
@@ -246,7 +246,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Weighted Average Cost of Capital (W...",
+            "caption": "Baseline KPI cohort metrics for Weighted Average Cost of Capital (W...",
             "max": 100,
             "bars": [
               {
@@ -273,7 +273,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate Contribution Margin & Operating Cash Flow drivers.",
+            "caption": "Isolate Contribution Margin & Operating Cash Flow drivers.",
             "max": 100,
             "bars": [
               {
@@ -300,7 +300,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds.",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -327,7 +327,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Weighted Average Cost of Ca...",
+            "caption": "Commit audited analytical dashboard for Weighted Average Cost of Ca...",
             "max": 100,
             "bars": [
               {
@@ -478,7 +478,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Leveraged Buyout (LBO) Debt Financi...",
+            "caption": "Baseline KPI cohort metrics for Leveraged Buyout (LBO) Debt Financi...",
             "max": 100,
             "bars": [
               {
@@ -505,7 +505,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate Contribution Margin & Operating Cash Flow drivers.",
+            "caption": "Isolate Contribution Margin & Operating Cash Flow drivers.",
             "max": 100,
             "bars": [
               {
@@ -532,7 +532,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds.",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -559,7 +559,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Leveraged Buyout (LBO) Debt...",
+            "caption": "Commit audited analytical dashboard for Leveraged Buyout (LBO) Debt...",
             "max": 100,
             "bars": [
               {
@@ -710,7 +710,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Dynamic 2-Way Data Tables & Multi-D...",
+            "caption": "Baseline KPI cohort metrics for Dynamic two-Way Data Tables & Multi-D...",
             "max": 100,
             "bars": [
               {
@@ -737,7 +737,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate Contribution Margin & Operating Cash Flow drivers.",
+            "caption": "Isolate Contribution Margin & Operating Cash Flow drivers.",
             "max": 100,
             "bars": [
               {
@@ -764,7 +764,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds.",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -791,7 +791,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Dynamic 2-Way Data Tables &...",
+            "caption": "Commit audited analytical dashboard for Dynamic two-Way Data Tables &...",
             "max": 100,
             "bars": [
               {
@@ -942,7 +942,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for M&A Accretion / Dilution Modeling &...",
+            "caption": "Baseline KPI cohort metrics for M&A Accretion / Dilution Modeling &...",
             "max": 100,
             "bars": [
               {
@@ -969,7 +969,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate Contribution Margin & Operating Cash Flow drivers.",
+            "caption": "Isolate Contribution Margin & Operating Cash Flow drivers.",
             "max": 100,
             "bars": [
               {
@@ -996,7 +996,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds.",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -1023,7 +1023,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for M&A Accretion / Dilution Mo...",
+            "caption": "Commit audited analytical dashboard for M&A Accretion / Dilution Mo...",
             "max": 100,
             "bars": [
               {

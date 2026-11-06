@@ -1,0 +1,817 @@
+{
+  "schemaVersion": 1,
+  "prefix": "cyber-py",
+  "day": 21,
+  "promptSha": "915206d8ae21c2c9aa232db93aa6b51ce1f1e8c3ef6b21eebd25d5475aa7aaaf",
+  "model": "gpt-4o",
+  "entries": [
+    {
+      "partTitle": "What an API gateway does",
+      "codeHash": "97cfa390d49d57857fcf3afbbdf27c76106bc3bf85f2d7ffd9e514fdc45ed304",
+      "spec": {
+        "template": "flow",
+        "title": "Milestone three multi-layered runtime application self-protection pipeline",
+        "nodes": [
+          {
+            "id": "rateStage",
+            "label": "Token Bucket Rate Guard",
+            "tappable": false
+          },
+          {
+            "id": "ssrfStage",
+            "label": "Cloud Metadata Egress Filter",
+            "tappable": false
+          },
+          {
+            "id": "deserStage",
+            "label": "Deserialization Payload Scanner",
+            "tappable": false
+          },
+          {
+            "id": "sbomStage",
+            "label": "SBOM Supply Chain Inspector",
+            "tappable": false
+          },
+          {
+            "id": "entropyStage",
+            "label": "Shannon Entropy Secret Guard",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "rateStage",
+            "to": "ssrfStage",
+            "label": "Buffers"
+          },
+          {
+            "from": "ssrfStage",
+            "to": "deserStage",
+            "label": "Routes"
+          },
+          {
+            "from": "deserStage",
+            "to": "sbomStage",
+            "label": "Inspects"
+          },
+          {
+            "from": "sbomStage",
+            "to": "entropyStage",
+            "label": "Validates"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Runtime defense suites protect against outbound attacks targeting metadata.",
+            "activeNodes": [
+              "rateStage",
+              "ssrfStage"
+            ],
+            "statusBadge": "active"
+          },
+          {
+            "at": "say7",
+            "caption": "API surfaces are buffered behind rate limiters to mitigate stuffing.",
+            "activeNodes": [
+              "sbomStage",
+              "entropyStage"
+            ],
+            "statusBadge": "completed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Milestone three multi-layered runtime application self-protection pipeline",
+        "nodes": [
+          {
+            "id": "rateStage",
+            "label": "Token Bucket Rate Guard",
+            "tappable": false
+          },
+          {
+            "id": "ssrfStage",
+            "label": "Cloud Metadata Egress Filter",
+            "tappable": false
+          },
+          {
+            "id": "deserStage",
+            "label": "Deserialization Payload Scanner",
+            "tappable": false
+          },
+          {
+            "id": "sbomStage",
+            "label": "SBOM Supply Chain Inspector",
+            "tappable": false
+          },
+          {
+            "id": "entropyStage",
+            "label": "Shannon Entropy Secret Guard",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "rateStage",
+            "to": "ssrfStage",
+            "label": "Buffers"
+          },
+          {
+            "from": "ssrfStage",
+            "to": "deserStage",
+            "label": "Routes"
+          },
+          {
+            "from": "deserStage",
+            "to": "sbomStage",
+            "label": "Inspects"
+          },
+          {
+            "from": "sbomStage",
+            "to": "entropyStage",
+            "label": "Validates"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Runtime defense suites protect against outbound attacks targeting metadata.",
+            "activeNodes": [
+              "rateStage",
+              "ssrfStage"
+            ],
+            "statusBadge": "active"
+          },
+          {
+            "at": "say7",
+            "caption": "API surfaces are buffered behind rate limiters to mitigate stuffing.",
+            "activeNodes": [
+              "sbomStage",
+              "entropyStage"
+            ],
+            "statusBadge": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Per-client buckets",
+      "codeHash": "5f3f8c97e3652551c3aa44e35eb48a722c5a435aeb668fafe23fbafed7227eff",
+      "spec": {
+        "template": "states",
+        "title": "Cloud egress proxy destination evaluation and IMDSv2 token enforcement",
+        "states": [
+          {
+            "id": "outboundRequest",
+            "label": "Backend Initiates Outbound Request"
+          },
+          {
+            "id": "ipResolved",
+            "label": "Destination Host and IP Evaluated"
+          },
+          {
+            "id": "tokenVerified",
+            "label": "IMDSv2 Session Token Validated"
+          },
+          {
+            "id": "unauthorizedBlocked",
+            "label": "Unauthenticated Metadata Quarantined"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "The proxy inspects destination hostnames against metadata address ranges.",
+            "activeStateId": "ipResolved",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say5",
+            "caption": "Unauthenticated requests targeting metadata endpoints are blocked immediately.",
+            "activeStateId": "unauthorizedBlocked",
+            "statusBadge": "failed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Cloud egress proxy destination evaluation and IMDSv2 token enforcement",
+        "states": [
+          {
+            "id": "outboundRequest",
+            "label": "Backend Initiates Outbound Request"
+          },
+          {
+            "id": "ipResolved",
+            "label": "Destination Host and IP Evaluated"
+          },
+          {
+            "id": "tokenVerified",
+            "label": "IMDSv2 Session Token Validated"
+          },
+          {
+            "id": "unauthorizedBlocked",
+            "label": "Unauthenticated Metadata Quarantined"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "The proxy inspects destination hostnames against metadata address ranges.",
+            "activeStateId": "ipResolved",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say5",
+            "caption": "Unauthenticated requests targeting metadata endpoints are blocked immediately.",
+            "activeStateId": "unauthorizedBlocked",
+            "statusBadge": "failed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Building the gateway",
+      "codeHash": "024b18b9e78256f53b821652aa2b27eae68c5bb1633b55cf8efabd01c27806df",
+      "spec": {
+        "template": "table",
+        "title": "Deep payload inspection signatures and prototype pollution defense",
+        "columns": [
+          "Payload Threat Class",
+          "Detection Signature",
+          "Runtime Target",
+          "Defense Action"
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Signatures associated with notorious gadget libraries are intercepted.",
+            "activeRowIndex": 0,
+            "statusBadge": "failed",
+            "rows": [
+              {
+                "cells": [
+                  "Java Deserialization",
+                  "ObjectInputStream Magic Bytes",
+                  "Java Virtual Machine",
+                  "Reject and Quarantine"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Python Pickle Opcode",
+                  "Reduce Magic Byte Function",
+                  "Python Runtime Stack",
+                  "Reject and Quarantine"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Prototype Pollution",
+                  "Proto and Constructor Keys",
+                  "Node JavaScript Engine",
+                  "Strip Dangerous Keys"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Declarative JSON Data",
+                  "Strict Typed Primitive Schema",
+                  "Clean Application Domain",
+                  "Permit Clean Processing"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Benign data is parsed using schema validation limiting primitive types.",
+            "activeRowIndex": 3,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "Java Deserialization",
+                  "ObjectInputStream Magic Bytes",
+                  "Java Virtual Machine",
+                  "Reject and Quarantine"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Python Pickle Opcode",
+                  "Reduce Magic Byte Function",
+                  "Python Runtime Stack",
+                  "Reject and Quarantine"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Prototype Pollution",
+                  "Proto and Constructor Keys",
+                  "Node JavaScript Engine",
+                  "Strip Dangerous Keys"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Declarative JSON Data",
+                  "Strict Typed Primitive Schema",
+                  "Clean Application Domain",
+                  "Permit Clean Processing"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Deep payload inspection signatures and prototype pollution defense",
+        "columns": [
+          "Payload Threat Class",
+          "Detection Signature",
+          "Runtime Target",
+          "Defense Action"
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Signatures associated with notorious gadget libraries are intercepted.",
+            "activeRowIndex": 0,
+            "statusBadge": "failed",
+            "rows": [
+              {
+                "cells": [
+                  "Java Deserialization",
+                  "ObjectInputStream Magic Bytes",
+                  "Java Virtual Machine",
+                  "Reject and Quarantine"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Python Pickle Opcode",
+                  "Reduce Magic Byte Function",
+                  "Python Runtime Stack",
+                  "Reject and Quarantine"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Prototype Pollution",
+                  "Proto and Constructor Keys",
+                  "Node JavaScript Engine",
+                  "Strip Dangerous Keys"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Declarative JSON Data",
+                  "Strict Typed Primitive Schema",
+                  "Clean Application Domain",
+                  "Permit Clean Processing"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Benign data is parsed using schema validation limiting primitive types.",
+            "activeRowIndex": 3,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "Java Deserialization",
+                  "ObjectInputStream Magic Bytes",
+                  "Java Virtual Machine",
+                  "Reject and Quarantine"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Python Pickle Opcode",
+                  "Reduce Magic Byte Function",
+                  "Python Runtime Stack",
+                  "Reject and Quarantine"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Prototype Pollution",
+                  "Proto and Constructor Keys",
+                  "Node JavaScript Engine",
+                  "Strip Dangerous Keys"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Declarative JSON Data",
+                  "Strict Typed Primitive Schema",
+                  "Clean Application Domain",
+                  "Permit Clean Processing"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Summarising decisions",
+      "codeHash": "602e08029c92049a053cd8199fd9da3db687b216cc624d7a6eedb1f3b409ca91",
+      "spec": {
+        "template": "compare",
+        "title": "Unprotected code commits versus shift-left entropy pre-commit hook",
+        "left": {
+          "title": "Unprotected Git Commit",
+          "items": [
+            "Exposes high entropy cryptographic keys in public feeds",
+            "Bots scrape leaked credentials within seconds of commit",
+            "Permanent history retention requires complex repository purge"
+          ]
+        },
+        "right": {
+          "title": "Shift-Left Entropy Hook",
+          "items": [
+            "Pre-commit hook inspects staged code modifications",
+            "Combines vendor regex patterns with Shannon entropy",
+            "Aborts commit immediately preventing secret leaks"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say5",
+            "caption": "Candidate tokens are evaluated against the entropy threshold to verify keys.",
+            "highlightSide": "right",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say8",
+            "caption": "Shift left prevention guarantees secrets never enter version control history.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Unprotected Git Commit",
+        "rightLabel": "Shift-Left Entropy Hook"
+      },
+      "filled": {
+        "template": "compare",
+        "title": "Unprotected code commits versus shift-left entropy pre-commit hook",
+        "left": {
+          "title": "Unprotected Git Commit",
+          "items": [
+            "Exposes high entropy cryptographic keys in public feeds",
+            "Bots scrape leaked credentials within seconds of commit",
+            "Permanent history retention requires complex repository purge"
+          ]
+        },
+        "right": {
+          "title": "Shift-Left Entropy Hook",
+          "items": [
+            "Pre-commit hook inspects staged code modifications",
+            "Combines vendor regex patterns with Shannon entropy",
+            "Aborts commit immediately preventing secret leaks"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say5",
+            "caption": "Candidate tokens are evaluated against the entropy threshold to verify keys.",
+            "highlightSide": "right",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say8",
+            "caption": "Shift left prevention guarantees secrets never enter version control history.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Unprotected Git Commit",
+        "rightLabel": "Shift-Left Entropy Hook"
+      }
+    },
+    {
+      "partTitle": "Layers around the gateway",
+      "codeHash": "9666ceb1194840f51674dbe23bbc418a589c155028f56e4516b129ee7e98425b",
+      "spec": {
+        "template": "states",
+        "title": "SBOM dependency manifest ingestion and CVSS severity compliance check",
+        "states": [
+          {
+            "id": "sbomIngested",
+            "label": "SBOM Package Manifest Ingested"
+          },
+          {
+            "id": "cveCorrelated",
+            "label": "Dependencies Correlated Against CVE Feed"
+          },
+          {
+            "id": "cvssEvaluated",
+            "label": "CVSS Exploitability Scored"
+          },
+          {
+            "id": "buildQuarantined",
+            "label": "Critical CVSS Triggers Build Failure"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Component records are cross referenced against live vulnerability feeds.",
+            "activeStateId": "cveCorrelated",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say5",
+            "caption": "The compliance engine enforces strict thresholds that fail the build.",
+            "activeStateId": "buildQuarantined",
+            "statusBadge": "completed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "SBOM dependency manifest ingestion and CVSS severity compliance check",
+        "states": [
+          {
+            "id": "sbomIngested",
+            "label": "SBOM Package Manifest Ingested"
+          },
+          {
+            "id": "cveCorrelated",
+            "label": "Dependencies Correlated Against CVE Feed"
+          },
+          {
+            "id": "cvssEvaluated",
+            "label": "CVSS Exploitability Scored"
+          },
+          {
+            "id": "buildQuarantined",
+            "label": "Critical CVSS Triggers Build Failure"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Component records are cross referenced against live vulnerability feeds.",
+            "activeStateId": "cveCorrelated",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say5",
+            "caption": "The compliance engine enforces strict thresholds that fail the build.",
+            "activeStateId": "buildQuarantined",
+            "statusBadge": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Milestone practice: gateway and summary",
+      "codeHash": "bd3b4c272961113c84c38584e061dce394f7ea0a9bc27d7c350629c96331b164",
+      "spec": {
+        "template": "flow",
+        "title": "Milestone Capstone: Integrated Token Bucket R... — Execution Pipeline",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "1. Input & State",
+            "tappable": true
+          },
+          {
+            "id": "proc",
+            "label": "2. Milestone Capstone:...",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "3. Verified Output",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize input state for Milestone Capstone: Integrated Token Buc.",
+            "values": {
+              "in": "Day 21 Input",
+              "proc": "Standby",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "data",
+              "proc": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Execute core transformation in Milestone Capstone:... [D.Psix.Stwo].",
+            "values": {
+              "in": "Validated",
+              "proc": "Processing...",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "values": {
+              "in": "Validated",
+              "proc": "Invariant OK",
+              "out": "Emitting"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "End-to-end execution verified for Milestone Capstone: Integrated To.",
+            "values": {
+              "in": "Committed",
+              "proc": "Verified",
+              "out": "Complete ✓"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Milestone Capstone: Integrated Token Bucket R... — Execution Pipeline",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "1. Input & State",
+            "tappable": true
+          },
+          {
+            "id": "proc",
+            "label": "2. Milestone Capstone:...",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "3. Verified Output",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Step 1: Initialize input state for Milestone Capstone: Integrated Token Buc.. [D21.P6.S1].",
+            "values": {
+              "in": "Day 21 Input",
+              "proc": "Standby",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "data",
+              "proc": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Step 2: Execute core transformation in Milestone Capstone:... [D21.P6.S2].",
+            "values": {
+              "in": "Validated",
+              "proc": "Processing...",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Step 3: Inspect concrete example output and invariants [D21.P6.S3].",
+            "values": {
+              "in": "Validated",
+              "proc": "Invariant OK",
+              "out": "Emitting"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Step 4: End-to-end execution verified for Milestone Capstone: Integrated To.. [D21.P6.S4].",
+            "values": {
+              "in": "Committed",
+              "proc": "Verified",
+              "out": "Complete ✓"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

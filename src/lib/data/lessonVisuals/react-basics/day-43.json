@@ -85,7 +85,7 @@
           },
           {
             "at": "say3",
-            "caption": "Total Blocking Time (TBT) spikes past 100ms, severely degrading Core Web Vitals.",
+            "caption": "Total Blocking Time (TBT) spikes past one hundredms, severely degrading.",
             "values": {
               "html_paint": {
                 "text": "\"TBT: 113.2ms\""
@@ -579,7 +579,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The runtime registers islands with base priorities (Nav: 10, Search: 25, Cart: 15).",
+            "caption": "The runtime registers islands with base priorities (Nav: ten, Search.",
             "values": {
               "island_reg": {
                 "text": "\"3 Islands Registered\""
@@ -627,7 +627,7 @@
           },
           {
             "at": "say3",
-            "caption": "Search bar priority is promoted to 100, preempting NavigationMenu in the scheduler queue.",
+            "caption": "Search bar priority is promoted to one hundred, preempting NavigationMenu.",
             "values": {
               "island_reg": {
                 "text": "\"Search: Priority 100\""

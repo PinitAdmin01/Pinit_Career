@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for The Adversarial Vulnerability Surface: P...",
+            "caption": "Initialize input state for The Adversarial Vulnerability Surface: P...",
             "values": {
               "in": "Day 57 Input",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The Adversarial Vul....",
+            "caption": "Execute core transformation in The Adversarial Vul....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -75,7 +75,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The Adversarial Vulnerability Sur...",
+            "caption": "End-to-end execution verified for The Adversarial Vulnerability Sur...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -257,7 +257,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Automated Red-Teaming & Fuzzing Engines:...",
+            "caption": "Initialize input state for Automated Red-Teaming & Fuzzing Engines:...",
             "values": {
               "in": "Day 57 Input",
               "proc": "Standby",
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Automated Red-Teami....",
+            "caption": "Execute core transformation in Automated Red-Teami....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -301,7 +301,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -321,7 +321,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Automated Red-Teaming & Fuzzing E...",
+            "caption": "End-to-end execution verified for Automated Red-Teaming & Fuzzing E...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -483,7 +483,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Safety Guardrails & Llama Guard Architec...",
+            "caption": "Initialize input state for Safety Guardrails & Llama Guard Architec...",
             "values": {
               "in": "Day 57 Input",
               "proc": "Standby",
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Safety Guardrails &....",
+            "caption": "Execute core transformation in Safety Guardrails &....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -527,7 +527,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -547,7 +547,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Safety Guardrails & Llama Guard A...",
+            "caption": "End-to-end execution verified for Safety Guardrails & Llama Guard A...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -709,7 +709,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Representation Engineering & Refusal Ste...",
+            "caption": "Initialize input state for Representation Engineering & Refusal Ste...",
             "values": {
               "in": "Day 57 Input",
               "proc": "Standby",
@@ -729,7 +729,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Representation Engi....",
+            "caption": "Execute core transformation in Representation Engi....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -753,7 +753,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -773,7 +773,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Representation Engineering & Refu...",
+            "caption": "End-to-end execution verified for Representation Engineering & Refu...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -935,7 +935,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Masterclass Implementation: ApexGuard En...",
+            "caption": "Initialize input state for Masterclass Implementation: ApexGuard En...",
             "values": {
               "in": "Day 57 Input",
               "proc": "Standby",
@@ -955,7 +955,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Masterclass Impleme....",
+            "caption": "Execute core transformation in Masterclass Impleme....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -979,7 +979,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -999,7 +999,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Masterclass Implementation: ApexG...",
+            "caption": "End-to-end execution verified for Masterclass Implementation: ApexG...",
             "values": {
               "in": "Committed",
               "proc": "Verified",

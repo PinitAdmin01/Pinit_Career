@@ -10,12 +10,12 @@
       "codeHash": "f12632f04c122331ab709f613ae9b5abb1d118e6c129b9fece5a5ecdcb78dba0",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Comprehensive PGBP Income Engine: P&L Reconciliati \u2014 Tax Ledger Verification",
+        "title": "Comprehensive PGBP Income Engine: P&L Reconciliati — Tax Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary taxable assessment ledger (575000) for Comprehensive PGBP Income Engine: P&L Re...",
-            "title": "Day 15 Tax Ledger \u2014 Initial Assessment",
+            "caption": "Open primary taxable assessment ledger (multiple) for Comprehensive PGBP.",
+            "title": "Day 15 Tax Ledger — Initial Assessment",
             "isBalanced": true,
             "totalDebit": 575000,
             "totalCredit": 575000,
@@ -40,8 +40,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / tax shield (75000) under applicable corporate tax section.",
-            "title": "Day 15 Tax Ledger \u2014 Statutory Adjustment",
+            "caption": "Record statutory adjustment / tax shield (multiple) under applicable.",
+            "title": "Day 15 Tax Ledger — Statutory Adjustment",
             "isBalanced": true,
             "totalDebit": 650000,
             "totalCredit": 650000,
@@ -72,8 +72,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated computational case study for Comprehensive PGBP Income Engine: P&L Re...",
-            "title": "Day 15 Tax Ledger \u2014 Audit Verification",
+            "caption": "Execute simulated computational case study for Comprehensive PGBP Income.",
+            "title": "Day 15 Tax Ledger — Audit Verification",
             "isBalanced": true,
             "totalDebit": 650000,
             "totalCredit": 650000,
@@ -103,8 +103,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and corporate tax statutory signoff.",
-            "title": "Day 15 Tax Ledger \u2014 Final Settlement",
+            "caption": "Verify ledger equilibrium and corporate tax statutory signoff.",
+            "title": "Day 15 Tax Ledger — Final Settlement",
             "isBalanced": true,
             "totalDebit": 650000,
             "totalCredit": 650000,
@@ -141,12 +141,12 @@
       "codeHash": "6a8f1d56a49a35eea0e363cfa5e824c7f6bb6d7573418e22bf377824d149199c",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Comprehensive Book Profit Synthesis: Explanation 1 \u2014 Tax Ledger Verification",
+        "title": "Comprehensive Book Profit Synthesis: Explanation 1 — Tax Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary taxable assessment ledger (582500) for Comprehensive Book Profit Synthesis: Exp...",
-            "title": "Day 15 Tax Ledger \u2014 Initial Assessment",
+            "caption": "Open primary taxable assessment ledger (multiple) for Comprehensive Book.",
+            "title": "Day 15 Tax Ledger — Initial Assessment",
             "isBalanced": true,
             "totalDebit": 582500,
             "totalCredit": 582500,
@@ -171,8 +171,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / tax shield (78500) under applicable corporate tax section.",
-            "title": "Day 15 Tax Ledger \u2014 Statutory Adjustment",
+            "caption": "Record statutory adjustment / tax shield (multiple) under applicable.",
+            "title": "Day 15 Tax Ledger — Statutory Adjustment",
             "isBalanced": true,
             "totalDebit": 661000,
             "totalCredit": 661000,
@@ -203,8 +203,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated computational case study for Comprehensive Book Profit Synthesis: Exp...",
-            "title": "Day 15 Tax Ledger \u2014 Audit Verification",
+            "caption": "Execute simulated computational case study for Comprehensive Book Profit.",
+            "title": "Day 15 Tax Ledger — Audit Verification",
             "isBalanced": true,
             "totalDebit": 661000,
             "totalCredit": 661000,
@@ -234,8 +234,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and corporate tax statutory signoff.",
-            "title": "Day 15 Tax Ledger \u2014 Final Settlement",
+            "caption": "Verify ledger equilibrium and corporate tax statutory signoff.",
+            "title": "Day 15 Tax Ledger — Final Settlement",
             "isBalanced": true,
             "totalDebit": 661000,
             "totalCredit": 661000,
@@ -272,12 +272,12 @@
       "codeHash": "c21fb0573b9bb48d1e6409738e53c9747039eb82bc690f3c9743da1d53584e9c",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Dual-Track Tax Confrontation: Normal Corporate Tax \u2014 Tax Ledger Verification",
+        "title": "Dual-Track Tax Confrontation: Normal Corporate Tax — Tax Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary taxable assessment ledger (590000) for Dual-Track Tax Confrontation: Normal Cor...",
-            "title": "Day 15 Tax Ledger \u2014 Initial Assessment",
+            "caption": "Open primary taxable assessment ledger (multiple) for Dual-Track Tax.",
+            "title": "Day 15 Tax Ledger — Initial Assessment",
             "isBalanced": true,
             "totalDebit": 590000,
             "totalCredit": 590000,
@@ -302,8 +302,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / tax shield (82000) under applicable corporate tax section.",
-            "title": "Day 15 Tax Ledger \u2014 Statutory Adjustment",
+            "caption": "Record statutory adjustment / tax shield (multiple) under applicable.",
+            "title": "Day 15 Tax Ledger — Statutory Adjustment",
             "isBalanced": true,
             "totalDebit": 672000,
             "totalCredit": 672000,
@@ -334,8 +334,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated computational case study for Dual-Track Tax Confrontation: Normal Cor...",
-            "title": "Day 15 Tax Ledger \u2014 Audit Verification",
+            "caption": "Execute simulated computational case study for Dual-Track Tax.",
+            "title": "Day 15 Tax Ledger — Audit Verification",
             "isBalanced": true,
             "totalDebit": 672000,
             "totalCredit": 672000,
@@ -365,8 +365,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and corporate tax statutory signoff.",
-            "title": "Day 15 Tax Ledger \u2014 Final Settlement",
+            "caption": "Verify ledger equilibrium and corporate tax statutory signoff.",
+            "title": "Day 15 Tax Ledger — Final Settlement",
             "isBalanced": true,
             "totalDebit": 672000,
             "totalCredit": 672000,
@@ -403,12 +403,12 @@
       "codeHash": "3891a85b38552372d74ccab373abadd058f83535c00550d64b98387fa73b84c2",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Concessional Regime Assessment: Section 115BAA Eva \u2014 Tax Ledger Verification",
+        "title": "Concessional Regime Assessment: Section 115BAA Eva — Tax Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary taxable assessment ledger (597500) for Concessional Regime Assessment: Section ...",
-            "title": "Day 15 Tax Ledger \u2014 Initial Assessment",
+            "caption": "Open primary taxable assessment ledger (multiple) for Concessional Regime.",
+            "title": "Day 15 Tax Ledger — Initial Assessment",
             "isBalanced": true,
             "totalDebit": 597500,
             "totalCredit": 597500,
@@ -433,8 +433,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / tax shield (85500) under applicable corporate tax section.",
-            "title": "Day 15 Tax Ledger \u2014 Statutory Adjustment",
+            "caption": "Record statutory adjustment / tax shield (multiple) under applicable.",
+            "title": "Day 15 Tax Ledger — Statutory Adjustment",
             "isBalanced": true,
             "totalDebit": 683000,
             "totalCredit": 683000,
@@ -465,8 +465,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated computational case study for Concessional Regime Assessment: Section ...",
-            "title": "Day 15 Tax Ledger \u2014 Audit Verification",
+            "caption": "Execute simulated computational case study for Concessional Regime.",
+            "title": "Day 15 Tax Ledger — Audit Verification",
             "isBalanced": true,
             "totalDebit": 683000,
             "totalCredit": 683000,
@@ -496,8 +496,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and corporate tax statutory signoff.",
-            "title": "Day 15 Tax Ledger \u2014 Final Settlement",
+            "caption": "Verify ledger equilibrium and corporate tax statutory signoff.",
+            "title": "Day 15 Tax Ledger — Final Settlement",
             "isBalanced": true,
             "totalDebit": 683000,
             "totalCredit": 683000,
@@ -534,12 +534,12 @@
       "codeHash": "8eaf43c1d955b1efbb8ff87c3e2eafba4820b21114a81288bdacc90892291c14",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Grand Milestone Cockpit: Multi-Year NPV Decision M \u2014 Tax Ledger Verification",
+        "title": "Grand Milestone Cockpit: Multi-Year NPV Decision M — Tax Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary taxable assessment ledger (605000) for Grand Milestone Cockpit: Multi-Year NPV ...",
-            "title": "Day 15 Tax Ledger \u2014 Initial Assessment",
+            "caption": "Open primary taxable assessment ledger (multiple) for Grand Milestone.",
+            "title": "Day 15 Tax Ledger — Initial Assessment",
             "isBalanced": true,
             "totalDebit": 605000,
             "totalCredit": 605000,
@@ -564,8 +564,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / tax shield (89000) under applicable corporate tax section.",
-            "title": "Day 15 Tax Ledger \u2014 Statutory Adjustment",
+            "caption": "Record statutory adjustment / tax shield (multiple) under applicable.",
+            "title": "Day 15 Tax Ledger — Statutory Adjustment",
             "isBalanced": true,
             "totalDebit": 694000,
             "totalCredit": 694000,
@@ -596,8 +596,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated computational case study for Grand Milestone Cockpit: Multi-Year NPV ...",
-            "title": "Day 15 Tax Ledger \u2014 Audit Verification",
+            "caption": "Execute simulated computational case study for Grand Milestone Cockpit.",
+            "title": "Day 15 Tax Ledger — Audit Verification",
             "isBalanced": true,
             "totalDebit": 694000,
             "totalCredit": 694000,
@@ -627,8 +627,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and corporate tax statutory signoff.",
-            "title": "Day 15 Tax Ledger \u2014 Final Settlement",
+            "caption": "Verify ledger equilibrium and corporate tax statutory signoff.",
+            "title": "Day 15 Tax Ledger — Final Settlement",
             "isBalanced": true,
             "totalDebit": 694000,
             "totalCredit": 694000,

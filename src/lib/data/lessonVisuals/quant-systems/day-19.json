@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (L2 Book Depth): Initialize deterministic state for FIFO Matching Engine Physics & L...",
+            "caption": "State one (level-two Book Depth): Initialize deterministic state for FIFO.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -99,7 +99,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (L2 Book Depth): Initialize deterministic state for Proportional Cancellation Alloca...",
+            "caption": "State one (level-two Book Depth): Initialize deterministic state for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -166,7 +166,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (L2 Book Depth): Initialize deterministic state for Survival Analysis & Queue Deplet...",
+            "caption": "State one (level-two Book Depth): Initialize deterministic state for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -233,7 +233,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (L2 Book Depth): Initialize deterministic state for Adverse Fill Probabilities & Quo...",
+            "caption": "State one (level-two Book Depth): Initialize deterministic state for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -300,7 +300,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (L2 Book Depth): Initialize deterministic state for Production C++ Low-Latency Queue...",
+            "caption": "State one (level-two Book Depth): Initialize deterministic state for.",
             "currentState": "st1",
             "tone": "data"
           },

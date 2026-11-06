@@ -10,7 +10,7 @@
       "codeHash": "ad040f079764b9270a7e1e2e030d322ba89968491e365ebc8711cc277b427c72",
       "spec": {
         "template": "sequence",
-        "title": "Diamond Multi-Facet Proxy Architecture (EIP-2535) & diamondCut Selector Routing \u2014 Modular Diamond Protocol Sequence",
+        "title": "Diamond Multi-Facet Proxy Architecture (EIP-2535) & diamondCut Selector Routing — Modular Diamond Protocol Sequence",
         "actors": [
           "Protocol User",
           "Diamond Proxy (Router)",
@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: User calls Diamond Proxy for Diamond Multi-Facet Proxy Archit",
+            "caption": "User calls Diamond Proxy for Diamond Multi-Facet Proxy Archit.",
             "activeActor": "Protocol User",
             "messages": [
               {
@@ -33,7 +33,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Diamond fallback looks up selector and delegatecalls TokenFacet in Diamond context",
+            "caption": "Diamond fallback looks up selector and delegatecalls TokenFacet in.",
             "activeActor": "Diamond Proxy (Router)",
             "messages": [
               {
@@ -46,26 +46,26 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Cross-facet routing delegates borrow action to LendingFacet with zero external call overhead",
+            "caption": "Cross-facet routing delegates borrow action to LendingFacet with zero.",
             "activeActor": "Diamond Proxy (Router)",
             "messages": [
               {
                 "from": "Diamond Proxy (Router)",
                 "to": "LendingFacet (Debt Engine)",
-                "label": "delegatecall(LendingFacet) [Collateral Verified \u2713]",
+                "label": "delegatecall(LendingFacet) [Collateral Verified ✓]",
                 "tone": "alert"
               }
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Diamond returns execution result to User; modular protocol state synchronized",
+            "caption": "Diamond returns execution result to User; modular protocol state.",
             "activeActor": "Diamond Proxy (Router)",
             "messages": [
               {
                 "from": "Diamond Proxy (Router)",
                 "to": "Protocol User",
-                "label": "ExecutionComplete(ZeroCollision \u2713)",
+                "label": "ExecutionComplete(ZeroCollision ✓)",
                 "tone": "ok"
               }
             ]
@@ -74,7 +74,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Diamond Multi-Facet Proxy Architecture (EIP-2535) & diamondCut Selector Routing \u2014 Modular Diamond Protocol Sequence",
+        "title": "Diamond Multi-Facet Proxy Architecture (EIP-2535) & diamondCut Selector Routing — Modular Diamond Protocol Sequence",
         "actors": [
           "Protocol User",
           "Diamond Proxy (Router)",
@@ -116,7 +116,7 @@
               {
                 "from": "Diamond Proxy (Router)",
                 "to": "LendingFacet (Debt Engine)",
-                "label": "delegatecall(LendingFacet) [Collateral Verified \u2713]",
+                "label": "delegatecall(LendingFacet) [Collateral Verified ✓]",
                 "tone": "alert"
               }
             ]
@@ -129,7 +129,7 @@
               {
                 "from": "Diamond Proxy (Router)",
                 "to": "Protocol User",
-                "label": "ExecutionComplete(ZeroCollision \u2713)",
+                "label": "ExecutionComplete(ZeroCollision ✓)",
                 "tone": "ok"
               }
             ]
@@ -142,7 +142,7 @@
       "codeHash": "c452fd40fb5cf6ee3efd42e9403b28b2f13999044ef82cbfef4222bfde3644cc",
       "spec": {
         "template": "sequence",
-        "title": "Facet Storage Layout Isolation, Diamond Storage Namespaces & Function Selector Discovery \u2014 Modular Diamond Protocol Sequence",
+        "title": "Facet Storage Layout Isolation, Diamond Storage Namespaces & Function Selector Discovery — Modular Diamond Protocol Sequence",
         "actors": [
           "Protocol User",
           "Diamond Proxy (Router)",
@@ -152,7 +152,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: User calls Diamond Proxy for Facet Storage Layout Isolation, ",
+            "caption": "User calls Diamond Proxy for Facet Storage Layout Isolation.",
             "activeActor": "Protocol User",
             "messages": [
               {
@@ -165,7 +165,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Diamond fallback looks up selector and delegatecalls TokenFacet in Diamond context",
+            "caption": "Diamond fallback looks up selector and delegatecalls TokenFacet in.",
             "activeActor": "Diamond Proxy (Router)",
             "messages": [
               {
@@ -178,26 +178,26 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Cross-facet routing delegates borrow action to LendingFacet with zero external call overhead",
+            "caption": "Cross-facet routing delegates borrow action to LendingFacet with zero.",
             "activeActor": "Diamond Proxy (Router)",
             "messages": [
               {
                 "from": "Diamond Proxy (Router)",
                 "to": "LendingFacet (Debt Engine)",
-                "label": "delegatecall(LendingFacet) [Collateral Verified \u2713]",
+                "label": "delegatecall(LendingFacet) [Collateral Verified ✓]",
                 "tone": "alert"
               }
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Diamond returns execution result to User; modular protocol state synchronized",
+            "caption": "Diamond returns execution result to User; modular protocol state.",
             "activeActor": "Diamond Proxy (Router)",
             "messages": [
               {
                 "from": "Diamond Proxy (Router)",
                 "to": "Protocol User",
-                "label": "ExecutionComplete(ZeroCollision \u2713)",
+                "label": "ExecutionComplete(ZeroCollision ✓)",
                 "tone": "ok"
               }
             ]
@@ -206,7 +206,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Facet Storage Layout Isolation, Diamond Storage Namespaces & Function Selector Discovery \u2014 Modular Diamond Protocol Sequence",
+        "title": "Facet Storage Layout Isolation, Diamond Storage Namespaces & Function Selector Discovery — Modular Diamond Protocol Sequence",
         "actors": [
           "Protocol User",
           "Diamond Proxy (Router)",
@@ -248,7 +248,7 @@
               {
                 "from": "Diamond Proxy (Router)",
                 "to": "LendingFacet (Debt Engine)",
-                "label": "delegatecall(LendingFacet) [Collateral Verified \u2713]",
+                "label": "delegatecall(LendingFacet) [Collateral Verified ✓]",
                 "tone": "alert"
               }
             ]
@@ -261,7 +261,7 @@
               {
                 "from": "Diamond Proxy (Router)",
                 "to": "Protocol User",
-                "label": "ExecutionComplete(ZeroCollision \u2713)",
+                "label": "ExecutionComplete(ZeroCollision ✓)",
                 "tone": "ok"
               }
             ]
@@ -274,7 +274,7 @@
       "codeHash": "55c4eeb11c5546658c9c5d0572a2fd3c5e136226355814076252c6e755b0d054",
       "spec": {
         "template": "sequence",
-        "title": "AccessControl DefaultAdmin Governance, Multi-Sig Upgrades & Execution Timelocks \u2014 Modular Diamond Protocol Sequence",
+        "title": "AccessControl DefaultAdmin Governance, Multi-Sig Upgrades & Execution Timelocks — Modular Diamond Protocol Sequence",
         "actors": [
           "Protocol User",
           "Diamond Proxy (Router)",
@@ -284,7 +284,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: User calls Diamond Proxy for AccessControl DefaultAdmin Gover",
+            "caption": "User calls Diamond Proxy for AccessControl DefaultAdmin Gover.",
             "activeActor": "Protocol User",
             "messages": [
               {
@@ -297,7 +297,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Diamond fallback looks up selector and delegatecalls TokenFacet in Diamond context",
+            "caption": "Diamond fallback looks up selector and delegatecalls TokenFacet in.",
             "activeActor": "Diamond Proxy (Router)",
             "messages": [
               {
@@ -310,26 +310,26 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Cross-facet routing delegates borrow action to LendingFacet with zero external call overhead",
+            "caption": "Cross-facet routing delegates borrow action to LendingFacet with zero.",
             "activeActor": "Diamond Proxy (Router)",
             "messages": [
               {
                 "from": "Diamond Proxy (Router)",
                 "to": "LendingFacet (Debt Engine)",
-                "label": "delegatecall(LendingFacet) [Collateral Verified \u2713]",
+                "label": "delegatecall(LendingFacet) [Collateral Verified ✓]",
                 "tone": "alert"
               }
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Diamond returns execution result to User; modular protocol state synchronized",
+            "caption": "Diamond returns execution result to User; modular protocol state.",
             "activeActor": "Diamond Proxy (Router)",
             "messages": [
               {
                 "from": "Diamond Proxy (Router)",
                 "to": "Protocol User",
-                "label": "ExecutionComplete(ZeroCollision \u2713)",
+                "label": "ExecutionComplete(ZeroCollision ✓)",
                 "tone": "ok"
               }
             ]
@@ -338,7 +338,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "AccessControl DefaultAdmin Governance, Multi-Sig Upgrades & Execution Timelocks \u2014 Modular Diamond Protocol Sequence",
+        "title": "AccessControl DefaultAdmin Governance, Multi-Sig Upgrades & Execution Timelocks — Modular Diamond Protocol Sequence",
         "actors": [
           "Protocol User",
           "Diamond Proxy (Router)",
@@ -380,7 +380,7 @@
               {
                 "from": "Diamond Proxy (Router)",
                 "to": "LendingFacet (Debt Engine)",
-                "label": "delegatecall(LendingFacet) [Collateral Verified \u2713]",
+                "label": "delegatecall(LendingFacet) [Collateral Verified ✓]",
                 "tone": "alert"
               }
             ]
@@ -393,7 +393,7 @@
               {
                 "from": "Diamond Proxy (Router)",
                 "to": "Protocol User",
-                "label": "ExecutionComplete(ZeroCollision \u2713)",
+                "label": "ExecutionComplete(ZeroCollision ✓)",
                 "tone": "ok"
               }
             ]
@@ -406,7 +406,7 @@
       "codeHash": "40c6515e2bbeeea876a51cd8e88e9bd5110bd53cbc27b2930d06154c2294443e",
       "spec": {
         "template": "sequence",
-        "title": "Gasless EIP-712 Permit Integration, Meta-Transactions & Pausable Circuit Breakers \u2014 Modular Diamond Protocol Sequence",
+        "title": "Gasless EIP-712 Permit Integration, Meta-Transactions & Pausable Circuit Breakers — Modular Diamond Protocol Sequence",
         "actors": [
           "Protocol User",
           "Diamond Proxy (Router)",
@@ -416,7 +416,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: User calls Diamond Proxy for Gasless EIP-712 Permit Integrati",
+            "caption": "User calls Diamond Proxy for Gasless EIP-multiple Permit Integrati.",
             "activeActor": "Protocol User",
             "messages": [
               {
@@ -429,7 +429,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Diamond fallback looks up selector and delegatecalls TokenFacet in Diamond context",
+            "caption": "Diamond fallback looks up selector and delegatecalls TokenFacet in.",
             "activeActor": "Diamond Proxy (Router)",
             "messages": [
               {
@@ -442,26 +442,26 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Cross-facet routing delegates borrow action to LendingFacet with zero external call overhead",
+            "caption": "Cross-facet routing delegates borrow action to LendingFacet with zero.",
             "activeActor": "Diamond Proxy (Router)",
             "messages": [
               {
                 "from": "Diamond Proxy (Router)",
                 "to": "LendingFacet (Debt Engine)",
-                "label": "delegatecall(LendingFacet) [Collateral Verified \u2713]",
+                "label": "delegatecall(LendingFacet) [Collateral Verified ✓]",
                 "tone": "alert"
               }
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Diamond returns execution result to User; modular protocol state synchronized",
+            "caption": "Diamond returns execution result to User; modular protocol state.",
             "activeActor": "Diamond Proxy (Router)",
             "messages": [
               {
                 "from": "Diamond Proxy (Router)",
                 "to": "Protocol User",
-                "label": "ExecutionComplete(ZeroCollision \u2713)",
+                "label": "ExecutionComplete(ZeroCollision ✓)",
                 "tone": "ok"
               }
             ]
@@ -470,7 +470,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Gasless EIP-712 Permit Integration, Meta-Transactions & Pausable Circuit Breakers \u2014 Modular Diamond Protocol Sequence",
+        "title": "Gasless EIP-712 Permit Integration, Meta-Transactions & Pausable Circuit Breakers — Modular Diamond Protocol Sequence",
         "actors": [
           "Protocol User",
           "Diamond Proxy (Router)",
@@ -512,7 +512,7 @@
               {
                 "from": "Diamond Proxy (Router)",
                 "to": "LendingFacet (Debt Engine)",
-                "label": "delegatecall(LendingFacet) [Collateral Verified \u2713]",
+                "label": "delegatecall(LendingFacet) [Collateral Verified ✓]",
                 "tone": "alert"
               }
             ]
@@ -525,7 +525,7 @@
               {
                 "from": "Diamond Proxy (Router)",
                 "to": "Protocol User",
-                "label": "ExecutionComplete(ZeroCollision \u2713)",
+                "label": "ExecutionComplete(ZeroCollision ✓)",
                 "tone": "ok"
               }
             ]
@@ -538,7 +538,7 @@
       "codeHash": "7be292c22ebebc975a5d3c7facc025baa45c0b2948bbf31295b5b2e40a7d954a",
       "spec": {
         "template": "sequence",
-        "title": "Full Protocol Milestone Capstone Engine: Modular Architecture Synthesis \u2014 Modular Diamond Protocol Sequence",
+        "title": "Full Protocol Milestone Capstone Engine: Modular Architecture Synthesis — Modular Diamond Protocol Sequence",
         "actors": [
           "Protocol User",
           "Diamond Proxy (Router)",
@@ -548,7 +548,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: User calls Diamond Proxy for Full Protocol Milestone Capstone",
+            "caption": "User calls Diamond Proxy for Full Protocol Milestone Capstone.",
             "activeActor": "Protocol User",
             "messages": [
               {
@@ -561,7 +561,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Diamond fallback looks up selector and delegatecalls TokenFacet in Diamond context",
+            "caption": "Diamond fallback looks up selector and delegatecalls TokenFacet in.",
             "activeActor": "Diamond Proxy (Router)",
             "messages": [
               {
@@ -574,26 +574,26 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Cross-facet routing delegates borrow action to LendingFacet with zero external call overhead",
+            "caption": "Cross-facet routing delegates borrow action to LendingFacet with zero.",
             "activeActor": "Diamond Proxy (Router)",
             "messages": [
               {
                 "from": "Diamond Proxy (Router)",
                 "to": "LendingFacet (Debt Engine)",
-                "label": "delegatecall(LendingFacet) [Collateral Verified \u2713]",
+                "label": "delegatecall(LendingFacet) [Collateral Verified ✓]",
                 "tone": "alert"
               }
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Diamond returns execution result to User; modular protocol state synchronized",
+            "caption": "Diamond returns execution result to User; modular protocol state.",
             "activeActor": "Diamond Proxy (Router)",
             "messages": [
               {
                 "from": "Diamond Proxy (Router)",
                 "to": "Protocol User",
-                "label": "ExecutionComplete(ZeroCollision \u2713)",
+                "label": "ExecutionComplete(ZeroCollision ✓)",
                 "tone": "ok"
               }
             ]
@@ -602,7 +602,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Full Protocol Milestone Capstone Engine: Modular Architecture Synthesis \u2014 Modular Diamond Protocol Sequence",
+        "title": "Full Protocol Milestone Capstone Engine: Modular Architecture Synthesis — Modular Diamond Protocol Sequence",
         "actors": [
           "Protocol User",
           "Diamond Proxy (Router)",
@@ -644,7 +644,7 @@
               {
                 "from": "Diamond Proxy (Router)",
                 "to": "LendingFacet (Debt Engine)",
-                "label": "delegatecall(LendingFacet) [Collateral Verified \u2713]",
+                "label": "delegatecall(LendingFacet) [Collateral Verified ✓]",
                 "tone": "alert"
               }
             ]
@@ -657,7 +657,7 @@
               {
                 "from": "Diamond Proxy (Router)",
                 "to": "Protocol User",
-                "label": "ExecutionComplete(ZeroCollision \u2713)",
+                "label": "ExecutionComplete(ZeroCollision ✓)",
                 "tone": "ok"
               }
             ]

@@ -10,12 +10,12 @@
       "codeHash": "08ea136c5d2cf2ed29252c8320bb9eac4c4f480cb0687758a9617ea2ce3ac0f4",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Ind AS 115 5-Step Model & Revenue Assertions: Exis \u2014 Forensic Audit Ledger",
+        "title": "Ind AS 115 5-Step Model & Revenue Assertions: Exis — Forensic Audit Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open forensic assurance verification ledger (1330000) for Ind AS 115 5-Step Model & Revenue Assert...",
-            "title": "Day 12 Forensic Assurance Ledger \u2014 Initial Posting",
+            "caption": "Open forensic assurance verification ledger (multiple) for Ind AS.",
+            "title": "Day 12 Forensic Assurance Ledger — Initial Posting",
             "isBalanced": true,
             "totalDebit": 1330000,
             "totalCredit": 1330000,
@@ -40,8 +40,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record forensic adjustment / impairment entry (165000) under applicable standard.",
-            "title": "Day 12 Forensic Assurance Ledger \u2014 Substantive Adjustment",
+            "caption": "Record forensic adjustment / impairment entry (multiple) under applicable.",
+            "title": "Day 12 Forensic Assurance Ledger — Substantive Adjustment",
             "isBalanced": true,
             "totalDebit": 1495000,
             "totalCredit": 1495000,
@@ -72,8 +72,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated enterprise forensic case study for Ind AS 115 5-Step Model & Revenue Assert...",
-            "title": "Day 12 Forensic Assurance Ledger \u2014 Substantive Audit",
+            "caption": "Execute simulated enterprise forensic case study for Ind AS multiple.",
+            "title": "Day 12 Forensic Assurance Ledger — Substantive Audit",
             "isBalanced": true,
             "totalDebit": 1495000,
             "totalCredit": 1495000,
@@ -103,8 +103,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify 100% balanced ledger closure and working paper archival for Ind AS 115 5-Step Model & Revenue Assert...",
-            "title": "Day 12 Forensic Assurance Ledger \u2014 Final Certified Balances",
+            "caption": "Verify one hundred% balanced ledger closure and working paper archival.",
+            "title": "Day 12 Forensic Assurance Ledger — Final Certified Balances",
             "isBalanced": true,
             "totalDebit": 1495000,
             "totalCredit": 1495000,
@@ -141,12 +141,12 @@
       "codeHash": "a613649c2bd6b6a8ac3ee8031fd18fdc8486bbac16e8a6c4d060e8f68231bb85",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Channel Stuffing Analytics, Side Agreements & Bill \u2014 Forensic Audit Ledger",
+        "title": "Channel Stuffing Analytics, Side Agreements & Bill — Forensic Audit Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open forensic assurance verification ledger (1350000) for Channel Stuffing Analytics, Side Agreeme...",
-            "title": "Day 12 Forensic Assurance Ledger \u2014 Initial Posting",
+            "caption": "Open forensic assurance verification ledger (multiple) for Channel.",
+            "title": "Day 12 Forensic Assurance Ledger — Initial Posting",
             "isBalanced": true,
             "totalDebit": 1350000,
             "totalCredit": 1350000,
@@ -171,8 +171,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record forensic adjustment / impairment entry (174500) under applicable standard.",
-            "title": "Day 12 Forensic Assurance Ledger \u2014 Substantive Adjustment",
+            "caption": "Record forensic adjustment / impairment entry (multiple) under applicable.",
+            "title": "Day 12 Forensic Assurance Ledger — Substantive Adjustment",
             "isBalanced": true,
             "totalDebit": 1524500,
             "totalCredit": 1524500,
@@ -203,8 +203,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated enterprise forensic case study for Channel Stuffing Analytics, Side Agreeme...",
-            "title": "Day 12 Forensic Assurance Ledger \u2014 Substantive Audit",
+            "caption": "Execute simulated enterprise forensic case study for Channel Stuffing.",
+            "title": "Day 12 Forensic Assurance Ledger — Substantive Audit",
             "isBalanced": true,
             "totalDebit": 1524500,
             "totalCredit": 1524500,
@@ -234,8 +234,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify 100% balanced ledger closure and working paper archival for Channel Stuffing Analytics, Side Agreeme...",
-            "title": "Day 12 Forensic Assurance Ledger \u2014 Final Certified Balances",
+            "caption": "Verify one hundred% balanced ledger closure and working paper archival.",
+            "title": "Day 12 Forensic Assurance Ledger — Final Certified Balances",
             "isBalanced": true,
             "totalDebit": 1524500,
             "totalCredit": 1524500,
@@ -272,12 +272,12 @@
       "codeHash": "3a13eb7f409d7e2fb3d316151f64612bf6bb9ffa15cc5d0c580e390a5fb92cc1",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Substantive Revenue Cut-Off Testing & E-Invoicing  \u2014 Forensic Audit Ledger",
+        "title": "Substantive Revenue Cut-Off Testing & E-Invoicing  — Forensic Audit Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open forensic assurance verification ledger (1370000) for Substantive Revenue Cut-Off Testing & E-...",
-            "title": "Day 12 Forensic Assurance Ledger \u2014 Initial Posting",
+            "caption": "Open forensic assurance verification ledger (multiple) for Substantive.",
+            "title": "Day 12 Forensic Assurance Ledger — Initial Posting",
             "isBalanced": true,
             "totalDebit": 1370000,
             "totalCredit": 1370000,
@@ -302,8 +302,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record forensic adjustment / impairment entry (184000) under applicable standard.",
-            "title": "Day 12 Forensic Assurance Ledger \u2014 Substantive Adjustment",
+            "caption": "Record forensic adjustment / impairment entry (multiple) under applicable.",
+            "title": "Day 12 Forensic Assurance Ledger — Substantive Adjustment",
             "isBalanced": true,
             "totalDebit": 1554000,
             "totalCredit": 1554000,
@@ -334,8 +334,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated enterprise forensic case study for Substantive Revenue Cut-Off Testing & E-...",
-            "title": "Day 12 Forensic Assurance Ledger \u2014 Substantive Audit",
+            "caption": "Execute simulated enterprise forensic case study for Substantive Revenue.",
+            "title": "Day 12 Forensic Assurance Ledger — Substantive Audit",
             "isBalanced": true,
             "totalDebit": 1554000,
             "totalCredit": 1554000,
@@ -365,8 +365,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify 100% balanced ledger closure and working paper archival for Substantive Revenue Cut-Off Testing & E-...",
-            "title": "Day 12 Forensic Assurance Ledger \u2014 Final Certified Balances",
+            "caption": "Verify one hundred% balanced ledger closure and working paper archival.",
+            "title": "Day 12 Forensic Assurance Ledger — Final Certified Balances",
             "isBalanced": true,
             "totalDebit": 1554000,
             "totalCredit": 1554000,
@@ -403,12 +403,12 @@
       "codeHash": "4a2a2930ec2cec6b0cabde6585cf217ef0e1b08eedb6bfe0cd594ffb6fd4a1ac",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Long-Term Construction Contracts & POCM Manipulati \u2014 Forensic Audit Ledger",
+        "title": "Long-Term Construction Contracts & POCM Manipulati — Forensic Audit Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open forensic assurance verification ledger (1390000) for Long-Term Construction Contracts & POCM ...",
-            "title": "Day 12 Forensic Assurance Ledger \u2014 Initial Posting",
+            "caption": "Open forensic assurance verification ledger (multiple) for Long-Term.",
+            "title": "Day 12 Forensic Assurance Ledger — Initial Posting",
             "isBalanced": true,
             "totalDebit": 1390000,
             "totalCredit": 1390000,
@@ -433,8 +433,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record forensic adjustment / impairment entry (193500) under applicable standard.",
-            "title": "Day 12 Forensic Assurance Ledger \u2014 Substantive Adjustment",
+            "caption": "Record forensic adjustment / impairment entry (multiple) under applicable.",
+            "title": "Day 12 Forensic Assurance Ledger — Substantive Adjustment",
             "isBalanced": true,
             "totalDebit": 1583500,
             "totalCredit": 1583500,
@@ -465,8 +465,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated enterprise forensic case study for Long-Term Construction Contracts & POCM ...",
-            "title": "Day 12 Forensic Assurance Ledger \u2014 Substantive Audit",
+            "caption": "Execute simulated enterprise forensic case study for Long-Term.",
+            "title": "Day 12 Forensic Assurance Ledger — Substantive Audit",
             "isBalanced": true,
             "totalDebit": 1583500,
             "totalCredit": 1583500,
@@ -496,8 +496,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify 100% balanced ledger closure and working paper archival for Long-Term Construction Contracts & POCM ...",
-            "title": "Day 12 Forensic Assurance Ledger \u2014 Final Certified Balances",
+            "caption": "Verify one hundred% balanced ledger closure and working paper archival.",
+            "title": "Day 12 Forensic Assurance Ledger — Final Certified Balances",
             "isBalanced": true,
             "totalDebit": 1583500,
             "totalCredit": 1583500,
@@ -534,12 +534,12 @@
       "codeHash": "a0801c6a9f65b870307cc3db57c426a967425ccc59d5eee2f62b124f0ee052fd",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Substantive Receivables Circularization & Dispute  \u2014 Forensic Audit Ledger",
+        "title": "Substantive Receivables Circularization & Dispute  — Forensic Audit Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open forensic assurance verification ledger (1410000) for Substantive Receivables Circularization ...",
-            "title": "Day 12 Forensic Assurance Ledger \u2014 Initial Posting",
+            "caption": "Open forensic assurance verification ledger (multiple) for Substantive.",
+            "title": "Day 12 Forensic Assurance Ledger — Initial Posting",
             "isBalanced": true,
             "totalDebit": 1410000,
             "totalCredit": 1410000,
@@ -564,8 +564,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record forensic adjustment / impairment entry (203000) under applicable standard.",
-            "title": "Day 12 Forensic Assurance Ledger \u2014 Substantive Adjustment",
+            "caption": "Record forensic adjustment / impairment entry (multiple) under applicable.",
+            "title": "Day 12 Forensic Assurance Ledger — Substantive Adjustment",
             "isBalanced": true,
             "totalDebit": 1613000,
             "totalCredit": 1613000,
@@ -596,8 +596,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated enterprise forensic case study for Substantive Receivables Circularization ...",
-            "title": "Day 12 Forensic Assurance Ledger \u2014 Substantive Audit",
+            "caption": "Execute simulated enterprise forensic case study for Substantive.",
+            "title": "Day 12 Forensic Assurance Ledger — Substantive Audit",
             "isBalanced": true,
             "totalDebit": 1613000,
             "totalCredit": 1613000,
@@ -627,8 +627,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify 100% balanced ledger closure and working paper archival for Substantive Receivables Circularization ...",
-            "title": "Day 12 Forensic Assurance Ledger \u2014 Final Certified Balances",
+            "caption": "Verify one hundred% balanced ledger closure and working paper archival.",
+            "title": "Day 12 Forensic Assurance Ledger — Final Certified Balances",
             "isBalanced": true,
             "totalDebit": 1613000,
             "totalCredit": 1613000,

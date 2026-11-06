@@ -11,12 +11,12 @@
       "filled": {},
       "spec": {
         "template": "ledger-sheet",
-        "title": "Current Tax vs Deferred Tax & The Shift ... \u2014 Ledger Verification",
+        "title": "Current Tax vs Deferred Tax & The Shift ... — Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary Ind AS ledger posting ($42,752) for Current Tax vs Deferred Tax & The Shift ...",
-            "title": "Day 37 Journal \u2014 Initial Posting",
+            "caption": "Open primary Ind AS ledger posting ($multiple,multiple) for Current Tax.",
+            "title": "Day 37 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 42752,
             "totalCredit": 42752,
@@ -41,8 +41,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary valuation & amortization accrual ($15,000).",
-            "title": "Day 37 Journal \u2014 Accrual / Amortization Adjustment",
+            "caption": "Record secondary valuation & amortization accrual ($multiple,multiple).",
+            "title": "Day 37 Journal — Accrual / Amortization Adjustment",
             "isBalanced": true,
             "totalDebit": 57752,
             "totalCredit": 57752,
@@ -72,8 +72,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of balance sheet carrying values and statutory disclosures.",
-            "title": "Day 37 Journal \u2014 Balance Sheet Realignment",
+            "caption": "Verification of balance sheet carrying values and statutory disclosures.",
+            "title": "Day 37 Journal — Balance Sheet Realignment",
             "isBalanced": true,
             "totalDebit": 57752,
             "totalCredit": 57752,
@@ -103,8 +103,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute deterministic Python engine and verify mathematical equilibrium.",
-            "title": "Day 37 Journal \u2014 Balanced Closure",
+            "caption": "Execute deterministic Python engine and verify mathematical equilibrium.",
+            "title": "Day 37 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 57752,
             "totalCredit": 57752,
@@ -141,12 +141,12 @@
       "filled": {},
       "spec": {
         "template": "ledger-sheet",
-        "title": "The Tax Base Concept, Asset vs Liability... \u2014 Ledger Verification",
+        "title": "The Tax Base Concept, Asset vs Liability... — Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary Ind AS ledger posting ($47,752) for The Tax Base Concept, Asset vs Liability...",
-            "title": "Day 37 Journal \u2014 Initial Posting",
+            "caption": "Open primary Ind AS ledger posting ($multiple,multiple) for The Tax Base.",
+            "title": "Day 37 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 47752,
             "totalCredit": 47752,
@@ -171,8 +171,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary valuation & amortization accrual ($15,000).",
-            "title": "Day 37 Journal \u2014 Accrual / Amortization Adjustment",
+            "caption": "Record secondary valuation & amortization accrual ($multiple,multiple).",
+            "title": "Day 37 Journal — Accrual / Amortization Adjustment",
             "isBalanced": true,
             "totalDebit": 62752,
             "totalCredit": 62752,
@@ -202,8 +202,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of balance sheet carrying values and statutory disclosures.",
-            "title": "Day 37 Journal \u2014 Balance Sheet Realignment",
+            "caption": "Verification of balance sheet carrying values and statutory disclosures.",
+            "title": "Day 37 Journal — Balance Sheet Realignment",
             "isBalanced": true,
             "totalDebit": 62752,
             "totalCredit": 62752,
@@ -233,8 +233,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute deterministic Python engine and verify mathematical equilibrium.",
-            "title": "Day 37 Journal \u2014 Balanced Closure",
+            "caption": "Execute deterministic Python engine and verify mathematical equilibrium.",
+            "title": "Day 37 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 62752,
             "totalCredit": 62752,
@@ -271,12 +271,12 @@
       "filled": {},
       "spec": {
         "template": "ledger-sheet",
-        "title": "Taxable vs Deductible Temporary Differen... \u2014 Ledger Verification",
+        "title": "Taxable vs Deductible Temporary Differen... — Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary Ind AS ledger posting ($52,752) for Taxable vs Deductible Temporary Differen...",
-            "title": "Day 37 Journal \u2014 Initial Posting",
+            "caption": "Open primary Ind AS ledger posting ($multiple,multiple) for Taxable vs.",
+            "title": "Day 37 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 52752,
             "totalCredit": 52752,
@@ -301,8 +301,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary valuation & amortization accrual ($15,000).",
-            "title": "Day 37 Journal \u2014 Accrual / Amortization Adjustment",
+            "caption": "Record secondary valuation & amortization accrual ($multiple,multiple).",
+            "title": "Day 37 Journal — Accrual / Amortization Adjustment",
             "isBalanced": true,
             "totalDebit": 67752,
             "totalCredit": 67752,
@@ -332,8 +332,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of balance sheet carrying values and statutory disclosures.",
-            "title": "Day 37 Journal \u2014 Balance Sheet Realignment",
+            "caption": "Verification of balance sheet carrying values and statutory disclosures.",
+            "title": "Day 37 Journal — Balance Sheet Realignment",
             "isBalanced": true,
             "totalDebit": 67752,
             "totalCredit": 67752,
@@ -363,8 +363,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute deterministic Python engine and verify mathematical equilibrium.",
-            "title": "Day 37 Journal \u2014 Balanced Closure",
+            "caption": "Execute deterministic Python engine and verify mathematical equilibrium.",
+            "title": "Day 37 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 67752,
             "totalCredit": 67752,
@@ -401,12 +401,12 @@
       "filled": {},
       "spec": {
         "template": "ledger-sheet",
-        "title": "Substantively Enacted Tax Rates (Section... \u2014 Ledger Verification",
+        "title": "Substantively Enacted Tax Rates (Section... — Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary Ind AS ledger posting ($57,752) for Substantively Enacted Tax Rates (Section...",
-            "title": "Day 37 Journal \u2014 Initial Posting",
+            "caption": "Open primary Ind AS ledger posting ($multiple,multiple) for Substantively.",
+            "title": "Day 37 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 57752,
             "totalCredit": 57752,
@@ -431,8 +431,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary valuation & amortization accrual ($15,000).",
-            "title": "Day 37 Journal \u2014 Accrual / Amortization Adjustment",
+            "caption": "Record secondary valuation & amortization accrual ($multiple,multiple).",
+            "title": "Day 37 Journal — Accrual / Amortization Adjustment",
             "isBalanced": true,
             "totalDebit": 72752,
             "totalCredit": 72752,
@@ -462,8 +462,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of balance sheet carrying values and statutory disclosures.",
-            "title": "Day 37 Journal \u2014 Balance Sheet Realignment",
+            "caption": "Verification of balance sheet carrying values and statutory disclosures.",
+            "title": "Day 37 Journal — Balance Sheet Realignment",
             "isBalanced": true,
             "totalDebit": 72752,
             "totalCredit": 72752,
@@ -493,8 +493,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute deterministic Python engine and verify mathematical equilibrium.",
-            "title": "Day 37 Journal \u2014 Balanced Closure",
+            "caption": "Execute deterministic Python engine and verify mathematical equilibrium.",
+            "title": "Day 37 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 72752,
             "totalCredit": 72752,
@@ -531,12 +531,12 @@
       "filled": {},
       "spec": {
         "template": "ledger-sheet",
-        "title": "Python Deferred Tax Engine Execution & I... \u2014 Ledger Verification",
+        "title": "Python Deferred Tax Engine Execution & I... — Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary Ind AS ledger posting ($62,752) for Python Deferred Tax Engine Execution & I...",
-            "title": "Day 37 Journal \u2014 Initial Posting",
+            "caption": "Open primary Ind AS ledger posting ($multiple,multiple) for Python.",
+            "title": "Day 37 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 62752,
             "totalCredit": 62752,
@@ -561,8 +561,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary valuation & amortization accrual ($15,000).",
-            "title": "Day 37 Journal \u2014 Accrual / Amortization Adjustment",
+            "caption": "Record secondary valuation & amortization accrual ($multiple,multiple).",
+            "title": "Day 37 Journal — Accrual / Amortization Adjustment",
             "isBalanced": true,
             "totalDebit": 77752,
             "totalCredit": 77752,
@@ -592,8 +592,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of balance sheet carrying values and statutory disclosures.",
-            "title": "Day 37 Journal \u2014 Balance Sheet Realignment",
+            "caption": "Verification of balance sheet carrying values and statutory disclosures.",
+            "title": "Day 37 Journal — Balance Sheet Realignment",
             "isBalanced": true,
             "totalDebit": 77752,
             "totalCredit": 77752,
@@ -623,8 +623,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute deterministic Python engine and verify mathematical equilibrium.",
-            "title": "Day 37 Journal \u2014 Balanced Closure",
+            "caption": "Execute deterministic Python engine and verify mathematical equilibrium.",
+            "title": "Day 37 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 77752,
             "totalCredit": 77752,

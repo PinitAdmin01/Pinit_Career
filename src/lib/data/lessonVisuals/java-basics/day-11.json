@@ -15,7 +15,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Push root frames onto JVM execution stack for Class Blueprint vs He...",
+            "caption": "Push root frames onto JVM execution stack for Class Blueprint vs He...",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -32,7 +32,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Push DomainValidator.verify() onto active stack frame.",
+            "caption": "Push DomainValidator.verify() onto active stack frame.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -51,7 +51,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Pop completed validator frame after invariant verification.",
+            "caption": "Pop completed validator frame after invariant verification.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -68,7 +68,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Unwind stack and return verified result to main() Frame.",
+            "caption": "Unwind stack and return verified result to main() Frame.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -169,7 +169,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Push root frames onto JVM execution stack for Constructors, Overloa...",
+            "caption": "Push root frames onto JVM execution stack for Constructors, Overloa...",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -186,7 +186,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Push DomainValidator.verify() onto active stack frame.",
+            "caption": "Push DomainValidator.verify() onto active stack frame.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -205,7 +205,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Pop completed validator frame after invariant verification.",
+            "caption": "Pop completed validator frame after invariant verification.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -222,7 +222,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Unwind stack and return verified result to main() Frame.",
+            "caption": "Unwind stack and return verified result to main() Frame.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -323,7 +323,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Push root frames onto JVM execution stack for The this Reference: D...",
+            "caption": "Push root frames onto JVM execution stack for The this Reference: D...",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -340,7 +340,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Push DomainValidator.verify() onto active stack frame.",
+            "caption": "Push DomainValidator.verify() onto active stack frame.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -359,7 +359,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Pop completed validator frame after invariant verification.",
+            "caption": "Pop completed validator frame after invariant verification.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -376,7 +376,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Unwind stack and return verified result to main() Frame.",
+            "caption": "Unwind stack and return verified result to main() Frame.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -477,7 +477,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Push root frames onto JVM execution stack for JVM Object Memory Lay...",
+            "caption": "Push root frames onto JVM execution stack for JVM Object Memory Lay...",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -494,7 +494,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Push DomainValidator.verify() onto active stack frame.",
+            "caption": "Push DomainValidator.verify() onto active stack frame.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -513,7 +513,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Pop completed validator frame after invariant verification.",
+            "caption": "Pop completed validator frame after invariant verification.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -530,7 +530,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Unwind stack and return verified result to main() Frame.",
+            "caption": "Unwind stack and return verified result to main() Frame.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -631,7 +631,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Push root frames onto JVM execution stack for Reference Identity (=...",
+            "caption": "Push root frames onto JVM execution stack for Reference Identity (=...",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -648,7 +648,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Push DomainValidator.verify() onto active stack frame.",
+            "caption": "Push DomainValidator.verify() onto active stack frame.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -667,7 +667,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Pop completed validator frame after invariant verification.",
+            "caption": "Pop completed validator frame after invariant verification.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -684,7 +684,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Unwind stack and return verified result to main() Frame.",
+            "caption": "Unwind stack and return verified result to main() Frame.",
             "mode": "stack",
             "items": [
               "main() Frame",

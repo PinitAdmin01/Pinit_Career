@@ -11,7 +11,7 @@
       "filled": {},
       "spec": {
         "template": "workflow",
-        "title": "Part 1: Section 135(1) CSR Applicability &... \u2014 Compliance Workflow",
+        "title": "Part 1: Section 135(1) CSR Applicability &... — Compliance Workflow",
         "stages": [
           {
             "id": "s1",
@@ -41,25 +41,25 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1: Initialize Part 1: Section 135(1) CSR Applicabili...",
+            "caption": "Stage one: Initialize Part one: Section multiple(one) CSR Applicabili...",
             "activeStageId": "s1",
             "statusBadge": "INGRESS"
           },
           {
             "at": "say1",
-            "caption": "Stage 2: Evaluate statutory corporate parameters and legal tests.",
+            "caption": "Stage two: Evaluate statutory corporate parameters and legal tests.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS"
           },
           {
             "at": "example",
-            "caption": "Stage 3: Apply Board governance oversight and compliance controls.",
+            "caption": "Stage three: Apply Board governance oversight and compliance controls.",
             "activeStageId": "s3",
             "statusBadge": "ACTIVE"
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4: Execute deterministic Python engine and verify compliance.",
+            "caption": "Stage four: Execute deterministic Python engine and verify compliance.",
             "activeStageId": "s4",
             "statusBadge": "DONE"
           }
@@ -72,7 +72,7 @@
       "filled": {},
       "spec": {
         "template": "workflow",
-        "title": "Part 2: Section 198 Adjusted Net Profits &... \u2014 Compliance Workflow",
+        "title": "Part 2: Section 198 Adjusted Net Profits &... — Compliance Workflow",
         "stages": [
           {
             "id": "s1",
@@ -102,25 +102,25 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1: Initialize Part 2: Section 198 Adjusted Net Profi...",
+            "caption": "Stage one: Initialize Part two: Section multiple Adjusted Net Profi...",
             "activeStageId": "s1",
             "statusBadge": "INGRESS"
           },
           {
             "at": "say1",
-            "caption": "Stage 2: Evaluate statutory corporate parameters and legal tests.",
+            "caption": "Stage two: Evaluate statutory corporate parameters and legal tests.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS"
           },
           {
             "at": "example",
-            "caption": "Stage 3: Apply Board governance oversight and compliance controls.",
+            "caption": "Stage three: Apply Board governance oversight and compliance controls.",
             "activeStageId": "s3",
             "statusBadge": "ACTIVE"
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4: Execute deterministic Python engine and verify compliance.",
+            "caption": "Stage four: Execute deterministic Python engine and verify compliance.",
             "activeStageId": "s4",
             "statusBadge": "DONE"
           }
@@ -133,7 +133,7 @@
       "filled": {},
       "spec": {
         "template": "workflow",
-        "title": "Part 3: Schedule VII Permitted Activities ... \u2014 Compliance Workflow",
+        "title": "Part 3: Schedule VII Permitted Activities ... — Compliance Workflow",
         "stages": [
           {
             "id": "s1",
@@ -163,25 +163,25 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1: Initialize Part 3: Schedule VII Permitted Activit...",
+            "caption": "Stage one: Initialize Part three: Schedule VII Permitted Activit...",
             "activeStageId": "s1",
             "statusBadge": "INGRESS"
           },
           {
             "at": "say1",
-            "caption": "Stage 2: Evaluate statutory corporate parameters and legal tests.",
+            "caption": "Stage two: Evaluate statutory corporate parameters and legal tests.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS"
           },
           {
             "at": "example",
-            "caption": "Stage 3: Apply Board governance oversight and compliance controls.",
+            "caption": "Stage three: Apply Board governance oversight and compliance controls.",
             "activeStageId": "s3",
             "statusBadge": "ACTIVE"
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4: Execute deterministic Python engine and verify compliance.",
+            "caption": "Stage four: Execute deterministic Python engine and verify compliance.",
             "activeStageId": "s4",
             "statusBadge": "DONE"
           }
@@ -194,7 +194,7 @@
       "filled": {},
       "spec": {
         "template": "workflow",
-        "title": "Part 4: Unspent CSR Funds & Section 135(7)... \u2014 Compliance Workflow",
+        "title": "Part 4: Unspent CSR Funds & Section 135(7)... — Compliance Workflow",
         "stages": [
           {
             "id": "s1",
@@ -224,25 +224,25 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1: Initialize Part 4: Unspent CSR Funds & Section 13...",
+            "caption": "Stage one: Initialize Part four: Unspent CSR Funds & Section multiple...",
             "activeStageId": "s1",
             "statusBadge": "INGRESS"
           },
           {
             "at": "say1",
-            "caption": "Stage 2: Evaluate statutory corporate parameters and legal tests.",
+            "caption": "Stage two: Evaluate statutory corporate parameters and legal tests.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS"
           },
           {
             "at": "example",
-            "caption": "Stage 3: Apply Board governance oversight and compliance controls.",
+            "caption": "Stage three: Apply Board governance oversight and compliance controls.",
             "activeStageId": "s3",
             "statusBadge": "ACTIVE"
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4: Execute deterministic Python engine and verify compliance.",
+            "caption": "Stage four: Execute deterministic Python engine and verify compliance.",
             "activeStageId": "s4",
             "statusBadge": "DONE"
           }
@@ -255,7 +255,7 @@
       "filled": {},
       "spec": {
         "template": "workflow",
-        "title": "Part 5: Production Section 135 CSR Complia... \u2014 Compliance Workflow",
+        "title": "Part 5: Production Section 135 CSR Complia... — Compliance Workflow",
         "stages": [
           {
             "id": "s1",
@@ -285,25 +285,25 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1: Initialize Part 5: Production Section 135 CSR Com...",
+            "caption": "Stage one: Initialize Part five: Production Section multiple CSR Com...",
             "activeStageId": "s1",
             "statusBadge": "INGRESS"
           },
           {
             "at": "say1",
-            "caption": "Stage 2: Evaluate statutory corporate parameters and legal tests.",
+            "caption": "Stage two: Evaluate statutory corporate parameters and legal tests.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS"
           },
           {
             "at": "example",
-            "caption": "Stage 3: Apply Board governance oversight and compliance controls.",
+            "caption": "Stage three: Apply Board governance oversight and compliance controls.",
             "activeStageId": "s3",
             "statusBadge": "ACTIVE"
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4: Execute deterministic Python engine and verify compliance.",
+            "caption": "Stage four: Execute deterministic Python engine and verify compliance.",
             "activeStageId": "s4",
             "statusBadge": "DONE"
           }

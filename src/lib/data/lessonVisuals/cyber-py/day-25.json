@@ -1,0 +1,871 @@
+{
+  "schemaVersion": 1,
+  "prefix": "cyber-py",
+  "day": 25,
+  "promptSha": "4a5178bbc42a0dc4c187393dc30b4104d5e5ff07e7da5fc99c7ce8b6f0663b36",
+  "model": "gpt-4o",
+  "entries": [
+    {
+      "partTitle": "IDS and IPS",
+      "codeHash": "d5e02b2c68ccb4ba20fbd266fc4cbb0c0de2dee9c16eeefa89acfabf788951d5",
+      "spec": {
+        "template": "compare",
+        "title": "Network-based promiscuous sniffing versus host-based operating system IDS",
+        "left": {
+          "title": "Network Intrusion Detection (NIDS)",
+          "items": [
+            "Operates promiscuously on network taps and switch SPAN ports",
+            "Analyzes raw Ethernet frames across entire network subnets",
+            "Inspects unencrypted packet headers without host overhead"
+          ]
+        },
+        "right": {
+          "title": "Host Intrusion Detection (HIDS)",
+          "items": [
+            "Resides directly on individual endpoints and servers",
+            "Monitors local system calls authentication logs and rootkits",
+            "Inspects decrypted payload contents directly at the endpoint"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "Network sensors analyze raw packets across subnets without host burdens.",
+            "highlightSide": "left",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say6",
+            "caption": "Host monitors inspect local system calls and authentication logs.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Network Intrusion Detection (NIDS)",
+        "rightLabel": "Host Intrusion Detection (HIDS)"
+      },
+      "filled": {
+        "template": "compare",
+        "title": "Network-based promiscuous sniffing versus host-based operating system IDS",
+        "left": {
+          "title": "Network Intrusion Detection (NIDS)",
+          "items": [
+            "Operates promiscuously on network taps and switch SPAN ports",
+            "Analyzes raw Ethernet frames across entire network subnets",
+            "Inspects unencrypted packet headers without host overhead"
+          ]
+        },
+        "right": {
+          "title": "Host Intrusion Detection (HIDS)",
+          "items": [
+            "Resides directly on individual endpoints and servers",
+            "Monitors local system calls authentication logs and rootkits",
+            "Inspects decrypted payload contents directly at the endpoint"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "Network sensors analyze raw packets across subnets without host burdens.",
+            "highlightSide": "left",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say6",
+            "caption": "Host monitors inspect local system calls and authentication logs.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Network Intrusion Detection (NIDS)",
+        "rightLabel": "Host Intrusion Detection (HIDS)"
+      }
+    },
+    {
+      "partTitle": "Anatomy of a rule",
+      "codeHash": "c0eaefece780402dbb9c285c0d749eee69f7924d92fb27324917ebf36c23d263",
+      "spec": {
+        "template": "table",
+        "title": "Snort and Suricata rule header components and payload options syntax",
+        "columns": [
+          "Rule Component",
+          "Component Function",
+          "Syntax Keyword",
+          "Example Value"
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "The rule header specifies the action and transport protocol.",
+            "activeRowIndex": 0,
+            "statusBadge": "active",
+            "rows": [
+              {
+                "cells": [
+                  "Rule Action",
+                  "Defines Response Action",
+                  "Action Declaration",
+                  "Alert or Drop"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Rule Protocol",
+                  "Transport Protocol Target",
+                  "Protocol Keyword",
+                  "TCP UDP or ICMP"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Direction Operator",
+                  "Traffic Flow Orientation",
+                  "Direction Symbol",
+                  "Unidirectional Arrow"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Payload Content",
+                  "Pattern Search String",
+                  "Content Option",
+                  "Exact Byte Sequence"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Options define exact byte patterns to search for within payloads.",
+            "activeRowIndex": 3,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "Rule Action",
+                  "Defines Response Action",
+                  "Action Declaration",
+                  "Alert or Drop"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Rule Protocol",
+                  "Transport Protocol Target",
+                  "Protocol Keyword",
+                  "TCP UDP or ICMP"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Direction Operator",
+                  "Traffic Flow Orientation",
+                  "Direction Symbol",
+                  "Unidirectional Arrow"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Payload Content",
+                  "Pattern Search String",
+                  "Content Option",
+                  "Exact Byte Sequence"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Snort and Suricata rule header components and payload options syntax",
+        "columns": [
+          "Rule Component",
+          "Component Function",
+          "Syntax Keyword",
+          "Example Value"
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "The rule header specifies the action and transport protocol.",
+            "activeRowIndex": 0,
+            "statusBadge": "active",
+            "rows": [
+              {
+                "cells": [
+                  "Rule Action",
+                  "Defines Response Action",
+                  "Action Declaration",
+                  "Alert or Drop"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Rule Protocol",
+                  "Transport Protocol Target",
+                  "Protocol Keyword",
+                  "TCP UDP or ICMP"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Direction Operator",
+                  "Traffic Flow Orientation",
+                  "Direction Symbol",
+                  "Unidirectional Arrow"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Payload Content",
+                  "Pattern Search String",
+                  "Content Option",
+                  "Exact Byte Sequence"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say5",
+            "caption": "Options define exact byte patterns to search for within payloads.",
+            "activeRowIndex": 3,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "Rule Action",
+                  "Defines Response Action",
+                  "Action Declaration",
+                  "Alert or Drop"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Rule Protocol",
+                  "Transport Protocol Target",
+                  "Protocol Keyword",
+                  "TCP UDP or ICMP"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Direction Operator",
+                  "Traffic Flow Orientation",
+                  "Direction Symbol",
+                  "Unidirectional Arrow"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Payload Content",
+                  "Pattern Search String",
+                  "Content Option",
+                  "Exact Byte Sequence"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Matching packets",
+      "codeHash": "97ebc722e97a6a050db1e75272a5f473612f90a3bfa01c32066d31297bf8b98d",
+      "spec": {
+        "template": "compare",
+        "title": "Signature-based pattern matching versus protocol anomaly detection",
+        "left": {
+          "title": "Signature-Based Pattern Matching",
+          "items": [
+            "Searches packet payloads for documented exploit byte patterns",
+            "Extremely efficient with near zero false positive rates",
+            "Blind to unknown zero-day attacks and polymorphic payloads"
+          ]
+        },
+        "right": {
+          "title": "Protocol Anomaly Detection",
+          "items": [
+            "Models normal protocol standards and RFC specifications",
+            "Flags unexpected deviations illegal headers and port abuse",
+            "Catches novel zero-day attacks and evasive techniques"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Signatures search packet payloads for specific byte sequences.",
+            "highlightSide": "left",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say6",
+            "caption": "Anomaly detection models normal specifications and flags deviations.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Signature-Based Pattern Matching",
+        "rightLabel": "Protocol Anomaly Detection"
+      },
+      "filled": {
+        "template": "compare",
+        "title": "Signature-based pattern matching versus protocol anomaly detection",
+        "left": {
+          "title": "Signature-Based Pattern Matching",
+          "items": [
+            "Searches packet payloads for documented exploit byte patterns",
+            "Extremely efficient with near zero false positive rates",
+            "Blind to unknown zero-day attacks and polymorphic payloads"
+          ]
+        },
+        "right": {
+          "title": "Protocol Anomaly Detection",
+          "items": [
+            "Models normal protocol standards and RFC specifications",
+            "Flags unexpected deviations illegal headers and port abuse",
+            "Catches novel zero-day attacks and evasive techniques"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Signatures search packet payloads for specific byte sequences.",
+            "highlightSide": "left",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say6",
+            "caption": "Anomaly detection models normal specifications and flags deviations.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Signature-Based Pattern Matching",
+        "rightLabel": "Protocol Anomaly Detection"
+      }
+    },
+    {
+      "partTitle": "Signatures versus anomalies",
+      "codeHash": "205a64046defc8f20ae96857a355a7d9b7ecf1664565496d3d09d39dd2bdf5fc",
+      "spec": {
+        "template": "states",
+        "title": "Inline IPS packet inspection stream interception and dropping stages",
+        "states": [
+          {
+            "id": "packetInspected",
+            "label": "Packet Traverses Inline Inspection Engine"
+          },
+          {
+            "id": "signatureMatched",
+            "label": "Exploit Signature Detected in Payload"
+          },
+          {
+            "id": "packetDropped",
+            "label": "Packet Discarded at Network Interface"
+          },
+          {
+            "id": "tcpResetEmitted",
+            "label": "TCP Reset Sent to Client and Server"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "When an exploit signature matches the system drops the packet immediately.",
+            "activeStateId": "signatureMatched",
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say6",
+            "caption": "An IPS can reset connections by sending reset packets to both hosts.",
+            "activeStateId": "tcpResetEmitted",
+            "statusBadge": "completed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Inline IPS packet inspection stream interception and dropping stages",
+        "states": [
+          {
+            "id": "packetInspected",
+            "label": "Packet Traverses Inline Inspection Engine"
+          },
+          {
+            "id": "signatureMatched",
+            "label": "Exploit Signature Detected in Payload"
+          },
+          {
+            "id": "packetDropped",
+            "label": "Packet Discarded at Network Interface"
+          },
+          {
+            "id": "tcpResetEmitted",
+            "label": "TCP Reset Sent to Client and Server"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "When an exploit signature matches the system drops the packet immediately.",
+            "activeStateId": "signatureMatched",
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say6",
+            "caption": "An IPS can reset connections by sending reset packets to both hosts.",
+            "activeStateId": "tcpResetEmitted",
+            "statusBadge": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Tuning and testing rules",
+      "codeHash": "421ec3862b80a3fc7a5395dda4ef018d02a5ddf62e0d37f79ed32fb4522be2ce",
+      "spec": {
+        "template": "table",
+        "title": "Deep packet inspection bounded search modifiers and PCRE options",
+        "columns": [
+          "Search Modifier",
+          "Inspection Scope",
+          "Optimization Rationale",
+          "Rule Example"
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "The depth option specifies how many bytes of the payload to search.",
+            "activeRowIndex": 0,
+            "statusBadge": "active",
+            "rows": [
+              {
+                "cells": [
+                  "Depth Option",
+                  "Bytes from Payload Start",
+                  "Bounds Search Window Size",
+                  "Limits CPU Search Cost"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Offset Option",
+                  "Bytes into Payload to Skip",
+                  "Bypasses Known Static Headers",
+                  "Skips Ethernet and IP Bytes"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Distance Modifier",
+                  "Relative Bytes from Last Match",
+                  "Constrains Subsequent Strings",
+                  "Enforces Sequence Constraints"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "PCRE Evaluation",
+                  "Perl Regular Expression",
+                  "Evaluates Complex Payload Variants",
+                  "Executed After Fast Literals"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Efficient rules combine fast string matches before executing evaluations.",
+            "activeRowIndex": 3,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "Depth Option",
+                  "Bytes from Payload Start",
+                  "Bounds Search Window Size",
+                  "Limits CPU Search Cost"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Offset Option",
+                  "Bytes into Payload to Skip",
+                  "Bypasses Known Static Headers",
+                  "Skips Ethernet and IP Bytes"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Distance Modifier",
+                  "Relative Bytes from Last Match",
+                  "Constrains Subsequent Strings",
+                  "Enforces Sequence Constraints"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "PCRE Evaluation",
+                  "Perl Regular Expression",
+                  "Evaluates Complex Payload Variants",
+                  "Executed After Fast Literals"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Deep packet inspection bounded search modifiers and PCRE options",
+        "columns": [
+          "Search Modifier",
+          "Inspection Scope",
+          "Optimization Rationale",
+          "Rule Example"
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "The depth option specifies how many bytes of the payload to search.",
+            "activeRowIndex": 0,
+            "statusBadge": "active",
+            "rows": [
+              {
+                "cells": [
+                  "Depth Option",
+                  "Bytes from Payload Start",
+                  "Bounds Search Window Size",
+                  "Limits CPU Search Cost"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Offset Option",
+                  "Bytes into Payload to Skip",
+                  "Bypasses Known Static Headers",
+                  "Skips Ethernet and IP Bytes"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Distance Modifier",
+                  "Relative Bytes from Last Match",
+                  "Constrains Subsequent Strings",
+                  "Enforces Sequence Constraints"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "PCRE Evaluation",
+                  "Perl Regular Expression",
+                  "Evaluates Complex Payload Variants",
+                  "Executed After Fast Literals"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Efficient rules combine fast string matches before executing evaluations.",
+            "activeRowIndex": 3,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "Depth Option",
+                  "Bytes from Payload Start",
+                  "Bounds Search Window Size",
+                  "Limits CPU Search Cost"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Offset Option",
+                  "Bytes into Payload to Skip",
+                  "Bypasses Known Static Headers",
+                  "Skips Ethernet and IP Bytes"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Distance Modifier",
+                  "Relative Bytes from Last Match",
+                  "Constrains Subsequent Strings",
+                  "Enforces Sequence Constraints"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "PCRE Evaluation",
+                  "Perl Regular Expression",
+                  "Evaluates Complex Payload Variants",
+                  "Executed After Fast Literals"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Practice time: parse and match rules",
+      "codeHash": "08bd87491ad2a9c59bcbd98b205ee4e7e3d7b63485955588651b5087c6021bef",
+      "spec": {
+        "template": "flow",
+        "title": "TCP Stream Reassembly & Protocol Evasion Coun... — Execution Pipeline",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "1. Input & State",
+            "tappable": true
+          },
+          {
+            "id": "proc",
+            "label": "2. TCP Stream Reassemb...",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "3. Verified Output",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize input state for TCP Stream Reassembly & Protocol Evasion.",
+            "values": {
+              "in": "Day 25 Input",
+              "proc": "Standby",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "data",
+              "proc": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Execute core transformation in TCP Stream Reassemb... [D.Psix.Stwo].",
+            "values": {
+              "in": "Validated",
+              "proc": "Processing...",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "values": {
+              "in": "Validated",
+              "proc": "Invariant OK",
+              "out": "Emitting"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "End-to-end execution verified for TCP Stream Reassembly & Protocol .",
+            "values": {
+              "in": "Committed",
+              "proc": "Verified",
+              "out": "Complete ✓"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "TCP Stream Reassembly & Protocol Evasion Coun... — Execution Pipeline",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "1. Input & State",
+            "tappable": true
+          },
+          {
+            "id": "proc",
+            "label": "2. TCP Stream Reassemb...",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "3. Verified Output",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Step 1: Initialize input state for TCP Stream Reassembly & Protocol Evasion.. [D25.P6.S1].",
+            "values": {
+              "in": "Day 25 Input",
+              "proc": "Standby",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "data",
+              "proc": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Step 2: Execute core transformation in TCP Stream Reassemb... [D25.P6.S2].",
+            "values": {
+              "in": "Validated",
+              "proc": "Processing...",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Step 3: Inspect concrete example output and invariants [D25.P6.S3].",
+            "values": {
+              "in": "Validated",
+              "proc": "Invariant OK",
+              "out": "Emitting"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Step 4: End-to-end execution verified for TCP Stream Reassembly & Protocol .. [D25.P6.S4].",
+            "values": {
+              "in": "Committed",
+              "proc": "Verified",
+              "out": "Complete ✓"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

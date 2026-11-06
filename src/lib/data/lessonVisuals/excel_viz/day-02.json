@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Dynamic Array Spill Ranges: =FILTER...",
+            "caption": "Baseline KPI cohort metrics for Dynamic Array Spill Ranges: =FILTER...",
             "max": 100,
             "bars": [
               {
@@ -41,7 +41,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate Contribution Margin & Operating Cash Flow drivers.",
+            "caption": "Isolate Contribution Margin & Operating Cash Flow drivers.",
             "max": 100,
             "bars": [
               {
@@ -68,7 +68,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds.",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Dynamic Array Spill Ranges:...",
+            "caption": "Commit audited analytical dashboard for Dynamic Array Spill Ranges:...",
             "max": 100,
             "bars": [
               {
@@ -246,7 +246,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Monte Carlo Financial Risk Simulati...",
+            "caption": "Baseline KPI cohort metrics for Monte Carlo Financial Risk Simulati...",
             "max": 100,
             "bars": [
               {
@@ -273,7 +273,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate Contribution Margin & Operating Cash Flow drivers.",
+            "caption": "Isolate Contribution Margin & Operating Cash Flow drivers.",
             "max": 100,
             "bars": [
               {
@@ -300,7 +300,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds.",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -327,7 +327,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Monte Carlo Financial Risk ...",
+            "caption": "Commit audited analytical dashboard for Monte Carlo Financial Risk ...",
             "max": 100,
             "bars": [
               {
@@ -478,7 +478,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Power Pivot Star Schema Architectur...",
+            "caption": "Baseline KPI cohort metrics for Power Pivot Star Schema Architectur...",
             "max": 100,
             "bars": [
               {
@@ -505,7 +505,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate Contribution Margin & Operating Cash Flow drivers.",
+            "caption": "Isolate Contribution Margin & Operating Cash Flow drivers.",
             "max": 100,
             "bars": [
               {
@@ -532,7 +532,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds.",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -559,7 +559,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Power Pivot Star Schema Arc...",
+            "caption": "Commit audited analytical dashboard for Power Pivot Star Schema Arc...",
             "max": 100,
             "bars": [
               {
@@ -710,7 +710,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Two-Way What-If Sensitivity Analysi...",
+            "caption": "Baseline KPI cohort metrics for Two-Way What-If Sensitivity Analysi...",
             "max": 100,
             "bars": [
               {
@@ -737,7 +737,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate Contribution Margin & Operating Cash Flow drivers.",
+            "caption": "Isolate Contribution Margin & Operating Cash Flow drivers.",
             "max": 100,
             "bars": [
               {
@@ -764,7 +764,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds.",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -791,7 +791,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Two-Way What-If Sensitivity...",
+            "caption": "Commit audited analytical dashboard for Two-Way What-If Sensitivity...",
             "max": 100,
             "bars": [
               {
@@ -942,7 +942,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Financial Waterfall Charts & Execut...",
+            "caption": "Baseline KPI cohort metrics for Financial Waterfall Charts & Execut...",
             "max": 100,
             "bars": [
               {
@@ -969,7 +969,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate Contribution Margin & Operating Cash Flow drivers.",
+            "caption": "Isolate Contribution Margin & Operating Cash Flow drivers.",
             "max": 100,
             "bars": [
               {
@@ -996,7 +996,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds.",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -1023,7 +1023,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Financial Waterfall Charts ...",
+            "caption": "Commit audited analytical dashboard for Financial Waterfall Charts ...",
             "max": 100,
             "bars": [
               {

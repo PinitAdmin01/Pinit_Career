@@ -4,7 +4,7 @@ import { CourseQuest } from './coursesData';
 export const BCOM_ACCOUNTING_30_DAYS_CONFIGS: DayConfig[] = [
   {
     "day": 1,
-    "title": "Double-Entry Accounting Equation & Business Entity Framework",
+    "title": "Financial Accounting Invariants & 3-Statement Integration",
     "desc": "Master the fundamental accounting equation: $Assets = Liabilities + Equity$, the dual aspect principle, business entity concept, and money measurement conventions.",
     "syllabus": [
       "The Fundamental Equation: Assets = Liabilities + Capital (Owner Equity).",
@@ -24,7 +24,7 @@ export const BCOM_ACCOUNTING_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 2,
-    "title": "The 3 Golden Rules of Accounting & Account Classification",
+    "title": "ASC 842 Leases, Multi-Currency Consolidation, Inventory Dynamics & ERP Controls",
     "desc": "Classify accounts and apply the 3 Golden Rules: Personal Accounts (Debit the Receiver, Credit the Giver), Real Accounts (Debit what Comes In, Credit what Goes Out), and Nominal Accounts (Debit all Expenses/Losses, Credit all Incomes/Gains).",
     "syllabus": [
       "Personal Accounts: Natural, Artificial (Companies), and Representative persons.",
@@ -44,7 +44,7 @@ export const BCOM_ACCOUNTING_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 3,
-    "title": "Journalizing Transactions & Compound Journal Entries",
+    "title": "Advanced Cost Accounting: Activity-Based Costing (ABC), Standard Costing & Flexible Budget Variances",
     "desc": "Record prime entry transactions in the General Journal: Date, Particulars (Debit & Credit accounts), Ledger Folio (LF), Amount, Narration, and multi-line Compound Journal Entries.",
     "syllabus": [
       "General Journal Structure: Strict chronological recording of business events.",
@@ -64,7 +64,7 @@ export const BCOM_ACCOUNTING_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 4,
-    "title": "Ledger Posting & Balancing T-Accounts",
+    "title": "Complex Financial Instruments, ASC 326 CECL Credit Losses & Hedge Accounting",
     "desc": "Post journal entries into the Principal Book of Accounts (General Ledger): Debit side ('To...'), Credit side ('By...'), balancing accounts at period end ('By Balance c/d' and 'To Balance b/d').",
     "syllabus": [
       "Ledger Structure: 'T-Account' format with Debit (Dr.) left side and Credit (Cr.) right side.",
@@ -84,7 +84,7 @@ export const BCOM_ACCOUNTING_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 5,
-    "title": "⭐ MILESTONE 1: Complete Double-Entry Bookkeeping & General Ledger Engine",
+    "title": "Milestone 1 Capstone: Global Financial Controller War Room & SEC Form 10-K Consolidation",
     "desc": "Milestone 1: Build a complete double-entry bookkeeping engine: Accounting equation validation, Golden Rules classification, multi-line compound journal entries, and automated general ledger posting and balancing.",
     "syllabus": [
       "Double-entry bookkeeping lifecycle synthesis.",
@@ -124,7 +124,7 @@ export const BCOM_ACCOUNTING_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 7,
-    "title": "Subsidiary Books: Purchase, Sales, Returns & Bills Books",
+    "title": "Subsidiary Day Books: Purchase, Sales, Returns & Bills Books",
     "desc": "Maintain specialized day books for credit transactions: Purchases Book (Inward Invoice), Sales Book (Outward Invoice), Purchase Returns (Debit Note), Sales Returns (Credit Note), and Bills of Exchange registers.",
     "syllabus": [
       "Credit Transaction Recording: Excluding cash transactions from subsidiary day books.",
@@ -184,7 +184,7 @@ export const BCOM_ACCOUNTING_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 10,
-    "title": "Rectification of Errors & The Suspense Account",
+    "title": "Milestone 2 Capstone: Rectification of Errors, Suspense Account & Internal Controls",
     "desc": "Locate and rectify pre-trial and post-trial balance errors: Rectifying journal entries, Suspense Account creation, clearing one-sided posting errors, and adjusting final profit.",
     "syllabus": [
       "Error Classification: Errors before trial balance vs after trial balance preparation.",
@@ -284,7 +284,7 @@ export const BCOM_ACCOUNTING_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 15,
-    "title": "⭐ MILESTONE 2: Complete Financial Statements & Year-End Closing Engine",
+    "title": "Milestone 3 Capstone: Complete Financial Statements & Year-End Closing Engine",
     "desc": "Milestone 2: Build an end-to-end year-end financial accounting closing engine: Trial balance import, closing adjusting entries (accruals, prepayments, depreciation), Trading A/c, P&L Statement, and Marshalling Balance Sheet.",
     "syllabus": [
       "Year-End Accounting Synthesis: Closing adjustments pipeline.",
@@ -344,7 +344,7 @@ export const BCOM_ACCOUNTING_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 18,
-    "title": "Goods & Services Tax (GST): Dual Model (CGST/SGST vs IGST) & Tax Invoices",
+    "title": "Goods & Services Tax (GST): Dual Model & Tax Invoices",
     "desc": "Master the Indian GST statutory framework: Constitutional framework (101st Amendment), Intra-State supply (CGST + SGST equal split), Inter-State supply (IGST), and statutory Tax Invoice requirements.",
     "syllabus": [
       "GST Dual Architecture: State GST (SGST), Central GST (CGST), and Integrated GST (IGST).",
@@ -384,7 +384,7 @@ export const BCOM_ACCOUNTING_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 20,
-    "title": "GST Returns: GSTR-1, GSTR-3B & GSTR-2B Auto-Reconciliation",
+    "title": "Milestone 4 Capstone: GST Returns, Auto-Reconciliation & Compliance",
     "desc": "Prepare and reconcile statutory GST returns: GSTR-1 (Outward Supplies by 11th), GSTR-3B (Monthly Summary & Tax Payment by 20th), GSTR-2B (Static auto-drafted ITC statement), and Rule 36(4) compliance.",
     "syllabus": [
       "Return Architecture: GSTR-1 (B2B, B2CL, B2CS, Export) vs GSTR-3B summary self-assessment.",
@@ -404,7 +404,7 @@ export const BCOM_ACCOUNTING_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 21,
-    "title": "⭐ MILESTONE 3: Complete Enterprise Tally Prime & GST Taxation Engine",
+    "title": "Enterprise Tally Prime & GST Taxation Engine",
     "desc": "Milestone 3: Build an enterprise-grade automated GST and Tally Prime compliance engine: Dual GST tax determination, Section 49 ITC set-off optimization, GSTR-2B automated reconciliation, and statutory tax return filing.",
     "syllabus": [
       "ERP Tally Prime and GST lifecycle integration.",
@@ -464,7 +464,7 @@ export const BCOM_ACCOUNTING_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 24,
-    "title": "Tax Deducted at Source (TDS): Sections 194C, 194J, 194I & Form 16/26AS",
+    "title": "Tax Deducted at Source (TDS): Sections 194C, 194J, 194I & Form 26Q",
     "desc": "Execute direct tax withholding at source: Section 194C (Contractor payments 1%/2%), Section 194J (Professional / Technical fees 10%/2%), Section 194I (Rent 2%/10%), TAN registration, and quarterly Form 26Q filing.",
     "syllabus": [
       "TDS Thresholds & Rates: 194C (Rs 30k single / Rs 1L aggregate), 194J (Rs 30,000 threshold).",
@@ -584,7 +584,7 @@ export const BCOM_ACCOUNTING_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 30,
-    "title": "🏆 FINAL CAPSTONE: Integrated Corporate Digital Accounting, GST & Tax Audit Suite",
+    "title": "FINAL GRAND CAPSTONE: Integrated Corporate Digital Accounting, GST & Tax Audit Suite",
     "desc": "Final Capstone Synthesis: The complete corporate digital accounting and tax audit operating system bringing together Double-Entry Bookkeeping, Tally Prime workflows, GST Dual Model, ITC Set-Off, TDS withholding, and AS-3 Cash Flows.",
     "syllabus": [
       "End-to-End Corporate Accounting System Synthesis.",

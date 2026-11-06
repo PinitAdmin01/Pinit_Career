@@ -128348,3 +128348,30 @@ export const REACT_LONG_LESSONS: LongLesson[] = [
   }
 }
 ];
+
+// --- AUTO-ENRICHED FAST/SLOW READER & PROJECT SCAFFOLDING ---
+const _SCAFFOLD_PATCHES: Record<number, Partial<import('./longLessonTypes').LongLesson>> = {
+  "26": {
+    "recap": "In Day 25 (The useReducer Hook & Enterprise State Machines: Complex State Transitions, Reducer Purity & Milestone 5 Capstone), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 26 (REST API Design & Client Data Fetching: TanStack Query, SWR Caching & Revalidation), we build directly on that foundation by mastering RESTful Resource Topologies, HTTP Verbs & Idempotency Guarantees and The Stale-While-Revalidate (SWR) Protocol & Cache Key Serialization."
+  },
+  "27": {
+    "recap": "In Day 26 (REST API Design & Client Data Fetching: TanStack Query, SWR Caching & Revalidation), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 27 (Authentication & Session Management: JWT, HttpOnly Cookies, OAuth2 & Protected Route Guards), we build directly on that foundation by mastering Stateless vs Stateful Authentication: JWT Cryptographic Signatures vs Opaque Sessions and The Dual-Token Lifecycle: Short-Lived Access Tokens, Refresh Tokens & Rotation."
+  },
+  "28": {
+    "recap": "In Day 27 (Authentication & Session Management: JWT, HttpOnly Cookies, OAuth2 & Protected Route Guards), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 28 (Server-Side Rendering (SSR) & Next.js Architecture: Hydration Mechanics, RSC & Streaming), we build directly on that foundation by mastering Rendering Paradigms: CSR, SSR, SSG & Incremental Static Regeneration (ISR) and The Hydration Contract: DOM Deserialization, Fiber Reconciliation & Mismatch Pitfalls."
+  },
+  "29": {
+    "recap": "In Day 28 (Server-Side Rendering (SSR) & Next.js Architecture: Hydration Mechanics, RSC & Streaming), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 29 (Full-Stack Database Integration: PostgreSQL, Prisma/Drizzle ORM & API Route Handlers), we build directly on that foundation by mastering Relational Data Modeling: Entity Relations, Foreign Keys & B-Tree Indexing and ACID Transactions, Row Locking & PostgreSQL Isolation Levels."
+  },
+  "30": {
+    "recap": "In Day 29 (Full-Stack Database Integration: PostgreSQL, Prisma/Drizzle ORM & API Route Handlers), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 30 (Month 1 Capstone: Enterprise Full-Stack Job Tracker & Career OS Architecture), we build directly on that foundation by mastering Architectural Blueprint: End-to-End System Design of the Job Tracker Enterprise Platform and Normalized Client Cache Engine: Entity Lookup Tables & Optimistic State Reducers."
+  }
+};
+for (const _lesson of REACT_LONG_LESSONS as import('./longLessonTypes').LongLesson[]) {
+  const _p = _SCAFFOLD_PATCHES[_lesson.day];
+  if (_p) {
+    if (_p.recap && !_lesson.recap) (_lesson as any).recap = _p.recap;
+    if (_p.summary && (!_lesson.summary || _lesson.summary.length === 0)) (_lesson as any).summary = _p.summary;
+    if (_p.projectStep && (!_lesson.projectStep || !_lesson.projectStep.steps?.length)) (_lesson as any).projectStep = _p.projectStep;
+  }
+}

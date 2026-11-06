@@ -10,11 +10,11 @@
       "codeHash": "b6e451fe951dd46c5f111f8be5529cab90b550e02757466fbbcc02fa891d938d",
       "spec": {
         "template": "register-bits",
-        "title": "Day 35 Part 1 \u2014 Capstone Architecture: Multi-Pro \u2014 Register Architecture",
+        "title": "Day 35 Part 1 — Capstone Architecture: Multi-Pro — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register CAPSTONE_GW_ROUTING_REG for Capstone Architecture: Multi-Pro.",
+            "caption": "Arm hardware register CAPSTONE_GW_ROUTING_REG for Capstone Architecture.",
             "registerName": "CAPSTONE_GW_ROUTING_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into CAPSTONE_GW_ROUTING_REG and assert validation flag.",
+            "caption": "Latch sampling bits into CAPSTONE_GW_ROUTING_REG and assert validation.",
             "registerName": "CAPSTONE_GW_ROUTING_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in CAPSTONE_GW_ROUTING_REG with pipeline status.",
+            "caption": "Execute hardware transformation in CAPSTONE_GW_ROUTING_REG with pipeline.",
             "registerName": "CAPSTONE_GW_ROUTING_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register CAPSTONE_GW_ROUTING_REG upon verified hardware completion.",
+            "caption": "Lock register CAPSTONE_GW_ROUTING_REG upon verified hardware completion.",
             "registerName": "CAPSTONE_GW_ROUTING_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -262,11 +262,11 @@
       "codeHash": "e4bdcf5d67460e1db83f3bbcbda8ef11ca79ad4c4c60bb90dcae58cde7839ebf",
       "spec": {
         "template": "register-bits",
-        "title": "Day 35 Part 2 \u2014 Ingress Protocol Ingestion & Tel \u2014 Register Architecture",
+        "title": "Day 35 Part 2 — Ingress Protocol Ingestion & Tel — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register CAPSTONE_NORMALIZER_REG for Ingress Protocol Ingestion & Tel.",
+            "caption": "Arm hardware register CAPSTONE_NORMALIZER_REG for Ingress Protocol.",
             "registerName": "CAPSTONE_NORMALIZER_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -326,7 +326,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into CAPSTONE_NORMALIZER_REG and assert validation flag.",
+            "caption": "Latch sampling bits into CAPSTONE_NORMALIZER_REG and assert validation.",
             "registerName": "CAPSTONE_NORMALIZER_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -387,7 +387,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in CAPSTONE_NORMALIZER_REG with pipeline status.",
+            "caption": "Execute hardware transformation in CAPSTONE_NORMALIZER_REG with pipeline.",
             "registerName": "CAPSTONE_NORMALIZER_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -448,7 +448,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register CAPSTONE_NORMALIZER_REG upon verified hardware completion.",
+            "caption": "Lock register CAPSTONE_NORMALIZER_REG upon verified hardware completion.",
             "registerName": "CAPSTONE_NORMALIZER_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -514,11 +514,11 @@
       "codeHash": "32303900ce664a1f7b6506ca6de04fcc312a87a678174e6009e4dc73e726efdf",
       "spec": {
         "template": "register-bits",
-        "title": "Day 35 Part 3 \u2014 OPC UA Address Space Dynamic Pro \u2014 Register Architecture",
+        "title": "Day 35 Part 3 — OPC UA Address Space Dynamic Pro — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register CAPSTONE_OPCUA_BIND_REG for OPC UA Address Space Dynamic Pro.",
+            "caption": "Arm hardware register CAPSTONE_OPCUA_BIND_REG for OPC UA Address Space.",
             "registerName": "CAPSTONE_OPCUA_BIND_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -578,7 +578,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into CAPSTONE_OPCUA_BIND_REG and assert validation flag.",
+            "caption": "Latch sampling bits into CAPSTONE_OPCUA_BIND_REG and assert validation.",
             "registerName": "CAPSTONE_OPCUA_BIND_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -639,7 +639,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in CAPSTONE_OPCUA_BIND_REG with pipeline status.",
+            "caption": "Execute hardware transformation in CAPSTONE_OPCUA_BIND_REG with pipeline.",
             "registerName": "CAPSTONE_OPCUA_BIND_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -700,7 +700,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register CAPSTONE_OPCUA_BIND_REG upon verified hardware completion.",
+            "caption": "Lock register CAPSTONE_OPCUA_BIND_REG upon verified hardware completion.",
             "registerName": "CAPSTONE_OPCUA_BIND_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -766,11 +766,11 @@
       "codeHash": "db7d97091d260f0d9383a056032844bf0e275158d5e062b18a92e22cb69d24e7",
       "spec": {
         "template": "register-bits",
-        "title": "Day 35 Part 4 \u2014 Deterministic TSN Egress Schedul \u2014 Register Architecture",
+        "title": "Day 35 Part 4 — Deterministic TSN Egress Schedul — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register CAPSTONE_TSN_EGRESS_REG for Deterministic TSN Egress Schedul.",
+            "caption": "Arm hardware register CAPSTONE_TSN_EGRESS_REG for Deterministic TSN.",
             "registerName": "CAPSTONE_TSN_EGRESS_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -830,7 +830,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into CAPSTONE_TSN_EGRESS_REG and assert validation flag.",
+            "caption": "Latch sampling bits into CAPSTONE_TSN_EGRESS_REG and assert validation.",
             "registerName": "CAPSTONE_TSN_EGRESS_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -891,7 +891,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in CAPSTONE_TSN_EGRESS_REG with pipeline status.",
+            "caption": "Execute hardware transformation in CAPSTONE_TSN_EGRESS_REG with pipeline.",
             "registerName": "CAPSTONE_TSN_EGRESS_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -952,7 +952,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register CAPSTONE_TSN_EGRESS_REG upon verified hardware completion.",
+            "caption": "Lock register CAPSTONE_TSN_EGRESS_REG upon verified hardware completion.",
             "registerName": "CAPSTONE_TSN_EGRESS_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1014,15 +1014,15 @@
       }
     },
     {
-      "partTitle": "\ud83c\udfc6 Masterclass Synthesis: Full Multi-Protocol Capstone Verification Audit",
+      "partTitle": "🏆 Masterclass Synthesis: Full Multi-Protocol Capstone Verification Audit",
       "codeHash": "5183813fcbe436a5b3c1d11dca238d0625a5e3912c63c7e69aa7a98457b640ff",
       "spec": {
         "template": "register-bits",
-        "title": "Day 35 Part 5 \u2014 \ud83c\udfc6 Masterclass Synthesis: Full Mu \u2014 Register Architecture",
+        "title": "Day 35 Part 5 — 🏆 Masterclass Synthesis: Full Mu — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register CAPSTONE_CERT_MAST_REG for \ud83c\udfc6 Masterclass Synthesis: Full Mu.",
+            "caption": "Arm hardware register CAPSTONE_CERT_MAST_REG for 🏆 Masterclass.",
             "registerName": "CAPSTONE_CERT_MAST_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1082,7 +1082,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into CAPSTONE_CERT_MAST_REG and assert validation flag.",
+            "caption": "Latch sampling bits into CAPSTONE_CERT_MAST_REG and assert validation flag.",
             "registerName": "CAPSTONE_CERT_MAST_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -1143,7 +1143,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in CAPSTONE_CERT_MAST_REG with pipeline status.",
+            "caption": "Execute hardware transformation in CAPSTONE_CERT_MAST_REG with pipeline.",
             "registerName": "CAPSTONE_CERT_MAST_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -1204,7 +1204,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register CAPSTONE_CERT_MAST_REG upon verified hardware completion.",
+            "caption": "Lock register CAPSTONE_CERT_MAST_REG upon verified hardware completion.",
             "registerName": "CAPSTONE_CERT_MAST_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

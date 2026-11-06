@@ -523,7 +523,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Production PACELC Cluster Policy Router .. [D2.P6.S1].",
+            "caption": "Initialize input state for Production PACELC Cluster Policy Router .",
             "values": {
               "in": "Day 2 Input",
               "proc": "Standby",
@@ -543,7 +543,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Production PACELC C... [D2.P6.S2].",
+            "caption": "Execute core transformation in Production PACELC C... [Dtwo.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -567,7 +567,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D2.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [Dtwo.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -587,7 +587,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Production PACELC Cluster Policy .. [D2.P6.S4].",
+            "caption": "End-to-end execution verified for Production PACELC Cluster Policy .",
             "values": {
               "in": "Committed",
               "proc": "Verified",

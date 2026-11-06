@@ -12,7 +12,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Architectural baseline configuration and parameter ingestion for Forensic Engineering of the JPMorgan London Whale Spreadsheet: The Synthetic Credit Portfolio & Flawed Equations",
+            "caption": "Architectural baseline configuration and parameter ingestion for Forensic.",
             "max": 100,
             "bars": [
               {
@@ -39,7 +39,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing pipeline execution and intermediate simulation for Forensic Engineering of the JPMorgan London Whale Spreadsheet: The Synthetic Credit Portfolio & Flawed Equations",
+            "caption": "Processing pipeline execution and intermediate simulation for Forensic.",
             "max": 100,
             "bars": [
               {
@@ -66,7 +66,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stress testing, boundary verification, and anomaly detection for Forensic Engineering of the JPMorgan London Whale Spreadsheet: The Synthetic Credit Portfolio & Flawed Equations",
+            "caption": "Stress testing, boundary verification, and anomaly detection for Forensic.",
             "max": 100,
             "bars": [
               {
@@ -93,7 +93,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Sovereign institutional governance and production certification for Forensic Engineering of the JPMorgan London Whale Spreadsheet: The Synthetic Credit Portfolio & Flawed Equations",
+            "caption": "Sovereign institutional governance and production certification for.",
             "max": 100,
             "bars": [
               {
@@ -244,7 +244,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Architectural baseline configuration and parameter ingestion for The $6.2B Division Formula Error Detective Challenge: Tracing the Rogue Division Formula & Understated Risk Delta",
+            "caption": "Architectural baseline configuration and parameter ingestion for The.",
             "max": 100,
             "bars": [
               {
@@ -271,7 +271,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing pipeline execution and intermediate simulation for The $6.2B Division Formula Error Detective Challenge: Tracing the Rogue Division Formula & Understated Risk Delta",
+            "caption": "Processing pipeline execution and intermediate simulation for The.",
             "max": 100,
             "bars": [
               {
@@ -298,7 +298,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stress testing, boundary verification, and anomaly detection for The $6.2B Division Formula Error Detective Challenge: Tracing the Rogue Division Formula & Understated Risk Delta",
+            "caption": "Stress testing, boundary verification, and anomaly detection for The.",
             "max": 100,
             "bars": [
               {
@@ -325,7 +325,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Sovereign institutional governance and production certification for The $6.2B Division Formula Error Detective Challenge: Tracing the Rogue Division Formula & Understated Risk Delta",
+            "caption": "Sovereign institutional governance and production certification for The.",
             "max": 100,
             "bars": [
               {
@@ -476,7 +476,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Architectural baseline configuration and parameter ingestion for Manual Copy-Paste Fragility & Spreadsheet Governance Breakdown: Eradicating Uncontrolled Clipboard Handoffs",
+            "caption": "Architectural baseline configuration and parameter ingestion for Manual.",
             "max": 100,
             "bars": [
               {
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing pipeline execution and intermediate simulation for Manual Copy-Paste Fragility & Spreadsheet Governance Breakdown: Eradicating Uncontrolled Clipboard Handoffs",
+            "caption": "Processing pipeline execution and intermediate simulation for Manual.",
             "max": 100,
             "bars": [
               {
@@ -530,7 +530,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stress testing, boundary verification, and anomaly detection for Manual Copy-Paste Fragility & Spreadsheet Governance Breakdown: Eradicating Uncontrolled Clipboard Handoffs",
+            "caption": "Stress testing, boundary verification, and anomaly detection for Manual.",
             "max": 100,
             "bars": [
               {
@@ -557,7 +557,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Sovereign institutional governance and production certification for Manual Copy-Paste Fragility & Spreadsheet Governance Breakdown: Eradicating Uncontrolled Clipboard Handoffs",
+            "caption": "Sovereign institutional governance and production certification for.",
             "max": 100,
             "bars": [
               {
@@ -708,7 +708,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Architectural baseline configuration and parameter ingestion for Institutional-Grade VaR Risk Engine with Automated Dual-Engine Cross-Verification",
+            "caption": "Architectural baseline configuration and parameter ingestion for.",
             "max": 100,
             "bars": [
               {
@@ -735,7 +735,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing pipeline execution and intermediate simulation for Institutional-Grade VaR Risk Engine with Automated Dual-Engine Cross-Verification",
+            "caption": "Processing pipeline execution and intermediate simulation for.",
             "max": 100,
             "bars": [
               {
@@ -762,7 +762,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stress testing, boundary verification, and anomaly detection for Institutional-Grade VaR Risk Engine with Automated Dual-Engine Cross-Verification",
+            "caption": "Stress testing, boundary verification, and anomaly detection for.",
             "max": 100,
             "bars": [
               {
@@ -789,7 +789,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Sovereign institutional governance and production certification for Institutional-Grade VaR Risk Engine with Automated Dual-Engine Cross-Verification",
+            "caption": "Sovereign institutional governance and production certification for.",
             "max": 100,
             "bars": [
               {
@@ -940,7 +940,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Architectural baseline configuration and parameter ingestion for Master London Whale Forensic Gateway: Model Audit, Regulatory Stress Verification Defense & Capital Adequacy Certification",
+            "caption": "Architectural baseline configuration and parameter ingestion for Master.",
             "max": 100,
             "bars": [
               {
@@ -967,7 +967,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing pipeline execution and intermediate simulation for Master London Whale Forensic Gateway: Model Audit, Regulatory Stress Verification Defense & Capital Adequacy Certification",
+            "caption": "Processing pipeline execution and intermediate simulation for Master.",
             "max": 100,
             "bars": [
               {
@@ -994,7 +994,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stress testing, boundary verification, and anomaly detection for Master London Whale Forensic Gateway: Model Audit, Regulatory Stress Verification Defense & Capital Adequacy Certification",
+            "caption": "Stress testing, boundary verification, and anomaly detection for Master.",
             "max": 100,
             "bars": [
               {
@@ -1021,7 +1021,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Sovereign institutional governance and production certification for Master London Whale Forensic Gateway: Model Audit, Regulatory Stress Verification Defense & Capital Adequacy Certification",
+            "caption": "Sovereign institutional governance and production certification for.",
             "max": 100,
             "bars": [
               {

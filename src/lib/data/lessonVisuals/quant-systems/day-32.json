@@ -10,7 +10,7 @@
       "codeHash": "629cb03532ea4993734f4375f79b8b35e50a73d0e8e319ed04bda92b3167b58c",
       "spec": {
         "template": "states",
-        "title": "Analytical First-Order Greeks: Delta, Vega, Theta & Rho \u2014 Quant Systems State Engine",
+        "title": "Analytical First-Order Greeks: Delta, Vega, Theta & Rho — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Analytical First-Order Greeks.",
+            "caption": "State one (Init State): Initialize deterministic state for Analytical.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -60,7 +60,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -77,7 +77,7 @@
       "codeHash": "dd01b1bd21b785a83c774678ccee9fa4e734530a1d7b8030241ef6d8c752209f",
       "spec": {
         "template": "states",
-        "title": "Second-Order Curvature & Cross-Greeks: Gamma, Vanna & Volga \u2014 Quant Systems State Engine",
+        "title": "Second-Order Curvature & Cross-Greeks: Gamma, Vanna & Volga — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -99,7 +99,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Second-Order Curvature & Cross-Greeks.",
+            "caption": "State one (Init State): Initialize deterministic state for Second-Order.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -127,7 +127,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -144,7 +144,7 @@
       "codeHash": "6d3fa812a1a7312f54e8ed61d31240dcc762219861455b686a8a4fcba1bbefd9",
       "spec": {
         "template": "states",
-        "title": "Short Gamma Explosion Forensics & Flash Crash Delta Drift \u2014 Quant Systems State Engine",
+        "title": "Short Gamma Explosion Forensics & Flash Crash Delta Drift — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -166,7 +166,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Short Gamma Explosion Forensics & Flash Crash Delta Drift.",
+            "caption": "State one (Init State): Initialize deterministic state for Short Gamma.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -194,7 +194,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -211,7 +211,7 @@
       "codeHash": "2851f4af1796ae22f00e52c19285ed1635149327cfe825fcdce9f47b4fbea1b1",
       "spec": {
         "template": "states",
-        "title": "High-Frequency Multi-Strike Portfolio Greeks Aggregator Engine \u2014 Quant Systems State Engine",
+        "title": "High-Frequency Multi-Strike Portfolio Greeks Aggregator Engine — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -233,7 +233,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for High-Frequency Multi-Strike Portfolio Greeks Aggregator Engine.",
+            "caption": "State one (Init State): Initialize deterministic state for High-Frequency.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -261,7 +261,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -278,7 +278,7 @@
       "codeHash": "ffef6871443d134d85f609d82b909bad6806e4cbee3b99e30ec17f2406413ff5",
       "spec": {
         "template": "states",
-        "title": "Multi-Factor Stress Testing, Spot-Vol Scenarios & Basel III Defense \u2014 Quant Systems State Engine",
+        "title": "Multi-Factor Stress Testing, Spot-Vol Scenarios & Basel III Defense — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -300,7 +300,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Multi-Factor Stress Testing, Spot-Vol Scenarios & Basel III Defense.",
+            "caption": "State one (Init State): Initialize deterministic state for Multi-Factor.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -328,7 +328,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",

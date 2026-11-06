@@ -6,7 +6,7 @@
   "entries": [
     {
       "partTitle": "The Limits Of Linear Autoregressive Generation: Why Complex Combinatorial Problems Require Search Trees",
-      "codeHash": "87fc042b7ffe969b03f82817f3abf01fc4dfc4ae3ff9e8a9c0c0cbe364334980",
+      "codeHash": "4154b1dd70a0cd6adbc341a441cabb6fcfc99eac7fb5e04f467e7189c774c2ec",
       "spec": {
         "template": "table",
         "title": "Linear Generation Limitations And Decision Tree Traversal Dynamics.",
@@ -160,7 +160,7 @@
     },
     {
       "partTitle": "The Tree-of-Thoughts Formulation: Thought Generation, State Evaluation & Heuristic Scoring",
-      "codeHash": "87fc042b7ffe969b03f82817f3abf01fc4dfc4ae3ff9e8a9c0c0cbe364334980",
+      "codeHash": "4154b1dd70a0cd6adbc341a441cabb6fcfc99eac7fb5e04f467e7189c774c2ec",
       "spec": {
         "template": "table",
         "title": "Tree Of Thoughts Formulation And Heuristic State Evaluation Rubrics.",
@@ -314,7 +314,7 @@
     },
     {
       "partTitle": "Search Algorithms Over Prompt Trees: Breadth-First, Depth-First & Heuristic Beam Search",
-      "codeHash": "87fc042b7ffe969b03f82817f3abf01fc4dfc4ae3ff9e8a9c0c0cbe364334980",
+      "codeHash": "4154b1dd70a0cd6adbc341a441cabb6fcfc99eac7fb5e04f467e7189c774c2ec",
       "spec": {
         "template": "table",
         "title": "Search Algorithms Over Prompt Trees And Beam Pruning Architectures.",
@@ -468,7 +468,7 @@
     },
     {
       "partTitle": "Graph-of-Thoughts: Beyond Trees to Graph Aggregation, Branch Merging & Dynamic Transformations",
-      "codeHash": "87fc042b7ffe969b03f82817f3abf01fc4dfc4ae3ff9e8a9c0c0cbe364334980",
+      "codeHash": "4154b1dd70a0cd6adbc341a441cabb6fcfc99eac7fb5e04f467e7189c774c2ec",
       "spec": {
         "template": "table",
         "title": "Graph Of Thoughts Topology And Multi Branch Aggregation Frameworks.",
@@ -622,7 +622,7 @@
     },
     {
       "partTitle": "Enterprise Cognitive Architecture: Implementing a Production Tree-of-Thoughts Controller in Python",
-      "codeHash": "87fc042b7ffe969b03f82817f3abf01fc4dfc4ae3ff9e8a9c0c0cbe364334980",
+      "codeHash": "4154b1dd70a0cd6adbc341a441cabb6fcfc99eac7fb5e04f467e7189c774c2ec",
       "spec": {
         "template": "table",
         "title": "Enterprise Cognitive Architecture And Python Controller Implementation.",

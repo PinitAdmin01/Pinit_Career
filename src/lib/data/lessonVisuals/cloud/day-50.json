@@ -310,25 +310,25 @@
             "at": "say1",
             "focus": "left",
             "annotation": "Autonomous GitOps pipelines replace fragile manual release handoffs.",
-            "caption": "Autonomous GitOps pipelines replace fragile manual release handoffs. (Milestone 9 Capstone Synthesis: End)"
+            "caption": "Autonomous GitOps pipelines replace fragile manual release handoffs."
           },
           {
             "at": "say2",
             "focus": "right",
             "annotation": "The synthesis engine unites Terraform, ArgoCD, and CDK Aspects.",
-            "caption": "The synthesis engine unites Terraform, ArgoCD, and CDK Aspects. (Milestone 9 Capstone Synthesis: End)"
+            "caption": "The synthesis engine unites Terraform, ArgoCD, and CDK Aspects."
           },
           {
             "at": "example",
             "focus": "both",
             "annotation": "Automated chaos verification proves resiliency during preview drills.",
-            "caption": "Automated chaos verification proves resiliency during preview drills. (Milestone 9 Capstone Synthesis: End)"
+            "caption": "Automated chaos verification proves resiliency during preview drills."
           },
           {
             "at": "tryIt",
             "focus": "right",
             "annotation": "Autonomous GitOps platforms empower teams to deliver resilient software.",
-            "caption": "Autonomous GitOps platforms empower teams to deliver resilient software. (Milestone 9 Capstone Synthesis: End)"
+            "caption": "Autonomous GitOps platforms empower teams to deliver resilient software."
           }
         ]
       }

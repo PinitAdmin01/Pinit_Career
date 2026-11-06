@@ -244,25 +244,25 @@
             "at": "say1",
             "focus": "left",
             "annotation": "Legacy architectures suffer from configuration drift and fragile state tracking.",
-            "caption": "Legacy architectures suffer from configuration drift and fragile state tracking. (Remote State Architecture: S3 Backe)"
+            "caption": "Legacy architectures suffer from configuration drift and fragile state."
           },
           {
             "at": "say2",
             "focus": "right",
             "annotation": "Modern declarative patterns enforce modularity and distributed locking.",
-            "caption": "Modern declarative patterns enforce modularity and distributed locking. (Remote State Architecture: S3 Backe)"
+            "caption": "Modern declarative patterns enforce modularity and distributed locking."
           },
           {
             "at": "example",
             "focus": "both",
             "annotation": "Remote state backends protect against concurrent execution race conditions.",
-            "caption": "Remote state backends protect against concurrent execution race conditions. (Remote State Architecture: S3 Backe)"
+            "caption": "Remote state backends protect against concurrent execution race."
           },
           {
             "at": "tryIt",
             "focus": "right",
             "annotation": "Verify that declarative rules maintain state parity without service disruption.",
-            "caption": "Verify that declarative rules maintain state parity without service disruption. (Remote State Architecture: S3 Backe)"
+            "caption": "Verify that declarative rules maintain state parity without service."
           }
         ]
       }

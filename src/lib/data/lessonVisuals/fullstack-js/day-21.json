@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream payload and initialize Next.js Route Handlers & W3C Web St....",
+            "caption": "Ingress stream payload and initialize Next.js Route Handlers & WthreeC.",
             "values": {
               "in": "Stream Ingress",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute protocol handling, encoding, and routing in Next.js Route Handlers & W3C Web St....",
+            "caption": "Execute protocol handling, encoding, and routing in Next.js Route.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -71,7 +71,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world distributed microservices interaction in Next.js Route Handlers & W3C Web St....",
+            "caption": "Real-world distributed microservices interaction in Next.js Route.",
             "values": {
               "in": "Active Flow",
               "proc": "Executing",
@@ -91,7 +91,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify backpressure, container bounds, and telemetry health in Next.js Route Handlers & W3C Web St....",
+            "caption": "Verify backpressure, container bounds, and telemetry health in Next.js.",
             "values": {
               "in": "Terminal State",
               "proc": "Quiesced",
@@ -138,7 +138,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream payload and initialize NDJSON (Newline Delimited JSON) Str....",
+            "caption": "Ingress stream payload and initialize NDJSON (Newline Delimited JSON).",
             "values": {
               "in": "Stream Ingress",
               "proc": "Standby",
@@ -158,7 +158,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute protocol handling, encoding, and routing in NDJSON (Newline Delimited JSON) Str....",
+            "caption": "Execute protocol handling, encoding, and routing in NDJSON (Newline.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -178,7 +178,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world distributed microservices interaction in NDJSON (Newline Delimited JSON) Str....",
+            "caption": "Real-world distributed microservices interaction in NDJSON (Newline.",
             "values": {
               "in": "Active Flow",
               "proc": "Executing",
@@ -198,7 +198,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify backpressure, container bounds, and telemetry health in NDJSON (Newline Delimited JSON) Str....",
+            "caption": "Verify backpressure, container bounds, and telemetry health in NDJSON.",
             "values": {
               "in": "Terminal State",
               "proc": "Quiesced",
@@ -245,7 +245,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream payload and initialize Backpressure Flow Control & High-Wa....",
+            "caption": "Ingress stream payload and initialize Backpressure Flow Control &.",
             "values": {
               "in": "Stream Ingress",
               "proc": "Standby",
@@ -265,7 +265,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute protocol handling, encoding, and routing in Backpressure Flow Control & High-Wa....",
+            "caption": "Execute protocol handling, encoding, and routing in Backpressure Flow.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -285,7 +285,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world distributed microservices interaction in Backpressure Flow Control & High-Wa....",
+            "caption": "Real-world distributed microservices interaction in Backpressure Flow.",
             "values": {
               "in": "Active Flow",
               "proc": "Executing",
@@ -305,7 +305,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify backpressure, container bounds, and telemetry health in Backpressure Flow Control & High-Wa....",
+            "caption": "Verify backpressure, container bounds, and telemetry health in.",
             "values": {
               "in": "Terminal State",
               "proc": "Quiesced",
@@ -352,7 +352,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream payload and initialize Server-Sent Events (SSE) Protocol E....",
+            "caption": "Ingress stream payload and initialize Server-Sent Events (SSE) Protocol.",
             "values": {
               "in": "Stream Ingress",
               "proc": "Standby",
@@ -372,7 +372,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute protocol handling, encoding, and routing in Server-Sent Events (SSE) Protocol E....",
+            "caption": "Execute protocol handling, encoding, and routing in Server-Sent Events.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -392,7 +392,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world distributed microservices interaction in Server-Sent Events (SSE) Protocol E....",
+            "caption": "Real-world distributed microservices interaction in Server-Sent Events.",
             "values": {
               "in": "Active Flow",
               "proc": "Executing",
@@ -412,7 +412,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify backpressure, container bounds, and telemetry health in Server-Sent Events (SSE) Protocol E....",
+            "caption": "Verify backpressure, container bounds, and telemetry health in.",
             "values": {
               "in": "Terminal State",
               "proc": "Quiesced",
@@ -459,7 +459,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream payload and initialize Enterprise Streaming Gateway: Abort....",
+            "caption": "Ingress stream payload and initialize Enterprise Streaming Gateway.",
             "values": {
               "in": "Stream Ingress",
               "proc": "Standby",
@@ -479,7 +479,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute protocol handling, encoding, and routing in Enterprise Streaming Gateway: Abort....",
+            "caption": "Execute protocol handling, encoding, and routing in Enterprise Streaming.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -499,7 +499,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world distributed microservices interaction in Enterprise Streaming Gateway: Abort....",
+            "caption": "Real-world distributed microservices interaction in Enterprise Streaming.",
             "values": {
               "in": "Active Flow",
               "proc": "Executing",
@@ -519,7 +519,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify backpressure, container bounds, and telemetry health in Enterprise Streaming Gateway: Abort....",
+            "caption": "Verify backpressure, container bounds, and telemetry health in Enterprise.",
             "values": {
               "in": "Terminal State",
               "proc": "Quiesced",

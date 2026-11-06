@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register DOLEV_YAO_REG for Formal Verification Foundations .",
+            "caption": "Arm hardware register DOLEV_YAO_REG for Formal Verification Foundations .",
             "registerName": "DOLEV_YAO_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into DOLEV_YAO_REG and assert validation flag.",
+            "caption": "Latch sampling bits into DOLEV_YAO_REG and assert validation flag.",
             "registerName": "DOLEV_YAO_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in DOLEV_YAO_REG with pipeline status.",
+            "caption": "Execute hardware transformation in DOLEV_YAO_REG with pipeline status.",
             "registerName": "DOLEV_YAO_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register DOLEV_YAO_REG upon verified hardware completion.",
+            "caption": "Lock register DOLEV_YAO_REG upon verified hardware completion.",
             "registerName": "DOLEV_YAO_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -266,7 +266,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register PI_CALCULUS_REG for ProVerif Process Calculus & Appl.",
+            "caption": "Arm hardware register PI_CALCULUS_REG for ProVerif Process Calculus & Appl.",
             "registerName": "PI_CALCULUS_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -326,7 +326,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into PI_CALCULUS_REG and assert validation flag.",
+            "caption": "Latch sampling bits into PI_CALCULUS_REG and assert validation flag.",
             "registerName": "PI_CALCULUS_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -387,7 +387,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in PI_CALCULUS_REG with pipeline status.",
+            "caption": "Execute hardware transformation in PI_CALCULUS_REG with pipeline status.",
             "registerName": "PI_CALCULUS_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -448,7 +448,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register PI_CALCULUS_REG upon verified hardware completion.",
+            "caption": "Lock register PI_CALCULUS_REG upon verified hardware completion.",
             "registerName": "PI_CALCULUS_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -518,7 +518,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register MODEL_CHECK_REG for State-Space Exploration & Model .",
+            "caption": "Arm hardware register MODEL_CHECK_REG for State-Space Exploration & Model .",
             "registerName": "MODEL_CHECK_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -578,7 +578,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into MODEL_CHECK_REG and assert validation flag.",
+            "caption": "Latch sampling bits into MODEL_CHECK_REG and assert validation flag.",
             "registerName": "MODEL_CHECK_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -639,7 +639,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in MODEL_CHECK_REG with pipeline status.",
+            "caption": "Execute hardware transformation in MODEL_CHECK_REG with pipeline status.",
             "registerName": "MODEL_CHECK_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -700,7 +700,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register MODEL_CHECK_REG upon verified hardware completion.",
+            "caption": "Lock register MODEL_CHECK_REG upon verified hardware completion.",
             "registerName": "MODEL_CHECK_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -770,7 +770,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register COUNTEREX_REG for Automated Counterexample Generat.",
+            "caption": "Arm hardware register COUNTEREX_REG for Automated Counterexample Generat.",
             "registerName": "COUNTEREX_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -830,7 +830,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into COUNTEREX_REG and assert validation flag.",
+            "caption": "Latch sampling bits into COUNTEREX_REG and assert validation flag.",
             "registerName": "COUNTEREX_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -891,7 +891,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in COUNTEREX_REG with pipeline status.",
+            "caption": "Execute hardware transformation in COUNTEREX_REG with pipeline status.",
             "registerName": "COUNTEREX_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -952,7 +952,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register COUNTEREX_REG upon verified hardware completion.",
+            "caption": "Lock register COUNTEREX_REG upon verified hardware completion.",
             "registerName": "COUNTEREX_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1022,7 +1022,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register FORMAL_EAL7_REG for End-to-End Symbolic Protocol Ver.",
+            "caption": "Arm hardware register FORMAL_EALseven_REG for End-to-End Symbolic.",
             "registerName": "FORMAL_EAL7_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1082,7 +1082,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into FORMAL_EAL7_REG and assert validation flag.",
+            "caption": "Latch sampling bits into FORMAL_EALseven_REG and assert validation flag.",
             "registerName": "FORMAL_EAL7_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -1143,7 +1143,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in FORMAL_EAL7_REG with pipeline status.",
+            "caption": "Execute hardware transformation in FORMAL_EALseven_REG with pipeline.",
             "registerName": "FORMAL_EAL7_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -1204,7 +1204,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register FORMAL_EAL7_REG upon verified hardware completion.",
+            "caption": "Lock register FORMAL_EALseven_REG upon verified hardware completion.",
             "registerName": "FORMAL_EAL7_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

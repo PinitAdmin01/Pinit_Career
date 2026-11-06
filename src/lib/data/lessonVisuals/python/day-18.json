@@ -220,7 +220,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Methods: actions that belong to an object [D18.P3.S1].",
+            "caption": "Initialize input state for Methods: actions that belong to an object.",
             "values": {
               "in": "Day 18 Input",
               "proc": "Standby",
@@ -240,7 +240,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Methods: actions th... [D18.P3.S2].",
+            "caption": "Execute core transformation in Methods: actions th... [D.Pthree.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -264,7 +264,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D18.P3.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Pthree.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -284,7 +284,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Methods: actions that belong to a.. [D18.P3.S4].",
+            "caption": "End-to-end execution verified for Methods: actions that belong to a.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -540,7 +540,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Many objects in a list [D18.P5.S1].",
+            "caption": "Initialize input state for Many objects in a list [D.Pfive.Sone].",
             "values": {
               "in": "Day 18 Input",
               "proc": "Standby",
@@ -560,7 +560,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Many objects in a list [D18.P5.S2].",
+            "caption": "Execute core transformation in Many objects in a list [D.Pfive.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -584,7 +584,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D18.P5.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -604,7 +604,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Many objects in a list [D18.P5.S4].",
+            "caption": "End-to-end execution verified for Many objects in a list [D.Pfive.Sfour].",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -766,7 +766,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Putting it together: an ExpenseBook class [D18.P6.S1].",
+            "caption": "Initialize input state for Putting it together: an ExpenseBook class.",
             "values": {
               "in": "Day 18 Input",
               "proc": "Standby",
@@ -786,7 +786,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Putting it together... [D18.P6.S2].",
+            "caption": "Execute core transformation in Putting it together... [D.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -810,7 +810,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D18.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -830,7 +830,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Putting it together: an ExpenseBo.. [D18.P6.S4].",
+            "caption": "End-to-end execution verified for Putting it together: an ExpenseBo.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

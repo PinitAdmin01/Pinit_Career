@@ -10,12 +10,12 @@
       "codeHash": "06a623e9f248837b9c8a2c5a98b374f9705e07a204a83a0e3d7559cf57dba9d8",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Equity Capital Markets (ECM) Syndicate S \u2014 General Ledger Verification",
+        "title": "Equity Capital Markets (ECM) Syndicate S — General Ledger Verification",
         "steps": [
           {
             "at": "intro",
             "caption": "Open primary capital facility balance for Equity Capital Markets (ECM) S.",
-            "title": "Day 38 Ledger \u2014 Initial Facility Allocation",
+            "title": "Day 38 Ledger — Initial Facility Allocation",
             "isBalanced": true,
             "totalDebit": 138000,
             "totalCredit": 138000,
@@ -41,7 +41,7 @@
           {
             "at": "say1",
             "caption": "Record secondary interest accrual and transaction fee adjustment.",
-            "title": "Day 38 Ledger \u2014 Transaction Accrual Adjustment",
+            "title": "Day 38 Ledger — Transaction Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 165600,
             "totalCredit": 165600,
@@ -72,7 +72,7 @@
           {
             "at": "example",
             "caption": "Audit balance sheet covenant thresholds and collateral allocations.",
-            "title": "Day 38 Ledger \u2014 Credit Covenant Alignment",
+            "title": "Day 38 Ledger — Credit Covenant Alignment",
             "isBalanced": true,
             "totalDebit": 165600,
             "totalCredit": 165600,
@@ -103,7 +103,7 @@
           {
             "at": "tryIt",
             "caption": "Execute real time general ledger reconciliation and final balanced sign off.",
-            "title": "Day 38 Ledger \u2014 Balanced Sign Off",
+            "title": "Day 38 Ledger — Balanced Sign Off",
             "isBalanced": true,
             "totalDebit": 165600,
             "totalCredit": 165600,
@@ -139,12 +139,12 @@
       "codeHash": "06a623e9f248837b9c8a2c5a98b374f9705e07a204a83a0e3d7559cf57dba9d8",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Book-Building Mechanics, Indications of  \u2014 General Ledger Verification",
+        "title": "Book-Building Mechanics, Indications of  — General Ledger Verification",
         "steps": [
           {
             "at": "intro",
             "caption": "Open primary capital facility balance for Book-Building Mechanics, Indic.",
-            "title": "Day 38 Ledger \u2014 Initial Facility Allocation",
+            "title": "Day 38 Ledger — Initial Facility Allocation",
             "isBalanced": true,
             "totalDebit": 138250,
             "totalCredit": 138250,
@@ -170,7 +170,7 @@
           {
             "at": "say1",
             "caption": "Record secondary interest accrual and transaction fee adjustment.",
-            "title": "Day 38 Ledger \u2014 Transaction Accrual Adjustment",
+            "title": "Day 38 Ledger — Transaction Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 165900,
             "totalCredit": 165900,
@@ -201,7 +201,7 @@
           {
             "at": "example",
             "caption": "Audit balance sheet covenant thresholds and collateral allocations.",
-            "title": "Day 38 Ledger \u2014 Credit Covenant Alignment",
+            "title": "Day 38 Ledger — Credit Covenant Alignment",
             "isBalanced": true,
             "totalDebit": 165900,
             "totalCredit": 165900,
@@ -232,7 +232,7 @@
           {
             "at": "tryIt",
             "caption": "Execute real time general ledger reconciliation and final balanced sign off.",
-            "title": "Day 38 Ledger \u2014 Balanced Sign Off",
+            "title": "Day 38 Ledger — Balanced Sign Off",
             "isBalanced": true,
             "totalDebit": 165900,
             "totalCredit": 165900,
@@ -268,12 +268,12 @@
       "codeHash": "06a623e9f248837b9c8a2c5a98b374f9705e07a204a83a0e3d7559cf57dba9d8",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Underwriting Economics: The 7% Gross Spr \u2014 General Ledger Verification",
+        "title": "Underwriting Economics: The 7% Gross Spr — General Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Open primary capital facility balance for Underwriting Economics: The 7%.",
-            "title": "Day 38 Ledger \u2014 Initial Facility Allocation",
+            "caption": "Open primary capital facility balance for Underwriting Economics: The.",
+            "title": "Day 38 Ledger — Initial Facility Allocation",
             "isBalanced": true,
             "totalDebit": 138500,
             "totalCredit": 138500,
@@ -299,7 +299,7 @@
           {
             "at": "say1",
             "caption": "Record secondary interest accrual and transaction fee adjustment.",
-            "title": "Day 38 Ledger \u2014 Transaction Accrual Adjustment",
+            "title": "Day 38 Ledger — Transaction Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 166200,
             "totalCredit": 166200,
@@ -330,7 +330,7 @@
           {
             "at": "example",
             "caption": "Audit balance sheet covenant thresholds and collateral allocations.",
-            "title": "Day 38 Ledger \u2014 Credit Covenant Alignment",
+            "title": "Day 38 Ledger — Credit Covenant Alignment",
             "isBalanced": true,
             "totalDebit": 166200,
             "totalCredit": 166200,
@@ -361,7 +361,7 @@
           {
             "at": "tryIt",
             "caption": "Execute real time general ledger reconciliation and final balanced sign off.",
-            "title": "Day 38 Ledger \u2014 Balanced Sign Off",
+            "title": "Day 38 Ledger — Balanced Sign Off",
             "isBalanced": true,
             "totalDebit": 166200,
             "totalCredit": 166200,
@@ -397,12 +397,12 @@
       "codeHash": "06a623e9f248837b9c8a2c5a98b374f9705e07a204a83a0e3d7559cf57dba9d8",
       "spec": {
         "template": "ledger-sheet",
-        "title": "The Green Shoe Overallotment Option & SE \u2014 General Ledger Verification",
+        "title": "The Green Shoe Overallotment Option & SE — General Ledger Verification",
         "steps": [
           {
             "at": "intro",
             "caption": "Open primary capital facility balance for The Green Shoe Overallotment O.",
-            "title": "Day 38 Ledger \u2014 Initial Facility Allocation",
+            "title": "Day 38 Ledger — Initial Facility Allocation",
             "isBalanced": true,
             "totalDebit": 138750,
             "totalCredit": 138750,
@@ -428,7 +428,7 @@
           {
             "at": "say1",
             "caption": "Record secondary interest accrual and transaction fee adjustment.",
-            "title": "Day 38 Ledger \u2014 Transaction Accrual Adjustment",
+            "title": "Day 38 Ledger — Transaction Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 166500,
             "totalCredit": 166500,
@@ -459,7 +459,7 @@
           {
             "at": "example",
             "caption": "Audit balance sheet covenant thresholds and collateral allocations.",
-            "title": "Day 38 Ledger \u2014 Credit Covenant Alignment",
+            "title": "Day 38 Ledger — Credit Covenant Alignment",
             "isBalanced": true,
             "totalDebit": 166500,
             "totalCredit": 166500,
@@ -490,7 +490,7 @@
           {
             "at": "tryIt",
             "caption": "Execute real time general ledger reconciliation and final balanced sign off.",
-            "title": "Day 38 Ledger \u2014 Balanced Sign Off",
+            "title": "Day 38 Ledger — Balanced Sign Off",
             "isBalanced": true,
             "totalDebit": 166500,
             "totalCredit": 166500,
@@ -526,12 +526,12 @@
       "codeHash": "06a623e9f248837b9c8a2c5a98b374f9705e07a204a83a0e3d7559cf57dba9d8",
       "spec": {
         "template": "ledger-sheet",
-        "title": "IPO Underpricing Anomalies, Secondary Tr \u2014 General Ledger Verification",
+        "title": "IPO Underpricing Anomalies, Secondary Tr — General Ledger Verification",
         "steps": [
           {
             "at": "intro",
             "caption": "Open primary capital facility balance for IPO Underpricing Anomalies, Se.",
-            "title": "Day 38 Ledger \u2014 Initial Facility Allocation",
+            "title": "Day 38 Ledger — Initial Facility Allocation",
             "isBalanced": true,
             "totalDebit": 139000,
             "totalCredit": 139000,
@@ -557,7 +557,7 @@
           {
             "at": "say1",
             "caption": "Record secondary interest accrual and transaction fee adjustment.",
-            "title": "Day 38 Ledger \u2014 Transaction Accrual Adjustment",
+            "title": "Day 38 Ledger — Transaction Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 166800,
             "totalCredit": 166800,
@@ -588,7 +588,7 @@
           {
             "at": "example",
             "caption": "Audit balance sheet covenant thresholds and collateral allocations.",
-            "title": "Day 38 Ledger \u2014 Credit Covenant Alignment",
+            "title": "Day 38 Ledger — Credit Covenant Alignment",
             "isBalanced": true,
             "totalDebit": 166800,
             "totalCredit": 166800,
@@ -619,7 +619,7 @@
           {
             "at": "tryIt",
             "caption": "Execute real time general ledger reconciliation and final balanced sign off.",
-            "title": "Day 38 Ledger \u2014 Balanced Sign Off",
+            "title": "Day 38 Ledger — Balanced Sign Off",
             "isBalanced": true,
             "totalDebit": 166800,
             "totalCredit": 166800,

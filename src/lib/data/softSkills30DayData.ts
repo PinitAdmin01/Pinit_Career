@@ -4,7 +4,7 @@ import { CourseQuest } from './coursesData';
 export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
   {
     "day": 1,
-    "title": "Professional Written Communication & Email Architecture: The BLUF Principle",
+    "title": "The STAR Framework, Executive Communication & Blameless Post-Mortems",
     "desc": "Master executive-grade written communication in technology organizations: The BLUF Principle (Bottom Line Up Front: Stating the core decision or request in sentence 1), Subject Line Engineering (`[Action Required: by Friday 5 PM] Database Migration Sign-Off`), Eliminating Passive-Aggressive Phrasing (\"As per my last email\" $\\to$ \"Re-sharing the link below for convenience\"), and Structuring Clear Calls to Action (CTA).",
     "syllabus": [
       "The BLUF framework and cognitive load reduction for leadership.",
@@ -24,7 +24,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 2,
-    "title": "Technical Documentation & README Engineering: The Standard 5-Section Architecture",
+    "title": "The Minto Pyramid, Crucial Conversations & Staff+ Engineering Influence",
     "desc": "Architect world-class open-source and internal technical README files: The 5 Canonical Sections (1. Project Title & One-Line Value Proposition; 2. Architecture & Tech Stack; 3. Quickstart & Local Setup in 3 Commands; 4. Environment Configuration (.env.example); 5. Testing, Contributing & License).",
     "syllabus": [
       "The 5-minute onboarding test for new team engineers.",
@@ -44,7 +44,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 3,
-    "title": "Active Listening & Paraphrasing in Engineering Meetings: The 3-Step Protocol",
+    "title": "Executive Leadership, Crucial Conversations & Cross-Functional Alignment",
     "desc": "Eliminate costly misalignments with Active Listening: The 3-Step Protocol (1. Validate emotional state/context; 2. Paraphrase core technical constraint without distortion; 3. Clarify with an open-ended question: \"Did I capture that correctly?\").",
     "syllabus": [
       "Passive hearing vs Active listening in synchronous sprint planning.",
@@ -60,11 +60,11 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
     "aDesc": "Implement function `scoreParaphraseKeywordOverlap(speakerText, listenerParaphrase)` calculating percentage keyword overlap to verify technical fidelity.",
     "aStarter": "function scoreParaphraseKeywordOverlap(speaker, listener) {\n  // TODO: Extract lowercase words (> 3 chars) from speaker, count how many exist in listener, return percentage overlap\n  \n}",
     "aHint": "Split speaker into words of length > 3; count unique words present in listener; return Number(((matchedCount / uniqueSpeakerWords.length) * 100).toFixed(1));",
-    "aTest": "const spk = 'We must migrate PostgreSQL database cluster to AWS RDS Aurora by Monday';\nconst lst = 'You want us to migrate the PostgreSQL database to AWS RDS Aurora before Monday';\nconst score = scoreParaphraseKeywordOverlap(spk, lst);\nif (score < 75.0) throw new Error('Keyword overlap calculation failed');"
+    "aTest": "const spk = 'We must migrate PostgreSQL database cluster to AWS RDS Aurora by Monday';\nconst lst = 'You want us to migrate the PostgreSQL database to AWS RDS Aurora before Monday';\nconst score = scoreParaphraseKeywordOverlap(spk, lst);\nif (typeof score !== 'number' || Number.isNaN(score) || score < 75.0) throw new Error('Keyword overlap calculation failed');"
   },
   {
     "day": 4,
-    "title": "Asynchronous Communication & Slack/Teams Etiquette: The \"No-Hello\" Standard",
+    "title": "Principled Negotiation, Strategic Roadmap Prioritization & Engineering Org Leadership",
     "desc": "Transform team velocity with high-signal asynchronous communication: The \"No-Hello\" Standard (Never send \"Hi\" followed by silence; include context, links, and questions in message 1), Public-by-Default Channel transparency, and Thread discipline.",
     "syllabus": [
       "Context-rich messaging: Context + Problem + Proposed Solution + Links in a single message.",
@@ -84,7 +84,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 5,
-    "title": "⭐ MILESTONE 1: Complete Professional Written Communication, Technical README, Active Listening & Async Collaboration Engine",
+    "title": "Executive Storytelling, C-Suite Alignment, Crisis Communications & Cross-Functional Influence",
     "desc": "Milestone 1: Build an enterprise-grade Tech Communication Gateway synthesizing BLUF email drafting, 5-section README validation, Active Listening 3-step protocols, and asynchronous No-Hello message auditing.",
     "syllabus": [
       "End-to-end written tech communication pipeline.",
@@ -444,7 +444,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 23,
-    "title": "Live Coding & Whiteboard Communication Protocols: \"Think Aloud\" Protocol",
+    "title": "Live Coding & Whiteboard Communication Protocols: The Think-Aloud Protocol & Requirement Framing",
     "desc": "Excel in live coding and algorithm interviews: The \"Think Aloud\" Protocol (Constantly narrating thoughts, validating assumptions with the interviewer, stating time/space complexity before writing code, writing pseudo-code, testing with edge cases before claiming \"done\").",
     "syllabus": [
       "The 5-Step Live Coding Communication Protocol: 1. Clarify constraints; 2. Propose naive brute force; 3. Optimize to target complexity; 4. Implement cleanly; 5. Dry-run edge cases.",
@@ -504,7 +504,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 26,
-    "title": "First 90 Days Engineering Onboarding Strategy: The 30-60-90 Day Plan",
+    "title": "Overcoming Impostor Syndrome, Professional Boundary Setting & Healthy Assertiveness in Tech",
     "desc": "Accelerate time-to-impact in a new software engineering role: The 30-60-90 Day Framework (Day 1-30: Learn architecture, run local environment, ship first small bug fix to prod; Day 31-60: Own a medium feature, collaborate across teams, identify tech debt; Day 61-90: Propose architectural RFC, mentor junior team members, drive sprint commitments).",
     "syllabus": [
       "The 'First Commit on Day 1' ideal onboarding experience.",
@@ -524,7 +524,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 27,
-    "title": "Mentorship, Peer Coaching & Knowledge Sharing: Writing Team RFCs",
+    "title": "Cross-Cultural Engineering Communication: Collaborating with Global Distributed Teams",
     "desc": "Scale your engineering impact across the entire organization: Authoring Request for Comments (RFCs / Design Docs), Mentoring junior engineers using the Socratic Method (Guiding with questions instead of giving answers), and Running effective Tech Talks.",
     "syllabus": [
       "The Anatomy of an RFC: Context, Proposed Architecture, Drawbacks, Alternatives Considered.",
@@ -544,7 +544,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 28,
-    "title": "Global Remote & Multi-Cultural Team Dynamics: Low-Context vs High-Context",
+    "title": "Influence Without Authority: Driving Technical Change & Championing Architectural RFCs",
     "desc": "Excel in global distributed engineering teams: Erin Meyer's Culture Map (Low-Context vs High-Context communication, Direct vs Indirect negative feedback), Overcoming timezone friction with asynchronous transparency, and Cultural empathy in asynchronous code reviews.",
     "syllabus": [
       "Low-Context (Explicit, clear, detailed) vs High-Context (Nuanced, layered, relational) communication.",
@@ -564,7 +564,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 29,
-    "title": "Tech Lead & Engineering Leadership Communication: Servant Leadership Principles",
+    "title": "Writing Compelling Tech Specs & Architecture RFCs: Structural Clarity & Consensus Building",
     "desc": "Transition from Individual Contributor to Tech Lead / Engineering Manager: Servant Leadership (Removing blockers, unblocking team members, shielding engineers from organizational noise), Delegating with explicit outcomes, and Running 1-on-1s that foster psychological safety.",
     "syllabus": [
       "The Tech Lead Triangle: Architecture, Execution, and People.",
@@ -584,7 +584,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 30,
-    "title": "🏆 FINAL CAPSTONE: Sovereign Professional Tech Communication & Executive Career Suite",
+    "title": "⭐ MILESTONE 4: Final Career Capstone — The Complete Executive Engineering Portfolio & Technical Leadership Mastery",
     "desc": "Final Capstone Synthesis: Master the complete software engineering communication and career lifecycle: Written BLUF emails, 5-section README documentation, Active Listening, No-Hello async communication, ELI5 translation, SBI feedback, IBR conflict resolution, Minto Pyramid presentations, Google X-Y-Z resumes, STAR interviews, RADIO system design, and Total Compensation negotiation.",
     "syllabus": [
       "Master Tech Communication Lifecycle Synthesis.",

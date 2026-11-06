@@ -10,11 +10,11 @@
       "codeHash": "d2f4c26cbf08fa5c5d39977752e850e7edf509081b70568558a77f4528e809bd",
       "spec": {
         "template": "register-bits",
-        "title": "Day 21 Part 1 \u2014 Constrained Protocol Pipeline  \u2014 Register Architecture",
+        "title": "Day 21 Part 1 — Constrained Protocol Pipeline  — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register M5_CONST_PIPE_REG for Constrained Protocol Pipeline Ar.",
+            "caption": "Arm hardware register Mfive_CONST_PIPE_REG for Constrained Protocol.",
             "registerName": "M5_CONST_PIPE_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into M5_CONST_PIPE_REG and assert validation flag.",
+            "caption": "Latch sampling bits into Mfive_CONST_PIPE_REG and assert validation flag.",
             "registerName": "M5_CONST_PIPE_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in M5_CONST_PIPE_REG with pipeline status.",
+            "caption": "Execute hardware transformation in Mfive_CONST_PIPE_REG with pipeline.",
             "registerName": "M5_CONST_PIPE_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register M5_CONST_PIPE_REG upon verified hardware completion.",
+            "caption": "Lock register Mfive_CONST_PIPE_REG upon verified hardware completion.",
             "registerName": "M5_CONST_PIPE_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -262,11 +262,11 @@
       "codeHash": "a05f122ae528034d2cae727fefd4a5c853702ffb38fd2d6bde29f8edaceb5082",
       "spec": {
         "template": "register-bits",
-        "title": "Day 21 Part 2 \u2014 CBOR Serialization & Telemetry \u2014 Register Architecture",
+        "title": "Day 21 Part 2 — CBOR Serialization & Telemetry — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register M5_CBOR_MAP_REG for CBOR Serialization & Telemetry S.",
+            "caption": "Arm hardware register Mfive_CBOR_MAP_REG for CBOR Serialization &.",
             "registerName": "M5_CBOR_MAP_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -326,7 +326,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into M5_CBOR_MAP_REG and assert validation flag.",
+            "caption": "Latch sampling bits into Mfive_CBOR_MAP_REG and assert validation flag.",
             "registerName": "M5_CBOR_MAP_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -387,7 +387,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in M5_CBOR_MAP_REG with pipeline status.",
+            "caption": "Execute hardware transformation in Mfive_CBOR_MAP_REG with pipeline status.",
             "registerName": "M5_CBOR_MAP_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -448,7 +448,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register M5_CBOR_MAP_REG upon verified hardware completion.",
+            "caption": "Lock register Mfive_CBOR_MAP_REG upon verified hardware completion.",
             "registerName": "M5_CBOR_MAP_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -514,11 +514,11 @@
       "codeHash": "96ce2618237970e54bbb8fe449b034b4608e5adf811d11376c6f41acad139221",
       "spec": {
         "template": "register-bits",
-        "title": "Day 21 Part 3 \u2014 CoAP Header Generation & Confi \u2014 Register Architecture",
+        "title": "Day 21 Part 3 — CoAP Header Generation & Confi — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register M5_COAP_CON_REG for CoAP Header Generation & Confirm.",
+            "caption": "Arm hardware register Mfive_COAP_CON_REG for CoAP Header Generation &.",
             "registerName": "M5_COAP_CON_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -578,7 +578,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into M5_COAP_CON_REG and assert validation flag.",
+            "caption": "Latch sampling bits into Mfive_COAP_CON_REG and assert validation flag.",
             "registerName": "M5_COAP_CON_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -639,7 +639,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in M5_COAP_CON_REG with pipeline status.",
+            "caption": "Execute hardware transformation in Mfive_COAP_CON_REG with pipeline status.",
             "registerName": "M5_COAP_CON_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -700,7 +700,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register M5_COAP_CON_REG upon verified hardware completion.",
+            "caption": "Lock register Mfive_COAP_CON_REG upon verified hardware completion.",
             "registerName": "M5_COAP_CON_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -766,11 +766,11 @@
       "codeHash": "aacf7c8df33227dd543370643a8a852a485c6200cdfe35a69efbaa93a656f037",
       "spec": {
         "template": "register-bits",
-        "title": "Day 21 Part 4 \u2014 DTLS-PSK Authenticated Encrypt \u2014 Register Architecture",
+        "title": "Day 21 Part 4 — DTLS-PSK Authenticated Encrypt — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register M5_DTLS_WIN_REG for DTLS-PSK Authenticated Encryptio.",
+            "caption": "Arm hardware register Mfive_DTLS_WIN_REG for DTLS-PSK Authenticated.",
             "registerName": "M5_DTLS_WIN_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -830,7 +830,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into M5_DTLS_WIN_REG and assert validation flag.",
+            "caption": "Latch sampling bits into Mfive_DTLS_WIN_REG and assert validation flag.",
             "registerName": "M5_DTLS_WIN_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -891,7 +891,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in M5_DTLS_WIN_REG with pipeline status.",
+            "caption": "Execute hardware transformation in Mfive_DTLS_WIN_REG with pipeline status.",
             "registerName": "M5_DTLS_WIN_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -952,7 +952,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register M5_DTLS_WIN_REG upon verified hardware completion.",
+            "caption": "Lock register Mfive_DTLS_WIN_REG upon verified hardware completion.",
             "registerName": "M5_DTLS_WIN_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1018,11 +1018,11 @@
       "codeHash": "5e0ce8e24127801bf3ca219411a21bcc9b3fc718dd609c1dfe2dd40902a3ff91",
       "spec": {
         "template": "register-bits",
-        "title": "Day 21 Part 5 \u2014 6LoWPAN IPHC Header Compressio \u2014 Register Architecture",
+        "title": "Day 21 Part 5 — 6LoWPAN IPHC Header Compressio — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register M5_LOWPAN_IPHC_REG for 6LoWPAN IPHC Header Compression .",
+            "caption": "Arm hardware register Mfive_LOWPAN_IPHC_REG for LowPAN IPHC Header.",
             "registerName": "M5_LOWPAN_IPHC_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1082,7 +1082,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into M5_LOWPAN_IPHC_REG and assert validation flag.",
+            "caption": "Latch sampling bits into Mfive_LOWPAN_IPHC_REG and assert validation flag.",
             "registerName": "M5_LOWPAN_IPHC_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -1143,7 +1143,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in M5_LOWPAN_IPHC_REG with pipeline status.",
+            "caption": "Execute hardware transformation in Mfive_LOWPAN_IPHC_REG with pipeline.",
             "registerName": "M5_LOWPAN_IPHC_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -1204,7 +1204,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register M5_LOWPAN_IPHC_REG upon verified hardware completion.",
+            "caption": "Lock register Mfive_LOWPAN_IPHC_REG upon verified hardware completion.",
             "registerName": "M5_LOWPAN_IPHC_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

@@ -10,7 +10,7 @@
       "codeHash": "40422d6bbe306af2ff688eb85f77f75dff1ad627c51d628814c0c36180e6d8c2",
       "spec": {
         "template": "states",
-        "title": "Perpetual Swap Mechanics, Mark Price Calculat \u2014 High-Frequency Systems State Machine",
+        "title": "Perpetual Swap Mechanics, Mark Price Calculat — High-Frequency Systems State Machine",
         "states": [
           {
             "id": "st1",
@@ -32,13 +32,13 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Spot Index Median): Initialize deterministic state for Perpetual Swap Mechanics, Mark Pric...",
+            "caption": "State one (Spot Index Median): Initialize deterministic state for.",
             "currentState": "st1",
             "tone": "data"
           },
           {
             "at": "say1",
-            "caption": "Transition to Basis 30m EMA with zero-allocation buffer pipeline.",
+            "caption": "Transition to Basis m EMA with zero-allocation buffer pipeline.",
             "currentState": "st2",
             "transition": {
               "from": "st1",
@@ -60,7 +60,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Fair Mark Price): Execute deterministic verification with zero heap allocations.",
+            "caption": "State four (Fair Mark Price): Execute deterministic verification with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -77,7 +77,7 @@
       "codeHash": "2082c7b4eb68d5072f5029bd40c4213b044c2883e6b3f715ed14e016d267adc5",
       "spec": {
         "template": "states",
-        "title": "Funding Rate Dynamics, 8-Hour Settlements & D \u2014 High-Frequency Systems State Machine",
+        "title": "Funding Rate Dynamics, 8-Hour Settlements & D — High-Frequency Systems State Machine",
         "states": [
           {
             "id": "st1",
@@ -99,13 +99,13 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Spot-Perp Basis): Initialize deterministic state for Funding Rate Dynamics, 8-Hour Settl...",
+            "caption": "State one (Spot-Perp Basis): Initialize deterministic state for Funding.",
             "currentState": "st1",
             "tone": "data"
           },
           {
             "at": "say1",
-            "caption": "Transition to 8h Funding Clamp with zero-allocation buffer pipeline.",
+            "caption": "Transition to eighth Funding Clamp with zero-allocation buffer pipeline.",
             "currentState": "st2",
             "transition": {
               "from": "st1",
@@ -127,7 +127,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Delta Neutral): Execute deterministic verification with zero heap allocations.",
+            "caption": "State four (Delta Neutral): Execute deterministic verification with zero.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -144,7 +144,7 @@
       "codeHash": "c33d74115ff462cc7256332e8dd75f8a5b7c0105089620806f6660dd13c731e9",
       "spec": {
         "template": "states",
-        "title": "Liquidation Waterfall, Insurance Funds & Bank \u2014 High-Frequency Systems State Machine",
+        "title": "Liquidation Waterfall, Insurance Funds & Bank — High-Frequency Systems State Machine",
         "states": [
           {
             "id": "st1",
@@ -166,7 +166,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Margin Ratio MMR): Initialize deterministic state for Liquidation Waterfall, Insurance Fu...",
+            "caption": "State one (Margin Ratio MMR): Initialize deterministic state for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -194,7 +194,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Insurance Surplus): Execute deterministic verification with zero heap allocations.",
+            "caption": "State four (Insurance Surplus): Execute deterministic verification with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -211,7 +211,7 @@
       "codeHash": "765882133f800816305a8ef20eae5718a4db941cdf68ad99dca2033fca730bd2",
       "spec": {
         "template": "states",
-        "title": "Auto-Deleveraging (ADL) Queues & Counterparty \u2014 High-Frequency Systems State Machine",
+        "title": "Auto-Deleveraging (ADL) Queues & Counterparty — High-Frequency Systems State Machine",
         "states": [
           {
             "id": "st1",
@@ -233,7 +233,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Profit Ranking): Initialize deterministic state for Auto-Deleveraging (ADL) Queues & Co...",
+            "caption": "State one (Profit Ranking): Initialize deterministic state for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -261,7 +261,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Haircut Solvency): Execute deterministic verification with zero heap allocations.",
+            "caption": "State four (Haircut Solvency): Execute deterministic verification with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -278,7 +278,7 @@
       "codeHash": "fb635c4da8d3b9b9182bbe26dba20f32d6d01abd6ff98e04a2c694033bf221bc",
       "spec": {
         "template": "states",
-        "title": "Production Institutional Crypto Derivatives R \u2014 High-Frequency Systems State Machine",
+        "title": "Production Institutional Crypto Derivatives R — High-Frequency Systems State Machine",
         "states": [
           {
             "id": "st1",
@@ -300,7 +300,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Mark Price Engine): Initialize deterministic state for Production Institutional Crypto Der...",
+            "caption": "State one (Mark Price Engine): Initialize deterministic state for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -328,7 +328,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Exchange Solvency): Execute deterministic verification with zero heap allocations.",
+            "caption": "State four (Exchange Solvency): Execute deterministic verification with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",

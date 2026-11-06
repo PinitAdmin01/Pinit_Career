@@ -10,7 +10,7 @@
       "codeHash": "eab8fe35d0c0f4dce0694045ccb81e27e32745861999980f5353650bd0775917",
       "spec": {
         "template": "sequence",
-        "title": "ERC-20 Accounting Invariants & SafeERC20 Transfer Defenses \u2014 Token Architecture Sequence",
+        "title": "ERC-20 Accounting Invariants & SafeERC20 Transfer Defenses — Token Architecture Sequence",
         "actors": [
           "Token Holder",
           "SafeERC20 / ERC721 Contract",
@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Holder initiates token transfer or mint for ERC-20 Accounting Invariants & S",
+            "caption": "Holder initiates token transfer or mint for fungible token Accounting.",
             "activeActor": "Token Holder",
             "messages": [
               {
@@ -33,20 +33,20 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Contract verifies supply invariant and executes CEI state updates",
+            "caption": "Contract verifies supply invariant and executes CEI state updates.",
             "activeActor": "SafeERC20 / ERC721 Contract",
             "messages": [
               {
                 "from": "SafeERC20 / ERC721 Contract",
                 "to": "Protocol Vault",
-                "label": "updateBalances(CEI_First) [Sum == TotalSupply \u2713]",
+                "label": "updateBalances(CEI_First) [Sum == TotalSupply ✓]",
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Contract triggers onERC721Received callback; reentrancy mutex armed",
+            "caption": "Contract triggers onERCReceived callback; reentrancy mutex armed.",
             "activeActor": "Receiver Contract Hook",
             "messages": [
               {
@@ -58,20 +58,20 @@
               {
                 "from": "Receiver Contract Hook",
                 "to": "SafeERC20 / ERC721 Contract",
-                "label": "return(0x150b7a02) [Safe Handshake \u2713]",
+                "label": "return(0x150b7a02) [Safe Handshake ✓]",
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Token operation settles; balances reconciled with zero uncollateralized leakage",
+            "caption": "Token operation settles; balances reconciled with zero uncollateralized.",
             "activeActor": "Protocol Vault",
             "messages": [
               {
                 "from": "Protocol Vault",
                 "to": "Token Holder",
-                "label": "TokenOperationCertified(Solvent & Guarded \u2713)",
+                "label": "TokenOperationCertified(Solvent & Guarded ✓)",
                 "tone": "ok"
               }
             ]
@@ -80,7 +80,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "ERC-20 Accounting Invariants & SafeERC20 Transfer Defenses \u2014 Token Architecture Sequence",
+        "title": "ERC-20 Accounting Invariants & SafeERC20 Transfer Defenses — Token Architecture Sequence",
         "actors": [
           "Token Holder",
           "SafeERC20 / ERC721 Contract",
@@ -109,7 +109,7 @@
               {
                 "from": "SafeERC20 / ERC721 Contract",
                 "to": "Protocol Vault",
-                "label": "updateBalances(CEI_First) [Sum == TotalSupply \u2713]",
+                "label": "updateBalances(CEI_First) [Sum == TotalSupply ✓]",
                 "tone": "ok"
               }
             ]
@@ -128,7 +128,7 @@
               {
                 "from": "Receiver Contract Hook",
                 "to": "SafeERC20 / ERC721 Contract",
-                "label": "return(0x150b7a02) [Safe Handshake \u2713]",
+                "label": "return(0x150b7a02) [Safe Handshake ✓]",
                 "tone": "ok"
               }
             ]
@@ -141,7 +141,7 @@
               {
                 "from": "Protocol Vault",
                 "to": "Token Holder",
-                "label": "TokenOperationCertified(Solvent & Guarded \u2713)",
+                "label": "TokenOperationCertified(Solvent & Guarded ✓)",
                 "tone": "ok"
               }
             ]
@@ -154,7 +154,7 @@
       "codeHash": "2f1ba4371b1b731e9e7f91189014e6b5872248120d2dd117937cb8b22fe8b5c4",
       "spec": {
         "template": "sequence",
-        "title": "ERC-721 Non-Fungible Token Architecture & SafeMint Reentrancy Vectors \u2014 Token Architecture Sequence",
+        "title": "ERC-721 Non-Fungible Token Architecture & SafeMint Reentrancy Vectors — Token Architecture Sequence",
         "actors": [
           "Token Holder",
           "SafeERC20 / ERC721 Contract",
@@ -164,7 +164,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Holder initiates token transfer or mint for ERC-721 Non-Fungible Token Archi",
+            "caption": "Holder initiates token transfer or mint for non-fungible token.",
             "activeActor": "Token Holder",
             "messages": [
               {
@@ -177,20 +177,20 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Contract verifies supply invariant and executes CEI state updates",
+            "caption": "Contract verifies supply invariant and executes CEI state updates.",
             "activeActor": "SafeERC20 / ERC721 Contract",
             "messages": [
               {
                 "from": "SafeERC20 / ERC721 Contract",
                 "to": "Protocol Vault",
-                "label": "updateBalances(CEI_First) [Sum == TotalSupply \u2713]",
+                "label": "updateBalances(CEI_First) [Sum == TotalSupply ✓]",
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Contract triggers onERC721Received callback; reentrancy mutex armed",
+            "caption": "Contract triggers onERCReceived callback; reentrancy mutex armed.",
             "activeActor": "Receiver Contract Hook",
             "messages": [
               {
@@ -202,20 +202,20 @@
               {
                 "from": "Receiver Contract Hook",
                 "to": "SafeERC20 / ERC721 Contract",
-                "label": "return(0x150b7a02) [Safe Handshake \u2713]",
+                "label": "return(0x150b7a02) [Safe Handshake ✓]",
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Token operation settles; balances reconciled with zero uncollateralized leakage",
+            "caption": "Token operation settles; balances reconciled with zero uncollateralized.",
             "activeActor": "Protocol Vault",
             "messages": [
               {
                 "from": "Protocol Vault",
                 "to": "Token Holder",
-                "label": "TokenOperationCertified(Solvent & Guarded \u2713)",
+                "label": "TokenOperationCertified(Solvent & Guarded ✓)",
                 "tone": "ok"
               }
             ]
@@ -224,7 +224,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "ERC-721 Non-Fungible Token Architecture & SafeMint Reentrancy Vectors \u2014 Token Architecture Sequence",
+        "title": "ERC-721 Non-Fungible Token Architecture & SafeMint Reentrancy Vectors — Token Architecture Sequence",
         "actors": [
           "Token Holder",
           "SafeERC20 / ERC721 Contract",
@@ -253,7 +253,7 @@
               {
                 "from": "SafeERC20 / ERC721 Contract",
                 "to": "Protocol Vault",
-                "label": "updateBalances(CEI_First) [Sum == TotalSupply \u2713]",
+                "label": "updateBalances(CEI_First) [Sum == TotalSupply ✓]",
                 "tone": "ok"
               }
             ]
@@ -272,7 +272,7 @@
               {
                 "from": "Receiver Contract Hook",
                 "to": "SafeERC20 / ERC721 Contract",
-                "label": "return(0x150b7a02) [Safe Handshake \u2713]",
+                "label": "return(0x150b7a02) [Safe Handshake ✓]",
                 "tone": "ok"
               }
             ]
@@ -285,7 +285,7 @@
               {
                 "from": "Protocol Vault",
                 "to": "Token Holder",
-                "label": "TokenOperationCertified(Solvent & Guarded \u2713)",
+                "label": "TokenOperationCertified(Solvent & Guarded ✓)",
                 "tone": "ok"
               }
             ]
@@ -298,7 +298,7 @@
       "codeHash": "fa5b070ef3fb7f0aad082c4578360485e6ba9caaf0d99a36c2bd803d983fe5c0",
       "spec": {
         "template": "sequence",
-        "title": "ERC-721A Batch Minting Gas Optimization & Bitwise Ownership Packing \u2014 Token Architecture Sequence",
+        "title": "ERC-721A Batch Minting Gas Optimization & Bitwise Ownership Packing — Token Architecture Sequence",
         "actors": [
           "Token Holder",
           "SafeERC20 / ERC721 Contract",
@@ -308,7 +308,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Holder initiates token transfer or mint for ERC-721A Batch Minting Gas Optim",
+            "caption": "Holder initiates token transfer or mint for ERC-A Batch Minting Gas Optim.",
             "activeActor": "Token Holder",
             "messages": [
               {
@@ -321,20 +321,20 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Contract verifies supply invariant and executes CEI state updates",
+            "caption": "Contract verifies supply invariant and executes CEI state updates.",
             "activeActor": "SafeERC20 / ERC721 Contract",
             "messages": [
               {
                 "from": "SafeERC20 / ERC721 Contract",
                 "to": "Protocol Vault",
-                "label": "updateBalances(CEI_First) [Sum == TotalSupply \u2713]",
+                "label": "updateBalances(CEI_First) [Sum == TotalSupply ✓]",
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Contract triggers onERC721Received callback; reentrancy mutex armed",
+            "caption": "Contract triggers onERCReceived callback; reentrancy mutex armed.",
             "activeActor": "Receiver Contract Hook",
             "messages": [
               {
@@ -346,20 +346,20 @@
               {
                 "from": "Receiver Contract Hook",
                 "to": "SafeERC20 / ERC721 Contract",
-                "label": "return(0x150b7a02) [Safe Handshake \u2713]",
+                "label": "return(0x150b7a02) [Safe Handshake ✓]",
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Token operation settles; balances reconciled with zero uncollateralized leakage",
+            "caption": "Token operation settles; balances reconciled with zero uncollateralized.",
             "activeActor": "Protocol Vault",
             "messages": [
               {
                 "from": "Protocol Vault",
                 "to": "Token Holder",
-                "label": "TokenOperationCertified(Solvent & Guarded \u2713)",
+                "label": "TokenOperationCertified(Solvent & Guarded ✓)",
                 "tone": "ok"
               }
             ]
@@ -368,7 +368,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "ERC-721A Batch Minting Gas Optimization & Bitwise Ownership Packing \u2014 Token Architecture Sequence",
+        "title": "ERC-721A Batch Minting Gas Optimization & Bitwise Ownership Packing — Token Architecture Sequence",
         "actors": [
           "Token Holder",
           "SafeERC20 / ERC721 Contract",
@@ -397,7 +397,7 @@
               {
                 "from": "SafeERC20 / ERC721 Contract",
                 "to": "Protocol Vault",
-                "label": "updateBalances(CEI_First) [Sum == TotalSupply \u2713]",
+                "label": "updateBalances(CEI_First) [Sum == TotalSupply ✓]",
                 "tone": "ok"
               }
             ]
@@ -416,7 +416,7 @@
               {
                 "from": "Receiver Contract Hook",
                 "to": "SafeERC20 / ERC721 Contract",
-                "label": "return(0x150b7a02) [Safe Handshake \u2713]",
+                "label": "return(0x150b7a02) [Safe Handshake ✓]",
                 "tone": "ok"
               }
             ]
@@ -429,7 +429,7 @@
               {
                 "from": "Protocol Vault",
                 "to": "Token Holder",
-                "label": "TokenOperationCertified(Solvent & Guarded \u2713)",
+                "label": "TokenOperationCertified(Solvent & Guarded ✓)",
                 "tone": "ok"
               }
             ]
@@ -442,7 +442,7 @@
       "codeHash": "0d0d4fe9a87d3592cf27ea24807bc58aa1714d64f6afc1373b0a57de49d98a85",
       "spec": {
         "template": "sequence",
-        "title": "ERC-777 / ERC-1363 Hook Hijacking & Read-Only Reentrancy Surfaces \u2014 Token Architecture Sequence",
+        "title": "ERC-777 / ERC-1363 Hook Hijacking & Read-Only Reentrancy Surfaces — Token Architecture Sequence",
         "actors": [
           "Token Holder",
           "SafeERC20 / ERC721 Contract",
@@ -452,7 +452,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Holder initiates token transfer or mint for ERC-777 / ERC-1363 Hook Hijackin",
+            "caption": "Holder initiates token transfer or mint for ERC-multiple / ERC-multiple.",
             "activeActor": "Token Holder",
             "messages": [
               {
@@ -465,20 +465,20 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Contract verifies supply invariant and executes CEI state updates",
+            "caption": "Contract verifies supply invariant and executes CEI state updates.",
             "activeActor": "SafeERC20 / ERC721 Contract",
             "messages": [
               {
                 "from": "SafeERC20 / ERC721 Contract",
                 "to": "Protocol Vault",
-                "label": "updateBalances(CEI_First) [Sum == TotalSupply \u2713]",
+                "label": "updateBalances(CEI_First) [Sum == TotalSupply ✓]",
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Contract triggers onERC721Received callback; reentrancy mutex armed",
+            "caption": "Contract triggers onERCReceived callback; reentrancy mutex armed.",
             "activeActor": "Receiver Contract Hook",
             "messages": [
               {
@@ -490,20 +490,20 @@
               {
                 "from": "Receiver Contract Hook",
                 "to": "SafeERC20 / ERC721 Contract",
-                "label": "return(0x150b7a02) [Safe Handshake \u2713]",
+                "label": "return(0x150b7a02) [Safe Handshake ✓]",
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Token operation settles; balances reconciled with zero uncollateralized leakage",
+            "caption": "Token operation settles; balances reconciled with zero uncollateralized.",
             "activeActor": "Protocol Vault",
             "messages": [
               {
                 "from": "Protocol Vault",
                 "to": "Token Holder",
-                "label": "TokenOperationCertified(Solvent & Guarded \u2713)",
+                "label": "TokenOperationCertified(Solvent & Guarded ✓)",
                 "tone": "ok"
               }
             ]
@@ -512,7 +512,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "ERC-777 / ERC-1363 Hook Hijacking & Read-Only Reentrancy Surfaces \u2014 Token Architecture Sequence",
+        "title": "ERC-777 / ERC-1363 Hook Hijacking & Read-Only Reentrancy Surfaces — Token Architecture Sequence",
         "actors": [
           "Token Holder",
           "SafeERC20 / ERC721 Contract",
@@ -541,7 +541,7 @@
               {
                 "from": "SafeERC20 / ERC721 Contract",
                 "to": "Protocol Vault",
-                "label": "updateBalances(CEI_First) [Sum == TotalSupply \u2713]",
+                "label": "updateBalances(CEI_First) [Sum == TotalSupply ✓]",
                 "tone": "ok"
               }
             ]
@@ -560,7 +560,7 @@
               {
                 "from": "Receiver Contract Hook",
                 "to": "SafeERC20 / ERC721 Contract",
-                "label": "return(0x150b7a02) [Safe Handshake \u2713]",
+                "label": "return(0x150b7a02) [Safe Handshake ✓]",
                 "tone": "ok"
               }
             ]
@@ -573,7 +573,7 @@
               {
                 "from": "Protocol Vault",
                 "to": "Token Holder",
-                "label": "TokenOperationCertified(Solvent & Guarded \u2713)",
+                "label": "TokenOperationCertified(Solvent & Guarded ✓)",
                 "tone": "ok"
               }
             ]
@@ -586,7 +586,7 @@
       "codeHash": "b23ff2dad481d2644a73ad9a4432f1627d0a5db29fb1de52db40cd879958a2a3",
       "spec": {
         "template": "sequence",
-        "title": "Master Token Engineering & Supply Invariant Verifier Architecture \u2014 Token Architecture Sequence",
+        "title": "Master Token Engineering & Supply Invariant Verifier Architecture — Token Architecture Sequence",
         "actors": [
           "Token Holder",
           "SafeERC20 / ERC721 Contract",
@@ -596,7 +596,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Holder initiates token transfer or mint for Master Token Engineering & Suppl",
+            "caption": "Holder initiates token transfer or mint for Master Token Engineering &.",
             "activeActor": "Token Holder",
             "messages": [
               {
@@ -609,20 +609,20 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Contract verifies supply invariant and executes CEI state updates",
+            "caption": "Contract verifies supply invariant and executes CEI state updates.",
             "activeActor": "SafeERC20 / ERC721 Contract",
             "messages": [
               {
                 "from": "SafeERC20 / ERC721 Contract",
                 "to": "Protocol Vault",
-                "label": "updateBalances(CEI_First) [Sum == TotalSupply \u2713]",
+                "label": "updateBalances(CEI_First) [Sum == TotalSupply ✓]",
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Contract triggers onERC721Received callback; reentrancy mutex armed",
+            "caption": "Contract triggers onERCReceived callback; reentrancy mutex armed.",
             "activeActor": "Receiver Contract Hook",
             "messages": [
               {
@@ -634,20 +634,20 @@
               {
                 "from": "Receiver Contract Hook",
                 "to": "SafeERC20 / ERC721 Contract",
-                "label": "return(0x150b7a02) [Safe Handshake \u2713]",
+                "label": "return(0x150b7a02) [Safe Handshake ✓]",
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Token operation settles; balances reconciled with zero uncollateralized leakage",
+            "caption": "Token operation settles; balances reconciled with zero uncollateralized.",
             "activeActor": "Protocol Vault",
             "messages": [
               {
                 "from": "Protocol Vault",
                 "to": "Token Holder",
-                "label": "TokenOperationCertified(Solvent & Guarded \u2713)",
+                "label": "TokenOperationCertified(Solvent & Guarded ✓)",
                 "tone": "ok"
               }
             ]
@@ -656,7 +656,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Master Token Engineering & Supply Invariant Verifier Architecture \u2014 Token Architecture Sequence",
+        "title": "Master Token Engineering & Supply Invariant Verifier Architecture — Token Architecture Sequence",
         "actors": [
           "Token Holder",
           "SafeERC20 / ERC721 Contract",
@@ -685,7 +685,7 @@
               {
                 "from": "SafeERC20 / ERC721 Contract",
                 "to": "Protocol Vault",
-                "label": "updateBalances(CEI_First) [Sum == TotalSupply \u2713]",
+                "label": "updateBalances(CEI_First) [Sum == TotalSupply ✓]",
                 "tone": "ok"
               }
             ]
@@ -704,7 +704,7 @@
               {
                 "from": "Receiver Contract Hook",
                 "to": "SafeERC20 / ERC721 Contract",
-                "label": "return(0x150b7a02) [Safe Handshake \u2713]",
+                "label": "return(0x150b7a02) [Safe Handshake ✓]",
                 "tone": "ok"
               }
             ]
@@ -717,7 +717,7 @@
               {
                 "from": "Protocol Vault",
                 "to": "Token Holder",
-                "label": "TokenOperationCertified(Solvent & Guarded \u2713)",
+                "label": "TokenOperationCertified(Solvent & Guarded ✓)",
                 "tone": "ok"
               }
             ]

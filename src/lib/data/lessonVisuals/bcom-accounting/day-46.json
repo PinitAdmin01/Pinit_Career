@@ -11,12 +11,12 @@
       "filled": {},
       "spec": {
         "template": "ledger-sheet",
-        "title": "Corporate Liquidity Architecture & Defen... \u2014 Ledger Verification",
+        "title": "Corporate Liquidity Architecture & Defen... — Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary Ind AS ledger posting ($44,005,000) for Corporate Liquidity Architecture & Defen...",
-            "title": "Day 46 Journal \u2014 Initial Posting",
+            "caption": "Open primary Ind AS ledger posting ($multiple,multiple,multiple) for.",
+            "title": "Day 46 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 44005000,
             "totalCredit": 44005000,
@@ -41,8 +41,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary valuation & diagnostic adjustment accrual ($3,000,000).",
-            "title": "Day 46 Journal \u2014 Diagnostic & Adjustment Posting",
+            "caption": "Record secondary valuation & diagnostic adjustment accrual.",
+            "title": "Day 46 Journal — Diagnostic & Adjustment Posting",
             "isBalanced": true,
             "totalDebit": 47005000,
             "totalCredit": 47005000,
@@ -72,8 +72,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of balance sheet carrying values and statutory group disclosures.",
-            "title": "Day 46 Journal \u2014 Balance Sheet Realignment",
+            "caption": "Verification of balance sheet carrying values and statutory group.",
+            "title": "Day 46 Journal — Balance Sheet Realignment",
             "isBalanced": true,
             "totalDebit": 47005000,
             "totalCredit": 47005000,
@@ -103,8 +103,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute deterministic Python engine and verify mathematical equilibrium.",
-            "title": "Day 46 Journal \u2014 Balanced Closure",
+            "caption": "Execute deterministic Python engine and verify mathematical equilibrium.",
+            "title": "Day 46 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 47005000,
             "totalCredit": 47005000,
@@ -141,12 +141,12 @@
       "filled": {},
       "spec": {
         "template": "ledger-sheet",
-        "title": "Long-Term Solvency, Debt Structure & DSC... \u2014 Ledger Verification",
+        "title": "Long-Term Solvency, Debt Structure & DSC... — Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary Ind AS ledger posting ($44,010,000) for Long-Term Solvency, Debt Structure & DSC...",
-            "title": "Day 46 Journal \u2014 Initial Posting",
+            "caption": "Open primary Ind AS ledger posting ($multiple,multiple,multiple) for.",
+            "title": "Day 46 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 44010000,
             "totalCredit": 44010000,
@@ -171,8 +171,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary valuation & diagnostic adjustment accrual ($3,000,000).",
-            "title": "Day 46 Journal \u2014 Diagnostic & Adjustment Posting",
+            "caption": "Record secondary valuation & diagnostic adjustment accrual.",
+            "title": "Day 46 Journal — Diagnostic & Adjustment Posting",
             "isBalanced": true,
             "totalDebit": 47010000,
             "totalCredit": 47010000,
@@ -202,8 +202,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of balance sheet carrying values and statutory group disclosures.",
-            "title": "Day 46 Journal \u2014 Balance Sheet Realignment",
+            "caption": "Verification of balance sheet carrying values and statutory group.",
+            "title": "Day 46 Journal — Balance Sheet Realignment",
             "isBalanced": true,
             "totalDebit": 47010000,
             "totalCredit": 47010000,
@@ -233,8 +233,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute deterministic Python engine and verify mathematical equilibrium.",
-            "title": "Day 46 Journal \u2014 Balanced Closure",
+            "caption": "Execute deterministic Python engine and verify mathematical equilibrium.",
+            "title": "Day 46 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 47010000,
             "totalCredit": 47010000,
@@ -271,12 +271,12 @@
       "filled": {},
       "spec": {
         "template": "ledger-sheet",
-        "title": "Operational Efficiency, Velocity & the C... \u2014 Ledger Verification",
+        "title": "Operational Efficiency, Velocity & the C... — Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary Ind AS ledger posting ($44,015,000) for Operational Efficiency, Velocity & the C...",
-            "title": "Day 46 Journal \u2014 Initial Posting",
+            "caption": "Open primary Ind AS ledger posting ($multiple,multiple,multiple) for.",
+            "title": "Day 46 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 44015000,
             "totalCredit": 44015000,
@@ -301,8 +301,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary valuation & diagnostic adjustment accrual ($3,000,000).",
-            "title": "Day 46 Journal \u2014 Diagnostic & Adjustment Posting",
+            "caption": "Record secondary valuation & diagnostic adjustment accrual.",
+            "title": "Day 46 Journal — Diagnostic & Adjustment Posting",
             "isBalanced": true,
             "totalDebit": 47015000,
             "totalCredit": 47015000,
@@ -332,8 +332,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of balance sheet carrying values and statutory group disclosures.",
-            "title": "Day 46 Journal \u2014 Balance Sheet Realignment",
+            "caption": "Verification of balance sheet carrying values and statutory group.",
+            "title": "Day 46 Journal — Balance Sheet Realignment",
             "isBalanced": true,
             "totalDebit": 47015000,
             "totalCredit": 47015000,
@@ -363,8 +363,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute deterministic Python engine and verify mathematical equilibrium.",
-            "title": "Day 46 Journal \u2014 Balanced Closure",
+            "caption": "Execute deterministic Python engine and verify mathematical equilibrium.",
+            "title": "Day 46 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 47015000,
             "totalCredit": 47015000,
@@ -401,12 +401,12 @@
       "filled": {},
       "spec": {
         "template": "ledger-sheet",
-        "title": "Mandatory Schedule III Disclosures & CAR... \u2014 Ledger Verification",
+        "title": "Mandatory Schedule III Disclosures & CAR... — Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary Ind AS ledger posting ($44,020,000) for Mandatory Schedule III Disclosures & CAR...",
-            "title": "Day 46 Journal \u2014 Initial Posting",
+            "caption": "Open primary Ind AS ledger posting ($multiple,multiple,multiple) for.",
+            "title": "Day 46 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 44020000,
             "totalCredit": 44020000,
@@ -431,8 +431,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary valuation & diagnostic adjustment accrual ($3,000,000).",
-            "title": "Day 46 Journal \u2014 Diagnostic & Adjustment Posting",
+            "caption": "Record secondary valuation & diagnostic adjustment accrual.",
+            "title": "Day 46 Journal — Diagnostic & Adjustment Posting",
             "isBalanced": true,
             "totalDebit": 47020000,
             "totalCredit": 47020000,
@@ -462,8 +462,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of balance sheet carrying values and statutory group disclosures.",
-            "title": "Day 46 Journal \u2014 Balance Sheet Realignment",
+            "caption": "Verification of balance sheet carrying values and statutory group.",
+            "title": "Day 46 Journal — Balance Sheet Realignment",
             "isBalanced": true,
             "totalDebit": 47020000,
             "totalCredit": 47020000,
@@ -493,8 +493,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute deterministic Python engine and verify mathematical equilibrium.",
-            "title": "Day 46 Journal \u2014 Balanced Closure",
+            "caption": "Execute deterministic Python engine and verify mathematical equilibrium.",
+            "title": "Day 46 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 47020000,
             "totalCredit": 47020000,
@@ -531,12 +531,12 @@
       "filled": {},
       "spec": {
         "template": "ledger-sheet",
-        "title": "Python Ratio Diagnostics Engine Executio... \u2014 Ledger Verification",
+        "title": "Python Ratio Diagnostics Engine Executio... — Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary Ind AS ledger posting ($44,025,000) for Python Ratio Diagnostics Engine Executio...",
-            "title": "Day 46 Journal \u2014 Initial Posting",
+            "caption": "Open primary Ind AS ledger posting ($multiple,multiple,multiple) for.",
+            "title": "Day 46 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 44025000,
             "totalCredit": 44025000,
@@ -561,8 +561,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary valuation & diagnostic adjustment accrual ($3,000,000).",
-            "title": "Day 46 Journal \u2014 Diagnostic & Adjustment Posting",
+            "caption": "Record secondary valuation & diagnostic adjustment accrual.",
+            "title": "Day 46 Journal — Diagnostic & Adjustment Posting",
             "isBalanced": true,
             "totalDebit": 47025000,
             "totalCredit": 47025000,
@@ -592,8 +592,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of balance sheet carrying values and statutory group disclosures.",
-            "title": "Day 46 Journal \u2014 Balance Sheet Realignment",
+            "caption": "Verification of balance sheet carrying values and statutory group.",
+            "title": "Day 46 Journal — Balance Sheet Realignment",
             "isBalanced": true,
             "totalDebit": 47025000,
             "totalCredit": 47025000,
@@ -623,8 +623,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute deterministic Python engine and verify mathematical equilibrium.",
-            "title": "Day 46 Journal \u2014 Balanced Closure",
+            "caption": "Execute deterministic Python engine and verify mathematical equilibrium.",
+            "title": "Day 46 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 47025000,
             "totalCredit": 47025000,

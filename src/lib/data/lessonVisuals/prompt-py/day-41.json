@@ -6,7 +6,7 @@
   "entries": [
     {
       "partTitle": "Centralized Vs Decentralized Choreography: Monolithic Limits And Swarm Architecture",
-      "codeHash": "9554845c76f30fdc40231744e886edd29d1d355210ec1fe4519b223447e9079c",
+      "codeHash": "192dae48bef712291f7e2067d83c0003ec2a65dbe0dc6b6d52f58d38c6a7bc22",
       "spec": {
         "template": "table",
         "title": "Centralized Versus Decentralized Multi Agent Choreography Dynamics.",
@@ -160,7 +160,7 @@
     },
     {
       "partTitle": "Hierarchical Supervisor Architectures: Executive Delegation & Task DAG Decomposition",
-      "codeHash": "9554845c76f30fdc40231744e886edd29d1d355210ec1fe4519b223447e9079c",
+      "codeHash": "192dae48bef712291f7e2067d83c0003ec2a65dbe0dc6b6d52f58d38c6a7bc22",
       "spec": {
         "template": "table",
         "title": "Executive Supervisor Planning And Structured Task Directed Acyclic Graphs.",
@@ -314,7 +314,7 @@
     },
     {
       "partTitle": "Inter-Agent Communication Protocols: Structured Schema Exchange & Message Passing",
-      "codeHash": "9554845c76f30fdc40231744e886edd29d1d355210ec1fe4519b223447e9079c",
+      "codeHash": "192dae48bef712291f7e2067d83c0003ec2a65dbe0dc6b6d52f58d38c6a7bc22",
       "spec": {
         "template": "table",
         "title": "Inter Agent Communication Protocols And Structured Message Schema Exchange.",
@@ -468,7 +468,7 @@
     },
     {
       "partTitle": "Dynamic Re-Planning & Conflict Resolution: Worker Deadlocks & Socratic Arbitration",
-      "codeHash": "9554845c76f30fdc40231744e886edd29d1d355210ec1fe4519b223447e9079c",
+      "codeHash": "192dae48bef712291f7e2067d83c0003ec2a65dbe0dc6b6d52f58d38c6a7bc22",
       "spec": {
         "template": "table",
         "title": "Dynamic Replanning Algorithms And Socratic Multi Agent Conflict Resolution.",
@@ -622,7 +622,7 @@
     },
     {
       "partTitle": "Enterprise Swarm Engineering: Implementing An Asynchronous Python Supervisor",
-      "codeHash": "9554845c76f30fdc40231744e886edd29d1d355210ec1fe4519b223447e9079c",
+      "codeHash": "192dae48bef712291f7e2067d83c0003ec2a65dbe0dc6b6d52f58d38c6a7bc22",
       "spec": {
         "template": "table",
         "title": "Enterprise Swarm Engineering In High Concurrency Asynchronous Python.",

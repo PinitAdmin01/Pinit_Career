@@ -547,7 +547,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Building an Enterprise Query Parameteriz.. [D2.P6.S1].",
+            "caption": "Initialize input state for Building an Enterprise Query Parameteriz.",
             "values": {
               "in": "Day 2 Input",
               "proc": "Standby",
@@ -567,7 +567,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building an Enterpr... [D2.P6.S2].",
+            "caption": "Execute core transformation in Building an Enterpr... [Dtwo.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -591,7 +591,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D2.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [Dtwo.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -611,7 +611,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building an Enterprise Query Para.. [D2.P6.S4].",
+            "caption": "End-to-end execution verified for Building an Enterprise Query Para.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "say5",
-            "caption": "Network round-trips throttle remote database throughput to 2500 ops/sec.",
+            "caption": "Network round-trips throttle remote database throughput to multiple.",
             "bars": [
               {
                 "label": "Remote DB Latency (µs)",
@@ -387,7 +387,7 @@
           },
           {
             "at": "say5",
-            "caption": "When the store deletes session-1, it emits a tombstone entry with value: null.",
+            "caption": "When the store deletes session-one, it emits a tombstone entry with.",
             "items": [
               {
                 "text": "0: session-1=user-alice"
@@ -615,7 +615,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Write-Through Caching & Read-Through Opt.. [D21.P6.S1].",
+            "caption": "Initialize input state for Write-Through Caching & Read-Through Opt.",
             "values": {
               "in": "Day 21 Input",
               "proc": "Standby",
@@ -635,7 +635,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Write-Through Cachi... [D21.P6.S2].",
+            "caption": "Execute core transformation in Write-Through Cachi... [D.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -659,7 +659,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D21.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -679,7 +679,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Write-Through Caching & Read-Thro.. [D21.P6.S4].",
+            "caption": "End-to-end execution verified for Write-Through Caching & Read-Thro.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

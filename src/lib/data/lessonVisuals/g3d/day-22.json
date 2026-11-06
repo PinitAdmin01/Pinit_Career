@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Morph Target Delta Setup): Initialize pipeline state for Morph Target Delta Vector Mathematics & Additive Accumulation.",
+            "caption": "State one (Morph Target Delta Setup): Initialize pipeline state for Morph.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -99,7 +99,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Apple ARKit 52 Sta Setup): Initialize pipeline state for Apple ARKit 52 Standard Blendshape Taxonomy & Face Tracking.",
+            "caption": "State one (Apple ARKit multiple Sta Setup): Initialize pipeline state for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -166,7 +166,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (GPU Morph Target P Setup): Initialize pipeline state for GPU Morph Target Packing into 2D Array Textures (sampler2DArray).",
+            "caption": "State one (GPU Morph Target P Setup): Initialize pipeline state for GPU.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -233,7 +233,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Delta Normal & Tan Setup): Initialize pipeline state for Delta Normal & Tangent Re-normalization on the GPU.",
+            "caption": "State one (Delta Normal & Tan Setup): Initialize pipeline state for Delta.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -300,7 +300,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (High-Performance R Setup): Initialize pipeline state for High-Performance Real-Time Facial Expression Driver.",
+            "caption": "State one (High-Performance R Setup): Initialize pipeline state for.",
             "currentState": "st1",
             "tone": "data"
           },

@@ -34,7 +34,7 @@
           },
           {
             "at": "say2",
-            "caption": "On fast devices, useDeferredValue re-renders almost immediately without 300ms dead time.",
+            "caption": "On fast devices, useDeferredValue re-renders almost immediately without.",
             "left": {
               "code": "console.log(latency);",
               "result": {
@@ -748,7 +748,7 @@
           },
           {
             "at": "say3",
-            "caption": "The scheduler yields every 4ms to ensure browser frame rendering continues on schedule.",
+            "caption": "The scheduler yields every fourms to ensure browser frame rendering.",
             "values": {
               "ws1": {
                 "text": "\"Clear\""

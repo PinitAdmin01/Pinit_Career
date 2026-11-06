@@ -173,7 +173,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Quick sort [D13.P2.S1].",
+            "caption": "Initialize input state for Quick sort [D.Ptwo.Sone].",
             "values": {
               "in": "Day 13 Input",
               "proc": "Standby",
@@ -193,7 +193,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Quick sort [D13.P2.S2].",
+            "caption": "Execute core transformation in Quick sort [D.Ptwo.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -217,7 +217,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D13.P2.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Ptwo.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -237,7 +237,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Quick sort [D13.P2.S4].",
+            "caption": "End-to-end execution verified for Quick sort [D.Ptwo.Sfour].",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -623,7 +623,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for heapq and choosing the right tool [D13.P5.S1].",
+            "caption": "Initialize input state for heapq and choosing the right tool.",
             "values": {
               "in": "Day 13 Input",
               "proc": "Standby",
@@ -643,7 +643,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in heapq and choosing ... [D13.P5.S2].",
+            "caption": "Execute core transformation in heapq and choosing ... [D.Pfive.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -667,7 +667,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D13.P5.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -687,7 +687,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for heapq and choosing the right tool [D13.P5.S4].",
+            "caption": "End-to-end execution verified for heapq and choosing the right tool.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

@@ -13987,3 +13987,105 @@ export const DSA_WEB_LONG_LESSONS: LongLesson[] = [
     ]
   }
 ];
+
+// --- AUTO-ENRICHED FAST/SLOW READER & PROJECT SCAFFOLDING ---
+const _SCAFFOLD_PATCHES: Record<number, Partial<import('./longLessonTypes').LongLesson>> = {
+  "31": {
+    "recap": "In Day 30 (🏆 FINAL CAPSTONE: Real-Time Global Flight Path Routing & Navigation Optimizer), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 31 (Advanced Graph Algorithms: Tarjan's Strongly Connected Components (SCC) & Bridge Detection), we build directly on that foundation by mastering Foundations of Directed Graph Connectivity & The Strongly Connected Components (SCC) Equivalence Relation and Tarjan's Linear-Time Algorithm: DFS Tree Traversal, Discovery Timestamps & Low-Link Values."
+  },
+  "32": {
+    "recap": "In Day 31 (Advanced Graph Algorithms: Tarjan's Strongly Connected Components (SCC) & Bridge Detection), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 32 (Network Flow: Ford-Fulkerson Method & Edmonds-Karp Residual Graphs), we build directly on that foundation by mastering Flow Networks, Source/Sink Invariants, Capacity Constraints & Flow Conservation Laws and Residual Graphs, Forward/Backward Augmenting Paths & Bottleneck Capacity Calculation."
+  },
+  "33": {
+    "recap": "In Day 32 (Network Flow: Ford-Fulkerson Method & Edmonds-Karp Residual Graphs), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 33 (Minimum Cut Theorem & Bipartite Maximum Matching), we build directly on that foundation by mastering The Max-Flow Min-Cut Theorem: Duality, s-t Cuts, and Capacity Bounds and Extracting the Minimum Cut via Residual Reachability in O(V + E) Time."
+  },
+  "34": {
+    "recap": "In Day 33 (Minimum Cut Theorem & Bipartite Maximum Matching), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 34 (Disjoint Set Union (DSU) by Rank & Path Compression with Offline Dynamic Connectivity), we build directly on that foundation by mastering Partitioning Disjoint Sets, Equivalence Classes & Inverse Ackermann Complexity alpha(N) and Union by Rank, Union by Size & Two-Pass / Recursive Path Compression."
+  },
+  "35": {
+    "recap": "In Day 34 (Disjoint Set Union (DSU) by Rank & Path Compression with Offline Dynamic Connectivity), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 35 (Milestone 7 Capstone: High-Throughput Autonomous Network Flow & Transit Router), we build directly on that foundation by mastering Enterprise Transit Topology & Multi-Commodity Capacity Formulation and High-Throughput Residual Flow Augmentation & Min-Cut Partitioning."
+  },
+  "36": {
+    "recap": "In Day 35 (Milestone 7 Capstone: High-Throughput Autonomous Network Flow & Transit Router), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 36 (String Hashing: Polynomial Rolling Hashes, Rabin-Karp & O(1) Substring Equality), we build directly on that foundation by mastering Foundations of String Hashing, Polynomial Rolling Hashes & Prime Base Selection and Collision Probabilities, The Birthday Paradox & 64-Bit Double Rolling Hashing."
+  },
+  "37": {
+    "recap": "In Day 36 (String Hashing: Polynomial Rolling Hashes, Rabin-Karp & O(1) Substring Equality), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 37 (Knuth-Morris-Pratt (KMP) Algorithm & Prefix Automaton), we build directly on that foundation by mastering Failure Functions, Border Arrays & The Classical Prefix Function Pi and The Knuth-Morris-Pratt (KMP) Linear Pattern Matching Engine."
+  },
+  "38": {
+    "recap": "In Day 37 (Knuth-Morris-Pratt (KMP) Algorithm & Prefix Automaton), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 38 (Z-Algorithm & Longest Common Prefix (LCP) Array: Linear Pattern Matching & Suffix-Prefix Matching), we build directly on that foundation by mastering The Z-Array Definition, Z-Box Invariant [L, R], and Linear O(N) Construction and Linear Exact Pattern Matching via S = P + '$' + T and Suffix-Prefix Boundary Discovery."
+  },
+  "39": {
+    "recap": "In Day 38 (Z-Algorithm & Longest Common Prefix (LCP) Array: Linear Pattern Matching & Suffix-Prefix Matching), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 39 (Multi-Pattern Search & Dictionary Matching: Aho-Corasick Automaton with Failure Links & Dictionary Suffix Links), we build directly on that foundation by mastering Multi-Pattern Search Problem, Keyword Trees (Trie) & Limits of Linear Single-Pattern Scans and The Aho-Corasick Automaton: Trie Construction, Breadth-First Failure Links."
+  },
+  "40": {
+    "recap": "In Day 39 (Multi-Pattern Search & Dictionary Matching: Aho-Corasick Automaton with Failure Links & Dictionary Suffix Links), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 40 (Milestone 8 Capstone: Enterprise Real-Time Deep Packet Inspection (DPI) & Threat Signature Engine), we build directly on that foundation by mastering Architecture of Enterprise DPI & Threat Signature Detection: Combining String Algorithms and Multi-Tier Filtering Pipeline: Fast Hash Screening (Tier 1) & Automaton In-Depth Signature Matching (Tier 2)."
+  },
+  "41": {
+    "recap": "In Day 40 (Milestone 8 Capstone: Enterprise Real-Time Deep Packet Inspection (DPI) & Threat Signature Engine), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 41 (Tree DP Foundations: Maximum Independent Set on Trees & Subtree Aggregations), we build directly on that foundation by mastering Foundations of Dynamic Programming on Trees, Subtree Invariant & Post-Order Traversal and Maximum Independent Set on Trees: Two-State Dynamic Programming Recurrence."
+  },
+  "42": {
+    "recap": "In Day 41 (Tree DP Foundations: Maximum Independent Set on Trees & Subtree Aggregations), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 42 (Tree Diameter, Path Properties & All-Pairs Distances via Tree DP), we build directly on that foundation by mastering Tree Path Properties: Two-DFS vs Single-Pass Tree DP Diameter and Subtree Radii, Tree Centers & Minimum Eccentricity Discovery."
+  },
+  "43": {
+    "recap": "In Day 42 (Tree Diameter, Path Properties & All-Pairs Distances via Tree DP), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 43 (All-Roots Tree DP: The Rerooting Technique & Up-Down Dynamic Programming), we build directly on that foundation by mastering Limitations of Fixed-Root DP & The All-Roots Paradigm and Two-Pass Up-Down DP: Pull Phase & Push Phase."
+  },
+  "44": {
+    "recap": "In Day 43 (All-Roots Tree DP: The Rerooting Technique & Up-Down Dynamic Programming), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 44 (Subtree Knapsack, Size-Bounded Tree Merging & Tree Convolution), we build directly on that foundation by mastering Knapsack on Trees: Capacity-Bounded Subtree DP Formulation and Cartesian Pairwise Lemma: Proving O(N^2) Complexity."
+  },
+  "45": {
+    "recap": "In Day 44 (Subtree Knapsack, Size-Bounded Tree Merging & Tree Convolution), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 45 (Milestone 9 Capstone: Distributed Autonomous Grid Topology Optimizer), we build directly on that foundation by mastering Architecture of Enterprise Distributed Grid Topologies: Unifying Tree DP and Dynamic Rerooting for Fault-Tolerant Power Routing."
+  },
+  "46": {
+    "recap": "In Day 45 (Milestone 9 Capstone: Distributed Autonomous Grid Topology Optimizer), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 46 (Max-Flow Foundations: Ford-Fulkerson, Edmonds-Karp & Capacity Scaling), we build directly on that foundation by mastering Flow Networks: Conservation, Skew Symmetry & Residual Graph Mechanics and Ford-Fulkerson Method & Edmonds-Karp O(V E^2) BFS Invariant."
+  },
+  "47": {
+    "recap": "In Day 46 (Max-Flow Foundations: Ford-Fulkerson, Edmonds-Karp & Capacity Scaling), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 47 (Dinic's Algorithm & Blocking Flows), we build directly on that foundation by mastering Limitations of Edmonds-Karp & The Level Graph Paradigm and BFS Level Assignment & DFS Blocking Flow Extraction in O(V^2 * E) Time."
+  },
+  "48": {
+    "recap": "In Day 47 (Dinic's Algorithm & Blocking Flows), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 48 (Push-Relabel Algorithm & Highest-Label Preflow-Push), we build directly on that foundation by mastering Preflows, Excess Vector & Relabel Operations and Discharge Mechanics & Height Functions (Valid Distance Labeling)."
+  },
+  "49": {
+    "recap": "In Day 48 (Push-Relabel Algorithm & Highest-Label Preflow-Push), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 49 (Minimum Cut Duality & Maximum Bipartite Matching), we build directly on that foundation by mastering Minimum (s, t)-Cuts: S-T Reachability & Cut Capacity Equivalence and Maximum Bipartite Matching via Flow Reduction (Hopcroft-Karp / Dinic)."
+  },
+  "50": {
+    "recap": "In Day 49 (Minimum Cut Duality & Maximum Bipartite Matching), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 50 (Milestone 10 Capstone: Global Cloud Data Transit & Bandwidth Broker), we build directly on that foundation by mastering Architecture of Worldwide Cloud Backbone Interconnects & Transit Pricing and Multi-Commodity & Dynamic Bandwidth Allocation via Push-Relabel."
+  },
+  "51": {
+    "recap": "In Day 50 (Milestone 10 Capstone: Global Cloud Data Transit & Bandwidth Broker), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 51 (Exact String Matching: KMP & Z-Algorithm Foundations), we build directly on that foundation by mastering Failure Function Dynamics & Prefix Function (pi array) in O(N) Time and Knuth-Morris-Pratt Pattern Matching Engine with Amortized O(N + M) Proof."
+  },
+  "52": {
+    "recap": "In Day 51 (Exact String Matching: KMP & Z-Algorithm Foundations), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 52 (Multi-Pattern Matching: Trie & Aho-Corasick Automaton), we build directly on that foundation by mastering Trie Data Structures & Prefix Tree Complexity and BFS Failure Links & Dictionary Suffix Transitions."
+  },
+  "53": {
+    "recap": "In Day 52 (Multi-Pattern Matching: Trie & Aho-Corasick Automaton), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 53 (Suffix Structures I: Suffix Array, LCP Array & Kasai's Algorithm), we build directly on that foundation by mastering Suffix Array Foundations & O(N log^2 N) Prefix Doubling and Radix Sort Acceleration & Inverted Rank Equivalence Classes."
+  },
+  "54": {
+    "recap": "In Day 53 (Suffix Structures I: Suffix Array, LCP Array & Kasai's Algorithm), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 54 (Suffix Structures II: Suffix Automaton (SAM) & Suffix Tree Duality), we build directly on that foundation by mastering Suffix Automaton Foundations: Right Contexts & Equivalence Classes and Incremental Linear-Time O(N) Construction Algorithm."
+  },
+  "55": {
+    "recap": "In Day 54 (Suffix Structures II: Suffix Automaton (SAM) & Suffix Tree Duality), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 55 (Milestone 11 Capstone: Enterprise Genomic Sequence Alignment & Search Engine), we build directly on that foundation by mastering Architecture of Worldwide Genomic Reference Repositories & FASTQ Pipelines and Multi-Chromosome Indexing via Suffix Automata & BWT Transform."
+  },
+  "56": {
+    "recap": "In Day 55 (Milestone 11 Capstone: Enterprise Genomic Sequence Alignment & Search Engine), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 56 (Computational Geometry I: Convex Hulls (Graham Scan & Monotone Chain) & Orientation Predicates), we build directly on that foundation by mastering Foundations of 2D Computational Geometry: Cross Product & 2D Orientation Predicates and Graham Scan Algorithm: Polar Angle Sorting & Monotonic Stack Construction."
+  },
+  "57": {
+    "recap": "In Day 56 (Computational Geometry I: Convex Hulls (Graham Scan & Monotone Chain) & Orientation Predicates), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 57 (Computational Geometry II: Line Segment Intersection (Bentley-Ottmann) & Closest Pair of Points (Divide-and-Conquer)), we build directly on that foundation by mastering Foundations of Line Segment Intersection: Cross-Product Straddle Tests & Bounding Box Filters and The Bentley-Ottmann Sweep-Line Algorithm: Event Queues & Dynamic Status Trees."
+  },
+  "58": {
+    "recap": "In Day 57 (Computational Geometry II: Line Segment Intersection (Bentley-Ottmann) & Closest Pair of Points (Divide-and-Conquer)), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 58 (Computational Geometry III: Voronoi Diagrams & Delaunay Triangulation (Fortune's Sweep-Line Algorithm)), we build directly on that foundation by mastering Spatial Proximity Duals: Voronoi Diagrams, Perpendicular Bisectors & Dual Triangulations and Delaunay Triangulation Invariants: Empty Circumcircles & The Bowyer-Watson Algorithm."
+  },
+  "59": {
+    "recap": "In Day 58 (Computational Geometry III: Voronoi Diagrams & Delaunay Triangulation (Fortune's Sweep-Line Algorithm)), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 59 (Advanced Randomized Algorithms & Probabilistic Data Structures (Treap, Skip List, Count-Min Sketch & HyperLogLog)), we build directly on that foundation by mastering Foundations of Randomized Algorithms: Las Vegas, Monte Carlo & Universal Hashing and Randomized Search Structures I: The Treap & Randomized Cartesian Priority Trees."
+  },
+  "60": {
+    "recap": "In Day 59 (Advanced Randomized Algorithms & Probabilistic Data Structures (Treap, Skip List, Count-Min Sketch & HyperLogLog)), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 60 (Grand Finale Capstone: Autonomous Planetary Geospatial Routing & Drone Fleet Dispatch Engine), we build directly on that foundation by mastering Planetary Geospatial Routing Architecture: Unified Multi-Paradigm System Design and Dynamic Swarm Perimeter Geofencing: Monotone Chain Hulls & Rotating Calipers."
+  }
+};
+for (const _lesson of DSA_WEB_LONG_LESSONS as import('./longLessonTypes').LongLesson[]) {
+  const _p = _SCAFFOLD_PATCHES[_lesson.day];
+  if (_p) {
+    if (_p.recap && !_lesson.recap) (_lesson as any).recap = _p.recap;
+    if (_p.summary && (!_lesson.summary || _lesson.summary.length === 0)) (_lesson as any).summary = _p.summary;
+    if (_p.projectStep && (!_lesson.projectStep || !_lesson.projectStep.steps?.length)) (_lesson as any).projectStep = _p.projectStep;
+  }
+}

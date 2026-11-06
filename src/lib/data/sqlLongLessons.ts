@@ -15020,3 +15020,18 @@ export const SQL_LONG_LESSONS: LongLesson[] = [
     }
   }
 ];
+
+// --- AUTO-ENRICHED FAST/SLOW READER & PROJECT SCAFFOLDING ---
+const _SCAFFOLD_PATCHES: Record<number, Partial<import('./longLessonTypes').LongLesson>> = {
+  "1": {
+    "recap": "Welcome to Day 1: What a Database Is: Tables, Rows and Your First SELECT. Today you will build a rock-solid mental model of What a database is, and why apps need one and Tables, rows and columns and verify every concept through executable examples and Socratic checks."
+  }
+};
+for (const _lesson of SQL_LONG_LESSONS as import('./longLessonTypes').LongLesson[]) {
+  const _p = _SCAFFOLD_PATCHES[_lesson.day];
+  if (_p) {
+    if (_p.recap && !_lesson.recap) (_lesson as any).recap = _p.recap;
+    if (_p.summary && (!_lesson.summary || _lesson.summary.length === 0)) (_lesson as any).summary = _p.summary;
+    if (_p.projectStep && (!_lesson.projectStep || !_lesson.projectStep.steps?.length)) (_lesson as any).projectStep = _p.projectStep;
+  }
+}

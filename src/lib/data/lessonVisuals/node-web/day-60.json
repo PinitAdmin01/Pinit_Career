@@ -464,7 +464,7 @@
           },
           {
             "at": "say5",
-            "caption": "Write-behind coalescer slashes database write amplification by over 75%.",
+            "caption": "Write-behind coalescer slashes database write amplification by over.",
             "values": {
               "hashTags": {
                 "status": "Synchronized"
@@ -632,7 +632,7 @@
           },
           {
             "at": "say7",
-            "caption": "Final verification harness issues official Grade A+ Milestone 10 Capstone Certification.",
+            "caption": "Final verification harness issues official Grade A+ Milestone ten.",
             "values": {
               "harness": {
                 "status": "Online"

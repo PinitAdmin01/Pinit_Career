@@ -10,11 +10,11 @@
       "codeHash": "3a06fcb6f9b49330d8f6d4d676d90e2fe6ab311f61131afb87563193ac0b1e72",
       "spec": {
         "template": "register-bits",
-        "title": "Day 28 Part 1 \u2014 LEO Orbital Mechanics, Kepleri \u2014 Register Architecture",
+        "title": "Day 28 Part 1 — LEO Orbital Mechanics, Kepleri — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register SAT_KEPLER_PASS_REG for LEO Orbital Mechanics, Keplerian.",
+            "caption": "Arm hardware register SAT_KEPLER_PASS_REG for LEO Orbital Mechanics.",
             "registerName": "SAT_KEPLER_PASS_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into SAT_KEPLER_PASS_REG and assert validation flag.",
+            "caption": "Latch sampling bits into SAT_KEPLER_PASS_REG and assert validation flag.",
             "registerName": "SAT_KEPLER_PASS_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in SAT_KEPLER_PASS_REG with pipeline status.",
+            "caption": "Execute hardware transformation in SAT_KEPLER_PASS_REG with pipeline.",
             "registerName": "SAT_KEPLER_PASS_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register SAT_KEPLER_PASS_REG upon verified hardware completion.",
+            "caption": "Lock register SAT_KEPLER_PASS_REG upon verified hardware completion.",
             "registerName": "SAT_KEPLER_PASS_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -262,11 +262,11 @@
       "codeHash": "11efbd79c4b922b0c396db8a4655042115f87016f941894c774435ced7ad7b19",
       "spec": {
         "template": "register-bits",
-        "title": "Day 28 Part 2 \u2014 Doppler Shift Physics & Pre-Co \u2014 Register Architecture",
+        "title": "Day 28 Part 2 — Doppler Shift Physics & Pre-Co — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register SAT_DOPPLER_FREQ_REG for Doppler Shift Physics & Pre-Comp.",
+            "caption": "Arm hardware register SAT_DOPPLER_FREQ_REG for Doppler Shift Physics &.",
             "registerName": "SAT_DOPPLER_FREQ_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -326,7 +326,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into SAT_DOPPLER_FREQ_REG and assert validation flag.",
+            "caption": "Latch sampling bits into SAT_DOPPLER_FREQ_REG and assert validation flag.",
             "registerName": "SAT_DOPPLER_FREQ_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -387,7 +387,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in SAT_DOPPLER_FREQ_REG with pipeline status.",
+            "caption": "Execute hardware transformation in SAT_DOPPLER_FREQ_REG with pipeline.",
             "registerName": "SAT_DOPPLER_FREQ_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -448,7 +448,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register SAT_DOPPLER_FREQ_REG upon verified hardware completion.",
+            "caption": "Lock register SAT_DOPPLER_FREQ_REG upon verified hardware completion.",
             "registerName": "SAT_DOPPLER_FREQ_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -514,11 +514,11 @@
       "codeHash": "b4484b78849fc4c5c200194d34997d5fa87e3b19c0ee37d6065237fddd0297d3",
       "spec": {
         "template": "register-bits",
-        "title": "Day 28 Part 3 \u2014 3GPP Rel-17 NTN Timing Advance \u2014 Register Architecture",
+        "title": "Day 28 Part 3 — 3GPP Rel-17 NTN Timing Advance — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register SAT_NTN_TIMING_REG for 3GPP Rel-17 NTN Timing Advance &.",
+            "caption": "Arm hardware register SAT_NTN_TIMING_REG for threeGPP Rel-multiple NTN.",
             "registerName": "SAT_NTN_TIMING_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -578,7 +578,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into SAT_NTN_TIMING_REG and assert validation flag.",
+            "caption": "Latch sampling bits into SAT_NTN_TIMING_REG and assert validation flag.",
             "registerName": "SAT_NTN_TIMING_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -639,7 +639,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in SAT_NTN_TIMING_REG with pipeline status.",
+            "caption": "Execute hardware transformation in SAT_NTN_TIMING_REG with pipeline status.",
             "registerName": "SAT_NTN_TIMING_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -700,7 +700,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register SAT_NTN_TIMING_REG upon verified hardware completion.",
+            "caption": "Lock register SAT_NTN_TIMING_REG upon verified hardware completion.",
             "registerName": "SAT_NTN_TIMING_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -766,11 +766,11 @@
       "codeHash": "cde969048d3c6430aeaa3f9373908b851fcc992560e236b1290eb6cfe3ca60de",
       "spec": {
         "template": "register-bits",
-        "title": "Day 28 Part 4 \u2014 Direct-to-Cell Burst Schedulin \u2014 Register Architecture",
+        "title": "Day 28 Part 4 — Direct-to-Cell Burst Schedulin — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register SAT_ZENITH_BURST_REG for Direct-to-Cell Burst Scheduling .",
+            "caption": "Arm hardware register SAT_ZENITH_BURST_REG for Direct-to-Cell Burst.",
             "registerName": "SAT_ZENITH_BURST_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -830,7 +830,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into SAT_ZENITH_BURST_REG and assert validation flag.",
+            "caption": "Latch sampling bits into SAT_ZENITH_BURST_REG and assert validation flag.",
             "registerName": "SAT_ZENITH_BURST_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -891,7 +891,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in SAT_ZENITH_BURST_REG with pipeline status.",
+            "caption": "Execute hardware transformation in SAT_ZENITH_BURST_REG with pipeline.",
             "registerName": "SAT_ZENITH_BURST_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -952,7 +952,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register SAT_ZENITH_BURST_REG upon verified hardware completion.",
+            "caption": "Lock register SAT_ZENITH_BURST_REG upon verified hardware completion.",
             "registerName": "SAT_ZENITH_BURST_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1018,11 +1018,11 @@
       "codeHash": "10afe3cb38370bdaeed1d69506d84ee1917b69a7d32f84aa44fdc3dfdeedf19f",
       "spec": {
         "template": "register-bits",
-        "title": "Day 28 Part 5 \u2014 Milestone 6 Prep: Complete LEO \u2014 Register Architecture",
+        "title": "Day 28 Part 5 — Milestone 6 Prep: Complete LEO — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register SAT_GW_MASTER_REG for Milestone 6 Prep: Complete LEO S.",
+            "caption": "Arm hardware register SAT_GW_MASTER_REG for Milestone six Prep: Complete.",
             "registerName": "SAT_GW_MASTER_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1082,7 +1082,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into SAT_GW_MASTER_REG and assert validation flag.",
+            "caption": "Latch sampling bits into SAT_GW_MASTER_REG and assert validation flag.",
             "registerName": "SAT_GW_MASTER_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -1143,7 +1143,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in SAT_GW_MASTER_REG with pipeline status.",
+            "caption": "Execute hardware transformation in SAT_GW_MASTER_REG with pipeline status.",
             "registerName": "SAT_GW_MASTER_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -1204,7 +1204,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register SAT_GW_MASTER_REG upon verified hardware completion.",
+            "caption": "Lock register SAT_GW_MASTER_REG upon verified hardware completion.",
             "registerName": "SAT_GW_MASTER_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

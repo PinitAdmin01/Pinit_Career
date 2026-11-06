@@ -21,7 +21,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize multi-channel concentrator front-end: Enable 8 parallel IF channels and calibrate thermal noise floor.",
+            "caption": "Initialize multi-channel concentrator front-end: Enable eight parallel IF.",
             "registerName": "LORA_CAPSTONE_INGEST_REG",
             "bitWidth": 8,
             "hexValue": "0xC0",
@@ -371,7 +371,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Evaluate Co-Channel Capture Effect: Confirm 9.0 dB power delta exceeds 6.0 dB SIR threshold to demodulate dominant packet.",
+            "caption": "Evaluate Co-Channel Capture Effect: Confirm nine.zero dB power delta.",
             "registerName": "LORA_CAPSTONE_COLLISION_REG",
             "bitWidth": 8,
             "hexValue": "0xD4",
@@ -439,7 +439,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Evaluate Cross-SF Quasi-Orthogonality: Verify 16 dB inter-SF isolation allows concurrent demodulation of SF7 and SF10.",
+            "caption": "Evaluate Cross-SF Quasi-Orthogonality: Verify sixteen dB inter-SF.",
             "registerName": "LORA_CAPSTONE_COLLISION_REG",
             "bitWidth": 8,
             "hexValue": "0xDC",
@@ -721,7 +721,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Arm 32-bit Frame Counter sequencer with AES-CTR stream encryption and AES-CMAC integrity signing.",
+            "caption": "Arm thirty-two-bit Frame Counter sequencer with AES-CTR stream encryption.",
             "registerName": "LORA_CAPSTONE_SESSION_REG",
             "bitWidth": 8,
             "hexValue": "0xFC",
@@ -867,7 +867,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Accumulate 20-frame observation history: Extract maximum reported demodulation SNR across multi-gateway paths.",
+            "caption": "Accumulate twenty-frame observation history: Extract maximum reported.",
             "registerName": "LORA_CAPSTONE_ADR_REG",
             "bitWidth": 8,
             "hexValue": "0xC0",
@@ -935,7 +935,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Calculate +17.5 dB SNR margin: Execute Stage 1 to elevate data rate from DR0 (SF12) to DR5 (SF7).",
+            "caption": "Calculate +multiple.five dB SNR margin: Execute Stage one to elevate data.",
             "registerName": "LORA_CAPSTONE_ADR_REG",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -1003,7 +1003,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Execute Stage 2: Throttle transmit power amplifier to +11 dBm and arbitrate gateway duty-cycle headroom.",
+            "caption": "Execute Stage two: Throttle transmit power amplifier to +eleven dBm and.",
             "registerName": "LORA_CAPSTONE_ADR_REG",
             "bitWidth": 8,
             "hexValue": "0xFC",
@@ -1071,7 +1071,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Dispatch LinkADRReq downlink through GW_ALPHA, compressing packet airtime by 95.3% while preserving ETSI compliance.",
+            "caption": "Dispatch LinkADRReq downlink through GW_ALPHA, compressing packet airtime.",
             "registerName": "LORA_CAPSTONE_ADR_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1217,7 +1217,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Execute 25-cycle metropolitan fleet simulation: Ingest 75 datagrams and deduplicate to 25 unique frames.",
+            "caption": "Execute multiple-cycle metropolitan fleet simulation: Ingest multiple.",
             "registerName": "LORA_CAPSTONE_MASTER_REG",
             "bitWidth": 8,
             "hexValue": "0xF0",
@@ -1285,7 +1285,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Trigger closed-loop ADR convergence: Collapse airtime from 1,318.91 ms to 61.70 ms across all active nodes.",
+            "caption": "Trigger closed-loop ADR convergence: Collapse airtime from.",
             "registerName": "LORA_CAPSTONE_MASTER_REG",
             "bitWidth": 8,
             "hexValue": "0xFC",
@@ -1353,7 +1353,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Emit enterprise milestone token LORAWAN_NETWORK_SERVER_ENGINE_GRADE_A_PLUS_CERTIFIED and finalize Block 9.",
+            "caption": "Emit enterprise milestone token.",
             "registerName": "LORA_CAPSTONE_MASTER_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream payload and initialize Containerization Fundamentals & Doc....",
+            "caption": "Ingress stream payload and initialize Containerization Fundamentals &.",
             "values": {
               "in": "Stream Ingress",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute protocol handling, encoding, and routing in Containerization Fundamentals & Doc....",
+            "caption": "Execute protocol handling, encoding, and routing in Containerization.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -71,7 +71,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world distributed microservices interaction in Containerization Fundamentals & Doc....",
+            "caption": "Real-world distributed microservices interaction in Containerization.",
             "values": {
               "in": "Active Flow",
               "proc": "Executing",
@@ -91,7 +91,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify backpressure, container bounds, and telemetry health in Containerization Fundamentals & Doc....",
+            "caption": "Verify backpressure, container bounds, and telemetry health in.",
             "values": {
               "in": "Terminal State",
               "proc": "Quiesced",
@@ -138,7 +138,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream payload and initialize Multi-Stage Production Builds & Nex....",
+            "caption": "Ingress stream payload and initialize Multi-Stage Production Builds &.",
             "values": {
               "in": "Stream Ingress",
               "proc": "Standby",
@@ -158,7 +158,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute protocol handling, encoding, and routing in Multi-Stage Production Builds & Nex....",
+            "caption": "Execute protocol handling, encoding, and routing in Multi-Stage.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -178,7 +178,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world distributed microservices interaction in Multi-Stage Production Builds & Nex....",
+            "caption": "Real-world distributed microservices interaction in Multi-Stage.",
             "values": {
               "in": "Active Flow",
               "proc": "Executing",
@@ -198,7 +198,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify backpressure, container bounds, and telemetry health in Multi-Stage Production Builds & Nex....",
+            "caption": "Verify backpressure, container bounds, and telemetry health in.",
             "values": {
               "in": "Terminal State",
               "proc": "Quiesced",
@@ -245,7 +245,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream payload and initialize Container Hardening: Non-Root Users....",
+            "caption": "Ingress stream payload and initialize Container Hardening: Non-Root.",
             "values": {
               "in": "Stream Ingress",
               "proc": "Standby",
@@ -265,7 +265,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute protocol handling, encoding, and routing in Container Hardening: Non-Root Users....",
+            "caption": "Execute protocol handling, encoding, and routing in Container Hardening.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -285,7 +285,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world distributed microservices interaction in Container Hardening: Non-Root Users....",
+            "caption": "Real-world distributed microservices interaction in Container Hardening.",
             "values": {
               "in": "Active Flow",
               "proc": "Executing",
@@ -305,7 +305,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify backpressure, container bounds, and telemetry health in Container Hardening: Non-Root Users....",
+            "caption": "Verify backpressure, container bounds, and telemetry health in Container.",
             "values": {
               "in": "Terminal State",
               "proc": "Quiesced",
@@ -352,7 +352,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream payload and initialize Container Lifecycle: Liveness, Read....",
+            "caption": "Ingress stream payload and initialize Container Lifecycle: Liveness.",
             "values": {
               "in": "Stream Ingress",
               "proc": "Standby",
@@ -372,7 +372,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute protocol handling, encoding, and routing in Container Lifecycle: Liveness, Read....",
+            "caption": "Execute protocol handling, encoding, and routing in Container Lifecycle.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -392,7 +392,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world distributed microservices interaction in Container Lifecycle: Liveness, Read....",
+            "caption": "Real-world distributed microservices interaction in Container Lifecycle.",
             "values": {
               "in": "Active Flow",
               "proc": "Executing",
@@ -412,7 +412,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify backpressure, container bounds, and telemetry health in Container Lifecycle: Liveness, Read....",
+            "caption": "Verify backpressure, container bounds, and telemetry health in Container.",
             "values": {
               "in": "Terminal State",
               "proc": "Quiesced",
@@ -459,7 +459,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream payload and initialize Docker Compose Orchestration, Volum....",
+            "caption": "Ingress stream payload and initialize Docker Compose Orchestration.",
             "values": {
               "in": "Stream Ingress",
               "proc": "Standby",
@@ -479,7 +479,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute protocol handling, encoding, and routing in Docker Compose Orchestration, Volum....",
+            "caption": "Execute protocol handling, encoding, and routing in Docker Compose.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -499,7 +499,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world distributed microservices interaction in Docker Compose Orchestration, Volum....",
+            "caption": "Real-world distributed microservices interaction in Docker Compose.",
             "values": {
               "in": "Active Flow",
               "proc": "Executing",
@@ -519,7 +519,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify backpressure, container bounds, and telemetry health in Docker Compose Orchestration, Volum....",
+            "caption": "Verify backpressure, container bounds, and telemetry health in Docker.",
             "values": {
               "in": "Terminal State",
               "proc": "Quiesced",

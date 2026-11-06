@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress operation vector and initialize The End-to-End Type Safety Paradigm....",
+            "caption": "Ingress operation vector and initialize The End-to-End Type Safety.",
             "values": {
               "in": "Day 17 Input",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute Zod validation, middleware context narrowing, and router routing in The End-to-End Type Safety Paradigm....",
+            "caption": "Execute Zod validation, middleware context narrowing, and router routing.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -75,7 +75,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate procedure resolver, batch link coalescing, and SuperJSON invariant.",
+            "caption": "Evaluate procedure resolver, batch link coalescing, and SuperJSON.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end type safety confirmed for The End-to-End Type Safety Paradigm....",
+            "caption": "End-to-end type safety confirmed for The End-to-End Type Safety.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -257,7 +257,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress operation vector and initialize tRPC Routers, Procedures & The Buil....",
+            "caption": "Ingress operation vector and initialize tRPC Routers, Procedures & The.",
             "values": {
               "in": "Day 17 Input",
               "proc": "Standby",
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute Zod validation, middleware context narrowing, and router routing in tRPC Routers, Procedures & The Buil....",
+            "caption": "Execute Zod validation, middleware context narrowing, and router routing.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -301,7 +301,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate procedure resolver, batch link coalescing, and SuperJSON invariant.",
+            "caption": "Evaluate procedure resolver, batch link coalescing, and SuperJSON.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -321,7 +321,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end type safety confirmed for tRPC Routers, Procedures & The Buil....",
+            "caption": "End-to-end type safety confirmed for tRPC Routers, Procedures & The.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -483,7 +483,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress operation vector and initialize Runtime Input & Output Validation w....",
+            "caption": "Ingress operation vector and initialize Runtime Input & Output Validation.",
             "values": {
               "in": "Day 17 Input",
               "proc": "Standby",
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute Zod validation, middleware context narrowing, and router routing in Runtime Input & Output Validation w....",
+            "caption": "Execute Zod validation, middleware context narrowing, and router routing.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -527,7 +527,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate procedure resolver, batch link coalescing, and SuperJSON invariant.",
+            "caption": "Evaluate procedure resolver, batch link coalescing, and SuperJSON.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -547,7 +547,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end type safety confirmed for Runtime Input & Output Validation w....",
+            "caption": "End-to-end type safety confirmed for Runtime Input & Output Validation.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -709,7 +709,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress operation vector and initialize Context Middleware, Error Formattin....",
+            "caption": "Ingress operation vector and initialize Context Middleware, Error.",
             "values": {
               "in": "Day 17 Input",
               "proc": "Standby",
@@ -729,7 +729,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute Zod validation, middleware context narrowing, and router routing in Context Middleware, Error Formattin....",
+            "caption": "Execute Zod validation, middleware context narrowing, and router routing.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -753,7 +753,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate procedure resolver, batch link coalescing, and SuperJSON invariant.",
+            "caption": "Evaluate procedure resolver, batch link coalescing, and SuperJSON.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -773,7 +773,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end type safety confirmed for Context Middleware, Error Formattin....",
+            "caption": "End-to-end type safety confirmed for Context Middleware, Error.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -935,7 +935,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress operation vector and initialize Enterprise Multi-Tenant tRPC Router....",
+            "caption": "Ingress operation vector and initialize Enterprise Multi-Tenant tRPC.",
             "values": {
               "in": "Day 17 Input",
               "proc": "Standby",
@@ -955,7 +955,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute Zod validation, middleware context narrowing, and router routing in Enterprise Multi-Tenant tRPC Router....",
+            "caption": "Execute Zod validation, middleware context narrowing, and router routing.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -979,7 +979,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate procedure resolver, batch link coalescing, and SuperJSON invariant.",
+            "caption": "Evaluate procedure resolver, batch link coalescing, and SuperJSON.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -999,7 +999,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end type safety confirmed for Enterprise Multi-Tenant tRPC Router....",
+            "caption": "End-to-end type safety confirmed for Enterprise Multi-Tenant tRPC.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

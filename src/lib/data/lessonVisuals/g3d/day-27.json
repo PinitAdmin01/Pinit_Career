@@ -32,25 +32,25 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (The WebXR Device Archite Setup): Initialize pipeline state for The WebXR Device Architecture: Sessions, Reference Spaces & 6-DoF Pose Tracking.",
+            "caption": "State one (The WebXR Device Archite Setup): Initialize pipeline state for.",
             "currentState": "st1",
             "tone": "data"
           },
           {
             "at": "say1",
-            "caption": "State 2 (Pipeline Evaluation): Evaluate shader registers and buffer allocations.",
+            "caption": "State two (Pipeline Evaluation): Evaluate shader registers and buffer.",
             "currentState": "st2",
             "tone": "accent"
           },
           {
             "at": "example",
-            "caption": "State 3 (Transform Execution): Execute real-time transformation and simulation step.",
+            "caption": "State three (Transform Execution): Execute real-time transformation and.",
             "currentState": "st3",
             "tone": "warn"
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Verified Output): Verification passed and deterministic output validated.",
+            "caption": "State four (Verified Output): Verification passed and deterministic.",
             "currentState": "st4",
             "tone": "ok"
           }
@@ -84,25 +84,25 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Stereoscopic Rendering & Setup): Initialize pipeline state for Stereoscopic Rendering & Asymmetric Eye Projection Matrices (IPD & FOV).",
+            "caption": "State one (Stereoscopic Rendering & Setup): Initialize pipeline state for.",
             "currentState": "st1",
             "tone": "data"
           },
           {
             "at": "say1",
-            "caption": "State 2 (Pipeline Evaluation): Evaluate shader registers and buffer allocations.",
+            "caption": "State two (Pipeline Evaluation): Evaluate shader registers and buffer.",
             "currentState": "st2",
             "tone": "accent"
           },
           {
             "at": "example",
-            "caption": "State 3 (Transform Execution): Execute real-time transformation and simulation step.",
+            "caption": "State three (Transform Execution): Execute real-time transformation and.",
             "currentState": "st3",
             "tone": "warn"
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Verified Output): Verification passed and deterministic output validated.",
+            "caption": "State four (Verified Output): Verification passed and deterministic.",
             "currentState": "st4",
             "tone": "ok"
           }
@@ -136,25 +136,25 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Controller Tracking, Han Setup): Initialize pipeline state for Controller Tracking, Hand Tracking (25 Joints) & Haptic Feedback.",
+            "caption": "State one (Controller Tracking, Han Setup): Initialize pipeline state for.",
             "currentState": "st1",
             "tone": "data"
           },
           {
             "at": "say1",
-            "caption": "State 2 (Pipeline Evaluation): Evaluate shader registers and buffer allocations.",
+            "caption": "State two (Pipeline Evaluation): Evaluate shader registers and buffer.",
             "currentState": "st2",
             "tone": "accent"
           },
           {
             "at": "example",
-            "caption": "State 3 (Transform Execution): Execute real-time transformation and simulation step.",
+            "caption": "State three (Transform Execution): Execute real-time transformation and.",
             "currentState": "st3",
             "tone": "warn"
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Verified Output): Verification passed and deterministic output validated.",
+            "caption": "State four (Verified Output): Verification passed and deterministic.",
             "currentState": "st4",
             "tone": "ok"
           }
@@ -188,25 +188,25 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Augmented Reality: Plane Setup): Initialize pipeline state for Augmented Reality: Plane Detection, Hit-Testing & Spatial Anchors.",
+            "caption": "State one (Augmented Reality: Plane Setup): Initialize pipeline state for.",
             "currentState": "st1",
             "tone": "data"
           },
           {
             "at": "say1",
-            "caption": "State 2 (Pipeline Evaluation): Evaluate shader registers and buffer allocations.",
+            "caption": "State two (Pipeline Evaluation): Evaluate shader registers and buffer.",
             "currentState": "st2",
             "tone": "accent"
           },
           {
             "at": "example",
-            "caption": "State 3 (Transform Execution): Execute real-time transformation and simulation step.",
+            "caption": "State three (Transform Execution): Execute real-time transformation and.",
             "currentState": "st3",
             "tone": "warn"
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Verified Output): Verification passed and deterministic output validated.",
+            "caption": "State four (Verified Output): Verification passed and deterministic.",
             "currentState": "st4",
             "tone": "ok"
           }
@@ -240,25 +240,25 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Integrated WebXR Metaver Setup): Initialize pipeline state for Integrated WebXR Metaverse Reality Engine.",
+            "caption": "State one (Integrated WebXR Metaver Setup): Initialize pipeline state for.",
             "currentState": "st1",
             "tone": "data"
           },
           {
             "at": "say1",
-            "caption": "State 2 (Pipeline Evaluation): Evaluate shader registers and buffer allocations.",
+            "caption": "State two (Pipeline Evaluation): Evaluate shader registers and buffer.",
             "currentState": "st2",
             "tone": "accent"
           },
           {
             "at": "example",
-            "caption": "State 3 (Transform Execution): Execute real-time transformation and simulation step.",
+            "caption": "State three (Transform Execution): Execute real-time transformation and.",
             "currentState": "st3",
             "tone": "warn"
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Verified Output): Verification passed and deterministic output validated.",
+            "caption": "State four (Verified Output): Verification passed and deterministic.",
             "currentState": "st4",
             "tone": "ok"
           }

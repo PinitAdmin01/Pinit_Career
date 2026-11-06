@@ -114,7 +114,7 @@
         "steps": [
           {
             "at": "say5",
-            "caption": "The latest window containing event 2500 starts at 2000 (2500 minus 2500 % 1000).",
+            "caption": "The latest window containing event multiple starts at multiple (multiple.",
             "items": [
               {
                 "text": "[1000, 3000)"
@@ -138,7 +138,7 @@
           },
           {
             "at": "say7",
-            "caption": "Each valid window is defined by half-open boundaries containing 2500.",
+            "caption": "Each valid window is defined by half-open boundaries containing multiple.",
             "items": [
               {
                 "text": "[1000, 3000) <- 2500"
@@ -366,7 +366,7 @@
         "steps": [
           {
             "at": "say3",
-            "caption": "Rolling maximums identify severe transient spikes such as value 80 at 120ms.",
+            "caption": "Rolling maximums identify severe transient spikes such as value multiple.",
             "rows": [
               {
                 "cells": [
@@ -390,7 +390,7 @@
           },
           {
             "at": "say5",
-            "caption": "When value 80 leaves expired windows, the second-highest value becomes max.",
+            "caption": "When value multiple leaves expired windows, the second-highest value.",
             "rows": [
               {
                 "cells": [
@@ -516,7 +516,7 @@
         "steps": [
           {
             "at": "say4",
-            "caption": "Any window whose end boundary is less than or equal to watermark 100 expires.",
+            "caption": "Any window whose end boundary is less than or equal to watermark one.",
             "activeState": "expiredCheck",
             "transition": {
               "from": "threeActive",
@@ -526,7 +526,7 @@
           },
           {
             "at": "say5",
-            "caption": "When [0, 100) expires, its Sum=30 payload is emitted and its key is purged.",
+            "caption": "When [zero, one hundred) expires, its Sum=multiple payload is emitted and.",
             "activeState": "twoRetained",
             "transition": {
               "from": "expiredCheck",
@@ -603,7 +603,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for High-Frequency Rolling Anomaly Metric En.. [D18.P6.S1].",
+            "caption": "Initialize input state for High-Frequency Rolling Anomaly Metric En.",
             "values": {
               "in": "Day 18 Input",
               "proc": "Standby",
@@ -623,7 +623,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in High-Frequency Roll... [D18.P6.S2].",
+            "caption": "Execute core transformation in High-Frequency Roll... [D.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -647,7 +647,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D18.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -667,7 +667,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for High-Frequency Rolling Anomaly Me.. [D18.P6.S4].",
+            "caption": "End-to-end execution verified for High-Frequency Rolling Anomaly Me.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

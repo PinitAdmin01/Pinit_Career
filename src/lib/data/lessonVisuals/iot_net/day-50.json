@@ -21,7 +21,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize IEEE 802.15.4 physical channel 25 and lock PAN ID 0xFACE.",
+            "caption": "Initialize IEEE multiple.multiple.four physical channel multiple and lock.",
             "registerName": "CAPSTONE_TOPOLOGY_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -89,7 +89,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Assert Border Router Leader at RLOC 0x0000 and allocate Router ID 1 (0x0400).",
+            "caption": "Assert Border Router Leader at RLOC zerox and allocate Router ID one.",
             "registerName": "CAPSTONE_TOPOLOGY_REG",
             "bitWidth": 8,
             "hexValue": "0x87",
@@ -157,7 +157,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Attach Sleepy End Device child at RLOC 0x0401 and populate parent child table.",
+            "caption": "Attach Sleepy End Device child at RLOC zerox and populate parent child.",
             "registerName": "CAPSTONE_TOPOLOGY_REG",
             "bitWidth": 8,
             "hexValue": "0xBF",
@@ -225,7 +225,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Complete multi-hop mesh convergence: Synchronize Route64 distance-vector matrix.",
+            "caption": "Complete multi-hop mesh convergence: Synchronize Routesixty-four.",
             "registerName": "CAPSTONE_TOPOLOGY_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -303,7 +303,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Apply RFC 6282 LOWPAN_IPHC compression: Elide common mesh IPv6 prefixes.",
+            "caption": "Apply RFC multiple LOWPAN_IPHC compression: Elide common mesh IPvsix.",
             "registerName": "CAPSTONE_PIPELINE_REG",
             "bitWidth": 8,
             "hexValue": "0x83",
@@ -371,7 +371,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Execute LOWPAN_NHC: Compress 8-byte UDP header to 4 bytes, saving 41 bytes total.",
+            "caption": "Execute LOWPAN_NHC: Compress eight-byte UDP header to four bytes, saving.",
             "registerName": "CAPSTONE_PIPELINE_REG",
             "bitWidth": 8,
             "hexValue": "0x8F",
@@ -439,7 +439,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Decompose 250-byte Matter payload into 8-byte aligned FRAG1 and FRAGN fragments.",
+            "caption": "Decompose multiple-byte Matter payload into eight-byte aligned FRAGone.",
             "registerName": "CAPSTONE_PIPELINE_REG",
             "bitWidth": 8,
             "hexValue": "0xBF",
@@ -585,7 +585,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Bring up dual-homed interfaces: Bind Linux eth0 and IEEE 802.15.4 wpan0.",
+            "caption": "Bring up dual-homed interfaces: Bind Linux ethzero and IEEE.",
             "registerName": "CAPSTONE_GATEWAY_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -653,7 +653,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Route inbound enterprise Matter UDP 5540 packet directly to edge RLOC 0x0401.",
+            "caption": "Route inbound enterprise Matter UDP multiple packet directly to edge RLOC.",
             "registerName": "CAPSTONE_GATEWAY_REG",
             "bitWidth": 8,
             "hexValue": "0x8F",
@@ -721,7 +721,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Intercept outbound telemetry to 64:ff9b::/96 and map to stateful NAT64 port.",
+            "caption": "Intercept outbound telemetry to sixty-four:ffnineb::/multiple and map to.",
             "registerName": "CAPSTONE_GATEWAY_REG",
             "bitWidth": 8,
             "hexValue": "0xBF",
@@ -789,7 +789,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Recalculate transport checksums via RFC 1624 and forward to WAN IPv4 gateway.",
+            "caption": "Recalculate transport checksums via RFC multiple and forward to WAN.",
             "registerName": "CAPSTONE_GATEWAY_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1003,7 +1003,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Trigger topological inconsistency: Reset Trickle timer interval to I_min (10 ms).",
+            "caption": "Trigger topological inconsistency: Reset Trickle timer interval to I_min.",
             "registerName": "CAPSTONE_RECOVERY_REG",
             "bitWidth": 8,
             "hexValue": "0xBF",
@@ -1071,7 +1071,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Execute atomic parent failover to ROUTER_02: Update next-hop pointer with zero data loss.",
+            "caption": "Execute atomic parent failover to ROUTER_: Update next-hop pointer with.",
             "registerName": "CAPSTONE_RECOVERY_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1149,7 +1149,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize CapstoneMeshMasterEngine: Orchestrate multi-hop mesh on Channel 25.",
+            "caption": "Initialize CapstoneMeshMasterEngine: Orchestrate multi-hop mesh on.",
             "registerName": "CAPSTONE_MASTER_CERT_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -1217,7 +1217,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Execute comprehensive test cycle: Route 12 Matter packets and compress headers.",
+            "caption": "Execute comprehensive test cycle: Route twelve Matter packets and.",
             "registerName": "CAPSTONE_MASTER_CERT_REG",
             "bitWidth": 8,
             "hexValue": "0x8F",
@@ -1285,7 +1285,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Survive simulated link failure with zero dropped frames and verify NAT64 sessions.",
+            "caption": "Survive simulated link failure with zero dropped frames and verify.",
             "registerName": "CAPSTONE_MASTER_CERT_REG",
             "bitWidth": 8,
             "hexValue": "0xBF",

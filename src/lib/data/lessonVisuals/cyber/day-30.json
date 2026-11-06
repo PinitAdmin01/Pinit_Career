@@ -38,7 +38,7 @@
           },
           {
             "at": "say6",
-            "caption": "Argon2id derivation and token signature verification prevent identity bypass.",
+            "caption": "Argontwoid derivation and token signature verification prevent identity.",
             "highlightSide": "right",
             "statusBadge": "completed"
           }
@@ -317,7 +317,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Capstone Phase 4: Sovereign Security Ope.. [D30.P4.S1].",
+            "caption": "Initialize input state for Capstone Phase four: Sovereign Security Ope.",
             "values": {
               "in": "Day 30 Input",
               "proc": "Standby",
@@ -337,7 +337,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Capstone Phase 4: S... [D30.P4.S2].",
+            "caption": "Execute core transformation in Capstone Phase four: S... [D.Pfour.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -361,7 +361,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D30.P4.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Pfour.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -381,7 +381,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Capstone Phase 4: Sovereign Secur.. [D30.P4.S4].",
+            "caption": "End-to-end execution verified for Capstone Phase four: Sovereign Secur.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

@@ -130,7 +130,7 @@
         "steps": [
           {
             "at": "say4",
-            "caption": "The map operator projects fields, normalizes strings, and divides cents by 100.",
+            "caption": "The map operator projects fields, normalizes strings, and divides cents.",
             "rows": [
               {
                 "cells": [
@@ -260,7 +260,7 @@
           },
           {
             "at": "say6",
-            "caption": "Filtering early reduces downstream record volume from 4 logs to 2 payment logs.",
+            "caption": "Filtering early reduces downstream record volume from four logs to two.",
             "items": [
               {
                 "text": "2:ERROR(payment)"
@@ -338,7 +338,7 @@
         "steps": [
           {
             "at": "say4",
-            "caption": "flatMap maps ord-101 into 2 individual item records and flattens the array.",
+            "caption": "FlatMap maps ord-multiple into two individual item records and flattens.",
             "rows": [
               {
                 "cells": [
@@ -494,7 +494,7 @@
           },
           {
             "at": "say6",
-            "caption": "Branching partitions 4 readings into 2 critical, 1 warning, and 1 normal.",
+            "caption": "Branching partitions four readings into two critical, one warning, and.",
             "bars": [
               {
                 "label": "Critical Alerts (>=90)",
@@ -591,7 +591,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Composed Functional Pipeline & End-to-En.. [D16.P6.S1].",
+            "caption": "Initialize input state for Composed Functional Pipeline & End-to-En.",
             "values": {
               "in": "Day 16 Input",
               "proc": "Standby",
@@ -611,7 +611,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Composed Functional... [D16.P6.S2].",
+            "caption": "Execute core transformation in Composed Functional... [Dsixteen.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -635,7 +635,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D16.P6.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -655,7 +655,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Composed Functional Pipeline & En.. [D16.P6.S4].",
+            "caption": "End-to-end execution verified for Composed Functional Pipeline & En.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

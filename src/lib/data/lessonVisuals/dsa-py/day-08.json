@@ -411,7 +411,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Removing duplicates with same-direction .. [D8.P4.S1].",
+            "caption": "Initialize input state for Removing duplicates with same-direction .",
             "values": {
               "in": "Day 8 Input",
               "proc": "Standby",
@@ -431,7 +431,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Removing duplicates... [D8.P4.S2].",
+            "caption": "Execute core transformation in Removing duplicates... [Deight.Pfour.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -455,7 +455,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D8.P4.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -475,7 +475,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Removing duplicates with same-dir.. [D8.P4.S4].",
+            "caption": "End-to-end execution verified for Removing duplicates with same-dir.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -637,7 +637,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Three sum: two pointers inside a loop [D8.P5.S1].",
+            "caption": "Initialize input state for Three sum: two pointers inside a loop.",
             "values": {
               "in": "Day 8 Input",
               "proc": "Standby",
@@ -657,7 +657,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Three sum: two poin... [D8.P5.S2].",
+            "caption": "Execute core transformation in Three sum: two poin... [Deight.Pfive.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -681,7 +681,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D8.P5.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -701,7 +701,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Three sum: two pointers inside a .. [D8.P5.S4].",
+            "caption": "End-to-end execution verified for Three sum: two pointers inside a .",
             "values": {
               "in": "Committed",
               "proc": "Verified",

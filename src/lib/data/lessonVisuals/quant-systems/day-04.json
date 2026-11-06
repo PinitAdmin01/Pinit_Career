@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Market Feed): Initialize state for User-Space Kernel Bypass Networ...",
+            "caption": "State one (Market Feed): Initialize state for User-Space Kernel Bypass.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -162,7 +162,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Market Feed): Initialize state for IEEE 1588v2 Precision Time Prot...",
+            "caption": "State one (Market Feed): Initialize state for IEEE vtwo Precision Time.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -292,7 +292,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Market Feed): Initialize state for Hardware Acceleration: FPGA Pre...",
+            "caption": "State one (Market Feed): Initialize state for Hardware Acceleration: FPGA.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -422,7 +422,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Market Feed): Initialize state for Lock-Free SPSC Ring Buffers, Fa...",
+            "caption": "State one (Market Feed): Initialize state for Lock-Free SPSC Ring.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -552,7 +552,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Market Feed): Initialize state for End-to-End Tick-to-Trade Profil...",
+            "caption": "State one (Market Feed): Initialize state for End-to-End Tick-to-Trade.",
             "currentState": "st1",
             "tone": "data"
           },

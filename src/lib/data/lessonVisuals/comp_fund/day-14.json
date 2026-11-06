@@ -96,7 +96,7 @@
             "focus": [
               1
             ],
-            "caption": "say1 (Binary, Hexadecimal, Bitwise Repres)"
+            "caption": "Sayone (Binary, Hexadecimal, Bitwise Repres)."
           },
           {
             "label": "example",
@@ -256,7 +256,7 @@
             "focus": [
               0
             ],
-            "caption": "intro (Character Encoding Evolution: 7-Bit)"
+            "caption": "Intro (Character Encoding Evolution: seven-Bit)."
           },
           {
             "label": "say1",
@@ -264,7 +264,7 @@
             "focus": [
               1
             ],
-            "caption": "say1 (Character Encoding Evolution: 7-Bit)"
+            "caption": "Sayone (Character Encoding Evolution: seven-Bit)."
           },
           {
             "label": "example",
@@ -272,7 +272,7 @@
             "focus": [
               1
             ],
-            "caption": "example (Character Encoding Evolution: 7-Bit)"
+            "caption": "Example (Character Encoding Evolution: seven-Bit)."
           },
           {
             "label": "tryIt",
@@ -280,7 +280,7 @@
             "focus": [
               2
             ],
-            "caption": "tryIt (Character Encoding Evolution: 7-Bit)"
+            "caption": "TryIt (Character Encoding Evolution: seven-Bit)."
           }
         ]
       },
@@ -424,7 +424,7 @@
             "focus": [
               0
             ],
-            "caption": "intro (The Unicode Consortium & UTF-8 Vari)"
+            "caption": "Intro (The Unicode Consortium & UTF encoding Vari)."
           },
           {
             "label": "say1",
@@ -432,7 +432,7 @@
             "focus": [
               1
             ],
-            "caption": "say1 (The Unicode Consortium & UTF-8 Vari)"
+            "caption": "Sayone (The Unicode Consortium & UTF encoding Vari)."
           },
           {
             "label": "example",
@@ -440,7 +440,7 @@
             "focus": [
               1
             ],
-            "caption": "example (The Unicode Consortium & UTF-8 Vari)"
+            "caption": "Example (The Unicode Consortium & UTF encoding Vari)."
           },
           {
             "label": "tryIt",
@@ -448,7 +448,7 @@
             "focus": [
               2
             ],
-            "caption": "tryIt (The Unicode Consortium & UTF-8 Vari)"
+            "caption": "TryIt (The Unicode Consortium & UTF encoding Vari)."
           }
         ]
       },
@@ -600,7 +600,7 @@
             "focus": [
               1
             ],
-            "caption": "say1 (Structured Data Interchange: JSON v)"
+            "caption": "Sayone (Structured Data Interchange: JSON v)."
           },
           {
             "label": "example",
@@ -760,7 +760,7 @@
             "focus": [
               0
             ],
-            "caption": "intro (Sovereign Data Encoding, Base64 Tra)"
+            "caption": "Intro (Sovereign Data Encoding, base-encoded Tra)."
           },
           {
             "label": "say1",
@@ -768,7 +768,7 @@
             "focus": [
               1
             ],
-            "caption": "say1 (Sovereign Data Encoding, Base64 Tra)"
+            "caption": "Sayone (Sovereign Data Encoding, base-encoded Tra)."
           },
           {
             "label": "example",
@@ -776,7 +776,7 @@
             "focus": [
               1
             ],
-            "caption": "example (Sovereign Data Encoding, Base64 Tra)"
+            "caption": "Example (Sovereign Data Encoding, base-encoded Tra)."
           },
           {
             "label": "tryIt",
@@ -784,7 +784,7 @@
             "focus": [
               2
             ],
-            "caption": "tryIt (Sovereign Data Encoding, Base64 Tra)"
+            "caption": "TryIt (Sovereign Data Encoding, base-encoded Tra)."
           }
         ]
       },

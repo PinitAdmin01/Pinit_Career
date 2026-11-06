@@ -10,7 +10,7 @@
       "codeHash": "346a52e018c82a051afcec988be879864103902316929d77d237544cb3df108f",
       "spec": {
         "template": "tree-graph",
-        "title": "Enterprise Copilot Architecture: Semanti... \u2014 Enterprise AI Decision Graph",
+        "title": "Enterprise Copilot Architecture: Semanti... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -54,7 +54,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for Enterprise Copilot Architecture: Semanti....",
+            "caption": "Ingest enterprise Context Query for Enterprise Copilot Architecture.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -68,7 +68,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -87,7 +87,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & hallucination bounds in Policy Guardrail.",
+            "caption": "Validate compliance & hallucination bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -107,7 +107,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -134,7 +134,7 @@
       "codeHash": "866e69d2e66b706f19a03b7c2450080f3c79c6a082b17e2b274015b6586b82ad",
       "spec": {
         "template": "tree-graph",
-        "title": "Knowledge Graph (KG) Construction: Entit... \u2014 Enterprise AI Decision Graph",
+        "title": "Knowledge Graph (KG) Construction: Entit... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -178,7 +178,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for Knowledge Graph (KG) Construction: Entit....",
+            "caption": "Ingest enterprise Context Query for Knowledge Graph (KG) Construction.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -192,7 +192,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -211,7 +211,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & hallucination bounds in Policy Guardrail.",
+            "caption": "Validate compliance & hallucination bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -231,7 +231,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -258,7 +258,7 @@
       "codeHash": "475f624ef7d0176dbcb622fd67918f7c5005cccd90201a4c3f5071b75f5d1d6c",
       "spec": {
         "template": "tree-graph",
-        "title": "Hybrid Search Retrieval: Dense Vector + ... \u2014 Enterprise AI Decision Graph",
+        "title": "Hybrid Search Retrieval: Dense Vector + ... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -302,7 +302,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for Hybrid Search Retrieval: Dense Vector + ....",
+            "caption": "Ingest enterprise Context Query for Hybrid Search Retrieval: Dense Vector.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -316,7 +316,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -335,7 +335,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & hallucination bounds in Policy Guardrail.",
+            "caption": "Validate compliance & hallucination bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -355,7 +355,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -382,7 +382,7 @@
       "codeHash": "ff5bfc77a31e9c57d4647b3fea72b562e26d43fa422605ba06e200ce537d90c2",
       "spec": {
         "template": "tree-graph",
-        "title": "Latency SLAs, Token Budgeting & Sub-1,50... \u2014 Enterprise AI Decision Graph",
+        "title": "Latency SLAs, Token Budgeting & Sub-1,50... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -426,7 +426,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for Latency SLAs, Token Budgeting & Sub-1,50....",
+            "caption": "Ingest enterprise Context Query for Latency SLAs, Token Budgeting &.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -440,7 +440,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -459,7 +459,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & hallucination bounds in Policy Guardrail.",
+            "caption": "Validate compliance & hallucination bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -479,7 +479,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -502,11 +502,11 @@
       }
     },
     {
-      "partTitle": "\ud83c\udfc6 Milestone 2 Grand Capstone Defense: Enterprise Cognitive Operating System",
+      "partTitle": "🏆 Milestone 2 Grand Capstone Defense: Enterprise Cognitive Operating System",
       "codeHash": "273bb54762862f030fb32cb7037645e518a52efd0929f03bd66b2cbd6f19044a",
       "spec": {
         "template": "tree-graph",
-        "title": "\ud83c\udfc6 Milestone 2 Grand Capstone Defense: En... \u2014 Enterprise AI Decision Graph",
+        "title": "🏆 Milestone 2 Grand Capstone Defense: En... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -550,7 +550,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for \ud83c\udfc6 Milestone 2 Grand Capstone Defense: En....",
+            "caption": "Ingest enterprise Context Query for 🏆 Milestone two Grand Capstone.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -564,7 +564,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -583,7 +583,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & hallucination bounds in Policy Guardrail.",
+            "caption": "Validate compliance & hallucination bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -603,7 +603,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",

@@ -21,7 +21,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Configure connectionless datagram transport: Enable 2-byte compact header framing.",
+            "caption": "Configure connectionless datagram transport: Enable two-byte compact.",
             "registerName": "MQTTSN_HEADER_TRANS_REG",
             "bitWidth": 8,
             "hexValue": "0x83",
@@ -89,7 +89,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Parse standard header: Extract 1-byte length (10B) and Message Type 0x04 (CONNECT).",
+            "caption": "Parse standard header: Extract one-byte length (tenB) and Message Type.",
             "registerName": "MQTTSN_HEADER_TRANS_REG",
             "bitWidth": 8,
             "hexValue": "0x8F",
@@ -157,7 +157,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Detect extended header: Byte 0x01 flags 16-bit Big-Endian length (256B) for large payload.",
+            "caption": "Detect extended header: Byte zerox flags sixteen-bit Big-Endian length.",
             "registerName": "MQTTSN_HEADER_TRANS_REG",
             "bitWidth": 8,
             "hexValue": "0xBF",
@@ -225,7 +225,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Enable QoS -1 unauthenticated transmission: Stream sensor payload in under 2 milliseconds.",
+            "caption": "Enable QoS -one unauthenticated transmission: Stream sensor payload in.",
             "registerName": "MQTTSN_HEADER_TRANS_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -303,7 +303,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Receive REGISTER request containing full 32-character UTF-8 topic string.",
+            "caption": "Receive REGISTER request containing full thirty-two-character UTF.",
             "registerName": "MQTTSN_TOPIC_REG_REG",
             "bitWidth": 8,
             "hexValue": "0x83",
@@ -371,7 +371,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Allocate 16-bit Topic ID 0x0001 and return confirmed REGACK frame with RC=0x00.",
+            "caption": "Allocate sixteen-bit Topic ID zerox and return confirmed REGACK frame.",
             "registerName": "MQTTSN_TOPIC_REG_REG",
             "bitWidth": 8,
             "hexValue": "0x8F",
@@ -439,7 +439,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Map pre-defined Topic ID 1 to factory/cell1/status and route 2-character short topic.",
+            "caption": "Map pre-defined Topic ID one to factory/cellone/status and route.",
             "registerName": "MQTTSN_TOPIC_REG_REG",
             "bitWidth": 8,
             "hexValue": "0xBF",
@@ -507,7 +507,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Transmit subsequent PUBLISH datagram using 2-byte Topic ID, saving 70 bytes per frame.",
+            "caption": "Transmit subsequent PUBLISH datagram using two-byte Topic ID, saving.",
             "registerName": "MQTTSN_TOPIC_REG_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -585,7 +585,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Broadcast periodic ADVERTISE beacons on physical fieldbus with Gateway ID 2 and 900s duration.",
+            "caption": "Broadcast periodic ADVERTISE beacons on physical fieldbus with Gateway ID.",
             "registerName": "MQTTSN_GATEWAY_MODE_REG",
             "bitWidth": 8,
             "hexValue": "0x83",
@@ -721,7 +721,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Enable Aggregating Gateway mode: Multiplex 5 field sensors across 1 shared broker TCP socket.",
+            "caption": "Enable Aggregating Gateway mode: Multiplex five field sensors across one.",
             "registerName": "MQTTSN_GATEWAY_MODE_REG",
             "bitWidth": 8,
             "hexValue": "0xBF",
@@ -867,7 +867,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Receive DISCONNECT with 7200s Duration field: Transition client to ASLEEP state.",
+            "caption": "Receive DISCONNECT with s Duration field: Transition client to ASLEEP.",
             "registerName": "MQTTSN_SLEEPY_POLL_REG",
             "bitWidth": 8,
             "hexValue": "0x83",
@@ -1003,7 +1003,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Client awakens on RTC timer: Receive PINGREQ with Client ID and flush 2 buffered commands.",
+            "caption": "Client awakens on RTC timer: Receive PINGREQ with Client ID and flush two.",
             "registerName": "MQTTSN_SLEEPY_POLL_REG",
             "bitWidth": 8,
             "hexValue": "0xBF",
@@ -1071,7 +1071,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Return PINGRESP to signal buffer empty: Client returns to deep sleep in under 20 ms.",
+            "caption": "Return PINGRESP to signal buffer empty: Client returns to deep sleep in.",
             "registerName": "MQTTSN_SLEEPY_POLL_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1149,7 +1149,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize MqttSnIndustrialGatewayMaster: Announce gateway presence on 802.15.4 fieldbus.",
+            "caption": "Initialize MqttSnIndustrialGatewayMaster: Announce gateway presence on.",
             "registerName": "MQTTSN_MASTER_ENGINE_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -1217,7 +1217,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Register Topic ID 1 for boiler temperature and Topic ID 2 for pump vibration telemetry.",
+            "caption": "Register Topic ID one for boiler temperature and Topic ID two for pump.",
             "registerName": "MQTTSN_MASTER_ENGINE_REG",
             "bitWidth": 8,
             "hexValue": "0x8F",

@@ -6,7 +6,7 @@
     {
       "partIndex": 1,
       "partTitle": "Capstone Ingress: Global Anycast Routing, Edge WAF Defense & Unified Gateways",
-      "codeHash": "4d54f6a89dfb5b8c5fffc78f5173dc225a94d281087033788730323175299952",
+      "codeHash": "787e84c7dfc379dafcac373ffe8d96d56e512b342fa0840677b89b890c404fde",
       "spec": {
         "template": "compare",
         "left": {
@@ -54,7 +54,7 @@
     {
       "partIndex": 2,
       "partTitle": "Capstone Storage: Sub-10ms Polyglot Tier - Valkey, DynamoDB & Aurora Global",
-      "codeHash": "d886ef99c121bde6d3d83a89f0cbf47c1a59b594ed8d6cb623ffc39b46eeb8cf",
+      "codeHash": "508994e3ffe2860df3ffd802a09be07353a7bcf9e1ca026a9ea3aa6153864014",
       "spec": {
         "template": "compare",
         "left": {
@@ -79,22 +79,22 @@
           {
             "at": "say1",
             "annotation": "Monolithic relational databases suffer severe lock contention at scale.",
-            "caption": "Monolithic relational databases suffer severe lock contention at scale. (Capstone Storage: Sub-10ms Polyglot)"
+            "caption": "Monolithic relational databases suffer severe lock contention at scale."
           },
           {
             "at": "say2",
             "annotation": "Polyglot persistence allocates workloads to specialized data engines.",
-            "caption": "Polyglot persistence allocates workloads to specialized data engines. (Capstone Storage: Sub-10ms Polyglot)"
+            "caption": "Polyglot persistence allocates workloads to specialized data engines."
           },
           {
             "at": "example",
             "annotation": "Orchestrator commits orders in DynamoDB Aurora and caches in Valkey.",
-            "caption": "Orchestrator commits orders in DynamoDB Aurora and caches in Valkey. (Capstone Storage: Sub-10ms Polyglot)"
+            "caption": "Orchestrator commits orders in DynamoDB Aurora and caches in Valkey."
           },
           {
             "at": "tryIt",
             "annotation": "Multi-tier storage achieves sub ten millisecond composite user latency.",
-            "caption": "Multi-tier storage achieves sub ten millisecond composite user latency. (Capstone Storage: Sub-10ms Polyglot)"
+            "caption": "Multi-tier storage achieves sub ten millisecond composite user latency."
           }
         ]
       }
@@ -102,7 +102,7 @@
     {
       "partIndex": 3,
       "partTitle": "Capstone Orchestration: Asynchronous Choreography & Distributed Saga Workflows",
-      "codeHash": "6785c2d199abbddba5b249b7130df1b14271884a36d6d1443bd9648e10fd2092",
+      "codeHash": "e87e836bd84d422e1b6e7b2f960d2b5469f97639ef30451c3cfa8e6b6d05b4f9",
       "spec": {
         "template": "compare",
         "left": {
@@ -150,7 +150,7 @@
     {
       "partIndex": 4,
       "partTitle": "Capstone Lakehouse: S3 Apache Iceberg, Streaming Athena Analytics & FinOps Governance",
-      "codeHash": "a7d531f3807b339a9139494aa9f30ab83031285b10be867383e0dc44f064d823",
+      "codeHash": "2c12a6f219c01ad8a0f640f50ccc0209f5f3798deb14210c4dd0821ff77d14a7",
       "spec": {
         "template": "compare",
         "left": {
@@ -175,22 +175,22 @@
           {
             "at": "say1",
             "annotation": "Legacy row based warehouses incur exorbitant analytical scan costs.",
-            "caption": "Legacy row based warehouses incur exorbitant analytical scan costs. (Capstone Lakehouse: S3 Apache Icebe)"
+            "caption": "Legacy row based warehouses incur exorbitant analytical scan costs."
           },
           {
             "at": "say2",
             "annotation": "Apache Iceberg brings ACID transactions and partitioning to object storage.",
-            "caption": "Apache Iceberg brings ACID transactions and partitioning to object storage. (Capstone Lakehouse: S3 Apache Icebe)"
+            "caption": "Apache Iceberg brings ACID transactions and partitioning to object."
           },
           {
             "at": "example",
             "annotation": "Projector streams order events to Parquet partitions with scan pruning.",
-            "caption": "Projector streams order events to Parquet partitions with scan pruning. (Capstone Lakehouse: S3 Apache Icebe)"
+            "caption": "Projector streams order events to Parquet partitions with scan pruning."
           },
           {
             "at": "tryIt",
             "annotation": "Serverless Athena SQL delivers real time business intelligence at scale.",
-            "caption": "Serverless Athena SQL delivers real time business intelligence at scale. (Capstone Lakehouse: S3 Apache Icebe)"
+            "caption": "Serverless Athena SQL delivers real time business intelligence at scale."
           }
         ]
       }
@@ -198,7 +198,7 @@
     {
       "partIndex": 5,
       "partTitle": "Grand Master Accreditation: 60-Day Curriculum Graduation & Architect Simulator",
-      "codeHash": "dc1b17147089136caed517de2af465b42807dbb8d0e11754bf6cb169bc070864",
+      "codeHash": "dfff31d05728caff0f058c034f01929f4fef0c25d7cba1e9881d98051c4aa25e",
       "spec": {
         "template": "compare",
         "left": {
@@ -223,22 +223,22 @@
           {
             "at": "say1",
             "annotation": "Fragmented cloud knowledge leads to fragile and costly architectures.",
-            "caption": "Fragmented cloud knowledge leads to fragile and costly architectures. (Grand Master Accreditation: 60-Day )"
+            "caption": "Fragmented cloud knowledge leads to fragile and costly architectures."
           },
           {
             "at": "say2",
             "annotation": "Master cloud architects design resilient and cost optimized platforms.",
-            "caption": "Master cloud architects design resilient and cost optimized platforms. (Grand Master Accreditation: 60-Day )"
+            "caption": "Master cloud architects design resilient and cost optimized platforms."
           },
           {
             "at": "example",
             "annotation": "Simulator confirms sub ten millisecond latency and high availability.",
-            "caption": "Simulator confirms sub ten millisecond latency and high availability. (Grand Master Accreditation: 60-Day )"
+            "caption": "Simulator confirms sub ten millisecond latency and high availability."
           },
           {
             "at": "tryIt",
             "annotation": "Curriculum graduation awards master cloud architect accreditation.",
-            "caption": "Curriculum graduation awards master cloud architect accreditation. (Grand Master Accreditation: 60-Day )"
+            "caption": "Curriculum graduation awards master cloud architect accreditation. (Grand."
           }
         ]
       }

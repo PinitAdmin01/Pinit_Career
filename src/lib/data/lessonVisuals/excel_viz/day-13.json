@@ -10,11 +10,11 @@
       "codeHash": "36dd0166ca160743a8841a255defc987174312851a6788d5734094a1c7593ed7",
       "spec": {
         "template": "bars",
-        "title": "Unlevered Free Cash Flow (UFCF) Mechanic... \u2014 Valuation & DCF Metrics",
+        "title": "Unlevered Free Cash Flow (UFCF) Mechanic... — Valuation & DCF Metrics",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline valuation metrics for Unlevered Free Cash Flow (UFCF) Mec...",
+            "caption": "Baseline valuation metrics for Unlevered Free Cash Flow (UFCF) Mec...",
             "max": 100,
             "bars": [
               {
@@ -41,7 +41,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Mathematical framework and discounting invariants for Unlevered Free Cash Flow (UFCF) Mec...",
+            "caption": "Mathematical framework and discounting invariants for Unlevered Free Cash.",
             "max": 100,
             "bars": [
               {
@@ -68,7 +68,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Applied institutional case study and cash stream derivation for Unlevered Free Cash Flow (UFCF) Mec...",
+            "caption": "Applied institutional case study and cash stream derivation for Unlevered.",
             "max": 100,
             "bars": [
               {
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive parameter stress test and sensitivity bounds for Unlevered Free Cash Flow (UFCF) Mec...",
+            "caption": "Interactive parameter stress test and sensitivity bounds for Unlevered.",
             "max": 100,
             "bars": [
               {
@@ -128,11 +128,11 @@
       "codeHash": "3f0f3ff1576156fd8d22ed8fb4eef1acd65dcb891b071582f3120440f3503a13",
       "spec": {
         "template": "bars",
-        "title": "Weighted Average Cost of Capital (WACC):... \u2014 Valuation & DCF Metrics",
+        "title": "Weighted Average Cost of Capital (WACC):... — Valuation & DCF Metrics",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline valuation metrics for Weighted Average Cost of Capital (W...",
+            "caption": "Baseline valuation metrics for Weighted Average Cost of Capital (W...",
             "max": 100,
             "bars": [
               {
@@ -159,7 +159,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Mathematical framework and discounting invariants for Weighted Average Cost of Capital (W...",
+            "caption": "Mathematical framework and discounting invariants for Weighted Average.",
             "max": 100,
             "bars": [
               {
@@ -186,7 +186,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Applied institutional case study and cash stream derivation for Weighted Average Cost of Capital (W...",
+            "caption": "Applied institutional case study and cash stream derivation for Weighted.",
             "max": 100,
             "bars": [
               {
@@ -213,7 +213,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive parameter stress test and sensitivity bounds for Weighted Average Cost of Capital (W...",
+            "caption": "Interactive parameter stress test and sensitivity bounds for Weighted.",
             "max": 100,
             "bars": [
               {
@@ -246,11 +246,11 @@
       "codeHash": "57c860a3a510248240d3da0f4c898bb926d3b1d3a88f522ddf77b9879b324553",
       "spec": {
         "template": "bars",
-        "title": "Terminal Value Architecture: Gordon Grow... \u2014 Valuation & DCF Metrics",
+        "title": "Terminal Value Architecture: Gordon Grow... — Valuation & DCF Metrics",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline valuation metrics for Terminal Value Architecture: Gordon...",
+            "caption": "Baseline valuation metrics for Terminal Value Architecture: Gordon...",
             "max": 100,
             "bars": [
               {
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Mathematical framework and discounting invariants for Terminal Value Architecture: Gordon...",
+            "caption": "Mathematical framework and discounting invariants for Terminal Value.",
             "max": 100,
             "bars": [
               {
@@ -304,7 +304,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Applied institutional case study and cash stream derivation for Terminal Value Architecture: Gordon...",
+            "caption": "Applied institutional case study and cash stream derivation for Terminal.",
             "max": 100,
             "bars": [
               {
@@ -331,7 +331,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive parameter stress test and sensitivity bounds for Terminal Value Architecture: Gordon...",
+            "caption": "Interactive parameter stress test and sensitivity bounds for Terminal.",
             "max": 100,
             "bars": [
               {
@@ -364,11 +364,11 @@
       "codeHash": "814028ef53a97165783553076a4d51e377903a9db649fd07706bc2811f146237",
       "spec": {
         "template": "bars",
-        "title": "The Enterprise Value to Equity Value Bri... \u2014 Valuation & DCF Metrics",
+        "title": "The Enterprise Value to Equity Value Bri... — Valuation & DCF Metrics",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline valuation metrics for The Enterprise Value to Equity Valu...",
+            "caption": "Baseline valuation metrics for The Enterprise Value to Equity Valu...",
             "max": 100,
             "bars": [
               {
@@ -395,7 +395,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Mathematical framework and discounting invariants for The Enterprise Value to Equity Valu...",
+            "caption": "Mathematical framework and discounting invariants for The Enterprise.",
             "max": 100,
             "bars": [
               {
@@ -422,7 +422,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Applied institutional case study and cash stream derivation for The Enterprise Value to Equity Valu...",
+            "caption": "Applied institutional case study and cash stream derivation for The.",
             "max": 100,
             "bars": [
               {
@@ -449,7 +449,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive parameter stress test and sensitivity bounds for The Enterprise Value to Equity Valu...",
+            "caption": "Interactive parameter stress test and sensitivity bounds for The.",
             "max": 100,
             "bars": [
               {
@@ -482,11 +482,11 @@
       "codeHash": "204da190190d24ccc009d4d43eea76ca1f782d571dbb6229cce714de3245c36d",
       "spec": {
         "template": "bars",
-        "title": "Institutional Multi-Stage DCF Valuation ... \u2014 Valuation & DCF Metrics",
+        "title": "Institutional Multi-Stage DCF Valuation ... — Valuation & DCF Metrics",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline valuation metrics for Institutional Multi-Stage DCF Valua...",
+            "caption": "Baseline valuation metrics for Institutional Multi-Stage DCF Valua...",
             "max": 100,
             "bars": [
               {
@@ -513,7 +513,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Mathematical framework and discounting invariants for Institutional Multi-Stage DCF Valua...",
+            "caption": "Mathematical framework and discounting invariants for Institutional.",
             "max": 100,
             "bars": [
               {
@@ -540,7 +540,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Applied institutional case study and cash stream derivation for Institutional Multi-Stage DCF Valua...",
+            "caption": "Applied institutional case study and cash stream derivation for.",
             "max": 100,
             "bars": [
               {
@@ -567,7 +567,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive parameter stress test and sensitivity bounds for Institutional Multi-Stage DCF Valua...",
+            "caption": "Interactive parameter stress test and sensitivity bounds for.",
             "max": 100,
             "bars": [
               {

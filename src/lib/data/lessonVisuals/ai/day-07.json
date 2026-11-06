@@ -427,7 +427,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Cosine Distance vs Euclidean Distance: C.. [D7.P4.S1].",
+            "caption": "Initialize input state for Cosine Distance vs Euclidean Distance: C.",
             "values": {
               "in": "Day 7 Input",
               "proc": "Standby",
@@ -447,7 +447,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Cosine Distance vs ... [D7.P4.S2].",
+            "caption": "Execute core transformation in Cosine Distance vs ... [Dseven.Pfour.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -471,7 +471,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D7.P4.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -491,7 +491,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Cosine Distance vs Euclidean Dist.. [D7.P4.S4].",
+            "caption": "End-to-end execution verified for Cosine Distance vs Euclidean Dist.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

@@ -34,7 +34,7 @@
           },
           {
             "at": "say8",
-            "caption": "Eventually V8 runs out of heap memory completely and triggers a fatal crash.",
+            "caption": "Eventually engine runs out of heap memory completely and triggers a fatal.",
             "bars": [
               {
                 "label": "Steady State Depth",
@@ -311,7 +311,7 @@
     },
     {
       "partTitle": "Reactive Pull-Based Streaming via Async Iterators",
-      "codeHash": "e6a7e6cb8aab1c2658055728e3116c69d4b633193d096586be7ba79994ddbd5b",
+      "codeHash": "e34892b04ae420936feb93091529de7fb10f45445008e6bee03c691ba637c41b",
       "spec": {
         "template": "sequence",
         "title": "for-await-of pull consumer driving AsyncGenerator streamProducer",
@@ -571,7 +571,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Building a Backpressure-Protected Event .. [D11.P6.S1].",
+            "caption": "Initialize input state for Building a Backpressure-Protected Event .",
             "values": {
               "in": "Day 11 Input",
               "proc": "Standby",
@@ -591,7 +591,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building a Backpres... [D11.P6.S2].",
+            "caption": "Execute core transformation in Building a Backpres... [Deleven.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -615,7 +615,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D11.P6.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -635,7 +635,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building a Backpressure-Protected.. [D11.P6.S4].",
+            "caption": "End-to-end execution verified for Building a Backpressure-Protected.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

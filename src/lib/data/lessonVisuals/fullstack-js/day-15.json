@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress tenant credential vector and initialize Tenant Isolation Architecture & Req....",
+            "caption": "Ingress tenant credential vector and initialize Tenant Isolation.",
             "values": {
               "in": "Day 15 Input",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute cryptographic verification, session lookup, and DataLoader batching in Tenant Isolation Architecture & Req....",
+            "caption": "Execute cryptographic verification, session lookup, and DataLoader.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -75,7 +75,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate constant-time comparison, Redis session TTL, and permission invariant.",
+            "caption": "Evaluate constant-time comparison, Redis session TTL, and permission.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end multi-tenant authentication confirmed for Tenant Isolation Architecture & Req....",
+            "caption": "End-to-end multi-tenant authentication confirmed for Tenant Isolation.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -257,7 +257,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress tenant credential vector and initialize Cryptographic Credential Verificati....",
+            "caption": "Ingress tenant credential vector and initialize Cryptographic Credential.",
             "values": {
               "in": "Day 15 Input",
               "proc": "Standby",
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute cryptographic verification, session lookup, and DataLoader batching in Cryptographic Credential Verificati....",
+            "caption": "Execute cryptographic verification, session lookup, and DataLoader.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -301,7 +301,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate constant-time comparison, Redis session TTL, and permission invariant.",
+            "caption": "Evaluate constant-time comparison, Redis session TTL, and permission.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -321,7 +321,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end multi-tenant authentication confirmed for Cryptographic Credential Verificati....",
+            "caption": "End-to-end multi-tenant authentication confirmed for Cryptographic.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -483,7 +483,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress tenant credential vector and initialize Distributed Session Hub with Redis ....",
+            "caption": "Ingress tenant credential vector and initialize Distributed Session Hub.",
             "values": {
               "in": "Day 15 Input",
               "proc": "Standby",
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute cryptographic verification, session lookup, and DataLoader batching in Distributed Session Hub with Redis ....",
+            "caption": "Execute cryptographic verification, session lookup, and DataLoader.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -527,7 +527,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate constant-time comparison, Redis session TTL, and permission invariant.",
+            "caption": "Evaluate constant-time comparison, Redis session TTL, and permission.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -547,7 +547,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end multi-tenant authentication confirmed for Distributed Session Hub with Redis ....",
+            "caption": "End-to-end multi-tenant authentication confirmed for Distributed Session.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -709,7 +709,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress tenant credential vector and initialize Batched Relational Permissions Reso....",
+            "caption": "Ingress tenant credential vector and initialize Batched Relational.",
             "values": {
               "in": "Day 15 Input",
               "proc": "Standby",
@@ -729,7 +729,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute cryptographic verification, session lookup, and DataLoader batching in Batched Relational Permissions Reso....",
+            "caption": "Execute cryptographic verification, session lookup, and DataLoader.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -753,7 +753,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate constant-time comparison, Redis session TTL, and permission invariant.",
+            "caption": "Evaluate constant-time comparison, Redis session TTL, and permission.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -773,7 +773,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end multi-tenant authentication confirmed for Batched Relational Permissions Reso....",
+            "caption": "End-to-end multi-tenant authentication confirmed for Batched Relational.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -935,7 +935,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress tenant credential vector and initialize End-to-End Enterprise Auth & Sessio....",
+            "caption": "Ingress tenant credential vector and initialize End-to-End Enterprise.",
             "values": {
               "in": "Day 15 Input",
               "proc": "Standby",
@@ -955,7 +955,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute cryptographic verification, session lookup, and DataLoader batching in End-to-End Enterprise Auth & Sessio....",
+            "caption": "Execute cryptographic verification, session lookup, and DataLoader.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -979,7 +979,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate constant-time comparison, Redis session TTL, and permission invariant.",
+            "caption": "Evaluate constant-time comparison, Redis session TTL, and permission.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -999,7 +999,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end multi-tenant authentication confirmed for End-to-End Enterprise Auth & Sessio....",
+            "caption": "End-to-end multi-tenant authentication confirmed for End-to-End.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

@@ -10,12 +10,12 @@
       "codeHash": "209ad9ed4e5249c3ad5cead225572a3d7a3487800d2f01a4e187eee8b9772d88",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Transnational Corporate Architecture: BEPS... \u2014 General Ledger Verification",
+        "title": "Transnational Corporate Architecture: BEPS... — General Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary facility debit entry ($130,000) for Transnational Corporate Architectur...",
-            "title": "Day 30 Journal \u2014 Initial Posting",
+            "caption": "Open primary facility debit entry ($multiple,multiple) for Transnational.",
+            "title": "Day 30 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 130000,
             "totalCredit": 130000,
@@ -40,8 +40,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary interest & fee accrual adjustment ($26,000).",
-            "title": "Day 30 Journal \u2014 Accrual Adjustment",
+            "caption": "Record secondary interest & fee accrual adjustment ($multiple,multiple).",
+            "title": "Day 30 Journal — Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 156000,
             "totalCredit": 156000,
@@ -71,8 +71,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of institutional reserve provisioning & counterparty collateral.",
-            "title": "Day 30 Journal \u2014 Collateral & Reserve Alignment",
+            "caption": "Verification of institutional reserve provisioning & counterparty.",
+            "title": "Day 30 Journal — Collateral & Reserve Alignment",
             "isBalanced": true,
             "totalDebit": 156000,
             "totalCredit": 156000,
@@ -102,8 +102,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Real-time balance sheet reconciliation and regulatory capital confirmation.",
-            "title": "Day 30 Journal \u2014 Balanced Closure",
+            "caption": "Real-time balance sheet reconciliation and regulatory capital confirmation.",
+            "title": "Day 30 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 156000,
             "totalCredit": 156000,
@@ -139,12 +139,12 @@
       "codeHash": "e543a82dec52403d3524e1b84850c25ea6270feb38a4c7ef9ced7580c27861ed",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Transnational Takeover Defense & Dual-List... \u2014 General Ledger Verification",
+        "title": "Transnational Takeover Defense & Dual-List... — General Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary facility debit entry ($131,250) for Transnational Takeover Defense & Du...",
-            "title": "Day 30 Journal \u2014 Initial Posting",
+            "caption": "Open primary facility debit entry ($multiple,multiple) for Transnational.",
+            "title": "Day 30 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 131250,
             "totalCredit": 131250,
@@ -169,8 +169,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary interest & fee accrual adjustment ($26,250).",
-            "title": "Day 30 Journal \u2014 Accrual Adjustment",
+            "caption": "Record secondary interest & fee accrual adjustment ($multiple,multiple).",
+            "title": "Day 30 Journal — Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 157500,
             "totalCredit": 157500,
@@ -200,8 +200,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of institutional reserve provisioning & counterparty collateral.",
-            "title": "Day 30 Journal \u2014 Collateral & Reserve Alignment",
+            "caption": "Verification of institutional reserve provisioning & counterparty.",
+            "title": "Day 30 Journal — Collateral & Reserve Alignment",
             "isBalanced": true,
             "totalDebit": 157500,
             "totalCredit": 157500,
@@ -231,8 +231,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Real-time balance sheet reconciliation and regulatory capital confirmation.",
-            "title": "Day 30 Journal \u2014 Balanced Closure",
+            "caption": "Real-time balance sheet reconciliation and regulatory capital confirmation.",
+            "title": "Day 30 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 157500,
             "totalCredit": 157500,
@@ -268,12 +268,12 @@
       "codeHash": "c19285ae66abd4ab60a2e3872c2b780d302f912bc62d482864a2860fe0ca840d",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Global Economic Sanctions & Export Control... \u2014 General Ledger Verification",
+        "title": "Global Economic Sanctions & Export Control... — General Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary facility debit entry ($132,500) for Global Economic Sanctions & Export ...",
-            "title": "Day 30 Journal \u2014 Initial Posting",
+            "caption": "Open primary facility debit entry ($multiple,server-error) for Global.",
+            "title": "Day 30 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 132500,
             "totalCredit": 132500,
@@ -298,8 +298,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary interest & fee accrual adjustment ($26,500).",
-            "title": "Day 30 Journal \u2014 Accrual Adjustment",
+            "caption": "Record secondary interest & fee accrual adjustment.",
+            "title": "Day 30 Journal — Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 159000,
             "totalCredit": 159000,
@@ -329,8 +329,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of institutional reserve provisioning & counterparty collateral.",
-            "title": "Day 30 Journal \u2014 Collateral & Reserve Alignment",
+            "caption": "Verification of institutional reserve provisioning & counterparty.",
+            "title": "Day 30 Journal — Collateral & Reserve Alignment",
             "isBalanced": true,
             "totalDebit": 159000,
             "totalCredit": 159000,
@@ -360,8 +360,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Real-time balance sheet reconciliation and regulatory capital confirmation.",
-            "title": "Day 30 Journal \u2014 Balanced Closure",
+            "caption": "Real-time balance sheet reconciliation and regulatory capital confirmation.",
+            "title": "Day 30 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 159000,
             "totalCredit": 159000,
@@ -397,12 +397,12 @@
       "codeHash": "b5d7c9b5fbfc61f42685e0f503ac54de3b23851a3ee907256fd9fecb38a9c2cd",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Investor-State Dispute Settlement (ISDS) &... \u2014 General Ledger Verification",
+        "title": "Investor-State Dispute Settlement (ISDS) &... — General Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary facility debit entry ($133,750) for Investor-State Dispute Settlement (...",
-            "title": "Day 30 Journal \u2014 Initial Posting",
+            "caption": "Open primary facility debit entry ($multiple,multiple) for Investor-State.",
+            "title": "Day 30 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 133750,
             "totalCredit": 133750,
@@ -427,8 +427,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary interest & fee accrual adjustment ($26,750).",
-            "title": "Day 30 Journal \u2014 Accrual Adjustment",
+            "caption": "Record secondary interest & fee accrual adjustment ($multiple,multiple).",
+            "title": "Day 30 Journal — Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 160500,
             "totalCredit": 160500,
@@ -458,8 +458,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of institutional reserve provisioning & counterparty collateral.",
-            "title": "Day 30 Journal \u2014 Collateral & Reserve Alignment",
+            "caption": "Verification of institutional reserve provisioning & counterparty.",
+            "title": "Day 30 Journal — Collateral & Reserve Alignment",
             "isBalanced": true,
             "totalDebit": 160500,
             "totalCredit": 160500,
@@ -489,8 +489,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Real-time balance sheet reconciliation and regulatory capital confirmation.",
-            "title": "Day 30 Journal \u2014 Balanced Closure",
+            "caption": "Real-time balance sheet reconciliation and regulatory capital confirmation.",
+            "title": "Day 30 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 160500,
             "totalCredit": 160500,
@@ -522,16 +522,16 @@
       }
     },
     {
-      "partTitle": "\ud83c\udfc6 Grand Final Boardroom Defense: Sovereign Transnational Enterprise Control Tower",
+      "partTitle": "🏆 Grand Final Boardroom Defense: Sovereign Transnational Enterprise Control Tower",
       "codeHash": "c4c01149ed97c245bba2c440f61f53ffb13303b62be2d9a3aa0f56edb136961c",
       "spec": {
         "template": "ledger-sheet",
-        "title": "\ud83c\udfc6 Grand Final Boardroom Defense: Sovereign... \u2014 General Ledger Verification",
+        "title": "🏆 Grand Final Boardroom Defense: Sovereign... — General Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary facility debit entry ($135,000) for \ud83c\udfc6 Grand Final Boardroom Defense: So...",
-            "title": "Day 30 Journal \u2014 Initial Posting",
+            "caption": "Open primary facility debit entry ($multiple,multiple) for 🏆 Grand Final.",
+            "title": "Day 30 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 135000,
             "totalCredit": 135000,
@@ -556,8 +556,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary interest & fee accrual adjustment ($27,000).",
-            "title": "Day 30 Journal \u2014 Accrual Adjustment",
+            "caption": "Record secondary interest & fee accrual adjustment ($multiple,multiple).",
+            "title": "Day 30 Journal — Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 162000,
             "totalCredit": 162000,
@@ -587,8 +587,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of institutional reserve provisioning & counterparty collateral.",
-            "title": "Day 30 Journal \u2014 Collateral & Reserve Alignment",
+            "caption": "Verification of institutional reserve provisioning & counterparty.",
+            "title": "Day 30 Journal — Collateral & Reserve Alignment",
             "isBalanced": true,
             "totalDebit": 162000,
             "totalCredit": 162000,
@@ -618,8 +618,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Real-time balance sheet reconciliation and regulatory capital confirmation.",
-            "title": "Day 30 Journal \u2014 Balanced Closure",
+            "caption": "Real-time balance sheet reconciliation and regulatory capital confirmation.",
+            "title": "Day 30 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 162000,
             "totalCredit": 162000,

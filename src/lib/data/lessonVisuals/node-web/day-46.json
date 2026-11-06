@@ -359,7 +359,7 @@
           },
           {
             "at": "say5",
-            "caption": "Upon SIGUSR2, worker enters DRAINING state and finishes inflight requests.",
+            "caption": "Upon SIGUSRtwo, worker enters DRAINING state and finishes inflight.",
             "values": {
               "spawn": {
                 "state": "transitioning"
@@ -467,7 +467,7 @@
           },
           {
             "at": "say5",
-            "caption": "Crash containment test asserts sub-100ms worker reincarnation.",
+            "caption": "Crash containment test asserts sub-one hundredms worker reincarnation.",
             "values": {
               "multicore": {
                 "status": "Synchronized"

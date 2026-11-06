@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register NIST_HMIN_REG for NIST SP 800-90B Statistical Fram.",
+            "caption": "Arm hardware register NIST_HMIN_REG for NIST SP multiple-B Statistical.",
             "registerName": "NIST_HMIN_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into NIST_HMIN_REG and assert validation flag.",
+            "caption": "Latch sampling bits into NIST_HMIN_REG and assert validation flag.",
             "registerName": "NIST_HMIN_REG",
             "bitWidth": 8,
             "hexValue": "0xC2",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware verification cycle and lock verified status.",
+            "caption": "Execute hardware verification cycle and lock verified status.",
             "registerName": "NIST_HMIN_REG",
             "bitWidth": 8,
             "hexValue": "0xF7",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Finalize hardware state and assert zero-residual lock.",
+            "caption": "Finalize hardware state and assert zero-residual lock.",
             "registerName": "NIST_HMIN_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -516,7 +516,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register REP_COUNT_TEST_REG for Non-IID Min-Entropy Estimation: .",
+            "caption": "Arm hardware register REP_COUNT_TEST_REG for Non-IID Min-Entropy.",
             "registerName": "REP_COUNT_TEST_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -576,7 +576,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into REP_COUNT_TEST_REG and assert validation flag.",
+            "caption": "Latch sampling bits into REP_COUNT_TEST_REG and assert validation flag.",
             "registerName": "REP_COUNT_TEST_REG",
             "bitWidth": 8,
             "hexValue": "0xC2",
@@ -637,7 +637,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware verification cycle and lock verified status.",
+            "caption": "Execute hardware verification cycle and lock verified status.",
             "registerName": "REP_COUNT_TEST_REG",
             "bitWidth": 8,
             "hexValue": "0xF7",
@@ -698,7 +698,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Finalize hardware state and assert zero-residual lock.",
+            "caption": "Finalize hardware state and assert zero-residual lock.",
             "registerName": "REP_COUNT_TEST_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -1018,7 +1018,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register ADAPT_PROP_TEST_REG for Continuous Online Health Testing.",
+            "caption": "Arm hardware register ADAPT_PROP_TEST_REG for Continuous Online Health.",
             "registerName": "ADAPT_PROP_TEST_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1078,7 +1078,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into ADAPT_PROP_TEST_REG and assert validation flag.",
+            "caption": "Latch sampling bits into ADAPT_PROP_TEST_REG and assert validation flag.",
             "registerName": "ADAPT_PROP_TEST_REG",
             "bitWidth": 8,
             "hexValue": "0xC2",
@@ -1139,7 +1139,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware verification cycle and lock verified status.",
+            "caption": "Execute hardware verification cycle and lock verified status.",
             "registerName": "ADAPT_PROP_TEST_REG",
             "bitWidth": 8,
             "hexValue": "0xF7",
@@ -1200,7 +1200,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Finalize hardware state and assert zero-residual lock.",
+            "caption": "Finalize hardware state and assert zero-residual lock.",
             "registerName": "ADAPT_PROP_TEST_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -1520,7 +1520,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register MONOBIT_EVAL_REG for NIST SP 800-22 Cryptographic Ran.",
+            "caption": "Arm hardware register MONOBIT_EVAL_REG for NIST SP multiple-multiple.",
             "registerName": "MONOBIT_EVAL_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1580,7 +1580,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into MONOBIT_EVAL_REG and assert validation flag.",
+            "caption": "Latch sampling bits into MONOBIT_EVAL_REG and assert validation flag.",
             "registerName": "MONOBIT_EVAL_REG",
             "bitWidth": 8,
             "hexValue": "0xC2",
@@ -1641,7 +1641,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware verification cycle and lock verified status.",
+            "caption": "Execute hardware verification cycle and lock verified status.",
             "registerName": "MONOBIT_EVAL_REG",
             "bitWidth": 8,
             "hexValue": "0xF7",
@@ -1702,7 +1702,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Finalize hardware state and assert zero-residual lock.",
+            "caption": "Finalize hardware state and assert zero-residual lock.",
             "registerName": "MONOBIT_EVAL_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -2022,7 +2022,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register RUNS_TEST_REG for Master Hardware Entropy Qualific.",
+            "caption": "Arm hardware register RUNS_TEST_REG for Master Hardware Entropy Qualific.",
             "registerName": "RUNS_TEST_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -2082,7 +2082,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into RUNS_TEST_REG and assert validation flag.",
+            "caption": "Latch sampling bits into RUNS_TEST_REG and assert validation flag.",
             "registerName": "RUNS_TEST_REG",
             "bitWidth": 8,
             "hexValue": "0xC2",
@@ -2143,7 +2143,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware verification cycle and lock verified status.",
+            "caption": "Execute hardware verification cycle and lock verified status.",
             "registerName": "RUNS_TEST_REG",
             "bitWidth": 8,
             "hexValue": "0xF7",
@@ -2204,7 +2204,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Finalize hardware state and assert zero-residual lock.",
+            "caption": "Finalize hardware state and assert zero-residual lock.",
             "registerName": "RUNS_TEST_REG",
             "bitWidth": 8,
             "hexValue": "0x81",

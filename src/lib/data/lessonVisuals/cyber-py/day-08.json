@@ -1,0 +1,923 @@
+{
+  "schemaVersion": 1,
+  "prefix": "cyber-py",
+  "day": 8,
+  "promptSha": "526450b0d92cdcfdf0b10645d14cff6e50f8eb76f934c5ea242a69ef384f64eb",
+  "model": "gpt-4o",
+  "entries": [
+    {
+      "partTitle": "What TLS protects",
+      "codeHash": "a71e9676d23da35866e20d732c0052942080a7274d8a5f706e8085dcb48acbfb",
+      "spec": {
+        "template": "states",
+        "title": "Public key infrastructure hierarchical certificate trust states",
+        "states": [
+          {
+            "id": "untrustedCert",
+            "label": "Unverified Leaf Certificate"
+          },
+          {
+            "id": "intermediateResolved",
+            "label": "Intermediate CA Signature Validated"
+          },
+          {
+            "id": "rootStoreAnchored",
+            "label": "Anchor Root CA Verified in Local Store"
+          },
+          {
+            "id": "secureSession",
+            "label": "Authenticated TLS Session Established"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say5",
+            "caption": "Operating systems ship with root stores containing vetted certificates.",
+            "activeStateId": "rootStoreAnchored",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say7",
+            "caption": "If certificates lack trusted root signatures the browser aborts.",
+            "activeStateId": "untrustedCert",
+            "statusBadge": "failed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Public key infrastructure hierarchical certificate trust states",
+        "states": [
+          {
+            "id": "untrustedCert",
+            "label": "Unverified Leaf Certificate"
+          },
+          {
+            "id": "intermediateResolved",
+            "label": "Intermediate CA Signature Validated"
+          },
+          {
+            "id": "rootStoreAnchored",
+            "label": "Anchor Root CA Verified in Local Store"
+          },
+          {
+            "id": "secureSession",
+            "label": "Authenticated TLS Session Established"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say5",
+            "caption": "Operating systems ship with root stores containing vetted certificates.",
+            "activeStateId": "rootStoreAnchored",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say7",
+            "caption": "If certificates lack trusted root signatures the browser aborts.",
+            "activeStateId": "untrustedCert",
+            "statusBadge": "failed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "X.509 certificates",
+      "codeHash": "c35da47041686abbfa74b35a50fa8068dd660883b05b1916273509e0d2fdf2d5",
+      "spec": {
+        "template": "table",
+        "title": "X.509 digital certificate attributes and verification criteria",
+        "columns": [
+          "Certificate Field",
+          "ASN.1 Type",
+          "Standard Content",
+          "Security Role"
+        ],
+        "steps": [
+          {
+            "at": "say6",
+            "caption": "The extension specifies all valid domain names covered by certificates.",
+            "activeRowIndex": 1,
+            "statusBadge": "active",
+            "rows": [
+              {
+                "cells": [
+                  "Version",
+                  "Integer v3",
+                  "RFC 5280 Specification",
+                  "Enables modern extensions and SANs"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Subject Alternative Name",
+                  "Extension SAN",
+                  "DNS:*.enterprise.io",
+                  "Defines authoritative domain coverage"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Validity Period",
+                  "UTCTime Range",
+                  "NotBefore to NotAfter",
+                  "Enforces strict expiration boundaries"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Basic Constraints",
+                  "Extension Boolean",
+                  "CA:FALSE for End-Entity",
+                  "Prevents leaf certificates signing others"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Basic constraints declare whether the certificate is an authorized ca.",
+            "activeRowIndex": 3,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "Version",
+                  "Integer v3",
+                  "RFC 5280 Specification",
+                  "Enables modern extensions and SANs"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Subject Alternative Name",
+                  "Extension SAN",
+                  "DNS:*.enterprise.io",
+                  "Defines authoritative domain coverage"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Validity Period",
+                  "UTCTime Range",
+                  "NotBefore to NotAfter",
+                  "Enforces strict expiration boundaries"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Basic Constraints",
+                  "Extension Boolean",
+                  "CA:FALSE for End-Entity",
+                  "Prevents leaf certificates signing others"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "X.509 digital certificate attributes and verification criteria",
+        "columns": [
+          "Certificate Field",
+          "ASN.1 Type",
+          "Standard Content",
+          "Security Role"
+        ],
+        "steps": [
+          {
+            "at": "say6",
+            "caption": "The extension specifies all valid domain names covered by certificates.",
+            "activeRowIndex": 1,
+            "statusBadge": "active",
+            "rows": [
+              {
+                "cells": [
+                  "Version",
+                  "Integer v3",
+                  "RFC 5280 Specification",
+                  "Enables modern extensions and SANs"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Subject Alternative Name",
+                  "Extension SAN",
+                  "DNS:*.enterprise.io",
+                  "Defines authoritative domain coverage"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Validity Period",
+                  "UTCTime Range",
+                  "NotBefore to NotAfter",
+                  "Enforces strict expiration boundaries"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Basic Constraints",
+                  "Extension Boolean",
+                  "CA:FALSE for End-Entity",
+                  "Prevents leaf certificates signing others"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Basic constraints declare whether the certificate is an authorized ca.",
+            "activeRowIndex": 3,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "Version",
+                  "Integer v3",
+                  "RFC 5280 Specification",
+                  "Enables modern extensions and SANs"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Subject Alternative Name",
+                  "Extension SAN",
+                  "DNS:*.enterprise.io",
+                  "Defines authoritative domain coverage"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Validity Period",
+                  "UTCTime Range",
+                  "NotBefore to NotAfter",
+                  "Enforces strict expiration boundaries"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Basic Constraints",
+                  "Extension Boolean",
+                  "CA:FALSE for End-Entity",
+                  "Prevents leaf certificates signing others"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Hostname matching and wildcards",
+      "codeHash": "5533db81f117490ae4be9a7b7e36574381c7d91d0384f0e9995e0bc90fdfc4f2",
+      "spec": {
+        "template": "sequence",
+        "title": "Certificate chain recursive signature verification sequence",
+        "actors": [
+          {
+            "id": "clientBrowser",
+            "label": "Client TLS Agent"
+          },
+          {
+            "id": "leafCert",
+            "label": "Server Leaf Cert"
+          },
+          {
+            "id": "intermediateCa",
+            "label": "Intermediate CA"
+          },
+          {
+            "id": "rootCa",
+            "label": "Root CA Anchor"
+          }
+        ],
+        "messages": [
+          {
+            "from": "leafCert",
+            "to": "clientBrowser",
+            "label": "Present Leaf Certificate and Signature",
+            "tone": "data"
+          },
+          {
+            "from": "clientBrowser",
+            "to": "intermediateCa",
+            "label": "Extract Intermediate Public Key to Verify Leaf",
+            "tone": "ok"
+          },
+          {
+            "from": "intermediateCa",
+            "to": "rootCa",
+            "label": "Verify Intermediate Signature Against Root",
+            "tone": "ok"
+          },
+          {
+            "from": "rootCa",
+            "to": "clientBrowser",
+            "label": "Root Found in OS Trust Store Chain Confirmed",
+            "tone": "ok"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say5",
+            "caption": "The client extracts the public key from the parent certificate.",
+            "activeMessageIndex": 1,
+            "statusBadge": "active"
+          },
+          {
+            "at": "say8",
+            "caption": "Matching hashes prove the certificate was genuinely issued and unaltered.",
+            "activeMessageIndex": 3,
+            "statusBadge": "completed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "sequence",
+        "title": "Certificate chain recursive signature verification sequence",
+        "actors": [
+          {
+            "id": "clientBrowser",
+            "label": "Client TLS Agent"
+          },
+          {
+            "id": "leafCert",
+            "label": "Server Leaf Cert"
+          },
+          {
+            "id": "intermediateCa",
+            "label": "Intermediate CA"
+          },
+          {
+            "id": "rootCa",
+            "label": "Root CA Anchor"
+          }
+        ],
+        "messages": [
+          {
+            "from": "leafCert",
+            "to": "clientBrowser",
+            "label": "Present Leaf Certificate and Signature",
+            "tone": "data"
+          },
+          {
+            "from": "clientBrowser",
+            "to": "intermediateCa",
+            "label": "Extract Intermediate Public Key to Verify Leaf",
+            "tone": "ok"
+          },
+          {
+            "from": "intermediateCa",
+            "to": "rootCa",
+            "label": "Verify Intermediate Signature Against Root",
+            "tone": "ok"
+          },
+          {
+            "from": "rootCa",
+            "to": "clientBrowser",
+            "label": "Root Found in OS Trust Store Chain Confirmed",
+            "tone": "ok"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say5",
+            "caption": "The client extracts the public key from the parent certificate.",
+            "activeMessageIndex": 1,
+            "statusBadge": "active"
+          },
+          {
+            "at": "say8",
+            "caption": "Matching hashes prove the certificate was genuinely issued and unaltered.",
+            "activeMessageIndex": 3,
+            "statusBadge": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Chains of trust",
+      "codeHash": "be7b810eda2773734597912aec5c247bfecd4563d8b5e78923a55bd11e78f734",
+      "spec": {
+        "template": "compare",
+        "title": "Certificate revocation list overhead versus private OCSP stapling",
+        "left": {
+          "title": "Certificate Revocation List",
+          "items": [
+            "Large downloaded files listing all revoked serials",
+            "Adds latency and bandwidth waste to connections",
+            "Vulnerable to caching delays and stale lists"
+          ]
+        },
+        "right": {
+          "title": "OCSP Stapling (RFC 6066)",
+          "items": [
+            "Server staples timestamped CA status to TLS handshake",
+            "Zero extra network round-trips for connecting clients",
+            "Completely preserves user browsing privacy from CAs"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Revocation lists created massive connection latency and bandwidth waste.",
+            "highlightSide": "left",
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say8",
+            "caption": "Clients verify the digital signature with zero extra network round trips.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Certificate Revocation List",
+        "rightLabel": "OCSP Stapling (RFC 6066)"
+      },
+      "filled": {
+        "template": "compare",
+        "title": "Certificate revocation list overhead versus private OCSP stapling",
+        "left": {
+          "title": "Certificate Revocation List",
+          "items": [
+            "Large downloaded files listing all revoked serials",
+            "Adds latency and bandwidth waste to connections",
+            "Vulnerable to caching delays and stale lists"
+          ]
+        },
+        "right": {
+          "title": "OCSP Stapling (RFC 6066)",
+          "items": [
+            "Server staples timestamped CA status to TLS handshake",
+            "Zero extra network round-trips for connecting clients",
+            "Completely preserves user browsing privacy from CAs"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Revocation lists created massive connection latency and bandwidth waste.",
+            "highlightSide": "left",
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say8",
+            "caption": "Clients verify the digital signature with zero extra network round trips.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Certificate Revocation List",
+        "rightLabel": "OCSP Stapling (RFC 6066)"
+      }
+    },
+    {
+      "partTitle": "Common certificate mistakes",
+      "codeHash": "3dc4021b0a741744d6508c5c4a1b1188801945d16ca111091a8a5795b171c3c5",
+      "spec": {
+        "template": "table",
+        "title": "Transport Layer Security protocol evolution TLS 1.2 versus TLS 1.3",
+        "columns": [
+          "Security Capability",
+          "Legacy TLS 1.2 Protocol",
+          "Modern TLS 1.3 Standard",
+          "Architectural Advantage"
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "Protocol upgrades reduce connection latency to a single round trip.",
+            "activeRowIndex": 0,
+            "statusBadge": "active",
+            "rows": [
+              {
+                "cells": [
+                  "Handshake Round-Trips",
+                  "Two Round-Trips (2-RTT)",
+                  "Single Round-Trip (1-RTT)",
+                  "Halves connection setup latency"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Forward Secrecy",
+                  "Optional (Static RSA Allowed)",
+                  "Mandatory (ECDHE Only)",
+                  "Guarantees past sessions stay safe"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Supported Ciphers",
+                  "Weak CBC and RC4 Permitted",
+                  "AEAD Ciphers Exclusively",
+                  "Eliminates padding oracle exploits"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Handshake Encryption",
+                  "Cleartext Server Certificate",
+                  "Encrypted Handshake Extensions",
+                  "Prevents passive identity sniffing"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "All modern cipher suites mandate authenticated encryption algorithms.",
+            "activeRowIndex": 2,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "Handshake Round-Trips",
+                  "Two Round-Trips (2-RTT)",
+                  "Single Round-Trip (1-RTT)",
+                  "Halves connection setup latency"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Forward Secrecy",
+                  "Optional (Static RSA Allowed)",
+                  "Mandatory (ECDHE Only)",
+                  "Guarantees past sessions stay safe"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Supported Ciphers",
+                  "Weak CBC and RC4 Permitted",
+                  "AEAD Ciphers Exclusively",
+                  "Eliminates padding oracle exploits"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Handshake Encryption",
+                  "Cleartext Server Certificate",
+                  "Encrypted Handshake Extensions",
+                  "Prevents passive identity sniffing"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Transport Layer Security protocol evolution TLS 1.2 versus TLS 1.3",
+        "columns": [
+          "Security Capability",
+          "Legacy TLS 1.2 Protocol",
+          "Modern TLS 1.3 Standard",
+          "Architectural Advantage"
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "Protocol upgrades reduce connection latency to a single round trip.",
+            "activeRowIndex": 0,
+            "statusBadge": "active",
+            "rows": [
+              {
+                "cells": [
+                  "Handshake Round-Trips",
+                  "Two Round-Trips (2-RTT)",
+                  "Single Round-Trip (1-RTT)",
+                  "Halves connection setup latency"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Forward Secrecy",
+                  "Optional (Static RSA Allowed)",
+                  "Mandatory (ECDHE Only)",
+                  "Guarantees past sessions stay safe"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Supported Ciphers",
+                  "Weak CBC and RC4 Permitted",
+                  "AEAD Ciphers Exclusively",
+                  "Eliminates padding oracle exploits"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Handshake Encryption",
+                  "Cleartext Server Certificate",
+                  "Encrypted Handshake Extensions",
+                  "Prevents passive identity sniffing"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "All modern cipher suites mandate authenticated encryption algorithms.",
+            "activeRowIndex": 2,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "Handshake Round-Trips",
+                  "Two Round-Trips (2-RTT)",
+                  "Single Round-Trip (1-RTT)",
+                  "Halves connection setup latency"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Forward Secrecy",
+                  "Optional (Static RSA Allowed)",
+                  "Mandatory (ECDHE Only)",
+                  "Guarantees past sessions stay safe"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Supported Ciphers",
+                  "Weak CBC and RC4 Permitted",
+                  "AEAD Ciphers Exclusively",
+                  "Eliminates padding oracle exploits"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Handshake Encryption",
+                  "Cleartext Server Certificate",
+                  "Encrypted Handshake Extensions",
+                  "Prevents passive identity sniffing"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Practice time: validity and chains",
+      "codeHash": "a0610396a42b525e4ee0addd23ffd9ae7fc9d455c294ea49448092cef383d2e8",
+      "spec": {
+        "template": "flow",
+        "title": "Engineering an Automated Certificate Authorit... — Execution Pipeline",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "1. Input & State",
+            "tappable": true
+          },
+          {
+            "id": "proc",
+            "label": "2. Engineering an Auto...",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "3. Verified Output",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize input state for Engineering an Automated Certificate Aut.",
+            "values": {
+              "in": "Day 8 Input",
+              "proc": "Standby",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "data",
+              "proc": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Execute core transformation in Engineering an Auto... [Deight.Psix.Stwo].",
+            "values": {
+              "in": "Validated",
+              "proc": "Processing...",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Inspect concrete example output and invariants.",
+            "values": {
+              "in": "Validated",
+              "proc": "Invariant OK",
+              "out": "Emitting"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "End-to-end execution verified for Engineering an Automated Certific.",
+            "values": {
+              "in": "Committed",
+              "proc": "Verified",
+              "out": "Complete ✓"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Engineering an Automated Certificate Authorit... — Execution Pipeline",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "1. Input & State",
+            "tappable": true
+          },
+          {
+            "id": "proc",
+            "label": "2. Engineering an Auto...",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "3. Verified Output",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Step 1: Initialize input state for Engineering an Automated Certificate Aut.. [D8.P6.S1].",
+            "values": {
+              "in": "Day 8 Input",
+              "proc": "Standby",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "data",
+              "proc": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Step 2: Execute core transformation in Engineering an Auto... [D8.P6.S2].",
+            "values": {
+              "in": "Validated",
+              "proc": "Processing...",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Step 3: Inspect concrete example output and invariants [D8.P6.S3].",
+            "values": {
+              "in": "Validated",
+              "proc": "Invariant OK",
+              "out": "Emitting"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Step 4: End-to-end execution verified for Engineering an Automated Certific.. [D8.P6.S4].",
+            "values": {
+              "in": "Committed",
+              "proc": "Verified",
+              "out": "Complete ✓"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

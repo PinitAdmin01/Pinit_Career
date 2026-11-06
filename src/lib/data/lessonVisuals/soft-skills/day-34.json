@@ -40,7 +40,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Scope & Context Framing): Initialize The Psychology of Evaluator Stress-Testing: P...",
+            "caption": "Stage one (Scope & Context Framing): Initialize The Psychology of.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Topological Architecture): Model decoupled data flow.",
+            "caption": "Stage two (Topological Architecture): Model decoupled data flow.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active Flow",
@@ -108,7 +108,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (PACELC Trade-Offs): Evaluate latency and capacity bottlenecks.",
+            "caption": "Stage three (PACELC Trade-Offs): Evaluate latency and capacity bottlenecks.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "High Signal",
@@ -142,7 +142,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Executive Bar Raiser): Ratify planetary-scale consensus.",
+            "caption": "Stage four (Executive Bar Raiser): Ratify planetary-scale consensus.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "Staff Architect ✓",
@@ -380,7 +380,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Scope & Context Framing): Initialize The Curveball Taxonomy & Playbook: 10 Archite...",
+            "caption": "Stage one (Scope & Context Framing): Initialize The Curveball Taxonomy &.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -414,7 +414,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Topological Architecture): Model decoupled data flow.",
+            "caption": "Stage two (Topological Architecture): Model decoupled data flow.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active Flow",
@@ -448,7 +448,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (PACELC Trade-Offs): Evaluate latency and capacity bottlenecks.",
+            "caption": "Stage three (PACELC Trade-Offs): Evaluate latency and capacity bottlenecks.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "High Signal",
@@ -482,7 +482,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Executive Bar Raiser): Ratify planetary-scale consensus.",
+            "caption": "Stage four (Executive Bar Raiser): Ratify planetary-scale consensus.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "Staff Architect ✓",
@@ -720,7 +720,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Scope & Context Framing): Initialize System Design Curveball Generator CLI Simulat...",
+            "caption": "Stage one (Scope & Context Framing): Initialize System Design Curveball.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -754,7 +754,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Topological Architecture): Model decoupled data flow.",
+            "caption": "Stage two (Topological Architecture): Model decoupled data flow.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active Flow",
@@ -788,7 +788,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (PACELC Trade-Offs): Evaluate latency and capacity bottlenecks.",
+            "caption": "Stage three (PACELC Trade-Offs): Evaluate latency and capacity bottlenecks.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "High Signal",
@@ -822,7 +822,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Executive Bar Raiser): Ratify planetary-scale consensus.",
+            "caption": "Stage four (Executive Bar Raiser): Ratify planetary-scale consensus.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "Staff Architect ✓",
@@ -1060,7 +1060,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Scope & Context Framing): Initialize High-Stress Curveball Gauntlet Lab: Compound ...",
+            "caption": "Stage one (Scope & Context Framing): Initialize High-Stress Curveball.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -1094,7 +1094,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Topological Architecture): Model decoupled data flow.",
+            "caption": "Stage two (Topological Architecture): Model decoupled data flow.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active Flow",
@@ -1128,7 +1128,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (PACELC Trade-Offs): Evaluate latency and capacity bottlenecks.",
+            "caption": "Stage three (PACELC Trade-Offs): Evaluate latency and capacity bottlenecks.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "High Signal",
@@ -1162,7 +1162,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Executive Bar Raiser): Ratify planetary-scale consensus.",
+            "caption": "Stage four (Executive Bar Raiser): Ratify planetary-scale consensus.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "Staff Architect ✓",
@@ -1400,7 +1400,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Scope & Context Framing): Initialize Day 34 Mastery Certification: Interview Pushb...",
+            "caption": "Stage one (Scope & Context Framing): Initialize Day multiple Mastery.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -1434,7 +1434,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Topological Architecture): Model decoupled data flow.",
+            "caption": "Stage two (Topological Architecture): Model decoupled data flow.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active Flow",
@@ -1468,7 +1468,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (PACELC Trade-Offs): Evaluate latency and capacity bottlenecks.",
+            "caption": "Stage three (PACELC Trade-Offs): Evaluate latency and capacity bottlenecks.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "High Signal",
@@ -1502,7 +1502,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Executive Bar Raiser): Ratify planetary-scale consensus.",
+            "caption": "Stage four (Executive Bar Raiser): Ratify planetary-scale consensus.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "Staff Architect ✓",

@@ -6,7 +6,7 @@
   "entries": [
     {
       "partTitle": "The Principle Of Directional Stimulus Prompting: Guiding Autoregressive Focus With Semantic Anchors",
-      "codeHash": "e23bb575ad09e7221ccf56f029994fc4ab9155dc9280ff8893d9305384109fb5",
+      "codeHash": "68ec5b42979080f55f44f3afd9343738300b49ed760466ab36fb2e2ba9b94d80",
       "spec": {
         "template": "table",
         "title": "Directional Stimulus Principles And Semantic Anchor Focus Mechanics.",
@@ -160,7 +160,7 @@
     },
     {
       "partTitle": "The Policy Language Model Architecture: Decoupling Lightweight Hint Generators From Heavy Task Models",
-      "codeHash": "e23bb575ad09e7221ccf56f029994fc4ab9155dc9280ff8893d9305384109fb5",
+      "codeHash": "68ec5b42979080f55f44f3afd9343738300b49ed760466ab36fb2e2ba9b94d80",
       "spec": {
         "template": "table",
         "title": "Policy Language Model Architectures And Hint Generation Frameworks.",
@@ -314,7 +314,7 @@
     },
     {
       "partTitle": "Meta-Prompting & Recursive Prompt Rewriting: Automated Prompt Optimization Loops",
-      "codeHash": "e23bb575ad09e7221ccf56f029994fc4ab9155dc9280ff8893d9305384109fb5",
+      "codeHash": "68ec5b42979080f55f44f3afd9343738300b49ed760466ab36fb2e2ba9b94d80",
       "spec": {
         "template": "table",
         "title": "Meta Prompting Optimization Loops And Recursive Prompt Rewriters.",
@@ -468,7 +468,7 @@
     },
     {
       "partTitle": "Gradient-Free Prompt Tuning Algorithms: Automatic Prompt Engineer (APE) & Evolutionary Mutation",
-      "codeHash": "e23bb575ad09e7221ccf56f029994fc4ab9155dc9280ff8893d9305384109fb5",
+      "codeHash": "68ec5b42979080f55f44f3afd9343738300b49ed760466ab36fb2e2ba9b94d80",
       "spec": {
         "template": "table",
         "title": "Gradient Free Prompt Tuning And Evolutionary Mutation Algorithms.",
@@ -622,7 +622,7 @@
     },
     {
       "partTitle": "Production Implementation: Building An Adaptive Directional Stimulus Engine In Python",
-      "codeHash": "e23bb575ad09e7221ccf56f029994fc4ab9155dc9280ff8893d9305384109fb5",
+      "codeHash": "68ec5b42979080f55f44f3afd9343738300b49ed760466ab36fb2e2ba9b94d80",
       "spec": {
         "template": "table",
         "title": "Enterprise Directional Stimulus Engine Implementation In Python.",

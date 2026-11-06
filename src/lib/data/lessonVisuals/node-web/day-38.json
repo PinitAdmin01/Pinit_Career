@@ -206,7 +206,7 @@
           },
           {
             "at": "say5",
-            "caption": "Thousands of Node.js pods share small pool of 50 PostgreSQL server backends.",
+            "caption": "Thousands of Node.js pods share small pool of multiple PostgreSQL server.",
             "values": {
               "activeSide": "both"
             }
@@ -274,7 +274,7 @@
           },
           {
             "at": "say3",
-            "caption": "PostgreSQL documentation recommends pool size = (2 * CPU cores) + disk count.",
+            "caption": "PostgreSQL documentation recommends pool size = (two * CPU cores) + disk.",
             "values": {
               "littles": {
                 "status": "Synchronized"
@@ -382,7 +382,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Pool periodically validates idle sockets using SELECT 1 health check ping.",
+            "caption": "Pool periodically validates idle sockets using SELECT one health check.",
             "values": {
               "activeState": "HEALTHY"
             }

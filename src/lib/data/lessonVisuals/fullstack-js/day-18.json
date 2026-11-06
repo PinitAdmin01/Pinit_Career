@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream frame vector and initialize Real-Time Transport Protocols: WebS....",
+            "caption": "Ingress stream frame vector and initialize Real-Time Transport Protocols.",
             "values": {
               "in": "Day 18 Input",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute handshake upgrade, heartbeat evaluation, and pub/sub routing in Real-Time Transport Protocols: WebS....",
+            "caption": "Execute handshake upgrade, heartbeat evaluation, and pub/sub routing in.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -75,7 +75,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate TCP framing, backpressure watermark, and fanout invariant.",
+            "caption": "Evaluate TCP framing, backpressure watermark, and fanout invariant.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end streaming transmission confirmed for Real-Time Transport Protocols: WebS....",
+            "caption": "End-to-end streaming transmission confirmed for Real-Time Transport.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -257,7 +257,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream frame vector and initialize The WebSocket Connection Lifecycle:....",
+            "caption": "Ingress stream frame vector and initialize The WebSocket Connection.",
             "values": {
               "in": "Day 18 Input",
               "proc": "Standby",
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute handshake upgrade, heartbeat evaluation, and pub/sub routing in The WebSocket Connection Lifecycle:....",
+            "caption": "Execute handshake upgrade, heartbeat evaluation, and pub/sub routing in.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -301,7 +301,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate TCP framing, backpressure watermark, and fanout invariant.",
+            "caption": "Evaluate TCP framing, backpressure watermark, and fanout invariant.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -321,7 +321,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end streaming transmission confirmed for The WebSocket Connection Lifecycle:....",
+            "caption": "End-to-end streaming transmission confirmed for The WebSocket Connection.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -483,7 +483,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream frame vector and initialize Heartbeat Pings, Ghost Connections ....",
+            "caption": "Ingress stream frame vector and initialize Heartbeat Pings, Ghost.",
             "values": {
               "in": "Day 18 Input",
               "proc": "Standby",
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute handshake upgrade, heartbeat evaluation, and pub/sub routing in Heartbeat Pings, Ghost Connections ....",
+            "caption": "Execute handshake upgrade, heartbeat evaluation, and pub/sub routing in.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -527,7 +527,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate TCP framing, backpressure watermark, and fanout invariant.",
+            "caption": "Evaluate TCP framing, backpressure watermark, and fanout invariant.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -547,7 +547,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end streaming transmission confirmed for Heartbeat Pings, Ghost Connections ....",
+            "caption": "End-to-end streaming transmission confirmed for Heartbeat Pings, Ghost.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -709,7 +709,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream frame vector and initialize Distributed Pub/Sub Fanout with Red....",
+            "caption": "Ingress stream frame vector and initialize Distributed Pub/Sub Fanout.",
             "values": {
               "in": "Day 18 Input",
               "proc": "Standby",
@@ -729,7 +729,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute handshake upgrade, heartbeat evaluation, and pub/sub routing in Distributed Pub/Sub Fanout with Red....",
+            "caption": "Execute handshake upgrade, heartbeat evaluation, and pub/sub routing in.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -753,7 +753,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate TCP framing, backpressure watermark, and fanout invariant.",
+            "caption": "Evaluate TCP framing, backpressure watermark, and fanout invariant.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -773,7 +773,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end streaming transmission confirmed for Distributed Pub/Sub Fanout with Red....",
+            "caption": "End-to-end streaming transmission confirmed for Distributed Pub/Sub.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -935,7 +935,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream frame vector and initialize Flow Control, High-Watermark Buffer....",
+            "caption": "Ingress stream frame vector and initialize Flow Control, High-Watermark.",
             "values": {
               "in": "Day 18 Input",
               "proc": "Standby",
@@ -955,7 +955,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute handshake upgrade, heartbeat evaluation, and pub/sub routing in Flow Control, High-Watermark Buffer....",
+            "caption": "Execute handshake upgrade, heartbeat evaluation, and pub/sub routing in.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -979,7 +979,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate TCP framing, backpressure watermark, and fanout invariant.",
+            "caption": "Evaluate TCP framing, backpressure watermark, and fanout invariant.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -999,7 +999,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end streaming transmission confirmed for Flow Control, High-Watermark Buffer....",
+            "caption": "End-to-end streaming transmission confirmed for Flow Control.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

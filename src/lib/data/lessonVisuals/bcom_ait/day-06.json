@@ -10,7 +10,7 @@
       "codeHash": "7f430020b81367f356dc55ee647dbf0f074fefd9b8afb080940eb185d98033b4",
       "spec": {
         "template": "tree-graph",
-        "title": "Semantic Resume Parsing, Dense Embedding... \u2014 Enterprise AI Decision Graph",
+        "title": "Semantic Resume Parsing, Dense Embedding... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -54,7 +54,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for Semantic Resume Parsing, Dense Embedding....",
+            "caption": "Ingest enterprise Context Query for Semantic Resume Parsing, Dense.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -68,7 +68,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -87,7 +87,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & hallucination bounds in Policy Guardrail.",
+            "caption": "Validate compliance & hallucination bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -107,7 +107,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -134,7 +134,7 @@
       "codeHash": "112caf399e6ad0c4d63110fa26293d93867451d61f2992028617fea011e745a8",
       "spec": {
         "template": "tree-graph",
-        "title": "Algorithmic Fairness, EEOC Uniform Guide... \u2014 Enterprise AI Decision Graph",
+        "title": "Algorithmic Fairness, EEOC Uniform Guide... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -178,7 +178,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for Algorithmic Fairness, EEOC Uniform Guide....",
+            "caption": "Ingest enterprise Context Query for Algorithmic Fairness, EEOC Uniform.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -192,7 +192,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -211,7 +211,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & hallucination bounds in Policy Guardrail.",
+            "caption": "Validate compliance & hallucination bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -231,7 +231,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -258,7 +258,7 @@
       "codeHash": "ec59770076e04a6067dce3f168f5ef1b565e68b548cbb7f906314879ec145e04",
       "spec": {
         "template": "tree-graph",
-        "title": "The 4/5ths Rule (Adverse Impact Ratio - ... \u2014 Enterprise AI Decision Graph",
+        "title": "The 4/5ths Rule (Adverse Impact Ratio - ... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -302,7 +302,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for The 4/5ths Rule (Adverse Impact Ratio - ....",
+            "caption": "Ingest enterprise Context Query for The four/fiveths Rule (Adverse Impact.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -316,7 +316,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -335,7 +335,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & hallucination bounds in Policy Guardrail.",
+            "caption": "Validate compliance & hallucination bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -355,7 +355,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -382,7 +382,7 @@
       "codeHash": "7292df42702a665826ee014cfb35f4fb43dae648856d40ab9e043c0c4e12876b",
       "spec": {
         "template": "tree-graph",
-        "title": "Bias Mitigation Algorithms: Threshold Tu... \u2014 Enterprise AI Decision Graph",
+        "title": "Bias Mitigation Algorithms: Threshold Tu... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -426,7 +426,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for Bias Mitigation Algorithms: Threshold Tu....",
+            "caption": "Ingest enterprise Context Query for Bias Mitigation Algorithms: Threshold.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -440,7 +440,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -459,7 +459,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & hallucination bounds in Policy Guardrail.",
+            "caption": "Validate compliance & hallucination bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -479,7 +479,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -506,7 +506,7 @@
       "codeHash": "6ba30829e7d24f9f70391414e64f0f24068f904106f540c6aa4ca902e2f24b12",
       "spec": {
         "template": "tree-graph",
-        "title": "Enterprise Talent Intelligence Platform:... \u2014 Enterprise AI Decision Graph",
+        "title": "Enterprise Talent Intelligence Platform:... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -550,7 +550,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for Enterprise Talent Intelligence Platform:....",
+            "caption": "Ingest enterprise Context Query for Enterprise Talent Intelligence.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -564,7 +564,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -583,7 +583,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & hallucination bounds in Policy Guardrail.",
+            "caption": "Validate compliance & hallucination bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -603,7 +603,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",

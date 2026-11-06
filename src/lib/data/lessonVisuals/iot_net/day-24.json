@@ -10,11 +10,11 @@
       "codeHash": "98e527b0df903f9a71953b981fa7ca719fa31e58f6a99a935b610a6ecdbda0ee",
       "spec": {
         "template": "register-bits",
-        "title": "Day 24 Part 1 \u2014 UART Non-Blocking Ring Buffers \u2014 Register Architecture",
+        "title": "Day 24 Part 1 — UART Non-Blocking Ring Buffers — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register MODEM_UART_RING_REG for UART Non-Blocking Ring Buffers &.",
+            "caption": "Arm hardware register MODEM_UART_RING_REG for UART Non-Blocking Ring.",
             "registerName": "MODEM_UART_RING_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into MODEM_UART_RING_REG and assert validation flag.",
+            "caption": "Latch sampling bits into MODEM_UART_RING_REG and assert validation flag.",
             "registerName": "MODEM_UART_RING_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in MODEM_UART_RING_REG with pipeline status.",
+            "caption": "Execute hardware transformation in MODEM_UART_RING_REG with pipeline.",
             "registerName": "MODEM_UART_RING_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register MODEM_UART_RING_REG upon verified hardware completion.",
+            "caption": "Lock register MODEM_UART_RING_REG upon verified hardware completion.",
             "registerName": "MODEM_UART_RING_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -262,11 +262,11 @@
       "codeHash": "834f169438a028226ef97e8c7e4dfda4092cf71c4236cebed18be2509894b288",
       "spec": {
         "template": "register-bits",
-        "title": "Day 24 Part 2 \u2014 Asynchronous URC Interception  \u2014 Register Architecture",
+        "title": "Day 24 Part 2 — Asynchronous URC Interception  — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register MODEM_URC_DISPATCH_REG for Asynchronous URC Interception & .",
+            "caption": "Arm hardware register MODEM_URC_DISPATCH_REG for Asynchronous URC.",
             "registerName": "MODEM_URC_DISPATCH_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -326,7 +326,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into MODEM_URC_DISPATCH_REG and assert validation flag.",
+            "caption": "Latch sampling bits into MODEM_URC_DISPATCH_REG and assert validation flag.",
             "registerName": "MODEM_URC_DISPATCH_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -387,7 +387,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in MODEM_URC_DISPATCH_REG with pipeline status.",
+            "caption": "Execute hardware transformation in MODEM_URC_DISPATCH_REG with pipeline.",
             "registerName": "MODEM_URC_DISPATCH_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -448,7 +448,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register MODEM_URC_DISPATCH_REG upon verified hardware completion.",
+            "caption": "Lock register MODEM_URC_DISPATCH_REG upon verified hardware completion.",
             "registerName": "MODEM_URC_DISPATCH_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -514,11 +514,11 @@
       "codeHash": "8a0b7317c3ba7447cc63faded5878f2906c14c5521b03b0ef894c0382c35f807",
       "spec": {
         "template": "register-bits",
-        "title": "Day 24 Part 3 \u2014 3GPP Network Registration (CER \u2014 Register Architecture",
+        "title": "Day 24 Part 3 — 3GPP Network Registration (CER — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register MODEM_3GPP_CEREG_REG for 3GPP Network Registration (CEREG.",
+            "caption": "Arm hardware register MODEM_threeGPP_CEREG_REG for threeGPP Network.",
             "registerName": "MODEM_3GPP_CEREG_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -578,7 +578,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into MODEM_3GPP_CEREG_REG and assert validation flag.",
+            "caption": "Latch sampling bits into MODEM_threeGPP_CEREG_REG and assert validation.",
             "registerName": "MODEM_3GPP_CEREG_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -639,7 +639,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in MODEM_3GPP_CEREG_REG with pipeline status.",
+            "caption": "Execute hardware transformation in MODEM_threeGPP_CEREG_REG with pipeline.",
             "registerName": "MODEM_3GPP_CEREG_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -700,7 +700,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register MODEM_3GPP_CEREG_REG upon verified hardware completion.",
+            "caption": "Lock register MODEM_threeGPP_CEREG_REG upon verified hardware completion.",
             "registerName": "MODEM_3GPP_CEREG_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -766,11 +766,11 @@
       "codeHash": "2d4b75ad770bbb667a9b8a4adaf4e21bcc43f80226f8518f62590b7108ffe0d7",
       "spec": {
         "template": "register-bits",
-        "title": "Day 24 Part 4 \u2014 PDP Context Bearer Activation  \u2014 Register Architecture",
+        "title": "Day 24 Part 4 — PDP Context Bearer Activation  — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register MODEM_PDP_SOCKET_REG for PDP Context Bearer Activation & .",
+            "caption": "Arm hardware register MODEM_PDP_SOCKET_REG for PDP Context Bearer.",
             "registerName": "MODEM_PDP_SOCKET_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -830,7 +830,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into MODEM_PDP_SOCKET_REG and assert validation flag.",
+            "caption": "Latch sampling bits into MODEM_PDP_SOCKET_REG and assert validation flag.",
             "registerName": "MODEM_PDP_SOCKET_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -891,7 +891,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in MODEM_PDP_SOCKET_REG with pipeline status.",
+            "caption": "Execute hardware transformation in MODEM_PDP_SOCKET_REG with pipeline.",
             "registerName": "MODEM_PDP_SOCKET_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -952,7 +952,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register MODEM_PDP_SOCKET_REG upon verified hardware completion.",
+            "caption": "Lock register MODEM_PDP_SOCKET_REG upon verified hardware completion.",
             "registerName": "MODEM_PDP_SOCKET_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1018,11 +1018,11 @@
       "codeHash": "7e36586104ad669aa370b3c1d6bcfd63f6c89839d0b21d2ad1ce2c41a7fdbf79",
       "spec": {
         "template": "register-bits",
-        "title": "Day 24 Part 5 \u2014 Milestone 5 Prep: Full Modem E \u2014 Register Architecture",
+        "title": "Day 24 Part 5 — Milestone 5 Prep: Full Modem E — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register MODEM_V250_ESCAPE_REG for Milestone 5 Prep: Full Modem Eng.",
+            "caption": "Arm hardware register MODEM_V_ESCAPE_REG for Milestone five Prep: Full.",
             "registerName": "MODEM_V250_ESCAPE_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1082,7 +1082,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into MODEM_V250_ESCAPE_REG and assert validation flag.",
+            "caption": "Latch sampling bits into MODEM_V_ESCAPE_REG and assert validation flag.",
             "registerName": "MODEM_V250_ESCAPE_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -1143,7 +1143,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in MODEM_V250_ESCAPE_REG with pipeline status.",
+            "caption": "Execute hardware transformation in MODEM_V_ESCAPE_REG with pipeline status.",
             "registerName": "MODEM_V250_ESCAPE_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -1204,7 +1204,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register MODEM_V250_ESCAPE_REG upon verified hardware completion.",
+            "caption": "Lock register MODEM_V_ESCAPE_REG upon verified hardware completion.",
             "registerName": "MODEM_V250_ESCAPE_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

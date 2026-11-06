@@ -292,7 +292,7 @@
         "steps": [
           {
             "at": "say3",
-            "caption": "Default secrets are simply base64 encoded strings stored in cluster database.",
+            "caption": "Default secrets are simply base-encoded encoded strings stored in cluster.",
             "left": {
               "code": "rawPassword",
               "result": {
@@ -491,7 +491,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Live Reloading Configurations vs Pod Res.. [D19.P6.S1].",
+            "caption": "Initialize input state for Live Reloading Configurations vs Pod Res.",
             "values": {
               "in": "Day 19 Input",
               "proc": "Standby",
@@ -511,7 +511,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Live Reloading Conf... [D19.P6.S2].",
+            "caption": "Execute core transformation in Live Reloading Conf... [D.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -535,7 +535,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D19.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -555,7 +555,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Live Reloading Configurations vs .. [D19.P6.S4].",
+            "caption": "End-to-end execution verified for Live Reloading Configurations vs .",
             "values": {
               "in": "Committed",
               "proc": "Verified",

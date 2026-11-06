@@ -12,7 +12,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ledger ingestion and statutory framework for DAX Architecture & Evaluation Context Fundamentals",
+            "caption": "Ledger ingestion and statutory framework for DAX Architecture &.",
             "max": 100,
             "bars": [
               {
@@ -39,7 +39,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing recursive linkages and calculations for DAX Architecture & Evaluation Context Fundamentals",
+            "caption": "Processing recursive linkages and calculations for DAX Architecture &.",
             "max": 100,
             "bars": [
               {
@@ -66,7 +66,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world stress testing and scenarios for DAX Architecture & Evaluation Context Fundamentals",
+            "caption": "Real-world stress testing and scenarios for DAX Architecture & Evaluation.",
             "max": 100,
             "bars": [
               {
@@ -93,7 +93,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Active experimentation and parameter tuning for DAX Architecture & Evaluation Context Fundamentals",
+            "caption": "Active experimentation and parameter tuning for DAX Architecture &.",
             "max": 100,
             "bars": [
               {
@@ -244,7 +244,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ledger ingestion and statutory framework for Calculated Columns vs Explicit Measures & VertiPaq RAM Footprint",
+            "caption": "Ledger ingestion and statutory framework for Calculated Columns vs.",
             "max": 100,
             "bars": [
               {
@@ -271,7 +271,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing recursive linkages and calculations for Calculated Columns vs Explicit Measures & VertiPaq RAM Footprint",
+            "caption": "Processing recursive linkages and calculations for Calculated Columns vs.",
             "max": 100,
             "bars": [
               {
@@ -298,7 +298,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world stress testing and scenarios for Calculated Columns vs Explicit Measures & VertiPaq RAM Footprint",
+            "caption": "Real-world stress testing and scenarios for Calculated Columns vs.",
             "max": 100,
             "bars": [
               {
@@ -325,7 +325,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Active experimentation and parameter tuning for Calculated Columns vs Explicit Measures & VertiPaq RAM Footprint",
+            "caption": "Active experimentation and parameter tuning for Calculated Columns vs.",
             "max": 100,
             "bars": [
               {
@@ -476,7 +476,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ledger ingestion and statutory framework for The CALCULATE Engine & Context Transition",
+            "caption": "Ledger ingestion and statutory framework for The CALCULATE Engine &.",
             "max": 100,
             "bars": [
               {
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing recursive linkages and calculations for The CALCULATE Engine & Context Transition",
+            "caption": "Processing recursive linkages and calculations for The CALCULATE Engine &.",
             "max": 100,
             "bars": [
               {
@@ -530,7 +530,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world stress testing and scenarios for The CALCULATE Engine & Context Transition",
+            "caption": "Real-world stress testing and scenarios for The CALCULATE Engine &.",
             "max": 100,
             "bars": [
               {
@@ -557,7 +557,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Active experimentation and parameter tuning for The CALCULATE Engine & Context Transition",
+            "caption": "Active experimentation and parameter tuning for The CALCULATE Engine &.",
             "max": 100,
             "bars": [
               {
@@ -708,7 +708,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ledger ingestion and statutory framework for Iterative X-Functions (SUMX, AVERAGEX) & Row Context Scans",
+            "caption": "Ledger ingestion and statutory framework for Iterative X-Functions (SUMX.",
             "max": 100,
             "bars": [
               {
@@ -735,7 +735,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing recursive linkages and calculations for Iterative X-Functions (SUMX, AVERAGEX) & Row Context Scans",
+            "caption": "Processing recursive linkages and calculations for Iterative X-Functions.",
             "max": 100,
             "bars": [
               {
@@ -762,7 +762,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world stress testing and scenarios for Iterative X-Functions (SUMX, AVERAGEX) & Row Context Scans",
+            "caption": "Real-world stress testing and scenarios for Iterative X-Functions (SUMX.",
             "max": 100,
             "bars": [
               {
@@ -789,7 +789,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Active experimentation and parameter tuning for Iterative X-Functions (SUMX, AVERAGEX) & Row Context Scans",
+            "caption": "Active experimentation and parameter tuning for Iterative X-Functions.",
             "max": 100,
             "bars": [
               {
@@ -940,7 +940,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ledger ingestion and statutory framework for Enterprise DAX Metric Framework & Governance Gateway",
+            "caption": "Ledger ingestion and statutory framework for Enterprise DAX Metric.",
             "max": 100,
             "bars": [
               {
@@ -967,7 +967,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing recursive linkages and calculations for Enterprise DAX Metric Framework & Governance Gateway",
+            "caption": "Processing recursive linkages and calculations for Enterprise DAX Metric.",
             "max": 100,
             "bars": [
               {
@@ -994,7 +994,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world stress testing and scenarios for Enterprise DAX Metric Framework & Governance Gateway",
+            "caption": "Real-world stress testing and scenarios for Enterprise DAX Metric.",
             "max": 100,
             "bars": [
               {
@@ -1021,7 +1021,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Active experimentation and parameter tuning for Enterprise DAX Metric Framework & Governance Gateway",
+            "caption": "Active experimentation and parameter tuning for Enterprise DAX Metric.",
             "max": 100,
             "bars": [
               {

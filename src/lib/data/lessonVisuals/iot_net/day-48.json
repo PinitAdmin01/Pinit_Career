@@ -89,7 +89,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Attach handshake completes; node acquires Child status and allocates RLOC16 address.",
+            "caption": "Attach handshake completes; node acquires Child status and allocates.",
             "registerName": "THREAD_ROLE_STATE_REG",
             "bitWidth": 8,
             "hexValue": "0x83",
@@ -303,7 +303,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Transmit MLE Link Request embedding randomized 32-bit Challenge TLV.",
+            "caption": "Transmit MLE Link Request embedding randomized thirty-two-bit Challenge.",
             "registerName": "THREAD_MLE_LINK_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -439,7 +439,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Ingest Route64 TLV distance vector updates and calculate link margin from RSSI.",
+            "caption": "Ingest Routesixty-four TLV distance vector updates and calculate link.",
             "registerName": "THREAD_MLE_LINK_REG",
             "bitWidth": 8,
             "hexValue": "0xBF",
@@ -507,7 +507,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Two-way symmetric link confirmed; neighbor table updated and Route64 path cost converged.",
+            "caption": "Two-way symmetric link confirmed; neighbor table updated and.",
             "registerName": "THREAD_MLE_LINK_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1003,7 +1003,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Verify Joiner EUI-64 against steering data Bloom filter and establish secure tunnel.",
+            "caption": "Verify Joiner EUI-sixty-four against steering data Bloom filter and.",
             "registerName": "THREAD_COMMISSION_REG",
             "bitWidth": 8,
             "hexValue": "0x9F",
@@ -1217,7 +1217,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Form multi-hop mesh: elect Leader, promote active Routers, and synchronize Route64 tables.",
+            "caption": "Form multi-hop mesh: elect Leader, promote active Routers, and.",
             "registerName": "THREAD_MASTER_MESH_REG",
             "bitWidth": 8,
             "hexValue": "0x8F",

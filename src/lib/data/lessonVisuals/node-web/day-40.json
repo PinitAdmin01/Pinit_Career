@@ -60,7 +60,7 @@
           },
           {
             "at": "say3",
-            "caption": "Reservation enters HELD state with 15-minute expiration timestamp in Sorted Set.",
+            "caption": "Reservation enters HELD state with multiple-minute expiration timestamp.",
             "values": {
               "activeState": "HELD"
             }
@@ -232,28 +232,28 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Client 1 acquires lock with token 101 but suffers prolonged GC pause.",
+            "caption": "Client one acquires lock with token multiple but suffers prolonged GC.",
             "values": {
               "activeSide": "left"
             }
           },
           {
             "at": "say3",
-            "caption": "Client 2 acquires lock with token 102, finishes work, and commits to database.",
+            "caption": "Client two acquires lock with token multiple, finishes work, and commits.",
             "values": {
               "activeSide": "right"
             }
           },
           {
             "at": "say5",
-            "caption": "Client 1 wakes up from pause and attempts to commit stale write with token 101.",
+            "caption": "Client one wakes up from pause and attempts to commit stale write with.",
             "values": {
               "activeSide": "both"
             }
           },
           {
             "at": "say7",
-            "caption": "Downstream database gate rejects token 101, preserving Client 2 data integrity.",
+            "caption": "Downstream database gate rejects token multiple, preserving Client two.",
             "values": {
               "activeSide": "both"
             }
@@ -439,7 +439,7 @@
           },
           {
             "at": "say3",
-            "caption": "P99 latency benchmarks verify 3.4ms response time across Redis cluster nodes.",
+            "caption": "P latency benchmarks verify three.fourms response time across Redis.",
             "values": {
               "p99": {
                 "status": "Synchronized"
@@ -457,7 +457,7 @@
           },
           {
             "at": "say5",
-            "caption": "Concurrent burst tests prove zero oversell violations across 50,000 requests.",
+            "caption": "Concurrent burst tests prove zero oversell violations across.",
             "values": {
               "p99": {
                 "status": "Synchronized"
@@ -475,7 +475,7 @@
           },
           {
             "at": "say7",
-            "caption": "Evaluation suite issues Grade A+ Enterprise Certification for Milestone 7.",
+            "caption": "Evaluation suite issues Grade A+ Enterprise Certification for Milestone.",
             "values": {
               "p99": {
                 "status": "Synchronized"

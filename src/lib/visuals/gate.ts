@@ -28,6 +28,7 @@ export const COURSE_ALLOWED_TEMPLATES: Record<string, string[]> = {
   'train-py': ['bars', 'table', 'flow', 'cells', 'sequence', 'compare'],
   'vec-py': ['table', 'bars', 'tree-graph', 'cells', 'flow', 'compare'],
   'safe-py': ['flow', 'table', 'bars', 'compare', 'states'],
+  'cyber-py': ['flow', 'sequence', 'table', 'compare', 'states', 'boxes'],
   // Web Full-Stack Certification Course Tracks (Months 1–12)
   'react-basics': ['component-tree', 'wireframe', 'flow', 'boxes', 'compare', 'states'],
   'node-web': ['sequence', 'stack-queue', 'flow', 'boxes', 'table', 'states'],

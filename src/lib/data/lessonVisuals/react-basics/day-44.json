@@ -110,7 +110,7 @@
           },
           {
             "at": "say4",
-            "caption": "Server Actions reduce mutation boilerplate by 88% while providing automated CSRF protection.",
+            "caption": "Server Actions reduce mutation boilerplate by multiple% while providing.",
             "values": {
               "left": {
                 "items": [
@@ -450,7 +450,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The user initiates a cart purchase; useOptimistic projects the updated count in 0 milliseconds.",
+            "caption": "The user initiates a cart purchase; useOptimistic projects the updated.",
             "values": {
               "user_action": {
                 "text": "\"Buy 2 Units\""
@@ -643,7 +643,7 @@
           },
           {
             "at": "say3",
-            "caption": "The database executes an atomic inventory decrement: remaining inventory becomes 45.",
+            "caption": "The database executes an atomic inventory decrement: remaining inventory.",
             "values": {
               "client_dispatcher": {
                 "text": "\"Optimistic OK\""

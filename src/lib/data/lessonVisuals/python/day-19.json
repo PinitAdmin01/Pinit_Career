@@ -217,7 +217,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Overriding methods [D19.P3.S1].",
+            "caption": "Initialize input state for Overriding methods [D.Pthree.Sone].",
             "values": {
               "in": "Day 19 Input",
               "proc": "Standby",
@@ -237,7 +237,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Overriding methods [D19.P3.S2].",
+            "caption": "Execute core transformation in Overriding methods [D.Pthree.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -261,7 +261,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D19.P3.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Pthree.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -281,7 +281,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Overriding methods [D19.P3.S4].",
+            "caption": "End-to-end execution verified for Overriding methods [D.Pthree.Sfour].",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -536,7 +536,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for When to use classes and inheritance [D19.P5.S1].",
+            "caption": "Initialize input state for When to use classes and inheritance.",
             "values": {
               "in": "Day 19 Input",
               "proc": "Standby",
@@ -556,7 +556,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in When to use classes... [D19.P5.S2].",
+            "caption": "Execute core transformation in When to use classes... [D.Pfive.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -580,7 +580,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D19.P5.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -600,7 +600,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for When to use classes and inheritance [D19.P5.S4].",
+            "caption": "End-to-end execution verified for When to use classes and inheritance.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -762,7 +762,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Putting it together: expenses and subscr.. [D19.P6.S1].",
+            "caption": "Initialize input state for Putting it together: expenses and subscr.",
             "values": {
               "in": "Day 19 Input",
               "proc": "Standby",
@@ -782,7 +782,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Putting it together... [D19.P6.S2].",
+            "caption": "Execute core transformation in Putting it together... [D.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -806,7 +806,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D19.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -826,7 +826,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Putting it together: expenses and.. [D19.P6.S4].",
+            "caption": "End-to-end execution verified for Putting it together: expenses and.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

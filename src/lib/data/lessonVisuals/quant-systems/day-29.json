@@ -10,7 +10,7 @@
       "codeHash": "108b3c98802559c782dcbe2827749556d863c6f89eefda70e7e8f99638033f1b",
       "spec": {
         "template": "states",
-        "title": "FPGA Architecture in HFT: Hardware Pipelines  \u2014 High-Frequency Systems State Machine",
+        "title": "FPGA Architecture in HFT: Hardware Pipelines  — High-Frequency Systems State Machine",
         "states": [
           {
             "id": "st1",
@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (10G Eth MAC): Initialize deterministic state for FPGA Architecture in HFT: Hardware ...",
+            "caption": "State one (tenG Eth MAC): Initialize deterministic state for FPGA.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -60,7 +60,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Silicon Decode): Execute deterministic verification with zero heap allocations.",
+            "caption": "State four (Silicon Decode): Execute deterministic verification with zero.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -77,7 +77,7 @@
       "codeHash": "fb797100ba515ab3882f18a1400dc88ab06708211c12213d0a267ee24fda842d",
       "spec": {
         "template": "states",
-        "title": "Direct Memory Access (DMA), PCIe Gen5 Ring Bu \u2014 High-Frequency Systems State Machine",
+        "title": "Direct Memory Access (DMA), PCIe Gen5 Ring Bu — High-Frequency Systems State Machine",
         "states": [
           {
             "id": "st1",
@@ -99,7 +99,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (PCIe Gen5 DMA): Initialize deterministic state for Direct Memory Access (DMA), PCIe Ge...",
+            "caption": "State one (PCIe Genfive DMA): Initialize deterministic state for Direct.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -127,7 +127,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Zero-Copy Poll): Execute deterministic verification with zero heap allocations.",
+            "caption": "State four (Zero-Copy Poll): Execute deterministic verification with zero.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -144,7 +144,7 @@
       "codeHash": "0d336f9dec4e027151e912df51f86f9bd51a80a9ae77017360eaf9c34ece871c",
       "spec": {
         "template": "states",
-        "title": "Hardware Pre-Trade Risk Filtering: Sub-100 Na \u2014 High-Frequency Systems State Machine",
+        "title": "Hardware Pre-Trade Risk Filtering: Sub-100 Na — High-Frequency Systems State Machine",
         "states": [
           {
             "id": "st1",
@@ -166,7 +166,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Clip Register): Initialize deterministic state for Hardware Pre-Trade Risk Filtering: ...",
+            "caption": "State one (Clip Register): Initialize deterministic state for Hardware.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -194,7 +194,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (3.1ns Pass): Execute deterministic verification with zero heap allocations.",
+            "caption": "State four (three.onens Pass): Execute deterministic verification with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -211,7 +211,7 @@
       "codeHash": "e79f31005f03a04be0f6b50c141080fd4dd1b37d2af71c5eacbd8485175c0d65",
       "spec": {
         "template": "states",
-        "title": "AXI4-Stream Protocol & RTL Network Packet De- \u2014 High-Frequency Systems State Machine",
+        "title": "AXI4-Stream Protocol & RTL Network Packet De- — High-Frequency Systems State Machine",
         "states": [
           {
             "id": "st1",
@@ -233,7 +233,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (AXI TDATA Bus): Initialize deterministic state for AXI4-Stream Protocol & RTL Network ...",
+            "caption": "State one (AXI TDATA Bus): Initialize deterministic state for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -261,7 +261,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (TLAST Frame): Execute deterministic verification with zero heap allocations.",
+            "caption": "State four (TLAST Frame): Execute deterministic verification with zero.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -278,7 +278,7 @@
       "codeHash": "5d579c8f02012599f19ded477a50c80379ca99aded29bf34957a7dcf821b7e2c",
       "spec": {
         "template": "states",
-        "title": "Production Hybrid FPGA-CPU Co-Design & Micros \u2014 High-Frequency Systems State Machine",
+        "title": "Production Hybrid FPGA-CPU Co-Design & Micros — High-Frequency Systems State Machine",
         "states": [
           {
             "id": "st1",
@@ -300,7 +300,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (FPGA Fast Path): Initialize deterministic state for Production Hybrid FPGA-CPU Co-Desig...",
+            "caption": "State one (FPGA Fast Path): Initialize deterministic state for Production.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -328,7 +328,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Failover Standby): Execute deterministic verification with zero heap allocations.",
+            "caption": "State four (Failover Standby): Execute deterministic verification with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",

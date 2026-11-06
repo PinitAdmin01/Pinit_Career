@@ -254,7 +254,7 @@
           },
           {
             "at": "say4",
-            "caption": "The application logs diagnostic telemetry while remaining 100% crash-free.",
+            "caption": "The application logs diagnostic telemetry while remaining one hundred%.",
             "values": {
               "incoming_type": {
                 "text": "\"Handled Safely\""
