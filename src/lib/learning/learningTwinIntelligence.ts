@@ -78,7 +78,7 @@ Impact: High latency regression on edge clients.`,
       question: 'Your payment webhook service suddenly experiences 3x incoming traffic during flash sales, causing database connection pool exhaustion. Which adaptive pattern should you implement first?',
       context: 'The original architecture directly processed transactions synchronously inside the HTTP handler.',
       codeSnippet: `// Original Handler
-app.post('/api/webhook/payment', async (req, res) => {
+app.post('/api/payment/webhook', async (req, res) => {
   const client = await pool.connect();
   await processPaymentSynchronously(client, req.body);
   res.status(200).send('OK');
