@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import crypto from 'node:crypto';
 import type { InternshipWeeklyLogRow, ClientInternshipWeeklyLog } from './types';
 
 /**
@@ -19,9 +20,32 @@ export const WeeklyLogSchema = z.object({
   hours: z.number().min(0, 'Hours cannot be negative').max(80, 'Hours cannot exceed 80 per week'),
   summary: z.string().min(10, 'Summary must be at least 10 characters').max(2000, 'Summary too long'),
   links: z.array(z.string().url('Each link must be a valid URL')).default([]),
+  deliverableHash: z.string().length(64).regex(/^[a-f0-9]{64}$/i, 'Must be a 64-character SHA-256 hex string').optional(),
+  deliverableContent: z.string().optional(),
 });
 
 export type WeeklyLogInput = z.infer<typeof WeeklyLogSchema>;
+
+/**
+ * Computes deterministic SHA-256 fingerprint of any deliverable content
+ * (code patch, PR diff, deliverable summary).
+ */
+export function computeDeliverableFingerprint(deliverableContent: string | Record<string, unknown>): string {
+  const normalized = typeof deliverableContent === 'string'
+    ? deliverableContent.trim()
+    : JSON.stringify(deliverableContent, Object.keys(deliverableContent).sort());
+  return crypto.createHash('sha256').update(normalized, 'utf8').digest('hex');
+}
+
+/**
+ * Verifies that a given deliverable matches an expected SHA-256 fingerprint
+ * using constant-time comparison to prevent timing attacks.
+ */
+export function verifyDeliverableFingerprint(content: string | Record<string, unknown>, expectedHash: string): boolean {
+  if (!expectedHash || typeof expectedHash !== 'string' || expectedHash.length !== 64) return false;
+  const actualHash = computeDeliverableFingerprint(content);
+  return crypto.timingSafeEqual(Buffer.from(actualHash, 'hex'), Buffer.from(expectedHash, 'hex'));
+}
 
 /**
  * Converts a weekly log DB row to a client-safe object.
