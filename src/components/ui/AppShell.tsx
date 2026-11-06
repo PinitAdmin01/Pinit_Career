@@ -699,8 +699,10 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           className={`sidebar right-sidebar${rightCollapsed ? ' collapsed' : ''}`}
           style={{
             width: rightCollapsed ? 'var(--sidebar-collapsed-w, 68px)' : 'var(--sidebar-w, 240px)',
-            background: 'var(--bg-sidebar)',
-            borderLeft: '1px solid var(--border)',
+            background: 'linear-gradient(180deg, rgba(99, 102, 241, 0.05) 0%, color-mix(in srgb, var(--bg-sidebar) 94%, transparent) 100%)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+            borderLeft: '1.5px solid rgba(99, 102, 241, 0.18)',
             transition: 'width 0.25s cubic-bezier(0.4, 0, 0.2, 1), border 0.25s',
             overflow: 'hidden',
             display: 'flex',
@@ -708,7 +710,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             position: 'sticky',
             top: 0,
             height: '100vh',
-            boxShadow: '-2px 0 12px color-mix(in srgb, var(--accent) 8%, transparent)',
+            boxShadow: '-4px 0 24px -4px rgba(99, 102, 241, 0.08)',
             zIndex: 10
           }}
         >

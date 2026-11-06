@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import Link from 'next/link';
 
 export interface ActionProfile {
@@ -128,36 +129,52 @@ function pickActions(profile: ActionProfile): Action[] {
     .slice(0, 3);
 }
 
-export default function WhatToDoToday({ profile }: { profile: ActionProfile | null | undefined }) {
-  if (!profile) return null;
-  const actions = pickActions(profile);
+export interface WhatToDoTodayProps {
+  profile?: ActionProfile | null;
+  layout?: 'vertical' | 'horizontal';
+  className?: string;
+  style?: React.CSSProperties;
+}
+
+export default function WhatToDoToday({
+  profile,
+  layout = 'vertical',
+  className = '',
+  style = {},
+}: WhatToDoTodayProps) {
+  const safeProfile = profile || ({} as ActionProfile);
+  const actions = pickActions(safeProfile);
+  const isVertical = layout === 'vertical';
 
   return (
     <div
       data-testid="what-to-do-today-root"
-      className="db-glass"
+      className={`db-glass ${className}`.trim()}
       style={{
-        padding: '18px 22px',
+        padding: '20px 22px',
         borderRadius: 16,
-        background: 'var(--card, var(--bg2))',
-        border: '1px solid var(--border)',
-        boxShadow: 'var(--shadow-sm)',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        height: '100%',
+        boxSizing: 'border-box',
+        ...style,
       }}
     >
       {/* Header */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: isVertical ? 12 : 14 }}>
         <div>
-          <div style={{ fontSize: 11, letterSpacing: '0.8px', textTransform: 'uppercase', color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontWeight: 800, marginBottom: 2 }}>
-            What to do today
+          <div style={{ fontSize: 10.5, letterSpacing: '1px', textTransform: 'uppercase', color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontWeight: 800, marginBottom: 2 }}>
+            WHAT TO DO TODAY
           </div>
-          <div style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--t1)' }}>
-            3 concise actions personalized to your career progress
+          <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)', fontFamily: 'var(--font-display)' }}>
+            {isVertical ? '3 Priority Actions' : '3 concise actions personalized to your career progress'}
           </div>
         </div>
         <Link
           href="/missions"
           style={{
-            fontSize: 12,
+            fontSize: 11.5,
             fontWeight: 700,
             color: 'var(--accent)',
             textDecoration: 'none',
@@ -166,22 +183,45 @@ export default function WhatToDoToday({ profile }: { profile: ActionProfile | nu
             borderRadius: 6,
             background: 'rgba(99,102,241,0.08)',
             border: '1px solid rgba(99,102,241,0.2)',
+            whiteSpace: 'nowrap',
           }}
         >
           All missions →
         </Link>
       </div>
 
-      {/* Action cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 12 }}>
+      {/* Action cards: vertical flex stack or horizontal grid */}
+      <div
+        data-testid={isVertical ? 'what-to-do-today-vertical-list' : 'what-to-do-today-horizontal-grid'}
+        style={
+          isVertical
+            ? {
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 10,
+                flex: 1,
+                justifyContent: 'space-between',
+              }
+            : {
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+                gap: 12,
+              }
+        }
+      >
         {actions.map((action, i) => (
-          <Link key={action.href + i} href={action.href} style={{ textDecoration: 'none' }}>
+          <Link
+            key={action.href + i}
+            href={action.href}
+            style={{ textDecoration: 'none', display: 'block', flex: isVertical ? 1 : undefined }}
+            data-testid={`action-item-${isVertical ? 'vertical' : 'horizontal'}-${i}`}
+          >
             <div
               style={{
                 background: 'var(--bg3)',
                 border: `1.5px solid ${action.border}`,
                 borderRadius: 12,
-                padding: '14px 16px',
+                padding: isVertical ? '10px 14px' : '14px 16px',
                 cursor: 'pointer',
                 transition: 'all 0.18s ease',
                 borderLeft: `4px solid ${action.color}`,
@@ -189,38 +229,63 @@ export default function WhatToDoToday({ profile }: { profile: ActionProfile | nu
                 flexDirection: 'column',
                 justifyContent: 'space-between',
                 height: '100%',
+                boxSizing: 'border-box',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.transform = isVertical ? 'translateX(3px)' : 'translateY(-2px)';
                 e.currentTarget.style.borderColor = action.color;
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.transform = 'none';
                 e.currentTarget.style.borderColor = action.border;
               }}
             >
               <div>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                    <span style={{ fontSize: 10, fontWeight: 900, color: action.color, background: action.bg, padding: '2px 7px', borderRadius: 4, fontFamily: 'var(--font-mono)' }}>{action.icon}</span>
-                    <span style={{ fontSize: 11.5, fontWeight: 800, color: action.color, fontFamily: 'var(--font-mono)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <span style={{ fontSize: 9.5, fontWeight: 900, color: action.color, background: action.bg, padding: '2px 6px', borderRadius: 4, fontFamily: 'var(--font-mono)' }}>
+                      {action.icon}
+                    </span>
+                    <span style={{ fontSize: 11, fontWeight: 800, color: action.color, fontFamily: 'var(--font-mono)' }}>
                       Priority {i + 1}
                     </span>
                   </div>
+                  {isVertical && (
+                    <span style={{ fontSize: 11, fontWeight: 800, color: action.color, fontFamily: 'var(--font-mono)', whiteSpace: 'nowrap', flexShrink: 0 }}>
+                      {action.cta.replace(' →', '')} →
+                    </span>
+                  )}
                 </div>
 
-                <div style={{ fontWeight: 800, fontSize: 14, color: 'var(--t1)', marginBottom: 4, lineHeight: 1.3 }}>
+                <div style={{ fontWeight: 800, fontSize: isVertical ? 13 : 14, color: 'var(--t1)', marginBottom: 3, lineHeight: 1.25 }}>
                   {action.title}
                 </div>
 
-                <div style={{ fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.45, marginBottom: 12 }}>
+                <div
+                  style={{
+                    fontSize: isVertical ? 11.5 : 12.5,
+                    color: 'var(--t2)',
+                    lineHeight: 1.35,
+                    marginBottom: isVertical ? 0 : 12,
+                    ...(isVertical
+                      ? {
+                          display: '-webkit-box',
+                          WebkitLineClamp: 2,
+                          WebkitBoxOrient: 'vertical',
+                          overflow: 'hidden',
+                        }
+                      : {}),
+                  }}
+                >
                   {action.desc}
                 </div>
               </div>
 
-              <div style={{ fontSize: 12, fontWeight: 800, color: action.color, fontFamily: 'var(--font-mono)', display: 'flex', alignItems: 'center', gap: 4 }}>
-                {action.cta}
-              </div>
+              {!isVertical && (
+                <div style={{ fontSize: 12, fontWeight: 800, color: action.color, fontFamily: 'var(--font-mono)', display: 'flex', alignItems: 'center', gap: 4 }}>
+                  {action.cta}
+                </div>
+              )}
             </div>
           </Link>
         ))}

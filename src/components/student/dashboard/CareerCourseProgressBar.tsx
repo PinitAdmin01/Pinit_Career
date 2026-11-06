@@ -263,14 +263,6 @@ export default function CareerCourseProgressBar() {
             TRACK
           </div>
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span className="db-label" style={{ color: 'var(--accent)' }}>
-                ENROLLED CAREER ACCREDITATION
-              </span>
-              <span style={{ fontSize: 10.5, fontFamily: 'var(--font-mono)', padding: '2px 8px', borderRadius: 6, background: 'rgba(16,185,129,0.15)', color: '#10b981', border: '1px solid rgba(16,185,129,0.3)' }}>
-                ● Active Program
-              </span>
-            </div>
             <h3 style={{ fontSize: 17, fontWeight: 900, color: 'var(--t1)', margin: '2px 0 0', fontFamily: 'var(--font-display)' }}>
               {plan?.title || 'Full-Stack Career Accelerator'} &middot; {isAllComplete ? <span style={{ color: '#10b981' }}>100% Completed</span> : <><span style={{ color: 'var(--accent)' }}>Day {currentIncompleteDay}</span> of {totalDays}</>}
             </h3>
@@ -280,9 +272,6 @@ export default function CareerCourseProgressBar() {
         {/* Action Button & Completion Pill */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
           <div style={{ textAlign: 'right', marginRight: 4 }}>
-            <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: 'var(--t3)' }}>
-              Overall Progress
-            </div>
             <div style={{ fontSize: 15, fontWeight: 900, fontFamily: 'var(--font-mono)', color: '#10b981' }}>
               {percentComplete}% Completed
             </div>
