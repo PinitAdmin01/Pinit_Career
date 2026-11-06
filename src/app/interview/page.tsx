@@ -55,6 +55,10 @@ import { crashCourseEnrollmentService } from '@/lib/services/crashCourseEnrollme
 import { getCrashPlanById } from '@/lib/data/crashPlansData';
 import { courseDefenseTopic, nextCapstoneSprint, type CapstoneMilestones } from '@/lib/courses/capstoneSprints';
 import GroupDiscussionPage from '@/app/group-discussion/page';
+import {
+  generateJdInterviewContext,
+  type JdMatchResult
+} from '@/lib/interview/jdMatch';
 
 export default function InterviewPage() {
   const searchParams = useSearchParams();
@@ -82,11 +86,31 @@ export default function InterviewPage() {
     }
   };
 
-  const [interviewMode, setInterviewMode] = useState<'roadmap' | 'custom'>('roadmap');
+  const [interviewMode, setInterviewMode] = useState<'roadmap' | 'custom' | 'jd'>('roadmap');
+  const [jdInput, setJdInput] = useState('');
+  const [jdMatchResult, setJdMatchResult] = useState<JdMatchResult | null>(null);
+  const [jdPromptContext, setJdPromptContext] = useState<string>('');
   const [customTopicInput, setCustomTopicInput] = useState('');
   const [activeTopicName, setActiveTopicName] = useState('Software Engineering');
   const [domainStream, setDomainStream] = useState<'tech' | 'non_tech'>('tech');
   const [domainSubTopic, setDomainSubTopic] = useState<string>('software');
+
+  useEffect(() => {
+    if (interviewMode !== 'jd' || !jdInput.trim()) {
+      setJdMatchResult(null);
+      setJdPromptContext('');
+      return;
+    }
+    const context = generateJdInterviewContext(jdInput, onboardingAnswers);
+    setJdMatchResult(context.matchResult);
+    setJdPromptContext(context.promptContext);
+    if (context.focus.primaryTopic && context.matchResult.analyzable) {
+      setActiveTopicName(context.focus.primaryTopic);
+      if (context.focus.difficultyRecommendation) {
+        setDifficulty(context.focus.difficultyRecommendation);
+      }
+    }
+  }, [interviewMode, jdInput, onboardingAnswers]);
 
   useEffect(() => {
     const modeParam = searchParams.get('mode');
@@ -1117,7 +1141,7 @@ export default function InterviewPage() {
     }
   };
 
-  const exportInterviewTranscript = (format: 'markdown' | 'json' = 'markdown') => {
+  const exportInterviewTranscript = (format: 'markdown' | 'json' | 'pdf' = 'markdown') => {
     exportInterviewTranscriptFile({
       format, activeTopicName, domainStream,
       teacherName: activeTeacher.name,
@@ -1214,7 +1238,7 @@ export default function InterviewPage() {
           interviewMode={interviewMode} setInterviewMode={setInterviewMode}
           domainStream={domainStream} setDomainStream={setDomainStream}
           domainSubTopic={domainSubTopic} setDomainSubTopic={setDomainSubTopic}
-          customTopicInput={customTopicInput} setCustomTopicInput={setCustomTopicInput}
+          customTopicInput={customTopicInput} setCustomTopicInput={setCustomTopicInput} jdInput={jdInput} setJdInput={setJdInput} jdMatchResult={jdMatchResult}
           difficulty={difficulty} setDifficulty={setDifficulty}
           isAssistModeActive={isAssistModeActive} setIsAssistModeActive={setIsAssistModeActive}
           startInterview={startInterview} sessions={sessions}

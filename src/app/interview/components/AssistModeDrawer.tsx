@@ -26,7 +26,7 @@ export function buildFallbackAssistData(
       script:
         level === 'advanced'
           ? `Clarify input constraints and boundary invariants for ${cleanTopic} first, then compare brute-force vs optimal time/space complexity before writing modular, defensive code.`
-          : `Start by restating the problem inputs and edge cases (empty input, single element, duplicates), then outline your step-by-step algorithm before coding.`,
+          : "For " + cleanTopic + ", start by restating problem inputs and edge cases (empty input, single element, duplicates), then outline your step-by-step algorithm before coding.",
       bulletPoints: [
         'Validate null, empty, and single-element boundary inputs first',
         'State target Time Complexity O(N) / O(N log N) and Space Complexity bounds',

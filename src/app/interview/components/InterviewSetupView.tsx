@@ -1,20 +1,24 @@
 'use client';
 
 import React from 'react';
+import type { JdMatchResult } from '@/lib/interview/jdMatch';
 
 export interface InterviewSetupViewProps {
   activeSessionDraft: any;
   resumeActiveSession: () => void;
   discardActiveSession: () => void;
   formatStageLabel: (stage: any) => string;
-  interviewMode: 'roadmap' | 'custom';
-  setInterviewMode: (mode: 'roadmap' | 'custom') => void;
+  interviewMode: 'roadmap' | 'custom' | 'jd';
+  setInterviewMode: (mode: 'roadmap' | 'custom' | 'jd') => void;
   domainStream: 'tech' | 'non_tech';
   setDomainStream: (stream: 'tech' | 'non_tech') => void;
   domainSubTopic: string;
   setDomainSubTopic: (topic: string) => void;
   customTopicInput: string;
   setCustomTopicInput: (val: string) => void;
+  jdInput?: string;
+  setJdInput?: (val: string) => void;
+  jdMatchResult?: JdMatchResult | null;
   difficulty: 'easy' | 'normal' | 'hard';
   setDifficulty: (diff: 'easy' | 'normal' | 'hard') => void;
   isAssistModeActive?: boolean;
@@ -38,6 +42,9 @@ export const InterviewSetupView: React.FC<InterviewSetupViewProps> = ({
   setDomainSubTopic,
   customTopicInput,
   setCustomTopicInput,
+  jdInput = '',
+  setJdInput,
+  jdMatchResult,
   difficulty,
   setDifficulty,
   isAssistModeActive = false,
@@ -113,18 +120,27 @@ export const InterviewSetupView: React.FC<InterviewSetupViewProps> = ({
         {/* Mode Selection */}
         <div style={{ marginBottom: 20 }}>
           <label style={{ fontSize: 12, fontWeight: 800, color: 'var(--t2)', display: 'block', marginBottom: 8 }}>SELECT INTERVIEW MODE</label>
-          <div style={{ display: 'flex', gap: 10 }}>
+          <div style={{ display: 'flex', gap: 8 }}>
             <button
               onClick={() => setInterviewMode('roadmap')}
-              style={{ flex: 1, padding: '10px 14px', borderRadius: 10, border: interviewMode === 'roadmap' ? '2px solid var(--accent)' : '1px solid var(--border)', background: interviewMode === 'roadmap' ? 'var(--accent-light)' : 'var(--bg3)', color: interviewMode === 'roadmap' ? 'var(--accent)' : 'var(--t1)', fontWeight: 800, fontSize: 13, cursor: 'pointer' }}
+              data-testid="mode-roadmap"
+              style={{ flex: 1, padding: '10px 10px', borderRadius: 10, border: interviewMode === 'roadmap' ? '2px solid var(--accent)' : '1px solid var(--border)', background: interviewMode === 'roadmap' ? 'var(--accent-light)' : 'var(--bg3)', color: interviewMode === 'roadmap' ? 'var(--accent)' : 'var(--t1)', fontWeight: 800, fontSize: 12.5, cursor: 'pointer' }}
             >
               🎯 1. Roadmap Track
             </button>
             <button
               onClick={() => setInterviewMode('custom')}
-              style={{ flex: 1, padding: '10px 14px', borderRadius: 10, border: interviewMode === 'custom' ? '2px solid var(--accent)' : '1px solid var(--border)', background: interviewMode === 'custom' ? 'var(--accent-light)' : 'var(--bg3)', color: interviewMode === 'custom' ? 'var(--accent)' : 'var(--t1)', fontWeight: 800, fontSize: 13, cursor: 'pointer' }}
+              data-testid="mode-custom"
+              style={{ flex: 1, padding: '10px 10px', borderRadius: 10, border: interviewMode === 'custom' ? '2px solid var(--accent)' : '1px solid var(--border)', background: interviewMode === 'custom' ? 'var(--accent-light)' : 'var(--bg3)', color: interviewMode === 'custom' ? 'var(--accent)' : 'var(--t1)', fontWeight: 800, fontSize: 12.5, cursor: 'pointer' }}
             >
               ✏️ 2. Custom Topic / Viva
+            </button>
+            <button
+              onClick={() => setInterviewMode('jd')}
+              data-testid="mode-jd"
+              style={{ flex: 1, padding: '10px 10px', borderRadius: 10, border: interviewMode === 'jd' ? '2px solid var(--accent)' : '1px solid var(--border)', background: interviewMode === 'jd' ? 'var(--accent-light)' : 'var(--bg3)', color: interviewMode === 'jd' ? 'var(--accent)' : 'var(--t1)', fontWeight: 800, fontSize: 12.5, cursor: 'pointer' }}
+            >
+              📋 3. Match Job Description (JD)
             </button>
           </div>
         </div>
@@ -177,7 +193,7 @@ export const InterviewSetupView: React.FC<InterviewSetupViewProps> = ({
               </select>
             </div>
           </div>
-        ) : (
+        ) : interviewMode === 'custom' ? (
           <div style={{ marginBottom: 20 }}>
             <label style={{ fontSize: 12, fontWeight: 800, color: 'var(--t2)', display: 'block', marginBottom: 6 }}>ENTER CUSTOM TOPIC OR CAPSTONE PROJECT</label>
             <input
@@ -188,6 +204,96 @@ export const InterviewSetupView: React.FC<InterviewSetupViewProps> = ({
               className="iv-input"
               style={{ width: '100%', padding: '10px 14px', fontSize: 14 }}
             />
+          </div>
+        ) : (
+          <div style={{ marginBottom: 20, display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <div>
+              <label style={{ fontSize: 12, fontWeight: 800, color: 'var(--t2)', display: 'block', marginBottom: 6 }}>
+                PASTE TARGET JOB DESCRIPTION (REAL-TIME SKILL MATCHER)
+              </label>
+              <textarea
+                value={jdInput}
+                onChange={(e) => setJdInput && setJdInput(e.target.value)}
+                placeholder="Paste the full job posting here (e.g. from LinkedIn, Google, Startup)... Required skills, tech stack, and responsibilities will be parsed automatically against your profile."
+                rows={5}
+                className="iv-input"
+                data-testid="jd-matcher-textarea"
+                style={{ width: '100%', padding: '10px 14px', fontSize: 13, resize: 'vertical', fontFamily: 'inherit' }}
+              />
+            </div>
+
+            {/* JD Analysis Card */}
+            {jdMatchResult && jdMatchResult.analyzable ? (
+              <div style={{
+                background: 'var(--bg3)',
+                border: '1px solid var(--border)',
+                borderRadius: 12,
+                padding: '12px 14px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 10
+              }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <span style={{ fontSize: 16 }}>🎯</span>
+                    <span style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)' }}>
+                      JD Match Score: <span style={{ color: jdMatchResult.match_score >= 70 ? 'var(--green-mid)' : 'var(--accent)' }}>{jdMatchResult.match_score}%</span>
+                    </span>
+                    <span style={{
+                      fontSize: 11,
+                      fontWeight: 800,
+                      padding: '2px 8px',
+                      borderRadius: 6,
+                      background: jdMatchResult.verdict === 'strong' ? 'rgba(16, 185, 129, 0.15)' : 'rgba(245, 158, 11, 0.15)',
+                      color: jdMatchResult.verdict === 'strong' ? 'var(--green-mid)' : '#f59e0b',
+                      textTransform: 'uppercase'
+                    }}>
+                      {jdMatchResult.verdict}
+                    </span>
+                  </div>
+                  <span style={{ fontSize: 12, color: 'var(--t2)' }}>
+                    Est. Prep: <strong>{jdMatchResult.estimated_preparation_weeks} wks</strong>
+                  </span>
+                </div>
+
+                {jdMatchResult.matched_skills.length > 0 && (
+                  <div>
+                    <span style={{ fontSize: 11.5, fontWeight: 800, color: 'var(--green-mid)', display: 'block', marginBottom: 4 }}>
+                      ✅ VERIFIED MATCHES ({jdMatchResult.matched_skills.length})
+                    </span>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                      {jdMatchResult.matched_skills.map((s) => (
+                        <span key={s} style={{ fontSize: 11, padding: '2px 8px', borderRadius: 6, background: 'rgba(16, 185, 129, 0.12)', color: 'var(--green-mid)', fontWeight: 700 }}>
+                          {s}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {jdMatchResult.missing_skills.length > 0 && (
+                  <div>
+                    <span style={{ fontSize: 11.5, fontWeight: 800, color: '#f59e0b', display: 'block', marginBottom: 4 }}>
+                      ⚠️ PROBING GAPS ({jdMatchResult.missing_skills.length})
+                    </span>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                      {jdMatchResult.missing_skills.map((s) => (
+                        <span key={s} style={{ fontSize: 11, padding: '2px 8px', borderRadius: 6, background: 'rgba(245, 158, 11, 0.12)', color: '#f59e0b', fontWeight: 700 }}>
+                          {s}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                <div style={{ fontSize: 11.5, color: 'var(--t3)', lineHeight: 1.4 }}>
+                  💡 The AI panel will tailor questions to probe your identified skill gaps while assessing depth in your core strengths.
+                </div>
+              </div>
+            ) : jdInput.trim().length > 0 ? (
+              <div style={{ fontSize: 12, color: 'var(--t3)', padding: '8px 10px', background: 'var(--bg3)', borderRadius: 8 }}>
+                ℹ️ Scanning for recognized technical skills and architectural keywords...
+              </div>
+            ) : null}
           </div>
         )}
 

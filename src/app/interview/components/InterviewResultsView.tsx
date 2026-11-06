@@ -15,7 +15,7 @@ export interface InterviewResultsViewProps {
   fillerWordCount: number;
   eyeContactScore: number | null;
   startInterview: () => void;
-  exportInterviewTranscript: (format: 'markdown' | 'json') => void;
+  exportInterviewTranscript: (format: 'markdown' | 'json' | 'pdf') => void;
   exitInterview: () => void;
 }
 

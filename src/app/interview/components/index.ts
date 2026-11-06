@@ -10,3 +10,4 @@ export type { AssistData } from './AssistModeDrawer';
 export { InterviewHistoryModal } from './InterviewHistoryModal';
 export { InterviewSessionHeader } from './InterviewSessionHeader';
 export { InterviewVoiceHud } from './InterviewVoiceHud';
+export { InterviewCamera } from './InterviewCamera';

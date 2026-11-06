@@ -2,7 +2,7 @@
 // Shared archetype definitions and personality scoring.
 // Used by: app/onboarding/page.tsx + app/career-dna/page.tsx
 //
-// The 6 archetypes from Image 7 (CareerDNA Identity System mockup).
+// The 8 career archetypes for comprehensive career DNA mapping.
 // Archetype is derived from a 6-question personality scan. Scores stored
 // in career_profiles.career_dna_archetype (schema migration v5).
 
@@ -73,6 +73,28 @@ export const ARCHETYPES = [
     traits:      ['Expressive', 'Communicative', 'Design-Minded'],
     bestFit:     ['UI/UX Designer', 'Technical Writer', 'Developer Advocate'],
   },
+  {
+    id:          'architect',
+    label:       'The Architect',
+    icon:        '🏛',
+    color:       'var(--cyan, #06b6d4)',
+    gradient:    'linear-gradient(135deg, #0891b2, #1e40af)',
+    tagline:     'You design scalable foundations and systematic frameworks.',
+    description: 'Structure, scalability, and long-term durability. You architect systems that withstand exponential scale.',
+    traits:      ['Systemic', 'Methodical', 'Architectural'],
+    bestFit:     ['Solutions Architect', 'Enterprise Architect', 'Systems Engineer'],
+  },
+  {
+    id:          'catalyst',
+    label:       'The Catalyst',
+    icon:        '⚡',
+    color:       'var(--emerald, #10b981)',
+    gradient:    'linear-gradient(135deg, #059669, #eab308)',
+    tagline:     'You accelerate momentum, rally teams, and turn friction into velocity.',
+    description: 'Dynamic, persuasive, and action-oriented. You break through deadlocks and energize entire organizations.',
+    traits:      ['Energizing', 'Persuasive', 'Momentum-Driven'],
+    bestFit:     ['Growth Lead', 'Engineering Manager', 'Operations Director'],
+  },
 ] as const;
 
 export type ArchetypeId = typeof ARCHETYPES[number]['id'];
@@ -98,10 +120,12 @@ export const PERSONALITY_QUESTIONS: PersonalityQuestion[] = [
     id: 'problem',
     text: 'Do you enjoy solving complex problems?',
     options: [
-      { label: 'Absolutely! I love complex challenges', emoji: '😄', weights: { analyst: 3, builder: 2, strategist: 1 } },
-      { label: 'Yes, I enjoy it most of the time',       emoji: '🙂', weights: { analyst: 2, builder: 2, operator: 1 } },
-      { label: 'Sometimes, it depends',                  emoji: '😐', weights: { operator: 2, creator: 2 } },
+      { label: 'Absolutely! I love complex challenges', emoji: '😄', weights: { analyst: 3, builder: 2, strategist: 1, architect: 3 } },
+      { label: 'Yes, I enjoy it most of the time',       emoji: '🙂', weights: { analyst: 2, builder: 2, operator: 1, catalyst: 2 } },
+      { label: 'Sometimes, it depends',                  emoji: '😐', weights: { operator: 2, creator: 2, catalyst: 1 } },
       { label: 'I prefer simpler, clear tasks',          emoji: '😕', weights: { operator: 3, creator: 1 } },
+      { label: 'I break problems down into scalable architectures', emoji: '🏛', weights: { architect: 4, strategist: 2 } },
+      { label: 'I rally people together to overcome blockers', emoji: '⚡', weights: { catalyst: 4, visionary: 2 } },
     ],
   },
   {
@@ -112,6 +136,8 @@ export const PERSONALITY_QUESTIONS: PersonalityQuestion[] = [
       { label: 'Dive in and build a prototype fast',       emoji: '⚒', weights: { builder: 3, operator: 1 } },
       { label: 'Imagine the ideal end state',              emoji: '✨', weights: { visionary: 3, creator: 2 } },
       { label: 'Collect data and analyse the problem',     emoji: '🔬', weights: { analyst: 3, strategist: 1 } },
+      { label: 'Define component boundaries and abstractions', emoji: '📐', weights: { architect: 4, analyst: 1 } },
+      { label: 'Kick off a huddle and align team momentum', emoji: '📣', weights: { catalyst: 4, operator: 2 } },
     ],
   },
   {
@@ -122,6 +148,8 @@ export const PERSONALITY_QUESTIONS: PersonalityQuestion[] = [
       { label: 'Making a lasting impact on people',          emoji: '💫', weights: { visionary: 3, creator: 2 } },
       { label: 'Solving a puzzle no one else could',         emoji: '🧩', weights: { analyst: 3, strategist: 2 } },
       { label: 'Running a smooth, well-oiled process',       emoji: '⚙',  weights: { operator: 3, strategist: 1 } },
+      { label: 'Designing an enduring, clean foundation',    emoji: '🏗', weights: { architect: 4, builder: 2 } },
+      { label: 'Igniting energy and unlocking rapid delivery', emoji: '🔥', weights: { catalyst: 4, visionary: 2 } },
     ],
   },
   {
@@ -132,6 +160,8 @@ export const PERSONALITY_QUESTIONS: PersonalityQuestion[] = [
       { label: 'By mapping pros, cons and strategy',   emoji: '⚖',  weights: { strategist: 3, analyst: 1 } },
       { label: 'By gut feeling and intuition',         emoji: '💡', weights: { visionary: 2, creator: 2, builder: 1 } },
       { label: 'By what works in practice',            emoji: '🔧', weights: { builder: 2, operator: 3 } },
+      { label: 'By evaluating modularity and trade-offs', emoji: '🧱', weights: { architect: 4, strategist: 2 } },
+      { label: 'By sensing team consensus and driving buy-in', emoji: '🤝', weights: { catalyst: 4, creator: 1 } },
     ],
   },
   {
@@ -142,6 +172,8 @@ export const PERSONALITY_QUESTIONS: PersonalityQuestion[] = [
       { label: 'The maker — gets things done',         emoji: '🛠', weights: { builder: 3, operator: 2 } },
       { label: 'The creative — brings fresh ideas',   emoji: '🎨', weights: { creator: 3, visionary: 2 } },
       { label: 'The analyst — finds the insight',      emoji: '🔭', weights: { analyst: 3, strategist: 1 } },
+      { label: 'The blueprint expert — sees system structure', emoji: '📐', weights: { architect: 4, builder: 1 } },
+      { label: 'The force multiplier — accelerates everything', emoji: '⚡', weights: { catalyst: 4, operator: 2 } },
     ],
   },
   {
@@ -152,6 +184,8 @@ export const PERSONALITY_QUESTIONS: PersonalityQuestion[] = [
       { label: 'Driving strategy at a top company',        emoji: '🏢', weights: { strategist: 3, analyst: 1 } },
       { label: 'Creating work that inspires people',       emoji: '🌟', weights: { creator: 3, visionary: 2 } },
       { label: 'Being the expert others turn to for data', emoji: '🏆', weights: { analyst: 3, operator: 1 } },
+      { label: 'Architecting mission-critical platforms',  emoji: '🏛', weights: { architect: 4, strategist: 1 } },
+      { label: 'Transforming team velocity and culture',   emoji: '🚀', weights: { catalyst: 4, visionary: 2 } },
     ],
   },
 ];
@@ -162,7 +196,7 @@ export function computeArchetype(
   answers: Record<string, number>,   // questionId → option index
 ): ArchetypeId {
   const scores: Record<ArchetypeId, number> = {
-    strategist: 0, builder: 0, visionary: 0, operator: 0, analyst: 0, creator: 0,
+    strategist: 0, builder: 0, visionary: 0, operator: 0, analyst: 0, creator: 0, architect: 0, catalyst: 0,
   };
 
   PERSONALITY_QUESTIONS.forEach((q) => {
@@ -171,7 +205,7 @@ export function computeArchetype(
     const option = q.options[idx];
     if (!option) return;
     (Object.entries(option.weights) as [ArchetypeId, number][]).forEach(([arch, w]) => {
-      scores[arch] += w;
+      scores[arch] += (w || 0);
     });
   });
 
@@ -197,4 +231,10 @@ export const ROLE_SALARY: Record<string, { min: string; max: string; growth: str
   'Cloud Engineer':              { min: '₹9L',  max: '₹40L', growth: '+28%' },
   'Cybersecurity Analyst':       { min: '₹7L',  max: '₹32L', growth: '+26%' },
   'Consultant':                  { min: '₹8L',  max: '₹30L', growth: '+14%' },
+  'Solutions Architect':         { min: '₹18L', max: '₹60L', growth: '+28%' },
+  'Enterprise Architect':        { min: '₹22L', max: '₹70L', growth: '+25%' },
+  'Systems Engineer':            { min: '₹10L', max: '₹38L', growth: '+20%' },
+  'Growth Lead':                 { min: '₹12L', max: '₹42L', growth: '+24%' },
+  'Engineering Manager':         { min: '₹24L', max: '₹65L', growth: '+22%' },
+  'Operations Director':         { min: '₹20L', max: '₹55L', growth: '+18%' },
 };
