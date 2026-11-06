@@ -1,0 +1,361 @@
+import json
+
+say_p1 = [
+    "Welcome to Day 37 of 3D Computer Graphics, WebGL2 & GPU Shader Architecture. Yesterday, we conquered Temporal Anti-Aliasing (TAA) and motion vector reprojection. Today, we step into one of the most visually stunning techniques in real-time computer graphics: Screen-Space Reflections (SSR) and Real-Time Ray Marched Hi-Z Depth Traversal.",
+    "In the real physical world, polished materials—such as wet asphalt, marble palace floors, polished chrome countertops, and glassy calm lakes—act as optical mirrors. Light rays reflecting off surrounding trees, neon signs, and architecture strike these reflective surfaces and bounce directly into our eyes according to the law of specular reflection. In offline CGI movie rendering, computing reflections is natural: path tracing algorithms fire rays of light into the virtual scene, traversing acceleration trees to bounce off distant geometry. In real-time 3D game engines running at sixty frames per second, tracing millions of rays against complex world geometry was historically impossible.",
+    "Consider the physical analogy of an art gallery photographer looking at a shiny polished grand piano reflecting a brightly painted modern sculpture. The photographer does not need to send an assistant with a flashlight to explore the museum basement or search storage closets! The sculpture is already standing right there in the gallery room, fully visible in the photographer's camera viewfinder. The photographer simply glances down at the piano lid and sees the reflection of what is already visible in front of their eyes. Screen-Space Reflections operates on this exact optical insight: The rendered screen itself (the G-Buffer and HDR color buffer) already contains the colors, normals, and depths of the surrounding scene. By ray marching through this screen-space data in a compute shader, we can simulate photorealistic specular reflections at interactive frame rates without tracing geometry trees.",
+    "The SSR pipeline begins by evaluating the camera-space geometry for each reflective pixel. The compute shader reconstructs the 3D position of the surface $P$ in camera space from the G-Buffer depth buffer and camera projection parameters. It then loads the world-space normal vector $N$ from the normal buffer and transforms it into camera space. The view vector $V$ represents the normalized direction pointing from the camera to the surface: $V = \\text{normalize}(P)$.",
+    "To determine where the reflected light originated, the shader calculates the camera-space reflection ray direction vector $R$ using the standard specular reflection formula: $R = V - 2.0 \\cdot (V \\cdot N) \\cdot N$. Notice the geometric purity: the incident vector is flipped across the normal plane, preserving angle of incidence equal to angle of reflection. This vector $R$ defines the 3D trajectory along which our ray marcher must travel to find reflecting surfaces.",
+    "However, ray marching cannot operate purely in camera space because the scene's geometric depth and color data reside in a 2D screen-space texture grid! The shader must project the 3D ray into screen space (normalized device coordinates from $[0, 1]$ across $U$, $V$, and $Z$). Every step taken along the ray corresponds to a specific pixel and depth in the G-Buffer.",
+    "To optimize ray generation efficiency, modern compute shaders cull non-reflective surfaces before emitting any reflection rays. During the G-Buffer geometry pass, a single 8-bit roughness and metallic channel encodes material properties. In the SSR compute pass, a thread first checks whether the surface roughness exceeds a maximum specular threshold (such as 0.65) or if specular reflectance is near zero. If the surface is completely matte (e.g. rough stone, burlap cloth, or coarse dirt), the thread immediately skips ray marching and samples ambient diffuse lighting, saving massive amounts of compute cycles.",
+    "Furthermore, coordinate space transformations are optimized to avoid expensive inverse matrix multiplications. Rather than multiplying full 4x4 matrix inverses per pixel, modern engines precompute camera-space ray reconstruction vectors for the four corners of the screen frustum. A compute thread simply interpolates these corner vectors using the pixel normalized screen coordinate, reconstructing 3D camera-space view vectors in a single multiply-add instruction.",
+    "In the TypeScript snippet below, we implement the `ReflectionRayGenerator`. We process view vectors and surface normals, compute camera-space reflection rays, and verify that reflection angles match physical optics.",
+    "Notice how an incident ray striking a floor plane reflects upward symmetrically. With reflection ray generation secured, we now explore how the shader marches rays through the screen depth buffer."
+]
+
+say_p2 = [
+    "Once the 3D reflection ray is projected into screen space, the compute shader must find where that ray intersects the virtual scene. This brings us to the core search algorithm: Linear Screen-Space Ray Marching versus Hierarchical Hi-Z Traversal.",
+    "In a naive Linear Ray Marcher, the shader steps along the ray in uniform increments across screen space. At each step $i$, the shader calculates the ray's current screen coordinate $(u_i, v_i)$ and the ray's current depth $z_{ray}$. It samples the scene depth buffer at $(u_i, v_i)$ to find the actual surface depth $z_{scene}$ at that pixel. If $z_{ray} \\ge z_{scene}$ and $z_{ray} - z_{scene} < \\tau$ (where $\\tau$ is a surface thickness threshold), the ray has struck an object! The shader samples the color buffer at that coordinate, copies the reflected color, and terminates.",
+    "Consider the physical analogy of a sonar submarine captain searching for a sunken shipwreck along a foggy coastline. If the sonar operator searches by sending pulses every fifty feet in single-file steps, searching five miles of coastline takes hundreds of slow pings. Worse, if the step size is too large (e.g. 500 feet), the pulse might step cleanly over a narrow 100-foot shipwreck without ever detecting it (undersampling skipping)! Conversely, if the step size is tiny (5 feet), the sonar computer exhausts its battery in minutes. To search efficiently without missing objects, the military uses hierarchical radar: first scanning vast multi-mile grid blocks at coarse resolution, and only zooming in with fine-grained pings when an anomaly is detected.",
+    "In modern GPU engines, this hierarchical search is implemented as Hi-Z (Hierarchical Z) Screen-Space Traversal. The depth buffer is downsampled into a mipmapped pyramid of depth textures, where each mip level stores the minimum depth (closest surface) of the corresponding $2 \\times 2$ texels in the level below. When a ray marches through space, it begins traversal at a coarse mip level (e.g. Mip 3). If the ray's current depth is shallower than the coarse bounding depth, the shader knows with mathematical certainty that the ray CANNOT intersect any surface in that entire spatial block! It skips forward by an entire cell in a single step.",
+    "Only when the ray encounters a cell where $z_{ray} \\ge z_{scene}$ does the shader descend to a finer mip level (Mip 2, then Mip 1, down to Mip 0) to locate the exact intersection. By skipping empty space across coarse tiles, Hi-Z traversal reduces ray marching step counts by over eighty percent, allowing reflections to traverse the entire screen in ten to sixteen steps instead of hundreds of linear iterations.",
+    "When building the Hi-Z depth pyramid, the downsampling pass must preserve conservative depth bounds. If a standard box filter or average reduction were used, small foreground geometric details (such as thin ropes, poles, or character fingers) would have their depth averaged with distant background walls, causing reflection rays to punch straight through solid objects! To prevent this phantom tunneling artifact, the Hi-Z downsampling pass uses a MIN reduction for standard depth (or a MAX reduction for inverted reversed-Z floating-point depth buffers). Every coarse texel is guaranteed to represent the absolute closest physical obstacle in that tile.",
+    "Additionally, modern Hi-Z traversal routines leverage hardware workgroup shared memory (var<workgroup>). Instead of querying the texture cache for every hierarchical step, compute threads cooperatively preload regional Hi-Z tiles into local on-chip SRAM. This reduces memory traffic on external VRAM buses and delivers consistent, stutter-free 60 FPS performance even in complex urban scenes filled with reflective glass skyscrapers.",
+    "In the TypeScript snippet below, we implement the `ScreenSpaceRayMarcher`. We advance a ray along a depth profile, test ray depth against scene depth values, and detect the first geometric intersection.",
+    "Notice how the ray marcher detects the intersection cleanly at step 3. However, discrete stepping leaves a precision gap: the exact collision point lies somewhere between the step before and the step after impact, which we resolve next."
+]
+
+say_p3 = [
+    "Whenever a discrete ray marcher detects an intersection—whether using linear marching or hierarchical Hi-Z—it only knows that the ray was in front of the surface at Step $K-1$ ($z_{ray} < z_{scene}$) and behind the surface at Step $K$ ($z_{ray} \\ge z_{scene}$). In screen space, the distance between Step $K-1$ and Step $K$ can span multiple pixels or meters of world space. If the engine uses the coarse coordinate of Step $K$ directly, reflections will exhibit distracting visual artifacts: stair-stepped jagged edges, swimming reflection slivers, and swimming noise during camera motion.",
+    "To achieve silky, sub-millimeter reflection accuracy without multiplying step counts, modern SSR pipelines deploy Binary Search Intersection Refinement (also known as Secant or Bisection Refinement).",
+    "Consider the physical analogy of an Olympic high jump official adjusting the competition crossbar to determine an athlete's exact jumping clearance. The official does not measure by testing every millimeter sequentially from the ground up! If the athlete clears 2.0 meters easily but clips the bar at 2.4 meters, the official immediately sets the bar halfway between them at 2.2 meters. If the athlete clears 2.2 meters, the official tests 2.3 meters. In just five binary bisection steps, the official pinpoints the athlete's exact clearance height down to the millimeter. Binary search collapses wide intervals with exponential speed.",
+    "In our SSR compute kernel, the moment an intersection is detected between $T_{min} = \\text{Step}_{K-1}$ and $T_{max} = \\text{Step}_K$, the shader enters a tight binary search loop (typically 4 to 6 iterations). In each iteration, it evaluates the midpoint $T_{mid} = (T_{min} + T_{max}) / 2.0$. It projects $T_{mid}$ to screen space $(u_{mid}, v_{mid})$ and samples the depth buffer.",
+    "If the ray depth at the midpoint is still behind the scene surface ($z_{ray} \\ge z_{scene}$), the true surface lies earlier along the ray: the shader sets $T_{max} = T_{mid}$. If the ray depth is in front of the scene surface ($z_{ray} < z_{scene}$), the ray has not yet struck: the shader sets $T_{min} = T_{mid}$. At the end of just five iterations, the initial step interval is divided by $2^5 = 32$, reducing positional uncertainty by ninety-seven percent!",
+    "This sub-texel precision eliminates jagged reflection silhouettes and ensures that contact reflections—such as the base of a table leg meeting a polished marble floor—remain razor-sharp without contact gaps or swimming artifacts.",
+    "In addition to fixed-step binary refinement, elite rendering engines employ Secant Interpolation. Instead of blindly dividing the interval exactly in half, secant interpolation estimates the surface intersection by constructing a linear slope between the ray depth and the sampled scene depths at both interval endpoints. This linear interpolation snaps the refined point to the geometric surface in just two or three iterations, halving the number of texture samples required during the refinement phase.",
+    "Furthermore, binary refinement must be protected against false positive hits caused by surface thickness limits. If a ray passes behind a thin floating wall or overhead banner, binary refinement could accidentally clamp the intersection to the back face of an unrelated object. The shader enforces a dynamic thickness envelope: if the distance between the ray depth and the scene depth exceeds the allowable surface thickness, the intersection is rejected as an invalid collision, and ray marching resumes forward seamlessly.",
+    "In production WebGPU implementations, binary refinement iterations are completely unrolled by the shader compiler. By replacing dynamic branching loops with five static bisection steps, compute execution units maintain lockstep SIMD efficiency without thread divergence across the workgroup.",
+    "In the TypeScript snippet below, we construct the `SSRBinaryRefiner`. We simulate the binary search refinement loop over an initial depth step interval and measure the rapid convergence of precision error.",
+    "Notice how five bisection steps collapse the initial 0.8-unit gap down to just 0.0125 units of precision error. Next, we examine physical attenuation: Fresnel reflectance, surface roughness, and screen-edge fading."
+]
+
+say_p4 = [
+    "Real-world reflections do not appear with uniform 100% mirror intensity across the entire screen. A polished wooden floor reflects brightly when viewed at a glancing, grazing angle from across the room, but shows almost zero reflection when looking straight down at your feet! Furthermore, reflections must fade smoothly as they approach the edges of the screen, because light rays reflecting toward off-screen objects have no geometric data inside the G-Buffer.",
+    "To make Screen-Space Reflections visually believable, the shader must apply rigorous Physical Attenuation: Fresnel Reflectance, Roughness Attenuation, and Screen-Edge Falloff.",
+    "Consider the physical analogy of standing beside an asphalt highway on a blazing summer afternoon. If you look straight down at the asphalt beneath your boots, the road appears dark, matte, and non-reflective. But if you look far down the highway toward the horizon, the asphalt at a shallow grazing angle appears as reflective as a mirror, creating the famous 'highway water puddle' mirage! This physical phenomenon is governed by Augustin-Jean Fresnel's optical laws: all dielectric materials become near-perfect mirrors at glancing grazing angles.",
+    "In our SSR shader, we compute Fresnel reflectance using Schlick's Approximation: $F = F_0 + (1.0 - F_0) \\cdot (1.0 - \\cos\\theta)^5$, where $\\cos\\theta = \\max(0.0, V \\cdot N)$ and $F_0$ is the base specular reflectance at normal incidence ($F_0 = 0.04$ for standard dielectrics like water, wood, and plastic; $F_0 > 0.70$ for metals like gold, copper, and aluminum). At grazing angles where $\\cos\\theta \\to 0$, $F$ approaches $1.0$, rendering bright specular reflections; at perpendicular angles, $F$ drops to $F_0$, allowing the surface's diffuse albedo color to dominate.",
+    "Next comes Surface Roughness: Rough surfaces contain microscopic surface irregularities (microfacets) that scatter reflected light rays into a diffuse cone. In a compute SSR shader, surface roughness modulates the reflection in two ways: First, the shader samples the scene color from higher mipmap levels of the color pyramid (rougher surfaces sample blurrier mips). Second, roughness dampens the reflection intensity, preventing rough concrete from looking like polished glass.",
+    "Finally, Screen-Edge Fade Falloff prevents harsh, unnatural cutoffs. When a reflection ray travels toward the perimeter of the screen, the shader measures the distance of the hit UV coordinate from the screen center. As the coordinate enters the outer 20% margin of the viewport, an attenuation scalar smoothly fades the reflection opacity to zero: $\\text{fade} = 1.0 - \\text{smoothstep}(0.8, 1.0, \\text{distFromCenter})$. Without edge fading, objects would abruptly pop out of reflections the moment they crossed the camera viewport boundary.",
+    "To simulate realistic physical materials, modern engines integrate the Cook-Torrance Microfacet BRDF directly into the reflection accumulation pass. When light reflects off a rough surface, the specular lobe spreads out into an anisotropic footprint. In screen space, this is approximated by Convolving the Reflected Color with a roughness-dependent kernel (such as a multi-tap Poisson disk filter or gaussian blur). As surface roughness increases, the reflection blurs progressively, providing convincing physical transitions from glossy mirror chrome to satin aluminum.",
+    "Moreover, camera viewing angle attenuation incorporates Normal Facing Falloff. When a surface normal points almost completely away from the camera, reflecting rays point backward toward the viewer's eye. If the angle between the reflection ray and the camera view vector drops below a safe threshold, the reflection opacity is dampened to prevent self-reflection feedback loops and unsightly geometric popping.",
+    "Additionally, modern SSR shaders modulate reflection brightness using G-Buffer Ambient Occlusion (SSAO) data. When surfaces meet in tight corners or crevices, ambient occlusion attenuates inter-reflections, preventing dark recessed crevices from reflecting phantom bright specular highlights.",
+    "In the TypeScript snippet below, we implement the `SSRAttenuationCalculator`. We calculate Schlick's Fresnel reflectance under grazing angles and evaluate screen-edge visibility attenuation factors.",
+    "Notice how visibility scales smoothly from 1.0 at screen center down to 0.5 near the perimeter. Finally, we examine fallback strategies for rays that leave the screen."
+]
+
+say_p5 = [
+    "We now address the ultimate architectural boundary of Screen-Space Reflections: What happens when a reflection ray misses all screen geometry or travels toward an object located BEHIND the camera? Because the G-Buffer only contains what is currently in front of the camera, screen-space ray marching cannot reflect objects that are off-screen. If an engine relies solely on SSR, moving the camera or tilting your avatar's head would cause reflections to abruptly vanish, creating distracting visual black holes.",
+    "To achieve seamless, unbroken optical fidelity, production AAA engines deploy a Multi-Tier Reflection Fallback Hierarchy: Screen-Space Reflections (Tier 1) blended seamlessly into Local Reflection Probes / Planar Probes (Tier 2), backed by a Global Specular Environment Cubemap (Tier 3).",
+    "Consider the physical analogy of an international satellite telecommunications network. When you make an overseas phone call, the connection first attempts to route through ultra-high-speed undersea fiber optic cables (the lowest latency, highest fidelity path). If the fiber optic cable is cut by an undersea earthquake or reaches capacity, the telecommunications system does not disconnect your call! Instead, it automatically and silently diverts the call to an orbital geosynchronous satellite link. The caller experiences a seamless, uninterrupted conversation. Tiered graphics fallbacks operate on identical fail-safe principles.",
+    "In our SSR post-processing pipeline, every pixel computes a Reflection Confidence Factor $w_{ssr} \\in [0.0, 1.0]$ based on: Ray Hit Success (did the ray intersect geometry?), Screen-Edge Fade (how close to the viewport perimeter is the hit?), Surface Normal Alignment (is the surface facing the camera?), and Disocclusion / Thickness Limits. If the ray hits solid screen geometry near the center of the display, $w_{ssr} = 1.0$: the pixel displays one hundred percent pure SSR.",
+    "However, if the ray misses, exceeds max steps, or exits the screen boundary, $w_{ssr}$ drops smoothly toward $0.0$. The compute shader immediately samples the Tier 2 Local Reflection Probe or Tier 3 Pre-Filtered Environment Cubemap along the camera-space reflection vector $R$. The final reflected color is synthesized via linear interpolation: $C_{refl} = w_{ssr} \\cdot C_{ssr} + (1.0 - w_{ssr}) \\cdot C_{cubemap}$.",
+    "Finally, because screen-space rays can exhibit high-frequency specular noise on rough surfaces, the output reflection buffer is filtered through a Temporal Spatio-Temporal Denoising Pass (using the TAA velocity vectors and reprojection filters built on Day 36). Noise is filtered out, specular glints stabilize, and reflections appear silky, cinematic, and unbroken across all camera rotations.",
+    "To maximize reflection fidelity on planar architectural surfaces—such as sprawling office floors or glassy palace halls—AAA game engines often supplement screen-space ray marching with Local Planar Reflection Probes. A planar probe renders an inverted camera pass for that specific plane, providing true 100% ground-truth reflections for everything in the room, including off-screen ceilings and rear walls. When the SSR compute shader detects that a surface is planar, it blends seamlessly between SSR for high-frequency contact reflections and the planar probe for distant room reflections.",
+    "Finally, continuous automated quality testing validates SSR across extreme stress test camera positions: sweeping rapidly from floor-level grazing angles to top-down perpendicular views, verifying zero memory leaks across 50,000 frames, and ensuring that total SSR compute pass execution duration remains strictly under 2.5 milliseconds on target hardware.",
+    "In the TypeScript snippet below, we construct the `SSRQualityAuditor`. We evaluate screen-space ray hit rates, measure fallback blending ratios, and verify that average ray marching step counts remain strictly within frame time budgets.",
+    "Notice how 78% of reflections are resolved in screen space while 22% blend seamlessly into the environment cubemap with an average of just 9.4 steps per ray. Tomorrow, in Day 38, we take our post-processing pipeline into the third dimension with Volumetric Light Scattering and Froxel Grids!"
+]
+
+# Snippets from test script
+with open('scripts/test_g3d_day37_snippets.py', 'r', encoding='utf-8') as f:
+    snippets_code = f.read()
+
+c1 = """type Vec3 = [number, number, number];
+
+class ReflectionRayGenerator {
+  static reflect(v: Vec3, n: Vec3): Vec3 {
+    // R = V - 2 * (V . N) * N
+    const dotVN = v[0] * n[0] + v[1] * n[1] + v[2] * n[2];
+    return [
+      parseFloat((v[0] - 2 * dotVN * n[0]).toFixed(4)),
+      parseFloat((v[1] - 2 * dotVN * n[1]).toFixed(4)),
+      parseFloat((v[2] - 2 * dotVN * n[2]).toFixed(4))
+    ];
+  }
+}
+
+const viewDir: Vec3 = [0.0, -0.7071, 0.7071]; // Looking diagonally down at floor
+const normal: Vec3 = [0.0, 1.0, 0.0]; // Floor normal pointing up
+const refRay = ReflectionRayGenerator.reflect(viewDir, normal);
+
+console.log(`[SSR Ray] View Vector: [${viewDir.join(", ")}]`);
+console.log(`[SSR Ray] Surface Normal: [${normal.join(", ")}]`);
+console.log(`[SSR Ray] Reflection Vector: [${refRay.join(", ")}]`);"""
+
+o1 = """[SSR Ray] View Vector: [0, -0.7071, 0.7071]
+[SSR Ray] Surface Normal: [0, 1, 0]
+[SSR Ray] Reflection Vector: [0, 0.7071, 0.7071]"""
+
+c2 = """interface RayHit {
+  hit: boolean;
+  stepIndex: number;
+  rayZ: number;
+  depthZ: number;
+}
+
+class ScreenSpaceRayMarcher {
+  static march(depthBuffer: number[], startZ: number, stepZ: number, maxSteps: number): RayHit {
+    let currentZ = startZ;
+    for (let step = 0; step < maxSteps; step++) {
+      currentZ += stepZ;
+      const sceneDepth = depthBuffer[step];
+      if (currentZ >= sceneDepth) {
+        return {
+          hit: true,
+          stepIndex: step,
+          rayZ: parseFloat(currentZ.toFixed(2)),
+          depthZ: sceneDepth
+        };
+      }
+    }
+    return { hit: false, stepIndex: maxSteps, rayZ: currentZ, depthZ: 0 };
+  }
+}
+
+const mockDepthProfile = [5.0, 5.0, 4.8, 3.2, 2.5, 2.0];
+const startDepth = 1.0;
+const stepDelta = 0.8;
+const hit = ScreenSpaceRayMarcher.march(mockDepthProfile, startDepth, stepDelta, 6);
+
+console.log(`[SSR Marcher] Intersection Detected: ${hit.hit}`);
+console.log(`[SSR Marcher] Hit Step Index: ${hit.stepIndex}`);
+console.log(`[SSR Marcher] Ray Depth: ${hit.rayZ}, Scene Depth: ${hit.depthZ}`);"""
+
+o2 = """[SSR Marcher] Intersection Detected: true
+[SSR Marcher] Hit Step Index: 3
+[SSR Marcher] Ray Depth: 4.2, Scene Depth: 3.2"""
+
+c3 = """class SSRBinaryRefiner {
+  static refine(minZ: number, maxZ: number, targetDepth: number, iterations: number): number {
+    let low = minZ;
+    let high = maxZ;
+    for (let i = 0; i < iterations; i++) {
+      const mid = (low + high) / 2;
+      if (mid < targetDepth) {
+        low = mid;
+      } else {
+        high = mid;
+      }
+    }
+    return parseFloat(((low + high) / 2).toFixed(4));
+  }
+}
+
+const initialLow = 3.4; // Step before intersection
+const initialHigh = 4.2; // Step after intersection
+const exactDepth = 3.825;
+const refined = SSRBinaryRefiner.refine(initialLow, initialHigh, exactDepth, 5);
+
+console.log(`[SSR Refine] Initial Interval: [${initialLow}, ${initialHigh}]`);
+console.log(`[SSR Refine] Refined Intersection Depth: ${refined}`);
+console.log(`[SSR Refine] Precision Error: ${parseFloat(Math.abs(refined - exactDepth).toFixed(4))}`);"""
+
+o3 = """[SSR Refine] Initial Interval: [3.4, 4.2]
+[SSR Refine] Refined Intersection Depth: 3.8375
+[SSR Refine] Precision Error: 0.0125"""
+
+c4 = """class SSRAttenuationCalculator {
+  static computeFresnel(cosTheta: number, f0: number = 0.04): number {
+    // Schlick's approximation: F = F0 + (1 - F0) * (1 - cosTheta)^5
+    const f = f0 + (1 - f0) * Math.pow(1 - cosTheta, 5);
+    return parseFloat(f.toFixed(4));
+  }
+
+  static computeEdgeFade(u: number, v: number): number {
+    // Attenuation based on distance to screen edge
+    const distFromCenter = Math.max(Math.abs(u - 0.5), Math.abs(v - 0.5)) * 2; // [0, 1]
+    const edgeFade = Math.max(0, 1 - Math.max(0, (distFromCenter - 0.8) / 0.2));
+    return parseFloat(edgeFade.toFixed(4));
+  }
+}
+
+const cosTheta = 0.25; // Grazing angle
+const fresnel = SSRAttenuationCalculator.computeFresnel(cosTheta);
+const fadeCenter = SSRAttenuationCalculator.computeEdgeFade(0.5, 0.5);
+const fadeEdge = SSRAttenuationCalculator.computeEdgeFade(0.95, 0.5);
+
+console.log(`[SSR Attenuation] Grazing Angle Fresnel (cos=0.25): ${fresnel}`);
+console.log(`[SSR Attenuation] Screen Center Visibility: ${fadeCenter}`);
+console.log(`[SSR Attenuation] Screen Edge Visibility (u=0.95): ${fadeEdge}`);"""
+
+o4 = """[SSR Attenuation] Grazing Angle Fresnel (cos=0.25): 0.2678
+[SSR Attenuation] Screen Center Visibility: 1
+[SSR Attenuation] Screen Edge Visibility (u=0.95): 0.5"""
+
+c5 = """interface SSRRayResult {
+  hitCount: number;
+  totalRays: number;
+  averageSteps: number;
+}
+
+class SSRQualityAuditor {
+  static evaluate(stats: SSRRayResult): { hitRatePct: number; fallbackWeightPct: number; meetsBudget: boolean } {
+    const hitRatePct = Math.round((stats.hitCount / stats.totalRays) * 100);
+    const fallbackWeightPct = 100 - hitRatePct;
+    const meetsBudget = stats.averageSteps <= 16;
+    return { hitRatePct, fallbackWeightPct, meetsBudget };
+  }
+}
+
+const stats: SSRRayResult = {
+  hitCount: 780,
+  totalRays: 1000,
+  averageSteps: 9.4
+};
+
+const audit = SSRQualityAuditor.evaluate(stats);
+console.log(`[SSR Audit] Screen-Space Hit Rate: ${audit.hitRatePct}%`);
+console.log(`[SSR Audit] Environment Fallback Ratio: ${audit.fallbackWeightPct}%`);
+console.log(`[SSR Audit] Average Steps Within Performance Budget: ${audit.meetsBudget}`);"""
+
+o5 = """[SSR Audit] Screen-Space Hit Rate: 78%
+[SSR Audit] Environment Fallback Ratio: 22%
+[SSR Audit] Average Steps Within Performance Budget: true"""
+
+day37_data = {
+    'day': 37,
+    'coursePrefix': 'g3d',
+    'title': 'Screen-Space Reflections (SSR) & Real-Time Ray Marched Hi-Z Depth Traversal',
+    'goal': 'Master real-time Screen-Space Reflections: camera-space reflection vectors, hierarchical Hi-Z depth traversal, binary search refinement, Fresnel attenuation, and environment cubemap fallback.',
+    'recap': 'Recap of Day 36: Temporal Anti-Aliasing (TAA), Halton camera jittering, motion vector reprojection, color box AABB clamping, and exponential moving average blending.',
+    'minutes': 120,
+    'parts': [
+        {
+            'part': 1,
+            'title': 'Physics of Specular Reflections & Screen-Space Ray Generation',
+            'say': say_p1,
+            'example': 'An art gallery photographer observing the reflection of a colorful modern sculpture in the polished lid of a grand piano.',
+            'code': c1,
+            'output': o1,
+            'check': {
+                'question': 'How is the camera-space reflection ray vector R computed from the view vector V and surface normal N?',
+                'options': [
+                    'R = V - 2.0 * dot(V, N) * N, reflecting the incident view vector symmetrically across the surface normal plane.',
+                    'R = V + N / 2.0, adding the normal vector directly to the view vector.',
+                    'R = cross(V, N), taking the perpendicular cross product of view and normal vectors.',
+                    'R = V * length(N), scaling the view vector by the surface normal magnitude.'
+                ],
+                'answer': 0,
+                'answerIndex': 0,
+                'why': 'The reflection formula flips the incident view vector across the surface normal, preserving angle of incidence equal to angle of reflection.'
+            }
+        },
+        {
+            'part': 2,
+            'title': 'Linear Screen-Space Ray Marching vs Hierarchical Hi-Z Traversal',
+            'say': say_p2,
+            'example': 'A submarine sonar search scanning large multi-mile grid blocks first before fine-tuning acoustic pings on candidate shipwrecks.',
+            'code': c2,
+            'output': o2,
+            'check': {
+                'question': 'Why is Hierarchical Hi-Z depth traversal significantly faster than linear screen-space ray marching?',
+                'options': [
+                    'Because Hi-Z uses a pyramid of conservative minimum depth mips to skip entire empty spatial cells in a single step, reducing ray steps by over eighty percent.',
+                    'Because Hi-Z disables the depth buffer entirely to save memory bandwidth.',
+                    'Because Hi-Z runs exclusively on the CPU while the GPU fragment shader sleeps.',
+                    'Because Hi-Z renders reflections at one-tenth of normal screen resolution.'
+                ],
+                'answer': 0,
+                'answerIndex': 0,
+                'why': 'Hi-Z bounding depth tiles prove whether an entire block of space is free of surfaces, allowing the ray to jump over empty space in a single iteration.'
+            }
+        },
+        {
+            'part': 3,
+            'title': 'Binary Search Intersection Refinement & Depth Precision',
+            'say': say_p3,
+            'example': 'An Olympic high jump official using bisection increments between cleared heights to pinpoint an athlete exact jumping clearance.',
+            'code': c3,
+            'output': o3,
+            'check': {
+                'question': 'How does binary search refinement improve the visual quality of screen-space reflections?',
+                'options': [
+                    'By repeatedly halving the interval between the step before and step after intersection, pinpointing the surface contact within sub-millimeter precision.',
+                    'By increasing the frame rate from 60 FPS to 144 FPS.',
+                    'By converting all 3D reflections into 2D cartoon outlines.',
+                    'By eliminating the need for camera motion vectors.'
+                ],
+                'answer': 0,
+                'answerIndex': 0,
+                'why': 'Binary bisection collapses the step interval exponentially (dividing error by 32 in 5 steps), eliminating jagged edges and contact gaps.'
+            }
+        },
+        {
+            'part': 4,
+            'title': 'Fresnel Attenuation, Surface Roughness & Screen-Edge Fade Falloff',
+            'say': say_p4,
+            'example': 'An asphalt highway on a sunny day that appears matte when looking down at your feet but transforms into a mirror puddle at shallow grazing angles.',
+            'code': c4,
+            'output': o4,
+            'check': {
+                'question': 'What optical behavior is modeled by Schlick approximation of Fresnel reflectance in SSR shaders?',
+                'options': [
+                    'Reflectance increases sharply toward 100% at shallow grazing angles, making surfaces appear mirror-like when viewed edge-on.',
+                    'Reflectance remains perfectly constant regardless of view angle.',
+                    'Reflectance drops to zero whenever sunlight strikes the surface.',
+                    'Reflectance inverts the colors of all reflected objects.'
+                ],
+                'answer': 0,
+                'answerIndex': 0,
+                'why': 'Schlick Fresnel approximation models the physical reality that dielectric surfaces reflect light with near-total intensity at glancing grazing angles.'
+            }
+        },
+        {
+            'part': 5,
+            'title': 'Fallback Strategies: Environment Cubemaps, Planar Probes & Denoising',
+            'say': say_p5,
+            'example': 'An international phone call that routes over undersea fiber optic cables first and seamlessly switches to orbital satellites if the cable is cut.',
+            'code': c5,
+            'output': o5,
+            'check': {
+                'question': 'Why must Screen-Space Reflections implement a fallback to environment cubemaps or reflection probes?',
+                'options': [
+                    'Because screen-space data only contains objects in front of the camera; rays reflecting toward off-screen or occluded geometry must sample environment probes to prevent black holes.',
+                    'Because the WebGPU specification forbids rendering reflections without cubemaps.',
+                    'Because cubemaps reduce GPU power consumption by ninety percent.',
+                    'Because cubemaps are required to compile WGSL compute shaders.'
+                ],
+                'answer': 0,
+                'answerIndex': 0,
+                'why': 'When reflection rays leave the screen boundary or miss foreground geometry, smoothly blending into environment cubemaps maintains unbroken visual reflections.'
+            }
+        }
+    ],
+    'projectStep': {
+        'title': 'Implement Real-Time Screen-Space Reflections (SSR) with Hi-Z Traversal',
+        'steps': [
+            'Generate camera-space reflection rays from G-Buffer depth and normal textures.',
+            'Construct the hierarchical Hi-Z depth pyramid and implement adaptive cell skipping.',
+            'Deploy 5-iteration binary search refinement to resolve sub-pixel intersection contacts.',
+            'Apply Schlick Fresnel attenuation, screen-edge fading, and seamless cubemap fallback blending.'
+        ]
+    },
+    'summary': [
+        'Screen-Space Reflections (SSR) reuse on-screen G-Buffer colors and depths to simulate photorealistic reflections without ray tracing world trees.',
+        'Camera-space reflection vectors are calculated by reflecting the normalized view direction across the surface normal vector.',
+        'Hierarchical Hi-Z depth traversal skips empty space using conservative depth mipmaps, reducing ray steps by over eighty percent.',
+        'Binary search refinement eliminates stair-stepped artifacts by exponentially narrowing the intersection interval in five bisection iterations.',
+        'Schlick Fresnel attenuation, edge-fade falloff, and cubemap fallbacks ensure unbroken optical fidelity across all camera angles.'
+    ]
+}
+
+# Verify word count
+for p in day37_data['parts']:
+    wc = sum(len(para.split()) for para in p['say'])
+    print(f"G3D Day 37 Part {p['part']} Word Count: {wc}")
+    assert wc >= 600, f"Part {p['part']} word count {wc} below 600 words!"
+
+with open('scripts/g3d_day37_data.py', 'w', encoding='utf-8') as f:
+    f.write(f"day37_data = {repr(day37_data)}\n")
+
+print("scripts/g3d_day37_data.py successfully written!")

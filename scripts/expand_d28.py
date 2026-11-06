@@ -1,0 +1,31 @@
+# scripts/expand_d28.py
+with open("scripts/build_iot_net_day28.py", "r", encoding="utf-8") as f:
+    text = f.read()
+
+p1_add = '''    "To calculate satellite visibility precisely on embedded microcontrollers without full floating-point SGP4 propagators, firmware implements simplified Keplerian orbital predictors using Two-Line Element (TLE) sets or 3GPP ephemeris parameters. The ephemeris data (including mean anomaly, semi-major axis, eccentricity, argument of perigee, and right ascension of the ascending node) is periodically updated via terrestrial cellular downlinks or direct satellite broadcast beacons. By propagating the satellite\\'s state vector forward in time using low-complexity polynomial approximations, the device determines upcoming rise, apex, and set times within a few seconds of accuracy, enabling deterministic sleep scheduling with minimal RAM footprint."'''
+
+p2_add = '''    "In addition to radial velocity shifts, satellite communications must account for Higher-Order Doppler Effects, specifically the Doppler Rate (d(delta_f)/dt), which represents the instantaneous acceleration of frequency change. At the exact zenith apex, while the instantaneous Doppler offset crosses zero, the Doppler rate reaches its absolute maximum, often exceeding 500 Hz per second for LEO spacecraft passing at 500 km altitudes. If the receiver\\'s Costas loop or carrier tracking loop has a damping factor that is too sluggish, it will lose phase lock during this high-acceleration zenith window. Modern satellite transceivers deploy second-order and third-order loop filters that dynamically adjust loop bandwidth based on predicted orbital pass geometry, maintaining uninterrupted demodulation throughout the entire pass."'''
+
+p3_add = '''    "In 3GPP Release 17 NTN, satellite architectures are classified into two deployment modes: Transparent Payload (Bent-Pipe) and Regenerative Payload (gNodeB on Board). In a transparent payload architecture, the satellite acts merely as an RF repeater in space, frequency-shifting incoming uplink signals and beaming them down to a ground feeder gateway without demodulating the bits. In this mode, total round-trip latency encompasses both the service link (device to satellite) and the feeder link (satellite to ground gateway), doubling the light delay and requiring the Timing Advance engine to compensate for up to 40 milliseconds of aggregate delay. In regenerative mode, the satellite carries an integrated 5G base station on board, processing packets directly in orbit and slashing latency by over 50%."'''
+
+p4_add1 = '''    "Power amplifier efficiency during satellite burst transmission is another critical engineering constraint. Because the satellite is hundreds of kilometers away, the transmitter operates at maximum power (+23 dBm or 200 mW). To prevent excessive battery voltage sag and self-heating, Direct-to-Cell protocols mandate Constant-Envelope Modulation schemes, such as Continuous Phase Modulation (CPM), Gaussian Minimum Shift Keying (GMSK), or single-tone pi/2-BPSK in NB-IoT NTN. Constant-envelope waveforms possess a 0-dB Peak-to-Average Power Ratio (PAPR), allowing the RF power amplifier to operate in deep non-linear saturation (Class C or Class E/F modes) with power-added efficiency (PAE) exceeding 55%, minimizing battery drain during high-power space uplinks."'''
+
+p4_add2 = '''    "Furthermore, commercial Direct-to-Cell protocols integrate dynamic forward error correction (FEC) with Low-Density Parity-Check (LDPC) or Polar codes. Because satellite uplinks are subject to multipath reflections from surrounding ocean waves or desert sand dunes (Rayleigh and Rician fading), packets are interleaved across time blocks. If an atmospheric scintillation event or physical obstruction momentarily drops signal strength below the demodulation threshold, the de-interleaver and LDPC decoder reconstruct the original telemetry payload without requesting a costly retransmission across space."'''
+
+p5_add1 = '''    "The convergence of terrestrial LPWAN protocols with Low Earth Orbit satellite constellations marks the dawn of true ubiquitous ambient intelligence. In sovereign supply chain security, smart shipping containers equipped with hybrid terrestrial/satellite trackers transition seamlessly between local cellular networks in port harbors and LEO Direct-to-Cell uplinks across mid-ocean transit. Critical environmental data—including reefer container temperatures, structural vibration shocks, and seal tampering events—is continuously mirrored to cloud backbones in real time, guaranteeing end-to-end cargo integrity across global maritime trade routes."'''
+
+p5_add2 = '''    "By engineering deterministic orbital pass predictors, real-time Doppler pre-compensators, 3GPP Rel-17 Timing Advance synchronizers, and constant-envelope burst framers, you have mastered the complete systems engineering stack required for ground-to-space communications. The master engine built today validates every physical, relativistic, and protocol invariant with mathematical precision, establishing an impregnable foundation for sovereign space-enabled IoT ecosystems."'''
+
+p5_add3 = '''    "In future 3GPP Release 18 and Release 19 enhancements, satellite IoT will integrate Inter-Satellite Optical Links (laser ISLs) directly into space mesh backbones. Ground devices will transmit telemetry to any overhead satellite, which will route packets across orbital laser crosslinks directly to a terrestrial gateway on the opposite side of the globe in tens of milliseconds. The mathematical and physical foundations mastered in this lesson position you at the cutting edge of this next-generation planetary communications revolution."'''
+
+# Replace in build_iot_net_day28.py
+text = text.replace('part1_say = [', 'part1_say = [\n' + p1_add + ',')
+text = text.replace('part2_say = [', 'part2_say = [\n' + p2_add + ',')
+text = text.replace('part3_say = [', 'part3_say = [\n' + p3_add + ',')
+text = text.replace('part4_say = [', 'part4_say = [\n' + p4_add1 + ',\n' + p4_add2 + ',')
+text = text.replace('part5_say = [', 'part5_say = [\n' + p5_add1 + ',\n' + p5_add2 + ',\n' + p5_add3 + ',')
+
+with open("scripts/build_iot_net_day28.py", "w", encoding="utf-8") as f:
+    f.write(text)
+
+print("Updated build_iot_net_day28.py with expanded paragraphs.")

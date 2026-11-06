@@ -1,0 +1,486 @@
+{
+  "total_files": 53,
+  "total_days": 2820,
+  "total_words": 22010010,
+  "total_issues": 0,
+  "courses": [
+    {
+      "course": "aiDeployWeb",
+      "file": "aiDeployWebLongLessons.ts",
+      "days_count": 30,
+      "min_day": 1,
+      "max_day": 30,
+      "words": 157400,
+      "issues": 0
+    },
+    {
+      "course": "aiPython",
+      "file": "aiPythonLongLessons.ts",
+      "days_count": 30,
+      "min_day": 1,
+      "max_day": 30,
+      "words": 133233,
+      "issues": 0
+    },
+    {
+      "course": "aiWeb",
+      "file": "aiWebLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 381092,
+      "issues": 0
+    },
+    {
+      "course": "bcomAccounting",
+      "file": "bcomAccountingLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 644367,
+      "issues": 0
+    },
+    {
+      "course": "bcomAit",
+      "file": "bcomAitLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 655090,
+      "issues": 0
+    },
+    {
+      "course": "bcomAna",
+      "file": "bcomAnaLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 605461,
+      "issues": 0
+    },
+    {
+      "course": "bcomAud",
+      "file": "bcomAudLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 565146,
+      "issues": 0
+    },
+    {
+      "course": "bcomBan",
+      "file": "bcomBanLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 526475,
+      "issues": 0
+    },
+    {
+      "course": "bcomDmkt",
+      "file": "bcomDmktLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 601982,
+      "issues": 0
+    },
+    {
+      "course": "bcomEcom",
+      "file": "bcomEcomLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 524473,
+      "issues": 0
+    },
+    {
+      "course": "bcomEnt",
+      "file": "bcomEntLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 510998,
+      "issues": 0
+    },
+    {
+      "course": "bcomFinance",
+      "file": "bcomFinanceLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 591038,
+      "issues": 0
+    },
+    {
+      "course": "bcomLaw",
+      "file": "bcomLawLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 587573,
+      "issues": 0
+    },
+    {
+      "course": "bcomMkt",
+      "file": "bcomMktLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 508716,
+      "issues": 0
+    },
+    {
+      "course": "bcomOps",
+      "file": "bcomOpsLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 548142,
+      "issues": 0
+    },
+    {
+      "course": "bcomScrm",
+      "file": "bcomScrmLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 613056,
+      "issues": 0
+    },
+    {
+      "course": "bcomTax",
+      "file": "bcomTaxLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 528205,
+      "issues": 0
+    },
+    {
+      "course": "blockchain",
+      "file": "blockchainLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 475097,
+      "issues": 0
+    },
+    {
+      "course": "cloudPython",
+      "file": "cloudPythonLongLessons.ts",
+      "days_count": 30,
+      "min_day": 1,
+      "max_day": 30,
+      "words": 138769,
+      "issues": 0
+    },
+    {
+      "course": "cloudWeb",
+      "file": "cloudWebLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 392245,
+      "issues": 0
+    },
+    {
+      "course": "compFund",
+      "file": "compFundLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 466573,
+      "issues": 0
+    },
+    {
+      "course": "cyberPython",
+      "file": "cyberPythonLongLessons.ts",
+      "days_count": 30,
+      "min_day": 1,
+      "max_day": 30,
+      "words": 129880,
+      "issues": 0
+    },
+    {
+      "course": "cyberWeb",
+      "file": "cyberWebLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 368716,
+      "issues": 0
+    },
+    {
+      "course": "designWeb",
+      "file": "designWebLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 420849,
+      "issues": 0
+    },
+    {
+      "course": "devopsWeb",
+      "file": "devopsWebLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 399927,
+      "issues": 0
+    },
+    {
+      "course": "distPython",
+      "file": "distPythonLongLessons.ts",
+      "days_count": 30,
+      "min_day": 1,
+      "max_day": 30,
+      "words": 134321,
+      "issues": 0
+    },
+    {
+      "course": "distributedWeb",
+      "file": "distributedWebLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 360180,
+      "issues": 0
+    },
+    {
+      "course": "dsaPython",
+      "file": "dsaPythonLongLessons.ts",
+      "days_count": 30,
+      "min_day": 1,
+      "max_day": 30,
+      "words": 140929,
+      "issues": 0
+    },
+    {
+      "course": "dsaWeb",
+      "file": "dsaWebLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 425420,
+      "issues": 0
+    },
+    {
+      "course": "excelViz",
+      "file": "excelVizLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 567349,
+      "issues": 0
+    },
+    {
+      "course": "fullstackJs",
+      "file": "fullstackJsLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 443967,
+      "issues": 0
+    },
+    {
+      "course": "g3d",
+      "file": "g3dLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 430030,
+      "issues": 0
+    },
+    {
+      "course": "gitVcs",
+      "file": "gitVcsLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 407223,
+      "issues": 0
+    },
+    {
+      "course": "iotEdge",
+      "file": "iotEdgeLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 569327,
+      "issues": 0
+    },
+    {
+      "course": "iotEmb",
+      "file": "iotEmbLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 445281,
+      "issues": 0
+    },
+    {
+      "course": "iotNet",
+      "file": "iotNetLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 553619,
+      "issues": 0
+    },
+    {
+      "course": "iotSec",
+      "file": "iotSecLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 519793,
+      "issues": 0
+    },
+    {
+      "course": "javaBasics",
+      "file": "javaBasicsLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 471933,
+      "issues": 0
+    },
+    {
+      "course": "mobile",
+      "file": "mobileLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 506188,
+      "issues": 0
+    },
+    {
+      "course": "nlpPython",
+      "file": "nlpPythonLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 426712,
+      "issues": 0
+    },
+    {
+      "course": "nodeWeb",
+      "file": "nodeWebLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 372003,
+      "issues": 0
+    },
+    {
+      "course": "promptPython",
+      "file": "promptPythonLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 350190,
+      "issues": 0
+    },
+    {
+      "course": "python",
+      "file": "pythonLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 462122,
+      "issues": 0
+    },
+    {
+      "course": "quantPython",
+      "file": "quantPythonLongLessons.ts",
+      "days_count": 30,
+      "min_day": 1,
+      "max_day": 30,
+      "words": 130438,
+      "issues": 0
+    },
+    {
+      "course": "quantSystems",
+      "file": "quantSystemsLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 672900,
+      "issues": 0
+    },
+    {
+      "course": "react",
+      "file": "reactLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 362522,
+      "issues": 0
+    },
+    {
+      "course": "safetyPython",
+      "file": "safetyPythonLongLessons.ts",
+      "days_count": 30,
+      "min_day": 1,
+      "max_day": 30,
+      "words": 132800,
+      "issues": 0
+    },
+    {
+      "course": "softSkills",
+      "file": "softSkillsLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 611401,
+      "issues": 0
+    },
+    {
+      "course": "sql",
+      "file": "sqlLongLessons.ts",
+      "days_count": 60,
+      "min_day": 1,
+      "max_day": 60,
+      "words": 415243,
+      "issues": 0
+    },
+    {
+      "course": "sreWeb",
+      "file": "sreWebLongLessons.ts",
+      "days_count": 30,
+      "min_day": 1,
+      "max_day": 30,
+      "words": 186799,
+      "issues": 0
+    },
+    {
+      "course": "streamWeb",
+      "file": "streamWebLongLessons.ts",
+      "days_count": 30,
+      "min_day": 1,
+      "max_day": 30,
+      "words": 172529,
+      "issues": 0
+    },
+    {
+      "course": "trainPython",
+      "file": "trainPythonLongLessons.ts",
+      "days_count": 30,
+      "min_day": 1,
+      "max_day": 30,
+      "words": 132102,
+      "issues": 0
+    },
+    {
+      "course": "vectorPython",
+      "file": "vectorPythonLongLessons.ts",
+      "days_count": 30,
+      "min_day": 1,
+      "max_day": 30,
+      "words": 132186,
+      "issues": 0
+    }
+  ],
+  "issues": []
+}

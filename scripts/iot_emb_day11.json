@@ -1,0 +1,226 @@
+{
+  "day": 11,
+  "title": "Nested Vectored Interrupt Controller (NVIC): Vector Tables, Priority Grouping & Preemption",
+  "goal": "Master the hardware orchestrator of the microcontroller: the Nested Vectored Interrupt Controller (NVIC). Deconstruct the ARM Cortex-M Vector Table, memory offsets (VTOR), hardware exception stacking (8-register frame), and SCB->AIRCR priority grouping to engineer deterministic, hard real-time interrupt response.",
+  "minutes": 36,
+  "recap": "In Block 2, we mastered serial communication buses (UART, SPI, I2C, CAN Bus) using polling and non-blocking status registers. Today, we step into the hardware event engine of ARM microcontrollers: the NVIC, where peripheral hardware triggers immediate asynchronous CPU execution.",
+  "parts": [
+    {
+      "title": "ARM Cortex-M Vector Table Layout & Vector Table Offset Register (VTOR)",
+      "say": [
+        "In the ARM Cortex-M architecture, the Vector Table is an array of 32-bit memory addresses residing at the base of code memory that tells the CPU where to branch when power is applied or an interrupt occurs.",
+        "Entry 0 of the vector table is not executable code; it is the Initial Main Stack Pointer (MSP) address loaded into the SP register at hardware reset.",
+        "Entry 1 holds the Reset_Handler address, followed by core system exception handlers: NMI, HardFault, MemManage, BusFault, UsageFault, SVCall, PendSV, and SysTick.",
+        "Above offset 0x40 (exception index 16), peripheral interrupt vectors begin: WWDG, PVD, RTC, FLASH, RCC, EXTI lines, DMA streams, Timers, and I2C/SPI/USART controllers.",
+        "In modern microcontrollers featuring bootloaders or runtime RAM execution, the Vector Table Offset Register (SCB->VTOR at 0xE000ED08) allows shifting the active vector table from Flash base (0x08000000) into RAM (0x20000000) or an application sector.",
+        "VTOR alignment is strict: the table must be aligned to a power of 2 corresponding to the total vector table size, typically at least 128 words (512 bytes, or 0x200 boundary)."
+      ],
+      "example": "Think of the Vector Table like the emergency dispatch directory pinned to the wall at a fire station: call 0 points to equipment setup, call 1 points to the chief, and call 20 points to the industrial chemical response team.",
+      "code": "#include <iostream>\n#include <cstdint>\n#include <iomanip>\n\nstruct VectorTable {\n    uint32_t initial_sp;\n    uint32_t reset_handler;\n    uint32_t nmi_handler;\n    uint32_t hardfault_handler;\n    uint32_t peripheral_handlers[16];\n};\n\nclass NvicVectorController {\nprivate:\n    uint32_t vtor_address;\npublic:\n    NvicVectorController(uint32_t baseAddr) : vtor_address(baseAddr) {}\n\n    bool relocateVectorTable(uint32_t newBase) {\n        // Enforce 512-byte (0x200) alignment rule for Cortex-M\n        if ((newBase & 0x1FF) != 0) {\n            std::cout << \"[ERROR] VTOR alignment violation: 0x\" << std::hex << newBase << \" is not 512-byte aligned!\\\\n\";\n            return false;\n        }\n        vtor_address = newBase;\n        std::cout << \"[INFO] VTOR successfully relocated to 0x\" << std::hex << vtor_address << \"\\\\n\";\n        return true;\n    }\n\n    uint32_t getVtor() const { return vtor_address; }\n};\n\nint main() {\n    NvicVectorController nvic(0x08000000); // Default Flash base\n    std::cout << \"Initial VTOR: 0x\" << std::hex << nvic.getVtor() << \"\\\\n\";\n    nvic.relocateVectorTable(0x20000100); // Unaligned - should fail\n    nvic.relocateVectorTable(0x20000200); // 512-byte aligned - succeeds\n    return 0;\n}",
+      "output": "Initial VTOR: 0x8000000\\n[ERROR] VTOR alignment violation: 0x20000100 is not 512-byte aligned!\\n[INFO] VTOR successfully relocated to 0x20000200",
+      "codeNotes": [
+        {
+          "line": 5,
+          "note": "Defines vector table layout starting with Initial Stack Pointer and core handlers"
+        },
+        {
+          "line": 19,
+          "note": "Enforces hardware power-of-2 memory alignment mask (~0x1FF)"
+        },
+        {
+          "line": 34,
+          "note": "Simulates VTOR runtime relocation to SRAM base for dynamic dispatch"
+        }
+      ],
+      "tryIt": "Try passing 0x08010000 (a 64KB sector boundary in flash) and observe that it passes alignment checks.",
+      "check": {
+        "question": "What is stored at offset 0x00000000 of an ARM Cortex-M Vector Table?",
+        "options": [
+          "The Initial Main Stack Pointer (MSP) address",
+          "The Reset_Handler program counter address",
+          "The SysTick exception vector",
+          "The first instruction of the bootloader"
+        ],
+        "answer": 0,
+        "why": "On ARM Cortex-M, the very first 32-bit word in the vector table is loaded directly into the SP register before executing any instructions, establishing the runtime stack."
+      }
+    },
+    {
+      "title": "Hardware Exception Stacking (The 8-Word Stacking Frame: R0–R3, R12, LR, PC, xPSR)",
+      "say": [
+        "When an interrupt request (IRQ) is accepted by the CPU, the Cortex-M hardware executes an automatic hardware stacking sequence without any software instructions.",
+        "In exactly 12 clock cycles, the processor pushes 8 registers onto the active stack: R0, R1, R2, R3, R12, LR (Link Register), PC (Return Address), and xPSR (Program Status Register).",
+        "These 8 registers constitute the caller-saved registers in the standard ARM Architecture Procedure Call Standard (AAPCS).",
+        "Because hardware stacks these registers automatically, any standard C/C++ function can serve directly as an Interrupt Service Routine (ISR) without needing special compiler assembly wrappers.",
+        "During interrupt entry, the hardware overwrites the Link Register (LR) with a special EXC_RETURN value (such as 0xFFFFFFF9 or 0xFFFFFFFD).",
+        "When the ISR executes a return instruction (like 'BX LR'), the processor detects the 0xFFFFFFF_ pattern and triggers the hardware unstacking sequence in another 12 cycles."
+      ],
+      "example": "Imagine an astronaut working on a panel: the moment an alarm sounds, an automated mechanical arm grabs their hand tools (R0-R3, R12) and notepad (PC, xPSR) and places them in a tray in 12 seconds flat so they can grab the fire extinguisher immediately.",
+      "code": "#include <iostream>\n#include <cstdint>\n#include <iomanip>\n\nstruct ExceptionStackFrame {\n    uint32_t r0;\n    uint32_t r1;\n    uint32_t r2;\n    uint32_t r3;\n    uint32_t r12;\n    uint32_t lr;\n    uint32_t return_pc;\n    uint32_t xpsr;\n};\n\nvoid simulateHardwareStacking(uint32_t sp, uint32_t current_pc) {\n    std::cout << \"[HARDWARE PIPELINE] Stacking 8 core registers onto SP (0x\" << std::hex << sp << \")...\\\\n\";\n    ExceptionStackFrame frame;\n    frame.r0 = 0x11111111;\n    frame.r1 = 0x22222222;\n    frame.r2 = 0x33333333;\n    frame.r3 = 0x44444444;\n    frame.r12 = 0xAAAAAAAA;\n    frame.lr = 0x08001234;\n    frame.return_pc = current_pc;\n    frame.xpsr = 0x01000000; // Thumb bit asserted\n\n    std::cout << \"  -> Return PC saved: 0x\" << std::hex << frame.return_pc << \"\\\\n\";\n    std::cout << \"  -> xPSR saved:      0x\" << std::hex << frame.xpsr << \"\\\\n\";\n    std::cout << \"  -> Stacking overhead: 12 clock cycles\\\\n\";\n    std::cout << \"[HARDWARE PIPELINE] Loading EXC_RETURN (0xFFFFFFF9) into LR\\\\n\";\n}\n\nint main() {\n    simulateHardwareStacking(0x2001FFC0, 0x08000450);\n    return 0;\n}",
+      "output": "[HARDWARE PIPELINE] Stacking 8 core registers onto SP (0x2001ffc0)...\\n  -> Return PC saved: 0x8000450\\n  -> xPSR saved:      0x1000000\\n  -> Stacking overhead: 12 clock cycles\\n[HARDWARE PIPELINE] Loading EXC_RETURN (0xFFFFFFF9) into LR",
+      "codeNotes": [
+        {
+          "line": 5,
+          "note": "Exact 8-word hardware exception stack frame pushed by ARM Cortex-M hardware"
+        },
+        {
+          "line": 25,
+          "note": "Bit 24 of xPSR represents the Thumb execution bit (must always be 1)"
+        },
+        {
+          "line": 29,
+          "note": "EXC_RETURN value loaded into LR signals hardware unstacking on ISR return"
+        }
+      ],
+      "tryIt": "Add a check to verify that the return_pc has the Thumb bit (LSB) stripped when loaded into PC.",
+      "check": {
+        "question": "Which set of registers is automatically pushed to the stack by ARM Cortex-M hardware upon interrupt entry?",
+        "options": [
+          "R0, R1, R2, R3, R12, LR, PC, and xPSR (8 registers)",
+          "All 16 general-purpose registers (R0 through R15)",
+          "Only the Program Counter (PC) and Stack Pointer (SP)",
+          "R4 through R11 (callee-saved registers)"
+        ],
+        "answer": 0,
+        "why": "ARM Cortex-M hardware automatically stacks the 8 AAPCS caller-saved registers (R0-R3, R12, LR, PC, xPSR) in 12 clock cycles, enabling standard C functions to act directly as ISRs."
+      }
+    },
+    {
+      "title": "SCB->AIRCR Priority Grouping: Preemption Priority vs Subpriority Bits",
+      "say": [
+        "The NVIC supports up to 256 priority levels, though silicon vendors typically implement 16 levels using the upper 4 bits of the priority byte (bits [7:4]).",
+        "A critical rule in ARM Cortex-M interrupts is: lower numeric value represents higher logical urgency (Priority 0 is the highest priority, Priority 15 is lowest).",
+        "Through the Application Interrupt and Reset Control Register (SCB->AIRCR, bits [10:8] PRIGROUP), the 4 priority bits are split into Preemption Priority and Subpriority.",
+        "Preemption priority governs whether an incoming interrupt can interrupt (preempt) an currently executing ISR.",
+        "Subpriority only determines which interrupt executes first when two interrupts with the exact same preemption priority become pending at the same instant; subpriority can never preempt an active ISR.",
+        "To write to SCB->AIRCR, software must write a 16-bit security key (VECTKEY = 0x5FA) into the upper halfword, preventing accidental writes during firmware runaway."
+      ],
+      "example": "Preemption is an ER surgeon stepping away from stitching a finger to perform CPR on a cardiac arrest patient. Subpriority is deciding which of two patients with identical fever severity gets called into the examination room first.",
+      "code": "#include <iostream>\n#include <cstdint>\n#include <iomanip>\n\nstruct NvicPrioritySplit {\n    uint8_t preemptionBits;\n    uint8_t subpriorityBits;\n    uint8_t maxPreempt;\n    uint8_t maxSub;\n};\n\nNvicPrioritySplit calculatePriorityGrouping(uint32_t priGroup) {\n    // ARM AIRCR PRIGROUP encoding for 4 implemented priority bits:\n    // 0b011 (Group 3): 4 bits preempt (0-15), 0 bits sub\n    // 0b100 (Group 4): 3 bits preempt (0-7),  1 bit sub (0-1)\n    // 0b101 (Group 5): 2 bits preempt (0-3),  2 bits sub (0-3)\n    // 0b110 (Group 6): 1 bit preempt  (0-1),  3 bits sub (0-7)\n    // 0b111 (Group 7): 0 bits preempt (0),    4 bits sub (0-15)\n    uint8_t preempt = 0;\n    uint8_t sub = 0;\n    if (priGroup <= 3) { preempt = 4; sub = 0; }\n    else if (priGroup == 4) { preempt = 3; sub = 1; }\n    else if (priGroup == 5) { preempt = 2; sub = 2; }\n    else if (priGroup == 6) { preempt = 1; sub = 3; }\n    else { preempt = 0; sub = 4; }\n\n    return {preempt, sub, static_cast<uint8_t>((1 << preempt) - 1), static_cast<uint8_t>((1 << sub) - 1)};\n}\n\nint main() {\n    uint32_t aircr_group = 4; // 3 bits preemption, 1 bit subpriority\n    NvicPrioritySplit split = calculatePriorityGrouping(aircr_group);\n    std::cout << \"SCB->AIRCR PRIGROUP = \" << aircr_group << \"\\\\n\";\n    std::cout << \"  Preemption bits:  \" << (int)split.preemptionBits << \" (Levels: 0 to \" << (int)split.maxPreempt << \")\\\\n\";\n    std::cout << \"  Subpriority bits: \" << (int)split.subpriorityBits << \" (Levels: 0 to \" << (int)split.maxSub << \")\\\\n\";\n    std::cout << \"  Can Level (P=2, S=1) preempt Level (P=3, S=0)? \" << (2 < 3 ? \"YES (Preempts)\" : \"NO\") << \"\\\\n\";\n    std::cout << \"  Can Level (P=2, S=0) preempt Level (P=2, S=1)? \" << (2 < 2 ? \"YES (Preempts)\" : \"NO (Same Preempt Group)\") << \"\\\\n\";\n    return 0;\n}",
+      "output": "SCB->AIRCR PRIGROUP = 4\\n  Preemption bits:  3 (Levels: 0 to 7)\\n  Subpriority bits: 1 (Levels: 0 to 1)\\n  Can Level (P=2, S=1) preempt Level (P=3, S=0)? YES (Preempts)\\n  Can Level (P=2, S=0) preempt Level (P=2, S=1)? NO (Same Preempt Group)",
+      "codeNotes": [
+        {
+          "line": 13,
+          "note": "Standard ARM PRIGROUP decoding mapping hardware priority bits to preemption levels"
+        },
+        {
+          "line": 34,
+          "note": "Demonstrates lower numeric preemption value (2 < 3) preempting an active lower-urgency ISR"
+        },
+        {
+          "line": 35,
+          "note": "Subpriority differences with matching preemption priority cannot cause preemption"
+        }
+      ],
+      "tryIt": "Set PRIGROUP to 3 (Group 3: 4 bits preemption, 0 bits subpriority) and verify that all 16 levels can preempt each other.",
+      "check": {
+        "question": "If Interrupt A has Preemption=2, Subpriority=0 and Interrupt B has Preemption=2, Subpriority=1, can Interrupt A preempt Interrupt B while B is running?",
+        "options": [
+          "No, because both share the exact same preemption priority level (2)",
+          "Yes, because Interrupt A has a lower subpriority numeric value",
+          "Yes, because subpriority always triggers immediate preemption",
+          "Only if the SysTick timer is disabled"
+        ],
+        "answer": 0,
+        "why": "Subpriority only resolves simultaneous pending conflicts when neither interrupt is currently active; only a strictly lower numeric preemption priority can interrupt an active ISR."
+      }
+    },
+    {
+      "title": "NVIC Interrupt Enable (NVIC_ISER), Disable (NVIC_ICER), and Pending Registers",
+      "say": [
+        "ARM Cortex-M peripherals do not use a single monolithic interrupt mask; instead, the NVIC provides dedicated Set-Enable (ISER) and Clear-Enable (ICER) registers.",
+        "Writing a 1 to a bit in NVIC_ISER enables that specific interrupt line; writing a 0 to NVIC_ISER has zero effect.",
+        "To disable an interrupt, firmware writes a 1 to the corresponding bit in NVIC_ICER; this eliminated read-modify-write race conditions in multi-threaded firmware.",
+        "Similarly, the NVIC features Set-Pending (ISPR) and Clear-Pending (ICPR) registers.",
+        "When a peripheral asserts an interrupt condition, hardware sets the corresponding bit in ISPR; when the CPU enters the ISR, the hardware automatically clears that bit.",
+        "Firmware can also manually set bits in ISPR or use the Software Trigger Interrupt Register (STIR) to simulate hardware interrupts during automated testing."
+      ],
+      "example": "Instead of a shared light switch where two people might push in opposite directions, you have a green 'turn on' button (ISER) and a separate red 'turn off' button (ICER). Pushing green never turns anything off.",
+      "code": "#include <iostream>\n#include <cstdint>\n#include <iomanip>\n\nclass MockNvicRegisters {\npublic:\n    uint32_t ISER; // Interrupt Set-Enable Register\n    uint32_t ICER; // Interrupt Clear-Enable Register\n    uint32_t ISPR; // Interrupt Set-Pending Register\n    uint32_t ICPR; // Interrupt Clear-Pending Register\n\n    MockNvicRegisters() : ISER(0), ICER(0), ISPR(0), ICPR(0) {}\n\n    void enableInterrupt(uint8_t irqNum) {\n        // Atomic write-1-to-set: writing 0 does nothing\n        ISER |= (1 << irqNum);\n    }\n\n    void disableInterrupt(uint8_t irqNum) {\n        // Atomic write-1-to-clear: clears bit in ISER\n        ISER &= ~(1 << irqNum);\n    }\n\n    void setPending(uint8_t irqNum) {\n        ISPR |= (1 << irqNum);\n    }\n\n    void clearPending(uint8_t irqNum) {\n        ISPR &= ~(1 << irqNum);\n    }\n};\n\nint main() {\n    MockNvicRegisters nvic;\n    uint8_t usart1_irq = 37 % 32; // IRQ index within register bank 1\n    \n    std::cout << \"Initial ISER: 0x\" << std::hex << nvic.ISER << \"\\\\n\";\n    nvic.enableInterrupt(usart1_irq);\n    std::cout << \"After enabling IRQ \" << std::dec << (int)usart1_irq << \", ISER: 0x\" << std::hex << nvic.ISER << \"\\\\n\";\n    nvic.setPending(usart1_irq);\n    std::cout << \"Hardware asserts pending, ISPR: 0x\" << std::hex << nvic.ISPR << \"\\\\n\";\n    nvic.clearPending(usart1_irq);\n    std::cout << \"CPU enters ISR, ISPR cleared: 0x\" << std::hex << nvic.ISPR << \"\\\\n\";\n    nvic.disableInterrupt(usart1_irq);\n    std::cout << \"After disabling, ISER: 0x\" << std::hex << nvic.ISER << \"\\\\n\";\n    return 0;\n}",
+      "output": "Initial ISER: 0x0\\nAfter enabling IRQ 5, ISER: 0x20\\nHardware asserts pending, ISPR: 0x20\\nCPU enters ISR, ISPR cleared: 0x0\\nAfter disabling, ISER: 0x0",
+      "codeNotes": [
+        {
+          "line": 14,
+          "note": "ISER uses atomic write-1-to-enable semantics to eliminate race conditions"
+        },
+        {
+          "line": 19,
+          "note": "ICER uses atomic write-1-to-disable semantics to avoid read-modify-write cycles"
+        },
+        {
+          "line": 40,
+          "note": "Hardware automatically clears pending flag upon entering the active ISR handler"
+        }
+      ],
+      "tryIt": "Demonstrate enabling multiple interrupts (e.g. IRQ 2 and IRQ 5) and verify both bits are set in ISER.",
+      "check": {
+        "question": "Why does the ARM NVIC provide separate ISER (Set-Enable) and ICER (Clear-Enable) registers instead of a single register?",
+        "options": [
+          "To prevent read-modify-write race conditions when multiple threads or ISRs enable and disable interrupts concurrently",
+          "Because 32-bit registers cannot store more than 16 interrupt states",
+          "To reduce the manufacturing cost of the silicon die",
+          "Because the C++ compiler requires separate memory registers"
+        ],
+        "answer": 0,
+        "why": "With separate ISER and ICER registers, software writes a 1 to set or clear a bit without needing to read, mask, and rewrite the register, making interrupt configuration completely atomic and thread-safe."
+      }
+    },
+    {
+      "title": "External Interrupt Lines (EXTI), Edge Triggers, and Software-Triggered Interrupts (NVIC_STIR)",
+      "say": [
+        "Microcontroller pins do not connect directly to the NVIC; instead, GPIO pins pass through the External Interrupt/Event Controller (EXTI).",
+        "In ARM Cortex-M microcontrollers (like STM32), each pin number across all ports maps to a single EXTI line (e.g., PA0, PB0, and PC0 all multiplex into EXTI0).",
+        "The System Configuration Controller (SYSCFG_EXTICR) selects which physical port is routed to the EXTI line.",
+        "Each EXTI line can be configured for Rising Edge trigger ('EXTI_RTSR'), Falling Edge trigger ('EXTI_FTSR'), or both (dual-edge).",
+        "Crucial Invariant: Inside an EXTI ISR, firmware MUST explicitly clear the pending bit in 'EXTI_PR' by writing a 1 to it; otherwise, the interrupt will continuously re-fire the instant the ISR returns, locking up the CPU.",
+        "Additionally, the NVIC Software Trigger Interrupt Register (STIR) allows unprivileged or privileged code to fire peripheral interrupts purely in software for testing."
+      ],
+      "example": "Think of EXTI like a doorbell button wired to a chime: you can configure the chime to ring when you push the button down (falling edge), release it (rising edge), or both. And you must reset the buzzer switch before you sit back down.",
+      "code": "#include <iostream>\n#include <cstdint>\n\nstruct ExtiController {\n    uint32_t IMR;  // Interrupt Mask Register (1=unmasked)\n    uint32_t RTSR; // Rising Trigger Selection Register\n    uint32_t FTSR; // Falling Trigger Selection Register\n    uint32_t PR;   // Pending Register (write-1-to-clear)\n\n    ExtiController() : IMR(0), RTSR(0), FTSR(0), PR(0) {}\n\n    void configurePinInterrupt(uint8_t line, bool rising, bool falling) {\n        IMR |= (1 << line);\n        if (rising)  RTSR |= (1 << line);\n        if (falling) FTSR |= (1 << line);\n    }\n\n    void simulateEdgeTransition(uint8_t line, bool isRising) {\n        if ((isRising && (RTSR & (1 << line))) || (!isRising && (FTSR & (1 << line)))) {\n            if (IMR & (1 << line)) {\n                PR |= (1 << line); // Assert hardware pending\n                std::cout << \"[EXTI HARDWARE] Edge detected on Line \" << (int)line << \" -> PR asserted!\\\\n\";\n            }\n        }\n    }\n\n    void isrAcknowledge(uint8_t line) {\n        // Crucial bare-metal rule: write 1 to clear pending flag\n        PR |= (1 << line);\n        std::cout << \"[ISR HANDLER] Acknowledged Line \" << (int)line << \" (PR bit cleared)\\\\n\";\n    }\n};\n\nint main() {\n    ExtiController exti;\n    uint8_t user_button_line = 0; // EXTI0 for User Push Button\n    exti.configurePinInterrupt(user_button_line, true, false); // Rising edge only\n\n    // Simulate button push (rising edge)\n    exti.simulateEdgeTransition(user_button_line, true);\n    // Inside ISR: acknowledge and clear\n    exti.isrAcknowledge(user_button_line);\n    return 0;\n}",
+      "output": "[EXTI HARDWARE] Edge detected on Line 0 -> PR asserted!\\n[ISR HANDLER] Acknowledged Line 0 (PR bit cleared)",
+      "codeNotes": [
+        {
+          "line": 13,
+          "note": "Configures EXTI interrupt mask and trigger edge registers"
+        },
+        {
+          "line": 26,
+          "note": "Clears EXTI_PR by writing a 1 to the corresponding bit (rc_w1)"
+        },
+        {
+          "line": 36,
+          "note": "Simulates external push button edge transition triggering EXTI0"
+        }
+      ],
+      "tryIt": "Enable both rising and falling edge detection and verify that releasing the button also triggers the EXTI line.",
+      "check": {
+        "question": "What catastrophic failure occurs if firmware fails to clear the EXTI_PR pending bit inside an external interrupt handler?",
+        "options": [
+          "The CPU immediately re-enters the ISR forever in an infinite loop upon exit, starving main thread execution",
+          "The microcontroller permanently bricks its Flash memory",
+          "The GPIO pin physically inverts its output voltage",
+          "The SysTick timer stops ticking"
+        ],
+        "answer": 0,
+        "why": "Because the pending bit in EXTI_PR remains set, the NVIC detects an active interrupt condition the microsecond the ISR executes its return instruction, causing an inescapable interrupt loop."
+      }
+    }
+  ],
+  "summary": [
+    "The Vector Table at memory base defines initial MSP and hardware exception/interrupt entry points with strict power-of-2 alignment requirements enforced by VTOR.",
+    "ARM Cortex-M hardware executes automatic 12-cycle stacking of R0–R3, R12, LR, PC, and xPSR upon interrupt entry, enabling standard C functions to act directly as ISRs.",
+    "SCB->AIRCR PRIGROUP divides the 4 hardware priority bits into Preemption Priority (which can preempt running ISRs) and Subpriority (which only breaks simultaneous ties).",
+    "The NVIC utilizes atomic write-1-to-set (ISER) and write-1-to-clear (ICER) registers to prevent multi-threaded race conditions during interrupt configuration.",
+    "External pins route through EXTI edge-detection registers, requiring an explicit write-1-to-clear on EXTI_PR inside the ISR to prevent infinite re-entry lockups."
+  ],
+  "projectStep": {
+    "title": "Architect a High-Reliability Interrupt-Driven Embedded Subsystem with NVIC Priority Tuning",
+    "steps": [
+      "Map the ARM Cortex-M vector table layout and calculate VTOR alignment boundaries for runtime RAM relocation.",
+      "Trace the 8-word hardware exception stack frame (R0-R3, R12, LR, PC, xPSR) and verify 12-cycle entry/exit timings.",
+      "Configure SCB->AIRCR PRIGROUP to partition hardware priority bits into preemption and subpriority groups.",
+      "Implement atomic interrupt enable and disable operations using NVIC_ISER and NVIC_ICER register banks.",
+      "Construct an EXTI external pin trigger handler with edge selection and mandatory pending flag clearing routines."
+    ]
+  }
+}

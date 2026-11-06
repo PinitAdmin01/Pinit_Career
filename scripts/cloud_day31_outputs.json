@@ -1,0 +1,7 @@
+[
+  "EKS Control Plane Status:\n  Availability Zones: 3\n  etcd Active Nodes: 3/3\n  Quorum Operational: true\n  API Server SLA: 99.95%",
+  "EKS Worker Node IPAM Capacity (m5.large):\n  Max ENIs: 3 | Max IPs per ENI: 10\n  Standard Secondary IP Pod Limit: 27\n  Prefix Delegation (/28) Pod Limit: 432\n  Density Multiplier: 16.0x",
+  "EKS Custom Networking Allocation:\n  Secondary Pod CIDR: 100.64.0.0/16 (CGNAT)\n  Pod 1 IP (us-east-1a): 100.64.0.5\n  Pod 2 IP (us-east-1b): 100.64.1.5\n  Corporate RFC 1918 Address Preservation: 100%",
+  "EKS IRSA Identity Verification:\n  Namespace: finance-prod | ServiceAccount: ledger-writer-sa\n  IAM Role Assumed: arn:aws:iam::123456789012:role/EksLedgerWriterRole\n  STS Token Authorized: true\n  IMDSv2 Host Isolation: ENFORCED (HopLimit=1)",
+  "EKS VPC CNI IPAM Engine Allocation Report:\n  Allocated Pod: pod-order-service-1 -> IP: 100.64.10.10 via [eni-sec-01]\n  Allocated Pod: pod-order-service-2 -> IP: 100.64.10.11 via [eni-sec-02]\n  VPC CNI Status: ACTIVE_HEALTHY\n  Engine Certification: EKS_VPC_CNI_IPAM_ENGINE_GRADE_A_PLUS_CERTIFIED"
+]

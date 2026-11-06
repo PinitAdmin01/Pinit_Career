@@ -1,0 +1,326 @@
+Day 36</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Inheritance Hierarchies — extends, super Constructor Chaining & Code Reuse</strong>
+          <span class="stage-pill" style="background: #e0f2fe; color: #0369a1;">Stage 2: Defensive Fluency</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 8 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #0369a1; font-weight: 600;">Goal:</span> Master class inheritance using extends, constructor chaining with super(), and the "is-a" relationship.<br>
+          <span style="color: #15803d; font-weight: 600;">Invariant:</span> A subclass constructor MUST invoke a superclass constructor on its very first line (either implicitly or via super()).
+        </div>
+        <div style="background: #fef2f2; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fecaca; color: #991b1b;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Calling super() on line 2 after executing subclass statements triggers compile error "call to super must be first statement in constructor".<br>
+          <strong>tryIt Friction:</strong> Move super(accountId, initialBalance) to the very first line of the SavingsAccount constructor.
+        </div>
+      </div>
+
+      <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #1e40af;">💡 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #0369a1;">[1. Nudge: "Why is the compiler rejecting super(...) on line 5?"]</span> &rarr;
+        <span style="color: #b45309;">[2. Memory: "The JVM specification requires the parent class to initialize its memory before the child class initializes its own fields."]</span> &rarr;
+        <span style="color: #15803d;">[3. Fix: "Move "super(...);" to line 1 of the constructor body."]</span>
+      </div>
+
+      <div style="background: #fdf4ff; border: 1px solid #f0abfc; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #86198f;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"A subclass constructor performs: "this.interestRate = 0.05; super(name);". javac throws "call to super must be first statement in constructor". Why does Java enforce this strict rule?"</em><br>
+        <strong>Correct:</strong> Option B) The parent class memory layout must be initialized before the child class can safely execute any code or reference parent fields. &bull;
+        <span style="color: #701a75;"><strong>Debrief:</strong> Parent class fields must be constructed before child code executes. Placing super() anywhere other than line 1 risks accessing uninitialized parent state.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 36 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d36-q1</span>
+      <strong>Superclass Constructor Chaining</strong> <em>(concept)</em>: <span style="color: #475569;">Trace Object -> Parent -> Child constructor execution sequence in memory.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d36-q2</span>
+      <strong>Detective Lab: The Misplaced Super Constructor</strong> <em>(detective)</em>: <span style="color: #475569;">Fix constructor ordering in a specialized corporate account hierarchy.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d36-q3</span>
+      <strong>Mastery Assignment: Specialized Account Hierarchy</strong> <em>(assignment)</em>: <span style="color: #475569;">Create SavingsAccount (with interest) and CheckingAccount (with overdraft) extending BankAccount.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d36-q4</span>
+      <strong>Production Incident Lab: Partial Subclass Construction Crash</strong> <em>(detective)</em>: <span style="color: #475569;">Debug uninitialized parent state accessed by prematurely invoked virtual methods.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #2563eb; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 37</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Method Overriding, @Override, Virtual Method Tables (vtable) & Dynamic Dispatch</strong>
+          <span class="stage-pill" style="background: #e0f2fe; color: #0369a1;">Stage 2: Defensive Fluency</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 8 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #0369a1; font-weight: 600;">Goal:</span> Master method overriding, the @Override annotation, and understand runtime dynamic method dispatch via vtables.<br>
+          <span style="color: #15803d; font-weight: 600;">Invariant:</span> When invoking an overridden method on a parent reference (Account acc = new SavingsAccount()), the JVM invokes the RUNTIME subtype version.
+        </div>
+        <div style="background: #fef2f2; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fecaca; color: #991b1b;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Misspelling an overridden method name without @Override accidentally creates a brand-new method, losing polymorphic behavior.<br>
+          <strong>tryIt Friction:</strong> Add the @Override annotation to catch a signature typo (withDraw vs withdraw) at compile time.
+        </div>
+      </div>
+
+      <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #1e40af;">💡 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #0369a1;">[1. Nudge: "Why did SavingsAccount call the parent withdraw() instead of its specialized overdraft-checking logic?"]</span> &rarr;
+        <span style="color: #b45309;">[2. Memory: "Check spelling: the child declared "withDraw" with a capital D. It overloaded instead of overriding!"]</span> &rarr;
+        <span style="color: #15803d;">[3. Fix: "Add @Override above the method. The compiler will immediately flag if it does not match a parent method."]</span>
+      </div>
+
+      <div style="background: #fdf4ff; border: 1px solid #f0abfc; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #86198f;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"Given: "Account acc = new SavingsAccount(); acc.applyMonthlyFee();". SavingsAccount overrides applyMonthlyFee(). The compiler looks at Account, finds the method, and compiles. At runtime, which method runs?"</em><br>
+        <strong>Correct:</strong> Option B) SavingsAccount.applyMonthlyFee() because Java uses runtime dynamic method dispatch based on actual heap object type. &bull;
+        <span style="color: #701a75;"><strong>Debrief:</strong> Java uses dynamic dispatch. The compiler verifies the method exists on the reference type (Account), but the runtime executes the method from the actual object in heap (SavingsAccount).</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 37 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d37-q1</span>
+      <strong>Virtual Method Table (vtable) Mechanics</strong> <em>(concept)</em>: <span style="color: #475569;">Inspect how the JVM uses vtable pointer offsets for O(1) dynamic dispatch.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d37-q2</span>
+      <strong>Detective Lab: The Silent Signature Typo</strong> <em>(detective)</em>: <span style="color: #475569;">Use @Override to expose and fix a method signature that failed to override.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d37-q3</span>
+      <strong>Mastery Assignment: Polymorphic Statement Generator</strong> <em>(assignment)</em>: <span style="color: #475569;">Iterate an array of Account references, calling polymorphic generateStatement() on each.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d37-q4</span>
+      <strong>Production Incident Lab: The Accidental Overload Outage</strong> <em>(detective)</em>: <span style="color: #475569;">Detect missing @Override annotations that broke payment fee calculation.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #2563eb; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 38</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">The Universal Object Contract: equals(), hashCode(), and Reference Identity (==)</strong>
+          <span class="stage-pill" style="background: #e0f2fe; color: #0369a1;">Stage 2: Defensive Fluency</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 8 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #0369a1; font-weight: 600;">Goal:</span> Master java.lang.Object core methods. Understand why overriding equals() requires overriding hashCode(), and the catastrophic consequences of breaking this contract.<br>
+          <span style="color: #15803d; font-weight: 600;">Invariant:</span> If two objects are equal according to equals(Object), calling hashCode() on each must produce the exact same integer value. == compares memory addresses; equals() compares field values.
+        </div>
+        <div style="background: #fef2f2; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fecaca; color: #991b1b;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Failing to override hashCode() when overriding equals() causes HashSet and HashMap to duplicate keys or return null on lookups of mathematically identical objects.<br>
+          <strong>tryIt Friction:</strong> Override both equals() and hashCode() on an AccountKey class so that set.contains(new AccountKey("ACC-101")) correctly evaluates to true.
+        </div>
+      </div>
+
+      <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #1e40af;">💡 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #0369a1;">[1. Nudge: "Why does set.contains(new AccountKey("ACC-101")) return false even though an AccountKey with "ACC-101" was already added?"]</span> &rarr;
+        <span style="color: #b45309;">[2. Memory: "Because without overriding hashCode(), Java uses System.identityHashCode (memory address). The two instances land in completely different hash buckets!"]</span> &rarr;
+        <span style="color: #15803d;">[3. Fix: "Implement consistent equals() and Objects.hash(id) to ensure identical keys map to the exact same bucket."]</span>
+      </div>
+
+      <div style="background: #fdf4ff; border: 1px solid #f0abfc; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #86198f;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"An engineer creates a class CurrencyPair { String base; String quote; } and overrides equals() but forgets hashCode(). They add 10,000 rates to a HashMap<CurrencyPair, Double>. What happens when they query map.get(new CurrencyPair("USD", "EUR"))?"</em><br>
+        <strong>Correct:</strong> Option B) It returns null almost every time because the lookup checks the wrong bucket based on memory address instead of fields. &bull;
+        <span style="color: #701a75;"><strong>Debrief:</strong> The HashMap uses hashCode() to locate the bucket array index. If hashCode() is not overridden, two logically identical objects produce different hash codes and land in different buckets, making retrieval impossible.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 38 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d38-q1</span>
+      <strong>The equals() and hashCode() Mathematical Contract</strong> <em>(concept)</em>: <span style="color: #475569;">Trace hash bucket routing and proof of why equal objects must produce identical hash codes.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d38-q2</span>
+      <strong>Detective Lab: The Phantom Key in the HashMap</strong> <em>(detective)</em>: <span style="color: #475569;">Diagnose and fix a broken equals/hashCode implementation causing lost lookups in a cache.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d38-q3</span>
+      <strong>Mastery Assignment: Bulletproof Domain Entity Identity</strong> <em>(assignment)</em>: <span style="color: #475569;">Implement consistent equals(), hashCode(), and toString() with defensive null handling on AccountId.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d38-q4</span>
+      <strong>Production Incident Lab: Memory Address Hash Code Outage</strong> <em>(detective)</em>: <span style="color: #475569;">Resolve a critical billing duplicate-payment bug caused by default identityHashCode in hash sets.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #2563eb; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 39</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Abstract Classes vs Interfaces & Default Method Contract Evolution</strong>
+          <span class="stage-pill" style="background: #e0f2fe; color: #0369a1;">Stage 2: Defensive Fluency</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 8 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #0369a1; font-weight: 600;">Goal:</span> Master the architectural distinction between abstract classes (partial state & template workflows) and interfaces (pure behavioral contracts & default methods).<br>
+          <span style="color: #15803d; font-weight: 600;">Invariant:</span> A class can extend only ONE abstract superclass (sharing state/vtable), but can implement MULTIPLE interfaces (multiple typing). Interfaces decouple what code does from how it is done.
+        </div>
+        <div style="background: #fef2f2; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fecaca; color: #991b1b;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> A class implementing an interface failing to declare implemented methods as "public" triggers "cannot reduce visibility".<br>
+          <strong>tryIt Friction:</strong> Add the public access modifier to methods implementing an interface contract and resolve diamond default method conflicts.
+        </div>
+      </div>
+
+      <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #1e40af;">💡 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #0369a1;">[1. Nudge: "All methods in an interface are implicitly public. What happens if your class implements them as package-private (without public)?"]</span> &rarr;
+        <span style="color: #b45309;">[2. Memory: "Java forbids reducing the visibility of an inherited method!"]</span> &rarr;
+        <span style="color: #15803d;">[3. Fix: "Add "public" to the method declaration in your implementing class."]</span>
+      </div>
+
+      <div style="background: #fdf4ff; border: 1px solid #f0abfc; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #86198f;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"A microservice needs to audit, serialize, and process financial trades. In Java, can a Trade class extend three different classes (Auditable, Serializable, Processable)?"</em><br>
+        <strong>Correct:</strong> Option B) No, Java permits single class inheritance, but Trade can implement all three interfaces (Auditable, Serializable, Processable). &bull;
+        <span style="color: #701a75;"><strong>Debrief:</strong> Java prevents multiple inheritance of state (classes) to avoid the Diamond Problem, but permits multiple inheritance of type (interfaces).</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 39 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d39-q1</span>
+      <strong>Interface Decoupling & Loose Coupling</strong> <em>(concept)</em>: <span style="color: #475569;">Understand why programming to interfaces (List vs ArrayList) creates maintainable architectures.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d39-q2</span>
+      <strong>Detective Lab: The Reduced Visibility Violation</strong> <em>(detective)</em>: <span style="color: #475569;">Fix access modifier compilation errors in an interface implementation.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d39-q3</span>
+      <strong>Mastery Assignment: Multi-Interface Auditable Entity</strong> <em>(assignment)</em>: <span style="color: #475569;">Implement Auditable, Validatable, and Persistable across order domain objects.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d39-q4</span>
+      <strong>Production Incident Lab: Diamond Default Method Resolution</strong> <em>(detective)</em>: <span style="color: #475569;">Resolve conflicting default methods across dual interfaces using explicit super-syntax.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #2563eb; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 40</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">⭐ Milestone 7: Pluggable Multi-Provider Payment Gateway Interface Engine</strong>
+          <span class="stage-pill" style="background: #e0f2fe; color: #0369a1;">Stage 2: Defensive Fluency</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 8 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #0369a1; font-weight: 600;">Goal:</span> Architect an enterprise pluggable payment engine supporting Stripe, PayPal, and WireTransfer via a unified PaymentProcessor interface.<br>
+          <span style="color: #15803d; font-weight: 600;">Invariant:</span> The checkout system depends strictly on the PaymentProcessor interface, remaining 100% unaware of concrete vendor classes.
+        </div>
+        <div style="background: #fef2f2; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fecaca; color: #991b1b;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Hardcoding "new StripeProcessor()" directly inside the checkout cart couples business logic to a single vendor.<br>
+          <strong>tryIt Friction:</strong> Inject PaymentProcessor interface into CheckoutService via constructor dependency injection.
+        </div>
+      </div>
+
+      <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #1e40af;">💡 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #0369a1;">[1. Nudge: "If CheckoutService writes "new StripeProcessor()", what happens when the business wants to switch to PayPal?"]</span> &rarr;
+        <span style="color: #b45309;">[2. Memory: "You have to modify and recompile CheckoutService! That violates the Open/Closed Principle."]</span> &rarr;
+        <span style="color: #15803d;">[3. Fix: "Pass PaymentProcessor into CheckoutService constructor: public CheckoutService(PaymentProcessor processor) { ... }."]</span>
+      </div>
+
+      <div style="background: #fdf4ff; border: 1px solid #f0abfc; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #86198f;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"An e-commerce checkout service needs to support adding new crypto payment providers without changing a single line of existing checkout logic. What architectural principle and tool achieves this?"</em><br>
+        <strong>Correct:</strong> Option B) The Dependency Inversion Principle using a PaymentProcessor interface and constructor injection. &bull;
+        <span style="color: #701a75;"><strong>Debrief:</strong> Dependency Inversion states high-level modules should not depend on low-level modules; both should depend on abstractions (interfaces). New providers plug in with zero changes to checkout logic.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 40 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d40-q1</span>
+      <strong>Dependency Inversion & Interface Contracts</strong> <em>(concept)</em>: <span style="color: #475569;">Diagram loosely coupled service layers interacting across interface boundaries.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d40-q2</span>
+      <strong>Detective Lab: The Hardcoded Vendor Coupling</strong> <em>(detective)</em>: <span style="color: #475569;">Decouple a hardcoded payment processor using interface abstraction.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d40-q3</span>
+      <strong>Mastery Assignment: Mock Payment Gateway Test Double</strong> <em>(assignment)</em>: <span style="color: #475569;">Implement MockPaymentProcessor for zero-network automated unit testing.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d40-m7</span>
+      <strong>⭐ Milestone 7: Pluggable Enterprise Payment Gateway Engine</strong> <em>(milestone)</em>: <span style="color: #475569;">Deliver multi-provider routing (Stripe, PayPal, Mock) with retry policies.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #2563eb; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">

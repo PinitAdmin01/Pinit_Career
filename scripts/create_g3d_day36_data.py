@@ -1,0 +1,361 @@
+import json
+
+say_p1 = [
+    "Welcome to Day 36 of 3D Computer Graphics, WebGL2 & GPU Shader Architecture. In Block 7, we conquered WebGPU compute pipelines, lock-free atomics, Blelloch parallel prefix scans, and simulated one million particles. Now, in Month 2 Block 8, we step into the cutting-edge domain of Modern Real-Time Post-Processing Pipelines: Temporal Anti-Aliasing (TAA), Screen-Space Reflections (SSR), Volumetric Light Scattering (Froxels), Compute Depth of Field (DoF), and Cinema-Grade HDR Tone Mapping.",
+    "When a 3D geometry engine rasterizes polygons onto a discrete pixel grid, it evaluates shading at the exact center of each pixel. If a sharp geometry edge—such as a fine electrical wire, a distant fence, or specular specular highlight—cuts across a pixel, the pixel toggles abruptly between the object color and the background color. As the camera moves or rotates, these high-frequency geometric edges flicker, crawl, and produce jagged stair-stepped silhouettes known as Spatial Aliasing or 'crawling jaggies'. In modern physically based rendering engines featuring high-frequency normal maps, microfacet specular highlights, and thin alpha-tested foliage, spatial aliasing is visually catastrophic, shattering immersion.",
+    "Consider the physical analogy of an impressionist pointillist painter creating a vast landscape on canvas using a stippling brush. If the painter stands ten feet away and only dabs a single dot of paint into the exact center of each one-inch square on the canvas, fine tree branches and shimmering water ripples will appear as coarse, jagged, disconnected blocks of color. But imagine what happens if the painter shifts their brush by one millimeter to the left on Monday, one millimeter up on Tuesday, one millimeter to the right on Wednesday, and one millimeter down on Thursday, layering four subtle, slightly offset strokes within each square inch. By integrating multiple micro-offset samples over time, the painting achieves silky smooth, photographic gradients without requiring a canvas with ten times more surface area. This temporal integration of sub-pixel information is the foundational philosophy of Temporal Anti-Aliasing.",
+    "Historically, graphics engines attempted to solve aliasing using Multi-Sample Anti-Aliasing (MSAA) or Fast Approximate Anti-Aliasing (FXAA). MSAA computes coverage masks per sub-pixel sample, but it is notoriously incompatible with modern Deferred Shading and G-Buffers because rasterizing multiple sub-pixel samples into multiple G-Buffer attachments (albedo, normals, roughness, depth) consumes gigabytes of VRAM and destroys memory bandwidth! FXAA operates as a simple post-process edge blur in screen space, but it fails to resolve specular shimmering and blurs fine texture details into a muddy haze. Temporal Anti-Aliasing (TAA) solved this industry dilemma by spreading the cost of multi-sampling across multiple consecutive animation frames.",
+    "In a TAA-enabled engine, the camera projection matrix is deliberately jittered by a fraction of a sub-pixel every frame (typically between $-0.5$ and $+0.5$ pixels in screen space). Rather than using naive pseudo-random noise—which introduces high-frequency visual speckling—engineers use Low-Discrepancy Sequences, most famously the Halton Sequence (specifically the 2D Halton(2, 3) sequence) or Sobol sequences. Over an 8-frame or 16-frame cycle, the camera samples eight distinct sub-pixel positions within each pixel.",
+    "By accumulating and filtering these offset samples over consecutive frames, TAA resolves sub-pixel geometry with image quality matching 8x or 16x MSAA, but at a tiny fraction of the computational and memory cost! Geometry edges, fine foliage, hair strands, and specular highlights become pristine, silky, and razor-sharp.",
+    "In the TypeScript snippet below, we implement the `HaltonSequenceGenerator`. We calculate the radical inverse function across prime bases 2 and 3, map consecutive frame indices to sub-pixel camera jitter offsets, and inspect the resulting sampling trajectory.",
+    "Notice how the jitter sequence uniformly covers the sub-pixel domain across consecutive frames. With sub-pixel camera jitter established, we now explore how the engine reprojects historical pixels across dynamic camera motion."
+]
+
+say_p2 = [
+    "Sub-pixel camera jittering succeeds brilliantly when the virtual world and the camera are completely stationary: the engine simply averages the last eight frames together. But the moment the player moves the mouse or a character sprints across the screen, a naive temporal accumulation causes catastrophic Motion Blurring and Severe Smearing! If an object moves ten pixels to the right between Frame $N-1$ and Frame $N$, averaging the frames blends the current object with empty background air, leaving a muddy ghost trail behind every moving entity.",
+    "To accumulate historical samples across dynamic camera movement and animated meshes, the engine must know where each pixel in the CURRENT frame was located in the PREVIOUS frame. This spatial mapping is achieved through Screen-Space Motion Vectors (Velocity Buffers) and Historical Frame Reprojection.",
+    "Consider the physical analogy of an automated air traffic control radar tracking a fleet of commercial passenger jets flying through turbulent weather. The radar operator's screen displays a glowing dot for Flight 402 at coordinates $(X_2, Y_2)$ at 10:00:05 AM. To correlate this ping with the radar return from 10:00:00 AM at coordinates $(X_1, Y_1)$, the flight tracking software does not guess randomly! Instead, the transponder broadcasts a precise velocity vector: heading 270 degrees at 500 knots. Using this velocity vector, the radar computer calculates backwards: $(X_2, Y_2) - \\vec{v} \\cdot \\Delta t = (X_1, Y_1)$, instantly linking the new radar blip to its exact historical identity without false alarms.",
+    "In a modern real-time rendering engine, a dedicated Velocity Pass (or integrated G-Buffer velocity attachment) outputs a 2D screen-space motion vector $(\\Delta u, \\Delta v)$ for every pixel on screen. For static geometry (terrain, buildings, props), the motion vector is calculated entirely from the camera's movement: the vertex shader transforms the world-space vertex position using both the current View-Projection matrix ($M_{curr}$) and the previous frame's View-Projection matrix ($M_{prev}$). The difference between the current clip-space coordinate and the previous clip-space coordinate, divided by their respective homogeneous $W$ coordinates, yields the exact screen-space displacement.",
+    "For dynamic skinned characters and animated rigid bodies, the vertex shader must additionally read the previous frame's bone transformation matrices from a historical skinning buffer, computing the exact per-vertex displacement caused by skeletal deformation. The resulting motion vector is written to a 16-bit floating-point buffer (`rg16float`).",
+    "During the TAA compute pass, a thread processing pixel $(u, v)$ in the current frame samples the velocity buffer to obtain $(\\Delta u, \\Delta v)$. It then calculates the historical UV coordinate: $UV_{prev} = (u, v) - (\\Delta u, \\Delta v)$. By sampling the historical color buffer at $UV_{prev}$ using high-quality bilinear or Catmull-Rom bicubic filtering, the shader retrieves the exact historical shading sample corresponding to the surface currently visible under the pixel!",
+    "To guarantee sub-pixel accuracy, motion vectors are encoded with high precision. Modern engines often store motion vectors in an RG16F (16-bit floating point per channel) texture format. This format provides sufficient numerical dynamic range to accurately capture microscopic slow camera pans without quantization jitter, while comfortably representing violent supersonic character lunges or rapid camera cuts without numerical clipping.",
+    "Furthermore, motion vector sampling requires careful handling of geometric silhouettes. When a foreground character moves against a distant background, naive bilinear filtering across the velocity buffer can blend the foreground velocity with the background velocity, creating invalid intermediate velocity vectors at silhouette edges. To prevent silhouette bleeding, the TAA shader uses a Dilated Velocity Filter: sampling a 3x3 depth neighborhood and selecting the motion vector associated with the pixel closest to the camera (the minimum depth value). This ensures that moving foreground silhouettes always lead reprojection, completely preventing edge bleeding.",
+    "In the TypeScript snippet below, we implement the `MotionVectorCalculator`. We process current and previous screen-space coordinates, compute velocity deltas, and determine exact screen-space trajectory speeds.",
+    "Notice how the motion vector precisely encodes the pixel's displacement across frames. However, reprojection introduces a dangerous new challenge: Occlusion and Disocclusion Ghosting, which we resolve next."
+]
+
+say_p3 = [
+    "While motion vector reprojection successfully tracks moving objects across the screen, it encounters a fundamental geometric limitation: Disocclusion. What happens when a character who was standing in front of a brick wall suddenly takes a step to the left? In the current frame, the brick wall behind the character is revealed for the very first time. When the TAA shader queries the motion vector for those newly revealed brick wall pixels, the camera motion points backward in time to the historical frame—where the character's dark leather jacket was covering that spot!",
+    "If the shader blindly samples the historical buffer, it samples the character's leather jacket and blends it onto the newly revealed brick wall! The result is one of the most notorious artifacts in computer graphics: Ghosting (also called historical smearing or trailing). The phantom silhouette of the character lingers in the air like a translucent ghost, decaying sluggishly over multiple frames. To build a commercial-grade TAA engine, ghosting must be completely eradicated without compromising anti-aliasing sharpness.",
+    "Consider the physical analogy of an art restorer repairing an old oil painting depicting a sunny beach. Imagine that a previous restorer accidentally spilled a drop of pitch-black tar onto a sunlit patch of white sand. If the current restorer tries to blend that black spot smoothly into the surrounding area with a wet sponge, the black tar smears across the sand, creating a dirty gray stain! An expert restorer inspects the immediate pristine neighborhood: the surrounding sand pixels consist exclusively of warm creams, soft yellows, and golden whites. Because pitch-black lies completely outside the color palette of sand, the restorer immediately rejects the tar and paints only colors that conform to the valid local neighborhood bounds.",
+    "In modern TAA pipelines, this protection is achieved through Color Box (AABB) Clamping and Variance Clipping, pioneered by Marco Salvi at Epic Games and refined in modern Unreal Engine and Frostbite pipelines. For each pixel, the compute shader samples the current frame's color across a $3 \\times 3$ pixel neighborhood. It computes the component-wise minimum color ($C_{min} = \\min(c_0, c_1, \\dots, c_8)$) and maximum color ($C_{max} = \\max(c_0, c_1, \\dots, c_8)$), forming a tight bounding box in 3D color space (RGB or YCoCg).",
+    "Before blending the reprojected historical color $C_{hist}$, the shader clamps it against this color box: $C_{clamped} = \\text{clamp}(C_{hist}, C_{min}, C_{max})$. If the historical sample originated from a disoccluded background or a fast-moving object, its color will sit wildly outside the current $3 \\times 3$ color box. Clamping instantly snaps the historical color to the nearest boundary of the current neighborhood, extinguishing ghosting in a single frame!",
+    "To prevent micro-blurring during high-frequency camera movement, elite engines transform colors into the YCoCg (Luminance, Chrominance Orange, Chrominance Green) color space before clamping. Because the human eye is far more sensitive to luminance variations than chrominance variations, clamping in YCoCg preserves fine textural contrast while eliminating color fringing.",
+    "When configuring color clamping, modern game engines often employ Variance Clipping instead of rigid min/max clamping. In variance clipping, the color bounding box is shaped by the statistical mean and standard deviation of the surrounding 3x3 pixel neighborhood. Rather than forming a rigid axis-aligned box that may stretch artificially in the presence of a single noisy specular spike, variance clipping constructs an oriented ellipsoid or trimmed box. By clamping reprojected history to the line segment connecting the historical color and the neighborhood mean, variance clipping produces noticeably smoother anti-aliasing on specular surfaces.",
+    "Additionally, transforming colors into a perceptual color space such as YCoCg or log-luminance before clipping prevents chromatic aberrations. When clamping occurs in native RGB, unequal clamping across color channels can cause subtle hue shifts, making warm orange sunsets briefly flash yellow or purple along moving edges. Clamping strictly in luminance-chrominance space maintains chromatic fidelity across all lighting conditions.",
+    "In the TypeScript snippet below, we implement the `ColorAABBClamper`. We sample neighborhood colors, calculate tight color bounding limits, and clamp stale historical colors to eliminate disocclusion ghosting.",
+    "Notice how the stale ghost color `[0.1, 0.9, 0.8]` is instantly clamped to `[0.79, 0.22, 0.12]`, perfectly aligning with the current local neighborhood palette. Next, we examine temporal blending and weight adaptation."
+]
+
+say_p4 = [
+    "Now that the historical color sample has been accurately reprojected and safely clamped within the local color bounding box, the compute shader must execute the temporal synthesis: blending the current frame's sub-pixel jittered sample with the accumulated historical frame. This is governed by an Exponential Moving Average (EMA) Temporal Blend.",
+    "Consider the physical analogy of an outdoor digital thermometer station measuring ambient desert temperature during an afternoon heatwave. If the electronic sensor takes a measurement every second, turbulent wind gusts and thermal air pockets cause individual second-by-second readings to fluctuate wildly: 102.4 degrees, 99.1 degrees, 104.2 degrees, 100.8 degrees. If the station displayed the raw instantaneous reading, the digital readout would jitter uncontrollably. Instead, the weather station's microcontroller uses an exponential moving average: it blends ninety percent of the running historical average with ten percent of the new instantaneous reading ($T_{new} = 0.10 \\cdot T_{sensor} + 0.90 \\cdot T_{avg}$). High-frequency noise is smoothed out into a stable, highly accurate reading, while true meteorological temperature shifts are smoothly and faithfully tracked.",
+    "In TAA, the blending equation takes the identical mathematical form: $C_{final} = \\alpha \\cdot C_{current} + (1.0 - \\alpha) \\cdot C_{clamped\\_history}$, where $\\alpha \\in [0.0, 1.0]$ is the Temporal Feedback Factor (blend weight). In static scenes where the camera and geometry are motionless, setting $\\alpha = 0.05$ or $0.10$ allocates ninety to ninety-five percent of the image weight to accumulated historical samples. Over sixteen frames, this effectively integrates sixteen distinct sub-pixel samples, producing ultra-clean anti-aliasing equivalent to 16x supersampling at virtually zero rendering cost!",
+    "However, a fixed blend weight causes responsiveness issues during rapid gameplay. When a camera rotates violently or an explosion detonates, relying on ninety percent historical data causes noticeable temporal lag and trailing smearing. Therefore, modern engines implement Dynamic Adaptive Alpha weighting based on several physical parameters: Screen Velocity Magnitude: As motion speed increases, $\\alpha$ is dynamically scaled upward toward $1.0$ (favoring the responsive current frame over stale history); Depth Discontinuity: Comparing the current pixel's depth against the reprojected historical depth detects whether the surface was occluded by a foreground edge; and Color Difference: Large luminance deltas between current and historical samples trigger aggressive weight adjustments.",
+    "Furthermore, when a pixel reprojects outside the screen viewport (e.g., when panning the camera), the shader detects that $UV_{prev}$ falls outside the $[0.0, 1.0]$ boundary. In this out-of-bounds scenario, history is completely discarded by setting $\\alpha = 1.0$, rendering the pristine current sample with zero boundary artifacts.",
+    "In production rendering engines, temporal blending incorporates Luminance Weighting to combat high-contrast flickering. When rendering bright HDR highlights—such as direct sunlight glinting off chrome or glowing particle sparks—the luminance of a single sub-pixel sample can exceed 100.0 candelas per square meter. In an unweighted blend, a single super-bright sample will dominate the exponential moving average, causing the highlight to pulsate or flicker as the camera jitter alternates.",
+    "To resolve HDR flickering, engines apply a reversible tone mapping function, such as Karis Weighting ($w = 1.0 / (1.0 + L)$ where $L$ is relative luminance). By compressing color samples into a perceptual range prior to blending and expanding them back to linear HDR space afterward, sub-pixel specular highlights converge smoothly into stable, anti-aliased glints without energy loss or temporal boiling.",
+    "Furthermore, historical buffer management requires strict double buffering in VRAM. The engine allocates two identical HDR color buffers (History A and History B). On Frame N, History A is read while the blended result is written to History B. On Frame N+1, the roles reverse. This ping-pong architecture ensures that temporal accumulation never encounters read-after-write hazards across consecutive render passes.",
+    "In the TypeScript snippet below, we implement the `TemporalBlender`. We configure feedback blend weights, execute exponential moving average calculations across color channels, and evaluate temporal convergence.",
+    "Notice how a 10% alpha smoothly integrates historical and current samples. We now finalize our TAA pipeline by addressing image sharpness and variance clipping."
+]
+
+say_p5 = [
+    "We conclude our exploration of Temporal Anti-Aliasing by addressing the final criticism historically leveled against TAA: Softness and Perceived Blur. Because TAA accumulates and filters samples across multiple sub-pixel positions, naive implementations can slightly soften high-frequency textural details, such as distant brick mortar, text overlays, and weapon crosshairs. In competitive shooters and AAA simulation titles, gamers demand tack-sharp imagery. How do modern graphics engineers preserve the pristine smoothness of TAA while delivering razor-sharp textures? The answer lies in Variance Clipping and Contrast-Adaptive Sharpening (CAS).",
+    "Consider the physical analogy of an astronomical telescope imaging distant galaxies through the Earth's atmosphere. Atmospheric turbulence causes light rays to waver, blurring the stellar image. To reconstruct a sharp image, astronomers first capture multiple exposures to eliminate random atmospheric noise (temporal integration), and then pass the integrated image through a deconvolution sharpening filter that amplifies high-frequency spatial gradients. The result is an image that is both free of noise and breathtakingly sharp.",
+    "In our TAA compute pipeline, sharpness preservation begins inside the color bounding box calculation. Instead of using a simple minimum/maximum bounding box (which can be overly loose in the presence of a single outlier pixel), modern TAA engines use Statistical Variance Clipping. The shader calculates the first statistical moment (Mean $\\mu$) and second statistical moment (Standard Deviation $\\sigma$) of the $3 \\times 3$ neighborhood colors. The color box is then defined as $[\mu - \\gamma \\cdot \\sigma, \\mu + \\gamma \\cdot \\sigma]$, where $\\gamma$ is a tuning scalar (typically $1.25$ or $1.5$). By clamping history to an ellipsoid or box oriented along the statistical standard deviation, outlier pixels are rejected, preserving fine edge contrast.",
+    "Next, following temporal blending, the output is passed through an integrated Contrast-Adaptive Sharpening (CAS) pass (such as AMD FidelityFX CAS). Unlike naive unsharp masking—which introduces ugly dark halos and amplifies specular noise around high-contrast edges—Contrast-Adaptive Sharpening inspects the local contrast of surrounding pixels. In areas that are already sharp, it applies zero sharpening to prevent ringing artifacts; in areas that were slightly softened by temporal accumulation, it gently restores high-frequency detail, delivering an image that looks as crisp as native 4K resolution.",
+    "Finally, production engines execute automated TAA Quality Audits: verifying edge variance reduction ratios, monitoring disocclusion rejection rates, and ensuring that ghosting pixel counters remain at zero across rigorous stress test camera paths.",
+    "To measure anti-aliasing quality objectively, graphics engineering teams rely on automated Structural Similarity Index (SSIM) and Peak Signal-to-Noise Ratio (PSNR) benchmarks against 64x super-sampled reference frames. High-quality TAA implementations consistently achieve over 95% structural similarity to supersampled ground truth while maintaining an execution budget under 1.5 milliseconds at 4K resolution.",
+    "Moreover, the TAA compute pass serves as the natural host for integrating Screen-Space Motion Blur and Depth of Field. Because velocity vectors and sub-pixel history buffers are already bound in shader registers, motion blur can be evaluated by sampling along the motion vector trajectory inside the same compute pass, saving valuable memory bandwidth and reducing total post-processing pass counts.",
+    "Finally, when deploying TAA on variable refresh rate displays and mobile GPUs with dynamic frequency scaling, the post-processing pipeline must handle sudden framerate drops gracefully. If framerate drops from 60 FPS to 30 FPS, the effective delta time between frames doubles, which increases physical motion vector lengths. The engine dynamically scales variance clipping boxes and alpha feedback rates proportionally to frame delta time, preventing temporal lag during unexpected rendering stalls.",
+    "In the TypeScript snippet below, we construct the `TAAQualityAuditor`. We measure edge variance reduction percentages before and after TAA filtering, confirm zero ghosting artifact counts, and issue final certification.",
+    "Notice how edge aliasing variance is reduced by 82% while completely eliminating ghosting artifacts. Tomorrow, in Day 37, we build on this temporal foundation to construct Screen-Space Reflections (SSR) with Hi-Z ray marching."
+]
+
+# Snippets from test script
+with open('scripts/test_g3d_day36_snippets.py', 'r', encoding='utf-8') as f:
+    snippets_code = f.read()
+
+c1 = """class HaltonSequenceGenerator {
+  static getHalton(index: number, base: number): number {
+    let result = 0;
+    let f = 1 / base;
+    let i = index;
+    while (i > 0) {
+      result += f * (i % base);
+      i = Math.floor(i / base);
+      f /= base;
+    }
+    return result;
+  }
+
+  static getJitter(frameIndex: number): [number, number] {
+    // Standard TAA Halton(2, 3) mapped to [-0.5, 0.5] pixel offset
+    const jx = this.getHalton(frameIndex + 1, 2) - 0.5;
+    const jy = this.getHalton(frameIndex + 1, 3) - 0.5;
+    return [
+      parseFloat(jx.toFixed(4)),
+      parseFloat(jy.toFixed(4))
+    ];
+  }
+}
+
+const frames = [0, 1, 2, 3];
+frames.forEach(f => {
+  const [jx, jy] = HaltonSequenceGenerator.getJitter(f);
+  console.log(`[TAA Jitter] Frame ${f}: Sub-pixel offset (${jx}, ${jy})`);
+});"""
+
+o1 = """[TAA Jitter] Frame 0: Sub-pixel offset (0, -0.1667)
+[TAA Jitter] Frame 1: Sub-pixel offset (-0.25, 0.1667)
+[TAA Jitter] Frame 2: Sub-pixel offset (0.25, -0.3889)
+[TAA Jitter] Frame 3: Sub-pixel offset (-0.375, -0.0556)"""
+
+c2 = """interface ScreenCoord {
+  u: number;
+  v: number;
+}
+
+class MotionVectorCalculator {
+  static computeVelocity(currentUv: ScreenCoord, prevUv: ScreenCoord): { du: number; dv: number; speed: number } {
+    const du = currentUv.u - prevUv.u;
+    const dv = currentUv.v - prevUv.v;
+    const speed = Math.sqrt(du * du + dv * dv);
+    return {
+      du: parseFloat(du.toFixed(4)),
+      dv: parseFloat(dv.toFixed(4)),
+      speed: parseFloat(speed.toFixed(4))
+    };
+  }
+}
+
+const current: ScreenCoord = { u: 0.524, v: 0.481 };
+const previous: ScreenCoord = { u: 0.518, v: 0.475 };
+const vel = MotionVectorCalculator.computeVelocity(current, previous);
+
+console.log(`[Motion Vector] Current UV: (${current.u}, ${current.v})`);
+console.log(`[Motion Vector] Previous UV: (${previous.u}, ${previous.v})`);
+console.log(`[Motion Vector] Screen Delta: (du=${vel.du}, dv=${vel.dv}), Speed=${vel.speed}`);"""
+
+o2 = """[Motion Vector] Current UV: (0.524, 0.481)
+[Motion Vector] Previous UV: (0.518, 0.475)
+[Motion Vector] Screen Delta: (du=0.006, dv=0.006), Speed=0.0085"""
+
+c3 = """type RGB = [number, number, number];
+
+class ColorAABBClamper {
+  static clampHistory(historyColor: RGB, neighbors: RGB[]): RGB {
+    const minC: RGB = [Infinity, Infinity, Infinity];
+    const maxC: RGB = [-Infinity, -Infinity, -Infinity];
+
+    for (const c of neighbors) {
+      for (let i = 0; i < 3; i++) {
+        if (c[i] < minC[i]) minC[i] = c[i];
+        if (c[i] > maxC[i]) maxC[i] = c[i];
+      }
+    }
+
+    return [
+      Math.min(Math.max(historyColor[0], minC[0]), maxC[0]),
+      Math.min(Math.max(historyColor[1], minC[1]), maxC[1]),
+      Math.min(Math.max(historyColor[2], minC[2]), maxC[2])
+    ];
+  }
+}
+
+const currentNeighbors: RGB[] = [
+  [0.8, 0.2, 0.1],
+  [0.85, 0.22, 0.12],
+  [0.79, 0.18, 0.09]
+];
+const ghostHistory: RGB = [0.1, 0.9, 0.8]; // Stale color from previous disoccluded object
+const clamped = ColorAABBClamper.clampHistory(ghostHistory, currentNeighbors);
+
+console.log(`[Color Box] Stale History: [${ghostHistory.join(", ")}]`);
+console.log(`[Color Box] Clamped History: [${clamped.join(", ")}]`);"""
+
+o3 = """[Color Box] Stale History: [0.1, 0.9, 0.8]
+[Color Box] Clamped History: [0.79, 0.22, 0.12]"""
+
+c4 = """type RGB = [number, number, number];
+
+class TemporalBlender {
+  static blend(currentColor: RGB, historyColor: RGB, alpha: number): RGB {
+    return [
+      parseFloat((currentColor[0] * alpha + historyColor[0] * (1 - alpha)).toFixed(4)),
+      parseFloat((currentColor[1] * alpha + historyColor[1] * (1 - alpha)).toFixed(4)),
+      parseFloat((currentColor[2] * alpha + historyColor[2] * (1 - alpha)).toFixed(4))
+    ];
+  }
+}
+
+const current: RGB = [0.9, 0.4, 0.2];
+const history: RGB = [0.85, 0.38, 0.19];
+const alpha = 0.1; // 10% new sample, 90% temporal accumulation
+
+const blended = TemporalBlender.blend(current, history, alpha);
+console.log(`[Temporal Blend] Current Sample: [${current.join(", ")}]`);
+console.log(`[Temporal Blend] Accumulated History: [${history.join(", ")}]`);
+console.log(`[Temporal Blend] Blended Result (alpha=${alpha}): [${blended.join(", ")}]`);"""
+
+o4 = """[Temporal Blend] Current Sample: [0.9, 0.4, 0.2]
+[Temporal Blend] Accumulated History: [0.85, 0.38, 0.19]
+[Temporal Blend] Blended Result (alpha=0.1): [0.855, 0.382, 0.191]"""
+
+c5 = """interface TAAQualityMetrics {
+  edgeVarianceBefore: number;
+  edgeVarianceAfter: number;
+  ghostingPixelsDetected: number;
+}
+
+class TAAQualityAuditor {
+  static audit(metrics: TAAQualityMetrics): { aliasingReductionPct: number; ghostingFree: boolean } {
+    const aliasingReductionPct = Math.round(
+      ((metrics.edgeVarianceBefore - metrics.edgeVarianceAfter) / metrics.edgeVarianceBefore) * 100
+    );
+    const ghostingFree = metrics.ghostingPixelsDetected === 0;
+    return { aliasingReductionPct, ghostingFree };
+  }
+}
+
+const metrics: TAAQualityMetrics = {
+  edgeVarianceBefore: 0.45,
+  edgeVarianceAfter: 0.08,
+  ghostingPixelsDetected: 0
+};
+
+const result = TAAQualityAuditor.audit(metrics);
+console.log(`[TAA Audit] Aliasing Edge Variance Reduction: ${result.aliasingReductionPct}%`);
+console.log(`[TAA Audit] Ghosting Artifacts Eliminated: ${result.ghostingFree}`);"""
+
+o5 = """[TAA Audit] Aliasing Edge Variance Reduction: 82%
+[TAA Audit] Ghosting Artifacts Eliminated: true"""
+
+day36_data = {
+    'day': 36,
+    'coursePrefix': 'g3d',
+    'title': 'Post-Processing Compute Pipelines & Temporal Anti-Aliasing (TAA) Reprojection',
+    'goal': 'Master the architecture of real-time post-processing compute pipelines: sub-pixel camera jittering, motion vector reprojection, color box AABB clamping, and exponential moving average temporal blending.',
+    'recap': 'Recap of Day 35: High-throughput 1,000,000 particle WebGPU compute simulation engine, ping-pong double buffering, indirect drawing (drawIndirect), and 5-gate defense matrix.',
+    'minutes': 120,
+    'parts': [
+        {
+            'part': 1,
+            'title': 'The High-Frequency Aliasing Problem & Camera Sub-Pixel Jittering',
+            'say': say_p1,
+            'example': 'An impressionist pointillist painter who offsets brush dabs across consecutive days to produce silky photographic color gradients.',
+            'code': c1,
+            'output': o1,
+            'check': {
+                'question': 'Why are low-discrepancy sequences like Halton(2, 3) preferred over pseudo-random white noise for TAA camera jittering?',
+                'options': [
+                    'Because low-discrepancy sequences distribute samples evenly across the sub-pixel domain with minimal clustering, preventing high-frequency noise and temporal flickering.',
+                    'Because WebGPU compute units can only compile shaders that use prime numbers.',
+                    'Because pseudo-random numbers cause GPU memory buffer overflows.',
+                    'Because low-discrepancy sequences disable the graphics card rasterizer.'
+                ],
+                'answer': 0,
+                'answerIndex': 0,
+                'why': 'Low-discrepancy sequences maximize spatial uniformity within the pixel boundary, avoiding noise clustering and delivering smooth temporal convergence.'
+            }
+        },
+        {
+            'part': 2,
+            'title': 'Screen-Space Motion Vectors & Historical Frame Reprojection',
+            'say': say_p2,
+            'example': 'An air traffic control radar computer that uses aircraft transponder velocity vectors to track glowing blips across consecutive radar sweeps.',
+            'code': c2,
+            'output': o2,
+            'check': {
+                'question': 'How does the TAA compute shader find the historical color sample for the current pixel across dynamic camera motion?',
+                'options': [
+                    'By reading the pixel 2D screen-space motion vector and subtracting it from current screen coordinates to look up the historical frame buffer.',
+                    'By searching the entire previous frame buffer linearly across all one million pixels.',
+                    'By resetting all pixel colors to transparent black whenever the camera moves.',
+                    'By reading historical mouse positions from the browser DOM window object.'
+                ],
+                'answer': 0,
+                'answerIndex': 0,
+                'why': 'Subtracting the screen-space velocity delta from the current UV coordinate directly yields the exact historical screen location of the visible surface.'
+            }
+        },
+        {
+            'part': 3,
+            'title': 'Eliminating Ghosting Artifacts with Color Box (AABB) Clamping',
+            'say': say_p3,
+            'example': 'An art restorer repairing an oil painting who restricts color mixing strictly to the valid local pigment palette to prevent tar smearing.',
+            'code': c3,
+            'output': o3,
+            'check': {
+                'question': 'What causes disocclusion ghosting in naive temporal accumulation and how does Color Box (AABB) clamping eliminate it?',
+                'options': [
+                    'Disocclusion reveals new surfaces whose motion vectors point back to occluding foreground objects; clamping snaps the stale history color to the valid current 3x3 color bounds.',
+                    'Ghosting is caused by physical monitor pixel response times and can only be fixed by purchasing a higher refresh rate monitor.',
+                    'Ghosting occurs when the GPU runs out of VRAM and must be fixed by lowering display resolution.',
+                    'Color box clamping reduces graphics card clock speeds to prevent hardware overheating.'
+                ],
+                'answer': 0,
+                'answerIndex': 0,
+                'why': 'Clamping reprojected history to the min/max color bounding box of the immediate 3x3 neighborhood immediately clips away stale background colors.'
+            }
+        },
+        {
+            'part': 4,
+            'title': 'Exponential Moving Average (EMA) Temporal Blending & Disocclusion Detection',
+            'say': say_p4,
+            'example': 'An automated desert weather station that blends ninety percent running historical temperature with ten percent new sensor reading to eliminate wind gusts.',
+            'code': c4,
+            'output': o4,
+            'check': {
+                'question': 'How does adaptive alpha feedback tuning prevent motion smearing during rapid camera movement in TAA pipelines?',
+                'options': [
+                    'By dynamically increasing the current frame weight (alpha) toward 1.0 when high velocity or depth discontinuities are detected, favoring responsive current data over stale history.',
+                    'By shutting down the compute pipeline and rendering a black screen during fast movement.',
+                    'By running the graphics pipeline at half resolution whenever the mouse moves.',
+                    'By increasing the monitor brightness during fast turns.'
+                ],
+                'answer': 0,
+                'answerIndex': 0,
+                'why': 'Increasing alpha for fast-moving pixels reduces reliance on historical frames, eliminating trailing motion blur while preserving sharpness.'
+            }
+        },
+        {
+            'part': 5,
+            'title': 'Sharpening Filters, Variance Clipping & Production TAA Verification',
+            'say': say_p5,
+            'example': 'An astronomical telescope post-processing system that removes atmospheric turbulence via multi-exposure stacking and sharpens stellar boundaries via deconvolution.',
+            'code': c5,
+            'output': o5,
+            'check': {
+                'question': 'What advantage does Contrast-Adaptive Sharpening (CAS) provide over traditional unsharp masking in a post-TAA pipeline?',
+                'options': [
+                    'It inspects local contrast to restore high-frequency detail only where softness occurred, preventing unsightly dark halos and avoiding the amplification of specular noise.',
+                    'It converts the entire image into black and white to increase perceived edge sharpness.',
+                    'It doubles the number of triangles in the rendered 3D meshes.',
+                    'It executes on the CPU to reduce GPU thermal load.'
+                ],
+                'answer': 0,
+                'answerIndex': 0,
+                'why': 'Contrast-adaptive sharpening selectively sharpens softened regions while maintaining zero ringing or haloing around already-crisp high-contrast edges.'
+            }
+        }
+    ],
+    'projectStep': {
+        'title': 'Implement the Real-Time Temporal Anti-Aliasing (TAA) Compute Pipeline',
+        'steps': [
+            'Configure Halton(2, 3) camera sub-pixel projection jitter across an 8-frame cycle.',
+            'Implement screen-space motion vector calculation and historical frame reprojection in compute shaders.',
+            'Deploy color box AABB clamping in YCoCg space to eliminate disocclusion ghosting artifacts.',
+            'Integrate adaptive exponential moving average temporal blending with contrast-adaptive sharpening.'
+        ]
+    },
+    'summary': [
+        'Spatial aliasing is eliminated by Temporal Anti-Aliasing (TAA) through low-discrepancy Halton sub-pixel camera jittering over consecutive frames.',
+        'Screen-space motion vectors allow compute shaders to reproject historical frame pixels across dynamic camera and object movement.',
+        'Color box AABB clamping and statistical variance clipping eradicate disocclusion ghosting by bounding historical samples within the local 3x3 neighborhood.',
+        'Exponential moving average temporal blending integrates multiple sub-pixel samples into image quality matching 16x supersampling.',
+        'Contrast-adaptive sharpening restores high-frequency textural clarity without introducing haloing or amplifying specular shimmering.'
+    ]
+}
+
+# Verify word count
+for p in day36_data['parts']:
+    wc = sum(len(para.split()) for para in p['say'])
+    print(f"G3D Day 36 Part {p['part']} Word Count: {wc}")
+    assert wc >= 600, f"Part {p['part']} word count {wc} below 600 words!"
+
+with open('scripts/g3d_day36_data.py', 'w', encoding='utf-8') as f:
+    f.write(f"day36_data = {repr(day36_data)}\n")
+
+print("scripts/g3d_day36_data.py successfully written!")

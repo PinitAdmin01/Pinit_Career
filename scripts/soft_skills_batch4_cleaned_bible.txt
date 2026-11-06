@@ -1,0 +1,151 @@
+=== Q36.177 ===
+Q36.177
+Strategic Enterprise Architecture Valuation   (concept) :  Calculate the enterprise value accretion resulting from modern software architecture modularity during M&A technical due diligence.
+--------------------------------------------------
+=== Q36.178 ===
+Q36.178
+ApexStrategy 3-Year Master Blueprint   (challenge) :  Compile the comprehensive ApexStrategy dossier: Diagnosis, 3-Year Architecture Roadmap, Financial Self-Funding Model, and Risk Matrix.
+--------------------------------------------------
+=== Q36.179 ===
+Q36.179
+ApexStrategy Executive Decision Support Tool   (mastery) :  Build an interactive financial forecasting model that simulates cloud costs, developer velocity, and defect rates across the 3-year migration lifecycle.
+--------------------------------------------------
+=== Q36.180 ===
+Q36.180
+Board of Directors Strategy Viva Voce Examination   (incident) :  Defend the ApexStrategy portfolio in a high-intensity 20-minute adversarial examination before a panel of Board Directors and Chief Technology Officers.
+Day 46
+Tech Offer Evaluation: Base Salary, Equity Mechanics & Total Compensation Anatomy
+Stage 4.3: High-Stakes Negotiations, Compensation & Difficult Conversations
+Month 2 &bull; Block 10 &bull;  4 Quests
+🎯 Spoken Goal &amp; Invariant:
+Goal:  Congratulations—you passed the technical loops and received a job offer. But looking at an offer letter that says '$185,000 base salary, 40,000 stock options over 4 years with a 1-year cliff, and a $25,000 signing bonus' can be bewildering. If you do not understand the mathematical difference between Restricted Stock Units (RSUs) at a public company like Google vs Incentive Stock Options (ISOs) at a Series B startup with a $400M valuation and a 409A strike price, you are flying blind. Today, you master the financial mechanics of tech total compensation (TC): equity dilution, liquidation preferences, vesting schedules, and tax implications (AMT).
+Invariant:   Tech compensation is a multi-asset financial portfolio: Total Compensation = Base Salary + Annualized Equity Realization Value + Performance Bonus + Sign-on Proration; private equity must always be discounted by illiquidity and liquidation preference risks.
+⚠️ Failure Mode &amp; tryIt Bug:
+Failure:  An engineer accepts a startup offer with '100,000 stock options' over a FAANG offer with $150,000 in liquid RSUs, believing they will make $5M; when the startup sells in a fire-sale for $50M, senior preferred investors exercise 2x liquidation preferences, leaving common stock options completely worthless ($0 payout after 4 years of 70-hour weeks).
+tryIt Friction:  Calculate the true expected value of a startup offer: given 50,000 options, $1.20 strike price, $10 preferred price, 80M fully diluted shares, and a 20% probability of a $1B exit vs 60% probability of $0 exit.
+--------------------------------------------------
+=== Q36.181 ===
+Q36.181
+Equity Mechanics & Startup Cap Tables   (concept) :  Deconstruct ISOs vs NSOs vs RSUs, 83(b) tax elections, Alternative Minimum Tax (AMT), vesting cliffs, and liquidation waterfalls.
+--------------------------------------------------
+=== Q36.182 ===
+Q36.182
+The Total Compensation Deconstruct   (challenge) :  Given three real-world tech offer letters (Public Big Tech, Series C Unicorn, Pre-Seed Startup), build a 4-year financial modeling spreadsheet comparing net expected returns.
+--------------------------------------------------
+=== Q36.183 ===
+Q36.183
+Tech Total Compensation Simulator CLI   (mastery) :  Build a command-line tool that models equity dilution across Series B to IPO funding rounds, estimating final net take-home value after taxes.
+--------------------------------------------------
+=== Q36.184 ===
+Q36.184
+Complex Offer Financial Audit Lab   (incident) :  Audit an exploitative startup offer containing non-standard clawback clauses, 30-day post-termination exercise windows, and 3x participating liquidation preferences.
+Day 47
+The Compensation Negotiation Playbook: Leverage, Competing Offers & Counter-Offers
+Stage 4.3: High-Stakes Negotiations, Compensation & Difficult Conversations
+Month 2 &bull; Block 10 &bull;  4 Quests
+🎯 Spoken Goal &amp; Invariant:
+Goal:  Negotiating your compensation is not about being greedy; it is an objective business discussion. The first offer a company extends is rarely their top budget band—there is almost always 10% to 30% of unallocated room in base, sign-on bonus, or equity grants. However, if you negotiate aggressively or make arbitrary demands without leverage, you risk alienating your future manager. Today, you master the professional negotiation playbook: using competing offers as market data, anchoring high with data, negotiating non-monetary levers (remote flexibility, title, relocation, sign-on), and crafting respectful counter-offer emails.
+Invariant:   Compensation negotiation is an exercise in mutual value alignment, not conflict: companies will stretch their budget bands when they are confident that meeting your target guarantees an immediate, enthusiastic signature.
+⚠️ Failure Mode &amp; tryIt Bug:
+Failure:  A candidate attempts to negotiate by issuing a hostile ultimatum: 'Company X offered me $20k more, match it by 5 PM or I'm signing with them'; the hiring manager is offended by the combative tone and rescinds the offer entirely.
+tryIt Friction:  Draft a professional counter-offer email requesting an additional $25,000 in equity and a $15,000 signing bonus while reiterating that the company is your absolute top-choice destination.
+--------------------------------------------------
+=== Q36.185 ===
+Q36.185
+BATNA & Zone of Possible Agreement (ZOPA) in Tech   (concept) :  Apply Fisher & Ury's Getting to Yes principles (BATNA, ZOPA, reservation price) to high-tech salary and equity negotiations.
+--------------------------------------------------
+=== Q36.186 ===
+Q36.186
+The Multi-Offer Leverage Playbook   (challenge) :  Draft a complete sequence of 3 negotiation emails navigating an active 3-way bidding war between competing enterprise offers.
+--------------------------------------------------
+=== Q36.187 ===
+Q36.187
+Salary Negotiation Counter-Offer Generator   (mastery) :  Build an interactive CLI tool that inputs existing offer parameters and generates tailored, polite, high-leverage counter-offer proposals.
+--------------------------------------------------
+=== Q36.188 ===
+Q36.188
+Live Recruiter Hardball Phone Call Lab   (incident) :  Roleplay a high-pressure 10-minute phone call with an experienced recruiter who uses exploding deadlines and pressure tactics to force an immediate verbal accept.
+Day 48
+Navigating Difficult Conversations: Performance Issues & Managing Out with Dignity
+Stage 4.3: High-Stakes Negotiations, Compensation & Difficult Conversations
+Month 2 &bull; Block 10 &bull;  4 Quests
+🎯 Spoken Goal &amp; Invariant:
+Goal:  One of the hardest challenges in technical leadership is addressing an underperforming engineer on your team. Ignoring the problem hurts the entire squad: high performers get resentful from carrying the extra weight, while the struggling engineer receives no feedback to improve. Conversely, being harsh or punitive destroys trust and invites legal liability. Today, you master the protocol for difficult performance conversations: Radical Candor (Kim Scott), objective metric documentation, Performance Improvement Plans (PIPs), and managing out with dignity and empathy.
+Invariant:   Radical Candor requires Care Personally while Challenge Directly: criticism must be specific, immediate, focused on observable work artifacts rather than personality, and paired with actionable support.
+⚠️ Failure Mode &amp; tryIt Bug:
+Failure:  An engineering manager avoids giving feedback for 9 months, then suddenly places an engineer on a surprise PIP; feeling blindsided and betrayed, the engineer files an HR grievance and team morale plummets.
+tryIt Friction:  Construct a difficult feedback script for a senior engineer whose PR throughput has dropped by 60% and who frequently misses scheduled deployments, maintaining deep empathy while setting firm operational boundaries.
+--------------------------------------------------
+=== Q36.189 ===
+Q36.189
+Kim Scott's Radical Candor Matrix   (concept) :  Map Radical Candor quadrants (Radical Candor, Obnoxious Aggression, Ruinous Empathy, Manipulative Insincerity) onto software engineering management.
+--------------------------------------------------
+=== Q36.190 ===
+Q36.190
+The Objective Performance Documentation Dossier   (challenge) :  Construct an objective, legally compliant performance improvement record documenting chronic missed deliverables with clear measurable milestone gates.
+--------------------------------------------------
+=== Q36.191 ===
+Q36.191
+Difficult Conversation Scripting Engine   (mastery) :  Build an interactive tool that guides managers through drafting difficult conversation scripts adhering to non-violent communication and employment law standards.
+--------------------------------------------------
+=== Q36.192 ===
+Q36.192
+High-Emotion Performance Review Simulation Lab   (incident) :  Conduct a live simulated 15-minute performance intervention with an engineer who responds to critical feedback with anger and tears.
+Day 49
+Delivering Bad News to Leadership: Missed Deadlines & Scalability Cliffs
+Stage 4.3: High-Stakes Negotiations, Compensation & Difficult Conversations
+Month 2 &bull; Block 10 &bull;  4 Quests
+🎯 Spoken Goal &amp; Invariant:
+Goal:  In software engineering, bad news does not age like fine wine—it ages like unpasteurized milk. The worst thing you can do when a project is going off the rails is hide it, hoping a miracle will save you at the last minute. When senior executives are blindsided 24 hours before a major public launch with 'We can't ship,' careers end. Today, you master the protocol for delivering bad news to leadership: early escalation, proactive risk framing, presenting three actionable mitigation paths, and preserving trust under fire.
+Invariant:   Early bad news delivered with concrete mitigation options builds executive trust; late surprises destroy organizational credibility.
+⚠️ Failure Mode &amp; tryIt Bug:
+Failure:  A lead engineer knows in October that a Black Friday scalability bottleneck will cause site crashes; they say nothing; the site crashes on Black Friday, costing the company $14M in lost sales, leading to the entire engineering management chain being replaced.
+tryIt Friction:  Draft an emergency executive escalation brief notifying the VP of Engineering that a core payment migration will miss its Q3 deadline by 3 weeks, presenting two mitigation options to preserve business revenue.
+--------------------------------------------------
+=== Q36.193 ===
+Q36.193
+The Epistemology of Bad News Delivery in High-Risk Systems   (concept) :  Analyze high-reliability organizational theory (HRO) and the Columbia Shuttle disaster regarding the suppression of dissenting bad news.
+--------------------------------------------------
+=== Q36.194 ===
+Q36.194
+The Bad News Escalation Briefing Blueprint   (challenge) :  Author an executive crisis escalation memo for a multi-million-dollar government healthcare portal facing a critical security audit failure 2 weeks before launch.
+--------------------------------------------------
+=== Q36.195 ===
+Q36.195
+Project Health Risk Telemetry Sentinel   (mastery) :  Build an automated risk early-warning tool that monitors Jira burn-down velocity, bug escape rates, and staging latency, triggering automated executive warnings.
+--------------------------------------------------
+=== Q36.196 ===
+Q36.196
+Hostile Executive Bad News Delivery Lab   (incident) :  Deliver the news of a 2-month project delay directly to an angry Chief Executive Officer in a live simulated 10-minute boardroom confrontation.
+Day 50
+Milestone 7: ApexNegotiation High-Stakes Tech Compensation & Executive Suite
+Stage 4.3: High-Stakes Negotiations, Compensation & Difficult Conversations
+Month 2 &bull; Block 10 &bull;  4 Quests
+🎯 Spoken Goal &amp; Invariant:
+Goal:  Today is Milestone 7 of Month 2. You will deliver and defend ApexNegotiation: a high-stakes technology compensation and executive negotiation suite. You will step into the negotiation arena to execute two distinct high-pressure challenges: Challenge 1: Successfully negotiate a 25% increase in total compensation on a multi-offer Staff Engineer compensation package against an aggressive senior corporate recruiter. Challenge 2: Deliver an emergency executive bad news briefing to an angry Chief Product Officer, de-escalating a missed launch and successfully pivoting the roadmap.
+Invariant:   Negotiation mastery is demonstrated by maintaining unconditional rapport and high emotional poise while securing optimal financial and operational terms.
+⚠️ Failure Mode &amp; tryIt Bug:
+Failure:  A candidate folds under pressure during compensation negotiation, accepting an under-market offer without countering, or becomes hostile when delivering bad news to leadership, failing the evaluation.
+tryIt Friction:  Execute a counter-offer pitch where the recruiter pushes back with: 'This is our final offer, take it or leave it'; pivot gracefully to non-monetary concessions (equity acceleration, title, remote work) without breaking rapport.
+--------------------------------------------------
+=== Q36.197 ===
+Q36.197
+Game Theory in Executive Compensation   (concept) :  Apply Nash Equilibrium and mechanism design principles to corporate salary negotiations and multi-round bidding wars.
+--------------------------------------------------
+=== Q36.198 ===
+Q36.198
+ApexNegotiation Master Dossier   (challenge) :  Produce the complete ApexNegotiation dossier: 4-Year Total Compensation Models, Competing Offer Playbooks, Bad News Briefs, and Script Catalogs.
+--------------------------------------------------
+=== Q36.199 ===
+Q36.199
+ApexNegotiation Automated Counter-Offer Simulator   (mastery) :  Build an AI negotiation partner tool that simulates recruiter tactics (exploding deadlines, fixed bands, equity traps) and evaluates candidate counter-proposals.
+--------------------------------------------------
+=== Q36.200 ===
+Q36.200
+Live Recruiter & Executive Gauntlet Lab   (incident) :  Survive a grueling 20-minute live roleplay gauntlet featuring back-to-back aggressive recruiter negotiations and executive crisis briefings.
+Day 51
+Public Speaking & Tech Conferences: CFP Writing & Engaging Technical Audiences
+Stage 4.3: High-Stakes Negotiations, Compensation & Difficult Conversations
+Month 2 &bull; Block 11 &bull;  4 Quests
+<div sty
+--------------------------------------------------

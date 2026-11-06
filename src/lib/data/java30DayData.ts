@@ -2,7 +2,7 @@ import { buildEnrichedDayQuests, DayConfig, CourseQuest } from './curriculumEnri
 
 export const JAVA_30_DAYS_CONFIGS: DayConfig[] = [
   {
-    "title": "JVM Architecture, Stack vs Heap Memory & Object-Oriented Invariants",
+    "title": "Java Platform Architecture & First Program: Hello World, Classes and System.out",
     "desc": "Java is a programming language that tells a computer what to do step by step. Every Java program lives inside a class with a main method entry point: public class HelloWorld { public static void main(String[] args) { System.out.println(\"Hello, World!\"); } }. Every complete instruction ends with a semicolon (;). (Real world: Millions of Android apps, WhatsApp, and Google Maps run on Java instructions.)",
     "syllabus": [
       "What programming means: Writing step-by-step instructions in Java.",
@@ -22,14 +22,14 @@ export const JAVA_30_DAYS_CONFIGS: DayConfig[] = [
     "day": 1
   },
   {
-    "title": "Java Memory Model, Collections Architecture & Spring Concurrency Pipelines",
+    "title": "Variables, Primitive Types & Interactive Input: The Scanner Console Engine",
     "desc": "Use the Scanner class to read keyboard input from the user and store it in labeled boxes (int for whole numbers, String for text). Step 1: import java.util.Scanner;. Step 2: Scanner sc = new Scanner(System.in);. Step 3: int age = sc.nextInt(); for integers, String name = sc.nextLine(); for text sentences. Always clear the buffer with sc.nextLine() after reading numbers! (Real world: ATM pinpads and web forms pause and wait for keyboard input.)",
     "syllabus": [
       "Scanner 3-Step Lifecycle: Import, create reader, and read input into int or String storage boxes.",
       "Type-Specific Readers: sc.nextInt() for whole numbers (int), sc.nextLine() for text (String).",
       "The Enter-Key Buffer Trap: Flushing leftover newline characters."
     ],
-    "eTitle": "Day 2 Challenge: Fix the Broken Input Reader (Java Memory Model, Collections Architecture & Spring Concurrency Pipelines)",
+    "eTitle": "Day 2 Challenge: Fix the Broken Input Reader",
     "eDesc": "Fix the bug in the program below so it reads the user age (stored in int age) and then reads their full name (stored in String name) without skipping.",
     "eStarter": "import java.util.Scanner;\n\npublic class Solution {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int age = sc.nextInt();\n        // BUG: Add 1 line here (sc.nextLine();) to clear the leftover Enter key buffer:\n        \n        String name = sc.nextLine();\n        System.out.println(\"Name: \" + name + \" | Age: \" + age);\n    }\n}",
     "eHint": "Add sc.nextLine(); right after nextInt() to clear the buffer.",
@@ -42,14 +42,14 @@ export const JAVA_30_DAYS_CONFIGS: DayConfig[] = [
     "day": 2
   },
   {
-    "title": "Generics, Reflection & Modern Java 21 Sealed Class Patterns",
+    "title": "Operators, Mathematical Expressions & String Concatenation",
     "desc": "A variable is like a labeled storage box in memory that holds a specific type of information. Learn the 4 fundamental types: int for whole numbers, double for decimals, boolean for true/false, and String for text.",
     "syllabus": [
       "Whole Numbers (int): Storing integers without decimals.",
       "Decimal Numbers (double): Storing fractional numbers and prices.",
       "True/False (boolean) & Text (String): Storing flags and words."
     ],
-    "eTitle": "Day 3 Challenge: Declare Variables & Calculate Total (Generics, Reflection & Modern Java 21 Sealed Class Patterns)",
+    "eTitle": "Day 3 Challenge: Declare Variables & Calculate Total",
     "eDesc": "Declare an int quantity = 3, a double unitPrice = 15.50, calculate double totalPrice = quantity * unitPrice, and print 'Total: $' + totalPrice.",
     "eStarter": "public class Solution {\n    public static void main(String[] args) {\n        // 1. Declare int quantity\n        // 2. Declare double unitPrice\n        // 3. Calculate and print totalPrice\n        \n    }\n}",
     "eHint": "Declare each variable on its own line with its type, then multiply quantity by unitPrice to get totalPrice.",
@@ -62,7 +62,7 @@ export const JAVA_30_DAYS_CONFIGS: DayConfig[] = [
     "day": 3
   },
   {
-    "title": "Reactive WebFlux, Netty EventLoop, Backpressure Strategies & R2DBC",
+    "title": "Arithmetic Algorithms, Modulo Arithmetic & Computational Logic",
     "desc": "Perform calculations using +, -, *, /, and %. Master integer division truncation (7 / 2 is 3) and modulo remainder (10 % 3 is 1). (Real world: Calculating shopping cart taxes, splitting restaurant tabs, and formatting timer clocks).",
     "syllabus": [
       "Arithmetic Operators: +, -, *, /, %.",
@@ -74,7 +74,7 @@ export const JAVA_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "public class Solution {\n    public static double calculatePerPerson(double bill, double tipPercent, int people) {\n        // Return (bill + (bill * tipPercent)) / people\n        return 0.0;\n    }\n}",
     "eHint": "Calculate total with tip: double total = bill + (bill * tipPercent); then return total / people;",
     "eTest": "public class Test {\n    public static void main(String[] args) {\n        if (Math.abs(Solution.calculatePerPerson(100.0, 0.20, 2) - 60.0) > 0.001) throw new AssertionError(\"100 + 20% / 2 must be 60.0\");\n        if (Math.abs(Solution.calculatePerPerson(200.0, 0.10, 4) - 55.0) > 0.001) throw new AssertionError(\"200 + 10% / 4 must be 55.0\");\n        if (Math.abs(Solution.calculatePerPerson(50.0, 0.0, 1) - 50.0) > 0.001) throw new AssertionError(\"50 + 0% / 1 must be 50.0\");\n    }\n}",
-    "aTitle": "Day 4 Assignment: Modulo Checker (Reactive WebFlux, Netty EventLoop, Backpressure Strategies & R2DBC)",
+    "aTitle": "Day 4 Assignment: Modulo Checker",
     "aDesc": "Write isEven(int n) in Solution returning true if n is divisible by 2 with no remainder, and false otherwise.",
     "aStarter": "public class Solution {\n    public static boolean isEven(int n) {\n        // Return true if n % 2 == 0:\n        return false;\n    }\n}",
     "aHint": "Use the modulo operator: return n % 2 == 0;",
@@ -82,14 +82,14 @@ export const JAVA_30_DAYS_CONFIGS: DayConfig[] = [
     "day": 4
   },
   {
-    "title": "Java 21 Enterprise Systems: Project Panama (FFM API), Project Loom Virtual Threads, Structured Concurrency & Generational ZGC",
+    "title": "Conditional Logic, Boolean Expressions & Branching Decision Engines (if / else)",
     "desc": "Make decisions with if, else-if, and else branches. Master logical operators &&, ||, ! to route program execution based on runtime conditions.",
     "syllabus": [
       "if / else Branches: Forking execution based on boolean conditions.",
       "Comparison Operators: ==, !=, <, <=, >, >=.",
       "Logical Operators: && (AND), || (OR), ! (NOT)."
     ],
-    "eTitle": "Day 5 Milestone 1: Decision Console (Java 21 Enterprise Systems)",
+    "eTitle": "Day 5 Milestone 1: Decision Console",
     "eDesc": "Write classifyScore(int score) in Solution returning 'Pass' if the score is 50 or higher, and 'Fail' if the score is below 50.",
     "eStarter": "public class Solution {\n    public static String classifyScore(int score) {\n        // Return 'Pass' or 'Fail':\n        return \"\";\n    }\n}",
     "eHint": "Use an if-else statement: if (score >= 50) return \"Pass\"; else return \"Fail\";",
@@ -202,7 +202,7 @@ export const JAVA_30_DAYS_CONFIGS: DayConfig[] = [
     "day": 10
   },
   {
-    "title": "Classes, Objects, Fields, Constructors & JVM Heap Object Allocation",
+    "title": "Method Overloading, Parameter Signatures & Compile-Time Resolution",
     "desc": "Overloading allows multiple methods in the same class to share a name if their parameter types or counts differ.",
     "syllabus": [
       "Overloading by Type: Handling ints vs doubles.",
@@ -222,7 +222,7 @@ export const JAVA_30_DAYS_CONFIGS: DayConfig[] = [
     "day": 11
   },
   {
-    "title": "Encapsulation, Access Modifiers, Defensive Copying & Immutability Patterns",
+    "title": "Single-Dimensional Arrays, Heap Memory Layout & Maximum Element Search",
     "desc": "Store multiple values of the same type in a single contiguous array. Master 0-based indexing and the array.length property.",
     "syllabus": [
       "Array Allocation: new int[size] and literal { } initialization.",
@@ -242,7 +242,7 @@ export const JAVA_30_DAYS_CONFIGS: DayConfig[] = [
     "day": 12
   },
   {
-    "title": "Inheritance, Subclassing, Constructor Chaining & Liskov Substitution Principle",
+    "title": "Array Traversal, Enhanced For-Each & Accumulator Algorithms",
     "desc": "Traverse arrays cleanly with for (Type item : array) without needing manual index counters.",
     "syllabus": [
       "for-each loop syntax: Clean item-by-item iteration.",
@@ -262,7 +262,7 @@ export const JAVA_30_DAYS_CONFIGS: DayConfig[] = [
     "day": 13
   },
   {
-    "title": "Polymorphism, Dynamic Method Dispatch, V-Tables & Upcasting Mechanics",
+    "title": "Multi-Dimensional Arrays, Matrices & Diagonal Summation",
     "desc": "Model grids, matrices, and game boards using 2D arrays (arr[row][col]) and nested loop traversal.",
     "syllabus": [
       "2D Array Dimensions: Rows and columns in heap memory.",
@@ -282,7 +282,7 @@ export const JAVA_30_DAYS_CONFIGS: DayConfig[] = [
     "day": 14
   },
   {
-    "title": "Abstract Classes, Interfaces, Default Methods & ⭐ MILESTONE 3: Fast Data Ledger",
+    "title": "Searching Algorithms: Linear Search vs Binary Search & ⭐ MILESTONE 3: Fast Data Ledger",
     "desc": "Search arrays efficiently: Linear Search inspects elements sequentially (O(N)), while Binary Search cuts sorted arrays in half at each step (O(log N)). (Milestone 3: Fast Data Ledger & Binary Search Engine).",
     "syllabus": [
       "Linear Search: O(N) sequential search.",
@@ -302,7 +302,7 @@ export const JAVA_30_DAYS_CONFIGS: DayConfig[] = [
     "day": 15
   },
   {
-    "title": "Exception Handling: Checked vs Unchecked Exceptions, try-with-resources & Resilient Systems",
+    "title": "Classes, Objects, Instance Fields & JVM Heap Memory Allocation",
     "desc": "A Class is an architectural blueprint; an Object is the real instance constructed in heap memory using new.",
     "syllabus": [
       "Class Blueprint vs Object Instance.",
@@ -322,7 +322,7 @@ export const JAVA_30_DAYS_CONFIGS: DayConfig[] = [
     "day": 16
   },
   {
-    "title": "Strings Deep Dive: String Pool, Immutability, Compact Strings & Text Processing",
+    "title": "Constructors, Parameter Shadowing & The this Reference",
     "desc": "Constructors initialize objects atomically the moment they are created in memory. Use this to bind parameters to instance fields.",
     "syllabus": [
       "Constructor Anatomy: Matching class name with no return type.",
@@ -334,7 +334,7 @@ export const JAVA_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "class User {\n    String name;\n    int age;\n    User(String name, int age) {\n        // Assign each parameter to the matching field using 'this':\n        \n    }\n}\npublic class Solution {\n    public static User createUser(String name, int age) { return new User(name, age); }\n}",
     "eHint": "Assign each constructor parameter to the matching instance field using `this.field = parameter` to distinguish the field from the local name.",
     "eTest": "public class Test {\n    public static void main(String[] args) {\n        User u1 = Solution.createUser(\"Vinay\", 22);\n        if (!u1.name.equals(\"Vinay\") || u1.age != 22) throw new AssertionError(\"User Vinay 22 failed\");\n        User u2 = Solution.createUser(\"Alice\", 30);\n        if (!u2.name.equals(\"Alice\") || u2.age != 30) throw new AssertionError(\"User Alice 30 failed\");\n    }\n}",
-    "aTitle": "Day 17 Assignment: Book Constructor (Strings Deep Dive)",
+    "aTitle": "Day 17 Assignment: Book Constructor",
     "aDesc": "Create a Book class with fields String title, double price, and constructor Book(String title, double price).",
     "aStarter": "class Book {\n    String title;\n    double price;\n    Book(String title, double price) {\n        // Assign parameters to instance fields using 'this':\n        \n    }\n}\npublic class Solution {\n    public static String getTitle() { return new Book(\"Java\", 29.99).title; }\n}",
     "aHint": "Book(String title, double price) { this.title = title; this.price = price; }",
@@ -342,7 +342,7 @@ export const JAVA_30_DAYS_CONFIGS: DayConfig[] = [
     "day": 17
   },
   {
-    "title": "Generics Deep Dive: Type Safety, Bounded Wildcards (PECS) & Type Erasure",
+    "title": "Encapsulation, Access Modifiers, Defensive Setters & Invariant Protection",
     "desc": "Encapsulate class internals with private fields and expose controlled access through getters and validated setters.",
     "syllabus": [
       "Data Hiding: The private access modifier.",
@@ -362,7 +362,7 @@ export const JAVA_30_DAYS_CONFIGS: DayConfig[] = [
     "day": 18
   },
   {
-    "title": "Collections Framework I: Lists, Dynamic Array Resizing, Linked Nodes & Iterators",
+    "title": "Inheritance, Subclassing, Constructor Chaining & Code Reusability",
     "desc": "Inherit fields and methods from superclasses using extends. Reuse existing code while adding specialized subclass behavior.",
     "syllabus": [
       "Class Inheritance: Superclass and subclass relationships.",
@@ -382,19 +382,19 @@ export const JAVA_30_DAYS_CONFIGS: DayConfig[] = [
     "day": 19
   },
   {
-    "title": "Collections Framework II: Sets, Maps, Red-Black Trees & Milestone 4 LRU Cache",
+    "title": "Polymorphism, Dynamic Method Dispatch & Method Overriding",
     "desc": "Polymorphism enables treating subclasses through a superclass reference, dynamically executing overridden methods at runtime.",
     "syllabus": [
       "Method Overriding: Redefining superclass methods with @Override.",
       "Dynamic Method Dispatch: Runtime method resolution.",
       "Polymorphic Collections: Storing different subclasses in one list."
     ],
-    "eTitle": "Day 20 Challenge: Polymorphic Payment Fees (Collections Framework II)",
+    "eTitle": "Day 20 Challenge: Polymorphic Payment Fees",
     "eDesc": "Create Payment base class with double getFee(), and CardPayment subclass overriding getFee() returning 2.50.",
     "eStarter": "class Payment {\n    double getFee() { return 0.0; }\n}\nclass CardPayment extends Payment {\n    @Override\n    double getFee() {\n        // Return the card payment fee (2.50):\n        \n    }\n}\npublic class Solution {\n    public static double testFee() { Payment p = new CardPayment(); return p.getFee(); }\n}",
     "eHint": "Use @Override double getFee() { return 2.50; } in CardPayment subclass.",
     "eTest": "public class Test {\n    public static void main(String[] args) {\n        Payment base = new Payment();\n        if (base.getFee() != 0.0) throw new AssertionError(\"Base payment fee must be 0.0\");\n        Payment poly = new CardPayment();\n        if (poly.getFee() != 2.50) throw new AssertionError(\"Polymorphic CardPayment fee must be 2.50\");\n    }\n}",
-    "aTitle": "Day 20 Assignment: Animal Sounds Polymorphism (Collections Framework II)",
+    "aTitle": "Day 20 Assignment: Animal Sounds Polymorphism",
     "aDesc": "Create Animal base class with speak() returning '...', and Cat subclass overriding speak() returning 'Meow'.",
     "aStarter": "class Animal { String speak() { return \"...\"; } }\nclass Cat extends Animal {\n    @Override\n    String speak() {\n        // Return \"Meow\":\n        \n    }\n}\npublic class Solution { public static String test() { Animal a = new Cat(); return a.speak(); } }",
     "aHint": "class Cat extends Animal { @Override String speak() { return \"Meow\"; } }",
@@ -402,7 +402,7 @@ export const JAVA_30_DAYS_CONFIGS: DayConfig[] = [
     "day": 20
   },
   {
-    "title": "Functional Programming I: Lambdas, SAM Interfaces, Function Packages & Method References",
+    "title": "Interfaces, Abstract Contracts & Milestone 4: Payment Gateway Engine",
     "desc": "Interfaces specify pure contracts that implementing classes must fulfill. Decouple architecture so payment gateways can be swapped seamlessly. (Milestone 4: Enterprise Payment Gateway Interface).",
     "syllabus": [
       "Interface Contract: Method signatures without implementation.",
@@ -422,7 +422,7 @@ export const JAVA_30_DAYS_CONFIGS: DayConfig[] = [
     "day": 21
   },
   {
-    "title": "Java Streams I: Stream Pipelines, Lazy Evaluation, Intermediate & Terminal Operations",
+    "title": "Static Keyword: Static Fields, Methods & Class-Level Memory Topologies",
     "desc": "Static fields and methods belong to the Class itself rather than individual instances. Shared memory across all objects in the JVM.",
     "syllabus": [
       "static Variables: A single shared memory copy per class.",
@@ -442,7 +442,7 @@ export const JAVA_30_DAYS_CONFIGS: DayConfig[] = [
     "day": 22
   },
   {
-    "title": "Java Streams II: Advanced Collectors, Grouping Pipelines & Parallel Streams",
+    "title": "Exception Handling I: Throwable Hierarchy, Try-Catch-Finally & Defensive Recovery",
     "desc": "Catch and recover from runtime exceptions (ArithmeticException, NullPointerException) without crashing the application.",
     "syllabus": [
       "try Block: Guarding risky operations.",
@@ -462,7 +462,7 @@ export const JAVA_30_DAYS_CONFIGS: DayConfig[] = [
     "day": 23
   },
   {
-    "title": "Modern Concurrency I: Threads, Memory Visibility (volatile), Atomic Variables & CAS",
+    "title": "Exception Handling II: The throw Statement, Defensive Validation & Custom Exception Hierarchies",
     "desc": "Defensive programming validates method inputs upfront. Reject invalid arguments by throwing IllegalArgumentException with descriptive error messages.",
     "syllabus": [
       "Defensive Programming: Validating arguments at boundary methods.",
@@ -482,7 +482,7 @@ export const JAVA_30_DAYS_CONFIGS: DayConfig[] = [
     "day": 24
   },
   {
-    "title": "Modern Concurrency II: Synchronization, Locks & Milestone 5 Concurrent Banking Engine",
+    "title": "Java Collections Framework I: Dynamic Lists & ArrayList Fundamentals",
     "desc": "ArrayList provides dynamic resizable collections in Java. Unlike fixed-size arrays, ArrayList grows dynamically as elements are added with add(), get(), and size().",
     "syllabus": [
       "ArrayList vs Fixed Arrays: Resizable heap storage.",
@@ -494,7 +494,7 @@ export const JAVA_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "import java.util.ArrayList;\n\npublic class Solution {\n    public static ArrayList<Integer> filterAbove(int[] scores, int cutoff) {\n        // Create an ArrayList<Integer>, add each score that is > cutoff, return the list:\n        \n    }\n}",
     "eHint": "ArrayList<Integer> list = new ArrayList<>(); for (int s : scores) if (s > cutoff) list.add(s); return list;",
     "eTest": "import java.util.ArrayList;\npublic class Test {\n    public static void main(String[] args) {\n        int[] scores = { 45, 90, 78, 95, 60 };\n        ArrayList<Integer> res = Solution.filterAbove(scores, 75);\n        if (res.size() != 3) throw new AssertionError(\"Must find 3 scores above 75 (90, 78, 95)\");\n        if (!res.contains(90) || !res.contains(78) || !res.contains(95)) throw new AssertionError(\"Must contain 90, 78, 95\");\n        ArrayList<Integer> emptyRes = Solution.filterAbove(scores, 100);\n        if (!emptyRes.isEmpty()) throw new AssertionError(\"Scores above 100 must be empty\");\n    }\n}",
-    "aTitle": "Day 25 Assignment: Add and Get List Elements (Modern Concurrency II)",
+    "aTitle": "Day 25 Assignment: Add and Get List Elements",
     "aDesc": "Write createList(String a, String b) in Solution returning an ArrayList<String> containing elements a and b.",
     "aStarter": "import java.util.ArrayList;\npublic class Solution {\n    public static ArrayList<String> createList(String a, String b) {\n        // Create an ArrayList<String>, add a then b, and return it:\n        \n    }\n}",
     "aHint": "ArrayList<String> list = new ArrayList<>(); list.add(a); list.add(b); return list;",
@@ -502,7 +502,7 @@ export const JAVA_30_DAYS_CONFIGS: DayConfig[] = [
     "day": 25
   },
   {
-    "title": "Modern Concurrency III: Thread Pools, ExecutorService & CompletableFuture Async Pipelines",
+    "title": "Java Collections Framework II: Key-Value Maps & HashMap Mechanics",
     "desc": "HashMap stores key-value pairs with O(1) average lookup time. Use put(k, v) to store, getOrDefault(k, d) to safely read, and containsKey(k) to check keys. (Milestone 5: Inventory & Frequency Engine).",
     "syllabus": [
       "Key-Value Pair Mechanics: put(), get(), containsKey().",
@@ -514,7 +514,7 @@ export const JAVA_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "import java.util.HashMap;\n\npublic class Solution {\n    public static HashMap<String, Integer> countFrequency(String[] words) {\n        // Create a HashMap<String,Integer>, loop through words,\n        // use map.getOrDefault(w, 0) + 1 to tally each word:\n        \n    }\n}",
     "eHint": "`getOrDefault(key, 0)` returns the existing count or zero for a word seen for the first time; add 1 and store it back with `put`.",
     "eTest": "import java.util.HashMap;\npublic class Test {\n    public static void main(String[] args) {\n        String[] words = { \"java\", \"code\", \"java\", \"test\", \"java\", \"code\" };\n        HashMap<String, Integer> map = Solution.countFrequency(words);\n        if (map.get(\"java\") != 3) throw new AssertionError(\"'java' must occur 3 times\");\n        if (map.get(\"code\") != 2) throw new AssertionError(\"'code' must occur 2 times\");\n        if (map.get(\"test\") != 1) throw new AssertionError(\"'test' must occur 1 time\");\n        if (map.containsKey(\"missing\")) throw new AssertionError(\"Missing word must not be in map\");\n    }\n}",
-    "aTitle": "Day 26 Assignment: Stock Lookup Map (Modern Concurrency III)",
+    "aTitle": "Day 26 Assignment: Stock Lookup Map",
     "aDesc": "Write getStock(HashMap<String, Integer> map, String item) in Solution returning map.getOrDefault(item, 0).",
     "aStarter": "import java.util.HashMap;\npublic class Solution {\n    public static int getStock(HashMap<String, Integer> map, String item) {\n        // Return map.getOrDefault(item, 0):\n        \n    }\n}",
     "aHint": "return map.getOrDefault(item, 0);",
@@ -522,7 +522,7 @@ export const JAVA_30_DAYS_CONFIGS: DayConfig[] = [
     "day": 26
   },
   {
-    "title": "High-Performance I/O & Modern File Systems: Classic Streams, NIO.2, Zero-Copy & Memory-Mapped Buffers",
+    "title": "Generics & Type Parameterization: Type Safety, Generic Classes & Methods",
     "desc": "Parameterize classes and methods with generic type parameters <T> to write type-safe reusable code without casting.",
     "syllabus": [
       "Generic Classes: class Box<T> { T item; }.",
@@ -534,7 +534,7 @@ export const JAVA_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "class Pair<K, V> {\n    private K key;\n    private V val;\n    public Pair(K key, V val) {\n        // Assign parameters using 'this':\n        \n    }\n    public K getKey() {\n        // Return the key field:\n        \n    }\n    public V getVal() {\n        // Return the val field:\n        \n    }\n}\npublic class Solution {\n    public static String testPair() {\n        Pair<String, Integer> p = new Pair<>(\"Age\", 22);\n        return p.getKey() + \": \" + p.getVal();\n    }\n}",
     "eHint": "class Pair<K, V> { private K key; private V val; public Pair(K key, V val) { this.key = key; this.val = val; } public K getKey() { return key; } public V getVal() { return val; } }",
     "eTest": "public class Test {\n    public static void main(String[] args) {\n        Pair<String, Integer> p1 = new Pair<>(\"Score\", 95);\n        if (!p1.getKey().equals(\"Score\") || p1.getVal() != 95) throw new AssertionError(\"Pair String-Integer failed\");\n        Pair<Integer, Double> p2 = new Pair<>(101, 19.99);\n        if (p2.getKey() != 101 || p2.getVal() != 19.99) throw new AssertionError(\"Pair Integer-Double failed\");\n    }\n}",
-    "aTitle": "Day 27 Assignment: Generic Box (High-Performance I/O & Modern File Systems)",
+    "aTitle": "Day 27 Assignment: Generic Box",
     "aDesc": "Create a generic Box<T> container class with a private T item field, set(T item) setter, and get() getter.",
     "aStarter": "class Box<T> {\n    private T item;\n    public void set(T item) {\n        // Store item in the field:\n        \n    }\n    public T get() {\n        // Return the stored item:\n        \n    }\n}\npublic class Solution { public static String test() { Box<String> b = new Box<>(); b.set(\"Present\"); return b.get(); } }",
     "aHint": "class Box<T> { private T item; public void set(T item) { this.item = item; } public T get() { return item; } }",
@@ -542,14 +542,14 @@ export const JAVA_30_DAYS_CONFIGS: DayConfig[] = [
     "day": 27
   },
   {
-    "title": "Modern Network Programming & HTTP: TCP/UDP Sockets, Non-Blocking Selectors & Java 11+ Reactive HttpClient",
+    "title": "Multithreading & Concurrency Fundamentals: Threads, Runnables & Execution Lifecycle",
     "desc": "Execute tasks concurrently using the Runnable interface and Thread class. Spawn parallel background workers with t.start().",
     "syllabus": [
       "The Runnable Interface: Defining parallel units of work.",
       "The Thread Class: Spawning JVM threads with .start().",
       "Concurrency Safety: Understanding shared state race conditions."
     ],
-    "eTitle": "Day 28 Challenge: Parallel Task Runner (Modern Network Programming & HTTP)",
+    "eTitle": "Day 28 Challenge: Parallel Task Runner",
     "eDesc": "Create a Worker class implementing Runnable whose run() method prints 'Work Done' to standard output.",
     "eStarter": "class Worker implements Runnable {\n    public void run() {\n        // Print \"Work Done\" to stdout:\n        \n    }\n}\npublic class Solution {\n    public static void execute() { Worker w = new Worker(); w.run(); }\n}",
     "eHint": "class Worker implements Runnable { public void run() { System.out.println(\"Work Done\"); } }",
@@ -562,7 +562,7 @@ export const JAVA_30_DAYS_CONFIGS: DayConfig[] = [
     "day": 28
   },
   {
-    "title": "JVM Architecture & Performance Engineering: ClassLoaders, Memory Model, ZGC & JIT Compilation",
+    "title": "Stream & Text I/O: Readers, Writers, Buffered Streams & Data Parsing",
     "desc": "Process data streams efficiently and parse real multi-line application log records with safe resource cleanup.",
     "syllabus": [
       "Stream Pipelines: Byte streams vs Character streams.",
@@ -582,7 +582,7 @@ export const JAVA_30_DAYS_CONFIGS: DayConfig[] = [
     "day": 29
   },
   {
-    "title": "Milestone 6: Full Production-Grade Resilient Microservice Gateway & Java Principal Engineer Certification Capstone",
+    "title": "Month 1 Capstone: Enterprise Ledger Audit & Financial Transaction Engine",
     "desc": "Synthesize all 30 days into a unified enterprise financial auditing engine: entities, defensive validation, collections, and balance reconciliation working in harmony.",
     "syllabus": [
       "Full System Architecture: Entity design, defensive validation, and collections.",

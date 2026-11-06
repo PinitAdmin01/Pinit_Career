@@ -1,0 +1,877 @@
+er complete test harness with 100% Jest coverage, RNTL component tests, and Maestro E2E.</span>
+    </div>
+  
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #10b981; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 56</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Fastlane Automation: Match Code Signing, Matchfiles, Provisioning Profiles & Keystore Management</strong>
+          <span class="stage-pill" style="background: #e0f2fe; color: #0369a1;">Stage 4: Architectural Autonomy</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 12 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.5pt;">
+        <div>
+          <div style="font-weight: 700; color: #0f172a; margin-bottom: 1px;">Spoken Lecture &amp; Mental Model (28-31 min)</div>
+          <div style="color: #334155;">Master automated mobile code signing: Fastlane (fastlane match, gym, supply), managing Apple Developer certificates and provisioning profiles via Git, and Android Keystore signing.</div>
+        </div>
+        <div>
+          <div style="font-weight: 700; color: #1e293b; margin-bottom: 1px;">Concept Invariant &amp; Guardrail</div>
+          <div style="color: #475569;"><code>Code signing is the single most frustrating bottleneck in mobile engineering. Fastlane Match encrypts certificates in a private Git repo, allowing an entire engineering team to share one deterministic signing identity.</code></div>
+        </div>
+      </div>
+
+      <div style="background: #fef2f2; border-left: 3px solid #ef4444; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.2pt; color: #991b1b;">
+        <strong>Failure Mode:</strong> Manually generating signing certificates on individual laptops; when an engineer leaves the company, nobody can build or update the production app.
+      </div>
+
+      <div style="background: #f0fdf4; border-left: 3px solid #22c55e; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.2pt; color: #166534;">
+        <strong>TryIt Friction Challenge:</strong> Configure a Fastfile with automated lane :build_ios and lane :build_android compiling release binaries signed via environment secrets.
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 2px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <div style="font-weight: 700; color: #475569; margin-bottom: 2px;">3-Tier Socratic Hint Ladder:</div>
+        <div style="color: #64748b;">1. <em>Nudge:</em> Why is 'Fastlane Match' considered the industry gold standard for iOS code signing?</div>
+        <div style="color: #64748b;">2. <em>Visual Memory:</em> Because it stores one single encrypted set of Apple certificates and provisioning profiles in a secure Git repo, ending certificate chaos across team members!</div>
+        <div style="color: #64748b;">3. <em>Surgical Line Fix:</em> Run fastlane match appstore to sync deterministic production certificates automatically.</div>
+      </div>
+
+      <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 2px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <div style="font-weight: 700; color: #1e40af; margin-bottom: 2px;">Situational Production Puzzle (FAANG / Staff Screen):</div>
+        <div style="color: #1e3a8a; margin-bottom: 2px;"><strong>Scenario:</strong> A release manager attempts to build a production iOS update on a CI server. The build fails with 'Provisioning profile doesn't include signing certificate'. How does Fastlane Match prevent this?</div>
+        <div style="color: #15803d;"><strong>Correct Answer:</strong> Option 2 &mdash; Fastlane Match decrypts the exact valid certificate and matching provisioning profile from a private repository, ensuring 100% signing reproducibility on any CI machine.</div>
+        <div style="color: #475569; margin-top: 1px;"><em>Debrief:</em> Fastlane Match eliminates code signing mismatches by creating one central source of truth for certificates and profiles, provisioning CI machines deterministically with one command.</div>
+      </div>
+
+      <div style="border-top: 1px solid #f1f5f9; padding-top: 3pt; font-size: 7.0pt;">
+        <div style="font-weight: 700; color: #334155; margin-bottom: 2px;">The 4 Continuous Daily Quests:</div>
+        
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">mobile-m2-d56-q1</span>
+      <strong>Apple & Android Cryptographic Signing Topology</strong> <em>(concept)</em>: <span style="color: #475569;">Trace certificate chain: Apple Root CA -> Developer Certificate -> Provisioning Profile -> Signed IPA.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">mobile-m2-d56-q2</span>
+      <strong>Detective Lab: The CI Certificate Mismatch Failure</strong> <em>(detective)</em>: <span style="color: #475569;">Configure fastlane match to decrypt and install certificates automatically on headless CI runners.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">mobile-m2-d56-q3</span>
+      <strong>Mastery Assignment: Multi-Environment Fastfile Pipeline</strong> <em>(assignment)</em>: <span style="color: #475569;">Author Fastfile with staging and production release lanes for TestFlight and Play Store Internal.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">mobile-m2-d56-q4</span>
+      <strong>Production Incident Lab: Android Release Keystore Password Leak</strong> <em>(detective)</em>: <span style="color: #475569;">Secure Android release signing credentials using environment variable injection.</span>
+    </div>
+  
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #10b981; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 57</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">EAS Build & Over-The-Air (OTA) Updates: Bundle Versioning & Rollback Strategies</strong>
+          <span class="stage-pill" style="background: #e0f2fe; color: #0369a1;">Stage 4: Architectural Autonomy</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 12 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.5pt;">
+        <div>
+          <div style="font-weight: 700; color: #0f172a; margin-bottom: 1px;">Spoken Lecture &amp; Mental Model (28-31 min)</div>
+          <div style="color: #334155;">Master cloud mobile build pipelines: Expo Application Services (EAS Build), Over-The-Air (OTA) JavaScript bundle updates (EAS Update), and runtime rollback strategies.</div>
+        </div>
+        <div>
+          <div style="font-weight: 700; color: #1e293b; margin-bottom: 1px;">Concept Invariant &amp; Guardrail</div>
+          <div style="color: #475569;"><code>OTA updates allow shipping instant bug fixes to millions of users in seconds by downloading fresh JavaScript bundles directly, bypassing the 2-day App Store review queue.</code></div>
+        </div>
+      </div>
+
+      <div style="background: #fef2f2; border-left: 3px solid #ef4444; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.2pt; color: #991b1b;">
+        <strong>Failure Mode:</strong> Publishing an OTA update with incompatible native code changes (e.g. adding a new native CocoaPod), causing the app to crash on launch for all users.
+      </div>
+
+      <div style="background: #f0fdf4; border-left: 3px solid #22c55e; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.2pt; color: #166534;">
+        <strong>TryIt Friction Challenge:</strong> Configure EAS Update with runtimeVersion policies ('fingerprint' / '1.0.0') and implement a safe rollback mechanism for bad deployments.
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 2px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <div style="font-weight: 700; color: #475569; margin-bottom: 2px;">3-Tier Socratic Hint Ladder:</div>
+        <div style="color: #64748b;">1. <em>Nudge:</em> What is the #1 rule of Over-The-Air (OTA) mobile updates?</div>
+        <div style="color: #64748b;">2. <em>Visual Memory:</em> OTA updates can ONLY modify JavaScript and asset files! If you added, removed, or changed native C++/Swift/Kotlin libraries, you MUST submit a full native app binary to the App Store.</div>
+        <div style="color: #64748b;">3. <em>Surgical Line Fix:</em> Match runtimeVersion so OTA updates only deliver to compatible native binary versions.</div>
+      </div>
+
+      <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 2px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <div style="font-weight: 700; color: #1e40af; margin-bottom: 2px;">Situational Production Puzzle (FAANG / Staff Screen):</div>
+        <div style="color: #1e3a8a; margin-bottom: 2px;"><strong>Scenario:</strong> A critical bug in production causes the checkout screen to crash. App Store review takes 48 hours to approve an update. How does a Staff Mobile Architect deploy a fix in 60 seconds?</div>
+        <div style="color: #15803d;"><strong>Correct Answer:</strong> Option 2 &mdash; Publish an Over-The-Air (OTA) update via EAS Update or CodePush, which delivers the patched JavaScript bundle directly to users' phones upon their next app restart.</div>
+        <div style="color: #475569; margin-top: 1px;"><em>Debrief:</em> OTA updates bypass the app store review process for pure JavaScript/TypeScript fixes, allowing emergency hotfixes to reach millions of users within minutes.</div>
+      </div>
+
+      <div style="border-top: 1px solid #f1f5f9; padding-top: 3pt; font-size: 7.0pt;">
+        <div style="font-weight: 700; color: #334155; margin-bottom: 2px;">The 4 Continuous Daily Quests:</div>
+        
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">mobile-m2-d57-q1</span>
+      <strong>OTA Bundle Delivery Infrastructure</strong> <em>(concept)</em>: <span style="color: #475569;">Trace bundle loading: App Launch -> Check Remote Hash -> Download Bundle -> Swap on Next Launch.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">mobile-m2-d57-q2</span>
+      <strong>Detective Lab: The Incompatible Native OTA Crash</strong> <em>(detective)</em>: <span style="color: #475569;">Configure runtimeVersion fingerprinting to prevent delivering JS bundles to incompatible native shells.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">mobile-m2-d57-q3</span>
+      <strong>Mastery Assignment: Production EAS Build Matrix</strong> <em>(assignment)</em>: <span style="color: #475569;">Configure eas.json with production profiles, environment secrets, and automated changelog tagging.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">mobile-m2-d57-q4</span>
+      <strong>Production Incident Lab: Instant Emergency Rollback Dispatch</strong> <em>(detective)</em>: <span style="color: #475569;">Execute an immediate EAS update rollback to revert a bad production deployment in seconds.</span>
+    </div>
+  
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #10b981; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 58</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">App Store & Google Play Compliance: Apple Privacy Manifests & Android AAB Bundles</strong>
+          <span class="stage-pill" style="background: #e0f2fe; color: #0369a1;">Stage 4: Architectural Autonomy</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 12 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.5pt;">
+        <div>
+          <div style="font-weight: 700; color: #0f172a; margin-bottom: 1px;">Spoken Lecture &amp; Mental Model (28-31 min)</div>
+          <div style="color: #334155;">Master store submission compliance: Apple Privacy Manifests (NSPrivacyAccessedAPITypes), App Tracking Transparency (ATT), Google Play Data Safety forms, and Android App Bundles (AAB).</div>
+        </div>
+        <div>
+          <div style="font-weight: 700; color: #1e293b; margin-bottom: 1px;">Concept Invariant &amp; Guardrail</div>
+          <div style="color: #475569;"><code>Apple rejects all apps using system APIs (User Defaults, File Timestamps, Disk Space) without an explicit Privacy Manifest declaring approved business reasons. Android requires App Bundles (AAB) with dynamic feature delivery.</code></div>
+        </div>
+      </div>
+
+      <div style="background: #fef2f2; border-left: 3px solid #ef4444; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.2pt; color: #991b1b;">
+        <strong>Failure Mode:</strong> App Store review rejection due to missing privacy manifests in third-party native SDKs or failing to explain tracking permissions.
+      </div>
+
+      <div style="background: #f0fdf4; border-left: 3px solid #22c55e; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.2pt; color: #166534;">
+        <strong>TryIt Friction Challenge:</strong> Generate a complete NSPrivacy.bundle declaring all accessed API types and compile a release Android App Bundle (AAB).
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 2px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <div style="font-weight: 700; color: #475569; margin-bottom: 2px;">3-Tier Socratic Hint Ladder:</div>
+        <div style="color: #64748b;">1. <em>Nudge:</em> Why did Apple reject the mobile app update with error ITMS-91053?</div>
+        <div style="color: #64748b;">2. <em>Visual Memory:</em> The app or one of its dependencies accessed required reason APIs (like system boot time or UserDefaults) without a Privacy Manifest declaring the approved reason!</div>
+        <div style="color: #64748b;">3. <em>Surgical Line Fix:</em> Add an app.json privacy manifest declaring exact NSPrivacyAccessedAPIType reasons.</div>
+      </div>
+
+      <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 2px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <div style="font-weight: 700; color: #1e40af; margin-bottom: 2px;">Situational Production Puzzle (FAANG / Staff Screen):</div>
+        <div style="color: #1e3a8a; margin-bottom: 2px;"><strong>Scenario:</strong> A company submits an update to Google Play. The APK size is 85MB. Google Play console issues a warning about high uninstall rates. How does compiling to an Android App Bundle (.aab) fix this?</div>
+        <div style="color: #15803d;"><strong>Correct Answer:</strong> Option 2 &mdash; Google Play uses the AAB to generate optimized split APKs containing only the exact CPU architecture (arm64-v8a) and screen density for each specific device, cutting download size by 60%.</div>
+        <div style="color: #475569; margin-top: 1px;"><em>Debrief:</em> Android App Bundles (.aab) defer APK generation to Google Play, delivering device-optimized binaries (only the device's exact CPU architecture and screen density) instead of bloated fat APKs.</div>
+      </div>
+
+      <div style="border-top: 1px solid #f1f5f9; padding-top: 3pt; font-size: 7.0pt;">
+        <div style="font-weight: 700; color: #334155; margin-bottom: 2px;">The 4 Continuous Daily Quests:</div>
+        
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">mobile-m2-d58-q1</span>
+      <strong>Apple Privacy Manifest & ATT Regulations</strong> <em>(concept)</em>: <span style="color: #475569;">Analyze Apple's 2024+ privacy manifest mandates and Google Play Data Safety disclosures.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">mobile-m2-d58-q2</span>
+      <strong>Detective Lab: The ITMS-91053 Privacy Rejection Fix</strong> <em>(detective)</em>: <span style="color: #475569;">Audit native libraries and generate compliant NSPrivacyAccessedAPIType declarations.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">mobile-m2-d58-q3</span>
+      <strong>Mastery Assignment: Optimized Android App Bundle (AAB) Build</strong> <em>(assignment)</em>: <span style="color: #475569;">Compile release AAB with resource shrinking, ProGuard optimization, and architecture splits.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">mobile-m2-d58-q4</span>
+      <strong>Production Incident Lab: App Store Guideline 2.1 Resolution</strong> <em>(detective)</em>: <span style="color: #475569;">Remediate review rejections regarding metadata clarity and background audio justification.</span>
+    </div>
+  
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #10b981; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 59</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Production Monitoring: Sentry Crash Reporting, Native Crash Dumps (dSYM / ProGuard) & Telemetry</strong>
+          <span class="stage-pill" style="background: #e0f2fe; color: #0369a1;">Stage 4: Architectural Autonomy</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 12 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.5pt;">
+        <div>
+          <div style="font-weight: 700; color: #0f172a; margin-bottom: 1px;">Spoken Lecture &amp; Mental Model (28-31 min)</div>
+          <div style="color: #334155;">Master production observability: Sentry crash reporting, symbolicating minified JavaScript stack traces with source maps, and resolving native crash dumps using Apple dSYMs and ProGuard mapping.txt.</div>
+        </div>
+        <div>
+          <div style="font-weight: 700; color: #1e293b; margin-bottom: 1px;">Concept Invariant &amp; Guardrail</div>
+          <div style="color: #475569;"><code>When a mobile app crashes in production, the stack trace is minified unreadable gibberish unless uploaded source maps and native dSYM symbols match the exact release build hash.</code></div>
+        </div>
+      </div>
+
+      <div style="background: #fef2f2; border-left: 3px solid #ef4444; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.2pt; color: #991b1b;">
+        <strong>Failure Mode:</strong> A production native crash report showing only '0x00000001048b2910' because dSYMs were not uploaded to Sentry during the CI build.
+      </div>
+
+      <div style="background: #f0fdf4; border-left: 3px solid #22c55e; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.2pt; color: #166534;">
+        <strong>TryIt Friction Challenge:</strong> Integrate Sentry SDK, configure automatic source map and dSYM uploads in Fastlane, and trace a production crash from breadcrumbs to line of code.
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 2px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <div style="font-weight: 700; color: #475569; margin-bottom: 2px;">3-Tier Socratic Hint Ladder:</div>
+        <div style="color: #64748b;">1. <em>Nudge:</em> Why is an uploaded dSYM file required to debug native iOS crashes in Sentry?</div>
+        <div style="color: #64748b;">2. <em>Visual Memory:</em> Native iOS binaries compile to machine code. A dSYM (Debug Symbol) file maps raw memory addresses back to original Swift/C++ file names and line numbers!</div>
+        <div style="color: #64748b;">3. <em>Surgical Line Fix:</em> Configure fastlane to upload dSYMs automatically during the gym build phase.</div>
+      </div>
+
+      <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 2px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <div style="font-weight: 700; color: #1e40af; margin-bottom: 2px;">Situational Production Puzzle (FAANG / Staff Screen):</div>
+        <div style="color: #1e3a8a; margin-bottom: 2px;"><strong>Scenario:</strong> A release crashes for 2% of users on startup. Sentry reports: 'TypeError: undefined is not an object (evaluating t.get) at index.android.bundle:1:4821'. How do you decode the exact source line?</div>
+        <div style="color: #15803d;"><strong>Correct Answer:</strong> Option 2 &mdash; Upload the production release source maps to Sentry, allowing the crash reporter to symbolicate index.android.bundle back to src/services/AuthService.ts:42.</div>
+        <div style="color: #475569; margin-top: 1px;"><em>Debrief:</em> Source maps map minified, bundled production JavaScript back to original TypeScript files. Uploading source maps during CI enables instant symbolication of crash reports in production monitoring.</div>
+      </div>
+
+      <div style="border-top: 1px solid #f1f5f9; padding-top: 3pt; font-size: 7.0pt;">
+        <div style="font-weight: 700; color: #334155; margin-bottom: 2px;">The 4 Continuous Daily Quests:</div>
+        
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">mobile-m2-d59-q1</span>
+      <strong>Production Crash Symbolication Pipeline</strong> <em>(concept)</em>: <span style="color: #475569;">Trace crash telemetry: Device Crash -> Sentry Ingestion -> Source Map / dSYM Demangle -> Clean Stack Trace.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">mobile-m2-d59-q2</span>
+      <strong>Detective Lab: The Unsymbolicated Memory Hex Crash</strong> <em>(detective)</em>: <span style="color: #475569;">Upload missing dSYM debug symbols to Sentry to decode a native iOS crash trace.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">mobile-m2-d59-q3</span>
+      <strong>Mastery Assignment: Breadcrumb User Journey Tracker</strong> <em>(assignment)</em>: <span style="color: #475569;">Configure Sentry breadcrumb tracking recording navigation events and network state before crashes.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">mobile-m2-d59-q4</span>
+      <strong>Production Incident Lab: Crash Free User Rate SLA Alert</strong> <em>(detective)</em>: <span style="color: #475569;">Set up alerts triggering pager duty when 99.5% crash-free session SLA is breached.</span>
+    </div>
+  
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #10b981; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 60</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">🏆 Month 2 Master Capstone Gate: PulseMobile High-Frequency Trading Terminal & Live Viva</strong>
+          <span class="stage-pill" style="background: #e0f2fe; color: #0369a1;">Stage 4: Architectural Autonomy</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 12 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.5pt;">
+        <div>
+          <div style="font-weight: 700; color: #0f172a; margin-bottom: 1px;">Spoken Lecture &amp; Mental Model (28-31 min)</div>
+          <div style="color: #334155;">Architect, benchmark, and defend PulseMobile: An institutional-grade mobile trading terminal featuring 120 FPS Reanimated gesture charts, custom C++ JSI order-book matcher, offline-first SQLite delta sync, hardware Keychain authentication, and automated Maestro E2E test passes.</div>
+        </div>
+        <div>
+          <div style="font-weight: 700; color: #1e293b; margin-bottom: 1px;">Concept Invariant &amp; Guardrail</div>
+          <div style="color: #475569;"><code>PulseMobile must maintain 120 FPS under 1,000 live price ticks per second, survive complete network loss in airplane mode with zero UI lockups, and pass all store compliance checks.</code></div>
+        </div>
+      </div>
+
+      <div style="background: #fef2f2; border-left: 3px solid #ef4444; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.2pt; color: #991b1b;">
+        <strong>Failure Mode:</strong> A single frame drop, memory retain cycle, unhandled crash, or security vulnerability results in immediate capstone failure.
+      </div>
+
+      <div style="background: #f0fdf4; border-left: 3px solid #22c55e; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.2pt; color: #166534;">
+        <strong>TryIt Friction Challenge:</strong> Deliver the complete PulseMobile codebase and defend architectural decisions before a panel of Principal Mobile Architects.
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 2px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <div style="font-weight: 700; color: #475569; margin-bottom: 2px;">3-Tier Socratic Hint Ladder:</div>
+        <div style="color: #64748b;">1. <em>Nudge:</em> How does PulseMobile process 1,000 price updates per second without freezing the mobile UI?</div>
+        <div style="color: #64748b;">2. <em>Visual Memory:</em> Incoming market ticks pass into our custom C++ JSI TurboModule, and chart rendering is driven directly on the UI thread via Reanimated worklets, completely bypassing React component reconciliation!</div>
+        <div style="color: #64748b;">3. <em>Surgical Line Fix:</em> Use JSI for high-frequency data and drive animated views directly on the UI thread.</div>
+      </div>
+
+      <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 2px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <div style="font-weight: 700; color: #1e40af; margin-bottom: 2px;">Situational Production Puzzle (FAANG / Staff Screen):</div>
+        <div style="color: #1e3a8a; margin-bottom: 2px;"><strong>Scenario:</strong> You are presenting PulseMobile to a panel of Principal Architects at a Tier-1 tech company. They ask: 'Walk us through your memory management strategy: how do you guarantee zero Jetsam terminations during a 4-hour active trading session?' How do you defend your architecture?</div>
+        <div style="color: #15803d;"><strong>Correct Answer:</strong> Option 2 &mdash; By demonstrating our 4-tier memory architecture: FlashList native view recycling for orders, WatermelonDB lazy loading for historical charts, strict unmounting of gesture subscriptions, and automated Xcode Instruments allocation budgets in CI.</div>
+        <div style="color: #475569; margin-top: 1px;"><em>Debrief:</em> Enterprise mobile engineering demands defensive memory management: bounded virtualized lists, lazy database querying, proactive closure unsubscription, and continuous CI profiling against memory regression budgets.</div>
+      </div>
+
+      <div style="border-top: 1px solid #f1f5f9; padding-top: 3pt; font-size: 7.0pt;">
+        <div style="font-weight: 700; color: #334155; margin-bottom: 2px;">The 4 Continuous Daily Quests:</div>
+        
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">mobile-m2-d60-q1</span>
+      <strong>PulseMobile Architecture Blueprint & Security Threat Model</strong> <em>(concept)</em>: <span style="color: #475569;">Design the end-to-end topology: C++ JSI TurboModule -> Reanimated 120Hz UI Thread -> Hardware Keychain -> Fastlane CI.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">mobile-m2-d60-q2</span>
+      <strong>Stress Test: 1,000 Tick/Sec 120 FPS High-Frequency Audit</strong> <em>(detective)</em>: <span style="color: #475569;">Benchmark PulseMobile under continuous market ticks asserting 120 FPS and <50MB RAM ceiling.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">mobile-m2-d60-q3</span>
+      <strong>Mastery Capstone: Production PulseMobile Deployment</strong> <em>(assignment)</em>: <span style="color: #475569;">Deploy PulseMobile with biometric hardware vault, offline delta sync, and Fastlane release lanes.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">mobile-m2-d60-cap</span>
+      <strong>🏆 Live Staff Architecture Viva & Senior Code Defense</strong> <em>(milestone)</em>: <span style="color: #475569;">Defend mobile runtime mechanics, C++ JSI memory models, and store compliance against staff engineering review.</span>
+    </div>
+  
+      </div>
+    </div>
+  
+  <div class="page-break"></div>
+  <h2>6.4 Mobile Milestone &amp; Capstone Viva Gates (Milestones 1–10 + Capstone Viva)</h2>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th style="width: 12%;">Milestone</th>
+        <th style="width: 10%;">Day</th>
+        <th style="width: 28%;">Milestone Gate Title</th>
+        <th style="width: 50%;">Architectural Deliverable &amp; Invariant Defense</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Milestone 1</strong></td><td>Day 05</td><td>Responsive Mobile Design System</td><td>Tokenized design system with strict safe-area insets and 48dp accessible touch bounds.</td></tr>
+      <tr><td><strong>Milestone 2</strong></td><td>Day 10</td><td>Banking Navigation Mesh</td><td>Multi-tier navigation mesh with type-safe params, modal layers, and post-logout history reset.</td></tr>
+      <tr><td><strong>Milestone 3</strong></td><td>Day 15</td><td>60 FPS Infinite Ledger Feed</td><td>Shopify FlashList cell recycling, sticky date headers, and zero-jank pagination under fast flings.</td></tr>
+      <tr><td><strong>Milestone 4</strong></td><td>Day 20</td><td>Offline-First Expense Tracker</td><td>Local SQLite relational database, MMKV synchronous cache, and outbox sync queue in airplane mode.</td></tr>
+      <tr><td><strong>Milestone 5</strong></td><td>Day 25</td><td>Biometric Hardware Media Vault</td><td>FaceID/Biometric authenticated receipt vault with auto-lock on app backgrounding.</td></tr>
+      <tr><td><strong>Capstone 1</strong></td><td>Day 30</td><td><strong>Month 1 Capstone Viva Gate</strong></td><td><strong>PocketWallet Mobile Ledger:</strong> Full offline personal finance app defended before senior board.</td></tr>
+      <tr><td><strong>Milestone 6</strong></td><td>Day 35</td><td>120 FPS Gesture Trading Chart</td><td>Reanimated 3 UI-thread worklet chart with Gesture.Pan() scrub crosshairs and draggable bottom sheet.</td></tr>
+      <tr><td><strong>Milestone 7</strong></td><td>Day 40</td><td>C++ Crypto TurboModule Engine</td><td>Cross-platform C++ JSI TurboModule executing SHA-256 and zstd compression in &lt;10μs.</td></tr>
+      <tr><td><strong>Milestone 8</strong></td><td>Day 45</td><td>Real-Time Event Dispatcher</td><td>Universal Link routing coordinator with APNs/FCM background push sync and cold-start queue.</td></tr>
+      <tr><td><strong>Milestone 9</strong></td><td>Day 50</td><td>Offline-First Delta Sync Engine</td><td>WatermelonDB / SQLite JSI delta synchronizer with hardware Keychain storage and SSL pinning.</td></tr>
+      <tr><td><strong>Milestone 10</strong></td><td>Day 55</td><td>Zero-Leak Verified Test Harness</td><td>Automated Maestro E2E test suite running on headless simulators in GitHub Actions CI.</td></tr>
+      <tr><td><strong>Master Capstone</strong></td><td>Day 60</td><td><strong>Month 2 Master Capstone Viva</strong></td><td><strong>PulseMobile Trading Terminal:</strong> High-frequency trading client (120 FPS, 1,000 ticks/sec, JSI) + live viva defense.</td></tr>
+    </tbody>
+  </table>
+  
+  <div class="page-break">
+    <div style="background: #082f49; color: #ffffff; padding: 8pt 12pt; border-radius: 4pt; margin-bottom: 8pt; display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <h1 style="color: #ffffff; margin: 0; font-size: 14pt; border: none; padding: 0;">Part VII: Deep Masterclass Blueprint — Full-Stack React Web Development</h1>
+        <span style="font-size: 8.2pt; color: #bae6fd;">Course ID: <code>course-react-web</code> &bull; 60-Day Full Curriculum (Days 1–60) &bull; <strong>240 Total Quests</strong></span>
+      </div>
+      <div style="text-align: right;">
+        <span style="background: #0284c7; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 2px 6px; border-radius: 2px;">True 9.8 Standard</span><br>
+        <span style="font-size: 7.5pt; color: #38bdf8;">Month 1 (120 Quests) &bull; Month 2 (120 Quests)</span>
+      </div>
+    </div>
+
+    <h2>7.1 Pedagogical Philosophy &amp; Frontend Invariants: Why Month 1 Has Zero Fiber Internals &amp; Zero RSC</h2>
+    <p>
+      Traditional coding bootcamps overwhelm beginners by jumping into Next.js App Router, React Server Components, and concurrent memoization before a student understands how a single state update triggers re-renders or why index keys destroy input state. In PinIT Career OS, <strong>Month 1 is strictly Modern React UI Engineering, State Mechanics &amp; Client Architecture</strong>:
+    </p>
+    <div class="quote-box" style="border-left-color: #0284c7;">
+      &bull; <strong>Month 1 (Days 1–30 / 120 Quests):</strong> Browser DOM Cost Models, React Element Tree Descriptors, Functional Component Purity, useState Dispatching &amp; Auto-Batching, Key Reconciliation Invariants, Controlled vs Uncontrolled Forms, useEffect Synchronization &amp; Stale Closures, AbortController Request Cancellation, Custom Hook Composition, Context API Splitting, Error Boundaries, Code Splitting with Suspense, LocalStorage Tab Sync, and Month 1 Capstone (<code>JobPilot</code> Production Job Hunting OS).<br>
+      &bull; <strong>Month 2 (Days 31–60 / 120 Quests):</strong> React Fiber Linked-List Engine (child/sibling/return), Double Buffering (current vs workInProgress), Cooperative MessageChannel Scheduling (16.6ms budget), 31-Bit Bitmask Priority Lanes, useTransition &amp; useDeferredValue, State Tearing &amp; useSyncExternalStore, Zustand Micro-Stores, TanStack Query (SWR &amp; Structural Sharing), Optimistic Rollback Queues, React Server Components (RSC Wire Protocol), Streaming SSR (renderToPipeableStream), DOM Virtualization (100,000 rows), Heap Profiling &amp; Detached DOM Nodes, Web Workers, Module Federation, Core Web Vitals (INP/LCP/CLS), OpenTelemetry Tracing, and Month 2 Master Capstone (<code>NexusCloud</code> Real-Time Collaborative Workspace).
+    </div>
+
+    <h2>7.2 React Month 1 Day-by-Day Masterclass Specifications (Days 1–30 / 120 Quests)</h2>
+  </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #0284c7;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #0284c7; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 1</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">The Modern Web Engine: Browser Parsing, DOM Tree Construction & The Cost of Direct DOM Mutations</strong>
+          <span class="stage-pill" style="background: #e0f2fe; color: #0369a1;">Stage 1: Mental Model Grounding</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 1 &bull; Block 1 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #0369a1; font-weight: 600;">Goal:</span> Master how web browsers work under the hood: HTML tokenization, DOM tree parsing, CSSOM construction, and why mutating the native DOM in loops destroys frame rates.<br>
+          <span style="color: #15803d; font-weight: 600;">Invariant:</span> <code>The Document Object Model (DOM) is a C++ data structure inside the browser engine. Every direct JavaScript DOM mutation (like appendChild or innerHTML) crosses the JS-to-C++ boundary and triggers costly layout recalculations and repaint pipelines.</code>
+        </div>
+        <div style="background: #fef2f2; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fecaca; color: #991b1b;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Writing imperative loops that update `element.innerHTML` or `element.style` 1,000 times in a single tick locks up the browser main thread, dropping frame rates to single digits.<br>
+          <strong>tryIt Friction:</strong> Batch 500 individual imperative DOM updates into a single DocumentFragment or observe the 20x performance drop of direct element insertion.
+        </div>
+      </div>
+
+      <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #1e40af;">💡 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #0369a1;">[1. Nudge: "Why did the browser freeze when adding 500 list items one by one?"]</span> &rarr;
+        <span style="color: #b45309;">[2. Memory: "Every time you modify the live DOM, the browser recalculates layout geometry (reflow) and repaints pixels!"]</span> &rarr;
+        <span style="color: #15803d;">[3. Fix: "Batch all operations offscreen using a DocumentFragment, or let a declarative library batch updates for you."]</span>
+      </div>
+
+      <div style="background: #fdf4ff; border: 1px solid #f0abfc; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #86198f;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"A developer builds a live stock ticker by running a setInterval loop that updates document.getElementById('price').innerText = newPrice every 10ms for 100 stocks. The browser tab consumes 100% CPU and user clicks lag by 400ms. What is the root bottleneck?"</em><br>
+        <strong>Correct:</strong> Option B) Forced synchronous reflow: Repeatedly mutating 100 individual live DOM nodes at 100Hz continuously invalidates the layout tree, overwhelming the browser compositor. &bull;
+        <span style="color: #701a75;"><strong>Debrief:</strong> Directly mutating live DOM nodes at high frequency forces the browser engine into continuous layout invalidation and style recalculation, starving the event loop of user input cycles.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 1 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">react-m1-d01-q1</span>
+      <strong>The Critical Rendering Path Topology</strong> <em>(concept)</em>: <span style="color: #475569;">Trace how HTML tokens transform into the C++ DOM tree, CSSOM, Render Tree, Layout geometry, and Paint layers.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">react-m1-d01-q2</span>
+      <strong>Detective Lab: The Unbatched DOM Mutation Trap</strong> <em>(detective)</em>: <span style="color: #475569;">Profile and fix an imperative script that triggers 500 individual layout reflows in a single animation frame.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">react-m1-d01-q3</span>
+      <strong>Mastery Assignment: Offscreen DocumentFragment Ingestion Engine</strong> <em>(assignment)</em>: <span style="color: #475569;">Construct a high-throughput DOM ingestion buffer that batches 10,000 records offscreen before a single commit.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">react-m1-d01-q4</span>
+      <strong>Production Incident Lab: Main-Thread UI Lockup Post-Mortem</strong> <em>(detective)</em>: <span style="color: #475569;">Isolate a production memory and reflow spike caused by raw innerHTML injection during high-frequency telemetry streaming.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #0284c7;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #0284c7; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 2</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Declarative UI vs Imperative DOM: The React Element Tree, JSX & React.createElement</strong>
+          <span class="stage-pill" style="background: #e0f2fe; color: #0369a1;">Stage 1: Mental Model Grounding</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 1 &bull; Block 1 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #0369a1; font-weight: 600;">Goal:</span> Understand the fundamental shift from imperative scripting to declarative UI: learn what JSX actually compiles to (plain JS objects via React.createElement) and how React decouples UI description from DOM mutation.<br>
+          <span style="color: #15803d; font-weight: 600;">Invariant:</span> <code>JSX is not HTML; it is syntactic sugar for `React.createElement(type, props, ...children)` which returns a plain, immutable JavaScript object (a React Element). React reconciles these objects in memory before touching the real DOM.</code>
+        </div>
+        <div style="background: #fef2f2; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fecaca; color: #991b1b;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Thinking JSX is a string or HTML template and trying to call DOM methods like `addEventListener` or `classList.add` directly on JSX variables.<br>
+          <strong>tryIt Friction:</strong> Write a React component using raw `React.createElement` objects without any JSX syntax to prove that React elements are ordinary plain JavaScript objects.
+        </div>
+      </div>
+
+      <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #1e40af;">💡 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #0369a1;">[1. Nudge: "What actually is `<div className='card'>Hello</div>` once compiled by Babel/Vite?"]</span> &rarr;
+        <span style="color: #b45309;">[2. Memory: "It is simply an object: `{ type: 'div', props: { className: 'card', children: 'Hello' } }`!"]</span> &rarr;
+        <span style="color: #15803d;">[3. Fix: "React reads this tree of lightweight plain objects to determine what the native DOM should look like."]</span>
+      </div>
+
+      <div style="background: #fdf4ff; border: 1px solid #f0abfc; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #86198f;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"A junior engineer tries to inspect a button's computed width inside the render method by logging `const btn = <button>Click</button>; console.log(btn.offsetWidth);`. The console outputs `undefined`. Why?"</em><br>
+        <strong>Correct:</strong> Option B) The JSX tag `<button>` is an immutable plain JavaScript descriptor object in memory, not a real rendered C++ DOM node. &bull;
+        <span style="color: #701a75;"><strong>Debrief:</strong> JSX produces lightweight React Element objects in memory. They have properties like type, props, and key, but possess zero browser DOM properties like offsetWidth or style sheets until committed to the document.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 2 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">react-m1-d02-q1</span>
+      <strong>The React Element Object Anatomy</strong> <em>(concept)</em>: <span style="color: #475569;">Deconstruct the internal structure of React Element descriptors: $$typeof, type, key, ref, props, and children.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">react-m1-d02-q2</span>
+      <strong>Detective Lab: De-Babelizing Broken JSX</strong> <em>(detective)</em>: <span style="color: #475569;">Diagnose an invalid JSX nesting bug by converting the component tree into raw React.createElement calls.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">react-m1-d02-q3</span>
+      <strong>Mastery Assignment: Imperative to Declarative UI Port</strong> <em>(assignment)</em>: <span style="color: #475569;">Refactor a 200-line vanilla JS DOM-manipulation widget into a pure declarative React element tree.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">react-m1-d02-q4</span>
+      <strong>Production Incident Lab: The Symbol.for('react.element') XSS Defense</strong> <em>(detective)</em>: <span style="color: #475569;">Analyze why React tags all elements with a unique Symbol to prevent malicious JSON injection attacks from rendering.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #0284c7;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #0284c7; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 3</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Component Anatomy & Pure Functions: The Strict Props Immutability Contract</strong>
+          <span class="stage-pill" style="background: #e0f2fe; color: #0369a1;">Stage 1: Mental Model Grounding</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 1 &bull; Block 1 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #0369a1; font-weight: 600;">Goal:</span> Master React functional components as pure functions: Understand the strict unidirectional data flow, props immutability, and why components must never produce side effects during the render phase.<br>
+          <span style="color: #15803d; font-weight: 600;">Invariant:</span> <code>A React component must be a pure function with respect to its props: given the same inputs (props), it must always return the same output (JSX) and must NEVER mutate the props object passed to it.</code>
+        </div>
+        <div style="background: #fef2f2; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fecaca; color: #991b1b;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Mutating `props.user.name = 'New Name'` inside a child component causes silent state bugs, inconsistent renders across sibling trees, and breaks time-travel debugging.<br>
+          <strong>tryIt Friction:</strong> Identify and eliminate a sneaky prop mutation inside a sorting child component by creating a shallow copy before sorting.
+        </div>
+      </div>
+
+      <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #1e40af;">💡 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #0369a1;">[1. Nudge: "Why did the parent component's user list get re-ordered even though the parent never called a setState?"]</span> &rarr;
+        <span style="color: #b45309;">[2. Memory: "The child component ran `props.items.sort()`, which mutates the parent array in place!"]</span> &rarr;
+        <span style="color: #15803d;">[3. Fix: "Always clone arrays before sorting: `[...props.items].sort()` to preserve props immutability."]</span>
+      </div>
+
+      <div style="background: #fdf4ff; border: 1px solid #f0abfc; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #86198f;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"A banking application renders an account statement. The statement component calculates interest by writing: `props.account.balance += calculateInterest(props.account.balance)`. Under React 18 Strict Mode, why does the displayed balance double unexpectedly?"</em><br>
+        <strong>Correct:</strong> Option B) React Strict Mode intentionally invokes component render functions twice in development to uncover impure functions and props mutations. &bull;
+        <span style="color: #701a75;"><strong>Debrief:</strong> React Strict Mode runs render functions twice in development. Because the component mutated props.account.balance in place, the second invocation compounded the mutation, doubling the balance.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 3 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">react-m1-d03-q1</span>
+      <strong>The Mathematical Pure Function Contract in React</strong> <em>(concept)</em>: <span style="color: #475569;">Formalize the rules of pure components: idempotence, zero global mutations, and deterministic output.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">react-m1-d03-q2</span>
+      <strong>Detective Lab: The StrictMode Double-Mutation Bug</strong> <em>(detective)</em>: <span style="color: #475569;">Debug an e-commerce cart component where item quantities increase exponentially due to an impure render mutation.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">react-m1-d03-q3</span>
+      <strong>Mastery Assignment: Deeply Frozen Props Verification Guard</strong> <em>(assignment)</em>: <span style="color: #475569;">Implement a development-mode invariant wrapper using Object.freeze to guarantee 100% props immutability.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">react-m1-d03-q4</span>
+      <strong>Production Incident Lab: Corrupted Global State via Prop Tampering</strong> <em>(detective)</em>: <span style="color: #475569;">Trace an enterprise outage where a nested permissions component mutated a shared organization config object.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #0284c7;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #0284c7; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 4</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Interactive State: useState Dispatcher, State Queuing & Asynchronous Batching Mechanics</strong>
+          <span class="stage-pill" style="background: #e0f2fe; color: #0369a1;">Stage 1: Mental Model Grounding</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 1 &bull; Block 1 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #0369a1; font-weight: 600;">Goal:</span> Master the mechanics of `useState`: Understand how React schedules state updates, why state variables are immutable snapshots of a single render frame, and how React 18 automatic batching groups multiple dispatches.<br>
+          <span style="color: #15803d; font-weight: 600;">Invariant:</span> <code>Calling a state setter does NOT immediately update the local variable in the currently executing function; it queues an update for the NEXT render. In React 18, all state updates across timeouts, promises, and native events are automatically batched.</code>
+        </div>
+        <div style="background: #fef2f2; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fecaca; color: #991b1b;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Calling `setCount(count + 1)` three times sequentially expecting the count to increase by 3, but observing it only increments by 1 because all three calls read the same render snapshot.<br>
+          <strong>tryIt Friction:</strong> Refactor three sequential `setCount(count + 1)` calls into functional updater callbacks `setCount(c => c + 1)` and verify that the queue processes all three increments correctly.
+        </div>
+      </div>
+
+      <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #1e40af;">💡 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #0369a1;">[1. Nudge: "Why did calling `setCount(count + 1)` three times in a row only increase count by 1?"]</span> &rarr;
+        <span style="color: #b45309;">[2. Memory: "In the current render pass, `count` is a constant number (e.g. 0). You passed `0 + 1 = 1` three times!"]</span> &rarr;
+        <span style="color: #15803d;">[3. Fix: "Use the updater function syntax: `setCount(prev => prev + 1)` so each step reads the pending queued value."]</span>
+      </div>
+
+      <div style="background: #fdf4ff; border: 1px solid #f0abfc; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #86198f;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"A developer writes an event handler: `setCount(count + 1); console.log(count);`. If count was initially 0, why does the console print 0 immediately after the setter line?"</em><br>
+        <strong>Correct:</strong> Option B) State is a snapshot scoped to the current render execution context; the new state only exists in the subsequent render frame. &bull;
+        <span style="color: #701a75;"><strong>Debrief:</strong> State variables are constants within the scope of a specific render execution. Calling setCount schedules a re-render with the new value, but does not alter the local variable in the current frame.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 4 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">react-m1-d04-q1</span>
+      <strong>The Hook Dispatcher Queue Mechanics</strong> <em>(concept)</em>: <span style="color: #475569;">Analyze how React tracks hook state via singly linked lists on fiber nodes and queues update actions.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">react-m1-d04-q2</span>
+      <strong>Detective Lab: The Stale Counter Snapshot Trap</strong> <em>(detective)</em>: <span style="color: #475569;">Diagnose an order checkout counter that drops quantity increments during rapid user clicking.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">react-m1-d04-q3</span>
+      <strong>Mastery Assignment: Functional State Reducer Pipeline</strong> <em>(assignment)</em>: <span style="color: #475569;">Build an undo/redo state manager using useState updater functions with zero intermediate state corruption.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">react-m1-d04-q4</span>
+      <strong>Production Incident Lab: React 18 Auto-Batching Migration Glitch</strong> <em>(detective)</em>: <span style="color: #475569;">Debug an enterprise app where migrating to React 18 caused layout measuring to fire before batched state completed.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #0284c7;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #0284c7; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 5</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Milestone 1: Component Architecture & Interactive Counter State Machine</strong>
+          <span class="stage-pill" style="background: #e0f2fe; color: #0369a1;">Stage 2: Guided System Construction</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 1 &bull; Block 1 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #0369a1; font-weight: 600;">Goal:</span> Build and defend Milestone 1: An interactive multi-counter state machine featuring step increments, min/max invariant boundaries, history tracking, and strict props/state separation.<br>
+          <span style="color: #15803d; font-weight: 600;">Invariant:</span> <code>Interactive components must encapsulate private state while exposing clean, declarative prop contracts to their parents. State transitions must satisfy boundary invariants at all times.</code>
+        </div>
+        <div style="background: #fef2f2; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fecaca; color: #991b1b;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Allowing counters to exceed hard financial limits due to unconstrained state mutations or missing clamp logic.<br>
+          <strong>tryIt Friction:</strong> Enforce hard boundary invariants [MIN: 0, MAX: 100] using pure updater functions and display dynamic warning banners when boundaries are reached.
+        </div>
+      </div>
+
+      <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #1e40af;">💡 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #0369a1;">[1. Nudge: "Where should the boundary check [0, 100] live?"]</span> &rarr;
+        <span style="color: #b45309;">[2. Memory: "Place it directly inside the functional updater: `setCount(prev => Math.min(100, Math.max(0, prev + delta)))`."]</span> &rarr;
+        <span style="color: #15803d;">[3. Fix: "This guarantees that no queued update can ever violate your business invariants."]</span>
+      </div>
+
+      <div style="background: #fdf4ff; border: 1px solid #f0abfc; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #86198f;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"During the Milestone 1 defense, a reviewer rapidly clicks 'Reset' and 'Increment' within 5 milliseconds. The counter displays NaN. What caused this?"</em><br>
+        <strong>Correct:</strong> Option B) The reset handler set state to undefined instead of a numeric initial value, and subsequent increment additions evaluated to NaN. &bull;
+        <span style="color: #701a75;"><strong>Debrief:</strong> State initializers and reset transitions must always maintain the expected type invariant. Passing undefined to a numeric state causes subsequent mathematical operations to cascade into NaN.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 5 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">react-m1-d05-q1</span>
+      <strong>Milestone 1 Specification & State Architecture</strong> <em>(concept)</em>: <span style="color: #475569;">Design the state transition diagram and prop contracts for the interactive multi-counter system.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">react-m1-d05-q2</span>
+      <strong>Detective Lab: The Boundary Overflow Glitch</strong> <em>(detective)</em>: <span style="color: #475569;">Isolate and fix race conditions allowing negative values in an inventory item selector.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">react-m1-d05-q3</span>
+      <strong>Mastery Assignment: Multi-Counter Ledger with State Snapshot History</strong> <em>(assignment)</em>: <span style="color: #475569;">Implement a production-grade multi-counter system with step scaling, limits, and an undo/redo stack.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">react-m1-d05-q4</span>
+      <strong>Milestone 1 Defense: Architectural Invariant Review</strong> <em>(detective)</em>: <span style="color: #475569;">Defend your component tree, prop design, and functional state updates against Senior Architect review.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #0284c7;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #0284c7; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 6</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Collection Rendering: The List Reconciliation Invariant & Why Index Keys Destroy State</strong>
+          <span class="stage-pill" style="background: #e0f2fe; color: #0369a1;">Stage 1: Mental Model Grounding</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 1 &bull; Block 2 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #0369a1; font-weight: 600;">Goal:</span> Master rendering dynamic lists in React: Understand how React matches elements across renders, the true purpose of the `key` prop, and why using array indices as keys creates devastating UI bugs in dynamic lists.<br>
+          <span style="color: #15803d; font-weight: 600;">Invariant:</span> <code>The `key` prop is React's only identity anchor for elements in a collection. It must be unique, stable, and persistent across renders. Using the array index as a key confuses React when items are inserted, deleted, or reordered.</code>
+        </div>
+        <div style="background: #fef2f2; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fecaca; color: #991b1b;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Using `key={index}` in a list of inputs: when the first item is deleted, the DOM input values remain in place while the labels shift, causing user data to attach to the wrong record.<br>
+          <strong>tryIt Friction:</strong> Demonstrate the index key bug by deleting the top item of an input list, then fix it by assigning persistent unique database IDs as keys.
+        </div>
+      </div>
+
+      <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #1e40af;">💡 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #0369a1;">[1. Nudge: "Why did deleting the top todo item leave its checked checkbox on the NEW top item?"]</span> &rarr;
+        <span style="color: #b45309;">[2. Memory: "Because with `key={index}`, React sees keys [0, 1] becoming [0]. It thinks item 0 stayed and item 1 was removed!"]</span> &rarr;
+        <span style="color: #15803d;">[3. Fix: "Assign a permanent unique ID like `key={item.id}` so React knows exactly which DOM node to remove."]</span>
+      </div>
+
+      <div style="background: #fdf4ff; border: 1px solid #f0abfc; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #86198f;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"An enterprise data table allows users to sort rows by clicking column headers. The rows contain editable text inputs. The developer used `key={index}`. When a user sorts by 'Name', what critical bug occurs?"</em><br>
+        <strong>Correct:</strong> Option B) The text labels reorder correctly, but the user's unsaved input text remains tied to their original row indices, corrupting customer data. &bull;
+        <span style="color: #701a75;"><strong>Debrief:</strong> React reuses DOM nodes based on key identity. With index keys, DOM node 0 retains its uncommitted input state even when the underlying data array swaps element 0 with element 5.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 6 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">react-m1-d06-q1</span>
+      <strong>The List Reconciliation Algorithm Mechanics</strong> <em>(concept)</em>: <span style="color: #475569;">Trace how React's diffing engine reconciles keyed children using a Map lookup to achieve O(N) complexity.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">react-m1-d06-q2</span>
+      <strong>Detective Lab: The Shifted Form Field Disaster</strong> <em>(detective)</em>: <span style="color: #475569;">Fix an expense tracker where deleting an entry copies receipt amounts onto adjacent colleagues' rows.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">react-m1-d06-q3</span>
+      <strong>Mastery Assignment: Dynamic Reorderable Task Priority Queue</strong> <em>(assignment)</em>: <span style="color: #475569;">Build a drag-and-drop or up/down reorderable list with persistent stable keys and animated transitions.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">react-m1-d06-q4</span>
+      <strong>Production Incident Lab: Key Collisions in Paginated Tables</strong> <em>(detective)</em>: <span style="color: #475569;">Remediate a production bug where concatenating page items produced duplicate keys, breaking DOM mutations.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #0284c7;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #0284c7; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 7</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Conditional Rendering: Guard Clauses, Ternaries & The Falsy Zero (0 && <Component/>) Pitfall</strong>
+          <span class="stage-pill" style="background: #e0f2fe; color: #0369a1;">Stage 1: Mental Model Grounding</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 1 &bull; Block 2 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #0369a1; font-weight: 600;">Goal:</span> Master conditional UI rendering: Learn when to use early return guard clauses, ternary operators, and understand why the common `count && <Component/>` pattern leaks the number '0' onto user screens.<br>
+          <span style="color: #15803d; font-weight: 600;">Invariant:</span> <code>In JavaScript, `0 && <Component/>` evaluates to `0`, NOT `false`. Because React renders numbers directly to the DOM, an unread count of 0 renders an unwanted '0' on the webpage. Always use boolean coercion `Boolean(count)` or `count > 0`.</code>
+        </div>
+        <div style="background: #fef2f2; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fecaca; color: #991b1b;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Writing `{unreadCount && <Badge count={unreadCount} />}` displays an orphaned '0' on the user's navbar when there are no unread messages.<br>
+          <strong>tryIt Friction:</strong> Audit a component containing multiple logical AND (`&&`) checks, replace falsy numeric traps with explicit comparisons (`items.length > 0 ? ... : null`), and verify clean DOM output.
+        </div>
+      </div>
+
+      <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #1e40af;">💡 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #0369a1;">[1. Nudge: "Why is there a random '0' sitting in the top header?"]</span> &rarr;
+        <span style="color: #b45309;">[2. Memory: "In JavaScript, `0 && anything` returns `0`. React prints numbers verbatim to the screen!"]</span> &rarr;
+        <span style="color: #15803d;">[3. Fix: "Write `{items.length > 0 && <Badge />}` or use a ternary `{items.length > 0 ? <Badge /> : null}`."]</span>
+      </div>
+
+      <div style="background: #fdf4ff; border: 1px solid #f0abfc; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #86198f;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"A mobile-responsive notification bell uses `{notifications.length && <NotificationList />}`. When the notification array is empty (`length === 0`), QA files a high-priority UI bug. What did QA see?"</em><br>
+        <strong>Correct:</strong> Option B) A raw '0' character rendered directly on top of the bell icon. &bull;
+        <span style="color: #701a75;"><strong>Debrief:</strong> JavaScript short-circuit evaluation returns the falsy value itself. When notifications.length is 0, the expression evaluates to 0. React treats numbers as valid printable text, rendering '0' into the DOM.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 7 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">react-m1-d07-q1</span>
+      <strong>JavaScript Logical Short-Circuiting in React JSX</strong> <em>(concept)</em>: <span style="color: #475569;">Examine how boolean coercion rules interact with React's JSX child rendering engine.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">react-m1-d07-q2</span>
+      <strong>Detective Lab: The Ghost Number Zero Investigation</strong> <em>(detective)</em>: <span style="color: #475569;">Scan a broken dashboard codebase and eliminate 6 instances of falsy numeric leaks in header menus.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">react-m1-d07-q3</span>
+      <strong>Mastery Assignment: Polymorphic State Notification Center</strong> <em>(assignment)</em>: <span style="color: #475569;">Build a notification tray supporting empty, loading, error, and loaded states via clean guard patterns.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">react-m1-d07-q4</span>
+      <strong>Production Incident Lab: Null Pointer in Unrendered Branch</strong> <em>(detective)</em>: <span style="color: #475569;">Fix a crash where an unprotected deep property read executed even when parent data was null.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #0284c7;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #0284c7; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 8</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Controlled Components: Single Source of Truth, Input State & Synthetic Event Invariants</strong>
+          <span class="stage-pill" style="background: #e0f2fe; color: #0369a1;">Stage 1: Mental Model Grounding</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 1 &bull; Block 2 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #0369a1; font-weight: 600;">Goal:</span> Master controlled form components: Understand why React binds input values to state (Single Source of Truth), how React's cross-browser SyntheticEvent system works, and how to prevent uncontrolled-to-controlled warnings.<br>
+          <span style="color: #15803d; font-weight: 600;">Invariant:</span> <code>In a controlled component, the React state is the single source of truth for the input's current value. Initializing state with `undefined` or `null` causes React to mount the input as uncontrolled, triggering a console error when state later becomes defined.</code>
+        </div>
+        <div style="background: #fef2f2; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fecaca; color: #991b1b;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Initializing form state with `useState()` (which defaults to `undefined`). When the user types their first letter, React warns: 'A component is changing an uncontrolled input to be controlled'.<br>
+          <strong>tryIt Friction:</strong> Build a c

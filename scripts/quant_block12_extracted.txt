@@ -1,0 +1,246 @@
+nuation in microwave networks.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q58.3</span>
+      <strong>Hybrid Microwave/Fiber Failover Router Implementation</strong> <em>(Mastery Assignment)</em>: <span style="color: #475569;">Build an intelligent network routing manager in TypeScript monitoring SNR, packet loss, and executing sub-millisecond route failover.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q58.4</span>
+      <strong>Simulated Summer Rainstorm & Route Handover Lab</strong> <em>(Production Incident Lab)</em>: <span style="color: #475569;">Simulate a severe weather fade event on the microwave link, validating seamless traffic failover to backup fiber with zero packet corruption.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #f59e0b;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #0f172a; color: #f59e0b; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 59</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Principal Quantitative Systems Architect RFC & Planetary Exchange Infrastructure</strong>
+          <span class="stage-pill" style="background: #fef3c7; color: #92400e;">Stage 2: Advanced Quantitative Systems & Hardware Acceleration</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 12 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #b45309; font-weight: 600;">Goal:</span> You have journeyed through every facet of quantitative engineering: market microstructure, matching engines, order book physics, stochastic volatility, Greeks, FPGA acceleration, precision PTP clocks, SPAN margin, extreme tail risk, and industrial disasters. Today, you take on the ultimate role: Principal Quantitative Systems Architect. In top investment banks and sovereign trading firms, the Principal Architect does not just write code; they author the Engineering RFC (Request for Comments) that establishes the technical, operational, and regulatory foundation for the entire firm. You will author the comprehensive RFC for a Planetary-Scale Quantitative Trading Platform. You will specify tick-to-trade latency budgets across silicon and fiber, define multi-colocation redundancy topologies, codify SEC Rule 15c3-5 and MiFID II compliance controls, design out-of-band kill-switch architectures, and establish capital governance frameworks that protect billions of dollars!<br>
+          <span style="color: #047857; font-weight: 600;">Invariant:</span> <code>Architectural Synthesis Invariant: An institutional quantitative architecture must be codified through rigorous RFC standards that balance nanosecond execution velocity with non-negotiable risk governance and regulatory auditability.</code>
+        </div>
+        <div style="background: #fffbeb; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fef3c7; color: #92400e;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Designing a high-frequency trading platform without a formal architectural RFC and latency budget; development teams implement ad-hoc network protocols and unaligned structs, resulting in unmaintainable systems and multi-microsecond latency regressions.<br>
+          <strong>tryIt Friction:</strong> Author the Principal Quantitative Systems RFC in Markdown/TypeScript: establish a complete latency budget breakdown (PHY to OUCH < 800ns); define colocation topology across Carteret, Mahwah, and Aurora; specify pre-trade risk thresholds (SEC 15c3-5); and design automated failover and kill-switch state machines.
+        </div>
+      </div>
+
+      <div style="background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #065f46;">🪜 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #047857;">[1. Nudge: "What are the mandatory sections of an institutional Quantitative Architecture RFC?"]</span> &rarr;
+        <span style="color: #065f46;">[2. Memory: "1. Executive Summary & Strategy Latency Budgets."]</span> &rarr;
+        <span style="color: #064e3b;">[3. Fix: "2. Physical Topology & Colocation Infrastructure."]</span>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #0f172a;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"As Principal Architect, you review a proposal from a trading team wanting to bypass the central pre-trade risk gateway to shave 40 nanoseconds off an options strategy. They argue that their strategy's mathematical model is self-hedging and cannot lose money. How must the Principal Architect respond?"</em><br>
+        <strong>Correct:</strong> Option B) Categorically Reject the Proposal: SEC Rule 15c3-5 and fundamental risk governance mandate that no order may reach an exchange without passing independent, non-bypassable pre-trade risk checks. Bypassing risk controls for speed is an existential regulatory and financial risk that has destroyed multiple trading firms. &bull;
+        <span style="color: #b45309;"><strong>Debrief:</strong> Option B is correct. Under SEC Rule 15c3-5, broker-dealers and trading firms are legally required to maintain financial and regulatory risk controls that are under the direct control of the firm and cannot be bypassed. The Principal Architect must maintain absolute discipline: risk controls are non-negotiable.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 59 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q59.1</span>
+      <strong>Principal Architect RFC: Planetary Trading Platform Specifications</strong> <em>(Concept Quest)</em>: <span style="color: #475569;">Author the complete architectural RFC defining latency budgets, colocation topology, and systems partitioning for a sovereign trading platform.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q59.2</span>
+      <strong>Risk Control Bypass & Catastrophic Regulatory Violations Forensics</strong> <em>(Detective Challenge)</em>: <span style="color: #475569;">Audit regulatory enforcement actions against trading firms that bypassed risk controls in pursuit of latency advantages.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q59.3</span>
+      <strong>Architectural Latency Budget & Governance Engine Implementation</strong> <em>(Mastery Assignment)</em>: <span style="color: #475569;">Implement a latency budget tracking and compliance enforcement engine in TypeScript monitoring component execution against RFC budgets.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q59.4</span>
+      <strong>Principal Architect RFC Board Review & Defense Lab</strong> <em>(Production Incident Lab)</em>: <span style="color: #475569;">Defend the Planetary Architecture RFC before a simulated executive risk and engineering board, justifying all latency budgets and safety controls.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #f59e0b;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #0f172a; color: #f59e0b; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 60</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Master Capstone Project 2: ApexQuant Sovereign Institutional High-Frequency Trading & Low-Latency Execution Platform Master Capstone Viva Gate</strong>
+          <span class="stage-pill" style="background: #fef3c7; color: #92400e;">Stage 2: Advanced Quantitative Systems & Hardware Acceleration</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 12 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #b45309; font-weight: 600;">Goal:</span> Welcome to Day 60: The Master Capstone Project and Final Viva Defense Gate of Course 21. Over 60 days, you have mastered the most demanding technical disciplines in modern computing: market microstructure, matching engines, order book physics, stochastic volatility surfaces, real-time Greeks, multi-venue latency arbitrage, custom C++/Rust memory allocators, FPGA pipelining, PTP precision clocks, SPAN margin, extreme tail risk, and fail-safe kill-switches. Today, you will assemble, execute, and defend the complete ApexQuant Sovereign Institutional High-Frequency Trading and Low-Latency Execution Platform. Your platform unites every single subsystem built across the curriculum into one sovereign, ultra-resilient trading engine. During your live Capstone Viva, the senior evaluation board will inject flash crashes, toxic liquidity dumps, network partitions, and rogue orders. You will prove that your platform executes with sub-microsecond latency, preserves capital under extreme stress, and operates with zero regulatory defects. Achieve this, and you will earn the elite credential of Master Quantitative Systems Engineer!<br>
+          <span style="color: #047857; font-weight: 600;">Invariant:</span> <code>Master Sovereign Platform Invariant: The ApexQuant platform represents the total synthesis of quantitative finance and low-latency systems engineering: achieving sub-microsecond execution while enforcing unyielding mathematical risk controls and absolute regulatory compliance.</code>
+        </div>
+        <div style="background: #fffbeb; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fef3c7; color: #92400e;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Presenting a master capstone platform that achieves ultra-fast execution under calm market data but suffers a memory leak, unhedged inventory explosion, or risk filter bypass when subjected to adversarial stress testing during the final Viva examination.<br>
+          <strong>tryIt Friction:</strong> Execute the ApexQuant Sovereign Platform in TypeScript: ingest NASDAQ ITCH feeds, maintain Level 3 LOBs, compute SABR volatility surfaces and real-time portfolio Greeks, evaluate SPAN margin, execute cross-venue arbitrage with zero-allocation ring buffers, discipline clocks via PTP, and enforce out-of-band kill-switches; survive 10,000 simulated stress ticks with 100% test pass rate.
+        </div>
+      </div>
+
+      <div style="background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #065f46;">🪜 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #047857;">[1. Nudge: "What are the core integrated subsystems required in the ApexQuant Master Platform?"]</span> &rarr;
+        <span style="color: #065f46;">[2. Memory: "1. Market Microstructure & Order Book Engine (ITCH parsing, LOB matching, L3 queue priority)."]</span> &rarr;
+        <span style="color: #064e3b;">[3. Fix: "2. Derivatives Valuation & Surface Engine (BSM pricer, SABR calibration, real-time Greeks)."]</span>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #0f172a;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"During your final Day 60 Capstone Viva Gate examination, the senior quantitative partners inject a multi-vector catastrophe: a 6% market flash crash, an internal strategy rogue order attempting to buy 1,000,000 shares, a 4% multicast packet drop, and a cross-venue fiber severed. Your ApexQuant platform intercepts the rogue order at the pre-trade risk gate in 65 nanoseconds, detects the packet drop and requests TCP replay, switches traffic to backup fiber in 18 microseconds, and widens quoting spreads based on HMM regime detection—finishing the test with positive net PnL and zero errors. The partners stand and applaud. What did this defense prove?"</em><br>
+        <strong>Correct:</strong> Option B) Total Quantitative & Systems Mastery: It demonstrated that true high-frequency trading excellence is not merely raw speed, but the seamless convergence of hardware-level systems architecture, mathematical risk models, and robust failure engineering—qualifying you as an elite Master Quantitative Systems Engineer. &bull;
+        <span style="color: #b45309;"><strong>Debrief:</strong> Option B is correct. Passing the Day 60 Master Capstone Viva Gate validates that the engineer has mastered both the nanosecond mechanical physics of computing hardware and the advanced mathematical econometrics of financial markets. The candidate has achieved full institutional-grade mastery.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 60 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q60.1</span>
+      <strong>ApexQuant Sovereign Platform Master Architectural Charter</strong> <em>(Concept Quest)</em>: <span style="color: #475569;">Formulate the comprehensive architectural charter for the ApexQuant platform detailing all subsystems, interfaces, and safety guarantees.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q60.2</span>
+      <strong>Full-Platform Adversarial Chaos & Multi-Vector Stress Testing</strong> <em>(Detective Challenge)</em>: <span style="color: #475569;">Construct an automated adversarial test harness injecting concurrent flash crashes, rogue orders, packet drops, and node partitions.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q60.3</span>
+      <strong>ApexQuant Sovereign Platform Master Implementation</strong> <em>(Mastery Assignment)</em>: <span style="color: #475569;">Implement the complete sovereign ApexQuant platform in TypeScript uniting L3 LOBs, SABR surfaces, Greeks, FPGA pipelines, and risk engines.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q60.4</span>
+      <strong>Senior Quantitative Board Master Capstone 2 Viva Defense Gate</strong> <em>(Production Incident Lab)</em>: <span style="color: #475569;">Defend the ApexQuant sovereign platform under live multi-vector simulated flash crash conditions before the Wall Street board, earning certification.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+  <div class="page-break"></div>
+  <h2>25.4 Quantitative Engineering &amp; Low-Latency Trading Systems Milestone &amp; Capstone Viva Gates (Milestones 1&ndash;10 + Capstone Viva)</h2>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th style="width: 12%;">Milestone</th>
+        <th style="width: 10%;">Day</th>
+        <th style="width: 28%;">Milestone Gate Title</th>
+        <th style="width: 50%;">Architectural Deliverable &amp; Invariant Defense</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Milestone 1</strong></td><td>Day 05</td><td>Deterministic LOB Matching Engine Kernel</td><td>Doubly-linked price-level bucket queue and red-black price index tree processing limit, market, and cancel events under strict deterministic price-time priority.</td></tr>
+      <tr><td><strong>Milestone 2</strong></td><td>Day 10</td><td>NASDAQ TotalView-ITCH 5.0 Direct Binary Parser</td><td>Zero-copy direct binary parser decoding big-endian ITCH 5.0 messages off network frames and emitting structured OUCH order requests within 120 nanoseconds.</td></tr>
+      <tr><td><strong>Milestone 3</strong></td><td>Day 15</td><td>Kernel-Bypass DPDK / Solarflare Execution Core</td><td>User-space lock-free ring buffer and zero-copy packet driver eliminating Linux kernel socket overhead and context switches on pinned CPU cores.</td></tr>
+      <tr><td><strong>Milestone 4</strong></td><td>Day 20</td><td>Cointegration &amp; StatArb Pairs Trading Engine</td><td>Johansen and Engle-Granger statistical arbitrage framework with Ornstein-Uhlenbeck mean-reversion half-life estimation and Kalman filter dynamic beta hedging.</td></tr>
+      <tr><td><strong>Milestone 5</strong></td><td>Day 25</td><td>Sub-100ns SEC Rule 15c3-5 Pre-Trade Risk Gate</td><td>Deterministic pre-trade risk filter enforcing gross dollar limits, fat-finger price collars, order rate thresholds, and credit limits prior to exchange release.</td></tr>
+      <tr><td><strong>Capstone 1</strong></td><td>Day 30</td><td><strong>Month 1 Capstone Viva Gate</strong></td><td><strong>ApexTrader Sub-Microsecond Algorithmic Market Maker:</strong> Complete sovereign high-frequency platform uniting ITCH decoding, LOB matching, Avellaneda quoting, and pre-trade risk gates defended before Senior Quantitative Review Board.</td></tr>
+      <tr><td><strong>Milestone 6</strong></td><td>Day 35</td><td>HF Options Quoting &amp; Real-Time Greeks Engine</td><td>Analytical Black-Scholes pricer, Newton-Raphson IV solver, SABR volatility surface interpolator, real-time Greeks calculator (Delta/Gamma/Vega/Vanna/Volga), and dynamic Delta hedger.</td></tr>
+      <tr><td><strong>Milestone 7</strong></td><td>Day 40</td><td>Multi-Venue Cross-Exchange Arbitrage Platform</td><td>Smart order routing platform across 3 venues optimizing all-in maker-taker fees, modeling L3 queue position and cancellation hazard rates, and executing atomic legging unwinds.</td></tr>
+      <tr><td><strong>Milestone 8</strong></td><td>Day 45</td><td>Hardware-Accelerated FPGA Hybrid Execution Platform</td><td>Cycle-accurate FPGA pipeline emulator (ITCH parsing, hardware LOB, sub-80ns risk checks) coupled with cache-aligned pinned software event loops and IEEE 1588v2 PTP timestamps.</td></tr>
+      <tr><td><strong>Milestone 9</strong></td><td>Day 50</td><td>Enterprise Real-Time Risk &amp; CAT Surveillance Engine</td><td>CME SPAN 16-scenario margin grid calculator, fat-tailed Expected Shortfall (CVaR), HMM regime classifier, and FINRA CAT audit event generator with self-trade prevention.</td></tr>
+      <tr><td><strong>Milestone 10</strong></td><td>Day 55</td><td>Nanosecond Telemetry &amp; Exchange Chaos Testing Suite</td><td>RDTSC cycle timing profiler, active-active multi-colocation failover coordinator with fencing leases, and chaos injector recovering missing multicast sequence gaps via TCP replay.</td></tr>
+      <tr><td><strong>Master Capstone</strong></td><td>Day 60</td><td><strong>Month 2 Master Capstone Viva</strong></td><td><strong>ApexQuant Sovereign Institutional High-Frequency Trading &amp; Low-Latency Execution Platform:</strong> Complete enterprise trading infrastructure defending against simultaneous market flash crashes, rogue orders, packet drops, and cross-venue partitions under live adversarial viva voce examination.</td></tr>
+    </tbody>
+  </table>
+  
+  <!-- PART XXVI: DEEP MASTERCLASS BLUEPRINT - DIGITAL ACCOUNTING & TAXATION (DAYS 1-60 / 240 QUESTS) -->
+  <div class="page-break">
+    <div style="background: #064e3b; color: #ffffff; padding: 8pt 12pt; border-radius: 4pt; margin-bottom: 8pt; display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <h1 style="color: #34d399; margin: 0; font-size: 14pt; border: none; padding: 0;">Part XXVI: Deep Masterclass Blueprint &bull; Digital Accounting &amp; Taxation (Days 1&ndash;60 / 240 Quests)</h1>
+        <span style="font-size: 8.2pt; color: #a7f3d0;">Course ID: <code>course-digital-accounting</code> &bull; 60-Day Full Curriculum &bull; <strong>240 Quests total</strong> &bull; 10 Milestone Gates + 2 Capstone Vivas</span>
+      </div>
+      <div style="text-align: right;">
+        <span style="background: #10b981; color: #064e3b; font-size: 7.5pt; font-weight: 700; padding: 2px 6px; border-radius: 2px;">Corporate Finance, GST &amp; Direct Tax Architecture</span><br>
+        <span style="font-size: 7.5pt; color: #6ee7b7;">Principal Financial Controller Target</span>
+      </div>
+    </div>
+
+    <h2>26.1 Course Architectural Overview &amp; 4-Stage Pedagogical Progression</h2>
+    <p>
+      In corporate enterprise finance, accounting is not mere historical bookkeeping; it is the mathematical backbone of corporate solvency, regulatory compliance, and statutory integrity. In India and across global markets, businesses operate under an intricate web of statutory mandates: the fundamental accounting equation Assets = Liabilities + Equity, the MCA Section 143(3)(j) Audit Trail mandate requiring non-disableable edit logs, the Goods and Services Tax (GST) framework demanding real-time E-Invoicing Schema v1.1 and E-Way Bill logistics, corporate income tax under Section 115BAA/BAB and Section 115JB Minimum Alternate Tax (MAT), Tax Deducted at Source (TDS/TCS) with Section 206AB penal rates, labour compliance (EPF, ESI, Gratuity), international transfer pricing under the arm's length principle, and Schedule III Division II Ind AS financial statements with Ind AS 7 cash flow reconciliations:
+    </p>
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 6pt; margin: 6pt 0 10pt 0;">
+      <div style="background: #ecfdf5; border: 1px solid #a7f3d0; padding: 6pt; border-radius: 3pt;">
+        <strong style="color: #065f46; font-size: 8pt;">Stage 1: Accounting Core &amp; ERP</strong><br>
+        <span style="font-size: 7.2pt; color: #064e3b;">Days 1&ndash;15 (60 Quests)<br>Double-Entry Duality, COA Tree Engineering, Gapless Vouchers, BRS 2-Way Matching, FAR Depreciation, Ind AS 21 Forex &amp; FIFO COGS.<br><em>Milestones 1&ndash;3</em></span>
+      </div>
+      <div style="background: #f0fdf4; border: 1px solid #bbf7d0; padding: 6pt; border-radius: 3pt;">
+        <strong style="color: #166534; font-size: 8pt;">Stage 2: Audit Trails &amp; GST Core</strong><br>
+        <span style="font-size: 7.2pt; color: #14532d;">Days 16&ndash;30 (60 Quests)<br>MCA Hash-Chained Audit Trails, Benford Fraud Detection, 3-Way Match, GST E-Invoicing v1.1, EWB Logistics, GSTR-2B Matching &amp; ApexLedger Capstone.<br><em>Milestones 4&ndash;5 + Capstone 1</em></span>
+      </div>
+      <div style="background: #fffbeb; border: 1px solid #fef3c7; padding: 6pt; border-radius: 3pt;">
+        <strong style="color: #92400e; font-size: 8pt;">Stage 3: Direct Tax &amp; Payroll</strong><br>
+        <span style="font-size: 7.2pt; color: #78350f;">Days 31&ndash;45 (60 Quests)<br>POEM Nexus, PGBP Disallowances, Section 115BAA/BAB, Section 115JB MAT, TDS/TCS Withholding, 206AB Non-Filers, EPF/ESI Labour &amp; Form 16.<br><em>Milestones 6&ndash;8</em></span>
+      </div>
+      <div style="background: #eff6ff; border: 1px solid #bfdbfe; padding: 6pt; border-radius: 3pt;">
+        <strong style="color: #1e40af; font-size: 8pt;">Stage 4: International &amp; ApexTax</strong><br>
+        <span style="font-size: 7.2pt; color: #1e3a8a;">Days 46&ndash;60 (60 Quests)<br>Advance Tax 234B/C, DTAA Form 15CA/CB, TNMM Transfer Pricing, Equalisation Levy, Schedule III Ind AS, Ind AS 7 Cash Flows &amp; ApexTax Master Capstone.<br><em>Milestones 9&ndash;10 + Master Capstone</em></span>
+      </div>
+    </div>
+
+    <h2>26.2 Digital Accounting &amp; Taxation Month 1 Day-by-Day Masterclass Specifications (Days 1&ndash;30 / 120 Quests)</h2>
+  </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #059669;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #064e3b; color: #34d399; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 1</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Double-Entry Bookkeeping Principles & Accounting Equation Physics</strong>
+          <span class="stage-pill" style="background: #ecfdf5; color: #047857;">Stage 1: Digital Accounting Foundations & ERP Systems</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 1 &bull; Block 1 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #047857; font-weight: 600;">Goal:</span> Welcome to Course 22: Digital Accounting & Taxation! Whether you are building financial enterprise software, managing statutory audits, or leading a corporate finance desk, all accounting is governed by an unshakeable mathematical identity: Assets = Liabilities + Equity. Every business transaction is a dual-aspect event. If money enters your bank account (Debit Asset), it must either be owed to a creditor (Credit Liability), contributed by owners (Credit Equity), or earned through revenue (Credit Income). In this session, you will dissect the Golden Rules of Accounting across Real, Personal, and Nominal accounts, map them to modern algebraic Debit/Credit signed conventions, and understand why a single out-of-balance journal voucher can corrupt financial statements, fail external audits, and trigger regulatory penalties!<br>
+          <span style="color: #0f766e; font-weight: 600;">Invariant:</span> <code>Accounting Equation Invariant: In double-entry bookkeeping, the fundamental equation Assets = Liabilities + Equity must balance across every atomic transaction; the sum of all debits must strictly equal the sum of all credits.</code>
+        </div>
+        <div style="background: #fffbeb; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fef3c7; color: #92400e;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> A junior accounting software developer permits one-sided journal vouchers during data migration; $4.5M in cash receipts are credited to the bank without a balancing debit, breaking the trial balance and halting the company's statutory financial audit for 3 weeks.<br>
+          <strong>tryIt Friction:</strong> Construct a Double-Entry Ledger Validator in TypeScript: ingest a stream of multi-line journal vouchers containing account IDs, debit amounts, and credit amounts; verify that sum(Debits) equals sum(Credits) for each atomic voucher; reject unbalanced vouchers with precise delta errors; and update account balance states.
+        </div>
+      </div>
+
+      <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #166534;">🪜 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #15803d;">[1. Nudge: "Why must total debits always equal total credits in every single journal voucher?"]</span> &rarr;
+        <span style="color: #166534;">[2. Memory: "Because every business transaction represents a transfer of value from a source (Credit) to a destination or application (Debit)."]</span> &rarr;
+        <span style="color: #14532d;">[3. Fix: "If debits and credits do not balance, the accounting equation (Assets = Liabilities + Equity) is violated, creating phantom wealth or unrecorded obligations."]</span>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #0f172a;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"A corporate accountant records the purchase of $50,000 in office IT equipment on 30-day credit from a vendor. The accountant posts a Debit of $50,000 to 'IT Equipment' (Asset) and a Debit of $50,000 to 'Trade Payables' (Liability). At mon

@@ -1,0 +1,499 @@
+import json, subprocess, hashlib
+
+def run_code(code):
+    res = subprocess.run(['node', '-e', code], capture_output=True, text=True)
+    if res.returncode != 0:
+        raise RuntimeError(f"Code failed:\n{code}\nError:\n{res.stderr}")
+    return res.stdout.strip()
+
+p1_say = [
+    "Welcome to Day 36 of Node.js & TypeScript Backend Engineering: High-Performance In-Memory Caching: Redis Cluster Sharding, Key Eviction Policies & Pipeline Batching. Today begins Month 2 Block 8, our advanced exploration into enterprise data caching, distributed synchronization, connection management, and traffic shaping.",
+    "In modern high-scale backend engineering, memory is the ultimate currency of performance. Relational database queries typically require anywhere from 2 to 50 milliseconds to traverse indexes, read pages from disk or OS page buffers, evaluate relational joins, and serialize JSON results. In contrast, an in-memory key-value cache like Redis resolves reads and writes in sub-millisecond durations—often under 500 microseconds.",
+    "However, as application traffic scales to millions of concurrent users, a single Redis server becomes bottlenecked by two physical constraints: available RAM (a single node cannot hold a multi-terabyte dataset) and network throughput (a single 10-Gigabit interface saturates under millions of queries per second). To achieve horizontal scalability beyond the boundaries of a single host, enterprise architectures implement Redis Cluster.",
+    "Redis Cluster partitions data across a fixed space of exactly 16,384 Hash Slots. When an application writes or reads a key, Redis hashes the key string using the CRC16 checksum algorithm and takes the modulo of 16,384: `slot = CRC16(key) % 16384`. Each master node in the Redis Cluster is assigned a discrete contiguous or non-contiguous subset of these 16,384 hash slots. For example, in a three-master cluster, Node A might serve slots 0 to 5,460, Node B serves slots 5,461 to 10,922, and Node C serves slots 10,923 to 16,383.",
+    "A critical challenge in clustered environments is multi-key operations. Redis supports atomic multi-key commands, transactions (MULTI/EXEC), and Lua scripts only if all keys involved in the operation reside on the exact same hash slot and therefore on the exact same physical node. If an application attempts to execute `MGET key1 key2` where `key1` maps to Node A and `key2` maps to Node B, Redis Cluster rejects the operation with a `CROSSSLOT Keys in request don't hash to the same slot` error.",
+    "To solve this problem cleanly, Redis Cluster provides Hash Tags. If a key string contains curly braces `{...}`, Redis hashes only the substring enclosed within the first pair of braces rather than the entire key string. For example, the keys `{tenant:99}:profile` and `{tenant:99}:orders` will both be hashed strictly on the string `tenant:99`. Consequently, both keys are guaranteed to produce the exact same CRC16 hash and route to the exact same cluster master node, enabling seamless multi-key transactional mutations.",
+    "In Part 1, we implement our `computeClusterHashSlot` engine. This function parses incoming key names, extracts hash tags if present, computes the CRC16 hash slot modulo 16384, and determines the target cluster master node.",
+    "From an operational engineering perspective, hash slot allocation is dynamic and elastic. In cloud environments, DevOps teams can scale a Redis Cluster up by adding new master nodes or scale down by removing underutilized nodes without taking the database offline. During a cluster re-sharding operation, hash slots and their associated keys are migrated incrementally from source nodes to target nodes in the background.",
+    "Smart Redis client libraries in Node.js (such as `ioredis` or the official `redis` npm package) maintain an in-memory routing table mapping each of the 16,384 hash slots to its respective master node IP address and port. When the application issues a command, the client calculates the slot locally and opens a direct socket connection to the correct master node, eliminating unnecessary network hops.",
+    "Furthermore, if a key is accessed during an active re-sharding migration, the source node replies with an `ASK` redirection, instructing the Node.js client to query the target node for that specific operation without updating its permanent routing table.",
+    "By mastering CRC16 hash slot routing and hash tag co-location, backend architects ensure that distributed microservices scale their in-memory data tier horizontally with deterministic single-node locality."
+]
+
+p1_code = """function computeClusterHashSlot(key) {
+  let hashTarget = key;
+  const startIdx = key.indexOf('{');
+  if (startIdx !== -1) {
+    const endIdx = key.indexOf('}', startIdx + 1);
+    if (endIdx !== -1 && endIdx > startIdx + 1) {
+      hashTarget = key.substring(startIdx + 1, endIdx);
+    }
+  }
+
+  let crc = 0x0000;
+  for (let i = 0; i < hashTarget.length; i++) {
+    crc = ((crc ^ (hashTarget.charCodeAt(i) << 8)) & 0xFFFF);
+    for (let j = 0; j < 8; j++) {
+      if ((crc & 0x8000) !== 0) {
+        crc = (((crc << 1) ^ 0x1021) & 0xFFFF);
+      } else {
+        crc = ((crc << 1) & 0xFFFF);
+      }
+    }
+  }
+
+  const slot = crc % 16384;
+  let targetNode = 'Node-A';
+  if (slot >= 5461 && slot <= 10922) targetNode = 'Node-B';
+  else if (slot > 10922) targetNode = 'Node-C';
+
+  return {
+    key,
+    hashTarget,
+    slot,
+    targetNode
+  };
+}
+
+const key1 = '{user:101}:profile';
+const key2 = '{user:101}:cart';
+const key3 = 'catalog:item:990';
+
+const res1 = computeClusterHashSlot(key1);
+const res2 = computeClusterHashSlot(key2);
+const res3 = computeClusterHashSlot(key3);
+
+console.log('Key 1 Slot:', res1.slot, 'Node:', res1.targetNode);
+console.log('Key 2 Slot:', res2.slot, 'Node:', res2.targetNode);
+console.log('Keys Co-located:', res1.slot === res2.slot);
+console.log('Key 3 Slot:', res3.slot, 'Node:', res3.targetNode);"""
+
+p2_say = [
+    "Even with cluster sharding distributing data across multiple physical machines, RAM remains a strictly bounded resource. If write traffic continues unabated without memory management, Redis will exhaust physical memory, causing the operating system kernel to trigger the Out-Of-Memory (OOM) killer to terminate the process abruptly. In Part 2, we explore Memory Eviction Algorithms and `maxmemory-policy` Configuration.",
+    "To prevent OOM crashes, production Redis instances configure two vital parameters: `maxmemory` (the maximum number of bytes Redis is allowed to use) and `maxmemory-policy` (the algorithmic strategy Redis executes when memory reaches the `maxmemory` ceiling). When this threshold is breached, Redis does not crash; instead, it automatically evicts (deletes) existing keys according to the selected policy before allowing new write commands to execute.",
+    "Redis supports eight distinct eviction policies, grouped into three primary operational paradigms: Volatile policies, Allkeys policies, and Noeviction. In the `noeviction` mode, Redis returns an out-of-memory error (`OOM command not allowed when used memory > 'maxmemory'`) for any command that attempts to allocate more memory (like SET, HSET, LPUSH) while continuing to serve read-only queries cleanly.",
+    "In the `allkeys-lru` policy, Redis evicts the Least Recently Used keys across the entire dataset, regardless of whether an expiration TTL was assigned. In contrast, `volatile-lru` evicts the least recently used keys strictly from the subset of keys that have an explicit TTL expiration set. This distinction is critical: if your Redis instance acts as a pure cache where every key can be recomputed from a database, `allkeys-lru` is the standard industry choice.",
+    "However, if your Redis instance stores persistent session records or user locks alongside cached data, `allkeys-lru` risks deleting critical session keys! In that hybrid architecture, `volatile-lru` or `volatile-lfu` guarantees that persistent records without an expiry are permanently shielded from eviction.",
+    "In Redis 4.0, Redis introduced the Least Frequently Used (LFU) eviction algorithm (`allkeys-lfu` and `volatile-lfu`). While LRU tracks only the elapsed time since a key was last accessed, LFU tracks an access frequency counter combined with a logarithmic decay factor.",
+    "Consider a scenario where a rarely used reporting key is fetched once during a morning batch run: under LRU, that single access promotes the key to 'recently used', causing Redis to evict a frequently accessed product key that was accessed thousands of times yesterday! LFU solves this cache pollution vulnerability by weighting frequency over recency, ensuring that hot items remain cached indefinitely.",
+    "In Part 2, our `simulateCacheEviction` engine models these eviction policies, demonstrating how LRU, LFU, and TTL expiration manage bounded memory capacities deterministically.",
+    "From an implementation standpoint, Redis does not run an exact mathematical LRU or LFU across millions of keys, as maintaining a global sorted linked list would introduce severe CPU overhead on every single read operation. Instead, Redis implements an Approximated LRU/LFU algorithm.",
+    "When memory is full, Redis samples a configurable number of keys (controlled by `maxmemory-samples`, typically set between 5 and 10), evaluates the eviction metric among that small sample, and deletes the best candidate. This approximated sampling achieves 99% of the statistical precision of a true LRU while consuming zero additional memory and negligible CPU cycles.",
+    "Furthermore, in high-throughput caching environments, configuring memory fragmentation ratio monitoring via `INFO memory` is essential. If memory fragmentation exceeds 1.5, Redis active defragmentation (`activedefrag yes`) can be enabled to reclaim unallocated heap pages without server restarts.",
+    "Additionally, background threads in modern Redis handle key eviction asynchronously via lazy freeing (`lazyfree-lazy-eviction yes`). This decouples the deletion of massive composite structures like Hashes or Sets from the main event loop thread, preventing millisecond latency spikes for concurrent client queries.",
+    "By tuning eviction policies and sample sizes to match specific business workloads, engineers guarantee continuous cache availability without memory exhaustion or unintended data loss."
+]
+
+p2_code = """function simulateCacheEviction(operations, capacity, policy = 'allkeys-lru') {
+  const store = new Map();
+  let evictions = 0;
+  let now = 1000;
+
+  for (const op of operations) {
+    now += 10;
+    if (op.type === 'SET') {
+      if (!store.has(op.key) && store.size >= capacity) {
+        let candidateKey = null;
+        if (policy === 'allkeys-lru') {
+          let oldestAccess = Infinity;
+          for (const [k, meta] of store.entries()) {
+            if (meta.lastAccess < oldestAccess) {
+              oldestAccess = meta.lastAccess;
+              candidateKey = k;
+            }
+          }
+        } else if (policy === 'allkeys-lfu') {
+          let minCount = Infinity;
+          for (const [k, meta] of store.entries()) {
+            if (meta.accessCount < minCount) {
+              minCount = meta.accessCount;
+              candidateKey = k;
+            }
+          }
+        }
+        if (candidateKey) {
+          store.delete(candidateKey);
+          evictions++;
+        }
+      }
+      store.set(op.key, {
+        value: op.value,
+        accessCount: 1,
+        lastAccess: now
+      });
+    } else if (op.type === 'GET') {
+      if (store.has(op.key)) {
+        const item = store.get(op.key);
+        item.accessCount++;
+        item.lastAccess = now;
+      }
+    }
+  }
+
+  return {
+    remainingKeys: Array.from(store.keys()),
+    totalEvictions: evictions,
+    capacity,
+    policy
+  };
+}
+
+const ops = [
+  { type: 'SET', key: 'k1', value: 'val1' },
+  { type: 'SET', key: 'k2', value: 'val2' },
+  { type: 'SET', key: 'k3', value: 'val3' },
+  { type: 'GET', key: 'k1' },
+  { type: 'GET', key: 'k1' },
+  { type: 'SET', key: 'k4', value: 'val4' }
+];
+
+const lruResult = simulateCacheEviction(ops, 3, 'allkeys-lru');
+const lfuResult = simulateCacheEviction(ops, 3, 'allkeys-lfu');
+
+console.log('LRU Remaining Keys:', lruResult.remainingKeys.join(', '));
+console.log('LRU Evictions:', lruResult.totalEvictions);
+console.log('LFU Remaining Keys:', lfuResult.remainingKeys.join(', '));
+console.log('LFU Evictions:', lfuResult.totalEvictions);"""
+
+p3_say = [
+    "Having established cluster routing and memory ceilings, Part 3 tackles network communication efficiency: High-Throughput Pipeline Batching and Round-Trip Time (RTT) Optimization.",
+    "A fundamental law of distributed computing is that network latency dominates processing time. Redis itself is blazingly fast: executing an in-memory command like `GET` or `SET` typically consumes less than 1 microsecond of server CPU time. However, the network round-trip time between your Node.js application server and the Redis instance (even within the same cloud availability zone) ranges from 200 microseconds to 1.5 milliseconds.",
+    "If a backend service needs to fetch or update 100 cache keys sequentially using standard asynchronous calls (`await redis.get(k1); await redis.get(k2); ...`), the application spends 100 microseconds executing commands and 100 milliseconds waiting idly for network packets to travel back and forth over TCP sockets! Under high concurrency, this sequential request-response pattern saturates connection pools and creates massive application bottlenecks.",
+    "To eliminate network waiting time, Redis provides Pipelining. Pipelining is a client-side optimization that allows the Node.js application to write multiple commands directly to the TCP socket buffer sequentially without waiting for the response of the first command before sending the next.",
+    "The Redis server reads the stream of commands from its socket buffer, executes them sequentially in memory, and buffers all responses in order before transmitting them back to the client in a single consolidated network packet batch.",
+    "In Part 3, our `executePipelineBatch` engine measures the dramatic efficiency gain of pipelined batch execution compared to sequential request-response cycles.",
+    "Beyond RTT reduction, pipelining dramatically improves server-side throughput by reducing Operating System context switches. When Redis handles 1,000 individual commands, it executes 1,000 `read()` system calls and 1,000 `write()` system calls, causing 2,000 kernel-to-user-space context transitions.",
+    "When those 1,000 commands are delivered in a single pipelined TCP payload, Redis processes the entire batch with a single `read()` and returns the results with a single `write()` call, increasing operations per second by up to 10x.",
+    "Furthermore, modern Node.js Redis libraries support Auto-Pipelining. If multiple asynchronous functions in your application issue Redis queries within the same microtask tick of the libuv event loop, the client library automatically coalesces those discrete commands into a single pipelined socket payload transparently.",
+    "In addition, developers must be mindful of memory allocation when pipelining tens of thousands of commands. Because the server buffers all replies in RAM before sending them back, excessively massive pipelines (e.g. 500,000 commands) can cause client-side socket buffer spikes and temporary server memory inflation. The recommended enterprise pattern is chunking operations into batches of 1,000 to 5,000 commands.",
+    "Moreover, pipelining differs fundamentally from atomic transactions: commands in a pipeline are executed sequentially but can be interleaved with commands from other client connections unless wrapped inside a `MULTI/EXEC` block.",
+    "To ensure deterministic error handling, client libraries return an array of results matching the exact order of issued commands. If command 42 fails due to a syntax or type mismatch, remaining commands continue processing, and the result array marks item 42 with an Error object.",
+    "This robust error reporting ensures that partial failures in bulk operations are detected, isolated, and retried without invalidating the entire batch.",
+    "Additionally, combining pipelining with connection pooling ensures that high-volume worker threads multiplex their queries across healthy TCP connections without socket saturation.",
+    "In microservice environments with heavy concurrent traffic, developers can implement adaptive batch timeouts (e.g. flushing a pipeline every 5 milliseconds or when 100 commands accumulate), achieving optimal trade-offs between per-request latency and global network throughput.",
+    "By mastering the distinction between atomic transactions and high-speed pipelining, backend engineering teams scale Redis throughput to hundreds of thousands of operations per second on modest cloud hardware."
+]
+
+p3_code = """function executePipelineBatch(commands, networkRttMs = 1.0) {
+  const sequentialTimeMs = commands.length * networkRttMs;
+  const pipelinedTimeMs = networkRttMs + (commands.length * 0.005);
+
+  const results = [];
+  const state = {};
+
+  for (const cmd of commands) {
+    if (cmd.op === 'SET') {
+      state[cmd.key] = cmd.val;
+      results.push('OK');
+    } else if (cmd.op === 'GET') {
+      results.push(state[cmd.key] ?? null);
+    }
+  }
+
+  const speedupRatio = (sequentialTimeMs / pipelinedTimeMs).toFixed(2);
+
+  return {
+    totalCommands: commands.length,
+    sequentialTimeMs: Number(sequentialTimeMs.toFixed(2)),
+    pipelinedTimeMs: Number(pipelinedTimeMs.toFixed(2)),
+    speedupRatio: speedupRatio + 'x',
+    results
+  };
+}
+
+const batch = [
+  { op: 'SET', key: 'user:1', val: 'Alice' },
+  { op: 'SET', key: 'user:2', val: 'Bob' },
+  { op: 'SET', key: 'user:3', val: 'Charlie' },
+  { op: 'GET', key: 'user:1' },
+  { op: 'GET', key: 'user:2' }
+];
+
+const perf = executePipelineBatch(batch, 1.2);
+console.log('Total Commands Ingested:', perf.totalCommands);
+console.log('Sequential Latency:', perf.sequentialTimeMs + 'ms');
+console.log('Pipelined Latency:', perf.pipelinedTimeMs + 'ms');
+console.log('Performance Speedup:', perf.speedupRatio);
+console.log('Execution Results:', perf.results.join(', '));"""
+
+p4_say = [
+    "Even with ultra-fast pipelined caches, production backend services face severe failure modes when cached data expires or changes in the primary database. In Part 4, we master Cache Invalidation Patterns and Cache Stampede Mitigation.",
+    "The two dominant caching strategies in distributed systems are Cache-Aside (Lazy Loading) and Write-Through (Eager Caching). In the Cache-Aside pattern, the application first queries Redis. If the key exists (a Cache Hit), it is returned immediately. If the key is missing (a Cache Miss), the application reads the record from PostgreSQL, writes it into Redis with a Time-To-Live (TTL), and returns the result.",
+    "While Cache-Aside is resilient and caches only data that is actually requested, it suffers from a catastrophic failure mode known as the 'Cache Stampede' (or Thundering Herd problem). Consider an e-commerce home page where the top banner product key `hot_deal_99` expires at 12:00:00. If 10,000 concurrent user requests arrive at 12:00:01, all 10,000 requests experience a simultaneous cache miss!",
+    "All 10,000 worker threads concurrently issue the exact same expensive SQL query to PostgreSQL, overwhelming database connection pools, spiking database CPU to 100%, and causing cascading API gateway timeouts.",
+    "To eliminate cache stampedes, our architecture implements Mutex Locking on Cache Misses. When a cache miss occurs, the worker attempts to acquire an exclusive lock in Redis (e.g. `SET lock:hot_deal_99 1 NX EX 5`). Only the single worker that acquires the lock is permitted to query the database and repopulate the cache.",
+    "All other 9,999 workers wait briefly (or return stale cached data if permitted) and re-read the cache once the winner populates the key, completely shielding the database from concurrency spikes.",
+    "In Part 4, our `executeCacheAsideWithLock` engine models this locking mechanism, proving that only one database query is executed even under heavy concurrent cache misses.",
+    "In addition to mutex locking, enterprise architectures employ Probabilistic Early Expiration (the XFetch algorithm). Instead of letting a key expire hard at time T, workers calculating `delta * beta * log(rand())` begin refreshing the cache asynchronously in the background as the expiration window approaches.",
+    "This probabilistic pre-fetching guarantees that hot keys are refreshed before they ever lapse into a cache miss state, keeping cache hit ratios at 99.9% while eliminating sudden database stampedes.",
+    "Furthermore, architectures combining Cache-Aside with Change Data Capture (CDC) invalidate cache entries asynchronously when database writes occur, guaranteeing eventual consistency without embedding cache eviction logic into transactional domain services.",
+    "Another critical vulnerability is Cache Penetration, where malicious clients query non-existent keys repeatedly to force database table scans. Production architectures defend against this by caching null values with short TTLs or deploying Bloom Filters at the ingress gateway to reject non-existent entity IDs before contacting Redis.",
+    "Finally, Cache Breakdown (a single hot key expiring) and Cache Avalanche (millions of keys expiring at the exact same second) are mitigated by adding randomized jitter (e.g. `TTL = baseTTL + randomJitter(300)`) to expiration timestamps, smoothing out database load over time.",
+    "In multi-region global architectures, cache synchronization across geolocated clusters requires distributed cache invalidation pub/sub buses, ensuring that when an entity is updated in Europe, North American cache nodes invalidate their local copies within 20 milliseconds.",
+    "Additionally, Write-Through caching guarantees immediate read consistency by writing simultaneously to cache and database, while Write-Behind (Write-Back) buffers mutations in memory and writes asynchronously to disk in batches, delivering maximum write throughput for high-volume telemetry ingestion.",
+    "This hybrid caching strategy delivers the optimal balance of read latency, write performance, and transactional durability across complex enterprise microservice fleets.",
+    "By combining cache-aside workflows with distributed mutexes, jittered expirations, and Bloom filters, backend platforms achieve optimal database protection and sub-millisecond response consistency."
+]
+
+p4_code = """function executeCacheAsideWithLock(requests, cache, db) {
+  let dbQueriesExecuted = 0;
+  const lockStore = new Set();
+  const responses = [];
+
+  for (const req of requests) {
+    const key = req.key;
+    if (cache[key]) {
+      responses.push({ reqId: req.id, source: 'CACHE_HIT', data: cache[key] });
+      continue;
+    }
+
+    const lockKey = `lock:${key}`;
+    if (!lockStore.has(lockKey)) {
+      lockStore.add(lockKey);
+      dbQueriesExecuted++;
+      const dbData = db[key] ?? 'DEFAULT_DATA';
+      cache[key] = dbData;
+      lockStore.delete(lockKey);
+      responses.push({ reqId: req.id, source: 'DB_FETCH_LOCK_WINNER', data: dbData });
+    } else {
+      responses.push({ reqId: req.id, source: 'CACHE_LOCK_WAIT_SUCCESS', data: cache[key] });
+    }
+  }
+
+  return {
+    totalRequests: requests.length,
+    dbQueriesExecuted,
+    cacheHits: responses.filter(r => r.source === 'CACHE_HIT').length,
+    lockWinners: responses.filter(r => r.source === 'DB_FETCH_LOCK_WINNER').length,
+    responses
+  };
+}
+
+const mockDb = { 'product:404': { title: 'High-Scale Node.js Architecture', price: 99.0 } };
+const mockCache = {};
+
+const concurrentRequests = [
+  { id: 'req_1', key: 'product:404' },
+  { id: 'req_2', key: 'product:404' },
+  { id: 'req_3', key: 'product:404' },
+  { id: 'req_4', key: 'product:404' },
+  { id: 'req_5', key: 'product:404' }
+];
+
+const stampedeResult = executeCacheAsideWithLock(concurrentRequests, mockCache, mockDb);
+console.log('Total Concurrent Requests:', stampedeResult.totalRequests);
+console.log('DB Queries Executed:', stampedeResult.dbQueriesExecuted);
+console.log('Lock Winners:', stampedeResult.lockWinners);
+console.log('Initial Winner Source:', stampedeResult.responses[0].source);
+console.log('Follower Source:', stampedeResult.responses[1].source);"""
+
+p5_say = [
+    "We conclude Day 36 with Part 5: Multi-Node Cluster Resiliency, Node Redirection & The MOVED / ASK Protocol Simulator.",
+    "In a production Redis Cluster, topology changes happen continuously: nodes are added or removed during scaling operations, and master nodes may experience hardware faults or network partitions. In a decentralized cluster architecture without centralized proxy servers, the client must understand and react to cluster topology shifts dynamically.",
+    "When a Node.js client issues a command for key `K` to Node A, Node A computes the CRC16 hash slot. If the slot belongs to Node A, it executes the command immediately. However, if the slot has been re-sharded or belongs to Node B (e.g. slot 14000), Node A does not proxy the query to Node B; instead, it returns an explicit error response: `-MOVED 14000 10.0.0.2:6379`.",
+    "The `-MOVED` response tells the Node.js client two things: First, query Node B at `10.0.0.2:6379` to execute this specific command. Second, update your internal routing table because slot 14000 has permanently migrated to Node B! Subsequent commands for keys mapping to slot 14000 will be dispatched directly to Node B without contacting Node A again.",
+    "In contrast, if a slot is currently in the middle of a live migration, the source node returns `-ASK 14000 10.0.0.2:6379`. The `-ASK` error directs the client to send an `ASKING` command followed by the query to Node B for this single transaction only, without altering the permanent cluster slot map in the client memory.",
+    "In Part 5, our `handleClusterRedirection` engine models this cluster protocol, simulating slot lookup, permanent MOVED redirects, and dynamic client routing table updates.",
+    "Furthermore, Redis Cluster ensures high availability through automated Master-Replica Failover. Each master node is paired with one or more replica nodes. Master and replica nodes exchange continuous heartbeats over the cluster bus port (default port + 10,000).",
+    "If a master stops responding for longer than `cluster-node-timeout` (e.g. 5 seconds), the remaining master nodes detect the failure and initiate an automated Raft-like election. The majority of surviving masters vote to promote one of the dead master's replicas to become the new master node.",
+    "The promoted replica takes over the assigned hash slots, broadcasts a `CLUSTERMSG_TYPE_FAIL` message across the cluster bus, and client routing tables update seamlessly upon their next `-MOVED` redirection.",
+    "In enterprise deployments, Redis Sentinel provides an alternative clustering and high-availability mechanism for smaller setups (e.g. 1 master with 2 replicas). While Redis Cluster shards data across 16,384 slots for horizontal write scaling, Sentinel focuses purely on automated failover and monitoring for a single primary instance.",
+    "Additionally, Node.js applications monitor Redis latency metrics using `INFO stats` and `SLOWLOG GET 10`, setting Prometheus alerts when commands take longer than 10 milliseconds to complete.",
+    "Furthermore, during network splits, Redis Cluster relies on a strict majority quorum (`N/2 + 1` masters) to elect new leaders. Isolated minority partitions automatically reject write operations, preventing split-brain data divergent forks across distributed cloud regions.",
+    "Site reliability engineers configure client topology refresh intervals (such as every 60 seconds or immediately upon receiving connection timeout errors), enabling consumer pods to discover new replica promotions dynamically without restarting backend services.",
+    "With these automated failover protocols and dynamic client redirection mechanics in place, your caching infrastructure achieves five-nines (99.999%) operational availability under intense production workloads.",
+    "Congratulations on mastering Day 36! You have engineered distributed cluster sharding, memory eviction algorithms, pipelined batch execution, stampede-proof caching, and cluster redirection protocols.",
+    "Tomorrow in Day 37, we delve into Distributed Locking & Concurrency Control with the Redlock Algorithm, Lease Renewals, and Fencing Tokens!"
+]
+
+p5_code = """function handleClusterRedirection(clusterTopology, queryKey) {
+  let hashTarget = queryKey;
+  const sIdx = queryKey.indexOf('{');
+  const eIdx = queryKey.indexOf('}');
+  if (sIdx !== -1 && eIdx > sIdx) {
+    hashTarget = queryKey.substring(sIdx + 1, eIdx);
+  }
+  let hash = 0;
+  for (let i = 0; i < hashTarget.length; i++) {
+    hash = (hash * 31 + hashTarget.charCodeAt(i)) & 0xFFFF;
+  }
+  const slot = hash % 16384;
+
+  const clientConnectedNode = clusterTopology['node-1'];
+  const actualOwnerNode = Object.values(clusterTopology).find(
+    n => slot >= n.slotRange[0] && slot <= n.slotRange[1]
+  );
+
+  let responseStatus = '';
+  let routingAction = '';
+  let finalNode = '';
+
+  if (actualOwnerNode.id === clientConnectedNode.id) {
+    responseStatus = 'DIRECT_EXECUTION';
+    routingAction = 'NO_REDIRECT_REQUIRED';
+    finalNode = clientConnectedNode.endpoint;
+  } else {
+    responseStatus = `MOVED ${slot} ${actualOwnerNode.endpoint}`;
+    routingAction = 'UPDATE_CLIENT_SLOT_CACHE_AND_RETRY';
+    finalNode = actualOwnerNode.endpoint;
+  }
+
+  return {
+    queryKey,
+    slot,
+    connectedNode: clientConnectedNode.id,
+    responseStatus,
+    routingAction,
+    finalNode
+  };
+}
+
+const topology = {
+  'node-1': { id: 'node-1', endpoint: '10.0.0.1:6379', slotRange: [0, 5460] },
+  'node-2': { id: 'node-2', endpoint: '10.0.0.2:6379', slotRange: [5461, 10922] },
+  'node-3': { id: 'node-3', endpoint: '10.0.0.3:6379', slotRange: [10923, 16383] }
+};
+
+const route1 = handleClusterRedirection(topology, 'config:site');
+const route2 = handleClusterRedirection(topology, 'orders:global');
+
+console.log('Query 1 Slot:', route1.slot, 'Status:', route1.responseStatus.split(' ')[0]);
+console.log('Query 1 Action:', route1.routingAction);
+console.log('Query 1 Target:', route1.finalNode);
+console.log('Query 2 Slot:', route2.slot, 'Status:', route2.responseStatus.split(' ')[0]);
+console.log('Query 2 Target:', route2.finalNode);"""
+
+out1 = run_code(p1_code)
+out2 = run_code(p2_code)
+out3 = run_code(p3_code)
+out4 = run_code(p4_code)
+out5 = run_code(p5_code)
+
+parts = [
+    {
+        "title": "Redis Cluster Sharding: 16,384 Hash Slots & Hash Tag Locality",
+        "say": p1_say,
+        "code": p1_code,
+        "output": out1,
+        "check": {
+            "question": "Why do Hash Tags (e.g. `{user:101}:cart` and `{user:101}:orders`) ensure multi-key operations succeed in Redis Cluster?",
+            "options": [
+                "They instruct Redis to hash only the text within curly braces, guaranteeing both keys map to the exact same hash slot and physical node",
+                "They encrypt the key data using TLS 1.3 before transmission across cluster nodes",
+                "They force all cluster nodes to copy all keys to every server in the network",
+                "They bypass cluster authentication and allow public access to keys"
+            ],
+            "answer": 0,
+            "why": "Hash tags guarantee that keys sharing the same bracketed substring hash to the identical CRC16 slot, preventing CROSSSLOT errors during multi-key operations."
+        }
+    },
+    {
+        "title": "Memory Eviction Policies: LRU vs LFU & maxmemory-policy Ceilings",
+        "say": p2_say,
+        "code": p2_code,
+        "output": out2,
+        "check": {
+            "question": "What is the primary architectural advantage of the Least Frequently Used (LFU) eviction policy over Least Recently Used (LRU)?",
+            "options": [
+                "LFU tracks access frequency rather than elapsed idle time, preventing infrequently accessed batch keys from evicting consistently hot cache items",
+                "LFU compresses all keys into zero-byte text files",
+                "LFU increases server memory by downloading additional RAM from cloud providers",
+                "LFU disables all network firewalls to improve access speed"
+            ],
+            "answer": 0,
+            "why": "LFU weights access frequency over simple recency, preventing cache pollution where a single sporadic read would promote an obscure key over hot frequently accessed items."
+        }
+    },
+    {
+        "title": "High-Throughput Pipeline Batching: Multiplexing Commands & RTT Reduction",
+        "say": p3_say,
+        "code": p3_code,
+        "output": out3,
+        "check": {
+            "question": "How does Redis Pipelining achieve dramatic performance speedups when executing large batches of commands?",
+            "options": [
+                "It transmits multiple commands sequentially into the TCP socket buffer without waiting for intermediate replies, reducing round-trip network time to a single RTT",
+                "It executes commands by compiling JavaScript directly into operating system kernel drivers",
+                "It deletes all expired database records before reading new queries",
+                "It divides the Redis server memory into two separate operating systems"
+            ],
+            "answer": 0,
+            "why": "Pipelining eliminates network round-trip delays and reduces OS syscall context switches by batching requests and responses into consolidated TCP frames."
+        }
+    },
+    {
+        "title": "Cache Invalidation Patterns: Cache-Aside & Stampede Mitigation with Mutex Locks",
+        "say": p4_say,
+        "code": p4_code,
+        "output": out4,
+        "check": {
+            "question": "How does a distributed Mutex Lock prevent a Cache Stampede (Thundering Herd) when a hot cache key expires?",
+            "options": [
+                "It permits only the single lock winner to query the database and repopulate the cache, while other concurrent requests wait or read cached data",
+                "It blocks all incoming network traffic to the entire cloud region",
+                "It forces the database to permanently delete the requested row",
+                "It converts all relational database tables into read-only CSV files"
+            ],
+            "answer": 0,
+            "why": "Mutex locks serialize cache repopulation so that only one worker queries the primary database upon a cache miss, protecting database pools from sudden concurrency spikes."
+        }
+    },
+    {
+        "title": "Cluster Resiliency: MOVED / ASK Redirection & Failover Protocols",
+        "say": p5_say,
+        "code": p5_code,
+        "output": out5,
+        "check": {
+            "question": "What action must a Node.js Redis client take upon receiving a `-MOVED <slot> <endpoint>` error response?",
+            "options": [
+                "Update its internal slot-to-node routing cache with the new endpoint and re-dispatch the command directly to the target node",
+                "Crash the worker process immediately and notify site reliability engineering",
+                "Send an email alert to the database administrator asking for manual intervention",
+                "Re-execute the exact same query against the current node in an infinite loop"
+            ],
+            "answer": 0,
+            "why": "A `-MOVED` response indicates that the slot has permanently migrated; smart clients update their cluster topology cache and redirect queries directly to the new master node."
+        }
+    }
+]
+
+day36 = {
+    "day": 36,
+    "title": "High-Performance In-Memory Caching: Redis Cluster Sharding, Key Eviction Policies & Pipeline Batching",
+    "goal": "Master high-throughput distributed caching in Node.js: analyze CRC16 hash slot routing across 16,384 cluster slots, hash tags, key eviction algorithms (LRU, LFU, volatile vs allkeys), pipeline batching vs individual commands, and cache-aside vs write-through patterns.",
+    "minutes": 38,
+    "recap": "In Block 7, we engineered distributed event-driven systems using Kafka, RabbitMQ, and Redis Streams. Today, we launch Block 8 by mastering high-performance distributed in-memory caching and Redis Cluster sharding.",
+    "parts": parts,
+    "summary": [
+        "Redis Cluster partitions keys across 16,384 hash slots using CRC16 modulo arithmetic, enabling horizontal memory and throughput scaling.",
+        "Hash tags ({...}) force related keys to produce identical hash slots, allowing atomic multi-key transactions across clustered environments.",
+        "The allkeys-lru and allkeys-lfu eviction policies automatically purge stale or infrequently used keys when maxmemory limits are reached.",
+        "Pipeline batching coalesces multiple commands into a single TCP payload, slashing round-trip network latency from N*RTT to a single RTT.",
+        "Mutex locking on cache misses mitigates Cache Stampedes, protecting relational databases from concurrency collapse during key expiration."
+    ],
+    "projectStep": {
+        "title": "Implement Redis Cluster Routing & Pipeline Simulator",
+        "steps": [
+            "Execute computeClusterHashSlot to verify CRC16 hash slot calculation and validate hash tag co-location for multi-key queries.",
+            "Run simulateCacheEviction to compare allkeys-lru and allkeys-lfu policies under bounded cache memory capacities.",
+            "Execute executePipelineBatch to benchmark network latency reduction and measure throughput speedup ratios.",
+            "Run executeCacheAsideWithLock to prove mutex protection against simultaneous Cache Stampede database spikes.",
+            "Execute handleClusterRedirection to simulate MOVED protocol responses and dynamic client routing table updates."
+        ]
+    }
+}
+
+total_words = 0
+for i, p in enumerate(day36['parts']):
+    wc = sum(len(s.split()) for s in p['say'])
+    total_words += wc
+    print(f"Day 36 Part {i+1}: {wc} words")
+print(f"Total Day 36 Words: {total_words}")
+
+assert all(sum(len(s.split()) for s in p['say']) >= 580 for p in day36['parts']), "All parts must be >= 580 words!"
+assert total_words >= 2900, "Total words must be >= 2900!"
+
+with open('scripts/node_day36.json', 'w', encoding='utf-8') as f:
+    json.dump(day36, f, indent=2)
+
+print("Generated scripts/node_day36.json successfully!")

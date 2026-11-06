@@ -2,28 +2,26 @@
   "schemaVersion": 1,
   "prefix": "java-basics",
   "day": 9,
-  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
-  "model": "anthropic/claude-3.5-sonnet",
   "entries": [
     {
       "partTitle": "Method Anatomy, Access Modifiers, Signatures & Guard Clauses",
-      "codeHash": "c92089a23267c9c1f16ecf2700f996fb3ec163034557305c0677bcda42e425e4",
+      "codeHash": "8e415099ac3a536ffe6401d3c62ff3f1ec37c57f33718269723f9553bc699956",
       "spec": {
         "template": "stack-queue",
-        "title": "Method Anatomy, Access Modifiers, Signatures ... — JVM Call Stack & Frame Lifecycle",
+        "title": "Method Anatomy, Access Modifiers, Signat — JVM Execution Flow",
         "mode": "stack",
         "steps": [
           {
             "at": "intro",
-            "caption": "Push root frames onto JVM execution stack for Method Anatomy, Acces...",
+            "caption": "Step 1: Allocate stack frame and inspect class contracts for Method Anatomy, Access Modifiers, Signat...",
             "mode": "stack",
             "items": [
               "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
+              "Execution Engine",
+              "Class Invariants"
             ],
             "action": "push",
-            "actionItem": "Repository.query()",
+            "actionItem": "Class Invariants",
             "tones": [
               "ok",
               "data",
@@ -32,127 +30,48 @@
           },
           {
             "at": "say1",
-            "caption": "Push DomainValidator.verify() onto active stack frame.",
+            "caption": "Step 2: Execute bytecode instructions and operand stack push for Method Anatomy, Access Modifiers, Signat...",
             "mode": "stack",
             "items": [
               "main() Frame",
-              "Service.invoke()",
-              "Repository.query()",
-              "DomainValidator.verify()"
+              "Operand Stack",
+              "Heap Reference"
             ],
             "action": "push",
-            "actionItem": "DomainValidator.verify()",
+            "actionItem": "Heap Reference",
             "tones": [
-              "ok",
-              "ok",
               "data",
-              "data"
+              "active",
+              "accent"
             ]
           },
           {
             "at": "example",
-            "caption": "Pop completed validator frame after invariant verification.",
+            "caption": "Step 3: Verify bounds, state integrity, and object references...",
             "mode": "stack",
             "items": [
               "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
+              "Verified Contract",
+              "Return Register"
             ],
-            "action": "pop",
-            "actionItem": "DomainValidator.verify() -> true",
+            "action": "push",
+            "actionItem": "Verified Contract",
             "tones": [
-              "ok",
+              "data",
               "ok",
               "ok"
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Unwind stack and return verified result to main() Frame.",
+            "caption": "Step 4: Clean stack frame and yield execution...",
             "mode": "stack",
             "items": [
-              "main() Frame",
-              "Verified Return Value ✓"
+              "Result Register (Success)"
             ],
             "action": "pop",
-            "actionItem": "Service.invoke() -> 200 OK",
+            "actionItem": "Result Register (Success)",
             "tones": [
-              "ok",
-              "ok"
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "stack-queue",
-        "title": "Method Anatomy, Access Modifiers, Signatures ... — JVM Call Stack & Frame Lifecycle",
-        "mode": "stack",
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Push root frames onto JVM execution stack for Method Anatomy, Acces...",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
-            ],
-            "action": "push",
-            "actionItem": "Repository.query()",
-            "tones": [
-              "ok",
-              "data",
-              "data"
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Push DomainValidator.verify() onto active stack frame.",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Service.invoke()",
-              "Repository.query()",
-              "DomainValidator.verify()"
-            ],
-            "action": "push",
-            "actionItem": "DomainValidator.verify()",
-            "tones": [
-              "ok",
-              "ok",
-              "data",
-              "data"
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Pop completed validator frame after invariant verification.",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
-            ],
-            "action": "pop",
-            "actionItem": "DomainValidator.verify() -> true",
-            "tones": [
-              "ok",
-              "ok",
-              "ok"
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: Unwind stack and return verified result to main() Frame.",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Verified Return Value ✓"
-            ],
-            "action": "pop",
-            "actionItem": "Service.invoke() -> 200 OK",
-            "tones": [
-              "ok",
               "ok"
             ]
           }
@@ -160,24 +79,24 @@
       }
     },
     {
-      "partTitle": "The Pass-by-Value Photocopy Invariant: Primitive Types & Isolated Stack Frames",
-      "codeHash": "a229824dcc726c292af3111a6fff07cdadcf50c571c39916c66c64cb038e9aa7",
+      "partTitle": "The Pass-by-Value Invariant: Primitive Types & Isolated Stack Frame Copies",
+      "codeHash": "a2661101e01b313c37a37d26d0bd75c31161b83073cb3597f8029ea97c15ea75",
       "spec": {
         "template": "stack-queue",
-        "title": "The Pass-by-Value Photocopy Invariant: Primit... — JVM Call Stack & Frame Lifecycle",
+        "title": "The Pass-by-Value Invariant: Primitive T — JVM Execution Flow",
         "mode": "stack",
         "steps": [
           {
             "at": "intro",
-            "caption": "Push root frames onto JVM execution stack for The Pass-by-Value Pho...",
+            "caption": "Step 1: Allocate stack frame and inspect class contracts for The Pass-by-Value Invariant: Primitive T...",
             "mode": "stack",
             "items": [
               "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
+              "Execution Engine",
+              "Class Invariants"
             ],
             "action": "push",
-            "actionItem": "Repository.query()",
+            "actionItem": "Class Invariants",
             "tones": [
               "ok",
               "data",
@@ -186,127 +105,48 @@
           },
           {
             "at": "say1",
-            "caption": "Push DomainValidator.verify() onto active stack frame.",
+            "caption": "Step 2: Execute bytecode instructions and operand stack push for The Pass-by-Value Invariant: Primitive T...",
             "mode": "stack",
             "items": [
               "main() Frame",
-              "Service.invoke()",
-              "Repository.query()",
-              "DomainValidator.verify()"
+              "Operand Stack",
+              "Heap Reference"
             ],
             "action": "push",
-            "actionItem": "DomainValidator.verify()",
+            "actionItem": "Heap Reference",
             "tones": [
-              "ok",
-              "ok",
               "data",
-              "data"
+              "active",
+              "accent"
             ]
           },
           {
             "at": "example",
-            "caption": "Pop completed validator frame after invariant verification.",
+            "caption": "Step 3: Verify bounds, state integrity, and object references...",
             "mode": "stack",
             "items": [
               "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
+              "Verified Contract",
+              "Return Register"
             ],
-            "action": "pop",
-            "actionItem": "DomainValidator.verify() -> true",
+            "action": "push",
+            "actionItem": "Verified Contract",
             "tones": [
-              "ok",
+              "data",
               "ok",
               "ok"
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Unwind stack and return verified result to main() Frame.",
+            "caption": "Step 4: Clean stack frame and yield execution...",
             "mode": "stack",
             "items": [
-              "main() Frame",
-              "Verified Return Value ✓"
+              "Result Register (Success)"
             ],
             "action": "pop",
-            "actionItem": "Service.invoke() -> 200 OK",
+            "actionItem": "Result Register (Success)",
             "tones": [
-              "ok",
-              "ok"
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "stack-queue",
-        "title": "The Pass-by-Value Photocopy Invariant: Primit... — JVM Call Stack & Frame Lifecycle",
-        "mode": "stack",
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Push root frames onto JVM execution stack for The Pass-by-Value Pho...",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
-            ],
-            "action": "push",
-            "actionItem": "Repository.query()",
-            "tones": [
-              "ok",
-              "data",
-              "data"
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Push DomainValidator.verify() onto active stack frame.",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Service.invoke()",
-              "Repository.query()",
-              "DomainValidator.verify()"
-            ],
-            "action": "push",
-            "actionItem": "DomainValidator.verify()",
-            "tones": [
-              "ok",
-              "ok",
-              "data",
-              "data"
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Pop completed validator frame after invariant verification.",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
-            ],
-            "action": "pop",
-            "actionItem": "DomainValidator.verify() -> true",
-            "tones": [
-              "ok",
-              "ok",
-              "ok"
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: Unwind stack and return verified result to main() Frame.",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Verified Return Value ✓"
-            ],
-            "action": "pop",
-            "actionItem": "Service.invoke() -> 200 OK",
-            "tones": [
-              "ok",
               "ok"
             ]
           }
@@ -314,24 +154,24 @@
       }
     },
     {
-      "partTitle": "Object References as Values: Heap Mutation vs Reference Reassignment",
-      "codeHash": "81c9d55b4a86edd93dcac709b7c9d2041fd952f73e76d3ffc5eebb936cf5c8af",
+      "partTitle": "Object References as Values: Pointer Copying vs Heap State Mutation",
+      "codeHash": "91c52292106dd4118eb11b834ed286af02fd0d01e04b459bcf7e69c2b1c06ae2",
       "spec": {
         "template": "stack-queue",
-        "title": "Object References as Values: Heap Mutation vs... — JVM Call Stack & Frame Lifecycle",
+        "title": "Object References as Values: Pointer Cop — JVM Execution Flow",
         "mode": "stack",
         "steps": [
           {
             "at": "intro",
-            "caption": "Push root frames onto JVM execution stack for Object References as ...",
+            "caption": "Step 1: Allocate stack frame and inspect class contracts for Object References as Values: Pointer Cop...",
             "mode": "stack",
             "items": [
               "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
+              "Execution Engine",
+              "Class Invariants"
             ],
             "action": "push",
-            "actionItem": "Repository.query()",
+            "actionItem": "Class Invariants",
             "tones": [
               "ok",
               "data",
@@ -340,127 +180,48 @@
           },
           {
             "at": "say1",
-            "caption": "Push DomainValidator.verify() onto active stack frame.",
+            "caption": "Step 2: Execute bytecode instructions and operand stack push for Object References as Values: Pointer Cop...",
             "mode": "stack",
             "items": [
               "main() Frame",
-              "Service.invoke()",
-              "Repository.query()",
-              "DomainValidator.verify()"
+              "Operand Stack",
+              "Heap Reference"
             ],
             "action": "push",
-            "actionItem": "DomainValidator.verify()",
+            "actionItem": "Heap Reference",
             "tones": [
-              "ok",
-              "ok",
               "data",
-              "data"
+              "active",
+              "accent"
             ]
           },
           {
             "at": "example",
-            "caption": "Pop completed validator frame after invariant verification.",
+            "caption": "Step 3: Verify bounds, state integrity, and object references...",
             "mode": "stack",
             "items": [
               "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
+              "Verified Contract",
+              "Return Register"
             ],
-            "action": "pop",
-            "actionItem": "DomainValidator.verify() -> true",
+            "action": "push",
+            "actionItem": "Verified Contract",
             "tones": [
-              "ok",
+              "data",
               "ok",
               "ok"
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Unwind stack and return verified result to main() Frame.",
+            "caption": "Step 4: Clean stack frame and yield execution...",
             "mode": "stack",
             "items": [
-              "main() Frame",
-              "Verified Return Value ✓"
+              "Result Register (Success)"
             ],
             "action": "pop",
-            "actionItem": "Service.invoke() -> 200 OK",
+            "actionItem": "Result Register (Success)",
             "tones": [
-              "ok",
-              "ok"
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "stack-queue",
-        "title": "Object References as Values: Heap Mutation vs... — JVM Call Stack & Frame Lifecycle",
-        "mode": "stack",
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Push root frames onto JVM execution stack for Object References as ...",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
-            ],
-            "action": "push",
-            "actionItem": "Repository.query()",
-            "tones": [
-              "ok",
-              "data",
-              "data"
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Push DomainValidator.verify() onto active stack frame.",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Service.invoke()",
-              "Repository.query()",
-              "DomainValidator.verify()"
-            ],
-            "action": "push",
-            "actionItem": "DomainValidator.verify()",
-            "tones": [
-              "ok",
-              "ok",
-              "data",
-              "data"
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Pop completed validator frame after invariant verification.",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
-            ],
-            "action": "pop",
-            "actionItem": "DomainValidator.verify() -> true",
-            "tones": [
-              "ok",
-              "ok",
-              "ok"
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: Unwind stack and return verified result to main() Frame.",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Verified Return Value ✓"
-            ],
-            "action": "pop",
-            "actionItem": "Service.invoke() -> 200 OK",
-            "tones": [
-              "ok",
               "ok"
             ]
           }
@@ -468,24 +229,24 @@
       }
     },
     {
-      "partTitle": "Method Overloading: Compiler Resolution Precedence & Widening vs Boxing",
-      "codeHash": "6c2a272d48c06a3f17eccc119e47cda7e386fb7b0db018ff5267ce1313ff4686",
+      "partTitle": "Method Overloading: Compile-Time Signature Resolution, Widening & Boxing Rules",
+      "codeHash": "39e7c8bee5b0472b430634ec2a3e84a179ea4b2e21f1fab27376a4d5063b3c3a",
       "spec": {
         "template": "stack-queue",
-        "title": "Method Overloading: Compiler Resolution Prece... — JVM Call Stack & Frame Lifecycle",
+        "title": "Method Overloading: Compile-Time Signatu — JVM Execution Flow",
         "mode": "stack",
         "steps": [
           {
             "at": "intro",
-            "caption": "Push root frames onto JVM execution stack for Method Overloading: C...",
+            "caption": "Step 1: Allocate stack frame and inspect class contracts for Method Overloading: Compile-Time Signatu...",
             "mode": "stack",
             "items": [
               "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
+              "Execution Engine",
+              "Class Invariants"
             ],
             "action": "push",
-            "actionItem": "Repository.query()",
+            "actionItem": "Class Invariants",
             "tones": [
               "ok",
               "data",
@@ -494,127 +255,48 @@
           },
           {
             "at": "say1",
-            "caption": "Push DomainValidator.verify() onto active stack frame.",
+            "caption": "Step 2: Execute bytecode instructions and operand stack push for Method Overloading: Compile-Time Signatu...",
             "mode": "stack",
             "items": [
               "main() Frame",
-              "Service.invoke()",
-              "Repository.query()",
-              "DomainValidator.verify()"
+              "Operand Stack",
+              "Heap Reference"
             ],
             "action": "push",
-            "actionItem": "DomainValidator.verify()",
+            "actionItem": "Heap Reference",
             "tones": [
-              "ok",
-              "ok",
               "data",
-              "data"
+              "active",
+              "accent"
             ]
           },
           {
             "at": "example",
-            "caption": "Pop completed validator frame after invariant verification.",
+            "caption": "Step 3: Verify bounds, state integrity, and object references...",
             "mode": "stack",
             "items": [
               "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
+              "Verified Contract",
+              "Return Register"
             ],
-            "action": "pop",
-            "actionItem": "DomainValidator.verify() -> true",
+            "action": "push",
+            "actionItem": "Verified Contract",
             "tones": [
-              "ok",
+              "data",
               "ok",
               "ok"
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Unwind stack and return verified result to main() Frame.",
+            "caption": "Step 4: Clean stack frame and yield execution...",
             "mode": "stack",
             "items": [
-              "main() Frame",
-              "Verified Return Value ✓"
+              "Result Register (Success)"
             ],
             "action": "pop",
-            "actionItem": "Service.invoke() -> 200 OK",
+            "actionItem": "Result Register (Success)",
             "tones": [
-              "ok",
-              "ok"
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "stack-queue",
-        "title": "Method Overloading: Compiler Resolution Prece... — JVM Call Stack & Frame Lifecycle",
-        "mode": "stack",
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Push root frames onto JVM execution stack for Method Overloading: C...",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
-            ],
-            "action": "push",
-            "actionItem": "Repository.query()",
-            "tones": [
-              "ok",
-              "data",
-              "data"
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Push DomainValidator.verify() onto active stack frame.",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Service.invoke()",
-              "Repository.query()",
-              "DomainValidator.verify()"
-            ],
-            "action": "push",
-            "actionItem": "DomainValidator.verify()",
-            "tones": [
-              "ok",
-              "ok",
-              "data",
-              "data"
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Pop completed validator frame after invariant verification.",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
-            ],
-            "action": "pop",
-            "actionItem": "DomainValidator.verify() -> true",
-            "tones": [
-              "ok",
-              "ok",
-              "ok"
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: Unwind stack and return verified result to main() Frame.",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Verified Return Value ✓"
-            ],
-            "action": "pop",
-            "actionItem": "Service.invoke() -> 200 OK",
-            "tones": [
-              "ok",
               "ok"
             ]
           }
@@ -622,24 +304,24 @@
       }
     },
     {
-      "partTitle": "Pure Functions, Immutability & Idempotent Backend Service Architecture",
-      "codeHash": "9a8aec160bc87132ec97c36c2c4a3e218bb766e2fa408591ebe1a3a70c1a7d4b",
+      "partTitle": "Pure Functions, Immutability & Defensive Side-Effect Elimination",
+      "codeHash": "15b7523ef9759c2af4a16bfd37d9e2334effe4b6e21d577ce8b1deaf5320b1dc",
       "spec": {
         "template": "stack-queue",
-        "title": "Pure Functions, Immutability & Idempotent Bac... — JVM Call Stack & Frame Lifecycle",
+        "title": "Pure Functions, Immutability & Defensive — JVM Execution Flow",
         "mode": "stack",
         "steps": [
           {
             "at": "intro",
-            "caption": "Push root frames onto JVM execution stack for Pure Functions, Immut...",
+            "caption": "Step 1: Allocate stack frame and inspect class contracts for Pure Functions, Immutability & Defensive...",
             "mode": "stack",
             "items": [
               "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
+              "Execution Engine",
+              "Class Invariants"
             ],
             "action": "push",
-            "actionItem": "Repository.query()",
+            "actionItem": "Class Invariants",
             "tones": [
               "ok",
               "data",
@@ -648,127 +330,48 @@
           },
           {
             "at": "say1",
-            "caption": "Push DomainValidator.verify() onto active stack frame.",
+            "caption": "Step 2: Execute bytecode instructions and operand stack push for Pure Functions, Immutability & Defensive...",
             "mode": "stack",
             "items": [
               "main() Frame",
-              "Service.invoke()",
-              "Repository.query()",
-              "DomainValidator.verify()"
+              "Operand Stack",
+              "Heap Reference"
             ],
             "action": "push",
-            "actionItem": "DomainValidator.verify()",
+            "actionItem": "Heap Reference",
             "tones": [
-              "ok",
-              "ok",
               "data",
-              "data"
+              "active",
+              "accent"
             ]
           },
           {
             "at": "example",
-            "caption": "Pop completed validator frame after invariant verification.",
+            "caption": "Step 3: Verify bounds, state integrity, and object references...",
             "mode": "stack",
             "items": [
               "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
+              "Verified Contract",
+              "Return Register"
             ],
-            "action": "pop",
-            "actionItem": "DomainValidator.verify() -> true",
+            "action": "push",
+            "actionItem": "Verified Contract",
             "tones": [
-              "ok",
+              "data",
               "ok",
               "ok"
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Unwind stack and return verified result to main() Frame.",
+            "caption": "Step 4: Clean stack frame and yield execution...",
             "mode": "stack",
             "items": [
-              "main() Frame",
-              "Verified Return Value ✓"
+              "Result Register (Success)"
             ],
             "action": "pop",
-            "actionItem": "Service.invoke() -> 200 OK",
+            "actionItem": "Result Register (Success)",
             "tones": [
-              "ok",
-              "ok"
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "stack-queue",
-        "title": "Pure Functions, Immutability & Idempotent Bac... — JVM Call Stack & Frame Lifecycle",
-        "mode": "stack",
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Push root frames onto JVM execution stack for Pure Functions, Immut...",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
-            ],
-            "action": "push",
-            "actionItem": "Repository.query()",
-            "tones": [
-              "ok",
-              "data",
-              "data"
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Push DomainValidator.verify() onto active stack frame.",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Service.invoke()",
-              "Repository.query()",
-              "DomainValidator.verify()"
-            ],
-            "action": "push",
-            "actionItem": "DomainValidator.verify()",
-            "tones": [
-              "ok",
-              "ok",
-              "data",
-              "data"
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Pop completed validator frame after invariant verification.",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
-            ],
-            "action": "pop",
-            "actionItem": "DomainValidator.verify() -> true",
-            "tones": [
-              "ok",
-              "ok",
-              "ok"
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: Unwind stack and return verified result to main() Frame.",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Verified Return Value ✓"
-            ],
-            "action": "pop",
-            "actionItem": "Service.invoke() -> 200 OK",
-            "tones": [
-              "ok",
               "ok"
             ]
           }

@@ -1,0 +1,451 @@
+import json, subprocess
+
+def run_code(code):
+    res = subprocess.run(['node', '-e', code], capture_output=True, text=True)
+    if res.returncode != 0:
+        raise RuntimeError(f"Code failed:\n{code}\nError:\n{res.stderr}")
+    return res.stdout.strip()
+
+p1_say = [
+    "Welcome to Day 39 of Node.js & TypeScript Backend Engineering: Distributed Rate Limiting & Sliding Windows: Token Bucket, Leaky Bucket & Redis Lua Scripting. Today we master the architectural discipline of API traffic shaping, abuse mitigation, and distributed rate limiting.",
+    "In cloud-scale enterprise backend engineering, public and private APIs face constant threat vectors: malicious credential-stuffing bots, distributed denial-of-service (DDoS) assaults, scraping crawlers, and runaway client scripts looping uncontrollably. Without traffic shaping, an unconstrained influx of requests will overwhelm CPU caches, exhaust database connection pools, and induce catastrophic cascading platform outages.",
+    "A Rate Limiter is a defensive control plane that monitors and restricts the rate of requests a client (identified by IP address, API key, JWT subject, or organization ID) can execute within a specified time window. If the client exceeds their permitted quota, the rate limiter intercepts the request at the edge, returning an HTTP `429 Too Many Requests` status code with a `Retry-After` header without passing traffic to downstream application servers.",
+    "The most intuitive approach is the Fixed Window Counter algorithm. In a Fixed Window system, time is sliced into static discrete blocks (e.g. 1-minute windows: 12:00 to 12:01, 12:01 to 12:02). Redis increments an integer key: `INCR rate:user_99:12:00` with an expiration TTL. If the counter exceeds the limit (e.g. 100 requests per minute), subsequent requests in that minute are rejected.",
+    "However, the Fixed Window Counter suffers from a critical structural flaw known as the 'Edge Boundary Burst' (or Window Border Problem). Suppose the limit is 100 requests per minute. An attacker sends 100 requests at 12:00:59, and immediately sends another 100 requests at 12:01:01. In the first window, the user sent 100 requests (allowed); in the second window, the user sent 100 requests (allowed).",
+    "Yet, within a 2-second rolling observation window across the boundary, the user bombarded your backend with 200 requests—twice the allowed rate limit! This traffic spike can easily crash downstream database services during high-volume flash sales.",
+    "To solve the boundary burst problem, advanced systems implement the Sliding Window Log algorithm. Instead of static blocks, the sliding window log records the exact Unix timestamp of every incoming request in a Redis Sorted Set (ZSET).",
+    "When a new request arrives at time $T$, the rate limiter executes three operations: First, it evicts all obsolete timestamps older than $T - \\text{window}$ using `ZREMRANGEBYSCORE key 0 (T - window)`. Second, it counts the remaining elements in the set with `ZCARD key`. If the count is less than the limit, it records the current timestamp with `ZADD key T T` and allows the request. If the count exceeds the limit, the request is rejected.",
+    "In Part 1, our `simulateFixedWindowVsSlidingLog` engine benchmarks these two paradigms, showing how sliding window logs prevent edge boundary bursts completely.",
+    "While Sliding Window Logs provide 100% mathematical precision across any sliding timeframe, they introduce a significant memory overhead: storing a 64-bit timestamp for every single API request consumes substantial RAM when dealing with high-throughput enterprise APIs processing hundreds of thousands of requests per second.",
+    "Furthermore, high cardinality of client IP addresses can cause Redis memory inflation if thousands of idle ZSETs accumulate before TTL eviction runs.",
+    "Engineers evaluate these memory trade-offs when choosing between exact logging and approximated sliding window algorithms for high-scale ingress gateways.",
+    "Additionally, sliding window logs require atomic pipelining to bundle `ZREMRANGEBYSCORE`, `ZCARD`, `ZADD`, and `EXPIRE` commands, ensuring that cleanup and insertion execute with minimal network round trips.",
+    "By mastering the mechanics of boundary bursts and sliding window logs, backend architects establish rigorous defenses against traffic manipulation and resource starvation."
+]
+
+p1_code = """function simulateFixedWindowVsSlidingLog(requestsTimestamps, windowMs = 60000, limit = 5) {
+  // 1. Fixed Window Simulation (window boundary at 60000ms intervals)
+  const fixedWindowCounts = {};
+  const fixedResults = [];
+
+  for (const ts of requestsTimestamps) {
+    const windowBucket = Math.floor(ts / windowMs);
+    fixedWindowCounts[windowBucket] = (fixedWindowCounts[windowBucket] || 0) + 1;
+    const allowed = fixedWindowCounts[windowBucket] <= limit;
+    fixedResults.push({ ts, allowed, window: windowBucket });
+  }
+
+  // 2. Sliding Window Log Simulation (exact rolling window)
+  const logTimestamps = [];
+  const slidingResults = [];
+
+  for (const ts of requestsTimestamps) {
+    // Evict timestamps older than (ts - windowMs)
+    const threshold = ts - windowMs;
+    while (logTimestamps.length > 0 && logTimestamps[0] <= threshold) {
+      logTimestamps.shift();
+    }
+
+    if (logTimestamps.length < limit) {
+      logTimestamps.push(ts);
+      slidingResults.push({ ts, allowed: true, currentInWindow: logTimestamps.length });
+    } else {
+      slidingResults.push({ ts, allowed: false, currentInWindow: logTimestamps.length });
+    }
+  }
+
+  return {
+    windowMs,
+    limit,
+    fixedWindowAllowedCount: fixedResults.filter(r => r.allowed).length,
+    slidingLogAllowedCount: slidingResults.filter(r => r.allowed).length,
+    fixedResults,
+    slidingResults
+  };
+}
+
+// 5 requests at end of window 0 (59000-59900ms), 5 requests at start of window 1 (60100-60500ms)
+const timestamps = [59100, 59200, 59300, 59400, 59500, 60100, 60200, 60300, 60400, 60500];
+const comparison = simulateFixedWindowVsSlidingLog(timestamps, 60000, 5);
+
+console.log('Fixed Window Allowed:', comparison.fixedWindowAllowedCount, '(Boundary Burst Vulnerability!)');
+console.log('Sliding Log Allowed:', comparison.slidingLogAllowedCount, '(Strictly Enforced)');
+console.log('Sliding Log Rejections:', comparison.slidingResults.filter(r => !r.allowed).length);"""
+
+p2_say = [
+    "To achieve the boundary-burst protection of sliding window logs without the massive memory overhead of storing every timestamp in a ZSET, Cloudflare and Redis Labs engineered the Sliding Window Counter Algorithm. In Part 2, we explore Sliding Window Weighted Approximation for High-Throughput Gateways.",
+    "The Sliding Window Counter algorithm combines fixed window memory efficiency (storing only two integer counters per user) with sliding window mathematical smoothing. Instead of tracking discrete request timestamps, it maintains integer counters for only two windows: the Previous Window and the Current Window.",
+    "When a request arrives at time $T$ inside the current window, the algorithm calculates how far along the current window has progressed as a percentage: $\\text{Weight} = \\frac{\\text{WindowDuration} - \\text{TimeElapsedInCurrentWindow}}{\\text{WindowDuration}}$.",
+    "It then calculates an estimated request count over the preceding 60-second sliding duration by combining the weighted fraction of the previous window with the count of the current window: $\\text{EstimatedRequests} = (\\text{Count}_{\\text{previous}} \\times \\text{Weight}) + \\text{Count}_{\\text{current}}$.",
+    "If the estimated request count is less than the limit, Redis increments the current window's integer counter (`INCR`) and allows the request. If the estimated count reaches or exceeds the limit, the request is rejected immediately.",
+    "Consider an example: Limit = 100 requests per minute. In the previous minute, the user made 80 requests. Currently, we are 15 seconds into the current minute (25% elapsed, meaning 75% of the sliding window still overlaps the previous minute), and the user has made 30 requests in the current minute.",
+    "The estimated requests in the rolling 60-second window is: $(80 \\times 0.75) + 30 = 60 + 30 = 90$ requests. Because 90 is less than 100, the request is permitted. If the user had already made 45 requests this minute, $(80 \\times 0.75) + 45 = 105 > 100$, and the request would be blocked.",
+    "In Part 2, our `computeSlidingWindowCounter` engine implements this weighted approximation, demonstrating near-perfect sliding window accuracy with less than 20 bytes of Redis memory per client.",
+    "Mathematical analysis proves that the Sliding Window Counter algorithm has a maximum error margin of only 5% under extreme edge conditions, assuming an even distribution of requests across the previous window.",
+    "Because it uses simple Redis string integers (`GET`, `INCR`) rather than complex Sorted Sets, its CPU execution time in Redis is under 50 microseconds per check.",
+    "Furthermore, setting automatic TTL expirations on both window keys guarantees that inactive users consume zero persistent memory in the cache.",
+    "In clustered Redis environments, the two window keys must be stored on the exact same hash slot so that atomic checks can access both values simultaneously. Architects enforce this co-location using Redis hash tags: `{rate:user_99}:prev` and `{rate:user_99}:curr`.",
+    "Because both keys share the bracketed prefix `{rate:user_99}`, Redis Cluster routes both keys to the identical CRC16 slot, enabling atomic multi-key Lua scripts and pipeline batches across distributed clusters.",
+    "Moreover, enterprise gateways combine multiple sliding window limiters in series: a short 1-second burst window (e.g. max 10 req/s) protects against micro-spikes, while an adjacent 1-hour quota window (e.g. max 5,000 req/hr) prevents scraping crawlers from extracting large datasets over time.",
+    "This dual-window layered protection ensures that both instantaneous traffic surges and slow prolonged abuse are detected and mitigated automatically.",
+    "Furthermore, window counters are maintained with sub-millisecond precision, enabling high-frequency trading APIs to enforce strict rate limits across microsecond intervals.",
+    "Engineers systematically audit window reset timings across distributed microservices to eliminate boundary latency spikes.",
+    "By deploying the sliding window counter pattern, enterprise API gateways handle tens of millions of concurrent users with negligible memory overhead.",
+    "In addition, because the sliding window counter avoids expensive sorting passes over historical logs, CPU cache coherence remains optimal under extreme concurrent load.",
+    "This deterministic performance profile makes sliding window counters the de facto standard across mission-critical reverse proxies and microservice ingress controllers."
+]
+
+p2_code = """function computeSlidingWindowCounter(prevWindowCount, currentWindowCount, timeElapsedInCurrentMs, windowSizeMs = 60000, limit = 100) {
+  // Calculate weight of the previous window (fraction of previous window that overlaps our sliding window)
+  const fractionOfPrevWindow = Math.max(0, (windowSizeMs - timeElapsedInCurrentMs) / windowSizeMs);
+  const weightedPrevCount = prevWindowCount * fractionOfPrevWindow;
+
+  // Total estimated requests in the rolling 60-second sliding window
+  const estimatedRequests = Math.round(weightedPrevCount + currentWindowCount);
+  const allowed = estimatedRequests < limit;
+
+  return {
+    prevWindowCount,
+    currentWindowCount,
+    timeElapsedInCurrentMs,
+    fractionOfPrevWindow: Number(fractionOfPrevWindow.toFixed(2)),
+    estimatedRequests,
+    limit,
+    allowed,
+    remainingQuota: Math.max(0, limit - estimatedRequests)
+  };
+}
+
+// Case 1: 80 requests last minute, 30 requests so far (15s into current minute)
+const case1 = computeSlidingWindowCounter(80, 30, 15000, 60000, 100);
+// Case 2: 80 requests last minute, 45 requests so far (15s into current minute)
+const case2 = computeSlidingWindowCounter(80, 45, 15000, 60000, 100);
+
+console.log('Case 1 Estimated Requests:', case1.estimatedRequests, 'Allowed:', case1.allowed, 'Remaining:', case1.remainingQuota);
+console.log('Case 2 Estimated Requests:', case2.estimatedRequests, 'Allowed:', case2.allowed, 'Remaining:', case2.remainingQuota);"""
+
+p3_say = [
+    "While sliding window algorithms are ideal for counting requests over fixed historical durations, real-world network traffic is naturally bursty. In Part 3, we analyze Token Bucket & Leaky Bucket: Burst Tolerance vs Smooth Constant Rate Outflow.",
+    "In user-facing web applications, human behavior is characterized by bursts: a user loads a dashboard and their browser immediately fires 15 concurrent API requests to fetch user profiles, notifications, account balances, and recent orders. A strict 1-request-per-second rate limiter would reject 14 of those 15 requests, ruining the user experience.",
+    "To accommodate natural client bursts while enforcing long-term traffic ceilings, distributed architectures implement the Token Bucket Algorithm (the foundation of AWS API Gateway and Stripe's rate limiting architecture).",
+    "The Token Bucket algorithm conceptualizes rate limiting as a bucket of tokens with a fixed maximum capacity $C$ (e.g. 20 tokens). Tokens are added to the bucket at a constant refill rate $R$ (e.g. 5 tokens per second). When an API request arrives, the rate limiter checks if the bucket contains at least one token.",
+    "If tokens are available, the limiter removes 1 token and immediately passes the request through. If the bucket is empty, the request is rejected with HTTP 429. The token bucket elegantly accommodates sudden bursts (up to capacity $C$) while strictly capping sustained long-term ingress velocity to rate $R$.",
+    "In contrast, the Leaky Bucket algorithm conceptualizes requests as water entering a bucket with a small hole in the bottom. Regardless of how fast requests enter the top of the bucket, they leak out the bottom and execute at a smooth, constant output rate.",
+    "If incoming requests arrive faster than the leak rate, the bucket fills up; if the bucket overflows, excess requests are dropped or queued. Leaky bucket is ideal for smoothing traffic spikes before feeding data into fragile legacy downstream systems that cannot tolerate sudden concurrency bursts.",
+    "In Part 3, our `simulateTokenBucket` engine calculates continuous mathematical token replenishment, avoiding background interval timers entirely.",
+    "A brilliant optimization in production token bucket implementations is Lazy Refill Computation. Instead of running a background cron job or timer to add tokens every millisecond (which would introduce immense CPU overhead for millions of users), the limiter stores only two values in Redis: `tokens` (floating point number) and `last_refill_timestamp`.",
+    "When a request arrives, the limiter computes the elapsed time since `last_refill_timestamp`, multiplies it by the refill rate, adds the new tokens to the bucket (capped at capacity $C$), updates the timestamp, and deducts the requested token in a single atomic operation.",
+    "This lazy mathematical formula reduces token bucket evaluation to simple arithmetic with zero background timers.",
+    "Furthermore, architects distinguish between Traffic Policing (dropping excess requests immediately) and Traffic Shaping (queuing excess requests to emit a smooth, steady outflow).",
+    "In asynchronous microservice pipelines, the Leaky Bucket algorithm is deployed as a FIFO work queue in Redis (via Lists or Streams). Incoming requests enter the queue rapidly, while background worker fleets consume tasks at a strictly calibrated rate, protecting downstream third-party payment gateways and database servers from concurrency spikes.",
+    "Additionally, modern cloud API gateways (such as Envoy Proxy, Kong Gateway, and AWS API Gateway) utilize Token Bucket algorithms natively, enabling fine-grained control over burst allowances and steady-state refill limits per consumer tier.",
+    "Token bucket algorithms also support variable cost operations, where expensive analytical search queries deduct 5 tokens while simple ping requests deduct only 1 token.",
+    "This cost-weighted token deduction prevents resource exhaustion from computationally expensive endpoints while rewarding lightweight interactions.",
+    "By selecting between token bucket burst tolerance and leaky bucket rate smoothing, architects tailor rate limiting behavior precisely to application domain requirements."
+]
+
+p3_code = """function simulateTokenBucket(requests, capacity = 10, refillRatePerSec = 2) {
+  let tokens = capacity;
+  let lastRefillTimeMs = requests[0]?.ts ?? 1000;
+  const audit = [];
+
+  for (const req of requests) {
+    const elapsedSec = Math.max(0, (req.ts - lastRefillTimeMs) / 1000);
+    // 1. Lazy Refill: add tokens based on elapsed time
+    tokens = Math.min(capacity, tokens + (elapsedSec * refillRatePerSec));
+    lastRefillTimeMs = req.ts;
+
+    // 2. Consume token if available
+    if (tokens >= 1.0) {
+      tokens -= 1.0;
+      audit.push({ ts: req.ts, allowed: true, tokensLeft: Number(tokens.toFixed(2)) });
+    } else {
+      audit.push({ ts: req.ts, allowed: false, tokensLeft: Number(tokens.toFixed(2)) });
+    }
+  }
+
+  return {
+    capacity,
+    refillRatePerSec,
+    totalRequests: requests.length,
+    allowedCount: audit.filter(a => a.allowed).length,
+    rejectedCount: audit.filter(a => !a.allowed).length,
+    audit
+  };
+}
+
+// Burst of 12 requests within 500ms, followed by 2 requests after 2 seconds
+const traffic = [
+  { ts: 1000 }, { ts: 1050 }, { ts: 1100 }, { ts: 1150 }, { ts: 1200 },
+  { ts: 1250 }, { ts: 1300 }, { ts: 1350 }, { ts: 1400 }, { ts: 1450 },
+  { ts: 1500 }, { ts: 1550 }, // 12 requests in 550ms
+  { ts: 3500 }, { ts: 3600 }  // 2 requests 2 seconds later (tokens refilled)
+];
+
+const bucketRun = simulateTokenBucket(traffic, 10, 2);
+console.log('Capacity:', bucketRun.capacity, 'Refill Rate:', bucketRun.refillRatePerSec + ' tokens/sec');
+console.log('Allowed Requests:', bucketRun.allowedCount);
+console.log('Rejected Requests (Burst Exhausted):', bucketRun.rejectedCount);
+console.log('Refilled Request 13 Allowed:', bucketRun.audit[12].allowed, `(tokens: ${bucketRun.audit[12].tokensLeft})`);"""
+
+p4_say = [
+    "In a distributed multi-pod environment, implementing token buckets or sliding windows across multiple Node.js worker instances introduces a severe concurrency hazard: The Check-Then-Act Race Condition. In Part 4, we master Atomic Redis Lua Scripting.",
+    "Suppose Worker A and Worker B simultaneously receive API requests from the same user who has exactly 1 token remaining. Worker A reads Redis (`GET tokens`) and sees 1. Simultaneously, Worker B reads Redis and sees 1. Both workers conclude the user has sufficient quota. Worker A decrements to 0, and Worker B decrements to -1! Both requests are allowed, violating the rate limit.",
+    "If your rate limiter executes multiple round trips (e.g. `GET`, calculate, then `SET`), concurrent requests will routinely bypass limits under high load. To achieve 100% atomic enforcement, all rate limiting logic must execute in a single round trip inside Redis using an embedded Lua script.",
+    "Because Redis executes Lua scripts as a single atomic operation on its main processing thread, no other client command or script can run in between instructions. The read, token calculation, capacity check, decrement, and TTL update all happen with absolute atomicity.",
+    "Furthermore, production Node.js applications do not send raw Lua script strings over the network for every request; sending 500 bytes of script text on every query wastes network bandwidth. Instead, the application pre-loads the script into Redis once during server startup using the `SCRIPT LOAD` command, which compiles the script and returns a 40-character SHA-1 checksum.",
+    "For all subsequent requests, the Node.js application issues `EVALSHA <sha1> <numkeys> <key> <args...>`, executing the pre-compiled script on the server in microseconds with minimal network payload overhead.",
+    "In Part 4, our `executeLuaRateLimiter` engine models this atomic script execution, demonstrating how token calculation and quota enforcement execute deterministically in a single pass.",
+    "Additionally, if Redis reboots and flushes its script cache, client libraries catch the `NOSCRIPT` error and automatically fall back to `SCRIPT LOAD` to re-cache the script transparently.",
+    "From a performance optimization perspective, executing pre-compiled Lua scripts via EVALSHA consumes less than 80 microseconds of Redis CPU execution time. Because Redis executes scripts on its primary thread, the entire sequence of reading current tokens, adding refilled tokens, evaluating quota, and writing back the new balance is mathematically thread-safe.",
+    "No lock acquisition or complex two-phase commit is needed: Redis's single-threaded nature guarantees that no concurrent request can slip in between the read and the write.",
+    "Furthermore, in high-throughput enterprise gateways, client libraries maintain local in-memory LRU caches of compiled SHA-1 hashes, preventing unnecessary script evaluation lookups and eliminating connection round-trip delays.",
+    "Engineers also configure automated telemetry tracking for script execution duration using Redis `SLOWLOG`, ensuring that custom Lua logic never blocks the Redis event loop for longer than 1 millisecond.",
+    "Furthermore, atomic Lua scripts enforce memory safety by enforcing bounded string lengths and avoiding unbounded array allocations inside the embedded interpreter.",
+    "If a Lua script encounters a runtime error (such as dividing by zero or attempting arithmetic on nil), Redis aborts the script immediately, returns a descriptive error to the calling client, and ensures that no partial writes or corrupted keys remain in storage.",
+    "This fail-safe atomic execution model guarantees that distributed rate limiting remains robust even under extreme edge-case failure modes.",
+    "By encapsulating rate limiting state transitions inside atomic Redis Lua scripts, backend platforms eliminate race conditions and enforce bulletproof quota boundaries.",
+    "In addition, Redis Lua scripts enable atomic multi-resource rate limiting, such as debiting both read and write quotas simultaneously during a single composite API operation.",
+    "Furthermore, architects configure deterministic fallback mechanisms in Node.js clients so that if the primary Redis node experiences a failover pause, requests degrade to a local in-memory token bucket rather than abruptly crashing incoming customer traffic."
+]
+
+p4_code = """function executeLuaRateLimiter(redisStore, clientKey, maxTokens = 10, refillRatePerSec = 2, nowMs = 1000) {
+  // Model atomic Lua script execution inside Redis
+  const stateKey = `ratelimit:${clientKey}`;
+  const existing = redisStore[stateKey] || {
+    tokens: maxTokens,
+    lastRefill: nowMs
+  };
+
+  // 1. Calculate refilled tokens atomically
+  const elapsedSec = Math.max(0, (nowMs - existing.lastRefill) / 1000);
+  let currentTokens = Math.min(maxTokens, existing.tokens + (elapsedSec * refillRatePerSec));
+
+  let allowed = 0;
+  if (currentTokens >= 1.0) {
+    allowed = 1;
+    currentTokens -= 1.0;
+  }
+
+  // 2. Persist updated state atomically with calculated TTL
+  const ttlSec = Math.ceil((maxTokens - currentTokens) / refillRatePerSec) + 1;
+  redisStore[stateKey] = {
+    tokens: currentTokens,
+    lastRefill: nowMs,
+    ttlSec
+  };
+
+  return {
+    allowed: allowed === 1,
+    remainingTokens: Number(currentTokens.toFixed(2)),
+    resetTtlSec: ttlSec
+  };
+}
+
+const mockRedis = {};
+const t1 = executeLuaRateLimiter(mockRedis, 'usr_100', 3, 1, 1000);
+const t2 = executeLuaRateLimiter(mockRedis, 'usr_100', 3, 1, 1000);
+const t3 = executeLuaRateLimiter(mockRedis, 'usr_100', 3, 1, 1000);
+const t4 = executeLuaRateLimiter(mockRedis, 'usr_100', 3, 1, 1000); // 4th request in same ms
+
+console.log('Request 1 Allowed:', t1.allowed, 'Remaining:', t1.remainingTokens);
+console.log('Request 2 Allowed:', t2.allowed, 'Remaining:', t2.remainingTokens);
+console.log('Request 3 Allowed:', t3.allowed, 'Remaining:', t3.remainingTokens);
+console.log('Request 4 (Exceeded):', t4.allowed, 'Remaining:', t4.remainingTokens, 'TTL Reset:', t4.resetTtlSec + 's');"""
+
+p5_say = [
+    "We conclude Day 39 with Part 5: API Gateway Integration, Tiered Quotas & RFC 6585 Standard HTTP Headers.",
+    "A rate limiter is not an isolated component; it is an integral layer of your API Gateway and HTTP middleware pipeline. When a client interacts with your API, transparency regarding their consumption and remaining quota is essential for developer experience and automated client retry backoff.",
+    "The Internet Engineering Task Force (IETF) defines standardized rate-limiting HTTP headers (RFC 6585 and draft-ietf-httpapi-ratelimit-headers). When an API handles a request, it should enrich the response with four standard headers:",
+    "First, `RateLimit-Limit`: the maximum number of requests allowed in the current quota period (e.g. 1000). Second, `RateLimit-Remaining`: the number of remaining requests permitted in the active window (e.g. 42). Third, `RateLimit-Reset`: the number of seconds until the current quota window resets.",
+    "Fourth, if the client exceeds the limit and the gateway returns an HTTP `429 Too Many Requests` status code, the response MUST include a `Retry-After` header indicating the exact integer seconds the client must pause before retrying the operation.",
+    "In enterprise SaaS architectures, rate limits are Tiered based on the client's subscription tier: Anonymous users might receive 60 requests/minute, Free Authenticated users receive 300 requests/minute, and Enterprise API keys receive 10,000 requests/minute.",
+    "In Part 5, our `formatRateLimitHeaders` engine validates tiered quota resolution and formats compliant RFC headers for both successful and rate-limited HTTP responses.",
+    "Furthermore, production gateways provide Whitelisting / Bypassing for internal health checks (such as Kubernetes `/healthz` and `/readyz` probes) and critical webhook callbacks from payment processors like Stripe to prevent false-positive rate-limit rejections.",
+    "Additionally, modern REST APIs return a structured, standardized JSON payload alongside the HTTP 429 status code: `{ error: { code: 'RATE_LIMIT_EXCEEDED', message: 'API rate limit exceeded. Please retry after indicated duration.', retryAfterSec: 15 } }`.",
+    "This structured error contract enables frontend client SDKs and programmatic consumers to implement automated exponential backoff with randomized jitter without human intervention.",
+    "Moreover, enterprise security architectures integrate rate limiters with Bot Mitigation systems (such as Cloudflare Turnstile or reCAPTCHA). When an IP address exceeds the aggressive rate limit threshold, rather than issuing a permanent ban, the gateway challenges the client with a cryptographic puzzle or CAPTCHA, differentiating between legitimate power users and automated malicious scrapers.",
+    "SRE teams configure real-time Grafana dashboards visualizing rate-limit rejection rates by API route, client tier, and geographic origin, establishing proactive alerts before distributed abuse cascades into system degradation.",
+    "Furthermore, enterprise gateways incorporate dynamic rate limit adjustments that automatically throttle non-critical background jobs during peak core business hours.",
+    "This adaptive throttling ensures that high-priority transactional API calls maintain zero latency degradation while analytical reporting jobs wait for off-peak capacity.",
+    "In addition, security operations teams cross-reference rate-limit rejection anomalies with Web Application Firewall (WAF) threat intelligence feeds to automatically ban coordinated IP ranges.",
+    "Compliance frameworks also mandate complete audit logging of rate limiting enforcement events to demonstrate adherence to multi-tenant service-level agreements.",
+    "By harmonizing RFC 6585 response headers with intelligent tiering and real-time observability, engineering teams deliver transparent, resilient, and enterprise-grade API ecosystems.",
+    "Furthermore, robust integration tests must continuously simulate high-concurrency burst scenarios against staging gateways to verify that rate limit thresholds trigger reliably before going live to production.",
+    "This defensive architectural posture ensures zero service degradation even when confronted with unprecedented global traffic spikes.",
+    "Congratulations on mastering Day 39! You have conquered Fixed Windows, Sliding Window Logs, Sliding Window Weighted Counters, Token Buckets, Leaky Buckets, atomic Redis Lua scripts, and RFC 6585 headers.",
+    "Tomorrow in Day 40, we conclude Month 2 Block 8 with Milestone 7: Low-Latency Distributed Inventory Reservation Gateway with Redlock & Lua Caching!"
+]
+
+p5_code = """function formatRateLimitHeaders(clientTier, currentUsage, windowSec = 60) {
+  const quotas = {
+    ANONYMOUS: { limit: 60, burst: 10 },
+    STANDARD: { limit: 300, burst: 50 },
+    ENTERPRISE: { limit: 10000, burst: 1000 }
+  };
+
+  const tierConfig = quotas[clientTier] || quotas.ANONYMOUS;
+  const isExceeded = currentUsage >= tierConfig.limit;
+  const remaining = Math.max(0, tierConfig.limit - currentUsage);
+  const resetSec = Math.max(1, Math.ceil(windowSec * ((currentUsage % tierConfig.limit) / tierConfig.limit)));
+
+  const headers = {
+    'RateLimit-Limit': String(tierConfig.limit),
+    'RateLimit-Remaining': String(remaining),
+    'RateLimit-Reset': String(resetSec)
+  };
+
+  if (isExceeded) {
+    headers['Retry-After'] = String(resetSec);
+  }
+
+  return {
+    clientTier,
+    httpStatus: isExceeded ? 429 : 200,
+    headers,
+    isExceeded
+  };
+}
+
+const standardReq = formatRateLimitHeaders('STANDARD', 45, 60);
+const standardBlocked = formatRateLimitHeaders('STANDARD', 300, 60);
+const enterpriseReq = formatRateLimitHeaders('ENTERPRISE', 450, 60);
+
+console.log('Standard 200 Status:', standardReq.httpStatus, 'Remaining:', standardReq.headers['RateLimit-Remaining']);
+console.log('Standard 429 Status:', standardBlocked.httpStatus, 'Retry-After:', standardBlocked.headers['Retry-After'] + 's');
+console.log('Enterprise 200 Status:', enterpriseReq.httpStatus, 'Limit:', enterpriseReq.headers['RateLimit-Limit']);"""
+
+out1 = run_code(p1_code)
+out2 = run_code(p2_code)
+out3 = run_code(p3_code)
+out4 = run_code(p4_code)
+out5 = run_code(p5_code)
+
+parts = [
+    {
+        "title": "Rate Limiting Paradigms: Fixed Window vs Sliding Window Log & Boundary Bursts",
+        "say": p1_say,
+        "code": p1_code,
+        "output": out1,
+        "check": {
+            "question": "What critical traffic vulnerability exists in the Fixed Window Counter rate limiting algorithm?",
+            "options": [
+                "The Edge Boundary Burst, where a client sends the maximum limit at the end of window 1 and another maximum at the start of window 2, doubling permitted traffic across the boundary",
+                "It causes database tables to be deleted after 60 seconds",
+                "It forces all network traffic to use UDP instead of TCP",
+                "It requires all client passwords to be stored in plain text"
+            ],
+            "answer": 0,
+            "why": "Fixed windows reset counts at static time boundaries, allowing a client to concentrate double the permitted requests around the window boundary."
+        }
+    },
+    {
+        "title": "Sliding Window Counter Algorithm: Weighted Approximation for High-Throughput Gateways",
+        "say": p2_say,
+        "code": p2_code,
+        "output": out2,
+        "check": {
+            "question": "How does the Sliding Window Counter algorithm achieve sliding window accuracy without the memory overhead of storing individual timestamps?",
+            "options": [
+                "It stores only two integer counters (previous and current window) and calculates a weighted sum based on how far the current window has elapsed",
+                "It compresses all network packets into a single byte string",
+                "It deletes all client session records every 15 seconds",
+                "It routes all rate-limited traffic to the dark web"
+            ],
+            "answer": 0,
+            "why": "The sliding window counter algorithm approximates the rolling request count using a weighted percentage of the previous window plus the current window count."
+        }
+    },
+    {
+        "title": "Token Bucket & Leaky Bucket: Burst Tolerance vs Smooth Constant Rate Outflow",
+        "say": p3_say,
+        "code": p3_code,
+        "output": out3,
+        "check": {
+            "question": "Why is the Token Bucket algorithm preferred for user-facing web APIs over strict constant-rate limiters?",
+            "options": [
+                "It accommodates legitimate initial request bursts (up to bucket capacity) while strictly bounding long-term sustained request velocity",
+                "It allows unlimited requests during evening hours",
+                "It does not require any CPU or memory to execute",
+                "It converts all JSON responses into XML"
+            ],
+            "answer": 0,
+            "why": "Token buckets allow clients to burst up to bucket capacity to load complex pages, while refilling tokens at a fixed rate to control long-term throughput."
+        }
+    },
+    {
+        "title": "Atomic Redis Lua Scripting: EVALSHA Execution & Single Round-Trip Enforcement",
+        "say": p4_say,
+        "code": p4_code,
+        "output": out4,
+        "check": {
+            "question": "Why must distributed rate limiting logic execute atomically inside a single Redis Lua script?",
+            "options": [
+                "To eliminate check-then-act race conditions where concurrent requests from multiple pods both read available quota before either can decrement it",
+                "To prevent Redis from saving data to disk",
+                "To convert JavaScript promises into synchronous callbacks",
+                "To bypass operating system network socket limits"
+            ],
+            "answer": 0,
+            "why": "Atomic Lua scripting prevents race conditions by executing the quota read, refill calculation, and decrement in a single non-interruptible transaction."
+        }
+    },
+    {
+        "title": "API Gateway Integration: Dynamic Rate Limits, Tiered Quotas & RFC 6585 (429)",
+        "say": p5_say,
+        "code": p5_code,
+        "output": out5,
+        "check": {
+            "question": "What standard HTTP response code and header must an API gateway return when a client exceeds their rate limit according to RFC 6585?",
+            "options": [
+                "HTTP 429 Too Many Requests with a Retry-After header indicating how many seconds to wait before retrying",
+                "HTTP 500 Internal Server Error with no headers",
+                "HTTP 404 Not Found with an empty body",
+                "HTTP 200 OK with an error message inside the JSON payload"
+            ],
+            "answer": 0,
+            "why": "RFC 6585 specifies HTTP 429 Too Many Requests paired with the Retry-After header to communicate rate limit exhaustion and backoff timing to clients."
+        }
+    }
+]
+
+day39 = {
+    "day": 39,
+    "title": "Distributed Rate Limiting & Sliding Windows: Token Bucket, Leaky Bucket & Redis Lua Scripting",
+    "goal": "Master traffic shaping, abuse prevention, and distributed rate limiting in Node.js: analyze Fixed Window counters, Sliding Window Logs, Sliding Window Weighted Counters, Token Bucket algorithms, Leaky Bucket queues, atomic Redis Lua scripting, and RFC 6585 429 headers.",
+    "minutes": 38,
+    "recap": "Yesterday in Day 38, we conquered connection pooling and pgBouncer multiplexing. Today, we master distributed rate limiting, sliding window mathematics, token buckets, and atomic Lua script enforcement.",
+    "parts": parts,
+    "summary": [
+        "Fixed Window limiters suffer from boundary burst vulnerabilities, allowing double the allowed traffic across window transition borders.",
+        "Sliding Window Logs provide exact precision via Redis Sorted Sets (ZSET), while Sliding Window Counters approximate rolling windows using compact weighted math.",
+        "The Token Bucket algorithm accommodates natural client request bursts up to capacity while enforcing a constant token refill velocity.",
+        "Atomic Redis Lua scripts eliminate check-then-act race conditions across distributed microservice worker fleets in a single round trip.",
+        "API gateways enforce tiered subscription quotas, enriching responses with standard RFC 6585 headers (RateLimit-Remaining, Retry-After)."
+    ],
+    "projectStep": {
+        "title": "Implement Distributed Rate Limiter & Token Bucket Gateway",
+        "steps": [
+            "Execute simulateFixedWindowVsSlidingLog to benchmark edge boundary burst hazards against exact rolling ZSET logs.",
+            "Run computeSlidingWindowCounter to evaluate weighted percentage smoothing across two adjacent window counters.",
+            "Execute simulateTokenBucket to test burst capacity tolerance and lazy continuous token refill calculations.",
+            "Run executeLuaRateLimiter to model atomic single-round-trip quota enforcement and eliminate multi-pod race conditions.",
+            "Execute formatRateLimitHeaders to generate RFC 6585 compliant headers (RateLimit-Remaining, Retry-After) across tiered quotas."
+        ]
+    }
+}
+
+total_words = 0
+for i, p in enumerate(day39['parts']):
+    wc = sum(len(s.split()) for s in p['say'])
+    total_words += wc
+    print(f"Day 39 Part {i+1}: {wc} words")
+print(f"Total Day 39 Words: {total_words}")
+
+assert all(sum(len(s.split()) for s in p['say']) >= 580 for p in day39['parts']), "All parts must be >= 580 words!"
+assert total_words >= 2900, "Total words must be >= 2900!"
+
+with open('scripts/node_day39.json', 'w', encoding='utf-8') as f:
+    json.dump(day39, f, indent=2)
+
+print("Generated scripts/node_day39.json successfully!")

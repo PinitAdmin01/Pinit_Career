@@ -6,24 +6,24 @@
   "model": "anthropic/claude-3.5-sonnet",
   "entries": [
     {
-      "partTitle": "Project Panama (Foreign Function & Memory API): Off-Heap Arenas & C Interop without JNI",
-      "codeHash": "a3082d36b75f36b2b856b630a590553d984d0b177c507b5225e6a284d31a1e75",
+      "partTitle": "Boolean Primitives & Relational Comparison Operators",
+      "codeHash": "38d70f2216680e9f1f4e061d50cc70412c544e9a0589d8f4dc5b1b213c682660",
       "spec": {
         "template": "stack-queue",
-        "title": "Project Panama (Foreign Function & Memory API... — JVM Call Stack & Frame Lifecycle",
+        "title": "Boolean Primitives & Relational Comparis... \u2014 JVM Memory & Execution Lifecycle",
         "mode": "stack",
         "steps": [
           {
             "at": "intro",
-            "caption": "Push root frames onto JVM execution stack for Project Panama (Forei...",
+            "caption": "Initialize JVM thread frame for Boolean Primitives & Relational Com...",
             "mode": "stack",
             "items": [
               "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
+              "Execution Engine",
+              "Memory Pipeline"
             ],
             "action": "push",
-            "actionItem": "Repository.query()",
+            "actionItem": "Memory Pipeline",
             "tones": [
               "ok",
               "data",
@@ -32,152 +32,77 @@
           },
           {
             "at": "say1",
-            "caption": "Push DomainValidator.verify() onto active stack frame.",
+            "caption": "Evaluate operational state: Boolean Primitives & Relational Com...",
             "mode": "stack",
             "items": [
               "main() Frame",
-              "Service.invoke()",
-              "Repository.query()",
-              "DomainValidator.verify()"
+              "Execution Engine",
+              "Memory Pipeline",
+              "RuntimeValidator.verify()"
             ],
             "action": "push",
-            "actionItem": "DomainValidator.verify()",
+            "actionItem": "RuntimeValidator.verify()",
             "tones": [
               "ok",
-              "ok",
               "data",
-              "data"
+              "data",
+              "accent"
             ]
           },
           {
             "at": "example",
-            "caption": "Pop completed validator frame after invariant verification.",
+            "caption": "Execute conceptual transformation: Boolean Primitives & Relationa...",
             "mode": "stack",
             "items": [
               "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
+              "Execution Engine",
+              "Pipeline Output"
             ],
             "action": "pop",
-            "actionItem": "DomainValidator.verify() -> true",
+            "actionItem": "RuntimeValidator.verify()",
             "tones": [
               "ok",
-              "ok",
-              "ok"
+              "data",
+              "accent"
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Unwind stack and return verified result to main() Frame.",
+            "caption": "Verification complete. Invariant confirmed with zero runtime faults.",
             "mode": "stack",
             "items": [
               "main() Frame",
-              "Verified Return Value ✓"
+              "Verified Output (0 Faults)"
             ],
-            "action": "pop",
-            "actionItem": "Service.invoke() -> 200 OK",
+            "action": "inspect",
+            "actionItem": "Verified Output (0 Faults)",
             "tones": [
               "ok",
-              "ok"
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "stack-queue",
-        "title": "Project Panama (Foreign Function & Memory API... — JVM Call Stack & Frame Lifecycle",
-        "mode": "stack",
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Push root frames onto JVM execution stack for Project Panama (Forei...",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
-            ],
-            "action": "push",
-            "actionItem": "Repository.query()",
-            "tones": [
-              "ok",
-              "data",
-              "data"
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Push DomainValidator.verify() onto active stack frame.",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Service.invoke()",
-              "Repository.query()",
-              "DomainValidator.verify()"
-            ],
-            "action": "push",
-            "actionItem": "DomainValidator.verify()",
-            "tones": [
-              "ok",
-              "ok",
-              "data",
-              "data"
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Pop completed validator frame after invariant verification.",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
-            ],
-            "action": "pop",
-            "actionItem": "DomainValidator.verify() -> true",
-            "tones": [
-              "ok",
-              "ok",
-              "ok"
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: Unwind stack and return verified result to main() Frame.",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Verified Return Value ✓"
-            ],
-            "action": "pop",
-            "actionItem": "Service.invoke() -> 200 OK",
-            "tones": [
-              "ok",
-              "ok"
+              "accent"
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "Project Loom Virtual Threads: Million-Thread Concurrency & Carrier Unmounting",
-      "codeHash": "e1a89a3d8f4080bb9ff7eced1f248f483f1268386adf2dd908db1c67069aeea5",
+      "partTitle": "Logical Operators & Short-Circuit Evaluation Mechanics (&&, ||, !)",
+      "codeHash": "60fc9531500617a428684d557e4c7cb507d5a8cf82e47524c3f4efeca4c042d9",
       "spec": {
         "template": "stack-queue",
-        "title": "Project Loom Virtual Threads: Million-Thread ... — JVM Call Stack & Frame Lifecycle",
+        "title": "Logical Operators & Short-Circuit Evalua... \u2014 JVM Memory & Execution Lifecycle",
         "mode": "stack",
         "steps": [
           {
             "at": "intro",
-            "caption": "Push root frames onto JVM execution stack for Project Loom Virtual ...",
+            "caption": "Initialize JVM thread frame for Logical Operators & Short-Circuit E...",
             "mode": "stack",
             "items": [
               "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
+              "Execution Engine",
+              "Memory Pipeline"
             ],
             "action": "push",
-            "actionItem": "Repository.query()",
+            "actionItem": "Memory Pipeline",
             "tones": [
               "ok",
               "data",
@@ -186,152 +111,77 @@
           },
           {
             "at": "say1",
-            "caption": "Push DomainValidator.verify() onto active stack frame.",
+            "caption": "Evaluate operational state: Logical Operators & Short-Circuit E...",
             "mode": "stack",
             "items": [
               "main() Frame",
-              "Service.invoke()",
-              "Repository.query()",
-              "DomainValidator.verify()"
+              "Execution Engine",
+              "Memory Pipeline",
+              "RuntimeValidator.verify()"
             ],
             "action": "push",
-            "actionItem": "DomainValidator.verify()",
+            "actionItem": "RuntimeValidator.verify()",
             "tones": [
               "ok",
-              "ok",
               "data",
-              "data"
+              "data",
+              "accent"
             ]
           },
           {
             "at": "example",
-            "caption": "Pop completed validator frame after invariant verification.",
+            "caption": "Execute conceptual transformation: Logical Operators & Short-Circ...",
             "mode": "stack",
             "items": [
               "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
+              "Execution Engine",
+              "Pipeline Output"
             ],
             "action": "pop",
-            "actionItem": "DomainValidator.verify() -> true",
+            "actionItem": "RuntimeValidator.verify()",
             "tones": [
               "ok",
-              "ok",
-              "ok"
+              "data",
+              "accent"
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Unwind stack and return verified result to main() Frame.",
+            "caption": "Verification complete. Invariant confirmed with zero runtime faults.",
             "mode": "stack",
             "items": [
               "main() Frame",
-              "Verified Return Value ✓"
+              "Verified Output (0 Faults)"
             ],
-            "action": "pop",
-            "actionItem": "Service.invoke() -> 200 OK",
+            "action": "inspect",
+            "actionItem": "Verified Output (0 Faults)",
             "tones": [
               "ok",
-              "ok"
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "stack-queue",
-        "title": "Project Loom Virtual Threads: Million-Thread ... — JVM Call Stack & Frame Lifecycle",
-        "mode": "stack",
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Push root frames onto JVM execution stack for Project Loom Virtual ...",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
-            ],
-            "action": "push",
-            "actionItem": "Repository.query()",
-            "tones": [
-              "ok",
-              "data",
-              "data"
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Push DomainValidator.verify() onto active stack frame.",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Service.invoke()",
-              "Repository.query()",
-              "DomainValidator.verify()"
-            ],
-            "action": "push",
-            "actionItem": "DomainValidator.verify()",
-            "tones": [
-              "ok",
-              "ok",
-              "data",
-              "data"
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Pop completed validator frame after invariant verification.",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
-            ],
-            "action": "pop",
-            "actionItem": "DomainValidator.verify() -> true",
-            "tones": [
-              "ok",
-              "ok",
-              "ok"
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: Unwind stack and return verified result to main() Frame.",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Verified Return Value ✓"
-            ],
-            "action": "pop",
-            "actionItem": "Service.invoke() -> 200 OK",
-            "tones": [
-              "ok",
-              "ok"
+              "accent"
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "Structured Concurrency & Short-Circuiting Scopes (StructuredTaskScope)",
-      "codeHash": "f39464818798570b02895f8bb3608ae1cd3bb86002d896cd425f68ee5dfe70ef",
+      "partTitle": "Branching Control Flow: The if and if-else Execution Pipeline",
+      "codeHash": "652adcbaf5621cbf8bbfdf144c658749cb1217a45dbcac241057b58921d97e36",
       "spec": {
         "template": "stack-queue",
-        "title": "Structured Concurrency & Short-Circuiting Sco... — JVM Call Stack & Frame Lifecycle",
+        "title": "Branching Control Flow: The if and if-el... \u2014 JVM Memory & Execution Lifecycle",
         "mode": "stack",
         "steps": [
           {
             "at": "intro",
-            "caption": "Push root frames onto JVM execution stack for Structured Concurrenc...",
+            "caption": "Initialize JVM thread frame for Branching Control Flow: The if and ...",
             "mode": "stack",
             "items": [
               "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
+              "Execution Engine",
+              "Memory Pipeline"
             ],
             "action": "push",
-            "actionItem": "Repository.query()",
+            "actionItem": "Memory Pipeline",
             "tones": [
               "ok",
               "data",
@@ -340,152 +190,77 @@
           },
           {
             "at": "say1",
-            "caption": "Push DomainValidator.verify() onto active stack frame.",
+            "caption": "Evaluate operational state: Branching Control Flow: The if and ...",
             "mode": "stack",
             "items": [
               "main() Frame",
-              "Service.invoke()",
-              "Repository.query()",
-              "DomainValidator.verify()"
+              "Execution Engine",
+              "Memory Pipeline",
+              "RuntimeValidator.verify()"
             ],
             "action": "push",
-            "actionItem": "DomainValidator.verify()",
+            "actionItem": "RuntimeValidator.verify()",
             "tones": [
               "ok",
-              "ok",
               "data",
-              "data"
+              "data",
+              "accent"
             ]
           },
           {
             "at": "example",
-            "caption": "Pop completed validator frame after invariant verification.",
+            "caption": "Execute conceptual transformation: Branching Control Flow: The if...",
             "mode": "stack",
             "items": [
               "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
+              "Execution Engine",
+              "Pipeline Output"
             ],
             "action": "pop",
-            "actionItem": "DomainValidator.verify() -> true",
+            "actionItem": "RuntimeValidator.verify()",
             "tones": [
               "ok",
-              "ok",
-              "ok"
+              "data",
+              "accent"
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Unwind stack and return verified result to main() Frame.",
+            "caption": "Verification complete. Invariant confirmed with zero runtime faults.",
             "mode": "stack",
             "items": [
               "main() Frame",
-              "Verified Return Value ✓"
+              "Verified Output (0 Faults)"
             ],
-            "action": "pop",
-            "actionItem": "Service.invoke() -> 200 OK",
+            "action": "inspect",
+            "actionItem": "Verified Output (0 Faults)",
             "tones": [
               "ok",
-              "ok"
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "stack-queue",
-        "title": "Structured Concurrency & Short-Circuiting Sco... — JVM Call Stack & Frame Lifecycle",
-        "mode": "stack",
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Push root frames onto JVM execution stack for Structured Concurrenc...",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
-            ],
-            "action": "push",
-            "actionItem": "Repository.query()",
-            "tones": [
-              "ok",
-              "data",
-              "data"
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Push DomainValidator.verify() onto active stack frame.",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Service.invoke()",
-              "Repository.query()",
-              "DomainValidator.verify()"
-            ],
-            "action": "push",
-            "actionItem": "DomainValidator.verify()",
-            "tones": [
-              "ok",
-              "ok",
-              "data",
-              "data"
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Pop completed validator frame after invariant verification.",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
-            ],
-            "action": "pop",
-            "actionItem": "DomainValidator.verify() -> true",
-            "tones": [
-              "ok",
-              "ok",
-              "ok"
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: Unwind stack and return verified result to main() Frame.",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Verified Return Value ✓"
-            ],
-            "action": "pop",
-            "actionItem": "Service.invoke() -> 200 OK",
-            "tones": [
-              "ok",
-              "ok"
+              "accent"
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "Scoped Values: Immutable Allocation-Free Context for Virtual Threads",
-      "codeHash": "07c19450b8f203febee801a159e6040a664e9d19a8b350bb134e40453138d4a6",
+      "partTitle": "Multi-Branch Decision Chains: if-else-if Ladders & Exhaustive Default Fallbacks",
+      "codeHash": "57423ff74f1ea7afee2deaf28e564a9620703f90fe8ec6e9ccc9b0b21984eb51",
       "spec": {
         "template": "stack-queue",
-        "title": "Scoped Values: Immutable Allocation-Free Cont... — JVM Call Stack & Frame Lifecycle",
+        "title": "Multi-Branch Decision Chains: if-else-if... \u2014 JVM Memory & Execution Lifecycle",
         "mode": "stack",
         "steps": [
           {
             "at": "intro",
-            "caption": "Push root frames onto JVM execution stack for Scoped Values: Immuta...",
+            "caption": "Initialize JVM thread frame for Multi-Branch Decision Chains: if-el...",
             "mode": "stack",
             "items": [
               "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
+              "Execution Engine",
+              "Memory Pipeline"
             ],
             "action": "push",
-            "actionItem": "Repository.query()",
+            "actionItem": "Memory Pipeline",
             "tones": [
               "ok",
               "data",
@@ -494,152 +269,77 @@
           },
           {
             "at": "say1",
-            "caption": "Push DomainValidator.verify() onto active stack frame.",
+            "caption": "Evaluate operational state: Multi-Branch Decision Chains: if-el...",
             "mode": "stack",
             "items": [
               "main() Frame",
-              "Service.invoke()",
-              "Repository.query()",
-              "DomainValidator.verify()"
+              "Execution Engine",
+              "Memory Pipeline",
+              "RuntimeValidator.verify()"
             ],
             "action": "push",
-            "actionItem": "DomainValidator.verify()",
+            "actionItem": "RuntimeValidator.verify()",
             "tones": [
               "ok",
-              "ok",
               "data",
-              "data"
+              "data",
+              "accent"
             ]
           },
           {
             "at": "example",
-            "caption": "Pop completed validator frame after invariant verification.",
+            "caption": "Execute conceptual transformation: Multi-Branch Decision Chains: ...",
             "mode": "stack",
             "items": [
               "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
+              "Execution Engine",
+              "Pipeline Output"
             ],
             "action": "pop",
-            "actionItem": "DomainValidator.verify() -> true",
+            "actionItem": "RuntimeValidator.verify()",
             "tones": [
               "ok",
-              "ok",
-              "ok"
+              "data",
+              "accent"
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Unwind stack and return verified result to main() Frame.",
+            "caption": "Verification complete. Invariant confirmed with zero runtime faults.",
             "mode": "stack",
             "items": [
               "main() Frame",
-              "Verified Return Value ✓"
+              "Verified Output (0 Faults)"
             ],
-            "action": "pop",
-            "actionItem": "Service.invoke() -> 200 OK",
+            "action": "inspect",
+            "actionItem": "Verified Output (0 Faults)",
             "tones": [
               "ok",
-              "ok"
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "stack-queue",
-        "title": "Scoped Values: Immutable Allocation-Free Cont... — JVM Call Stack & Frame Lifecycle",
-        "mode": "stack",
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Push root frames onto JVM execution stack for Scoped Values: Immuta...",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
-            ],
-            "action": "push",
-            "actionItem": "Repository.query()",
-            "tones": [
-              "ok",
-              "data",
-              "data"
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Push DomainValidator.verify() onto active stack frame.",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Service.invoke()",
-              "Repository.query()",
-              "DomainValidator.verify()"
-            ],
-            "action": "push",
-            "actionItem": "DomainValidator.verify()",
-            "tones": [
-              "ok",
-              "ok",
-              "data",
-              "data"
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Pop completed validator frame after invariant verification.",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
-            ],
-            "action": "pop",
-            "actionItem": "DomainValidator.verify() -> true",
-            "tones": [
-              "ok",
-              "ok",
-              "ok"
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: Unwind stack and return verified result to main() Frame.",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Verified Return Value ✓"
-            ],
-            "action": "pop",
-            "actionItem": "Service.invoke() -> 200 OK",
-            "tones": [
-              "ok",
-              "ok"
+              "accent"
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "Generational ZGC vs G1GC: Sub-Millisecond Garbage Collection Tuning",
-      "codeHash": "5f96c4aa864486285ab1584e598e302ad1a9ccd8fcc31434df4e82755b5c3f16",
+      "partTitle": "Milestone 1 Capstone: Building a Production-Grade Decision & Grading Engine",
+      "codeHash": "e8ac2d5377865a93a7791fa2da02c6b0b1bc61ddafce1006d1147ea8ddd7b99b",
       "spec": {
         "template": "stack-queue",
-        "title": "Generational ZGC vs G1GC: Sub-Millisecond Gar... — JVM Call Stack & Frame Lifecycle",
+        "title": "Milestone 1 Capstone: Building a Product... \u2014 JVM Memory & Execution Lifecycle",
         "mode": "stack",
         "steps": [
           {
             "at": "intro",
-            "caption": "Push root frames onto JVM execution stack for Generational ZGC vs G...",
+            "caption": "Initialize JVM thread frame for Milestone 1 Capstone: Building a Pr...",
             "mode": "stack",
             "items": [
               "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
+              "Execution Engine",
+              "Memory Pipeline"
             ],
             "action": "push",
-            "actionItem": "Repository.query()",
+            "actionItem": "Memory Pipeline",
             "tones": [
               "ok",
               "data",
@@ -648,128 +348,53 @@
           },
           {
             "at": "say1",
-            "caption": "Push DomainValidator.verify() onto active stack frame.",
+            "caption": "Evaluate operational state: Milestone 1 Capstone: Building a Pr...",
             "mode": "stack",
             "items": [
               "main() Frame",
-              "Service.invoke()",
-              "Repository.query()",
-              "DomainValidator.verify()"
+              "Execution Engine",
+              "Memory Pipeline",
+              "RuntimeValidator.verify()"
             ],
             "action": "push",
-            "actionItem": "DomainValidator.verify()",
+            "actionItem": "RuntimeValidator.verify()",
             "tones": [
               "ok",
-              "ok",
               "data",
-              "data"
+              "data",
+              "accent"
             ]
           },
           {
             "at": "example",
-            "caption": "Pop completed validator frame after invariant verification.",
+            "caption": "Execute conceptual transformation: Milestone 1 Capstone: Building...",
             "mode": "stack",
             "items": [
               "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
+              "Execution Engine",
+              "Pipeline Output"
             ],
             "action": "pop",
-            "actionItem": "DomainValidator.verify() -> true",
+            "actionItem": "RuntimeValidator.verify()",
             "tones": [
               "ok",
-              "ok",
-              "ok"
+              "data",
+              "accent"
             ]
           },
           {
             "at": "tryIt",
-            "caption": "Unwind stack and return verified result to main() Frame.",
+            "caption": "Verification complete. Invariant confirmed with zero runtime faults.",
             "mode": "stack",
             "items": [
               "main() Frame",
-              "Verified Return Value ✓"
+              "Verified Output (0 Faults)"
             ],
-            "action": "pop",
-            "actionItem": "Service.invoke() -> 200 OK",
+            "action": "inspect",
+            "actionItem": "Verified Output (0 Faults)",
             "tones": [
               "ok",
-              "ok"
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "stack-queue",
-        "title": "Generational ZGC vs G1GC: Sub-Millisecond Gar... — JVM Call Stack & Frame Lifecycle",
-        "mode": "stack",
-        "steps": [
-          {
-            "at": "intro",
-            "caption": "Step 1: Push root frames onto JVM execution stack for Generational ZGC vs G...",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
-            ],
-            "action": "push",
-            "actionItem": "Repository.query()",
-            "tones": [
-              "ok",
-              "data",
-              "data"
-            ]
-          },
-          {
-            "at": "say1",
-            "caption": "Step 2: Push DomainValidator.verify() onto active stack frame.",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Service.invoke()",
-              "Repository.query()",
-              "DomainValidator.verify()"
-            ],
-            "action": "push",
-            "actionItem": "DomainValidator.verify()",
-            "tones": [
-              "ok",
-              "ok",
-              "data",
-              "data"
-            ]
-          },
-          {
-            "at": "example",
-            "caption": "Step 3: Pop completed validator frame after invariant verification.",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Service.invoke()",
-              "Repository.query()"
-            ],
-            "action": "pop",
-            "actionItem": "DomainValidator.verify() -> true",
-            "tones": [
-              "ok",
-              "ok",
-              "ok"
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: Unwind stack and return verified result to main() Frame.",
-            "mode": "stack",
-            "items": [
-              "main() Frame",
-              "Verified Return Value ✓"
-            ],
-            "action": "pop",
-            "actionItem": "Service.invoke() -> 200 OK",
-            "tones": [
-              "ok",
-              "ok"
+              "accent"
             ]
           }
         ]

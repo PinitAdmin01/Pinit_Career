@@ -1,0 +1,66 @@
+<h1>Day 39: Abstract Classes vs Interfaces & Default Method Contract Evolution</h1>
+
+          <span class="stage-pill" style="background: #e0f2fe; color: #0369a1;">Stage 2: Defensive Fluency</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 8 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #0369a1; font-weight: 600;">Goal:</span> Master the architectural distinction between abstract classes (partial state & template workflows) and interfaces (pure behavioral contracts & default methods).<br>
+          <span style="color: #15803d; font-weight: 600;">Invariant:</span> A class can extend only ONE abstract superclass (sharing state/vtable), but can implement MULTIPLE interfaces (multiple typing). Interfaces decouple what code does from how it is done.
+        </div>
+        <div style="background: #fef2f2; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fecaca; color: #991b1b;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> A class implementing an interface failing to declare implemented methods as "public" triggers "cannot reduce visibility".<br>
+          <strong>tryIt Friction:</strong> Add the public access modifier to methods implementing an interface contract and resolve diamond default method conflicts.
+        </div>
+      </div>
+
+      <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #1e40af;">💡 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #0369a1;">[1. Nudge: "All methods in an interface are implicitly public. What happens if your class implements them as package-private (without public)?"]</span> &rarr;
+        <span style="color: #b45309;">[2. Memory: "Java forbids reducing the visibility of an inherited method!"]</span> &rarr;
+        <span style="color: #15803d;">[3. Fix: "Add "public" to the method declaration in your implementing class."]</span>
+      </div>
+
+      <div style="background: #fdf4ff; border: 1px solid #f0abfc; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #86198f;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"A microservice needs to audit, serialize, and process financial trades. In Java, can a Trade class extend three different classes (Auditable, Serializable, Processable)?"</em><br>
+        <strong>Correct:</strong> Option B) No, Java permits single class inheritance, but Trade can implement all three interfaces (Auditable, Serializable, Processable). &bull;
+        <span style="color: #701a75;"><strong>Debrief:</strong> Java prevents multiple inheritance of state (classes) to avoid the Diamond Problem, but permits multiple inheritance of type (interfaces).</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 39 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d39-q1</span>
+      <strong>Interface Decoupling & Loose Coupling</strong> <em>(concept)</em>: <span style="color: #475569;">Understand why programming to interfaces (List vs ArrayList) creates maintainable architectures.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d39-q2</span>
+      <strong>Detective Lab: The Reduced Visibility Violation</strong> <em>(detective)</em>: <span style="color: #475569;">Fix access modifier compilation errors in an interface implementation.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d39-q3</span>
+      <strong>Mastery Assignment: Multi-Interface Auditable Entity</strong> <em>(assignment)</em>: <span style="color: #475569;">Implement Auditable, Validatable, and Persistable across order domain objects.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d39-q4</span>
+      <strong>Production Incident Lab: Diamond Default Method Resolution</strong> <em>(detective)</em>: <span style="color: #475569;">Resolve conflicting default methods across dual interfaces using explicit super-syntax.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #2563eb; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">

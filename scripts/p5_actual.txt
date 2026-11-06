@@ -1,0 +1,37 @@
+=== STEP 1: MODAL OPEN LIFECYCLE ===
+Portal Mounted: true
+Body Scroll Locked: true
+Defensive Initial Focus (Landed on Cancel): btn-cancel
+
+=== STEP 2: RENDERED WAI-ARIA MODAL DOM (SAFETY LATCH ACTIVE) ===
+<div id="modal-portal" class="fixed inset-0 z-50 flex items-center justify-center">
+  <div class="backdrop bg-black/80 fixed inset-0" aria-hidden="true"></div>
+  <div role="alertdialog" aria-modal="true" aria-labelledby="modal-trade-title" aria-describedby="modal-trade-desc"
+       class="modal-card relative z-10 bg-slate-900 border-2 border-amber-500 rounded-xl p-6 max-w-lg shadow-2xl">
+    <h2 id="modal-trade-title" class="text-xl font-bold text-amber-400">⚠️ Authorize High-Value Settlement</h2>
+    <div id="modal-trade-desc" class="trade-summary my-4 p-4 bg-slate-950 rounded border border-slate-800 text-sm">
+      <p>Trade ID: <strong>FX-984210</strong></p>
+      <p>Counterparty: <strong>Barclays Capital Investment Banking</strong></p>
+      <p>Notional: <strong class="text-emerald-400 font-mono text-base">€50,000,000.00 (EUR/USD)</strong></p>
+      <p class="text-xs text-red-400 mt-2">Warning: Irreversible interbank settlement execution.</p>
+    </div>
+    <div class="modal-actions flex justify-end gap-3">
+      <button id="btn-cancel" class="btn-cancel px-4 py-2 bg-slate-800 text-white rounded">Cancel Transaction</button>
+      <button id="btn-confirm-settle" class="btn-confirm px-4 py-2 bg-amber-600 text-black font-bold rounded" disabled>
+        Safety Latch (3s)...
+      </button>
+    </div>
+  </div>
+</div>
+
+=== STEP 3: 3-SECOND TIMER RELEASES SAFETY LATCH ===
+User Tabs to Confirm Button: btn-confirm-settle
+Updated Action Buttons:
+       <button id="btn-cancel" class="btn-cancel px-4 py-2 bg-slate-800 text-white rounded">Cancel Transaction</button>
+      <button id="btn-confirm-settle" class="btn-confirm px-4 py-2 bg-amber-600 text-black font-bold rounded" >
+        Confirm & Authorize
+      </button>
+
+=== STEP 4: MODAL DISMISSED & FOCUS RESTORED ===
+Body Scroll Unlocked: true
+Focus Restored to Original Button: #btn-execute-swap

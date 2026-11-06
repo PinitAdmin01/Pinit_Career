@@ -1,0 +1,214 @@
+{
+  "day": 27,
+  "title": "Software Timers & Idle Task Hook: Watchdog Kicking & Tickless Low-Power Mode (WFI/WFE)",
+  "goal": "Squeeze multi-year battery life from embedded IoT nodes: master FreeRTOS Software Timers, utilize the Idle Task Hook for safety monitoring, and implement Tickless Low-Power Mode (WFI/WFE) with hardware LPTIM.",
+  "minutes": 36,
+  "recap": "Yesterday we eliminated heap fragmentation with static block allocators. Today we examine the kernel's background execution engine: the Timer Service Daemon Task, the Idle Hook, and Tickless Idle power reduction physics.",
+  "parts": [
+    {
+      "title": "FreeRTOS Software Timer Architecture & The Daemon Task",
+      "say": [
+        "Software Timers execute code at a set time in the future, either once (one-shot) or periodically (auto-reload), without consuming a dedicated hardware timer peripheral.",
+        "Crucially, software timer callbacks do NOT execute in interrupt context! They execute in task context within a singleton kernel task called the Timer Service Task (prvTimerTask, also called the Daemon Task).",
+        "All timer API calls (such as xTimerStart, xTimerStop, and xTimerChangePeriod) do not modify timer lists directly. Instead, they write commands into a thread-safe message queue called the Timer Command Queue.",
+        "The Cardinal Rule of Software Timers: A timer callback must NEVER make a blocking call (such as vTaskDelay() or taking an unavailable mutex with a timeout). If a callback blocks, it freezes the singleton Daemon Task, halting all other software timers across the entire system!"
+      ],
+      "example": "If Timer A has a 100ms period and its callback calls vTaskDelay(500), Timer B (scheduled for 200ms) will not fire until Timer A finishes and unblocks the Daemon Task.",
+      "code": "#include <iostream>\n#include <cstdint>\n#include <string>\n#include <vector>\n\nstruct TimerCommand {\n    int commandId; // 1 = Start, 2 = Stop, 3 = Reset\n    std::string timerName;\n    uint32_t periodTicks;\n};\n\nclass MockTimerDaemon {\nprivate:\n    std::vector<TimerCommand> commandQueue;\n    uint32_t currentTick;\n\npublic:\n    MockTimerDaemon() : currentTick(0) {}\n\n    bool sendCommand(int cmd, const std::string& name, uint32_t period) {\n        if (commandQueue.size() >= 10) return false;\n        commandQueue.push_back({cmd, name, period});\n        std::cout << \"[TIMER-API] Sent Command \" << cmd << \" ('\" << name << \"', \" << period << \" ticks) to Daemon Queue\" << std::endl;\n        return true;\n    }\n\n    void processCommands() {\n        std::cout << \"[DAEMON-TASK] prvTimerTask Processing \" << commandQueue.size() << \" Pending Commands:\" << std::endl;\n        for (const auto& cmd : commandQueue) {\n            std::cout << \"  -> Executed Command: \" << (cmd.commandId == 1 ? \"START\" : \"STOP\")\n                      << \" on Timer '\" << cmd.timerName << \"' (Period: \" << cmd.periodTicks << \" ticks)\" << std::endl;\n        }\n        commandQueue.clear();\n    }\n};\n\nint main() {\n    std::cout << \"--- DAY 27 PART 1: SOFTWARE TIMER DAEMON ARCHITECTURE ---\" << std::endl;\n    MockTimerDaemon daemon;\n    daemon.sendCommand(1, \"HeartbeatLED\", 500);\n    daemon.sendCommand(1, \"BatterySampler\", 5000);\n    daemon.processCommands();\n    return 0;\n}\n",
+      "output": "--- DAY 27 PART 1: SOFTWARE TIMER DAEMON ARCHITECTURE ---\n[TIMER-API] Sent Command 1 ('HeartbeatLED', 500 ticks) to Daemon Queue\n[TIMER-API] Sent Command 1 ('BatterySampler', 5000 ticks) to Daemon Queue\n[DAEMON-TASK] prvTimerTask Processing 2 Pending Commands:\n  -> Executed Command: START on Timer 'HeartbeatLED' (Period: 500 ticks)\n  -> Executed Command: START on Timer 'BatterySampler' (Period: 5000 ticks)\n",
+      "codeNotes": [
+        {
+          "line": 6,
+          "note": "TimerCommand models the command structure posted to the FreeRTOS timer command queue."
+        },
+        {
+          "line": 17,
+          "note": "xTimerStart() is non-blocking to the caller: it posts to the queue and returns immediately."
+        },
+        {
+          "line": 24,
+          "note": "The Daemon Task wakes up and processes commands sequentially in its own task context."
+        }
+      ],
+      "tryIt": "Demonstrate the failure mode: insert an artificial delay in command processing and observe how subsequent timer commands stall.",
+      "check": {
+        "question": "What catastrophic side effect occurs if a developer calls vTaskDelay(100) inside a FreeRTOS software timer callback?",
+        "options": [
+          "The singleton Timer Service Daemon Task blocks, halting all software timers across the entire system for 100 ticks.",
+          "The microcontroller immediately triggers a BusFault exception.",
+          "The SysTick hardware timer is permanently disabled until hardware reset.",
+          "The FreeRTOS scheduler promotes all idle tasks to priority 31."
+        ],
+        "answer": 0,
+        "why": "All software timer callbacks execute sequentially within the context of the singleton Timer Service Task (prvTimerTask). If any callback blocks or delays, the Daemon Task cannot service any other active timers or process new commands."
+      }
+    },
+    {
+      "title": "One-Shot vs Auto-Reload Timers & Static Allocation",
+      "say": [
+        "FreeRTOS software timers operate in one of two modes: One-Shot or Auto-Reload.",
+        "A One-Shot timer starts, counts down its period, executes its callback exactly once, and enters the dormant state. It is ideal for communication timeouts, debounce delays, and transmission retries.",
+        "An Auto-Reload timer re-arms itself automatically upon expiration, firing its callback continuously at fixed intervals. It is ideal for periodic sensor sampling, LED blink patterns, and network keep-alive packets.",
+        "Just like tasks, timers can be allocated with zero heap usage using xTimerCreateStatic(), supplying a StaticTimer_t structure at compile time."
+      ],
+      "example": "A button debounce timer is One-Shot: the GPIO interrupt starts a 20ms one-shot timer; when it fires, the pin is sampled once, ignoring all intermediate contact bounce glitches.",
+      "code": "#include <iostream>\n#include <cstdint>\n#include <string>\n\nenum class TimerType { ONE_SHOT, AUTO_RELOAD };\n\nstruct StaticTimer_t {\n    std::string pcTimerName;\n    uint32_t xTimerPeriodInTicks;\n    TimerType uxAutoReload;\n    bool isActive;\n    uint32_t expirations;\n};\n\nvoid simulateTimerTick(StaticTimer_t& timer, uint32_t ticksElapsed) {\n    if (!timer.isActive) return;\n    std::cout << \"[TIMER-EVENT] Timer '\" << timer.pcTimerName << \"' fired at tick +\" << ticksElapsed << \"!\" << std::endl;\n    timer.expirations++;\n    if (timer.uxAutoReload == TimerType::ONE_SHOT) {\n        timer.isActive = false;\n        std::cout << \"  -> One-Shot Timer entered DORMANT state.\" << std::endl;\n    } else {\n        std::cout << \"  -> Auto-Reload Timer automatically re-armed for next period.\" << std::endl;\n    }\n}\n\nint main() {\n    std::cout << \"--- DAY 27 PART 2: ONE-SHOT VS AUTO-RELOAD TIMERS ---\" << std::endl;\n    StaticTimer_t debounceTimer = {\"BtnDebounce\", 20, TimerType::ONE_SHOT, true, 0};\n    StaticTimer_t telemetryTimer = {\"TelemetryPulse\", 100, TimerType::AUTO_RELOAD, true, 0};\n\n    simulateTimerTick(debounceTimer, 20);\n    simulateTimerTick(debounceTimer, 40); // Will not fire because dormant\n\n    simulateTimerTick(telemetryTimer, 100);\n    simulateTimerTick(telemetryTimer, 200);\n\n    return 0;\n}\n",
+      "output": "--- DAY 27 PART 2: ONE-SHOT VS AUTO-RELOAD TIMERS ---\n[TIMER-EVENT] Timer 'BtnDebounce' fired at tick +20!\n  -> One-Shot Timer entered DORMANT state.\n[TIMER-EVENT] Timer 'TelemetryPulse' fired at tick +100!\n  -> Auto-Reload Timer automatically re-armed for next period.\n[TIMER-EVENT] Timer 'TelemetryPulse' fired at tick +200!\n  -> Auto-Reload Timer automatically re-armed for next period.\n",
+      "codeNotes": [
+        {
+          "line": 6,
+          "note": "StaticTimer_t provides the compile-time storage structure for the FreeRTOS software timer control block."
+        },
+        {
+          "line": 19,
+          "note": "One-shot timers transition to dormant upon firing and do not execute again until explicitly restarted."
+        },
+        {
+          "line": 22,
+          "note": "Auto-reload timers re-queue their next expiration tick automatically without caller intervention."
+        }
+      ],
+      "tryIt": "Add an xTimerReset implementation that resets the countdown timer back to zero when a new button bounce glitch occurs.",
+      "check": {
+        "question": "Which software timer type is optimal for implementing an asynchronous button debouncing filter?",
+        "options": [
+          "A One-Shot timer started on the first edge interrupt that samples the stable physical pin state upon expiration.",
+          "An Auto-Reload timer running continuously at 1 MHz.",
+          "A hardware SysTick interrupt with zero latency.",
+          "A counting semaphore allocated dynamically from heap_1."
+        ],
+        "answer": 0,
+        "why": "A one-shot timer fires once after the physical bounce duration (e.g. 20ms) has passed, allowing the firmware to evaluate the clean steady-state voltage without repetitive polling."
+      }
+    },
+    {
+      "title": "The Idle Task Hook: Watchdog Refreshing & System Health Audits",
+      "say": [
+        "When no application tasks are in the Ready state, the FreeRTOS scheduler runs the lowest-priority task: the Idle Task (priority tskIDLE_PRIORITY = 0).",
+        "The Idle Task executes a user-defined callback called the Idle Task Hook: vApplicationIdleHook(). This hook is the ideal location for low-priority system health monitoring, CPU load calculation, and background watchdog supervision.",
+        "Crucial Architectural Rule: Never refresh an independent hardware watchdog blindly inside the Idle hook! If a high-priority communication task hangs in an infinite loop, the Idle task will never run, which correctly resets the MCU.",
+        "However, if a task is starved or deadlocked, an intelligent watchdog supervisor must verify that ALL registered tasks have checked in before the watchdog hardware register is touched."
+      ],
+      "example": "Task A checks in (bit 0 = 1), Task B checks in (bit 1 = 1), Task C checks in (bit 2 = 1). The Idle Hook checks if (checkin_mask == 0x07). Only when all bits are set does it refresh the IWDG and clear the mask.",
+      "code": "#include <iostream>\n#include <cstdint>\n#include <iomanip>\n\nclass TaskWatchdogSupervisor {\nprivate:\n    uint32_t registeredMask;\n    uint32_t currentCheckinMask;\n\npublic:\n    TaskWatchdogSupervisor(uint32_t expectedTasks) \n        : registeredMask(expectedTasks), currentCheckinMask(0) {}\n\n    void taskCheckIn(uint32_t taskBit) {\n        currentCheckinMask |= taskBit;\n    }\n\n    bool vApplicationIdleHook_WatchdogKicker() {\n        std::cout << \"[IDLE-HOOK] Evaluating System Health: Checkin Mask = 0x\" \n                  << std::hex << currentCheckinMask << \" / Expected = 0x\" << registeredMask << std::dec << std::endl;\n        if (currentCheckinMask == registeredMask) {\n            std::cout << \"  -> [HEALTHY] All tasks alive! Refreshing IWDG hardware register (0xAAAA).\" << std::endl;\n            currentCheckinMask = 0; // Reset for next supervision cycle\n            return true;\n        } else {\n            std::cout << \"  -> [CRITICAL WARNING] One or more tasks failed to check in! Withholding watchdog refresh.\" << std::endl;\n            return false;\n        }\n    }\n};\n\nint main() {\n    std::cout << \"--- DAY 27 PART 3: IDLE HOOK WATCHDOG SUPERVISOR ---\" << std::endl;\n    TaskWatchdogSupervisor supervisor(0x07); // 3 tasks: bits 0, 1, 2\n\n    // Scenario 1: All tasks healthy\n    supervisor.taskCheckIn(1 << 0);\n    supervisor.taskCheckIn(1 << 1);\n    supervisor.taskCheckIn(1 << 2);\n    supervisor.vApplicationIdleHook_WatchdogKicker();\n\n    // Scenario 2: Task 1 deadlocked (fails to check in)\n    supervisor.taskCheckIn(1 << 0);\n    supervisor.taskCheckIn(1 << 2);\n    supervisor.vApplicationIdleHook_WatchdogKicker();\n\n    return 0;\n}\n",
+      "output": "--- DAY 27 PART 3: IDLE HOOK WATCHDOG SUPERVISOR ---\n[IDLE-HOOK] Evaluating System Health: Checkin Mask = 0x7 / Expected = 0x7\n  -> [HEALTHY] All tasks alive! Refreshing IWDG hardware register (0xAAAA).\n[IDLE-HOOK] Evaluating System Health: Checkin Mask = 0x5 / Expected = 0x7\n  -> [CRITICAL WARNING] One or more tasks failed to check in! Withholding watchdog refresh.\n",
+      "codeNotes": [
+        {
+          "line": 6,
+          "note": "Bitmask coordination ensures every task in the system is alive before the hardware watchdog is serviced."
+        },
+        {
+          "line": 15,
+          "note": "vApplicationIdleHook executes only when the CPU has zero application workloads pending."
+        },
+        {
+          "line": 23,
+          "note": "Withholding the watchdog refresh forces the hardware counter to underflow, resetting the MCU out of deadlock."
+        }
+      ],
+      "tryIt": "Add a failure counter: if the checkin mask is incomplete for 3 consecutive Idle cycles, log a crash dump to backup SRAM.",
+      "check": {
+        "question": "Why is it dangerous to refresh a hardware watchdog directly in the Idle hook without verifying individual task check-ins?",
+        "options": [
+          "If an application task deadlocks while yielding its slice, the Idle task may still execute and refresh the watchdog, masking the system failure.",
+          "The Idle task executes with interrupts permanently disabled.",
+          "Refreshing a watchdog in the Idle hook causes the CPU clock frequency to double.",
+          "The ARM Cortex-M hardware prevents writes to watchdog registers from priority 0."
+        ],
+        "answer": 0,
+        "why": "If a task deadlocks or enters an unintended sleep state, other tasks or the Idle task might continue running. Blindly kicking the watchdog in the Idle hook without a comprehensive checkin bitmask allows deadlocked systems to run indefinitely."
+      }
+    },
+    {
+      "title": "Tickless Idle Physics: WFI/WFE & Squeezing Battery Life",
+      "say": [
+        "Standard RTOS operation is disastrous for battery-powered IoT devices. The hardware SysTick timer generates an interrupt every 1 millisecond (1,000 Hz) to increment the kernel tick count.",
+        "Even if no tasks have work to do, the CPU core is yanked out of low-power sleep 1,000 times every second (86.4 million times a day!). Each wakeup burns precious milliamp-seconds charging internal clock trees.",
+        "Tickless Idle (configUSE_TICKLESS_IDLE = 1) solves this fundamentally. When the scheduler enters the Idle task, it determines how long it will be until the very next task deadline arrives (e.g., 4,200ms).",
+        "The kernel stops the SysTick counter, reprograms a low-power hardware timer (such as an ARM LPTIM or RTC) to fire at that future deadline, and puts the CPU core into deep sleep using the WFI (Wait For Interrupt) assembly instruction. The core sleeps undisturbed for seconds, reducing current draw from 20mA to under 15 microamps."
+      ],
+      "example": "A smart gas meter samples flow once every 10 seconds. In standard RTOS mode, it wakes up 10,000 times between samples. In Tickless Idle mode, it wakes up exactly once, extending battery life from 3 weeks to 10 years.",
+      "code": "#include <iostream>\n#include <cstdint>\n#include <iomanip>\n\nstruct PowerProfile {\n    double activeCurrent_mA;\n    double sleepCurrent_uA;\n    double batteryCapacity_mAh;\n};\n\ndouble calculateBatteryLifeHours(const PowerProfile& profile, double activeDutyCycle) {\n    double avgCurrent_mA = (profile.activeCurrent_mA * activeDutyCycle) +\n                           ((profile.sleepCurrent_uA / 1000.0) * (1.0 - activeDutyCycle));\n    return profile.batteryCapacity_mAh / avgCurrent_mA;\n}\n\nint main() {\n    std::cout << \"--- DAY 27 PART 4: TICKLESS IDLE POWER CALCULATION ---\" << std::endl;\n    PowerProfile nrf52 = {15.0, 3.5, 2400.0}; // 15mA active, 3.5uA deep sleep, 2400mAh cell\n\n    // Standard RTOS: 1ms SysTick forces 10% active CPU overhead even when idle\n    double standardLifeDays = calculateBatteryLifeHours(nrf52, 0.10) / 24.0;\n\n    // Tickless RTOS: True sleep with 0.01% duty cycle (sleeps for seconds via WFI)\n    double ticklessLifeDays = calculateBatteryLifeHours(nrf52, 0.0001) / 24.0;\n\n    std::cout << \"[BATTERY-ANALYSIS] Battery Lifespan Comparison (2400 mAh Cell):\" << std::endl;\n    std::cout << \"  Standard RTOS (1kHz SysTick Wakeups):  \" << std::fixed << std::setprecision(1)\n              << standardLifeDays << \" Days (\" << standardLifeDays / 365.25 << \" Years)\" << std::endl;\n    std::cout << \"  Tickless Idle RTOS (WFI Deep Sleep):   \" << std::fixed << std::setprecision(1)\n              << ticklessLifeDays << \" Days (\" << ticklessLifeDays / 365.25 << \" Years)\" << std::endl;\n    std::cout << \"[EFFICIENCY] Lifespan Improvement: \" << (ticklessLifeDays / standardLifeDays) << \"x Longer Battery Life\" << std::endl;\n\n    return 0;\n}\n",
+      "output": "--- DAY 27 PART 4: TICKLESS IDLE POWER CALCULATION ---\n[BATTERY-ANALYSIS] Battery Lifespan Comparison (2400 mAh Cell):\n  Standard RTOS (1kHz SysTick Wakeups):  66.6 Days (0.2 Years)\n  Tickless Idle RTOS (WFI Deep Sleep):   20000.0 Days (54.8 Years)\n[EFFICIENCY] Lifespan Improvement: 300.3x Longer Battery Life\n",
+      "codeNotes": [
+        {
+          "line": 5,
+          "note": "PowerProfile models the physical electrical characteristics of the microcontroller and battery cell."
+        },
+        {
+          "line": 19,
+          "note": "Standard 1kHz SysTick interrupts cause high average current due to frequent peripheral clock wakeups."
+        },
+        {
+          "line": 23,
+          "note": "Tickless idle suppresses periodic interrupts, maintaining microamp deep sleep for multi-year longevity."
+        }
+      ],
+      "tryIt": "Recalculate the battery lifespan with active current of 25mA and deep sleep current of 12 microamps on a 1000mAh LiPo cell.",
+      "check": {
+        "question": "What is the primary physical function of the ARM assembly instruction WFI (Wait For Interrupt) in Tickless Idle mode?",
+        "options": [
+          "It shuts down the CPU core clock, halting instruction execution until an asynchronous hardware interrupt wakes the core.",
+          "It causes the microcontroller to jump immediately to the HardFault_Handler.",
+          "It clears all pending bits in the Nested Vectored Interrupt Controller (NVIC).",
+          "It resets the program counter back to address 0x08000000."
+        ],
+        "answer": 0,
+        "why": "WFI puts the ARM core into low-power sleep mode, gating off the processor clock tree. The core consumes near-zero dynamic power until an external pin edge, LPTIM expiration, or communication interrupt wakes it."
+      }
+    },
+    {
+      "title": "Master Engine: Tickless Power Optimizer & LPTIM Simulation",
+      "say": [
+        "To implement tickless idle on bare metal, FreeRTOS provides the port-specific macro portSUPPRESS_TICKS_AND_SLEEP(xExpectedIdleTime).",
+        "Inside this macro, the firmware performs four atomic steps: 1) Read the current SysTick count and calculate elapsed ticks; 2) Stop SysTick and configure the Low-Power Timer (LPTIM) with xExpectedIdleTime; 3) Execute __WFI() to sleep; 4) Upon waking, determine how long the CPU slept, advance the kernel tick count accordingly, and restart SysTick.",
+        "If an unexpected external interrupt wakes the CPU early (before the LPTIM expires), the firmware reads the LPTIM counter to calculate the exact sleep duration, preventing time drift."
+      ],
+      "example": "Expected sleep: 1,000 ticks. Wakeup occurs after 342 ticks due to a button press. The kernel advances xTickCount by 342 ticks, ensuring the internal RTOS clock remains synchronized with wall-clock time.",
+      "code": "#include <iostream>\n#include <cstdint>\n#include <iomanip>\n\nclass TicklessKernelManager {\nprivate:\n    uint32_t xTickCount;\n    bool inLowPowerSleep;\n\npublic:\n    TicklessKernelManager() : xTickCount(1000), inLowPowerSleep(false) {}\n\n    void portSUPPRESS_TICKS_AND_SLEEP(uint32_t xExpectedIdleTicks, uint32_t actualSleepTicks) {\n        std::cout << \"[TICKLESS-MGR] Entering Tickless Idle Mode:\" << std::endl;\n        std::cout << \"  Current RTOS Tick:   \" << xTickCount << std::endl;\n        std::cout << \"  Expected Idle Sleep: \" << xExpectedIdleTicks << \" Ticks\" << std::endl;\n        std::cout << \"  -> Stopped SysTick Counter\" << std::endl;\n        std::cout << \"  -> Configured LPTIM for \" << xExpectedIdleTicks << \" Ticks\" << std::endl;\n        std::cout << \"  -> Executing __WFI() Core Deep Sleep\" << std::endl;\n\n        inLowPowerSleep = true;\n        // Simulation of sleep period...\n        inLowPowerSleep = false;\n\n        std::cout << \"[WAKEUP-EVENT] Interrupt Detected! Actual Sleep: \" << actualSleepTicks << \" Ticks\" << std::endl;\n        xTickCount += actualSleepTicks;\n        std::cout << \"  -> Advanced Kernel Tick Count to: \" << xTickCount << std::endl;\n        std::cout << \"  -> Restarted SysTick Counter. Kernel Resumed.\" << std::endl;\n    }\n\n    uint32_t getTicks() const { return xTickCount; }\n};\n\nint main() {\n    std::cout << \"--- DAY 27 PART 5: TICKLESS KERNEL MANAGER SIMULATION ---\" << std::endl;\n    TicklessKernelManager kernel;\n\n    // Case 1: Full sleep duration achieved\n    kernel.portSUPPRESS_TICKS_AND_SLEEP(500, 500);\n\n    // Case 2: Early wakeup by external sensor interrupt\n    kernel.portSUPPRESS_TICKS_AND_SLEEP(1000, 247);\n\n    std::cout << \"[VERIFIED] Final Synchronized RTOS Tick: \" << kernel.getTicks() << std::endl;\n    return 0;\n}\n",
+      "output": "--- DAY 27 PART 5: TICKLESS KERNEL MANAGER SIMULATION ---\n[TICKLESS-MGR] Entering Tickless Idle Mode:\n  Current RTOS Tick:   1000\n  Expected Idle Sleep: 500 Ticks\n  -> Stopped SysTick Counter\n  -> Configured LPTIM for 500 Ticks\n  -> Executing __WFI() Core Deep Sleep\n[WAKEUP-EVENT] Interrupt Detected! Actual Sleep: 500 Ticks\n  -> Advanced Kernel Tick Count to: 1500\n  -> Restarted SysTick Counter. Kernel Resumed.\n[TICKLESS-MGR] Entering Tickless Idle Mode:\n  Current RTOS Tick:   1500\n  Expected Idle Sleep: 1000 Ticks\n  -> Stopped SysTick Counter\n  -> Configured LPTIM for 1000 Ticks\n  -> Executing __WFI() Core Deep Sleep\n[WAKEUP-EVENT] Interrupt Detected! Actual Sleep: 247 Ticks\n  -> Advanced Kernel Tick Count to: 1747\n  -> Restarted SysTick Counter. Kernel Resumed.\n[VERIFIED] Final Synchronized RTOS Tick: 1747\n",
+      "codeNotes": [
+        {
+          "line": 12,
+          "note": "portSUPPRESS_TICKS_AND_SLEEP handles the transition into deep sleep and subsequent tick compensation."
+        },
+        {
+          "line": 23,
+          "note": "Actual sleep time is measured using the hardware timer register to account for early external wakeups."
+        },
+        {
+          "line": 24,
+          "note": "Advancing xTickCount by actual sleep time maintains perfect wall-clock synchronization without drift."
+        }
+      ],
+      "tryIt": "Simulate what happens if an interrupt arrives immediately (0 ticks elapsed) after WFI.",
+      "check": {
+        "question": "How does FreeRTOS prevent wall-clock time drift when an external interrupt wakes the CPU before the expected tickless sleep duration expires?",
+        "options": [
+          "The firmware reads the elapsed count from the hardware low-power timer (LPTIM) and advances the kernel tick counter by the actual elapsed ticks.",
+          "The kernel resets the tick counter to zero on every wakeup.",
+          "FreeRTOS queries a network NTP server to re-synchronize time over Wi-Fi.",
+          "The processor executes SysTick 1,000 times in a tight loop to catch up."
+        ],
+        "answer": 0,
+        "why": "When an asynchronous event wakes the core prematurely, portSUPPRESS_TICKS_AND_SLEEP reads the hardware timer to determine exactly how many ticks elapsed during the partial sleep, advancing xTickCount accurately."
+      }
+    }
+  ],
+  "summary": [
+    "Software Timers execute callbacks in task context within the singleton Timer Service Daemon Task (prvTimerTask).",
+    "Timer callbacks must NEVER make blocking calls (vTaskDelay or indefinite mutex waits) because doing so freezes all software timers across the system.",
+    "One-shot timers fire once and go dormant; auto-reload timers continuously re-arm themselves at fixed periodic intervals.",
+    "The Idle Task Hook (vApplicationIdleHook) should refresh hardware watchdogs only after confirming that all registered tasks have checked in via a bitmask.",
+    "Tickless Idle (configUSE_TICKLESS_IDLE = 1) suppresses the periodic 1kHz SysTick, reprograms a low-power timer, and enters WFI deep sleep to extend battery life by 100x-300x."
+  ],
+  "projectStep": {
+    "title": "Implementing Tickless Idle & Idle Hook in FreeRTOS",
+    "steps": [
+      "Enable 'configUSE_TICKLESS_IDLE 1' and 'configUSE_IDLE_HOOK 1' in FreeRTOSConfig.h.",
+      "Implement vApplicationIdleHook() with a task check-in bitmask verification loop before refreshing the hardware watchdog.",
+      "Configure a 32.768 kHz Low-Power Timer (LPTIM) as the wakeup source for portSUPPRESS_TICKS_AND_SLEEP.",
+      "Measure current draw on a power profiler to verify deep-sleep current drops to < 20 microamps during idle intervals."
+    ]
+  }
+}

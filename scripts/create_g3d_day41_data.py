@@ -1,0 +1,436 @@
+import json
+
+# Day 41: Hardware Ray Tracing Architecture, Ray Generation & Ray Queries (WebGPU / DXR)
+
+say_p1 = [
+    "Welcome to Day 41 of 3D Computer Graphics, WebGL2 & GPU Shader Architecture! Today, we cross the threshold into Month 2 Block 9: the ultimate technological frontier of modern real-time graphics: Hardware-Accelerated Ray Tracing. In Block 8, we achieved cinema-grade 60 FPS post-processing using screen-space techniques like TAA and SSR. But as brilliant as screen-space algorithms are, they suffer from a fatal physical flaw: they can only reflect or occlude what is already visible on screen! The moment an object leaves the camera frame or is blocked by a foreground character, screen-space reflections vanish or smear into ugly boundary cuts. To achieve true photorealism with infinite bounce reflections, ground-truth contact shadows, and natural ambient lighting, we must trace physical rays into the entire 3D virtual world.",
+    "For four decades, ray tracing was relegated strictly to offline film rendering farms (like Pixar and Industrial Light & Magic) where rendering a single frame took twelve hours! Tracing millions of mathematical rays through complex geometric scenes required billions of ray-box and ray-triangle intersection tests, which choked conventional CPU cores and GPU SIMD compute lanes.",
+    "Consider the physical analogy of an airport baggage sorting facility handling one million suitcases an hour. In a legacy manual sorting facility, human workers individually read paper barcode tags, walk suitcases down long conveyor corridors, and manually load them onto luggage carts. It takes hours to process a single transatlantic flight. But in a modern automated logistics terminal, specialized robotic optical scanner tunnels fire laser arrays from all angles in microsecond intervals, instantaneously reading barcodes and routing luggage into high-speed magnetic chutes. Hardware-accelerated ray tracing is that robotic scanner tunnel: dedicated silicon circuitry built directly into the GPU die specifically designed to calculate ray-triangle collisions at the speed of light.",
+    "In 2018, GPU silicon underwent a historic architectural transformation with the introduction of dedicated Ray Tracing Hardware Cores (such as Nvidia RT Cores, AMD Ray Accelerators, and Apple Silicon RT units). These specialized on-chip ASIC units execute Bounding Volume Hierarchy (BVH) box traversal and Möller-Trumbore ray-triangle intersections entirely in fixed-function silicon, offloading the GPU's general-purpose ALU compute units.",
+    "The microarchitecture of a modern RT core features dual fixed-function hardware execution pipes: The BVH Box Traversal Unit and The Ray-Triangle Intersection Unit. While standard SIMD compute cores execute ray generation and lighting shaders, the RT core operates asynchronously on-chip: iteratively unrolling bounding box tree nodes, calculating ray-slab intersections, and testing candidate triangles at line rate. This hardware specialization increases ray-triangle intersection throughput by more than ten-fold compared to software compute emulation.",
+    "In the WebGPU and modern API ecosystems (DirectX 12 DXR and Vulkan RT), hardware ray tracing is exposed through two distinct programming paradigms: Full Ray Tracing Pipelines (featuring Ray Generation, Closest Hit, Any Hit, and Miss shader stages) and Inline Ray Queries (`rayQueryInitialize`, `rayQueryProceed`). Ray queries allow standard compute shaders and fragment shaders to query the hardware BVH directly from arbitrary shader code without the heavy context-switching overhead of full pipeline reconfiguration!",
+    "To trace a ray, the engine must first construct the Ray Generation kernel. For each pixel on screen, the camera computes a world-space Ray Origin (the physical camera position) and a normalized Ray Direction. This is accomplished by unprojecting the pixel's Normalized Device Coordinates (NDC) using the inverse View-Projection matrix ($M_{inv}$).",
+    "Furthermore, ray generation seamlessly integrates with our sub-pixel Halton jitter sequence from Day 36. By applying the camera jitter offset to the NDC coordinates before unprojection, every ray query naturally participates in temporal supersampling, allowing noisy single-sample ray traced passes to converge into razor-sharp, noise-free ground truth across consecutive frames.",
+    "In the TypeScript snippet below, we construct the `RayGenerator`. We transform screen-space pixel coordinates into world-space ray vectors, normalizing directional trajectories across the camera's perspective field of view.",
+    "Notice how screen center generates a clean directional vector pointing straight forward into world space. With ray generation established, we now explore top-level and bottom-level acceleration structures."
+]
+
+say_p2 = [
+    "Before a GPU ray query can trace a single ray through a 3D scene containing ten million triangles, the scene geometry must be organized into a spatial search structure that allows the hardware RT cores to prune empty space in logarithmic time O(log N). If the GPU tested rays against every triangle one by one, tracing one ray would require ten million intersection tests! In modern ray tracing APIs, this spatial optimization is universally structured as a Two-Level Acceleration Structure: Bottom-Level Acceleration Structures (BLAS) and Top-Level Acceleration Structures (TLAS).",
+    "Consider the physical analogy of an international postal delivery system routing a handwritten letter from London to a specific apartment in Tokyo. The London sorting office does not search through all thirty million individual apartment mailboxes across Japan! First, the international hub sorts the letter to Tokyo (the Top Level). Then, the Tokyo hub routes it to the Shibuya ward. Next, the postal carrier enters the specific apartment high-rise building (the Bottom Level) and drops the letter into apartment 402. The two-level hierarchy collapses thirty million candidate mailboxes into four quick triage steps.",
+    "In our graphics architecture, a Bottom-Level Acceleration Structure (BLAS) is built around the raw vertex and index buffers of a unique 3D mesh (e.g. a high-detail sports car model consisting of 500,000 triangles). The BLAS contains a tightly compacted Bounding Volume Hierarchy (BVH) of axis-aligned bounding boxes (AABBs) wrapping the car's local geometry.",
+    "A Top-Level Acceleration Structure (TLAS) contains instances of these BLAS meshes placed throughout the virtual world. If a city scene contains fifty identical sports cars parked along a street, the GPU does not duplicate the 500,000 triangles fifty times in VRAM! Instead, the engine creates fifty lightweight TLAS Instances, each containing a 4x3 affine transformation matrix (position, rotation, scale), an instance ID, and a pointer to the single shared car BLAS in VRAM. This instancing cuts memory consumption by ninety-eight percent!",
+    "Modern graphics engines distinguish between Static and Dynamic BLAS builds. Static geometry (such as architectural terrain and concrete pillars) is built offline with the `PREFER_FAST_TRACE` flag, allowing the builder to execute exhaustive Surface Area Heuristics (SAH) for maximum runtime traversal speed. Conversely, animated skinned characters are rebuilt or refitted per frame with the `PREFER_FAST_BUILD` flag, minimizing CPU and GPU build times during real-time gameplay.",
+    "When initializing a Ray Query in a WebGPU compute shader (`rayQueryInitialize`), the shader provides the target TLAS handle, the ray origin, ray direction, and a valid search interval [t_min, t_max]. The parameter t_min is extraordinarily critical: if t_min = 0.0, a shadow ray launched from a character's shoe will immediately collide with the very triangle it spawned from due to floating-point imprecision—an artifact known as Surface Self-Intersection or 'Shadow Acne'. Setting t_min = 0.001 creates an epsilon offset that cleanly avoids self-intersection.",
+    "Furthermore, ray queries support hardware Optimization Flags: `RAY_FLAG_CULL_BACK_FACING` skips back-facing triangles to double traversal speed, while `RAY_FLAG_TERMINATE_ON_FIRST_HIT` informs hardware RT cores to stop searching the instant any opaque occluder is found. This first-hit flag is the golden key for real-time shadow rays, transforming expensive closest-hit tree traversals into lightning-fast boolean visibility tests.",
+    "Additionally, TLAS instances specify an 8-bit Instance Inclusion Mask. Shaders configure ray queries with a matching mask: for example, shadow rays test mask 0x01 (opaque occluders), while reflection rays test mask 0x03 (both opaque geometry and reflective water surfaces). This hardware mask culling skips entire categories of scene objects before a single ray-box test is dispatched.",
+    "In the TypeScript snippet below, we implement the `RayQueryInitializer`. We configure shadow ray parameters, establish acne-prevention epsilon bounds, and pack hardware optimization flags.",
+    "Notice how first-hit and opaque flags configure the ray for maximum hardware traversal speed. We now examine ray-triangle intersection and barycentric interpolation."
+]
+
+say_p3 = [
+    "When an RT core's hardware traversal unit determines that a ray has intersected a leaf node of the Bounding Volume Hierarchy, it executes the fundamental geometric collision test of computer graphics: The Ray-Triangle Intersection. In modern silicon, this is executed by the Möller-Trumbore Algorithm, which evaluates ray-triangle intersection directly from the triangle's three vertex coordinates without requiring the precomputation of plane equations.",
+    "The Möller-Trumbore algorithm expresses any point on a triangle as P(u, v) = (1 - u - v) * V0 + u * V1 + v * V2, where V0, V1, V2 are the triangle vertices and u, v are Barycentric Coordinates. Setting the ray equation R(t) = O + t * D equal to P(u, v) yields a linear system of three equations with three unknowns: [-D, V1 - V0, V2 - V0] * [t, u, v]^T = O - V0. By applying Cramer's Rule, the algorithm solves for hit distance t and barycentric coordinates (u, v) using pure vector cross and dot products.",
+    "The third barycentric coordinate is defined automatically as w = 1.0 - u - v, such that u + v + w = 1.0 and u, v, w >= 0. If u < 0, v < 0, or u + v > 1, the ray missed the triangle boundaries and the traversal unit immediately discards the candidate.",
+    "Consider the physical analogy of a three-legged triangular camping stool sitting on an uneven grassy meadow. Imagine placing a bowling ball on the canvas seat of the stool. If the bowling ball sits exactly at Leg 1, Leg 1 bears one hundred percent of the weight (u = 1.0, v = 0, w = 0). If the bowling ball rests dead center on the canvas, all three legs share the weight equally (u = 0.333, v = 0.333, w = 0.333). If the ball sits halfway between Leg 2 and Leg 3, Leg 1 bears zero weight (u = 0, v = 0.5, w = 0.5). Barycentric coordinates represent the exact percentage weight distributed across the three vertices of a triangle.",
+    "In hardware ray queries, when a hit is confirmed (`rayQueryGetIntersectionType() == HIT_KIND_TRIANGLE`), the hardware returns the hit distance t, the instance ID, the primitive (triangle) index, and the barycentric coordinates (u, v).",
+    "To shade the hit surface, the compute shader must interpolate vertex attributes: surface normals, UV texture coordinates, tangent vectors, and material IDs. In legacy rasterization, the GPU hardware rasterizer interpolated these attributes across pixel centers automatically. But in ray tracing, there is no rasterizer! The compute shader must fetch the three vertex attributes from a global Bindless Storage Buffer (`array<Vertex>`) and perform the barycentric interpolation manually: attribute = w * v0.attribute + u * v1.attribute + v * v2.attribute.",
+    "This bindless attribute fetching requires high-throughput memory bandwidth. To prevent GPU cache thrashing when millions of incoherent rays access scattered mesh buffers, modern engines organize vertex data into Cache-Aligned SOA (Structure of Arrays) layouts, ensuring that normal vectors and texture coordinates reside in contiguous 16-byte cache lines.",
+    "Furthermore, hardware implementations use Watertight Ray-Triangle Intersection math. By employing conservative bounding box extensions and consistent floating-point rounding rules across shared triangle edges, the RT cores completely prevent crack artifacts where rays occasionally slip through the boundary between two adjacent coplanar triangles.",
+    "In the TypeScript snippet below, we implement the `RayHitEvaluator`. We take a confirmed ray hit, read the triangle's three vertex normals, and perform barycentric interpolation to compute the exact normalized surface normal at the hit point.",
+    "Notice how the interpolated surface normal smoothly blends the three vertex normals according to barycentric weights. We now deploy these rays to compute Ray-Traced Ambient Occlusion."
+]
+
+say_p4 = [
+    "With ray generation, acceleration structures, and hit evaluation established, we deploy our ray tracing engine to solve one of the most visually transformative phenomena in lighting: Ray-Traced Ambient Occlusion (RTAO).",
+    "In classical rendering, ambient light is approximated as a flat, uniform constant added to every surface. But in the physical real world, diffuse ambient light from the sky cannot reach tight corners, crevices, beneath furniture, or inside folds of clothing! In Block 8, we explored Screen-Space Ambient Occlusion (SSAO), which samples the local 2D depth buffer. However, SSAO suffers from severe visual limitations: it cannot occlude light from objects outside the camera screen, it creates ugly dark halos around foreground silhouettes, and it completely misses occlusion from large nearby structures.",
+    "Ray-Traced Ambient Occlusion (RTAO) achieves ground-truth physical accuracy by launching real physical rays into the surrounding 3D world! For every surface pixel, the compute shader generates an array of Occlusion Rays distributed across the hemisphere oriented around the surface normal N.",
+    "Consider the physical analogy of an explorer standing at the bottom of a narrow canyon gazing upward at the sky. If the explorer looks straight up, they see open blue sky. But if they look thirty degrees to the left or right, their line of sight immediately hits towering granite canyon walls! Only a narrow cone of ambient sky light reaches the canyon floor. RTAO acts as an optical explorer at every pixel, shooting rays outward in all directions to measure exactly how much open sky is visible.",
+    "To maximize mathematical convergence with minimal ray counts, occlusion rays are distributed according to a Cosine-Weighted Hemisphere Distribution: rays pointing straight up along the normal vector N are sampled with higher probability than grazing rays parallel to the surface. This cosine weighting mirrors Lambert's cosine law of diffuse reflection.",
+    "In shader code, cosine hemisphere directions are generated using Concentric Disk Mapping (Shirley-Chiu mapping). Two uniform pseudo-random numbers (xi_1, xi_2) are mapped from square space to a circular unit disk, and projected upward onto the hemisphere: x = r * cos(phi), y = r * sin(phi), z = sqrt(max(0.0, 1.0 - x^2 - y^2)). This mapping completely eliminates polar clustering distortion.",
+    "Each occlusion ray is bounded by a maximum search distance R_max (e.g. 2.0 meters). If a ray travels 2.0 meters without hitting any geometry, it is marked as Unoccluded. If the ray query encounters a solid triangle within 2.0 meters, the ray is marked as Occluded. The Ambient Occlusion scalar is simply the ratio of unoccluded rays to total rays: AO = unoccluded / totalRays, where AO = 1.0 represents completely open space and AO = 0.0 represents total darkness in a deep crevice.",
+    "To prevent self-shadowing acne at grazing angles, the ray origin is shifted slightly along the surface geometric normal: origin_offset = world_pos + N * epsilon. This normal biasing guarantees that rays clear microscopic surface facets without introducing floating shadow gaps.",
+    "Furthermore, modern engines modulate ambient occlusion evaluation based on material roughness. On highly polished, mirror-like metallic surfaces, ambient occlusion is physically negligible because specular reflections dominate; conversely, on rough matte stone or porous concrete, diffuse ambient occlusion is visually pronounced. Shaders scale the AO intensity by the material's diffuse reflectance coefficient, ensuring that metallic reflections remain sparkling while cavities in matte geometry receive rich contact shadowing.",
+    "In the TypeScript snippet below, we construct the `RayTracedAOEvaluator`. We evaluate an array of occlusion test rays, clamp distance bounds, and calculate the final ambient occlusion shadowing percentage.",
+    "Notice how three hits within the two-meter radius yield a 40% surface shadowing factor with zero screen-space halo artifacts. We now audit ray tracing throughput and enforce 60 FPS budgets."
+]
+
+say_p5 = [
+    "We now reach the crucial engineering bridge that makes real-time ray tracing commercially viable: Ray Budgeting, Wavefront Scheduling, and 60 FPS Hybrid Rendering SLA Compliance. Even on modern graphics hardware equipped with dedicated RT cores, shooting dozens of rays per pixel at 4K resolution is completely impossible in a 16.6ms frame budget! 4K resolution contains 8.3 million pixels; shooting sixteen rays per pixel requires 132 million ray traversals every single frame, which would cause frame rates to collapse to single digits.",
+    "To achieve a rock-solid 60 FPS, modern AAA game engines—including Cyberpunk 2077, Metro Exodus, and Alan Wake 2—employ Hybrid Rendering Architectures: rasterizing primary visibility with G-Buffers, and firing a strictly budgeted count of ray queries (typically 1 ray per pixel at half resolution, or 0.25 rays per pixel) combined with intelligent Spatio-Temporal Denoising filters.",
+    "Consider the physical analogy of an express parcel courier delivery fleet. To deliver packages to every home in a metropolitan city within sixteen minutes, the company does not dispatch 100,000 individual delivery vans simultaneously into gridlocked traffic! That would cause total citywide gridlock. Instead, the company dispatches one express van to each neighborhood cluster, delivers to key distribution lockers, and allows local neighborhood couriers to distribute packages efficiently over the last mile. Hybrid rendering applies this exact logistical restraint to GPU rays.",
+    "In our WebGPU ray tracing engine, the post-processing pipeline allocates a strict Ray Tracing SLA Budget of 2.50 milliseconds for ambient occlusion and shadow ray queries. At 1080p half-resolution (960x540 = 518,400 pixels) or 720p full-resolution (1280x720 = 921,600 pixels), dispatching one ray per pixel requires approximately one million ray queries per frame.",
+    "To evaluate ray tracing performance, engineers measure throughput in MRPS (Million Rays Per Second): MRPS = raysDispatched / (timeSeconds * 10^6). On modern discrete GPUs, hardware RT cores achieve throughputs between 200 and 800 MRPS. Firing 921,600 rays in 1.85 milliseconds equates to approximately 498 Million Rays Per Second, comfortably satisfying our 2.5ms SLA target!",
+    "To hide memory latency during ray traversal, shaders deploy Wavefront Compaction: grouping threads that are actively traversing the BVH together, while allowing threads that hit empty space to terminate early without stalling the SIMD wave. This guarantees maximum compute occupancy across all GPU execution units.",
+    "Because single-ray-per-pixel queries produce high-frequency stochastic Monte Carlo noise, the raw ray tracing output resembles grainy photographic film. In production engines, this raw signal is immediately processed by Spatio-Temporal Variance-Guided Filtering (SVGF). By reusing historical ray samples across frames via TAA motion vectors and filtering across surface normal and depth bilateral weights, the denoiser converges the grainy 1-spp output into silky smooth, photorealistic illumination in less than one millisecond.",
+    "Finally, production engines enforce strict Hardware Capability Feature Detection. In WebGPU, applications inspect the `navigator.gpu.requestAdapter()` feature list for the `experimental-ray-query` extension before creating the device. If the client machine is an older smartphone or low-power laptop lacking dedicated hardware RT units, the render graph gracefully degrades: substituting our screen-space HBAO and SSAO shaders from Block 8 in place of ray queries, ensuring universal compatibility without runtime exceptions or crash logs.",
+    "Furthermore, performance monitoring hooks track ray query execution times continuously using non-blocking timestamp queries. If scene complexity surges—such as a player entering a dense forest with millions of alpha-tested leaf triangles—the engine dynamically reduces RTAO ray search distance, preserving the 2.5ms SLA under all gameplay conditions.",
+    "In the TypeScript snippet below, we construct the `RayTracingQualityAuditor`. We measure total rays dispatched, ray query execution time in milliseconds, evaluate Million Rays Per Second throughput, and certify 60 FPS compliance.",
+    "Notice how 921,600 rays execute in 1.85ms, delivering 498.2 MRPS throughput and easily passing our SLA. Tomorrow, in Day 42, we build the mathematical engine beneath this hardware: Binned SAH Bounding Volume Hierarchy Construction and Tree Compaction!"
+]
+
+# Snippets from verified test script
+c1 = """interface CameraRayConfig {
+  pixelX: number;
+  pixelY: number;
+  screenWidth: number;
+  screenHeight: number;
+  cameraPos: [number, number, number];
+  invViewProj: number[]; // 16 elements (4x4 matrix)
+}
+
+class RayGenerator {
+  static generateRay(cfg: CameraRayConfig): { origin: [number, number, number]; direction: [number, number, number] } {
+    // Convert pixel to NDC [-1, 1]
+    const ndcX = (2.0 * (cfg.pixelX + 0.5)) / cfg.screenWidth - 1.0;
+    const ndcY = 1.0 - (2.0 * (cfg.pixelY + 0.5)) / cfg.screenHeight;
+
+    // Transform near and far points by inverse view projection
+    const targetNear = this.transformPoint([ndcX, ndcY, 0.0, 1.0], cfg.invViewProj);
+    const targetFar = this.transformPoint([ndcX, ndcY, 1.0, 1.0], cfg.invViewProj);
+
+    const dirX = targetFar[0] - targetNear[0];
+    const dirY = targetFar[1] - targetNear[1];
+    const dirZ = targetFar[2] - targetNear[2];
+    const len = Math.sqrt(dirX * dirX + dirY * dirY + dirZ * dirZ);
+
+    const normDir: [number, number, number] = [
+      parseFloat((dirX / len).toFixed(4)),
+      parseFloat((dirY / len).toFixed(4)),
+      parseFloat((dirZ / len).toFixed(4))
+    ];
+
+    return { origin: cfg.cameraPos, direction: normDir };
+  }
+
+  private static transformPoint(p: [number, number, number, number], m: number[]): [number, number, number] {
+    const x = m[0] * p[0] + m[4] * p[1] + m[8] * p[2] + m[12] * p[3];
+    const y = m[1] * p[0] + m[5] * p[1] + m[9] * p[2] + m[13] * p[3];
+    const z = m[2] * p[0] + m[6] * p[1] + m[10] * p[2] + m[14] * p[3];
+    const w = m[3] * p[0] + m[7] * p[1] + m[11] * p[2] + m[15] * p[3];
+    return [x / w, y / w, z / w];
+  }
+}
+
+// Identity matrix for testing
+const identity = [
+  1, 0, 0, 0,
+  0, 1, 0, 0,
+  0, 0, 1, 0,
+  0, 0, 0, 1
+];
+
+const ray = RayGenerator.generateRay({
+  pixelX: 960,
+  pixelY: 540,
+  screenWidth: 1920,
+  screenHeight: 1080,
+  cameraPos: [0.0, 1.5, 5.0],
+  invViewProj: identity
+});
+
+console.log(`[Ray Generation] Camera Origin: [${ray.origin.join(", ")}]`);
+console.log(`[Ray Generation] Ray Direction at Screen Center: [${ray.direction.join(", ")}]`);"""
+
+o1 = """[Ray Generation] Camera Origin: [0, 1.5, 5]
+[Ray Generation] Ray Direction at Screen Center: [0, 0, 1]"""
+
+c2 = """enum RayQueryFlag {
+  NONE = 0,
+  OPAQUE = 1,
+  NO_OPAQUE = 2,
+  TERMINATE_ON_FIRST_HIT = 4
+}
+
+interface RayQueryConfig {
+  origin: [number, number, number];
+  direction: [number, number, number];
+  tMin: number;
+  tMax: number;
+  flags: number;
+}
+
+class RayQueryInitializer {
+  static configureShadowRay(origin: [number, number, number], lightDir: [number, number, number], maxDist: number): RayQueryConfig {
+    return {
+      origin: [origin[0], origin[1], origin[2]],
+      direction: [lightDir[0], lightDir[1], lightDir[2]],
+      tMin: 0.001, // Epsilon offset to prevent self-intersection acne
+      tMax: maxDist,
+      flags: RayQueryFlag.OPAQUE | RayQueryFlag.TERMINATE_ON_FIRST_HIT
+    };
+  }
+}
+
+const shadowRay = RayQueryInitializer.configureShadowRay([0, 1, 0], [0, 1, 0], 25.0);
+console.log(`[Ray Query] TMin (Acne Offset): ${shadowRay.tMin}m`);
+console.log(`[Ray Query] TMax (Distance Bound): ${shadowRay.tMax}m`);
+console.log(`[Ray Query] Optimization Flags: ${shadowRay.flags} (OPAQUE | TERMINATE_ON_FIRST_HIT)`);"""
+
+o2 = """[Ray Query] TMin (Acne Offset): 0.001m
+[Ray Query] TMax (Distance Bound): 25m
+[Ray Query] Optimization Flags: 5 (OPAQUE | TERMINATE_ON_FIRST_HIT)"""
+
+c3 = """interface HitResult {
+  hasHit: boolean;
+  t: number;
+  barycentricU: number;
+  barycentricV: number;
+  instanceId: number;
+}
+
+class RayHitEvaluator {
+  static interpolateNormal(
+    hit: HitResult,
+    normals: [number, number, number][] // 3 vertex normals [n0, n1, n2]
+  ): [number, number, number] {
+    const w = 1.0 - hit.barycentricU - hit.barycentricV;
+    const u = hit.barycentricU;
+    const v = hit.barycentricV;
+
+    const nx = w * normals[0][0] + u * normals[1][0] + v * normals[2][0];
+    const ny = w * normals[0][1] + u * normals[1][1] + v * normals[2][1];
+    const nz = w * normals[0][2] + u * normals[1][2] + v * normals[2][2];
+    const len = Math.sqrt(nx * nx + ny * ny + nz * nz);
+
+    return [
+      parseFloat((nx / len).toFixed(4)),
+      parseFloat((ny / len).toFixed(4)),
+      parseFloat((nz / len).toFixed(4))
+    ];
+  }
+}
+
+const hit: HitResult = {
+  hasHit: true,
+  t: 3.42,
+  barycentricU: 0.35,
+  barycentricV: 0.45,
+  instanceId: 12
+};
+
+const triNormals: [number, number, number][] = [
+  [0, 1, 0],
+  [0.2, 0.98, 0],
+  [-0.1, 0.99, 0.1]
+];
+
+const hitNormal = RayHitEvaluator.interpolateNormal(hit, triNormals);
+console.log(`[Ray Hit] Distance t: ${hit.t}m, Instance ID: ${hit.instanceId}`);
+console.log(`[Ray Hit] Barycentrics: u=${hit.barycentricU}, v=${hit.barycentricV}, w=${(1 - hit.barycentricU - hit.barycentricV).toFixed(2)}`);
+console.log(`[Ray Hit] Interpolated Surface Normal: [${hitNormal.join(", ")}]`);"""
+
+o3 = """[Ray Hit] Distance t: 3.42m, Instance ID: 12
+[Ray Hit] Barycentrics: u=0.35, v=0.45, w=0.20
+[Ray Hit] Interpolated Surface Normal: [0.0253, 0.9986, 0.0455]"""
+
+c4 = """interface OcclusionSample {
+  rayHit: boolean;
+  distance: number;
+}
+
+class RayTracedAOEvaluator {
+  static computeAO(samples: OcclusionSample[], maxAoDist: number): number {
+    let unoccludedCount = 0;
+
+    for (const s of samples) {
+      if (!s.rayHit || s.distance > maxAoDist) {
+        unoccludedCount++;
+      }
+    }
+
+    const aoFactor = unoccludedCount / samples.length;
+    return parseFloat(aoFactor.toFixed(3));
+  }
+}
+
+const testSamples: OcclusionSample[] = [
+  { rayHit: false, distance: Infinity },
+  { rayHit: true, distance: 0.8 },  // Occluded within radius
+  { rayHit: true, distance: 4.5 },  // Hit beyond 2.0m radius (treated as clear)
+  { rayHit: false, distance: Infinity },
+  { rayHit: true, distance: 0.3 }   // Occluded
+];
+
+const ao = RayTracedAOEvaluator.computeAO(testSamples, 2.0);
+console.log(`[RTAO] Sample Rays Evaluated: ${testSamples.length}`);
+console.log(`[RTAO] Ambient Occlusion Factor: ${ao} (1.0 = fully unoccluded)`);
+console.log(`[RTAO] Surface Shadowing Percentage: ${(100 * (1.0 - ao)).toFixed(1)}%`);"""
+
+o4 = """[RTAO] Sample Rays Evaluated: 5
+[RTAO] Ambient Occlusion Factor: 0.6 (1.0 = fully unoccluded)
+[RTAO] Surface Shadowing Percentage: 40.0%"""
+
+c5 = """interface RTMetrics {
+  totalRaysDispatched: number;
+  rayQueryExecutionMs: number;
+  rayBoxTestsPerSecondM: number;
+  maxSlaMs: number;
+}
+
+class RayTracingQualityAuditor {
+  static audit(metrics: RTMetrics): { withinBudget: boolean; throughputCertified: boolean; mrps: number } {
+    const withinBudget = metrics.rayQueryExecutionMs <= metrics.maxSlaMs;
+    const mrps = parseFloat((metrics.totalRaysDispatched / (metrics.rayQueryExecutionMs * 1000.0)).toFixed(1)); // Million Rays Per Second
+    const throughputCertified = mrps >= 50.0; // SLA: >= 50 Million Rays/sec on modern hardware
+
+    return { withinBudget, throughputCertified, mrps };
+  }
+}
+
+const metrics: RTMetrics = {
+  totalRaysDispatched: 921600, // 1 ray per pixel at 720p or half-res 1080p
+  rayQueryExecutionMs: 1.85,
+  rayBoxTestsPerSecondM: 850,
+  maxSlaMs: 2.50
+};
+
+const audit = RayTracingQualityAuditor.audit(metrics);
+console.log(`[RT Audit] Rays Dispatched: ${metrics.totalRaysDispatched.toLocaleString("en-US")}`);
+console.log(`[RT Audit] Execution Time: ${metrics.rayQueryExecutionMs} ms (Under ${metrics.maxSlaMs}ms SLA: ${audit.withinBudget})`);
+console.log(`[RT Audit] Ray Throughput: ${audit.mrps} Million Rays/Sec (Meets Target: ${audit.throughputCertified})`);"""
+
+o5 = """[RT Audit] Rays Dispatched: 921,600
+[RT Audit] Execution Time: 1.85 ms (Under 2.5ms SLA: true)
+[RT Audit] Ray Throughput: 498.2 Million Rays/Sec (Meets Target: true)"""
+
+day41_data = {
+    'day': 41,
+    'coursePrefix': 'g3d',
+    'title': 'Hardware Ray Tracing Architecture, Ray Generation & Ray Queries (WebGPU / DXR)',
+    'goal': 'Master hardware-accelerated ray tracing: on-chip RT core architecture, two-level acceleration structures (TLAS/BLAS), inline ray queries, barycentric attribute interpolation, and ray-traced ambient occlusion (RTAO).',
+    'recap': 'Recap of Block 8: Cinema-grade 60 FPS real-time HDR post-processing engine, TAA, SSR, Froxels, DoF, Bloom, and ACES tone mapping.',
+    'minutes': 120,
+    'parts': [
+        {
+            'part': 1,
+            'title': 'Evolution of Ray Tracing Hardware: RT Cores, ASIC Units & Ray Queries',
+            'say': say_p1,
+            'example': 'An automated airport baggage sorting tunnel firing laser scanner arrays to route suitcases in microsecond intervals without human bottlenecks.',
+            'code': c1,
+            'output': o1,
+            'check': {
+                'question': 'What architectural advantage do Inline Ray Queries provide over traditional Full Ray Tracing Pipelines?',
+                'options': [
+                    'They allow standard compute and fragment shaders to query hardware acceleration structures directly without heavy pipeline state switching overhead.',
+                    'They replace 3D geometry with 2D sprites automatically.',
+                    'They double the physical clock speed of the graphics card.',
+                    'They eliminate the need for vertex buffers entirely.'
+                ],
+                'answer': 0,
+                'answerIndex': 0,
+                'why': 'Inline ray queries execute directly inside existing compute and fragment shaders, providing flexible BVH queries without pipeline context switches.'
+            }
+        },
+        {
+            'part': 2,
+            'title': 'Two-Level Acceleration Structures (TLAS/BLAS) & Ray Query Configuration',
+            'say': say_p2,
+            'example': 'An international postal courier sorting mail first to Tokyo city hub and then to individual apartment buildings to avoid searching thirty million mailboxes.',
+            'code': c2,
+            'output': o2,
+            'check': {
+                'question': 'Why is setting an acne offset (tMin > 0.0) critical when launching shadow rays from geometric surfaces?',
+                'options': [
+                    'To prevent the ray from immediately intersecting the very surface triangle it spawned from due to floating-point imprecision.',
+                    'To reduce VRAM memory usage across the GPU bus.',
+                    'To invert the color of the cast shadow from black to white.',
+                    'To enable double buffering on the monitor display.'
+                ],
+                'answer': 0,
+                'answerIndex': 0,
+                'why': 'Floating-point rounding errors cause rays spawned on surfaces to falsely collide with themselves unless offset by an epsilon tMin distance.'
+            }
+        },
+        {
+            'part': 3,
+            'title': 'Möller-Trumbore Ray-Triangle Intersections & Barycentric Normal Interpolation',
+            'say': say_p3,
+            'example': 'A three-legged camping stool supporting a bowling ball on canvas where weight distributes proportionally across the three legs according to ball position.',
+            'code': c3,
+            'output': o3,
+            'check': {
+                'question': 'How does a ray tracing compute shader evaluate smooth surface normals at ray hit points without a hardware rasterizer?',
+                'options': [
+                    'By reading the three triangle vertex normals from a bindless buffer and weighting them by barycentric coordinates: w * n0 + u * n1 + v * n2.',
+                    'By copying the normal of the closest scene light source.',
+                    'By guessing a random vector in the upper hemisphere.',
+                    'By reading the normal from the 2D depth buffer.'
+                ],
+                'answer': 0,
+                'answerIndex': 0,
+                'why': 'Barycentric coordinates returned by the ray intersection test allow shaders to interpolate any vertex attribute across the triangle surface.'
+            }
+        },
+        {
+            'part': 4,
+            'title': 'Ray-Traced Ambient Occlusion (RTAO) & Cosine Hemisphere Sampling',
+            'say': say_p4,
+            'example': 'An explorer standing at the bottom of a deep canyon looking upward to evaluate how much open blue sky is visible between granite walls.',
+            'code': c4,
+            'output': o4,
+            'check': {
+                'question': 'What optical advantage does Ray-Traced Ambient Occlusion (RTAO) provide over Screen-Space Ambient Occlusion (SSAO)?',
+                'options': [
+                    'It traces physical rays into the entire 3D world, capturing occlusion from off-screen objects and eliminating dark halo artifacts.',
+                    'It runs on the CPU to save GPU battery power.',
+                    'It converts monochrome shadow maps into synthetic color.',
+                    'It disables diffuse lighting to increase performance.'
+                ],
+                'answer': 0,
+                'answerIndex': 0,
+                'why': 'RTAO queries the true 3D scene acceleration structure rather than the 2D depth buffer, capturing complete off-screen geometry with zero haloing.'
+            }
+        },
+        {
+            'part': 5,
+            'title': 'Ray Budgeting, Wavefront Scheduling & 60 FPS Hybrid Rendering SLA',
+            'say': say_p5,
+            'example': 'An express parcel courier dispatching a single van to each neighborhood cluster rather than 100,000 vans into gridlocked city traffic.',
+            'code': c5,
+            'output': o5,
+            'check': {
+                'question': 'How do modern real-time graphics engines achieve 60 FPS performance with hardware ray tracing?',
+                'options': [
+                    'By using hybrid architectures that rasterize primary visibility and fire strictly budgeted ray queries (1 ray/pixel) combined with spatio-temporal denoisers.',
+                    'By shooting 64 rays per pixel on every single frame.',
+                    'By lowering screen resolution to 320x240 pixels.',
+                    'By turning off shadows and reflections completely.'
+                ],
+                'answer': 0,
+                'answerIndex': 0,
+                'why': 'Hybrid rendering leverages fast rasterization for G-Buffers while budgeting ray queries within a 2.5ms SLA, relying on denoisers for clean convergence.'
+            }
+        }
+    ],
+    'projectStep': {
+        'title': 'Implement Hardware Ray Queries & Ray-Traced Ambient Occlusion',
+        'steps': [
+            'Generate world-space camera rays from inverse view-projection matrices.',
+            'Configure top-level acceleration structure (TLAS) ray queries with opaque and first-hit optimization flags.',
+            'Evaluate Möller-Trumbore ray hits and interpolate surface normals using barycentric coordinates.',
+            'Calculate cosine-weighted hemisphere occlusion rays and audit performance against 60 FPS SLA targets.'
+        ]
+    },
+    'summary': [
+        'Dedicated GPU RT cores accelerate BVH traversal and ray-triangle intersection entirely in specialized on-chip silicon.',
+        'Two-level acceleration structures (TLAS/BLAS) allow instancing millions of triangles with minimal VRAM and logarithmic search times.',
+        'Möller-Trumbore ray-triangle intersections return barycentric coordinates (u, v) for manual attribute interpolation in compute shaders.',
+        'Ray-Traced Ambient Occlusion (RTAO) eliminates screen-space halo artifacts by shooting physical occlusion rays into the 3D scene.',
+        'Hybrid rendering architectures enforce a 2.5ms ray budget, delivering real-time photorealism at rock-solid 60 FPS.'
+    ]
+}
+
+# Verify word count
+total_words = 0
+for p in day41_data['parts']:
+    wc = sum(len(para.split()) for para in p['say'])
+    total_words += wc
+    print(f"G3D Day 41 Part {p['part']} Word Count: {wc}")
+    assert wc >= 600, f"Part {p['part']} word count {wc} below 600 words!"
+print(f"G3D Day 41 Total Words: {total_words}")
+
+with open('scripts/g3d_day41_data.py', 'w', encoding='utf-8') as f:
+    f.write(f"# Auto-generated Day 41 Data\nDAY_41_DATA = {json.dumps(day41_data, indent=2)}\n")
+
+print("Successfully wrote scripts/g3d_day41_data.py!")

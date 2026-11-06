@@ -1,0 +1,197 @@
+# scripts/build_day45_py.py
+import json
+import re
+
+DAY_45 = {
+    "day": 45,
+    "title": "Milestone 9 Capstone: Institutional Trading Order Execution Form Suite with Real-Time Validation & ARIA Error Announcements",
+    "goal": "Synthesize Block 9 form engineering into a production-grade Institutional Trading Order Execution Form Suite: integrate high-frequency reactive state engines, schema-driven margin circuit breakers, tokenized execution directives, accessible calendar settlement ranges, and assertive live-region error dispatching.",
+    "minutes": 25,
+    "recap": [
+      "In Days 41 through 44, we engineered form control inversion, schema validation pipelines, combobox virtual windowing, and calendar grid matrix math.",
+      "Today in Day 45, we synthesize all these disciplines into the Milestone 9 Capstone: an enterprise trading order execution suite certified for institutional financial compliance."
+    ],
+    "parts": [
+      {
+        "title": "Trading Form System Blueprint: High-Frequency Order Entry, Validation Pipeline & Live Feeds",
+        "say": [
+          "Welcome to the Milestone Nine Capstone of the Advanced Design Systems curriculum. In institutional financial platforms—such as prime brokerage order desks, multi-asset algorithmic execution routers, and quantitative hedge fund blotters—the order entry form is the mission-critical epicenter of revenue and risk management. A single delayed keystroke, dropped frame, or miscommunicated error can result in millions of dollars in financial slippage, catastrophic trade execution errors, or severe regulatory sanctions from bodies like the SEC, CFTC, and FINRA.",
+          "Engineering an institutional order execution form requires reconciling two conflicting operational mandates: Sub-millisecond Execution Speed and Absolute Regulatory Rigor. On one hand, a quantitative trading operator typing order amendments during high-volatility market opening auctions needs zero-latency tactile response. Keystrokes must never be throttled by virtual DOM re-render cascades. On the other hand, the form must enforce rigorous compliance rules: checking buying power margins, verifying settlement date windows against clearinghouse market holidays, validating price collars against national best bid and offer (NBBO) feeds, and announcing all state changes accessibly under WCAG 2.2 Level AA guidelines.",
+          "To satisfy both mandates, the Institutional Trading Order Execution Form Suite adopts a Tri-Tier Architecture: Tier One is the Reactive Input Core. Every form control (the equity ticker combobox, quantity spinner, limit price input, and execution directive pills) operates on an isolated subscription model. Keystrokes update local native DOM buffers instantly, while background state updates stream over dedicated observable channels without waking up unrelated UI components.",
+          "Tier Two is the Real-Time Validation & Risk Pipeline. Form inputs pass through a multi-stage validation chain: instant client-side format checks, synchronous margin arithmetic, and debounced asynchronous risk probes with AbortController race-condition guards. If an order violates portfolio risk limits, the pipeline intercepts the transaction immediately.",
+          "Tier Three is the Accessible Announcement & Settlement Coordinator. This layer orchestrates two-dimensional calendar grid pickers for trade settlement (T+1 settlement under modern SEC rules), manages tokenized execution instructions (such as Fill-or-Kill, Iceberg, and Good-Til-Cancelled), and broadcasts clear, assertive audio alerts through ARIA live regions.",
+          "Throughout this capstone, we will build, integrate, and certify each subsystem of this institutional trading suite. We ensure that our component architecture adheres to strict enterprise software engineering standards, validating that every type definition, state transition, and keyboard shortcut executes with deterministic perfection.",
+          "In this opening part of the capstone, we construct the master blueprint and system ledger. We establish the complete data contracts for the order ticket, define the operational state machine, and verify the initialization of the high-frequency trading form core in TypeScript."
+        ],
+        "example": "Think of the flight control deck of a supersonic commercial jet. The pilot's fly-by-wire flight stick operates instantaneously through hydraulic and electrical actuators (the high-frequency reactive core). In parallel, an automated flight computer continuously cross-checks air speed, altitude, and stall margins against safety envelopes (the validation pipeline), while audio synthetic voices announce critical terrain alerts to the crew (the accessible live-region dispatcher).",
+        "code": "interface OrderTicket {\n  orderId: string;\n  symbol: string;\n  side: 'BUY' | 'SELL';\n  quantity: number;\n  orderType: 'MARKET' | 'LIMIT' | 'STOP_LIMIT';\n  limitPrice?: number;\n  settlementDate: string; // ISO YYYY-MM-DD\n  directives: string[];\n  status: 'PENDING' | 'VALIDATING' | 'REJECTED' | 'EXECUTED';\n}\n\nclass InstitutionalOrderBlueprint {\n  private order: OrderTicket;\n\n  constructor(orderId: string) {\n    this.order = {\n      orderId,\n      symbol: '',\n      side: 'BUY',\n      quantity: 0,\n      orderType: 'LIMIT',\n      settlementDate: '',\n      directives: [],\n      status: 'PENDING'\n    };\n  }\n\n  updateField<K extends keyof OrderTicket>(key: K, value: OrderTicket[K]): void {\n    this.order[key] = value;\n  }\n\n  getOrder(): OrderTicket {\n    return { ...this.order };\n  }\n\n  validateCoreFields(): { isValid: boolean; missing: string[] } {\n    const missing: string[] = [];\n    if (!this.order.symbol) missing.push('symbol');\n    if (this.order.quantity <= 0) missing.push('quantity');\n    if (this.order.orderType === 'LIMIT' && (!this.order.limitPrice || this.order.limitPrice <= 0)) {\n      missing.push('limitPrice');\n    }\n    if (!this.order.settlementDate) missing.push('settlementDate');\n    return { isValid: missing.length === 0, missing };\n  }\n}\n\nconst blueprint = new InstitutionalOrderBlueprint('ORD-9801-X');\nblueprint.updateField('symbol', 'NVDA');\nblueprint.updateField('quantity', 500);\nblueprint.updateField('limitPrice', 125.50);\nblueprint.updateField('settlementDate', '2026-11-16');\nblueprint.updateField('directives', ['FILL_OR_KILL', 'POST_ONLY']);\n\nconst check = blueprint.validateCoreFields();\nconsole.log('Order ID: ' + blueprint.getOrder().orderId);\nconsole.log('Symbol: ' + blueprint.getOrder().symbol + ' Side: ' + blueprint.getOrder().side);\nconsole.log('Core Fields Valid: ' + check.isValid);\nconsole.log('Directives Count: ' + blueprint.getOrder().directives.length);",
+        "output": "Order ID: ORD-9801-X\nSymbol: NVDA Side: BUY\nCore Fields Valid: true\nDirectives Count: 2",
+        "codeNotes": [
+          "The InstitutionalOrderBlueprint enforces strict institutional order typing with immutable getters and partial updates.",
+          "validateCoreFields performs synchronous precondition checks for symbol, quantity, limit price, and settlement date."
+        ],
+        "tryIt": "Add a validation check that rejects SELL orders if the user does not possess sufficient borrow permissions for short sales.",
+        "check": {
+          "question": "What is the primary architectural goal of the Tri-Tier Architecture in the Institutional Trading Order Suite?",
+          "options": [
+            "Decoupling zero-latency keystroke handling from synchronous risk validation and accessible live-region announcements",
+            "Writing the entire order book directly to an open public Twitter feed",
+            "Replacing all form input elements with animated 3D video game characters",
+            "Preventing traders from placing orders during regular business hours"
+          ],
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "The tri-tier architecture isolates high-frequency typing from complex risk validation and accessibility pipelines."
+        }
+      },
+      {
+        "title": "Real-Time Margin & Buying Power Validation: Precision Decimal Arithmetic & Synchronous Circuit Breakers",
+        "say": [
+          "In financial trading platforms, standard JavaScript IEEE-754 floating-point arithmetic is a dangerous hazard. If you compute `0.1 + 0.2` in a standard JavaScript console, the result is `0.30000000000000004`. In consumer apps, a rounding artifact of a few millionths of a cent might go unnoticed. In an institutional order execution form routing fifty thousand shares of a two-hundred-dollar stock, floating-point rounding errors can cause a multi-million dollar order to be erroneously rejected for exceeding margin limits by one ten-thousandth of a cent, or worse, execute with inaccurate collateral allocation.",
+          "To guarantee mathematical purity, institutional trading forms utilize Fixed-Point Scaled Integer Arithmetic (or a dedicated decimal string engine). All prices, quantities, and cash balances are represented as scaled integers (cents or basis points) during internal calculations, converting to display strings only at presentation boundaries.",
+          "The core responsibility of the Margin & Buying Power Engine is enforcing Synchronous Circuit Breakers before order submission. When an operator types a quantity of 1,000 shares at a limit price of $150.00, the gross consideration is $150,000.00. The engine must evaluate this against four regulatory and institutional constraints: Constraint 1: Gross Buying Power. Does the account possess sufficient settled cash plus available margin leverage to support the notional value? Constraint 2: Price Collar Bands. Is the limit price within an allowable band (e.g., ±5%) of the current market reference price to prevent erroneous 'fat finger' order entries? Constraint 3: Maximum Single-Order Notional Limit. Does the trade exceed the trader's individual delegated risk authorization limit? Constraint 4: Leverage Ratio Threshold. Does the trade push the portfolio's margin utilization ratio above the maximum 80% maintenance threshold?",
+          "If any of these circuit breakers trip, the form must immediately lock the primary execution button, flag the offending input with `aria-invalid=\"true\"`, link the exact regulatory violation message via `aria-describedby`, and provide an actionable remediation hint (e.g., 'Exceeds maximum order limit of $100,000. Reduce quantity or contact risk desk').",
+          "Crucially, this validation must occur synchronously within one millisecond of keystroke commit, ensuring the trader receives instant tactile feedback without waiting for an asynchronous round trip to a remote risk database.",
+          "In this section, we construct a Precision Margin & Circuit Breaker Engine in TypeScript. We test scaled integer math to eliminate floating-point drift, verify four-point risk evaluations, assert proper circuit breaker tripping, and confirm instant invalid state propagation."
+        ],
+        "example": "Think of an automated pressure relief valve in an industrial steam plant. If the steam pressure gauge rises above 150 PSI, the mechanical valve does not send an email to the plant manager to ask for permission to open. The calibrated physical spring triggers mechanically and synchronously within milliseconds, venting excess steam and preventing a boiler explosion.",
+        "code": "interface AccountPortfolio {\n  settledCashCents: number;\n  marginMultiplier: number; // e.g. 2 for 2x margin\n  maxOrderNotionalCents: number;\n  currentMarketPriceCents: number;\n}\n\ninterface CircuitBreakerResult {\n  allowed: boolean;\n  violations: string[];\n  notionalCents: number;\n}\n\nclass MarginCircuitBreaker {\n  private portfolio: AccountPortfolio;\n\n  constructor(portfolio: AccountPortfolio) {\n    this.portfolio = portfolio;\n  }\n\n  evaluateOrder(shares: number, limitPriceCents: number): CircuitBreakerResult {\n    const violations: string[] = [];\n    // Precision integer math: notional = shares * price in cents\n    const notionalCents = shares * limitPriceCents;\n    \n    // 1. Check maximum single order notional\n    if (notionalCents > this.portfolio.maxOrderNotionalCents) {\n      violations.push('Order notional exceeds delegated risk limit of $' + (this.portfolio.maxOrderNotionalCents / 100).toLocaleString());\n    }\n\n    // 2. Check total buying power (settled cash * margin multiplier)\n    const totalBuyingPowerCents = this.portfolio.settledCashCents * this.portfolio.marginMultiplier;\n    if (notionalCents > totalBuyingPowerCents) {\n      violations.push('Insufficient buying power. Required: $' + (notionalCents / 100).toLocaleString() + ', Available: $' + (totalBuyingPowerCents / 100).toLocaleString());\n    }\n\n    // 3. Price Collar Check (within +/- 5% of market reference)\n    const ref = this.portfolio.currentMarketPriceCents;\n    const collarMin = Math.floor(ref * 0.95);\n    const collarMax = Math.ceil(ref * 1.05);\n    if (limitPriceCents < collarMin || limitPriceCents > collarMax) {\n      violations.push('Limit price $' + (limitPriceCents / 100).toFixed(2) + ' violates 5% price collar band ($' + (collarMin / 100).toFixed(2) + ' - $' + (collarMax / 100).toFixed(2) + ')');\n    }\n\n    return {\n      allowed: violations.length === 0,\n      violations,\n      notionalCents\n    };\n  }\n}\n\nconst portfolio: AccountPortfolio = {\n  settledCashCents: 5000000, // $50,000 cash\n  marginMultiplier: 2,       // 2x leverage = $100,000 buying power\n  maxOrderNotionalCents: 7500000, // $75,000 max single order\n  currentMarketPriceCents: 10000  // $100.00 current market price\n};\n\nconst breaker = new MarginCircuitBreaker(portfolio);\n\n// Test 1: Order within limits (500 shares @ $100.00 = $50,000)\nconst order1 = breaker.evaluateOrder(500, 10000);\nconsole.log('Order 1 ($50k) Allowed: ' + order1.allowed);\n\n// Test 2: Fat finger price collar breach (500 shares @ $120.00 = +20% above market)\nconst order2 = breaker.evaluateOrder(500, 12000);\nconsole.log('Order 2 (+20% Collar) Allowed: ' + order2.allowed);\nconsole.log('Order 2 Violation: ' + order2.violations[0]);\n\n// Test 3: Exceeds buying power (1200 shares @ $100.00 = $120,000)\nconst order3 = breaker.evaluateOrder(1200, 10000);\nconsole.log('Order 3 ($120k) Allowed: ' + order3.allowed);\nconsole.log('Order 3 Violation: ' + order3.violations[0]);",
+        "output": "Order 1 ($50k) Allowed: true\nOrder 2 (+20% Collar) Allowed: false\nOrder 2 Violation: Limit price $120.00 violates 5% price collar band ($95.00 - $105.00)\nOrder 3 ($120k) Allowed: false\nOrder 3 Violation: Order notional exceeds delegated risk limit of $75,000",
+        "codeNotes": [
+          "The MarginCircuitBreaker uses scaled integer cents to eliminate floating-point precision issues.",
+          "The three-step validation pipeline enforces risk limits, buying power limits, and a 5% collar band against fat-finger errors."
+        ],
+        "tryIt": "Add a short-sale margin requirement of 150% that applies conditionally when the order side is SELL.",
+        "check": {
+          "question": "Why is scaled integer arithmetic (cents) preferred over standard floating-point numbers in financial trading forms?",
+          "options": [
+            "It eliminates IEEE-754 floating-point rounding errors that can cause erroneous margin calculation rejections",
+            "It automatically generates tax reporting forms and sends them to the Internal Revenue Service",
+            "It makes the JavaScript code run on mechanical calculator hardware from the nineteenth century",
+            "Because TypeScript compiler rules forbid using the number type for prices"
+          ],
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "Scaled integer math avoids binary floating-point representation drift (like 0.1 + 0.2 = 0.30000000000000004) in financial calculations."
+        }
+      },
+      {
+        "title": "Asset Class Combobox & Order Type Multi-Select with Tokenized Execution Directives",
+        "say": [
+          "The visual heart of the institutional order ticket is the composite entry ensemble: an accessible WAI-ARIA 1.2 Combobox for asset class and ticker selection, paired with a tokenized multi-select pill field for Execution Directives. Traders must be able to switch symbols in milliseconds and configure multi-attribute execution strategies—such as Post-Only, Immediate-or-Cancel (IOC), Hidden Order, Iceberg Slicing, and All-or-None (AON)—using rapid keyboard input.",
+          "In this subsystem, the Asset Class Combobox integrates the virtualized windowing mechanics mastered in Day 43. When a trader types 'NV', the combobox filters across thousands of equities, options contracts, and exchange-traded funds. Virtual focus is driven via `aria-activedescendant`, allowing the trader to navigate candidate instruments with ArrowDown and commit the selection with Enter while keyboard focus remains anchored in the text buffer.",
+          "Immediately adjacent to the symbol selector is the Tokenized Execution Directive Field. When an execution directive is selected—either via combobox suggestions, quick-click toggle buttons, or pasted abbreviations—it renders as an interactive chip containing the directive label and an accessible removal button. For example, selecting 'Iceberg' automatically reveals an auxiliary input for 'Peak Display Size', and selecting 'Stop Limit' automatically injects the 'Stop Trigger Price' field into the layout.",
+          "The directive manager enforces Mutual Exclusion Rules across tokens. For instance, in financial exchange order routing protocols, an order cannot be simultaneously configured as 'Fill-or-Kill' (must fill entirely immediately or cancel) and 'Post-Only' (must provide liquidity as a resting maker order). If a trader attempts to add 'Post-Only' while 'Fill-or-Kill' is active, the directive manager detects the operational contradiction, rejects the incompatible token, and surfaces an explanatory toast notice: 'Directive Post-Only conflicts with Fill-or-Kill'.",
+          "Furthermore, the two-stage backspace deletion loop engineered in Day 43 is active: pressing Backspace in the empty directive query input highlights the last chip in yellow/amber pending deletion, and pressing Backspace a second time removes it cleanly.",
+          "In this section, we construct the Integrated Asset & Directive Controller in TypeScript. We test ticker filtering with virtual focus, verify directive tokenization, assert mutual exclusion collision detection, and confirm two-stage chip removal."
+        ],
+        "example": "Think of an espresso coffee barista interface. When an order is customized, you can select syrup flavor, milk type, and temperature. However, the machine software has mutual exclusion rules: you cannot choose 'Extra Hot' and 'Iced' at the same time. If a customer asks for iced extra-hot, the system flags the contradiction and asks which one they truly intend.",
+        "code": "interface DirectiveRule {\n  name: string;\n  incompatibleWith: string[];\n}\n\nclass IntegratedOrderEnsemble {\n  private selectedSymbol: string = '';\n  private activeDirectives: Set<string> = new Set();\n  private rules: Map<string, string[]> = new Map();\n\n  constructor() {\n    // Mutual exclusion rules\n    this.rules.set('FILL_OR_KILL', ['POST_ONLY', 'GOOD_TIL_CANCELLED']);\n    this.rules.set('POST_ONLY', ['FILL_OR_KILL', 'IMMEDIATE_OR_CANCEL']);\n    this.rules.set('ICEBERG', ['ALL_OR_NONE']);\n  }\n\n  selectSymbol(symbol: string): void {\n    this.selectedSymbol = symbol.toUpperCase();\n  }\n\n  addDirective(directive: string): { success: boolean; conflict?: string } {\n    const conflictList = this.rules.get(directive) || [];\n    for (const active of this.activeDirectives) {\n      if (conflictList.includes(active)) {\n        return {\n          success: false,\n          conflict: 'Directive ' + directive + ' conflicts with active directive ' + active\n        };\n      }\n    }\n    this.activeDirectives.add(directive);\n    return { success: true };\n  }\n\n  removeDirective(directive: string): void {\n    this.activeDirectives.delete(directive);\n  }\n\n  getDirectives(): string[] {\n    return Array.from(this.activeDirectives);\n  }\n\n  getSymbol(): string {\n    return this.selectedSymbol;\n  }\n}\n\nconst ensemble = new IntegratedOrderEnsemble();\nensemble.selectSymbol('msft');\nconsole.log('Selected Symbol: ' + ensemble.getSymbol());\n\n// Add Fill-or-Kill\nconst d1 = ensemble.addDirective('FILL_OR_KILL');\nconsole.log('Added FILL_OR_KILL: ' + d1.success);\n\n// Attempt to add conflicting POST_ONLY\nconst d2 = ensemble.addDirective('POST_ONLY');\nconsole.log('Added POST_ONLY: ' + d2.success + ' (Reason: ' + d2.conflict + ')');\n\n// Add compatible ICEBERG\nconst d3 = ensemble.addDirective('ICEBERG');\nconsole.log('Added ICEBERG: ' + d3.success);\nconsole.log('Final Directives: ' + ensemble.getDirectives().join(', '));",
+        "output": "Selected Symbol: MSFT\nAdded FILL_OR_KILL: true\nAdded POST_ONLY: false (Reason: Directive POST_ONLY conflicts with active directive FILL_OR_KILL)\nAdded ICEBERG: true\nFinal Directives: FILL_OR_KILL, ICEBERG",
+        "codeNotes": [
+          "The IntegratedOrderEnsemble enforces mutual exclusion rules between competing execution directives.",
+          "Attempting to add POST_ONLY when FILL_OR_KILL is active cleanly rejects the addition with an explicit conflict reason."
+        ],
+        "tryIt": "Add an ALL_OR_NONE directive and verify that attempting to add it when ICEBERG is active fails with an incompatibility alert.",
+        "check": {
+          "question": "Why must an institutional order form enforce mutual exclusion rules across tokenized execution directives?",
+          "options": [
+            "Certain trading execution instructions are logically and operationally contradictory at clearinghouses (such as Fill-or-Kill versus Post-Only)",
+            "Because web browsers can only display three tokenized chips at a time before running out of memory",
+            "To prevent the trading screen from changing color when the stock market opens",
+            "Because the SEC mandates that all trading directives must start with the same letter of the alphabet"
+          ],
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "Enforcing mutual exclusion prevents submitting contradictory execution instructions that would be rejected by exchange matching engines."
+        }
+      },
+      {
+        "title": "Settlement Date Range Picker Integration with Market Holiday Constraints",
+        "say": [
+          "In financial trading, buying or selling an asset is only the first half of the trade; the second half is Settlement (the contractual exchange of securities and cash between clearinghouses, custodians, and counterparties). Under SEC Rule 15c6-1 (effective May 2024), standard equity settlement in the United States shifted from T+2 to T+1 (Transaction Date plus One Business Day). However, corporate institutional transactions, block trades, and options exercises frequently negotiate Extended Settlement Windows (T+3, T+5, or forward settlement ranges) that span across weeks.",
+          "Integrating a settlement date picker into our order execution suite requires linking the calendar matrix math from Day 44 with an authoritative Market Calendar and Holiday Ledger. Financial settlement cannot occur on weekends (Saturdays and Sundays), nor can it occur on Federal Reserve or stock exchange holidays (such as Martin Luther King Jr. Day, Memorial Day, Juneteenth, Independence Day, Thanksgiving, or Christmas Day).",
+          "When the settlement calendar renders, every weekend date and market holiday must be evaluated against the holiday ledger, marking the cell as `isDisabled: true` and applying muted styling tokens. When a screen reader user navigates across the calendar grid, disabled holiday cells announce their specific holiday name (e.g., 'Thursday, November 26, 2026, Thanksgiving Day, Market Closed, Disabled').",
+          "Furthermore, the settlement picker enforces Minimum and Maximum Settlement Horizons. An equity trade cannot settle prior to the standard T+1 settlement date (preventing retroactive settlement in the past), and institutional risk policies typically prohibit forward settlement ranges exceeding 90 days into the future.",
+          "When the user selects an extended settlement date range (e.g., from November 16 to November 25), the date range geometry engine calculates the total business days (settlement days) within the interval, excluding all intermediate weekends and holidays. The order ticket displays the calculated settlement cycle (e.g., 'Settlement Cycle: T+7 Business Days (Excluding 2 weekends and 1 holiday)').",
+          "In this section, we construct the Financial Settlement Calendar Coordinator in TypeScript. We test holiday ledger integration, assert weekend and holiday disabling, calculate net business days across ranges, and confirm accessible holiday descriptions."
+        ],
+        "example": "Think of banking check clearing. If you deposit a check on Friday afternoon before a Monday bank holiday, your funds will not clear on Monday because bank employees and clearinghouse computers observe the federal holiday. The banking app shows the expected availability date as Tuesday, accurately accounting for the holiday delay.",
+        "code": "interface MarketHoliday {\n  dateIso: string;\n  name: string;\n}\n\nclass SettlementCalendarCoordinator {\n  private holidays: Map<string, string> = new Map();\n  private minSettlementDate: string;\n\n  constructor(minSettlementDate: string, holidayList: MarketHoliday[]) {\n    this.minSettlementDate = minSettlementDate;\n    for (const h of holidayList) {\n      this.holidays.set(h.dateIso, h.name);\n    }\n  }\n\n  isSettlementValid(dateIso: string): { isValid: boolean; reason?: string } {\n    if (dateIso < this.minSettlementDate) {\n      return { isValid: false, reason: 'Settlement cannot precede minimum T+1 date of ' + this.minSettlementDate };\n    }\n\n    const parts = dateIso.split('-').map(Number);\n    const d = new Date(parts[0], parts[1] - 1, parts[2]);\n    const dayOfWeek = d.getDay(); // 0 = Sun, 6 = Sat\n\n    if (dayOfWeek === 0 || dayOfWeek === 6) {\n      return { isValid: false, reason: 'Market closed on weekends' };\n    }\n\n    if (this.holidays.has(dateIso)) {\n      return { isValid: false, reason: 'Market closed for holiday: ' + this.holidays.get(dateIso) };\n    }\n\n    return { isValid: true };\n  }\n\n  calculateBusinessDays(startIso: string, endIso: string): number {\n    const startParts = startIso.split('-').map(Number);\n    const endParts = endIso.split('-').map(Number);\n    \n    const start = new Date(startParts[0], startParts[1] - 1, startParts[2]);\n    const end = new Date(endParts[0], endParts[1] - 1, endParts[2]);\n\n    let businessDays = 0;\n    const current = new Date(start.getTime());\n\n    while (current <= end) {\n      const y = current.getFullYear();\n      const m = (current.getMonth() + 1).toString().padStart(2, '0');\n      const d = current.getDate().toString().padStart(2, '0');\n      const iso = y + '-' + m + '-' + d;\n      \n      if (this.isSettlementValid(iso).isValid) {\n        businessDays++;\n      }\n      current.setDate(current.getDate() + 1);\n    }\n    return businessDays;\n  }\n}\n\nconst usHolidays: MarketHoliday[] = [\n  { dateIso: '2026-11-26', name: 'Thanksgiving Day' }\n];\n\n// Minimum T+1 date: Monday Nov 16, 2026\nconst coordinator = new SettlementCalendarCoordinator('2026-11-16', usHolidays);\n\nconsole.log('Valid Monday (Nov 16): ' + coordinator.isSettlementValid('2026-11-16').isValid);\nconsole.log('Saturday (Nov 21): ' + coordinator.isSettlementValid('2026-11-21').isValid + ' (' + coordinator.isSettlementValid('2026-11-21').reason + ')');\nconsole.log('Thanksgiving (Nov 26): ' + coordinator.isSettlementValid('2026-11-26').isValid + ' (' + coordinator.isSettlementValid('2026-11-26').reason + ')');\n\n// Calculate business days between Nov 16 and Nov 27\nconst netDays = coordinator.calculateBusinessDays('2026-11-16', '2026-11-27');\nconsole.log('Net Business Settlement Days (Nov 16-27): ' + netDays + ' days');",
+        "output": "Valid Monday (Nov 16): true\nSaturday (Nov 21): false (Market closed on weekends)\nThanksgiving (Nov 26): false (Market closed for holiday: Thanksgiving Day)\nNet Business Settlement Days (Nov 16-27): 9 days",
+        "codeNotes": [
+          "The SettlementCalendarCoordinator enforces T+1 minimum settlement boundaries, weekend exclusions, and holiday ledger checks.",
+          "calculateBusinessDays accurately computes net settlement days, excluding intermediate weekends and federal holidays."
+        ],
+        "tryIt": "Add Christmas Day (2026-12-25) and New Year's Day (2027-01-01) to the holiday ledger and verify business day counts over the year-end turnover.",
+        "check": {
+          "question": "Why must institutional settlement calendar components integrate an explicit market holiday ledger?",
+          "options": [
+            "Because financial settlement transactions cannot be cleared on weekends or recognized federal exchange holidays",
+            "To send automated holiday greeting cards to the brokerage firm's clients",
+            "Because stock market prices drop by fifty percent on all bank holidays",
+            "To prevent users from opening the trading platform on their personal birthdays"
+          ],
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "Clearinghouses and exchanges are closed on weekends and federal holidays; trade settlements scheduled on holidays would fail."
+        }
+      },
+      {
+        "title": "Sub-Millisecond Form Submission Engine, ARIA Live Error Dispatcher & Comprehensive Verification Suite",
+        "say": [
+          "We now arrive at the grand integration of Milestone Nine: assembling the complete Institutional Trading Order Execution Form Suite and executing its automated verification and certification pipeline. In this culminating lesson part, we unify all four preceding subsystems into a high-performance, accessible master controller.",
+          "The master submission pipeline executes a four-stage atomic sequence: Stage 1: Synchronous State Freeze. When the trader presses the execution shortcut (Ctrl+Enter or clicking 'Execute Order'), the engine snapshots current form values from the reactive state core, preventing mid-flight tampering during validation.",
+          "Stage 2: Precision Risk & Circuit Breaker Evaluation. The engine evaluates buying power, price collars, and margin limits using scaled integer arithmetic. If any circuit breaker is tripped, the submission halts in under one millisecond.",
+          "Stage 3: Settlement & Directive Compatibility Audit. The engine verifies settlement business day constraints against the market calendar and asserts zero conflicting execution directives.",
+          "Stage 4: Accessible Error Dispatching or Successful Order Commitment. If validation fails, the `AccessibleErrorDispatcher` engineered in Day 42 immediately formats an assertive ARIA live region announcement (`role=\"alert\"`, `aria-live=\"assertive\"`), vocalizes the exact reason, and programmatically shifts keyboard focus to the first invalid field in logical DOM order. If all checks pass, the order payload is serialized into a canonical FIX-compliant JSON structure, dispatched to the trading router, and an audible confirmation chime is vocalized: 'Order ORD-9801-X submitted successfully for 500 shares of NVDA at $125.50'.",
+          "To guarantee zero regression across production deployments, this suite includes a comprehensive Automated Verification Suite that tests: keystroke dispatch latency, margin circuit breaker edge cases, tokenized directive mutual exclusions, settlement holiday calculations, and assertive screen reader live region announcements.",
+          "By conquering this milestone, you have mastered the most sophisticated form engineering architecture in modern web systems, capable of delivering sub-millisecond tactile responsiveness while upholding the highest standards of financial risk integrity and WCAG 2.2 Level AA accessibility."
+        ],
+        "example": "Think of the final launch sequence of a space rocket at Cape Canaveral. At T-minus 10 seconds, the master launch sequencer interrogates thousands of telemetry sensors: fuel pressure, weather radar, engine igniters, and telemetry communications. If any single sensor flags a critical error, the launch sequence aborts instantly and the flight director hears the exact anomaly on the headset.",
+        "code": "interface SubmissionPayload {\n  orderId: string;\n  symbol: string;\n  shares: number;\n  priceCents: number;\n  notionalCents: number;\n  settlementDate: string;\n  directives: string[];\n  timestampUtc: string;\n}\n\nclass InstitutionalOrderExecutionSuite {\n  private blueprint: InstitutionalOrderBlueprint;\n  private breaker: MarginCircuitBreaker;\n  private ensemble: IntegratedOrderEnsemble;\n  private settlement: SettlementCalendarCoordinator;\n\n  constructor(\n    orderId: string,\n    portfolio: AccountPortfolio,\n    minSettlement: string,\n    holidays: MarketHoliday[]\n  ) {\n    this.blueprint = new InstitutionalOrderBlueprint(orderId);\n    this.breaker = new MarginCircuitBreaker(portfolio);\n    this.ensemble = new IntegratedOrderEnsemble();\n    this.settlement = new SettlementCalendarCoordinator(minSettlement, holidays);\n  }\n\n  submitOrder(shares: number, limitPriceCents: number, dateIso: string): {\n    success: boolean;\n    payload?: SubmissionPayload;\n    errorAnnouncement?: string;\n  } {\n    // 1. Margin & Risk Circuit Breaker\n    const risk = this.breaker.evaluateOrder(shares, limitPriceCents);\n    if (!risk.allowed) {\n      return {\n        success: false,\n        errorAnnouncement: 'Order blocked by Risk Circuit Breaker: ' + risk.violations[0]\n      };\n    }\n\n    // 2. Settlement date validation\n    const sCheck = this.settlement.isSettlementValid(dateIso);\n    if (!sCheck.isValid) {\n      return {\n        success: false,\n        errorAnnouncement: 'Settlement date invalid: ' + sCheck.reason\n      };\n    }\n\n    // 3. Success: build FIX payload\n    const payload: SubmissionPayload = {\n      orderId: this.blueprint.getOrder().orderId,\n      symbol: 'AAPL',\n      shares,\n      priceCents: limitPriceCents,\n      notionalCents: risk.notionalCents,\n      settlementDate: dateIso,\n      directives: ['FILL_OR_KILL'],\n      timestampUtc: '2026-11-15T19:30:00.000Z'\n    };\n\n    return {\n      success: true,\n      payload\n    };\n  }\n}\n\nconst testPortfolio: AccountPortfolio = {\n  settledCashCents: 10000000, // $100,000 cash\n  marginMultiplier: 2,        // $200,000 buying power\n  maxOrderNotionalCents: 15000000,\n  currentMarketPriceCents: 15000 // $150.00\n};\n\nconst suite = new InstitutionalOrderExecutionSuite(\n  'ORD-MASTER-01',\n  testPortfolio,\n  '2026-11-16',\n  [{ dateIso: '2026-11-26', name: 'Thanksgiving Day' }]\n);\n\n// Test 1: Successful trade execution (200 shares @ $150.00 = $30,000 on Nov 17)\nconst res1 = suite.submitOrder(200, 15000, '2026-11-17');\nconsole.log('Execution 1 Success: ' + res1.success);\nconsole.log('Execution 1 Notional: $' + (res1.payload!.notionalCents / 100).toLocaleString());\n\n// Test 2: Blocked by weekend settlement\nconst res2 = suite.submitOrder(200, 15000, '2026-11-22');\nconsole.log('Execution 2 Success: ' + res2.success);\nconsole.log('Execution 2 Audio Alert: ' + res2.errorAnnouncement);",
+        "output": "Execution 1 Success: true\nExecution 1 Notional: $30,000\nExecution 2 Success: false\nExecution 2 Audio Alert: Settlement date invalid: Market closed on weekends",
+        "codeNotes": [
+          "The InstitutionalOrderExecutionSuite unifies margin checks, settlement validation, and payload generation into an atomic method.",
+          "Failed orders generate assertive audio alert strings ready for live region dispatching without throwing exceptions."
+        ],
+        "tryIt": "Add a telemetry event logger that records order execution latencies to an internal array for compliance auditing.",
+        "check": {
+          "question": "What is the primary role of the Accessible Error Dispatcher during order submission failures in the Institutional Trading Suite?",
+          "options": [
+            "Immediately vocalizing the exact risk or settlement violation via an assertive ARIA live region and shifting keyboard focus to the invalid field",
+            "Sending an automated email apology to the Federal Reserve Board",
+            "Automatically selling all other assets in the portfolio to cover the error",
+            "Shutting down the user's computer to prevent further trading"
+          ],
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "Vocalizing the error via an assertive live region and routing focus to the invalid control provides immediate accessible feedback."
+        }
+      }
+    ],
+    "summary": [
+      "The Institutional Order Execution Suite employs a tri-tier architecture balancing zero-latency typing with strict regulatory validation.",
+      "Precision scaled integer arithmetic eliminates floating-point drift, enforcing buying power and 5% price collar circuit breakers.",
+      "Asset class comboboxes and tokenized execution directives prevent operational contradictions via mutual exclusion rules.",
+      "Settlement calendar coordinators integrate market holiday ledgers and weekend exclusions under SEC T+1 mandates.",
+      "The master execution engine pairs sub-millisecond atomic validation with assertive ARIA live-region error dispatching."
+    ],
+    "projectStep": {
+      "title": "Architect Sovereign Institutional Trading Order Execution Suite",
+      "steps": [
+        "Construct InstitutionalOrderBlueprint establishing master order contracts and synchronous field audits",
+        "Implement MarginCircuitBreaker using scaled integer cents for buying power and collar band safety",
+        "Build IntegratedOrderEnsemble with WAI-ARIA 1.2 combobox filtering and mutual exclusion directives",
+        "Deploy SettlementCalendarCoordinator accounting for federal holidays and T+1 business day math",
+        "Certify complete InstitutionalOrderExecutionSuite with atomic submission pipelines and assertive live regions"
+      ]
+    }
+}
+
+if __name__ == '__main__':
+    with open('scripts/design_day45_data.py', 'w', encoding='utf-8') as f:
+        f.write('# scripts/design_day45_data.py\nimport re\n\n')
+        f.write('def count_words(say_list):\n    total = 0\n    for p in say_list:\n        total += len(re.findall(r\'\\b[A-Za-z0-9_\\-\\.\\$\\/\\:\\@\\\']+\\b\', p))\n    return total\n\n')
+        f.write('DAY_45 = ' + json.dumps(DAY_45, indent=2) + '\n')
+    print("Wrote scripts/design_day45_data.py successfully.")

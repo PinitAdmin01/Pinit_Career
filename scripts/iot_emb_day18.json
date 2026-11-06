@@ -1,0 +1,224 @@
+{
+  "day": 18,
+  "title": "Cache Coherency & Memory Barriers: D-Cache Invalidation, Clean-and-Invalidate & Cortex-M7 Physics",
+  "goal": "Master high-performance caching physics: ARM Cortex-M7/M55 Harvard architecture L1 Data Cache (D-Cache), 32-byte cache line alignment, Cache Invalidation vs Clean-and-Invalidate, and DMB/DSB memory barriers.",
+  "minutes": 36,
+  "recap": "In Day 17, we mastered circular DMA double-buffering on Cortex-M4. Today in Day 18, we step up to high-performance microcontrollers (ARM Cortex-M7 at 480MHz): where L1 Data Caches introduce the notorious Cache Coherency hazard.",
+  "parts": [
+    {
+      "title": "ARM Cortex-M7 Harvard Architecture & The L1 Data Cache (D-Cache)",
+      "say": [
+        "On high-frequency microcontrollers like the ARM Cortex-M7 (running at 400MHz to 600MHz), the processor core runs significantly faster than physical SRAM memory.",
+        "If the CPU had to wait for physical SRAM access on every load and store instruction, the processor would spend 80% of its time stalled waiting for memory bus cycles.",
+        "To solve this, the Cortex-M7 incorporates Level 1 Harvard Architecture caches: a 16KB Instruction Cache (I-Cache) and a 16KB Data Cache (D-Cache).",
+        "The D-Cache organizes memory into 32-byte Cache Lines. When the CPU reads a memory address, the cache controller loads the entire 32-byte aligned block from physical SRAM into fast static cache memory inside the core.",
+        "Subsequent reads and writes to that memory region execute in a single clock cycle at full core frequency.",
+        "However, while the CPU accesses SRAM through its internal L1 D-Cache, hardware peripherals and DMA controllers access physical SRAM directly across the AHB bus matrix—bypassing the CPU's internal cache entirely!"
+      ],
+      "example": "Like an executive working with a private notepad (L1 Cache) on their desk while the company filing cabinet (physical SRAM) sits down the hall. If someone updates the filing cabinet, the executive's notepad still has outdated numbers unless they sync their desk.",
+      "code": "#include <iostream>\n#include <cstdint>\n#include <iomanip>\n\nstruct CacheLine {\n    uint32_t tag;\n    bool valid;\n    bool dirty;\n    uint8_t data[32]; // 32-byte standard ARM Cortex-M7 cache line\n};\n\nvoid inspectCacheLineOrganization(uint32_t address) {\n    uint32_t lineOffset = address & 0x1F;        // Lower 5 bits (0..31)\n    uint32_t alignedLineBase = address & ~0x1F;  // Aligned 32-byte boundary\n    std::cout << \"[ARM CORTEX-M7 D-CACHE] Address: 0x\" << std::hex << address << \"\\n\";\n    std::cout << \"  -> Cache Line Base Address: 0x\" << alignedLineBase << \"\\n\";\n    std::cout << \"  -> Offset within 32B Line:  \" << std::dec << lineOffset << \" bytes\\n\";\n}\n\nint main() {\n    inspectCacheLineOrganization(0x20000014); // Offset 20 within line 0x20000000\n    inspectCacheLineOrganization(0x20000040); // Exactly on 32-byte line boundary\n    return 0;\n}",
+      "output": "[ARM CORTEX-M7 D-CACHE] Address: 0x20000014\n  -> Cache Line Base Address: 0x20000000\n  -> Offset within 32B Line:  20 bytes\n[ARM CORTEX-M7 D-CACHE] Address: 0x20000040\n  -> Cache Line Base Address: 0x20000040\n  -> Offset within 32B Line:  0 bytes",
+      "codeNotes": [
+        {
+          "line": 7,
+          "note": "Defines 32-byte cache line structure matching ARM Cortex-M7 hardware specification"
+        },
+        {
+          "line": 12,
+          "note": "Extracts 32-byte alignment boundary mask (~0x1F)"
+        },
+        {
+          "line": 20,
+          "note": "Demonstrates hardware cache line grouping for arbitrary memory addresses"
+        }
+      ],
+      "tryIt": "Pass address 0x2000003F and observe that it is the last byte (offset 31) of cache line 0x20000020.",
+      "check": {
+        "question": "What is the standard cache line size of the L1 Data Cache on an ARM Cortex-M7 processor?",
+        "options": [
+          "32 bytes",
+          "1 byte",
+          "4 kilobytes",
+          "64 megabytes"
+        ],
+        "answer": 0,
+        "why": "ARM Cortex-M7 architecture organizes its L1 Data and Instruction caches into 32-byte lines, loading and evicting memory in 32-byte contiguous blocks."
+      }
+    },
+    {
+      "title": "The DMA Cache Coherency Hazard: Stale Reads & Overwrite Hazards",
+      "say": [
+        "The fact that the CPU reads through D-Cache while DMA reads and writes physical SRAM directly leads to the dreaded Cache Coherency Bug.",
+        "Hazard 1: Peripheral-to-Memory (Stale CPU Read). The DMA controller receives new telemetry from an ADC and writes it directly into physical SRAM. However, the CPU previously read that buffer, so the old data is sitting in D-Cache. When the CPU reads the buffer, it reads the stale cached data, completely blind to the new data DMA placed in SRAM!",
+        "Hazard 2: Memory-to-Peripheral (Stale Peripheral Write). The CPU writes new commands into an outbound transmission buffer. In a Write-Back cache, the new bytes stay in D-Cache marked as 'dirty' and are NOT written to physical SRAM immediately. When the DMA starts sending from SRAM, it transmits old garbage data because the CPU's updates never reached SRAM!",
+        "Hazard 3: Cache Eviction Overwrite. If a buffer is not aligned to 32 bytes, adjacent variables share the same cache line. When the CPU modifies an adjacent variable, the cache line is evicted back to SRAM, overwriting the new data that DMA had written into the shared line!",
+        "Without strict cache maintenance operations, DMA firmware on Cortex-M7 will experience random, catastrophic data corruption."
+      ],
+      "example": "Like two editors working on the same book: Editor A makes revisions on a local copy on their laptop without uploading it (stale SRAM); Editor B prints the book from the server without downloading revisions (stale read).",
+      "code": "#include <iostream>\n#include <cstdint>\n\nstruct CoherencySimulation {\n    uint32_t physicalSram;\n    uint32_t dCacheValue;\n    bool isCacheDirty;\n};\n\nvoid simulateStaleReadHazard(CoherencySimulation* sim, uint32_t newDmaData) {\n    std::cout << \"[STALE READ HAZARD]:\\n\";\n    std::cout << \"  Initial State: SRAM = 0x\" << std::hex << sim->physicalSram << \", D-Cache = 0x\" << sim->dCacheValue << \"\\n\";\n\n    // DMA writes new data directly into physical SRAM\n    sim->physicalSram = newDmaData;\n    std::cout << \"  1. DMA writes new telemetry (0x\" << std::hex << newDmaData << \") directly to SRAM.\\n\";\n\n    // CPU reads buffer through D-Cache (without invalidating!)\n    uint32_t cpuRead = sim->dCacheValue;\n    std::cout << \"  2. CPU reads address through L1 Cache -> Gets Stale 0x\" << std::hex << cpuRead << \"!\\n\";\n    if (cpuRead != sim->physicalSram) {\n        std::cout << \"  -> [CORRUPTION ALERT] Cache Coherency Bug: CPU read stale data!\\n\";\n    }\n}\n\nint main() {\n    CoherencySimulation sim = {0x1111, 0x1111, false};\n    simulateStaleReadHazard(&sim, 0x9999);\n    return 0;\n}",
+      "output": "[STALE READ HAZARD]:\n  Initial State: SRAM = 0x1111, D-Cache = 0x1111\n  1. DMA writes new telemetry (0x9999) directly to SRAM.\n  2. CPU reads address through L1 Cache -> Gets Stale 0x1111!\n  -> [CORRUPTION ALERT] Cache Coherency Bug: CPU read stale data!",
+      "codeNotes": [
+        {
+          "line": 4,
+          "note": "Models divergent state between physical SRAM memory and L1 D-Cache"
+        },
+        {
+          "line": 14,
+          "note": "DMA updates physical SRAM bypassing cache"
+        },
+        {
+          "line": 20,
+          "note": "Proves CPU reads stale cached value resulting in data desynchronization"
+        }
+      ],
+      "tryIt": "Update dCacheValue to match newDmaData and observe the corruption alert disappears.",
+      "check": {
+        "question": "Why does a CPU read stale data from an incoming DMA buffer on an ARM Cortex-M7 if cache maintenance is omitted?",
+        "options": [
+          "Because DMA writes directly to physical SRAM while the CPU reads previously cached data from L1 D-Cache",
+          "Because the SRAM chip deletes data after 1 millisecond",
+          "Because DMA transfers can only be read by microprocessors",
+          "Because the CPU clock is inverted"
+        ],
+        "answer": 0,
+        "why": "DMA hardware bypasses the CPU cache; if the CPU already holds that memory line in L1 D-Cache, it reads the obsolete cached copy unless the line is explicitly invalidated."
+      }
+    },
+    {
+      "title": "Cache Maintenance Operations: SCB_InvalidateDCache vs SCB_CleanDCache",
+      "say": [
+        "To prevent cache coherency bugs, the ARM CMSIS core architecture provides hardware Cache Maintenance Instructions executed via the System Control Block (SCB).",
+        "Operation 1: Invalidate Data Cache (`SCB_InvalidateDCache_by_Addr`). Used for Peripheral-to-Memory (incoming DMA). It forces the CPU to discard its internal cache lines for that buffer. The next time the CPU reads the buffer, it is forced to fetch the fresh data from physical SRAM.",
+        "Crucial Timing: `SCB_InvalidateDCache` must be executed AFTER the DMA finishes receiving, BEFORE the CPU reads the data!",
+        "Operation 2: Clean Data Cache (`SCB_CleanDCache_by_Addr`). Used for Memory-to-Peripheral (outbound DMA). It forces the CPU to flush all dirty cache lines out to physical SRAM.",
+        "Crucial Timing: `SCB_CleanDCache` must be executed BEFORE starting the outbound DMA transfer, ensuring physical SRAM contains the CPU's latest updates.",
+        "Operation 3: Clean-and-Invalidate (`SCB_CleanInvalidateDCache_by_Addr`). Flushes dirty lines to SRAM and immediately marks the cache lines invalid. Used when transferring shared bidirectional buffers."
+      ],
+      "example": "Like saving your document before sending it to the printer (Clean Cache = flush to disk), and hitting 'Refresh' on your browser to see new comments posted by others (Invalidate Cache = discard local cache and fetch from server).",
+      "code": "#include <iostream>\n#include <cstdint>\n\nstruct CacheMaintenanceController {\n    static void executeCleanDCache(uint32_t addr, uint32_t size) {\n        std::cout << \"[SCB_CleanDCache] Flushing dirty cache lines for outbound DMA:\\n\";\n        std::cout << \"  -> Flushed range: 0x\" << std::hex << addr << \" to 0x\" << (addr + size) << \"\\n\";\n        std::cout << \"  -> SRAM is now coherent with CPU writes! Outbound DMA safe to start.\\n\";\n    }\n\n    static void executeInvalidateDCache(uint32_t addr, uint32_t size) {\n        std::cout << \"[SCB_InvalidateDCache] Invalidating cache lines for incoming DMA:\\n\";\n        std::cout << \"  -> Invalidated range: 0x\" << std::hex << addr << \" to 0x\" << (addr + size) << \"\\n\";\n        std::cout << \"  -> Stale cache discarded! CPU forced to read fresh samples from SRAM.\\n\";\n    }\n};\n\nint main() {\n    uint32_t txBuffer = 0x20001000;\n    uint32_t rxBuffer = 0x20002000;\n\n    // Outbound transfer: Clean before DMA start\n    CacheMaintenanceController::executeCleanDCache(txBuffer, 128);\n\n    // Inbound transfer: Invalidate after DMA completes\n    CacheMaintenanceController::executeInvalidateDCache(rxBuffer, 128);\n    return 0;\n}",
+      "output": "[SCB_CleanDCache] Flushing dirty cache lines for outbound DMA:\n  -> Flushed range: 0x20001000 to 0x20001080\n  -> SRAM is now coherent with CPU writes! Outbound DMA safe to start.\n[SCB_InvalidateDCache] Invalidating cache lines for incoming DMA:\n  -> Invalidated range: 0x20002000 to 0x20002080\n  -> Stale cache discarded! CPU forced to read fresh samples from SRAM.",
+      "codeNotes": [
+        {
+          "line": 5,
+          "note": "Cleans cache before outbound DMA so physical SRAM contains latest CPU data"
+        },
+        {
+          "line": 11,
+          "note": "Invalidates cache after inbound DMA so CPU fetches fresh data from SRAM"
+        },
+        {
+          "line": 24,
+          "note": "Applies exact timing sequence required for bidirectional DMA coherency"
+        }
+      ],
+      "tryIt": "Simulate a 256-byte buffer and verify the flushed address range extends to 0x20001100.",
+      "check": {
+        "question": "When must `SCB_InvalidateDCache_by_Addr()` be executed when receiving incoming sensor data via DMA?",
+        "options": [
+          "AFTER the DMA finishes receiving and BEFORE the CPU reads the buffer",
+          "Before the microcontroller is manufactured",
+          "During the hardware reset handler only",
+          "After the CPU finishes reading the buffer"
+        ],
+        "answer": 0,
+        "why": "Invalidating the cache after DMA completes but before CPU reading forces the CPU to discard stale cached lines and fetch the newly arrived DMA samples directly from physical SRAM."
+      }
+    },
+    {
+      "title": "32-Byte Cache Line Alignment & Data Memory Barriers (DMB / DSB)",
+      "say": [
+        "Cache maintenance instructions operate on whole 32-byte cache lines; there is no such thing as invalidating half a cache line.",
+        "Therefore, any buffer accessed by DMA in a cached microcontroller MUST satisfy two non-negotiable rules.",
+        "Rule 1: Alignment. The buffer starting address must be aligned to a 32-byte boundary: `uint8_t buffer[128] __attribute__((aligned(32)))`.",
+        "Rule 2: Padding. The buffer size must be an exact multiple of 32 bytes. If a buffer is 10 bytes, it must be padded to 32 bytes so that no other variable shares that 32-byte cache line.",
+        "Furthermore, ARM processors feature superscalar execution and out-of-order write buffering.",
+        "To enforce instruction ordering, architects use Memory Barrier instructions: Data Memory Barrier (`__DMB()`) ensures all previous memory accesses complete before subsequent accesses begin, and Data Synchronization Barrier (`__DSB()`) halts execution until all outstanding bus transactions have fully completed."
+      ],
+      "example": "Like apartment buildings where water can only be shut off for an entire floor (32-byte line). If you put your bathroom on the same floor as your neighbor's kitchen (unaligned buffer), shutting off your water shuts off their sink too.",
+      "code": "#include <iostream>\n#include <cstdint>\n#include <iomanip>\n\nstruct AlignedBufferDescriptor {\n    uintptr_t address;\n    uint32_t sizeBytes;\n};\n\nbool verifyCacheCoherentBufferRules(const AlignedBufferDescriptor* desc) {\n    std::cout << \"[CACHE BUFFER AUDIT] Address: 0x\" << std::hex << desc->address \n              << \", Size: \" << std::dec << desc->sizeBytes << \" bytes\\n\";\n\n    bool addressAligned = (desc->address & 0x1F) == 0;\n    bool sizePadded = (desc->sizeBytes & 0x1F) == 0;\n\n    if (!addressAligned) {\n        std::cout << \"  -> [FAIL] Address not 32-byte aligned! (Offset: \" << (desc->address & 0x1F) << \")\\n\";\n    }\n    if (!sizePadded) {\n        std::cout << \"  -> [FAIL] Size not multiple of 32 bytes! (Remainder: \" << (desc->sizeBytes & 0x1F) << \")\\n\";\n    }\n\n    if (addressAligned && sizePadded) {\n        std::cout << \"  -> [PASS] Buffer satisfies ARM Cortex-M7 cache coherency rules!\\n\";\n        return true;\n    }\n    return false;\n}\n\nint main() {\n    AlignedBufferDescriptor badBuf = {0x20000004, 50};   // Unaligned and unpadded\n    verifyCacheCoherentBufferRules(&badBuf);\n\n    AlignedBufferDescriptor goodBuf = {0x20000020, 64};  // Aligned to 32, multiple of 32\n    verifyCacheCoherentBufferRules(&goodBuf);\n    return 0;\n}",
+      "output": "[CACHE BUFFER AUDIT] Address: 0x20000004, Size: 50 bytes\n  -> [FAIL] Address not 32-byte aligned! (Offset: 4)\n  -> [FAIL] Size not multiple of 32 bytes! (Remainder: 18)\n[CACHE BUFFER AUDIT] Address: 0x20000020, Size: 64 bytes\n  -> [PASS] Buffer satisfies ARM Cortex-M7 cache coherency rules!",
+      "codeNotes": [
+        {
+          "line": 11,
+          "note": "Checks 32-byte starting address alignment using mask ~0x1F"
+        },
+        {
+          "line": 12,
+          "note": "Checks 32-byte size padding rule to prevent false sharing with adjacent variables"
+        },
+        {
+          "line": 29,
+          "note": "Validates buffer compliance guaranteeing zero cache corruption risk"
+        }
+      ],
+      "tryIt": "Change badBuf address to 0x20000040 and size to 32 and observe it passes audit.",
+      "check": {
+        "question": "Why must a DMA buffer in a cached ARM Cortex-M7 system be both aligned to and padded to a 32-byte boundary?",
+        "options": [
+          "To prevent cache line false sharing where invalidating the buffer inadvertently corrupts adjacent variables",
+          "Because DMA hardware cannot count beyond 32",
+          "To increase the resistance of the physical copper traces",
+          "To allow the CPU to execute code in 8-bit mode"
+        ],
+        "answer": 0,
+        "why": "Cache maintenance affects entire 32-byte lines; if adjacent variables share a cache line with a DMA buffer, invalidating the buffer will destroy changes made to those adjacent variables."
+      }
+    },
+    {
+      "title": "Building a Coherent High-Speed DMA Transceiver Engine",
+      "say": [
+        "We unite D-Cache maintenance, memory barriers, 32-byte alignment, and DMA streaming into a Coherent High-Speed DMA Transceiver Engine.",
+        "The engine manages bidirectional streaming across SPI and UART interfaces on an ARM Cortex-M7 running at 480MHz.",
+        "Before outbound transmission, it calls `SCB_CleanDCache()` followed by `__DSB()` to guarantee all written data has drained from the CPU write buffer into physical SRAM.",
+        "Upon inbound reception, it calls `__DSB()` followed by `SCB_InvalidateDCache()` before passing data pointers to the consumer application.",
+        "By enforcing these hardware invariants, the system achieves maximum 480MHz CPU performance without suffering a single dropped byte or corrupted packet."
+      ],
+      "example": "Like an airlock on a spacecraft: strict cycle protocols (Clean -> DSB -> Transmit -> Receive -> DSB -> Invalidate) ensure zero atmospheric contamination (data corruption) occurs between two different pressure environments (CPU Cache vs DMA SRAM).",
+      "code": "#include <iostream>\n#include <cstdint>\n#include <iomanip>\n\nclass CoherentDmaEngine {\nprivate:\n    uint32_t txBufferAddress;\n    uint32_t rxBufferAddress;\n    uint32_t bufferLengthBytes;\npublic:\n    CoherentDmaEngine(uint32_t txAddr, uint32_t rxAddr, uint32_t len)\n        : txBufferAddress(txAddr), rxBufferAddress(rxAddr), bufferLengthBytes(len) {}\n\n    void executeOutboundTransmit() {\n        std::cout << \"[COHERENT TX] Step 1: Clean D-Cache (0x\" << std::hex << txBufferAddress << \")...\\n\";\n        std::cout << \"[COHERENT TX] Step 2: __DSB() Data Synchronization Barrier (drain write buffers)...\\n\";\n        std::cout << \"[COHERENT TX] Step 3: Trigger DMA Stream (SRAM -> SPI_DR)...\\n\";\n        std::cout << \"  -> Transmit Complete: 100% coherent data guaranteed!\\n\";\n    }\n\n    void executeInboundReceive() {\n        std::cout << \"[COHERENT RX] Step 1: DMA Stream completes (SPI_DR -> SRAM)...\\n\";\n        std::cout << \"[COHERENT RX] Step 2: __DSB() Barrier (ensure bus transfers settled)...\\n\";\n        std::cout << \"[COHERENT RX] Step 3: Invalidate D-Cache (0x\" << std::hex << rxBufferAddress << \")...\\n\";\n        std::cout << \"[COHERENT RX] Step 4: CPU safely reads fresh telemetry!\\n\";\n    }\n};\n\nint main() {\n    CoherentDmaEngine engine(0x20001000, 0x20002000, 128);\n    engine.executeOutboundTransmit();\n    std::cout << \"\\n\";\n    engine.executeInboundReceive();\n    return 0;\n}",
+      "output": "[COHERENT TX] Step 1: Clean D-Cache (0x20001000)...\n[COHERENT TX] Step 2: __DSB() Data Synchronization Barrier (drain write buffers)...\n[COHERENT TX] Step 3: Trigger DMA Stream (SRAM -> SPI_DR)...\n  -> Transmit Complete: 100% coherent data guaranteed!\n\n[COHERENT RX] Step 1: DMA Stream completes (SPI_DR -> SRAM)...\n[COHERENT RX] Step 2: __DSB() Barrier (ensure bus transfers settled)...\n[COHERENT RX] Step 3: Invalidate D-Cache (0x20002000)...\n[COHERENT RX] Step 4: CPU safely reads fresh telemetry!",
+      "codeNotes": [
+        {
+          "line": 13,
+          "note": "Executes Clean followed by DSB barrier before triggering outbound DMA"
+        },
+        {
+          "line": 20,
+          "note": "Executes DSB barrier followed by Invalidate after DMA completes reception"
+        },
+        {
+          "line": 30,
+          "note": "Validates complete bidirectional cache-coherent DMA lifecycle"
+        }
+      ],
+      "tryIt": "Invert the order of Clean and DMA Trigger in TX and observe the timing violation.",
+      "check": {
+        "question": "What is the purpose of the `__DSB()` (Data Synchronization Barrier) instruction prior to invalidating the cache after DMA reception?",
+        "options": [
+          "It halts the CPU until all outstanding bus matrix write transactions have completed into SRAM",
+          "It reboots the microcontroller",
+          "It clears all RAM memory to zero",
+          "It changes the baud rate of the serial port"
+        ],
+        "answer": 0,
+        "why": "A Data Synchronization Barrier guarantees that all background bus matrix transfers from the DMA have fully landed in physical SRAM before cache invalidation occurs."
+      }
+    }
+  ],
+  "summary": [
+    "ARM Cortex-M7 L1 Data Cache (D-Cache) provides single-cycle memory access using 32-byte cache lines.",
+    "The DMA Cache Coherency Hazard occurs because DMA accesses physical SRAM directly, bypassing the CPU's internal L1 D-Cache.",
+    "SCB_CleanDCache flushes dirty cache lines to SRAM before outbound DMA; SCB_InvalidateDCache discards stale cache lines after inbound DMA.",
+    "DMA buffers must be strictly 32-byte aligned and padded to multiples of 32 bytes to prevent destructive cache line false sharing.",
+    "Data Memory Barriers (DMB/DSB) enforce memory transaction ordering and guarantee complete bus settling across asynchronous hardware domains."
+  ],
+  "projectStep": {
+    "title": "Implement Hardware L1 Cache Coherency Management on ARM Cortex-M7",
+    "steps": [
+      "Configure linker scripts to align DMA buffers to 32-byte boundaries and pad allocations to 32-byte multiples.",
+      "Implement SCB_CleanDCache flushing routines prior to outbound peripheral DMA transfers.",
+      "Implement SCB_InvalidateDCache routines immediately following DMA Half-Transfer and Transfer-Complete interrupts.",
+      "Insert DSB and DMB memory barrier instructions to synchronize out-of-order write buffers.",
+      "Execute high-speed bidirectional DMA stress tests to verify 100% data coherency with zero memory corruption."
+    ]
+  }
+}

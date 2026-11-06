@@ -1,0 +1,226 @@
+{
+  "day": 13,
+  "title": "SysTick System Timer & Hardware General-Purpose Timers: Prescalers, ARR & PWM Generation",
+  "goal": "Harness the physics of hardware counters: master the Cortex-M SysTick System Timer and 16/32-bit General-Purpose Timers (TIM2–TIM5). Understand prescalers (PSC), auto-reload registers (ARR), edge-aligned and center-aligned PWM generation, preload buffers, and dead-time insertion for motor and power electronics control.",
+  "minutes": 36,
+  "recap": "Yesterday, we analyzed hardware ISR latency and cycle-exact benchmarking. Today, we control the fundamental heartbeat of embedded systems: hardware timers, clock division physics, and microsecond-accurate Pulse-Width Modulation (PWM).",
+  "parts": [
+    {
+      "title": "The ARM Cortex-M SysTick Timer: Calibration, 24-Bit Down-Counter & Tick Generation",
+      "say": [
+        "Every ARM Cortex-M processor core incorporates an identical, dedicated 24-bit down-counting timer: the SysTick (System Tick) timer.",
+        "Because SysTick is an architectural component of the ARM core itself (rather than a silicon vendor peripheral), software written for SysTick is 100% portable across all Cortex-M microcontrollers.",
+        "The SysTick peripheral consists of four registers: Control and Status ('SysTick->CTRL'), Reload Value ('SysTick->LOAD'), Current Value ('SysTick->VAL'), and Calibration Value ('SysTick->CALIB').",
+        "When enabled, SysTick counts down from the value in LOAD towards zero on every clock cycle.",
+        "Upon reaching zero, the COUNTFLAG bit is set in CTRL, the timer automatically reloads the value from LOAD, and (if enabled) fires the SysTick exception (Exception #15).",
+        "In real-time operating systems (like FreeRTOS) and bare-metal frameworks, SysTick is configured to fire at exactly 1 kHz (every 1.0 millisecond) to provide the system timebase."
+      ],
+      "example": "SysTick is like a mechanical metronome on a musician's piano: it ticks at an unrelenting, perfectly uniform cadence that all other instruments pace themselves against.",
+      "code": "#include <iostream>\n#include <cstdint>\n\nclass MockSysTick {\nprivate:\n    uint32_t load;\n    uint32_t val;\n    bool enabled;\n    bool interruptEnabled;\n    uint32_t tickCount;\npublic:\n    MockSysTick() : load(0), val(0), enabled(false), interruptEnabled(false), tickCount(0) {}\n\n    void config(uint32_t coreClockHz, uint32_t targetFrequencyHz) {\n        // Calculate reload value: (Clock / Freq) - 1\n        load = (coreClockHz / targetFrequencyHz) - 1;\n        val = load;\n        enabled = true;\n        interruptEnabled = true;\n    }\n\n    void stepClock(uint32_t cycles) {\n        if (!enabled) return;\n        if (cycles > val) {\n            tickCount++;\n            val = load - (cycles - val);\n            std::cout << \"[SYSTICK TICK] Exception #15 triggered! System Uptime: \" << tickCount << \" ms\\\\n\";\n        } else {\n            val -= cycles;\n        }\n    }\n\n    uint32_t getTicks() const { return tickCount; }\n    uint32_t getLoad() const { return load; }\n};\n\nint main() {\n    MockSysTick systick;\n    uint32_t coreClock = 168000000; // 168 MHz\n    systick.config(coreClock, 1000); // 1000 Hz = 1 ms period\n\n    std::cout << \"SysTick 1kHz Configuration on 168 MHz Core:\\\\n\";\n    std::cout << \"  Reload Value (LOAD): \" << systick.getLoad() << \" cycles\\\\n\";\n    systick.stepClock(168000); // 1 ms worth of clock cycles\n    return 0;\n}",
+      "output": "SysTick 1kHz Configuration on 168 MHz Core:\\n  Reload Value (LOAD): 167999 cycles\\n[SYSTICK TICK] Exception #15 triggered! System Uptime: 1 ms",
+      "codeNotes": [
+        {
+          "line": 16,
+          "note": "Calculates 24-bit reload value using formula (Clock / Freq) - 1"
+        },
+        {
+          "line": 23,
+          "note": "Simulates down-counting to zero and triggering SysTick exception #15"
+        },
+        {
+          "line": 39,
+          "note": "168,000 cycles on a 168 MHz clock produces an exact 1.0 ms period"
+        }
+      ],
+      "tryIt": "Calculate the reload value required to generate a 100 Hz (10 ms) tick rate on an 84 MHz microcontroller.",
+      "check": {
+        "question": "What is the formula to calculate the SysTick->LOAD register value for a given core clock frequency and target tick frequency?",
+        "options": [
+          "LOAD = (F_cpu / F_target) - 1",
+          "LOAD = (F_cpu * F_target) + 1",
+          "LOAD = F_cpu / 256",
+          "LOAD = F_cpu & 0x00FFFFFF"
+        ],
+        "answer": 0,
+        "why": "Because down-counting from N down to 0 takes N + 1 clock cycles, the reload register must be set to (F_cpu / F_target) - 1 to achieve an exact target frequency."
+      }
+    },
+    {
+      "title": "Hardware 16-bit / 32-bit Timers: Clock Prescalers (PSC) and Auto-Reload Registers (ARR) Invariants",
+      "say": [
+        "While SysTick handles operating system time slices, microcontrollers feature rich hardware General-Purpose and Advanced Timers (e.g. TIM1–TIM14).",
+        "A hardware timer counter ('TIMx_CNT') is driven by an internal peripheral clock divided by the Prescaler Register ('TIMx_PSC').",
+        "Crucial Invariant: The Prescaler register is 0-indexed in Cortex-M hardware; writing PSC = N divides the input clock by (N + 1).",
+        "For example, on an 84 MHz APB1 timer clock, setting PSC = 83 produces a counter clock of exactly 84,000,000 / (83 + 1) = 1,000,000 Hz (1 MHz, or 1.0 microsecond per tick).",
+        "The counter counts until it reaches the Auto-Reload Register ('TIMx_ARR'); upon reaching ARR, it generates an Update Event (UEV), resets the counter to 0, and sets the update flag 'TIM_SR_UIF'.",
+        "The final timer frequency is governed by the deterministic formula: F_out = F_clk / ((PSC + 1) * (ARR + 1))."
+      ],
+      "example": "Think of a clock gear train: the prescaler is the reduction gear that slows down a spinning electric motor to turn a gear once per second; the auto-reload register is the 60-tooth gear that triggers the minute hand every 60 seconds.",
+      "code": "#include <iostream>\n#include <cstdint>\n#include <iomanip>\n\nstruct TimerParameters {\n    uint32_t timerClockHz;\n    uint16_t psc;\n    uint32_t arr;\n\n    double getCounterFrequencyHz() const {\n        return (double)timerClockHz / (psc + 1);\n    }\n\n    double getOutputFrequencyHz() const {\n        return (double)timerClockHz / ((psc + 1) * (arr + 1));\n    }\n\n    double getPeriodSeconds() const {\n        return 1.0 / getOutputFrequencyHz();\n    }\n};\n\nint main() {\n    // Target: 20 kHz PWM for motor control from an 84 MHz timer clock\n    TimerParameters timer;\n    timer.timerClockHz = 84000000;\n    timer.psc = 0;    // No prescaling: counter ticks at 84 MHz\n    timer.arr = 4199; // (84,000,000 / 20,000) - 1 = 4199\n\n    std::cout << \"Timer 20 kHz Motor PWM Calculation (84 MHz Input Clock):\\\\n\";\n    std::cout << \"  PSC Value:              \" << timer.psc << \" (Divisor: \" << (timer.psc + 1) << \")\\\\n\";\n    std::cout << \"  Counter Clock:          \" << timer.getCounterFrequencyHz() / 1e6 << \" MHz\\\\n\";\n    std::cout << \"  ARR Value:              \" << timer.arr << \"\\\\n\";\n    std::cout << \"  Exact Output Frequency: \" << timer.getOutputFrequencyHz() << \" Hz\\\\n\";\n    std::cout << \"  Period:                 \" << timer.getPeriodSeconds() * 1e6 << \" microseconds\\\\n\";\n    return 0;\n}",
+      "output": "Timer 20 kHz Motor PWM Calculation (84 MHz Input Clock):\\n  PSC Value:              0 (Divisor: 1)\\n  Counter Clock:          84 MHz\\n  ARR Value:              4199\\n  Exact Output Frequency: 20000 Hz\\n  Period:                 50 microseconds",
+      "codeNotes": [
+        {
+          "line": 9,
+          "note": "Counter frequency divides clock by (PSC + 1)"
+        },
+        {
+          "line": 13,
+          "note": "Output rollover frequency divides clock by ((PSC + 1) * (ARR + 1))"
+        },
+        {
+          "line": 28,
+          "note": "ARR = 4199 provides 4200 discrete steps of PWM duty cycle resolution"
+        }
+      ],
+      "tryIt": "Configure PSC and ARR to produce a 1.0 Hz blinking LED timer from an 84 MHz clock using PSC = 8399.",
+      "check": {
+        "question": "If an 84 MHz timer peripheral has PSC = 83 and ARR = 999, what is the resulting timer update event frequency?",
+        "options": [
+          "1,000 Hz (1.0 kHz)",
+          "10,000 Hz (10.0 kHz)",
+          "840 Hz",
+          "100 Hz"
+        ],
+        "answer": 0,
+        "why": "F = 84,000,000 / ((83 + 1) * (999 + 1)) = 84,000,000 / (84 * 1000) = 84,000,000 / 84,000 = 1,000 Hz."
+      }
+    },
+    {
+      "title": "Timer Counter Modes (Upcounting, Downcounting, Center-Aligned) & Repetition Counters",
+      "say": [
+        "General-purpose hardware timers support multiple counting modes configurable via the 'TIMx_CR1' control register.",
+        "In Edge-Aligned Upcounting Mode (CMS=00, DIR=0), the counter increments from 0 up to ARR, generates an update event, and immediately wraps back to 0 (sawtooth waveform).",
+        "In Edge-Aligned Downcounting Mode (CMS=00, DIR=1), the counter decrements from ARR down to 0, generates an update event, and reloads ARR.",
+        "In Center-Aligned Mode (CMS=01, 10, or 11), the counter counts up from 0 to ARR, and then counts down from ARR back to 0 (triangular symmetrical waveform).",
+        "Center-aligned counting is the mandatory gold standard for motor control and three-phase inverters because it cancels out second-order harmonic electromagnetic interference (EMI).",
+        "Advanced timers (TIM1/TIM8) also feature a Repetition Counter ('TIMx_RCR'); an update event is generated only after the counter rolls over N + 1 times."
+      ],
+      "example": "Edge-aligned mode is a water bucket filling to the brim and splashing over all at once; center-aligned mode is a pendulum swinging smoothly back and forth with symmetrical apexes on both sides.",
+      "code": "#include <iostream>\n#include <string>\n\nenum class CounterMode {\n    UPCOUNTING,\n    DOWNCOUNTING,\n    CENTER_ALIGNED\n};\n\nvoid traceCounterWaveform(CounterMode mode, int arr) {\n    std::cout << \"Simulating Counter Trajectory (ARR=\" << arr << \"):\\\\n  Values: \";\n    if (mode == CounterMode::UPCOUNTING) {\n        for (int i = 0; i <= arr; ++i) std::cout << i << \" \";\n        std::cout << \"| wrap | 0 1...\";\n    } else if (mode == CounterMode::CENTER_ALIGNED) {\n        for (int i = 0; i <= arr; ++i) std::cout << i << \" \";\n        for (int i = arr - 1; i >= 0; --i) std::cout << i << \" \";\n        std::cout << \"| (Symmetrical Peak)\";\n    }\n    std::cout << \"\\\\n\";\n}\n\nint main() {\n    std::cout << \"[EDGE-ALIGNED UPCOUNTING]:\\\\n\";\n    traceCounterWaveform(CounterMode::UPCOUNTING, 4);\n    std::cout << \"[CENTER-ALIGNED DUAL-SLOPE]:\\\\n\";\n    traceCounterWaveform(CounterMode::CENTER_ALIGNED, 4);\n    return 0;\n}",
+      "output": "[EDGE-ALIGNED UPCOUNTING]:\\nSimulating Counter Trajectory (ARR=4):\\n  Values: 0 1 2 3 4 | wrap | 0 1...\\n[CENTER-ALIGNED DUAL-SLOPE]:\\nSimulating Counter Trajectory (ARR=4):\\n  Values: 0 1 2 3 4 3 2 1 0 | (Symmetrical Peak)",
+      "codeNotes": [
+        {
+          "line": 13,
+          "note": "Upcounting produces an asymmetrical sawtooth waveform"
+        },
+        {
+          "line": 16,
+          "note": "Center-aligned mode produces a symmetrical triangular waveform"
+        },
+        {
+          "line": 28,
+          "note": "Center-aligned PWM halves output frequency relative to edge-aligned mode for identical ARR"
+        }
+      ],
+      "tryIt": "Show mathematically that for the same ARR, center-aligned counting produces exactly half the PWM frequency of upcounting.",
+      "check": {
+        "question": "Why is Center-Aligned PWM preferred over Edge-Aligned PWM for brushless DC (BLDC) motor control?",
+        "options": [
+          "It produces symmetrical current ripples that cancel high-frequency harmonic electromagnetic noise (EMI)",
+          "It consumes zero electrical power",
+          "It eliminates the need for a timer prescaler",
+          "It allows the timer to count infinitely without auto-reload"
+        ],
+        "answer": 0,
+        "why": "Center-aligned PWM creates symmetrical drive pulses centered around the midpoint of the timer cycle, drastically reducing audible acoustic noise and harmonic EMI on motor windings."
+      }
+    },
+    {
+      "title": "Output Compare Channels & Edge-Aligned vs Center-Aligned PWM Duty Cycle Physics",
+      "say": [
+        "A hardware timer channel contains a Capture/Compare Register ('TIMx_CCRx').",
+        "In Output Compare PWM Mode 1 ('TIM_CCMR1_OC1M = 0b110'), the output pin is asserted HIGH as long as the counter value is strictly less than CCR ('CNT < CCR'), and asserted LOW when 'CNT >= CCR'.",
+        "The duty cycle percentage is defined by the precise ratio: Duty % = (CCR / (ARR + 1)) * 100%.",
+        "Setting CCR = 0 produces a continuous 0% duty cycle (pin held permanently LOW).",
+        "Setting CCR > ARR produces a continuous 100% duty cycle (pin held permanently HIGH).",
+        "Because output state transitions are executed directly by dedicated hardware silicon comparators, the generated PWM waveform has zero software jitter regardless of CPU workload."
+      ],
+      "example": "Imagine a water fountain valve configured to spray water whenever the second hand on a watch is between 0 and 30 seconds, and turn off between 30 and 60 seconds: that produces an exact 50% duty cycle.",
+      "code": "#include <iostream>\n#include <cstdint>\n#include <iomanip>\n\nstruct PwmChannel {\n    uint32_t arr;\n    uint32_t ccr;\n\n    double getDutyCyclePercent() const {\n        if (ccr == 0) return 0.0;\n        if (ccr > arr) return 100.0;\n        return ((double)ccr / (arr + 1)) * 100.0;\n    }\n\n    bool evaluatePinState(uint32_t currentCnt) const {\n        // PWM Mode 1: Active HIGH when CNT < CCR\n        return currentCnt < ccr;\n    }\n};\n\nint main() {\n    PwmChannel pwm = {4199, 1050}; // ARR=4199 (20kHz), CCR=1050 (25% duty cycle)\n\n    std::cout << \"Hardware Output Compare PWM Evaluation:\\\\n\";\n    std::cout << \"  ARR: \" << pwm.arr << \", CCR: \" << pwm.ccr << \"\\\\n\";\n    std::cout << \"  Calculated Duty Cycle: \" << std::fixed << std::setprecision(1) \n              << pwm.getDutyCyclePercent() << \"%\\\\n\";\n\n    std::cout << \"  Sampled Pin States across Counter Trajectory:\\\\n\";\n    std::cout << \"    At CNT =    0: Pin is \" << (pwm.evaluatePinState(0) ? \"HIGH\" : \"LOW\") << \"\\\\n\";\n    std::cout << \"    At CNT = 1049: Pin is \" << (pwm.evaluatePinState(1049) ? \"HIGH\" : \"LOW\") << \"\\\\n\";\n    std::cout << \"    At CNT = 1050: Pin is \" << (pwm.evaluatePinState(1050) ? \"HIGH\" : \"LOW\") << \"\\\\n\";\n    std::cout << \"    At CNT = 4199: Pin is \" << (pwm.evaluatePinState(4199) ? \"HIGH\" : \"LOW\") << \"\\\\n\";\n    return 0;\n}",
+      "output": "Hardware Output Compare PWM Evaluation:\\n  ARR: 4199, CCR: 1050\\n  Calculated Duty Cycle: 25.0%\\n  Sampled Pin States across Counter Trajectory:\\n    At CNT =    0: Pin is HIGH\\n    At CNT = 1049: Pin is HIGH\\n    At CNT = 1050: Pin is LOW\\n    At CNT = 4199: Pin is LOW",
+      "codeNotes": [
+        {
+          "line": 9,
+          "note": "Calculates duty cycle percentage as (CCR / (ARR + 1)) * 100"
+        },
+        {
+          "line": 16,
+          "note": "Hardware comparator asserts HIGH when CNT < CCR and LOW when CNT >= CCR"
+        },
+        {
+          "line": 28,
+          "note": "Transitions from HIGH to LOW at exact boundary CNT = 1050"
+        }
+      ],
+      "tryIt": "Change CCR to 2100 and verify that the duty cycle calculates to exactly 50.0%.",
+      "check": {
+        "question": "In PWM Mode 1, what happens to the output pin when the timer counter CNT reaches and exceeds the CCR register value?",
+        "options": [
+          "The output pin transitions from active HIGH to inactive LOW",
+          "The output pin remains HIGH permanently",
+          "The microcontroller generates a HardFault exception",
+          "The timer clock frequency is doubled"
+        ],
+        "answer": 0,
+        "why": "In PWM Mode 1, the output channel is active HIGH while CNT < CCR, and transitions to inactive LOW the moment CNT >= CCR."
+      }
+    },
+    {
+      "title": "Preload Buffers (TIM_CR1_ARPE & TIM_CCMR1_OC1PE), Complementary Outputs & Dead-Time Insertion",
+      "say": [
+        "In high-power switching applications, modifying ARR or CCR registers while the timer is actively counting can cause catastrophic glitching.",
+        "If firmware writes CCR = 100 when CNT has already passed 100 (say CNT = 150), the comparator misses the match, leaving the output HIGH for the remainder of the cycle and causing over-current.",
+        "To prevent this, hardware timers incorporate Preload Buffers enabled by 'TIM_CR1_ARPE' (Auto-Reload Preload Enable) and 'TIM_CCMR1_OC1PE' (Output Compare Preload Enable).",
+        "When preload is enabled, writes to CCR or ARR are stored in a shadow buffer and only transferred to the active working register on the next Update Event (timer rollover).",
+        "Furthermore, in H-bridge power stages, driving high-side and low-side MOSFETs simultaneously causes a short circuit ('shoot-through') that destroys the silicon.",
+        "Advanced timers incorporate complementary outputs ('TIM1_CH1' and 'TIM1_CH1N') with hardware Dead-Time Insertion ('TIM1_BDTR_DTG'), guaranteeing that one switch turns completely OFF before the other turns ON."
+      ],
+      "example": "Preload buffers are like updating the flight departure board: you change the computer system in advance, but the public display flips over cleanly only when the minute rolls over.",
+      "code": "#include <iostream>\n#include <cstdint>\n\nstruct PreloadComparator {\n    uint32_t activeCCR;\n    uint32_t shadowCCR;\n    bool preloadEnabled;\n\n    PreloadComparator() : activeCCR(2000), shadowCCR(2000), preloadEnabled(true) {}\n\n    void writeCcrFromSoftware(uint32_t newCcr) {\n        if (preloadEnabled) {\n            shadowCCR = newCcr; // Stored in shadow buffer; active remains untouched\n            std::cout << \"[SW WRITE] Preload enabled: shadowCCR=\" << shadowCCR \n                      << \", activeCCR remains \" << activeCCR << \"\\\\n\";\n        } else {\n            activeCCR = newCcr; // Dangerous immediate update\n        }\n    }\n\n    void onTimerUpdateEvent() {\n        if (preloadEnabled) {\n            activeCCR = shadowCCR; // Atomic transfer on timer rollover\n            std::cout << \"[UPDATE EVENT] Rollover occurred: activeCCR synchronized to \" \n                      << activeCCR << \"\\\\n\";\n        }\n    }\n};\n\nint main() {\n    PreloadComparator pwm;\n    pwm.writeCcrFromSoftware(500); // Update duty cycle while timer is running\n    std::cout << \"Timer counter rolls over at end of period...\\\\n\";\n    pwm.onTimerUpdateEvent();      // Clean atomic transfer\n    return 0;\n}",
+      "output": "[SW WRITE] Preload enabled: shadowCCR=500, activeCCR remains 2000\\nTimer counter rolls over at end of period...\\n[UPDATE EVENT] Rollover occurred: activeCCR synchronized to 500",
+      "codeNotes": [
+        {
+          "line": 12,
+          "note": "Software write updates shadow buffer without disturbing current PWM cycle"
+        },
+        {
+          "line": 20,
+          "note": "Hardware synchronizes shadow to active register only on timer UEV rollover"
+        },
+        {
+          "line": 31,
+          "note": "Guarantees zero-glitch duty cycle transitions in motor and power electronics"
+        }
+      ],
+      "tryIt": "Simulate what happens when preloadEnabled is false and explain why immediate writes cause shoot-through risk.",
+      "check": {
+        "question": "What critical protection do Preload Buffers (ARPE and OC1PE) provide in embedded PWM generation?",
+        "options": [
+          "They prevent glitching and skipped compare events by delaying register updates until the start of the next timer cycle",
+          "They increase the maximum clock frequency of the processor",
+          "They allow the microcontroller to execute code without RAM",
+          "They convert PWM signals into digital SPI data packets"
+        ],
+        "answer": 0,
+        "why": "Preload buffers hold new values in shadow registers and transfer them atomically only during the timer update event, ensuring that duty cycle and period changes never corrupt an active pulse."
+      }
+    }
+  ],
+  "summary": [
+    "The 24-bit SysTick core timer provides a vendor-independent, portable 1 kHz real-time operating system timebase configured via (Clock / Freq) - 1.",
+    "Hardware General-Purpose timers divide input clocks through 0-indexed prescaler (PSC) and auto-reload (ARR) registers via F = F_clk / ((PSC+1)*(ARR+1)).",
+    "Center-aligned dual-slope PWM generates symmetrical waveforms that eliminate second-order harmonic EMI, making it mandatory for three-phase motor drives.",
+    "Output Compare PWM Mode 1 asserts pins HIGH while CNT < CCR and LOW when CNT >= CCR with zero software jitter.",
+    "Preload buffers (ARPE and OC1PE) synchronize duty cycle updates to timer rollovers, and dead-time insertion prevents catastrophic shoot-through on H-bridges."
+  ],
+  "projectStep": {
+    "title": "Engineer a Glitch-Free Center-Aligned Hardware PWM Driver with Preload Buffers",
+    "steps": [
+      "Calculate SysTick LOAD register values for 1 kHz timebase generation on 84 MHz and 168 MHz Cortex-M processors.",
+      "Configure General-Purpose Timer PSC and ARR values to establish an exact 20 kHz carrier frequency.",
+      "Implement Center-Aligned counting mode in TIMx_CR1 and compare harmonic symmetry against edge-aligned upcounting.",
+      "Configure Output Compare Channel 1 in PWM Mode 1 with variable CCR duty cycle control.",
+      "Enable Auto-Reload Preload (ARPE) and Output Compare Preload (OC1PE) to guarantee glitch-free motor control transitions."
+    ]
+  }
+}

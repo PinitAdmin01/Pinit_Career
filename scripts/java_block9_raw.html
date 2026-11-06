@@ -1,0 +1,326 @@
+Day 41</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">JVM Throwable Hierarchy: Throwable, Error, Exception & RuntimeException</strong>
+          <span class="stage-pill" style="background: #e0f2fe; color: #0369a1;">Stage 3: Systems Stress-Testing</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 9 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #0369a1; font-weight: 600;">Goal:</span> Master the exception tree: Error (JVM fatal), Exception (Checked - must handle), RuntimeException (Unchecked - programming bugs).<br>
+          <span style="color: #15803d; font-weight: 600;">Invariant:</span> Checked exceptions force compile-time handling (try-catch or throws). Unchecked exceptions represent recoverable runtime bugs.
+        </div>
+        <div style="background: #fef2f2; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fecaca; color: #991b1b;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Catching java.lang.Error (like OutOfMemoryError) prevents the JVM from shutting down cleanly when resources are exhausted.<br>
+          <strong>tryIt Friction:</strong> Refactor "catch (Throwable t)" to "catch (Exception e)" so fatal JVM errors are not silently swallowed.
+        </div>
+      </div>
+
+      <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #1e40af;">💡 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #0369a1;">[1. Nudge: "Why is catching Throwable or Error considered dangerous in production?"]</span> &rarr;
+        <span style="color: #b45309;">[2. Memory: "If the JVM runs out of memory (OutOfMemoryError) or suffers StackOverflowError, catching it leaves the system in a corrupted zombie state."]</span> &rarr;
+        <span style="color: #15803d;">[3. Fix: "Catch specific business exceptions or at most Exception, never Throwable or Error."]</span>
+      </div>
+
+      <div style="background: #fdf4ff; border: 1px solid #f0abfc; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #86198f;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"A junior developer wraps an entire microservice main loop in: "try { ... } catch (Throwable t) { log.error("Error"); }". During an OOM event, the service stays alive but drops all requests. Why?"</em><br>
+        <strong>Correct:</strong> Option B) Catching Throwable caught OutOfMemoryError, preventing the JVM from crashing and restarting, leaving it in a degraded zombie state. &bull;
+        <span style="color: #701a75;"><strong>Debrief:</strong> Never catch Throwable or Error. Errors indicate unrecoverable JVM conditions. Swallowing them prevents orchestrators (Kubernetes/Docker) from detecting crashes and restarting the pod.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 41 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d41-q1</span>
+      <strong>Throwable Type Taxonomy</strong> <em>(concept)</em>: <span style="color: #475569;">Map Checked Exceptions vs RuntimeException vs VirtualMachineError.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d41-q2</span>
+      <strong>Detective Lab: The Swallowed OOM Zombie Trap</strong> <em>(detective)</em>: <span style="color: #475569;">Eliminate catch(Throwable) anti-patterns across a server worker loop.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d41-q3</span>
+      <strong>Mastery Assignment: Custom Banking Exception Hierarchy</strong> <em>(assignment)</em>: <span style="color: #475569;">Build BankingException base with InsufficientFundsException and AccountFrozenException.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d41-q4</span>
+      <strong>Production Incident Lab: The Swallowed OOM Zombie Outage</strong> <em>(detective)</em>: <span style="color: #475569;">Remove catch(Throwable) blocks keeping crashed JVM pods alive in Kubernetes.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #2563eb; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 42</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Defensive Error Recovery: try-catch-finally Blocks & Exception Propagation</strong>
+          <span class="stage-pill" style="background: #e0f2fe; color: #0369a1;">Stage 3: Systems Stress-Testing</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 9 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #0369a1; font-weight: 600;">Goal:</span> Master try-catch-finally execution: stack unwinding, multi-catch blocks, and the guarantee that finally ALWAYS runs.<br>
+          <span style="color: #15803d; font-weight: 600;">Invariant:</span> The finally block executes whether an exception was thrown, caught, or not thrown — even if a return statement was executed!
+        </div>
+        <div style="background: #fef2f2; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fecaca; color: #991b1b;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Putting a return statement inside a finally block silently discards exceptions thrown in the try block, masking critical bugs.<br>
+          <strong>tryIt Friction:</strong> Remove return statements from inside finally blocks so active exceptions propagate properly.
+        </div>
+      </div>
+
+      <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #1e40af;">💡 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #0369a1;">[1. Nudge: "What happens if the try block throws an exception, but the finally block executes "return 0;"?"]</span> &rarr;
+        <span style="color: #b45309;">[2. Memory: "The return in finally completely swallows and discards the exception, pretending everything succeeded!"]</span> &rarr;
+        <span style="color: #15803d;">[3. Fix: "Never put a return statement inside a finally block."]</span>
+      </div>
+
+      <div style="background: #fdf4ff; border: 1px solid #f0abfc; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #86198f;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"A transaction method throws InsufficientFundsException in the try block. The finally block contains "return true;". What does the caller receive?"</em><br>
+        <strong>Correct:</strong> Option B) true! The return statement in finally suppresses the pending exception and returns true to the caller. &bull;
+        <span style="color: #701a75;"><strong>Debrief:</strong> A return in a finally block aborts any in-flight exception and forces an immediate normal return, creating a catastrophic silent failure.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 42 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d42-q1</span>
+      <strong>Stack Unwinding & Finally Guarantees</strong> <em>(concept)</em>: <span style="color: #475569;">Trace JVM bytecode jsr / ret instructions executing finally blocks.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d42-q2</span>
+      <strong>Detective Lab: The Masked Exception Anomaly</strong> <em>(detective)</em>: <span style="color: #475569;">Identify how a return in finally masked a database authentication failure.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d42-q3</span>
+      <strong>Mastery Assignment: Resilient Transaction Processor with Clean Rollback</strong> <em>(assignment)</em>: <span style="color: #475569;">Implement try-catch-finally ensuring ledger locks release even on crash.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d42-q4</span>
+      <strong>Production Incident Lab: Masked Exception Discovery in Finally</strong> <em>(detective)</em>: <span style="color: #475569;">Audit and remove return statements inside finally blocks swallowing errors.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #2563eb; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 43</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Resource Lifecycles: AutoCloseable, try-with-resources & Custom Fault Taxonomies</strong>
+          <span class="stage-pill" style="background: #e0f2fe; color: #0369a1;">Stage 3: Systems Stress-Testing</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 9 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #0369a1; font-weight: 600;">Goal:</span> Master deterministic resource teardown using AutoCloseable and try-with-resources, alongside strongly-typed custom business exception hierarchies.<br>
+          <span style="color: #15803d; font-weight: 600;">Invariant:</span> Any resource opened in try(Resource r = ...) is guaranteed to close even if an exception is thrown. Domain exceptions must carry actionable context (errorCode, entityId).
+        </div>
+        <div style="background: #fef2f2; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fecaca; color: #991b1b;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Swallowing exceptions or failing to close OS file descriptors and socket handles causes process resource exhaustion (Too many open files).<br>
+          <strong>tryIt Friction:</strong> Refactor a fragile manual stream close in finally into a try-with-resources block with custom InsufficientFundsException handling.
+        </div>
+      </div>
+
+      <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #1e40af;">💡 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #0369a1;">[1. Nudge: "What happens if reader.close() in a finally block throws an IOException? Does writer.close() on the next line ever execute?"]</span> &rarr;
+        <span style="color: #b45309;">[2. Memory: "No! The exception on line 1 aborts the finally block, leaking the writer file descriptor!"]</span> &rarr;
+        <span style="color: #15803d;">[3. Fix: "Use try (Reader r = ...; Writer w = ...) { ... } so the JVM closes both safely and suppresses secondary errors."]</span>
+      </div>
+
+      <div style="background: #fdf4ff; border: 1px solid #f0abfc; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #86198f;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"A payment API returns HTTP 500 on invalid credit card numbers because the service throws raw RuntimeException("bad card"). How does a senior team refactor this?"</em><br>
+        <strong>Correct:</strong> Option B) Define a specific InvalidCardException with an error code enum, allowing the controller to return a clean HTTP 400 Bad Request. &bull;
+        <span style="color: #701a75;"><strong>Debrief:</strong> Strongly-typed custom exceptions allow higher layers (API controllers) to cleanly map domain failures to client status codes (HTTP 400 vs 500).</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 43 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d43-q1</span>
+      <strong>Domain Exception Modeling & AutoCloseable</strong> <em>(concept)</em>: <span style="color: #475569;">Design exception classes that preserve structural evidence and implement deterministic cleanup.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d43-q2</span>
+      <strong>Detective Lab: The Leaking OS File Descriptor Outage</strong> <em>(detective)</em>: <span style="color: #475569;">Refactor a legacy manual finally close into a bulletproof try-with-resources statement.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d43-q3</span>
+      <strong>Mastery Assignment: Complete Financial Error Hierarchy</strong> <em>(assignment)</em>: <span style="color: #475569;">Build InvalidCurrencyException, LimitExceededException, and AccountSuspendedException.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d43-q4</span>
+      <strong>Production Incident Lab: Suppressed Exception Telemetry</strong> <em>(detective)</em>: <span style="color: #475569;">Extract suppressed exceptions from try-with-resources to capture root-cause telemetry.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #2563eb; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 44</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">JVM Garbage Collection Anatomy & Diagnosing Real Memory Leaks</strong>
+          <span class="stage-pill" style="background: #e0f2fe; color: #0369a1;">Stage 3: Systems Stress-Testing</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 9 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #0369a1; font-weight: 600;">Goal:</span> Master JVM Garbage Collection: the generational hypothesis (Eden, Survivor S0/S1, Old Gen), GC Roots, stop-the-world pauses, and how Java leaks memory via unclosed roots.<br>
+          <span style="color: #15803d; font-weight: 600;">Invariant:</span> Objects are eligible for GC when they are unreachable from any GC Root (thread stack frames, static variables, active JNI handles). Static collections never die and cause real memory leaks.
+        </div>
+        <div style="background: #fef2f2; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fecaca; color: #991b1b;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Appending objects into a static collection (e.g. static List<UserSession>) without removal prevents GC collection and triggers java.lang.OutOfMemoryError: Java heap space.<br>
+          <strong>tryIt Friction:</strong> Identify and fix a memory leak where an unclosed listener or static cache continually retains uncollectible heap objects.
+        </div>
+      </div>
+
+      <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #1e40af;">💡 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #0369a1;">[1. Nudge: "If Java has automatic garbage collection, how did the application run out of memory (java.lang.OutOfMemoryError)?"]</span> &rarr;
+        <span style="color: #b45309;">[2. Memory: "Because the GC only reclaims UNREACHABLE objects! If a static List holds a pointer to an object, that object is permanently reachable."]</span> &rarr;
+        <span style="color: #15803d;">[3. Fix: "Clear the static reference or use a bounded cache with eviction (e.g. WeakHashMap or LRU) to let the GC reclaim memory."]</span>
+      </div>
+
+      <div style="background: #fdf4ff; border: 1px solid #f0abfc; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #86198f;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"A production financial microservice experiences 4-second latency freezes every 10 minutes. A heap dump reveals 95% of the heap is full of old-generation session objects. What is occurring?"</em><br>
+        <strong>Correct:</strong> Option B) A Full GC (Stop-The-World pause) is struggling to collect lingering reachable objects in the Tenured Old Gen, freezing all application worker threads. &bull;
+        <span style="color: #701a75;"><strong>Debrief:</strong> Full GC pauses freeze all application threads while traversing the old-generation object graph. Memory leaks that promote dead objects to old generation cause catastrophic latency spikes.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 44 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d44-q1</span>
+      <strong>Generational GC Mechanics & GC Roots</strong> <em>(concept)</em>: <span style="color: #475569;">Trace Eden space allocation, minor GC promotions, and mark-sweep-compact in the Tenured generation.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d44-q2</span>
+      <strong>Detective Lab: The Static Collection Leak Outage</strong> <em>(detective)</em>: <span style="color: #475569;">Locate a static map holding disconnected socket sessions and apply eviction cleanup.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d44-q3</span>
+      <strong>Mastery Assignment: Heap Dump Inspection & Memory Profiling</strong> <em>(assignment)</em>: <span style="color: #475569;">Simulate high memory churn and verify clean garbage collection using runtime memory telemetry.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d44-q4</span>
+      <strong>Production Incident Lab: The Stop-The-World Full GC Freeze</strong> <em>(detective)</em>: <span style="color: #475569;">Diagnose an enterprise JVM latency incident using GC log flags (-Xlog:gc) and fix root cause.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #2563eb; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 45</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">⭐ Milestone 8: Resilient Order File Ingestion Engine with Auto-Rollback</strong>
+          <span class="stage-pill" style="background: #e0f2fe; color: #0369a1;">Stage 3: Systems Stress-Testing</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 9 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #0369a1; font-weight: 600;">Goal:</span> Build an enterprise file ingestion engine: read CSV order batches, validate fields, handle line errors, and rollback on batch failure.<br>
+          <span style="color: #15803d; font-weight: 600;">Invariant:</span> Batch file ingestion must be atomic: if record #500 fails critical validation, prior processed records must be rolled back.
+        </div>
+        <div style="background: #fef2f2; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fecaca; color: #991b1b;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Partially writing records to the database and crashing halfway leaves the ledger in an un-auditable, torn state.<br>
+          <strong>tryIt Friction:</strong> Implement transactional rollback in the catch block to revert staged orders if file parsing fails.
+        </div>
+      </div>
+
+      <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #1e40af;">💡 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #0369a1;">[1. Nudge: "What happens if an order batch of 10 items succeeds for items 1-4, but item 5 has an invalid currency?"]</span> &rarr;
+        <span style="color: #b45309;">[2. Memory: "Items 1-4 cannot remain committed if the batch was supposed to be all-or-nothing!"]</span> &rarr;
+        <span style="color: #15803d;">[3. Fix: "Call rollback() in your catch block to revert items 1-4."]</span>
+      </div>
+
+      <div style="background: #fdf4ff; border: 1px solid #f0abfc; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #86198f;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"During a payroll file upload of 500 salaries, the server loses network connection at record 250. Employees 1–250 received payments, but 251–500 did not. The system cannot re-run without paying the first 250 twice. What architectural failure occurred?"</em><br>
+        <strong>Correct:</strong> Option B) Lack of transactional atomicity and rollback mechanics in the batch processing engine. &bull;
+        <span style="color: #701a75;"><strong>Debrief:</strong> All-or-nothing batch operations require ACID transaction boundaries. Either all 500 records commit, or the entire batch rolls back to the initial state.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 45 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d45-q1</span>
+      <strong>Atomic Batch Ingestion Architecture</strong> <em>(concept)</em>: <span style="color: #475569;">Design two-phase staging and commit pipelines for file ingestion.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d45-q2</span>
+      <strong>Detective Lab: The Torn Batch Ingestion Crash</strong> <em>(detective)</em>: <span style="color: #475569;">Implement rollback mechanisms when a corrupted line aborts batch processing.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d45-q3</span>
+      <strong>Mastery Assignment: Dead-Letter Queue Order Ingestor</strong> <em>(assignment)</em>: <span style="color: #475569;">Route corrupted order lines to a dead-letter log while processing valid lines.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d45-m8</span>
+      <strong>⭐ Milestone 8: Resilient Enterprise Batch Ingestion Engine</strong> <em>(milestone)</em>: <span style="color: #475569;">Deliver production CSV order parser with AutoCloseable resources and auto-rollback.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #2563eb; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">

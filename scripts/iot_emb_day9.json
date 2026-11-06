@@ -1,0 +1,222 @@
+{
+  "day": 9,
+  "title": "Controller Area Network (CAN Bus): Differential Signaling, Arbitration & CRC Framing",
+  "goal": "Master the backbone of automotive and industrial automation: the Controller Area Network (CAN Bus). Understand why consumer buses (UART/I2C/SPI) fail in high-voltage industrial environments filled with ground offset voltages and severe electromagnetic noise. Analyze differential signaling physics across CAN_H and CAN_L with 120-ohm termination. Master Non-Destructive Bitwise Arbitration using Recessive (logic 1) and Dominant (logic 0) states. Calculate Time Quanta (tq) and bit timing segments, configure 32-bit hardware acceptance filter masks, and implement an industrial CAN message dispatch engine.",
+  "minutes": 36,
+  "recap": "Yesterday in Day 8, we mastered open-drain I2C bus physics, pull-up resistor calculus, START/STOP framing, and the 9-clock hung bus recovery engine. Today in Day 9, we advance to high-reliability industrial networking with the Controller Area Network (CAN Bus).",
+  "parts": [
+    {
+      "title": "Differential Electrical Physics, Common-Mode Rejection & Termination",
+      "say": [
+        "Welcome to Day 9! In automotive engine compartments, electric vehicles, and industrial robotics, standard single-ended communications like UART or I2C fail completely due to ground loops and motor electromagnetic interference (EMI).",
+        "To survive in these hostile environments, Bosch engineered the Controller Area Network (CAN Bus), which replaces single-ended voltage referencing with Differential Signaling.",
+        "A CAN bus consists of a twisted-pair cable: CAN High (CAN_H) and CAN Low (CAN_L).",
+        "In the Recessive state (logic 1), both wires sit at approximately 2.5V, creating a differential voltage ($V_{diff} = CAN_H - CAN_L$) of approximately 0.0V.",
+        "In the Dominant state (logic 0), transceivers actively drive CAN_H up to 3.5V and pull CAN_L down to 1.5V, creating a robust differential voltage of 2.0V.",
+        "Because external electromagnetic interference couples equally into both twisted wires (common-mode noise), the differential receiver subtracts the noise entirely, providing extraordinary reliability over hundred-meter distances."
+      ],
+      "example": "A CAN transceiver converts logic levels to differential voltages: Recessive logic 1 produces $V_{diff} = 0.0V$; Dominant logic 0 produces $V_{diff} = 2.0V$.",
+      "code": "#include <iostream>\n#include <cstdint>\n\nstruct CanPhysicalLayer {\n    static void evaluateVoltages(bool isDominant, double& canH, double& canL, double& vDiff) {\n        if (isDominant) {\n            // Dominant (Logic 0)\n            canH = 3.5;\n            canL = 1.5;\n        } else {\n            // Recessive (Logic 1)\n            canH = 2.5;\n            canL = 2.5;\n        }\n        vDiff = canH - canL;\n    }\n};\n\nint main() {\n    double canH, canL, vDiff;\n\n    CanPhysicalLayer::evaluateVoltages(true, canH, canL, vDiff);\n    std::cout << \"DOMINANT State (Logic 0):\\n\";\n    std::cout << \"  CAN_H: \" << canH << \"V | CAN_L: \" << canL << \"V | Differential: \" << vDiff << \"V\\n\";\n\n    CanPhysicalLayer::evaluateVoltages(false, canH, canL, vDiff);\n    std::cout << \"RECESSIVE State (Logic 1):\\n\";\n    std::cout << \"  CAN_H: \" << canH << \"V | CAN_L: \" << canL << \"V | Differential: \" << vDiff << \"V\\n\";\n    std::cout << \"Termination Invariant: Exactly two 120-ohm resistors at cable ends prevent RF reflections.\\n\";\n    return 0;\n}",
+      "output": "DOMINANT State (Logic 0):\n  CAN_H: 3.5V | CAN_L: 1.5V | Differential: 2V\nRECESSIVE State (Logic 1):\n  CAN_H: 2.5V | CAN_L: 2.5V | Differential: 0V\nTermination Invariant: Exactly two 120-ohm resistors at cable ends prevent RF reflections.",
+      "codeNotes": [
+        {
+          "line": 7,
+          "note": "Dominant state actively drives 2.0V differential voltage across termination resistors"
+        },
+        {
+          "line": 11,
+          "note": "Recessive state lets both lines float to common-mode 2.5V reference"
+        },
+        {
+          "line": 28,
+          "note": "120-ohm split termination matches characteristic line impedance, preventing signal reflections"
+        }
+      ],
+      "tryIt": "Add a simulated 1.0V common-mode noise spike to both wires and verify that the differential voltage remains exactly unchanged.",
+      "check": {
+        "question": "Why does differential signaling across twisted-pair wires provide superior noise immunity in CAN bus networks?",
+        "options": [
+          "Because external electromagnetic noise induces identical voltages on both wires, which cancels out when the receiver computes CAN_H minus CAN_L.",
+          "Because twisted pair wires cannot conduct electricity.",
+          "Because differential transmitters automatically double the CPU frequency.",
+          "Because CAN bus cables are made of optical fiber."
+        ],
+        "answer": 0,
+        "why": "Common-Mode Rejection Ratio (CMRR) in differential receivers subtracts noise present equally on both wires: $(CAN_H + V_{noise}) - (CAN_L + V_{noise}) = CAN_H - CAN_L$."
+      }
+    },
+    {
+      "title": "Non-Destructive Bitwise Arbitration Physics",
+      "say": [
+        "In standard Ethernet networks, when two nodes transmit simultaneously, a collision occurs; both nodes abort, back off randomly, and retransmit, wasting bandwidth.",
+        "CAN Bus solves multi-master contention with pure mathematical elegance: Non-Destructive Bitwise Arbitration.",
+        "The core physical rule is the Dominant Overwrite Invariant: a Dominant bit (logic 0) unconditionally overrides a Recessive bit (logic 1) on the physical bus.",
+        "When multiple nodes start transmitting simultaneously, every node transmits its 11-bit or 29-bit Message Identifier bit-by-bit while simultaneously reading the bus state.",
+        "If Node A transmits a Recessive 1 but senses a Dominant 0 on the bus, Node A realizes that a higher-priority message (with a lower numerical ID) is transmitting; Node A immediately stops transmitting and becomes a receiver without corrupting the active message."
+      ],
+      "example": "Simulating arbitration between Emergency Braking (ID 0x100) and Climate Control (ID 0x300): at bit 9, Emergency Braking transmits 0 while Climate Control transmits 1, winning the bus instantly.",
+      "code": "#include <iostream>\n#include <cstdint>\n\nstruct CanArbitrationSimulator {\n    static void arbitrate(uint16_t idA, uint16_t idB) {\n        std::cout << \"Simultaneous Transmission: Node A (0x\" << std::hex << idA\n                  << \") vs Node B (0x\" << idB << \")\\n\" << std::dec;\n\n        for (int bit = 10; bit >= 0; --bit) {\n            uint8_t bitA = (idA >> bit) & 0x01;\n            uint8_t bitB = (idB >> bit) & 0x01;\n            // Physical wired-AND on bus: 0 is Dominant, 1 is Recessive\n            uint8_t busState = bitA & bitB;\n\n            if (bitA != busState) {\n                std::cout << \"Bit \" << bit << \": Node A transmitted 1 (Recessive) but saw 0 (Dominant) -> Node A BACKS OFF!\\n\";\n                std::cout << \"Winner: Node B (Lower ID = Higher Priority)\\n\";\n                return;\n            }\n            if (bitB != busState) {\n                std::cout << \"Bit \" << bit << \": Node B transmitted 1 (Recessive) but saw 0 (Dominant) -> Node B BACKS OFF!\\n\";\n                std::cout << \"Winner: Node A (Lower ID = Higher Priority)\\n\";\n                return;\n            }\n        }\n        std::cout << \"Identical IDs: Both nodes transmitted simultaneously.\\n\";\n    }\n};\n\nint main() {\n    uint16_t emergencyBrakingId = 0x100; // Binary: 001 0000 0000\n    uint16_t climateControlId   = 0x300; // Binary: 011 0000 0000\n\n    CanArbitrationSimulator::arbitrate(emergencyBrakingId, climateControlId);\n    std::cout << \"Arbitration Invariant: Zero collisions, zero corrupted frames, zero retransmission delay.\\n\";\n    return 0;\n}",
+      "output": "Simultaneous Transmission: Node A (0x100) vs Node B (0x300)\nBit 9: Node B transmitted 1 (Recessive) but saw 0 (Dominant) -> Node B BACKS OFF!\nWinner: Node A (Lower ID = Higher Priority)\nArbitration Invariant: Zero collisions, zero corrupted frames, zero retransmission delay.",
+      "codeNotes": [
+        {
+          "line": 13,
+          "note": "Wired-AND logic models physical transceiver behavior where Dominant 0 overrides Recessive 1"
+        },
+        {
+          "line": 16,
+          "note": "Node detecting bus state mismatch drops out of transmission instantly without corrupting the frame"
+        },
+        {
+          "line": 34,
+          "note": "Guarantees safety-critical automotive packets (like braking) experience zero transmission delay"
+        }
+      ],
+      "tryIt": "Compare arbitration between an engine RPM packet (ID 0x240) and a tire pressure packet (ID 0x248) and identify which bit decides arbitration.",
+      "check": {
+        "question": "Why does a lower numerical Message Identifier correspond to higher priority on a CAN bus?",
+        "options": [
+          "Because lower IDs contain more leading Dominant 0 bits, which overwrite Recessive 1 bits during arbitration.",
+          "Because the CAN bus controller sorts messages alphabetically in flash memory.",
+          "Because lower IDs travel faster through copper wiring.",
+          "Because automotive regulations ban IDs greater than 0x500."
+        ],
+        "answer": 0,
+        "why": "Dominant bits are logic 0; an ID with a 0 at an earlier bit position will overwrite any competing node transmitting a 1, winning the bus."
+      }
+    },
+    {
+      "title": "CAN Nominal Bit Timing & Time Quanta (tq) Calculus",
+      "say": [
+        "To maintain synchronized bit sampling across distributed vehicle harnesses without a shared clock, CAN divides every bit period into four discrete segments composed of integer Time Quanta ($t_q$).",
+        "The four segments are: Synchronization Segment (Sync_Seg, strictly 1 $t_q$), Propagation Segment (Prop_Seg), Phase Buffer Segment 1 (Phase_Seg1), and Phase Buffer Segment 2 (Phase_Seg2).",
+        "The Sample Point is located between Phase_Seg1 and Phase_Seg2; automotive standards (CiA 301) mandate placing the sample point at 87.5% of the total bit time for maximum signal stability.",
+        "If clock skew occurs, the hardware automatically adjusts the lengths of Phase_Seg1 and Phase_Seg2 up to the Synchronization Jump Width (SJW) limit, resynchronizing on incoming dominant transitions.",
+        "Calculating the Bit Timing Register (CAN_BTR) parameters requires matching the peripheral bus clock, baud rate prescaler (BRP), and total quanta to achieve the exact target bit rate (e.g., 500 kbps)."
+      ],
+      "example": "Calculating CAN bit timing for a 500 kbps bus on a 42MHz APB1 clock: $t_q = 42MHz / (BRP \\times 14) = 500kbps$ with BRP=6 and 14 total quanta (1 Sync, 2 Prop, 9 Phase1, 2 Phase2), achieving sample point at 85.7%.",
+      "code": "#include <iostream>\n#include <cstdint>\n\nstruct CanBitTimingCalculator {\n    static void computeBitTiming(uint32_t pclk, uint32_t baudRate, uint32_t totalQuanta, uint32_t samplePointTq) {\n        uint32_t brp = pclk / (baudRate * totalQuanta);\n        double actualBaud = static_cast<double>(pclk) / (brp * totalQuanta);\n        double samplePointPct = (static_cast<double>(samplePointTq) / totalQuanta) * 100.0;\n\n        std::cout << \"CAN Target Baud: \" << baudRate / 1000 << \" kbps\\n\";\n        std::cout << \"Prescaler (BRP): \" << brp << \"\\n\";\n        std::cout << \"Total Quanta:    \" << totalQuanta << \" tq (Sync=1, TimeSeg1=\"\n                  << samplePointTq - 1 << \", TimeSeg2=\" << totalQuanta - samplePointTq << \")\\n\";\n        std::cout << \"Sample Point:    \" << samplePointPct << \"% (Target: 87.5%)\\n\";\n        std::cout << \"Actual Bit Rate: \" << actualBaud / 1000 << \" kbps (Exact Match)\\n\";\n    }\n};\n\nint main() {\n    uint32_t apb1Clock = 42000000; // 42 MHz\n    uint32_t targetBaud = 500000;  // 500 kbps\n    uint32_t totalTq = 14;\n    uint32_t samplePtTq = 12;      // 12/14 = 85.7%\n\n    CanBitTimingCalculator::computeBitTiming(apb1Clock, targetBaud, totalTq, samplePtTq);\n    return 0;\n}",
+      "output": "CAN Target Baud: 500 kbps\nPrescaler (BRP): 6\nTotal Quanta:    14 tq (Sync=1, TimeSeg1=11, TimeSeg2=2)\nSample Point:    85.7143% (Target: 87.5%)\nActual Bit Rate: 500 kbps (Exact Match)",
+      "codeNotes": [
+        {
+          "line": 5,
+          "note": "Calculates baud rate prescaler (BRP) to divide APB1 clock down to target bit quanta"
+        },
+        {
+          "line": 12,
+          "note": "Sample point placed at 85.7% provides excellent immunity against physical cable propagation delay"
+        },
+        {
+          "line": 26,
+          "note": "Divides 42MHz by (6 * 14) to produce exactly 500,000 bps with zero frequency error"
+        }
+      ],
+      "tryIt": "Recalculate bit timing for an 84MHz clock at 1 Mbps with 16 total quanta and determine the required BRP.",
+      "check": {
+        "question": "Why is the CAN bus sample point placed between 75% and 87.5% of the bit period rather than in the center (50%)?",
+        "options": [
+          "To allow maximum time for the physical electrical signal to propagate down the cable and settle across transceiver transits.",
+          "Because CAN bus microcontrollers cannot read registers during the first half of a clock cycle.",
+          "Because the last 12.5% of each bit is reserved for CRC parity calculation.",
+          "To increase the battery life of electric vehicles."
+        ],
+        "answer": 0,
+        "why": "Propagation segment delay requires allocating the first portion of the bit to physical signal transit down long cables before sampling."
+      }
+    },
+    {
+      "title": "Hardware Acceptance Filtering (32-Bit Mask & Match)",
+      "say": [
+        "In a modern vehicle, a CAN bus carries hundreds of thousands of messages every second from dozens of electronic control units (ECUs).",
+        "If the microcontroller's CPU had to interrupt and inspect every single packet to determine relevance, the CPU would be overwhelmed by interrupt overhead.",
+        "The CAN controller solves this with Hardware Acceptance Filters: dedicated hardware comparators that filter incoming messages before they ever trigger a CPU interrupt.",
+        "An acceptance filter consists of two registers: an Identifier Register (ID) and a Mask Register.",
+        "The Mask register acts as a bitmask: if a mask bit is 1, the corresponding bit in the incoming message ID must match the ID register exactly; if a mask bit is 0, the bit is treated as 'Don't Care', allowing ranges of message IDs into the receive FIFO."
+      ],
+      "example": "A battery management ECU configures a filter to accept only Battery Cell Voltages (IDs 0x380 through 0x387) using Filter ID 0x380 and Mask 0x7F8.",
+      "code": "#include <iostream>\n#include <cstdint>\n\nstruct CanFilterMatcher {\n    static bool matchFilter(uint16_t incomingId, uint16_t filterId, uint16_t filterMask) {\n        // Condition: (incomingId & filterMask) == (filterId & filterMask)\n        return (incomingId & filterMask) == (filterId & filterMask);\n    }\n};\n\nint main() {\n    uint16_t filterId   = 0x380; // Base ID for Battery Pack\n    uint16_t filterMask = 0x7F8; // Match bits 10..3, ignore bits 2..0 (accepts 0x380 to 0x387)\n\n    uint16_t idBattery1 = 0x382; // Battery Cell 2 -> Should Match\n    uint16_t idEngineRpm = 0x120;// Engine RPM   -> Should Reject\n\n    bool match1 = CanFilterMatcher::matchFilter(idBattery1, filterId, filterMask);\n    bool match2 = CanFilterMatcher::matchFilter(idEngineRpm, filterId, filterMask);\n\n    std::cout << \"Filter Config: ID=0x\" << std::hex << filterId << \" | Mask=0x\" << filterMask << \"\\n\";\n    std::cout << \"ID 0x\" << idBattery1 << \" (Battery Module): \" << (match1 ? \"ACCEPTED (Hardware FIFO)\" : \"REJECTED\") << \"\\n\";\n    std::cout << \"ID 0x\" << idEngineRpm << \" (Engine RPM):     \" << (match2 ? \"ACCEPTED\" : \"REJECTED (Filtered by Silicon)\") << \"\\n\";\n    return 0;\n}",
+      "output": "Filter Config: ID=0x380 | Mask=0x7f8\nID 0x382 (Battery Module): ACCEPTED (Hardware FIFO)\nID 0x120 (Engine RPM):     REJECTED (Filtered by Silicon)",
+      "codeNotes": [
+        {
+          "line": 6,
+          "note": "Hardware comparator logic executes: (incoming & mask) == (filter & mask) in 0 clock cycles"
+        },
+        {
+          "line": 13,
+          "note": "Mask 0x7F8 treats bottom 3 bits as Don't Care, accepting any ID from 0x380 to 0x387"
+        },
+        {
+          "line": 24,
+          "note": "Irrelevant packets are discarded instantly at the silicon level without interrupting the CPU"
+        }
+      ],
+      "tryIt": "Configure a mask that accepts only exact ID 0x120 and verify that ID 0x121 is rejected.",
+      "check": {
+        "question": "What is the primary benefit of CAN hardware acceptance filter masks in automotive ECUs?",
+        "options": [
+          "They discard irrelevant network traffic at the silicon layer, completely shielding the CPU from unnecessary interrupt overhead.",
+          "They encrypt message payloads using automotive-grade AES keys.",
+          "They increase the physical voltage on the CAN bus cable.",
+          "They compress binary message payloads to save battery power."
+        ],
+        "answer": 0,
+        "why": "Filtering at the silicon level prevents the CPU from being flooded with interrupts for messages meant for other electronic control units."
+      }
+    },
+    {
+      "title": "Industrial CAN Message Dispatcher & Bus-Off Fault Management",
+      "say": [
+        "A production CAN driver must manage the full protocol lifecycle: frame transmission, FIFO message reception, and hardware fault confinement.",
+        "Every CAN controller maintains two internal error counters: Transmit Error Counter (TEC) and Receive Error Counter (REC).",
+        "When a transmission error occurs (e.g., bit error, CRC error, or missing ACK), TEC increments; when a transmission succeeds, TEC decrements.",
+        "The controller transitions through three distinct operational states: Error Active (normal operation, TEC < 128), Error Passive (TEC >= 128, only sends recessive error flags), and Bus Off (TEC > 255).",
+        "If a damaged cable or severe ground fault causes TEC to exceed 255, the controller executes a self-protective disconnect: shutting off its transceiver output stages to avoid bringing down the rest of the vehicle network."
+      ],
+      "example": "A CAN fault manager tracks the Transmit Error Counter (TEC), transitioning the node from Error Active to Error Passive and Bus Off under persistent fault injection.",
+      "code": "#include <iostream>\n#include <cstdint>\n\nenum class CanNodeState { ERROR_ACTIVE, ERROR_PASSIVE, BUS_OFF };\n\nclass CanFaultManager {\nprivate:\n    uint16_t tec_{0};\n    CanNodeState state_{CanNodeState::ERROR_ACTIVE};\n\npublic:\n    void recordTxError() {\n        tec_ += 8; // CAN standard: +8 for transmit error\n        evaluateState();\n    }\n\n    void recordTxSuccess() {\n        if (tec_ > 0) tec_--;\n        evaluateState();\n    }\n\n    void evaluateState() {\n        if (tec_ > 255) state_ = CanNodeState::BUS_OFF;\n        else if (tec_ >= 128) state_ = CanNodeState::ERROR_PASSIVE;\n        else state_ = CanNodeState::ERROR_ACTIVE;\n    }\n\n    CanNodeState getState() const { return state_; }\n    uint16_t getTEC() const { return tec_; }\n};\n\nint main() {\n    CanFaultManager canNode;\n\n    std::cout << \"Initial Node State: ERROR_ACTIVE (TEC=\" << canNode.getTEC() << \")\\n\";\n\n    // Simulate 17 consecutive transmission errors (cable disconnected)\n    for (int i = 0; i < 17; ++i) {\n        canNode.recordTxError();\n    }\n    std::cout << \"After 17 Errors -> TEC=\" << canNode.getTEC() << \" | State: ERROR_PASSIVE\\n\";\n\n    // Inject more errors until Bus-Off occurs\n    for (int i = 0; i < 16; ++i) {\n        canNode.recordTxError();\n    }\n    std::cout << \"After 33 Errors -> TEC=\" << canNode.getTEC() << \" | State: BUS_OFF (Self-Isolated)\\n\";\n    std::cout << \"Fault Confinement Invariant: Node self-isolates to preserve vehicle network integrity.\\n\";\n    return 0;\n}",
+      "output": "Initial Node State: ERROR_ACTIVE (TEC=0)\nAfter 17 Errors -> TEC=136 | State: ERROR_PASSIVE\nAfter 33 Errors -> TEC=264 | State: BUS_OFF (Self-Isolated)\nFault Confinement Invariant: Node self-isolates to preserve vehicle network integrity.",
+      "codeNotes": [
+        {
+          "line": 11,
+          "note": "Increments TEC by 8 on transmit error according to ISO 11898-1 standard"
+        },
+        {
+          "line": 21,
+          "note": "Transitions to Bus-Off when TEC exceeds 255 threshold, isolating faulty transceiver"
+        },
+        {
+          "line": 42,
+          "note": "Self-isolation ensures a damaged node cannot permanently jam the vehicle bus"
+        }
+      ],
+      "tryIt": "Simulate successful transmissions recovering a node from TEC=130 back down into the Error Active state.",
+      "check": {
+        "question": "What is the purpose of the CAN Bus-Off state when a node's Transmit Error Counter (TEC) exceeds 255?",
+        "options": [
+          "To disconnect the node's output transistors from the physical bus, preventing a malfunctioning ECU from taking down the entire vehicle network.",
+          "To reboot the automotive infotainment display.",
+          "To delete all recorded fault codes from EEPROM memory.",
+          "To force the driver to pull over and turn off the engine."
+        ],
+        "answer": 0,
+        "why": "Fault confinement guarantees that a babbling idiot node or hardware failure cannot permanently hold the shared differential bus in a dominant state."
+      }
+    }
+  ],
+  "summary": [
+    "CAN bus uses differential signaling (CAN_H / CAN_L) across twisted-pair wiring with 120-ohm termination to eliminate common-mode ground noise.",
+    "Non-destructive bitwise arbitration allows multi-master access without collisions; Dominant 0 bits overwrite Recessive 1 bits, granting highest priority to lower numerical IDs.",
+    "Bit timing is divided into Time Quanta ($t_q$) across 4 segments, placing the sample point at 87.5% for maximum cable transit tolerance.",
+    "Hardware acceptance filters match incoming 11-bit and 29-bit IDs against programmable mask registers, discarding unneeded traffic without CPU interrupts.",
+    "Dual error counters (TEC and REC) enforce fault confinement: nodes transition to Error Passive and Bus Off to self-isolate when hardware faults occur."
+  ],
+  "projectStep": {
+    "title": "Step 9: Constructing the Industrial CAN Bus Differential Engine",
+    "steps": [
+      "Implement CanPhysicalLayer evaluating Recessive (0V diff) and Dominant (2V diff) voltage levels with 120-ohm termination.",
+      "Build CanArbitrationSimulator modeling bit-by-bit non-destructive arbitration and priority resolution.",
+      "Develop CanBitTimingCalculator computing Time Quanta segments, BRP prescalers, and 87.5% sample points.",
+      "Create a 32-bit CanFilterMatcher hardware acceptance filter validating mask and match logic.",
+      "Implement CanFaultManager tracking TEC counters and enforcing Error Passive and Bus-Off self-isolation."
+    ]
+  }
+}

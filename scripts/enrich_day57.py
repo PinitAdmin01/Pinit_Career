@@ -1,0 +1,47 @@
+"""
+Enrich Day 57 parts to strictly exceed 600 words per part.
+"""
+import os, sys
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from scripts.nlp_builder.day57 import DAY_57_DATA
+
+p1_additions = [
+    "To understand the mathematical fragility of safety alignment against adversarial suffixes, consider the formal optimization objective of Greedy Coordinate Gradient (GCG) attacks. Let M be a target autoregressive language model, x be an adversarial prompt composed of an instruction and a suffix of k tokens x_suffix, and y_target be a compliance prefix (such as 'Sure, here is the complete blueprint to bypass security'). The attack seeks to minimize the negative log-likelihood of the target prefix over the discrete token vocabulary V: min_{x_suffix \in V^k} - \sum_{t=1}^{|y_target|} \log P_M(y_target,t | x, y_target,<t). Because discrete token space cannot be optimized directly with continuous gradient descent, GCG linearizes the loss landscape using first-order Taylor expansion over the one-hot token embedding matrices. At each step, gradients of the loss with respect to one-hot token embeddings identify candidate replacement tokens that yield the steepest decrease in loss. Evaluated across candidate batches, GCG discovers universal adversarial suffixes that transfer effectively across different model checkpoints and architectures.",
+    "Beyond mathematical optimization attacks, cognitive virtualization attacks exploit the LLM's world modeling capabilities. In a nested virtualization attack, the user prompts the model to instantiate a simulated operating system or sandboxed Python environment that executes a counterfactual simulation. Inside the simulation, the model is told that all real-world ethical guidelines are disabled to allow penetration testing verification. Furthermore, multi-lingual token splitting exploits discrepancies in the Byte-Pair Encoding (BPE) tokenizer vocabulary: a prohibited term in English might be represented as a single frequent token that triggers safety filters, but when decomposed into uncommon subwords, foreign unicode homoglyphs, or ASCII art line drawings, the visual or phonetic representation reconstructs in the upper Transformer layers past the initial input embedding filter."
+]
+
+p2_additions = [
+    "In industrial automated red-teaming, evolutionary fuzzing is further augmented with Tree-of-Attacks with Pruning (TAP) and Monte Carlo Tree Search (MCTS). In TAP, the attacker system does not simply mutate a flat list of prompts; it maintains a search tree where each node represents a conversational state or prompt modification. An attacker model generates multiple branching prompt candidates from each node, while an automated on-topic and safety evaluator assesses whether each branch remains on-topic and whether it elicits a refusal or vulnerability. Branches that produce catastrophic model refusals with zero likelihood of progression are pruned early, preventing the fuzzer from wasting inference compute on dead-end adversarial strategies. Conversely, branches that elicit nuanced, exploratory, or partially compliant responses are expanded deeper.",
+    "The mutation operators themselves are parameterized using empirical linguistic heuristics. For example, the 'Authority Escalation' operator transforms colloquial requests into urgent executive orders from legal counsel or system administrators, injecting technical jargon, fictitious compliance codes (e.g., 'Directive 800-53 Section 4.2 Override Authorized'), and cryptographic hash strings. The 'Ethical Inversion' operator reframes the harm as a catastrophic risk that can only be prevented if the model immediately details the exact attack mechanics so defenders can patch it. Through thousands of automated fuzzed iterations, the evolutionary engine compiles empirical fragility curves mapping which semantic archetypes consistently bypass standard post-training alignment."
+]
+
+p3_additions = [
+    "Deploying safety guardrails in production requires managing a delicate trade-off between latency, compute overhead, and moderation accuracy. When serving millions of customer queries daily, running a full 70B parameter model as an in-line safety inspector for every single token is economically and operationally prohibitive, adding hundreds of milliseconds to Time-to-First-Token (TTFT). Modern architectures resolve this through hierarchical multi-tier moderation pipelines. The first tier consists of ultra-fast deterministic regex engines and embedding-based vector similarity filters running in sub-5ms latency on CPU, catching known prompt injections and signature keywords. The second tier deploys a distilled 1B to 3B parameter Llama Guard model running on edge accelerators, evaluating ambiguous queries in parallel with the foundation model's prefill phase.",
+    "A pervasive challenge in commercial guardrail operations is the False Refusal Paradox. If a safety classifier is calibrated with overly aggressive thresholds, it begins flagging benign enterprise inquiries—such as a financial analyst asking 'What is the risk of default on high-yield debt?' or a medical researcher querying 'How do neurotoxins bind to acetylcholine receptors?'—as hazardous. High false refusal rates frustrate enterprise users, degrade productivity, and encourage users to seek unaligned shadow-IT alternatives. To achieve an optimal balance on the Precision-Recall curve, enterprise guardrails implement confidence-calibrated routing: only inputs with extreme safety violation probabilities (e.g., P(unsafe) >= 0.90) trigger hard rejections, while intermediate scores (0.40 <= P(unsafe) < 0.90) route the query into guarded operational modes with activation steering and enhanced output disclaimers."
+]
+
+p4_additions = [
+    "The mathematical foundation of Contrastive Activation Addition (CAA) relies on extracting linear directions that cleanly separate opposing behavioral modes in activation space. Given a curated dataset of contrastive prompt pairs D = {(x_i^+, x_i^-)}_{i=1}^N where x_i^+ represents a safe, refusal-eliciting prompt and x_i^- represents an unconstrained compliance prompt, the model hidden states h_l(x_i^+) and h_l(x_i^-) are extracted at layer l. The mean steering vector is defined as v_l = (1 / N) \sum_{i=1}^N (h_l(x_i^+) - h_l(x_i^-)). Rather than relying solely on the empirical mean, advanced representation engineering applies Principal Component Analysis (PCA) or Linear Discriminant Analysis (LDA) to the difference vectors to identify the principal axis explaining the greatest variance in refusal behavior.",
+    "Crucially, safety engineers must evaluate the impact of activation steering on general model utility—a phenomenon known as the 'steering tax.' If the steering coefficient alpha is set too high, the model's latent activations are shoved excessively far off the natural data manifold, causing output degeneration, incoherent syntax, and severe drops in logical reasoning benchmarks like GSM8K or coding tasks like HumanEval. To prevent degradation, production steering engines calibrate alpha dynamically based on the cosine projection of the incoming query: queries that naturally reside far from the danger subspace receive alpha = 0 (zero intervention), while queries whose initial activations drift into the boundary danger zone receive proportional steering assistance just sufficient to maintain safe generation."
+]
+
+p5_additions = [
+    "Let us explore how ApexGuard operationalizes safety attestation within an enterprise Continuous Integration / Continuous Deployment (CI/CD) framework. Before any new model checkpoint, quantized artifact, or system prompt modification is approved for production traffic, it must pass the automated ApexGuard Attestation Gate. The gate subjects the model to an exhaustive battery of thousands of fuzzed prompts across the full enterprise threat taxonomy, including prompt injections, jailbreaks, data exfiltration, and toxic generations.",
+    "The output of the audit is an immutable Attestation Manifest serialized in signed JSON format. This manifest contains granular pass-fail ratios per threat category, P99 moderation latencies, empirical refusal projections, and a cryptographic SHA-256 seal computed over the audit logs. Under regulatory frameworks like the NIST AI Risk Management Framework (AI RMF 1.0) and ISO/IEC 42001, organizations must maintain verifiable documentation proving that AI risks were systematically evaluated and mitigated before market deployment. ApexGuard provides this compliance documentation out-of-the-box, bridging the divide between academic adversarial research and boardroom fiduciary governance."
+]
+
+DAY_57_DATA["parts"][0]["say"].extend(p1_additions)
+DAY_57_DATA["parts"][1]["say"].extend(p2_additions)
+DAY_57_DATA["parts"][2]["say"].extend(p3_additions)
+DAY_57_DATA["parts"][3]["say"].extend(p4_additions)
+DAY_57_DATA["parts"][4]["say"].extend(p5_additions)
+
+import json
+data_attr = "DAY_57_DATA"
+file_path = "scripts/nlp_builder/day57.py"
+title = DAY_57_DATA.get("title", "")
+with open(file_path, "w", encoding="utf-8") as f:
+    f.write(f'\"\"\"\nDay 57: {title}\nCourse 37: Natural Language Processing & Computational Linguistics\nPinIT Career OS - Month 2 Enterprise Expansion\n\"\"\"\n\n')
+    f.write(f"{data_attr} = " + json.dumps(DAY_57_DATA, indent=4, ensure_ascii=False) + "\n")
+
+print("Day 57 enriched successfully!")

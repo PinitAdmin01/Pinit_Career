@@ -1,0 +1,213 @@
+{
+  "day": 26,
+  "title": "RTOS Dynamic Memory Allocation: heap_1 through heap_5, Fragmentation & Static Allocation",
+  "goal": "Eliminate memory fragmentation in 24/7 embedded firmware: analyze FreeRTOS heap allocators (heap_1 to heap_5), master block coalescing, and implement 100% static compile-time allocation for zero-fragmentation determinism.",
+  "minutes": 38,
+  "recap": "In Month 1 Block 5, we mastered preemptive scheduling, PendSV context switching, priority-inheritance mutexes, and FreeRTOS queues. Today, we address the silent killer of embedded reliability: heap fragmentation and dynamic memory hazards.",
+  "parts": [
+    {
+      "title": "Heap Fragmentation Physics & The Fallacy of Free Memory",
+      "say": [
+        "In desktop operating systems with virtual memory and multi-gigabyte RAM, malloc() and free() are ubiquitous. In deeply embedded microcontrollers with 64KB or 128KB of physical SRAM, dynamic allocation is a catastrophic liability.",
+        "When software repeatedly allocates and frees blocks of varying sizes, the contiguous heap fractures into thousands of isolated, unusable slivers. This is external memory fragmentation.",
+        "The most insidious manifestation is the Free Memory Paradox: a system query (such as xPortGetFreeHeapSize()) may report 24,000 bytes of free heap, yet an attempt to allocate a modest 512-byte buffer returns NULL because there is not a single contiguous 512-byte block available anywhere in SRAM."
+      ],
+      "example": "Consider a 1KB heap. Task A allocates 100 bytes, Task B allocates 100 bytes, and Task C allocates 100 bytes. Task B frees its 100 bytes. Total free space is 800 bytes, but any request for 150 contiguous bytes fails unless the free blocks can be coalesced.",
+      "code": "#include <iostream>\n#include <cstdint>\n#include <iomanip>\n#include <vector>\n\nstruct HeapBlock {\n    uint32_t offset;\n    uint32_t size;\n    bool isFree;\n};\n\nvoid printHeapMap(const std::vector<HeapBlock>& blocks) {\n    uint32_t totalFree = 0;\n    uint32_t maxContiguous = 0;\n    std::cout << \"[HEAP-MAP] Visual Memory Layout:\" << std::endl;\n    for (size_t i = 0; i < blocks.size(); ++i) {\n        std::cout << \"  Block \" << i << \" [0x\" << std::hex << std::setw(4) << std::setfill('0') << blocks[i].offset\n                  << \" - 0x\" << std::setw(4) << (blocks[i].offset + blocks[i].size - 1) << \"]: \"\n                  << std::dec << std::setw(5) << blocks[i].size << \" B (\" \n                  << (blocks[i].isFree ? \"FREE \" : \"ALLOC\") << \")\" << std::endl;\n        if (blocks[i].isFree) {\n            totalFree += blocks[i].size;\n            if (blocks[i].size > maxContiguous) maxContiguous = blocks[i].size;\n        }\n    }\n    std::cout << \"[HEAP-METRICS] Total Free Heap: \" << totalFree << \" Bytes\" << std::endl;\n    std::cout << \"[HEAP-METRICS] Max Contiguous Block: \" << maxContiguous << \" Bytes\" << std::endl;\n    if (totalFree >= 256 && maxContiguous < 256) {\n        std::cout << \"[WARNING] Fragmentation Trap Detected: Total free >= 256B, but 256B alloc will FAIL!\" << std::endl;\n    }\n}\n\nint main() {\n    std::cout << \"--- DAY 26 PART 1: HEAP FRAGMENTATION PHYSICS ---\" << std::endl;\n    std::vector<HeapBlock> heap = {\n        {0x0000, 128, false},\n        {0x0080, 64,  true},\n        {0x00C0, 256, false},\n        {0x01C0, 128, true},\n        {0x0240, 512, false},\n        {0x0440, 96,  true}\n    };\n    printHeapMap(heap);\n    return 0;\n}\n",
+      "output": "--- DAY 26 PART 1: HEAP FRAGMENTATION PHYSICS ---\n[HEAP-MAP] Visual Memory Layout:\n  Block 0 [0x0000 - 0x007f]:   128 B (ALLOC)\n  Block 1 [0x0080 - 0x00bf]:    64 B (FREE )\n  Block 2 [0x00c0 - 0x01bf]:   256 B (ALLOC)\n  Block 3 [0x01c0 - 0x023f]:   128 B (FREE )\n  Block 4 [0x0240 - 0x043f]:   512 B (ALLOC)\n  Block 5 [0x0440 - 0x049f]:    96 B (FREE )\n[HEAP-METRICS] Total Free Heap: 288 Bytes\n[HEAP-METRICS] Max Contiguous Block: 128 Bytes\n[WARNING] Fragmentation Trap Detected: Total free >= 256B, but 256B alloc will FAIL!\n",
+      "codeNotes": [
+        {
+          "line": 6,
+          "note": "HeapBlock models a segment of physical microcontroller SRAM with base offset, byte size, and allocation state."
+        },
+        {
+          "line": 26,
+          "note": "The metrics loop computes total free memory alongside max contiguous free block size, demonstrating the fragmentation gap."
+        },
+        {
+          "line": 39,
+          "note": "Demonstrates an interleaved allocation state where 288 bytes are free, yet any allocation exceeding 128 bytes returns NULL."
+        }
+      ],
+      "tryIt": "Simulate coalescing: merge adjacent free blocks if they occur sequentially, and observe how maximum contiguous free space expands.",
+      "check": {
+        "question": "Why can an embedded heap fail to satisfy a 512-byte allocation request when xPortGetFreeHeapSize() reports 16,000 bytes available?",
+        "options": [
+          "External fragmentation has divided the 16KB of free memory into small disjoint non-contiguous blocks, none of which is >= 512 bytes.",
+          "The microcontroller CPU operates in Thumb mode, which limits contiguous allocations to 256 bytes.",
+          "FreeRTOS queues reserve 95% of available heap for high-priority task stacks automatically.",
+          "The internal SRAM bus matrix shuts down memory banks when operating above 85 degrees Celsius."
+        ],
+        "answer": 0,
+        "why": "External fragmentation scatters available memory across non-contiguous chunks. Because standard heap allocators must return a single contiguous block of physical addresses, fragmented free space cannot be combined without hardware MMU paging."
+      }
+    },
+    {
+      "title": "FreeRTOS Heap Schemes Taxonomy: heap_1 through heap_5",
+      "say": [
+        "FreeRTOS provides 5 official heap allocation models, each tailored for specific safety and performance trade-offs.",
+        "heap_1 is the simplest: allocate-only. Memory is sliced from a static array. pvPortMalloc() increments an offset pointer. vPortFree() is an empty stub. It is 100% deterministic, zero fragmentation, and certified for safety-critical systems where objects are created once at boot.",
+        "heap_2 uses a linked list with best-fit searching, allowing memory to be freed, but it does NOT coalesce adjacent free blocks. heap_3 simply wraps standard C library malloc() and free(), wrapping them with taskSUSPEND_ALL() for thread safety.",
+        "heap_4 introduces automatic coalescing of adjacent free blocks, significantly resisting fragmentation. heap_5 extends heap_4 by allowing the heap to span multiple non-contiguous memory banks, such as internal 64KB SRAM and external 16MB SDRAM."
+      ],
+      "example": "In an automotive ECU, heap_1 is ideal if all tasks, queues, and semaphores are created before vTaskStartScheduler(). If runtime telemetry buffers must be created and destroyed, heap_4 or heap_5 with coalescing is mandatory.",
+      "code": "#include <iostream>\n#include <cstdint>\n#include <iomanip>\n#include <string>\n\nstruct HeapScheme {\n    std::string name;\n    bool supportsFree;\n    bool coalescesAdjacent;\n    bool multiRegion;\n    std::string safetyProfile;\n};\n\nvoid evaluateHeapSchemes() {\n    HeapScheme schemes[] = {\n        {\"heap_1\", false, false, false, \"ISO 26262 ASIL-D Compliant (Zero Fragmentation)\"},\n        {\"heap_2\", true,  false, false, \"Legacy Best-Fit (High Fragmentation Risk)\"},\n        {\"heap_3\", true,  false, false, \"Standard Libc Wrapper (Non-Deterministic Latency)\"},\n        {\"heap_4\", true,  true,  false, \"Production RTOS Default (Coalescing Resistance)\"},\n        {\"heap_5\", true,  true,  true,  \"Multi-Bank / External SDRAM Spanning\"}\n    };\n\n    std::cout << \"[FREERTOS-HEAP] Architectural Comparison Matrix:\" << std::endl;\n    for (const auto& s : schemes) {\n        std::cout << \"  \" << std::left << std::setw(8) << s.name\n                  << \" | Free: \" << (s.supportsFree ? \"YES\" : \"NO \")\n                  << \" | Coalesce: \" << (s.coalescesAdjacent ? \"YES\" : \"NO \")\n                  << \" | Multi-Reg: \" << (s.multiRegion ? \"YES\" : \"NO \")\n                  << \" | \" << s.safetyProfile << std::endl;\n    }\n}\n\nint main() {\n    std::cout << \"--- DAY 26 PART 2: HEAP SCHEMES TAXONOMY ---\" << std::endl;\n    evaluateHeapSchemes();\n    return 0;\n}\n",
+      "output": "--- DAY 26 PART 2: HEAP SCHEMES TAXONOMY ---\n[FREERTOS-HEAP] Architectural Comparison Matrix:\n  heap_1   | Free: NO  | Coalesce: NO  | Multi-Reg: NO  | ISO 26262 ASIL-D Compliant (Zero Fragmentation)\n  heap_2   | Free: YES | Coalesce: NO  | Multi-Reg: NO  | Legacy Best-Fit (High Fragmentation Risk)\n  heap_3   | Free: YES | Coalesce: NO  | Multi-Reg: NO  | Standard Libc Wrapper (Non-Deterministic Latency)\n  heap_4   | Free: YES | Coalesce: YES | Multi-Reg: NO  | Production RTOS Default (Coalescing Resistance)\n  heap_5   | Free: YES | Coalesce: YES | Multi-Reg: YES | Multi-Bank / External SDRAM Spanning\n",
+      "codeNotes": [
+        {
+          "line": 6,
+          "note": "Defines the architectural attributes of FreeRTOS memory allocators: deallocation support, coalescing, and safety."
+        },
+        {
+          "line": 15,
+          "note": "heap_1 guarantees zero fragmentation because vPortFree() does nothing; memory can never fracture."
+        },
+        {
+          "line": 18,
+          "note": "heap_4 is the gold standard for dynamic embedded applications due to its adjacent free-block merging algorithm."
+        }
+      ],
+      "tryIt": "Add a column to the comparison matrix indicating whether the allocation execution time is deterministic (O(1)) or variable (O(N)).",
+      "check": {
+        "question": "What is the primary architectural advantage of FreeRTOS heap_4 over heap_2?",
+        "options": [
+          "heap_4 coalesces (merges) adjacent free blocks whenever memory is deallocated, preventing heap fracturing.",
+          "heap_4 stores all task stacks in Flash ROM rather than volatile SRAM.",
+          "heap_4 disables all interrupts during memory access using hardware spinlocks.",
+          "heap_4 uses a garbage collector running in the Idle task to compact active memory blocks."
+        ],
+        "answer": 0,
+        "why": "heap_2 maintains a linked list of free blocks without coalescing; over time, freed adjacent blocks remain split into small chunks. heap_4 inspects preceding and succeeding blocks during vPortFree() and merges contiguous free space into large contiguous blocks."
+      }
+    },
+    {
+      "title": "Block Coalescing Algorithms & Free-List Node Anatomy",
+      "say": [
+        "To understand how heap_4 eliminates fragmentation, we inspect its internal data structures. The heap is organized as a singly-linked list of BlockLink_t headers.",
+        "Each header contains two critical members: pxNextFreeBlock (a pointer to the next free node in the list, ordered strictly by memory address) and xBlockSize (the size of the block, with the most significant bit reserved as an allocation flag).",
+        "When vPortFree() is called with address pv, the allocator calculates the address of the BlockLink_t header immediately preceding pv. It then walks the free list to find where this block fits by physical address.",
+        "If the newly freed block is physically contiguous with the block immediately preceding it, they merge. If it is contiguous with the block following it, they merge as well. A double-coalesce merges three fractured pieces into one unified space."
+      ],
+      "example": "If Block A [0x000-0x040] is free and Block C [0x080-0x100] is free, releasing Block B [0x040-0x080] causes heap_4 to combine A, B, and C into a single 256-byte free block [0x000-0x100].",
+      "code": "#include <iostream>\n#include <cstdint>\n#include <iomanip>\n\nstruct BlockLink_t {\n    BlockLink_t* pxNextFreeBlock;\n    uint32_t xBlockSize;\n};\n\nconst uint32_t BLOCK_ALLOCATED_BIT = 0x80000000U;\n\nclass SimpleCoalescingHeap {\nprivate:\n    uint8_t memoryPool[1024];\n    BlockLink_t xStart;\n    BlockLink_t* pxEnd;\n\npublic:\n    SimpleCoalescingHeap() {\n        xStart.pxNextFreeBlock = (BlockLink_t*)memoryPool;\n        xStart.xBlockSize = 0;\n\n        BlockLink_t* firstBlock = (BlockLink_t*)memoryPool;\n        firstBlock->xBlockSize = sizeof(memoryPool);\n        firstBlock->pxNextFreeBlock = nullptr;\n        pxEnd = nullptr;\n    }\n\n    void displayFreeList() {\n        std::cout << \"[COALESCE-TRACE] Current Free List Blocks:\" << std::endl;\n        BlockLink_t* curr = xStart.pxNextFreeBlock;\n        int idx = 0;\n        while (curr != nullptr) {\n            uintptr_t addr = (uintptr_t)curr - (uintptr_t)memoryPool;\n            std::cout << \"  Node \" << idx++ << \" @ Offset 0x\" << std::hex << std::setw(4) << std::setfill('0')\n                      << addr << \" | Size: \" << std::dec << (curr->xBlockSize & ~BLOCK_ALLOCATED_BIT) << \" Bytes\" << std::endl;\n            curr = curr->pxNextFreeBlock;\n        }\n    }\n};\n\nint main() {\n    std::cout << \"--- DAY 26 PART 3: COALESCING & BLOCKLINK_T ANATOMY ---\" << std::endl;\n    SimpleCoalescingHeap heap;\n    heap.displayFreeList();\n    return 0;\n}\n",
+      "output": "--- DAY 26 PART 3: COALESCING & BLOCKLINK_T ANATOMY ---\n[COALESCE-TRACE] Current Free List Blocks:\n  Node 0 @ Offset 0x0000 | Size: 1024 Bytes\n",
+      "codeNotes": [
+        {
+          "line": 5,
+          "note": "BlockLink_t mimics the FreeRTOS heap_4 internal header structure containing pointer and block size."
+        },
+        {
+          "line": 10,
+          "note": "Most Significant Bit (0x80000000) is set when the block is allocated to prevent tampering and double-free attacks."
+        },
+        {
+          "line": 30,
+          "note": "The free list is sorted by physical address, enabling O(N) linear adjacency checking during deallocation."
+        }
+      ],
+      "tryIt": "Add an allocation method that carves a 128-byte block from the free list and updates xBlockSize with BLOCK_ALLOCATED_BIT.",
+      "check": {
+        "question": "Why does FreeRTOS heap_4 keep its free list sorted strictly by ascending physical memory address?",
+        "options": [
+          "Address ordering allows the allocator to verify whether adjacent blocks in memory are physically contiguous in O(1) time during free.",
+          "The Cortex-M bus matrix requires free nodes to be accessed in strictly ascending memory order.",
+          "Sorting by address prevents the compiler from reordering volatile loads.",
+          "Ascending address sorting is required by the ARM Architecture Procedure Call Standard (AAPCS)."
+        ],
+        "answer": 0,
+        "why": "By maintaining the free list in physical address sequence, vPortFree() can immediately determine if the block being returned touches the memory boundaries of the node before it or after it, allowing instantaneous boundary merging."
+      }
+    },
+    {
+      "title": "100% Static RTOS Architecture: xTaskCreateStatic & Zero-Heap Guarantees",
+      "say": [
+        "For flight avionics (DO-178C Level A), medical pacemakers (IEC 62304 Class C), and automotive braking (ISO 26262 ASIL-D), even heap_4 is unacceptable. Regulatory standards prohibit runtime dynamic allocation entirely.",
+        "FreeRTOS provides 100% Static Allocation via configSUPPORT_STATIC_ALLOCATION = 1. Instead of allocating TCBs and task stacks from a shared heap, the application engineer declares static global memory for every kernel object.",
+        "With xTaskCreateStatic(), the developer passes explicit pointers to a StaticTask_t structure (the TCB) and a StackType_t array (the stack). The linker places these in the .bss or .data segment at compile time.",
+        "When compiled with configSUPPORT_DYNAMIC_ALLOCATION = 0, the entire heap engine is excluded from the binary. Dynamic allocation failure becomes mathematically impossible because there is no heap to fail."
+      ],
+      "example": "StaticTask_t xTaskBuffer; StackType_t xStack[512]; xTaskCreateStatic(vTaskCode, \"Sensor\", 512, NULL, 2, xStack, &xTaskBuffer); guarantees compile-time memory allocation with zero heap overhead.",
+      "code": "#include <iostream>\n#include <cstdint>\n#include <iomanip>\n\nstruct StaticTask_t {\n    uint32_t* pxTopOfStack;\n    uint32_t xTaskNumber;\n    char pcTaskName[16];\n};\n\nusing StackType_t = uint32_t;\n\nStaticTask_t xTelemetryTaskTCB;\nStackType_t xTelemetryTaskStack[256];\n\nStaticTask_t* xTaskCreateStatic_Mock(\n    void (*pxTaskCode)(void*),\n    const char* pcName,\n    uint32_t ulStackDepth,\n    void* pvParameters,\n    uint32_t uxPriority,\n    StackType_t* puxStackBuffer,\n    StaticTask_t* pxTaskBuffer\n) {\n    if (puxStackBuffer == nullptr || pxTaskBuffer == nullptr) return nullptr;\n\n    pxTaskBuffer->xTaskNumber = uxPriority;\n    for (int i = 0; i < 15 && pcName[i] != '\\0'; ++i) {\n        pxTaskBuffer->pcTaskName[i] = pcName[i];\n    }\n    pxTaskBuffer->pxTopOfStack = &puxStackBuffer[ulStackDepth - 1];\n\n    std::cout << \"[STATIC-RTOS] Task '\" << pxTaskBuffer->pcTaskName << \"' Statically Allocated:\" << std::endl;\n    std::cout << \"  TCB Address:   0x\" << std::hex << (uintptr_t)pxTaskBuffer << std::endl;\n    std::cout << \"  Stack Base:    0x\" << (uintptr_t)puxStackBuffer << std::endl;\n    std::cout << \"  Stack Top:     0x\" << (uintptr_t)pxTaskBuffer->pxTopOfStack << std::endl;\n    std::cout << \"  Stack Depth:   \" << std::dec << ulStackDepth * sizeof(StackType_t) << \" Bytes\" << std::endl;\n    std::cout << \"  Heap Overhead: 0 Bytes (Compile-Time .bss Allocation)\" << std::endl;\n\n    return pxTaskBuffer;\n}\n\nvoid dummyTask(void*) {}\n\nint main() {\n    std::cout << \"--- DAY 26 PART 4: 100% STATIC RTOS ALLOCATION ---\" << std::endl;\n    StaticTask_t* handle = xTaskCreateStatic_Mock(\n        dummyTask, \"TelemetryTask\", 256, nullptr, 3, xTelemetryTaskStack, &xTelemetryTaskTCB\n    );\n    if (handle != nullptr) {\n        std::cout << \"[SUCCESS] Kernel object instantiated with zero runtime heap risk.\" << std::endl;\n    }\n    return 0;\n}\n",
+      "output": "--- DAY 26 PART 4: 100% STATIC RTOS ALLOCATION ---\n[STATIC-RTOS] Task 'TelemetryTask' Statically Allocated:\n  TCB Address:   0x[MOCK_ADDR]\n  Stack Base:    0x[MOCK_ADDR]\n  Stack Top:     0x[MOCK_ADDR]\n  Stack Depth:   1024 Bytes\n  Heap Overhead: 0 Bytes (Compile-Time .bss Allocation)\n[SUCCESS] Kernel object instantiated with zero runtime heap risk.\n",
+      "codeNotes": [
+        {
+          "line": 5,
+          "note": "StaticTask_t represents the compile-time storage structure for the FreeRTOS Task Control Block."
+        },
+        {
+          "line": 13,
+          "note": "Global static buffers allocated in the .bss section, verified at link time by the linker script."
+        },
+        {
+          "line": 34,
+          "note": "Zero runtime heap usage: if the MCU runs out of memory, the compiler/linker errors before firmware is ever flashed."
+        }
+      ],
+      "tryIt": "Add the two mandatory FreeRTOS hooks required when configSUPPORT_STATIC_ALLOCATION=1: vApplicationGetIdleTaskMemory and vApplicationGetTimerTaskMemory.",
+      "check": {
+        "question": "What is the primary safety benefit of configuring configSUPPORT_DYNAMIC_ALLOCATION = 0 in mission-critical firmware?",
+        "options": [
+          "It mathematically guarantees that out-of-memory errors cannot occur at runtime because all memory is validated at link time.",
+          "It increases CPU clock frequency by bypassing memory bus synchronization cycles.",
+          "It automatically doubles available SRAM by converting program Flash into writable RAM.",
+          "It eliminates the need for hardware watchdogs."
+        ],
+        "answer": 0,
+        "why": "With 100% static allocation, all task stacks, queues, and TCBs are declared as global structures in .bss/.data. If RAM is insufficient, the link step fails immediately during compilation, preventing silent in-flight crashes in production."
+      }
+    },
+    {
+      "title": "Master Engine: Deterministic Static Block Pool Allocator",
+      "say": [
+        "When embedded systems must allocate and release message packets dynamically (such as CAN bus frames or network packets), they use fixed-size Block Pools (also called memory pools or slabs) instead of variable-sized heaps.",
+        "A block pool divides a statically-allocated buffer into N equal-sized blocks (e.g., 32 blocks of 64 bytes each). Free blocks are linked together using an embedded singly-linked free list.",
+        "Allocation is strictly O(1): pop the top block from the free list. Deallocation is strictly O(1): push the returned block back onto the free list. Fragmentation is 0% because every block is identical in size and perfectly reusable."
+      ],
+      "example": "A CAN bus interface receives 8-byte frames at 1,000 packets per second. Allocating each packet from a 64-block fixed pool guarantees instantaneous O(1) allocation without ever fragmenting SRAM.",
+      "code": "#include <iostream>\n#include <cstdint>\n#include <iomanip>\n#include <array>\n\ntemplate<size_t BlockSize, size_t BlockCount>\nclass StaticMemoryPool {\nprivate:\n    struct Node {\n        Node* next;\n    };\n\n    alignas(uint32_t) uint8_t storage[BlockSize * BlockCount];\n    Node* freeListHead;\n    size_t allocatedCount;\n\npublic:\n    StaticMemoryPool() : freeListHead(nullptr), allocatedCount(0) {\n        static_assert(BlockSize >= sizeof(Node), \"BlockSize must be at least pointer size\");\n        for (size_t i = 0; i < BlockCount; ++i) {\n            void* blockAddr = &storage[i * BlockSize];\n            Node* node = reinterpret_cast<Node*>(blockAddr);\n            node->next = freeListHead;\n            freeListHead = node;\n        }\n    }\n\n    void* allocate() {\n        if (freeListHead == nullptr) return nullptr;\n        Node* node = freeListHead;\n        freeListHead = freeListHead->next;\n        allocatedCount++;\n        return reinterpret_cast<void*>(node);\n    }\n\n    void deallocate(void* ptr) {\n        if (ptr == nullptr) return;\n        Node* node = reinterpret_cast<Node*>(ptr);\n        node->next = freeListHead;\n        freeListHead = node;\n        allocatedCount--;\n    }\n\n    size_t getAvailableBlocks() const { return BlockCount - allocatedCount; }\n    size_t getBlockSize() const { return BlockSize; }\n};\n\nint main() {\n    std::cout << \"--- DAY 26 PART 5: DETERMINISTIC FIXED-SIZE BLOCK POOL ---\" << std::endl;\n    StaticMemoryPool<64, 4> canPool;\n\n    std::cout << \"[POOL-INIT] Available Blocks: \" << canPool.getAvailableBlocks()\n              << \" (Block Size: \" << canPool.getBlockSize() << \"B)\" << std::endl;\n\n    void* b1 = canPool.allocate();\n    void* b2 = canPool.allocate();\n    std::cout << \"[POOL-ALLOC] Allocated 2 Blocks. Remaining: \" << canPool.getAvailableBlocks() << std::endl;\n\n    canPool.deallocate(b1);\n    std::cout << \"[POOL-DEALLOC] Deallocated 1 Block. Remaining: \" << canPool.getAvailableBlocks() << std::endl;\n\n    void* b3 = canPool.allocate();\n    void* b4 = canPool.allocate();\n    void* b5 = canPool.allocate();\n    void* b6 = canPool.allocate(); // Should fail\n    std::cout << \"[POOL-SATURATE] Allocated to capacity. b6 result: \" << (b6 == nullptr ? \"NULL (SAFE)\" : \"LEAK\") << std::endl;\n    std::cout << \"[DETERMINISM] Allocation Time Complexity: O(1) Guaranteed\" << std::endl;\n\n    canPool.deallocate(b2);\n    canPool.deallocate(b3);\n    canPool.deallocate(b4);\n    canPool.deallocate(b5);\n    std::cout << \"[CLEANUP] All blocks restored. Free count: \" << canPool.getAvailableBlocks() << std::endl;\n\n    return 0;\n}\n",
+      "output": "--- DAY 26 PART 5: DETERMINISTIC FIXED-SIZE BLOCK POOL ---\n[POOL-INIT] Available Blocks: 4 (Block Size: 64B)\n[POOL-ALLOC] Allocated 2 Blocks. Remaining: 2\n[POOL-DEALLOC] Deallocated 1 Block. Remaining: 3\n[POOL-SATURATE] Allocated to capacity. b6 result: NULL (SAFE)\n[DETERMINISM] Allocation Time Complexity: O(1) Guaranteed\n[CLEANUP] All blocks restored. Free count: 4\n",
+      "codeNotes": [
+        {
+          "line": 6,
+          "note": "Template parameters BlockSize and BlockCount enforce compile-time memory calculation with zero dynamic heap usage."
+        },
+        {
+          "line": 13,
+          "note": "alignas(uint32_t) guarantees 4-byte ARM Cortex-M hardware word alignment for safe memory access."
+        },
+        {
+          "line": 29,
+          "note": "O(1) allocation simply pops the pointer from the singly-linked free list head in 3 assembly instructions."
+        }
+      ],
+      "tryIt": "Benchmark 10,000 allocations and deallocations on this static pool to demonstrate zero latency jitter.",
+      "check": {
+        "question": "Why are fixed-size block pools mathematically immune to external memory fragmentation?",
+        "options": [
+          "Because all allocated blocks have identical sizes, any freed block can satisfy any subsequent allocation request without leaving slivers.",
+          "Because block pools run garbage collection algorithms during Cortex-M SysTick interrupts.",
+          "Because block pools write data into Flash memory rather than volatile SRAM.",
+          "Because ARM Cortex-M microcontrollers have hardware support for fixed pools in the NVIC."
+        ],
+        "answer": 0,
+        "why": "External fragmentation only occurs when blocks of varying sizes leave gaps that are too small for subsequent requests. When every single block is identical in size, every freed block is a 100% perfect fit for any future caller."
+      }
+    }
+  ],
+  "summary": [
+    "Memory fragmentation occurs when repeated allocations and deallocations fracture available SRAM into unusable non-contiguous slivers.",
+    "FreeRTOS provides 5 official heap schemes: heap_1 (allocate-only, zero fragmentation), heap_2 (linked list best-fit), heap_3 (libc wrapper), heap_4 (adjacent block coalescing), and heap_5 (multi-region spanning).",
+    "heap_4 uses a physically address-ordered singly linked list of BlockLink_t headers to merge contiguous free blocks during vPortFree().",
+    "100% Static RTOS Allocation (configSUPPORT_STATIC_ALLOCATION = 1) eliminates the heap completely, placing TCBs and stacks in .bss for compile-time verification.",
+    "Fixed-size memory block pools achieve true O(1) allocation and deallocation determinism with zero risk of fragmentation."
+  ],
+  "projectStep": {
+    "title": "Configuring 100% Static Allocation in FreeRTOSConfig.h",
+    "steps": [
+      "Set 'configSUPPORT_STATIC_ALLOCATION 1' and 'configSUPPORT_DYNAMIC_ALLOCATION 0' in FreeRTOSConfig.h.",
+      "Implement mandatory application hooks: vApplicationGetIdleTaskMemory() and vApplicationGetTimerTaskMemory().",
+      "Replace all calls to xTaskCreate() with xTaskCreateStatic(), allocating dedicated StaticTask_t and StackType_t arrays.",
+      "Replace xQueueCreate() with xQueueCreateStatic() passing explicit uint8_t storage buffers and StaticQueue_t control structures."
+    ]
+  }
+}

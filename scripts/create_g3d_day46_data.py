@@ -1,0 +1,375 @@
+import json
+
+say_p1 = [
+    "Welcome to Day 46 of 3D Computer Graphics, WebGL2 & GPU Shader Architecture. Today we commence Month 2 Block 10: Advanced Material Systems, Volumetrics & Atmospheric Simulation. Over the past fifteen days, we conquered GPU compute pipelines, post-processing graphs, and hardware-accelerated ray tracing. Yet, all our material shaders thus far assumed that light interactions occur exclusively at the infinitesimal geometric boundary of a surface. When a light ray strikes a surface, it reflects specularly or diffuses outward from the exact same entry point.",
+    "This assumption is known as the Local Reflection Assumption, and it works wonderfully for opaque metals, polished plastics, and glazed ceramic tiles. However, human skin, marble statues, wax candles, jade pendants, milk, and grapefruits do not behave like glazed ceramics! When light strikes human skin, a substantial portion of the photons penetrate several millimeters beneath the translucent epidermis into the fatty subdermal tissue. Inside the tissue, the photons collide billions of times with microscopic collagen fibers and red blood cells, scattering randomly in all directions before exiting the skin at a completely different spatial location. This phenomenon is Subsurface Scattering (SSS).",
+    "If you render a human face using standard local diffuse BRDFs, the skin looks like dead, chalky gray clay or painted gray plaster! The shadows across the jawline and nasal folds appear unnaturally black, and the skin lacks the warm, luminous flush of life. To model subsurface scattering with mathematical fidelity, the graphics community expanded the 4D BRDF into an 8D formulation: The Bidirectional Surface Scattering Distribution Function (BSSDF): S(x_i, omega_i, x_o, omega_o).",
+    "The BSSDF relates incoming radiance at an entry point x_i from direction omega_i to outgoing radiance at an exit point x_o in direction omega_o. In 2001, Henrik Wann Jensen introduced the seminal Dipole Diffusion Approximation: modeling subsurface scattering as a virtual pair of positive and negative light sources positioned above and below the surface. While groundbreaking, Jensen's dipole suffered from non-physical energy loss and unmanageable parameter tuning.",
+    "In 2015, Brent Burley at Walt Disney Animation Studios introduced The Normalized Diffusion BSSDF Profile. Burley observed that across human skin, marble, and wax, the radial diffusion profile R(r)—which describes how light spreads outward as a function of radial distance r—is universally characterized by a sum of two simple exponentials: R(r) = s * (exp(-s * r) + exp(-s * r / 3)) / (8 * pi * r), where s is a scaling parameter inversely proportional to the material's Mean Free Path (MFP).",
+    "Consider the physical analogy of dropping a concentrated drop of vibrant red ink onto a dry paper napkin. If the napkin were made of impenetrable plastic wrap, the ink drop would sit as an isolated, sharp dot on the plastic surface (Local BRDF). But because the napkin is made of porous cellulose fibers, the liquid ink instantly wicks and diffuses outward through the microscopic paper fibers, creating a soft, blurry pink halo that extends centimeters beyond the original point of impact. The Normalized Diffusion profile mathematically describes the exact radial shape and decay of that capillary ink halo.",
+    "The profound beauty of Burley's profile is that it is strictly Normalized: the integral of R(r) over the infinite 2D plane mathematically integrates to 1.0. This guarantees absolute Conservation of Energy with zero parameter guesswork! Artists simply specify the surface Albedo (the overall color of the material) and a single physical distance: the Mean Free Path (in millimeters), which indicates how deeply light penetrates before scattering. For human skin, the mean free path is approximately 2.4 millimeters, with red light penetrating three times deeper than blue light.",
+    "In the TypeScript snippet below, we construct the `BurleyNormalizedDiffusion` profile evaluator. We calculate radial diffuse reflectance and transmittance across near (0.5mm) and distant (4.0mm) radii, confirming the exponential diffusion dropoff.",
+    "Notice how transmittance drops from 0.05785 at 0.5mm down to 0.00316 at 4.0mm, proving rapid physical absorption. We now examine Separable Screen-Space Subsurface Scattering."
+]
+
+say_p2 = [
+    "While Burley's normalized diffusion profile is physically exact, evaluating an 8-dimensional BSSDF integral across arbitrary curved 3D geometry in a real-time game engine running at 60 FPS is computationally staggering. In Monte Carlo ray tracing, calculating true subsurface scattering requires tracking random walks of hundreds of photons bouncing through participating media inside the character's skull (Volumetric Path Tracing), taking several milliseconds per pixel.",
+    "To achieve photorealistic human skin at 60 FPS on modern consoles and gaming PCs, real-time engines deploy Separable Screen-Space Subsurface Scattering (SSSS), pioneered by Jorge Jimenez and colleagues.",
+    "Jimenez's critical mathematical insight was that because subsurface scattering is a localized spatial diffusion process (skin diffusion spans only a few millimeters in world space), the 3D surface diffusion integral can be projected into 2D Screen Space and executed as a post-processing blur filter on the diffuse lighting buffer! Furthermore, while a standard 2D Gaussian blur requires an expensive N-by-N kernel (taking N^2 texture fetches per pixel), the radial diffusion profile can be decomposed into two 1-dimensional orthogonal passes: a Horizontal Blur followed by a Vertical Blur.",
+    "Consider the physical analogy of an architectural draftsman tinting a mechanical blueprint with a wide soft pastels brush. To create a smooth diffuse gradient across a square room, the artist does not stipple thousands of individual circular dots across the page! Instead, they make broad horizontal strokes with a flat blending stump from left to right, followed immediately by vertical strokes from top to bottom. The orthogonal combination of two 1D blending passes produces a silky smooth 2D gradient in a fraction of the time. That is the separable filtering principle.",
+    "In our compute shader pipeline, the separable filter evaluates a symmetric 5-tap kernel: weights of [0.0545, 0.2442, 0.4026, 0.2442, 0.0545] sampled at pixel offsets proportional to the world-space Mean Free Path divided by the camera depth: pixelOffset = (meanFreePathMm / depth) * projMatrix00 * 0.5 * screenWidth.",
+    "Crucially, the screen-space blur must be Cross-Bilateral and Depth-Aware. If the shader blindly blurred neighboring pixels, a character's nose would blur into the background wall ten feet behind! At each tap, the compute shader compares the neighbor's linear eye depth against the center pixel. If the depth difference exceeds a geometric tolerance threshold (deltaDepth > 0.05m), the tap weight is attenuated to zero, completely cutting off the blur at geometric silhouettes and preserving tack-sharp character jawlines.",
+    "Furthermore, human skin requires Spectral Subsurface Scattering: because human skin contains blood hemoglobin that absorbs green and blue light while scattering red light freely, the blur kernel is evaluated across three separate color channels simultaneously. The red channel uses a wide diffusion kernel (reflecting deep subdermal scattering), the green channel uses a medium kernel, and the blue channel uses a tight, almost local kernel. This chromatic separation naturally reproduces the distinctive soft red gradients observed along shadow boundaries (the penumbra color fringe) on human faces.",
+    "An essential bandwidth optimization in AAA production engines is Half-Resolution Subsurface Filtering. Because diffuse scattering inherently filters out high-frequency spatial detail, executing the horizontal and vertical bilateral blurs at full resolution wastes precious GPU cache memory on redundant pixel fetches. Modern engines downsample the diffuse irradiance buffer to half resolution (saving seventy-five percent of fill rate), execute the five-tap separable blur passes on the compact buffer, and then upsample back to full resolution using a bilateral depth-guided reconstruction filter. This preserves tack-sharp geometric silhouettes while reducing subsurface compute time by over fifty percent.",
+    "In the TypeScript snippet below, we implement the `SeparableSssKernel`. We configure the 5-tap separable weights and verify that the kernel sums to unity for energy conservation.",
+    "Notice how the center tap dominates with 40.26% weight and the entire kernel sums exactly to 1.0. We now explore Transmittance and Back-Scattering through thin cartilage."
+]
+
+say_p3 = [
+    "While separable screen-space blur perfectly simulates front-scattering (light entering and exiting on the same side of a character's face), it completely fails to simulate Back-Scattering and Transmission! Imagine a character standing in front of a blinding sunset: sunlight strikes the back of their head and shines straight through their ears.",
+    "Because the front of the ear and the back of the ear face opposite directions, screen-space blur on the front surface cannot see the light hitting the back surface. Yet in the real world, human ears glow with an intense, fiery red translucency when backlit by bright sunlight! To reproduce this iconic biological phenomenon, the engine must evaluate Subsurface Transmittance.",
+    "Consider the physical analogy of placing a high-powered LED flashlight directly against the palm of your hand in a dark room. You cannot see the flashlight bulb itself—your thick hand is in the way. But the flesh around your fingers and webbed skin lights up with a glowing, fiery crimson radiance! The photons travel through the meat and bone of your hand, scattering forward until they emerge from the skin facing your eyes. Subsurface transmittance simulates this exact through-geometry light travel.",
+    "To calculate transmittance in real time, the shader must determine the geometric Thickness of the object along the light ray direction: d = thickness(x, L). Modern engines calculate thickness using Shadow Map Depth Comparisons. When rendering from the light's perspective, the light shadow map stores the depth of the front entry surface (d_front). During the camera lighting pass, the shader projects the receiver point into the light's clip space and compares its depth (d_back) against the shadow map depth: thickness = d_back - d_front.",
+    "Once the physical thickness d is known, the forward scattered light is evaluated using a modified Beer-Lambert Transmission Law: T(d) = exp(-sigma_t * d) * max(0, -dot(n, L)), where sigma_t is the extinction coefficient of the tissue and dot(n, L) measures the alignment between the surface normal and the inverted light direction.",
+    "Because human cartilage is thin (often measuring only 1 to 3 millimeters thick), thin regions produce dramatic exponential transmittance. Conversely, thick areas like the skull or cheekbones (measuring 25 millimeters or more) yield optical depths that completely attenuate light, extinguishing the glow. The transmitted light is modulated by a warm subdermal absorption color: (0.95, 0.15, 0.05), producing the vibrant crimson red glow of sunlit ears and fingers.",
+    "In modern WebGPU compute pipelines, transmittance is combined with separable screen-space diffusion in a unified composite pass, ensuring that backlit translucency diffuses naturally across front surfaces without artificial hard lines.",
+    "A key optical refinement in back-scattering transmittance is Phase Function Forward Anisotropy. When light scatters through dense cellular tissue, photons do not emerge with equal probability in all directions! Forward scattering dominates, creating an intense directional beam aligned with the incoming light ray. The shader models this forward lobe using an exponentiated cosine factor: phaseFactor = pow(clamp(dot(viewDir, -lightDir), 0.0, 1.0), 8.0). This concentrates translucent radiance when the observer looks directly toward the light source through the character's ear, replicating the intense optical brilliance of direct backlight illumination.",
+    "Furthermore, thickness estimation must guard against Shadow Map Quantization Acne. Because shadow maps store depth with finite bit precision, flat or grazing surfaces can exhibit noisy stepped thickness bands. Shaders resolve this by applying normal biasing during the shadow coordinate projection and filtering the thickness value across a small four-tap Poisson disk kernel. This spatial smoothing ensures that transmitted light illuminates translucent cartilage with organic, velvety gradients free from geometric stepping.",
+    "In the TypeScript snippet below, we construct the `ThinTransmittanceCalculator`. We evaluate light transmission through thin ear cartilage (2mm) versus thick bone (25mm), verifying the emergence of the red translucent glow.",
+    "Notice how 2mm cartilage transmits 78.66% of light energy, activating the glow, while thick bone drops to 4.98%. We now examine multi-layered spectral skin synthesis."
+]
+
+say_p4 = [
+    "Having engineered front-scattering diffusion profiles and back-scattering transmittance, we now synthesize the complete biological architecture of human skin: Multi-Layered Biophysical Skin Shading.",
+    "Human skin is not a homogenous block of pink rubber; it is an intricate, multi-layered biological organ composed of distinct anatomical strata. The outermost layer is the Stratum Corneum and Epidermis: an oily, translucent cellular layer containing melanin pigments (which determine brown and dark skin tones). Beneath the epidermis lies the Dermis: a dense vascular layer packed with collagen bundles and blood capillaries filled with oxygenated and deoxygenated Hemoglobin.",
+    "Light interacting with human skin undergoes a duel between Absorption and Scattering across these biological layers. The spectral absorption coefficient sigma_a(lambda) is governed directly by the biological fractions of Melanin and Hemoglobin. Melanin has a broad absorption spectrum that absorbs high-energy ultraviolet and blue wavelengths while tapering gradually toward the red. Hemoglobin has sharp, intense absorption peaks in the green and yellow spectrum (540nm and 576nm), but virtually zero absorption in the red spectrum (above 600nm).",
+    "Consider the physical analogy of an artist layering oil glazes on a canvas. The artist paints a bright red underpainting representing vascular dermal tissue and blood. Over the red, they apply a semi-transparent, cloudy glaze of white and yellow pigment representing the fibrous collagen matrix. Finally, they add delicate washes of sepia and umber glaze representing epidermal melanin. When white gallery light strikes the painting, it penetrates the sepia glaze, bounces off the white collagen layer, and catches the deep red underpainting, creating an organic, breathing depth of color that could never be mixed on a flat palette. Biophysical skin shaders layer light using this exact anatomical sequence.",
+    "To render this in real time, the shader evaluates two distinct specular lobes and two distinct diffuse lobes: Lobes 1 & 2 are Dual-Lobe GGX Specular: an ultra-sharp specular highlight (roughness = 0.1) representing the oily moisture film on the skin surface, combined with a broad specular highlight (roughness = 0.5) representing the rough cellular micro-relief of the epidermal skin pores.",
+    "The diffuse component is evaluated using our spectral Burley diffusion: the shader computes custom extinction coefficients for red, green, and blue based on melanin and hemoglobin sliders, naturally producing the full gamut of human ethnicities—from pale alabaster to rich ebony—from biological first principles without requiring artists to paint non-physical fake red textures.",
+    "A paramount anatomical detail is Spatially Varying Subsurface Parameters across the human face. The human face is not uniform in skin thickness or vascular density: the eyelids, lips, and nostrils have thin epidermal layers and dense capillary networks with high hemoglobin fractions, producing intense red scattering. Conversely, the forehead and nose bridge are tightly backed by solid cranial bone, featuring minimal fat and shorter mean free paths. Modern production character rigs author multi-channel Subsurface Thickness and Hemoglobin Mask textures, allowing the shader to dynamically scale the local Mean Free Path per pixel, capturing the subtle living flush of emotive human expressions.",
+    "Furthermore, biological skin surfaces possess a microscopic moisture film composed of sweat, natural lipids, and sebum. In high-end digital human shading, this thin lipid layer is modeled as an energy-conserving clearcoat film. The clearcoat layer uses the Kelemen-Szirmay-Kalos specular formulation or an analytical Cook-Torrance model with an index of refraction of 1.45. By decoupling the sharp lipid specular reflection from the rough underlying dermal scattering, skin exhibits high-frequency glancing-angle rim sheen without washing out the deep, saturated subdermal color gradients.",
+    "In the TypeScript snippet below, we implement the `SpectralSkinSynthesizer`. We evaluate spectral absorption coefficients across red, green, and blue channels for a medium-melanin skin tone.",
+    "Notice how red absorption is only 0.085 while green is 0.525 and blue is 0.725, proving that red light scatters deeply while blue light is absorbed. We now integrate performance profiling and audit our 60 FPS budget."
+]
+
+say_p5 = [
+    "We now arrive at the engineering climax of our subsurface scattering pipeline: Post-Processing Render Pass Integration, Subsurface Profile Stenciling, and 60 FPS Performance Auditing.",
+    "Because subsurface scattering is a compute-intensive blur operation, applying SSS to every pixel on screen would be an unacceptable waste of GPU compute! Stone pillars, metal swords, leather boots, and wooden floors do not scatter light beneath their surfaces; blurring them with skin profiles would ruin their crisp material textures and crater frame rates. The engine must selectively target SSS strictly to skin geometry using Subsurface Material Stenciling.",
+    "During the G-Buffer rasterization pass, the engine encodes a Subsurface Profile ID into the material G-Buffer (typically packed into a 2-bit or 4-bit stencil channel or an unused alpha channel). Profile 0 represents Standard Opaque (no SSS), Profile 1 represents Human Skin (2.4mm MFP), Profile 2 represents Translucent Jade (5.0mm MFP), and Profile 3 represents Candle Wax (8.0mm MFP).",
+    "When the compute queue executes the Separable SSS pass, the shader first samples the stencil mask. If a pixel is marked with Profile 0, the thread terminates immediately, preserving the original sharp diffuse lighting. Only pixels stamped with valid SSS profile IDs execute the horizontal and vertical bilateral filtering loops, saving over seventy percent of total shader invocations!",
+    "To maintain our rock-solid 60 FPS SLA (16.67ms frame budget), our engine enforces a strict 1.5 Millisecond Performance Budget for the complete subsurface scattering subsystem: including horizontal bilateral blur, vertical bilateral blur, shadow map thickness sampling, and final composition.",
+    "Consider the physical analogy of a precision race car pit crew changing tires during an auto race. The mechanics have exactly twelve seconds to complete the tire change before the car must rejoin the track! If the crew tries to polish the car's bodywork and clean the windshield while the driver waits, they will blow their pit stop window and lose the race. The pit crew focuses exclusively on four lug nuts with air wrenches. Our 1.5ms SSS budget enforces that exact discipline: executing high-impact bilateral scattering exclusively on skin pixels without leaking a single millisecond into non-skin surfaces.",
+    "On modern GPU hardware at 1080p resolution, the horizontal blur takes approximately 0.52ms, the vertical blur takes 0.54ms, and the transmission composite takes 0.28ms, totaling 1.34ms—well within our 1.5ms SLA ceiling, ensuring locked 60 FPS gameplay under the most demanding character close-up cutscenes.",
+    "To eliminate intermediate texture allocation overhead between the horizontal and vertical blur passes, advanced compute engines leverage Threadgroup Shared Memory and Subgroup Operations. A 16x16 compute threadgroup loads an expanded 22x22 tile of diffuse pixels into on-chip shared memory, synchronizing threads via `workgroupBarrier()`. The threadgroup executes the horizontal blur directly in fast on-chip registers before computing the vertical pass, completely eliminating round-trip VRAM memory bandwidth bottlenecks and reducing SSS pass latency by up to thirty percent.",
+    "Finally, the subsurface scattering pass is carefully ordered within the broader render graph relative to Temporal Anti-Aliasing (TAA). SSS executes immediately after deferred lighting and before TAA reprojection. This ordering is critical: because SSS introduces subtle spatial color blending across pore boundaries, TAA uses its historical variance clamping to smooth any residual Bilateral filter stippling without introducing temporal ghosting. When dynamic resolution scaling activates during intense gameplay, the separable SSS pixel offsets scale proportionally with the dynamic render viewport, guaranteeing that skin softness remains identical whether rendering at native four-kay or upscaled ten-eighty-pee.",
+    "In the TypeScript snippet below, we implement the `SssPerformanceAuditor`. We measure stage timings across horizontal blur, vertical blur, and transmission, auditing against the 1.5ms SLA ceiling.",
+    "Notice how total SSS execution completes in 1.34ms, safely certifying our 60 FPS performance envelope. Tomorrow, in Day 47, we explore Thin-Film Wave Interference, Airy Formulas, and Iridescent Soap Bubbles!"
+]
+
+c1 = """interface BssdfProfileResult {
+  radiusMm: number;
+  diffuseReflectance: number;
+  transmittance: number;
+}
+
+class BurleyNormalizedDiffusion {
+  // Burley (Disney) Normalized Diffusion BSSDF profile
+  // R(r) = s * (exp(-s*r) + exp(-s*r / 3)) / (8 * pi * r)
+  static evaluateProfile(radiusMm: number, meanFreePathMm: number): BssdfProfileResult {
+    const s = 1.0 / Math.max(0.001, meanFreePathMm);
+    const r = Math.max(0.01, radiusMm);
+    
+    // Normalized profile value
+    const exp1 = Math.exp(-s * r);
+    const exp2 = Math.exp(-s * r / 3.0);
+    const profile = (s * (exp1 + exp2)) / (8.0 * Math.PI * r);
+
+    return {
+      radiusMm,
+      diffuseReflectance: parseFloat((profile * 2.0 * Math.PI * r).toFixed(4)),
+      transmittance: parseFloat(profile.toFixed(5))
+    };
+  }
+}
+
+const near = BurleyNormalizedDiffusion.evaluateProfile(0.5, 2.4); // Human epidermis MFP = 2.4mm
+const far = BurleyNormalizedDiffusion.evaluateProfile(4.0, 2.4);
+
+console.log(`[Burley SSS] Near Profile Transmittance (0.5mm): ${near.transmittance}`);
+console.log(`[Burley SSS] Distant Profile Transmittance (4.0mm): ${far.transmittance}`);
+console.log(`[Burley SSS] Scattering Diffusion Attenuation Confirmed: ${near.transmittance > far.transmittance}`);"""
+
+o1 = """[Burley SSS] Near Profile Transmittance (0.5mm): 0.05785
+[Burley SSS] Distant Profile Transmittance (4.0mm): 0.00316
+[Burley SSS] Scattering Diffusion Attenuation Confirmed: true"""
+
+c2 = """interface SssBlurTap {
+  offsetPixels: number;
+  weight: number;
+}
+
+class SeparableSssKernel {
+  // 5-tap separable cross-bilateral filter weights for skin diffusion
+  static computeSeparableKernel(): SssBlurTap[] {
+    return [
+      { offsetPixels: -3.0, weight: 0.0545 },
+      { offsetPixels: -1.5, weight: 0.2442 },
+      { offsetPixels:  0.0, weight: 0.4026 },
+      { offsetPixels:  1.5, weight: 0.2442 },
+      { offsetPixels:  3.0, weight: 0.0545 }
+    ];
+  }
+
+  static verifyWeightSum(kernel: SssBlurTap[]): number {
+    const sum = kernel.reduce((acc, tap) => acc + tap.weight, 0.0);
+    return parseFloat(sum.toFixed(4));
+  }
+}
+
+const kernel = SeparableSssKernel.computeSeparableKernel();
+const totalWeight = SeparableSssKernel.verifyWeightSum(kernel);
+
+console.log(`[Separable SSS] Filter Kernel Tap Count: ${kernel.length}`);
+console.log(`[Separable SSS] Center Tap Weight: ${kernel[2].weight}`);
+console.log(`[Separable SSS] Total Normalized Kernel Weight: ${totalWeight}`);"""
+
+o2 = """[Separable SSS] Filter Kernel Tap Count: 5
+[Separable SSS] Center Tap Weight: 0.4026
+[Separable SSS] Total Normalized Kernel Weight: 1"""
+
+c3 = """interface TransmittanceResult {
+  thicknessMm: number;
+  scatteredLuminance: number;
+  visibleGlow: boolean;
+}
+
+class ThinTransmittanceCalculator {
+  // Evaluates forward light penetration through thin geometry (e.g. human ear cartilage)
+  static evaluateTransmittance(thicknessMm: number, lightLuminance: number, extinctionCoeff: number): TransmittanceResult {
+    // Modified Beer-Lambert transmission: T = exp(-sigma_t * d)
+    const opticalDepth = extinctionCoeff * (thicknessMm / 10.0); // cm
+    const t = Math.exp(-opticalDepth);
+    const scatteredLuminance = parseFloat((lightLuminance * t).toFixed(3));
+    const visibleGlow = scatteredLuminance > 0.05 * lightLuminance;
+
+    return { thicknessMm, scatteredLuminance, visibleGlow };
+  }
+}
+
+const thinEar = ThinTransmittanceCalculator.evaluateTransmittance(2.0, 100.0, 1.2);  // 2mm ear rim
+const thickSkull = ThinTransmittanceCalculator.evaluateTransmittance(25.0, 100.0, 1.2); // 25mm bone
+
+console.log(`[Transmittance] Thin Cartilage (2mm) Scattered Luminance: ${thinEar.scatteredLuminance}`);
+console.log(`[Transmittance] Thick Bone (25mm) Scattered Luminance: ${thickSkull.scatteredLuminance}`);
+console.log(`[Transmittance] Translucent Red Ear Glow Active: ${thinEar.visibleGlow}`);"""
+
+o3 = """[Transmittance] Thin Cartilage (2mm) Scattered Luminance: 78.663
+[Transmittance] Thick Bone (25mm) Scattered Luminance: 4.979
+[Transmittance] Translucent Red Ear Glow Active: true"""
+
+c4 = """interface SkinParameters {
+  melaninFraction: number;    // [0, 1] melanin pigmentation
+  hemoglobinFraction: number; // [0, 1] blood oxygenation
+}
+
+class SpectralSkinSynthesizer {
+  // Computes spectral absorption coefficients based on biophysical components
+  static computeAbsorption(skin: SkinParameters): { sigmaA_Red: number; sigmaA_Green: number; sigmaA_Blue: number } {
+    // Hemoglobin absorbs green/blue heavily; melanin absorbs broadly across spectrum
+    const aRed = 0.02 + 0.15 * skin.melaninFraction + 0.05 * skin.hemoglobinFraction;
+    const aGreen = 0.08 + 0.35 * skin.melaninFraction + 0.85 * skin.hemoglobinFraction;
+    const aBlue = 0.15 + 0.65 * skin.melaninFraction + 0.95 * skin.hemoglobinFraction;
+
+    return {
+      sigmaA_Red: parseFloat(aRed.toFixed(3)),
+      sigmaA_Green: parseFloat(aGreen.toFixed(3)),
+      sigmaA_Blue: parseFloat(aBlue.toFixed(3))
+    };
+  }
+}
+
+const skin = SpectralSkinSynthesizer.computeAbsorption({ melaninFraction: 0.3, hemoglobinFraction: 0.4 });
+console.log(`[Spectral Skin] Red Absorption: ${skin.sigmaA_Red}`);
+console.log(`[Spectral Skin] Green Absorption: ${skin.sigmaA_Green}`);
+console.log(`[Spectral Skin] Blue Absorption: ${skin.sigmaA_Blue}`);
+console.log(`[Spectral Skin] Characteristic Red Subsurface Bleed Confirmed: ${skin.sigmaA_Red < skin.sigmaA_Green}`);"""
+
+o4 = """[Spectral Skin] Red Absorption: 0.085
+[Spectral Skin] Green Absorption: 0.525
+[Spectral Skin] Blue Absorption: 0.725
+[Spectral Skin] Characteristic Red Subsurface Bleed Confirmed: true"""
+
+c5 = """interface SssPassTimings {
+  horizontalBlurMs: number;
+  verticalBlurMs: number;
+  transmissionCompositeMs: number;
+}
+
+class SssPerformanceAuditor {
+  static audit(timings: SssPassTimings): { totalMs: number; meetsSla: boolean } {
+    const totalMs = parseFloat((
+      timings.horizontalBlurMs +
+      timings.verticalBlurMs +
+      timings.transmissionCompositeMs
+    ).toFixed(2));
+
+    const meetsSla = totalMs <= 1.5; // 1.5ms Subsurface Scattering SLA
+    return { totalMs, meetsSla };
+  }
+}
+
+const timings: SssPassTimings = {
+  horizontalBlurMs: 0.52,
+  verticalBlurMs: 0.54,
+  transmissionCompositeMs: 0.28
+};
+
+const audit = SssPerformanceAuditor.audit(timings);
+console.log(`[SSS Audit] Total Separable SSS Execution Time: ${audit.totalMs} ms`);
+console.log(`[SSS Audit] Meets 1.5ms Post-Processing SLA: ${audit.meetsSla}`);
+console.log(`[SSS Audit] 60 FPS Target Certified: ${audit.meetsSla}`);"""
+
+o5 = """[SSS Audit] Total Separable SSS Execution Time: 1.34 ms
+[SSS Audit] Meets 1.5ms Post-Processing SLA: true
+[SSS Audit] 60 FPS Target Certified: true"""
+
+day46_data = {
+    'day': 46,
+    'coursePrefix': 'g3d',
+    'title': 'Subsurface Scattering (SSS): Normalized Diffusion, Separable Screen-Space Filters & Skin Shading',
+    'goal': 'Master physically based subsurface scattering: the 8D BSSDF formulation, Burley normalized diffusion profiles, separable 2-pass screen-space bilateral filtering, back-scatter transmission through thin cartilage, and biophysical spectral skin shading.',
+    'recap': 'Recap of Day 45: Real-Time Hardware-Accelerated Hybrid Ray Tracer & SVGF Denoiser Capstone, G-Buffer rasterization fusion, dynamic TLAS instance updates, and 5-gate defense matrix certification.',
+    'minutes': 120,
+    'parts': [
+        {
+            'part': 1,
+            'title': 'The BSSDF Formulation & Burley Normalized Diffusion Profile',
+            'say': say_p1,
+            'example': 'A drop of red ink falling onto a dry cellulose paper napkin, wicking and diffusing outward through fibers into a soft pink circular halo.',
+            'code': c1,
+            'output': o1,
+            'check': {
+                'question': 'Why does the standard local reflection assumption (BRDF) fail when rendering human skin and marble?',
+                'options': [
+                    'Because photons penetrate several millimeters beneath the translucent surface and scatter internally before exiting at different spatial coordinates.',
+                    'Because human skin does not reflect any specular light.',
+                    'Because marble cannot be rendered on GPUs without hardware ray tracing.',
+                    'Because BRDFs can only render metallic surfaces.'
+                ],
+                'answer': 0,
+                'answerIndex': 0,
+                'why': 'Subsurface scattering breaks the local reflection assumption: light enters at point x_i, scatters internally through tissue, and exits at a distinct point x_o.'
+            }
+        },
+        {
+            'part': 2,
+            'title': 'Separable Screen-Space Subsurface Scattering (SSSS) & Bilateral Filtering',
+            'say': say_p2,
+            'example': 'A draftsman creating a smooth pastel color gradient across a room using broad horizontal blending strokes followed by orthogonal vertical strokes.',
+            'code': c2,
+            'output': o2,
+            'check': {
+                'question': 'How does Jorge Jimenez’s Separable Screen-Space Subsurface Scattering achieve 60 FPS real-time performance?',
+                'options': [
+                    'By decomposing the expensive 2D spatial diffusion integral into two 1D orthogonal bilateral blur passes executed directly on the diffuse lighting buffer.',
+                    'By deleting all skin textures and using vertex colors.',
+                    'By rendering character faces at quarter resolution without depth testing.',
+                    'By converting all skin shaders into unlit flat shading.'
+                ],
+                'answer': 0,
+                'answerIndex': 0,
+                'why': 'Separating the 2D diffusion kernel into horizontal and vertical 1D passes reduces texture fetch complexity from O(N^2) to O(2N).'
+            }
+        },
+        {
+            'part': 3,
+            'title': 'Transmittance & Back-Scattering Through Thin Geometric Cartilage',
+            'say': say_p3,
+            'example': 'Holding a high-powered LED flashlight against the palm of your hand in a dark room, watching the fingers and webbed skin glow with fiery crimson light.',
+            'code': c3,
+            'output': o3,
+            'check': {
+                'question': 'How does the rendering engine evaluate light transmittance through thin structures like ears and nostrils where front-scattering screen-space blurs fail?',
+                'options': [
+                    'By sampling shadow map depth to calculate geometric thickness along the light ray and applying modified Beer-Lambert exponential transmission.',
+                    'By placing point lights inside the character’s ear geometry.',
+                    'By inverting the camera view matrix during post-processing.',
+                    'By setting the material alpha value to zero.'
+                ],
+                'answer': 0,
+                'answerIndex': 0,
+                'why': 'Shadow map depth comparisons reveal geometric thickness d, allowing the shader to evaluate exponential transmittance exp(-sigma_t * d).'
+            }
+        },
+        {
+            'part': 4,
+            'title': 'Multi-Layered Biophysical Skin Shading: Melanin, Hemoglobin & Dual-Lobe GGX',
+            'say': say_p4,
+            'example': 'An oil painter layering semi-transparent umber and sepia glazes over a crimson vascular underpainting to create deep, lifelike flesh tones.',
+            'code': c4,
+            'output': o4,
+            'check': {
+                'question': 'Why do human skin shadow penumbras exhibit a characteristic warm red color fringe rather than a neutral gray transition?',
+                'options': [
+                    'Because blood hemoglobin absorbs green and blue wavelengths aggressively while scattering red light deeply through the dermis before re-emerging.',
+                    'Because shadow maps are encoded in red-only format.',
+                    'Because the sun only emits red light at grazing angles.',
+                    'Because tone mappers tint all shadow borders red.'
+                ],
+                'answer': 0,
+                'answerIndex': 0,
+                'why': 'Hemoglobin absorbs green and blue light while allowing red light to scatter multiple millimeters through subdermal tissue into adjacent shadow penumbras.'
+            }
+        },
+        {
+            'part': 5,
+            'title': 'Subsurface Profile Stenciling, Render Pass Integration & 60 FPS Performance SLA',
+            'say': say_p5,
+            'example': 'A race car pit crew focusing with laser precision on changing four tires within twelve seconds rather than washing the car during a pit stop.',
+            'code': c5,
+            'output': o5,
+            'check': {
+                'question': 'How does the engine optimize separable screen-space subsurface scattering to prevent wasting compute power on non-skin objects?',
+                'options': [
+                    'By encoding subsurface profile IDs in a material stencil buffer, instantly terminating blur compute threads for non-scattering surfaces.',
+                    'By rendering the entire scene twice with different cameras.',
+                    'By disabling subsurface scattering whenever characters move.',
+                    'By replacing compute shaders with canvas 2D contexts.'
+                ],
+                'answer': 0,
+                'answerIndex': 0,
+                'why': 'Material stencil masking restricts bilateral filtering strictly to pixels stamped with valid SSS profiles, saving over 70% of shader invocations.'
+            }
+        }
+    ],
+    'projectStep': {
+        'title': 'Implement Subsurface Scattering, Separable Bilateral Filters & Biophysical Skin Shading',
+        'steps': [
+            'Evaluate Burley Normalized Diffusion profiles for radial energy conservation across mean free paths.',
+            'Deploy 2-pass separable screen-space bilateral Gaussian convolution with depth-aware edge stopping.',
+            'Calculate geometric thickness from shadow maps to render vibrant back-scattered transmittance on ears.',
+            'Synthesize multi-layered spectral skin materials with melanin, hemoglobin, dual-lobe GGX specular, and profile stenciling.'
+        ]
+    },
+    'summary': [
+        'Subsurface scattering models photon penetration, internal scattering, and spatial re-emergence, turning chalky clay into living skin.',
+        'Burley Normalized Diffusion provides an analytical, energy-conserving radial profile parameterized by albedo and mean free path.',
+        'Separable screen-space filtering executes high-quality 2D diffusion via two orthogonal 1D passes, maintaining locked 60 FPS performance.',
+        'Shadow map thickness sampling drives modified Beer-Lambert transmission, simulating the iconic crimson glow of backlit ears and fingers.',
+        'Biophysical skin modeling simulates melanin and hemoglobin spectral absorption alongside dual-lobe GGX specular highlights.'
+    ]
+}
+
+# Verify word count
+total_words = 0
+for p in day46_data['parts']:
+    wc = sum(len(para.split()) for para in p['say'])
+    total_words += wc
+    print(f"G3D Day 46 Part {p['part']} Word Count: {wc}")
+    assert wc >= 600, f"Part {p['part']} word count {wc} below 600 words!"
+print(f"G3D Day 46 Total Words: {total_words}")
+
+with open('scripts/g3d_day46_data.py', 'w', encoding='utf-8') as f:
+    f.write(f"# Auto-generated Day 46 Data\nDAY_46_DATA = {json.dumps(day46_data, indent=2)}\n")
+
+print("Successfully wrote scripts/g3d_day46_data.py!")

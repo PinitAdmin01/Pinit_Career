@@ -1,0 +1,422 @@
+39.2 Month 2: Distributed Topology, Monorepo Scale, Enterprise Release Engineering, Hook Automation &amp; Governance (Days 31&ndash;60 / 120 Quests)</h2>
+
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #ea580c;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #c2410c; color: #ffedd5; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 31</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #9a3412;">Packfiles & Pack Indices: `.pack` and `.idx` Binary Layout, Fan-Out Tables & Delta Compression</strong>
+          <span class="stage-pill" style="background: #ffedd5; color: #c2410c;">Stage 7: Git Internals & Low-Level Plumbing</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 7 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #fff7ed; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fed7aa;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #9a3412; font-weight: 600;">Goal:</span> Storing every file revision as an individual 'loose' object file in <code>.git/objects/</code> is great for simplicity, but when a repository grows to 100,000 files, operating system directory lookup times degrade and inodes run out. Today, you open the hood of Git's high-performance storage engine: Packfiles. You will dissect the binary layout of <code>.pack</code> and <code>.idx</code> v2 files, understand the 256-entry first-level fan-out table, and master delta compression (OFS_DELTA and REF_DELTA) where Git stores objects as binary diffs against similar files.<br>
+          <span style="color: #c2410c; font-weight: 600;">Invariant:</span> <code>Packfile Binary Index Invariant: A <code>.idx</code> v2 file begins with magic bytes <code>\xfftOc</code> followed by version <code>\x00\x00\x00\x02</code> and a 256-entry 4-byte fan-out table encoding cumulative object counts. Object lookup takes $O(1)$ to find the fan-out bucket and $O(\log_2 k)$ binary search to find the exact 20-byte SHA-1 hash offset.</code>
+        </div>
+        <div style="background: #fef2f2; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fecaca; color: #991b1b;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> The 500,000 Loose Object Inode Exhaustion Outage: An automated build server generated 500,000 loose commit and tree objects without ever repacking. The host Linux filesystem ran out of file inodes, causing disk writes to fail with 'No space left on device' even though 200GB of raw disk space remained free, taking down all running CI services.<br>
+          <strong>tryIt Friction:</strong> Unpack an existing packfile into loose objects using <code>git unpack-objects</code>; inspect the explosion of loose files in <code>.git/objects/</code>, and re-pack them into an optimized packfile using <code>git repack -a -d -f --depth=50 --window=50</code>.
+        </div>
+      </div>
+
+      <div style="background: #fff7ed; border: 1px solid #fed7aa; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #9a3412;">🪜 Socratic Hint Ladder:</strong>
+        <ol style="margin: 2px 0 2px 14px; padding: 0; color: #7c2d12;">
+          <li>Why does Git use a 256-entry fan-out table at the start of a <code>.idx</code> file rather than a single flat binary search table?</li><li>What is the operational difference between an <code>OFS_DELTA</code> (which references its base object using a relative byte offset) and a <code>REF_DELTA</code> (which references its base object using a 20-byte SHA-1 hash)?</li><li>Why is delta compression in Git applied across similar files regardless of branch or directory location, rather than strictly tracking file history across time?</li>
+        </ol>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #9a3412;">🧩 Situational Production Puzzle:</strong>
+        <p style="margin: 2px 0; color: #1e293b;">A systems engineer notices that a 100MB repository has a <code>.git/objects/pack/</code> directory containing 80 separate <code>.pack</code> and <code>.idx</code> files. Git operations are slowing down because Git must search all 80 index files for every object request.</p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3pt; margin: 2px 0;">
+          
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; padding: 2px 4px; border-radius: 2px; font-size: 6.8pt;">
+              <strong>A:</strong> Delete 79 of the pack files manually. 
+            </div>
+          
+            <div style="background: #ffedd5; border: 1px solid #ea580c; padding: 2px 4px; border-radius: 2px; font-size: 6.8pt;">
+              <strong>B:</strong> Diagnose Packfile Fragmentation & Run Multi-Pack Optimization: Over time, incremental fetches and pushes create numerous small packfiles, fragmenting object lookups across multiple indices. The engineer must run <code>git repack -a -d</code> to consolidate all objects into a single optimized packfile, or enable <code>git multi-pack-index write</code> to generate a unified MIDX index. <strong style="color: #9a3412;">✓ [Optimal Systems Architecture Decision]</strong>
+            </div>
+          
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; padding: 2px 4px; border-radius: 2px; font-size: 6.8pt;">
+              <strong>C:</strong> Convert the repository back to loose objects. 
+            </div>
+          
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; padding: 2px 4px; border-radius: 2px; font-size: 6.8pt;">
+              <strong>D:</strong> Disable packfile compression in .gitconfig. 
+            </div>
+          
+        </div>
+        <div style="margin-top: 2px; color: #9a3412; font-size: 6.8pt;"><strong>Strategic Debrief:</strong> Frequent network fetches accumulate multiple small packfiles. Searching across many separate indices causes disk I/O overhead. Running <code>git repack -a -d</code> merges all loose objects and separate packfiles into a single unified packfile, removing obsolete packs.</div>
+      </div>
+
+      <div style="margin-top: 4pt; font-size: 7.2pt; border-top: 1px dashed #e2e8f0; padding-top: 3pt;">
+        <strong style="color: #9a3412;">4 Rigorous Quests (Concept &bull; Detective &bull; Mastery Assignment &bull; Incident Lab):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #ffedd5; color: #9a3412; padding: 1px 3px; border-radius: 2px;">Q35.121</span>
+      <strong>Packfile & Index v2 Binary Specification Architecture</strong> <em>(Concept)</em>: <span style="color: #475569;">Detail the byte-level binary specification of .pack and .idx v2 files, analyzing the fan-out table, SHA-1 table, CRC32 table, and offset mapping.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #ffedd5; color: #9a3412; padding: 1px 3px; border-radius: 2px;">Q35.122</span>
+      <strong>The Inode Exhaustion Loose Object Explosion Detective</strong> <em>(Detective Challenge)</em>: <span style="color: #475569;">Investigate a paralyzed CI server where 500,000 loose objects crashed the filesystem; unpack, audit, and consolidate the object database.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #ffedd5; color: #9a3412; padding: 1px 3px; border-radius: 2px;">Q35.123</span>
+      <strong>Custom Binary Git Packfile & Index Parser Engine</strong> <em>(Mastery Assignment)</em>: <span style="color: #475569;">Develop a standalone parser in Python/TypeScript that reads a .idx v2 file, queries objects via the fan-out table, and extracts raw zlib payloads.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #ffedd5; color: #9a3412; padding: 1px 3px; border-radius: 2px;">Q35.124</span>
+      <strong>Extreme Packfile Delta Depth Decompression Stress Lab</strong> <em>(Production Incident Lab)</em>: <span style="color: #475569;">Construct an adversarial packfile with delta depth chains exceeding 250 links; benchmark object retrieval latency and memory allocation overhead.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #ea580c;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #c2410c; color: #ffedd5; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 32</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #9a3412;">The Git Index (`.git/index`) Binary Internals: DIRC Header, 40-Byte Stat Cache & Tree Cache Extension</strong>
+          <span class="stage-pill" style="background: #ffedd5; color: #c2410c;">Stage 7: Git Internals & Low-Level Plumbing</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 7 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #fff7ed; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fed7aa;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #9a3412; font-weight: 600;">Goal:</span> Have you ever wondered how <code>git status</code> can scan 200,000 files in under 100 milliseconds to tell you what changed? It does not hash all 200,000 files! It checks the Stat Cache in the binary <code>.git/index</code>. Today, you master the internal binary architecture of the Index: the 12-byte DIRC header, the 40-byte stat cache entries (ctime, mtime, dev, ino, mode, uid, gid, file size), the Tree Cache extension that accelerates commit creation, and the conflict stages (stages 0, 1, 2, 3).<br>
+          <span style="color: #c2410c; font-weight: 600;">Invariant:</span> <code>Stat Cache $O(1)$ Cleanliness Invariant: Git determines file cleanliness in $O(1)$ time by comparing filesystem stat metadata $(\text{mtime}, \text{size}, \text{ino})$ against the cached values in <code>.git/index</code>. If stat metadata matches, the file content is guaranteed unchanged, bypassing expensive cryptographic re-hashing.</code>
+        </div>
+        <div style="background: #fef2f2; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fecaca; color: #991b1b;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> The rsync Mtime Touch 10-Minute Git Status Freeze: A deployment pipeline synchronized files across servers using <code>rsync</code> without preserving timestamps (missing <code>-t</code>). Every file's <code>mtime</code> was modified. The next <code>git status</code> command was forced to re-read and re-hash all 150,000 files on disk, causing a 10-minute CPU lockup on production nodes.<br>
+          <strong>tryIt Friction:</strong> Inspect the raw binary header of <code>.git/index</code> using a hex editor or custom script; read the 4-byte signature <code>DIRC</code>, the version number, and entry count; touch a file to update its <code>mtime</code> and observe how Git detects the stat discrepancy.
+        </div>
+      </div>
+
+      <div style="background: #fff7ed; border: 1px solid #fed7aa; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #9a3412;">🪜 Socratic Hint Ladder:</strong>
+        <ol style="margin: 2px 0 2px 14px; padding: 0; color: #7c2d12;">
+          <li>What does the acronym <code>DIRC</code> stand for in the first 4 bytes of every Git index file?</li><li>How do stages 0, 1, 2, and 3 in the index represent normal files versus files during an active merge conflict?</li><li>What is the Tree Cache (<code>TREE</code> extension) in the index, and why does it allow <code>git commit</code> to write tree objects without scanning every directory on disk?</li>
+        </ol>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #9a3412;">🧩 Situational Production Puzzle:</strong>
+        <p style="margin: 2px 0; color: #1e293b;">A developer writes a custom tool to stage files directly by appending records to <code>.git/index</code>. The tool writes the entries, but any standard Git command immediately throws: 'fatal: index file corrupt'. The developer verified all file hashes are correct.</p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3pt; margin: 2px 0;">
+          
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; padding: 2px 4px; border-radius: 2px; font-size: 6.8pt;">
+              <strong>A:</strong> The tool must be written in C, not Python. 
+            </div>
+          
+            <div style="background: #ffedd5; border: 1px solid #ea580c; padding: 2px 4px; border-radius: 2px; font-size: 6.8pt;">
+              <strong>B:</strong> Diagnose Index Entry Sorting & Trailing SHA-1 Checksum Violation: <code>.git/index</code> requires two strict binary invariants: (1) index entries must be sorted strictly in ascending lexicographical order by pathname, and (2) the final 20 bytes of the file must be the SHA-1 checksum of all preceding bytes in the index file. Failing to compute the checksum or sorting incorrectly corrupts the index. <strong style="color: #9a3412;">✓ [Optimal Systems Architecture Decision]</strong>
+            </div>
+          
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; padding: 2px 4px; border-radius: 2px; font-size: 6.8pt;">
+              <strong>C:</strong> Git only allows root users to write to .git/index. 
+            </div>
+          
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; padding: 2px 4px; border-radius: 2px; font-size: 6.8pt;">
+              <strong>D:</strong> The index file cannot exceed 1MB. 
+            </div>
+          
+        </div>
+        <div style="margin-top: 2px; color: #9a3412; font-size: 6.8pt;"><strong>Strategic Debrief:</strong> The Git index file enforces strict binary constraints: entries must be sorted lexicographically by file path, and the file ends with a mandatory 20-byte SHA-1 checksum of the entire file content. Violating either rule causes Git to reject the index as corrupt.</div>
+      </div>
+
+      <div style="margin-top: 4pt; font-size: 7.2pt; border-top: 1px dashed #e2e8f0; padding-top: 3pt;">
+        <strong style="color: #9a3412;">4 Rigorous Quests (Concept &bull; Detective &bull; Mastery Assignment &bull; Incident Lab):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #ffedd5; color: #9a3412; padding: 1px 3px; border-radius: 2px;">Q35.125</span>
+      <strong>Git Binary Index (DIRC) Specification & Extension Architecture</strong> <em>(Concept)</em>: <span style="color: #475569;">Analyze the physical binary specification of .git/index v2/v3/v4, exploring stat cache fields, stage flags, TREE extensions, and trailing checksums.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #ffedd5; color: #9a3412; padding: 1px 3px; border-radius: 2px;">Q35.126</span>
+      <strong>The rsync Stat Cache Invalidation 10-Minute Freeze Detective</strong> <em>(Detective Challenge)</em>: <span style="color: #475569;">Investigate a production deployment freeze caused by stat cache invalidation; trace the mtime timestamps and restore O(1) status checking.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #ffedd5; color: #9a3412; padding: 1px 3px; border-radius: 2px;">Q35.127</span>
+      <strong>Binary Git Index Reader & Stat Cache Validator Engine</strong> <em>(Mastery Assignment)</em>: <span style="color: #475569;">Develop a binary parser in Python/TypeScript that reads .git/index, validates the DIRC header and entry sort order, and inspects cached stat properties.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #ffedd5; color: #9a3412; padding: 1px 3px; border-radius: 2px;">Q35.128</span>
+      <strong>Index Conflict Stages 0-3 Binary State Mutation Stress Lab</strong> <em>(Production Incident Lab)</em>: <span style="color: #475569;">Simulate a 3-way merge conflict; inspect the raw binary index to verify that conflicting files are stored as Stage 1 (ancestor), Stage 2 (ours), and Stage 3 (theirs).</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #ea580c;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #c2410c; color: #ffedd5; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 33</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #9a3412;">Delta Compression & Object Deduplication: Sliding Window Algorithms, Max Delta Depth & Thin Packs</strong>
+          <span class="stage-pill" style="background: #ffedd5; color: #c2410c;">Stage 7: Git Internals & Low-Level Plumbing</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 7 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #fff7ed; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fed7aa;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #9a3412; font-weight: 600;">Goal:</span> How does Git manage to store 15 years of Linux kernel development—over 1 million commits and millions of files—in less than 4GB of disk space? The secret is Sliding Window Delta Compression. Today, you master how Git's repacking algorithm sorts objects by filename, file extension, and size, slides an $N$-object compression window across the sorted sequence, and encodes changes as sliding copy-and-insert byte instructions.<br>
+          <span style="color: #c2410c; font-weight: 600;">Invariant:</span> <code>Acyclic Bounded Delta Depth Invariant: Delta compression chains must form a strict Directed Acyclic Graph bounded by maximum depth $D = \text{pack.depth}$ (default 50). Resolving an object requires at most $D$ recursive delta evaluations, preventing CPU decompression stack exhaustion.</code>
+        </div>
+        <div style="background: #fef2f2; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fecaca; color: #991b1b;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> The Unbounded Delta Depth Decompression CPU Exhaustion: An administrator configured <code>git config pack.depth 1000</code> to minimize repository disk size. While the repo shrank by 8%, running <code>git checkout</code> or <code>git bisect</code> on older revisions required decompressing 800-deep delta chains, slowing down checkout times by 1,200% and causing CI jobs to timeout.<br>
+          <strong>tryIt Friction:</strong> Profile your repository's delta compression metrics using <code>git verify-pack -v .git/objects/pack/*.idx</code>; analyze the distribution of delta chain depths and compare compression efficiency across window sizes 10, 50, and 100.
+        </div>
+      </div>
+
+      <div style="background: #fff7ed; border: 1px solid #fed7aa; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #9a3412;">🪜 Socratic Hint Ladder:</strong>
+        <ol style="margin: 2px 0 2px 14px; padding: 0; color: #7c2d12;">
+          <li>Why does Git sort objects by filename and file size before sliding the delta compression window over them?</li><li>What is a 'Thin Pack' in Git network transfer, and why must the receiving end 'index-pack' it to complete the missing delta bases?</li><li>Why does delta compression work poorly on pre-compressed binary files (like .zip, .png, or .mp4)?</li>
+        </ol>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #9a3412;">🧩 Situational Production Puzzle:</strong>
+        <p style="margin: 2px 0; color: #1e293b;">A game development team stores 2GB 3D asset files in Git. They notice that running <code>git gc</code> consumes 100% CPU and 64GB of RAM for 3 hours, eventually crashing with an out-of-memory error. How do they configure Git to handle these files safely?</p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3pt; margin: 2px 0;">
+          
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; padding: 2px 4px; border-radius: 2px; font-size: 6.8pt;">
+              <strong>A:</strong> Increase swap space to 500GB. 
+            </div>
+          
+            <div style="background: #ffedd5; border: 1px solid #ea580c; padding: 2px 4px; border-radius: 2px; font-size: 6.8pt;">
+              <strong>B:</strong> Diagnose Window Memory Exhaustion & Use Git LFS or Window Limits: Running delta compression on massive multi-gigabyte binary files exhausts memory because Git attempts to buffer multiple large objects simultaneously in memory. Fix by: (1) Setting <code>core.bigFileThreshold = 50m</code> so files over 50MB bypass delta compression, (2) Limiting <code>pack.windowMemory = 1g</code>, and (3) Migrating large binary assets to Git LFS. <strong style="color: #9a3412;">✓ [Optimal Systems Architecture Decision]</strong>
+            </div>
+          
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; padding: 2px 4px; border-radius: 2px; font-size: 6.8pt;">
+              <strong>C:</strong> Delete the repository commit history. 
+            </div>
+          
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; padding: 2px 4px; border-radius: 2px; font-size: 6.8pt;">
+              <strong>D:</strong> Disable Git garbage collection permanently. 
+            </div>
+          
+        </div>
+        <div style="margin-top: 2px; color: #9a3412; font-size: 6.8pt;"><strong>Strategic Debrief:</strong> Large binary files cause severe memory exhaustion during delta window search. Setting <code>core.bigFileThreshold</code> instructs Git to store files over the threshold as un-delta'd compressed blobs, while <code>pack.windowMemory</code> prevents OOM crashes.</div>
+      </div>
+
+      <div style="margin-top: 4pt; font-size: 7.2pt; border-top: 1px dashed #e2e8f0; padding-top: 3pt;">
+        <strong style="color: #9a3412;">4 Rigorous Quests (Concept &bull; Detective &bull; Mastery Assignment &bull; Incident Lab):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #ffedd5; color: #9a3412; padding: 1px 3px; border-radius: 2px;">Q35.129</span>
+      <strong>Libgit2 & Git Core Delta Compression Algorithm Architecture</strong> <em>(Concept)</em>: <span style="color: #475569;">Analyze the mathematical foundations of Git's copy/insert delta encoding format, sliding window sort heuristics, and thin pack resolution.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #ffedd5; color: #9a3412; padding: 1px 3px; border-radius: 2px;">Q35.130</span>
+      <strong>The 800-Level Deep Delta Chain Checkout Latency Detective</strong> <em>(Detective Challenge)</em>: <span style="color: #475569;">Investigate a sluggish enterprise repository suffering from 800-level delta chains; repack the database with optimized window and depth bounds.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #ffedd5; color: #9a3412; padding: 1px 3px; border-radius: 2px;">Q35.131</span>
+      <strong>Custom Delta Compression & Decompression Byte Stream Engine</strong> <em>(Mastery Assignment)</em>: <span style="color: #475569;">Build a byte-level delta compressor/decompressor in Python/TypeScript that implements Git's native copy/insert opcode instruction set.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #ffedd5; color: #9a3412; padding: 1px 3px; border-radius: 2px;">Q35.132</span>
+      <strong>Adversarial Pre-Compressed Binary Repo Bloat Stress Lab</strong> <em>(Production Incident Lab)</em>: <span style="color: #475569;">Ingest 500 high-entropy encrypted blobs into a Git repository; profile packing performance under various core.bigFileThreshold configurations.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #ea580c;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #c2410c; color: #ffedd5; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 34</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #9a3412;">Garbage Collection, MIDX & Alternate Stores: `git gc`, `git prune`, Multi-Pack-Index & `info/alternates`</strong>
+          <span class="stage-pill" style="background: #ffedd5; color: #c2410c;">Stage 7: Git Internals & Low-Level Plumbing</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 7 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #fff7ed; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fed7aa;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #9a3412; font-weight: 600;">Goal:</span> In enterprise hosting platforms like GitHub, GitLab, and Gerrit, managing disk space and search efficiency across thousands of repository forks requires advanced plumbing. Today, you master enterprise repository maintenance: how <code>git gc</code> orchestrates packing and pruning, how Multi-Pack-Index (MIDX) files provide a unified binary index across hundreds of packfiles, how the <code>commit-graph</code> file accelerates commit walking by 10x, and how Alternate Object Stores (<code>objects/info/alternates</code>) allow forks to share 99% of their disk footprint.<br>
+          <span style="color: #c2410c; font-weight: 600;">Invariant:</span> <code>Alternate Object Store Read-Only Invariant: An alternate object store referenced in <code>.git/objects/info/alternates</code> must be treated as strictly immutable and read-only by child repositories. Deleting or modifying objects in the parent repository corrupts all dependent child repositories immediately.</code>
+        </div>
+        <div style="background: #fef2f2; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fecaca; color: #991b1b;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> The Shared Alternate Object Store Accidental Prune Disaster: An enterprise server hosts 300 developer forks using a shared base repository in <code>objects/info/alternates</code>. A cron job executes <code>git gc --prune=now</code> on the base repository. Because the base repository's refs did not track the fork branches, the base repo pruned objects active in the forks, corrupting all 300 repositories simultaneously.<br>
+          <strong>tryIt Friction:</strong> Create a lightweight clone using <code>git clone --shared</code> or <code>git clone --reference</code>; verify that the new repository's <code>.git/objects/info/alternates</code> points to the parent, inspect its disk usage (consuming less than 100KB), and verify that all historical commits remain accessible.
+        </div>
+      </div>
+
+      <div style="background: #fff7ed; border: 1px solid #fed7aa; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #9a3412;">🪜 Socratic Hint Ladder:</strong>
+        <ol style="margin: 2px 0 2px 14px; padding: 0; color: #7c2d12;">
+          <li>Why is <code>git commit-graph write --reachable</code> one of the single most impactful performance optimizations for large repositories with deep histories?</li><li>What problem does a Multi-Pack-Index (MIDX) file solve when a repository has dozens of packfiles that cannot be repacked immediately?</li><li>How does Git prevent race conditions during concurrent pushes when garbage collection is running in the background?</li>
+        </ol>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #9a3412;">🧩 Situational Production Puzzle:</strong>
+        <p style="margin: 2px 0; color: #1e293b;">A large enterprise repository with 500,000 commits takes 15 seconds to run <code>git log -n 10</code>. CPU profiling shows Git spends 90% of its time parsing raw commit objects from packfiles to traverse the parent graph. What modern Git optimization feature solves this?</p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3pt; margin: 2px 0;">
+          
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; padding: 2px 4px; border-radius: 2px; font-size: 6.8pt;">
+              <strong>A:</strong> Reboot the Git server. 
+            </div>
+          
+            <div style="background: #ffedd5; border: 1px solid #ea580c; padding: 2px 4px; border-radius: 2px; font-size: 6.8pt;">
+              <strong>B:</strong> Diagnose Missing Commit-Graph Binary Acceleration: Enable and generate a Git commit-graph file by running <code>git commit-graph write --reachable</code>. The commit-graph file stores a compact, binary-serialized representation of the entire commit DAG (parents, tree hashes, commit dates, and generation numbers), allowing Git to traverse graph ancestry in milliseconds without decompressing commit objects. <strong style="color: #9a3412;">✓ [Optimal Systems Architecture Decision]</strong>
+            </div>
+          
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; padding: 2px 4px; border-radius: 2px; font-size: 6.8pt;">
+              <strong>C:</strong> Delete historical commits older than 1 year. 
+            </div>
+          
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; padding: 2px 4px; border-radius: 2px; font-size: 6.8pt;">
+              <strong>D:</strong> Convert all commits into lightweight tags. 
+            </div>
+          
+        </div>
+        <div style="margin-top: 2px; color: #9a3412; font-size: 6.8pt;"><strong>Strategic Debrief:</strong> The <code>commit-graph</code> file stores pre-computed DAG relationships (commit SHA, parent SHAs, generation numbers) in a contiguous binary format. It allows Git to traverse history up to 10x faster by eliminating the need to decompress individual commit objects.</div>
+      </div>
+
+      <div style="margin-top: 4pt; font-size: 7.2pt; border-top: 1px dashed #e2e8f0; padding-top: 3pt;">
+        <strong style="color: #9a3412;">4 Rigorous Quests (Concept &bull; Detective &bull; Mastery Assignment &bull; Incident Lab):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #ffedd5; color: #9a3412; padding: 1px 3px; border-radius: 2px;">Q35.133</span>
+      <strong>Multi-Pack-Index (MIDX) & Commit-Graph Systems Architecture</strong> <em>(Concept)</em>: <span style="color: #475569;">Detail the binary format and query algorithms of MIDX files and commit-graph files, analyzing generation numbers and reachability bitmaps.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #ffedd5; color: #9a3412; padding: 1px 3px; border-radius: 2px;">Q35.134</span>
+      <strong>The Corrupted Shared Alternates Object Store Detective</strong> <em>(Detective Challenge)</em>: <span style="color: #475569;">Investigate an enterprise hosting node where 200 forks broke after an unsafe prune on the parent alternates store; reconstruct the missing object graph.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #ffedd5; color: #9a3412; padding: 1px 3px; border-radius: 2px;">Q35.135</span>
+      <strong>Automated Multi-Pack Maintenance & Commit-Graph Engine</strong> <em>(Mastery Assignment)</em>: <span style="color: #475569;">Build an automated repository maintenance daemon that monitors packfile counts, writes MIDX files, updates commit-graphs, and runs safe incremental garbage collection.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #ffedd5; color: #9a3412; padding: 1px 3px; border-radius: 2px;">Q35.136</span>
+      <strong>Concurrent Push vs Background GC Race Condition Stress Lab</strong> <em>(Production Incident Lab)</em>: <span style="color: #475569;">Execute high-frequency push operations while triggering aggressive background git gc --prune runs; verify object quarantine isolation and zero ref corruption.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #ea580c;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #c2410c; color: #ffedd5; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 35</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #9a3412;">Milestone 4 (M2): ApexPlumbing Custom Git Object Database & Packfile Decoder Suite</strong>
+          <span class="stage-pill" style="background: #ffedd5; color: #c2410c;">Stage 7: Git Internals & Low-Level Plumbing</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 7 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #fff7ed; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fed7aa;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #9a3412; font-weight: 600;">Goal:</span> Milestone 4 (Month 2) tests your mastery of Git's lowest-level binary storage formats. You will architect ApexPlumbing: a zero-dependency Git binary decoder engine in Python/TypeScript. Your platform will directly parse <code>.pack</code> and <code>.idx</code> v2 files, decode OFS_DELTA and REF_DELTA streams, evaluate the <code>commit-graph</code> binary file, and reconstruct historical files from bare packfiles without invoking the Git CLI.<br>
+          <span style="color: #c2410c; font-weight: 600;">Invariant:</span> <code>Binary Parity & Canonical Reconstruction Invariant: For any object hash in a valid packfile, the ApexPlumbing decoder must produce decompressed byte streams that match the official Git output to the exact byte, verifying CRC32 checksums and SHA hashes.</code>
+        </div>
+        <div style="background: #fef2f2; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fecaca; color: #991b1b;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> The Truncated Packfile Network Proxy Disaster: An enterprise caching proxy cached Git packfiles. Because it truncated the final 20-byte packfile checksum, repositories that ingested the packfile suffered silent corruption, causing subsequent pushes to fail with fatal sha1 mismatch errors.<br>
+          <strong>tryIt Friction:</strong> Deliver and test ApexPlumbing against a real-world packfile from an active open-source repository; verify that your tool can read the pack index, locate an object, decompress a 10-level delta chain, and output the raw file contents.
+        </div>
+      </div>
+
+      <div style="background: #fff7ed; border: 1px solid #fed7aa; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #9a3412;">🪜 Socratic Hint Ladder:</strong>
+        <ol style="margin: 2px 0 2px 14px; padding: 0; color: #7c2d12;">
+          <li>How do variable-length integer encodings (MSB-based LEB128) allow Git to encode object sizes and delta offsets in minimal bytes?</li><li>Why must a packfile decoder verify both the per-object CRC32 checksum from the <code>.idx</code> file and the final 20-byte SHA checksum at the end of the <code>.pack</code> file?</li><li>How does the commit-graph generation number enable topological traversal algorithms to terminate early without walking unneeded branches?</li>
+        </ol>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #9a3412;">🧩 Situational Production Puzzle:</strong>
+        <p style="margin: 2px 0; color: #1e293b;">A developer runs ApexPlumbing on a 500MB packfile. The decoder resolves 99% of objects correctly, but throws an exception on a specific OFS_DELTA object: 'Negative offset or offset points past packfile boundary'.</p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3pt; margin: 2px 0;">
+          
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; padding: 2px 4px; border-radius: 2px; font-size: 6.8pt;">
+              <strong>A:</strong> The packfile has an encryption password. 
+            </div>
+          
+            <div style="background: #ffedd5; border: 1px solid #ea580c; padding: 2px 4px; border-radius: 2px; font-size: 6.8pt;">
+              <strong>B:</strong> Diagnose OFS_DELTA Variable-Length Offset Decoding Bug: In the OFS_DELTA format, the offset is encoded using a modified variable-length integer format where each byte except the last has the MSB set, and each byte after the first adds 1 to the accumulator before shifting (<code>offset = (offset + 1) << 7 | (byte & 0x7F)</code>). Implementing standard LEB128 without the '+1' offset adjustment calculates an incorrect byte position. <strong style="color: #9a3412;">✓ [Optimal Systems Architecture Decision]</strong>
+            </div>
+          
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; padding: 2px 4px; border-radius: 2px; font-size: 6.8pt;">
+              <strong>C:</strong> OFS_DELTA is only supported on 32-bit systems. 
+            </div>
+          
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; padding: 2px 4px; border-radius: 2px; font-size: 6.8pt;">
+              <strong>D:</strong> The packfile must be converted to JSON. 
+            </div>
+          
+        </div>
+        <div style="margin-top: 2px; color: #9a3412; font-size: 6.8pt;"><strong>Strategic Debrief:</strong> Git's OFS_DELTA uses a specialized variable-length encoding where each byte after the first increments the accumulator by 1 before shifting by 7 bits. Standard LEB128 decoding fails on multi-byte OFS_DELTA offsets.</div>
+      </div>
+
+      <div style="margin-top: 4pt; font-size: 7.2pt; border-top: 1px dashed #e2e8f0; padding-top: 3pt;">
+        <strong style="color: #9a3412;">4 Rigorous Quests (Concept &bull; Detective &bull; Mastery Assignment &bull; Incident Lab):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #ffedd5; color: #9a3412; padding: 1px 3px; border-radius: 2px;">Q35.137</span>
+      <strong>ApexPlumbing Systems Blueprint & Binary Decoder Specification</strong> <em>(Concept)</em>: <span style="color: #475569;">Document the complete systems blueprint of ApexPlumbing, specifying packfile parsing, variable-length integer decoding, delta chain resolution, and MIDX indexing.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #ffedd5; color: #9a3412; padding: 1px 3px; border-radius: 2px;">Q35.138</span>
+      <strong>The Truncated Packfile Checksum Corruption Detective Challenge</strong> <em>(Detective Challenge)</em>: <span style="color: #475569;">Investigate a corrupted enterprise packfile with invalid CRC32 checksums; isolate the damaged bytes and reconstruct the packfile integrity.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #ffedd5; color: #9a3412; padding: 1px 3px; border-radius: 2px;">Q35.139</span>
+      <strong>ApexPlumbing Production Packfile & Delta Decoder Platform</strong> <em>(Mastery Assignment)</em>: <span style="color: #475569;">Build the full ApexPlumbing binary decoder engine: an independent tool that parses .idx v2, unpacks OFS_DELTA/REF_DELTA chains, and verifies commit-graphs.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #ffedd5; color: #9a3412; padding: 1px 3px; border-radius: 2px;">Q35.140</span>
+      <strong>ApexPlumbing Milestone 4 Viva Defense & Low-Level Gate</strong> <em>(Production Incident Lab)</em>: <span style="color: #475569;">Defend ApexPlumbing before the Principal Systems Board under live adversarial packfile corruptions, deep delta chain attacks, and malformed index injections.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #ea580c;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #c2410c; color: #ffedd5; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">

@@ -1,0 +1,228 @@
+{
+  "day": 21,
+  "title": "Real-Time Operating System (RTOS) Physics: Hard vs Soft RTOS, Task Control Blocks & Stacks",
+  "goal": "Transition from bare-metal super-loops to multi-tasking operating systems: master FreeRTOS kernel internals. Understand hard vs soft real-time determinism, Task Control Blocks (TCB), per-task stack allocation, 0xA5 stack canary watermarking, and Rate Monotonic Scheduling (RMS) utilization bounds.",
+  "minutes": 36,
+  "recap": "In Block 4, we mastered DMA controllers, circular double-buffering, and hardware watchdogs. Today, we enter the world of concurrent embedded operating systems: the FreeRTOS real-time kernel.",
+  "parts": [
+    {
+      "title": "Hard vs Soft Real-Time Systems: Determinism, Bounded WCET & Deadlines",
+      "say": [
+        "A common misconception is that a Real-Time Operating System (RTOS) is simply a fast operating system; in reality, an RTOS is about predictability, not raw speed.",
+        "The defining metric of an RTOS is Determinism: the mathematical guarantee that a given task will execute within a strictly bounded time window regardless of system load.",
+        "In a Hard Real-Time System (such as an automotive airbag controller, cardiac pacemaker, or rocket attitude thruster), missing a deadline constitutes total system failure with catastrophic real-world consequences.",
+        "In a Soft Real-Time System (such as video streaming or a digital watch UI), missing a deadline causes degraded quality of service (dropped video frames) but no physical harm.",
+        "To guarantee hard real-time deadlines, every task must have a proven Worst-Case Execution Time (WCET).",
+        "General-purpose operating systems like Linux or Windows are soft real-time at best because virtual memory page faults, dynamic heap allocations, and complex CFS schedulers introduce unbounded latency jitter."
+      ],
+      "example": "An airbag deployment system: if the deceleration sensor fires, the airbag MUST inflate within exactly 15 milliseconds; deploying in 16 milliseconds is not 'a little late'—it is fatal.",
+      "code": "#include <iostream>\n#include <string>\n#include <iomanip>\n\nstruct TaskTimingProfile {\n    std::string taskName;\n    double bestCaseTimeMs;\n    double worstCaseTimeMs;\n    double deadlineMs;\n    bool isHardRealTime;\n\n    bool evaluateCompliance() const {\n        return worstCaseTimeMs <= deadlineMs;\n    }\n};\n\nvoid auditRealTimeSystem(const TaskTimingProfile& task) {\n    std::cout << \"[RTOS AUDIT] Task: \" << task.taskName \n              << \" (\" << (task.isHardRealTime ? \"HARD REAL-TIME\" : \"SOFT REAL-TIME\") << \")\\n\";\n    std::cout << \"  Best-Case:  \" << std::fixed << std::setprecision(2) << task.bestCaseTimeMs << \" ms\\n\";\n    std::cout << \"  Worst-Case: \" << task.worstCaseTimeMs << \" ms\\n\";\n    std::cout << \"  Deadline:   \" << task.deadlineMs << \" ms\\n\";\n\n    if (task.evaluateCompliance()) {\n        std::cout << \"  -> VERDICT: COMPLIANT (Margin: +\" << (task.deadlineMs - task.worstCaseTimeMs) << \" ms)\\n\";\n    } else {\n        std::cout << \"  -> VERDICT: DEADLINE VIOLATION! (Exceeded by \" \n                  << (task.worstCaseTimeMs - task.deadlineMs) << \" ms) - CATASTROPHIC!\\n\";\n    }\n}\n\nint main() {\n    TaskTimingProfile airbag = {\"Airbag Squib Trigger\", 2.10, 4.80, 5.00, true};\n    TaskTimingProfile display = {\"UI Screen Refresh\", 12.00, 22.00, 16.67, false};\n\n    auditRealTimeSystem(airbag);\n    std::cout << \"\\n\";\n    auditRealTimeSystem(display);\n    return 0;\n}",
+      "output": "[RTOS AUDIT] Task: Airbag Squib Trigger (HARD REAL-TIME)\n  Best-Case:  2.10 ms\n  Worst-Case: 4.80 ms\n  Deadline:   5.00 ms\n  -> VERDICT: COMPLIANT (Margin: +0.20 ms)\n\n[RTOS AUDIT] Task: UI Screen Refresh (SOFT REAL-TIME)\n  Best-Case:  12.00 ms\n  Worst-Case: 22.00 ms\n  Deadline:   16.67 ms\n  -> VERDICT: DEADLINE VIOLATION! (Exceeded by 5.33 ms) - CATASTROPHIC!",
+      "codeNotes": [
+        {
+          "line": 12,
+          "note": "Hard real-time compliance requires that Worst-Case Execution Time strictly <= Deadline"
+        },
+        {
+          "line": 34,
+          "note": "Airbag task completes within 4.8 ms WCET, safely meeting 5.0 ms hard deadline"
+        },
+        {
+          "line": 35,
+          "note": "UI display task misses 60Hz deadline by 5.33 ms, acceptable only in soft systems"
+        }
+      ],
+      "tryIt": "Reduce airbag WCET margin to negative and verify that the safety audit flags an immediate critical failure.",
+      "check": {
+        "question": "What is the defining requirement of a Hard Real-Time Operating System?",
+        "options": [
+          "It mathematically guarantees that critical tasks complete within bounded deadlines, where a single missed deadline causes total system failure",
+          "It has the highest raw gigahertz CPU frequency",
+          "It executes tasks without using a stack",
+          "It only runs on 64-bit processors"
+        ],
+        "answer": 0,
+        "why": "Hard real-time is defined by bounded determinism: missing a deadline is treated as a total system failure regardless of average speed."
+      }
+    },
+    {
+      "title": "The Task Control Block (TCB): Architecture, State & Stack Pointers",
+      "say": [
+        "In FreeRTOS, every task is represented by an internal kernel structure called the Task Control Block (`TCB_t`).",
+        "The very first member of the `TCB_t` struct is `pxTopOfStack`—a pointer to the current top of the task's private stack.",
+        "Placing `pxTopOfStack` at offset zero is a brilliant assembly optimization: in the context switcher, loading the TCB address into a register immediately gives direct access to the stack pointer without adding struct member offsets.",
+        "The TCB also stores the task's Name, Priority level (0 to `configMAX_PRIORITIES - 1`), Stack Base address, and two bidirectional list items (`xStateListItem` and `xEventListItem`).",
+        "At any given instant, a task exists in one of four states: RUNNING (actively executing on the CPU), READY (able to run, awaiting CPU time), BLOCKED (waiting for an event or timer delay), or SUSPENDED.",
+        "The FreeRTOS scheduler maintains these states by moving TCB list items between kernel priority lists (`pxReadyTasksLists`, `xDelayedTaskList1`, `xSuspendedTaskList`)."
+      ],
+      "example": "A TCB is like a pilot's flight manifest and cockpit clipboard: it records who the pilot is, their seniority (priority), where their flight bag is stored (stack pointer), and whether they are currently in the air, on standby at the gate, or resting between flights.",
+      "code": "#include <iostream>\n#include <string>\n#include <cstdint>\n\nenum class TaskState {\n    RUNNING,\n    READY,\n    BLOCKED,\n    SUSPENDED\n};\n\nstruct SimulatedTcb {\n    uint32_t* pxTopOfStack; // Offset 0: Critical for assembly context switch\n    uint32_t priority;\n    uint32_t* pxStackBase;\n    uint32_t stackSizeBytes;\n    std::string taskName;\n    TaskState state;\n};\n\nvoid inspectTcb(const SimulatedTcb& tcb) {\n    std::cout << \"[TCB INSPECTION] Task '\" << tcb.taskName << \"':\\n\";\n    std::cout << \"  pxTopOfStack: 0x\" << std::hex << (uintptr_t)tcb.pxTopOfStack \n              << \" (Offset 0 in TCB)\\n\";\n    std::cout << \"  Stack Base:   0x\" << (uintptr_t)tcb.pxStackBase \n              << \", Allocated: \" << std::dec << tcb.stackSizeBytes << \" bytes\\n\";\n    std::cout << \"  Priority:     \" << tcb.priority << \"\\n\";\n    std::string stateStr = \"READY\";\n    if (tcb.state == TaskState::RUNNING) stateStr = \"RUNNING\";\n    else if (tcb.state == TaskState::BLOCKED) stateStr = \"BLOCKED\";\n    std::cout << \"  Kernel State: \" << stateStr << \"\\n\";\n}\n\nint main() {\n    uint32_t mockStack[128]; // 512-byte stack\n    SimulatedTcb sensorTask = {\n        &mockStack[112],     // Top of stack (grows downward)\n        3,                   // Priority 3 (High)\n        mockStack,\n        512,\n        \"SensorSampler\",\n        TaskState::READY\n    };\n\n    inspectTcb(sensorTask);\n    return 0;\n}",
+      "output": "[TCB INSPECTION] Task 'SensorSampler':\n  pxTopOfStack: 0x... (Offset 0 in TCB)\n  Stack Base:   0x..., Allocated: 512 bytes\n  Priority:     3\n  Kernel State: READY",
+      "codeNotes": [
+        {
+          "line": 13,
+          "note": "pxTopOfStack must reside at byte offset 0 of TCB for single-instruction assembly access"
+        },
+        {
+          "line": 34,
+          "note": "Stack grows downward on ARM Cortex-M; top of stack is near the high address"
+        },
+        {
+          "line": 39,
+          "note": "Represents READY state waiting for scheduler dispatch"
+        }
+      ],
+      "tryIt": "Simulate transitioning the task state to BLOCKED when waiting for an I2C sensor reading.",
+      "check": {
+        "question": "Why is pxTopOfStack placed at byte offset 0 of the FreeRTOS Task Control Block (TCB_t)?",
+        "options": [
+          "So the assembly context switcher can read and update the task's stack pointer in a single instruction without calculating struct offsets",
+          "Because the C++ language requires it",
+          "To prevent compiler optimization errors",
+          "Because offset 0 is stored in Flash memory"
+        ],
+        "answer": 0,
+        "why": "By placing pxTopOfStack at offset 0, the assembly instruction 'LDR R0, [R1]' directly loads the stack pointer when R1 points to the TCB."
+      }
+    },
+    {
+      "title": "Per-Task Stack Allocation & Initialization of Fake Exception Stacking Frames",
+      "say": [
+        "In a bare-metal program, all code shares a single stack (the Main Stack Pointer, MSP).",
+        "In an RTOS, every task has its own completely independent stack allocated in SRAM.",
+        "When a new task is created (`xTaskCreate`), it is not running yet; how can the scheduler context-switch into it for the very first time?",
+        "The kernel solves this through Fake Exception Frame Initialization (`pxPortInitialiseStack`).",
+        "The kernel pre-populates the task's empty stack with an artificial 16-register hardware/software exception frame as if the task had already been interrupted.",
+        "The fake frame contains: xPSR (with Thumb bit 24 = 1), PC (set to the task's function address), LR (set to `prvTaskExitError`), R0 (set to the task parameter `pvParameters`), and zeros for R1–R12 and R4–R11.",
+        "When the scheduler performs its first context switch, it pops these fake registers; the CPU branches directly to the task entry function naturally!"
+      ],
+      "example": "Setting up a new rental apartment: before the tenant moves in, the landlord places keys on the counter, turns on the refrigerator, and leaves a welcome letter (fake stack frame) so the tenant can walk in and start living immediately.",
+      "code": "#include <iostream>\n#include <cstdint>\n#include <iomanip>\n\nstruct InitialStackFrame {\n    // Software saved registers (popped by PendSV)\n    uint32_t r4, r5, r6, r7, r8, r9, r10, r11;\n    // Hardware saved registers (popped automatically by Cortex-M hardware)\n    uint32_t r0;        // Task parameter (pvParameters)\n    uint32_t r1, r2, r3, r12;\n    uint32_t lr;        // Return address on task exit (error trap)\n    uint32_t pc;        // Task entry point function pointer\n    uint32_t xpsr;      // Program Status Register (Thumb bit = 1)\n};\n\nuint32_t* initializeTaskStack(uint32_t* stackTop, void (*taskFunc)(void*), void* param) {\n    stackTop--; // Decrement pointer\n    *stackTop = 0x01000000; // xPSR: Bit 24 (Thumb bit) MUST be 1\n    stackTop--;\n    *stackTop = (uint32_t)taskFunc; // PC: Points to task function\n    stackTop--;\n    *stackTop = 0x00000000; // LR: Task exit trap\n    stackTop--;\n    *stackTop = 0x12121212; // R12\n    stackTop--;\n    *stackTop = 0x03030303; // R3\n    stackTop--;\n    *stackTop = 0x02020202; // R2\n    stackTop--;\n    *stackTop = 0x01010101; // R1\n    stackTop--;\n    *stackTop = (uint32_t)param; // R0: Holds pvParameters argument!\n    \n    // R4 - R11 software registers (initialized to known debug values)\n    for (int r = 11; r >= 4; --r) {\n        stackTop--;\n        *stackTop = 0x04040400 + r;\n    }\n    return stackTop; // New pxTopOfStack\n}\n\nvoid dummyTask(void* p) {\n    std::cout << \"Task executing with param: \" << (uintptr_t)p << \"\\n\";\n}\n\nint main() {\n    uint32_t taskStack[64];\n    uint32_t* stackEnd = &taskStack[64]; // Top of allocated array\n\n    uint32_t* topOfStack = initializeTaskStack(stackEnd, dummyTask, (void*)0xCAFE);\n\n    std::cout << \"Initialized Fake Stack Frame for New Task:\\n\";\n    std::cout << \"  Stack Base:    0x\" << std::hex << (uintptr_t)taskStack << \"\\n\";\n    std::cout << \"  Initial Top:   0x\" << (uintptr_t)topOfStack << \"\\n\";\n    std::cout << \"  Frame Size:    \" << std::dec << (stackEnd - topOfStack) << \" words (16 registers)\\n\";\n    std::cout << \"  xPSR (at top): 0x01000000 (Thumb bit verified)\\n\";\n    return 0;\n}",
+      "output": "Initialized Fake Stack Frame for New Task:\n  Stack Base:    0x...\n  Initial Top:   0x...\n  Frame Size:    16 words (16 registers)\n  xPSR (at top): 0x01000000 (Thumb bit verified)",
+      "codeNotes": [
+        {
+          "line": 19,
+          "note": "Bit 24 of xPSR must be 1 (Thumb bit); if 0, Cortex-M generates an immediate UsageFault"
+        },
+        {
+          "line": 21,
+          "note": "Initializes PC to task entry point function address"
+        },
+        {
+          "line": 31,
+          "note": "R0 receives pvParameters pointer per ARM AAPCS calling convention"
+        }
+      ],
+      "tryIt": "Demonstrate what happens if xPSR bit 24 is set to 0: the ARM processor refuses to execute in non-Thumb mode.",
+      "check": {
+        "question": "Why must bit 24 (Thumb bit) of the xPSR register be set to 1 when initializing a new FreeRTOS task stack?",
+        "options": [
+          "ARM Cortex-M processors only support the Thumb-2 instruction set; a 0 in bit 24 triggers a fatal UsageFault exception on startup",
+          "To enable floating-point hardware",
+          "To double the size of the task stack",
+          "To enable the external crystal oscillator"
+        ],
+        "answer": 0,
+        "why": "ARM Cortex-M cores do not support legacy ARM 32-bit state; execution requires the Thumb bit (bit 24 of xPSR) to be asserted at all times."
+      }
+    },
+    {
+      "title": "Stack Overflow Detection: Canary Watermarking (0xA5) & High-Water Marks",
+      "say": [
+        "Stack overflow is the number one cause of mysterious crashes, memory corruption, and spontaneous resets in embedded systems.",
+        "If a task exceeds its allocated stack, it silently overwrites adjacent Task Control Blocks, heap variables, or other task stacks.",
+        "FreeRTOS provides two powerful stack overflow detection methods configured via `configCHECK_FOR_STACK_OVERFLOW`.",
+        "Method 1: During task switching, the kernel checks if the current stack pointer `pxTopOfStack` has fallen outside the allocated range `pxStackBase`.",
+        "Method 2 (Canary Watermarking): When a task is created, the kernel fills its entire stack with the signature canary byte `0xA5`.",
+        "The kernel inspects the last 16–32 bytes at the bottom of the stack; if any canary byte has been overwritten, the kernel halts and invokes `vApplicationStackOverflowHook()`.",
+        "The function `uxTaskGetStackHighWaterMark()` scans from the bottom to count intact `0xA5` bytes, returning the minimum unused stack space ever reached."
+      ],
+      "example": "Canary watermarking is like miners taking a canary into a coal mine: as long as the canary is alive (0xA5 intact), the air is safe; if the canary dies (0xA5 overwritten), everyone must evacuate immediately.",
+      "code": "#include <iostream>\n#include <vector>\n#include <cstdint>\n\nclass StackWatermarkInspector {\nprivate:\n    static const uint8_t CANARY_BYTE = 0xA5;\n    std::vector<uint8_t> stackMemory;\npublic:\n    StackWatermarkInspector(size_t sizeBytes) : stackMemory(sizeBytes, CANARY_BYTE) {}\n\n    void simulateTaskExecution(size_t stackUsedBytes) {\n        // Stack grows downward from end towards index 0\n        size_t total = stackMemory.size();\n        if (stackUsedBytes > total) {\n            stackUsedBytes = total; // Full overflow\n        }\n        for (size_t i = total - stackUsedBytes; i < total; ++i) {\n            stackMemory[i] = 0xAA; // Overwritten by active stack frames\n        }\n    }\n\n    size_t getStackHighWaterMark() const {\n        size_t intactCanaries = 0;\n        // Count intact 0xA5 bytes from bottom of stack (index 0)\n        for (size_t i = 0; i < stackMemory.size(); ++i) {\n            if (stackMemory[i] == CANARY_BYTE) {\n                intactCanaries++;\n            } else {\n                break;\n            }\n        }\n        return intactCanaries;\n    }\n\n    bool checkOverflow() const {\n        // Check first 16 canary bytes at bottom of stack\n        for (size_t i = 0; i < 16 && i < stackMemory.size(); ++i) {\n            if (stackMemory[i] != CANARY_BYTE) {\n                return true; // Overflow detected!\n            }\n        }\n        return false;\n    }\n};\n\nint main() {\n    StackWatermarkInspector taskStack(512); // 512-byte stack filled with 0xA5\n\n    std::cout << \"Initial Stack High-Water Mark: \" << taskStack.getStackHighWaterMark() << \" bytes unused\\n\";\n    taskStack.simulateTaskExecution(400); // Uses 400 bytes\n    std::cout << \"After 400-byte load: \" << taskStack.getStackHighWaterMark() \n              << \" bytes unused (Safe margin: 112 bytes)\\n\";\n\n    // Dangerous deep recursion consumes 510 bytes (destroys canary bottom)\n    taskStack.simulateTaskExecution(510);\n    std::cout << \"After heavy recursion: \" << taskStack.getStackHighWaterMark() << \" bytes unused\\n\";\n    if (taskStack.checkOverflow()) {\n        std::cout << \"[FATAL STACK OVERFLOW HOOK] 0xA5 Canary destroyed! Halting system safely.\\n\";\n    }\n    return 0;\n}",
+      "output": "Initial Stack High-Water Mark: 512 bytes unused\nAfter 400-byte load: 112 bytes unused (Safe margin: 112 bytes)\nAfter heavy recursion: 2 bytes unused\n[FATAL STACK OVERFLOW HOOK] 0xA5 Canary destroyed! Halting system safely.",
+      "codeNotes": [
+        {
+          "line": 10,
+          "note": "Pre-fills entire stack array with FreeRTOS standard 0xA5 canary byte"
+        },
+        {
+          "line": 22,
+          "note": "uxTaskGetStackHighWaterMark counts intact 0xA5 bytes from stack bottom"
+        },
+        {
+          "line": 49,
+          "note": "Traps stack overflow hook when bottom canary boundary is corrupted"
+        }
+      ],
+      "tryIt": "Demonstrate how stack tuning in production uses high-water marks to safely shrink oversized task stacks.",
+      "check": {
+        "question": "What is the standard canary byte used by FreeRTOS to watermark task stacks for overflow detection?",
+        "options": [
+          "0xA5",
+          "0x00",
+          "0xFF",
+          "0x55"
+        ],
+        "answer": 0,
+        "why": "FreeRTOS fills stack memory with 0xA5 upon creation; checking whether the 0xA5 pattern at the stack limit has been altered reveals whether an overflow occurred."
+      }
+    },
+    {
+      "title": "Rate Monotonic Scheduling (RMS) Mathematical Utilization Bounds",
+      "say": [
+        "How does an embedded systems architect prove mathematically that a set of real-time tasks will ALWAYS meet their deadlines?",
+        "The foundation of real-time scheduling theory is Rate Monotonic Scheduling (RMS), established by Liu and Layland in 1973.",
+        "Under RMS, task priorities are assigned strictly by period: the shorter the period (higher rate), the higher the priority.",
+        "Liu and Layland proved that a set of N periodic tasks is guaranteed to meet all deadlines if total CPU utilization satisfies: U = sum(C_i / T_i) <= N * (2^(1/N) - 1).",
+        "For N=1, U <= 100%. For N=2, U <= 82.8%. For N=3, U <= 78.0%. As N approaches infinity, the bound converges to ln(2) = 69.3%.",
+        "If total utilization is below 69.3%, all tasks are mathematically guaranteed to meet all hard deadlines under all conditions without exception."
+      ],
+      "example": "A busy highway speed limit: if the highway operates at under 69% capacity, traffic is mathematically guaranteed to flow smoothly without stop-and-go phantom shockwaves.",
+      "code": "#include <iostream>\n#include <vector>\n#include <cmath>\n#include <iomanip>\n\nstruct PeriodicTask {\n    std::string name;\n    double computationTimeMs; // C_i\n    double periodMs;          // T_i\n\n    double getUtilization() const {\n        return computationTimeMs / periodMs;\n    }\n};\n\nclass RmsSchedulerAnalyzer {\npublic:\n    static double calculateRmsBound(size_t n) {\n        if (n == 0) return 0.0;\n        return (double)n * (std::pow(2.0, 1.0 / n) - 1.0);\n    }\n\n    static void evaluateTaskSet(const std::vector<PeriodicTask>& tasks) {\n        double totalU = 0.0;\n        std::cout << \"Rate Monotonic Scheduling (RMS) Mathematical Evaluation:\\n\";\n        for (const auto& t : tasks) {\n            double u = t.getUtilization();\n            totalU += u;\n            std::cout << \"  Task '\" << t.name << \"': C=\" << t.computationTimeMs \n                      << \"ms, T=\" << t.periodMs << \"ms -> U = \" \n                      << std::fixed << std::setprecision(1) << (u * 100.0) << \"%\\n\";\n        }\n\n        double bound = calculateRmsBound(tasks.size());\n        std::cout << \"  --------------------------------------------------\\n\";\n        std::cout << \"  Total Utilization:   \" << (totalU * 100.0) << \"%\\n\";\n        std::cout << \"  Liu-Layland Bound:   \" << (bound * 100.0) << \"% (for N=\" << tasks.size() << \")\\n\";\n\n        if (totalU <= bound) {\n            std::cout << \"  -> THEORETICALLY GUARANTEED SCHEDULABLE: All hard deadlines met!\\n\";\n        } else if (totalU <= 1.0) {\n            std::cout << \"  -> FEASIBLE BUT NOT GUARANTEED: Requires exact response-time analysis.\\n\";\n        } else {\n            std::cout << \"  -> UNSCHEDULABLE: CPU overloaded (>100%), deadline misses inevitable!\\n\";\n        }\n    }\n};\n\nint main() {\n    std::vector<PeriodicTask> avionics = {\n        {\"FlightControlLoop\", 1.0,  10.0}, // U = 10% (T=10ms, Highest Pri)\n        {\"NavigationFilter\",  5.0,  25.0}, // U = 20% (T=25ms, Med Pri)\n        {\"TelemetryStream\",  15.0,  50.0}  // U = 30% (T=50ms, Low Pri)\n    };\n    RmsSchedulerAnalyzer::evaluateTaskSet(avionics);\n    return 0;\n}",
+      "output": "Rate Monotonic Scheduling (RMS) Mathematical Evaluation:\n  Task 'FlightControlLoop': C=1.0ms, T=10.0ms -> U = 10.0%\n  Task 'NavigationFilter': C=5.0ms, T=25.0ms -> U = 20.0%\n  Task 'TelemetryStream': C=15.0ms, T=50.0ms -> U = 30.0%\n  --------------------------------------------------\n  Total Utilization:   60.0%\n  Liu-Layland Bound:   78.0% (for N=3)\n  -> THEORETICALLY GUARANTEED SCHEDULABLE: All hard deadlines met!",
+      "codeNotes": [
+        {
+          "line": 17,
+          "note": "Calculates Liu-Layland RMS utilization bound: N * (2^(1/N) - 1)"
+        },
+        {
+          "line": 25,
+          "note": "Sums individual task utilizations C_i / T_i"
+        },
+        {
+          "line": 34,
+          "note": "Total 60% utilization <= 78.0% bound: mathematically proves 100% deadline compliance"
+        }
+      ],
+      "tryIt": "Increase Telemetry computation time to 25.0 ms (U=50%) and observe how total utilization crosses the 78% bound.",
+      "check": {
+        "question": "Under Rate Monotonic Scheduling (RMS), what is the asymptotic Liu-Layland utilization bound as the number of tasks approaches infinity?",
+        "options": [
+          "ln(2) ≈ 69.3%",
+          "100.0%",
+          "50.0%",
+          "90.0%"
+        ],
+        "answer": 0,
+        "why": "As N approaches infinity, N * (2^(1/N) - 1) converges mathematically to ln(2) = 0.69314... (approx 69.3%)."
+      }
+    }
+  ],
+  "summary": [
+    "Hard real-time systems require mathematical determinism where Worst-Case Execution Time (WCET) strictly meets bounded deadlines.",
+    "FreeRTOS Task Control Blocks (TCB) store pxTopOfStack at offset 0 for single-instruction assembly context switching.",
+    "New task stacks are initialized with a fake 16-register exception frame (R0-R15, xPSR) with Thumb bit 24 set to 1.",
+    "Stack canary watermarking fills memory with 0xA5, enabling uxTaskGetStackHighWaterMark and vApplicationStackOverflowHook.",
+    "Rate Monotonic Scheduling (RMS) assigns priorities by period, guaranteeing schedulability when total utilization is below the Liu-Layland bound (approx 69.3%)."
+  ],
+  "projectStep": {
+    "title": "Construct a Preemptive TCB Architecture with Stack Canary Watermarking and RMS Analysis",
+    "steps": [
+      "Implement a Task Control Block (TCB) structure with pxTopOfStack aligned at byte offset 0.",
+      "Construct a fake exception stacking initialization engine populating R0–R15 with Thumb bit verification.",
+      "Pre-fill task stacks with 0xA5 canary bytes and implement a high-water mark stack overflow detector.",
+      "Calculate Liu-Layland mathematical utilization bounds for multi-rate periodic task sets.",
+      "Verify task state transitions between READY, RUNNING, and BLOCKED queues."
+    ]
+  }
+}

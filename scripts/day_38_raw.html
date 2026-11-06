@@ -1,0 +1,66 @@
+<h1>Day 38: The Universal Object Contract: equals(), hashCode(), and Reference Identity (==)</h1>
+
+          <span class="stage-pill" style="background: #e0f2fe; color: #0369a1;">Stage 2: Defensive Fluency</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 8 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #0369a1; font-weight: 600;">Goal:</span> Master java.lang.Object core methods. Understand why overriding equals() requires overriding hashCode(), and the catastrophic consequences of breaking this contract.<br>
+          <span style="color: #15803d; font-weight: 600;">Invariant:</span> If two objects are equal according to equals(Object), calling hashCode() on each must produce the exact same integer value. == compares memory addresses; equals() compares field values.
+        </div>
+        <div style="background: #fef2f2; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fecaca; color: #991b1b;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Failing to override hashCode() when overriding equals() causes HashSet and HashMap to duplicate keys or return null on lookups of mathematically identical objects.<br>
+          <strong>tryIt Friction:</strong> Override both equals() and hashCode() on an AccountKey class so that set.contains(new AccountKey("ACC-101")) correctly evaluates to true.
+        </div>
+      </div>
+
+      <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #1e40af;">💡 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #0369a1;">[1. Nudge: "Why does set.contains(new AccountKey("ACC-101")) return false even though an AccountKey with "ACC-101" was already added?"]</span> &rarr;
+        <span style="color: #b45309;">[2. Memory: "Because without overriding hashCode(), Java uses System.identityHashCode (memory address). The two instances land in completely different hash buckets!"]</span> &rarr;
+        <span style="color: #15803d;">[3. Fix: "Implement consistent equals() and Objects.hash(id) to ensure identical keys map to the exact same bucket."]</span>
+      </div>
+
+      <div style="background: #fdf4ff; border: 1px solid #f0abfc; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #86198f;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"An engineer creates a class CurrencyPair { String base; String quote; } and overrides equals() but forgets hashCode(). They add 10,000 rates to a HashMap<CurrencyPair, Double>. What happens when they query map.get(new CurrencyPair("USD", "EUR"))?"</em><br>
+        <strong>Correct:</strong> Option B) It returns null almost every time because the lookup checks the wrong bucket based on memory address instead of fields. &bull;
+        <span style="color: #701a75;"><strong>Debrief:</strong> The HashMap uses hashCode() to locate the bucket array index. If hashCode() is not overridden, two logically identical objects produce different hash codes and land in different buckets, making retrieval impossible.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 38 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d38-q1</span>
+      <strong>The equals() and hashCode() Mathematical Contract</strong> <em>(concept)</em>: <span style="color: #475569;">Trace hash bucket routing and proof of why equal objects must produce identical hash codes.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d38-q2</span>
+      <strong>Detective Lab: The Phantom Key in the HashMap</strong> <em>(detective)</em>: <span style="color: #475569;">Diagnose and fix a broken equals/hashCode implementation causing lost lookups in a cache.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d38-q3</span>
+      <strong>Mastery Assignment: Bulletproof Domain Entity Identity</strong> <em>(assignment)</em>: <span style="color: #475569;">Implement consistent equals(), hashCode(), and toString() with defensive null handling on AccountId.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d38-q4</span>
+      <strong>Production Incident Lab: Memory Address Hash Code Outage</strong> <em>(detective)</em>: <span style="color: #475569;">Resolve a critical billing duplicate-payment bug caused by default identityHashCode in hash sets.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #2563eb; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">

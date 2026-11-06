@@ -1,0 +1,66 @@
+<h1>Day 36: Inheritance Hierarchies — extends, super Constructor Chaining & Code Reuse</h1>
+
+          <span class="stage-pill" style="background: #e0f2fe; color: #0369a1;">Stage 2: Defensive Fluency</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 8 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #0369a1; font-weight: 600;">Goal:</span> Master class inheritance using extends, constructor chaining with super(), and the "is-a" relationship.<br>
+          <span style="color: #15803d; font-weight: 600;">Invariant:</span> A subclass constructor MUST invoke a superclass constructor on its very first line (either implicitly or via super()).
+        </div>
+        <div style="background: #fef2f2; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fecaca; color: #991b1b;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Calling super() on line 2 after executing subclass statements triggers compile error "call to super must be first statement in constructor".<br>
+          <strong>tryIt Friction:</strong> Move super(accountId, initialBalance) to the very first line of the SavingsAccount constructor.
+        </div>
+      </div>
+
+      <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #1e40af;">💡 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #0369a1;">[1. Nudge: "Why is the compiler rejecting super(...) on line 5?"]</span> &rarr;
+        <span style="color: #b45309;">[2. Memory: "The JVM specification requires the parent class to initialize its memory before the child class initializes its own fields."]</span> &rarr;
+        <span style="color: #15803d;">[3. Fix: "Move "super(...);" to line 1 of the constructor body."]</span>
+      </div>
+
+      <div style="background: #fdf4ff; border: 1px solid #f0abfc; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #86198f;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"A subclass constructor performs: "this.interestRate = 0.05; super(name);". javac throws "call to super must be first statement in constructor". Why does Java enforce this strict rule?"</em><br>
+        <strong>Correct:</strong> Option B) The parent class memory layout must be initialized before the child class can safely execute any code or reference parent fields. &bull;
+        <span style="color: #701a75;"><strong>Debrief:</strong> Parent class fields must be constructed before child code executes. Placing super() anywhere other than line 1 risks accessing uninitialized parent state.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 36 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d36-q1</span>
+      <strong>Superclass Constructor Chaining</strong> <em>(concept)</em>: <span style="color: #475569;">Trace Object -> Parent -> Child constructor execution sequence in memory.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d36-q2</span>
+      <strong>Detective Lab: The Misplaced Super Constructor</strong> <em>(detective)</em>: <span style="color: #475569;">Fix constructor ordering in a specialized corporate account hierarchy.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d36-q3</span>
+      <strong>Mastery Assignment: Specialized Account Hierarchy</strong> <em>(assignment)</em>: <span style="color: #475569;">Create SavingsAccount (with interest) and CheckingAccount (with overdraft) extending BankAccount.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d36-q4</span>
+      <strong>Production Incident Lab: Partial Subclass Construction Crash</strong> <em>(detective)</em>: <span style="color: #475569;">Debug uninitialized parent state accessed by prematurely invoked virtual methods.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #2563eb; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">

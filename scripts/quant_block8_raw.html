@@ -1,0 +1,336 @@
+6 engine to a 2,000-event multi-strike stress run with spot gaps and volatility spikes, proving profitability and strict risk limits.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #f59e0b;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #0f172a; color: #f59e0b; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 36</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Cross-Venue Latency Arbitrage & Multi-Exchange Order Book Routing</strong>
+          <span class="stage-pill" style="background: #fef3c7; color: #92400e;">Stage 2: Advanced Quantitative Systems & Hardware Acceleration</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 8 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #b45309; font-weight: 600;">Goal:</span> In equity and derivatives markets, the exact same asset (e.g., SPY ETF or Apple stock) trades simultaneously across 16 different US exchanges—NASDAQ, NYSE, BATS, EDGX, IEX, and Chicago venues. When an event happens, information travels at the speed of light through fiber and microwave networks. For a window of 5 to 50 microseconds, the price changes on NASDAQ in New Jersey before the quote updates on the Chicago Stock Exchange or BATS. This creates Cross-Venue Latency Arbitrage. Today, you will analyze the mechanics of cross-venue price discrepancies, synthetic cross-rates, and order arrival race conditions. You will explore how high-frequency trading firms race to pick off stale quotes, how market makers use speed-of-light microwave links to cancel quotes before arbitrageurs arrive, and how Smart Order Routers (SORs) split orders across fragmented venues using mathematical probabilistic fills to minimize adverse selection!<br>
+          <span style="color: #047857; font-weight: 600;">Invariant:</span> <code>Latency Arbitrage Invariant: In fragmented markets, identical assets decouple across physical geographic locations during the speed-of-light propagation window; the first packet to cross the matching engine gateway wins the fill, while trailing packets suffer rejection or adverse fills.</code>
+        </div>
+        <div style="background: #fffbeb; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fef3c7; color: #92400e;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Firing two legs of a cross-exchange arbitrage trade sequentially; the first leg fills on NASDAQ, but a 15-microsecond network hiccup delays the second leg to BATS; by the time the order arrives, the stale quote was already cancelled, leaving the firm with an unhedged $2M naked directional position.<br>
+          <strong>tryIt Friction:</strong> Construct a Cross-Venue Latency Arbitrage Simulator in TypeScript: maintain dual Order Books for Exchange A (NY4) and Exchange B (Secaucus) with simulated microwave propagation delays (12 microseconds); detect crossed markets (Bid A > Ask B); fire concurrent execution packets; and implement atomic rollback logic if the second leg fails to fill.
+        </div>
+      </div>
+
+      <div style="background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #065f46;">🪜 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #047857;">[1. Nudge: "Why must an arbitrageur fire both legs of a cross-venue trade concurrently rather than waiting for leg 1 to confirm before firing leg 2?"]</span> &rarr;
+        <span style="color: #065f46;">[2. Memory: "Waiting for an execution report takes at least one round-trip time (e.g. 20-50 microseconds), by which time the stale quote on venue B will be gone."]</span> &rarr;
+        <span style="color: #064e3b;">[3. Fix: "Concurrent firing is mandatory, but requires managing 'legging risk' when leg 1 fills and leg 2 gets rejected."]</span>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #0f172a;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"Your latency arbitrage engine detects that Microsoft is bid at $400.05 on NASDAQ (Carteret) while BATS (Secaucus) is offering at $400.00. The engine fires two aggressive limit orders simultaneously. Leg 1 fills immediately on BATS. Leg 2 on NASDAQ arrives 4 microseconds after an internal quote cancellation by the market maker and is rejected. The engine now holds 5,000 unhedged long shares as Microsoft begins falling. What is this phenomenon called, and what architectural remedy is required?"</em><br>
+        <strong>Correct:</strong> Option B) Legging Risk (One-Legged Execution): When concurrent arbitrage orders encounter asymmetric cancellation, the arbitrageur gets stuck with naked directional risk. The system must immediately execute an automated panic unwind (liquidation or synthetic hedge on a third venue) within microseconds. &bull;
+        <span style="color: #b45309;"><strong>Debrief:</strong> Option B is correct. Legging risk is the existential danger of multi-venue arbitrage. Because orders are independent packets on separate networks, one leg can fill while the other gets rejected. Production arbitrage engines must have immediate sub-microsecond panic unwind routines that liquidate the orphaned leg or hedge in correlated futures to cap downside risk.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 36 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q36.1</span>
+      <strong>Cross-Market Fragmentation & Geographic Speed-of-Light Physics</strong> <em>(Concept Quest)</em>: <span style="color: #475569;">Analyze the geographical distribution of US financial data centers (Carteret, Secaucus, Mahwah, Aurora) and calculate light-propagation latency windows.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q36.2</span>
+      <strong>Legging Risk & Asymmetric Fill Failure Forensics</strong> <em>(Detective Challenge)</em>: <span style="color: #475569;">Dissect trading logs where latency discrepancies led to partial fills and quantify the drawdown caused by delayed unwind logic.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q36.3</span>
+      <strong>Multi-Venue Order Book Router & Concurrent Arbitrage Engine</strong> <em>(Mastery Assignment)</em>: <span style="color: #475569;">Implement a cross-exchange arbitrage detector and concurrent execution manager in TypeScript with automated legging unwind safeguards.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q36.4</span>
+      <strong>Simulated Dual-Venue Speed Race & Panic Unwind Lab</strong> <em>(Production Incident Lab)</em>: <span style="color: #475569;">Deploy the engine in a simulated 12-microsecond latency environment with 20% leg-drop probability, validating that unhedged exposure is neutralized instantly.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #f59e0b;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #0f172a; color: #f59e0b; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 37</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Cryptocurrency & FX Market Microstructure</strong>
+          <span class="stage-pill" style="background: #fef3c7; color: #92400e;">Stage 2: Advanced Quantitative Systems & Hardware Acceleration</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 8 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #b45309; font-weight: 600;">Goal:</span> While traditional equity markets operate on rigid exchange opening hours, centralized clearinghouses, and sub-millisecond matching engines, 24/7 global cryptocurrency and FX markets present unique microstructure challenges. Today, you will explore the mechanics of Perpetual Futures (Perps)—derivatives with no expiration date that rely on periodic Funding Rate payments (typically every 8 hours) to tether perp prices to spot index prices. You will model the Cash-and-Carry Basis Trade (holding spot while shorting perp to harvest positive funding rates), analyze liquidation cascades triggered by automated deleveraging engines, and examine the unique latency profiles of public WebSocket feeds and cloud-hosted matching engines (AWS Tokyo, Dublin) where network jitter and rate limits replace dedicated optical cross-connects!<br>
+          <span style="color: #047857; font-weight: 600;">Invariant:</span> <code>Perpetual Microstructure Invariant: Perpetual futures tether to spot indices via dynamic funding rates; divergence between perp mark price and spot index creates basis trading yields or liquidation cascade pressures.</code>
+        </div>
+        <div style="background: #fffbeb; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fef3c7; color: #92400e;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Running a crypto basis arbitrage trade on an offshore venue without monitoring funding rate sign flips; the funding rate turns deeply negative (-0.15% per 8h) during a prolonged bear decline, causing the strategy to hemorrhage capital while paying funding payments on its short perp hedge.<br>
+          <strong>tryIt Friction:</strong> Construct a Perpetual Funding Arbitrage Simulator in TypeScript: track spot index and perp mark prices; compute theoretical 8-hour funding rate payments; execute basis positions when annualized yield exceeds 15%; and implement automated position exit when funding rates invert.
+        </div>
+      </div>
+
+      <div style="background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #065f46;">🪜 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #047857;">[1. Nudge: "Why do perpetual futures need a funding rate mechanism?"]</span> &rarr;
+        <span style="color: #065f46;">[2. Memory: "Because unlike traditional futures, perps have no delivery date or expiry where prices are forced to converge to spot."]</span> &rarr;
+        <span style="color: #064e3b;">[3. Fix: "The funding rate continuously penalizes whichever side (long or short) is pushing the perp price away from the underlying spot index."]</span>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #0f172a;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"A quantitative fund engages in a cash-and-carry basis trade: long $10,000,000 spot Bitcoin, short $10,000,000 Bitcoin perpetual futures. The market experiences an extreme 20% flash crash in 15 minutes. The fund's net Delta was zero, but its prime broker suddenly liquidates the short perp position on the exchange, causing a $1,500,000 realized loss. Spot Bitcoin was held in cold custody. What caused the liquidation?"</em><br>
+        <strong>Correct:</strong> Option B) Isolated Margin Exhaustion & Cross-Collateral Disconnect: Even though the aggregate portfolio was Delta-neutral, the short perp required exchange-posted margin. The rapid price drop was accompanied by wild basis expansion and margin requirements, or the spot was not cross-margined on the derivative exchange, causing isolated margin liquidation. &bull;
+        <span style="color: #b45309;"><strong>Debrief:</strong> Option B is correct. In crypto basis trading, holding spot in custody while shorting perps on an exchange introduces severe margin risk. If margin on the exchange is isolated or not cross-collateralized by the spot asset, sharp price fluctuations can liquidate the exchange derivative position before the trader can transfer collateral, breaking the hedge and causing massive losses.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 37 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q37.1</span>
+      <strong>Perpetual Contract Mechanics & Funding Rate Mechanics</strong> <em>(Concept Quest)</em>: <span style="color: #475569;">Analyze the mathematical formulation of perpetual futures funding rates, mark price calculations, and basis yield dynamics.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q37.2</span>
+      <strong>Liquidation Cascade & Isolated Margin Squeeze Forensics</strong> <em>(Detective Challenge)</em>: <span style="color: #475569;">Trace exchange order books during a crypto liquidation cascade to examine how automated deleveraging triggers flash crashes.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q37.3</span>
+      <strong>Cash-and-Carry Basis Arbitrage Engine Implementation</strong> <em>(Mastery Assignment)</em>: <span style="color: #475569;">Build an automated basis arbitrage engine in TypeScript calculating live funding yields, basis spreads, and dynamic margin health ratios.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q37.4</span>
+      <strong>Extreme Basis Inversion & Liquidation Stress Lab</strong> <em>(Production Incident Lab)</em>: <span style="color: #475569;">Simulate a 30% price drop and severe funding rate inversion, demonstrating automated risk de-risking before margin thresholds are breached.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #f59e0b;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #0f172a; color: #f59e0b; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 38</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Exchange Fee Optimization & Maker-Taker Tier Economics</strong>
+          <span class="stage-pill" style="background: #fef3c7; color: #92400e;">Stage 2: Advanced Quantitative Systems & Hardware Acceleration</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 8 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #b45309; font-weight: 600;">Goal:</span> In high-frequency trading, edge is measured in fractions of a cent per share (mils). The difference between a profitable quant desk and a failed one frequently comes down to exchange fee economics. Exchanges operate on different pricing models: Maker-Taker venues (paying a rebate to limit orders that provide liquidity, charging a fee to market orders that take liquidity), Taker-Maker or Inverted venues (paying a rebate to takers, charging makers), and Flat venues. Today, you will analyze exchange fee schedules, volume tier thresholds, and cancel-to-fill ratio penalties. You will discover how inverted venues allow market makers to queue ahead of competition by paying to take, how volume tiers dramatically alter the net profit of algorithmic strategies, and how to design smart order routing logic that dynamically accounts for all-in exchange economics!<br>
+          <span style="color: #047857; font-weight: 600;">Invariant:</span> <code>Fee Optimization Invariant: In high-frequency market making, exchange fee rebates often constitute 50% to 100% of net strategy profitability; routing decisions must optimize for all-in economics (gross spread plus maker rebate minus taker fee).</code>
+        </div>
+        <div style="background: #fffbeb; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fef3c7; color: #92400e;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> An algorithmic strategy increases quoting frequency to capture wider gross spreads, but its fill rate drops to 0.5%; the exchange imposes a severe $0.01 per order penalty for exceeding the maximum Cancel-to-Fill ratio (over 100:1), resulting in a $65,000 monthly regulatory penalty.<br>
+          <strong>tryIt Friction:</strong> Construct an All-In Execution Cost Engine in TypeScript: model fee schedules for Maker-Taker venues (NASDAQ: -$0.0029 rebate / +$0.0030 fee) and Inverted venues (BATY: +$0.0015 maker fee / -$0.0014 taker rebate); evaluate net PnL across varying fill probabilities; and enforce Cancel-to-Fill ratio limits to avoid exchange throttling penalties.
+        </div>
+      </div>
+
+      <div style="background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #065f46;">🪜 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #047857;">[1. Nudge: "Why would any trader choose to post liquidity on an 'inverted' venue where makers must pay a fee instead of earning a rebate?"]</span> &rarr;
+        <span style="color: #065f46;">[2. Memory: "Because taker orders go there first to earn the taker rebate! Fill probability is much higher and queue times are much shorter on inverted venues."]</span> &rarr;
+        <span style="color: #064e3b;">[3. Fix: "Inverted venues are ideal when adverse selection is low or when immediate execution priority is worth more than the standard maker rebate."]</span>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #0f172a;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"A quantitative market maker runs a high-volume passive quoting strategy. At the end of the month, the trading log shows $450,000 in gross spread profits. However, the prime broker statement shows a net strategy loss of -$30,000! Upon auditing the exchange billing detail, the engineer finds that the firm missed the top exchange volume tier by 0.2% of market share, causing maker rebates to drop from 30 mils ($0.0030) to 20 mils ($0.0020) across 500M shares. What lesson does this teach?"</em><br>
+        <strong>Correct:</strong> Option B) Tier Economics Supremacy: In ultra-high-frequency strategies where gross trading margins are razor-thin, qualifying for top exchange rebate tiers is make-or-break. Strategies must dynamically track cumulative monthly volume and route marginal flow to defend tier qualification. &bull;
+        <span style="color: #b45309;"><strong>Debrief:</strong> Option B is correct. In institutional HFT, gross trading alpha is often small; the bulk of realized revenue is derived from exchange maker rebates. Slipping below a volume tier can reduce rebates by 5 to 10 mils per share across hundreds of millions of shares, converting a highly profitable desk into an unprofitable one.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 38 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q38.1</span>
+      <strong>Maker-Taker vs Inverted Fee Economics & Routing Mechanics</strong> <em>(Concept Quest)</em>: <span style="color: #475569;">Analyze fee structures across US equity exchanges and model how inverted venue economics impact fill probabilities.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q38.2</span>
+      <strong>Cancel-to-Fill Penalty & Volume Tier Threshold Forensics</strong> <em>(Detective Challenge)</em>: <span style="color: #475569;">Investigate exchange billing statements to identify penalty fees from excessive order cancellation and analyze tier boundary impacts.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q38.3</span>
+      <strong>Smart Order Routing Fee Optimizer Implementation</strong> <em>(Mastery Assignment)</em>: <span style="color: #475569;">Build an execution router in TypeScript evaluating all-in net execution costs (spread, fees, rebates) across multiple venue schedules.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q38.4</span>
+      <strong>Exchange Billing Simulation & Tier Qualification Lab</strong> <em>(Production Incident Lab)</em>: <span style="color: #475569;">Run a 100,000-order simulated trading month, optimizing routing to secure tier-1 rebate qualification while avoiding cancel penalties.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #f59e0b;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #0f172a; color: #f59e0b; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 39</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Order Queue Priority Simulation & Cancellation Attribution</strong>
+          <span class="stage-pill" style="background: #fef3c7; color: #92400e;">Stage 2: Advanced Quantitative Systems & Hardware Acceleration</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 8 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #b45309; font-weight: 600;">Goal:</span> In Level 2 market data, you only know that there are 10,000 shares resting at $100.00. But if you submit a limit order to buy 100 shares, where are you in line? If you are 10th in line (shares 9,901 to 10,000), you will only get filled if 10,000 shares of market sell orders arrive. But worse: orders in front of you might get cancelled! Today, you will master Order Queue Priority Modeling and Cancellation Attribution using Level 3 market data. You will model queue depletion as a competing risks process: trades consume liquidity from the front of the queue, while cancellations deplete liquidity probabilistically across the entire depth. You will calculate the Cancellation Hazard Rate and implement the famous Cont-Stoikov Markovian queue position model to estimate your exact fill probability and expected time-to-fill for any resting order!<br>
+          <span style="color: #047857; font-weight: 600;">Invariant:</span> <code>Queue Depletion Invariant: In a FIFO price-time matching engine, queue size diminishes via executions at the queue head and cancellations distributed throughout the queue; failure to model cancellations results in severe underestimation of fill speed.</code>
+        </div>
+        <div style="background: #fffbeb; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fef3c7; color: #92400e;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Assuming that all orders ahead of a resting limit order must be filled by incoming trades; when market volatility spikes, 80% of orders ahead cancel within 2 milliseconds; the resting order gets unexpectedly filled at the worst possible moment by toxic flow.<br>
+          <strong>tryIt Friction:</strong> Construct a Level 3 FIFO Queue Simulator in TypeScript: track individual resting orders with unique IDs; simulate incoming trade executions and cancellation hazard rates; track an agent order's exact position as preceding orders execute or cancel; and compute empirical fill probability vs theoretical Markov predictions.
+        </div>
+      </div>
+
+      <div style="background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #065f46;">🪜 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #047857;">[1. Nudge: "If there are 5,000 shares ahead of you in the queue and 2,000 shares trade, why might your queue position advance by 4,000 shares?"]</span> &rarr;
+        <span style="color: #065f46;">[2. Memory: "Because during the same time window, market makers in front of you cancelled 2,000 shares of their resting orders."]</span> &rarr;
+        <span style="color: #064e3b;">[3. Fix: "Cancellations accelerate your queue progression toward the front of the book."]</span>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #0f172a;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"A quantitative backtest assumes a passive limit order only gets filled after total executed exchange volume at that price level exceeds the order's initial queue depth. The backtest shows an incredible 4.2 Sharpe ratio. When deployed to live production, the strategy suffers continuous losses. Why did the live performance diverge completely from the backtest?"</em><br>
+        <strong>Correct:</strong> Option B) Flawed Queue Modeling & Adverse Selection Neglect: The backtest ignored cancellations (assuming you had to wait for all volume to trade) and ignored adverse selection. In reality, preceding orders cancel rapidly when informed flow arrives, causing live orders to get filled predominantly by toxic trades that move against the position. &bull;
+        <span style="color: #b45309;"><strong>Debrief:</strong> Option B is correct. Naive backtests that do not model queue position and cancellation hazard rates suffer from massive simulation bias. In reality, high-frequency traders cancel ahead of toxic news; if your order remains, it gets filled precisely when the price is about to crash through the level (the 'winner's curse' or adverse selection).</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 39 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q39.1</span>
+      <strong>FIFO Matching Priority & Competing Risks Queue Dynamics</strong> <em>(Concept Quest)</em>: <span style="color: #475569;">Analyze FIFO queue mechanics, order cancellation hazard rates, and the Cont-Stoikov queue progression model.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q39.2</span>
+      <strong>Adverse Selection & Flawed Queue Simulation Forensics</strong> <em>(Detective Challenge)</em>: <span style="color: #475569;">Diagnose backtest discrepancies where ignoring order cancellations masked toxic fills and created phantom trading alpha.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q39.3</span>
+      <strong>Level 3 Queue Priority & Hazard Rate Tracker Implementation</strong> <em>(Mastery Assignment)</em>: <span style="color: #475569;">Build an L3 queue position tracking engine in TypeScript estimating real-time queue rank and fill probability under live market events.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q39.4</span>
+      <strong>Adverse Fill Shock & Queue Depletion Simulation Lab</strong> <em>(Production Incident Lab)</em>: <span style="color: #475569;">Simulate a live queue under toxic order flow with rapid preceding cancellations, verifying that adverse selection warnings fire before toxic fills occur.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #f59e0b;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #0f172a; color: #f59e0b; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 40</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Milestone Project 7: Multi-Venue Cross-Exchange Statistical Arbitrage Engine</strong>
+          <span class="stage-pill" style="background: #fef3c7; color: #92400e;">Stage 2: Advanced Quantitative Systems & Hardware Acceleration</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 8 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #b45309; font-weight: 600;">Goal:</span> Outstanding progress! You have completed Block 8. Today is Milestone Project 7: you will design, engineer, and validate a full-scale Multi-Venue Cross-Exchange Statistical Arbitrage and Smart Routing Platform. Your platform will maintain synchronized Order Books across 3 distinct exchange venues (e.g. Venue A, Venue B, Venue C) with realistic inter-venue network latencies (10 to 40 microseconds). It will detect synthetic price discrepancies and crossed markets, optimize all-in execution economics (incorporating maker-taker rebates and inverted fee tiers), model L3 queue priority to predict fill likelihood, fire concurrent multi-leg execution orders, and maintain strict sub-microsecond panic unwind routines to eliminate legging risk. You will verify full execution fidelity across 5,000 simulated market events with zero unhedged exposure overruns!<br>
+          <span style="color: #047857; font-weight: 600;">Invariant:</span> <code>Cross-Venue Platform Invariant: A multi-venue arbitrage engine must atomically balance speed-of-light detection, all-in fee economics, queue priority estimation, and automated legging risk unwinds across fragmented market liquidity.</code>
+        </div>
+        <div style="background: #fffbeb; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fef3c7; color: #92400e;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Deploying cross-venue arbitrage across fragmented venues without atomic position synchronization; a network partition causes Venue B fills to stop registering, while Venue A continues accumulating long inventory until a $1.2M unhedged position triggers risk limits.<br>
+          <strong>tryIt Friction:</strong> Build the Milestone 7 Multi-Venue Arbitrage Platform in TypeScript: integrate 3 venue feeds, an all-in fee calculator, a queue position estimator, a concurrent order dispatcher, and an automated legging risk unwind manager; demonstrate profitable execution across 1,000 synthetic arbitrage opportunities with zero unhedged positions exceeding 50 microseconds.
+        </div>
+      </div>
+
+      <div style="background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #065f46;">🪜 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #047857;">[1. Nudge: "What are the four core pillars of an institutional multi-venue arbitrage platform?"]</span> &rarr;
+        <span style="color: #065f46;">[2. Memory: "1. Market Synchronization (synchronized books, latency-aware price alignment)."]</span> &rarr;
+        <span style="color: #064e3b;">[3. Fix: "2. Economic Optimization (all-in net fees, maker-taker tiers, rebate accounting)."]</span>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #0f172a;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"During your Milestone 7 platform live simulation, the engine spots a $0.04 crossed market between Venue A and Venue C. It fires concurrent buy and sell orders. Venue A confirms a 1,000-share fill in 12 microseconds. Venue C reports an immediate rejection ('Order Cancelled: Stale Price'). Your engine's panic unwind fires a market sell order on Venue B within 18 microseconds, locking in a tiny $0.01 loss instead of a $0.40 crash loss. How does the senior quantitative evaluator grade this outcome?"</em><br>
+        <strong>Correct:</strong> Option B) Exemplary Success: In real-world multi-venue arbitrage, leg rejections are inevitable. The engine demonstrated textbook risk management by detecting the broken leg and executing a panic unwind in 18 microseconds, preventing a catastrophic open directional loss. &bull;
+        <span style="color: #b45309;"><strong>Debrief:</strong> Option B is correct. In latency arbitrage, zero-loss perfection is impossible because competitors also race for quotes. The gold standard of engineering is defense-in-depth: when an execution leg fails, the engine must atomically recognize the partial fill and neutralize exposure immediately before market moves inflict deep losses.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 40 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q40.1</span>
+      <strong>Multi-Venue Arbitrage Architecture & Economic Framework</strong> <em>(Concept Quest)</em>: <span style="color: #475569;">Architect the multi-exchange dataflow connecting venue listeners, economic cost filters, and concurrent order execution gateways.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q40.2</span>
+      <strong>Network Partition & Unhedged Inventory Leakage Forensics</strong> <em>(Detective Challenge)</em>: <span style="color: #475569;">Analyze multi-exchange audit logs to trace how network delays and unhedged fills caused severe portfolio drawdown.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q40.3</span>
+      <strong>Milestone 7 Engine Implementation: Cross-Exchange Platform</strong> <em>(Mastery Assignment)</em>: <span style="color: #475569;">Implement the complete Milestone 7 arbitrage platform in TypeScript with integrated multi-venue feeds, fee tiers, and legging unwind managers.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q40.4</span>
+      <strong>Milestone 7 Adversarial Venue Stress & Chaos Lab</strong> <em>(Production Incident Lab)</em>: <span style="color: #475569;">Stress-test the platform against 2,000 synthetic arbitrage opportunities with injected leg rejections, proving zero unhedged exposure leaks.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #f59e0b;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #0f172a; color: #f59e0b; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">

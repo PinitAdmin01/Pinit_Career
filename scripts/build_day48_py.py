@@ -1,0 +1,195 @@
+# scripts/build_day48_py.py
+import json
+import re
+
+DAY_48 = {
+    "day": 48,
+    "title": "Cell Selection Models: Spreadsheet Range Navigation, Cell Editing & Keyboard Matrix Navigation",
+    "goal": "Architect enterprise spreadsheet interaction primitives: implement 2D cell selection bounding box geometry, engineer keyboard matrix navigation with Tab/Arrow routing, construct inline cell editing lifecycles with input masking, and build multi-cell clipboard parsers.",
+    "minutes": 25,
+    "recap": "In Day 47, we engineered multi-column stable sorting, inverted index filtering, and hierarchical aggregation trees. Today in Day 48, we tackle spreadsheet interaction ergonomics: 2D cell range selection, inline cell editing, and clipboard copy/paste pipelines.",
+    "parts": [
+      {
+        "title": "Spreadsheet Cell Selection Geometry: Anchor Cell, Focus Cell & Bounding Box Math",
+        "say": [
+          "In consumer tables, interaction is typically coarse and row-based: clicking anywhere in a row selects the entire row. In professional software—such as financial financial modeling workbooks, accounting reconciliation ledgers, and data curation tables—users require granular Cell-Level Selection identical to desktop spreadsheet applications like Microsoft Excel and Google Sheets. Users expect to select individual cells, drag contiguous multi-cell rectangular ranges, select non-contiguous disjoint ranges with Ctrl/Cmd, and highlight entire rows or columns by clicking coordinate headers.",
+          "Engineering cell selection requires a formal mathematical model based on Anchor Cell and Focus Cell Coordinates. Every cell in the grid is identified by a two-dimensional integer coordinate: `(row, col)`. When an operator clicks on cell `(2, 3)` (Row 2, Column 3), the selection engine sets both the `anchorCell = (2, 3)` and `focusCell = (2, 3)`. The anchor cell represents the immutable origin point of the selection gesture.",
+          "When the operator drags the mouse or presses Shift+Arrow keys to cell `(5, 7)`, the anchor cell remains fixed at `(2, 3)`, while the focus cell advances to `(5, 7)`. The resulting selection is calculated as a 2D Bounding Box: `minRow = Math.min(anchor.row, focus.row)`, `maxRow = Math.max(anchor.row, focus.row)`, `minCol = Math.min(anchor.col, focus.col)`, and `maxCol = Math.max(anchor.col, focus.col)`.",
+          "This bounding box math elegantly handles Inverted Dragging in all four Cartesian directions: dragging down-right, down-left, up-right, or up-left all resolve to identical normalized coordinate ranges without conditional branching bugs. A cell `(r, c)` is visually selected if and only if `minRow <= r <= maxRow` and `minCol <= c <= maxCol`.",
+          "From a visual design token perspective, the cell selection bounding box requires four distinct styling borders: an outer continuous solid primary border (the selection marquee), a semi-transparent tinted background overlay across interior cells, and an interactive Drag Fill Handle (the tiny square at the bottom-right corner used to autofill formulas down adjacent cells).",
+          "Furthermore, performance is preserved by memoizing selection bounds. The grid does not update 50,000 cells individually; it renders a single absolute-positioned SVG or CSS overlay element translated directly to `(left, top, width, height)` computed from row and column prefix sums, maintaining silky 60fps frame rates during rapid range drags.",
+          "In this opening lesson part, we construct a 2D Cell Range Selection Geometry Engine in TypeScript. We test anchor-focus bounding box normalization, verify inverted drag direction calculations, calculate cell membership predicates, and assert sub-millisecond bounding box generation."
+        ],
+        "example": "Think of stretching an elastic rubber band across pegs on a pegboard. You hook one end of the rubber band over Peg A (the anchor cell). No matter which direction you pull your hand—up, down, left, or right—to Peg B (the focus cell), the rubber band forms a rectangular enclosure that neatly captures all the pegs within that geometric boundary.",
+        "code": "interface CellCoord {\n  row: number;\n  col: number;\n}\n\ninterface SelectionBoundingBox {\n  startRow: number;\n  endRow: number;\n  startCol: number;\n  endCol: number;\n  rowCount: number;\n  colCount: number;\n  totalSelectedCells: number;\n}\n\nclass CellSelectionEngine {\n  private anchor: CellCoord | null = null;\n  private focus: CellCoord | null = null;\n\n  startSelection(row: number, col: number): SelectionBoundingBox {\n    this.anchor = { row, col };\n    this.focus = { row, col };\n    return this.getBoundingBox();\n  }\n\n  updateFocus(row: number, col: number): SelectionBoundingBox {\n    this.focus = { row, col };\n    return this.getBoundingBox();\n  }\n\n  getBoundingBox(): SelectionBoundingBox {\n    if (!this.anchor || !this.focus) {\n      return { startRow: 0, endRow: 0, startCol: 0, endCol: 0, rowCount: 0, colCount: 0, totalSelectedCells: 0 };\n    }\n\n    const startRow = Math.min(this.anchor.row, this.focus.row);\n    const endRow = Math.max(this.anchor.row, this.focus.row);\n    const startCol = Math.min(this.anchor.col, this.focus.col);\n    const endCol = Math.max(this.anchor.col, this.focus.col);\n\n    const rowCount = endRow - startRow + 1;\n    const colCount = endCol - startCol + 1;\n\n    return {\n      startRow,\n      endRow,\n      startCol,\n      endCol,\n      rowCount,\n      colCount,\n      totalSelectedCells: rowCount * colCount\n    };\n  }\n\n  isCellSelected(row: number, col: number): boolean {\n    const b = this.getBoundingBox();\n    return row >= b.startRow && row <= b.endRow && col >= b.startCol && col <= b.endCol;\n  }\n}\n\nconst engine = new CellSelectionEngine();\n// Step 1: User clicks on Row 2, Col 4 (Anchor)\nengine.startSelection(2, 4);\n\n// Step 2: User drags down-right to Row 5, Col 7\nconst box1 = engine.updateFocus(5, 7);\nconsole.log('Standard Drag Down-Right: ' + box1.rowCount + ' rows x ' + box1.colCount + ' cols (Total: ' + box1.totalSelectedCells + ' cells)');\nconsole.log('Is Cell (3, 5) Selected: ' + engine.isCellSelected(3, 5));\nconsole.log('Is Cell (6, 7) Selected: ' + engine.isCellSelected(6, 7));\n\n// Step 3: Inverted Drag Up-Left: User drags focus to Row 0, Col 1 (earlier than Anchor 2, 4)\nconst box2 = engine.updateFocus(0, 1);\nconsole.log('Inverted Drag Up-Left: Rows ' + box2.startRow + '..' + box2.endRow + ', Cols ' + box2.startCol + '..' + box2.endCol + ' (Total: ' + box2.totalSelectedCells + ' cells)');",
+        "output": "Standard Drag Down-Right: 4 rows x 4 cols (Total: 16 cells)\nIs Cell (3, 5) Selected: true\nIs Cell (6, 7) Selected: false\nInverted Drag Up-Left: Rows 0..2, Cols 1..4 (Total: 12 cells)",
+        "codeNotes": [
+          "The CellSelectionEngine normalizes anchor and focus coordinates, ensuring inverted selections resolve cleanly in all directions.",
+          "isCellSelected evaluates bounding box boundaries in constant O(1) time without iterating through collections."
+        ],
+        "tryIt": "Add a disjoint selection manager that holds multiple independent bounding boxes activated via Ctrl/Cmd clicks.",
+        "check": {
+          "question": "How does spreadsheet bounding box math handle inverted dragging (dragging upward or to the left of the anchor cell)?",
+          "options": [
+            "By computing min and max coordinates across anchor and focus points, producing identical normalized rectangular bounds",
+            "By throwing a negative coordinate exception and clearing the user's selection",
+            "By flipping the orientation of the computer monitor",
+            "By converting the table into an uncontrolled text area"
+          ],
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "Using Math.min and Math.max across anchor and focus coordinates normalizes the bounding box regardless of drag direction."
+        }
+      },
+      {
+        "title": "Keyboard Matrix Navigation: Arrow Keys, Tab Loops & Formula Bar Synchronization",
+        "say": [
+          "A professional spreadsheet is defined by the speed of its keyboard navigation. Financial analysts, traders, and accountants navigate massive tables using rapid muscle memory without ever touching a mouse. To support professional throughput, the data grid must implement a comprehensive Keyboard Matrix Navigation Engine supporting ten standardized keyboard behaviors.",
+          "First, Directional Step Navigation: ArrowRight moves focus one cell right `(row, col + 1)`; ArrowLeft moves one cell left `(row, col - 1)`; ArrowDown moves one cell down `(row + 1, col)`; ArrowUp moves one cell up `(row - 1, col)`. When an arrow key is pressed without modifier keys, both anchor and focus are synchronized to the new cell, collapsing any active multi-cell selection.",
+          "Second, Range Expansion via Shift+Arrow: Holding Shift while pressing any Arrow key advances the focus cell while keeping the anchor cell rigidly fixed, expanding or contracting the selection bounding box in real time.",
+          "Third, Horizontal Tab Loops: Pressing Tab moves focus one cell to the right; pressing Shift+Tab moves focus one cell to the left. If focus is on the final column of a row, pressing Tab automatically wraps to the first column of the subsequent row, matching native spreadsheet tab cycling.",
+          "Fourth, Vertical Enter Navigation: Pressing Enter moves focus down to the cell directly below `(row + 1, col)`; pressing Shift+Enter moves focus up `(row - 1, col)`.",
+          "Fifth, Data Boundary Jumping via Ctrl/Cmd+Arrow: Pressing Ctrl+ArrowRight jumps the focus to the last populated cell before an empty cell (or the edge of the dataset if contiguous), allowing users to traverse thousands of populated rows in a single keystroke.",
+          "Sixth, Formula Bar Synchronization: Whenever the active focused cell changes, the grid synchronizes the cell's raw formula or underlying unformatted value into an external Formula Bar component, while the cell itself renders the formatted display string (e.g., cell displays '$150.00', formula bar displays '=B2*C2' or '150').",
+          "In this section, we construct a Keyboard Matrix Navigation Engine in TypeScript. We test directional step navigation, verify Shift-range expansion, calculate Ctrl-boundary jumps, and confirm formula bar value synchronization."
+        ],
+        "example": "Think of a mechanical typewriter carriage. When you press the spacebar or tab key, the carriage advances horizontally along the line. When you hit the carriage return lever (the Enter key), the paper cylinder rotates down by one line and snaps all the way back to the left margin, ready for the next line of input.",
+        "code": "interface GridDimensions {\n  maxRows: number;\n  maxCols: number;\n}\n\nclass KeyboardMatrixNavigator {\n  private dims: GridDimensions;\n  private activeCell: CellCoord = { row: 0, col: 0 };\n  private anchorCell: CellCoord = { row: 0, col: 0 };\n  private formulaBuffer: string = '';\n\n  constructor(dims: GridDimensions) {\n    this.dims = dims;\n  }\n\n  handleKey(key: string, shiftKey: boolean = false, ctrlKey: boolean = false): { action: string; cell: CellCoord; isRange: boolean } {\n    let { row, col } = this.activeCell;\n\n    if (key === 'ArrowRight') {\n      col = ctrlKey ? this.dims.maxCols - 1 : Math.min(this.dims.maxCols - 1, col + 1);\n    } else if (key === 'ArrowLeft') {\n      col = ctrlKey ? 0 : Math.max(0, col - 1);\n    } else if (key === 'ArrowDown') {\n      row = ctrlKey ? this.dims.maxRows - 1 : Math.min(this.dims.maxRows - 1, row + 1);\n    } else if (key === 'ArrowUp') {\n      row = ctrlKey ? 0 : Math.max(0, row - 1);\n    } else if (key === 'Tab') {\n      if (!shiftKey) {\n        if (col < this.dims.maxCols - 1) col++;\n        else if (row < this.dims.maxRows - 1) { col = 0; row++; }\n      } else {\n        if (col > 0) col--;\n        else if (row > 0) { col = this.dims.maxCols - 1; row--; }\n      }\n    } else if (key === 'Enter') {\n      if (!shiftKey) row = Math.min(this.dims.maxRows - 1, row + 1);\n      else row = Math.max(0, row - 1);\n    }\n\n    this.activeCell = { row, col };\n    if (!shiftKey) {\n      this.anchorCell = { row, col };\n    }\n\n    // Synchronize formula buffer\n    this.formulaBuffer = 'CELL(' + row + ',' + col + ')';\n\n    return {\n      action: key,\n      cell: { ...this.activeCell },\n      isRange: shiftKey\n    };\n  }\n\n  getActiveCell(): CellCoord { return { ...this.activeCell }; }\n  getAnchorCell(): CellCoord { return { ...this.anchorCell }; }\n  getFormulaBuffer(): string { return this.formulaBuffer; }\n}\n\nconst nav = new KeyboardMatrixNavigator({ maxRows: 1000, maxCols: 20 });\nconsole.log('Initial Cell: (' + nav.getActiveCell().row + ', ' + nav.getActiveCell().col + ')');\n\n// Step 1: ArrowRight twice\nnav.handleKey('ArrowRight');\nnav.handleKey('ArrowRight');\nconsole.log('After 2 Right Arrows: (' + nav.getActiveCell().row + ', ' + nav.getActiveCell().col + ')');\n\n// Step 2: Shift+ArrowDown (expands range without moving anchor)\nnav.handleKey('ArrowDown', true);\nconsole.log('After Shift+Down: Focus (' + nav.getActiveCell().row + ', ' + nav.getActiveCell().col + '), Anchor (' + nav.getAnchorCell().row + ', ' + nav.getAnchorCell().col + ')');\n\n// Step 3: Ctrl+ArrowDown (jumps to bottom boundary)\nnav.handleKey('ArrowDown', false, true);\nconsole.log('After Ctrl+Down: Boundary Row = ' + nav.getActiveCell().row + ', Formula Bar = ' + nav.getFormulaBuffer());",
+        "output": "Initial Cell: (0, 0)\nAfter 2 Right Arrows: (0, 2)\nAfter Shift+Down: Focus (1, 2), Anchor (0, 2)\nAfter Ctrl+Down: Boundary Row = 999, Formula Bar = CELL(999,2)",
+        "codeNotes": [
+          "The KeyboardMatrixNavigator handles Tab wrapping, Enter progression, and Shift-range anchor retention.",
+          "Ctrl+Arrow modifiers jump instantaneously to extreme data boundaries (row 999), matching native desktop spreadsheet speed."
+        ],
+        "tryIt": "Add PageUp and PageDown handlers that advance the active row by twenty rows at a time.",
+        "check": {
+          "question": "What happens to the anchor cell when an operator navigates using Arrow keys while holding the Shift key?",
+          "options": [
+            "The anchor cell remains stationary at its original position while the focus cell moves, expanding the multi-cell selection bounding box",
+            "The anchor cell is immediately deleted from memory",
+            "The anchor cell jumps to row zero of the table",
+            "The anchor cell automatically turns into a bold header"
+          ],
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "Holding Shift anchors the selection origin while moving focus, allowing users to expand rectangular ranges via keyboard."
+        }
+      },
+      {
+        "title": "Inline Cell Editing: Double-Click Triggers, Keydown Interception & Value Commit Lifecycles",
+        "say": [
+          "A data grid that only allows reading is merely an elaborate report; a true enterprise grid allows direct In-Place Cell Editing. Sighted operators expect to edit data directly within table cells with zero cognitive friction: double-clicking a cell, pressing Enter, or simply beginning to type an alphanumeric character when a cell is focused should instantly open an inline editor.",
+          "Engineering in-place cell editing requires orchestrating a strict Three-Phase Editing Lifecycle: Phase 1: Edit Trigger Interception. Editing is activated by three user actions: Double-Clicking the cell, pressing Enter or F2 on an active cell, or Direct Type-Ahead (pressing any printable alphanumeric character immediately clears the cell and populates the editor with that initial character). When editing activates, the cell mounts a specialized inline editor control matching the column's data type (e.g., text input, numerical spinner, currency masked input, or combobox dropdown).",
+          "Phase 2: Active Editing & Focus Containment. When the editor mounts, it programmatically receives focus and selects all text (`input.select()`). While in edit mode, the editor must intercept keyboard events defensively: pressing Escape cancels the edit, discards modifications, restores the original value, and returns focus to the grid cell. Pressing Enter commits the new value, closes the editor, and advances focus to the cell below. Pressing Tab commits the value and advances focus to the cell on the right.",
+          "Phase 3: Validation & Transactional Commit. When commit is triggered (via Enter, Tab, or clicking outside the editor on blur), the value must not be written directly into the raw dataset. It passes through the column's validation schema (e.g., verifying that a price is positive, or an email is valid). If validation succeeds, the new value is committed to the authoritative store, the cell reverts to its display renderer, and an audit event is emitted. If validation fails, the editor remains open, flashes an error border token, and prevents focus departure.",
+          "Furthermore, performance is guarded by mounting at most ONE active editor across the entire grid. Rendering thousands of hidden input elements inside cells would destroy virtual DOM performance; the grid maintains a single floating editor component that positions itself over the active cell coordinate on demand.",
+          "In this section, we construct an Inline Cell Editor Controller in TypeScript. We test trigger interception (double-click, Enter, type-ahead), verify Escape cancellation and Enter commit transitions, and validate transactional schema validation checks."
+        ],
+        "example": "Think of a chalk price tag hanging on a shop shelf. While the shop is open, customers read the chalk number (display mode). When the store manager needs to update a price, they wipe the chalk tag clean, write the new price with a chalk pen (edit mode), verify the price matches the inventory catalogue (validation), and step back. At no point do they replace the entire wooden shelf.",
+        "code": "interface EditSessionState {\n  isActive: boolean;\n  row: number;\n  col: number;\n  initialValue: string;\n  currentValue: string;\n  validationError: string | null;\n}\n\nclass InlineCellEditController {\n  private session: EditSessionState = {\n    isActive: false,\n    row: -1,\n    col: -1,\n    initialValue: '',\n    currentValue: '',\n    validationError: null\n  };\n\n  private validator?: (val: string) => string | null;\n\n  constructor(validator?: (val: string) => string | null) {\n    this.validator = validator;\n  }\n\n  startEdit(row: number, col: number, initialValue: string, initialChar?: string): EditSessionState {\n    this.session = {\n      isActive: true,\n      row,\n      col,\n      initialValue,\n      currentValue: initialChar !== undefined ? initialChar : initialValue,\n      validationError: null\n    };\n    return { ...this.session };\n  }\n\n  updateValue(val: string): void {\n    if (this.session.isActive) {\n      this.session.currentValue = val;\n    }\n  }\n\n  commit(): { success: boolean; value: string; error?: string } {\n    if (!this.session.isActive) return { success: false, value: '' };\n\n    if (this.validator) {\n      const err = this.validator(this.session.currentValue);\n      if (err) {\n        this.session.validationError = err;\n        return { success: false, value: this.session.currentValue, error: err };\n      }\n    }\n\n    const finalVal = this.session.currentValue;\n    this.session.isActive = false;\n    return { success: true, value: finalVal };\n  }\n\n  cancel(): { restoredValue: string } {\n    const restored = this.session.initialValue;\n    this.session.isActive = false;\n    return { restoredValue: restored };\n  }\n\n  getSession(): EditSessionState { return { ...this.session }; }\n}\n\n// Price validator: must be positive number\nconst priceValidator = (val: string) => {\n  const num = parseFloat(val);\n  return isNaN(num) || num <= 0 ? 'Price must be greater than zero' : null;\n};\n\nconst editCtrl = new InlineCellEditController(priceValidator);\n\n// Test 1: Double-click to edit cell (3, 2) currently showing '150.00'\neditCtrl.startEdit(3, 2, '150.00');\nconsole.log('Edit Active: ' + editCtrl.getSession().isActive + ', Initial Value: ' + editCtrl.getSession().currentValue);\n\n// Test 2: User enters invalid negative value\neditCtrl.updateValue('-25.00');\nconst commitFail = editCtrl.commit();\nconsole.log('Negative Price Commit Success: ' + commitFail.success + ' (Error: ' + commitFail.error + ')');\n\n// Test 3: User cancels with Escape\nconst cancelResult = editCtrl.cancel();\nconsole.log('After Escape Cancel: Restored = ' + cancelResult.restoredValue + ', Active = ' + editCtrl.getSession().isActive);",
+        "output": "Edit Active: true, Initial Value: 150.00\nNegative Price Commit Success: false (Error: Price must be greater than zero)\nAfter Escape Cancel: Restored = 150.00, Active = false",
+        "codeNotes": [
+          "The InlineCellEditController manages active edit states, type-ahead initialization, and input validation.",
+          "Validation failures block commits and preserve user changes, while Escape cancels cleanly and restores the initial value."
+        ],
+        "tryIt": "Add type-ahead support that clears the cell value if the user begins typing a letter or number directly.",
+        "check": {
+          "question": "What is the expected behavior when an operator presses the Escape key while actively editing a table cell?",
+          "options": [
+            "Canceling the edit session, discarding uncommitted changes, and restoring the cell's initial value",
+            "Deleting the entire table row from the database",
+            "Closing the web browser window",
+            "Submitting the invalid value directly to the server"
+          ],
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "Pressing Escape aborts active edits, discarding transient input and restoring the cell's original unedited value."
+        }
+      },
+      {
+        "title": "Clipboard Integration: Tab-Delimited Copy/Paste & Multi-Cell Range Pasting",
+        "say": [
+          "In financial modeling and enterprise operations, interoperability with external spreadsheet tools like Microsoft Excel is non-negotiable. Analysts constantly copy rectangular data blocks from web applications into Excel financial models, or paste columns of pricing data from spreadsheets into web data grids. If a data grid fails to support native Operating System Clipboard Interoperability, it creates massive manual data entry friction.",
+          "The standard wire format for spreadsheet clipboard exchange is Tab-Separated Values (TSV) with Newline Delimiters (`text/plain` and `text/html`). When a rectangular cell range is selected and the user presses Ctrl+C (or Cmd+C on macOS), the grid serializes the selected cells into a TSV string: cells within the same row are separated by tab characters (`\\t`), and successive rows are separated by newline characters (`\\r\\n` on Windows or `\\n` on Unix).",
+          "When the user copies `[AAPL, 150.00]` and `[MSFT, 420.00]`, the clipboard payload is formatted as: `AAPL\\t150.00\\nMSFT\\t420.00`. Pasting this payload into Microsoft Excel or Google Sheets instantly populates four distinct cells across two rows and two columns with zero formatting distortion.",
+          "Even more complex than copying is Multi-Cell Range Pasting (Ctrl+V). When clipboard data is pasted into the grid, the engine executes four stages: Stage 1: Clipboard Interception. The `paste` event extracts text data via `event.clipboardData.getData('text/plain')`. Stage 2: 2D Matrix Parsing. The raw text is parsed into a 2D array of strings: `rows = text.split(/\\r?\\n/).map(r => r.split('\\t'))`.",
+          "Stage 3: Target Coordinate Mapping. The pasted matrix is anchored at the currently active focus cell `(anchorRow, anchorCol)`. Each token `(i, j)` in the pasted matrix maps to target cell `(anchorRow + i, anchorCol + j)`.",
+          "Stage 4: Dimension Expansion & Read-Only Defenses. If the pasted matrix extends beyond the rightmost column or bottom row, the grid can be configured to auto-expand or truncate at boundaries. Crucially, any target cell that is marked `isReadOnly: true` (such as computed formulas or primary key IDs) is protected: the paste engine rejects updates to read-only cells while committing valid editable cells in a single atomic transaction.",
+          "In this section, we construct a Spreadsheet Clipboard Integration Engine in TypeScript. We test TSV range serialization, verify 2D clipboard parsing, assert target coordinate mapping, and confirm read-only cell protection."
+        ],
+        "example": "Think of an inked rubber stamp with a 3x3 grid of rubber letters. You press the stamp onto an ink pad (the Copy command). When you press the stamp down onto a blank sheet of paper (the Paste command), the entire 3x3 grid of letters transfers onto the paper at the exact spot where you anchored the stamp, maintaining the exact spatial arrangement of every letter.",
+        "code": "interface PasteCommitResult {\n  updatedCells: { row: number; col: number; val: string }[];\n  skippedReadOnlyCount: number;\n  totalPastedCells: number;\n}\n\nclass GridClipboardEngine {\n  // Serializes 2D bounding box data into Tab-Separated Values (TSV)\n  static serializeRangeToTsv(data: string[][], startRow: number, endRow: number, startCol: number, endCol: number): string {\n    const lines: string[] = [];\n    for (let r = startRow; r <= endRow; r++) {\n      const rowCells: string[] = [];\n      for (let c = startCol; c <= endCol; c++) {\n        rowCells.push(data[r]?.[c] ?? '');\n      }\n      lines.push(rowCells.join('\\t'));\n    }\n    return lines.join('\\n');\n  }\n\n  // Parses TSV clipboard text and applies it starting at target anchor cell\n  static parseAndApplyPaste(\n    tsvText: string,\n    targetRow: number,\n    targetCol: number,\n    readOnlyPredicate: (r: number, c: number) => boolean\n  ): PasteCommitResult {\n    const rawLines = tsvText.trim().split(/\\r?\\n/);\n    const updatedCells: { row: number; col: number; val: string }[] = [];\n    let skippedReadOnlyCount = 0;\n    let totalPastedCells = 0;\n\n    for (let i = 0; i < rawLines.length; i++) {\n      const tokens = rawLines[i].split('\\t');\n      for (let j = 0; j < tokens.length; j++) {\n        totalPastedCells++;\n        const r = targetRow + i;\n        const c = targetCol + j;\n        \n        if (readOnlyPredicate(r, c)) {\n          skippedReadOnlyCount++;\n        } else {\n          updatedCells.push({ row: r, col: c, val: tokens[j] });\n        }\n      }\n    }\n\n    return {\n      updatedCells,\n      skippedReadOnlyCount,\n      totalPastedCells\n    };\n  }\n}\n\n// Sample 3x3 grid data\nconst tableData = [\n  ['AAPL', '150.00', '1000'],\n  ['MSFT', '420.00', '500'],\n  ['NVDA', '125.00', '2500']\n];\n\n// Test 1: Copy top 2 rows, cols 0 to 1\nconst tsvOutput = GridClipboardEngine.serializeRangeToTsv(tableData, 0, 1, 0, 1);\nconsole.log('Serialized TSV Clipboard Payload:');\nconsole.log(tsvOutput.replace(/\\t/g, '[TAB]'));\n\n// Test 2: Paste clipboard data into target starting at (1, 0) with Column 0 read-only\nconst pasteInput = 'TSLA\\t240.00\\nGOOGL\\t180.00';\nconst pasteResult = GridClipboardEngine.parseAndApplyPaste(\n  pasteInput,\n  1, // Target row\n  0, // Target col\n  (r, c) => c === 0 // Column 0 (Symbol) is Read-Only\n);\n\nconsole.log('Total Cells in Paste Buffer: ' + pasteResult.totalPastedCells);\nconsole.log('Skipped Read-Only Cells: ' + pasteResult.skippedReadOnlyCount);\nconsole.log('Successfully Updated Editable Cells: ' + pasteResult.updatedCells.length);\nconsole.log('Updated Cell (1, 1): ' + pasteResult.updatedCells[0].val);",
+        "output": "Serialized TSV Clipboard Payload:\nAAPL[TAB]150.00\nMSFT[TAB]420.00\nTotal Cells in Paste Buffer: 4\nSkipped Read-Only Cells: 2\nSuccessfully Updated Editable Cells: 2\nUpdated Cell (1, 1): 240.00",
+        "codeNotes": [
+          "The GridClipboardEngine serializes cell selections into standard tab-separated values (TSV) compatible with Excel.",
+          "The paste pipeline maps 2D matrices into target coordinates while enforcing read-only cell protections."
+        ],
+        "tryIt": "Add quotes and delimiter sanitization for cells that contain internal commas or line breaks.",
+        "check": {
+          "question": "What standard clipboard format is used to copy and paste multi-cell ranges between web data grids and desktop spreadsheet applications like Microsoft Excel?",
+          "options": [
+            "Tab-Separated Values (TSV) where columns are separated by tabs ('\\t') and rows are separated by newlines ('\\n')",
+            "Encrypted binary files wrapped in base64 strings",
+            "MP3 audio files containing spoken numbers",
+            "Serialized PHP objects"
+          ],
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "Tab-Separated Values (TSV) with newline row breaks is the universal OS clipboard standard for spreadsheet applications."
+        }
+      },
+      {
+        "title": "Accessible Data Cell Semantics: aria-selected, aria-readonly & Screen Reader Grid Navigation",
+        "say": [
+          "In an interactive spreadsheet grid where users navigate across cells, edit values, and select multi-cell ranges, accessibility auditing is exceptionally complex. Screen reader users traversing a grid must receive instant, unambiguous auditory feedback: hearing cell coordinates, row and column headers, current content values, editable versus read-only status, and multi-cell range selection highlights.",
+          "Under W3C WAI-ARIA 1.2 guidelines, interactive data cells carry `role=\"gridcell\"`. Every cell must expose four key accessibility attributes: First, `aria-selected=\"true\"` or `\"false\"` to communicate selection state. When a multi-cell bounding box is active, every cell within the box must declare `aria-selected=\"true\"`.",
+          "Second, `aria-readonly=\"true\"` for non-editable cells. If a cell contains a computed formula, an immutable primary key, or an auditing timestamp, declaring `aria-readonly=\"true\"` informs the screen reader user that pressing Enter or double-clicking will not open an inline editor.",
+          "Third, Hierarchical Header Association via `aria-labelledby`. To ensure optimal speech output, each data cell should reference its column header and row identifier: `aria-labelledby=\"col-price-header row-42-id cell-42-price\"`. When the user navigates into the cell, the screen reader articulates: 'Price, Trade 42, $150.00'. The user understands the data context immediately without scanning upward.",
+          "Fourth, Selection Range Announcements via Live Regions. When an operator expands a multi-cell selection using Shift+Arrow keys or clicks the top-left select-all corner, an assertive or polite live region (`role=\"status\"`, `aria-live=\"polite\"`) announces the active selection coordinates: 'Range selected: B2 to D15 (42 cells)'. When inline editing begins or ends, the live region vocalizes: 'Editing cell B2. Press Enter to commit, Escape to cancel'.",
+          "In this culminating lesson part of Day 48, we construct an Accessible Spreadsheet ARIA Descriptor Engine in TypeScript. We test comprehensive cell role generation, verify aria-selected and aria-readonly binding, assert row/column header linkage, and validate selection range speech announcements."
+        ],
+        "example": "Think of a professional air traffic control radar console. When an air traffic controller selects a flight icon on screen, the computer audio headset confirms in clear synthesized speech: 'Flight Delta 402 selected. Altitude 30,000 feet, Heading 270. Read-only transponder feed.' The controller receives complete situational certainty without looking away from the airspace map.",
+        "code": "interface SpreadsheetCellAriaMeta {\n  row: number;\n  col: number;\n  rowHeaderId: string;\n  colHeaderId: string;\n  isSelected: boolean;\n  isReadOnly: boolean;\n  cellValue: string;\n}\n\nclass AccessibleSpreadsheetAriaEngine {\n  static getCellAriaProps(meta: SpreadsheetCellAriaMeta): Record<string, string | number | boolean> {\n    return {\n      role: 'gridcell',\n      'aria-rowindex': meta.row + 1,\n      'aria-colindex': meta.col + 1,\n      'aria-selected': meta.isSelected,\n      'aria-readonly': meta.isReadOnly,\n      'aria-labelledby': meta.colHeaderId + ' ' + meta.rowHeaderId\n    };\n  }\n\n  static getRangeSelectionAnnouncement(startRow: number, endRow: number, startCol: number, endCol: number, totalCells: number): string {\n    const colLetter = (c: number) => String.fromCharCode(65 + c); // 0 = A, 1 = B...\n    const startLabel = colLetter(startCol) + (startRow + 1);\n    const endLabel = colLetter(endCol) + (endRow + 1);\n    \n    if (totalCells === 1) {\n      return 'Cell ' + startLabel + ' selected';\n    }\n    return 'Range ' + startLabel + ' to ' + endLabel + ' selected (' + totalCells + ' cells)';\n  }\n}\n\n// Test 1: Cell B4 (Row 3, Col 1), Read-Only computed formula, Selected\nconst cellProps = AccessibleSpreadsheetAriaEngine.getCellAriaProps({\n  row: 3,\n  col: 1,\n  rowHeaderId: 'row-4-id',\n  colHeaderId: 'col-profit-header',\n  isSelected: true,\n  isReadOnly: true,\n  cellValue: '$4,250.00'\n});\n\nconsole.log('Cell Role: ' + cellProps.role);\nconsole.log('1-Based Coordinates: Row ' + cellProps['aria-rowindex'] + ', Col ' + cellProps['aria-colindex']);\nconsole.log('aria-selected: ' + cellProps['aria-selected'] + ', aria-readonly: ' + cellProps['aria-readonly']);\nconsole.log('aria-labelledby: ' + cellProps['aria-labelledby']);\n\n// Test 2: Multi-cell range B2 to D5 (12 cells)\nconst speech = AccessibleSpreadsheetAriaEngine.getRangeSelectionAnnouncement(1, 4, 1, 3, 12);\nconsole.log('Screen Reader Range Announcement: ' + speech);",
+        "output": "Cell Role: gridcell\n1-Based Coordinates: Row 4, Col 2\naria-selected: true, aria-readonly: true\naria-labelledby: col-profit-header row-4-id\nScreen Reader Range Announcement: Range B2 to D5 selected (12 cells)",
+        "codeNotes": [
+          "The AccessibleSpreadsheetAriaEngine binds aria-selected and aria-readonly to reflect spreadsheet cell state accurately.",
+          "Range selection announcements convert numerical coordinates into standard A1-notation (e.g., 'Range B2 to D5 selected')."
+        ],
+        "tryIt": "Extend colLetter to support columns beyond Z (e.g., AA, AB, AC) for wide multi-hundred column spreadsheets.",
+        "check": {
+          "question": "Why should non-editable cells in an enterprise spreadsheet grid declare aria-readonly='true'?",
+          "options": [
+            "To inform screen reader users that the cell contains computed or immutable data that cannot be edited inline",
+            "To prevent the browser from displaying numbers in black ink",
+            "To delete the cell whenever the user clicks on it",
+            "Because the WCAG guidelines forbid users from typing into tables"
+          ],
+          "answer": 0,
+          "answerIndex": 0,
+          "why": "Declaring aria-readonly='true' communicates to assistive technologies that a cell cannot be edited inline."
+        }
+      }
+    ],
+    "summary": [
+      "Cell selection bounding box math normalizes anchor and focus coordinates, ensuring inverted drag selection works in all directions.",
+      "Keyboard matrix navigation implements Tab loops, Enter progression, and Shift-range expansion matching native desktop spreadsheets.",
+      "Inline cell editing coordinates a three-phase lifecycle with double-click/type-ahead triggers, validation, and Escape rollback.",
+      "Clipboard integration serializes ranges into Tab-Separated Values (TSV) for seamless copy/paste with Microsoft Excel.",
+      "Accessible spreadsheet semantics enforce role='gridcell', aria-selected, aria-readonly, and A1-notation range announcements."
+    ],
+    "projectStep": {
+      "title": "Build Spreadsheet Cell Selection & Editing Matrix",
+      "steps": [
+        "Construct CellSelectionEngine with anchor/focus coordinate normalization and bounding box math",
+        "Implement KeyboardMatrixNavigator supporting directional steps, Shift-ranges, and Ctrl-boundary jumps",
+        "Build InlineCellEditController with double-click triggers, validation gates, and Escape cancellations",
+        "Deploy GridClipboardEngine serializing TSV payloads and mapping 2D paste matrices to editable cells",
+        "Engineer AccessibleSpreadsheetAriaEngine with role='gridcell', aria-readonly, and A1 range speech feedback"
+      ]
+    }
+}
+
+if __name__ == '__main__':
+    with open('scripts/design_day48_data.py', 'w', encoding='utf-8') as f:
+        f.write('# scripts/design_day48_data.py\nimport re\n\ndef count_words(say_list):\n    total = 0\n    for p in say_list:\n        total += len(re.findall(r\'\\b[A-Za-z0-9_\\-\\.\\$\\/\\:\\@\\\']+\\b\', p))\n    return total\n\n')
+        f.write('DAY_48 = ' + json.dumps(DAY_48, indent=2) + '\n')
+    print("Wrote scripts/design_day48_data.py successfully.")

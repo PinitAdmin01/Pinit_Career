@@ -1,0 +1,302 @@
+Day 56</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #312e81;">Historic Communication Catastrophes 2: Three Mile Island & Control Room Alert Ambiguity</strong>
+          <span class="stage-pill" style="background: #ede9fe; color: #4338ca;">Stage 4.4: The Master Interview Portfolio, Catastrophe Post-Mortems & Master Capstone</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 12 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f5f3ff; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #ddd6fe;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #4338ca; font-weight: 600;">Goal:</span> On March 28, 1979, the Unit 2 nuclear reactor at Three Mile Island suffered a partial meltdown. The mechanical valve had stuck open, allowing coolant to escape. But the control room indicator light showed that the valve was *ordered* to close, not that it was *actually* closed. Believing the valve was closed and coolant levels were too high, operators took manual actions that worsened the meltdown. This disaster revolutionized human factors engineering and telemetry design. Today, you master observability semantics: measuring actual system state vs intended command state, and eliminating alert ambiguity.<br>
+          <span style="color: #312e81; font-weight: 600;">Invariant:</span> <code>Telemetry must measure actual physical state, not intended command state: a green status light indicating a command was dispatched is not proof that the distributed subsystem executed the command.</code>
+        </div>
+        <div style="background: #fef2f2; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fecaca; color: #991b1b;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> A cloud deployment dashboard displays a green checkmark saying 'Database Backup Complete' because the backup script was triggered; in reality, the disk filled up and the backup aborted silently; six months later, ransomware strikes and the company discovers it has zero valid backups.<br>
+          <strong>tryIt Friction:</strong> Audit a microservice health check endpoint: identify why checking `if (server.isListening)` is an ambiguous false-positive, and rewrite it to assert database read/write roundtrip latency and downstream queue connectivity.
+        </div>
+      </div>
+
+      <div style="background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #4338ca;">🪜 Socratic Hint Ladder:</strong>
+        <ol style="margin: 2px 0 2px 14px; padding: 0; color: #312e81;">
+          <li>Why did the operators at Three Mile Island turn off emergency cooling water?</li><li>What is the difference between a synthetic health check and a deep functional assertion?</li><li>Rule: A health check must assert the invariant: `db.ping()` + write probe + read probe + memory threshold assertion.</li>
+        </ol>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #4338ca;">🧩 Situational Production Puzzle:</strong>
+        <p style="margin: 2px 0; color: #1e293b;">You are designing the monitoring dashboard for an automated failover system. The primary database crashes. How should the dashboard indicate the failover state to avoid Three Mile Island ambiguity?</p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3pt; margin: 2px 0;">
+          
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; padding: 2px 4px; border-radius: 2px; font-size: 6.8pt;">
+              <strong>A:</strong> Show a green light that says: 'Failover Script Executed'. 
+            </div>
+          
+            <div style="background: #ede9fe; border: 1px solid #4f46e5; padding: 2px 4px; border-radius: 2px; font-size: 6.8pt;">
+              <strong>B:</strong> Display a three-state verification dashboard: 1. Failover Dispatched: YES; 2. Replica Promoted to Primary: VERIFIED (Heartbeat latency 12ms, read/write probe successful); 3. Traffic Redirected via DNS: VERIFIED (100% of gateway queries hitting new primary). If step 2 or 3 fails, flash AMBER/RED with exact unverified subsystem telemetry. <strong style="color: #4338ca;">✓ [Optimal Systems Leadership Decision]</strong>
+            </div>
+          
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; padding: 2px 4px; border-radius: 2px; font-size: 6.8pt;">
+              <strong>C:</strong> Send an email to the team saying that failover is probably fine. 
+            </div>
+          
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; padding: 2px 4px; border-radius: 2px; font-size: 6.8pt;">
+              <strong>D:</strong> Hide the status page until the incident is over. 
+            </div>
+          
+        </div>
+        <div style="margin-top: 2px; color: #4338ca; font-size: 6.8pt;"><strong>Strategic Debrief:</strong> Option B eliminates command-vs-state ambiguity: distinguishes between the dispatch of a failover command and physical verification of database promotion and DNS traffic redirection, preventing catastrophic operator misunderstanding.</div>
+      </div>
+
+      <div style="margin-top: 4pt; font-size: 7.2pt; border-top: 1px dashed #e2e8f0; padding-top: 3pt;">
+        <strong style="color: #312e81;">4 Rigorous Quests (Concept &bull; Detective &bull; Mastery Assignment &bull; Incident Lab):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #ede9fe; color: #4338ca; padding: 1px 3px; border-radius: 2px;">Q36.221</span>
+      <strong>Human Factors & Cognitive Systems Engineering</strong> <em>(concept)</em>: <span style="color: #475569;">Analyze Don Norman's The Design of Everyday Things and the Kemeny Commission Report on Three Mile Island control room ergonomics.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #ede9fe; color: #4338ca; padding: 1px 3px; border-radius: 2px;">Q36.222</span>
+      <strong>The Ambiguous Alert Eradication Audit</strong> <em>(challenge)</em>: <span style="color: #475569;">Audit an enterprise Datadog alert catalog containing 50 alerts and refactor them to distinguish between command dispatch and verified system state.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #ede9fe; color: #4338ca; padding: 1px 3px; border-radius: 2px;">Q36.223</span>
+      <strong>Deep Functional Health Check Engine</strong> <em>(mastery)</em>: <span style="color: #475569;">Build an open-source health check middleware that performs deep closed-loop synthetic read/write probes and rejects superficial socket-listening checks.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #ede9fe; color: #4338ca; padding: 1px 3px; border-radius: 2px;">Q36.224</span>
+      <strong>Simulated Meltdown Control Room Triage Lab</strong> <em>(incident)</em>: <span style="color: #475569;">Diagnose an unfolding production outage where 4 dashboard indicator lights display contradictory status telemetry under intense time pressure.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #4f46e5;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #4338ca; color: #e0e7ff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 57</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #312e81;">Historic Communication Catastrophes 3: Knight Capital $440M 45-Minute Algorithmic Bankruptcy</strong>
+          <span class="stage-pill" style="background: #ede9fe; color: #4338ca;">Stage 4.4: The Master Interview Portfolio, Catastrophe Post-Mortems & Master Capstone</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 12 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f5f3ff; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #ddd6fe;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #4338ca; font-weight: 600;">Goal:</span> On August 1, 2012, Knight Capital, one of the largest market makers on Wall Street, went bankrupt in 45 minutes, losing $440 million ($10 million per minute). The cause? An engineer manually deployed new algorithmic trading software to 7 of their 8 servers, but forgot the 8th server. The 8th server ran legacy code that repurposed an old test flag ('Power Peg') into an infinite order-generating loop, buying high and selling low 4 million times. The team spent 45 minutes trying to debug in live trading before shutting it down. Today, you study the fatal breakdown in deployment communication, runbook checklists, and kill-switch architecture.<br>
+          <span style="color: #312e81; font-weight: 600;">Invariant:</span> <code>Manual multi-server deployments without automated fleet verification and automated financial kill-switches are existential operational hazards: deployment state must be atomic across 100% of nodes.</code>
+        </div>
+        <div style="background: #fef2f2; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fecaca; color: #991b1b;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> A platform team deploys an updated authentication service to 9 out of 10 Kubernetes pods, leaving one pod running legacy hashing algorithms; users whose requests hit the 10th pod have their passwords hashed improperly, locking out thousands of customers.<br>
+          <strong>tryIt Friction:</strong> Design an automated canary deployment verification assertion script that queries all running nodes in a cluster and aborts deployment if hash versions diverge across any single instance.
+        </div>
+      </div>
+
+      <div style="background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #4338ca;">🪜 Socratic Hint Ladder:</strong>
+        <ol style="margin: 2px 0 2px 14px; padding: 0; color: #312e81;">
+          <li>Why did Knight Capital engineers fail to pull the emergency kill switch within the first 5 minutes of rogue trading?</li><li>What is the role of an automated, hardware-enforced financial circuit breaker?</li><li>Invariants: Immutable container images, atomic rolling deployments, cryptographic version assertions, and automated kill switches.</li>
+        </ol>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #4338ca;">🧩 Situational Production Puzzle:</strong>
+        <p style="margin: 2px 0; color: #1e293b;">You are designing the deployment pipeline for a high-frequency fintech service. How do you prevent a Knight Capital deployment disaster?</p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3pt; margin: 2px 0;">
+          
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; padding: 2px 4px; border-radius: 2px; font-size: 6.8pt;">
+              <strong>A:</strong> Have two engineers watch the terminal while running manual bash scripts. 
+            </div>
+          
+            <div style="background: #ede9fe; border: 1px solid #4f46e5; padding: 2px 4px; border-radius: 2px; font-size: 6.8pt;">
+              <strong>B:</strong> Implement an automated three-tier deployment gate: 1. Immutable container images deployed via atomic canary rollout with automated version handshake verification (every node must report identical sha256 hash before traffic shift); 2. Automated financial circuit breakers that freeze trading if net capital exposure deviates by more than $50,000 within 60 seconds; 3. Single-command emergency kill switch accessible to both SRE and Compliance officers. <strong style="color: #4338ca;">✓ [Optimal Systems Leadership Decision]</strong>
+            </div>
+          
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; padding: 2px 4px; border-radius: 2px; font-size: 6.8pt;">
+              <strong>C:</strong> Write an email to the trading desk after the deployment is finished. 
+            </div>
+          
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; padding: 2px 4px; border-radius: 2px; font-size: 6.8pt;">
+              <strong>D:</strong> Only deploy software on weekends when markets are closed. 
+            </div>
+          
+        </div>
+        <div style="margin-top: 2px; color: #4338ca; font-size: 6.8pt;"><strong>Strategic Debrief:</strong> Option B provides complete systemic defense: atomic canary deployment with cryptographic sha256 version handshakes, automated real-time financial circuit breakers ($50k threshold), and an accessible dual-key emergency kill switch.</div>
+      </div>
+
+      <div style="margin-top: 4pt; font-size: 7.2pt; border-top: 1px dashed #e2e8f0; padding-top: 3pt;">
+        <strong style="color: #312e81;">4 Rigorous Quests (Concept &bull; Detective &bull; Mastery Assignment &bull; Incident Lab):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #ede9fe; color: #4338ca; padding: 1px 3px; border-radius: 2px;">Q36.225</span>
+      <strong>SEC Administrative Summary: Knight Capital</strong> <em>(concept)</em>: <span style="color: #475569;">Analyze the Securities and Exchange Commission (SEC) official investigation report on the Knight Capital Group software deployment failure.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #ede9fe; color: #4338ca; padding: 1px 3px; border-radius: 2px;">Q36.226</span>
+      <strong>The Financial Circuit Breaker Specification</strong> <em>(challenge)</em>: <span style="color: #475569;">Author the complete architectural specification for an automated real-time capital exposure circuit breaker and deployment kill-switch.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #ede9fe; color: #4338ca; padding: 1px 3px; border-radius: 2px;">Q36.227</span>
+      <strong>Fleet-Wide Deployment Hash Verifier</strong> <em>(mastery)</em>: <span style="color: #475569;">Build a deployment safety CLI that queries distributed endpoints across a cluster, asserts Git commit sha256 uniformity, and triggers automated rollbacks.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #ede9fe; color: #4338ca; padding: 1px 3px; border-radius: 2px;">Q36.228</span>
+      <strong>45-Minute Algorithmic Runaway Emergency Lab</strong> <em>(incident)</em>: <span style="color: #475569;">Diagnose and terminate a runaway financial simulation consuming $500,000/min in simulated capital within 3 minutes of alert trigger.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #4f46e5;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #4338ca; color: #e0e7ff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 58</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #312e81;">Historic Communication Catastrophes 4: Mars Climate Orbiter Metric/Imperial Crash</strong>
+          <span class="stage-pill" style="background: #ede9fe; color: #4338ca;">Stage 4.4: The Master Interview Portfolio, Catastrophe Post-Mortems & Master Capstone</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 12 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f5f3ff; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #ddd6fe;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #4338ca; font-weight: 600;">Goal:</span> On September 23, 1999, NASA's $327 million Mars Climate Orbiter fired its thrusters to enter Martian orbit, entered the atmosphere at too low an altitude, and disintegrated. The cause? Lockheed Martin had written software that calculated thruster impulse in English units (pound-force seconds), while NASA's navigation software expected metric units (Newton-seconds). The mismatch went undetected for 9 months across thousands of trajectory updates. Today, you study interface communication contracts: type-driven dimensional analysis, strict schema validations, and why documentation without programmatic validation is useless.<br>
+          <span style="color: #312e81; font-weight: 600;">Invariant:</span> <code>Interface contracts that rely on human written conventions without compiler-enforced dimensional units will inevitably suffer interface corruption: encode units directly into the type system.</code>
+        </div>
+        <div style="background: #fef2f2; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fecaca; color: #991b1b;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> An API expects request timeouts in milliseconds, but a client library passes seconds; the client sends `30` (intending 30 seconds), the server interprets it as 30 milliseconds, causing every single client request to time out immediately.<br>
+          <strong>tryIt Friction:</strong> Construct a TypeScript or Rust dimensional unit type system (`type Milliseconds = number & { readonly __unit: unique symbol };`) that makes passing seconds into a millisecond parameter a compile-time type error.
+        </div>
+      </div>
+
+      <div style="background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #4338ca;">🪜 Socratic Hint Ladder:</strong>
+        <ol style="margin: 2px 0 2px 14px; padding: 0; color: #312e81;">
+          <li>Why is documentation stating 'Note: this parameter expects Newtons' insufficient for safety-critical systems?</li><li>How do branded types (nominal typing) prevent dimensional unit mismatch in software APIs?</li><li>Example: `const timeout = toMilliseconds(30); // returns Milliseconds type; compile error if raw number passed.`</li>
+        </ol>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #4338ca;">🧩 Situational Production Puzzle:</strong>
+        <p style="margin: 2px 0; color: #1e293b;">You are designing an API interface for an autonomous vehicle telemetry pipeline where sensors report distance and velocity. How do you prevent a Mars Climate Orbiter unit mismatch?</p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3pt; margin: 2px 0;">
+          
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; padding: 2px 4px; border-radius: 2px; font-size: 6.8pt;">
+              <strong>A:</strong> Add a comment in the README file saying: 'All distances must be in meters.' 
+            </div>
+          
+            <div style="background: #ede9fe; border: 1px solid #4f46e5; padding: 2px 4px; border-radius: 2px; font-size: 6.8pt;">
+              <strong>B:</strong> Use strongly-typed protocol buffers (Protobuf) or JSON schemas with nominal unit types (e.g., `DistanceMeters` and `VelocityMetersPerSecond`), paired with runtime deserialization validators that reject untyped raw floats and enforce dimensional unit invariants at the API gateway boundary. <strong style="color: #4338ca;">✓ [Optimal Systems Leadership Decision]</strong>
+            </div>
+          
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; padding: 2px 4px; border-radius: 2px; font-size: 6.8pt;">
+              <strong>C:</strong> Assume that all sensor vendors will naturally use the metric system. 
+            </div>
+          
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; padding: 2px 4px; border-radius: 2px; font-size: 6.8pt;">
+              <strong>D:</strong> Write a unit test that checks if the number is greater than zero. 
+            </div>
+          
+        </div>
+        <div style="margin-top: 2px; color: #4338ca; font-size: 6.8pt;"><strong>Strategic Debrief:</strong> Option B encodes dimensional units directly into strongly typed schemas (Protobuf/JSON Schema) with nominal type branding and runtime validation gates, making unit confusion impossible at both compile time and runtime.</div>
+      </div>
+
+      <div style="margin-top: 4pt; font-size: 7.2pt; border-top: 1px dashed #e2e8f0; padding-top: 3pt;">
+        <strong style="color: #312e81;">4 Rigorous Quests (Concept &bull; Detective &bull; Mastery Assignment &bull; Incident Lab):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #ede9fe; color: #4338ca; padding: 1px 3px; border-radius: 2px;">Q36.229</span>
+      <strong>NASA JPL Mishap Investigation Board: Mars Climate Orbiter</strong> <em>(concept)</em>: <span style="color: #475569;">Analyze the NASA JPL Phase I Report on the Mars Climate Orbiter loss, focusing on Interface Control Documents (ICDs) and verification.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #ede9fe; color: #4338ca; padding: 1px 3px; border-radius: 2px;">Q36.230</span>
+      <strong>The Nominal Unit Type System</strong> <em>(challenge)</em>: <span style="color: #475569;">Design a complete compile-time dimensional analysis library in TypeScript/Rust that models SI base units (Meters, Seconds, Kilograms) and prevents unit collisions.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #ede9fe; color: #4338ca; padding: 1px 3px; border-radius: 2px;">Q36.231</span>
+      <strong>API Interface Schema Unit Linter</strong> <em>(mastery)</em>: <span style="color: #475569;">Build an OpenAPI / Protobuf linter that inspects API schemas, flagging bare primitive floats and enforcing explicit dimensional unit suffixes.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #ede9fe; color: #4338ca; padding: 1px 3px; border-radius: 2px;">Q36.232</span>
+      <strong>Orbital Descent Telemetry Anomaly Lab</strong> <em>(incident)</em>: <span style="color: #475569;">Intercept and rectify an active telemetry streaming mismatch between metric and imperial guidance systems before a simulated spacecraft impacts the surface.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #4f46e5;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #4338ca; color: #e0e7ff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 59</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #312e81;">The Principal Engineer Modernization RFC: Restructuring Global Communication ($5M Blueprint)</strong>
+          <span class="stage-pill" style="background: #ede9fe; color: #4338ca;">Stage 4.4: The Master Interview Portfolio, Catastrophe Post-Mortems & Master Capstone</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 12 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f5f3ff; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #ddd6fe;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #4338ca; font-weight: 600;">Goal:</span> Today, you synthesize everything you have mastered across 59 days into an executive-level magnum opus: The Principal Engineer Modernization RFC. You are hired as the Principal Architect of a 600-person engineering organization suffering from communication fragmentation, chaotic Architecture Review Boards, runaway Slack interruptions, toxic PR reviews, and high Staff turnover. You will author a comprehensive $5,000,000 corporate transformation proposal that restructures the company's communication operating system, promotion ladders, and technical governance.<br>
+          <span style="color: #312e81; font-weight: 600;">Invariant:</span> <code>An organization's communication architecture determines its software architecture (Conway's Law): restructuring human communication pathways is the prerequisite for decoupled distributed systems.</code>
+        </div>
+        <div style="background: #fef2f2; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fecaca; color: #991b1b;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> An organization attempts to break up a software monolith into microservices without changing its centralized, synchronous meeting culture; the microservices end up tightly coupled via synchronous HTTP calls, creating a distributed monolith with 10x higher operational latency.<br>
+          <strong>tryIt Friction:</strong> Author the 'Executive Summary & Financial ROI' section of the $5M Modernization RFC, projecting a 35% increase in developer deep-work hours and $8.4M in annual productivity gains.
+        </div>
+      </div>
+
+      <div style="background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #4338ca;">🪜 Socratic Hint Ladder:</strong>
+        <ol style="margin: 2px 0 2px 14px; padding: 0; color: #312e81;">
+          <li>How does Conway's Law dictate software modularity based on communication lines?</li><li>What is the financial return of recovering 10 hours of deep work per week across 600 engineers earning $150k/year?</li><li>600 engineers * 10 hrs/week * $75/hr * 48 weeks = $21,600,000 in unlocked engineering productivity per year.</li>
+        </ol>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #4338ca;">🧩 Situational Production Puzzle:</strong>
+        <p style="margin: 2px 0; color: #1e293b;">You are presenting the $5M Modernization RFC to the Board of Directors. The CFO asks: 'How does changing our internal documentation and RFC process generate a positive financial return?'</p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3pt; margin: 2px 0;">
+          
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; padding: 2px 4px; border-radius: 2px; font-size: 6.8pt;">
+              <strong>A:</strong> Because engineers are happier when they write better documents. 
+            </div>
+          
+            <div style="background: #ede9fe; border: 1px solid #4f46e5; padding: 2px 4px; border-radius: 2px; font-size: 6.8pt;">
+              <strong>B:</strong> 'Our organization currently suffers from an average PR cycle time of 11 days, with 42% of developer hours lost to synchronous status meetings and circular architecture debates. By institutionalizing asynchronous RFCs, ADR repositories, and blameless post-mortems, we reduce PR merge latency by 55% and recover an average of 8 hours of deep work per engineer weekly. Across our 600 engineers, this liberates the equivalent of 120 full-time engineers—saving $18M annually in hiring costs while reducing critical P0 outage durations by 60%.' <strong style="color: #4338ca;">✓ [Optimal Systems Leadership Decision]</strong>
+            </div>
+          
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; padding: 2px 4px; border-radius: 2px; font-size: 6.8pt;">
+              <strong>C:</strong> All modern tech companies like Google do it, so we have to do it too. 
+            </div>
+          
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; padding: 2px 4px; border-radius: 2px; font-size: 6.8pt;">
+              <strong>D:</strong> It doesn't generate financial return directly, but it improves code quality. 
+            </div>
+          
+        </div>
+        <div style="margin-top: 2px; color: #4338ca; font-size: 6.8pt;"><strong>Strategic Debrief:</strong> Option B connects communication engineering directly to corporate financial metrics: PR merge latency reduced by 55%, 8 deep work hours recovered per engineer weekly, equivalent to 120 engineers ($18M value), and MTTR reduced by 60%.</div>
+      </div>
+
+      <div sty

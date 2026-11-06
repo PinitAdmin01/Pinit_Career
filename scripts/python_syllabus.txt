@@ -1,0 +1,121 @@
+﻿D 1: Your First Python Program
+      What Python is and why so many people learn it | print(): showing results on the screen | How Python reads your code: line by line | Capital letters matter | Comments: notes for humans | Putting it together: your first small program | Expense Tracker: set up your first file
+D 2: Variables and Data Types
+      What a variable is | Changing a variable | Types of values: text, whole numbers, decimals | True and False: the bool type | Converting between types | Good variable names and a better tracker | Expense Tracker: use variables
+D 3: Working With Text
+      Strings and joining them | Length and positions | Slicing: taking part of a string | String tools: upper, lower, strip, replace | Searching inside text | Putting it together: tidy expense labels | Expense Tracker: clean the labels
+D 4: Numbers and Maths
+      The four basic operators | Floor division and remainder | Percentages: GST and discounts | Rounding money | Useful number tools: abs, min, max, sum | Putting it together: a restaurant bill | Expense Tracker: money maths
+D 5: Making Decisions
+      if: do something only when a condition is True | else: what to do otherwise | elif: more than two choices | and, or, not: combining conditions | Short one-line choices | Putting it together: a budget checker | Expense Tracker: budget warnings
+D 6: Loops: Doing Things Again and Again
+      Why we need loops | Looping over text and range() | The accumulator pattern: running totals | while loops | break and continue | Putting it together: a spending report | Expense Tracker: a loop report
+D 7: Functions: Your Own Tools
+      What a function is | Parameters: giving a function information | return: giving back an answer | Why return is different from print | Default values for parameters | Putting it together: tracker functions | Expense Tracker: split into functions
+D 8: Lists: Keeping Many Values Together
+      Creating a list and reading items | Changing a list: append, insert, remove | Checking and searching: in, count, index | Slicing lists | Copies and the  | Putting it together: a list of expenses | Expense Tracker: keep expenses in lists
+D 9: Looping Over Lists and List Comprehensions
+      enumerate: items with their positions | Building a new list with a loop | List comprehensions: the one-line version | Filtering with if | When not to use a comprehension | Putting it together: filtered reports | Expense Tracker: filtered views
+D10: Dictionaries: Named Details
+      What a dictionary is | Adding and changing keys | Missing keys and get() | Looping over a dictionary | Counting with a dictionary | Putting it together: one expense as a dictionary | Expense Tracker: expenses as dictionaries
+D11: Lists of Dictionaries: Real Data
+      The shape of real data | Looping over records | Totals and filters with comprehensions | Finding one record | Sorting records | Putting it together: a monthly report | Expense Tracker: a list of expense records
+D12: Tuples and Sets
+      Tuples: fixed groups of values | Unpacking and returning several values | Sets: only unique values | Checking membership quickly | Choosing the right container | Putting it together: categories and ranges | Expense Tracker: unique categories
+D13: f-strings: Clean, Readable Output
+      What an f-string is | Expressions inside the brackets | Formatting numbers: decimals and commas | Lining up columns | Multi-line text and join | Putting it together: a printed receipt | Expense Tracker: a neat receipt
+D14: Errors and try/except
+      Reading an error message | try and except | Using the error message | else and finally | Raising your own errors | Putting it together: safe input handling | Expense Tracker: never crash on bad input
+D15: Modules and Python
+      What a module is and how to import it | The random module | Dates with datetime | Other useful modules | Your own modules | Putting it together: due dates for bills | Expense Tracker: bills with due dates
+D16: Working With Files
+      Why programs need files | The with statement | Appending and reading line by line | Turning lines into data with split | Saving and loading a list of records | Putting it together: a tracker that remembers | Expense Tracker: save to a file
+D17: JSON: Saving Structured Data
+      What JSON is | loads: from JSON text back to Python | Saving and loading JSON files | Handling broken or unexpected data | Dates and other values JSON cannot store | Putting it together: a JSON-backed tracker | Expense Tracker: JSON storage
+D18: Classes and Objects
+      What classes and objects are | __init__ and self: giving objects their data | Methods: actions that belong to an object | Methods that change the object | Many objects in a list | Putting it together: an ExpenseBook class | Expense Tracker: an ExpenseBook class
+D19: Better Classes: __str__ and Inheritance
+      Making objects print nicely with __str__ | Inheritance: building on an existing class | Overriding methods | super(): reusing the parent\ | When to use classes and inheritance | Putting it together: expenses and subscriptions | Expense Tracker: subscriptions
+D20: Python on Your Laptop: Scripts, input() and pip
+      Installing Python and VS Code | Running a .py file from the terminal | Reading what the user types with input() | A menu loop | pip and packages | Virtual environments | Expense Tracker: move to your laptop
+D21: Testing Your Code with assert and pytest
+      Why developers write tests | assert and failure messages | Test functions and pytest | Normal cases and edge cases | Testing errors and keeping functions testable | Putting it together: tests for the tracker | Expense Tracker: add tests
+D22: Git and GitHub: Saving and Sharing Your Code
+      What Git is and why every job uses it | The basic cycle: status, add, commit | .gitignore: files Git should skip | Branches: working safely on a feature | Pushing to GitHub | Putting it together: your project on GitHub | Expense Tracker: on GitHub
+D23: Planning Your Expense Tracker
+      Why plan before coding | User stories | Designing the data shape | Breaking the program into small functions | Planning the build order | Putting it together: PLAN.md and the first functions | Expense Tracker: write PLAN.md
+D24: Project Build 1: Adding and Listing Expenses
+      Project structure | add_expense with validation | Listing expenses neatly | The menu in main.py | Testing what you built | Putting it together: today\ | Expense Tracker: build step 1
+D25: Project Build 2: Summaries and Saving
+      A summary of spending | Totals per category | Filtering by month | Saving and loading with JSON | Connecting it all in the menu | Putting it together: all must-haves done | Expense Tracker: build step 2
+D26: Calling Web APIs
+      What a web API is | URLs, parameters and status codes | Calling an API with requests | Reading nested JSON safely | Junior Python Developer | Backend Intern | API keys and handling failures
+D27: Building Your Own API with FastAPI
+      From a terminal menu to a web API | Your first FastAPI app | GET routes that reuse tracker.py | POST routes and data checking with Pydantic models | Trying and testing your API | Putting it together: the Expense Tracker API | Expense Tracker: build the API
+D28: Debugging: Reading Tracebacks
+      Debugging is a normal part of the job | Reading a traceback, from the bottom up | The most common errors and their usual causes | print() debugging | Breakpoints and the VS Code debugger | Putting it together: fixing a real bug | Expense Tracker: bug hunt
+D29: Putting Your API Online
+      What deploying means | Getting the project ready | Environment variables for settings and secrets | Deploying and checking it works | A README that sells your project | Putting it together: your deployment checklist | Expense Tracker: go live
+D30: Interview Practice and Your Next Steps
+      What junior Python interviews look like | Common Python questions | Explaining your project in two minutes | Solving a coding task out loud | More classic small problems | Your next steps after this month | Get job-ready
+D31: Pydantic V2 Architecture & pydantic-core (Rust FFI)
+      pydantic-core Architecture & Rust PyO3 Integration | Lax vs Strict Mode Validation Behavioral Analysis | High-Speed Schema Validation Engine Implementation | High-Throughput API Gateway Validation Upgrade | Enterprise Serialization & Model Configuration Synthesis | ApexFastAPI Microservice Engine: Pydantic V2 Schema Validation Core
+D32: FastAPI Request Lifecycle & Dependency Injection Graph
+      FastAPI Request Lifecycle & OpenAPI Schema Introspection | Dependency Graph Diamond Resolution Forensics | Topological Dependency DAG Resolver Implementation | API Gateway Dependency Bottleneck Optimization | Async Generator Lifespan & Context Manager Synthesis | ApexFastAPI Microservice Engine: Dependency Injection & Lifespan Architecture
+D33: High-Performance Streaming & WebSockets in FastAPI
+      HTTP Chunked Transfer Encoding & ASGI Streaming Protocols | WebSocket RFC 6455 Framing & Slow Consumer Memory Forensics | High-Throughput WebSocket Broadcast Hub with Backpressure | Real-Time AI Token Streaming Gateway & SSE Hardening | Full Asynchronous Streaming & WebSocket Hub Integration Lab | Build the Real-Time Streaming & WebSocket Broadcast Hub Subsystem
+D34: Authentication, Security & OAuth2 with JWT (Stateless vs State)
+      JWT Cryptographic Anatomy & OAuth2 Password Bearer Handshake | Algorithm Confusion (RS256 vs HS256) Exploit Forensics | OAuth2 Stateless Token & Refresh Rotation Engine Implementation | Redis Distributed Blocklist Token Revocation & Replay Defense | Hardened Microservice Security Engine Synthesis Lab | Construct the OAuth2 & JWT Security Subsystem
+D35: Milestone Project 6: High-Throughput FastAPI Microservice with Pydantic V2 & JWT Security Engine
+      Milestone 6 Architecture Specification & Component Contracts | Security Penetration & Concurrency Load Stress Testing | High-Throughput FastAPI Gateway Engine Implementation | Real-Time Streaming & WebSocket Broadcast Subsystem | Production Verification Gate & Benchmark Synthesis Lab | Synthesize & Benchmark Milestone Project 6
+D36: SQLAlchemy 2.0 Async Engine & Connection Pooling
+      SQLAlchemy 2.0 Async Architecture & asyncpg Driver Mechanics | Connection Pool Exhaustion & Leak Forensics | Asynchronous QueuePool Engine Implementation | High-Volume Checkout Connection Pool Tuning | Full Asynchronous Engine & Connection Lifecycle Lab | Construct the Async Engine & QueuePool Subsystem
+D37: Unit of Work Pattern & Identity Map Physics
+      Unit of Work & Identity Map Enterprise Patterns Deep Dive | Long-Lived Session Memory Leak & Dirty State Forensics | Unit of Work & Dirty-Tracking Session Implementation | Financial Ledger Transactional Atomicity Hardening | Full AsyncSession Lifecycle & Flush Synthesis Lab | Construct the Unit of Work & Identity Map Layer
+D38: High-Scale Query Optimization & The N+1 Problem
+      N+1 Problem Mechanics & Cartesian Product Analysis | SQLAlchemy Query Profiling with echo=True & EXPLAIN ANALYZE | Eager Loading Query Execution Engine Implementation | Enterprise Reporting Endpoint Query Optimization | Full Eager Loading & Query Planner Synthesis Lab | Implement Eager Loading & Query Optimization
+D39: Database Migrations with Alembic & Zero-Downtime Schema Evolution
+      Alembic Revision Graph & DDL Locking Mechanics | Rolling Deployment Migration Failure Forensics | Expand and Contract Schema Migration Engine | Online DDL & Index Creation Mechanics | Enterprise Zero-Downtime Migration Coordinator | Build a Zero-Downtime Schema Migration Coordinator
+D40: Milestone Project 7: High-Scale Async ORM & Zero-Downtime Data Layer Engine
+      Milestone 7 Architecture Specification & Data Contracts | Database Failover & Connection Leak Stress Testing | Integrated Unit of Work & Identity Map Engine | Query Execution Planner with Eager Loading | Milestone 7 Production Defense & Verification Gate | Synthesize and Verify Milestone Project 7 Engine
+D41: Distributed Task Queue Architecture: Celery & Broker Mechanics
+      Celery Architecture & Broker Protocol (AMQP/Redis) Dissection | Worker Crash & Early vs Late ACK Task Loss Forensics | Bounded Prefetch Limits & Fair Worker Dispatch | Asynchronous Result Backend & State Transitions | Distributed Task Supervisor & Fault-Tolerant Execution | Build a Resilient Distributed Task Queue Engine
+D42: Celery Canvas: Chains, Groups, Chords & Complex Workflows
+      Celery Canvas Primitives Deep Dive: Signatures, Chains & Chords | Parallel Task Group Execution & Concurrency Scaling | Chord Barrier Synchronization & Callback Dispatch Mechanics | Chord Barrier Synchronization & Redis Polling Storm Forensics | Media Processing Pipeline Workflow Modernization | Build a Celery Canvas Workflow Orchestration Engine
+D43: Reliability, Idempotency & Visibility Timeouts
+      At-Least-Once Delivery Theory & Visibility Timeout Dynamics | Duplicate Execution & Double-Billing Incident Forensics | Idempotency Keys & Deduplication Store Architecture | Distributed Locking with Leases & Auto-Release TTL | Subscription Billing Pipeline Idempotency Hardening | Build an Idempotent Task Execution & Distributed Lock Engine
+D44: Dead-Letter Queues, Monitoring & Flower Observability
+      AMQP Dead-Letter Exchanges & Celery Error Handling Mechanics | Poison Pill Cascade & Infinite Retry Backlog Forensics | Dead-Letter Queue Router & Exponential Backoff with Jitter | Worker Concurrency Models & Pool Sizing (Prefork vs Gevent) | Real-Time Monitoring, Prometheus Metrics & Flower Observability | Build a Dead-Letter Queue & Worker Observability Engine
+D45: Milestone Project 8: Resilient Distributed Task Queue & Workflow Orchestration Engine
+      Milestone 8 Architecture Specification & Distributed Contracts | Worker Crash Recovery & Idempotency Stress Testing | Distributed Task Queue & Canvas Workflow Engine Implementation | Poison Pill Interception & Dead-Letter Queue Self-Healing | Milestone 8 Production Defense & Verification Gate | Synthesize the Milestone 8 Distributed Orchestration Engine
+D46: gRPC, Protocol Buffers & HTTP/2 in Python (grpc.aio)
+      Protocol Buffers Binary Encoding & HTTP/2 Framing Physics | Ephemeral Port Exhaustion & Connection Churn Forensics | Asynchronous gRPC Server & Streaming Client Implementation | The Four gRPC Communication Patterns & Streaming Topologies | Enterprise Inter-Service Communication Modernization | Build a High-Speed gRPC Microservice & Gateway Engine
+D47: Kafka Event-Driven Architecture with aiokafka
+      Kafka Partition Physics, Consumer Groups & Offset Mechanics | Auto-Commit Message Loss & Rebalance Storm Forensics | aiokafka Event Consumer with Manual Offset Management | Backpressure Regulation & Dynamic Batch Throttling | High-Throughput Order Event Pipeline Hardening | Build a Resilient Kafka Event Streaming Engine
+D48: Distributed Caching & Cache Invalidation with Redis
+      Caching Physics: Cache-Aside vs Write-Through vs Write-Behind | Cache Stampede (Thundering Herd) Profiling & DB Collapse | XFetch Probabilistic Early Expiration Algorithm | Atomic Redis Lua Scripting & Multi-Step Invalidation | News Portal Cache Invalidation & Stampede Hardening | Build a Stampede-Resistant Distributed Caching Tier
+D49: Microservice Resilience: Circuit Breakers, Bulkheads & Rate Limiting
+      Circuit Breaker State Machine & Cascading Failures | Bulkhead Isolation & Concurrency Partitioning | Distributed Rate Limiting: Token Bucket Algorithm | Resilience Composition: Circuit Breaker & Bulkhead Integration | E-Commerce Gateway Cascading Failure Remediation | Step 49: Engineering Fault-Tolerant Microservice Resilience
+D50: Milestone Project 9: High-Throughput Event-Driven Microservice & gRPC Gateway Engine
+      Milestone 9 Architecture & gRPC Interface Contracts | Kafka Event Pipeline & Durable Offset Commit Semantics | Multi-Tier Caching & XFetch Stampede Elimination | Fault-Tolerant Distributed Mesh: Circuit Breakers & Bulkheads | Milestone 9 Production Defense & Verification Gate | Step 50: Synthesizing the Event-Driven Microservice & gRPC Gateway Engine
+D51: OpenTelemetry Distributed Tracing & W3C TraceContext
+      Distributed Tracing Foundations & W3C TraceContext | Contextvars & Asynchronous Trace Propagation | Span Lifecycle, Events & Semantic Attributes | Head-Based & Tail-Based Distributed Sampling | Multi-Service Distributed Trace Graph Synthesis | Step 51: Implementing OpenTelemetry Distributed Tracing & W3C TraceContext
+D52: Prometheus Metrics Instrumentation & The RED Method
+      The RED Method & Operational Metrics Architecture | Prometheus Counter & Gauge Primitives | Histograms, Bucket Distributions & Percentile Quantiles | High-Cardinality Traps & Time Series Memory Protection | Production Service RED Metrics Dashboard Synthesis | Step 52: Implementing Prometheus RED Metrics & Cardinality Defense
+D53: Structured Logging, Correlation IDs & Contextual Tracing
+      Structured JSON Logging vs Plaintext Architecture | Correlation IDs & Request Tracing Across Services | Automated Context Injection via Contextvars | Automated PII Redaction & Security Masking | Production Incident Triage & Log Query Forensics Lab | Step 53: Engineering Structured Logging, Correlation & PII Sanitization
+D54: Production Health Checks, Kubernetes Probes & Graceful Draining
+      Kubernetes Container Probes & Lifecycles | Shallow vs Deep Health Check Architecture | Graceful Shutdown & POSIX Signal Handling | Connection Draining & TCP Keep-Alive Mechanics | Rolling Deployment Zero-Downtime Verification Lab | Step 54: Implementing Kubernetes Probes & Graceful Connection Draining
+D55: Milestone Project 10: Production Observability, SRE Telemetry & Resilience Suite
+      Milestone 10 Architecture & Telemetry Contracts | Trace-to-Log Correlation Mechanics | Real-Time RED Metrics Aggregation Engine | Resilient Lifecycle & Connection Draining Controller | Milestone 10 Production Defense & Verification Gate | Step 55: Synthesizing the Production Observability & SRE Telemetry Suite
+D56: Industrial Case Study 1: High-Frequency Fintech Transactional Ledger
+      Double-Entry Accounting Mechanics & Decimal Precision Physics | Concurrent Double-Spend Race Condition Forensics | Immutable Double-Entry Ledger Engine Implementation | High-Frequency Peer-to-Peer Transfer Hardening | Production Fintech Audit Trail & Reconciliation Verification | Step 56: Building the High-Frequency Fintech Transactional Ledger
+D57: Industrial Case Study 2: Real-Time Collaborative Streaming Engine
+      WebSocket Gateway Scaling & Redis Pub/Sub Fan-Out Topology | Pub/Sub Message Explosion & Redis CPU Saturation Forensics | Real-Time Collaborative Fan-Out Engine Implementation | Large-Scale Whiteboard Streaming Latency Optimization | Resilient Collaborative Reconnection & State Catch-Up | Step 57: Building the Real-Time Collaborative Streaming Engine
+D58: Industrial Case Study 3: Global E-Commerce Flash Sale Architecture
+      Flash Sale Thundering Herd Physics & Queue Draining Architecture | TOCTOU Inventory Overselling Race Condition Forensics | Atomic Redis Lua Flash Sale Inventory Engine Implementation | Planetary-Scale Flash Sale Thundering Herd Hardening | Asynchronous Order Draining, Dead-Letter Queues & Stock Reconciliation | Step 58: Building the Global E-Commerce Flash Sale Architecture
+D59: Principal Python Backend Architect RFC & System Design Defense
+      Principal Architect RFC Formalization & Capacity Planning Models | Adversarial Architecture Review & Failure Domain Defense | Capacity Planning & Latency Budget Calculator Engine | Executive Architectural Review Board RFC Presentation | Service Level Objectives (SLOs), Error Budgets & Post-Mortem Action Plans | Step 59: Authoring and Defending the Principal Architect RFC
+D60: Capstone Project 2: ApexPython High-Scale Distributed Microservices Backend Platform Master Capstone Viva Gate
+      ApexPython Platform Architectural Blueprint & Formal Charter | Multi-Failure Adversarial Red-Team Stress Test Harness | ApexPython Distributed Microservices Platform Implementation | Chief Systems Architect Master Capstone Viva Defense Gate | 60-Day Python Backend Master Certification & Production Readiness Sign-Off | Step 60: Completing the Grand Master Capstone and Viva Defense Gate
+TOTAL UNIQUE DAYS: 60

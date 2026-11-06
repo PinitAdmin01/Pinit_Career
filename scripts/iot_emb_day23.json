@@ -1,0 +1,229 @@
+{
+  "day": 23,
+  "title": "Task Synchronization: Semaphores, Mutexes & Priority Inversion (The Mars Pathfinder Incident)",
+  "goal": "Master synchronization and avoid the most famous bug in space exploration history: Priority Inversion. Analyze the 1997 Mars Pathfinder spacecraft anomaly, understand why binary semaphores fail on shared buses, implement Priority Inheritance Protocols (PIP), and prevent recursive deadlocks.",
+  "minutes": 36,
+  "recap": "Yesterday, we built the assembly context switcher. Today, we address the gravest concurrency hazard in real-time systems: Priority Inversion, where a low-priority task indirectly starves a mission-critical high-priority task.",
+  "parts": [
+    {
+      "title": "Binary Semaphores vs Mutexes: Mutual Exclusion, Ownership & Signaling Semantics",
+      "say": [
+        "In novice embedded code, semaphores and mutexes are frequently confused because both can restrict access to 1 token.",
+        "However, they serve fundamentally different architectural purposes.",
+        "A Binary Semaphore is a Signaling Primitive: Task A signals that an event occurred, and Task B waits for that signal; there is NO concept of ownership (Task A gives the semaphore, Task B takes it).",
+        "A Mutex (Mutual Exclusion Object) is a Locking Primitive: it protects a shared physical resource (like an I2C bus, SPI Flash, or display).",
+        "Crucial Rule: A Mutex has strict OWNERSHIP: only the task that acquired (took) the mutex is permitted to release (give) it.",
+        "Because of ownership, a Mutex supports Priority Inheritance, whereas a Binary Semaphore does not."
+      ],
+      "example": "A semaphore is a green flag waved at a racetrack (the flagger waves it, the driver moves); a mutex is a key to a private restroom (you take the key into the restroom, and ONLY you can return the key when you exit).",
+      "code": "#include <iostream>\n#include <string>\n#include <cstdint>\n\nclass SimulatedMutex {\nprivate:\n    bool locked;\n    std::string ownerTask;\npublic:\n    SimulatedMutex() : locked(false), ownerTask(\"NONE\") {}\n\n    bool take(const std::string& taskName) {\n        if (!locked) {\n            locked = true;\n            ownerTask = taskName;\n            std::cout << \"[MUTEX TAKE] Locked by '\" << ownerTask << \"'\\n\";\n            return true;\n        }\n        std::cout << \"[MUTEX BLOCKED] Task '\" << taskName << \"' blocked! Owned by '\" << ownerTask << \"'\\n\";\n        return false;\n    }\n\n    bool give(const std::string& taskName) {\n        if (!locked) return false;\n        // Enforce ownership invariant!\n        if (taskName != ownerTask) {\n            std::cout << \"[MUTEX ERROR] Illegal unlock! Task '\" << taskName \n                      << \"' attempted to release mutex owned by '\" << ownerTask << \"'!\\n\";\n            return false;\n        }\n        locked = false;\n        ownerTask = \"NONE\";\n        std::cout << \"[MUTEX RELEASE] Mutex successfully unlocked by '\" << taskName << \"'\\n\";\n        return true;\n    }\n};\n\nint main() {\n    SimulatedMutex i2cBusMutex;\n    i2cBusMutex.take(\"SensorTask\");\n    // Illegal attempt: TelemetryTask tries to release mutex it does not own\n    i2cBusMutex.give(\"TelemetryTask\");\n    // Legal release: SensorTask releases its own mutex\n    i2cBusMutex.give(\"SensorTask\");\n    return 0;\n}",
+      "output": "[MUTEX TAKE] Locked by 'SensorTask'\n[MUTEX ERROR] Illegal unlock! Task 'TelemetryTask' attempted to release mutex owned by 'SensorTask'!\n[MUTEX RELEASE] Mutex successfully unlocked by 'SensorTask'",
+      "codeNotes": [
+        {
+          "line": 13,
+          "note": "Mutex take records acquiring task identity as strict owner"
+        },
+        {
+          "line": 25,
+          "note": "Enforces ownership invariant: rejects unlock attempts from non-owner tasks"
+        },
+        {
+          "line": 39,
+          "note": "Releases mutex safely when called by verified owner task"
+        }
+      ],
+      "tryIt": "Explain why a binary semaphore cannot enforce ownership if an interrupt handler needs to signal a task.",
+      "check": {
+        "question": "What is the key architectural difference between a Binary Semaphore and a Mutex in FreeRTOS?",
+        "options": [
+          "A Mutex enforces strict task ownership and supports priority inheritance; a semaphore is an anonymous signaling token without ownership",
+          "A Mutex can store up to 256 tokens, while a semaphore only stores 1",
+          "A semaphore cannot be used in C++",
+          "A Mutex disables all CPU interrupts permanently"
+        ],
+        "answer": 0,
+        "why": "Mutexes implement ownership semantics (only the locking task can unlock it), which is the essential prerequisite for implementing priority inheritance."
+      }
+    },
+    {
+      "title": "The 1997 Mars Pathfinder Anomaly: Autopsy of Unbounded Priority Inversion",
+      "say": [
+        "On July 4, 1997, NASA's Mars Pathfinder spacecraft landed on Mars to international acclaim.",
+        "A few days into the mission, the lander began experiencing spontaneous total system resets, losing precious scientific data.",
+        "The NASA software team conducted a forensic analysis and uncovered the most famous bug in real-time history: Unbounded Priority Inversion.",
+        "Three tasks were involved: Task Low (meteorological sensor gathering wind data), Task Med (long-running communications/audio task), and Task High (critical attitude control and information bus manager).",
+        "Task Low acquired a shared mutex on the `1553` information bus. While Task Low held the mutex, high-priority Task High became ready and preempted Task Low.",
+        "Task High attempted to access the bus, found the mutex locked, and blocked, allowing Task Low to resume to finish and release the bus.",
+        "BUT before Task Low could release the bus, medium-priority Task Med (which didn't even use the bus!) woke up; because Priority Med > Priority Low, Task Med preempted Task Low indefinitely!",
+        "Task High was now blocked by Task Low, which was blocked by Task Med; a medium task was indirectly starving the highest-priority task in the entire spacecraft!",
+        "A watchdog timer detected that Task High had not run for several seconds, assumed total computer failure, and reset the entire spacecraft."
+      ],
+      "example": "A fire truck (Task High) is stuck at a narrow one-lane bridge because a slow tractor (Task Low) is crossing; but before the tractor gets across, a parade of marching bands (Task Med) cuts in front of the tractor, stranding the fire truck indefinitely.",
+      "code": "#include <iostream>\n#include <string>\n\nvoid simulateMarsPathfinderAnomaly(bool priorityInheritanceEnabled) {\n    std::cout << \"=========================================================\\n\";\n    std::cout << \"  MARS PATHFINDER PRIORITY INVERSION SIMULATION\\n\";\n    std::cout << \"  (Priority Inheritance: \" << (priorityInheritanceEnabled ? \"ENABLED\" : \"DISABLED\") << \")\\n\";\n    std::cout << \"=========================================================\\n\";\n    std::cout << \"[TIME 0] Task LOW (Meteo) acquires 1553 Bus Mutex\\n\";\n    std::cout << \"[TIME 1] Task HIGH (Attitude Control) wakes up -> Preempts Task LOW\\n\";\n    std::cout << \"[TIME 2] Task HIGH requests 1553 Bus Mutex -> BLOCKS (Owned by LOW)!\\n\";\n\n    if (!priorityInheritanceEnabled) {\n        std::cout << \"[TIME 3] CPU resumes Task LOW to finish bus work...\\n\";\n        std::cout << \"[TIME 4] Task MED (Communications) wakes up! (Pri MED > Pri LOW)\\n\";\n        std::cout << \"[TIME 5] Task MED PREEMPTS Task LOW indefinitely!\\n\";\n        std::cout << \"  -> FATAL INVERSION: Task HIGH is starved by Task MED!\\n\";\n        std::cout << \"  -> [WATCHDOG TIMEOUT] Spacecraft watchdog resets system on Mars!\\n\";\n    } else {\n        std::cout << \"  -> [PRIORITY INHERITANCE ACTIVE] Task LOW temporarily ELEVATED to Priority HIGH!\\n\";\n        std::cout << \"[TIME 3] Task MED wakes up (Pri MED < Inherited Pri HIGH) -> Task MED BLOCKED!\\n\";\n        std::cout << \"[TIME 4] Task LOW finishes 1553 Bus transaction and releases mutex!\\n\";\n        std::cout << \"  -> Task LOW drops back to normal Priority LOW.\\n\";\n        std::cout << \"[TIME 5] Task HIGH immediately unblocks and executes with ZERO starvation!\\n\";\n    }\n}\n\nint main() {\n    simulateMarsPathfinderAnomaly(false); // Reproduce 1997 anomaly\n    std::cout << \"\\n\";\n    simulateMarsPathfinderAnomaly(true);  // Apply Mars patch\n    return 0;\n}",
+      "output": "=========================================================\n  MARS PATHFINDER PRIORITY INVERSION SIMULATION\n  (Priority Inheritance: DISABLED)\n=========================================================\n[TIME 0] Task LOW (Meteo) acquires 1553 Bus Mutex\n[TIME 1] Task HIGH (Attitude Control) wakes up -> Preempts Task LOW\n[TIME 2] Task HIGH requests 1553 Bus Mutex -> BLOCKS (Owned by LOW)!\n[TIME 3] CPU resumes Task LOW to finish bus work...\n[TIME 4] Task MED (Communications) wakes up! (Pri MED > Pri LOW)\n[TIME 5] Task MED PREEMPTS Task LOW indefinitely!\n  -> FATAL INVERSION: Task HIGH is starved by Task MED!\n  -> [WATCHDOG TIMEOUT] Spacecraft watchdog resets system on Mars!\n\n=========================================================\n  MARS PATHFINDER PRIORITY INVERSION SIMULATION\n  (Priority Inheritance: ENABLED)\n=========================================================\n[TIME 0] Task LOW (Meteo) acquires 1553 Bus Mutex\n[TIME 1] Task HIGH (Attitude Control) wakes up -> Preempts Task LOW\n[TIME 2] Task HIGH requests 1553 Bus Mutex -> BLOCKS (Owned by LOW)!\n  -> [PRIORITY INHERITANCE ACTIVE] Task LOW temporarily ELEVATED to Priority HIGH!\n[TIME 3] Task MED wakes up (Pri MED < Inherited Pri HIGH) -> Task MED BLOCKED!\n[TIME 4] Task LOW finishes 1553 Bus transaction and releases mutex!\n  -> Task LOW drops back to normal Priority LOW.\n[TIME 5] Task HIGH immediately unblocks and executes with ZERO starvation!",
+      "codeNotes": [
+        {
+          "line": 15,
+          "note": "Without inheritance: medium-priority tasks preempt low-priority mutex holder indefinitely"
+        },
+        {
+          "line": 21,
+          "note": "With inheritance: low-priority holder inherits priority of blocked high-priority task"
+        },
+        {
+          "line": 25,
+          "note": "Task drops back to base priority the instant the mutex is released"
+        }
+      ],
+      "tryIt": "Trace the exact timeline showing how JPL engineers uploaded a remote C patch to Mars enabling priority inheritance on the mutex.",
+      "check": {
+        "question": "What caused the Mars Pathfinder spacecraft to repeatedly reboot on Mars in 1997?",
+        "options": [
+          "Unbounded Priority Inversion: a medium task preempted a low task holding a mutex needed by a critical high task, starving the high task until the watchdog tripped",
+          "The solar panels ran out of battery power",
+          "A cosmic ray physically severed a wire",
+          "The Flash memory filled up"
+        ],
+        "answer": 0,
+        "why": "Medium-priority communications tasks preempted the low-priority meteorological task while it held a bus mutex, preventing the high-priority attitude task from running and triggering watchdog reboots."
+      }
+    },
+    {
+      "title": "Priority Inheritance Protocols (PIP): Dynamic Priority Elevation of Mutex Holders",
+      "say": [
+        "The Priority Inheritance Protocol (PIP) is the mathematical remedy for unbounded priority inversion.",
+        "Under PIP, when a high-priority task blocks waiting for a mutex held by a lower-priority task, the kernel TEMPORARILY elevates the priority of the holder to match that of the waiting task.",
+        "In the Mars Pathfinder scenario, the moment Task High blocks on the mutex, Task Low's effective priority is instantly promoted to Priority High.",
+        "Now, when Task Med wakes up, it cannot preempt Task Low because Task Low is running with inherited Priority High!",
+        "Task Low finishes its critical section as quickly as possible and releases the mutex.",
+        "The instant the mutex is released, the kernel restores Task Low back to its original baseline priority, and Task High unblocks and acquires the mutex immediately."
+      ],
+      "example": "A police escort: a slow garbage truck is carrying a package needed by the governor; the state police temporarily give the garbage truck police sirens and escort it through all red lights so it can deliver the package without getting stuck in traffic.",
+      "code": "#include <iostream>\n#include <string>\n#include <cstdint>\n\nstruct TcbWithPriorityInheritance {\n    std::string name;\n    uint32_t basePriority;\n    uint32_t activePriority; // Can be temporarily elevated!\n};\n\nclass PipMutex {\nprivate:\n    bool locked;\n    TcbWithPriorityInheritance* owner;\npublic:\n    PipMutex() : locked(false), owner(nullptr) {}\n\n    bool take(TcbWithPriorityInheritance* task) {\n        if (!locked) {\n            locked = true;\n            owner = task;\n            return true;\n        }\n\n        // Contest! Another task wants this mutex\n        std::cout << \"[PIP CONTEST] Task '\" << task->name << \"' (Pri \" << task->activePriority \n                  << \") wants mutex owned by '\" << owner->name << \"' (Pri \" << owner->activePriority << \")\\n\";\n\n        if (task->activePriority > owner->activePriority) {\n            std::cout << \"  -> [PRIORITY ELEVATION] Elevating '\" << owner->name \n                      << \"' priority from \" << owner->activePriority << \" to \" << task->activePriority << \"!\\n\";\n            owner->activePriority = task->activePriority; // Dynamic inheritance\n        }\n        return false; // Requesting task blocks\n    }\n\n    void give() {\n        if (!locked || !owner) return;\n        std::cout << \"[PIP RELEASE] Mutex released by '\" << owner->name << \"'\\n\";\n        if (owner->activePriority != owner->basePriority) {\n            std::cout << \"  -> [PRIORITY RESTORATION] Restoring '\" << owner->name \n                      << \"' priority back to base level \" << owner->basePriority << \"\\n\";\n            owner->activePriority = owner->basePriority;\n        }\n        locked = false;\n        owner = nullptr;\n    }\n};\n\nint main() {\n    TcbWithPriorityInheritance taskLow = {\"TaskLow\", 1, 1};\n    TcbWithPriorityInheritance taskHigh = {\"TaskHigh\", 4, 4};\n\n    PipMutex bus;\n    bus.take(&taskLow);  // Low locks bus\n    bus.take(&taskHigh); // High contests: Low is elevated to 4!\n    bus.give();          // Low finishes: drops back to 1!\n    return 0;\n}",
+      "output": "[PIP CONTEST] Task 'TaskHigh' (Pri 4) wants mutex owned by 'TaskLow' (Pri 1)\n  -> [PRIORITY ELEVATION] Elevating 'TaskLow' priority from 1 to 4!\n[PIP RELEASE] Mutex released by 'TaskLow'\n  -> [PRIORITY RESTORATION] Restoring 'TaskLow' priority back to base level 1",
+      "codeNotes": [
+        {
+          "line": 23,
+          "note": "Elevates owner's activePriority to match the contesting task's higher priority"
+        },
+        {
+          "line": 34,
+          "note": "Restores owner's activePriority back to its basePriority the instant the mutex is released"
+        },
+        {
+          "line": 48,
+          "note": "Demonstrates dynamic priority inheritance cycle avoiding priority inversion"
+        }
+      ],
+      "tryIt": "Demonstrate that if a third task with Priority 3 attempts to take the mutex, the owner remains at Priority 4.",
+      "check": {
+        "question": "When does a low-priority task relinquish its inherited elevated priority under the Priority Inheritance Protocol?",
+        "options": [
+          "The exact moment it releases the mutex that caused the priority elevation",
+          "When the microcontroller is reset",
+          "After exactly 100 clock cycles",
+          "When it calls vTaskDelete()"
+        ],
+        "answer": 0,
+        "why": "Priority inheritance is tied directly to mutex ownership; releasing the mutex immediately restores the task's active priority back to its original baseline."
+      }
+    },
+    {
+      "title": "Recursive Mutexes & Deadlock Prevention: Resource Hierarchies",
+      "say": [
+        "A standard mutex will deadlock if the same task attempts to acquire it twice: the task blocks waiting for the mutex, but it cannot release the mutex because it is blocked on itself!",
+        "A Recursive Mutex (`xSemaphoreCreateRecursiveMutex`) solves this: it maintains a recursion lock count.",
+        "The owning task can acquire the recursive mutex multiple times without blocking; the mutex is only released back to the system when the owner calls give an equal number of times (`takeCount == giveCount`).",
+        "However, having multiple mutexes introduces Deadlocks: Task A holds Mutex 1 and waits for Mutex 2; Task B holds Mutex 2 and waits for Mutex 1 (the deadly embrace).",
+        "To guarantee that deadlocks can never occur, embedded systems implement strict Resource Acquisition Hierarchies.",
+        "Rule: All tasks in the entire system MUST acquire shared mutexes in the exact same predefined numerical order (e.g., always acquire BusMutex before MemoryMutex, never in reverse)."
+      ],
+      "example": "Two people at a dinner table: person A has the fork and waits for the knife; person B has the knife and waits for the fork; neither can eat until one puts down their utensil. If the rule says 'always pick up the fork first', deadlock is impossible.",
+      "code": "#include <iostream>\n#include <string>\n#include <cstdint>\n\nclass RecursiveMutex {\nprivate:\n    std::string owner;\n    uint32_t lockCount;\npublic:\n    RecursiveMutex() : owner(\"NONE\"), lockCount(0) {}\n\n    bool take(const std::string& task) {\n        if (lockCount == 0) {\n            owner = task;\n            lockCount = 1;\n            std::cout << \"[RECURSIVE LOCK] Locked by '\" << owner << \"' (Depth: 1)\\n\";\n            return true;\n        } else if (owner == task) {\n            lockCount++; // Same task can re-enter safely!\n            std::cout << \"[RECURSIVE RE-ENTRY] '\" << owner << \"' re-locked (Depth: \" << lockCount << \")\\n\";\n            return true;\n        }\n        std::cout << \"[BLOCKED] Task '\" << task << \"' blocked by '\" << owner << \"'\\n\";\n        return false;\n    }\n\n    bool give(const std::string& task) {\n        if (owner != task || lockCount == 0) return false;\n        lockCount--;\n        std::cout << \"[RECURSIVE UNLOCK] '\" << task << \"' released (Remaining Depth: \" << lockCount << \")\\n\";\n        if (lockCount == 0) {\n            owner = \"NONE\";\n            std::cout << \"  -> Mutex fully released to system!\\n\";\n        }\n        return true;\n    }\n};\n\nint main() {\n    RecursiveMutex mutex;\n    // Task enters nested functions, acquiring same mutex twice\n    mutex.take(\"ControlTask\");\n    mutex.take(\"ControlTask\"); // Re-enters cleanly without deadlock\n    mutex.give(\"ControlTask\");\n    mutex.give(\"ControlTask\"); // Fully released\n    return 0;\n}",
+      "output": "[RECURSIVE LOCK] Locked by 'ControlTask' (Depth: 1)\n[RECURSIVE RE-ENTRY] 'ControlTask' re-locked (Depth: 2)\n[RECURSIVE UNLOCK] 'ControlTask' released (Remaining Depth: 1)\n[RECURSIVE UNLOCK] 'ControlTask' released (Remaining Depth: 0)\n  -> Mutex fully released to system!",
+      "codeNotes": [
+        {
+          "line": 16,
+          "note": "Allows same owner task to re-enter and increment lockCount without blocking on itself"
+        },
+        {
+          "line": 26,
+          "note": "Decrements lockCount on each give; releases to system only when count reaches 0"
+        },
+        {
+          "line": 39,
+          "note": "Demonstrates safe nested mutex acquisition across hierarchical functions"
+        }
+      ],
+      "tryIt": "Demonstrate that another task attempting to take the mutex while lockCount=1 is blocked.",
+      "check": {
+        "question": "How does a Resource Acquisition Hierarchy eliminate deadlocks in multi-threaded RTOS applications?",
+        "options": [
+          "By requiring all tasks to acquire multiple mutexes in the exact same predefined global order, preventing circular wait dependencies",
+          "By deleting tasks that use more than one mutex",
+          "By forcing all mutexes to expire after 1 millisecond",
+          "By running all code in single-threaded mode"
+        ],
+        "answer": 0,
+        "why": "Deadlocks require a circular wait condition; enforcing a strict global acquisition order (e.g., Mutex 1 before Mutex 2) mathematically eliminates circular dependencies."
+      }
+    },
+    {
+      "title": "Counting Semaphores for Resource Pool Management",
+      "say": [
+        "While mutexes protect single exclusive resources, how do we manage a pool of identical resources (e.g. 4 available DMA memory buffers or 3 network sockets)?",
+        "The solution is a Counting Semaphore (`xSemaphoreCreateCounting`).",
+        "A counting semaphore maintains a counter ranging from 0 up to `maxCount`.",
+        "Each `take` operation decrements the count; if the count is zero, the task blocks until a resource is returned.",
+        "Each `give` operation increments the count and unblocks the highest-priority waiting task.",
+        "Counting semaphores are also used for event counting: an interrupt handler increments the semaphore on every physical pulse, and a worker task decrements it to process events in order."
+      ],
+      "example": "A bowling alley with 5 pairs of rental shoes: players take a pair (count decrements); when all 5 pairs are rented, the next player must wait at the counter until someone returns a pair (count increments).",
+      "code": "#include <iostream>\n#include <cstdint>\n\nclass CountingSemaphore {\nprivate:\n    uint32_t count;\n    uint32_t maxCount;\npublic:\n    CountingSemaphore(uint32_t initial, uint32_t max) : count(initial), maxCount(max) {}\n\n    bool take(const std::string& task) {\n        if (count > 0) {\n            count--;\n            std::cout << \"[SEMAPHORE TAKE] '\" << task << \"' acquired resource (Remaining: \" << count << \")\\n\";\n            return true;\n        }\n        std::cout << \"[SEMAPHORE BLOCKED] '\" << task << \"' blocked! Pool exhausted (0 available)\\n\";\n        return false;\n    }\n\n    void give() {\n        if (count < maxCount) {\n            count++;\n            std::cout << \"[SEMAPHORE GIVE] Resource returned to pool (Available: \" << count << \")\\n\";\n        }\n    }\n};\n\nint main() {\n    CountingSemaphore dmaBufferPool(2, 2); // 2 DMA buffers available\n    dmaBufferPool.take(\"TaskA\");\n    dmaBufferPool.take(\"TaskB\");\n    dmaBufferPool.take(\"TaskC\"); // Pool exhausted -> blocks!\n    dmaBufferPool.give();        // Resource returned\n    dmaBufferPool.take(\"TaskC\"); // TaskC now acquires!\n    return 0;\n}",
+      "output": "[SEMAPHORE TAKE] 'TaskA' acquired resource (Remaining: 1)\n[SEMAPHORE TAKE] 'TaskB' acquired resource (Remaining: 0)\n[SEMAPHORE BLOCKED] 'TaskC' blocked! Pool exhausted (0 available)\n[SEMAPHORE GIVE] Resource returned to pool (Available: 1)\n[SEMAPHORE TAKE] 'TaskC' acquired resource (Remaining: 0)",
+      "codeNotes": [
+        {
+          "line": 10,
+          "note": "Initializes counting semaphore with initial and maximum available tokens"
+        },
+        {
+          "line": 12,
+          "note": "Take decrements available resource count; blocks when count reaches zero"
+        },
+        {
+          "line": 30,
+          "note": "Demonstrates resource pool allocation across multiple concurrent tasks"
+        }
+      ],
+      "tryIt": "Initialize maxCount to 4 and verify that 4 tasks can acquire resources simultaneously.",
+      "check": {
+        "question": "What happens when a task attempts to take a counting semaphore whose current count is zero?",
+        "options": [
+          "The task enters the Blocked state until another task or ISR gives the semaphore",
+          "The microcontroller generates a HardFault exception",
+          "The count becomes negative (-1)",
+          "The semaphore is deleted"
+        ],
+        "answer": 0,
+        "why": "When a semaphore count is zero, all tokens are in use; requesting tasks block until an active holder releases a token."
+      }
+    }
+  ],
+  "summary": [
+    "Binary semaphores are anonymous signaling primitives without ownership; mutexes enforce strict task ownership and support priority inheritance.",
+    "The 1997 Mars Pathfinder anomaly proved that priority inversion occurs when medium tasks preempt low-priority mutex holders, starving high-priority tasks.",
+    "The Priority Inheritance Protocol (PIP) dynamically elevates a mutex holder's priority to match the highest-priority blocked task until release.",
+    "Recursive mutexes allow the same task to re-enter nested critical sections, and resource hierarchies eliminate circular deadlocks.",
+    "Counting semaphores manage finite pools of shared resources (e.g. DMA buffers, network sockets) with bounded waiting queues."
+  ],
+  "projectStep": {
+    "title": "Construct a Priority-Inheritance Mutex Manager and Recreate the Mars Pathfinder Anomaly",
+    "steps": [
+      "Implement a thread-safe mutex structure with task ownership verification on take and give.",
+      "Recreate the Mars Pathfinder priority inversion condition with Low, Medium, and High priority tasks.",
+      "Implement the Priority Inheritance Protocol (PIP) dynamically elevating mutex holders to contestor priorities.",
+      "Author a recursive mutex maintaining nested lock counts to support hierarchical function calls.",
+      "Implement a counting semaphore managing a pool of 4 DMA audio buffers with zero deadlocks."
+    ]
+  }
+}

@@ -1,0 +1,221 @@
+{
+  "day": 7,
+  "title": "Serial Peripheral Interface (SPI): Synchronous Shift Registers, CPOL, CPHA & High-Speed Clocks",
+  "goal": "Scale bus throughput to tens of megahertz: master the Serial Peripheral Interface (SPI). Compare synchronous bus architecture (with a dedicated shared clock line, SCK) against asynchronous UART. Deconstruct the circular shift register topology: explain why SPI is inherently full-duplex (every write is simultaneously a read). Master the 4 SPI Modes: Clock Polarity (CPOL) and Clock Phase (CPHA). Calculate SPI baud prescalers from peripheral bus clocks, analyze Chip Select (CS/SS) assertion setup and hold times, and write a high-throughput SPI Flash memory page streaming engine.",
+  "minutes": 36,
+  "recap": "Yesterday in Day 6, we mastered asynchronous serial UART communication physics, fractional Baud Rate Register (BRR) calculations, 16x oversampling, and start-bit detection. Today in Day 7, we advance to high-speed synchronous communications with the Serial Peripheral Interface (SPI).",
+  "parts": [
+    {
+      "title": "Synchronous Shift Register Topology & Full-Duplex Physics",
+      "say": [
+        "Welcome to Day 7! While UART tops out at around 1 Mbps due to asynchronous clock drift limits, the Serial Peripheral Interface (SPI) routinely operates at 20 to 50 MHz.",
+        "SPI achieves this extreme throughput by introducing a dedicated shared clock wire: Serial Clock (SCK), generated exclusively by the Master controller.",
+        "At the physical silicon layer, an SPI link consists of two 8-bit or 16-bit shift registers connected in a circular loop: one inside the Master, and one inside the Slave.",
+        "Master Out Slave In (MOSI) carries bits from Master to Slave, while Master In Slave Out (MISO) carries bits from Slave to Master on the exact same clock pulse.",
+        "Because bits are simultaneously shifted out of one register and into the other, SPI is fundamentally full-duplex: you cannot transmit a byte without receiving a byte, and you cannot receive a byte without transmitting a byte."
+      ],
+      "example": "An SPI Master shifting out command byte 0x9F (Read JEDEC ID) while simultaneously shifting in status byte 0x00 from an external SPI Flash chip.",
+      "code": "#include <iostream>\n#include <cstdint>\n\nstruct SpiShiftRegister {\n    static uint8_t transferByte(uint8_t masterOut, uint8_t slaveOut, uint8_t& slaveIn) {\n        uint8_t masterIn = 0;\n        slaveIn = 0;\n        // Shift 8 bits simultaneously (MSB first)\n        for (int i = 7; i >= 0; --i) {\n            uint8_t mosiBit = (masterOut >> i) & 0x01;\n            uint8_t misoBit = (slaveOut >> i) & 0x01;\n            slaveIn |= (mosiBit << i);\n            masterIn |= (misoBit << i);\n        }\n        return masterIn;\n    }\n};\n\nint main() {\n    uint8_t masterTx = 0x9F; // JEDEC Read ID Opcode\n    uint8_t slaveTx = 0xEF;  // Winbond Manufacturer ID in Flash shift register\n    uint8_t slaveRx = 0;\n\n    uint8_t masterRx = SpiShiftRegister::transferByte(masterTx, slaveTx, slaveRx);\n\n    std::cout << \"Master Transmitted: 0x\" << std::hex << std::uppercase << static_cast<int>(masterTx) << \"\\n\";\n    std::cout << \"Master Received:    0x\" << static_cast<int>(masterRx) << \"\\n\";\n    std::cout << \"Slave Received:     0x\" << static_cast<int>(slaveRx) << \"\\n\";\n    std::cout << \"Full-Duplex Invariant: Synchronous clock shifted both registers simultaneously.\\n\";\n    return 0;\n}",
+      "output": "Master Transmitted: 0x9F\nMaster Received:    0xEF\nSlave Received:     0x9F\nFull-Duplex Invariant: Synchronous clock shifted both registers simultaneously.",
+      "codeNotes": [
+        {
+          "line": 5,
+          "note": "Full-duplex transfer loop shifts bits synchronously across MOSI and MISO"
+        },
+        {
+          "line": 21,
+          "note": "Master receives 0xEF while simultaneously sending 0x9F in single 8-clock cycle"
+        },
+        {
+          "line": 27,
+          "note": "No separate read operation exists; reading requires transmitting a dummy byte"
+        }
+      ],
+      "tryIt": "Simulate sending a dummy byte (0xFF) to clock in the second byte of the Flash memory device ID (e.g., 0x40).",
+      "check": {
+        "question": "Why is the Serial Peripheral Interface (SPI) characterized as an inherently full-duplex protocol?",
+        "options": [
+          "Because the Master and Slave shift registers are connected in a circular loop; every clock pulse simultaneously shifts one bit out and one bit in.",
+          "Because it uses two separate microprocessors operating on different frequencies.",
+          "Because it supports full Wi-Fi and Bluetooth packet transmission simultaneously.",
+          "Because data can only travel in one direction at a time."
+        ],
+        "answer": 0,
+        "why": "SPI is physically a distributed circular ring shift register: shifting one bit onto MOSI always forces one bit into MISO on the exact same clock edge."
+      }
+    },
+    {
+      "title": "SPI Modes 0, 1, 2, 3: Clock Polarity (CPOL) & Clock Phase (CPHA)",
+      "say": [
+        "Unlike standard UART where idle lines are always HIGH, SPI peripherals support four distinct clocking modes defined by Clock Polarity (CPOL) and Clock Phase (CPHA).",
+        "CPOL defines the idle electrical state of the SCK clock line when no transfer is active: CPOL=0 means SCK is idle LOW; CPOL=1 means SCK is idle HIGH.",
+        "CPHA defines which clock transition edge is used to capture (sample) data versus toggle (change) data.",
+        "In CPHA=0, data is captured on the first clock edge (leading edge) and toggled on the second edge (trailing edge). In CPHA=1, data is toggled on the first edge and captured on the second edge.",
+        "Mode 0 (CPOL=0, CPHA=0) and Mode 3 (CPOL=1, CPHA=1) are the most common industrial modes because both capture data on a rising clock edge."
+      ],
+      "example": "Configuring SPI Control Register 1 (SPI_CR1) for Mode 0: clearing CPOL (bit 1) and CPHA (bit 0) ensures SCK is idle LOW and data is sampled on the first rising edge.",
+      "code": "#include <iostream>\n#include <cstdint>\n\nstruct SpiModeConfig {\n    uint8_t cpol;\n    uint8_t cpha;\n\n    const char* getCaptureEdge() const {\n        if (cpol == 0 && cpha == 0) return \"Leading Edge (Rising)\";\n        if (cpol == 0 && cpha == 1) return \"Trailing Edge (Falling)\";\n        if (cpol == 1 && cpha == 0) return \"Leading Edge (Falling)\";\n        return \"Trailing Edge (Rising)\";\n    }\n\n    uint8_t getCr1Bits() const {\n        return (cpol << 1) | cpha;\n    }\n};\n\nint main() {\n    SpiModeConfig mode0{0, 0};\n    SpiModeConfig mode3{1, 1};\n\n    std::cout << \"SPI Mode 0 (CPOL=0, CPHA=0):\\n\";\n    std::cout << \"  CR1 Bits: 0b00\\n\";\n    std::cout << \"  Capture:  \" << mode0.getCaptureEdge() << \"\\n\";\n\n    std::cout << \"SPI Mode 3 (CPOL=1, CPHA=1):\\n\";\n    std::cout << \"  CR1 Bits: 0b11\\n\";\n    std::cout << \"  Capture:  \" << mode3.getCaptureEdge() << \"\\n\";\n    return 0;\n}",
+      "output": "SPI Mode 0 (CPOL=0, CPHA=0):\n  CR1 Bits: 0b00\n  Capture:  Leading Edge (Rising)\nSPI Mode 3 (CPOL=1, CPHA=1):\n  CR1 Bits: 0b11\n  Capture:  Trailing Edge (Rising)",
+      "codeNotes": [
+        {
+          "line": 7,
+          "note": "Evaluates physical clock edge mapping according to IEEE/Motorola SPI specifications"
+        },
+        {
+          "line": 23,
+          "note": "Mode 0 samples on rising leading edge with SCK idle LOW"
+        },
+        {
+          "line": 27,
+          "note": "Mode 3 samples on rising trailing edge with SCK idle HIGH"
+        }
+      ],
+      "tryIt": "Examine Mode 1 (CPOL=0, CPHA=1) and Mode 2 (CPOL=1, CPHA=0) and determine their capture and toggle edges.",
+      "check": {
+        "question": "What happens if an SPI Master configured in Mode 0 communicates with an SPI Slave that strictly requires Mode 3?",
+        "options": [
+          "Data bits are sampled at the wrong clock transition edge, causing shifted bit values or corrupted payload bytes.",
+          "The microcontroller's power supply immediately trips its overcurrent protection.",
+          "The SPI bus automatically renegotiates to Mode 0 via software handshake.",
+          "The clock speed doubles automatically to compensate for phase errors."
+        ],
+        "answer": 0,
+        "why": "Mode mismatch causes the receiver to sample data while the transmitter is actively toggling the voltage line, reading invalid transition states."
+      }
+    },
+    {
+      "title": "Chip Select (CS) Assertion Timing, Setup & Hold Invariants",
+      "say": [
+        "Because SPI does not include device addresses in its packet headers, bus addressing is handled electrically using dedicated Chip Select (CS) or Slave Select (SS) GPIO pins.",
+        "Chip Select lines are almost universally active-LOW: pulling CS to 0V enables the target peripheral's internal shift register, while pulling CS to 3.3V tri-states its MISO pin.",
+        "If multiple slaves share the same MOSI, MISO, and SCK lines, asserting more than one CS line simultaneously creates a catastrophic bus contention short-circuit on MISO.",
+        "Furthermore, hardware datasheets specify strict timing invariants: CS Setup Time ($t_{CSS}$) requires asserting CS for at least 5 to 50 nanoseconds before toggling SCK.",
+        "Similarly, CS Hold Time ($t_{CSH}$) requires maintaining CS LOW after the final clock edge before deasserting to prevent premature transaction truncation."
+      ],
+      "example": "A software SPI driver asserts CS LOW, waits for setup time, clocks out 16 bits of sensor data, waits for hold time, and deasserts CS HIGH.",
+      "code": "#include <iostream>\n#include <cstdint>\n\nclass SpiChipSelectGuard {\nprivate:\n    bool isAsserted_{false};\n    uint32_t activeDevice_{0};\n\npublic:\n    bool select(uint32_t deviceId) {\n        if (isAsserted_) {\n            return false; // Error: Another device is currently selected!\n        }\n        activeDevice_ = deviceId;\n        isAsserted_ = true;\n        // Physical GPIO pin pulled LOW\n        return true;\n    }\n\n    void deselect() {\n        // Physical GPIO pin pulled HIGH (Tri-state MISO)\n        isAsserted_ = false;\n        activeDevice_ = 0;\n    }\n\n    bool isBusy() const { return isAsserted_; }\n    uint32_t getActiveDevice() const { return activeDevice_; }\n};\n\nint main() {\n    SpiChipSelectGuard csManager;\n\n    bool dev1Selected = csManager.select(1); // Select SPI Flash (CS1 LOW)\n    std::cout << \"Device 1 Selected: \" << (dev1Selected ? \"SUCCESS (CS1 Active LOW)\" : \"FAILED\") << \"\\n\";\n\n    bool dev2Selected = csManager.select(2); // Attempt to select IMU while Flash busy\n    std::cout << \"Device 2 Concurrent Select: \" << (dev2Selected ? \"SUCCESS\" : \"BLOCKED (Bus Contention Prevented)\") << \"\\n\";\n\n    csManager.deselect();\n    std::cout << \"Device 1 Deselected (CS1 Pulled HIGH -> MISO Tri-stated)\\n\";\n    return 0;\n}",
+      "output": "Device 1 Selected: SUCCESS (CS1 Active LOW)\nDevice 2 Concurrent Select: BLOCKED (Bus Contention Prevented)\nDevice 1 Deselected (CS1 Pulled HIGH -> MISO Tri-stated)",
+      "codeNotes": [
+        {
+          "line": 10,
+          "note": "Enforces mutual exclusion on physical Chip Select lines to prevent MISO drive conflicts"
+        },
+        {
+          "line": 20,
+          "note": "Deasserting CS releases MISO into high-impedance (tri-state) mode"
+        },
+        {
+          "line": 34,
+          "note": "Rejects concurrent assertion of secondary slave on shared SPI bus"
+        }
+      ],
+      "tryIt": "Add a mock nanosecond delay function for tCSS and tCSH to simulate hardware propagation delays before and after SCK toggling.",
+      "check": {
+        "question": "Why is it dangerous to assert the Chip Select pins of two different SPI slaves on the same bus simultaneously?",
+        "options": [
+          "Both slaves will attempt to drive the shared MISO line at the same time, causing electrical contention and signal corruption.",
+          "It causes the microcontroller to reboot due to memory address conflicts.",
+          "The SPI peripheral automatically switches into I2C mode.",
+          "It corrupts the ARM Cortex-M vector table."
+        ],
+        "answer": 0,
+        "why": "If two slaves drive MISO simultaneously (one driving 3.3V and the other driving 0V), it creates a direct electrical short and corrupts all data."
+      }
+    },
+    {
+      "title": "High-Throughput SPI NOR Flash Memory Page Streaming",
+      "say": [
+        "One of the primary industrial applications of high-speed SPI is interfacing with external NOR Flash memory chips (e.g., Winbond W25Q128 or Macronix MX25L).",
+        "Flash memory is organized hierarchically into Sectors (4KB), Blocks (64KB), and Pages (256 bytes).",
+        "While reading can occur continuously across page boundaries, writing (Page Program) is subject to a strict physical silicon constraint: you can only program up to 256 bytes per transaction.",
+        "If a write operation attempts to stream 300 bytes into page address 0x000000, the address counter rolls over at the 256-byte boundary, overwriting the beginning of the page!",
+        "A production SPI Flash driver decomposes arbitrary buffer lengths into chunked page-aligned writes, monitoring the internal Write In Progress (WIP) status bit between operations."
+      ],
+      "example": "A chunked Flash write engine splits a 500-byte firmware update chunk into two page-aligned writes of 256 bytes and 244 bytes.",
+      "code": "#include <iostream>\n#include <cstdint>\n#include <algorithm>\n\nstruct SpiFlashPageWriter {\n    static void streamChunkedWrites(uint32_t address, size_t totalBytes) {\n        size_t bytesRemaining = totalBytes;\n        uint32_t currentAddr = address;\n\n        while (bytesRemaining > 0) {\n            uint32_t pageOffset = currentAddr % 256;\n            size_t bytesCanWrite = std::min(bytesRemaining, static_cast<size_t>(256 - pageOffset));\n\n            std::cout << \"Write Page Op: Addr=0x\" << std::hex << std::uppercase << currentAddr << std::dec\n                      << \" | Bytes=\" << bytesCanWrite << \" (Offset in Page: \" << pageOffset << \")\\n\";\n\n            currentAddr += bytesCanWrite;\n            bytesRemaining -= bytesCanWrite;\n        }\n    }\n};\n\nint main() {\n    uint32_t startAddr = 0x001050; // Offset 80 inside Page 16\n    size_t dataLen = 500;          // 500 bytes of firmware delta\n\n    std::cout << \"Initiating 500-Byte SPI Flash Stream:\\n\";\n    SpiFlashPageWriter::streamChunkedWrites(startAddr, dataLen);\n    std::cout << \"Flash Invariant: Page boundary rollover eliminated via chunk alignment.\\n\";\n    return 0;\n}",
+      "output": "Initiating 500-Byte SPI Flash Stream:\nWrite Page Op: Addr=0x1050 | Bytes=176 (Offset in Page: 80)\nWrite Page Op: Addr=0x1100 | Bytes=256 (Offset in Page: 0)\nWrite Page Op: Addr=0x1200 | Bytes=68 (Offset in Page: 0)\nFlash Invariant: Page boundary rollover eliminated via chunk alignment.",
+      "codeNotes": [
+        {
+          "line": 10,
+          "note": "Calculates remaining headroom in current 256-byte page to prevent memory rollover"
+        },
+        {
+          "line": 13,
+          "note": "Dispatches first chunk of 176 bytes to fill remaining space in starting page"
+        },
+        {
+          "line": 27,
+          "note": "Subsequent chunks align perfectly on 256-byte page boundaries (0x1100, 0x1200)"
+        }
+      ],
+      "tryIt": "Test streaming 1024 bytes starting from page boundary 0x002000 and verify that 4 exact 256-byte page operations are generated.",
+      "check": {
+        "question": "What happens if an SPI Page Program command writes 300 bytes starting at page offset 200 without boundary chunking?",
+        "options": [
+          "The internal address pointer rolls over at byte 256, overwriting the first 44 bytes of the current page and corrupting data.",
+          "The Flash chip automatically creates a new 4KB sector in memory.",
+          "The extra 44 bytes are automatically buffered in the microcontroller's stack.",
+          "The SPI peripheral triggers a hardware bus error interrupt."
+        ],
+        "answer": 0,
+        "why": "SPI NOR Flash hardware page programming registers do not increment across page boundaries; exceeding the 256-byte boundary wraps around to offset 0."
+      }
+    },
+    {
+      "title": "DMA-Accelerated SPI Transceiver & Bus Arbitration",
+      "say": [
+        "When streaming display buffers to an SPI TFT screen or logging sensor data to Flash at 20 MHz, CPU bit-banging or interrupt-per-byte handling saturates the processor.",
+        "At 20 Mbps, a byte arrives every 400 nanoseconds; an ISR taking 20 clock cycles on a 100MHz MCU would consume 100% of the CPU's compute bandwidth.",
+        "The professional embedded architecture couples the SPI peripheral with Direct Memory Access (DMA): SPI_TX DMA channel and SPI_RX DMA channel.",
+        "The CPU configures memory source pointers, byte transfer counts, and starts the DMA streams; the DMA controller transfers megabytes of data directly over the bus matrix with zero CPU intervention.",
+        "When the final byte is clocked out, the DMA controller fires a Transfer Complete (TC) interrupt, allowing the CPU to deassert Chip Select and process the results."
+      ],
+      "example": "A DMA descriptor configures a 1,024-byte zero-copy SPI transfer, freeing the CPU to execute flight control algorithms.",
+      "code": "#include <iostream>\n#include <cstdint>\n\nstruct SpiDmaDescriptor {\n    uint32_t memoryAddress;\n    uint32_t peripheralAddress;\n    uint16_t transferLength;\n    bool isComplete;\n\n    void startTransfer() {\n        std::cout << \"DMA Stream Configured: \" << transferLength << \" bytes from 0x\"\n                  << std::hex << memoryAddress << \" -> SPI_DR (0x\" << peripheralAddress << \")\\n\";\n        isComplete = false;\n    }\n\n    void onHardwareTransferCompleteISR() {\n        isComplete = true;\n        std::cout << \"DMA Transfer Complete ISR Fired: CPU Interrupted after \"\n                  << std::dec << transferLength << \" bytes.\\n\";\n    }\n};\n\nint main() {\n    uint8_t txBuffer[1024];\n    SpiDmaDescriptor dmaTx{\n        reinterpret_cast<uint32_t>(&txBuffer),\n        0x4001300C, // SPI1_DR address\n        1024,\n        false\n    };\n\n    dmaTx.startTransfer();\n    std::cout << \"CPU Status: 100% available for control loop tasks while DMA streams bus data.\\n\";\n    dmaTx.onHardwareTransferCompleteISR();\n    return 0;\n}",
+      "output": "DMA Stream Configured: 1024 bytes from 0x0 -> SPI_DR (0x4001300C)\nCPU Status: 100% available for control loop tasks while DMA streams bus data.\nDMA Transfer Complete ISR Fired: CPU Interrupted after 1024 bytes.",
+      "codeNotes": [
+        {
+          "line": 8,
+          "note": "Binds memory buffer to hardware peripheral register via hardware bus matrix"
+        },
+        {
+          "line": 28,
+          "note": "CPU executes main application logic concurrently without servicing per-byte interrupts"
+        },
+        {
+          "line": 30,
+          "note": "Single Transfer Complete interrupt signals end of entire 1KB packet transmission"
+        }
+      ],
+      "tryIt": "Calculate the CPU load reduction achieved by DMA vs byte-by-byte interrupts for a 20MHz SPI link streaming 1MB of display graphics.",
+      "check": {
+        "question": "Why is DMA essential when operating SPI at high clock frequencies (e.g., 20MHz to 50MHz)?",
+        "options": [
+          "Because bytes arrive every few hundred nanoseconds, which would completely overwhelm the CPU with per-byte interrupt overhead.",
+          "Because SPI Flash memory chips cannot be read without DMA hardware.",
+          "Because the C++ compiler deletes variables if DMA is not enabled.",
+          "Because DMA encrypts the SPI clock line against eavesdropping."
+        ],
+        "answer": 0,
+        "why": "At high SPI frequencies, per-byte interrupts consume nearly 100% of CPU cycles; DMA streams data autonomously via the silicon bus matrix."
+      }
+    }
+  ],
+  "summary": [
+    "SPI is a high-speed synchronous protocol based on a circular shift register topology where every transmission is simultaneously a reception.",
+    "The 4 SPI Modes (CPOL 0/1 and CPHA 0/1) determine clock idle polarity and whether data is sampled on the leading or trailing clock edge.",
+    "Chip Select (CS) lines must enforce mutual exclusion and satisfy hardware setup ($t_{CSS}$) and hold ($t_{CSH}$) timing invariants.",
+    "SPI NOR Flash writes must be chunked to respect physical 256-byte page boundaries, preventing catastrophic address rollover.",
+    "Coupling SPI with Direct Memory Access (DMA) enables zero-copy multi-megabyte streaming while leaving the CPU 100% free for control algorithms."
+  ],
+  "projectStep": {
+    "title": "Step 7: Building the Synchronous High-Speed SPI Engine",
+    "steps": [
+      "Implement SpiShiftRegister simulating full-duplex circular register transfers between Master and Slave.",
+      "Develop SpiModeConfig verifying CPOL and CPHA clock edge transitions across all 4 standard SPI modes.",
+      "Construct a SpiChipSelectGuard ensuring mutual exclusion and preventing electrical bus contention on MISO.",
+      "Build a SpiFlashPageWriter chunking multi-byte payloads to strictly eliminate 256-byte Flash page rollover.",
+      "Implement a SpiDmaDescriptor framework verifying zero-copy DMA streaming and Transfer Complete interrupt handling."
+    ]
+  }
+}

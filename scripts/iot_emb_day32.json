@@ -1,0 +1,218 @@
+{
+  "day": 32,
+  "title": "Embedded Wi-Fi & TCP/IP Sockets: Station vs SoftAP, LwIP Stack & Embedded TLS Physics",
+  "goal": "Connect microcontrollers directly to the Internet: master Wi-Fi operating modes (Station vs SoftAP), analyze the LwIP TCP/IP stack and non-blocking sockets, and resolve the brutal memory and SNTP physics of Embedded TLS.",
+  "minutes": 42,
+  "recap": "Yesterday we mastered Bluetooth Low Energy. Today we scale from personal-area networks to the global Internet: engineering embedded Wi-Fi, TCP/IP sockets via LwIP, and secure TLS 1.3 encryption on resource-constrained microcontrollers.",
+  "parts": [
+    {
+      "title": "Wi-Fi Operating Modes: Station vs SoftAP & Captive Portal Provisioning",
+      "say": [
+        "An embedded Wi-Fi radio (such as ESP32 or CC3220) operates in three fundamental modes: Station (STA), Access Point (SoftAP), and Station + SoftAP Concurrent Mode.",
+        "In Station Mode, the microcontroller acts as a standard Wi-Fi client, connecting to an existing 802.11 b/g/n wireless access point, obtaining an IP address via DHCP, and accessing the Internet.",
+        "In SoftAP Mode, the microcontroller creates its own standalone Wi-Fi network with its own SSID and WPA2 passphrase. It runs a local DHCP server and DNS server, acting as a mini-router.",
+        "SoftAP is the industry-standard foundation for Device Provisioning (Onboarding). When an IoT product is first unboxed, it boots into SoftAP mode. The user connects their smartphone to the device's setup network. A captive DNS server redirects all web traffic to a local configuration webpage where the user enters their home Wi-Fi credentials.",
+        "Once credentials are saved to non-volatile Flash (NVS), the device disables SoftAP and switches permanently to Station mode."
+      ],
+      "example": "A smart plug boots as 'SmartPlug-Config-XXXX'. A user connects their phone to it, navigates to 192.168.4.1, selects their home router 'HomeNet', enters the password, and clicks 'Save'. The plug transitions to Station mode and connects to AWS IoT.",
+      "code": "#include <iostream>\n#include <string>\n\nenum class WiFiMode { UNINITIALIZED, SOFT_AP, STATION, CONNECTED_INTERNET };\n\nclass WiFiProvisioningManager {\nprivate:\n    WiFiMode currentMode;\n    std::string homeSSID;\n    std::string homePassword;\n\npublic:\n    WiFiProvisioningManager() : currentMode(WiFiMode::UNINITIALIZED) {}\n\n    void bootFirstTime() {\n        currentMode = WiFiMode::SOFT_AP;\n        std::cout << \"[WIFI-PROV] No stored credentials found in NVS Flash.\" << std::endl;\n        std::cout << \"  -> Spawning SoftAP: 'IoT-Device-Setup' @ 192.168.4.1\" << std::endl;\n        std::cout << \"  -> Started Local DNS Captive Portal Server (Port 53)\" << std::endl;\n        std::cout << \"  -> Started Lightweight HTTP Provisioning Server (Port 80)\" << std::endl;\n    }\n\n    bool submitCredentials(const std::string& ssid, const std::string& pass) {\n        if (currentMode != WiFiMode::SOFT_AP) return false;\n        homeSSID = ssid;\n        homePassword = pass;\n        std::cout << \"[WIFI-PROV] Received Home Credentials via HTTP POST: SSID = '\" << homeSSID << \"'\" << std::endl;\n        std::cout << \"  -> Saved credentials to Non-Volatile Storage (NVS) Flash.\" << std::endl;\n        std::cout << \"  -> Shutting down SoftAP and switching to Station (STA) Mode...\" << std::endl;\n\n        currentMode = WiFiMode::STATION;\n        // Simulated connection to home router\n        currentMode = WiFiMode::CONNECTED_INTERNET;\n        std::cout << \"[WIFI-STA] Connected to '\" << homeSSID << \"'! Obtained IP via DHCP: 192.168.1.145\" << std::endl;\n        return true;\n    }\n\n    WiFiMode getMode() const { return currentMode; }\n};\n\nint main() {\n    std::cout << \"--- DAY 32 PART 1: WI-FI OPERATING MODES & PROVISIONING ---\" << std::endl;\n    WiFiProvisioningManager wifi;\n    wifi.bootFirstTime();\n    wifi.submitCredentials(\"Corporate_IoT_WLAN\", \"SuperSecureKey99!\");\n    std::cout << \"[STATUS] Device successfully provisioned and connected to Internet.\" << std::endl;\n    return 0;\n}\n",
+      "output": "--- DAY 32 PART 1: WI-FI OPERATING MODES & PROVISIONING ---\n[WIFI-PROV] No stored credentials found in NVS Flash.\n  -> Spawning SoftAP: 'IoT-Device-Setup' @ 192.168.4.1\n  -> Started Local DNS Captive Portal Server (Port 53)\n  -> Started Lightweight HTTP Provisioning Server (Port 80)\n[WIFI-PROV] Received Home Credentials via HTTP POST: SSID = 'Corporate_IoT_WLAN'\n  -> Saved credentials to Non-Volatile Storage (NVS) Flash.\n  -> Shutting down SoftAP and switching to Station (STA) Mode...\n[WIFI-STA] Connected to 'Corporate_IoT_WLAN'! Obtained IP via DHCP: 192.168.1.145\n[STATUS] Device successfully provisioned and connected to Internet.\n",
+      "codeNotes": [
+        {
+          "line": 5,
+          "note": "WiFiMode captures the state machine of an embedded Wi-Fi client: uninitialized, SoftAP setup, or connected Station."
+        },
+        {
+          "line": 14,
+          "note": "SoftAP launches a local network allowing smartphone web browsers to communicate directly with the device without existing infrastructure."
+        },
+        {
+          "line": 28,
+          "note": "Credentials must be committed to non-volatile Flash (NVS) before shutting down the SoftAP interface."
+        }
+      ],
+      "tryIt": "Add a fallback mechanism: if the home Wi-Fi connection fails 5 times, automatically re-open the SoftAP provisioning portal.",
+      "check": {
+        "question": "What is the architectural purpose of booting an unconfigured IoT device into Wi-Fi SoftAP mode during first unboxing?",
+        "options": [
+          "It creates an independent local Wi-Fi network allowing a user's phone to connect directly and configure home network credentials without physical cables.",
+          "It turns the IoT device into an enterprise Wi-Fi router for home internet access.",
+          "It allows the device to download 10 GB firmware updates faster.",
+          "It permanently disables the Wi-Fi radio to save battery."
+        ],
+        "answer": 0,
+        "why": "Before an IoT device has home Wi-Fi credentials, it cannot connect to the local router. Spawning a temporary SoftAP network allows a smartphone or laptop to connect point-to-point and provide network credentials via a captive portal web page."
+      }
+    },
+    {
+      "title": "The Lightweight IP (LwIP) Stack: pbuf Pools & Socket Semantics",
+      "say": [
+        "Full Linux TCP/IP stacks consume megabytes of RAM. Microcontrollers rely on LwIP (Lightweight IP), an open-source TCP/IP stack optimized for embedded systems with under 50KB of RAM.",
+        "LwIP offers three API models: 1) Raw API (event-driven callbacks, zero-copy, highest performance, runs directly in the TCP/IP thread); 2) Netconn API (sequential, thread-safe, blocking); 3) BSD Sockets API (standard POSIX socket functions: socket, bind, connect, send, recv).",
+        "The core currency of LwIP is the Packet Buffer (pbuf). LwIP provides four types of pbufs: PBUF_RAM (dynamically allocated with headers), PBUF_ROM (points to static Flash memory, zero copy), PBUF_REF (points to non-volatile RAM), and PBUF_POOL (pre-allocated fixed-size buffers from a static pool).",
+        "Crucial Memory Constraint: High-throughput TCP streams require large TCP Window Sizes and multiple MSS (Maximum Segment Size, typically 1460 bytes) buffers. A single active TLS connection can easily consume 20KB to 35KB of LwIP packet buffers."
+      ],
+      "example": "Transmitting a static webpage header from Flash uses PBUF_ROM. LwIP transmits the payload directly from Flash addresses without allocating or copying a single byte into SRAM.",
+      "code": "#include <iostream>\n#include <cstdint>\n#include <iomanip>\n\nstruct LwIPMemoryBudget {\n    uint32_t pbufPoolSize;\n    uint32_t tcpMss;\n    uint32_t tcpWindowSize;\n    uint32_t totalStackRamBytes;\n};\n\nvoid evaluateLwIPMemory(const LwIPMemoryBudget& budget) {\n    std::cout << \"[LWIP-ANALYSIS] Lightweight IP Memory Footprint:\" << std::endl;\n    std::cout << \"  TCP Maximum Segment Size (MSS): \" << budget.tcpMss << \" Bytes\" << std::endl;\n    std::cout << \"  TCP Window Size:                \" << budget.tcpWindowSize << \" Bytes (\"\n              << (budget.tcpWindowSize / budget.tcpMss) << \" full MSS segments)\" << std::endl;\n    std::cout << \"  Pre-Allocated PBUF Pool Size:   \" << budget.pbufPoolSize << \" Bytes\" << std::endl;\n    std::cout << \"  Total Dedicated LwIP SRAM:      \" << (budget.totalStackRamBytes / 1024) << \" KB\" << std::endl;\n\n    if (budget.totalStackRamBytes > 32768) {\n        std::cout << \"  -> [WARNING] LwIP footprint exceeds 32KB! High risk of heap starvation on 64KB MCUs.\" << std::endl;\n    } else {\n        std::cout << \"  -> [OPTIMAL] Compact memory configuration fits comfortably on embedded silicon.\" << std::endl;\n    }\n}\n\nint main() {\n    std::cout << \"--- DAY 32 PART 2: LWIP STACK & PBUF MEMORY ARCHITECTURE ---\" << std::endl;\n    // Standard embedded profile: 1460 MSS, 5840 Window (4 segments), 16KB pool\n    LwIPMemoryBudget embeddedProfile = {16384, 1460, 5840, 24576};\n    evaluateLwIPMemory(embeddedProfile);\n    return 0;\n}\n",
+      "output": "--- DAY 32 PART 2: LWIP STACK & PBUF MEMORY ARCHITECTURE ---\n[LWIP-ANALYSIS] Lightweight IP Memory Footprint:\n  TCP Maximum Segment Size (MSS): 1460 Bytes\n  TCP Window Size:                5840 Bytes (4 full MSS segments)\n  Pre-Allocated PBUF Pool Size:   16384 Bytes\n  Total Dedicated LwIP SRAM:      24 KB\n  -> [OPTIMAL] Compact memory configuration fits comfortably on embedded silicon.\n",
+      "codeNotes": [
+        {
+          "line": 5,
+          "note": "LwIPMemoryBudget captures key tuning parameters: MSS, window size, and pbuf pool allocations."
+        },
+        {
+          "line": 13,
+          "note": "TCP window size must be a multiple of MSS to optimize network throughput and prevent silly window syndrome."
+        },
+        {
+          "line": 24,
+          "note": "Keeping total LwIP memory under 24KB allows concurrent execution with RTOS task stacks in 64KB SRAM."
+        }
+      ],
+      "tryIt": "Calculate the maximum theoretical TCP throughput across a 50ms latency link with a 5840-byte window.",
+      "check": {
+        "question": "What is the primary benefit of LwIP's PBUF_ROM packet buffer type when serving static HTTP assets?",
+        "options": [
+          "It allows network packets to be transmitted directly from microcontroller Flash memory without copying data into SRAM.",
+          "It automatically encrypts the payload using AES-256.",
+          "It doubles the Wi-Fi transmission power.",
+          "It allows microcontrollers to bypass IP routing."
+        ],
+        "answer": 0,
+        "why": "PBUF_ROM points directly to constants stored in Flash ROM. The LwIP stack chains the network headers onto this pointer without allocating an SRAM buffer for the payload, achieving true zero-copy transmission for static strings."
+      }
+    },
+    {
+      "title": "Non-Blocking Sockets & O_NONBLOCK Disciplines",
+      "say": [
+        "In desktop socket programming, calling connect() or recv() typically blocks until a packet arrives. In a real-time embedded system, blocking socket calls are an absolute recipe for disaster.",
+        "If an IoT device makes a blocking connect() to an unresponsive cloud server, the socket can block for up to 75 seconds while standard TCP retransmissions time out. During those 75 seconds, the calling RTOS task is frozen, unable to service sensors or refresh watchdog timers.",
+        "Production Rule: All embedded sockets MUST be configured as non-blocking using fcntl(fd, F_SETFL, O_NONBLOCK).",
+        "When a non-blocking socket is used, connect() returns immediately with -1 and errno set to EINPROGRESS. The task then uses select() or poll() with an explicit, bounded timeout (e.g., 3000ms).",
+        "If the cloud server does not complete the 3-way handshake within 3 seconds, select() returns 0 (timeout), allowing the task to abort safely, log the failure, and continue execution without stalling the system."
+      ],
+      "example": "int flags = fcntl(sock, F_GETFL, 0); fcntl(sock, F_SETFL, flags | O_NONBLOCK); connect(sock, &addr, sizeof(addr)); fd_set wset; select(sock + 1, NULL, &wset, NULL, &tv_3sec);",
+      "code": "#include <iostream>\n#include <cstdint>\n#include <chrono>\n\nenum class SocketCallResult { CONNECTED, TIMEOUT_EXPIRED, IMMEDIATE_FAIL };\n\nclass NonBlockingSocketSimulator {\npublic:\n    SocketCallResult connectWithTimeout(uint32_t timeoutMs, bool serverResponding) {\n        std::cout << \"[SOCKET-API] Configuring Socket: O_NONBLOCK flag set.\" << std::endl;\n        std::cout << \"  -> Initiated TCP 3-Way Handshake (SYN sent). connect() returned EINPROGRESS.\" << std::endl;\n        std::cout << \"  -> Executing select() with bounded timeout: \" << timeoutMs << \" ms\" << std::endl;\n\n        if (serverResponding) {\n            std::cout << \"  -> [SELECT-READY] SYN-ACK received in 45 ms! Handshake completed.\" << std::endl;\n            return SocketCallResult::CONNECTED;\n        } else {\n            std::cout << \"  -> [SELECT-TIMEOUT] No response within \" << timeoutMs \n                      << \" ms! select() unblocked. Aborting cleanly.\" << std::endl;\n            return SocketCallResult::TIMEOUT_EXPIRED;\n        }\n    }\n};\n\nint main() {\n    std::cout << \"--- DAY 32 PART 3: NON-BLOCKING SOCKETS & TIMEOUT BOUNDS ---\" << std::endl;\n    NonBlockingSocketSimulator sock;\n\n    // Case 1: Healthy server connection\n    sock.connectWithTimeout(3000, true);\n\n    // Case 2: Dead cloud server (unresponsive network)\n    sock.connectWithTimeout(3000, false);\n\n    std::cout << \"[VERIFIED] RTOS task never blocked indefinitely. Deterministic execution guaranteed.\" << std::endl;\n    return 0;\n}\n",
+      "output": "--- DAY 32 PART 3: NON-BLOCKING SOCKETS & TIMEOUT BOUNDS ---\n[SOCKET-API] Configuring Socket: O_NONBLOCK flag set.\n  -> Initiated TCP 3-Way Handshake (SYN sent). connect() returned EINPROGRESS.\n  -> Executing select() with bounded timeout: 3000 ms\n  -> [SELECT-READY] SYN-ACK received in 45 ms! Handshake completed.\n[SOCKET-API] Configuring Socket: O_NONBLOCK flag set.\n  -> Initiated TCP 3-Way Handshake (SYN sent). connect() returned EINPROGRESS.\n  -> Executing select() with bounded timeout: 3000 ms\n  -> [SELECT-TIMEOUT] No response within 3000 ms! select() unblocked. Aborting cleanly.\n[VERIFIED] RTOS task never blocked indefinitely. Deterministic execution guaranteed.\n",
+      "codeNotes": [
+        {
+          "line": 8,
+          "note": "O_NONBLOCK prevents connect() from stalling the task during TCP SYN retransmission backoffs."
+        },
+        {
+          "line": 10,
+          "note": "EINPROGRESS indicates the handshake has been launched asynchronously in the background."
+        },
+        {
+          "line": 18,
+          "note": "select() enforces an explicit application timeout, allowing immediate recovery if cloud gateways are offline."
+        }
+      ],
+      "tryIt": "Demonstrate the same non-blocking discipline on recv(): read available bytes immediately, or return EWOULDBLOCK without halting.",
+      "check": {
+        "question": "Why is it dangerous to call standard blocking connect() on an embedded microcontroller?",
+        "options": [
+          "If the cloud server or router is unresponsive, blocking connect() can stall the calling RTOS task for up to 75 seconds, starving other tasks and triggering watchdog resets.",
+          "Blocking sockets permanently erase the microcontroller Flash memory.",
+          "The ARM Cortex-M architecture only supports UDP packets.",
+          "Blocking connect() causes the Wi-Fi antenna to melt."
+        ],
+        "answer": 0,
+        "why": "Standard blocking connect() relies on OS-level TCP retransmission timers, which can block for over a minute if the remote host drops packets. Non-blocking sockets with select() allow the firmware to enforce strict millisecond-level timeout bounds."
+      }
+    },
+    {
+      "title": "Embedded TLS (MbedTLS) & The SNTP Clock Requirement",
+      "say": [
+        "Unencrypted HTTP communication is unacceptable in modern IoT. Security mandates TLS (Transport Layer Security) via embedded libraries such as MbedTLS or WolfSSL.",
+        "Microcontroller TLS poses two brutal physical challenges: RAM Consumption and Cryptographic Key Math.",
+        "First, RSA-2048/4096 certificates require massive asymmetric modular exponentiation, consuming over 30KB of heap. Elliptic Curve Cryptography (ECDSA with NIST P-256 curve) is vastly superior: keys are only 32 bytes (256 bits), handshakes complete in under 100ms, and RAM usage is cut in half.",
+        "Second, The SNTP Clock Mandate. Microcontrollers lack battery-backed real-time clocks by default; upon boot, the system clock defaults to Epoch 0 (January 1, 1970).",
+        "When MbedTLS parses an X.509 server certificate, it compares the current time against the certificate validity range ('Not Before' and 'Not After'). If the system time is 1970, MbedTLS immediately rejects the certificate with MBEDTLS_ERR_X509_CERT_VERIFY_FAILED: 'Certificate is not yet valid!'.",
+        "Firmware MUST query an SNTP (Simple Network Time Protocol) server over UDP to set the system clock before initiating any TLS handshake."
+      ],
+      "example": "A smart lock boots at 00:00:00 1970. It connects to Wi-Fi, queries 'pool.ntp.org' over UDP, sets its clock to 2026-10-19, and only then executes the TLS handshake with AWS IoT.",
+      "code": "#include <iostream>\n#include <cstdint>\n#include <iomanip>\n\nstruct X509CertValidity {\n    uint32_t notBeforeEpoch; // e.g. 2024-01-01 (1704067200)\n    uint32_t notAfterEpoch;  // e.g. 2028-01-01 (1830297600)\n};\n\nclass MbedTLSCertificateValidator {\npublic:\n    bool verifyCertificate(const X509CertValidity& cert, uint32_t currentSystemEpoch) {\n        std::cout << \"[TLS-VERIFY] Checking X.509 Certificate Validity:\" << std::endl;\n        std::cout << \"  Certificate Not-Before: \" << cert.notBeforeEpoch << std::endl;\n        std::cout << \"  Certificate Not-After:  \" << cert.notAfterEpoch << std::endl;\n        std::cout << \"  Current System Epoch:   \" << currentSystemEpoch << std::endl;\n\n        if (currentSystemEpoch < cert.notBeforeEpoch) {\n            std::cout << \"  -> [FATAL ERROR] MBEDTLS_ERR_X509_CERT_VERIFY_FAILED: Certificate is NOT YET VALID!\" << std::endl;\n            std::cout << \"     Root Cause: Unsynchronized RTC clock (Booted at Epoch 0 / 1970). SNTP sync missing!\" << std::endl;\n            return false;\n        }\n\n        if (currentSystemEpoch > cert.notAfterEpoch) {\n            std::cout << \"  -> [FATAL ERROR] Certificate has EXPIRED!\" << std::endl;\n            return false;\n        }\n\n        std::cout << \"  -> [SUCCESS] Certificate within valid date window. Handshake proceeding.\" << std::endl;\n        return true;\n    }\n};\n\nint main() {\n    std::cout << \"--- DAY 32 PART 4: EMBEDDED TLS & THE SNTP CLOCK REQUIREMENT ---\" << std::endl;\n    X509CertValidity awsCert = {1704067200U, 1830297600U}; // Valid 2024 to 2028\n    MbedTLSCertificateValidator validator;\n\n    // Case 1: MCU boots without SNTP (time is 1970)\n    validator.verifyCertificate(awsCert, 1000U);\n\n    // Case 2: Firmware syncs SNTP time (current year 2026)\n    std::cout << \"\\n[SNTP-SYNC] Synchronized system time via UDP pool.ntp.org: Epoch = 1792368000 (Oct 2026)\" << std::endl;\n    validator.verifyCertificate(awsCert, 1792368000U);\n\n    return 0;\n}\n",
+      "output": "--- DAY 32 PART 4: EMBEDDED TLS & THE SNTP CLOCK REQUIREMENT ---\n[TLS-VERIFY] Checking X.509 Certificate Validity:\n  Certificate Not-Before: 1704067200\n  Certificate Not-After:  1830297600\n  Current System Epoch:   1000\n  -> [FATAL ERROR] MBEDTLS_ERR_X509_CERT_VERIFY_FAILED: Certificate is NOT YET VALID!\n     Root Cause: Unsynchronized RTC clock (Booted at Epoch 0 / 1970). SNTP sync missing!\n\n[SNTP-SYNC] Synchronized system time via UDP pool.ntp.org: Epoch = 1792368000 (Oct 2026)\n[TLS-VERIFY] Checking X.509 Certificate Validity:\n  Certificate Not-Before: 1704067200\n  Certificate Not-After:  1830297600\n  Current System Epoch:   1792368000\n  -> [SUCCESS] Certificate within valid date window. Handshake proceeding.\n",
+      "codeNotes": [
+        {
+          "line": 5,
+          "note": "X.509 certificates contain explicit UNIX epoch timestamps defining the permissible validity window."
+        },
+        {
+          "line": 15,
+          "note": "If system time is earlier than notBeforeEpoch, MbedTLS aborts the handshake as 'Not Yet Valid'."
+        },
+        {
+          "line": 34,
+          "note": "Synchronizing time via SNTP before initiating TLS is mandatory for all connected embedded devices."
+        }
+      ],
+      "tryIt": "Explain why Elliptic Curve Cryptography (ECDSA P-256) is preferred over RSA-2048 in terms of RAM allocation during the TLS handshake.",
+      "check": {
+        "question": "Why does an embedded microcontroller often fail TLS certificate verification with 'Certificate not yet valid' immediately after booting?",
+        "options": [
+          "Because microcontrollers without battery-backed RTCs boot with epoch 0 (Jan 1, 1970), which predates the certificate's 'Not Before' creation date.",
+          "Because the Wi-Fi antenna must be pointed directly at the cloud server.",
+          "Because TLS 1.3 only works on Tuesdays.",
+          "Because the microcontroller CPU operates in big-endian mode."
+        ],
+        "answer": 0,
+        "why": "Microcontrollers reset their system timers to 0 on boot. Because standard certificates are generated in recent years (e.g., 2024), comparing against 1970 causes the verification engine to reject the certificate. Synchronizing system time via SNTP resolves the issue."
+      }
+    },
+    {
+      "title": "Master Engine: Embedded HTTPS & Wi-Fi Provisioning Engine",
+      "say": [
+        "We now construct the Day 32 Master Engine: a complete Embedded Wi-Fi, LwIP Socket, and TLS Provisioning platform.",
+        "Our engine models: 1) Captive portal SoftAP onboarding; 2) Switching to Station mode and obtaining DHCP lease; 3) SNTP UDP time synchronization; 4) Non-blocking socket connect with bounded timeout; 5) Secure TLS 1.3 ECDSA P-256 handshake and HTTPS POST payload transmission.",
+        "This architecture represents the complete end-to-end cloud onboarding sequence used by smart home appliances and industrial IoT sensors worldwide."
+      ],
+      "example": "Executing the engine demonstrates the complete transition: SoftAP provisioning -> SNTP sync -> Non-blocking socket -> Secure TLS HTTPS transmission with zero stalls.",
+      "code": "#include <iostream>\n#include <cstdint>\n#include <iomanip>\n#include <string>\n\nclass EmbeddedHTTPSEngine {\nprivate:\n    bool isSoftAPActive;\n    bool isStationConnected;\n    bool isTimeSynchronized;\n    bool isTLSHandshakeComplete;\n    uint32_t currentEpoch;\n\npublic:\n    EmbeddedHTTPSEngine() \n        : isSoftAPActive(true), isStationConnected(false),\n          isTimeSynchronized(false), isTLSHandshakeComplete(false), currentEpoch(0) {}\n\n    void runProvisioningSequence() {\n        std::cout << \"[STAGE 1: ONBOARDING] SoftAP started. Waiting for smartphone configuration...\" << std::endl;\n        std::cout << \"  -> Smartphone connected. Submitted SSID: 'Industrial_IoT_WLAN'.\" << std::endl;\n        isSoftAPActive = false;\n        isStationConnected = true;\n        std::cout << \"[STAGE 2: STATION] Connected to Wi-Fi router. IP: 192.168.1.189\" << std::endl;\n\n        std::cout << \"[STAGE 3: SNTP] Querying pool.ntp.org over UDP port 123...\" << std::endl;\n        currentEpoch = 1792368000U; // Oct 2026\n        isTimeSynchronized = true;\n        std::cout << \"  -> System time synchronized to Epoch: \" << currentEpoch << std::endl;\n\n        std::cout << \"[STAGE 4: SOCKET] Non-blocking socket connect to 'api.cloud-iot.com:443'...\" << std::endl;\n        std::cout << \"  -> TCP 3-way handshake established in 38 ms.\" << std::endl;\n\n        std::cout << \"[STAGE 5: TLS 1.3] Executing ECDSA P-256 Handshake (MbedTLS)...\" << std::endl;\n        std::cout << \"  -> Server certificate validity verified against current time.\" << std::endl;\n        std::cout << \"  -> Derived session keys. Shared secret established. Handshake OK!\" << std::endl;\n        isTLSHandshakeComplete = true;\n\n        std::cout << \"[STAGE 6: HTTPS POST] Transmitting encrypted sensor telemetry:\" << std::endl;\n        std::cout << \"  -> POST /v1/telemetry HTTP/1.1\\r\\nHost: api.cloud-iot.com\\r\\nContent-Type: application/json\" << std::endl;\n        std::cout << \"  -> Payload: {\\\"temp\\\": 24.85, \\\"humidity\\\": 48.2, \\\"battery_mv\\\": 3280}\" << std::endl;\n        std::cout << \"  -> Server Response: 200 OK (Data accepted and acknowledged)\" << std::endl;\n    }\n\n    bool isCertified() const {\n        return isStationConnected && isTimeSynchronized && isTLSHandshakeComplete;\n    }\n};\n\nint main() {\n    std::cout << \"--- DAY 32 PART 5: MASTER EMBEDDED HTTPS & PROVISIONING ENGINE ---\" << std::endl;\n    EmbeddedHTTPSEngine engine;\n    engine.runProvisioningSequence();\n\n    if (engine.isCertified()) {\n        std::cout << \"[ENGINE-VERIFIED] Embedded HTTPS Pipeline: CERTIFIED OPERATIONAL\" << std::endl;\n    }\n    return 0;\n}\n",
+      "output": "--- DAY 32 PART 5: MASTER EMBEDDED HTTPS & PROVISIONING ENGINE ---\n[STAGE 1: ONBOARDING] SoftAP started. Waiting for smartphone configuration...\n  -> Smartphone connected. Submitted SSID: 'Industrial_IoT_WLAN'.\n[STAGE 2: STATION] Connected to Wi-Fi router. IP: 192.168.1.189\n[STAGE 3: SNTP] Querying pool.ntp.org over UDP port 123...\n  -> System time synchronized to Epoch: 1792368000\n[STAGE 4: SOCKET] Non-blocking socket connect to 'api.cloud-iot.com:443'...\n  -> TCP 3-way handshake established in 38 ms.\n[STAGE 5: TLS 1.3] Executing ECDSA P-256 Handshake (MbedTLS)...\n  -> Server certificate validity verified against current time.\n  -> Derived session keys. Shared secret established. Handshake OK!\n[STAGE 6: HTTPS POST] Transmitting encrypted sensor telemetry:\n  -> POST /v1/telemetry HTTP/1.1\r\nHost: api.cloud-iot.com\r\nContent-Type: application/json\n  -> Payload: {\"temp\": 24.85, \"humidity\": 48.2, \"battery_mv\": 3280}\n  -> Server Response: 200 OK (Data accepted and acknowledged)\n[ENGINE-VERIFIED] Embedded HTTPS Pipeline: CERTIFIED OPERATIONAL\n",
+      "codeNotes": [
+        {
+          "line": 5,
+          "note": "EmbeddedHTTPSEngine encapsulates the complete multi-stage networking sequence for IoT edge devices."
+        },
+        {
+          "line": 23,
+          "note": "SNTP time synchronization is placed strictly before TLS handshake initiation to guarantee certificate verification."
+        },
+        {
+          "line": 34,
+          "note": "Demonstrates successful encrypted HTTPS telemetry transmission over an LwIP socket pipeline."
+        }
+      ],
+      "tryIt": "Add an error injection test: simulate an SNTP timeout and prove that the engine aborts the TLS handshake safely.",
+      "check": {
+        "question": "In what chronological order must an embedded IoT device execute network initialization before transmitting secure HTTPS telemetry?",
+        "options": [
+          "1) SoftAP Provisioning -> 2) Station Wi-Fi Connect -> 3) SNTP Clock Sync -> 4) Non-Blocking Socket Connect -> 5) TLS Handshake -> 6) HTTPS POST.",
+          "1) TLS Handshake -> 2) Disconnect Wi-Fi -> 3) SoftAP -> 4) HTTPS POST.",
+          "1) HTTPS POST -> 2) Clock Sync -> 3) SoftAP Provisioning.",
+          "Order does not matter in embedded TCP/IP."
+        ],
+        "answer": 0,
+        "why": "Network connectivity must precede time synchronization; time synchronization must precede TLS certificate verification; and TLS session negotiation must precede encrypted application data transmission."
+      }
+    }
+  ],
+  "summary": [
+    "SoftAP creates a local Wi-Fi captive portal for smartphone onboarding before the device transitions to Station mode.",
+    "LwIP provides lightweight TCP/IP for embedded microcontrollers using pbuf pools, supporting zero-copy PBUF_ROM Flash transmissions.",
+    "All embedded sockets must be non-blocking (O_NONBLOCK) with select() bounded timeouts to prevent cloud latency from stalling RTOS tasks.",
+    "MbedTLS requires accurate system time via SNTP to validate X.509 certificate validity dates and prevent false rejection.",
+    "ECDSA P-256 elliptic curve cryptography provides equivalent security to RSA-2048 with half the RAM allocation and 10x faster handshakes."
+  ],
+  "projectStep": {
+    "title": "Implementing Wi-Fi Provisioning & MbedTLS Client in C",
+    "steps": [
+      "Configure Wi-Fi driver in dual Station + SoftAP mode with a local DNS captive portal.",
+      "Save user-provided SSID and passphrase into non-volatile storage (NVS Flash).",
+      "Initialize the LwIP SNTP client and query pool.ntp.org over UDP to update system time.",
+      "Configure MbedTLS with ECC P-256 cipher suites and execute a non-blocking HTTPS POST to your cloud endpoint."
+    ]
+  }
+}

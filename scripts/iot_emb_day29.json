@@ -1,0 +1,215 @@
+{
+  "day": 29,
+  "title": "Production Hardware Debugging: SWD/JTAG Protocols, Fault Handlers & Core Dump Forensics",
+  "goal": "Triage fatal crashes on bare metal when there is no debugger attached: master SWD/JTAG protocols, decode ARM Cortex-M fault registers (CFSR/BFAR), and write naked assembly HardFault crash dumpers.",
+  "minutes": 40,
+  "recap": "Yesterday we engineered MISRA-compliant safety patterns. Today we master post-mortem crash forensics: what happens when code hits a fatal fault in the field, and how we extract the exact line of failure from raw registers.",
+  "parts": [
+    {
+      "title": "Hardware Debug Protocols: SWD vs JTAG & Debug Access Port (DAP)",
+      "say": [
+        "Before software runs, hardware debugging connects the host workstation to the silicon core using JTAG or Serial Wire Debug (SWD).",
+        "JTAG (Joint Test Action Group, IEEE 1149.1) uses 4 or 5 physical pins: TDI (Test Data In), TDO (Test Data Out), TCK (Test Clock), TMS (Test Mode Select), and optional TRST (Test Reset). It uses boundary-scan shift registers to test board traces and silicon logic.",
+        "SWD (Serial Wire Debug) is ARM's streamlined, high-speed 2-pin alternative: SWDIO (bidirectional data line) and SWCLK (clock line). It reduces pin count while providing full memory access, hardware breakpoints, and watchpoints.",
+        "Inside the ARM Cortex-M core, the Debug Access Port (DAP) consists of two modules: the Debug Port (DP), which handles the physical SWD/JTAG protocol, and the Access Port (AP), which masterminds memory bus transactions on the internal AHB bus matrix."
+      ],
+      "example": "With SWD, a hardware debugger (like J-Link or ST-LINK) can halt the CPU, read SRAM at 0x20000000, and single-step assembly instructions using only two GPIO pins plus ground.",
+      "code": "#include <iostream>\n#include <cstdint>\n#include <iomanip>\n\nstruct DebugProtocol {\n    const char* name;\n    uint32_t pinCount;\n    const char* pinNames;\n    bool supportsBoundaryScan;\n    uint32_t maxClockMHz;\n};\n\nvoid printDebugProtocols() {\n    DebugProtocol protocols[] = {\n        {\"JTAG (IEEE 1149.1)\", 5, \"TDI, TDO, TCK, TMS, nTRST\", true,  25},\n        {\"SWD (Serial Wire)\",  2, \"SWDIO, SWCLK\",              false, 50}\n    };\n\n    std::cout << \"[DEBUG-PHY] Silicon Debug Protocol Comparison:\" << std::endl;\n    for (const auto& p : protocols) {\n        std::cout << \"  Protocol: \" << p.name << std::endl;\n        std::cout << \"    Pin Count: \" << p.pinCount << \" Pins (\" << p.pinNames << \")\" << std::endl;\n        std::cout << \"    Boundary Scan: \" << (p.supportsBoundaryScan ? \"SUPPORTED\" : \"NONE (Core Debug Only)\") << std::endl;\n        std::cout << \"    Max Clock: \" << p.maxClockMHz << \" MHz\" << std::endl;\n    }\n}\n\nint main() {\n    std::cout << \"--- DAY 29 PART 1: SWD VS JTAG HARDWARE DEBUG PROTOCOLS ---\" << std::endl;\n    printDebugProtocols();\n    return 0;\n}\n",
+      "output": "--- DAY 29 PART 1: SWD VS JTAG HARDWARE DEBUG PROTOCOLS ---\n[DEBUG-PHY] Silicon Debug Protocol Comparison:\n  Protocol: JTAG (IEEE 1149.1)\n    Pin Count: 5 Pins (TDI, TDO, TCK, TMS, nTRST)\n    Boundary Scan: SUPPORTED\n    Max Clock: 25 MHz\n  Protocol: SWD (Serial Wire)\n    Pin Count: 2 Pins (SWDIO, SWCLK)\n    Boundary Scan: NONE (Core Debug Only)\n    Max Clock: 50 MHz\n",
+      "codeNotes": [
+        {
+          "line": 5,
+          "note": "DebugProtocol structure outlines the physical layer pin requirements of embedded silicon debug interfaces."
+        },
+        {
+          "line": 13,
+          "note": "SWD requires only 2 physical pins (SWDIO/SWCLK), saving precious microcontroller package pins for I/O."
+        },
+        {
+          "line": 14,
+          "note": "JTAG supports PCB boundary scanning to test solder joints across multi-chip circuit boards."
+        }
+      ],
+      "tryIt": "Explain how the SWD protocol switches between read and write modes on the single bidirectional SWDIO wire using turnaround (Trn) clock cycles.",
+      "check": {
+        "question": "What is the primary advantage of ARM Serial Wire Debug (SWD) over standard 5-pin JTAG on resource-constrained microcontrollers?",
+        "options": [
+          "SWD requires only 2 dedicated pins (SWDIO and SWCLK) instead of 4-5 pins while providing identical core debugging capabilities.",
+          "SWD eliminates the need for a ground wire connection.",
+          "SWD allows debugging microcontrollers without applying electrical power.",
+          "SWD translates C code into Python automatically during compilation."
+        ],
+        "answer": 0,
+        "why": "On modern pin-constrained microcontrollers (QFN-32, TSSOP-20), dedicating 5 pins exclusively to JTAG debugging consumes 25% of available pins. SWD provides the same run-control and memory inspection using only 2 pins."
+      }
+    },
+    {
+      "title": "ARM Cortex-M Fault Architecture: HardFault, BusFault, UsageFault & MemManage",
+      "say": [
+        "When a microcontroller CPU executes an illegal operation, it triggers a hardware fault exception.",
+        "In ARM Cortex-M cores, the fault system is divided into four distinct exception vectors: HardFault (vector 3), MemManage (vector 4), BusFault (vector 5), and UsageFault (vector 6).",
+        "By default upon power-up, MemManage, BusFault, and UsageFault are disabled. Any fault escalates immediately into a generic HardFault. Production firmware must explicitly enable the configurable faults in the System Handler Control and State Register (SCB->SHCSR) so specific causes can be isolated.",
+        "A UsageFault is triggered by software errors: dividing by zero (if enabled), executing an unaligned memory access (if CCR_UNALIGN_TRP is set), or branching to a non-Thumb address. A BusFault is triggered by hardware bus errors, such as reading an unmapped peripheral address. MemManage is triggered by MPU access rule violations."
+      ],
+      "example": "Dereferencing a pointer to 0x50000000 (an unmapped memory bus address) triggers a BusFault. If BusFault is disabled in SHCSR, it escalates to a HardFault.",
+      "code": "#include <iostream>\n#include <cstdint>\n#include <iomanip>\n\nstruct SystemHandlerRegisters {\n    uint32_t SHCSR; // System Handler Control and State Register\n    uint32_t CCR;   // Configuration and Control Register\n};\n\nconst uint32_t SHCSR_MEMFAULTENA = (1U << 16);\nconst uint32_t SHCSR_BUSFAULTENA = (1U << 17);\nconst uint32_t SHCSR_USGFAULTENA = (1U << 18);\nconst uint32_t CCR_DIV_0_TRP     = (1U << 4);\nconst uint32_t CCR_UNALIGN_TRP   = (1U << 3);\n\nvoid configureFaultArchitecture(SystemHandlerRegisters& scb) {\n    std::cout << \"[SCB-CONFIG] Configuring Cortex-M Fault Architecture:\" << std::endl;\n    // Enable dedicated configurable fault handlers so they don't escalate into HardFault\n    scb.SHCSR |= (SHCSR_MEMFAULTENA | SHCSR_BUSFAULTENA | SHCSR_USGFAULTENA);\n    // Trap divide-by-zero and unaligned memory accesses\n    scb.CCR |= (CCR_DIV_0_TRP | CCR_UNALIGN_TRP);\n\n    std::cout << \"  SCB->SHCSR: 0x\" << std::hex << std::setw(8) << std::setfill('0') << scb.SHCSR << std::endl;\n    std::cout << \"    -> MemManage Fault: \" << ((scb.SHCSR & SHCSR_MEMFAULTENA) ? \"ENABLED\" : \"DISABLED\") << std::endl;\n    std::cout << \"    -> BusFault:        \" << ((scb.SHCSR & SHCSR_BUSFAULTENA) ? \"ENABLED\" : \"DISABLED\") << std::endl;\n    std::cout << \"    -> UsageFault:      \" << ((scb.SHCSR & SHCSR_USGFAULTENA) ? \"ENABLED\" : \"DISABLED\") << std::endl;\n    std::cout << \"  SCB->CCR:   0x\" << std::hex << scb.CCR << std::endl;\n    std::cout << \"    -> DIVBYZERO Trap:  \" << ((scb.CCR & CCR_DIV_0_TRP) ? \"ENABLED\" : \"DISABLED\") << std::endl;\n    std::cout << \"    -> UNALIGN Trap:    \" << ((scb.CCR & CCR_UNALIGN_TRP) ? \"ENABLED\" : \"DISABLED\") << std::endl;\n}\n\nint main() {\n    std::cout << \"--- DAY 29 PART 2: CORTEX-M FAULT ARCHITECTURE & SHCSR ---\" << std::endl;\n    SystemHandlerRegisters mockSCB = {0U, 0U};\n    configureFaultArchitecture(mockSCB);\n    return 0;\n}\n",
+      "output": "--- DAY 29 PART 2: CORTEX-M FAULT ARCHITECTURE & SHCSR ---\n[SCB-CONFIG] Configuring Cortex-M Fault Architecture:\n  SCB->SHCSR: 0x00070000\n    -> MemManage Fault: ENABLED\n    -> BusFault:        ENABLED\n    -> UsageFault:      ENABLED\n  SCB->CCR:   0x00000018\n    -> DIVBYZERO Trap:  ENABLED\n    -> UNALIGN Trap:    ENABLED\n",
+      "codeNotes": [
+        {
+          "line": 10,
+          "note": "Bits 16, 17, and 18 in SCB->SHCSR enable MemManage, BusFault, and UsageFault exceptions."
+        },
+        {
+          "line": 13,
+          "note": "CCR bits 3 and 4 enforce hardware traps on unaligned accesses and integer division by zero."
+        },
+        {
+          "line": 18,
+          "note": "Without enabling these bits in SHCSR, all hardware exceptions escalate into an undifferentiated HardFault."
+        }
+      ],
+      "tryIt": "Explain what a 'Lockup' condition is in ARM Cortex-M: what happens when a fault occurs inside the HardFault_Handler itself?",
+      "check": {
+        "question": "What happens on an ARM Cortex-M processor when a BusFault occurs while the BusFault handler is disabled in SCB->SHCSR?",
+        "options": [
+          "The exception escalates (promotes) into a HardFault exception.",
+          "The processor ignores the bus error and continues executing instructions.",
+          "The CPU switches immediately from Thumb mode to 32-bit ARM mode.",
+          "The processor shuts off its internal PLL clock generator."
+        ],
+        "answer": 0,
+        "why": "When configurable exceptions (MemManage, BusFault, UsageFault) are disabled in SCB->SHCSR, any occurrence of those errors escalates directly to the HardFault vector. Enabling them allows firmware to handle each fault type individually."
+      }
+    },
+    {
+      "title": "Configurable Fault Status Register (CFSR) Anatomy & Bitmask Decoding",
+      "say": [
+        "When a fault strikes, the processor records the exact forensic cause in the Configurable Fault Status Register: SCB->CFSR (address 0xE000ED28).",
+        "CFSR is a 32-bit register divided into three distinct sub-registers: 1) MMFSR (bits 0-7, MemManage Fault Status); 2) BFSR (bits 8-15, BusFault Status); 3) UFSR (bits 16-31, UsageFault Status).",
+        "Key bits in UFSR: DIVBYZERO (bit 25, division by zero attempted), UNALIGNED (bit 24, unaligned memory access), UNDEFINSTR (bit 16, processor tried to execute an illegal opcode or branched to data memory).",
+        "Key bits in BFSR: PRECISERR (bit 9, precise bus error; the faulting address was captured), BFARVALID (bit 15, the BusFault Address Register contains the exact invalid memory address accessed). By reading BFAR, you know the exact pointer address that killed the MCU!"
+      ],
+      "example": "If CFSR = 0x00008200: bit 15 (BFARVALID) is set, and bit 9 (PRECISERR) is set. Reading SCB->BFAR gives 0x40024000. This proves the firmware attempted to read an unclocked or invalid peripheral register at 0x40024000.",
+      "code": "#include <iostream>\n#include <cstdint>\n#include <iomanip>\n\nvoid decodeCFSR(uint32_t cfsr, uint32_t bfar) {\n    std::cout << \"[CFSR-DECODER] Analyzing Fault Registers:\" << std::endl;\n    std::cout << \"  Raw SCB->CFSR: 0x\" << std::hex << std::setw(8) << std::setfill('0') << cfsr << std::endl;\n\n    uint8_t mmfsr = static_cast<uint8_t>(cfsr & 0xFFU);\n    uint8_t bfsr  = static_cast<uint8_t>((cfsr >> 8U) & 0xFFU);\n    uint16_t ufsr = static_cast<uint16_t>((cfsr >> 16U) & 0xFFFFU);\n\n    // UsageFault Decoding\n    if (ufsr != 0U) {\n        std::cout << \"  -> [USAGE-FAULT] Details:\" << std::endl;\n        if (ufsr & (1U << 9))  std::cout << \"     * DIVBYZERO: Integer division by zero attempted!\" << std::endl;\n        if (ufsr & (1U << 8))  std::cout << \"     * UNALIGNED: Unaligned memory load/store trapped!\" << std::endl;\n        if (ufsr & (1U << 0))  std::cout << \"     * UNDEFINSTR: Attempted execution of undefined instruction!\" << std::endl;\n    }\n\n    // BusFault Decoding\n    if (bfsr != 0U) {\n        std::cout << \"  -> [BUS-FAULT] Details:\" << std::endl;\n        if (bfsr & (1U << 1))  std::cout << \"     * PRECISERR: Precise data bus error occurred!\" << std::endl;\n        if (bfsr & (1U << 7)) {\n            std::cout << \"     * BFARVALID: Exact faulting address recorded in SCB->BFAR: 0x\"\n                      << std::hex << bfar << std::dec << std::endl;\n        }\n    }\n}\n\nint main() {\n    std::cout << \"--- DAY 29 PART 3: CFSR BITMASK DECODING ---\" << std::endl;\n    // Scenario: Precise BusFault accessing unmapped hardware address 0x50001000\n    uint32_t simulatedCFSR = (1U << 15) | (1U << 9); // BFARVALID | PRECISERR\n    uint32_t simulatedBFAR = 0x50001000U;\n\n    decodeCFSR(simulatedCFSR, simulatedBFAR);\n    return 0;\n}\n",
+      "output": "--- DAY 29 PART 3: CFSR BITMASK DECODING ---\n[CFSR-DECODER] Analyzing Fault Registers:\n  Raw SCB->CFSR: 0x00008200\n  -> [BUS-FAULT] Details:\n     * PRECISERR: Precise data bus error occurred!\n     * BFARVALID: Exact faulting address recorded in SCB->BFAR: 0x50001000\n",
+      "codeNotes": [
+        {
+          "line": 8,
+          "note": "CFSR is cleanly partitioned into MMFSR (bits 0-7), BFSR (bits 8-15), and UFSR (bits 16-31)."
+        },
+        {
+          "line": 23,
+          "note": "BFARVALID (bit 7 of BFSR / bit 15 of CFSR) indicates that SCB->BFAR contains the physical memory address that faulted."
+        },
+        {
+          "line": 15,
+          "note": "UNDEFINSTR indicates that corrupted memory was executed as machine code, typically caused by a bad function pointer."
+        }
+      ],
+      "tryIt": "Simulate a divide-by-zero UsageFault: set bit 25 of CFSR and observe the decoded diagnostic report.",
+      "check": {
+        "question": "What does bit 15 (BFARVALID) in the ARM Cortex-M Configurable Fault Status Register (CFSR) indicate?",
+        "options": [
+          "It indicates that the BusFault Address Register (BFAR) contains the exact valid memory address that triggered the bus error.",
+          "It indicates that battery power is low.",
+          "It indicates that the Bluetooth interface is connected.",
+          "It indicates that FreeRTOS has finished its task scheduler execution."
+        ],
+        "answer": 0,
+        "why": "When BFARVALID is set, the processor's bus controller successfully captured the physical memory address that generated the bus error into the BFAR register, pinpointing the invalid pointer access."
+      }
+    },
+    {
+      "title": "Naked Assembly HardFault Stack Frame Extractor",
+      "say": [
+        "When a Cortex-M core enters an exception handler, the hardware automatically pushes 8 registers onto the current stack: R0, R1, R2, R3, R12, LR (Link Register), PC (Program Counter), and xPSR. This is the hardware stack frame.",
+        "To extract these registers without corrupting the stack pointer, the entry point of HardFault_Handler must be declared as a naked assembly function (__attribute__((naked))).",
+        "Inside the naked assembly handler, we test bit 2 of the EXC_RETURN value stored in the Link Register (LR): 'TST LR, #4'. If bit 2 is 0, the CPU was running in Handler mode or using the Main Stack Pointer (MSP); if bit 2 is 1, the CPU was running in Thread mode using the Process Stack Pointer (PSP).",
+        "The assembly snippet copies the selected stack pointer into register R0 ('ITE EQ / MRSEQ R0, MSP / MRSNE R0, PSP') and calls our C diagnostic function: 'B prvGetRegistersFromStack'. Now, R0 points directly to the saved register frame!"
+      ],
+      "example": "If PSP was active, R0 points to the base of the stack frame. R0[6] is the saved Program Counter (PC). This PC is the exact instruction address that caused the crash!",
+      "code": "#include <iostream>\n#include <cstdint>\n#include <iomanip>\n\nstruct ExceptionStackFrame {\n    uint32_t r0;\n    uint32_t r1;\n    uint32_t r2;\n    uint32_t r3;\n    uint32_t r12;\n    uint32_t lr;\n    uint32_t pc;\n    uint32_t psr;\n};\n\nvoid prvGetRegistersFromStack_C(const ExceptionStackFrame* stackFrame, uint32_t lr_exc) {\n    std::cout << \"[POST-MORTEM] Crash Forensics Stack Frame Dump:\" << std::endl;\n    std::cout << \"  EXC_RETURN: 0x\" << std::hex << std::setw(8) << std::setfill('0') << lr_exc\n              << \" (\" << ((lr_exc & 4U) ? \"Using Process Stack: PSP\" : \"Using Main Stack: MSP\") << \")\" << std::endl;\n    std::cout << \"  R0:  0x\" << stackFrame->r0 << std::endl;\n    std::cout << \"  R1:  0x\" << stackFrame->r1 << std::endl;\n    std::cout << \"  R2:  0x\" << stackFrame->r2 << std::endl;\n    std::cout << \"  R3:  0x\" << stackFrame->r3 << std::endl;\n    std::cout << \"  R12: 0x\" << stackFrame->r12 << std::endl;\n    std::cout << \"  LR:  0x\" << stackFrame->lr << \" (Caller Return Address)\" << std::endl;\n    std::cout << \"  PC:  0x\" << stackFrame->pc << \" (FATAL FAULTING INSTRUCTION)\" << std::endl;\n    std::cout << \"  PSR: 0x\" << stackFrame->psr << std::endl;\n    std::cout << \"[ADDR2LINE] Debug command: arm-none-eabi-addr2line -e firmware.elf 0x\"\n              << std::hex << stackFrame->pc << std::dec << std::endl;\n}\n\nint main() {\n    std::cout << \"--- DAY 29 PART 4: NAKED HARDFAULT STACK FRAME EXTRACTOR ---\" << std::endl;\n    ExceptionStackFrame mockFrame = {\n        0x00000000, 0x20001000, 0x00000004, 0x08003400,\n        0x20000400, 0x08001249, 0x080015A2, 0x61000000\n    };\n    prvGetRegistersFromStack_C(&mockFrame, 0xFFFFFFFD); // EXC_RETURN using PSP\n    return 0;\n}\n",
+      "output": "--- DAY 29 PART 4: NAKED HARDFAULT STACK FRAME EXTRACTOR ---\n[POST-MORTEM] Crash Forensics Stack Frame Dump:\n  EXC_RETURN: 0xfffffffd (Using Process Stack: PSP)\n  R0:  0x0\n  R1:  0x20001000\n  R2:  0x4\n  R3:  0x8003400\n  R12: 0x20000400\n  LR:  0x8001249 (Caller Return Address)\n  PC:  0x80015a2 (FATAL FAULTING INSTRUCTION)\n  PSR: 0x61000000\n[ADDR2LINE] Debug command: arm-none-eabi-addr2line -e firmware.elf 0x80015a2\n",
+      "codeNotes": [
+        {
+          "line": 5,
+          "note": "ExceptionStackFrame models the 8 hardware registers pushed by ARM silicon upon exception entry."
+        },
+        {
+          "line": 18,
+          "note": "EXC_RETURN value bit 2 determines whether the active stack frame was on MSP (bit 2 = 0) or PSP (bit 2 = 1)."
+        },
+        {
+          "line": 23,
+          "note": "PC (stackFrame->pc) contains the exact address of the assembly instruction that caused the processor fault."
+        }
+      ],
+      "tryIt": "Explain how addr2line uses the DWARF debug section of an ELF binary to resolve 0x080015A2 into a C file and line number.",
+      "check": {
+        "question": "Why must the entry point of the ARM Cortex-M HardFault_Handler be declared as a naked function (__attribute__((naked)))?",
+        "options": [
+          "To prevent the C compiler from generating standard function prologue instructions that modify the Stack Pointer (SP) before the hardware stack frame can be read.",
+          "Because naked functions execute twice as fast as normal C functions.",
+          "Because ARM Cortex-M microcontrollers do not support C function calls inside interrupts.",
+          "To automatically disable the hardware watchdog timer."
+        ],
+        "answer": 0,
+        "why": "A standard C function automatically executes a compiler prologue (such as 'push {r7, lr}') that alters the stack pointer. By declaring the handler as naked, no assembly instructions are prepended, allowing raw stack pointer registers (MSP/PSP) to be inspected intact."
+      }
+    },
+    {
+      "title": "Master Engine: Non-Volatile Core Dump & Crash Forensic Logger",
+      "say": [
+        "In deployed production systems (such as satellites, smart meters, or automotive engine control units), a human engineer is not present with an SWD debugger when a crash occurs.",
+        "A production-grade firmware platform must implement an autonomous Non-Volatile Crash Dump Logger. When HardFault_Handler executes, it captures PC, LR, CFSR, and BFAR, writing them into battery-backed backup registers (or internal Flash sector) before triggering a controlled system reset via NVIC_SystemReset().",
+        "Upon subsequent system reboot, the bootloader inspects the backup registers. If a valid crash signature is present, it packages the crash telemetry into a non-volatile log, transmits it over the cloud telemetry link, and clears the registers.",
+        "This guarantees that field crashes are never silent: every single unexpected failure is recorded, reported, and localized to an exact line of code."
+      ],
+      "example": "A smart meter reboots at 3:14 AM. The bootloader detects Crash Magic 0xDEADBEEF in RTC backup registers. It logs: 'Crash in task Telemetry, PC = 0x080021A4, CFSR = 0x00010000 (UNDEFINSTR)', pin-pointing an uninitialized function pointer call.",
+      "code": "#include <iostream>\n#include <cstdint>\n#include <iomanip>\n\nstruct CrashReport {\n    uint32_t magicSignature;\n    uint32_t faultPC;\n    uint32_t faultLR;\n    uint32_t faultCFSR;\n    uint32_t faultBFAR;\n    uint32_t crashCount;\n};\n\nclass NonVolatileCrashLogger {\nprivate:\n    CrashReport persistentStorage;\n    const uint32_t CRASH_MAGIC = 0xDEADBEEFU;\n\npublic:\n    NonVolatileCrashLogger() {\n        persistentStorage = {0U, 0U, 0U, 0U, 0U, 0U};\n    }\n\n    void recordFatalCrash(uint32_t pc, uint32_t lr, uint32_t cfsr, uint32_t bfar) {\n        persistentStorage.magicSignature = CRASH_MAGIC;\n        persistentStorage.faultPC = pc;\n        persistentStorage.faultLR = lr;\n        persistentStorage.faultCFSR = cfsr;\n        persistentStorage.faultBFAR = bfar;\n        persistentStorage.crashCount++;\n        std::cout << \"[CRASH-LOGGER] Written post-mortem dump to persistent backup registers.\" << std::endl;\n        std::cout << \"[RESET-SIM] Triggering NVIC_SystemReset()...\" << std::endl;\n    }\n\n    void bootloaderCheckForCrash() {\n        std::cout << \"[BOOTLOADER] Inspecting Backup SRAM for Post-Mortem Crash Data...\" << std::endl;\n        if (persistentStorage.magicSignature == CRASH_MAGIC) {\n            std::cout << \"  -> [CRASH DETECTED] Valid post-mortem dump found! Crash #\" \n                      << persistentStorage.crashCount << std::endl;\n            std::cout << \"     Faulting PC:   0x\" << std::hex << std::setw(8) << std::setfill('0')\n                      << persistentStorage.faultPC << std::endl;\n            std::cout << \"     Caller LR:     0x\" << persistentStorage.faultLR << std::endl;\n            std::cout << \"     SCB->CFSR:     0x\" << persistentStorage.faultCFSR << std::endl;\n            std::cout << \"     SCB->BFAR:     0x\" << persistentStorage.faultBFAR << std::dec << std::endl;\n            std::cout << \"  -> [TELEMETRY] Transmitting crash telemetry packet to cloud SRE fleet...\" << std::endl;\n            persistentStorage.magicSignature = 0U; // Clear magic to prevent repeated reporting\n            std::cout << \"  -> [CLEARED] Crash dump acknowledged and cleared.\" << std::endl;\n        } else {\n            std::cout << \"  -> [CLEAN BOOT] Normal power-on or brownout reset. No crash detected.\" << std::endl;\n        }\n    }\n};\n\nint main() {\n    std::cout << \"--- DAY 29 PART 5: NON-VOLATILE CRASH DUMP & FORENSICS ---\" << std::endl;\n    NonVolatileCrashLogger crashSystem;\n\n    // Boot 1: Clean start\n    crashSystem.bootloaderCheckForCrash();\n\n    // Sudden field crash strikes!\n    std::cout << \"\\n[SIMULATING FATAL FIELD HARDFAULT]...\" << std::endl;\n    crashSystem.recordFatalCrash(0x08002B40U, 0x0800192CU, 0x00008200U, 0x40021000U);\n\n    // Boot 2: Reboot after crash\n    std::cout << \"\\n[SYSTEM REBOOTING]...\" << std::endl;\n    crashSystem.bootloaderCheckForCrash();\n\n    return 0;\n}\n",
+      "output": "--- DAY 29 PART 5: NON-VOLATILE CRASH DUMP & FORENSICS ---\n[BOOTLOADER] Inspecting Backup SRAM for Post-Mortem Crash Data...\n  -> [CLEAN BOOT] Normal power-on or brownout reset. No crash detected.\n\n[SIMULATING FATAL FIELD HARDFAULT]...\n[CRASH-LOGGER] Written post-mortem dump to persistent backup registers.\n[RESET-SIM] Triggering NVIC_SystemReset()...\n\n[SYSTEM REBOOTING]...\n[BOOTLOADER] Inspecting Backup SRAM for Post-Mortem Crash Data...\n  -> [CRASH DETECTED] Valid post-mortem dump found! Crash #1\n     Faulting PC:   0x08002b40\n     Caller LR:     0x0800192c\n     SCB->CFSR:     0x00008200\n     SCB->BFAR:     0x40021000\n  -> [TELEMETRY] Transmitting crash telemetry packet to cloud SRE fleet...\n  -> [CLEARED] Crash dump acknowledged and cleared.\n",
+      "codeNotes": [
+        {
+          "line": 5,
+          "note": "CrashReport structure stores the critical forensic registers required to pinpoint any firmware crash."
+        },
+        {
+          "line": 20,
+          "note": "Writing to battery-backed RTC backup registers survives software resets and watchdog underflows."
+        },
+        {
+          "line": 32,
+          "note": "The bootloader evaluates the magic signature on startup, dispatching crash telemetry before initializing the application."
+        }
+      ],
+      "tryIt": "Add a Flash log ring buffer that stores up to 10 historical crash dumps across the lifetime of the IoT device.",
+      "check": {
+        "question": "Why should production firmware write crash telemetry to battery-backed backup registers before triggering a system reset rather than attempting a complex printf() in the HardFault_Handler?",
+        "options": [
+          "Complex UART or printf operations require interrupts and memory allocation, which may be corrupted or disabled during a fatal HardFault; writing to backup registers is atomic and safe.",
+          "Microcontrollers do not support UART communication after 5:00 PM.",
+          "Printf commands permanently erase the microcontroller Flash memory.",
+          "Writing to backup registers doubles the CPU clock frequency."
+        ],
+        "answer": 0,
+        "why": "A HardFault can be caused by stack exhaustion, bus lockup, or memory corruption. Calling complex C library printf functions inside a HardFault handler will trigger a secondary nested fault (Lockup). Writing raw registers to hardware backup registers requires zero stack and succeeds reliably."
+      }
+    }
+  ],
+  "summary": [
+    "SWD provides 2-pin (SWDIO/SWCLK) serial wire debugging, replacing 5-pin JTAG on resource-constrained microcontrollers.",
+    "ARM Cortex-M divides exceptions into HardFault, MemManage, BusFault, and UsageFault; configurable faults must be explicitly enabled in SCB->SHCSR.",
+    "The Configurable Fault Status Register (SCB->CFSR) isolates the exact failure mechanism: DIVBYZERO, UNALIGNED, UNDEFINSTR, or PRECISERR.",
+    "A naked assembly HardFault_Handler inspects EXC_RETURN in LR to choose MSP or PSP, extracting the hardware stack frame and faulting PC.",
+    "Production firmware saves PC, LR, CFSR, and BFAR into non-volatile backup registers before resetting, transmitting post-mortem telemetry upon reboot."
+  ],
+  "projectStep": {
+    "title": "Implementing Naked HardFault Crash Dumpers in Bare-Metal C",
+    "steps": [
+      "Enable MemManage, BusFault, and UsageFault in SCB->SHCSR at system startup.",
+      "Implement a naked assembly HardFault_Handler checking bit 2 of EXC_RETURN to extract the active stack pointer (MSP vs PSP).",
+      "Write a C diagnostic function that reads the stacked Program Counter, Link Register, and CFSR/BFAR registers.",
+      "Store the forensic crash record into RTC backup registers and trigger NVIC_SystemReset() for autonomous field recovery."
+    ]
+  }
+}

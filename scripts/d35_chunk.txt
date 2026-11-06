@@ -1,0 +1,134 @@
+Day 35</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Milestone Project 6: High-Throughput FastAPI Microservice with Pydantic V2 & JWT Security Engine</strong>
+          <span class="stage-pill" style="background: #e0f2fe; color: #0369a1;">Stage 7: FastAPI & Pydantic V2 Microservice Architecture</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 7 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #0284c7; font-weight: 600;">Goal:</span> Welcome to Milestone 6! Today, you synthesize the microservice engineering principles of Block 7 into a production-grade enterprise gateway: a High-Throughput FastAPI Microservice with Pydantic V2 and JWT Security Engine. You will build an asynchronous API gateway featuring strict-mode Pydantic V2 validation, an optimized dependency injection DAG with request caching, streaming endpoints for high-volume data feeds, a real-time WebSocket connection hub with backpressure eviction, and a hardened OAuth2/JWT authentication system protected against algorithm confusion attacks. You will benchmark your service under concurrent load, proving sub-millisecond route dispatch and zero security flaws.<br>
+          <span style="color: #0369a1; font-weight: 600;">Invariant:</span> <code>Microservice Synthesis Invariant: A production-ready API gateway unifies high-speed compiled data validation (Pydantic V2), dependency injection lifecycle management, resilient real-time streaming, and hardened cryptographic authentication.</code>
+        </div>
+        <div style="background: #fffbeb; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fef3c7; color: #92400e;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Failing to validate token expiration timestamps before checking roles in a dependency, allowing expired tokens to perform administrative actions during high-throughput bursts.<br>
+          <strong>tryIt Friction:</strong> Synthesize Milestone 6 in TypeScript: implement MicroserviceGateway with PydanticSchemaValidator, DependencyDAG, StreamingController, WebSocketHub, and JWTAuthService; test endpoints: POST /auth/token, GET /api/v1/telemetry/stream, and WS /live/notifications; run a 10,000 request benchmark verifying strict type compliance and zero unauthorized access.
+        </div>
+      </div>
+
+      <div style="background: #f0fdf4; border: 1px solid #dcfce7; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #166534;">🪜 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #15803d;">[1. Nudge: "How do you ensure your microservice authentication dependency doesn't perform redundant cryptographic token decodes in a single request?"]</span> &rarr;
+        <span style="color: #166534;">[2. Memory: "Leverage FastAPI's dependency caching (use_cache=True) on your get_current_user dependency."]</span> &rarr;
+        <span style="color: #14532d;">[3. Fix: "The decoded token payload is stored in the request dependency cache, avoiding repeated cryptographic signature verifications."]</span>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #0f172a;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"A payments microservice under load test processes 5,000 requests per second. The security team notices that during traffic spikes, CPU utilization is 80% consumed by 'cryptography.hazmat' verifying JWT RSA signatures. Investigation shows each route has 4 sub-dependencies that each call 'jwt.decode()'. How should the service be refactored to eliminate this CPU bottleneck?"</em><br>
+        <strong>Correct:</strong> Option B) Dependency Injection Single Verification: Consolidate token decoding into a single base dependency 'get_current_token_payload' with 'use_cache=True'. All downstream dependencies (role checks, user lookups) depend on this cached payload, ensuring the expensive RSA signature verification runs exactly ONCE per request. &bull;
+        <span style="color: #0369a1;"><strong>Debrief:</strong> Option B is correct. Cryptographic signature verification (especially RSA/ECDSA) is computationally expensive. If multiple dependencies independently decode the token, CPU is wasted. Using FastAPI's dependency caching ensures the cryptographic verification executes once, and its result is shared across the entire dependency graph.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 35 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q35.1</span>
+      <strong>Milestone 6 Architecture Specification & API Contracts</strong> <em>(Concept Quest)</em>: <span style="color: #475569;">Specify the component contracts and security policies for MicroserviceGateway, DependencyDAG, and AuthService.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q35.2</span>
+      <strong>Security Penetration & Concurrency Load Stress Testing</strong> <em>(Detective Challenge)</em>: <span style="color: #475569;">Construct automated penetration tests verifying rejection of expired tokens, algorithm confusion, and invalid payloads.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q35.3</span>
+      <strong>FastAPI Microservice & JWT Gateway Implementation</strong> <em>(Mastery Assignment)</em>: <span style="color: #475569;">Implement the complete Milestone 6 engine in TypeScript with strict Pydantic models, DI caching, and WebSockets.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q35.4</span>
+      <strong>Milestone 6 Production Defense & Verification Gate</strong> <em>(Production Incident Lab)</em>: <span style="color: #475569;">Execute a full verification suite proving 15k RPS throughput, zero security bypasses, and sub-millisecond p99 latency.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #0284c7;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #0284c7; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 36</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">SQLAlchemy 2.0 Async Engine & Connection Pooling</strong>
+          <span class="stage-pill" style="background: #e0f2fe; color: #0369a1;">Stage 8: SQLAlchemy 2.0 Async ORM & High-Scale Database Patterns</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 8 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #0284c7; font-weight: 600;">Goal:</span> For decades, Python database access was synchronous and blocking. If a query took 200ms, the worker thread was frozen. In SQLAlchemy 2.0, the entire ORM was fundamentally re-architected for native asynchronous execution. An async engine (create_async_engine) wraps asynchronous database drivers like asyncpg (for PostgreSQL) or asyncmy (for MySQL). At the core of database performance is Connection Pooling. Opening a new TCP connection to PostgreSQL, performing SSL handshakes, and authenticating takes 30ms to 50ms! SQLAlchemy's QueuePool maintains a pool of pre-opened, authenticated connections (pool_size, max_overflow, pool_timeout, pool_recycle). Understand connection checkout and checkin dynamics, connection statement caching, and why improperly sized connection pools cause catastrophic connection pool exhaustion!<br>
+          <span style="color: #0369a1; font-weight: 600;">Invariant:</span> <code>Connection Pool Invariant: An asynchronous database engine multiplexes queries across a bounded pool of pre-authenticated connections (QueuePool); connections must be returned immediately to prevent pool exhaustion under concurrent load.</code>
+        </div>
+        <div style="background: #fffbeb; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fef3c7; color: #92400e;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Holding a database connection open while performing a slow external HTTP API call; 50 concurrent requests exhaust the connection pool (pool_size=20, max_overflow=30), causing all subsequent database queries across the entire application to hang and fail with TimeoutError.<br>
+          <strong>tryIt Friction:</strong> Implement an Asynchronous Database Connection Pool in TypeScript: construct a QueuePool with poolSize=10, maxOverflow=5, and timeoutMs=500; implement async checkout() and checkin() methods; simulate 50 concurrent requests competing for connections; verify FIFO queuing, overflow scaling, and timeout rejections.
+        </div>
+      </div>
+
+      <div style="background: #f0fdf4; border: 1px solid #dcfce7; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #166534;">🪜 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #15803d;">[1. Nudge: "Why must you NEVER make an external HTTP call or do heavy CPU work while inside a database transaction block?"]</span> &rarr;
+        <span style="color: #166534;">[2. Memory: "While inside the transaction block, an active database connection is checked out from the pool and held hostage."]</span> &rarr;
+        <span style="color: #14532d;">[3. Fix: "If the HTTP call takes 2 seconds, that database connection cannot be used by any other request, quickly draining the pool."]</span>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #0f172a;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"A Black Friday traffic surge hits a retail API. Incoming traffic doubles to 1,000 req/sec. Within 2 minutes, every API endpoint starts throwing 'TimeoutError: QueuePool limit of size 20 overflow 10 reached, connection timed out, timeout 30.00'. Database CPU utilization on PostgreSQL is only 12%. Why is the API crashing if the database server is barely working?"</em><br>
+        <strong>Correct:</strong> Option B) Connection Pool Exhaustion via Connection Starvation: The API's connection pool size (20 + 10 = 30 connections) is drastically undersized for 1,000 concurrent requests, or route handlers are holding connections open during non-database tasks (like template rendering or external calls), causing threads to queue up and time out waiting for a connection. &bull;
+        <span style="color: #0369a1;"><strong>Debrief:</strong> Option B is correct. When client concurrency exceeds available pool capacity (pool_size + max_overflow), requests must wait in a queue for connections to be checked in. If connections are held too long or the pool is undersized relative to concurrency and query duration, requests exceed pool_timeout and fail, even if the database CPU itself is idle.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 36 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q36.1</span>
+      <strong>SQLAlchemy 2.0 Async Architecture & asyncpg Driver Mechanics</strong> <em>(Concept Quest)</em>: <span style="color: #475569;">Trace how AsyncEngine and AsyncConnection delegate non-blocking socket operations to asyncpg binary protocols.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q36.2</span>
+      <strong>Connection Pool Exhaustion & Leak Forensics</strong> <em>(Detective Challenge)</em>: <span style="color: #475569;">Analyze connection pool metrics under simulated high-concurrency traffic to identify un-returned connection leaks.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q36.3</span>
+      <strong>Asynchronous QueuePool Engine Implementation</strong> <em>(Mastery Assignment)</em>: <span style="color: #475569;">Implement a complete connection pool in TypeScript with overflow bursting, timeout queues, and health check recycling.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q36.4</span>
+      <strong>High-Volume Checkout Connection Pool Tuning</strong> <em>(Production Incident Lab)</em>: <span style="color: #475569;">Tune and refactor connection checkout lifecycles in an e-commerce API, eliminating QueuePool timeouts under 5k RPS.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #0284c7;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #0284c7; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 37</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Unit of Work Pattern & Identity Map Physics</strong>
+          <span class="stage-pill" style="background: #e0f2fe; color: #0369a1;">Stage 8: SQLAlchemy 2.0 Async ORM & High-Scale Database Patterns</span>
+     

@@ -1,0 +1,230 @@
+{
+  "day": 22,
+  "title": "Preemptive Scheduling & Context Switching: PendSV Exception, SysTick & Assembly Stack Swapping",
+  "goal": "Deconstruct the black box of operating system multitasking: write an ARM Cortex-M Context Switcher in assembly. Understand why context switching inside hardware ISRs causes crashes, how the PendSV deferred exception operates at lowest priority, MSP vs PSP stack switching, and cycle-exact task swapping.",
+  "minutes": 36,
+  "recap": "Yesterday, we analyzed Task Control Blocks and fake stack frames. Today, we open the engine of the operating system: the PendSV assembly context switcher that swaps execution between tasks seamlessly.",
+  "parts": [
+    {
+      "title": "Thread vs Handler Modes, Main Stack Pointer (MSP) vs Process Stack Pointer (PSP)",
+      "say": [
+        "To support robust multitasking, the ARM Cortex-M architecture implements two operating modes and two physical stack pointer registers.",
+        "Thread Mode is used for normal background application execution (user tasks); Handler Mode is entered automatically whenever an exception or interrupt fires.",
+        "Additionally, Cortex-M features two distinct Stack Pointers: the Main Stack Pointer (`MSP`) and the Process Stack Pointer (`PSP`).",
+        "The `CONTROL` register (bit 1 `SPSEL`) selects which stack pointer is currently active in Thread Mode: `SPSEL=0` uses MSP, `SPSEL=1` uses PSP.",
+        "In a professional RTOS, all kernel interrupt handlers and system exceptions execute in Handler Mode using `MSP`.",
+        "Each user task executes in Thread Mode using its private stack addressed by `PSP`; this isolates tasks so an application stack overflow cannot corrupt kernel interrupt handlers."
+      ],
+      "example": "MSP is the building's main emergency fire escape stairs used only by emergency responders (ISRs); PSP is the private internal elevator inside each tenant's individual apartment (user tasks).",
+      "code": "#include <iostream>\n#include <string>\n#include <cstdint>\n\nstruct CpuExecutionState {\n    std::string mode; // \"Thread Mode\" or \"Handler Mode\"\n    std::string activeStack; // \"MSP\" or \"PSP\"\n    uint32_t controlRegister;\n};\n\nvoid evaluateExecutionMode(uint32_t ipsr, uint32_t control) {\n    std::cout << \"[CPU PIPELINE STATE]:\\n\";\n    if (ipsr != 0) {\n        std::cout << \"  Mode:         Handler Mode (Servicing Exception/ISR #\" << ipsr << \")\\n\";\n        std::cout << \"  Active Stack: MSP (Main Stack Pointer enforced by hardware)\\n\";\n    } else {\n        std::cout << \"  Mode:         Thread Mode (Running Application Task)\\n\";\n        bool usePsp = (control & (1 << 1));\n        std::cout << \"  Active Stack: \" << (usePsp ? \"PSP (Process Stack Pointer)\" : \"MSP (Main Stack Pointer)\") << \"\\n\";\n        if (usePsp) {\n            std::cout << \"  -> RTOS Task Isolation: Active! Kernel stack protected.\\n\";\n        }\n    }\n}\n\nint main() {\n    // Scenario 1: User task running in Thread mode with PSP\n    std::cout << \"Scenario 1: Normal RTOS Task Execution:\\n\";\n    evaluateExecutionMode(0, 0x02); // IPSR=0 (Thread), CONTROL bit 1=1 (PSP)\n\n    // Scenario 2: Hardware timer interrupt fires\n    std::cout << \"\\nScenario 2: Hardware Timer Interrupt Fires:\\n\";\n    evaluateExecutionMode(28, 0x02); // IPSR=28 (TIM2), Hardware forces MSP\n    return 0;\n}",
+      "output": "Scenario 1: Normal RTOS Task Execution:\n[CPU PIPELINE STATE]:\n  Mode:         Thread Mode (Running Application Task)\n  Active Stack: PSP (Process Stack Pointer)\n  -> RTOS Task Isolation: Active! Kernel stack protected.\n\nScenario 2: Hardware Timer Interrupt Fires:\n[CPU PIPELINE STATE]:\n  Mode:         Handler Mode (Servicing Exception/ISR #28)\n  Active Stack: MSP (Main Stack Pointer enforced by hardware)",
+      "codeNotes": [
+        {
+          "line": 13,
+          "note": "Non-zero IPSR indicates Handler Mode executing an active hardware interrupt"
+        },
+        {
+          "line": 17,
+          "note": "Thread mode uses CONTROL register bit 1 (SPSEL) to select private PSP"
+        },
+        {
+          "line": 28,
+          "note": "Demonstrates hardware switching to MSP automatically on interrupt entry"
+        }
+      ],
+      "tryIt": "Explain why user tasks running with PSP prevents an application stack crash from corrupting the kernel.",
+      "check": {
+        "question": "Which stack pointer register is used by user tasks in Thread Mode under FreeRTOS on ARM Cortex-M?",
+        "options": [
+          "PSP (Process Stack Pointer), enabled via CONTROL bit 1",
+          "MSP (Main Stack Pointer)",
+          "BaseStack Register",
+          "Vector Offset Register"
+        ],
+        "answer": 0,
+        "why": "FreeRTOS configures user tasks to run in Thread Mode using PSP, reserving MSP exclusively for kernel interrupt service routines."
+      }
+    },
+    {
+      "title": "Why Context Switching Inside Hardware ISRs Causes Crashes: The PendSV Invariant",
+      "say": [
+        "Why can't the SysTick timer or a peripheral ISR simply swap `pxCurrentTCB` and switch stacks directly inside its own handler?",
+        "Consider this fatal scenario: a high-priority motor timer ISR fires; while it is running, a low-priority UART ISR is interrupted.",
+        "If the motor ISR attempts to execute a context switch, it swaps stack pointers in the middle of nested hardware interrupt stacking frames.",
+        "When the processor tries to unstack, it reads the wrong registers from the wrong stack, generating an instantaneous `HardFault` and freezing the chip.",
+        "The ARM architects solved this with a dedicated system exception: PendSV (Pended System Call).",
+        "Invariant: The PendSV exception is ALWAYS configured with the lowest possible hardware interrupt priority (Priority 15, or 0xFF in `SHPR3`).",
+        "When SysTick or an ISR decides a context switch is needed, it simply sets the PendSV pending bit (`SCB->ICSR_PENDSVSET = 1`); PendSV only executes AFTER all higher-priority hardware ISRs have completely finished and unstacked!"
+      ],
+      "example": "A busy hospital operating room: surgeons don't swap surgical shift teams while performing open-heart surgery; they place a note on the board (PendSV) to change shifts the moment the patient is stable and all instruments are put away.",
+      "code": "#include <iostream>\n#include <string>\n\nstruct InterruptNestingModel {\n    int activeInterrupts;\n    bool pendSvPending;\n\n    InterruptNestingModel() : activeInterrupts(0), pendSvPending(false) {}\n\n    void enterHardwareIsr(const std::string& name) {\n        activeInterrupts++;\n        std::cout << \"[ISR ENTRY] \" << name << \" active (Nesting Level = \" << activeInterrupts << \")\\n\";\n    }\n\n    void requestContextSwitch() {\n        pendSvPending = true;\n        std::cout << \"  -> [CONTEXT SWITCH REQUESTED] Setting PendSV Pending Bit (Deferred)\\n\";\n    }\n\n    void exitHardwareIsr(const std::string& name) {\n        activeInterrupts--;\n        std::cout << \"[ISR EXIT] \" << name << \" finished (Remaining Nesting = \" << activeInterrupts << \")\\n\";\n\n        if (activeInterrupts == 0 && pendSvPending) {\n            std::cout << \"  -> [ALL HARDWARE ISRs FINISHED] CPU safely enters PendSV Exception!\\n\";\n            std::cout << \"  -> [PENDSV HANDLER] Executing zero-risk task context switch!\\n\";\n            pendSvPending = false;\n        }\n    }\n};\n\nint main() {\n    InterruptNestingModel mcu;\n    // Low priority UART ISR begins\n    mcu.enterHardwareIsr(\"UART_RX_ISR (Priority 3)\");\n    // Preempted by higher priority Timer ISR\n    mcu.enterHardwareIsr(\"TIMER_MOTOR_ISR (Priority 1)\");\n\n    // Timer ISR unblocks high-priority task, requests context switch\n    mcu.requestContextSwitch();\n\n    // Timer finishes\n    mcu.exitHardwareIsr(\"TIMER_MOTOR_ISR (Priority 1)\");\n    // UART finishes -> only now does PendSV execute safely!\n    mcu.exitHardwareIsr(\"UART_RX_ISR (Priority 3)\");\n    return 0;\n}",
+      "output": "[ISR ENTRY] UART_RX_ISR (Priority 3) active (Nesting Level = 1)\n[ISR ENTRY] TIMER_MOTOR_ISR (Priority 1) active (Nesting Level = 2)\n  -> [CONTEXT SWITCH REQUESTED] Setting PendSV Pending Bit (Deferred)\n[ISR EXIT] TIMER_MOTOR_ISR (Priority 1) finished (Nesting Level = 1)\n[ISR EXIT] UART_RX_ISR (Priority 3) finished (Nesting Level = 0)\n  -> [ALL HARDWARE ISRs FINISHED] CPU safely enters PendSV Exception!\n  -> [PENDSV HANDLER] Executing zero-risk task context switch!",
+      "codeNotes": [
+        {
+          "line": 15,
+          "note": "Context switch request merely sets PendSV pending flag without immediate stack swapping"
+        },
+        {
+          "line": 23,
+          "note": "PendSV executes only when active hardware interrupt nesting level reaches 0"
+        },
+        {
+          "line": 34,
+          "note": "Prevents catastrophic stack frame corruption during nested interrupt execution"
+        }
+      ],
+      "tryIt": "Explain why configuring PendSV at highest priority instead of lowest would defeat its purpose.",
+      "check": {
+        "question": "Why is the PendSV exception configured at the lowest possible interrupt priority (Priority 15) in FreeRTOS?",
+        "options": [
+          "To guarantee that context switching is deferred until all higher-priority hardware ISRs have finished executing and unstacked",
+          "Because PendSV is a slow software function",
+          "To save battery power",
+          "Because the ARM processor does not support priority levels for system exceptions"
+        ],
+        "answer": 0,
+        "why": "Running PendSV at lowest priority guarantees that all active hardware interrupts finish and unstack back to Thread mode before the context switcher swaps task stacks."
+      }
+    },
+    {
+      "title": "The Assembly Engine: PendSV_Handler Step-by-Step",
+      "say": [
+        "Let us inspect the exact GNU ARM assembly instructions executed inside `PendSV_Handler`.",
+        "Step 1: When PendSV is entered, hardware has ALREADY automatically stacked R0–R3, R12, LR, PC, and xPSR onto the current task's `PSP`.",
+        "Step 2: Read current task stack pointer: `MRS R0, PSP`.",
+        "Step 3: Save remaining software registers: `STMDB R0!, {R4-R11}` (Store Multiple Decrement Before).",
+        "Step 4: Save updated stack pointer into current TCB: `LDR R1, =pxCurrentTCB; LDR R2, [R1]; STR R0, [R2]` (Writes `R0` into offset 0 `pxTopOfStack`).",
+        "Step 5: Pick next task: `BL vTaskSwitchContext` (Updates `pxCurrentTCB` to point to the highest-priority READY task).",
+        "Step 6: Load new task's stack pointer: `LDR R1, =pxCurrentTCB; LDR R2, [R1]; LDR R0, [R2]`.",
+        "Step 7: Restore new task's software registers: `LDMIA R0!, {R4-R11}` (Load Multiple Increment After).",
+        "Step 8: Update CPU PSP and return: `MSR PSP, R0; BX LR` (Hardware un-stacks R0–R3, R12, LR, PC, xPSR into new task!)."
+      ],
+      "example": "A chess player's clock: player 1 takes their hands off the board and pushes their clock button (save R4-R11, store PSP); player 2's clock starts ticking, player 2 grabs their pieces (load PSP, restore R4-R11) and resumes their game.",
+      "code": "#include <iostream>\n#include <string>\n#include <cstdint>\n\nstruct TaskContext {\n    std::string name;\n    uint32_t r4_r11[8];\n    uint32_t psp;\n};\n\nvoid tracePendSvContextSwitch(TaskContext& outgoing, TaskContext& incoming) {\n    std::cout << \"=== PENDING SV CONTEXT SWITCH TRACE ===\\n\";\n    std::cout << \"[STEP 1-3] Hardware stacked R0-R3,R12,LR,PC,xPSR onto PSP (0x\" \n              << std::hex << outgoing.psp << \")\\n\";\n    std::cout << \"           Software pushes R4-R11 via 'STMDB R0!, {R4-R11}'\\n\";\n    outgoing.psp -= (8 * 4); // 8 registers saved\n    std::cout << \"[STEP 4]   Saved updated PSP into \" << outgoing.name << \"->pxTopOfStack: 0x\" \n              << outgoing.psp << \"\\n\";\n\n    std::cout << \"[STEP 5]   vTaskSwitchContext() invoked: pxCurrentTCB updated to \" << incoming.name << \"\\n\";\n\n    std::cout << \"[STEP 6-7] Loaded incoming PSP from \" << incoming.name << \"->pxTopOfStack: 0x\" \n              << incoming.psp << \"\\n\";\n    std::cout << \"           Software pops R4-R11 via 'LDMIA R0!, {R4-R11}'\\n\";\n    incoming.psp += (8 * 4);\n\n    std::cout << \"[STEP 8]   Updated PSP register. Executing 'BX LR'...\\n\";\n    std::cout << \"           Hardware automatically un-stacks R0-R3,R12,LR,PC,xPSR into \" \n              << incoming.name << \"!\\n\";\n    std::cout << \"-> Context switch complete! \" << incoming.name << \" is now RUNNING on CPU.\\n\";\n}\n\nint main() {\n    TaskContext task1 = {\"Task1_LowPriority\", {1,2,3,4,5,6,7,8}, 0x20001000};\n    TaskContext task2 = {\"Task2_HighPriority\", {9,10,11,12,13,14,15,16}, 0x20002000};\n\n    tracePendSvContextSwitch(task1, task2);\n    return 0;\n}",
+      "output": "=== PENDING SV CONTEXT SWITCH TRACE ===\n[STEP 1-3] Hardware stacked R0-R3,R12,LR,PC,xPSR onto PSP (0x20001000)\n           Software pushes R4-R11 via 'STMDB R0!, {R4-R11}'\n[STEP 4]   Saved updated PSP into Task1_LowPriority->pxTopOfStack: 0x20000fe0\n[STEP 5]   vTaskSwitchContext() invoked: pxCurrentTCB updated to Task2_HighPriority\n[STEP 6-7] Loaded incoming PSP from Task2_HighPriority->pxTopOfStack: 0x20002000\n           Software pops R4-R11 via 'LDMIA R0!, {R4-R11}'\n[STEP 8]   Updated PSP register. Executing 'BX LR'...\n           Hardware automatically un-stacks R0-R3,R12,LR,PC,xPSR into Task2_HighPriority!\n-> Context switch complete! Task2_HighPriority is now RUNNING on CPU.",
+      "codeNotes": [
+        {
+          "line": 13,
+          "note": "STMDB R0!, {R4-R11} saves remaining 8 general-purpose registers onto task PSP"
+        },
+        {
+          "line": 18,
+          "note": "vTaskSwitchContext selects highest-priority ready task to become pxCurrentTCB"
+        },
+        {
+          "line": 23,
+          "note": "LDMIA R0!, {R4-R11} restores callee-saved registers for incoming task"
+        }
+      ],
+      "tryIt": "Count total clock cycles for STMDB and LDMIA on Cortex-M4 and verify total context switch duration.",
+      "check": {
+        "question": "Which set of registers must software explicitly push and pop in PendSV_Handler that hardware does not stack automatically?",
+        "options": [
+          "R4 through R11 (the 8 callee-saved registers)",
+          "R0 through R3",
+          "PC and xPSR",
+          "The SysTick control registers"
+        ],
+        "answer": 0,
+        "why": "Hardware automatically stacks R0-R3, R12, LR, PC, and xPSR; software in PendSV_Handler is responsible for preserving the remaining 8 registers (R4-R11)."
+      }
+    },
+    {
+      "title": "Preemption and Cooperative Slicing: taskYIELD(), vTaskDelay() & SysTick Management",
+      "say": [
+        "A real-time operating system supports two distinct mechanisms for task switching: Cooperative yielding and Preemptive time-slicing.",
+        "In Cooperative Multitasking, a running task voluntarily gives up the CPU by calling `taskYIELD()` or entering a timed sleep via `vTaskDelay()`.",
+        "`vTaskDelay(ticks)` places the calling task into the `xDelayedTaskList`, un-schedules it, and triggers a context switch, freeing the CPU for lower-priority tasks.",
+        "In Preemptive Multitasking, the hardware SysTick timer interrupts the running task periodically (every 1.0 ms).",
+        "Inside `SysTick_Handler`, the kernel increments `xTickCount`, checks whether delayed tasks have timed out, and determines if a higher-priority task is ready to preempt.",
+        "If a higher-priority task is ready, SysTick asserts the PendSV bit; the current task is preempted involuntarily without its knowledge or cooperation."
+      ],
+      "example": "Cooperative is taking turns speaking at a polite dinner party (you finish your sentence and say 'your turn'); preemptive is a debate moderator with a buzzer cutting off the microphone the microsecond your time limit expires.",
+      "code": "#include <iostream>\n#include <string>\n#include <cstdint>\n\nstruct SchedulerState {\n    uint32_t currentTick;\n    std::string runningTask;\n    uint32_t runningPriority;\n    bool pendSvTriggered;\n\n    void onSysTick() {\n        currentTick++;\n        std::cout << \"[SYSTICK TICK #\" << currentTick << \"] Evaluating preemptive scheduling...\\n\";\n\n        // Suppose high-priority motor task (Priority 4) unblocks at tick 10\n        if (currentTick == 10 && runningPriority < 4) {\n            std::cout << \"  -> High-Priority Task 'MotorControl' (Pri 4) unblocked!\\n\";\n            std::cout << \"  -> PREEMPTING '\" << runningTask << \"' (Pri \" << runningPriority << \")\\n\";\n            pendSvTriggered = true;\n            runningTask = \"MotorControl\";\n            runningPriority = 4;\n        }\n    }\n\n    void taskYield(const std::string& nextTask, uint32_t nextPriority) {\n        std::cout << \"[COOPERATIVE YIELD] '\" << runningTask << \"' voluntarily yields CPU\\n\";\n        runningTask = nextTask;\n        runningPriority = nextPriority;\n        std::cout << \"  -> Switched to '\" << runningTask << \"'\\n\";\n    }\n};\n\nint main() {\n    SchedulerState rtos = {9, \"TelemetryLogger\", 1, false};\n\n    // Preemption test\n    rtos.onSysTick(); // Tick 10: triggers preemption!\n\n    // Cooperative yield test\n    rtos.taskYield(\"BackgroundWorker\", 0);\n    return 0;\n}",
+      "output": "[SYSTICK TICK #10] Evaluating preemptive scheduling...\n  -> High-Priority Task 'MotorControl' (Pri 4) unblocked!\n  -> PREEMPTING 'TelemetryLogger' (Pri 1)\n[COOPERATIVE YIELD] 'MotorControl' voluntarily yields CPU\n  -> Switched to 'BackgroundWorker'",
+      "codeNotes": [
+        {
+          "line": 13,
+          "note": "SysTick checks whether higher-priority tasks have become unblocked"
+        },
+        {
+          "line": 17,
+          "note": "Preemption triggered involuntarily: sets PendSV to switch away from lower-priority task"
+        },
+        {
+          "line": 25,
+          "note": "Cooperative taskYIELD voluntarily relinquishes CPU control"
+        }
+      ],
+      "tryIt": "Demonstrate what happens if two tasks share identical priority: SysTick performs round-robin time slicing between them.",
+      "check": {
+        "question": "What is the key functional difference between vTaskDelay() and a bare-metal busy-wait delay loop?",
+        "options": [
+          "vTaskDelay() puts the calling task into the Blocked state, freeing 100% of CPU cycles for other tasks to run",
+          "vTaskDelay() runs faster than a busy-wait loop",
+          "vTaskDelay() consumes more electrical power",
+          "vTaskDelay() disables all hardware interrupts"
+        ],
+        "answer": 0,
+        "why": "vTaskDelay() un-schedules the task and moves it to the delayed list, allowing lower-priority tasks to utilize the CPU rather than burning power in a spin-lock."
+      }
+    },
+    {
+      "title": "Measuring Context-Switching Overhead: Nanosecond Benchmarking of Task Swap Durations",
+      "say": [
+        "How long does an RTOS context switch actually take on ARM Cortex-M hardware?",
+        "Let us calculate the clock cycle budget: Hardware stacking (12 cycles) + `STMDB` R4-R11 (8 cycles) + TCB pointer swap (6 cycles) + `vTaskSwitchContext` (approx 20–30 cycles) + `LDMIA` R4-R11 (8 cycles) + Hardware unstacking (12 cycles).",
+        "Total context switch cost is approximately 66 to 76 clock cycles.",
+        "At 168 MHz (such as an STM32F4), 70 clock cycles equals exactly 416.7 nanoseconds (less than half a microsecond!).",
+        "At 16 MHz, it equals 4.37 microseconds.",
+        "Because context switching consumes less than 1 microsecond, FreeRTOS can switch tasks thousands of times per second while consuming less than 1% of total CPU compute capacity."
+      ],
+      "example": "A high-speed camera shutter: 400 nanoseconds is so fast that light only travels about 400 feet while the entire operating system swaps memory and register state.",
+      "code": "#include <iostream>\n#include <iomanip>\n#include <cstdint>\n\nstruct ContextSwitchBudget {\n    uint32_t cpuFrequencyHz;\n    uint32_t hwStackCycles;\n    uint32_t swPushCycles;\n    uint32_t schedulerLogicCycles;\n    uint32_t swPopCycles;\n    uint32_t hwUnstackCycles;\n\n    uint32_t getTotalCycles() const {\n        return hwStackCycles + swPushCycles + schedulerLogicCycles + swPopCycles + hwUnstackCycles;\n    }\n\n    double getDurationMicroseconds() const {\n        return ((double)getTotalCycles() / cpuFrequencyHz) * 1e6;\n    }\n\n    double calculateCpuOverheadAt1kHz() const {\n        // 1000 context switches per second\n        double totalTimeSpent = (double)getTotalCycles() * 1000.0;\n        return (totalTimeSpent / cpuFrequencyHz) * 100.0;\n    }\n};\n\nint main() {\n    ContextSwitchBudget f4 = {168000000, 12, 8, 28, 8, 12}; // Total 68 cycles on Cortex-M4\n\n    std::cout << \"ARM Cortex-M FreeRTOS Context Switching Performance:\\n\";\n    std::cout << \"  Core Clock Frequency:  \" << (f4.cpuFrequencyHz / 1e6) << \" MHz\\n\";\n    std::cout << \"  Total Switch Cycles:   \" << f4.getTotalCycles() << \" clock cycles\\n\";\n    std::cout << \"  Context Switch Time:   \" << std::fixed << std::setprecision(3) \n              << f4.getDurationMicroseconds() << \" microseconds (\" \n              << (f4.getDurationMicroseconds() * 1000.0) << \" ns)\\n\";\n    std::cout << \"  CPU Load at 1,000 Hz:  \" << std::setprecision(3) \n              << f4.calculateCpuOverheadAt1kHz() << \"% of CPU budget\\n\";\n    return 0;\n}",
+      "output": "ARM Cortex-M FreeRTOS Context Switching Performance:\n  Core Clock Frequency:  168 MHz\n  Total Switch Cycles:   68 clock cycles\n  Context Switch Time:   0.405 microseconds (404.762 ns)\n  CPU Load at 1,000 Hz:  0.040% of CPU budget",
+      "codeNotes": [
+        {
+          "line": 13,
+          "note": "Sums hardware (24 cycles) and software (44 cycles) context switch components"
+        },
+        {
+          "line": 28,
+          "note": "Proves sub-500-nanosecond context switch duration at 168 MHz"
+        },
+        {
+          "line": 32,
+          "note": "Demonstrates negligible 0.04% CPU overhead for 1 kHz time slicing"
+        }
+      ],
+      "tryIt": "Compute the context switch time at 480 MHz (Cortex-M7) and verify that it drops below 150 nanoseconds.",
+      "check": {
+        "question": "What is the typical total context switch duration of FreeRTOS on a 168 MHz ARM Cortex-M4 microcontroller?",
+        "options": [
+          "Approximately 400 to 500 nanoseconds (less than 1 microsecond)",
+          "Over 10 milliseconds",
+          "Zero clock cycles",
+          "100 microseconds"
+        ],
+        "answer": 0,
+        "why": "With approximately 68–76 total clock cycles, a 168 MHz core executes the entire context switch in approximately 400 to 450 nanoseconds."
+      }
+    }
+  ],
+  "summary": [
+    "FreeRTOS configures tasks to run in Thread Mode using the Process Stack Pointer (PSP), isolating user tasks from the kernel Main Stack Pointer (MSP).",
+    "Context switching must execute inside the lowest-priority PendSV exception to prevent corrupting active hardware interrupt stack frames.",
+    "PendSV_Handler executes an optimized assembly sequence: STMDB pushes R4–R11, pxTopOfStack is saved, next TCB is selected, and LDMIA restores R4–R11.",
+    "Preemption is driven by the periodic SysTick interrupt asserting PendSV, while cooperative yielding is triggered by taskYIELD() and vTaskDelay().",
+    "A complete FreeRTOS context switch requires approximately 68 clock cycles, executing in ~405 nanoseconds on a 168 MHz Cortex-M processor."
+  ],
+  "projectStep": {
+    "title": "Author a Bare-Metal Assembly PendSV Context Switcher and Measure Task Swap Latency",
+    "steps": [
+      "Configure the CONTROL register to transition execution between MSP and private task PSP stacks.",
+      "Configure SHPR3 to assign the PendSV exception the lowest possible hardware interrupt priority.",
+      "Implement the complete GNU ARM assembly PendSV_Handler with STMDB/LDMIA preservation of R4–R11.",
+      "Integrate the SysTick timer to trigger preemptive task switching and implement cooperative taskYIELD().",
+      "Benchmark task switching overhead using DWT->CYCCNT, verifying sub-500-nanosecond execution."
+    ]
+  }
+}

@@ -1,0 +1,198 @@
+{
+  "day": 31,
+  "title": "Advanced Event-Driven Microservices: Asynchronous Event Loops, Worker Threads & Event Emitters",
+  "goal": "Master advanced asynchronous architectures in Node.js: analyze libuv event loop phases, offload CPU-intensive operations to worker threads with structured message passing, implement custom event emitters with memory leak tracking, and coordinate non-blocking microservice pipelines.",
+  "minutes": 38,
+  "recap": "In Month 1 (Days 1\u201330), we mastered foundational Node.js runtimes, HTTP protocols, middleware pipelines, authentication, schema validation, data access patterns, and deployed our Capstone REST API Engine. Today, we begin Month 2 with distributed event-driven microservices.",
+  "parts": [
+    {
+      "title": "Libuv Event Loop Phases: Timers, Pending Callbacks, Poll, Check & Close",
+      "say": [
+        "Welcome to Month 2, Block 7, Day 31 of Node.js & TypeScript Backend Engineering: Advanced Event-Driven Microservices: Asynchronous Event Loops, Worker Threads & Event Emitters. In Month 1, you built a rock-solid foundation in Node.js server architectures, HTTP request lifecycle handling, middleware composition, relational data access, and production API design. Today, we cross the threshold into advanced distributed systems engineering.",
+        "At the heart of every high-throughput Node.js microservice lies libuv: the multi-platform C library that powers Node's non-blocking, event-driven I/O model. In enterprise backend systems handling tens of thousands of concurrent requests, misunderstanding the internal execution mechanics of the event loop leads directly to catastrophic event loop lag, thread pool starvation, and degraded request latencies.",
+        "The libuv event loop operates in six distinct, ordered phases during every cycle: Timers, Pending Callbacks, Idle/Prepare, Poll, Check, and Close Callbacks. In the Timers phase, the event loop executes callbacks scheduled by `setTimeout()` and `setInterval()`. However, timers in Node.js do not guarantee exact millisecond execution; they guarantee only that the callback will not execute *earlier* than the specified delay.",
+        "Next, the Pending Callbacks phase executes I/O callbacks deferred from the previous loop iteration (such as TCP socket connection errors). Following Idle/Prepare (used internally by libuv), the event loop enters the Poll phase\u2014the operational center of Node's asynchronous I/O. Here, libuv retrieves incoming network packets, reads file descriptor chunks, and calculates how long to block the thread waiting for new I/O events.",
+        "When I/O polling completes or the poll queue empties, the loop advances to the Check phase, where callbacks scheduled specifically by `setImmediate()` are executed. Finally, the Close Callbacks phase cleans up resources (such as `socket.on('close')`).",
+        "In Part 1, we implement our `simulateEventLoopPhases` simulator. This engine models the ordered execution queue across all primary event loop phases, demonstrating deterministic phase ordering and queue draining.",
+        "Let us examine how our event loop simulator coordinates phase execution and inspects queued tasks.",
+        "In high-scale enterprise architectures, monitoring Event Loop Utilization (ELU) is critical. If an engineer accidentally executes synchronous hashing or extensive JSON parsing inside the poll phase, the event loop cannot advance to the check phase or process incoming network connections. This introduces event loop starvation, where upstream API gateways timeout waiting for responses.",
+        "By designing request handlers to respect event loop phase transitions, backend engineers ensure that long-running I/O operations yield execution cooperatively, preserving sub-millisecond response times across high-traffic microservices.",
+        "Furthermore, understanding the Check phase (`setImmediate`) allows developers to schedule operations that execute immediately after the current poll cycle concludes, enabling fair scheduling between intensive I/O operations and background maintenance tasks.",
+        "This deep architectural knowledge of libuv phase mechanics is what distinguishes elite backend systems architects from junior web developers.",
+        "From an operating system architecture perspective, libuv bridges the gap between POSIX epoll on Linux, kqueue on macOS, and IO Completion Ports (IOCP) on Windows. When an application initiates a non-blocking TCP socket read or file descriptor stream, libuv registers the descriptor with the OS kernel. Instead of blocking a native thread waiting for bytes to arrive, the kernel notifies libuv via event notifications when data is ready.",
+        "This kernel-level event multiplexing allows a single Node.js process to maintain hundreds of thousands of concurrent open socket descriptors with minimal resident set size memory overhead. While traditional multi-threaded servers allocate one megabyte of stack memory per client thread, Node.js allocates only a small V8 context per connection, delivering exceptional concurrency density.",
+        "However, this architecture relies entirely on the developer maintaining non-blocking call semantics. If any synchronous operation delays the poll phase, the entire multiplexing mechanism stalls, degrading throughput across all concurrent connections."
+      ],
+      "code": "function simulateEventLoopPhases(tasks) {\n  const phaseOrder = ['timers', 'pending', 'poll', 'check', 'close'];\n  const executionLog = [];\n  const phaseQueues = {\n    timers: [],\n    pending: [],\n    poll: [],\n    check: [],\n    close: []\n  };\n\n  for (const t of tasks) {\n    if (phaseQueues[t.phase]) {\n      phaseQueues[t.phase].push(t.name);\n    }\n  }\n\n  for (const phase of phaseOrder) {\n    const queue = phaseQueues[phase];\n    while (queue.length > 0) {\n      const task = queue.shift();\n      executionLog.push(`${phase.toUpperCase()}:${task}`);\n    }\n  }\n\n  return {\n    totalExecuted: executionLog.length,\n    phasesProcessed: phaseOrder.length,\n    executionTrace: executionLog.join(' -> ')\n  };\n}\n\nconst schedule = [\n  { phase: 'timers', name: 'Timer_5ms' },\n  { phase: 'poll', name: 'Read_Socket_FD' },\n  { phase: 'check', name: 'Immediate_Flush' },\n  { phase: 'close', name: 'Socket_Close' },\n  { phase: 'pending', name: 'TCP_Err_Callback' }\n];\n\nconst sim = simulateEventLoopPhases(schedule);\nconsole.log('Total Tasks Executed:', sim.totalExecuted);\nconsole.log('Phases Processed:', sim.phasesProcessed);\nconsole.log('Event Loop Execution Trace:', sim.executionTrace);",
+      "output": "Total Tasks Executed: 5\nPhases Processed: 5\nEvent Loop Execution Trace: TIMERS:Timer_5ms -> PENDING:TCP_Err_Callback -> POLL:Read_Socket_FD -> CHECK:Immediate_Flush -> CLOSE:Socket_Close",
+      "check": {
+        "question": "In which phase of the libuv event loop do callbacks scheduled by setImmediate() execute?",
+        "options": [
+          "The Check phase, which executes immediately after the Poll phase completes or drains",
+          "The Timers phase alongside setTimeout",
+          "The Pending Callbacks phase before network I/O begins",
+          "The Close Callbacks phase right before process exit"
+        ],
+        "answer": 0,
+        "why": "setImmediate() callbacks are specifically scheduled to run in the Check phase, which immediately follows the Poll phase of the libuv event loop."
+      }
+    },
+    {
+      "title": "Microtasks vs Macrotasks: process.nextTick vs Promise.then Execution Priority",
+      "say": [
+        "Having explored the macro-phases of the libuv event loop, Part 2 addresses the most critical execution nuance in Node.js runtime performance: Microtasks vs Macrotasks, and the distinct priority of `process.nextTick` vs `Promise.then`.",
+        "Many developers assume that all asynchronous JavaScript callbacks execute identically inside the event loop. In reality, Node.js implements two distinct task queues that execute *outside* the libuv phase rotation: the `process.nextTick` queue and the microtask queue (which handles resolved Promise callbacks and MutationObservers).",
+        "Whenever the event loop finishes executing a single JavaScript callback in *any* phase\u2014whether in timers, poll, or check\u2014the V8 runtime pauses phase transitions to inspect the `process.nextTick` queue. If callbacks exist in the nextTick queue, they are drained completely to exhaustion. Only after the nextTick queue is entirely empty does the runtime drain the Promise microtask queue.",
+        "This hierarchy creates an unambiguous priority ladder: First, synchronous JavaScript in the current call stack executes. Second, the `process.nextTick` queue drains. Third, the Promise microtask queue drains. Fourth, and only after all microtasks have cleared, does the libuv event loop advance to the next phase in its cycle.",
+        "Because the nextTick queue drains to exhaustion before the event loop can proceed, recursively scheduling `process.nextTick` calls will completely starve I/O, preventing timers from firing and network packets from being processed. This is why modern production architectures strictly discourage recursive nextTick scheduling in favor of `setImmediate`.",
+        "In Part 2, our `simulateTaskPriorityLadder` engine validates this priority order, proving that nextTick and Promise microtasks execute ahead of macrotask phase transitions.",
+        "Let us observe how our priority ladder engine sequences synchronous execution, microtasks, and macrotasks.",
+        "In distributed microservice architectures, understanding microtask execution priority is essential when authoring database transactions and distributed lock managers. If an asynchronous lock manager releases a lock inside a Promise resolution, all dependent microtasks run before the next incoming HTTP request packet can be processed in the poll phase.",
+        "This guarantees atomic consistency for in-memory state mutations without requiring expensive OS-level mutex synchronization, provided developers avoid blocking synchronous computation.",
+        "Furthermore, modern logging and telemetry libraries utilize `process.nextTick` to attach trace IDs to request contexts immediately before asynchronous I/O begins, ensuring context propagation across asynchronous boundaries.",
+        "Mastering this priority ladder equips you to write ultra-low-latency backend code that never starves I/O or introduces hidden race conditions.",
+        "To understand why Node.js prioritizes process.nextTick so aggressively, one must examine its historical design rationale: allowing constructors and initialization routines to attach event listeners before an object emits its initial event. When an asynchronous object is instantiated, scheduling its first emission via process.nextTick guarantees that calling code can attach listener functions in the same synchronous execution block before the event fires.",
+        "However, in high-throughput microservices, this immense priority introduces severe denial-of-service vulnerability if mismanaged. If an incoming message handler schedules another process.nextTick recursively, the V8 microtask runner enters an infinite loop, completely locking the libuv event loop in user space. Neither pending network I/O nor incoming timer interrupts can ever execute.",
+        "To safeguard production applications against such starvation, modern TypeScript backend frameworks replace recursive nextTick invocations with setImmediate(). While process.nextTick executes immediately after the current operation finishes, setImmediate schedules execution in the Check phase of the event loop, ensuring that the Poll phase has an opportunity to service incoming network packets between iterations.",
+        "By mastering this distinction, architects design resilient asynchronous state machines that maintain high throughput and fair task scheduling under peak load.",
+        "Additionally, microtasks run in the same tick of the V8 isolate, meaning they do not incur the context switching overhead associated with event loop phase transitions.",
+        "This makes Promise chains ideal for granular asynchronous control flow as long as developers avoid unbounded recursive chains that starve I/O."
+      ],
+      "code": "function simulateTaskPriorityLadder(tasks) {\n  const executionOrder = [];\n  const queues = {\n    synchronous: [],\n    nextTick: [],\n    microtask: [],\n    macrotask: []\n  };\n\n  for (const t of tasks) {\n    if (queues[t.type]) {\n      queues[t.type].push(t.name);\n    }\n  }\n\n  // Phase 1: Drain synchronous stack\n  while (queues.synchronous.length > 0) {\n    executionOrder.push(`SYNC:${queues.synchronous.shift()}`);\n  }\n\n  // Phase 2: Drain process.nextTick queue to exhaustion\n  while (queues.nextTick.length > 0) {\n    executionOrder.push(`NEXT_TICK:${queues.nextTick.shift()}`);\n  }\n\n  // Phase 3: Drain Promise microtask queue\n  while (queues.microtask.length > 0) {\n    executionOrder.push(`MICRO:${queues.microtask.shift()}`);\n  }\n\n  // Phase 4: Advance event loop to macrotask\n  while (queues.macrotask.length > 0) {\n    executionOrder.push(`MACRO:${queues.macrotask.shift()}`);\n  }\n\n  return {\n    order: executionOrder,\n    totalDrained: executionOrder.length,\n    trace: executionOrder.join(' -> ')\n  };\n}\n\nconst taskBatch = [\n  { type: 'macrotask', name: 'setTimeout_0ms' },\n  { type: 'microtask', name: 'Promise_Resolve' },\n  { type: 'nextTick', name: 'process_nextTick' },\n  { type: 'synchronous', name: 'console_log_main' }\n];\n\nconst priorityResult = simulateTaskPriorityLadder(taskBatch);\nconsole.log('Total Tasks Drained:', priorityResult.totalDrained);\nconsole.log('First Task:', priorityResult.order[0]);\nconsole.log('Second Task:', priorityResult.order[1]);\nconsole.log('Third Task:', priorityResult.order[2]);\nconsole.log('Fourth Task:', priorityResult.order[3]);",
+      "output": "Total Tasks Drained: 4\nFirst Task: SYNC:console_log_main\nSecond Task: NEXT_TICK:process_nextTick\nThird Task: MICRO:Promise_Resolve\nFourth Task: MACRO:setTimeout_0ms",
+      "check": {
+        "question": "What is the execution priority order between process.nextTick and Promise.then microtasks in Node.js?",
+        "options": [
+          "process.nextTick queue drains completely to exhaustion before the Promise microtask queue executes",
+          "Promise.then callbacks always execute ahead of process.nextTick callbacks",
+          "Both queues are merged randomly into a single FIFO queue",
+          "Microtasks only execute during the Close phase of the event loop"
+        ],
+        "answer": 0,
+        "why": "Node.js prioritizes process.nextTick, draining its queue completely to exhaustion before executing Promise microtasks."
+      }
+    },
+    {
+      "title": "CPU-Bound Task Offloading: Worker Threads & SharedArrayBuffer Concurrency",
+      "say": [
+        "Node.js is renowned for its non-blocking I/O efficiency, but what happens when a backend microservice must execute computationally heavy tasks\u2014such as cryptographic key generation, image transcoding, PDF generation, or massive financial matrix multiplications? In Part 3, we master Worker Threads and CPU Concurrency.",
+        "Because Node's main thread runs on a single V8 isolate, running heavy CPU-bound loops on the main thread blocks the event loop entirely. Every millisecond spent calculating a prime number or hashing passwords on the main thread is a millisecond where incoming HTTP connections are refused and WebSocket heartbeats are dropped.",
+        "To solve this, the `node:worker_threads` module allows applications to spawn separate V8 isolates running in parallel OS threads, each with its own memory space and libuv event loop. Threads communicate with the parent process via asynchronous message passing across MessagePorts using the Structured Clone Algorithm.",
+        "For ultra-high-performance workloads requiring zero-copy data exchange, worker threads can share memory using `SharedArrayBuffer` and synchronize atomic read-modify-write operations using `Atomics`. This enables true parallel computing in Node.js without the overhead of inter-process serialization.",
+        "In production systems, spawning worker threads on demand for every request is an anti-pattern because initializing a V8 isolate incurs significant memory and CPU overhead. Instead, enterprise architectures deploy Worker Thread Pools that maintain a fixed number of warm, pre-initialized worker threads, queueing tasks when all workers are busy.",
+        "In Part 3, we implement our `simulateWorkerThreadPool` scheduler. This engine distributes intensive tasks across a fixed pool of simulated worker threads, tracks thread utilization, and queues excess work safely.",
+        "Let us explore how our worker thread scheduler dispatches parallel workloads and prevents main thread blockage.",
+        "By offloading intensive computational workloads to worker thread pools, backend microservices maintain steady 60 FPS event loop throughput on the main thread while concurrently crunching cryptographic proofs or heavy analytical aggregations.",
+        "This hybrid architecture combines the asynchronous I/O advantages of the single-threaded event loop with the raw throughput of multi-core parallel processing.",
+        "Furthermore, thread pool managers enforce execution timeouts. If an untrusted algorithm enters an infinite loop, the pool supervisor terminates the worker thread defensively without impacting sibling requests.",
+        "Mastering worker thread concurrency enables you to engineer resilient backend services capable of handling both heavy I/O and intensive data processing simultaneously.",
+        "In multi-core enterprise cloud deployments, leveraging worker threads effectively requires understanding the cost of Inter-Thread Communication (ITC). When data is transmitted across worker boundaries using the default postMessage() API, Node.js uses the Structured Clone Algorithm. This algorithm traverses the source JavaScript object graph, deep-clones every property, and serializes it into a binary buffer, which is then deserialized into the target thread's heap.",
+        "For small payloads (such as JSON task configurations), structured cloning is exceptionally fast and completely safe. However, when streaming massive datasets\u2014such as parsing a 200-megabyte CSV file or processing high-resolution telemetry arrays\u2014structured cloning consumes substantial CPU cycles and triggers excessive garbage collection sweeps in both threads.",
+        "To achieve zero-copy data sharing, high-performance Node.js architectures utilize SharedArrayBuffer. A SharedArrayBuffer allocates a chunk of raw memory that is mapped simultaneously into the address spaces of both the parent process and multiple worker threads. Threads read and write directly to shared memory slots without data duplication.",
+        "To prevent data races and memory corruption when multiple threads access shared slots concurrently, developers utilize the Atomics API. Atomics functions (such as Atomics.add, Atomics.compareExchange, and Atomics.wait) guarantee thread-safe memory operations at the CPU hardware level, enabling lock-free data structures and ultra-high-throughput concurrent processing in pure TypeScript.",
+        "By maintaining worker thread pools sized according to available logical CPU cores, backend applications maximize multi-core hardware utilization while insulating the primary event loop from computationally heavy operations."
+      ],
+      "code": "class WorkerThreadPoolSimulator {\n  constructor(poolSize = 4) {\n    this.poolSize = poolSize;\n    this.activeWorkers = 0;\n    this.taskQueue = [];\n    this.completedTasks = [];\n  }\n\n  submitTask(task) {\n    if (this.activeWorkers < this.poolSize) {\n      this.activeWorkers++;\n      this.execute(task);\n    } else {\n      this.taskQueue.push(task);\n    }\n  }\n\n  execute(task) {\n    // Simulate thread execution\n    this.completedTasks.push({\n      taskId: task.id,\n      workerThreadId: this.activeWorkers,\n      costMs: task.durationMs,\n      status: 'COMPLETED'\n    });\n  }\n\n  drainQueue() {\n    while (this.taskQueue.length > 0 && this.activeWorkers <= this.poolSize) {\n      const nextTask = this.taskQueue.shift();\n      this.execute(nextTask);\n    }\n  }\n\n  getMetrics() {\n    return {\n      poolCapacity: this.poolSize,\n      tasksCompleted: this.completedTasks.length,\n      queueDepth: this.taskQueue.length\n    };\n  }\n}\n\nconst pool = new WorkerThreadPoolSimulator(3);\npool.submitTask({ id: 'crypto_hash_1', durationMs: 25 });\npool.submitTask({ id: 'crypto_hash_2', durationMs: 30 });\npool.submitTask({ id: 'crypto_hash_3', durationMs: 40 });\npool.submitTask({ id: 'crypto_hash_4', durationMs: 50 }); // Queued\n\nconst initialMetrics = pool.getMetrics();\npool.drainQueue();\nconst finalMetrics = pool.getMetrics();\n\nconsole.log('Worker Pool Capacity:', initialMetrics.poolCapacity);\nconsole.log('Initial Queued Tasks:', initialMetrics.queueDepth);\nconsole.log('Final Tasks Completed:', finalMetrics.tasksCompleted);\nconsole.log('Final Queue Depth:', finalMetrics.queueDepth);",
+      "output": "Worker Pool Capacity: 3\nInitial Queued Tasks: 1\nFinal Tasks Completed: 4\nFinal Queue Depth: 0",
+      "check": {
+        "question": "Why is deploying a warm Worker Thread Pool preferred over spawning new worker threads per request?",
+        "options": [
+          "Spawning new V8 isolates per request incurs heavy CPU and memory overhead; thread pools reuse pre-initialized workers",
+          "Worker threads cannot execute JavaScript code unless spawned from bash scripts",
+          "Node.js enforces a hard OS limit of exactly 1 worker thread per application",
+          "Thread pools automatically convert all JavaScript code into C++ binaries"
+        ],
+        "answer": 0,
+        "why": "Creating a new V8 isolate has substantial initialization cost; a warm Worker Thread Pool reuses existing isolates to deliver instant execution without memory churn."
+      }
+    },
+    {
+      "title": "Custom Typed Event Emitters: Listener Management & Memory Leak Detection",
+      "say": [
+        "In event-driven backend architectures, asynchronous decoupling between components is frequently implemented via Event Emitters. In Part 4, we examine Custom Typed Event Emitters, Listener Lifecycle Management, and Memory Leak Detection.",
+        "Node's built-in `EventEmitter` class provides the publish-subscribe backbone for streams, sockets, HTTP servers, and message queues. When an event fires via `emit(eventName, ...args)`, all registered listener callbacks execute synchronously in the order they were registered.",
+        "However, in high-scale production systems, careless event listener registration is one of the leading causes of insidious memory leaks. If a service subscribes an anonymous callback function to an event emitter (such as `orderCreated`) on every incoming request without removing the listener when the request completes, the emitter retains references to the closure in memory.",
+        "Over hours of operation, thousands of dangling listener closures accumulate, preventing V8 garbage collection from freeing request payloads, database connections, and session objects. Node's EventEmitter provides a built-in warning mechanism: if more than 10 listeners (configurable via `setMaxListeners`) are attached to a single event, it emits a `MaxListenersExceededWarning`.",
+        "In Part 4, we build our `TypedEventEmitterWithLeakGuard` engine. This implementation models typed event dispatching, enforces maximum listener thresholds, detects potential memory leaks defensively, and ensures clean listener un-registration.",
+        "Let us examine how our leak-guarded event emitter tracks listener counts and safeguards memory stability.",
+        "In enterprise microservices, event emitters are also integrated with OpenTelemetry context propagation. When an event fires, the emitter extracts distributed tracing baggage from the active span and injects it into listener execution contexts, ensuring visibility across decoupled event handlers.",
+        "Furthermore, production event emitters implement defensive error handling. If an individual event listener throws an unhandled synchronous exception, the emitter isolates the failure, logging an operational telemetry beacon without crashing sibling listener executions.",
+        "By coupling strict type safety with automated listener leak detection, backend systems maintain high operational reliability and clean memory profiles throughout continuous long-running deployments.",
+        "In mission-critical enterprise systems, memory leaks caused by dangling event listeners are notoriously difficult to diagnose because the application continues to function normally while slowly consuming available RAM over days or weeks of continuous uptime. When memory usage eventually approaches the default V8 heap limit (typically 1.4 gigabytes on 64-bit systems), the V8 garbage collector spends an increasing percentage of CPU cycles performing desperate Full Mark-Sweep-Compact sweeps.",
+        "This phenomenon, known as 'GC Thrashing', causes periodic event loop pauses of 200 to 500 milliseconds, spiking API latency percentiles (p99) and triggering upstream load balancer health check timeouts before the process eventually crashes with an Out-Of-Memory (OOM) fatal error.",
+        "To prevent this catastrophic failure mode, production backend architectures implement strict Listener Lifecycle Boundaries. When a request-scoped service subscribes to a global event emitter, it must register a teardown hook tied to the HTTP response 'finish' or 'close' event, ensuring that listeners are explicitly removed when the request lifecycle concludes.",
+        "Furthermore, production event emitters wrap listener invocations in defensive try/catch blocks and AsyncLocalStorage context managers. If a listener throws an error or rejects an asynchronous promise, the emitter captures the exception, logs structured diagnostic telemetry, and continues dispatching the event to subsequent listeners without aborting the pipeline.",
+        "This defensive discipline guarantees that memory consumption remains completely flat and predictable across millions of handled domain events.",
+        "Moreover, enterprise monitoring systems inspect EventEmitter listener counts continuously via automated synthetic health probes.",
+        "If any event type exhibits monotonic listener growth over a ten-minute observation window, automated alerts fire immediately, enabling site reliability engineers to remediate leaks before they impact customer traffic.",
+        "By designing custom event emitters with built-in leak guards, engineering squads maintain robust memory isolation and prevent catastrophic out-of-memory crashes."
+      ],
+      "code": "class TypedEventEmitterWithLeakGuard {\n  constructor(maxListeners = 5) {\n    this.maxListeners = maxListeners;\n    this.events = new Map();\n    this.warnings = [];\n  }\n\n  on(eventName, listener) {\n    if (!this.events.has(eventName)) {\n      this.events.set(eventName, []);\n    }\n    const listeners = this.events.get(eventName);\n    listeners.push(listener);\n\n    if (listeners.length > this.maxListeners) {\n      this.warnings.push(`LEAK_WARNING: Event '${eventName}' exceeded max listeners (${listeners.length} > ${this.maxListeners})`);\n    }\n  }\n\n  emit(eventName, data) {\n    const listeners = this.events.get(eventName);\n    if (!listeners || listeners.length === 0) return 0;\n    for (const fn of listeners) {\n      fn(data);\n    }\n    return listeners.length;\n  }\n\n  off(eventName, listener) {\n    const listeners = this.events.get(eventName);\n    if (!listeners) return;\n    const idx = listeners.indexOf(listener);\n    if (idx !== -1) {\n      listeners.splice(idx, 1);\n    }\n  }\n\n  getListenerCount(eventName) {\n    return (this.events.get(eventName) || []).length;\n  }\n}\n\nconst bus = new TypedEventEmitterWithLeakGuard(3);\nconst handler1 = (d) => {};\nconst handler2 = (d) => {};\nconst handler3 = (d) => {};\nconst handler4 = (d) => {};\n\nbus.on('orderReceived', handler1);\nbus.on('orderReceived', handler2);\nbus.on('orderReceived', handler3);\nbus.on('orderReceived', handler4); // Triggers leak warning\n\nconsole.log('Listener Count:', bus.getListenerCount('orderReceived'));\nconsole.log('Leak Warnings Emitted:', bus.warnings.length);\nconsole.log('Warning Content:', bus.warnings[0]);\n\nbus.off('orderReceived', handler4);\nconsole.log('Listener Count After Removal:', bus.getListenerCount('orderReceived'));",
+      "output": "Listener Count: 4\nLeak Warnings Emitted: 1\nWarning Content: LEAK_WARNING: Event 'orderReceived' exceeded max listeners (4 > 3)\nListener Count After Removal: 3",
+      "check": {
+        "question": "Why does Node's EventEmitter emit a MaxListenersExceededWarning when more than 10 listeners are attached?",
+        "options": [
+          "To alert developers to potential memory leaks caused by unbounded listener accumulation and dangling closure references",
+          "Because Node.js crashes permanently when an eleventh listener is added",
+          "To force developers to convert all events to synchronous HTTP GET requests",
+          "Because operating system sockets only support 10 network connections"
+        ],
+        "answer": 0,
+        "why": "The default 10-listener threshold is a defensive heuristic designed to detect memory leaks early when listeners are added repeatedly without removal."
+      }
+    },
+    {
+      "title": "Event-Driven Microservice Pipeline: Non-Blocking Order Ingestion & Telemetry",
+      "say": [
+        "We have reached the capstone synthesis of Day 31: Part 5, The End-to-End Event-Driven Order Ingestion Pipeline. In enterprise commerce platforms handling millions of orders during flash-sale events, the order ingestion gateway cannot block on synchronous database writes or external payment gateway API calls.",
+        "Instead, the architecture decouples ingestion from persistence using an Asynchronous Event-Driven Pipeline. When an order payload arrives at the API perimeter, the ingestion service validates the request schema in under 2 milliseconds, assigns a globally unique order UUID, and emits an in-memory `ORDER_INGESTED` event.",
+        "Decoupled asynchronous worker handlers react to the event concurrently: the Inventory Worker reserves stock in an in-memory cache, the Fraud Detection Worker scores order risk vectors, and the Metrics Worker updates real-time operational telemetry gauges.",
+        "In Part 5, we implement our `simulateOrderIngestionPipeline` engine. This program validates the entire non-blocking pipeline: receiving order requests, emitting domain events, dispatching concurrent handlers, and asserting sub-5-millisecond pipeline completion.",
+        "Let us explore how our event-driven ingestion pipeline processes orders asynchronously with zero thread blocking.",
+        "Notice how each decoupled worker executes its domain logic independently. If the fraud detection scoring takes 3 milliseconds while inventory reservation takes 1 millisecond, the HTTP gateway does not wait sequentially for each operation to complete before acknowledging the order.",
+        "This event-driven decoupling provides immense horizontal scalability. In production environments, in-memory events are forwarded directly to distributed message brokers such as Apache Kafka and RabbitMQ\u2014the core topics we will conquer over the next three days.",
+        "Congratulations on conquering Day 31! You have mastered the libuv event loop phases, microtask and nextTick priority queues, worker thread CPU offloading, custom leak-guarded event emitters, and non-blocking microservice pipelines.",
+        "Tomorrow in Day 32, we scale from in-process event architectures to distributed message brokers with Apache Kafka, exploring partitions, consumer groups, and offset commit semantics!",
+        "In high-volume e-commerce and financial ecosystems, the Non-Blocking Event-Driven Pipeline represents the architectural foundation for horizontal scalability and fault tolerance. In traditional synchronous request architectures, the API server acts as an active orchestrator, making sequential network requests to inventory databases, payment processors, and fraud microservices while holding open the client's HTTP connection.",
+        "If any downstream microservice experiences latency spikes or temporary outages, connections accumulate at the API gateway, exhausting Node's socket backlog and causing cascading system-wide failure. By shifting to an asynchronous event-driven model, the API gateway performs only essential schema validation and token verification before appending the event to an in-memory queue and acknowledging the client in under 5 milliseconds.",
+        "Subsequent business processing\u2014inventory reservation, fraud analysis, transactional email dispatch, and ledger accounting\u2014executes independently in parallel worker routines. If the email notification service experiences an outage, order processing continues unimpeded, and failed notification events are held in retry queues without impacting customer checkout conversions.",
+        "Furthermore, our pipeline simulator measures end-to-end execution latency across every stage, providing the quantitative operational telemetry required to enforce strict Service Level Agreements (SLAs).",
+        "Congratulations on mastering Day 31! You have established a rigorous understanding of the libuv event loop, task priority queues, worker thread concurrency, leak-proof event emitters, and non-blocking microservice pipelines.",
+        "Tomorrow in Day 32, we scale beyond single-node architectures into distributed message streaming with Apache Kafka, exploring partitions, consumer groups, and offset management!",
+        "Through these event-driven paradigms, your backend systems achieve the speed, resilience, and elasticity demanded by the world's most sophisticated cloud-native enterprises.",
+        "This foundational mastery empowers you to build highly distributed, asynchronous architectures capable of processing millions of concurrent transactions with unwavering reliability.",
+        "These non-blocking design patterns will serve as the indispensable foundation as we advance into distributed event brokers and cluster computing."
+      ],
+      "code": "function simulateOrderIngestionPipeline(orderPayload) {\n  const auditTrail = [];\n  const startTimeMs = 0.0;\n\n  // Step 1: Validate payload\n  const isValid = Boolean(orderPayload.orderId && orderPayload.amount > 0);\n  auditTrail.push(`VALIDATE: ${isValid ? 'PASSED' : 'FAILED'}`);\n\n  // Step 2: In-Memory Event Dispatch\n  const event = {\n    type: 'ORDER_INGESTED',\n    orderId: orderPayload.orderId,\n    timestamp: Date.now()\n  };\n  auditTrail.push(`EMIT_EVENT: ${event.type}`);\n\n  // Step 3: Concurrent Worker Processing\n  const workers = [\n    { name: 'InventoryWorker', durationMs: 1.2, action: 'RESERVE_STOCK' },\n    { name: 'FraudWorker', durationMs: 2.1, action: 'RISK_SCORE_LOW' },\n    { name: 'TelemetryWorker', durationMs: 0.5, action: 'METRIC_RECORDED' }\n  ];\n\n  let maxWorkerDurationMs = 0;\n  for (const w of workers) {\n    if (w.durationMs > maxWorkerDurationMs) maxWorkerDurationMs = w.durationMs;\n    auditTrail.push(`WORKER_${w.name}: ${w.action}`);\n  }\n\n  const totalPipelineDurationMs = 1.0 + maxWorkerDurationMs; // 1ms validation + parallel worker time\n\n  return {\n    orderId: orderPayload.orderId,\n    success: isValid,\n    pipelineDurationMs: Number(totalPipelineDurationMs.toFixed(2)),\n    workersExecuted: workers.length,\n    auditTrail\n  };\n}\n\nconst pipelineResult = simulateOrderIngestionPipeline({\n  orderId: 'ORD-98241',\n  amount: 249.99,\n  currency: 'USD'\n});\n\nconsole.log('Order Processed:', pipelineResult.orderId);\nconsole.log('Pipeline Success:', pipelineResult.success);\nconsole.log('Workers Executed:', pipelineResult.workersExecuted);\nconsole.log('Pipeline Latency:', pipelineResult.pipelineDurationMs + 'ms');\nconsole.log('Audit Steps Count:', pipelineResult.auditTrail.length);",
+      "output": "Order Processed: ORD-98241\nPipeline Success: true\nWorkers Executed: 3\nPipeline Latency: 3.1ms\nAudit Steps Count: 5",
+      "check": {
+        "question": "What is the primary architectural benefit of an event-driven order ingestion pipeline over sequential synchronous processing?",
+        "options": [
+          "The HTTP gateway acknowledges the order in sub-5ms without waiting sequentially for inventory, fraud, and telemetry workers",
+          "It eliminates the need for database storage by keeping all orders in browser memory",
+          "It guarantees that network cables never experience electrical interference",
+          "It prevents users from placing orders when inventory is high"
+        ],
+        "answer": 0,
+        "why": "Decoupling ingestion from processing allows the HTTP gateway to acknowledge orders near-instantaneously while worker tasks execute concurrently in the background."
+      }
+    }
+  ],
+  "summary": [
+    "The libuv event loop coordinates asynchronous I/O across six ordered phases: Timers, Pending Callbacks, Idle/Prepare, Poll, Check, and Close.",
+    "Task execution follows a strict priority hierarchy: synchronous stack, process.nextTick queue, Promise microtasks, and finally event loop macrotasks.",
+    "CPU-intensive computations are offloaded to Worker Thread Pools to prevent event loop blocking and maintain sub-millisecond response times.",
+    "Custom event emitters decouple internal service boundaries while enforcing max listener thresholds to guard against closure memory leaks.",
+    "Non-blocking event-driven pipelines ingest requests instantaneously and fan out work concurrently across decoupled microservice handlers."
+  ],
+  "projectStep": {
+    "title": "Implement Event-Driven Ingestion Engine & Phase Simulator",
+    "steps": [
+      "Execute simulateEventLoopPhases to verify ordered task execution across timers, poll, check, and close phases.",
+      "Run simulateTaskPriorityLadder to assert process.nextTick and Promise microtask precedence over macrotasks.",
+      "Dispatch CPU-heavy tasks to WorkerThreadPoolSimulator, verifying task queueing and pool capacity metrics.",
+      "Deploy TypedEventEmitterWithLeakGuard, verifying listener registration, event emission, and leak warning thresholds.",
+      "Run simulateOrderIngestionPipeline to validate non-blocking asynchronous order processing with sub-5ms latency."
+    ]
+  }
+}

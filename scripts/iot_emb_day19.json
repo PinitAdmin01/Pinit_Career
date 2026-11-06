@@ -1,0 +1,229 @@
+{
+  "day": 19,
+  "title": "Hardware Watchdog Timers: Independent Watchdog (IWDG), Window Watchdog (WWDG) & Anti-Freeze Fail-Safes",
+  "goal": "Master mission-critical fail-safe hardware: the low-speed internal (LSI) Independent Watchdog (IWDG), the high-precision Window Watchdog (WWDG), multi-task heartbeat bitmask supervision, and crash-recovery telemetry logging.",
+  "minutes": 36,
+  "recap": "In Day 18, we mastered cache coherency and DMA bus synchronization. Today in Day 19, we engineer the ultimate line of defense in embedded hardware: Hardware Watchdog Timers that rescue frozen firmware from infinite loops, deadlocks, and cosmic ray bit-flips.",
+  "parts": [
+    {
+      "title": "The Independent Watchdog (IWDG): Dedicated LSI Clock & Downcounting Physics",
+      "say": [
+        "In mission-critical embedded systems (such as medical pacemakers, satellite avionics, and automotive engine controllers), software is exposed to electrical noise, electrostatic discharge (ESD), and software deadlocks that can cause firmware to freeze.",
+        "If a device freezes in a remote location—such as an agricultural soil sensor buried underground or an industrial valve controller in a chemical plant—a technician cannot walk over to press a physical reset button.",
+        "The primary hardware fail-safe is the Independent Watchdog (IWDG).",
+        "The critical architectural property of the IWDG is that it is completely independent: it does NOT use the main crystal oscillator or main system clock.",
+        "Instead, the IWDG is clocked by its own dedicated Low-Speed Internal (LSI) RC oscillator running at roughly 32 kHz.",
+        "Even if the main system PLL fails, the external crystal fractures, or code execution freezes inside an infinite loop, the IWDG continues downcounting autonomously; if firmware fails to reload the key register before it reaches zero, the IWDG hardware forces an immediate system reset."
+      ],
+      "example": "Like a dead-man's switch on a train: the train engineer must press a foot pedal every 30 seconds. If the engineer falls asleep or has a medical emergency, the switch releases and the emergency brakes engage automatically.",
+      "code": "#include <iostream>\n#include <cstdint>\n#include <iomanip>\n\nclass IndependentWatchdog {\nprivate:\n    uint32_t counter;\n    uint32_t reloadValue;\n    bool enabled;\npublic:\n    IndependentWatchdog(uint32_t reload) : counter(reload), reloadValue(reload), enabled(false) {}\n\n    void start() {\n        enabled = true;\n        std::cout << \"[IWDG HARDWARE] Watchdog started with reload value: \" << reloadValue << \"\\n\";\n    }\n\n    void reload() {\n        if (!enabled) return;\n        counter = reloadValue; // Firmware feeds the watchdog\n        std::cout << \"  -> [IWDG FEED] Key register written (0xAAAA). Counter reloaded to \" << reloadValue << \"\\n\";\n    }\n\n    bool tick() {\n        if (!enabled) return true;\n        if (counter > 0) {\n            counter--;\n            return true;\n        } else {\n            std::cout << \"[IWDG TIMEOUT] Counter reached 0! Hardware RESET generated.\\n\";\n            return false; // Triggers hardware reset\n        }\n    }\n\n    uint32_t getCounter() const { return counter; }\n};\n\nint main() {\n    IndependentWatchdog iwdg(3);\n    iwdg.start();\n\n    // Normal operation: firmware feeds watchdog\n    iwdg.tick();\n    iwdg.reload();\n\n    // Firmware enters infinite loop / freeze: fails to feed\n    std::cout << \"[FIRMWARE FREEZE] Firmware locked in infinite loop...\\n\";\n    while (iwdg.tick()) {\n        std::cout << \"  IWDG Downcounting: \" << iwdg.getCounter() << \"\\n\";\n    }\n    return 0;\n}",
+      "output": "[IWDG HARDWARE] Watchdog started with reload value: 3\n  -> [IWDG FEED] Key register written (0xAAAA). Counter reloaded to 3\n[FIRMWARE FREEZE] Firmware locked in infinite loop...\n  IWDG Downcounting: 2\n  IWDG Downcounting: 1\n  IWDG Downcounting: 0\n[IWDG TIMEOUT] Counter reached 0! Hardware RESET generated.",
+      "codeNotes": [
+        {
+          "line": 5,
+          "note": "Models dedicated LSI-driven downcounter independent of core CPU clock"
+        },
+        {
+          "line": 16,
+          "note": "Reload key register (0xAAAA) resets counter to prevent system reset"
+        },
+        {
+          "line": 38,
+          "note": "Demonstrates hardware autonomous reset upon firmware execution freeze"
+        }
+      ],
+      "tryIt": "Increase reload value to 5 and observe that 5 ticks elapse before hardware reset triggers.",
+      "check": {
+        "question": "Why is the Independent Watchdog (IWDG) clocked by a dedicated Low-Speed Internal (LSI) oscillator rather than the main system clock?",
+        "options": [
+          "To guarantee that the watchdog continues counting and can reset the MCU even if the main oscillator fails or crashes",
+          "Because the LSI oscillator uses zero electrical energy",
+          "Because the main system clock is too slow for watchdogs",
+          "To allow the watchdog to access the internet"
+        ],
+        "answer": 0,
+        "why": "A dedicated LSI clock guarantees that the watchdog remains fully operational even if the primary high-speed crystal stops oscillating or system PLL clocks fail."
+      }
+    },
+    {
+      "title": "The Window Watchdog (WWDG): Early Feed Detection & Upper/Lower Bounds",
+      "say": [
+        "While the IWDG protects against firmware running too slowly (or freezing), it has a blind spot: what if code goes haywire and begins executing a corrupted loop that feeds the watchdog continuously?",
+        "If firmware is stuck in an erratic loop that repeatedly calls `reload()`, the IWDG will never timeout, and the microcontroller remains permanently corrupted.",
+        "The Window Watchdog (WWDG) solves this by enforcing both a Lower Bound and an Upper Bound time window.",
+        "To successfully feed the WWDG, firmware must refresh the counter within an approved time window (e.g. between 10ms and 40ms).",
+        "If firmware feeds the WWDG too late (counter < 0x40), a reset occurs.",
+        "Crucially, if firmware feeds the WWDG too early (counter > Window Value), an immediate hardware reset is triggered!",
+        "This guarantees that firmware is executing at the correct mathematical cadence: neither frozen nor executing runaway loops."
+      ],
+      "example": "Like a medication schedule: you must take your heart pill once every 24 hours. If you forget to take it (too late), you get sick; if you take 5 pills in 10 minutes (too early), you poison yourself. The pill must be taken strictly within the designated window.",
+      "code": "#include <iostream>\n#include <cstdint>\n\nstruct WindowWatchdogConfig {\n    uint8_t windowUpperLimit; // e.g. 0x50\n    uint8_t currentCounter;   // 7-bit downcounter (0x40..0x7F)\n};\n\nclass WindowWatchdog {\npublic:\n    static bool feed(WindowWatchdogConfig* wwdg) {\n        std::cout << \"[WWDG FEED ATTEMPT] Counter = 0x\" << std::hex << (int)wwdg->currentCounter \n                  << \", Window = 0x\" << (int)wwdg->windowUpperLimit << \"...\\n\";\n\n        // Check Early Feed Violation\n        if (wwdg->currentCounter > wwdg->windowUpperLimit) {\n            std::cout << \"  -> [WWDG RESET] EARLY FEED FAULT! Firmware executed too fast or loop corrupted.\\n\";\n            return false;\n        }\n\n        // Check Late Feed Violation (bit 6 drops to 0 at 0x3F)\n        if (wwdg->currentCounter < 0x40) {\n            std::cout << \"  -> [WWDG RESET] LATE FEED FAULT! Firmware timed out.\\n\";\n            return false;\n        }\n\n        std::cout << \"  -> [WWDG OK] Feed accepted within valid time window!\\n\";\n        return true;\n    }\n};\n\nint main() {\n    WindowWatchdogConfig wwdg = {0x50, 0x60}; // Counter is 0x60 (> 0x50 Window) -> Too early!\n    WindowWatchdog::feed(&wwdg);\n\n    wwdg.currentCounter = 0x48; // Counter is 0x48 (between 0x40 and 0x50) -> Valid window!\n    WindowWatchdog::feed(&wwdg);\n    return 0;\n}",
+      "output": "[WWDG FEED ATTEMPT] Counter = 0x60, Window = 0x50...\n  -> [WWDG RESET] EARLY FEED FAULT! Firmware executed too fast or loop corrupted.\n[WWDG FEED ATTEMPT] Counter = 0x48, Window = 0x50...\n  -> [WWDG OK] Feed accepted within valid time window!",
+      "codeNotes": [
+        {
+          "line": 4,
+          "note": "Defines 7-bit downcounter (0x40..0x7F) and upper window threshold"
+        },
+        {
+          "line": 13,
+          "note": "Detects early feed fault when counter is above the upper window threshold"
+        },
+        {
+          "line": 29,
+          "note": "Demonstrates rejection of early feed and acceptance within valid timing window"
+        }
+      ],
+      "tryIt": "Set currentCounter to 0x3F and verify it triggers a late feed reset.",
+      "check": {
+        "question": "What unique failure mode does the Window Watchdog (WWDG) detect that the Independent Watchdog (IWDG) cannot?",
+        "options": [
+          "Early Feed Faults, where runaway or corrupted code loops refresh the watchdog too quickly",
+          "Physical battery disconnection",
+          "Radio signal interference",
+          "USB cable unplugging"
+        ],
+        "answer": 0,
+        "why": "The Window Watchdog enforces an upper time bound; refreshing the counter before the window opens triggers an immediate hardware reset to kill runaway loops."
+      }
+    },
+    {
+      "title": "The Multi-Task Heartbeat Bitmask Architecture",
+      "say": [
+        "In a multithreaded Real-Time Operating System (FreeRTOS) environment, a common novice blunder is placing the watchdog feed instruction inside a single high-priority timer task.",
+        "If a low-priority sensor task or network communication thread enters a permanent deadlock, the timer task continues running happily and feeding the watchdog!",
+        "The system appears functional to the watchdog hardware while vital sensor or safety tasks are completely frozen.",
+        "The professional solution is the Multi-Task Heartbeat Bitmask Architecture.",
+        "Each active RTOS task is assigned a unique bit in a shared 32-bit heartbeat register (e.g. Task 1 = bit 0, Task 2 = bit 1, Task 3 = bit 2).",
+        "At the end of each valid work loop, each task sets its assigned bit.",
+        "A dedicated Supervisory Watchdog Task executes periodically: it checks whether ALL bits match the expected mask (`heartbeat == 0b111`).",
+        "If and only if every single task has proven its health within the window, the supervisor feeds the physical hardware watchdog and clears the heartbeat register for the next cycle.",
+        "If even one task hangs or starves, the bitmask check fails, the watchdog is starved, and the hardware resets the microcontroller."
+      ],
+      "example": "Like a submarine crew roll call: before diving, the captain checks off the engine room (bit 0), sonar (bit 1), and life support (bit 2). If the engine room fails to check in, the dive is aborted immediately.",
+      "code": "#include <iostream>\n#include <cstdint>\n#include <iomanip>\n\nclass HeartbeatSupervisor {\nprivate:\n    uint32_t activeHeartbeats;\n    uint32_t expectedMask;\npublic:\n    HeartbeatSupervisor(uint32_t mask) : activeHeartbeats(0), expectedMask(mask) {}\n\n    void reportTaskHeartbeat(uint8_t taskId) {\n        activeHeartbeats |= (1 << taskId);\n    }\n\n    bool evaluateAndFeedWatchdog() {\n        std::cout << \"[SUPERVISOR AUDIT] Heartbeat Mask: 0b\" \n                  << ((activeHeartbeats & 4) ? \"1\" : \"0\")\n                  << ((activeHeartbeats & 2) ? \"1\" : \"0\")\n                  << ((activeHeartbeats & 1) ? \"1\" : \"0\")\n                  << \", Expected: 0b\"\n                  << ((expectedMask & 4) ? \"1\" : \"0\")\n                  << ((expectedMask & 2) ? \"1\" : \"0\")\n                  << ((expectedMask & 1) ? \"1\" : \"0\") << \"...\\n\";\n\n        if (activeHeartbeats == expectedMask) {\n            std::cout << \"  -> [ALL TASKS HEALTHY] Hardware Watchdog Fed! Clearing bits for next cycle.\\n\";\n            activeHeartbeats = 0; // Reset for next epoch\n            return true;\n        } else {\n            uint32_t missing = expectedMask & ~activeHeartbeats;\n            std::cout << \"  -> [TASK STARVATION DETECTED] Missing Task Bits: 0x\" << std::hex << missing << \"\\n\";\n            std::cout << \"  -> Watchdog feed aborted! Permitting hardware reset.\\n\";\n            return false;\n        }\n    }\n};\n\nint main() {\n    // 3 Tasks: Task 0 (Telemetry), Task 1 (Sensors), Task 2 (Motor Control)\n    HeartbeatSupervisor supervisor(0x07); // Expected 0b111\n\n    // Scenario 1: All tasks report healthy\n    supervisor.reportTaskHeartbeat(0);\n    supervisor.reportTaskHeartbeat(1);\n    supervisor.reportTaskHeartbeat(2);\n    supervisor.evaluateAndFeedWatchdog();\n\n    // Scenario 2: Task 1 deadlocks and fails to report\n    std::cout << \"\\n[SIMULATING MOTOR CONTROL DEADLOCK]:\\n\";\n    supervisor.reportTaskHeartbeat(0);\n    supervisor.reportTaskHeartbeat(2); // Task 1 missing!\n    supervisor.evaluateAndFeedWatchdog();\n    return 0;\n}",
+      "output": "[SUPERVISOR AUDIT] Heartbeat Mask: 0b111, Expected: 0b111...\n  -> [ALL TASKS HEALTHY] Hardware Watchdog Fed! Clearing bits for next cycle.\n\n[SIMULATING MOTOR CONTROL DEADLOCK]:\n[SUPERVISOR AUDIT] Heartbeat Mask: 0b101, Expected: 0b111...\n  -> [TASK STARVATION DETECTED] Missing Task Bits: 0x2\n  -> Watchdog feed aborted! Permitting hardware reset.",
+      "codeNotes": [
+        {
+          "line": 5,
+          "note": "Maintains atomic 32-bit bitmask tracking task health status"
+        },
+        {
+          "line": 15,
+          "note": "Verifies all required tasks have executed within the current supervisory window"
+        },
+        {
+          "line": 24,
+          "note": "Pinpoints exact missing task identifier (0x2 = Task 1) and aborts watchdog feed"
+        }
+      ],
+      "tryIt": "Add Task 3 (mask 0x0F) and verify that all 4 tasks must report to feed the watchdog.",
+      "check": {
+        "question": "Why should firmware avoid feeding a hardware watchdog from a single dedicated timer task in an RTOS system?",
+        "options": [
+          "Because if other worker tasks deadlock or freeze, the timer task continues running and feeding the watchdog, hiding the system failure",
+          "Because timer tasks consume all RAM memory",
+          "Because watchdogs cannot be fed more than once per day",
+          "Because FreeRTOS does not support timer interrupts"
+        ],
+        "answer": 0,
+        "why": "Feeding from a single task masks deadlocks in other threads; multi-task heartbeat bitmasks verify that every individual concurrent thread is alive before feeding."
+      }
+    },
+    {
+      "title": "Crash Recovery, Reset Cause Detection & Non-Volatile Telemetry Logging",
+      "say": [
+        "When an embedded watchdog resets a microcontroller, the device must not wake up amnesic.",
+        "Upon hardware reset, the Reset and Clock Control (RCC) peripheral maintains status flags in the Clock Control & Status Register (`RCC_CSR`).",
+        "Flags like `IWDGRSTF` (Independent Watchdog Reset Flag), `WWDGRSTF` (Window Watchdog Reset Flag), `PINRSTF` (Physical Pin Reset), and `PORRSTF` (Power-On Reset) identify the exact cause of reboot.",
+        "During startup, bootloader firmware reads `RCC_CSR` to diagnose why the reset occurred.",
+        "If a watchdog reset is detected, the firmware writes a diagnostic crash record (containing the faulting task ID, system uptime, and last recorded stack pointer) into battery-backed SRAM or flash EEPROM.",
+        "Once network connectivity is established, this crash telemetry is uploaded to the cloud fleet management platform, allowing engineers to trace and patch intermittent field bugs."
+      ],
+      "example": "Like an airplane black box: when a flight undergoes an emergency event, the cockpit voice recorder and flight data recorder preserve all sensor readings so investigators can discover the exact cause.",
+      "code": "#include <iostream>\n#include <cstdint>\n#include <iomanip>\n\nstruct ResetDiagnosticRecord {\n    const char* resetCause;\n    uint32_t faultingTaskId;\n    uint32_t uptimeSeconds;\n    bool crashUploaded;\n};\n\nclass ResetReasonAnalyzer {\npublic:\n    static ResetDiagnosticRecord evaluateRccFlags(uint32_t rcc_csr, uint32_t lastTask, uint32_t uptime) {\n        ResetDiagnosticRecord rec = {\"UNKNOWN\", lastTask, uptime, false};\n\n        if (rcc_csr & (1 << 29)) {\n            rec.resetCause = \"INDEPENDENT_WATCHDOG_RESET\";\n        } else if (rcc_csr & (1 << 30)) {\n            rec.resetCause = \"WINDOW_WATCHDOG_RESET\";\n        } else if (rcc_csr & (1 << 26)) {\n            rec.resetCause = \"EXTERNAL_PIN_RESET\";\n        } else if (rcc_csr & (1 << 27)) {\n            rec.resetCause = \"POWER_ON_RESET\";\n        }\n\n        std::cout << \"[POST-MORTEM DIAGNOSTICS] Bootloader Startup Audit:\\n\";\n        std::cout << \"  -> RCC_CSR Register: 0x\" << std::hex << rcc_csr << \"\\n\";\n        std::cout << \"  -> Identified Cause: \" << rec.resetCause << \"\\n\";\n        std::cout << \"  -> Faulting Task ID: \" << std::dec << rec.faultingTaskId << \"\\n\";\n        std::cout << \"  -> System Uptime:    \" << rec.uptimeSeconds << \" seconds\\n\";\n        return rec;\n    }\n};\n\nint main() {\n    // Bit 29 set in RCC_CSR = IWDGRSTF (Independent Watchdog Reset Flag)\n    uint32_t mockRccCsr = (1 << 29) | (1 << 26);\n    ResetDiagnosticRecord crash = ResetReasonAnalyzer::evaluateRccFlags(mockRccCsr, 1, 86420);\n    return 0;\n}",
+      "output": "[POST-MORTEM DIAGNOSTICS] Bootloader Startup Audit:\n  -> RCC_CSR Register: 0x24000000\n  -> Identified Cause: INDEPENDENT_WATCHDOG_RESET\n  -> Faulting Task ID: 1\n  -> System Uptime:    86420 seconds",
+      "codeNotes": [
+        {
+          "line": 4,
+          "note": "Defines non-volatile post-mortem crash record structure"
+        },
+        {
+          "line": 14,
+          "note": "Inspects RCC_CSR hardware reset flags (bit 29 = IWDG, bit 30 = WWDG)"
+        },
+        {
+          "line": 36,
+          "note": "Demonstrates post-mortem diagnostic reporting allowing cloud fleet telemetry"
+        }
+      ],
+      "tryIt": "Simulate a Power-On Reset by setting bit 27 in mockRccCsr and verify the reported cause.",
+      "check": {
+        "question": "How does firmware determine that the previous reboot was caused by a hardware watchdog timeout?",
+        "options": [
+          "By reading the watchdog reset flags (IWDGRSTF/WWDGRSTF) in the RCC_CSR register at bootup",
+          "By measuring the temperature of the processor",
+          "By asking the user to press a button",
+          "By checking if the clock is running backwards"
+        ],
+        "answer": 0,
+        "why": "Hardware retains the reset cause in the Reset and Clock Control (RCC_CSR) status register across reboots until firmware explicitly clears the flags."
+      }
+    },
+    {
+      "title": "Building an Industrial Fail-Safe Supervisory Watchdog Engine",
+      "say": [
+        "We unite the Independent Watchdog, Window Watchdog, Multi-Task Heartbeat supervision, and crash logging into a comprehensive Fail-Safe Supervisory Watchdog Engine.",
+        "The engine operates as an independent supervisor thread: it tracks 4 real-time tasks (Sensor Acquisition, Control Loop, Network Telemetry, and User Interface).",
+        "It verifies that each task meets its specific timing window; only when all 4 tasks report valid heartbeats does it refresh both the IWDG and WWDG.",
+        "If a task hangs, it allows the hardware watchdog to reset the microcontroller, captures post-mortem crash telemetry, and safely recovers system operations.",
+        "This supervisory architecture represents the gold standard of safety-critical firmware engineering, certified under IEC 61508 and ISO 26262 automotive safety standards."
+      ],
+      "example": "Like an emergency flight management system: four independent avionics computers vote on flight surface controls; if one computer freezes, the supervisor isolates the fault and resets the subsystem seamlessly.",
+      "code": "#include <iostream>\n#include <cstdint>\n\nclass FailSafeWatchdogEngine {\nprivate:\n    uint8_t taskHeartbeats;\n    uint8_t expectedMask;\n    uint32_t healthyCycles;\npublic:\n    FailSafeWatchdogEngine() : taskHeartbeats(0), expectedMask(0x0F), healthyCycles(0) {}\n\n    void reportTask(uint8_t id) {\n        taskHeartbeats |= (1 << id);\n    }\n\n    bool executeSupervisoryCycle() {\n        if (taskHeartbeats == expectedMask) {\n            healthyCycles++;\n            taskHeartbeats = 0; // Clear for next cycle\n            std::cout << \"[SUPERVISOR CYCLE \" << healthyCycles << \"] All 4 tasks verified healthy -> Hardware Watchdog Fed.\\n\";\n            return true;\n        } else {\n            std::cout << \"[SUPERVISOR FAULT] Missing task detected (0x\" << std::hex << (expectedMask & ~taskHeartbeats) << \") -> Watchdog starved!\\n\";\n            return false;\n        }\n    }\n};\n\nint main() {\n    FailSafeWatchdogEngine engine;\n    std::cout << \"[INDUSTRIAL FAIL-SAFE ENGINE]:\\n\";\n    // Cycle 1: All 4 tasks report\n    engine.reportTask(0);\n    engine.reportTask(1);\n    engine.reportTask(2);\n    engine.reportTask(3);\n    engine.executeSupervisoryCycle();\n\n    // Cycle 2: Task 2 hangs\n    std::cout << \"\\n[SIMULATING TASK 2 HANG]:\\n\";\n    engine.reportTask(0);\n    engine.reportTask(1);\n    engine.reportTask(3); // Task 2 missing!\n    engine.executeSupervisoryCycle();\n    return 0;\n}",
+      "output": "[INDUSTRIAL FAIL-SAFE ENGINE]:\n[SUPERVISOR CYCLE 1] All 4 tasks verified healthy -> Hardware Watchdog Fed.\n\n[SIMULATING TASK 2 HANG]:\n[SUPERVISOR FAULT] Missing task detected (0x4) -> Watchdog starved!",
+      "codeNotes": [
+        {
+          "line": 5,
+          "note": "Supervises 4 concurrent firmware tasks using 4-bit mask (0x0F)"
+        },
+        {
+          "line": 15,
+          "note": "Feeds physical watchdog only upon unanimous health verification"
+        },
+        {
+          "line": 36,
+          "note": "Isolates exact hanging task (bit 2 = 0x4) and triggers system safety reset"
+        }
+      ],
+      "tryIt": "Add Task 2 report in Cycle 2 and verify that both cycles execute successfully.",
+      "check": {
+        "question": "What industrial safety standard requires independent watchdog supervision and reset reason auditing in embedded systems?",
+        "options": [
+          "IEC 61508 / ISO 26262 functional safety standards",
+          "HTTP 1.1 Web Specifications",
+          "Bluetooth 4.0 Core Specification",
+          "Unicode UTF-8 Text Encoding Standard"
+        ],
+        "answer": 0,
+        "why": "Functional safety standards (IEC 61508 and ISO 26262) mandate hardware watchdog mechanisms and crash diagnostics to ensure systems enter a predictable safe state upon software failure."
+      }
+    }
+  ],
+  "summary": [
+    "The Independent Watchdog (IWDG) is clocked by an autonomous Low-Speed Internal (LSI) oscillator, surviving main clock and PLL failures.",
+    "The Window Watchdog (WWDG) enforces both lower and upper time bounds, detecting runaway code that feeds the watchdog too early.",
+    "Multi-task heartbeat bitmasks verify that every concurrent task in an RTOS is executing properly before refreshing the hardware watchdog.",
+    "The RCC_CSR register preserves post-mortem hardware reset flags across reboots for automated crash diagnostic telemetry.",
+    "Industrial fail-safe watchdog engines guarantee compliance with IEC 61508 and ISO 26262 functional safety standards."
+  ],
+  "projectStep": {
+    "title": "Implement Industrial Multi-Watchdog Supervisory Architecture",
+    "steps": [
+      "Configure the Independent Watchdog (IWDG) with LSI clock prescalers for fail-safe system reset.",
+      "Implement the Window Watchdog (WWDG) with upper and lower time windows to detect early feed faults.",
+      "Construct a multi-task heartbeat bitmask supervisor integrating all concurrent FreeRTOS tasks.",
+      "Implement post-mortem RCC_CSR reset flag auditing and persistent crash telemetry logging.",
+      "Execute simulated task hang and deadlock fault injection to verify deterministic recovery."
+    ]
+  }
+}

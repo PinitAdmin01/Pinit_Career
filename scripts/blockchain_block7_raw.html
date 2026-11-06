@@ -1,0 +1,380 @@
+20.3 Blockchain, Web3 &amp; Smart Contracts Month 2 Day-by-Day Masterclass Specifications (Days 31–60 / 120 Quests)</h2>
+  </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #d97706;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #d97706; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 31</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Automated Market Makers (AMM): Constant Product Formula (x · y = k), Slippage & Impermanent Loss</strong>
+          <span class="stage-pill" style="background: #fef3c7; color: #92400e;">Stage 3: Advanced Specialization & Scale</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 7 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #d97706; font-weight: 600;">Goal:</span> Step into Decentralized Finance (DeFi). Understand why traditional order book exchanges fail on Layer 1 blockchains: placing, canceling, and matching limit orders requires thousands of on-chain transactions, consuming millions in gas. Enter the Automated Market Maker (AMM) pioneered by Uniswap v2: replacing order books with liquidity pools governed by the Constant Product Formula: x &middot; y = k (where x is reserve of Token A, y is reserve of Token B, and k is invariant). Derive the exact swap output formula with 0.3% protocol fee: &Delta;y = (y &middot; &Delta;x &middot; 0.997) / (x + &Delta;x &middot; 0.997). Master Slippage (how large trades shift the reserve ratio) and Impermanent Loss (the economic divergence loss incurred by liquidity providers compared to holding assets outside the pool).<br>
+          <span style="color: #b45309; font-weight: 600;">Invariant:</span> <code>Constant Product Invariant: A trade swapping &Delta;x for &Delta;y must maintain or increase the pool's constant product invariant after fees: (x + &Delta;x) &middot; (y - &Delta;y) &ge; k; liquidity provision mints LP shares proportionally to &radic;k.</code>
+        </div>
+        <div style="background: #fef2f2; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fecaca; color: #991b1b;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Implementing swap calculation without accounting for the 0.3% fee in the invariant check: 'require(newX * newY >= oldX * oldY);' An attacker repeatedly swaps back and forth, slowly bleeding liquidity provider reserves through fee-free micro-arbitrage.<br>
+          <strong>tryIt Friction:</strong> Construct a minimal Uniswap v2 AMM in Solidity 0.8.20: implement addLiquidity (minting LP tokens via geometric mean &radic;(x &middot; y)); implement swap() with 0.3% fee; calculate price impact; and write a Foundry test simulating an arbitrageur trading against an external price discrepancy until the pool price matches market equilibrium.
+        </div>
+      </div>
+
+      <div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #b45309;">🪜 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #d97706;">[1. Nudge: "Why does an AMM mint initial LP shares equal to &radic;(x &middot; y) - 1000, burning the first 1000 shares to address(0)?"]</span> &rarr;
+        <span style="color: #b45309;">[2. Memory: "To permanently lock minimum liquidity and prevent the First Depositor Share Inflation Exploit! Burning 1000 wei of LP shares makes it economically impossible for an attacker to inflate the LP share price to drain future depositors!"]</span> &rarr;
+        <span style="color: #15803d;">[3. Fix: "Uniswap v2 solved vault inflation back in 2020 using this exact mechanism."]</span>
+      </div>
+
+      <div style="background: #fff7ed; border: 1px solid #fed7aa; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #c2410c;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"A liquidity provider deposits 10 ETH and 20,000 USDC into an AMM pool (ETH price = $2,000). Over 6 months, ETH price doubles to $4,000 on external exchanges. Arbitrageurs trade against the pool until the pool price reflects $4,000. If the LP withdraws their liquidity, they receive ~7.07 ETH and ~28,284 USDC (worth $56,568). If they had simply held their initial 10 ETH and 20,000 USDC, they would have $60,000! What is this $3,432 difference called?"</em><br>
+        <strong>Correct:</strong> Option B) Impermanent Loss (Divergence Loss): Because the AMM pricing curve forced the pool to sell the appreciating asset (ETH) for the depreciating asset (USDC) as arbitrageurs traded against it! At a 2x price shift, Impermanent Loss is exactly 5.72% of portfolio value! The loss is only offset if trading fees collected over the 6 months exceed $3,432. &bull;
+        <span style="color: #9a3412;"><strong>Debrief:</strong> Impermanent loss occurs whenever the price ratio between deposited assets changes relative to when they were deposited. The constant product formula automatically rebalances the pool by selling the rallying asset and buying the declining asset. Liquidity providers profit only if accumulated trading fees outweigh this divergence loss.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 31 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">bc-m2-d31-q1</span>
+      <strong>Constant Product Swap Formula & Impermanent Loss Proof</strong> <em>(concept)</em>: <span style="color: #475569;">Derive the mathematical formula for swap output with fees (&Delta;y) and the impermanent loss equation IL(r) = 2&radic;r / (1 + r) - 1.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">bc-m2-d31-q2</span>
+      <strong>AMM Arbitrage & Price Equilibrium Simulator</strong> <em>(detective)</em>: <span style="color: #475569;">Build an algorithmic simulation in TypeScript calculating optimal arbitrage trade sizes to restore AMM pool prices to external CEX prices.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">bc-m2-d31-q3</span>
+      <strong>Minimalist Constant Product AMM in Foundry</strong> <em>(mastery)</em>: <span style="color: #475569;">Author an audited Uniswap v2-style pair contract in Solidity with LP token minting, 0.3% fee swaps, and flash-swap capabilities.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">bc-m2-d31-q4</span>
+      <strong>3 AM SRE: Broken AMM Pool from Zero-Liquidity Burn Exploit</strong> <em>(incident)</em>: <span style="color: #475569;">Triage an incident where a newly deployed liquidity pair was locked due to an unhandled division by zero during initial LP burn.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #d97706;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #d97706; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 32</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Concentrated Liquidity AMMs (Uniswap v3): Ticks, Price Ranges, Tick Math & Capital Efficiency</strong>
+          <span class="stage-pill" style="background: #fef3c7; color: #92400e;">Stage 3: Advanced Specialization & Scale</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 7 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #d97706; font-weight: 600;">Goal:</span> Analyze the crowning mathematical achievement of decentralized exchanges: Concentrated Liquidity (Uniswap v3). Contrast Uniswap v2 (where capital is spread uniformly across all prices from 0 to infinity, meaning 99% of deposited capital sits idle and unused) with Uniswap v3 (where liquidity providers allocate capital within discrete custom Price Ranges [p_lower, p_upper]). Understand why this delivers up to 4,000x Capital Efficiency! Deconstruct the mathematical mechanics: Price is represented as square root price `sqrtPriceX96` (Q64.96 fixed-point number). Space is partitioned into discrete Ticks: `p(i) = 1.0001^i`. Master the virtual reserve curve: (x + L / &radic;p_b) &middot; (y + L &middot; &radic;p_a) = L^2. Analyze what happens when price crosses a tick boundary: liquidity L dynamically jumps as positions enter or exit the active range.<br>
+          <span style="color: #b45309; font-weight: 600;">Invariant:</span> <code>Tick Boundary Liquidity Conservation Invariant: When current price crosses tick boundary i, active in-range liquidity L must step by &Delta;L_net; all fee growth inside the tick range must be tracked via global and tick-level fee accumulator checkpoints.</code>
+        </div>
+        <div style="background: #fef2f2; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fecaca; color: #991b1b;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Attempting to compute Uniswap v3 tick math using floating-point operations; rounding errors corrupt the tick bitmap, causing price crossing logic to skip ticks and freeze swapping permanently.<br>
+          <strong>tryIt Friction:</strong> Construct a Concentrated Liquidity Tick Math library in Solidity 0.8.20: implement Q64.96 fixed-point square root price calculations; calculate token amounts &Delta;x and &Delta;y for a position given liquidity L and price range [p_a, p_b]; simulate price moving across a tick; and verify that capital efficiency is 20x higher than a v2 constant product pool for a &plusmn;5% range.
+        </div>
+      </div>
+
+      <div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #b45309;">🪜 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #d97706;">[1. Nudge: "Why does Uniswap v3 store price as sqrtPriceX96 (the square root of price multiplied by 2^96)?"]</span> &rarr;
+        <span style="color: #b45309;">[2. Memory: "Because calculating swap math and token amounts involves &radic;p! Storing &radic;p directly eliminates expensive on-chain square root calculations during swaps! Multiplying by 2^96 stores the fractional value with 96 bits of binary fixed-point precision!"]</span> &rarr;
+        <span style="color: #15803d;">[3. Fix: "Q64.96 avoids rounding errors without floating-point math."]</span>
+      </div>
+
+      <div style="background: #fff7ed; border: 1px solid #fed7aa; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #c2410c;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"A liquidity provider deposits 10 ETH and 20,000 USDC into a Uniswap v3 pool within the price range [$1,800, $2,200]. The market price of ETH surges to $2,500. The LP checks their position. What does the LP's position consist of when the price moves entirely above their upper tick?"</em><br>
+        <strong>Correct:</strong> Option B) 100% USDC (0 ETH): As price rose through the range, the AMM continuously sold the LP's ETH for USDC! Once price crossed $2,200 (the upper bound), all ETH was completely sold out! The LP now holds 100% USDC and 0 ETH. Their liquidity is now inactive and earns ZERO fees until price falls back inside [$1,800, $2,200]. &bull;
+        <span style="color: #9a3412;"><strong>Debrief:</strong> In concentrated liquidity, if the market price exits an LP's active price range, their position converts 100% into the less valuable/depreciating asset. Above the range, the position is 100% token1 (USDC); below the range, it is 100% token0 (ETH). Furthermore, inactive out-of-range liquidity earns zero trading fees.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 32 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">bc-m2-d32-q1</span>
+      <strong>Uniswap v3 Concentrated Liquidity Mathematical Derivation</strong> <em>(concept)</em>: <span style="color: #475569;">Derive the virtual reserve equations, tick price indexing p(i) = 1.0001^i, and liquidity amount formulas &Delta;x and &Delta;y.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">bc-m2-d32-q2</span>
+      <strong>TickBitmap & Q64.96 Fixed-Point Math Profiler</strong> <em>(detective)</em>: <span style="color: #475569;">Analyze the TickBitmap word-packing architecture in Uniswap v3, measuring gas efficiency of bitwise tick searches via nextInitializedTickWithinOneWord.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">bc-m2-d32-q3</span>
+      <strong>Concentrated Liquidity Math Engine in Solidity</strong> <em>(mastery)</em>: <span style="color: #475569;">Implement a concentrated liquidity calculation engine in Solidity and Foundry with Q64.96 math, fee growth tracking, and range minting.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">bc-m2-d32-q4</span>
+      <strong>3 AM SRE: Stalled Swaps from Tick Boundary Rounding Error</strong> <em>(incident)</em>: <span style="color: #475569;">Resolve a high-severity DEX incident where an unhandled tick boundary rounding off-by-one error caused swaps to revert on large trades.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #d97706;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #d97706; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 33</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Decentralized Lending & Borrowing: Collateralization Ratios, Health Factors & Liquidation Cascades</strong>
+          <span class="stage-pill" style="background: #fef3c7; color: #92400e;">Stage 3: Advanced Specialization & Scale</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 7 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #d97706; font-weight: 600;">Goal:</span> Deconstruct the engine of decentralized credit: Lending Protocols (Aave, Compound). Understand why crypto lending requires Over-Collateralization: without real-world identity or legal courts, borrowers must deposit more collateral than they borrow (e.g. 150% Loan-to-Value). Master core credit mechanics: Loan-to-Value (LTV), Liquidation Threshold (LT), and the Health Factor: H = (&sum; Collateral_i &middot; LT_i) / Total_Borrows. If H < 1.0, the position is under-collateralized and eligible for immediate Liquidation. Analyze Liquidation Economics: liquidators repay up to 50% of the borrower's debt in exchange for seized collateral plus a 5-10% Liquidation Bonus. Confront the catastrophic threat of Liquidation Cascades and Protocol Bad Debt during market crashes.<br>
+          <span style="color: #b45309; font-weight: 600;">Invariant:</span> <code>Solvency & Health Factor Invariant: A lending pool remains solvent as long as liquidated collateral value exceeds repaid debt; if collateral price crashes faster than liquidators can execute, Health Factor drops below 1.0 without liquidations, leaving the protocol with permanent Bad Debt.</code>
+        </div>
+        <div style="background: #fef2f2; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fecaca; color: #991b1b;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Failing to cap the maximum borrowable amount for illiquid tokens; an attacker deposits $10M of a low-cap token they control, borrows $7M in real USDC, and abandons the worthless collateral, leaving the protocol with $7M in unbacked bad debt.<br>
+          <strong>tryIt Friction:</strong> Construct a minimal Over-Collateralized Lending Pool in Solidity 0.8.20: deposit ETH collateral; borrow USDC up to 75% LTV; calculate Health Factor in real time using a mock oracle; simulate an ETH price crash dropping H to 0.92; implement liquidation function allowing an external liquidator to repay 50% debt and seize ETH collateral + 8% bonus; and verify that the borrower's health factor recovers above 1.1.
+        </div>
+      </div>
+
+      <div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #b45309;">🪜 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #d97706;">[1. Nudge: "Why do lending protocols enforce a 'Close Factor' (limiting liquidation to repaying at most 50% of the debt per transaction)?"]</span> &rarr;
+        <span style="color: #b45309;">[2. Memory: "Because liquidating 100% of a borrower's position at once would seize all their collateral plus bonuses, punishing the user excessively for a minor price dip! Liquidating 50% reduces debt, pushes Health Factor back above 1.0, and protects the user's remaining collateral!"]</span> &rarr;
+        <span style="color: #15803d;">[3. Fix: "It also limits market sell pressure during liquidations."]</span>
+      </div>
+
+      <div style="background: #fff7ed; border: 1px solid #fed7aa; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #c2410c;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"During a massive crypto market crash, Ethereum network gas prices spike to 500 gwei. An under-collateralized borrow position has $100 of debt and $102 of collateral. Liquidators ignore the position, and the protocol accumulates $20 of Bad Debt. Why did liquidators refuse to liquidate this position?"</em><br>
+        <strong>Correct:</strong> Option B) Dust Position Gas Economic Unprofitability: Liquidating the position yields a 5% bonus ($5 profit). However, executing the liquidation transaction at 500 gwei gas costs $65 in Ethereum network transaction fees! The liquidator would lose $60 executing the liquidation! Because the position was too small ('dust position'), it was economically unviable to liquidate, causing the protocol to swallow the bad debt. &bull;
+        <span style="color: #9a3412;"><strong>Debrief:</strong> Dust positions are a major threat to DeFi solvency. When transaction gas fees exceed the liquidation bonus profit, rational liquidators will not liquidate underwater loans. Protocols mitigate this by enforcing minimum borrow sizes (e.g. minimum $5,000 borrow) or utilizing Layer 2 rollups with negligible gas costs.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 33 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">bc-m2-d33-q1</span>
+      <strong>DeFi Health Factor & Liquidation Mathematics</strong> <em>(concept)</em>: <span style="color: #475569;">Derive the mathematical formulation for multi-collateral Health Factor, liquidation incentive pricing, and post-liquidation health recovery.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">bc-m2-d33-q2</span>
+      <strong>Liquidation Cascade & Bad Debt Simulator in TypeScript</strong> <em>(detective)</em>: <span style="color: #475569;">Simulate sudden 40% market crashes in TypeScript across 1,000 simulated borrower positions, measuring bad debt accumulation under gas spikes.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">bc-m2-d33-q3</span>
+      <strong>Minimal Over-Collateralized Lending Market in Foundry</strong> <em>(mastery)</em>: <span style="color: #475569;">Implement an audited lending pool in Solidity supporting multi-token deposits, variable borrow rates, oracle pricing, and liquidations.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">bc-m2-d33-q4</span>
+      <strong>3 AM SRE: $15M Bad Debt Accumulation During Market Crash</strong> <em>(incident)</em>: <span style="color: #475569;">Lead the emergency recovery of a lending protocol where network congestion halted liquidations, accumulating $15M in unbacked bad debt.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #d97706;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #d97706; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 34</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Flash Loans & Arbitrage: Single-Transaction Uncollateralized Borrowing & Pool Invariants</strong>
+          <span class="stage-pill" style="background: #fef3c7; color: #92400e;">Stage 3: Advanced Specialization & Scale</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 7 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #d97706; font-weight: 600;">Goal:</span> Explore the unique superpower of blockchain computing impossible in traditional finance: Flash Loans. Understand how uncollateralized lending works without counterparty credit risk: borrow $100,000,000 with ZERO collateral, execute arbitrary smart contract logic (arbitrage, collateral swaps, liquidations), and repay the borrowed capital PLUS fee within the EXACT SAME ATOMIC TRANSACTION! If the borrower fails to repay in full at the end of the transaction, the EVM reverts the entire transaction, rewinding history as if the loan never occurred! Dissect the EIP-3156 Flash Loan Standard (`maxFlashLoan`, `flashFee`, `onFlashLoan`). Build an automated arbitrage bot capitalizing on cross-pool price discrepancies.<br>
+          <span style="color: #b45309; font-weight: 600;">Invariant:</span> <code>Atomic Repayment Invariant: A flash loan provider must verify at the end of the callback execution that pool balance after loan &ge; pool balance before loan + flashFee; if balance check fails, the transaction must revert atomically.</code>
+        </div>
+        <div style="background: #fef2f2; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fecaca; color: #991b1b;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Transferring flash loan capital without checking return data or assuming the receiver contract will call 'repay()'; failing to verify the ending pool balance allows an attacker to borrow 10,000 ETH and simply walk away with the funds.<br>
+          <strong>tryIt Friction:</strong> Implement an EIP-3156 Flash Loan Provider in Solidity 0.8.20: deploy a liquidity pool; implement flashLoan(receiver, token, amount, data); execute receiver callback; assert ending balance &ge; initial balance + fee; write an Arbitrage Receiver contract that borrows 100 ETH, trades across two AMM pools with a 2% price discrepancy, repays the loan, and pockets 1.8 ETH profit in a single atomic transaction.
+        </div>
+      </div>
+
+      <div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #b45309;">🪜 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #d97706;">[1. Nudge: "Why can't an attacker steal flash-loaned funds by transferring them to an external wallet inside the callback?"]</span> &rarr;
+        <span style="color: #b45309;">[2. Memory: "Because the entire sequence is a single atomic transaction! Even if the attacker transfers the funds to another contract or wallet, at the end of the transaction the lending pool checks its balance! Since the funds weren't returned, the pool executes REVERT, which completely undoes all transfers across all contracts!"]</span> &rarr;
+        <span style="color: #15803d;">[3. Fix: "The attacker only loses the gas spent."]</span>
+      </div>
+
+      <div style="background: #fff7ed; border: 1px solid #fed7aa; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #c2410c;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"An arbitrageur builds a flash loan contract to exploit a 5% price gap between Uniswap and Sushiswap. In Foundry, the simulation yields $10,000 profit! When the arbitrageur broadcasts the transaction to the public Ethereum mainnet mempool, the transaction reverts with 'Slippage exceeded', and an MEV bot executes the exact same arbitrage trade 1 block earlier! What happened?"</em><br>
+        <strong>Correct:</strong> Option B) Mempool Generalized Front-Running / MEV Theft: The arbitrageur broadcasted their transaction to the public mempool! An MEV searcher bot saw the profitable transaction, simulated it, copied the exact DEX trade parameters, replaced the recipient address with the bot's address, paid a 90% gas bribe to the block builder, and front-ran the trade! When the victim's trade executed, the price gap was already closed, causing it to revert! Solution: broadcast via private RPC (Flashbots Protect). &bull;
+        <span style="color: #9a3412;"><strong>Debrief:</strong> Broadcasting un-hedged arbitrage or liquidation transactions to the public mempool is guaranteed suicide in Web3. Generalized front-runners simulate pending mempool transactions, steal profitable arbitrage routes, and pay miners/builders to execute ahead of the victim. Production arbitrage bots exclusively route transactions through private MEV relays like Flashbots.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 34 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">bc-m2-d34-q1</span>
+      <strong>EIP-3156 Flash Loan Standard Formal Specification</strong> <em>(concept)</em>: <span style="color: #475569;">Document the EIP-3156 interface mechanics, callback verification flows, and flash fee calculation models.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">bc-m2-d34-q2</span>
+      <strong>Flash Loan Atomic Arbitrage Profitability Simulator</strong> <em>(detective)</em>: <span style="color: #475569;">Model atomic arbitrage profitability across dual AMM pools accounting for gas fees, pool price impact, and 0.09% flash loan fees.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">bc-m2-d34-q3</span>
+      <strong>Production EIP-3156 Flash Lender & Arbitrage Bot in Foundry</strong> <em>(mastery)</em>: <span style="color: #475569;">Author an audited EIP-3156 flash lender in Solidity and a multi-DEX atomic arbitrage receiver contract in Foundry.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">bc-m2-d34-q4</span>
+      <strong>3 AM SRE: $25M Flash Loan Oracle Manipulation Drain</strong> <em>(incident)</em>: <span style="color: #475569;">Triage an emergency DeFi exploit where an attacker used a $50M flash loan to manipulate an AMM spot price oracle and drain collateral.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #d97706;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #d97706; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 35</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Milestone 6: Production Concentrated Liquidity AMM & Flash Lending Engine</strong>
+          <span class="stage-pill" style="background: #fef3c7; color: #92400e;">Stage 3: Advanced Specialization & Scale</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 7 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #d97706; font-weight: 600;">Goal:</span> Synthesize the entire discipline of automated market making, concentrated liquidity math, over-collateralized credit, and atomic flash loans into an enterprise DeFi exchange: The Production Concentrated Liquidity AMM & Flash Lending Engine. In this milestone, architect an institutional-grade liquidity protocol: implement concentrated liquidity positions across discrete price ticks with Q64.96 fixed-point math; support real-time token swaps with dynamic fee tiers (0.05%, 0.30%, 1.00%); incorporate an EIP-3156 flash loan facility allowing uncollateralized pool borrowing; enforce tick crossing invariants and fee growth accumulators; and benchmark execution against Uniswap v3 test vectors.<br>
+          <span style="color: #b45309; font-weight: 600;">Invariant:</span> <code>DeFi Protocol Solvency & Conservation Invariant: Total token balances in the pool must strictly satisfy the concentrated liquidity virtual reserve curve and flash loan repayment invariant; all fee growth inside active tick ranges must be mathematically accounted for with zero cumulative precision loss.</code>
+        </div>
+        <div style="background: #fef2f2; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fecaca; color: #991b1b;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Failing the milestone gate when tick crossing math causes precision drift, when flash loan callbacks fail to revert on unpaid debt, or when extreme swaps divide by zero inside tick bitmap searches.<br>
+          <strong>tryIt Friction:</strong> Construct and deliver the complete Solidity 0.8.20 + Foundry milestone exchange: deploy a Concentrated Liquidity Pair; mint an in-range liquidity position across ticks [-200, +200]; execute 10 swaps of varying sizes that cross tick boundaries; borrow 1,000,000 tokens via EIP-3156 flash loan and verify repayment with fee; prove zero precision drift over 100 trades; and verify gas optimization.
+        </div>
+      </div>
+
+      <div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #b45309;">🪜 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #d97706;">[1. Nudge: "How do we prevent rounding errors from draining the pool during high-volume swaps?"]</span> &rarr;
+        <span style="color: #b45309;">[2. Memory: "By rounding in favor of the pool on every single calculation! When calculating token amount in (&Delta;x), round UP! When calculating token amount out (&Delta;y), round DOWN! The pool must always take slightly more and give slightly less!"]</span> &rarr;
+        <span style="color: #15803d;">[3. Fix: "Strict rounding direction guarantees pool reserves never deplete due to math truncation."]</span>
+      </div>
+
+      <div style="background: #fff7ed; border: 1px solid #fed7aa; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #c2410c;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"During your Milestone 6 defense, an examiner executes a massive swap that exceeds the total liquidity available in the current active tick range. How does your concentrated liquidity engine handle this multi-tick swap without reverting or under-delivering tokens?"</em><br>
+        <strong>Correct:</strong> Option B) Iterative Multi-Tick Step-and-Cross Execution: The swap loop executes in steps: 1) Calculates how much token can be swapped within the current tick to reach the next initialized tick boundary; 2) If the swap amount exceeds this, it swaps to the boundary, updates current price to the tick, crosses the tick (updating active liquidity L by &Delta;L_net), and decrements the remaining swap amount; 3) Repeats across subsequent ticks until the entire trade is filled! The trade seamlessly crosses multiple tick ranges. &bull;
+        <span style="color: #9a3412;"><strong>Debrief:</strong> In concentrated liquidity AMMs, large swaps frequently consume all liquidity in the current tick range. The engine must execute an iterative while-loop, swapping up to the next initialized tick, crossing the tick to add/subtract liquidity, and repeating until the swap order is completely satisfied.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 35 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">bc-m2-d35-q1</span>
+      <strong>Concentrated Liquidity & Flash Loan Architecture Blueprint</strong> <em>(concept)</em>: <span style="color: #475569;">Produce the comprehensive systems architecture detailing tick bitmaps, Q64.96 math, fee growth accumulators, and EIP-3156 interfaces.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">bc-m2-d35-q2</span>
+      <strong>Multi-Tick Swap & Rounding Verification Suite</strong> <em>(detective)</em>: <span style="color: #475569;">Build automated fuzzing suites in Foundry asserting 100% solvency across 20,000 randomized multi-tick trades and extreme liquidity distributions.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">bc-m2-d35-q3</span>
+      <strong>Production Concentrated Liquidity AMM Implementation</strong> <em>(mastery)</em>: <span style="color: #475569;">Author and test the complete concentrated liquidity exchange in Solidity and Foundry with tick math, range minting, and flash loans.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">bc-m2-d35-q4</span>
+      <strong>Milestone 6 Viva Gate: Advanced DeFi Architecture Defense</strong> <em>(incident)</em>: <span style="color: #475569;">Defend the AMM and flash lending architecture before the Senior Web3 Architecture Board, demonstrating live tick crossings and flash loan safety.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #d97706;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #d97706; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 36</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Price Oracle Architectures: On-Chain TWAP vs Decentralized Off-Chain Oracles (Chainlink)</strong>
+          <span class="stage-pill" style="background: #fef3c7; color: #92400e;">Stage 3: Advanced Specialization & Scale</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 8 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #d97706; font-weight: 600;">Goal:</span> Solve the fundamental challenge of smart contract computing: The Oracle Problem. Blockchains are isolated deterministic state machines; they cannot physically query HTTP APIs or know real-world asset prices. Contrast the two primary oracle paradigms: 1) On-Chain Time-Weighted Average Price (TWAP): pioneered by Uniswap v2/v3, accumulating price over time (`priceCumulative += price &middot; &Delta;t`) to prevent single-block manipulation; and 2) Decentralized Off-Chain Oracles (Chainlink): networks of independent nodes fetching off-chain price data from institutional APIs, aggregating with median consensus (Off-Chain Reporting - OCR), and writing authenticated updates on-chain. Dissect Chainlink's `AggregatorV3Interface`: `latestRoundData()` parameters (roundId, answer, startedAt, updatedAt, answeredInRound).<br>
+          <span style="color: #b45309; font-weight: 600;">Invariant:</span> <code>Oracle Authenticity & Freshness Invariant: An oracle price must be cryptographically authenticated, aggregate multiple independent data sources, and enforce strict freshness bounds: updatedAt &ge; block.timestamp - heartbeat_timeout and answer > 0; stale or unverified prices must revert immediately.</code>
+        </div>
+        <div style="background: #fef2f2; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fecaca; color: #991b1b;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Consuming Chainlink's latestRoundData() without checking freshness: 'int price = oracle.latestRoundData();' During a network congestion event, the oracle fails to update for 12 hours; the protocol executes liquidations based on a stale price, liquidating solvent users.<br>
+          <strong>tryIt Friction:</strong> Implement an audited Chainlink Price Feed Consumer in Solidity 0.8.20: read AggregatorV3Interface; validate that price > 0, roundId &ge; answeredInRound, and block.timestamp - updatedAt &le; 3600 (1 hour heartbeat); implement fallback to a 30-minute Uniswap v3 TWAP oracle if the primary Chainlink feed is stale; and write Foundry tests verifying that stale feeds revert.
+        </div>
+      </div>
+
+      <div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #b45309;">🪜 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #d97706;">[1. Nudge: "Why must you always check 'answeredInRound >= roundId' when consuming Chainlink price feeds?"]</span> &rarr;
+        <span style="color: #b45309;">[2. Memory: "Because if answeredInRound < roundId, it indicates that the round timed out or did not reach consensus, meaning the price returned is incomplete or carried over from a previous round! Failing to check this can return outdated or invalid pricing!"]</span> &rarr;
+        <span style="color: #15803d;">[3. Fix: "Always validate all 5 return values of latestRoundData()."]</span>
+      </div>
+
+      <div style="background: #fff7ed; border: 1px solid #fed7aa; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #c2410c;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"A DeFi lending market uses Uniswap v3 TWAP with a 10-second window to price collateral. A borrower executes a flash loan, swaps 5,000 ETH into the Uniswap pool, moves the TWAP price by 30%, borrows $10M against inflated collateral, and swaps back, all in a single block. Why did the TWAP oracle fail to prevent the attack?"</em><br>
+        <strong>Correct:</strong> Option B) TWAP Window Too Short (Single-Block Susceptibility): A 10-second TWAP window is shorter than Ethereum's 12-second block time! In a single block, a 10-second window is identical to the instantaneous spot price! To be secure against flash loan manipulation, TWAP windows must be at least 15 to 30 minutes (covering dozens of consecutive blocks), forcing an attacker to hold their distorted position across multiple blocks and exposing them to massive arbitrage loss. &bull;
+        <span style="color: #9a3412;"><strong>Debrief:</strong> TWAP oracles derive their security from time. The longer the TWAP window (e.g. 30 minutes), the more capital and block-by-block risk an attacker must incur to distort the average price. Short TWAP windows (< 60 seconds) can be manipulated within a few blocks or via multi-block builder manipulation.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 36 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">bc-m2-d36-q1</span>
+      <strong>Uniswap TWAP Accumulator vs Chainlink OCR Formal Model</strong> <em>(concept)</em>: <span style="color: #475569;">Compare mathematical manipulation resistance between geometric/arithmetic TWAP accumulation and BFT median consensus in Chainlink OCR.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">bc-m2-d36-q2</span>
+      <strong>Chainlink Stale Price & Heartbeat Validator</strong> <em>(detective)</em>: <span style="color: #475569;">Build an automated testing harness in Foundry verifying that all 5 return values of latestRoundData are sanitized against heartbeat timeouts.</span>
+    </div>
+  
+    <div sty

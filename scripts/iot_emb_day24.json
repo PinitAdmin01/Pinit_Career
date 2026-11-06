@@ -1,0 +1,227 @@
+{
+  "day": 24,
+  "title": "Inter-Task Communication: FreeRTOS Queues, Direct-to-Task Notifications & Event Groups",
+  "goal": "Communicate safely between concurrent tasks: master FreeRTOS communication primitives. Understand copy-by-value queue memory isolation, Direct-to-Task notifications (zero-RAM overhead), multi-event bitmask synchronization groups, and interrupt-safe deferred processing via xQueueSendFromISR.",
+  "minutes": 36,
+  "recap": "Yesterday, we conquered task synchronization, mutexes, and priority inheritance. Today, we master data transport between tasks: thread-safe queues, zero-overhead direct notifications, and interrupt-to-task pipelines.",
+  "parts": [
+    {
+      "title": "FreeRTOS Queues: Copy-by-Value Memory Isolation Invariant & Thread-Safe Ring Buffers",
+      "say": [
+        "In multi-tasking systems, tasks must pass data packets to each other without corrupting memory or introducing race conditions.",
+        "The primary communication mechanism in FreeRTOS is the Queue (`QueueHandle_t`).",
+        "Crucial Invariant: FreeRTOS queues operate strictly by COPY-BY-VALUE, not copy-by-reference.",
+        "When a task sends an item via `xQueueSend()`, the kernel copies the byte payload directly into its private internal ring buffer; when the receiving task calls `xQueueReceive()`, the bytes are copied into the receiver's local variable.",
+        "Because data is copied by value, the sending task can immediately overwrite, re-use, or exit the function that created the original variable with 100% safety.",
+        "Copy-by-value completely eliminates dangling pointers, memory leaks, and multi-threaded race conditions."
+      ],
+      "example": "Mailing a physical letter: you photocopy your document and drop the paper copy in the mailbox (queue); you can shred or rewrite your original draft on your desk, and the recipient still gets the exact copy you mailed.",
+      "code": "#include <iostream>\n#include <vector>\n#include <cstring>\n#include <cstdint>\n\ntemplate <typename T, size_t CAPACITY>\nclass FreeRtosQueue {\nprivate:\n    T storage[CAPACITY];\n    size_t head;\n    size_t tail;\n    size_t count;\npublic:\n    FreeRtosQueue() : head(0), tail(0), count(0) {}\n\n    // Copy-by-value send\n    bool send(const T& item) {\n        if (count >= CAPACITY) return false; // Queue full\n        storage[head] = item; // Deep copy by value!\n        head = (head + 1) % CAPACITY;\n        count++;\n        std::cout << \"[QUEUE SEND] Item copied into kernel storage (Queue Fill: \" \n                  << count << \"/\" << CAPACITY << \")\\n\";\n        return true;\n    }\n\n    // Copy-by-value receive\n    bool receive(T& item) {\n        if (count == 0) return false; // Queue empty\n        item = storage[tail]; // Deep copy by value!\n        tail = (tail + 1) % CAPACITY;\n        count--;\n        std::cout << \"[QUEUE RECEIVE] Item copied out of kernel storage (Remaining: \" \n                  << count << \")\\n\";\n        return true;\n    }\n};\n\nstruct SensorPayload {\n    uint32_t sensorId;\n    int16_t temperatureC;\n    uint16_t pressureHpa;\n};\n\nint main() {\n    FreeRtosQueue<SensorPayload, 4> queue;\n\n    // Sender creates local variable on its private stack\n    SensorPayload localData = {1, 28, 1013};\n    queue.send(localData);\n\n    // Sender immediately modifies its local copy\n    localData.temperatureC = 99; // Will NOT corrupt queue!\n\n    // Receiver gets the original safe copy\n    SensorPayload received;\n    queue.receive(received);\n    std::cout << \"Received Sensor Reading: Temp = \" << received.temperatureC \n              << \" C (Verified uncorrupted!)\\n\";\n    return 0;\n}",
+      "output": "[QUEUE SEND] Item copied into kernel storage (Queue Fill: 1/4)\n[QUEUE RECEIVE] Item copied out of kernel storage (Remaining: 0)\nReceived Sensor Reading: Temp = 28 C (Verified uncorrupted!)",
+      "codeNotes": [
+        {
+          "line": 16,
+          "note": "storage[head] = item executes byte-for-byte copy into kernel buffer"
+        },
+        {
+          "line": 48,
+          "note": "Modifying localData does not affect the data already queued in kernel memory"
+        },
+        {
+          "line": 53,
+          "note": "Receiver receives original uncorrupted 28 C temperature payload"
+        }
+      ],
+      "tryIt": "Demonstrate the fatal bug of passing pointers to stack-allocated variables through queues.",
+      "check": {
+        "question": "Why does FreeRTOS use Copy-by-Value rather than Copy-by-Reference for queue messages?",
+        "options": [
+          "To guarantee memory isolation so the sender can safely modify or discard its local variable without corrupting the receiver",
+          "Because pointers are not supported in embedded C",
+          "To reduce the size of the microcontroller Flash memory",
+          "Because the ARM processor does not support RAM"
+        ],
+        "answer": 0,
+        "why": "Copy-by-value ensures complete memory decoupling: tasks do not share pointers, preventing race conditions and dangling pointer bugs."
+      }
+    },
+    {
+      "title": "Passing Complex Data Without Corruption: Senders, Receivers & Bounded Timeout Blocking",
+      "say": [
+        "FreeRTOS queues provide built-in real-time blocking: tasks specify a timeout in ticks (`TicksToWait`).",
+        "If a task attempts to receive from an empty queue (`xQueueReceive`), it enters the BLOCKED state and consumes 0% CPU cycles until data arrives or the timeout expires.",
+        "If a task attempts to send to a full queue (`xQueueSend`), it blocks until another task reads a packet, creating automatic backpressure and rate limiting.",
+        "For large payloads (such as a 10KB display framebuffer or camera image), copying 10KB by value through a queue would be inefficient.",
+        "In such cases, the established pattern is Queue of Pointers: software allocates a static or pool buffer, and sends the 4-byte pointer through the queue.",
+        "Invariant: When passing pointers through queues, strict ownership transfer must be maintained: the sender must never touch the buffer after sending until the receiver explicitly hands it back."
+      ],
+      "example": "Passing a heavy cargo shipping container: you don't mail the container itself through the postal system; you mail the paper bill of lading (the pointer) that authorizes the recipient to take ownership of the container at the shipping dock.",
+      "code": "#include <iostream>\n#include <string>\n#include <cstdint>\n\nstruct LargeFrameBuffer {\n    uint32_t frameId;\n    uint8_t pixels[1024]; // 1KB frame\n};\n\nclass PointerQueue {\nprivate:\n    LargeFrameBuffer* queueSlot;\n    bool hasData;\npublic:\n    PointerQueue() : queueSlot(nullptr), hasData(false) {}\n\n    bool sendPointer(LargeFrameBuffer* ptr) {\n        if (hasData) return false; // Full\n        queueSlot = ptr; // Passes 4-byte pointer with zero payload copying!\n        hasData = true;\n        std::cout << \"[QUEUE POINTER] Passed pointer to Frame #\" << ptr->frameId \n                  << \" (Only 4 bytes copied across queue!)\\n\";\n        return true;\n    }\n\n    LargeFrameBuffer* receivePointer() {\n        if (!hasData) return nullptr;\n        LargeFrameBuffer* ptr = queueSlot;\n        hasData = false;\n        std::cout << \"[QUEUE POINTER] Receiver took ownership of Frame #\" << ptr->frameId << \"\\n\";\n        return ptr;\n    }\n};\n\nint main() {\n    PointerQueue ptrQueue;\n    LargeFrameBuffer frame1 = {101, {0}};\n\n    ptrQueue.sendPointer(&frame1);\n    LargeFrameBuffer* received = ptrQueue.receivePointer();\n    std::cout << \"Received Frame ID: \" << received->frameId << \" (Zero-copy transfer complete!)\\n\";\n    return 0;\n}",
+      "output": "[QUEUE POINTER] Passed pointer to Frame #101 (Only 4 bytes copied across queue!)\n[QUEUE POINTER] Receiver took ownership of Frame #101\nReceived Frame ID: 101 (Zero-copy transfer complete!)",
+      "codeNotes": [
+        {
+          "line": 15,
+          "note": "Passes 4-byte memory pointer through queue instead of copying 1024-byte payload"
+        },
+        {
+          "line": 24,
+          "note": "Transfers exclusive buffer ownership to receiver task"
+        },
+        {
+          "line": 36,
+          "note": "Demonstrates high-performance zero-copy buffer passing for large payloads"
+        }
+      ],
+      "tryIt": "Explain why sending pointers to dynamically allocated malloc buffers requires strict ownership discipline to prevent memory leaks.",
+      "check": {
+        "question": "When is it appropriate to pass pointers through a FreeRTOS queue rather than copying values directly?",
+        "options": [
+          "When transmitting large payloads (e.g. image frames, network packets) where copying entire structures would waste CPU cycles and RAM",
+          "Only when the microcontroller has no stack",
+          "When all tasks have identical priorities",
+          "Never, pointers are illegal in FreeRTOS"
+        ],
+        "answer": 0,
+        "why": "For large structures, copying only the 32-bit pointer preserves memory bandwidth and CPU cycles, provided ownership transfer rules are strictly followed."
+      }
+    },
+    {
+      "title": "Direct-to-Task Notifications: Zero-RAM Overhead & 45% Faster Context Swaps",
+      "say": [
+        "While FreeRTOS queues and semaphores are versatile, every queue requires an allocated `Queue_t` control structure in SRAM (approx 80–120 bytes of RAM).",
+        "To achieve ultra-lightweight communication, FreeRTOS introduced Direct-to-Task Notifications (`xTaskNotify` / `ulTaskNotifyTake`).",
+        "Every Task Control Block (`TCB_t`) natively includes an embedded 32-bit notification value and a notification state at ZERO additional RAM cost.",
+        "A task or ISR can send an event directly to a target task using its task handle.",
+        "Task notifications can emulate binary semaphores (unblocking a waiting task), counting semaphores, or lightweight mailbox registers.",
+        "Benchmark measurements prove that Direct-to-Task Notifications execute up to 45% faster than standard binary semaphores and consume exactly 0 bytes of dynamic heap memory."
+      ],
+      "example": "Instead of building a community mailbox at the end of the road (creating a queue), the mail carrier knocks directly on your front door and hands you the package.",
+      "code": "#include <iostream>\n#include <cstdint>\n\nclass TaskWithDirectNotification {\npublic:\n    uint32_t notificationValue;\n    bool isBlockedWaiting;\n\n    TaskWithDirectNotification() : notificationValue(0), isBlockedWaiting(false) {}\n\n    // Simulates ulTaskNotifyTake(pdTRUE, portMAX_DELAY)\n    bool notifyTake() {\n        if (notificationValue > 0) {\n            notificationValue--;\n            std::cout << \"[NOTIFY TAKE] Direct notification consumed (Value decremented to \" \n                      << notificationValue << \")\\n\";\n            return true;\n        }\n        isBlockedWaiting = true;\n        std::cout << \"[NOTIFY BLOCKED] Task blocked waiting for direct notification...\\n\";\n        return false;\n    }\n\n    // Simulates xTaskNotifyGive(targetTaskHandle)\n    void notifyGive() {\n        notificationValue++;\n        std::cout << \"[NOTIFY GIVE] Sent direct event to task! (Value = \" \n                  << notificationValue << \")\\n\";\n        if (isBlockedWaiting) {\n            isBlockedWaiting = false;\n            std::cout << \"  -> [UNBLOCKED] Target task immediately unblocked!\\n\";\n        }\n    }\n};\n\nint main() {\n    TaskWithDirectNotification workerTask;\n\n    // Worker attempts to take notification (blocks)\n    workerTask.notifyTake();\n\n    // ISR or producer task gives notification directly to worker\n    workerTask.notifyGive();\n\n    // Worker now takes notification successfully\n    workerTask.notifyTake();\n    return 0;\n}",
+      "output": "[NOTIFY BLOCKED] Task blocked waiting for direct notification...\n[NOTIFY GIVE] Sent direct event to task! (Value = 1)\n  -> [UNBLOCKED] Target task immediately unblocked!\n[NOTIFY TAKE] Direct notification consumed (Value decremented to 0)",
+      "codeNotes": [
+        {
+          "line": 10,
+          "note": "Notification value resides directly inside target task's TCB structure"
+        },
+        {
+          "line": 21,
+          "note": "notifyGive unblocks target task directly without intermediate queue objects"
+        },
+        {
+          "line": 34,
+          "note": "Demonstrates 0-RAM overhead synchronization executing 45% faster than semaphores"
+        }
+      ],
+      "tryIt": "Configure notificationValue as a bitmask where different bits represent different hardware events.",
+      "check": {
+        "question": "What is the primary architectural advantage of FreeRTOS Direct-to-Task Notifications over binary semaphores?",
+        "options": [
+          "They require exactly 0 bytes of additional RAM (built directly into the TCB) and execute up to 45% faster",
+          "They can transmit infinite amounts of data",
+          "They do not require a CPU clock",
+          "They work across different circuit boards"
+        ],
+        "answer": 0,
+        "why": "Task notifications store the notification value directly within the existing TCB, eliminating dynamic memory allocation and reducing scheduler traversal overhead."
+      }
+    },
+    {
+      "title": "Multi-Condition Synchronization: Event Groups, Synchronization Bits & Rendezvous Barriers",
+      "say": [
+        "What happens when a task needs to wait for multiple independent events to occur simultaneously (e.g., 'wait until Wi-Fi is connected AND GPS has a 3D fix AND Battery is above 20%')?",
+        "Doing this with multiple queues or semaphores results in complex nested blocking and race conditions.",
+        "The solution is FreeRTOS Event Groups (`EventGroupHandle_t`).",
+        "An Event Group maintains a 24-bit bitmask of event flags.",
+        "Tasks can wait for any combination of bits using `xEventGroupWaitBits()`.",
+        "The function supports `xWaitForAllBits = pdTRUE` (logical AND: unblock only when ALL requested bits are set) or `pdFALSE` (logical OR: unblock when ANY bit is set).",
+        "Event groups also provide the `xEventGroupSync()` rendezvous barrier: multiple concurrent tasks synchronize at a barrier and release simultaneously."
+      ],
+      "example": "A rocket launch sequence: the launch director's console has 3 green lights: Propulsion Ready (Bit 0), Guidance Ready (Bit 1), and Weather Go (Bit 2); the countdown only triggers when all three lights are lit simultaneously.",
+      "code": "#include <iostream>\n#include <cstdint>\n\nclass EventGroup {\nprivate:\n    uint32_t eventBits;\npublic:\n    EventGroup() : eventBits(0) {}\n\n    void setBits(uint32_t bitsToSet) {\n        eventBits |= bitsToSet;\n        std::cout << \"[EVENT GROUP] Set bits 0x\" << std::hex << bitsToSet \n                  << \" -> Active Mask: 0x\" << eventBits << \"\\n\";\n    }\n\n    bool waitBits(uint32_t bitsToWait, bool waitForAll) {\n        std::cout << \"[EVENT WAIT] Waiting for 0x\" << std::hex << bitsToWait \n                  << \" (Mode: \" << (waitForAll ? \"AND (ALL)\" : \"OR (ANY)\") << \")\\n\";\n\n        if (waitForAll) {\n            if ((eventBits & bitsToWait) == bitsToWait) {\n                std::cout << \"  -> [BARRIER PASSED] All requested event bits asserted!\\n\";\n                return true;\n            }\n        } else {\n            if (eventBits & bitsToWait) {\n                std::cout << \"  -> [TRIGGER PASSED] At least one event bit asserted!\\n\";\n                return true;\n            }\n        }\n        std::cout << \"  -> [BLOCKED] Condition not met. Task blocks.\\n\";\n        return false;\n    }\n};\n\nint main() {\n    EventGroup launchEvents;\n    const uint32_t WIFI_READY  = (1 << 0); // Bit 0 (0x01)\n    const uint32_t GPS_FIX     = (1 << 1); // Bit 1 (0x02)\n    const uint32_t SENSORS_CAL = (1 << 2); // Bit 2 (0x04)\n    const uint32_t ALL_READY   = WIFI_READY | GPS_FIX | SENSORS_CAL; // 0x07\n\n    launchEvents.setBits(WIFI_READY);\n    launchEvents.setBits(GPS_FIX);\n    launchEvents.waitBits(ALL_READY, true); // Still waiting for sensors (blocks)\n\n    launchEvents.setBits(SENSORS_CAL);     // Sensors ready!\n    launchEvents.waitBits(ALL_READY, true); // All 3 ready -> Passes!\n    return 0;\n}",
+      "output": "[EVENT GROUP] Set bits 0x1 -> Active Mask: 0x1\n[EVENT GROUP] Set bits 0x2 -> Active Mask: 0x3\n[EVENT WAIT] Waiting for 0x7 (Mode: AND (ALL))\n  -> [BLOCKED] Condition not met. Task blocks.\n[EVENT GROUP] Set bits 0x4 -> Active Mask: 0x7\n[EVENT WAIT] Waiting for 0x7 (Mode: AND (ALL))\n  -> [BARRIER PASSED] All requested event bits asserted!",
+      "codeNotes": [
+        {
+          "line": 10,
+          "note": "Maintains 24-bit event bitmask accessible by all concurrent tasks and ISRs"
+        },
+        {
+          "line": 19,
+          "note": "Evaluates logical AND condition (waitForAll=true) requiring all bits to match"
+        },
+        {
+          "line": 43,
+          "note": "Unblocks launch task only when Wi-Fi, GPS, and sensors are simultaneously ready"
+        }
+      ],
+      "tryIt": "Set waitForAll to false and demonstrate that the task unblocks as soon as the first bit (Wi-Fi) is set.",
+      "check": {
+        "question": "How do FreeRTOS Event Groups allow a task to wait for multiple independent system events to complete?",
+        "options": [
+          "By evaluating an atomic 24-bit bitmask with logical AND (all bits) or logical OR (any bit) matching options",
+          "By polling each event in an infinite while loop",
+          "By creating 24 separate threads",
+          "By turning off the CPU cache"
+        ],
+        "answer": 0,
+        "why": "Event groups allow tasks to block on a 24-bit bitmask, unblocking atomically when all specified bits or any specified bit is set by tasks or ISRs."
+      }
+    },
+    {
+      "title": "From ISR to Task: xQueueSendFromISR, portYIELD_FROM_ISR & Deferred Processing",
+      "say": [
+        "A critical rule of real-time operating systems is: NEVER call standard RTOS API functions (`xQueueSend`, `xSemaphoreTake`) inside an Interrupt Service Routine.",
+        "Standard API functions can block; an interrupt service routine must NEVER enter a blocked state.",
+        "FreeRTOS provides dedicated ISR-safe functions ending with `FromISR` (such as `xQueueSendFromISR`, `xSemaphoreGiveFromISR`).",
+        "These functions accept a pointer argument: `BaseType_t *pxHigherPriorityTaskWoken`.",
+        "If sending an item to a queue causes a higher-priority task to unblock, the kernel sets `*pxHigherPriorityTaskWoken = pdTRUE`.",
+        "Before exiting the ISR, firmware invokes `portYIELD_FROM_ISR(xHigherPriorityTaskWoken)`: if true, the hardware asserts the PendSV bit, ensuring the CPU context-switches directly into the unblocked high-priority task the microsecond the ISR exits."
+      ],
+      "example": "A fast delivery driver dropping a package on the porch: the driver doesn't wait inside your house; they ring the doorbell (set higher priority task woken) and leave immediately; you walk to the door and open the package outside of interrupt context.",
+      "code": "#include <iostream>\n#include <string>\n#include <cstdint>\n\nstruct DeferredIsrPipeline {\n    bool queueHasData;\n    uint32_t receivedPayload;\n    bool pendSvAsserted;\n\n    DeferredIsrPipeline() : queueHasData(false), receivedPayload(0), pendSvAsserted(false) {}\n\n    // Simulated hardware ISR\n    void onHardwareUartIsr(uint32_t hardwareWord) {\n        std::cout << \"[HARDWARE UART ISR] Byte received: 0x\" << std::hex << hardwareWord << \"\\n\";\n        bool higherPriorityTaskWoken = false;\n\n        // ISR-safe queue send: NEVER blocks!\n        queueHasData = true;\n        receivedPayload = hardwareWord;\n        higherPriorityTaskWoken = true; // High-priority parser task unblocked!\n\n        std::cout << \"  -> xQueueSendFromISR: Message queued safely without blocking\\n\";\n        if (higherPriorityTaskWoken) {\n            std::cout << \"  -> portYIELD_FROM_ISR(pdTRUE): PendSV bit set! Deferred switch armed.\\n\";\n            pendSvAsserted = true;\n        }\n    }\n\n    void onPendSvContextSwitch() {\n        if (pendSvAsserted) {\n            std::cout << \"[PENDSV HANDLER] Immediate switch to high-priority ParserTask!\\n\";\n            pendSvAsserted = false;\n            // High-priority task processes data\n            std::cout << \"  -> [PARSER TASK] Processed payload: 0x\" << std::hex << receivedPayload << \"\\n\";\n        }\n    }\n};\n\nint main() {\n    DeferredIsrPipeline pipeline;\n    // Hardware interrupt fires\n    pipeline.onHardwareUartIsr(0xAA);\n    // As ISR returns, PendSV executes context switch\n    pipeline.onPendSvContextSwitch();\n    return 0;\n}",
+      "output": "[HARDWARE UART ISR] Byte received: 0xaa\n  -> xQueueSendFromISR: Message queued safely without blocking\n  -> portYIELD_FROM_ISR(pdTRUE): PendSV bit set! Deferred switch armed.\n[PENDSV HANDLER] Immediate switch to high-priority ParserTask!\n  -> [PARSER TASK] Processed payload: 0xaa",
+      "codeNotes": [
+        {
+          "line": 18,
+          "note": "xQueueSendFromISR never blocks and sets higherPriorityTaskWoken if unblocking occurs"
+        },
+        {
+          "line": 23,
+          "note": "portYIELD_FROM_ISR arms PendSV to trigger immediate task switch on ISR exit"
+        },
+        {
+          "line": 31,
+          "note": "High-priority parser task executes immediately after ISR returns with zero latency"
+        }
+      ],
+      "tryIt": "Explain why calling a blocking xQueueSend() inside an ISR triggers a fatal kernel assertion.",
+      "check": {
+        "question": "What is the purpose of the portYIELD_FROM_ISR() macro inside an interrupt service routine?",
+        "options": [
+          "It triggers an immediate context switch to the unblocked task via PendSV if a higher-priority task was woken by the ISR",
+          "It pauses all hardware timers",
+          "It reboots the microcontroller",
+          "It disables the global interrupt controller"
+        ],
+        "answer": 0,
+        "why": "portYIELD_FROM_ISR requests a context switch if pxHigherPriorityTaskWoken is true, ensuring the newly unblocked task runs immediately as the ISR exits."
+      }
+    }
+  ],
+  "summary": [
+    "FreeRTOS queues enforce copy-by-value memory isolation, eliminating multi-threaded race conditions and dangling pointer bugs.",
+    "Queues of pointers provide zero-copy high-performance transport for large buffers (display, network) through strict ownership transfer.",
+    "Direct-to-Task Notifications embed an event value inside the TCB, executing up to 45% faster than semaphores with 0 bytes of dynamic RAM.",
+    "Event Groups evaluate 24-bit bitmasks with logical AND/OR matching, synchronizing multiple concurrent conditions and rendezvous barriers.",
+    "FromISR API functions never block, and portYIELD_FROM_ISR ensures newly unblocked high-priority tasks run the instant the hardware ISR returns."
+  ],
+  "projectStep": {
+    "title": "Construct an Event-Driven Multi-Sensor FreeRTOS Pipeline with Queue Backpressure",
+    "steps": [
+      "Implement a thread-safe copy-by-value FreeRTOS queue transferring structured telemetry packets.",
+      "Configure bounded timeout blocking on sender and receiver to implement automatic flow control backpressure.",
+      "Integrate Direct-to-Task notifications for lightweight task signaling with zero dynamic memory allocation.",
+      "Implement an Event Group rendezvous barrier synchronizing system startup across Wi-Fi, GPS, and sensors.",
+      "Construct an interrupt-safe deferred processing pipeline using xQueueSendFromISR and portYIELD_FROM_ISR."
+    ]
+  }
+}

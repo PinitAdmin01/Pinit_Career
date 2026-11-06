@@ -1,0 +1,66 @@
+<h1>Day 37: Method Overriding, @Override, Virtual Method Tables (vtable) & Dynamic Dispatch</h1>
+
+          <span class="stage-pill" style="background: #e0f2fe; color: #0369a1;">Stage 2: Defensive Fluency</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 8 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #0369a1; font-weight: 600;">Goal:</span> Master method overriding, the @Override annotation, and understand runtime dynamic method dispatch via vtables.<br>
+          <span style="color: #15803d; font-weight: 600;">Invariant:</span> When invoking an overridden method on a parent reference (Account acc = new SavingsAccount()), the JVM invokes the RUNTIME subtype version.
+        </div>
+        <div style="background: #fef2f2; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fecaca; color: #991b1b;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Misspelling an overridden method name without @Override accidentally creates a brand-new method, losing polymorphic behavior.<br>
+          <strong>tryIt Friction:</strong> Add the @Override annotation to catch a signature typo (withDraw vs withdraw) at compile time.
+        </div>
+      </div>
+
+      <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #1e40af;">💡 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #0369a1;">[1. Nudge: "Why did SavingsAccount call the parent withdraw() instead of its specialized overdraft-checking logic?"]</span> &rarr;
+        <span style="color: #b45309;">[2. Memory: "Check spelling: the child declared "withDraw" with a capital D. It overloaded instead of overriding!"]</span> &rarr;
+        <span style="color: #15803d;">[3. Fix: "Add @Override above the method. The compiler will immediately flag if it does not match a parent method."]</span>
+      </div>
+
+      <div style="background: #fdf4ff; border: 1px solid #f0abfc; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #86198f;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"Given: "Account acc = new SavingsAccount(); acc.applyMonthlyFee();". SavingsAccount overrides applyMonthlyFee(). The compiler looks at Account, finds the method, and compiles. At runtime, which method runs?"</em><br>
+        <strong>Correct:</strong> Option B) SavingsAccount.applyMonthlyFee() because Java uses runtime dynamic method dispatch based on actual heap object type. &bull;
+        <span style="color: #701a75;"><strong>Debrief:</strong> Java uses dynamic dispatch. The compiler verifies the method exists on the reference type (Account), but the runtime executes the method from the actual object in heap (SavingsAccount).</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 37 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d37-q1</span>
+      <strong>Virtual Method Table (vtable) Mechanics</strong> <em>(concept)</em>: <span style="color: #475569;">Inspect how the JVM uses vtable pointer offsets for O(1) dynamic dispatch.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d37-q2</span>
+      <strong>Detective Lab: The Silent Signature Typo</strong> <em>(detective)</em>: <span style="color: #475569;">Use @Override to expose and fix a method signature that failed to override.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d37-q3</span>
+      <strong>Mastery Assignment: Polymorphic Statement Generator</strong> <em>(assignment)</em>: <span style="color: #475569;">Iterate an array of Account references, calling polymorphic generateStatement() on each.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">java-m2-d37-q4</span>
+      <strong>Production Incident Lab: The Accidental Overload Outage</strong> <em>(detective)</em>: <span style="color: #475569;">Detect missing @Override annotations that broke payment fee calculation.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #2563eb; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">

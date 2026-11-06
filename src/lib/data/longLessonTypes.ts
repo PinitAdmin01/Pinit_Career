@@ -21,7 +21,8 @@ export interface LongLessonPart {
   part?: string | number;
   title: string;
   /** What the teacher says, one paragraph per entry. Shown on screen and spoken aloud. */
-  say: string[] | string;
+  say?: string[] | string;
+  content?: string[] | string;
   /** An everyday, non-computer example of the idea. */
   example?: string;
   /** Runnable code that prints its result: JavaScript (console.log) or, for Python courses, Python (print). */
@@ -38,7 +39,8 @@ export interface LongLessonPart {
    * Shown read-only: the in-lesson runner only runs plain JavaScript, not JSX.
    */
   projectCode?: { label: string; code: string };
-  check: LongLessonCheck;
+  check?: LongLessonCheck;
+  checks?: LongLessonCheck[];
 }
 
 export interface LongLesson {
@@ -62,7 +64,8 @@ export interface LongLesson {
   /** Key points to remember, shown at the end. */
   summary?: string[];
   /** Today's step of the month project. */
-  projectStep?: { title: string; steps: string[]; goal?: string; description?: string; deliverable?: string; [key: string]: any };
+  projectStep?: { title?: string; steps?: string[]; tasks?: string[]; goal?: string; description?: string; deliverable?: string; [key: string]: any };
+  assignment?: { title?: string; steps?: string[]; tasks?: string[]; goal?: string; description?: string; deliverable?: string; [key: string]: any };
   visualBinding?: {
     schemaVersion?: number;
     type?: string;
@@ -143,7 +146,13 @@ export function getLongLessonLanguage(prefix: string): LongLessonLanguage {
 /** Speaking time estimate, at a calm teaching pace of about 120 words a minute. */
 export function estimateSpokenMinutes(lesson: LongLesson): number {
   const words = lesson.parts
-    .flatMap((p) => [...(p.say || []), p.example ?? '', p.tryIt ?? '', p.check?.why || (p.check as any)?.explanation || ''])
+    .flatMap((p) => [
+      ...(p.say || []),
+      (p as any).content ?? '',
+      p.example ?? '',
+      p.tryIt ?? '',
+      p.check?.why || (p.check as any)?.explanation || ''
+    ])
     .join(' ')
     .split(/\s+/)
     .filter(Boolean).length;

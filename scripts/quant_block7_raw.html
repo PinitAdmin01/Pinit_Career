@@ -1,0 +1,332 @@
+g Systems Month 2 Day-by-Day Masterclass Specifications (Days 31&ndash;60 / 120 Quests)</h2>
+  </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #f59e0b;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #0f172a; color: #f59e0b; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 31</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Options Pricing & Black-Scholes-Merton in Low-Latency</strong>
+          <span class="stage-pill" style="background: #fef3c7; color: #92400e;">Stage 2: Advanced Quantitative Systems & Hardware Acceleration</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 7 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #b45309; font-weight: 600;">Goal:</span> Welcome to Month 2 of Quantitative Systems Engineering! In Month 1, we mastered cash equities and direct binary feeds. Now we step into the nonlinear mathematical world of derivative securities: Options. An option is not a linear asset; its payoff is a convex function of underlying spot price, strike, time to expiration, risk-free interest rate, and volatility. In this session, you will dissect the Black-Scholes-Merton (BSM) partial differential equation and its closed-form analytical solutions for European call and put options. But in an electronic market making desk, evaluating cumulative normal distributions via standard math libraries is too slow. You will implement fast polynomial approximations (such as Abramowitz and Stegun or Hart) and vector-parallelize them using SIMD instructions. Furthermore, market prices imply volatility; you cannot invert the Black-Scholes formula analytically. You will build high-frequency Implied Volatility (IV) solvers comparing bisection with Newton-Raphson and Halley's method, achieving sub-20 nanosecond convergence per contract with guardrails against vega vanishing near deep out-of-the-money boundaries!<br>
+          <span style="color: #047857; font-weight: 600;">Invariant:</span> <code>Derivatives Pricing Invariant: Market prices of options reflect supply and demand; Implied Volatility is the unique standard deviation parameter that equates theoretical Black-Scholes value to the observed market clearing price, requiring rapid iterative numerical root-finding with strict vega boundaries.</code>
+        </div>
+        <div style="background: #fffbeb; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fef3c7; color: #92400e;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Newton-Raphson IV solver encounters vanishing vega on deep out-of-the-money put options during an earnings announcement; the division by near-zero vega generates NaN/infinity floats, triggering an uncaught numerical exception that crashes the options quoting gateway across 4,000 contracts simultaneously.<br>
+          <strong>tryIt Friction:</strong> Construct a high-performance Black-Scholes pricer and Newton-Raphson IV solver in TypeScript: evaluate European calls and puts using fast cumulative normal distribution approximations; benchmark numerical accuracy against exact error functions; and implement fallback bisection safeguards when vega drops below 1e-7 to prevent division-by-zero crashes.
+        </div>
+      </div>
+
+      <div style="background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #065f46;">🪜 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #047857;">[1. Nudge: "Why can't we invert the Black-Scholes formula algebraically to calculate implied volatility directly from market prices?"]</span> &rarr;
+        <span style="color: #065f46;">[2. Memory: "The volatility parameter sigma appears inside both d1 and d2 inside the non-linear cumulative normal distribution integral N(d1), preventing algebraic isolation."]</span> &rarr;
+        <span style="color: #064e3b;">[3. Fix: "Therefore, we must use numerical root-finding (Newton-Raphson: sigma_new = sigma_old - (BS(sigma_old) - MarketPrice) / Vega), which requires guarding against zero vega."]</span>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #0f172a;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"During an extreme market selloff, your automated options market-making desk receives quote requests for a deep out-of-the-money index put (strike 3,000 with spot at 5,000, 3 days to expiration). Your Newton-Raphson implied volatility engine calculates Vega as 0.00000001 and attempts to adjust sigma. The quoting loop halts, and the risk monitor alerts that the pricing thread is spinning at 100% CPU. What went wrong?"</em><br>
+        <strong>Correct:</strong> Option B) Vanishing Vega Division Instability: When deep out-of-the-money options approach expiration, Vega approaches zero. Newton-Raphson divides by Vega, causing step sizes to explode toward infinity or cycle infinitely, locking the thread in an unbounded loop. &bull;
+        <span style="color: #b45309;"><strong>Debrief:</strong> Option B is correct. In deep OTM or near-expiry options, Vega approaches zero. In Newton-Raphson, dividing the pricing error by near-zero Vega causes explosive step sizes or numerical oscillation. Production options pricing systems must detect low Vega thresholds (< 1e-6) and switch to bounded bisection or Brent's method with hard iteration caps (e.g., maximum 12 iterations).</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 31 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q31.1</span>
+      <strong>Black-Scholes-Merton PDE & Polynomial Approximations</strong> <em>(Concept Quest)</em>: <span style="color: #475569;">Derive the BSM pricing equation and evaluate polynomial approximations for the cumulative normal distribution N(x) optimized for low-latency pipelines.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q31.2</span>
+      <strong>Vanishing Vega & Newton-Raphson Boundary Forensics</strong> <em>(Detective Challenge)</em>: <span style="color: #475569;">Diagnose numerical instability and infinite oscillation in options IV solvers under deep OTM and near-expiry edge cases.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q31.3</span>
+      <strong>Sub-Microsecond Black-Scholes & Robust IV Engine</strong> <em>(Mastery Assignment)</em>: <span style="color: #475569;">Build an options pricing engine in TypeScript featuring analytical call/put calculation and a guarded hybrid Newton-Raphson/bisection IV root solver.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q31.4</span>
+      <strong>Flash Volatility Spike & IV Engine Recovery Lab</strong> <em>(Production Incident Lab)</em>: <span style="color: #475569;">Deploy the pricing engine against a simulated 50-strike options chain experiencing a 40-point IV spike, ensuring zero NaN values and sub-50ns convergence.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #f59e0b;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #0f172a; color: #f59e0b; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 32</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Real-Time Options Greeks & Portfolio Risk</strong>
+          <span class="stage-pill" style="background: #fef3c7; color: #92400e;">Stage 2: Advanced Quantitative Systems & Hardware Acceleration</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 7 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #b45309; font-weight: 600;">Goal:</span> Having mastered option prices and implied volatility, you must now measure how option prices change relative to market variables: the Greeks. Options market makers do not guess whether stocks go up or down; they harvest bid-ask spreads while maintaining carefully controlled Greek exposures. Today, you will derive and compute the first-order Greeks: Delta (price sensitivity to spot), Vega (sensitivity to volatility), Theta (time decay per day), and Rho (interest rate sensitivity). Then you will venture into the hazardous nonlinear domain of second-order Greeks: Gamma (rate of change of Delta) and higher-order cross-Greeks: Vanna (sensitivity of Delta to volatility dDelta/dVol) and Volga (sensitivity of Vega to volatility dVega/dVol). You will design an aggregated portfolio Greek risk engine that updates the net dollar Delta, net Gamma profile, and aggregate Vega across 10,000 positions in under 100 microseconds whenever an underlying spot tick arrives!<br>
+          <span style="color: #047857; font-weight: 600;">Invariant:</span> <code>Greek Invariant: Portfolio risk in nonlinear derivatives is defined by multidimensional sensitivities; aggregate Delta measures directional bias, Gamma measures convex rebalancing acceleration, and Vega measures exposure to systemic volatility shocks.</code>
+        </div>
+        <div style="background: #fffbeb; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fef3c7; color: #92400e;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Aggregating individual position Deltas without recalculating spot-dependent Gamma shifts during a 3% intraday index drop; the portfolio was perceived as Delta-neutral, but massive negative Gamma caused net Delta to secretly swing to -$45M, triggering unexpected multi-million dollar liquidation losses.<br>
+          <strong>tryIt Friction:</strong> Build a real-time Portfolio Greeks Calculator in TypeScript: given an array of 500 option contracts (calls, puts, varying strikes and maturities) and live spot ticks, recompute position Delta, Gamma, Vega, Theta, Vanna, and Volga; aggregate total portfolio dollar Delta and Vega; and assert that Greek recalculations complete in under 200 microseconds.
+        </div>
+      </div>
+
+      <div style="background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #065f46;">🪜 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #047857;">[1. Nudge: "Why is a portfolio with zero net Delta still at severe directional risk if underlying spot moves significantly?"]</span> &rarr;
+        <span style="color: #065f46;">[2. Memory: "Because Delta changes as spot moves, governed by Gamma (dDelta/dSpot)."]</span> &rarr;
+        <span style="color: #064e3b;">[3. Fix: "If Gamma is large, a 2% move in spot will rapidly turn a Delta-neutral portfolio heavily long or short unless actively rebalanced."]</span>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #0f172a;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"An options market-making book holds 2,000 short near-the-money straddles. The risk manager reports net Delta is precisely 0.00. Suddenly, the underlying stock moves up by 2.5% in 3 minutes. The trading desk discovers that the portfolio Delta has unexpectedly surged to +$8,000,000 long, forcing emergency hedging at peak prices. What metric did the desk fail to monitor?"</em><br>
+        <strong>Correct:</strong> Option C) Portfolio Gamma Profile: Being short straddles confers massive short Gamma (negative Gamma). As spot rises, short call Delta becomes more negative and short put Delta approaches zero, but short gamma flips portfolio directional exposure violently away from neutrality as spot diverges. &bull;
+        <span style="color: #b45309;"><strong>Debrief:</strong> Option C is correct. When an options book is short Gamma (such as short straddles or short OTM wings), Delta changes against the trader as spot moves. Any deviation in spot from the strike rapidly expands directional exposure, requiring continuous dynamic hedging before the position blows through capital limits.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 32 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q32.1</span>
+      <strong>First, Second & Cross-Order Greeks Mathematical Derivation</strong> <em>(Concept Quest)</em>: <span style="color: #475569;">Derive analytical equations for Delta, Gamma, Vega, Theta, Rho, Vanna, and Volga from the Black-Scholes core formula.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q32.2</span>
+      <strong>Short Gamma Explosion & Delta Disconnect Forensics</strong> <em>(Detective Challenge)</em>: <span style="color: #475569;">Analyze trading logs of a short options book to trace how unmonitored negative Gamma caused catastrophic Delta leakage during a spot surge.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q32.3</span>
+      <strong>Real-Time Portfolio Greeks Aggregator Implementation</strong> <em>(Mastery Assignment)</em>: <span style="color: #475569;">Implement a high-performance Greeks aggregation engine in TypeScript recalculating multi-contract risk exposures under sub-millisecond spot updates.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q32.4</span>
+      <strong>Multi-Strike Spot Shock & Greek Hedging Stress Lab</strong> <em>(Production Incident Lab)</em>: <span style="color: #475569;">Simulate a 5% spot market gap and verify that the risk engine computes updated dollar Deltas and fires automated hedging signals within 500 microseconds.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #f59e0b;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #0f172a; color: #f59e0b; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 33</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Delta-Neutral Hedging & Portfolio Gamma Scalping</strong>
+          <span class="stage-pill" style="background: #fef3c7; color: #92400e;">Stage 2: Advanced Quantitative Systems & Hardware Acceleration</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 7 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #b45309; font-weight: 600;">Goal:</span> In theory, Black-Scholes assumes continuous costless Delta hedging: you trade infinitesimal shares of underlying stock at every instant to keep portfolio Delta exactly zero. In the real world, continuous hedging is impossible and bankrupting because every transaction incurs bid-ask spread costs, exchange taker fees, and market impact! Today, you will master the art and science of Delta-Neutral Hedging and Gamma Scalping. When you are long options (long Gamma), underlying spot fluctuations allow you to buy low and sell high on every swing, harvesting volatility into cash. However, each hedge incurs transaction cost drag. You will implement dynamic hedging bands using the Whalley-Wilmott asymptotic framework: calculating optimal hedging boundaries where the cost of being unhedged (Gamma risk variance) equals the transaction cost of rebalancing. You will simulate discrete rebalancing intervals and quantify the tradeoff between hedging frequency, slippage drag, and portfolio tracking error!<br>
+          <span style="color: #047857; font-weight: 600;">Invariant:</span> <code>Hedging Invariant: Continuous Delta hedging is economically unviable due to transaction costs; optimal discrete hedging defines threshold bands where rebalancing occurs only when spot drift exceeds the marginal cost of execution.</code>
+        </div>
+        <div style="background: #fffbeb; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fef3c7; color: #92400e;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Executing rigid tick-by-tick Delta rebalancing without deadbands; the hedging algorithm executes 45,000 tiny equity market orders throughout the day, spending $180,000 in taker fees and spread crossing to hedge $12,000 of theoretical Gamma variance.<br>
+          <strong>tryIt Friction:</strong> Construct a Dynamic Delta Hedging Simulator in TypeScript: simulate a long-straddle portfolio over 10,000 spot price paths generated via Geometric Brownian Motion; evaluate continuous vs threshold band rebalancing (Whalley-Wilmott); and compute net realized PnL after factoring in bid-ask spread and transaction cost friction.
+        </div>
+      </div>
+
+      <div style="background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #065f46;">🪜 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #047857;">[1. Nudge: "What happens to realized profits if a market maker hedges Delta after every single micro-tick in the underlying stock?"]</span> &rarr;
+        <span style="color: #065f46;">[2. Memory: "Transaction costs (spreads, fees, impact) rapidly accumulate and exceed the option's theoretical value, resulting in massive trading losses."]</span> &rarr;
+        <span style="color: #064e3b;">[3. Fix: "Optimal hedging requires deadbands: allow Delta to drift within a bounded range [-Delta_threshold, +Delta_threshold] and only rebalance when boundaries are breached."]</span>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #0f172a;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"A trading desk deploys a long Gamma options strategy designed to profit from anticipated high volatility. Throughout the day, the stock oscillates wildly between $150 and $155. At the market close, the trader expects large profits from Gamma scalping. However, the realized PnL is negative -$42,000! The audit shows 38,000 hedge executions were fired. What was the architectural design flaw?"</em><br>
+        <strong>Correct:</strong> Option B) Over-Hedging & Transaction Cost Cannibalization: The algorithm had a near-zero Delta rebalancing threshold. Every minor tick fluctuation triggered an aggressive market order hedge, crossing the bid-ask spread 38,000 times and transferring all Gamma profits to liquidity providers. &bull;
+        <span style="color: #b45309;"><strong>Debrief:</strong> Option B is correct. Without rebalancing deadbands (hedging bandwidths), a high-frequency Delta hedging engine over-trades, crossing the spread on every micro-noise oscillation. Optimal Gamma scalping requires waiting for spot price moves large enough to overcome the round-trip transaction cost of executing the hedge.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 33 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q33.1</span>
+      <strong>Continuous vs Discrete Delta Hedging & Whalley-Wilmott Bands</strong> <em>(Concept Quest)</em>: <span style="color: #475569;">Analyze theoretical continuous hedging assumptions against discrete rebalancing friction and the Whalley-Wilmott transaction cost framework.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q33.2</span>
+      <strong>Over-Hedging Fee Cannibalization Audit & Log Analysis</strong> <em>(Detective Challenge)</em>: <span style="color: #475569;">Inspect high-frequency order logs to identify churn where excessive rebalancing triggers net losses despite positive Gamma payoff.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q33.3</span>
+      <strong>Dynamic Threshold Delta Hedger Implementation</strong> <em>(Mastery Assignment)</em>: <span style="color: #475569;">Build an automated Delta-neutral rebalancer in TypeScript with configurable volatility deadbands and automated market order sizing.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q33.4</span>
+      <strong>Simulated Gamma Scalp Volatility Run Lab</strong> <em>(Production Incident Lab)</em>: <span style="color: #475569;">Run the hedger through a high-volatility 10,000-tick synthetic market path and demonstrate positive net PnL after deducting exchange transaction costs.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #f59e0b;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #0f172a; color: #f59e0b; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 34</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Volatility Surfaces, Smiles & SABR Model Calibration</strong>
+          <span class="stage-pill" style="background: #fef3c7; color: #92400e;">Stage 2: Advanced Quantitative Systems & Hardware Acceleration</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 7 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #b45309; font-weight: 600;">Goal:</span> In the classical Black-Scholes world, volatility is assumed to be a constant number across all strikes and expirations. In real financial markets, this assumption was shattered during the 1987 crash! In modern markets, deep out-of-the-money puts trade at significantly higher implied volatilities than at-the-money calls, producing the famous 'Volatility Smile' or 'Volatility Skew'. The full matrix across strikes and tenors forms the two-dimensional Volatility Surface. Today, you will calibrate parametric stochastic volatility models: specifically the SABR (Stochastic Alpha Beta Rho) model developed by Hagan et al. You will understand how the four SABR parameters—Alpha (initial volatility), Beta (elasticity/backbone), Rho (correlation between asset price and volatility), and Nu (volatility of volatility)—shape skew and smile curvature. You will implement fast calibration routines and cubic spline strike interpolations, ensuring arbitrage-free surfaces that prevent calendar spread and butterfly spread arbitrage opportunities!<br>
+          <span style="color: #047857; font-weight: 600;">Invariant:</span> <code>Volatility Surface Invariant: A valid market-implied volatility surface must be arbitrage-free; call prices must be strictly convex with respect to strike (butterfly arbitrage) and non-decreasing with respect to time to expiration (calendar arbitrage).</code>
+        </div>
+        <div style="background: #fffbeb; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fef3c7; color: #92400e;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Calibrating a spline interpolation across sparse option strikes that violates convexity; negative butterfly spread conditions emerge, enabling external HFT algorithms to systematically extract risk-free arbitrage from the quoting desk's quotes.<br>
+          <strong>tryIt Friction:</strong> Construct a Volatility Surface Engine in TypeScript: implement Hagan's analytical SABR formula; calibrate Alpha, Rho, and Nu against market implied volatilities across 5 tenors; and verify that the interpolated surface satisfies butterfly arbitrage bounds (d^2 C / dK^2 >= 0) across all strikes.
+        </div>
+      </div>
+
+      <div style="background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #065f46;">🪜 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #047857;">[1. Nudge: "What is the physical economic meaning of negative Rho in the SABR model for equity index options?"]</span> &rarr;
+        <span style="color: #065f46;">[2. Memory: "Negative Rho means that when the underlying asset price drops, volatility rises (the leverage/panic effect)."]</span> &rarr;
+        <span style="color: #064e3b;">[3. Fix: "This negative correlation produces the steep downward-sloping volatility skew characteristic of equity markets."]</span>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #0f172a;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"Your options market-making engine uses a raw natural cubic spline to interpolate implied volatilities between illiquid strikes. An external algorithmic trader buys the $100 call, buys the $110 call, and sells two $105 calls, realizing an instant guaranteed credit with zero downside risk. The desk head halts trading. What mathematical violation occurred?"</em><br>
+        <strong>Correct:</strong> Option B) Butterfly Arbitrage Violation: The cubic spline generated a localized concavity where d^2C/dK^2 was negative. In options theory, this corresponds to negative implied state price probabilities, creating a risk-free butterfly arbitrage opportunity that the competitor exploited. &bull;
+        <span style="color: #b45309;"><strong>Debrief:</strong> Option B is correct. For an options surface to be arbitrage-free, call prices must be convex functions of strike (second derivative d^2C/dK^2 >= 0), representing valid positive probability densities. Unconstrained cubic splines often oscillate and create negative second derivatives (butterfly arbitrage), which sophisticated counterparties immediately scalp.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 34 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q34.1</span>
+      <strong>Volatility Skew Economics & SABR Analytical Formulation</strong> <em>(Concept Quest)</em>: <span style="color: #475569;">Analyze the empirical failure of constant volatility and derive Hagan's SABR approximation for implied volatility smiles.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q34.2</span>
+      <strong>Butterfly & Calendar Spread Arbitrage Forensics</strong> <em>(Detective Challenge)</em>: <span style="color: #475569;">Identify arbitrage leaks in ill-conditioned volatility surfaces by testing for negative butterfly spreads and calendar inversions.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q34.3</span>
+      <strong>SABR Model Calibrator & Arbitrage-Free Surface Engine</strong> <em>(Mastery Assignment)</em>: <span style="color: #475569;">Build a volatility surface calibration and interpolation engine in TypeScript enforcing strict non-negative probability density constraints.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q34.4</span>
+      <strong>Live Volatility Surface Fitting & Strike Ingestion Lab</strong> <em>(Production Incident Lab)</em>: <span style="color: #475569;">Fit the SABR model to live options market quotes across 30 strikes, ensuring sub-5 millisecond calibration and zero arbitrage violations.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #f59e0b;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #0f172a; color: #f59e0b; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 35</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Milestone Project 6: High-Frequency Options Market Making & Real-Time Greeks Engine</strong>
+          <span class="stage-pill" style="background: #fef3c7; color: #92400e;">Stage 2: Advanced Quantitative Systems & Hardware Acceleration</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 7 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #b45309; font-weight: 600;">Goal:</span> Congratulations on completing Block 7! Today is Milestone Project 6: you will architect, implement, and benchmark an integrated, enterprise-grade High-Frequency Options Market Making and Real-Time Greeks Engine. Your system will ingest streaming underlying spot ticks and options quote updates, maintain an arbitrage-free SABR volatility surface across multiple expiration tenors, continuously compute full first- and second-order portfolio Greeks (Delta, Gamma, Vega, Theta, Vanna, Volga), dynamically calculate inventory-skewed two-sided bid/ask quotes for 50 simultaneous options contracts, and execute automated Delta hedging within calibrated Whalley-Wilmott deadbands. Every calculation must execute under strict low-latency budgets with zero NaN errors, zero negative butterfly spreads, and complete audit logging of Greek risk metrics!<br>
+          <span style="color: #047857; font-weight: 600;">Invariant:</span> <code>Options Market Making Invariant: An options quoting engine must dynamically couple volatility surface valuation, real-time Greek risk limits, and inventory skewing, maintaining Delta neutrality while harvesting the bid-ask spread across all quoted strikes.</code>
+        </div>
+        <div style="background: #fffbeb; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fef3c7; color: #92400e;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Quoting options during an underlying earnings release while the volatility surface calibrator hangs on a non-converging SABR optimization; stale quotes remain on the exchange book, where informed counterparties instantly pick them off for a $350,000 adverse selection hit.<br>
+          <strong>tryIt Friction:</strong> Construct the Milestone 6 Options Engine in TypeScript: combine BSM pricing, fast Newton-Raphson IV, SABR surface interpolation, real-time portfolio Greek aggregation, and two-sided quote generation with inventory skewing; run a 1,000-tick end-to-end simulation asserting zero stale quotes and strict sub-500 microsecond loop execution.
+        </div>
+      </div>
+
+      <div style="background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #065f46;">🪜 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #047857;">[1. Nudge: "What are the three core subsystems required in an options market making engine?"]</span> &rarr;
+        <span style="color: #065f46;">[2. Memory: "1. Market Data & Volatility Surface Model (SABR calibration, IV recalculation)."]</span> &rarr;
+        <span style="color: #064e3b;">[3. Fix: "2. Pricing & Risk Engine (BSM pricing, Greeks aggregation, inventory limits)."]</span>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #0f172a;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"Your Milestone 6 Options Engine is quoting 20 call options. The underlying spot jumps by $4 in 100 milliseconds. The engine successfully shifts its quotes, but the automated hedging module sends an order to sell 50,000 shares of stock when portfolio Delta was only +500 shares! The pre-trade risk filter blocks the order and halts the engine. What caused the hedging sizing calculation error?"</em><br>
+        <strong>Correct:</strong> Option B) Multiplier Miscalculation: The hedging module calculated raw contract Delta without multiplying by the contract multiplier (100 shares per contract), or confused shares with contracts, resulting in a 100x oversized hedging order that tripped the SEC 15c3-5 risk gate. &bull;
+        <span style="color: #b45309;"><strong>Debrief:</strong> Option B is correct. In equity options, each contract typically controls 100 shares. A common and catastrophic bug in options execution systems is confusing option contract quantities with underlying share quantities, leading to a 100x hedging overshoot. Strict type-safe unit wrappers (e.g., ContractQuantity vs ShareQuantity) are critical architectural defenses.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 35 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q35.1</span>
+      <strong>Options Market Maker System Architecture Blueprint</strong> <em>(Concept Quest)</em>: <span style="color: #475569;">Design the end-to-end architectural dataflow connecting spot feed ingestion, SABR surface calibration, Greeks calculation, and order generation.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q35.2</span>
+      <strong>Contract Multiplier & Stale Quote Adverse Selection Forensics</strong> <em>(Detective Challenge)</em>: <span style="color: #475569;">Investigate real trading logs where stale option quotes and unit multiplier confusion caused massive financial leakage.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q35.3</span>
+      <strong>Milestone 6 Engine Implementation: Options Quoting Platform</strong> <em>(Mastery Assignment)</em>: <span style="color: #475569;">Build the complete Milestone 6 platform in TypeScript integrating BSM pricing, SABR surfaces, real-time Greeks, and automated Delta hedging.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #fef3c7; color: #92400e; padding: 1px 3px; border-radius: 2px;">Q35.4</span>
+      <strong>Milestone 6 Live Multi-Strike Quoting Verification Lab</strong> <em>(Production Incident Lab)</em>: <span style="color: #475569;">Subject the Milestone 6 engine to a 2,000-event multi-strike stress run with spot gaps and volatility spikes, proving profitability and strict risk limits.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #f59e0b;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #0f172a; color: #f59e0b; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">

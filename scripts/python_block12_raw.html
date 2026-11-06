@@ -1,0 +1,423 @@
+, telemetry is flushed to disk, and shutdown completes with zero errors.
+        </div>
+      </div>
+
+      <div style="background: #f0fdf4; border: 1px solid #dcfce7; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #166534;">🪜 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #15803d;">[1. Nudge: "In your telemetry suite, how do you guarantee that traces are not lost when a worker process terminates?"]</span> &rarr;
+        <span style="color: #166534;">[2. Memory: "Implement a graceful shutdown hook that calls tracer_provider.shutdown() or tracer.force_flush()."]</span> &rarr;
+        <span style="color: #14532d;">[3. Fix: "This forces the OpenTelemetry batch span processor to flush all in-memory spans across the network before process exit."]</span>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #0f172a;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"During the Milestone 10 evaluation, the senior SRE examiner injects a network latency spike into your microservice cluster while simultaneously triggering a pod termination. Your telemetry suite successfully correlates the latency spike across OpenTelemetry spans, records the p99 breach in Prometheus RED histograms, logs the root cause with Correlation IDs, and drains all active requests before terminating. What architectural design choice was most critical to passing this evaluation?"</em><br>
+        <strong>Correct:</strong> Option B) Unified Observability Pipeline with Graceful Flush: The seamless integration of contextvars for propagating Trace and Correlation IDs across both logs and traces, coupled with a coordinated SIGTERM draining handler that flushes all telemetry buffers to the collector before process death, ensuring zero observability blind spots during transitions. &bull;
+        <span style="color: #0369a1;"><strong>Debrief:</strong> Option B is correct. High-reliability systems achieve observability through unified context: when Trace IDs, Correlation IDs, and metrics share the same execution context, operators can instantly jump from an alert in Prometheus to a trace in Jaeger and view corresponding structured logs in Datadog. Flushing buffers on graceful shutdown guarantees zero lost telemetry during rollouts.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 55 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q55.1</span>
+      <strong>Milestone 10 Architecture Specification & SRE Contracts</strong> <em>(Concept Quest)</em>: <span style="color: #475569;">Specify component contracts and telemetry standards for OTelTracer, PrometheusMetrics, StructLogger, and ProbeManager.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q55.2</span>
+      <strong>Rolling Update Telemetry Flush & Drain Stress Testing</strong> <em>(Detective Challenge)</em>: <span style="color: #475569;">Construct automated stress tests verifying that 100% of in-flight spans and metrics are flushed during pod termination.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q55.3</span>
+      <strong>Production Observability & SRE Telemetry Suite Implementation</strong> <em>(Mastery Assignment)</em>: <span style="color: #475569;">Implement the complete Milestone 10 engine in TypeScript with distributed tracing, RED metrics, JSON logging, and probes.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q55.4</span>
+      <strong>Milestone 10 Production Defense & Verification Gate</strong> <em>(Production Incident Lab)</em>: <span style="color: #475569;">Execute a full verification suite proving zero lost requests, zero PII leaks, and 100% telemetry completeness during deployments.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #0284c7;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #0284c7; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 56</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Industrial Case Study 1: High-Frequency Fintech Transactional Ledger</strong>
+          <span class="stage-pill" style="background: #e0f2fe; color: #0369a1;">Stage 12: Industrial Case Studies & Master Capstone</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 12 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #0284c7; font-weight: 600;">Goal:</span> We enter the final block of Course 20: Real-World Industrial Case Studies. Today, we architect a mission-critical financial backend: a High-Frequency Fintech Transactional Ledger. In fintech, you cannot use floating-point numbers; binary floating-point representation (IEEE 754) introduces precision errors (0.1 + 0.2 = 0.30000000000000004), which can lead to millions of dollars in accounting discrepancies! We use Python's 'decimal.Decimal' with strict integer cent representation. Furthermore, financial ledgers must follow Double-Entry Bookkeeping: money is never created or destroyed; every transaction consists of balanced Debit and Credit entries where SUM(Debits) == SUM(Credits). Master PostgreSQL Serializable Isolation levels, strict idempotency keys with unique database constraints, and optimistic locking with version numbers to eliminate race conditions!<br>
+          <span style="color: #0369a1; font-weight: 600;">Invariant:</span> <code>Fintech Ledger Invariant: Financial values must use exact-precision Decimal math; every transaction must enforce double-entry balance (Debit == Credit) under strict PostgreSQL Serializable isolation with atomic idempotency keys.</code>
+        </div>
+        <div style="background: #fffbeb; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fef3c7; color: #92400e;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Using floating-point numbers in a currency exchange calculation; compounding precision errors over 10 million transactions create a $42,000 discrepancy between ledger entries and actual bank account balances.<br>
+          <strong>tryIt Friction:</strong> Implement an Immutable Double-Entry Ledger Engine in TypeScript: model Accounts and JournalEntries; enforce Decimal arithmetic; validate that every transaction has balanced debits and credits; implement atomic idempotency key validation; simulate concurrent transfer attempts on the same account; verify serializable isolation and zero double-spends.
+        </div>
+      </div>
+
+      <div style="background: #f0fdf4; border: 1px solid #dcfce7; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #166534;">🪜 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #15803d;">[1. Nudge: "Why must financial applications NEVER use float or double data types?"]</span> &rarr;
+        <span style="color: #166534;">[2. Memory: "Binary floating point cannot represent decimal base-10 fractions (like 0.1) exactly."]</span> &rarr;
+        <span style="color: #14532d;">[3. Fix: "Rounding errors accumulate over millions of transactions, leading to unbalanced ledgers and regulatory fines."]</span>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #0f172a;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"A digital banking app processes peer-to-peer money transfers. User A has $100. User A rapidly clicks 'Send $100' twice within 5 milliseconds. The mobile app sends two concurrent HTTP requests to the backend. In naive code using 'SELECT balance ... UPDATE balance', both requests read balance=$100, both succeed, and User A sends $200 from a $100 balance! How must the backend architect eliminate this race condition?"</em><br>
+        <strong>Correct:</strong> Option B) PostgreSQL 'SELECT ... FOR UPDATE' or Serializable Isolation with Idempotency Keys: Enforce row-level pessimistic locking via 'SELECT balance FROM accounts WHERE id = A FOR UPDATE' inside an atomic transaction, or use Serializable isolation with unique transaction idempotency keys. The second concurrent transaction is blocked until the first commits, sees the new balance ($0), and is rejected. &bull;
+        <span style="color: #0369a1;"><strong>Debrief:</strong> Option B is correct. UI-level disabling is insufficient because attackers can bypass the UI and send raw API requests. To prevent race conditions in financial operations, the database must enforce row-level locks ('SELECT FOR UPDATE') or serializable transactions paired with unique idempotency keys, ensuring that concurrent transfers are executed serially.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 56 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q56.1</span>
+      <strong>Double-Entry Accounting Mechanics & Decimal Precision Physics</strong> <em>(Concept Quest)</em>: <span style="color: #475569;">Trace immutable ledger schemas (Chart of Accounts, Journal Entries, Postings) and IEEE 754 precision failures.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q56.2</span>
+      <strong>Concurrent Double-Spend Race Condition Forensics</strong> <em>(Detective Challenge)</em>: <span style="color: #475569;">Simulate concurrent transfer requests against an un-locked account to reproduce and measure double-spending exploits.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q56.3</span>
+      <strong>Immutable Double-Entry Ledger Engine Implementation</strong> <em>(Mastery Assignment)</em>: <span style="color: #475569;">Implement a financial ledger in TypeScript with exact Decimal math, debit-credit balance validation, and row locking.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q56.4</span>
+      <strong>High-Frequency Peer-to-Peer Transfer Hardening</strong> <em>(Production Incident Lab)</em>: <span style="color: #475569;">Harden a banking transfer API under 5,000 concurrent transfer requests, proving zero overdrafts and 100% ledger balance.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #0284c7;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #0284c7; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 57</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Industrial Case Study 2: Real-Time Collaborative Streaming Engine</strong>
+          <span class="stage-pill" style="background: #e0f2fe; color: #0369a1;">Stage 12: Industrial Case Studies & Master Capstone</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 12 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #0284c7; font-weight: 600;">Goal:</span> How do platforms like Figma, Google Docs, or Slack synchronize live updates across hundreds of thousands of users in real time? Today, we architect a Real-Time Collaborative Streaming Engine. When an application scales across 20 Kubernetes pods, a user connected to Pod A cannot simply send a message directly to a user connected to Pod B; pods have isolated memory! We solve this by pairing WebSocket gateways with Redis Pub/Sub. When a user edits a document, Pod A publishes the mutation to a Redis channel ('doc:42'). All 20 pods subscribe to the channel, receive the event, and fan out the update to their locally connected WebSocket clients. Master distributed presence tracking (heartbeat leases with Redis TTL), conflict-free replication principles, and message batching to handle 100,000 concurrent collaborative connections with sub-20ms latency!<br>
+          <span style="color: #0369a1; font-weight: 600;">Invariant:</span> <code>Collaborative Streaming Invariant: Horizontal scaling of real-time WebSocket connections requires a distributed Pub/Sub message bus (Redis Pub/Sub) to bridge isolated pod memory spaces and coordinate global fan-out.</code>
+        </div>
+        <div style="background: #fffbeb; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fef3c7; color: #92400e;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Broadcasting raw mouse cursor coordinates over Redis Pub/Sub without throttling; 50 users moving mice simultaneously generate 3,000 Redis messages per second per room, saturating the Redis network interface and collapsing the entire real-time cluster.<br>
+          <strong>tryIt Friction:</strong> Construct a Distributed WebSocket Fan-Out Hub in TypeScript: model 3 server nodes connected to a simulated Redis Pub/Sub broker; manage 500 concurrent client WebSockets; implement room subscriptions ('room:101'); broadcast room events; verify that an event published on Node 1 is delivered to clients connected to Nodes 2 and 3 within 15ms.
+        </div>
+      </div>
+
+      <div style="background: #f0fdf4; border: 1px solid #dcfce7; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #166534;">🪜 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #15803d;">[1. Nudge: "Why can't you simply store WebSocket connections in a global database table?"]</span> &rarr;
+        <span style="color: #166534;">[2. Memory: "A WebSocket connection is an active, open TCP socket descriptor held in a specific operating system process's memory."]</span> &rarr;
+        <span style="color: #14532d;">[3. Fix: "You cannot serialize a live socket across processes; you must route messages to the specific process holding the connection via Pub/Sub."]</span>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #0f172a;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"A collaborative whiteboarding platform scales to 100,000 active users. During peak hours, Redis CPU pegs at 100%, and WebSocket messages experience a 4-second delivery lag. Profiling shows that 80% of messages are individual cursor movement events being broadcast 60 times per second per user. How should the principal architect optimize this fan-out?"</em><br>
+        <strong>Correct:</strong> Option B) Client-Side Throttling and Server-Side Message Batching: Throttle cursor broadcasts on the client to 15-20Hz, and buffer cursor updates on the server into 50ms batch frames before publishing to Redis Pub/Sub. This slashes message publication frequency by 80%, reducing Redis CPU from 100% to 18% while maintaining smooth visual responsiveness. &bull;
+        <span style="color: #0369a1;"><strong>Debrief:</strong> Option B is correct. High-frequency streaming events (like cursor movements or audio levels) overwhelm message brokers if published on every single event. Throttling frequency to human visual perception thresholds (15-20Hz) and batching updates into time-windowed frames reduces message overhead by up to 80% with zero perceptible loss in collaboration quality.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 57 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q57.1</span>
+      <strong>WebSocket Gateway Scaling & Redis Pub/Sub Fan-Out Topology</strong> <em>(Concept Quest)</em>: <span style="color: #475569;">Analyze distributed WebSocket clustering, room routing tables, and Redis Pub/Sub subscriber socket mechanics.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q57.2</span>
+      <strong>Pub/Sub Message Explosion & Redis CPU Saturation Forensics</strong> <em>(Detective Challenge)</em>: <span style="color: #475569;">Analyze Redis network throughput and latency graphs during un-throttled real-time collaborative broadcasting.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q57.3</span>
+      <strong>Real-Time Collaborative Fan-Out Engine Implementation</strong> <em>(Mastery Assignment)</em>: <span style="color: #475569;">Implement a distributed collaborative streaming hub in TypeScript with Redis Pub/Sub routing and frame batching.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q57.4</span>
+      <strong>Large-Scale Whiteboard Streaming Latency Optimization</strong> <em>(Production Incident Lab)</em>: <span style="color: #475569;">Remediate a 4-second broadcast delay in a 100k-user collaborative app by implementing cursor throttling and batch frames.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #0284c7;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #0284c7; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 58</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Industrial Case Study 3: Global E-Commerce Flash Sale Architecture</strong>
+          <span class="stage-pill" style="background: #e0f2fe; color: #0369a1;">Stage 12: Industrial Case Studies & Master Capstone</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 12 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #0284c7; font-weight: 600;">Goal:</span> Picture this: A flash sale launches at 12:00:00 PM. You have 1,000 units of an exclusive smartphone. Exactly at noon, 500,000 users click 'Buy Now' at the exact same second. That is 500,000 requests hitting your backend simultaneously! If those requests query your PostgreSQL database, the database dies in 100 milliseconds. If your inventory check is not atomic, you will oversell 10,000 phones that you do not have in stock! Today, we architect a Global Flash Sale Engine. First: Inventory is cached in Redis and decremented using an atomic Lua script: if redis.call('get', key) >= qty then return redis.call('decrby', key, qty) else return -1 end. Redis executes this in single-threaded memory at 100k ops/sec! Second: Successful reservations push a token to an asynchronous Kafka/Celery checkout queue. The database is never touched during the flash peak; workers drain the queue at a steady, controlled rate!<br>
+          <span style="color: #0369a1; font-weight: 600;">Invariant:</span> <code>Flash Sale Invariant: Extreme peak traffic must be decoupled from persistent databases; inventory reservations must be performed atomically in in-memory caches (Redis Lua), while order persistence is drained asynchronously via buffered queues.</code>
+        </div>
+        <div style="background: #fffbeb; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fef3c7; color: #92400e;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Allowing 500,000 concurrent requests to execute 'UPDATE inventory SET count = count - 1' directly on the relational database; row locks freeze the database, transactions time out, and the entire e-commerce store crashes.<br>
+          <strong>tryIt Friction:</strong> Implement an Atomic Flash Sale Inventory Engine in TypeScript: initialize product inventory to 100 units; simulate 5,000 concurrent user purchase requests hitting the service simultaneously; execute atomic inventory decrements via simulated Redis Lua scripts; verify that EXACTLY 100 orders are approved, 4,900 are rejected with 'Sold Out', and zero overselling occurs.
+        </div>
+      </div>
+
+      <div style="background: #f0fdf4; border: 1px solid #dcfce7; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #166534;">🪜 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #15803d;">[1. Nudge: "Why must Redis inventory decrements be executed via Lua scripts rather than separate GET and DECR commands?"]</span> &rarr;
+        <span style="color: #166534;">[2. Memory: "Between a separate GET and DECR, another request can decrement the inventory, creating a race condition."]</span> &rarr;
+        <span style="color: #14532d;">[3. Fix: "Redis executes Lua scripts as a single atomic transaction; no other command can run while the script executes."]</span>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #0f172a;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"A sneaker marketplace runs a limited-edition drop with 500 pairs of shoes. Under a surge of 200,000 requests, the backend accepts and charges 1,842 orders! Customer support is overwhelmed issuing 1,342 refunds. Investigation shows the code ran: 'count = await redis.get(key); if count > 0: await redis.decr(key); charge_card()'. Why did the service oversell by 1,342 shoes?"</em><br>
+        <strong>Correct:</strong> Option B) Non-Atomic Time-of-Check to Time-of-Use (TOCTOU) Race Condition: Between the 'get()' check and the 'decr()' operation, thousands of concurrent requests read the positive count and proceeded to decrement and charge. The check and decrement must be executed atomically inside a single Redis Lua script or using atomic DECRBY with post-decrement bounds checking. &bull;
+        <span style="color: #0369a1;"><strong>Debrief:</strong> Option B is correct. Separating the check (GET) from the mutation (DECR) creates a classic TOCTOU race condition. In a high-concurrency surge, thousands of requests execute the check simultaneously while the inventory is still positive. To guarantee atomicity, the check and decrement must be combined into an atomic Lua script.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 58 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q58.1</span>
+      <strong>Flash Sale Thundering Herd Physics & Queue Draining Architecture</strong> <em>(Concept Quest)</em>: <span style="color: #475569;">Analyze peak traffic decoupling, Redis atomic memory operations, and asynchronous database draining topologies.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q58.2</span>
+      <strong>TOCTOU Inventory Overselling Race Condition Forensics</strong> <em>(Detective Challenge)</em>: <span style="color: #475569;">Simulate concurrent purchases on a split GET/DECR inventory endpoint to observe and measure overselling rates.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q58.3</span>
+      <strong>Atomic Redis Lua Flash Sale Inventory Engine Implementation</strong> <em>(Mastery Assignment)</em>: <span style="color: #475569;">Implement a flash sale reservation engine in TypeScript with atomic Lua decrements, reservation tokens, and queue draining.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q58.4</span>
+      <strong>Planetary-Scale Flash Sale Thundering Herd Hardening</strong> <em>(Production Incident Lab)</em>: <span style="color: #475569;">Harden an e-commerce platform against a 500k-user flash sale surge, guaranteeing zero overselling and sub-10ms response times.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #0284c7;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #0284c7; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 59</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Principal Python Backend Architect RFC & System Design Defense</strong>
+          <span class="stage-pill" style="background: #e0f2fe; color: #0369a1;">Stage 12: Industrial Case Studies & Master Capstone</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 12 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #0284c7; font-weight: 600;">Goal:</span> As a Principal Engineer, writing code is only 20% of your job. The other 80% is System Design, Capacity Planning, and Architectural Governance. Today, you author a comprehensive Request for Comments (RFC) for a planetary-scale Python backend platform. Your RFC must define: Executive Summary, System Architecture Diagram, Capacity Planning & Traffic Modeling (estimating RPS, bandwidth, memory, and database IOPS), API & Event Schema Contracts, Resilience & Failure Domain Analysis, Data Consistency & Caching Strategies, and Observability & SLO Budgets. You will present and defend your RFC before an executive architectural review board, fielding adversarial questions on cost optimization, multi-region failover, and operational failure modes.<br>
+          <span style="color: #0369a1; font-weight: 600;">Invariant:</span> <code>Architectural RFC Invariant: Enterprise systems architecture must be formally documented via an RFC establishing concrete capacity models, strict latency budgets, defined failure domains, and measurable Service Level Objectives (SLOs).</code>
+        </div>
+        <div style="background: #fffbeb; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fef3c7; color: #92400e;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Architecting a multi-region distributed system without modeling cross-region network latency; synchronous cross-region database writes add 180ms to every transaction, violating the company's 50ms p99 SLA and resulting in enterprise contract cancellation.<br>
+          <strong>tryIt Friction:</strong> Construct a Capacity Planning & Latency Budget Engine in TypeScript: input traffic parameters (100,000 RPS peak, 2KB payload, 5 DB queries per request); compute required server instances, database IOPS, network egress bandwidth, and Redis memory sizing; calculate end-to-end p99 latency budget across network, gateway, auth, and database hops.
+        </div>
+      </div>
+
+      <div style="background: #f0fdf4; border: 1px solid #dcfce7; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #166534;">🪜 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #15803d;">[1. Nudge: "What is the single most critical section of an engineering RFC for executive buy-in?"]</span> &rarr;
+        <span style="color: #166534;">[2. Memory: "The Failure Domain and Risk Analysis section."]</span> &rarr;
+        <span style="color: #14532d;">[3. Fix: "Executives and architects want to know exactly how the system behaves when dependencies fail and how data loss is prevented."]</span>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #0f172a;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"You are presenting an RFC for a global microservice platform. An executive asks: 'Why are we using Python for our backend microservices instead of rewriting everything in Go or Rust?' How does an elite Principal Python Architect defend this decision with technical and business rigor?"</em><br>
+        <strong>Correct:</strong> Option B) Developer Velocity with C/Rust Accelerated Core: Modern Python backends achieve near-compiled performance by offloading CPU-intensive workloads to Rust/C engines (pydantic-core, uvloop, orjson, asyncpg) while preserving Python's unmatched developer productivity, rapid feature delivery, and rich ecosystem. Rewriting in Go/Rust would cost millions in development delay with marginal I/O benefits. &bull;
+        <span style="color: #0369a1;"><strong>Debrief:</strong> Option B is correct. A principal architect balances raw computational speed with business velocity. Modern Python backend architectures combine Python's expressive syntax and vast ecosystem with high-performance C and Rust extensions (uvloop, pydantic-core, orjson) that handle serialization and I/O at native wire speed, providing the optimal balance of throughput and rapid delivery.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 59 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q59.1</span>
+      <strong>Principal Architect RFC Formalization & Capacity Planning Models</strong> <em>(Concept Quest)</em>: <span style="color: #475569;">Author a formal systems RFC defining capacity models, bandwidth requirements, and failure domains for 100k RPS.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q59.2</span>
+      <strong>Adversarial Architecture Review & Failure Domain Defense</strong> <em>(Detective Challenge)</em>: <span style="color: #475569;">Defend the RFC against simulated architectural challenges: cross-region splits, database failover, and thundering herds.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q59.3</span>
+      <strong>Capacity Planning & Latency Budget Calculator Engine</strong> <em>(Mastery Assignment)</em>: <span style="color: #475569;">Implement a systems capacity planner in TypeScript calculating server counts, Redis RAM, and latency budgets.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q59.4</span>
+      <strong>Executive Architectural Review Board RFC Presentation</strong> <em>(Production Incident Lab)</em>: <span style="color: #475569;">Present and defend the planetary-scale architecture RFC before the executive review board, achieving formal approval.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #0284c7;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #0284c7; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 60</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Capstone Project 2: ApexPython High-Scale Distributed Microservices Backend Platform Master Capstone Viva Gate</strong>
+          <span class="stage-pill" style="background: #e0f2fe; color: #0369a1;">Stage 12: Industrial Case Studies & Master Capstone</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 12 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #0284c7; font-weight: 600;">Goal:</span> This is the Pinnacle: Capstone Project 2 and the Master Capstone Viva Gate for Course 20! Over 60 exhaustive days, you have mastered the entire spectrum of Python systems engineering: from the low-level CPython runtime (PyObject, PyMalloc, Generational GC, Bytecode CEVAL loop) to high-speed data structures (Compact Dictionaries, PEP 393 Strings), concurrency models (GIL, Shared Memory, uvloop asyncio), modern web architecture (ASGI 3.0, Radix routing, Pydantic V2 Rust core, FastAPI DAG), persistence engineering (SQLAlchemy 2.0 Async, Unit of Work, N+1 elimination), distributed systems (Celery Canvas chords, gRPC streaming, aiokafka, Redis XFetch caching, circuit breakers), and enterprise SRE observability (OpenTelemetry, Prometheus RED, structlog, graceful Kubernetes draining). Today, you synthesize ALL of these disciplines into the ApexPython Sovereign Backend Platform. You will present your platform before the Senior Technical Examination Board in an adversarial Viva Voce examination, proving complete mastery as an elite Principal Python Systems Architect!<br>
+          <span style="color: #0369a1; font-weight: 600;">Invariant:</span> <code>Master Capstone Invariant: The ApexPython platform represents the apex of modern Python engineering: sub-millisecond execution, rock-solid memory management, fault-tolerant distributed resilience, and complete observability under hostile production scale.</code>
+        </div>
+        <div style="background: #fffbeb; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fef3c7; color: #92400e;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Failing any dimension of the adversarial viva gate: memory leak under load, event loop starvation, unhandled cascading failure, or data loss during pod termination.<br>
+          <strong>tryIt Friction:</strong> Synthesize the Master Capstone in TypeScript: construct ApexPythonMasterPlatform integrating FastAPI Gateway, PydanticV2Validator, SQLAlchemyAsyncRepository, CeleryTaskSupervisor, gRPCStreamingBridge, aiokafkaEventBus, XFetchRedisCache, CircuitBreakerMesh, OpenTelemetrySuite, and GracefulDrainManager; execute a 50,000 request/sec distributed workload with simulated network cuts, database failovers, and pod rolling restarts; achieve 100% data integrity, sub-5ms p99 latency, and pass the Master Capstone Viva Gate.
+        </div>
+      </div>
+
+      <div style="background: #f0fdf4; border: 1px solid #dcfce7; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #166534;">🪜 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #15803d;">[1. Nudge: "In the Master Capstone defense, what is the ultimate standard of an enterprise-grade backend architecture?"]</span> &rarr;
+        <span style="color: #166534;">[2. Memory: "The system must demonstrate automated resilience: when any individual component (cache, worker, database, pod) fails, the system self-heals without human intervention or data corruption."]</span> &rarr;
+        <span style="color: #14532d;">[3. Fix: "Throughput, latency, and consistency must remain within contracted Service Level Objectives."]</span>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #0f172a;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"During your final Master Capstone Viva Gate defense, the Chief Architect injects a complex multi-failure scenario: 50,000 concurrent flash sale requests arrive, the Redis cache cluster is restarted, two Kafka consumer pods crash, and Kubernetes issues a SIGTERM rolling update to your API pods. Your ApexPython platform routes traffic through circuit breakers, executes atomic inventory decrements, recovers Kafka offsets with zero loss, and drains all pods cleanly without dropping a single connection. The Chief Architect extends their hand: 'Congratulations, Principal Architect.' What core philosophy made this victory possible?"</em><br>
+        <strong>Correct:</strong> Option B) Engineering for Inevitable Failure: Designing every layer with strict invariants, bounded queues, atomic state transitions, idempotent handlers, and continuous observability, recognizing that hardware and networks will always fail, but correctly architected software systems will always endure. &bull;
+        <span style="color: #0369a1;"><strong>Debrief:</strong> Option B is correct. Elite systems architecture is founded on the recognition that in distributed computing, failure is a certainty. By enforcing strict mathematical invariants, bounded memory models, atomic transactions, idempotent processing, and comprehensive observability across all 60 days of training, the engineer builds systems that are truly resilient and sovereign.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 60 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q60.1</span>
+      <strong>ApexPython Platform Architectural Blueprint & Formal Charter</strong> <em>(Concept Quest)</em>: <span style="color: #475569;">Formulate the comprehensive architectural charter for the ApexPython platform across all 12 system domains.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q60.2</span>
+      <strong>Multi-Failure Adversarial Red-Team Stress Test Harness</strong> <em>(Detective Challenge)</em>: <span style="color: #475569;">Construct an automated multi-failure stress test harness injecting concurrent thundering herds, network cuts, and pod restarts.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q60.3</span>
+      <strong>ApexPython Distributed Microservices Platform Implementation</strong> <em>(Mastery Assignment)</em>: <span style="color: #475569;">Implement the complete Master Capstone platform in TypeScript synthesizing all gateway, persistence, and distributed tiers.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q60.4</span>
+      <strong>Chief Systems Architect Master Capstone Viva Defense Gate</strong> <em>(Production Incident Lab)</em>: <span style="color: #475569;">Defend the ApexPython platform in the final adversarial viva examination before the senior architecture review board, achieving full certification.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+  <div class="page-break"></div>
+  <h2>24.4 Python Programming &amp; Backend Systems Milestone &amp; Capstone Viva Gates (Milestones 1&ndash;10 + Capstone Viva)</h2>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th style="width: 12%;">Milestone</th>
+        <th style="width: 10%;">Day</th>
+        <th style="width: 28%;">Milestone Gate Title</th>
+        <th style="width: 50%;">Architectural Deliverable &amp; Invariant Defense</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Milestone 1</strong></td><td>Day 05</td><td>CPython Bytecode VM &amp; PyMalloc Allocator Engine</td><td>Stack-based opcode evaluation loop executing compiled bytecode integrated with 256KB arenas, 4KB pools, size-class blocks, and trial-decrement cycle detection.</td></tr>
+      <tr><td><strong>Milestone 2</strong></td><td>Day 10</td><td>Compact Hash Table &amp; Streaming Generator Engine</td><td>PEP 468 compact hash table with SipHash-2-4 perturbation probing and zero-materialization lazy generator streaming pipeline maintaining O(1) memory bounds.</td></tr>
+      <tr><td><strong>Milestone 3</strong></td><td>Day 15</td><td>Async Event Loop &amp; Zero-Copy Shared Memory Engine</td><td>Non-blocking socket selector loop multiplexing thousands of concurrent coroutines with zero-copy POSIX shared memory buffers for multi-core compute offloading.</td></tr>
+      <tr><td><strong>Milestone 4</strong></td><td>Day 20</td><td>Metaprogrammed Model Validation Engine</td><td>High-speed data validation framework using __init_subclass__, __slots__ memory elimination, type-coercing data descriptors, and runtime Protocol conformance.</td></tr>
+      <tr><td><strong>Milestone 5</strong></td><td>Day 25</td><td>Production Asynchronous ASGI Web Framework Core</td><td>ASGI 3.0 protocol implementation with O(K) Radix tree router, onion middleware pipeline with contextvars context isolation, and async dependency injection.</td></tr>
+      <tr><td><strong>Capstone 1</strong></td><td>Day 30</td><td><strong>Month 1 Capstone Viva Gate</strong></td><td><strong>PyCore Asynchronous High-Throughput Micro-Framework Engine:</strong> Complete production micro-framework synthesizing memory allocators, ASGI streaming, slotted models, and TaskGroups before Senior Review Board.</td></tr>
+      <tr><td><strong>Milestone 6</strong></td><td>Day 35</td><td>FastAPI Microservice with Pydantic V2 &amp; JWT Engine</td><td>Microservice gateway with compiled Rust schema validation, dependency injection DAG caching, real-time WebSockets with backpressure, and hardened OAuth2/JWT auth.</td></tr>
+      <tr><td><strong>Milestone 7</strong></td><td>Day 40</td><td>High-Scale Async ORM &amp; Zero-Downtime Data Layer</td><td>SQLAlchemy 2.0 AsyncEngine repository with QueuePool, Unit of Work and Identity Map, selectinload/joinedload N+1 elimination, and Alembic zero-downtime migrations.</td></tr>
+      <tr><td><strong>Milestone 8</strong></td><td>Day 45</td><td>Distributed Task Queue &amp; Workflow Orchestration Engine</td><td>Celery/Redis background processing platform with late ACKs, Canvas chains and chords with barrier synchronization, idempotency locks, and Dead-Letter Queue isolation.</td></tr>
+      <tr><td><strong>Milestone 9</strong></td><td>Day 50</td><td>Event-Driven Microservice &amp; gRPC Gateway Engine</td><td>Microservice mesh with binary Protobuf gRPC streaming, aiokafka consumer pipeline with manual offset commits, Redis XFetch caching, and circuit breakers.</td></tr>
+      <tr><td><strong>Milestone 10</strong></td><td>Day 55</td><td>Production Observability &amp; SRE Telemetry Suite</td><td>Production observability platform integrating OpenTelemetry W3C distributed tracing, Prometheus RED method metrics, structlog JSON logging with PII masking, and Kubernetes health probes.</td></tr>
+      <tr><td><strong>Master Capstone</strong></td><td>Day 60</td><td><strong>Month 2 Master Capstone Viva</strong></td><td><strong>ApexPython High-Scale Distributed Microservices Backend Platform:</strong> Complete enterprise platform defending against simultaneous thundering herd flash sales, database failovers, and rolling pod restarts under live adversarial viva voce examination.</td></tr>
+    </tbody>
+  </table>
+  
+  <!-- PART XXV: DEEP MASTERCLASS BLUEPRINT - QUANTITATIVE ENGINEERING & LOW-LATENCY TRADING SYSTEMS (DAYS 1-60 / 240 QUESTS) -->
+  <div class="page-break">
+    <div style="background: #0f172a; color: #ffffff; padding: 8pt 12pt; border-radius: 4pt; margin-bottom: 8pt; display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <h1 style="color: #f59e0b; margin: 0; font-size: 14pt; border: none; padding: 0;">Part XXV: Deep Masterclass Blueprint &bull; Quantitative Engineering &amp; Low-Latency Trading Systems (Days 1&ndash;60 / 240 Quests)</h1>
+        <span style="font-size: 8.2pt; color: #cbd5e1;">Course ID: <code>course-quant-systems</code> &bull; 60-Day Full Curriculum &bull; <strong>240 Quests total</strong> &bull; 10 Milestone Gates + 2 Capstone Vivas</span>
+      </div>
+      <div style="text-align: right;">
+        <span style="background: #f59e0b; color: #0f172a; font-size: 7.5pt; font-weight: 700; padding: 2px 6px; border-radius: 2px;">Market Microstructure &amp; Sub-Microsecond Systems</span><br>
+        <span style="font-size: 7.5pt; color: #10b981;">Principal Quantitative Systems Architect Target</span>
+      </div>
+    </div>
+
+    <h2>25.1 Course Architectural Overview &amp; 4-Stage Pedagogical Progression</h2>
+    <p>
+      In institutional electronic finance, trading is a physics problem governed by speed-of-light propagation delays, memory cache hierarchies, and mathematical market microstructure. Retail algorithmic traders rely on 1-minute candlestick bars and high-level Python libraries, remaining oblivious to the continuous double auction occurring at nanosecond timescales. True high-frequency quantitative engineering demands mastery across the entire vertical stack: decoding binary NASDAQ TotalView-ITCH 5.0 and OUCH protocols directly from optical transceivers, managing Level 3 Limit Order Books with deterministic price-time priority, executing Almgren-Chriss optimal execution models, skewing quoting spreads via Avellaneda-Stoikov inventory control, managing real-time portfolio Greeks and SABR volatility surfaces, eliminating CPU cache false sharing and dynamic heap allocations, accelerating tick-to-trade in custom FPGA silicon, disciplining distributed server clocks via IEEE 1588v2 PTP, and enforcing sub-100ns SEC Rule 15c3-5 risk gates:
+    </p>
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 6pt; margin: 6pt 0 10pt 0;">
+      <div style="background: #fefce8; border: 1px solid #fde047; padding: 6pt; border-radius: 3pt;">
+        <strong style="color: #854d0e; font-size: 8pt;">Stage 1: Microstructure &amp; Low-Latency</strong><br>
+        <span style="font-size: 7.2pt; color: #713f12;">Days 1&ndash;15 (60 Quests)<br>L1/L2/L3 Physics, Matching Engines, Almgren-Chriss Impact, Avellaneda-Stoikov Market Making, ITCH/OUCH Binary Feeds, Cache Lines &amp; Kernel-Bypass DPDK.<br><em>Milestones 1&ndash;3</em></span>
+      </div>
+      <div style="background: #f0fdf4; border: 1px solid #bbf7d0; padding: 6pt; border-radius: 3pt;">
+        <strong style="color: #166534; font-size: 8pt;">Stage 2: StatArb &amp; Risk Gates</strong><br>
+        <span style="font-size: 7.2pt; 

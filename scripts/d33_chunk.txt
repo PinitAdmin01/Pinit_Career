@@ -1,0 +1,132 @@
+Day 33</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">High-Performance Streaming & WebSockets in FastAPI</strong>
+          <span class="stage-pill" style="background: #e0f2fe; color: #0369a1;">Stage 7: FastAPI & Pydantic V2 Microservice Architecture</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 7 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #0284c7; font-weight: 600;">Goal:</span> Modern backend systems cannot simply return small JSON payloads. They must stream multi-gigabyte data exports, provide real-time AI token streaming (Server-Sent Events), and maintain bi-directional WebSocket connections for live trading and chat applications. In FastAPI, streaming is achieved via StreamingResponse. A StreamingResponse accepts an async generator: async def content_generator(). The ASGI server streams chunks over HTTP/1.1 chunked transfer encoding or HTTP/2 DATA frames without buffering the entire dataset in RAM! For WebSockets, FastAPI exposes the WebSocket class with accept(), receive_text(), and send_json(). Master connection lifecycle management, heartbeat ping/pongs, and backpressure handling so a slow client does not exhaust server memory buffers!<br>
+          <span style="color: #0369a1; font-weight: 600;">Invariant:</span> <code>Streaming Backpressure Invariant: Streaming data over HTTP chunked encoding or WebSockets must be driven by asynchronous generators that await downstream socket writes, preventing unbounded buffer accumulation when clients read slowly.</code>
+        </div>
+        <div style="background: #fffbeb; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fef3c7; color: #92400e;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Broadcasting real-time market data ticks over WebSockets to 5,000 clients without backpressure or per-connection queue limits; a single client on a slow 3G mobile connection buffers 100MB of un-sent packets in memory, eventually triggering an out-of-memory crash for the entire server.<br>
+          <strong>tryIt Friction:</strong> Build a WebSocket Broadcast Hub with Backpressure in TypeScript: create a connection manager with 100 concurrent clients; simulate one slow client whose socket write buffer fills up; implement an eviction policy (drop slow connection or drop oldest message); verify that the server's overall memory remains strictly bounded.
+        </div>
+      </div>
+
+      <div style="background: #f0fdf4; border: 1px solid #dcfce7; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #166534;">🪜 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #15803d;">[1. Nudge: "What happens if an async generator yields data faster than a WebSocket client can receive it?"]</span> &rarr;
+        <span style="color: #166534;">[2. Memory: "The un-sent messages accumulate in the server's outgoing socket write buffer in RAM."]</span> &rarr;
+        <span style="color: #14532d;">[3. Fix: "Without a buffer limit or backpressure check, the server will eventually run out of memory and crash."]</span>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #0f172a;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"A crypto exchange API streams live order book updates over WebSockets. During a major market volatility event, the FastAPI server crashes with Linux OOM-killer. Analysis of the core dump reveals 6GB of memory was consumed by asyncio.Queue instances belonging to 12 slow mobile client connections that fell behind by 50,000 messages. How should the principal architect re-engineer the broadcast hub?"</em><br>
+        <strong>Correct:</strong> Option B) Bounded Buffers with Slow Client Eviction: Configure per-client queues with strict maxsize bounds (e.g. maxsize=256). When a queue fills up, apply a drop-oldest policy for loss-tolerant market data or immediately terminate the slow WebSocket connection ('await ws.close(code=1008)') to protect server stability. &bull;
+        <span style="color: #0369a1;"><strong>Debrief:</strong> Option B is correct. In real-time broadcasting, slow consumers are a primary vector for server memory exhaustion. Production broadcast hubs enforce bounded queues. If a client cannot consume at wire speed, the server must either discard stale intermediate ticks or terminate the connection rather than buffering unlimited state in memory.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 33 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q33.1</span>
+      <strong>HTTP Chunked Transfer Encoding & WebSocket Protocol Framing</strong> <em>(Concept Quest)</em>: <span style="color: #475569;">Trace HTTP chunked streaming boundaries and WebSocket RFC 6455 opcode framing (text, binary, ping/pong, close).</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q33.2</span>
+      <strong>Slow Consumer Memory Exhaustion Forensics</strong> <em>(Detective Challenge)</em>: <span style="color: #475569;">Simulate and profile memory growth in an un-bounded async broadcast queue under simulated network latency throttling.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q33.3</span>
+      <strong>High-Throughput WebSocket Broadcast Hub Implementation</strong> <em>(Mastery Assignment)</em>: <span style="color: #475569;">Implement a real-time WebSocket connection manager in TypeScript with heartbeat ping/pong and bounded buffer eviction.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q33.4</span>
+      <strong>Real-Time AI Token Streaming Gateway Hardening</strong> <em>(Production Incident Lab)</em>: <span style="color: #475569;">Remediate connection leaks and buffer bloat in an LLM token streaming gateway handling 10k concurrent SSE connections.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #0284c7;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #0284c7; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 34</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Authentication, Security & OAuth2 with JWT (Stateless vs State)</strong>
+          <span class="stage-pill" style="background: #e0f2fe; color: #0369a1;">Stage 7: FastAPI & Pydantic V2 Microservice Architecture</span>
+        </div>
+        <span style="font-size: 7.2pt; color: #64748b;">Month 2 &bull; Block 7 &bull; <strong>4 Quests</strong></span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin-bottom: 4pt; font-size: 7.2pt;">
+        <div style="background: #f8fafc; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #e2e8f0;">
+          <strong>🎯 Spoken Goal &amp; Invariant:</strong><br>
+          <span style="color: #0284c7; font-weight: 600;">Goal:</span> Authentication in distributed microservices cannot rely on centralized server sessions; querying a database session on every single microsecond API call creates an intolerable bottleneck. Instead, enterprise architectures use OAuth2 Password Bearer flow with JSON Web Tokens (JWT). A JWT consists of three base64url-encoded parts: Header (algorithm and key ID), Payload (claims: sub, exp, iat, roles), and Signature (HMAC-SHA256 or asymmetric Ed25519/RS256). Because the signature is cryptographically verified using a secret key or public key, any microservice can verify the user's identity statelessly without querying a central database! But stateless JWTs have a fatal flaw: Token Revocation! If a user's token is stolen, how do you revoke it before it expires? Master Refresh Token Rotation, short-lived access tokens (15 minutes), and distributed Redis token blocklists!<br>
+          <span style="color: #0369a1; font-weight: 600;">Invariant:</span> <code>JWT Security Invariant: Stateless JWT verification guarantees payload integrity via cryptographic signatures without database lookups; token revocation requires pairing short-lived access tokens (5-15 min) with stateful refresh token rotation.</code>
+        </div>
+        <div style="background: #fffbeb; padding: 4pt 6pt; border-radius: 3px; border: 1px solid #fef3c7; color: #92400e;">
+          <strong>⚠️ Failure Mode &amp; tryIt Bug:</strong><br>
+          <strong>Failure:</strong> Issuing stateless JWT access tokens with 30-day expiration dates without a revocation mechanism; an employee is fired, but their stolen JWT continues to grant full admin access to production APIs for an entire month.<br>
+          <strong>tryIt Friction:</strong> Implement an OAuth2 JWT Authentication & Rotation Engine in TypeScript: generate signed JWTs with expiration claims; implement cryptographic signature verification; implement short-lived access tokens (15m) paired with rotating refresh tokens; maintain a Redis-style bloom filter blocklist for instantaneous revocation.
+        </div>
+      </div>
+
+      <div style="background: #f0fdf4; border: 1px solid #dcfce7; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #166534;">🪜 3-Tier Socratic Hint Ladder:</strong>
+        <span style="color: #15803d;">[1. Nudge: "Why is issuing a 30-day stateless JWT considered a severe security anti-pattern?"]</span> &rarr;
+        <span style="color: #166534;">[2. Memory: "Stateless tokens cannot be revoked by the server before their expiration timestamp without introducing stateful checks."]</span> &rarr;
+        <span style="color: #14532d;">[3. Fix: "If the token is leaked or stolen, the attacker has unrestricted access until the token naturally expires."]</span>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 3px; padding: 3pt 6pt; margin-bottom: 4pt; font-size: 7.0pt;">
+        <strong style="color: #0f172a;">🧩 Situational Diagnostic Puzzle:</strong>
+        <em>"A financial API uses asymmetric RS256 JWT tokens. A penetration tester modifies the JWT header from '"alg": "RS256"' to '"alg": "HS256"' and signs the token using the server's public RSA key (which is publicly accessible at /.well-known/jwks.json). The API's verification function accepts the forged token and grants the tester admin access! What is this vulnerability?"</em><br>
+        <strong>Correct:</strong> Option B) Algorithm Confusion Attack (CVE-2015-9235): The verification library blindly trusts the 'alg' header in the token. When changed to HS256 (symmetric HMAC), the library uses the provided RSA public key as the HMAC symmetric secret key! Because the attacker knows the public key, they can forge valid signatures. The server must strictly enforce expected algorithms ('algorithms=["RS256"]'). &bull;
+        <span style="color: #0369a1;"><strong>Debrief:</strong> Option B is correct. In an Algorithm Confusion attack, an attacker exploits libraries that dynamically pick the verification algorithm based on the token's unverified header. By switching RS256 to HS256, the server treats its own public key as a symmetric HMAC secret, allowing anyone who knows the public key to generate valid tokens. Secure implementations strictly whitelist allowed algorithms.</span>
+      </div>
+
+      <div style="border-top: 1px dashed #cbd5e1; padding-top: 3pt; font-size: 7.1pt;">
+        <strong style="color: #334155;">Quests Scheduled for Day 34 (4 Quests):</strong>
+        <div style="margin-top: 2pt;">
+          
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q34.1</span>
+      <strong>JWT Cryptographic Anatomy & OAuth2 Password Bearer Flow</strong> <em>(Concept Quest)</em>: <span style="color: #475569;">Trace token structure (header, claims, signature) and the OAuth2 token exchange handshake.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q34.2</span>
+      <strong>Algorithm Confusion (RS256 vs HS256) Exploit Forensics</strong> <em>(Detective Challenge)</em>: <span style="color: #475569;">Analyze and reproduce an algorithm confusion vulnerability and implement strict algorithm whitelisting defenses.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q34.3</span>
+      <strong>OAuth2 Stateless Token & Refresh Rotation Engine</strong> <em>(Mastery Assignment)</em>: <span style="color: #475569;">Implement a full authentication engine in TypeScript with short-lived access tokens, refresh rotation, and blocklist eviction.</span>
+    </div>
+  
+    <div style="margin-bottom: 2px;">
+      <span style="font-family: monospace; font-size: 6.8pt; background: #f1f5f9; padding: 1px 3px; border-radius: 2px;">Q34.4</span>
+      <strong>Enterprise Microservice Token Revocation Hardening</strong> <em>(Production Incident Lab)</em>: <span style="color: #475569;">Remediate a security flaw in a banking microservice by migrating from long-lived JWTs to short-lived tokens with Redis blocklists.</span>
+    </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="daily-card" style="margin-bottom: 10pt; page-break-inside: avoid; border-left: 3px solid #0284c7;">
+      <div class="daily-card-header">
+        <div>
+          <span style="background: #0284c7; color: #ffffff; font-size: 7.5pt; font-weight: 700; padding: 1px 5px; border-radius: 2px;">Day 35</span>
+          <strong style="margin-left: 6pt; font-size: 8.8pt; color: #0f172a;">Milestone Project 6: High-Throughput FastAPI Microservice with Pyd

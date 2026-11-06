@@ -1,0 +1,116 @@
+Page 566: Day 23  Subword Embeddings: FastText & Out-Of-Voca | Day 23: Subword Embeddings: FastText & Out-Of-Vocabulary (
+Page 567: Day 25  Out Of Vocabulary Acronym Formatter Stage  | Day 25: Out Of Vocabulary Acronym Formatter Stage 4: Archi
+Page 568: Day 27  GloVe Weighting Function Calculator Stage  | Day 27: GloVe Weighting Function Calculator Stage 4: Archi
+Page 569: Day 29  Part-of-Speech Tagging with Hidden Markov  | Day 29: Part-of-Speech Tagging with Hidden Markov Models: 
+Page 570: Part IV: Quality Assurance, Gate v2 & Zero-Halluci | 
+Page 571: Part V: Deep Masterclass Blueprint — Java Core & | Day 1: What is a Program? — The JVM, Bytecode & The Main 
+Page 572: Day 3  Primitive Types & Memory Footprint — Bytes, | Day 3: Primitive Types & Memory Footprint — Bytes, Shorts
+Page 573: Day 5  Boolean Logic & Relational Expressions — Tr | Day 5: Boolean Logic & Relational Expressions — Truth Tab
+Page 574: Day 7  Switch Statements & Exhaustive Matching & ⭐ | Day 7: Switch Statements & Exhaustive Matching & ⭐  Miles
+Page 575: Day 9  Do-While Loops & Input Validation Retry Gat | Day 9: Do-While Loops & Input Validation Retry Gates Stag
+Page 576: Day 12  Loop Control Primitives (break, continue,  | Day 12: Loop Control Primitives (break, continue, Labeled 
+Page 577: Day 14  ⭐  Milestone 2: Financial Ledger Tax Calcu | Day 14: ⭐  Milestone 2: Financial Ledger Tax Calculator & 
+Page 578: Day 16  Parameter Passing Semantics in Java — Stri | Day 16: Parameter Passing Semantics in Java — Strict Pass-
+Page 579: Day 18  Stack Overflow Mechanics — Deep Recursion  | Day 18: Stack Overflow Mechanics — Deep Recursion vs Itera
+Page 580: Day 20  Defensive Input Sanitization & Preconditio | Day 20: Defensive Input Sanitization & Precondition Assert
+Page 581: Day 22  Array Traversal, In-Place Reversal & Cache | Day 22: Array Traversal, In-Place Reversal & Cache Line Lo
+Page 582: Day 24  Array Cloning, System.arraycopy & Shallow  | Day 24: Array Cloning, System.arraycopy & Shallow Copy Tra
+Page 583: Day 26  Sorting Fundamentals: Bubble Sort, Selecti | Day 26: Sorting Fundamentals: Bubble Sort, Selection Sort 
+Page 584: Day 28  ⭐  Milestone 4: Algorithmic Multi-Pass Tra | Day 28: ⭐  Milestone 4: Algorithmic Multi-Pass Transaction
+Page 585: Day 30  🏆  Month 1 Capstone Viva Gate: Audited Ban | Day 30: 🏆  Month 1 Capstone Viva Gate: Audited Banking Tra
+Page 586: 5.3 Month 2 Masterclass Blueprint (Days 31–60 • 11 | Day 31: Classes, Heap Instances & Reference Pointer Mechan
+Page 587: Day 33  Data Hiding: Private Fields, Defensive Get | Day 33: Data Hiding: Private Fields, Defensive Getters/Set
+Page 588: Day 35  ⭐  Milestone 6: Enterprise Bank Account Do | Day 35: ⭐  Milestone 6: Enterprise Bank Account Domain Mod
+Page 589: Day 37  Method Overriding, @Override, Virtual Meth | Day 37: Method Overriding, @Override, Virtual Method Table
+Page 590: Day 39  Abstract Classes vs Interfaces & Default M | Day 39: Abstract Classes vs Interfaces & Default Method Co
+Page 591: Day 41  JVM Throwable Hierarchy: Throwable, Error, | Day 41: JVM Throwable Hierarchy: Throwable, Error, Excepti
+Page 592: Day 43  Resource Lifecycles: AutoCloseable, try-wi | Day 43: Resource Lifecycles: AutoCloseable, try-with-resou
+Page 593: Day 45  ⭐  Milestone 8: Resilient Order File Inges | Day 45: ⭐  Milestone 8: Resilient Order File Ingestion Eng
+Page 594: Day 47  ArrayList Internals: Dynamic Amortized Gro | Day 47: ArrayList Internals: Dynamic Amortized Growth, Arr
+Page 595: Day 49  HashSet, Comparable vs Comparator Lambda C | Day 49: HashSet, Comparable vs Comparator Lambda Custom So
+Page 596: Day 51  Operating System Threads vs Java Thread &  | Day 51: Operating System Threads vs Java Thread & Runnable
+Page 597: Day 53  Intrinsic Locks: synchronized Blocks, Meth | Day 53: Intrinsic Locks: synchronized Blocks, Methods & Mo
+Page 598: Day 55  ⭐  Milestone 10: Thread-Safe Concurrent Pr | Day 55: ⭐  Milestone 10: Thread-Safe Concurrent Producer-C
+Page 599: Day 57  Atomic Primitives: AtomicInteger, AtomicRe | Day 57: Atomic Primitives: AtomicInteger, AtomicReference 
+Page 600: Day 59  High-Throughput Streams, Lambdas & Modern  | Day 59: High-Throughput Streams, Lambdas & Modern Function
+Page 601: 5.4 Java Milestone & Capstone Viva Gates (Mileston | Day 07: Interactive CLI State Machine Multi-option menu st
+Page 602: Part VI: Deep Masterclass Blueprint — Mobile Appli | Day 1: Mobile Architecture: The 3-Thread Model, Hermes By
+Page 603: Day 2  Native View Primitives: View, Text Strict N | Day 2: Native View Primitives: View, Text Strict Nesting 
+Page 604: Day 4  Touch Responders & Pressable Physics: Hit S | Day 4: Touch Responders & Pressable Physics: Hit Slop & A
+Page 605: Day 6  Asset Pipelines: Density-Aware PNGs (@2x, @ | Day 6: Asset Pipelines: Density-Aware PNGs (@2x, @3x), SV
+Page 606: Day 8  Bottom Tabs & Drawer Navigation: Tab Badges | Day 8: Bottom Tabs & Drawer Navigation: Tab Badges, Lazy 
+Page 607: Day 10  ⭐  Milestone 2: Multi-Screen Financial Nav | Day 10: ⭐  Milestone 2: Multi-Screen Financial Navigation 
+Page 608: Day 11  Keyboard Handling & Inset Physics: Keyboar | Day 11: Keyboard Handling & Inset Physics: KeyboardAvoidin
+Page 609: Day 13  Virtualized Lists: FlatList vs ScrollView, | Day 13: Virtualized Lists: FlatList vs ScrollView, Windowi
+Page 610: Day 15  ⭐  Milestone 3: 60 FPS Infinite Ledger Fee | Day 15: ⭐  Milestone 3: 60 FPS Infinite Ledger Feed with C
+Page 611: Day 17  Global Mobile State: Zustand Store Slices, | Day 17: Global Mobile State: Zustand Store Slices, Selecto
+Page 612: Day 18  Relational Mobile Storage: Embedded SQLite | Day 18: Relational Mobile Storage: Embedded SQLite (expo-s
+Page 613: Day 19  Offline-First Data Architecture: Local DB  | Day 19: Offline-First Data Architecture: Local DB Read-Wri
+Page 614: Day 20  ⭐  Milestone 4: Offline-First Transactiona | Day 20: ⭐  Milestone 4: Offline-First Transactional Expens
+Page 615: Day 22  Native Camera & Photo Library: CameraView  | Day 22: Native Camera & Photo Library: CameraView Invarian
+Page 616: Day 23  Native Geolocation: Foreground GPS Coordin | Day 23: Native Geolocation: Foreground GPS Coordinates, Ge
+Page 617: Day 24  Biometric Authentication: LocalAuthenticat | Day 24: Biometric Authentication: LocalAuthentication (Fac
+Page 618: Day 26  Network Connectivity Awareness: NetInfo, O | Day 26: Network Connectivity Awareness: NetInfo, Offline B
+Page 619: Day 27  Mobile Accessibility (a11y): VoiceOver, Ta | Day 27: Mobile Accessibility (a11y): VoiceOver, TalkBack, 
+Page 620: Day 28  Mobile UI State Machines: Shimmer Skeleton | Day 28: Mobile UI State Machines: Shimmer Skeletons, Error
+Page 621: Day 29  Production Refactoring: Memory Leak Scans, | Day 29: Production Refactoring: Memory Leak Scans, Unmount
+Page 622: Day 30  🏆  Month 1 Capstone Gate: PocketWallet Mob | Day 30: 🏆  Month 1 Capstone Gate: PocketWallet Mobile Ledg
+Page 623: Part VI: Mobile Month 2 — Native Systems, Fabric & | Day 31: Reanimated 3 Architecture: The Worklet Runtime, JS
+Page 624: Day 32  Shared Values, useAnimatedStyle & Zero-Bri | Day 32: Shared Values, useAnimatedStyle & Zero-Bridge 120 
+Page 625: Day 33  Physics-Based Animations: Spring Physics ( | Day 33: Physics-Based Animations: Spring Physics (Damping,
+Page 626: Day 34  Gesture Handler 2: Pan Gestures, Velocity  | Day 34: Gesture Handler 2: Pan Gestures, Velocity Snapping
+Page 627: Day 35  ⭐  Milestone 6: 120 FPS Interactive Gestur | Day 35: ⭐  Milestone 6: 120 FPS Interactive Gesture-Driven
+Page 628: Day 36  The New Architecture Foundations: The Brid | Day 36: The New Architecture Foundations: The Bridge Bottl
+Page 629: Day 37  Fabric C++ Concurrent Renderer: Shadow Tre | Day 37: Fabric C++ Concurrent Renderer: Shadow Tree Immuta
+Page 630: Day 38  TurboModules Architecture: C++ Host Object | Day 38: TurboModules Architecture: C++ Host Objects & Code
+Page 631: Day 39  Writing Native Modules: Bridging Native iO | Day 39: Writing Native Modules: Bridging Native iOS Swift 
+Page 632: Day 40  ⭐  Milestone 7: Custom High-Performance C+ | Day 40: ⭐  Milestone 7: Custom High-Performance C++ Crypto
+Page 633: Day 42  Push Notifications Architecture: APNs Devi | Day 42: Push Notifications Architecture: APNs Device Token
+Page 634: Day 43  Push Notification Lifecycles: Foreground B | Day 43: Push Notification Lifecycles: Foreground Banners, 
+Page 635: Day 44  App Lifecycles & Background Execution: App | Day 44: App Lifecycles & Background Execution: AppState, H
+Page 636: Day 45  ⭐  Milestone 8: Real-Time Event Dispatcher | Day 45: ⭐  Milestone 8: Real-Time Event Dispatcher with Un
+Page 637: Day 46  Hardware Keystore & Keychain: Secure Encla | Day 46: Hardware Keystore & Keychain: Secure Enclave on iO
+Page 638: Day 47  WatermelonDB / SQLite JSI: Lazy Loading, O | Day 47: WatermelonDB / SQLite JSI: Lazy Loading, Observabl
+Page 639: Day 48  Delta Synchronization & Conflict Resolutio | Day 48: Delta Synchronization & Conflict Resolution: Last-
+Page 640: Day 49  Mobile Security Hardening: SSL Pinning, Ro | Day 49: Mobile Security Hardening: SSL Pinning, Root / Jai
+Page 641: Day 50  ⭐  Milestone 9: High-Throughput Offline-Fi | Day 50: ⭐  Milestone 9: High-Throughput Offline-First Delt
+Page 642: Day 51  Memory Profiling: Diagnosing Hermes Heap L | Day 51: Memory Profiling: Diagnosing Hermes Heap Leaks & R
+Page 643: Day 52  Android Memory Profiling: Android Studio P | Day 52: Android Memory Profiling: Android Studio Profiler,
+Page 644: Day 53  Unit & Component Testing: Jest, React Nati | Day 53: Unit & Component Testing: Jest, React Native Testi
+Page 645: Day 54  Automated End-to-End Testing: Maestro UI A | Day 54: Automated End-to-End Testing: Maestro UI Automatio
+Page 646: Day 55  ⭐  Milestone 10: Zero-Leak Verified Mobile | Day 55: ⭐  Milestone 10: Zero-Leak Verified Mobile Test Ha
+Page 647: Day 56  Fastlane Automation: Match Code Signing, M | Day 56: Fastlane Automation: Match Code Signing, Matchfile
+Page 648: Day 57  EAS Build & Over-The-Air (OTA) Updates: Bu | Day 57: EAS Build & Over-The-Air (OTA) Updates: Bundle Ver
+Page 649: Day 58  App Store & Google Play Compliance: Apple  | Day 58: App Store & Google Play Compliance: Apple Privacy 
+Page 650: Day 59  Production Monitoring: Sentry Crash Report | Day 59: Production Monitoring: Sentry Crash Reporting, Nat
+Page 651: Day 60  🏆  Month 2 Master Capstone Gate: PulseMobi | Day 60: 🏆  Month 2 Master Capstone Gate: PulseMobile High-
+Page 652: 6.4 Mobile Milestone & Capstone Viva Gates (Milest | Day 05: Responsive Mobile Design System Tokenized design s
+Page 653: Part VII: Deep Masterclass Blueprint — Full-Stack  | Day 1: The Modern Web Engine: Browser Parsing, DOM Tree C
+Page 654: Day 2  Declarative UI vs Imperative DOM: The React | Day 2: Declarative UI vs Imperative DOM: The React Elemen
+Page 655: Day 3  Component Anatomy & Pure Functions: The Str | Day 3: Component Anatomy & Pure Functions: The Strict Pro
+Page 656: Day 5  Milestone 1: Component Architecture & Inter | Day 5: Milestone 1: Component Architecture & Interactive 
+Page 657: Day 7  Conditional Rendering: Guard Clauses, Terna | Day 7: Conditional Rendering: Guard Clauses, Ternaries & 
+Page 658: Day 9  Uncontrolled Components & Refs: useRef for  | Day 9: Uncontrolled Components & Refs: useRef for DOM Acc
+Page 659: Day 11  The Component Lifecycle & Purity: Side Eff | Day 11: The Component Lifecycle & Purity: Side Effects Out
+Page 660: Day 13  Async Data Fetching: Network Race Conditio | Day 13: Async Data Fetching: Network Race Conditions, Clea
+Page 661: Day 15  Milestone 3: Resilient Search-as-You-Type  | Day 15: Milestone 3: Resilient Search-as-You-Type Ingestio
+Page 662: Day 17  React Context API: Providers, Consumers, R | Day 17: React Context API: Providers, Consumers, Re-render
+Page 663: Day 19  Error Boundaries: Declarative Fault Isolat | Day 19: Error Boundaries: Declarative Fault Isolation with
+Page 664: Day 21  React Re-rendering Engine: Parent-to-Child | Day 21: React Re-rendering Engine: Parent-to-Child Cascade
+Page 665: Day 23  Client-Side Routing: Browser History API,  | Day 23: Client-Side Routing: Browser History API, URL Stat
+Page 666: Day 25  Milestone 5: High-Performance Dashboard wi | Day 25: Milestone 5: High-Performance Dashboard with Lazy 
+Page 667: Day 27  DOM Accessibility (a11y): Semantic HTML, A | Day 27: DOM Accessibility (a11y): Semantic HTML, ARIA Attr
+Page 668: Day 28  Component Testing: React Testing Library,  | Day 28: Component Testing: React Testing Library, User-Eve
+Page 669: Day 30  Month 1 Capstone Viva Gate: JobPilot Produ | Day 30: Month 1 Capstone Viva Gate: JobPilot Production Jo
+Page 670: Part VII: React Month 2 — Fiber Internals, Concurr | Day 31: Inside the React Engine: The Fiber Node Data Struc
+Page 671: Day 32  The Two-Phase Architecture: Interruptible  | Day 32: The Two-Phase Architecture: Interruptible Render/R
+Page 672: Day 33  Fiber Double Buffering: The Current Tree v | Day 33: Fiber Double Buffering: The Current Tree vs WorkIn
+Page 673: Day 34  Diffing Algorithm Invariants: Level-by-Lev | Day 34: Diffing Algorithm Invariants: Level-by-Level Tree 
+Page 674: Day 35  Milestone 6: Custom Mini-Reconciler: | Day 35: Milestone 6: Custom Mini-Reconciler:
+Page 675: Day 37  Lane Priority Architecture: Bitmask | Day 37: Lane Priority Architecture: Bitmask
+Page 676: Day 39  Responsive Search with | Day 39: Responsive Search with
+Page 677: Day 41  State Tearing in Concurrent Mode & | Day 41: State Tearing in Concurrent Mode &
+Page 678: Day 43  TanStack Query (React Query) | Day 43: TanStack Query (React Query)
+Page 679: Day 45  Milestone 8: Real-Time Collaborative | Day 45: Milestone 8: Real-Time Collaborative
+Page 680: Day 47  React Server Components (RSC) | Day 47: React Server Components (RSC)
+Page 681: PinIT Career OS — 37 Courses Masterclass SRS, Visu | 
