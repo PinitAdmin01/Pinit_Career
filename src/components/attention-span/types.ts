@@ -10,9 +10,20 @@ export type GameId =
   | 'logic-circuit'
   | 'store-sim'
   | 'precision-pointer'
-  | 'focus-duel';
+  | 'focus-duel'
+  | 'iq-puzzle'
+  | 'mind-mosaic';
 
 export type Difficulty = 'easy' | 'normal' | 'hard';
+export type IntelligenceDimension = 'reasoning' | 'creative' | 'executive' | 'social';
+export type IntelligenceScores = Partial<Record<IntelligenceDimension, number>>;
+
+export interface IntelligenceProfile {
+  reasoning: { total: number; sessions: number };
+  creative: { total: number; sessions: number };
+  executive: { total: number; sessions: number };
+  social: { total: number; sessions: number };
+}
 
 export interface GameComponentProps {
   gameId: GameId;
@@ -35,6 +46,9 @@ export interface AttentionStats {
   patternForgeBest?: number;     // max level / score
   logicCircuitBest?: number;     // max level / score
   storeSimBest?: number;         // close score
+  iqPuzzleBest?: number;
+  mindMosaicBest?: number;
+  intelligenceProfile?: IntelligenceProfile;
   totalSessions: number;
   dailySessions: Record<string, number>;
   dailyScores: Record<string, number>;
@@ -115,6 +129,7 @@ export const defaultStats: AttentionStats = {
   focusFireBest: 0, memoryMatrixBest: 0, reflexRushBest: 0, sequenceSnapBest: 0,
   vortexVisionBest: 0, flashFusionBest: 0, shapeShifterBest: 0,
   patternForgeBest: 0, logicCircuitBest: 0, storeSimBest: 0,
+  iqPuzzleBest: 0, mindMosaicBest: 0,
   totalSessions: 0, dailySessions: {}, dailyScores: {}, streak: 0, lastPlayedDate: '',
   completedDifficulties: {},
 };
@@ -138,6 +153,8 @@ export const GAMES = [
   { id: 'pattern-forge' as GameId, icon: '▤', name: 'Pattern Forge',  desc: 'Find the sequence, rotation, or matrix rule before time runs out.', skill: 'Pattern reasoning', color: '#db2777' },
   { id: 'logic-circuit' as GameId, icon: '⊞', name: 'Logic Circuit',  desc: 'Read the gates and conditions. Choose the valid output.', skill: 'Analytical reasoning', color: '#2563eb' },
   { id: 'store-sim' as GameId,     icon: '◆', name: 'Studio Counter', desc: 'Sell your CSS or business piece to an AI buyer. Match the brief, price it fairly.', skill: 'Social focus', color: '#0d9488' },
+  { id: 'iq-puzzle' as GameId,     icon: '✳', name: 'IQ Puzzle Arena', desc: 'Solve balanced logic, number, pattern, and verbal puzzles under a gentle clock.', skill: 'IQ-style reasoning', color: '#8b5cf6' },
+  { id: 'mind-mosaic' as GameId,    icon: '◈', name: 'Mind Mosaic', desc: 'Make thoughtful calls that reveal creative, executive, and social decision skills.', skill: 'Whole-person judgment', color: '#0d9488' },
 ];
 
 export function triggerHaptic(type: 'light' | 'heavy' | 'success') {
@@ -212,7 +229,9 @@ export function calcFocusScore(s: AttentionStats): number {
   const lc = Math.min(140, (s.logicCircuitBest || 0) * 20);
   const sh = Math.min(100, (s.shapeShifterBest || 0) * 8);
   const st = Math.min(120, (s.storeSimBest || 0) * 0.35);
-  return Math.min(999, Math.round(ff + mm + rr + ss + vv + fl + pf + lc + sh + st));
+  const iq = Math.min(100, s.iqPuzzleBest || 0);
+  const mosaic = Math.min(100, s.mindMosaicBest || 0);
+  return Math.min(999, Math.round(ff + mm + rr + ss + vv + fl + pf + lc + sh + st + iq + mosaic));
 }
 
 export function getRank(score: number) {

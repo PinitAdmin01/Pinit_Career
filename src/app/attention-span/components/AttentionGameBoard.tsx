@@ -20,6 +20,7 @@ import {
   FlashFusionGame,
   ShapeShifterGame,
 } from '../game-components';
+import { IqPuzzleGame, MindMosaicGame } from '@/components/attention-span/IntelligenceGames';
 
 interface AttentionGameBoardProps {
   activeGame: GameId | null;
@@ -28,7 +29,7 @@ interface AttentionGameBoardProps {
   setDifficulty: (d: Difficulty) => void;
   stats: AttentionStats;
   soundMuted: boolean;
-  onGameComplete: (gameId: GameId, score: number, accuracy: number) => void;
+  onGameComplete: (gameId: GameId, score: number, accuracy: number, dimensions?: import('@/components/attention-span/types').IntelligenceScores) => void;
   onLaunchGame: (gameId: GameId) => void;
 }
 
@@ -53,6 +54,8 @@ export function AttentionGameBoard({
     if (gId === 'pattern-forge') return stats.patternForgeBest ? `${stats.patternForgeBest} pts` : '—';
     if (gId === 'logic-circuit') return stats.logicCircuitBest ? `${stats.logicCircuitBest} pts` : '—';
     if (gId === 'store-sim') return stats.storeSimBest ? `${stats.storeSimBest} close` : '—';
+    if (gId === 'iq-puzzle') return stats.iqPuzzleBest ? `${stats.iqPuzzleBest}%` : '—';
+    if (gId === 'mind-mosaic') return stats.mindMosaicBest ? `${stats.mindMosaicBest}%` : '—';
     return 'Play';
   };
 
@@ -170,6 +173,28 @@ export function AttentionGameBoard({
               onExit={() => setActiveGame(null)}
             />
           )}
+          {activeGame === 'iq-puzzle' && (
+            <IqPuzzleGame
+              gameId="iq-puzzle"
+              difficulty={difficulty}
+              onDifficultyChange={setDifficulty}
+              completedDifficulties={stats.completedDifficulties}
+              soundMuted={soundMuted}
+              onComplete={(score, accuracy, dimensions) => onGameComplete('iq-puzzle', score, accuracy, dimensions)}
+              onExit={() => setActiveGame(null)}
+            />
+          )}
+          {activeGame === 'mind-mosaic' && (
+            <MindMosaicGame
+              gameId="mind-mosaic"
+              difficulty={difficulty}
+              onDifficultyChange={setDifficulty}
+              completedDifficulties={stats.completedDifficulties}
+              soundMuted={soundMuted}
+              onComplete={(score, accuracy, dimensions) => onGameComplete('mind-mosaic', score, accuracy, dimensions)}
+              onExit={() => setActiveGame(null)}
+            />
+          )}
         </div>,
         document.body
       )}
@@ -197,7 +222,10 @@ export function AttentionGameBoard({
               <div>
                 <div className="att-card-top">
                   <div className="att-card-mark" data-kind={g.id} />
-                  <div className="att-card-skill">{g.skill}</div>
+                  <div className="att-card-meta">
+                    <div className="att-card-skill">{g.skill}</div>
+                    <span className="att-card-duration">15 sec</span>
+                  </div>
                 </div>
                 <h3>{g.name}</h3>
                 <div className="att-tiers">

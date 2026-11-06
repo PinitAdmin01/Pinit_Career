@@ -15,6 +15,14 @@ export interface AttentionStats {
   patternForgeBest?: number;
   logicCircuitBest?: number;
   storeSimBest?: number;
+  iqPuzzleBest?: number;
+  mindMosaicBest?: number;
+  intelligenceProfile?: {
+    reasoning?: { total?: number; sessions?: number };
+    creative?: { total?: number; sessions?: number };
+    executive?: { total?: number; sessions?: number };
+    social?: { total?: number; sessions?: number };
+  };
   precisionPointerBest?: number;
   totalSessions: number;
   streak: number;
@@ -42,7 +50,14 @@ export function computeIntegrityHash(userId: string, stats: AttentionStats): str
   return (globalThis as any).__pinit_ephemeral_attention_secret;
 }
 const secret = getAttentionSigningSecret();
-  const payload = `${userId}:${stats.totalSessions}:${stats.streak}:${stats.reflexRushBest}:${stats.focusFireBest}:${stats.memoryMatrixBest}`;
+  const profile = stats.intelligenceProfile || {};
+  const profileDigest = ['reasoning', 'creative', 'executive', 'social']
+    .map((key) => {
+      const item = profile[key as keyof typeof profile];
+      return `${item?.total || 0}/${item?.sessions || 0}`;
+    })
+    .join(':');
+  const payload = `${userId}:${stats.totalSessions}:${stats.streak}:${stats.reflexRushBest}:${stats.focusFireBest}:${stats.memoryMatrixBest}:${stats.iqPuzzleBest || 0}:${stats.mindMosaicBest || 0}:${profileDigest}`;
   return crypto.createHmac('sha256', secret).update(payload).digest('hex').substring(0, 16);
 }
 
@@ -61,6 +76,14 @@ function sanitizeAndValidateStats(raw: Partial<AttentionStats>): AttentionStats 
     reflexBest = 80;
   }
 
+  const profileSource = raw.intelligenceProfile && typeof raw.intelligenceProfile === 'object'
+    ? raw.intelligenceProfile
+    : {};
+  const sanitizeProfileItem = (value: any) => ({
+    total: sanitizeNum(value?.total, 0, 1_000_000),
+    sessions: sanitizeNum(value?.sessions, 0, 10_000),
+  });
+
   return {
     focusFireBest: sanitizeNum(raw.focusFireBest, 0, 50000),
     memoryMatrixBest: sanitizeNum(raw.memoryMatrixBest, 0, 100),
@@ -72,6 +95,14 @@ function sanitizeAndValidateStats(raw: Partial<AttentionStats>): AttentionStats 
     patternForgeBest: sanitizeNum(raw.patternForgeBest, 0, 50000),
     logicCircuitBest: sanitizeNum(raw.logicCircuitBest, 0, 50000),
     storeSimBest: sanitizeNum(raw.storeSimBest, 0, 50000),
+    iqPuzzleBest: sanitizeNum(raw.iqPuzzleBest, 0, 100),
+    mindMosaicBest: sanitizeNum(raw.mindMosaicBest, 0, 100),
+    intelligenceProfile: {
+      reasoning: sanitizeProfileItem(profileSource.reasoning),
+      creative: sanitizeProfileItem(profileSource.creative),
+      executive: sanitizeProfileItem(profileSource.executive),
+      social: sanitizeProfileItem(profileSource.social),
+    },
     precisionPointerBest: sanitizeNum(raw.precisionPointerBest, 0, 50000),
     totalSessions: sanitizeNum(raw.totalSessions, 0, 100000),
     streak: sanitizeNum(raw.streak, 0, 3650),
@@ -94,6 +125,14 @@ const DEFAULT_STATS: AttentionStats = {
   patternForgeBest: 0,
   logicCircuitBest: 0,
   storeSimBest: 0,
+  iqPuzzleBest: 0,
+  mindMosaicBest: 0,
+  intelligenceProfile: {
+    reasoning: { total: 0, sessions: 0 },
+    creative: { total: 0, sessions: 0 },
+    executive: { total: 0, sessions: 0 },
+    social: { total: 0, sessions: 0 },
+  },
   precisionPointerBest: 0,
   totalSessions: 0,
   streak: 0,

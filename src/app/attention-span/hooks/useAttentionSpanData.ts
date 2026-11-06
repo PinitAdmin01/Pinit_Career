@@ -16,7 +16,9 @@ import {
   playSound,
   calcFocusScore,
   isDifficultyUnlocked,
+  type IntelligenceScores,
 } from '@/components/attention-span/types';
+import { mergeIntelligenceProfile } from '@/components/attention-span/intelligenceGameData';
 
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 
@@ -293,7 +295,7 @@ export function useAttentionSpanData(user: any) {
   }, [user?.id]);
 
   // Game complete handler
-  const handleGameComplete = useCallback((gameId: GameId, score: number, accuracy: number) => {
+  const handleGameComplete = useCallback((gameId: GameId, score: number, accuracy: number, dimensions?: IntelligenceScores) => {
     setActiveGame(null);
 
     const diffMultiplier = difficulty === 'hard' ? 2.5 : difficulty === 'normal' ? 1.5 : 1.0;
@@ -339,6 +341,7 @@ export function useAttentionSpanData(user: any) {
         ...stats.dailyScores,
         [today]: Math.max(stats.dailyScores[today] || 0, score),
       },
+      ...(dimensions ? { intelligenceProfile: mergeIntelligenceProfile(stats.intelligenceProfile, dimensions) } : {}),
     };
 
     if (gameId === 'focus-fire') newStats.focusFireBest = Math.max(stats.focusFireBest, score);
@@ -351,6 +354,8 @@ export function useAttentionSpanData(user: any) {
     if (gameId === 'pattern-forge') newStats.patternForgeBest = Math.max(stats.patternForgeBest || 0, score);
     if (gameId === 'logic-circuit') newStats.logicCircuitBest = Math.max(stats.logicCircuitBest || 0, score);
     if (gameId === 'store-sim') newStats.storeSimBest = Math.max(stats.storeSimBest || 0, score);
+    if (gameId === 'iq-puzzle') newStats.iqPuzzleBest = Math.max(stats.iqPuzzleBest || 0, score);
+    if (gameId === 'mind-mosaic') newStats.mindMosaicBest = Math.max(stats.mindMosaicBest || 0, score);
 
     saveStats(newStats);
 

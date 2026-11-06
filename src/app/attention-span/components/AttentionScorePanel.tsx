@@ -8,6 +8,7 @@ import {
   getNextRank,
   RANKS,
 } from '@/components/attention-span/types';
+import { intelligenceProfileAverages } from '@/components/attention-span/intelligenceGameData';
 
 interface AttentionScorePanelProps {
   stats: AttentionStats;
@@ -38,18 +39,20 @@ export function AttentionScorePanel({
   const rank = getRank(focusScore);
   const nextRank = getNextRank(focusScore);
 
-  // Radar chart metrics (normalized 0-100%)
-  const selectiveScore = Math.min(100, Math.round((stats.focusFireBest / 25) * 100));
-  const memoryScore = Math.min(100, Math.round((stats.memoryMatrixBest / 8) * 100));
-  const reactionScore = stats.reflexRushBest > 0 ? Math.min(100, Math.max(10, Math.round(100 - (stats.reflexRushBest - 150) * 0.3))) : 0;
-  const spanScore = Math.min(100, Math.round((stats.sequenceSnapBest / 9) * 100));
+  const intelligence = intelligenceProfileAverages(stats.intelligenceProfile);
+  const intelligenceLabels = [
+    { key: 'reasoning' as const, label: 'Reasoning', tint: '#8b5cf6' },
+    { key: 'creative' as const, label: 'Creative', tint: '#0d9488' },
+    { key: 'executive' as const, label: 'Executive', tint: '#d97706' },
+    { key: 'social' as const, label: 'Social', tint: '#2563eb' },
+  ];
 
   return (
     <>
       <div className="att-dash-head">
         <div>
-          <h1>Attention Span</h1>
-          <p>Quiet drills for focus, memory, and judgment.</p>
+          <h1>Cognitive Intelligence</h1>
+          <p>Train different ways of thinking, then notice how your practice changes.</p>
         </div>
         <div className="att-toolbar">
           <button type="button" className="att-tool is-accent" onClick={onOpenAnalytics}>
@@ -66,7 +69,7 @@ export function AttentionScorePanel({
 
       <div className="att-quest">
         <div>
-          <h3>Daily focus quest</h3>
+          <h3>Daily mind quest</h3>
           <p>Finish 2 sessions today ({todaySessionCount}/2) for +15 Pins and +40 XP.</p>
         </div>
         <button
@@ -81,7 +84,7 @@ export function AttentionScorePanel({
 
       <div className="att-stats">
         {[
-          { label: 'Focus score', value: focusScore },
+          { label: 'Cognitive score', value: focusScore },
           { label: 'Streak', value: stats.streak },
           { label: 'Accuracy', value: `${userTotalAccuracy}+` },
           { label: 'Sessions', value: stats.totalSessions },
@@ -93,15 +96,15 @@ export function AttentionScorePanel({
         ))}
       </div>
 
-      {/* 🕸️ COGNITIVE RADAR & FOCUS RANK GRID */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: 16, marginBottom: 28 }}>
+      {/* Cognitive practice score and multidimensional profile */}
+      <div className="ci-score-layout">
         <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 16, padding: '22px 24px', boxShadow: 'var(--shadow-sm)' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <span style={{ fontSize: 26.5 }}>{rank.icon}</span>
               <div>
                 <div style={{ fontSize: 17.5, fontWeight: 800, color: rank.color }}>{rank.name}</div>
-                <div style={{ fontSize: 13, color: 'var(--t2)' }}>Focus Score: {focusScore}</div>
+                <div style={{ fontSize: 13, color: 'var(--t2)' }}>Cognitive score: {focusScore}</div>
               </div>
             </div>
             {nextRank && (
@@ -139,32 +142,23 @@ export function AttentionScorePanel({
           </div>
         </div>
 
-        <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 16, padding: '16px', textAlign: 'center', boxShadow: 'var(--shadow-sm)' }}>
-          <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)', marginBottom: 6 }}>Cognitive profile</div>
-          <svg viewBox="0 0 200 160" style={{ width: '100%', height: 130 }}>
-            <polygon points="100,20 170,80 100,140 30,80" fill="none" stroke="var(--border2)" strokeWidth="1" />
-            <polygon points="100,50 135,80 100,110 65,80" fill="none" stroke="var(--border)" strokeWidth="1" />
-
-            {(() => {
-              const top = 80 - (selectiveScore / 100) * 60;
-              const right = 100 + (memoryScore / 100) * 70;
-              const bottom = 80 + (reactionScore / 100) * 60;
-              const left = 100 - (spanScore / 100) * 70;
+        <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 16, padding: '16px', boxShadow: 'var(--shadow-sm)' }}>
+          <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)', marginBottom: 4 }}>Cognitive profile</div>
+          <div style={{ fontSize: 11.5, color: 'var(--t3)', marginBottom: 14 }}>Practice trends · not a clinical IQ score</div>
+          <div className="ci-profile-list">
+            {intelligenceLabels.map(({ key, label, tint }) => {
+              const value = intelligence[key];
+              const sessions = stats.intelligenceProfile?.[key]?.sessions || 0;
               return (
-                <polygon
-                  points={`100,${top} ${right},80 100,${bottom} ${left},80`}
-                  fill="rgba(212,168,67,0.25)"
-                  stroke="#d4a843"
-                  strokeWidth="2"
-                />
+                <div className="ci-profile-item" key={key}>
+                  <div className="ci-profile-item-head"><span>{label}</span><strong>{sessions ? `${value}%` : 'Explore'}</strong></div>
+                  <div className="ci-profile-meter"><i style={{ width: `${sessions ? value : 0}%`, background: tint }} /></div>
+                  <small>{sessions ? `${sessions} practice ${sessions === 1 ? 'run' : 'runs'}` : 'Play a game to begin'}</small>
+                </div>
               );
-            })()}
-
-            <text x="100" y="14" fill="#d4a843" fontSize="10" textAnchor="middle" fontWeight="bold">Selective ({selectiveScore}%)</text>
-            <text x="175" y="83" fill="var(--reward)" fontSize="10" textAnchor="start" fontWeight="bold">Memory ({memoryScore}%)</text>
-            <text x="100" y="154" fill="var(--success)" fontSize="10" textAnchor="middle" fontWeight="bold">Reflex ({reactionScore}%)</text>
-            <text x="25" y="83" fill="var(--info)" fontSize="10" textAnchor="end" fontWeight="bold">Span ({spanScore}%)</text>
-          </svg>
+            })}
+          </div>
+          <div className="ci-profile-foot">Focus, memory, and reflex games also contribute to your overall practice score.</div>
         </div>
       </div>
     </>

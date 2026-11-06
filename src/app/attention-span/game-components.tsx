@@ -6,6 +6,7 @@ import { DifficultyPicker, CompletionBanner } from '@/components/attention-span/
 import { CountdownOverlay } from '@/components/attention-span/CountdownOverlay';
 import { OnScreenNumpad } from '@/components/attention-span/OnScreenNumpad';
 import { GameShell } from '@/components/attention-span/GameShell';
+import { useSprintClock } from '@/components/attention-span/useSprintClock';
 
 /* 🧠 GAME 2: MEMORY MATRIX */
 export function MemoryMatrixGame({ gameId, difficulty, onDifficultyChange, completedDifficulties, soundMuted, onComplete, onExit }: { gameId: GameId; difficulty: Difficulty; onDifficultyChange: (d: Difficulty) => void; completedDifficulties?: Record<string, Difficulty[]>; soundMuted: boolean; onComplete: (finalLevel: number, accuracyEarned: number) => void; onExit: () => void }) {
@@ -14,6 +15,14 @@ export function MemoryMatrixGame({ gameId, difficulty, onDifficultyChange, compl
   const [activePattern, setActivePattern] = useState<number[]>([]);
   const [userSelected, setUserSelected] = useState<number[]>([]);
   const [wrongSelections, setWrongSelections] = useState<number[]>([]);
+  const phaseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => () => {
+    if (phaseTimeoutRef.current) clearTimeout(phaseTimeoutRef.current);
+  }, []);
+  const sprintTime = useSprintClock(phase === 'memorizing' || phase === 'input', () => {
+    if (phaseTimeoutRef.current) clearTimeout(phaseTimeoutRef.current);
+    setPhase('done');
+  });
 
   const getGridSize = (lvl: number) => lvl <= 2 ? 3 : lvl <= 5 ? 4 : 5;
   const getTileCount = (lvl: number) => Math.min(lvl + 2, 10);
@@ -37,7 +46,9 @@ export function MemoryMatrixGame({ gameId, difficulty, onDifficultyChange, compl
     setPhase('memorizing');
 
     const displayMs = (difficulty === 'easy' ? 2200 : difficulty === 'hard' ? 1200 : 1600) + (count * 200);
-    setTimeout(() => {
+    if (phaseTimeoutRef.current) clearTimeout(phaseTimeoutRef.current);
+    phaseTimeoutRef.current = setTimeout(() => {
+      phaseTimeoutRef.current = null;
       setPhase('input');
     }, displayMs);
   }, [difficulty]);
@@ -52,7 +63,11 @@ export function MemoryMatrixGame({ gameId, difficulty, onDifficultyChange, compl
 
       if (nextSel.length === activePattern.length) {
         playSound('level', soundMuted);
-        setTimeout(() => startLevel(level + 1), 600);
+        if (phaseTimeoutRef.current) clearTimeout(phaseTimeoutRef.current);
+        phaseTimeoutRef.current = setTimeout(() => {
+          phaseTimeoutRef.current = null;
+          startLevel(level + 1);
+        }, 600);
       }
     } else {
       playSound('wrong', soundMuted);
@@ -92,11 +107,12 @@ export function MemoryMatrixGame({ gameId, difficulty, onDifficultyChange, compl
       {(phase === 'memorizing' || phase === 'input') && (
         <>
           <div className="att-hud">
-            <div className="att-hud-key"><span>Level</span><b>{level}</b></div>
+          <div className="att-hud-key"><span>Level</span><b>{level}</b></div>
             <div className="att-phase">{phase === 'memorizing' ? 'Watch' : 'Recall'}</div>
+          <div className="att-sprint-clock" aria-label={`${sprintTime} seconds remaining`}><span>Time</span><b>{sprintTime}s</b></div>
           </div>
           <div className="att-arena">
-            <div className="att-board" style={{ gridTemplateColumns: `repeat(${gridSize}, 64px)` }}>
+            <div className="att-board att-memory-board" style={{ '--att-grid-size': gridSize } as React.CSSProperties}>
               {Array.from({ length: gridSize * gridSize }).map((_, i) => {
                 const isPattern = activePattern.includes(i);
                 const isSelected = userSelected.includes(i);
@@ -108,7 +124,14 @@ export function MemoryMatrixGame({ gameId, difficulty, onDifficultyChange, compl
                   isWrong ? 'is-bad' : '',
                 ].filter(Boolean).join(' ');
                 return (
-                  <button key={i} type="button" className={cls} onClick={() => handleTileClick(i)} style={{ width: 64, height: 64, cursor: phase === 'input' ? 'pointer' : 'default' }} />
+                  <button
+                    key={i}
+                    type="button"
+                    className={cls}
+                    onClick={() => handleTileClick(i)}
+                    disabled={phase !== 'input' || isSelected || isWrong}
+                    aria-label={`Tile ${i + 1}${phase === 'memorizing' && isPattern ? ', lit, watch' : isSelected ? ', recalled' : isWrong ? ', incorrect' : ''}`}
+                  />
                 );
               })}
             </div>
@@ -126,6 +149,14 @@ export function SequenceSnapGame({ gameId, difficulty, onDifficultyChange, compl
   const [inputVal, setInputVal] = useState('');
   const [level, setLevel] = useState(3);
   const [maxReached, setMaxReached] = useState(0);
+  const phaseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => () => {
+    if (phaseTimeoutRef.current) clearTimeout(phaseTimeoutRef.current);
+  }, []);
+  const sprintTime = useSprintClock(phase === 'showing' || phase === 'input', () => {
+    if (phaseTimeoutRef.current) clearTimeout(phaseTimeoutRef.current);
+    setPhase('done');
+  });
 
   const startLevel = useCallback((lvl: number) => {
     setLevel(lvl);
@@ -138,7 +169,9 @@ export function SequenceSnapGame({ gameId, difficulty, onDifficultyChange, compl
     setPhase('showing');
 
     const showMs = (difficulty === 'easy' ? 1200 : difficulty === 'hard' ? 600 : 900) * lvl;
-    setTimeout(() => {
+    if (phaseTimeoutRef.current) clearTimeout(phaseTimeoutRef.current);
+    phaseTimeoutRef.current = setTimeout(() => {
+      phaseTimeoutRef.current = null;
       setPhase('input');
     }, showMs);
   }, [difficulty]);
@@ -153,7 +186,11 @@ export function SequenceSnapGame({ gameId, difficulty, onDifficultyChange, compl
       playSound('correct', soundMuted);
       const nextMax = Math.max(maxReached, level);
       setMaxReached(nextMax);
-      setTimeout(() => startLevel(level + 1), 500);
+      if (phaseTimeoutRef.current) clearTimeout(phaseTimeoutRef.current);
+      phaseTimeoutRef.current = setTimeout(() => {
+        phaseTimeoutRef.current = null;
+        startLevel(level + 1);
+      }, 500);
     } else {
       playSound('wrong', soundMuted);
       setPhase('done');
@@ -185,6 +222,7 @@ export function SequenceSnapGame({ gameId, difficulty, onDifficultyChange, compl
           <div className="att-hud">
             <div className="att-hud-key"><span>Length</span><b>{sequence.length}</b></div>
             <div className="att-phase">Watch</div>
+            <div className="att-sprint-clock" aria-label={`${sprintTime} seconds remaining`}><span>Time</span><b>{sprintTime}s</b></div>
           </div>
           <div className="att-seq">
             {sequence.map((n, i) => (
@@ -195,6 +233,11 @@ export function SequenceSnapGame({ gameId, difficulty, onDifficultyChange, compl
       )}
       {phase === 'input' && (
         <>
+          <div className="att-hud">
+            <div className="att-hud-key"><span>Digits to recall</span><b>{sequence.length}</b></div>
+            <div className="att-phase">Your turn</div>
+            <div className="att-sprint-clock" aria-label={`${sprintTime} seconds remaining`}><span>Time</span><b>{sprintTime}s</b></div>
+          </div>
           <p className="att-sub">Enter the sequence</p>
           <div className="att-chip" style={{ margin: '0 auto 16px', minWidth: 180, letterSpacing: 6 }}>
             {inputVal || '—'}
@@ -219,8 +262,8 @@ export function VortexVisionGame({ gameId, difficulty, onDifficultyChange, compl
   const [strikes, setStrikes] = useState(0);
   const [targetPos, setTargetPos] = useState({ r: 100, a: 0 });
   const [debrisAngle, setDebrisAngle] = useState(0);
-  const timerRef = useRef<any>(null);
   const hasReportedRef = useRef(false);
+  const sprintTime = useSprintClock(phase === 'playing', () => setPhase('done'));
 
   useEffect(() => {
     if (phase !== 'playing') return;
@@ -232,7 +275,8 @@ export function VortexVisionGame({ gameId, difficulty, onDifficultyChange, compl
 
   const spawnTarget = useCallback(() => {
     setTargetPos({
-      r: 60 + Math.random() * 80,
+      // Keep the full 48px touch target inside the 300px play field.
+      r: 55 + Math.random() * 70,
       a: Math.random() * 360,
     });
   }, []);
@@ -252,7 +296,6 @@ export function VortexVisionGame({ gameId, difficulty, onDifficultyChange, compl
     setStrikes(s => {
       const next = s + 1;
       if (next >= 3) {
-        if (timerRef.current) clearTimeout(timerRef.current);
         setPhase('done');
       }
       return next;
@@ -282,8 +325,6 @@ export function VortexVisionGame({ gameId, difficulty, onDifficultyChange, compl
         hasReportedRef.current = false;
         spawnTarget();
         setPhase('playing');
-        if (timerRef.current) clearTimeout(timerRef.current);
-        timerRef.current = setTimeout(() => setPhase('done'), 20000);
       }} /> : null}
       readyExtra={<DifficultyPicker gameId={gameId} difficulty={difficulty} onChange={onDifficultyChange} completedDifficulties={completedDifficulties} />}
       onStart={() => setPhase('countdown')}
@@ -301,6 +342,7 @@ export function VortexVisionGame({ gameId, difficulty, onDifficultyChange, compl
             <div className="att-hud-key" style={{ color: strikes > 0 ? 'var(--coral, #f87171)' : 'var(--t2)' }}>
               <span>Strikes</span><b>{strikes}/3</b>
             </div>
+            <div className="att-sprint-clock" aria-label={`${sprintTime} seconds remaining`}><span>Time</span><b>{sprintTime}s</b></div>
           </div>
           <div className="att-well" onClick={handleMiss} style={{ cursor: 'crosshair' }}>
             <div className="att-orbit" style={{ position: 'absolute', inset: 0, transform: `rotate(${debrisAngle}deg)`, pointerEvents: 'none' }}>
@@ -313,11 +355,11 @@ export function VortexVisionGame({ gameId, difficulty, onDifficultyChange, compl
               className="att-star"
               onClick={handleTargetClick}
               style={{
-                left: 150 + targetPos.r * Math.cos((targetPos.a * Math.PI) / 180) - 14,
-                top: 150 + targetPos.r * Math.sin((targetPos.a * Math.PI) / 180) - 14,
+                left: 150 + targetPos.r * Math.cos((targetPos.a * Math.PI) / 180) - 24,
+                top: 150 + targetPos.r * Math.sin((targetPos.a * Math.PI) / 180) - 24,
               }}
-              aria-label="Target"
-            />
+              aria-label="Tap the gold target"
+            ><span aria-hidden="true" /></button>
           </div>
         </>
       )}
@@ -335,8 +377,8 @@ export function FlashFusionGame({ gameId, difficulty, onDifficultyChange, comple
   const [score, setScore] = useState(0);
   const [strikes, setStrikes] = useState(0);
   const [attempts, setAttempts] = useState(0);
-  const timerRef = useRef<any>(null);
   const hasReportedRef = useRef(false);
+  const sprintTime = useSprintClock(phase === 'playing', () => setPhase('done'));
 
   useEffect(() => {
     if (phase !== 'playing') return;
@@ -362,7 +404,6 @@ export function FlashFusionGame({ gameId, difficulty, onDifficultyChange, comple
       setStrikes(st => {
         const next = st + 1;
         if (next >= 3) {
-          if (timerRef.current) clearTimeout(timerRef.current);
           setPhase('done');
         }
         return next;
@@ -403,8 +444,6 @@ export function FlashFusionGame({ gameId, difficulty, onDifficultyChange, comple
         setAttempts(0);
         hasReportedRef.current = false;
         setPhase('playing');
-        if (timerRef.current) clearTimeout(timerRef.current);
-        timerRef.current = setTimeout(() => setPhase('done'), 20000);
       }} /> : null}
       readyExtra={<DifficultyPicker gameId={gameId} difficulty={difficulty} onChange={onDifficultyChange} completedDifficulties={completedDifficulties} />}
       onStart={() => setPhase('countdown')}
@@ -423,6 +462,7 @@ export function FlashFusionGame({ gameId, difficulty, onDifficultyChange, comple
               <span>Strikes</span><b>{strikes}/3</b>
             </div>
             <div className="att-phase">Space</div>
+            <div className="att-sprint-clock" aria-label={`${sprintTime} seconds remaining`}><span>Time</span><b>{sprintTime}s</b></div>
           </div>
           <button type="button" className="att-flash" onClick={handleTap}>{currentSymbol}</button>
           <p className="att-sub" style={{ marginTop: 14 }}>Tap on a repeat (3 strikes = fail)</p>
@@ -444,8 +484,8 @@ export function ShapeShifterGame({ gameId, difficulty, onDifficultyChange, compl
   const [score, setScore] = useState(0);
   const [strikes, setStrikes] = useState(0);
   const [attempts, setAttempts] = useState(0);
-  const timerRef = useRef<any>(null);
   const hasReportedRef = useRef(false);
+  const sprintTime = useSprintClock(phase === 'playing', () => setPhase('done'));
 
   const spawnCards = useCallback(() => {
     const colorA = SHAPE_SHIFTER_COLORS[Math.floor(Math.random() * SHAPE_SHIFTER_COLORS.length)];
@@ -488,7 +528,6 @@ export function ShapeShifterGame({ gameId, difficulty, onDifficultyChange, compl
       setStrikes(st => {
         const next = st + 1;
         if (next >= 3) {
-          if (timerRef.current) clearTimeout(timerRef.current);
           setPhase('done');
         }
         return next;
@@ -534,8 +573,6 @@ export function ShapeShifterGame({ gameId, difficulty, onDifficultyChange, compl
         setAttempts(0);
         hasReportedRef.current = false;
         setPhase('playing');
-        if (timerRef.current) clearTimeout(timerRef.current);
-        timerRef.current = setTimeout(() => setPhase('done'), 20000);
       }} /> : null}
       readyExtra={<DifficultyPicker gameId={gameId} difficulty={difficulty} onChange={onDifficultyChange} completedDifficulties={completedDifficulties} />}
       onStart={() => setPhase('countdown')}
@@ -553,6 +590,7 @@ export function ShapeShifterGame({ gameId, difficulty, onDifficultyChange, compl
             <div className="att-hud-key" style={{ color: strikes > 0 ? 'var(--coral, #f87171)' : 'var(--t2)' }}>
               <span>Strikes</span><b>{strikes}/3</b>
             </div>
+            <div className="att-sprint-clock" aria-label={`${sprintTime} seconds remaining`}><span>Time</span><b>{sprintTime}s</b></div>
             <div className="att-phase">Match {rule.toLowerCase()}</div>
           </div>
           <div className="att-pair">

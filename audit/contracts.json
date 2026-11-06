@@ -1,7 +1,7 @@
 {
   "summary": {
-    "generated": "2026-11-06T18:50:25.327Z",
-    "appCodeFiles": 1043,
+    "generated": "2026-11-06T19:13:45.467Z",
+    "appCodeFiles": 1047,
     "verticals": 73,
     "verticalsWithDefects": 1,
     "clientCalledPaths": 233,
@@ -10,7 +10,7 @@
     "brokenOnSomeMethods": 0,
     "defectsInDeadCode": 20,
     "unbuiltPages": 15,
-    "reachableSourceFiles": 932,
+    "reachableSourceFiles": 935,
     "guardBranches": 0,
     "unreachableOrDynamicGuards": 0,
     "campusSwitchCases": 0,
@@ -2190,22 +2190,22 @@
       "callSites": [
         {
           "file": "src/app/attention-span/hooks/useAttentionSpanData.ts",
-          "line": 110,
+          "line": 112,
           "live": true
         },
         {
           "file": "src/app/attention-span/hooks/useAttentionSpanData.ts",
-          "line": 430,
+          "line": 435,
           "live": true
         },
         {
           "file": "src/app/attention-span/hooks/useAttentionSpanData.ts",
-          "line": 110,
+          "line": 112,
           "live": true
         },
         {
           "file": "src/app/attention-span/hooks/useAttentionSpanData.ts",
-          "line": 430,
+          "line": 435,
           "live": true
         }
       ],
@@ -2274,12 +2274,12 @@
       "callSites": [
         {
           "file": "src/app/attention-span/hooks/useAttentionSpanData.ts",
-          "line": 189,
+          "line": 191,
           "live": true
         },
         {
           "file": "src/app/attention-span/hooks/useAttentionSpanData.ts",
-          "line": 189,
+          "line": 191,
           "live": true
         }
       ],
@@ -2348,29 +2348,29 @@
       "callSites": [
         {
           "file": "src/app/attention-span/hooks/useAttentionSpanData.ts",
-          "line": 87,
+          "line": 89,
           "live": true
         },
         {
           "file": "src/app/attention-span/hooks/useAttentionSpanData.ts",
-          "line": 214,
+          "line": 216,
           "live": true
         },
         {
           "file": "src/app/attention-span/hooks/useAttentionSpanData.ts",
-          "line": 87,
+          "line": 89,
           "live": true
         },
         {
           "file": "src/app/attention-span/hooks/useAttentionSpanData.ts",
-          "line": 214,
+          "line": 216,
           "live": true
         }
       ],
       "directCalls": 2,
       "spec": {
         "file": "src/app/api/attention-span/progress/route.ts",
-        "lines": 182,
+        "lines": 221,
         "methods": [
           "GET",
           "POST"
@@ -9938,7 +9938,7 @@
       "directCalls": 2,
       "spec": {
         "file": "src/app/api/interview/evaluate/route.ts",
-        "lines": 437,
+        "lines": 466,
         "methods": [
           "POST"
         ],

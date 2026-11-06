@@ -16,13 +16,13 @@ import { AttentionProgressChart } from './components/AttentionProgressChart';
 import { AttentionHistoryView } from './components/AttentionHistoryView';
 
 export default function AttentionSpanPage() {
-  const { user, loading } = useAuth();
+  const { user } = useAuth();
   const router = useRouter();
 
   // Auth guard
   useEffect(() => {
-    if (!loading && user === null) router.replace('/login');
-  }, [user, loading, router]);
+    if (user === null) router.replace('/login');
+  }, [user, router]);
 
   const {
     activeGame,
