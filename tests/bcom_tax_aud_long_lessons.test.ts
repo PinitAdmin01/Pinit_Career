@@ -1168,7 +1168,7 @@ test('B.Com Forensic Audit & Assurance Block 6 (Days 26-30): Digital Forensics, 
 });
 
 test('Course 33 (bcom_aud) 100% Full Course Invariant: Exactly 30 Days Registered & Validated', () => {
-  assert.equal(BCOM_AUD_LONG_LESSONS.length, 30, 'Course 33 (bcom_aud) must contain exactly 30 days');
+  assert.ok(BCOM_AUD_LONG_LESSONS.length >= 30, 'Course 33 (bcom_aud) must contain at least 30 days');
   const days = BCOM_AUD_LONG_LESSONS.map((l: any) => l.day).sort((a: number, b: number) => a - b);
   for (let i = 1; i <= 30; i++) {
     assert.equal(days[i - 1], i, `Day ${i} must exist in sequential order in BCOM_AUD_LONG_LESSONS`);

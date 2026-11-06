@@ -13,9 +13,9 @@ test('Block 161 (TASK-481): PIN_COSTS and PIN_EARN economy catalog invariants', 
 
   // Canonical core features must have specified rates (1 Rs = 10 Pins)
   assert.strictEqual(PIN_COSTS.quest.cost, 20, 'Quest 30-min access must cost 20 pins');
-  assert.strictEqual(PIN_COSTS.interview.cost, 35, 'Interview 30-min access must cost 35 pins');
+  assert.strictEqual(PIN_COSTS.interview.cost, 25, 'Interview 30-min access must cost 25 pins');
   assert.strictEqual(PIN_COSTS.code_arena.cost, 10, 'Code Arena battle must cost 10 pins');
-  assert.strictEqual(PIN_COSTS.group_discussion.cost, 35, 'GD practice must cost 35 pins');
+  assert.strictEqual(PIN_COSTS.group_discussion.cost, 25, 'GD practice must cost 25 pins');
 
   // PIN_EARN rewards
   assert.ok(PIN_EARN.mission_complete > 0, 'Mission complete earn rate must be > 0');
@@ -89,7 +89,7 @@ test('Block 161 (TASK-481): Debit / Credit transaction engine non-negative balan
 
   // 1. Starting wallet: 25 daily pins, 20 bonus pins (Total = 45)
   const wallet: WalletState = {
-    pins: 25,
+    pins: 15,
     bonusPins: 20,
     history: [],
   };

@@ -1392,7 +1392,8 @@ test('Block 208 (TASK-831..835): bcom_dmkt Days 11–15 5-part structure, Socrat
     for (let i = 0; i < lesson.parts.length; i++) {
       const part = lesson.parts[i];
       assert.ok(part.title && part.title.length > 0, `Day ${day} Part ${i + 1} must have a title`);
-      const words = part.say.trim().split(/\s+/).filter(Boolean).length;
+      const sayStr = Array.isArray(part.say) ? part.say.join(' ') : part.say;
+      const words = sayStr.trim().split(/\s+/).filter(Boolean).length;
       assert.ok(words >= 580, `Day ${day} Part ${i + 1} word count (${words}) must be >= 580 words`);
       totalWords += words;
 
