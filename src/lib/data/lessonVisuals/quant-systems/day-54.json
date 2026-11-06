@@ -10,7 +10,7 @@
       "codeHash": "ed3e4f941f484351501fe5584596adcf70964a74bcc08f04712652482a377593",
       "spec": {
         "template": "states",
-        "title": "Petabyte Financial Time-Series & Columnar Layouts \u2014 Quant Systems State Engine",
+        "title": "Petabyte Financial Time-Series & Columnar Layouts — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Petabyte Financial Time-Series & Columnar Layouts.",
+            "caption": "State one (Init State): Initialize deterministic state for Petabyte.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -60,7 +60,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -77,7 +77,7 @@
       "codeHash": "fe15abcda05e8148aaff5e1603e05dd898f997d8dfea5fc2557120d917df64e2",
       "spec": {
         "template": "states",
-        "title": "I/O Disk Saturation & Deserialization Forensics \u2014 Quant Systems State Engine",
+        "title": "I/O Disk Saturation & Deserialization Forensics — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -99,7 +99,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for I/O Disk Saturation & Deserialization Forensics.",
+            "caption": "State one (Init State): Initialize deterministic state for I/O Disk.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -127,7 +127,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -144,7 +144,7 @@
       "codeHash": "8bfceabdb54f95c954424b3fdfb23d26d4359cae75d69d406483e1ebf8a4cd94",
       "spec": {
         "template": "states",
-        "title": "Columnar Tick Stream Replay & Backtest Engine \u2014 Quant Systems State Engine",
+        "title": "Columnar Tick Stream Replay & Backtest Engine — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -166,7 +166,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Columnar Tick Stream Replay & Backtest Engine.",
+            "caption": "State one (Init State): Initialize deterministic state for Columnar Tick.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -194,7 +194,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -211,7 +211,7 @@
       "codeHash": "7cef49dcca155473109664fe85b80d2bba6a49b8a1631cca50fb5ba0a80ac64e",
       "spec": {
         "template": "states",
-        "title": "Million-Tick High-Throughput Simulation Lab \u2014 Quant Systems State Engine",
+        "title": "Million-Tick High-Throughput Simulation Lab — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -233,7 +233,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Million-Tick High-Throughput Simulation Lab.",
+            "caption": "State one (Init State): Initialize deterministic state for Million-Tick.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -261,7 +261,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -278,7 +278,7 @@
       "codeHash": "c47cfb1ad99e6cd54fabf9b9a0d55aeb842d70a5140ca932249a06cdeeaf2fdf",
       "spec": {
         "template": "states",
-        "title": "Distributed Backtesting Grid & Fill Fidelity Audit \u2014 Quant Systems State Engine",
+        "title": "Distributed Backtesting Grid & Fill Fidelity Audit — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -300,7 +300,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Distributed Backtesting Grid & Fill Fidelity Audit.",
+            "caption": "State one (Init State): Initialize deterministic state for Distributed.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -328,7 +328,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",

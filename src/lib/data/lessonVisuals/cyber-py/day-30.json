@@ -1,0 +1,835 @@
+{
+  "schemaVersion": 1,
+  "prefix": "cyber-py",
+  "day": 30,
+  "promptSha": "e8075e7b872e7051ac73d394d69d31dd991829a0b185990abed4a839415dd3be",
+  "model": "gpt-4o",
+  "entries": [
+    {
+      "partTitle": "Triage: what to look at first",
+      "codeHash": "9664663e0d6e391084fe854cdef44db47900083366f36a7d58fe6cee22b8fc7a",
+      "spec": {
+        "template": "compare",
+        "title": "Application perimeter shielding and cryptographic identity protection suite",
+        "left": {
+          "title": "Application Shielding",
+          "items": [
+            "Parameterized SQL query enforcement against injection",
+            "Automated HTML entity escaping against cross-site scripting",
+            "SameSite cookie policies preventing cross-site request forgery",
+            "Strict object-level authorization checks eliminating BOLA"
+          ]
+        },
+        "right": {
+          "title": "Cryptographic Identity",
+          "items": [
+            "Multi-factor authentication via RFC 6238 TOTP codes",
+            "Memory-hard Argon2id key derivation password protection",
+            "Cryptographic JWT signature verification against spoofing",
+            "Explicit rejection of insecure none algorithm headers"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "Application shielding neutralizes injection attacks and enforces policies.",
+            "highlightSide": "left",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say6",
+            "caption": "Argontwoid derivation and token signature verification prevent identity.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Application Shielding",
+        "rightLabel": "Cryptographic Identity"
+      },
+      "filled": {
+        "template": "compare",
+        "title": "Application perimeter shielding and cryptographic identity protection suite",
+        "left": {
+          "title": "Application Shielding",
+          "items": [
+            "Parameterized SQL query enforcement against injection",
+            "Automated HTML entity escaping against cross-site scripting",
+            "SameSite cookie policies preventing cross-site request forgery",
+            "Strict object-level authorization checks eliminating BOLA"
+          ]
+        },
+        "right": {
+          "title": "Cryptographic Identity",
+          "items": [
+            "Multi-factor authentication via RFC 6238 TOTP codes",
+            "Memory-hard Argon2id key derivation password protection",
+            "Cryptographic JWT signature verification against spoofing",
+            "Explicit rejection of insecure none algorithm headers"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "Application shielding neutralizes injection attacks and enforces policies.",
+            "highlightSide": "left",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say6",
+            "caption": "Argon2id derivation and token signature verification prevent identity bypass.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Application Shielding",
+        "rightLabel": "Cryptographic Identity"
+      }
+    },
+    {
+      "partTitle": "Measuring security posture",
+      "codeHash": "0baab57711110662297358aa1c5f78fcd1ab97d168b46e260951580bcd9a5851",
+      "spec": {
+        "template": "flow",
+        "title": "Runtime self-protection and software supply chain vulnerability pipeline",
+        "nodes": [
+          {
+            "id": "egress",
+            "label": "Egress Request Filter",
+            "tappable": false
+          },
+          {
+            "id": "metadata",
+            "label": "Cloud Metadata Blocker",
+            "tappable": false
+          },
+          {
+            "id": "sbom",
+            "label": "SBOM Dependency Scanner",
+            "tappable": false
+          },
+          {
+            "id": "limiter",
+            "label": "Token Bucket Rate Limiter",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "egress",
+            "to": "metadata",
+            "label": "Inspect Destination"
+          },
+          {
+            "from": "metadata",
+            "to": "sbom",
+            "label": "Pass Egress"
+          },
+          {
+            "from": "sbom",
+            "to": "limiter",
+            "label": "Validate Packages"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Egress filtering blocks metadata endpoints to prevent server request forgery.",
+            "activeNodes": [
+              "egress",
+              "metadata"
+            ],
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say6",
+            "caption": "Software bill of materials scanners match dependency packages with advisories.",
+            "activeNodes": [
+              "sbom",
+              "limiter"
+            ],
+            "statusBadge": "completed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Runtime self-protection and software supply chain vulnerability pipeline",
+        "nodes": [
+          {
+            "id": "egress",
+            "label": "Egress Request Filter",
+            "tappable": false
+          },
+          {
+            "id": "metadata",
+            "label": "Cloud Metadata Blocker",
+            "tappable": false
+          },
+          {
+            "id": "sbom",
+            "label": "SBOM Dependency Scanner",
+            "tappable": false
+          },
+          {
+            "id": "limiter",
+            "label": "Token Bucket Rate Limiter",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "egress",
+            "to": "metadata",
+            "label": "Inspect Destination"
+          },
+          {
+            "from": "metadata",
+            "to": "sbom",
+            "label": "Pass Egress"
+          },
+          {
+            "from": "sbom",
+            "to": "limiter",
+            "label": "Validate Packages"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Egress filtering blocks metadata endpoints to prevent server request forgery.",
+            "activeNodes": [
+              "egress",
+              "metadata"
+            ],
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say6",
+            "caption": "Software bill of materials scanners match dependency packages with advisories.",
+            "activeNodes": [
+              "sbom",
+              "limiter"
+            ],
+            "statusBadge": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "The course as a defensive programme",
+      "codeHash": "6b319ff81480fecb84a286b50af99105c1635e6c1a8459eaa6ccef6bcf937ba3",
+      "spec": {
+        "template": "states",
+        "title": "Systems integrity memory safety and SIEM telemetry correlation lifecycle",
+        "states": [
+          {
+            "id": "canary",
+            "label": "Stack Canary Integrity Guard"
+          },
+          {
+            "id": "temporal",
+            "label": "Temporal Heap Safety Tracking"
+          },
+          {
+            "id": "siem",
+            "label": "SIEM Correlation Engine"
+          },
+          {
+            "id": "ips",
+            "label": "IPS Packet Dropper Active"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "Stack canaries detect corruption before hijacked returns transfer flow.",
+            "activeStateId": "canary",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say6",
+            "caption": "Correlation engines process normalized security events in real time.",
+            "activeStateId": "siem",
+            "statusBadge": "completed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Systems integrity memory safety and SIEM telemetry correlation lifecycle",
+        "states": [
+          {
+            "id": "canary",
+            "label": "Stack Canary Integrity Guard"
+          },
+          {
+            "id": "temporal",
+            "label": "Temporal Heap Safety Tracking"
+          },
+          {
+            "id": "siem",
+            "label": "SIEM Correlation Engine"
+          },
+          {
+            "id": "ips",
+            "label": "IPS Packet Dropper Active"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "Stack canaries detect corruption before hijacked returns transfer flow.",
+            "activeStateId": "canary",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say6",
+            "caption": "Correlation engines process normalized security events in real time.",
+            "activeStateId": "siem",
+            "statusBadge": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Careers in security",
+      "codeHash": "fd0f9537fcd81c0b47cbd5949c013a3d3e9d22a81b198d885790fa53dd4489ca",
+      "spec": {
+        "template": "flow",
+        "title": "Capstone Phase 4: Sovereign Security Operatio... — Execution Pipeline",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "1. Input & State",
+            "tappable": true
+          },
+          {
+            "id": "proc",
+            "label": "2. Capstone Phase 4: S...",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "3. Verified Output",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize input state for Capstone Phase four: Sovereign Security Ope.",
+            "values": {
+              "in": "Day 30 Input",
+              "proc": "Standby",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "data",
+              "proc": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Execute core transformation in Capstone Phase four: S... [D.Pfour.Stwo].",
+            "values": {
+              "in": "Validated",
+              "proc": "Processing...",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Inspect concrete example output and invariants [D.Pfour.object-storage].",
+            "values": {
+              "in": "Validated",
+              "proc": "Invariant OK",
+              "out": "Emitting"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "End-to-end execution verified for Capstone Phase four: Sovereign Secur.",
+            "values": {
+              "in": "Committed",
+              "proc": "Verified",
+              "out": "Complete ✓"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Capstone Phase 4: Sovereign Security Operatio... — Execution Pipeline",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "1. Input & State",
+            "tappable": true
+          },
+          {
+            "id": "proc",
+            "label": "2. Capstone Phase 4: S...",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "3. Verified Output",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Step 1: Initialize input state for Capstone Phase 4: Sovereign Security Ope.. [D30.P4.S1].",
+            "values": {
+              "in": "Day 30 Input",
+              "proc": "Standby",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "data",
+              "proc": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Step 2: Execute core transformation in Capstone Phase 4: S... [D30.P4.S2].",
+            "values": {
+              "in": "Validated",
+              "proc": "Processing...",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Step 3: Inspect concrete example output and invariants [D30.P4.S3].",
+            "values": {
+              "in": "Validated",
+              "proc": "Invariant OK",
+              "out": "Emitting"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Step 4: End-to-end execution verified for Capstone Phase 4: Sovereign Secur.. [D30.P4.S4].",
+            "values": {
+              "in": "Committed",
+              "proc": "Verified",
+              "out": "Complete ✓"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Keeping your defences current",
+      "codeHash": "9b179e9ba5bc4117e9deb1526019d6d1902693ed289fd5469d18e9150ccce4a8",
+      "spec": {
+        "template": "sequence",
+        "title": "Live adversary attack chain simulation and automated SOAR dynamic containment",
+        "actors": [
+          {
+            "id": "attacker",
+            "label": "Adversary Threat Actor"
+          },
+          {
+            "id": "sensor",
+            "label": "Perimeter Defense Sensor"
+          },
+          {
+            "id": "siem",
+            "label": "SIEM Analytics Engine"
+          },
+          {
+            "id": "soar",
+            "label": "SOAR Orchestrator"
+          }
+        ],
+        "messages": [
+          {
+            "from": "attacker",
+            "to": "sensor",
+            "label": "Launch Multi-Stage Attack Vectors",
+            "tone": "danger"
+          },
+          {
+            "from": "sensor",
+            "to": "siem",
+            "label": "Stream Normalized Threat Telemetry",
+            "tone": "data"
+          },
+          {
+            "from": "siem",
+            "to": "soar",
+            "label": "Correlate High-Severity Incident",
+            "tone": "data"
+          },
+          {
+            "from": "soar",
+            "to": "attacker",
+            "label": "Trigger Network Host Isolation Severing Reach",
+            "tone": "success"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Simulation engines execute realistic multi-stage kill chains against defenses.",
+            "activeMessageIndex": 0,
+            "statusBadge": "active"
+          },
+          {
+            "at": "say8",
+            "caption": "Security playbooks trigger dynamic host isolation to sever connections.",
+            "activeMessageIndex": 3,
+            "statusBadge": "completed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "sequence",
+        "title": "Live adversary attack chain simulation and automated SOAR dynamic containment",
+        "actors": [
+          {
+            "id": "attacker",
+            "label": "Adversary Threat Actor"
+          },
+          {
+            "id": "sensor",
+            "label": "Perimeter Defense Sensor"
+          },
+          {
+            "id": "siem",
+            "label": "SIEM Analytics Engine"
+          },
+          {
+            "id": "soar",
+            "label": "SOAR Orchestrator"
+          }
+        ],
+        "messages": [
+          {
+            "from": "attacker",
+            "to": "sensor",
+            "label": "Launch Multi-Stage Attack Vectors",
+            "tone": "danger"
+          },
+          {
+            "from": "sensor",
+            "to": "siem",
+            "label": "Stream Normalized Threat Telemetry",
+            "tone": "data"
+          },
+          {
+            "from": "siem",
+            "to": "soar",
+            "label": "Correlate High-Severity Incident",
+            "tone": "data"
+          },
+          {
+            "from": "soar",
+            "to": "attacker",
+            "label": "Trigger Network Host Isolation Severing Reach",
+            "tone": "success"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Simulation engines execute realistic multi-stage kill chains against defenses.",
+            "activeMessageIndex": 0,
+            "statusBadge": "active"
+          },
+          {
+            "at": "say8",
+            "caption": "Security playbooks trigger dynamic host isolation to sever connections.",
+            "activeMessageIndex": 3,
+            "statusBadge": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Capstone practice: triage and scorecard",
+      "codeHash": "98d9b90eda224479a20efea98657b633b1b0e283f9a56a3209169240ed937413",
+      "spec": {
+        "template": "table",
+        "title": "Sovereign cybersecurity compliance certification audit domains and control verification",
+        "columns": [
+          "Security Domain",
+          "Certified Controls",
+          "Audit Verification"
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "Compliance certification manifests verify security across all system domains.",
+            "activeRowIndex": 0,
+            "statusBadge": "active",
+            "rows": [
+              {
+                "cells": [
+                  "Application Shielding",
+                  "Twelve Controls",
+                  "Input Sanitization and CSRF"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Cryptographic Identity",
+                  "Fourteen Controls",
+                  "Argon2id and Multi Factor"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Supply Chain Security",
+                  "Ten Controls",
+                  "SBOM Scans and SSRF Filters"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Zero Trust Governance",
+                  "Sixteen Controls",
+                  "Device Attestation and mTLS"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Certifications prove that every defense satisfies enterprise standards.",
+            "activeRowIndex": 3,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "Application Shielding",
+                  "Twelve Controls",
+                  "Input Sanitization and CSRF"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Cryptographic Identity",
+                  "Fourteen Controls",
+                  "Argon2id and Multi Factor"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Supply Chain Security",
+                  "Ten Controls",
+                  "SBOM Scans and SSRF Filters"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Zero Trust Governance",
+                  "Sixteen Controls",
+                  "Device Attestation and mTLS"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Sovereign cybersecurity compliance certification audit domains and control verification",
+        "columns": [
+          "Security Domain",
+          "Certified Controls",
+          "Audit Verification"
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "Compliance certification manifests verify security across all system domains.",
+            "activeRowIndex": 0,
+            "statusBadge": "active",
+            "rows": [
+              {
+                "cells": [
+                  "Application Shielding",
+                  "Twelve Controls",
+                  "Input Sanitization and CSRF"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Cryptographic Identity",
+                  "Fourteen Controls",
+                  "Argon2id and Multi Factor"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Supply Chain Security",
+                  "Ten Controls",
+                  "SBOM Scans and SSRF Filters"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Zero Trust Governance",
+                  "Sixteen Controls",
+                  "Device Attestation and mTLS"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Certifications prove that every defense satisfies enterprise standards.",
+            "activeRowIndex": 3,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "Application Shielding",
+                  "Twelve Controls",
+                  "Input Sanitization and CSRF"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Cryptographic Identity",
+                  "Fourteen Controls",
+                  "Argon2id and Multi Factor"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Supply Chain Security",
+                  "Ten Controls",
+                  "SBOM Scans and SSRF Filters"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Zero Trust Governance",
+                  "Sixteen Controls",
+                  "Device Attestation and mTLS"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Caller submits transaction or upgrade proposal for Milestone 8 Architecture Bluep...",
+            "caption": "Caller submits transaction or upgrade proposal for Milestone eight.",
             "activeActor": "Lead Web3 Architect",
             "messages": [
               {
@@ -33,7 +33,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Proxy evaluates execution context, caller identity, and routing table",
+            "caption": "Proxy evaluates execution context, caller identity, and routing table.",
             "activeActor": "Timelocked Multi-Sig Governance",
             "messages": [
               {
@@ -46,7 +46,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execution of business logic and storage slot state mutation",
+            "caption": "Execution of business logic and storage slot state mutation.",
             "activeActor": "Diamond Proxy Routing Core",
             "messages": [
               {
@@ -59,7 +59,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: State transition committed; returndata returned to caller",
+            "caption": "State transition committed; returndata returned to caller.",
             "activeActor": "Timelocked Multi-Sig Governance",
             "messages": [
               {
@@ -152,7 +152,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Caller submits transaction or upgrade proposal for Unified AppStorage & State Iso...",
+            "caption": "Caller submits transaction or upgrade proposal for Unified AppStorage &.",
             "activeActor": "Lead Web3 Architect",
             "messages": [
               {
@@ -165,7 +165,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Proxy evaluates execution context, caller identity, and routing table",
+            "caption": "Proxy evaluates execution context, caller identity, and routing table.",
             "activeActor": "Timelocked Multi-Sig Governance",
             "messages": [
               {
@@ -178,7 +178,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execution of business logic and storage slot state mutation",
+            "caption": "Execution of business logic and storage slot state mutation.",
             "activeActor": "Diamond Proxy Routing Core",
             "messages": [
               {
@@ -191,7 +191,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: State transition committed; returndata returned to caller",
+            "caption": "State transition committed; returndata returned to caller.",
             "activeActor": "Timelocked Multi-Sig Governance",
             "messages": [
               {
@@ -284,7 +284,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Caller submits transaction or upgrade proposal for Surgical Facet Hot-Swapping: L...",
+            "caption": "Caller submits transaction or upgrade proposal for Surgical Facet.",
             "activeActor": "Lead Web3 Architect",
             "messages": [
               {
@@ -297,7 +297,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Proxy evaluates execution context, caller identity, and routing table",
+            "caption": "Proxy evaluates execution context, caller identity, and routing table.",
             "activeActor": "Timelocked Multi-Sig Governance",
             "messages": [
               {
@@ -310,7 +310,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execution of business logic and storage slot state mutation",
+            "caption": "Execution of business logic and storage slot state mutation.",
             "activeActor": "Diamond Proxy Routing Core",
             "messages": [
               {
@@ -323,7 +323,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: State transition committed; returndata returned to caller",
+            "caption": "State transition committed; returndata returned to caller.",
             "activeActor": "Timelocked Multi-Sig Governance",
             "messages": [
               {
@@ -416,7 +416,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Caller submits transaction or upgrade proposal for Timelocked Multi-Sig Governanc...",
+            "caption": "Caller submits transaction or upgrade proposal for Timelocked Multi-Sig.",
             "activeActor": "Lead Web3 Architect",
             "messages": [
               {
@@ -429,7 +429,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Proxy evaluates execution context, caller identity, and routing table",
+            "caption": "Proxy evaluates execution context, caller identity, and routing table.",
             "activeActor": "Timelocked Multi-Sig Governance",
             "messages": [
               {
@@ -442,7 +442,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execution of business logic and storage slot state mutation",
+            "caption": "Execution of business logic and storage slot state mutation.",
             "activeActor": "Diamond Proxy Routing Core",
             "messages": [
               {
@@ -455,7 +455,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: State transition committed; returndata returned to caller",
+            "caption": "State transition committed; returndata returned to caller.",
             "activeActor": "Timelocked Multi-Sig Governance",
             "messages": [
               {
@@ -548,7 +548,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Caller submits transaction or upgrade proposal for Milestone 8 Final Defense & Fu...",
+            "caption": "Caller submits transaction or upgrade proposal for Milestone eight Final.",
             "activeActor": "Lead Web3 Architect",
             "messages": [
               {
@@ -561,7 +561,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Proxy evaluates execution context, caller identity, and routing table",
+            "caption": "Proxy evaluates execution context, caller identity, and routing table.",
             "activeActor": "Timelocked Multi-Sig Governance",
             "messages": [
               {
@@ -574,7 +574,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execution of business logic and storage slot state mutation",
+            "caption": "Execution of business logic and storage slot state mutation.",
             "activeActor": "Diamond Proxy Routing Core",
             "messages": [
               {
@@ -587,7 +587,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: State transition committed; returndata returned to caller",
+            "caption": "State transition committed; returndata returned to caller.",
             "activeActor": "Timelocked Multi-Sig Governance",
             "messages": [
               {

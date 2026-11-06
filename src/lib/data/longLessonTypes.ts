@@ -62,7 +62,7 @@ export interface LongLesson {
   /** Key points to remember, shown at the end. */
   summary?: string[];
   /** Today's step of the month project. */
-  projectStep?: { title: string; steps: string[] };
+  projectStep?: { title: string; steps: string[]; goal?: string; description?: string; deliverable?: string; [key: string]: any };
   visualBinding?: {
     schemaVersion?: number;
     type?: string;

@@ -517,7 +517,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for What happens on delete: CASCADE, SET NUL.. [D21.P5.S1].",
+            "caption": "Initialize input state for What happens on delete: CASCADE, SET NUL.",
             "values": {
               "in": "Day 21 Input",
               "proc": "Standby",
@@ -537,7 +537,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in What happens on del... [D21.P5.S2].",
+            "caption": "Execute core transformation in What happens on del... [D.Pfive.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -561,7 +561,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D21.P5.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -581,7 +581,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for What happens on delete: CASCADE, .. [D21.P5.S4].",
+            "caption": "End-to-end execution verified for What happens on delete: CASCADE, .",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -743,7 +743,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Putting it together: a well-protected ta.. [D21.P6.S1].",
+            "caption": "Initialize input state for Putting it together: a well-protected ta.",
             "values": {
               "in": "Day 21 Input",
               "proc": "Standby",
@@ -763,7 +763,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Putting it together... [D21.P6.S2].",
+            "caption": "Execute core transformation in Putting it together... [D.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -787,7 +787,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D21.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -807,7 +807,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Putting it together: a well-prote.. [D21.P6.S4].",
+            "caption": "End-to-end execution verified for Putting it together: a well-prote.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

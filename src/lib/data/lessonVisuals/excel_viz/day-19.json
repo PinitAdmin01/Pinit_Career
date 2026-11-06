@@ -12,7 +12,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline governance parameters for The FAST Financial Modeling Standar...",
+            "caption": "Baseline governance parameters for The FAST Financial Modeling Standar...",
             "max": 100,
             "bars": [
               {
@@ -39,7 +39,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Circuit breaker validation and error precondition scans in The FAST Financial Modeling Standar...",
+            "caption": "Circuit breaker validation and error precondition scans in The FAST.",
             "max": 100,
             "bars": [
               {
@@ -66,7 +66,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Three-statement reconciliation and targeted error trapping in The FAST Financial Modeling Standar...",
+            "caption": "Three-statement reconciliation and targeted error trapping in The FAST.",
             "max": 100,
             "bars": [
               {
@@ -93,7 +93,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full pre-flight certification and cryptographic audit seal applied for The FAST Financial Modeling Standar...",
+            "caption": "Full pre-flight certification and cryptographic audit seal applied for.",
             "max": 100,
             "bars": [
               {
@@ -244,7 +244,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline governance parameters for Circular References & Iterative Cal...",
+            "caption": "Baseline governance parameters for Circular References & Iterative Cal...",
             "max": 100,
             "bars": [
               {
@@ -271,7 +271,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Circuit breaker validation and error precondition scans in Circular References & Iterative Cal...",
+            "caption": "Circuit breaker validation and error precondition scans in Circular.",
             "max": 100,
             "bars": [
               {
@@ -298,7 +298,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Three-statement reconciliation and targeted error trapping in Circular References & Iterative Cal...",
+            "caption": "Three-statement reconciliation and targeted error trapping in Circular.",
             "max": 100,
             "bars": [
               {
@@ -325,7 +325,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full pre-flight certification and cryptographic audit seal applied for Circular References & Iterative Cal...",
+            "caption": "Full pre-flight certification and cryptographic audit seal applied for.",
             "max": 100,
             "bars": [
               {
@@ -476,7 +476,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline governance parameters for Designing Dynamic Circularity Break...",
+            "caption": "Baseline governance parameters for Designing Dynamic Circularity Break...",
             "max": 100,
             "bars": [
               {
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Circuit breaker validation and error precondition scans in Designing Dynamic Circularity Break...",
+            "caption": "Circuit breaker validation and error precondition scans in Designing.",
             "max": 100,
             "bars": [
               {
@@ -530,7 +530,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Three-statement reconciliation and targeted error trapping in Designing Dynamic Circularity Break...",
+            "caption": "Three-statement reconciliation and targeted error trapping in Designing.",
             "max": 100,
             "bars": [
               {
@@ -557,7 +557,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full pre-flight certification and cryptographic audit seal applied for Designing Dynamic Circularity Break...",
+            "caption": "Full pre-flight certification and cryptographic audit seal applied for.",
             "max": 100,
             "bars": [
               {
@@ -708,7 +708,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline governance parameters for Financial Model Error Trapping: ISE...",
+            "caption": "Baseline governance parameters for Financial Model Error Trapping: ISE...",
             "max": 100,
             "bars": [
               {
@@ -735,7 +735,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Circuit breaker validation and error precondition scans in Financial Model Error Trapping: ISE...",
+            "caption": "Circuit breaker validation and error precondition scans in Financial.",
             "max": 100,
             "bars": [
               {
@@ -762,7 +762,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Three-statement reconciliation and targeted error trapping in Financial Model Error Trapping: ISE...",
+            "caption": "Three-statement reconciliation and targeted error trapping in Financial.",
             "max": 100,
             "bars": [
               {
@@ -789,7 +789,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full pre-flight certification and cryptographic audit seal applied for Financial Model Error Trapping: ISE...",
+            "caption": "Full pre-flight certification and cryptographic audit seal applied for.",
             "max": 100,
             "bars": [
               {
@@ -940,7 +940,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline governance parameters for Enterprise Financial Model Pre-Flig...",
+            "caption": "Baseline governance parameters for Enterprise Financial Model Pre-Flig...",
             "max": 100,
             "bars": [
               {
@@ -967,7 +967,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Circuit breaker validation and error precondition scans in Enterprise Financial Model Pre-Flig...",
+            "caption": "Circuit breaker validation and error precondition scans in Enterprise.",
             "max": 100,
             "bars": [
               {
@@ -994,7 +994,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Three-statement reconciliation and targeted error trapping in Enterprise Financial Model Pre-Flig...",
+            "caption": "Three-statement reconciliation and targeted error trapping in Enterprise.",
             "max": 100,
             "bars": [
               {
@@ -1021,7 +1021,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full pre-flight certification and cryptographic audit seal applied for Enterprise Financial Model Pre-Flig...",
+            "caption": "Full pre-flight certification and cryptographic audit seal applied for.",
             "max": 100,
             "bars": [
               {

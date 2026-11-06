@@ -156,7 +156,7 @@ export const AI_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function searchVectorIndex(query, docs, topK = 2, filter = {}) {\n  // TODO: write your code here\n}",
     "eHint": "Filter docs by metadata, compute cosine score, sort descending, slice topK.",
     "eTest": "const docs = [\n  { id: '1', text: 'Cloud AWS', embedding: [1, 0], metadata: { category: 'cloud' } },\n  { id: '2', text: 'Kubernetes Docker', embedding: [0, 1], metadata: { category: 'devops' } },\n  { id: '3', text: 'AWS VPC', embedding: [0.95, 0.05], metadata: { category: 'cloud' } }\n];\nconst r1 = searchVectorIndex([1, 0], docs, 1, { category: 'cloud' });\nif (r1.length !== 1 || r1[0].id !== '1') throw new Error('Cloud search failed');\nconst r2 = searchVectorIndex([0, 1], docs, 1, { category: 'devops' });\nif (r2.length !== 1 || r2[0].id !== '2') throw new Error('DevOps search failed');",
-    "aTitle": "Top-K Slicer",
+    "aTitle": "Top-K Slicer (Vector Databases)",
     "aDesc": "Implement function sliceTopK(items, k) returning first k items.",
     "aStarter": "function sliceTopK(items, k) {\n  // TODO: write your code here\n}",
     "aHint": "Slice 0 to k.",

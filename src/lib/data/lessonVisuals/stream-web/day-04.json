@@ -597,7 +597,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Building a Partitioned Order Verificatio.. [D4.P6.S1].",
+            "caption": "Initialize input state for Building a Partitioned Order Verificatio.",
             "values": {
               "in": "Day 4 Input",
               "proc": "Standby",
@@ -617,7 +617,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building a Partitio... [D4.P6.S2].",
+            "caption": "Execute core transformation in Building a Partitio... [Dfour.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -641,7 +641,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D4.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [Dfour.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -661,7 +661,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building a Partitioned Order Veri.. [D4.P6.S4].",
+            "caption": "End-to-end execution verified for Building a Partitioned Order Veri.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

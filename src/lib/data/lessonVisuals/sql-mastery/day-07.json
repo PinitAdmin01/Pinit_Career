@@ -359,7 +359,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Dates: today, differences and parts [D7.P4.S1].",
+            "caption": "Initialize input state for Dates: today, differences and parts.",
             "values": {
               "in": "Day 7 Input",
               "proc": "Standby",
@@ -379,7 +379,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Dates: today, diffe... [D7.P4.S2].",
+            "caption": "Execute core transformation in Dates: today, diffe... [Dseven.Pfour.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -403,7 +403,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D7.P4.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -423,7 +423,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Dates: today, differences and parts [D7.P4.S4].",
+            "caption": "End-to-end execution verified for Dates: today, differences and parts.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -585,7 +585,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Formatting dates and numbers for people [D7.P5.S1].",
+            "caption": "Initialize input state for Formatting dates and numbers for people.",
             "values": {
               "in": "Day 7 Input",
               "proc": "Standby",
@@ -605,7 +605,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Formatting dates an... [D7.P5.S2].",
+            "caption": "Execute core transformation in Formatting dates an... [Dseven.Pfive.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -629,7 +629,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D7.P5.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -649,7 +649,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Formatting dates and numbers for .. [D7.P5.S4].",
+            "caption": "End-to-end execution verified for Formatting dates and numbers for .",
             "values": {
               "in": "Committed",
               "proc": "Verified",

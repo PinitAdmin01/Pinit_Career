@@ -32,13 +32,13 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Protobuf Frame Packing): Initialize component pipeline for Protocol Buffers Binary Encoding & HTTP/2 Framing Physics.",
+            "caption": "State one (Protobuf Frame Packing): Initialize component pipeline for.",
             "currentState": "st1",
             "tone": "data"
           },
           {
             "at": "say1",
-            "caption": "Transition to HTTP/2 Multiplexing verifying strict concurrency and schema contracts.",
+            "caption": "Transition to HTTP multiplexed Multiplexing verifying strict concurrency.",
             "currentState": "st2",
             "transition": {
               "from": "st1",
@@ -60,7 +60,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Binary Frame Status OK): Atomic execution verified with zero failure cascade.",
+            "caption": "State four (Binary Frame Status OK): Atomic execution verified with zero.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -99,13 +99,13 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Protobuf Frame Packing): Initialize component pipeline for Ephemeral Port Exhaustion & Connection Churn Forensics.",
+            "caption": "State one (Protobuf Frame Packing): Initialize component pipeline for.",
             "currentState": "st1",
             "tone": "data"
           },
           {
             "at": "say1",
-            "caption": "Transition to HTTP/2 Multiplexing verifying strict concurrency and schema contracts.",
+            "caption": "Transition to HTTP multiplexed Multiplexing verifying strict concurrency.",
             "currentState": "st2",
             "transition": {
               "from": "st1",
@@ -127,7 +127,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Binary Frame Status OK): Atomic execution verified with zero failure cascade.",
+            "caption": "State four (Binary Frame Status OK): Atomic execution verified with zero.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -166,13 +166,13 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Protobuf Frame Packing): Initialize component pipeline for Asynchronous gRPC Server & Streaming Client Implementation.",
+            "caption": "State one (Protobuf Frame Packing): Initialize component pipeline for.",
             "currentState": "st1",
             "tone": "data"
           },
           {
             "at": "say1",
-            "caption": "Transition to HTTP/2 Multiplexing verifying strict concurrency and schema contracts.",
+            "caption": "Transition to HTTP multiplexed Multiplexing verifying strict concurrency.",
             "currentState": "st2",
             "transition": {
               "from": "st1",
@@ -194,7 +194,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Binary Frame Status OK): Atomic execution verified with zero failure cascade.",
+            "caption": "State four (Binary Frame Status OK): Atomic execution verified with zero.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -233,13 +233,13 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Protobuf Frame Packing): Initialize component pipeline for The Four gRPC Communication Patterns & Streaming Topologies.",
+            "caption": "State one (Protobuf Frame Packing): Initialize component pipeline for The.",
             "currentState": "st1",
             "tone": "data"
           },
           {
             "at": "say1",
-            "caption": "Transition to HTTP/2 Multiplexing verifying strict concurrency and schema contracts.",
+            "caption": "Transition to HTTP multiplexed Multiplexing verifying strict concurrency.",
             "currentState": "st2",
             "transition": {
               "from": "st1",
@@ -261,7 +261,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Binary Frame Status OK): Atomic execution verified with zero failure cascade.",
+            "caption": "State four (Binary Frame Status OK): Atomic execution verified with zero.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -300,13 +300,13 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Protobuf Frame Packing): Initialize component pipeline for Enterprise Inter-Service Communication Modernization.",
+            "caption": "State one (Protobuf Frame Packing): Initialize component pipeline for.",
             "currentState": "st1",
             "tone": "data"
           },
           {
             "at": "say1",
-            "caption": "Transition to HTTP/2 Multiplexing verifying strict concurrency and schema contracts.",
+            "caption": "Transition to HTTP multiplexed Multiplexing verifying strict concurrency.",
             "currentState": "st2",
             "transition": {
               "from": "st1",
@@ -328,7 +328,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Binary Frame Status OK): Atomic execution verified with zero failure cascade.",
+            "caption": "State four (Binary Frame Status OK): Atomic execution verified with zero.",
             "currentState": "st4",
             "transition": {
               "from": "st3",

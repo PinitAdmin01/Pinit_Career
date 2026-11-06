@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Architecture of the ApexAlign Master Sui...",
+            "caption": "Initialize input state for Architecture of the ApexAlign Master Sui...",
             "values": {
               "in": "Day 45 Input",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Architecture of the....",
+            "caption": "Execute core transformation in Architecture of the....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -75,7 +75,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Architecture of the ApexAlign Mas...",
+            "caption": "End-to-end execution verified for Architecture of the ApexAlign Mas...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -257,7 +257,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Subsystem 1 & 2: Multimodal Instruction ...",
+            "caption": "Initialize input state for Subsystem one & two: Multimodal Instruction ...",
             "values": {
               "in": "Day 45 Input",
               "proc": "Standby",
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Subsystem 1 & 2: Mu....",
+            "caption": "Execute core transformation in Subsystem one & two: Mu....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -301,7 +301,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -321,7 +321,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Subsystem 1 & 2: Multimodal Instr...",
+            "caption": "End-to-end execution verified for Subsystem one & two: Multimodal Instr...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -483,7 +483,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Subsystem 3: Bradley-Terry Reward Modeli...",
+            "caption": "Initialize input state for Subsystem three: Bradley-Terry Reward Modeli...",
             "values": {
               "in": "Day 45 Input",
               "proc": "Standby",
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Subsystem 3: Bradle....",
+            "caption": "Execute core transformation in Subsystem three: Bradle....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -527,7 +527,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -547,7 +547,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Subsystem 3: Bradley-Terry Reward...",
+            "caption": "End-to-end execution verified for Subsystem three: Bradley-Terry Reward...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -709,7 +709,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Subsystem 4: Dual-Path Preference Optimi...",
+            "caption": "Initialize input state for Subsystem four: Dual-Path Preference Optimi...",
             "values": {
               "in": "Day 45 Input",
               "proc": "Standby",
@@ -729,7 +729,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Subsystem 4: Dual-P....",
+            "caption": "Execute core transformation in Subsystem four: Dual-P....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -753,7 +753,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -773,7 +773,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Subsystem 4: Dual-Path Preference...",
+            "caption": "End-to-end execution verified for Subsystem four: Dual-Path Preference...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -935,7 +935,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Subsystem 5: Milestone 9 Capstone Defens...",
+            "caption": "Initialize input state for Subsystem five: Milestone nine Capstone.",
             "values": {
               "in": "Day 45 Input",
               "proc": "Standby",
@@ -955,7 +955,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Subsystem 5: Milest....",
+            "caption": "Execute core transformation in Subsystem five: Milest....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -979,7 +979,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -999,7 +999,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Subsystem 5: Milestone 9 Capstone...",
+            "caption": "End-to-end execution verified for Subsystem five: Milestone nine.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

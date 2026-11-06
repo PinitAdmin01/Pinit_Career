@@ -32,25 +32,25 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Architectural Master Blu Setup): Initialize pipeline state for Architectural Master Blueprint: The Multi-Tier Real-Time 3D Engine.",
+            "caption": "State one (Architectural Master Blu Setup): Initialize pipeline state for.",
             "currentState": "st1",
             "tone": "data"
           },
           {
             "at": "say1",
-            "caption": "State 2 (Pipeline Evaluation): Evaluate shader registers and buffer allocations.",
+            "caption": "State two (Pipeline Evaluation): Evaluate shader registers and buffer.",
             "currentState": "st2",
             "tone": "accent"
           },
           {
             "at": "example",
-            "caption": "State 3 (Transform Execution): Execute real-time transformation and simulation step.",
+            "caption": "State three (Transform Execution): Execute real-time transformation and.",
             "currentState": "st3",
             "tone": "warn"
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Verified Output): Verification passed and deterministic output validated.",
+            "caption": "State four (Verified Output): Verification passed and deterministic.",
             "currentState": "st4",
             "tone": "ok"
           }
@@ -84,25 +84,25 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Synthesis Tier 1 & 2: Ph Setup): Initialize pipeline state for Synthesis Tier 1 & 2: Physically Based Rendering, Cascaded Shadows & Skeletal IK.",
+            "caption": "State one (Synthesis Tier one & two: Ph Setup): Initialize pipeline state.",
             "currentState": "st1",
             "tone": "data"
           },
           {
             "at": "say1",
-            "caption": "State 2 (Pipeline Evaluation): Evaluate shader registers and buffer allocations.",
+            "caption": "State two (Pipeline Evaluation): Evaluate shader registers and buffer.",
             "currentState": "st2",
             "tone": "accent"
           },
           {
             "at": "example",
-            "caption": "State 3 (Transform Execution): Execute real-time transformation and simulation step.",
+            "caption": "State three (Transform Execution): Execute real-time transformation and.",
             "currentState": "st3",
             "tone": "warn"
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Verified Output): Verification passed and deterministic output validated.",
+            "caption": "State four (Verified Output): Verification passed and deterministic.",
             "currentState": "st4",
             "tone": "ok"
           }
@@ -136,25 +136,25 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Synthesis Tier 3 & 4: AR Setup): Initialize pipeline state for Synthesis Tier 3 & 4: ARKit Facial Blendshapes, Audio Visemes & GPU Particles.",
+            "caption": "State one (Synthesis Tier three & four: AR Setup): Initialize pipeline.",
             "currentState": "st1",
             "tone": "data"
           },
           {
             "at": "say1",
-            "caption": "State 2 (Pipeline Evaluation): Evaluate shader registers and buffer allocations.",
+            "caption": "State two (Pipeline Evaluation): Evaluate shader registers and buffer.",
             "currentState": "st2",
             "tone": "accent"
           },
           {
             "at": "example",
-            "caption": "State 3 (Transform Execution): Execute real-time transformation and simulation step.",
+            "caption": "State three (Transform Execution): Execute real-time transformation and.",
             "currentState": "st3",
             "tone": "warn"
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Verified Output): Verification passed and deterministic output validated.",
+            "caption": "State four (Verified Output): Verification passed and deterministic.",
             "currentState": "st4",
             "tone": "ok"
           }
@@ -188,25 +188,25 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Synthesis Tier 5: Frame  Setup): Initialize pipeline state for Synthesis Tier 5: Frame Pipeline Orchestrator & 60 FPS Frame Budget Profiler.",
+            "caption": "State one (Synthesis Tier five: Frame Setup): Initialize pipeline state.",
             "currentState": "st1",
             "tone": "data"
           },
           {
             "at": "say1",
-            "caption": "State 2 (Pipeline Evaluation): Evaluate shader registers and buffer allocations.",
+            "caption": "State two (Pipeline Evaluation): Evaluate shader registers and buffer.",
             "currentState": "st2",
             "tone": "accent"
           },
           {
             "at": "example",
-            "caption": "State 3 (Transform Execution): Execute real-time transformation and simulation step.",
+            "caption": "State three (Transform Execution): Execute real-time transformation and.",
             "currentState": "st3",
             "tone": "warn"
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Verified Output): Verification passed and deterministic output validated.",
+            "caption": "State four (Verified Output): Verification passed and deterministic.",
             "currentState": "st4",
             "tone": "ok"
           }
@@ -240,25 +240,25 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (⭐ The 5-Gate Grand Maste Setup): Initialize pipeline state for ⭐ The 5-Gate Grand Master Viva Voce Defense & 100% Course Certification.",
+            "caption": "State one (⭐ The five-Gate Grand Maste Setup): Initialize pipeline state.",
             "currentState": "st1",
             "tone": "data"
           },
           {
             "at": "say1",
-            "caption": "State 2 (Pipeline Evaluation): Evaluate shader registers and buffer allocations.",
+            "caption": "State two (Pipeline Evaluation): Evaluate shader registers and buffer.",
             "currentState": "st2",
             "tone": "accent"
           },
           {
             "at": "example",
-            "caption": "State 3 (Transform Execution): Execute real-time transformation and simulation step.",
+            "caption": "State three (Transform Execution): Execute real-time transformation and.",
             "currentState": "st3",
             "tone": "warn"
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Verified Output): Verification passed and deterministic output validated.",
+            "caption": "State four (Verified Output): Verification passed and deterministic.",
             "currentState": "st4",
             "tone": "ok"
           }

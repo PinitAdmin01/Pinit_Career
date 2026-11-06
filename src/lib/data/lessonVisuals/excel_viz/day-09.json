@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Time Value of Money & Precise Multi-Peri...",
+            "caption": "Baseline KPI cohort metrics for Time Value of Money & Precise Multi-Peri...",
             "max": 100,
             "bars": [
               {
@@ -41,7 +41,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate operational drivers and margin trends for Time Value of Money & Precise Multi-Peri...",
+            "caption": "Isolate operational drivers and margin trends for Time Value of Money &.",
             "max": 100,
             "bars": [
               {
@@ -68,7 +68,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Time Value of Money & Precise Multi-Peri...",
+            "caption": "Commit audited analytical dashboard for Time Value of Money & Precise.",
             "max": 100,
             "bars": [
               {
@@ -132,7 +132,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Net Present Value (NPV) vs Irregular Cas...",
+            "caption": "Baseline KPI cohort metrics for Net Present Value (NPV) vs Irregular Cas...",
             "max": 100,
             "bars": [
               {
@@ -159,7 +159,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate operational drivers and margin trends for Net Present Value (NPV) vs Irregular Cas...",
+            "caption": "Isolate operational drivers and margin trends for Net Present Value (NPV).",
             "max": 100,
             "bars": [
               {
@@ -186,7 +186,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -213,7 +213,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Net Present Value (NPV) vs Irregular Cas...",
+            "caption": "Commit audited analytical dashboard for Net Present Value (NPV) vs.",
             "max": 100,
             "bars": [
               {
@@ -250,7 +250,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Internal Rate of Return (IRR) & Multiple...",
+            "caption": "Baseline KPI cohort metrics for Internal Rate of Return (IRR) & Multiple...",
             "max": 100,
             "bars": [
               {
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate operational drivers and margin trends for Internal Rate of Return (IRR) & Multiple...",
+            "caption": "Isolate operational drivers and margin trends for Internal Rate of Return.",
             "max": 100,
             "bars": [
               {
@@ -304,7 +304,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -331,7 +331,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Internal Rate of Return (IRR) & Multiple...",
+            "caption": "Commit audited analytical dashboard for Internal Rate of Return (IRR) &.",
             "max": 100,
             "bars": [
               {
@@ -368,7 +368,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Extended Internal Rate of Return (XIRR) ...",
+            "caption": "Baseline KPI cohort metrics for Extended Internal Rate of Return (XIRR) ...",
             "max": 100,
             "bars": [
               {
@@ -395,7 +395,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate operational drivers and margin trends for Extended Internal Rate of Return (XIRR) ...",
+            "caption": "Isolate operational drivers and margin trends for Extended Internal Rate.",
             "max": 100,
             "bars": [
               {
@@ -422,7 +422,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -449,7 +449,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Extended Internal Rate of Return (XIRR) ...",
+            "caption": "Commit audited analytical dashboard for Extended Internal Rate of Return.",
             "max": 100,
             "bars": [
               {
@@ -486,7 +486,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Production Institutional Loan Amortizati...",
+            "caption": "Baseline KPI cohort metrics for Production Institutional Loan Amortizati...",
             "max": 100,
             "bars": [
               {
@@ -513,7 +513,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate operational drivers and margin trends for Production Institutional Loan Amortizati...",
+            "caption": "Isolate operational drivers and margin trends for Production.",
             "max": 100,
             "bars": [
               {
@@ -540,7 +540,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -567,7 +567,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Production Institutional Loan Amortizati...",
+            "caption": "Commit audited analytical dashboard for Production Institutional Loan.",
             "max": 100,
             "bars": [
               {

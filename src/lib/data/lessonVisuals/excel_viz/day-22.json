@@ -12,7 +12,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline contract terms and performance obligations for The 5-Step Revenue Recognition F...",
+            "caption": "Baseline contract terms and performance obligations for The five-Step.",
             "max": 100,
             "bars": [
               {
@@ -39,7 +39,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Relative SSP discount proration and timing scans for The 5-Step Revenue Recognition F...",
+            "caption": "Relative SSP discount proration and timing scans for The five-Step.",
             "max": 100,
             "bars": [
               {
@@ -66,7 +66,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Deferred revenue waterfall roll-forward and contract modifications in The 5-Step Revenue Recognition F...",
+            "caption": "Deferred revenue waterfall roll-forward and contract modifications in The.",
             "max": 100,
             "bars": [
               {
@@ -93,7 +93,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Auditor certified revenue scorecard and SHA-256 seal for The 5-Step Revenue Recognition F...",
+            "caption": "Auditor certified revenue scorecard and SHA digest seal for The five-Step.",
             "max": 100,
             "bars": [
               {
@@ -244,7 +244,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline contract terms and performance obligations for Multi-Element Arrangements & Sta...",
+            "caption": "Baseline contract terms and performance obligations for Multi-Element.",
             "max": 100,
             "bars": [
               {
@@ -271,7 +271,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Relative SSP discount proration and timing scans for Multi-Element Arrangements & Sta...",
+            "caption": "Relative SSP discount proration and timing scans for Multi-Element.",
             "max": 100,
             "bars": [
               {
@@ -298,7 +298,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Deferred revenue waterfall roll-forward and contract modifications in Multi-Element Arrangements & Sta...",
+            "caption": "Deferred revenue waterfall roll-forward and contract modifications in.",
             "max": 100,
             "bars": [
               {
@@ -325,7 +325,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Auditor certified revenue scorecard and SHA-256 seal for Multi-Element Arrangements & Sta...",
+            "caption": "Auditor certified revenue scorecard and SHA digest seal for Multi-Element.",
             "max": 100,
             "bars": [
               {
@@ -476,7 +476,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline contract terms and performance obligations for Deferred Revenue Waterfall & Bil...",
+            "caption": "Baseline contract terms and performance obligations for Deferred Revenue.",
             "max": 100,
             "bars": [
               {
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Relative SSP discount proration and timing scans for Deferred Revenue Waterfall & Bil...",
+            "caption": "Relative SSP discount proration and timing scans for Deferred Revenue.",
             "max": 100,
             "bars": [
               {
@@ -530,7 +530,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Deferred revenue waterfall roll-forward and contract modifications in Deferred Revenue Waterfall & Bil...",
+            "caption": "Deferred revenue waterfall roll-forward and contract modifications in.",
             "max": 100,
             "bars": [
               {
@@ -557,7 +557,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Auditor certified revenue scorecard and SHA-256 seal for Deferred Revenue Waterfall & Bil...",
+            "caption": "Auditor certified revenue scorecard and SHA digest seal for Deferred.",
             "max": 100,
             "bars": [
               {
@@ -708,7 +708,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline contract terms and performance obligations for Contract Modifications, Upgrades...",
+            "caption": "Baseline contract terms and performance obligations for Contract.",
             "max": 100,
             "bars": [
               {
@@ -735,7 +735,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Relative SSP discount proration and timing scans for Contract Modifications, Upgrades...",
+            "caption": "Relative SSP discount proration and timing scans for Contract.",
             "max": 100,
             "bars": [
               {
@@ -762,7 +762,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Deferred revenue waterfall roll-forward and contract modifications in Contract Modifications, Upgrades...",
+            "caption": "Deferred revenue waterfall roll-forward and contract modifications in.",
             "max": 100,
             "bars": [
               {
@@ -789,7 +789,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Auditor certified revenue scorecard and SHA-256 seal for Contract Modifications, Upgrades...",
+            "caption": "Auditor certified revenue scorecard and SHA digest seal for Contract.",
             "max": 100,
             "bars": [
               {
@@ -940,7 +940,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline contract terms and performance obligations for Enterprise SaaS Revenue Recognit...",
+            "caption": "Baseline contract terms and performance obligations for Enterprise SaaS.",
             "max": 100,
             "bars": [
               {
@@ -967,7 +967,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Relative SSP discount proration and timing scans for Enterprise SaaS Revenue Recognit...",
+            "caption": "Relative SSP discount proration and timing scans for Enterprise SaaS.",
             "max": 100,
             "bars": [
               {
@@ -994,7 +994,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Deferred revenue waterfall roll-forward and contract modifications in Enterprise SaaS Revenue Recognit...",
+            "caption": "Deferred revenue waterfall roll-forward and contract modifications in.",
             "max": 100,
             "bars": [
               {
@@ -1021,7 +1021,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Auditor certified revenue scorecard and SHA-256 seal for Enterprise SaaS Revenue Recognit...",
+            "caption": "Auditor certified revenue scorecard and SHA digest seal for Enterprise.",
             "max": 100,
             "bars": [
               {

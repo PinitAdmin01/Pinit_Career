@@ -6,7 +6,7 @@
     {
       "partIndex": 1,
       "partTitle": "Modern Data Lakehouse Architecture: S3 Object Storage, Columnar Parquet & Scan Reduction",
-      "codeHash": "e9e028cdd2880f2b06958ab76f17ecd1f4bb7d7b0d0937244e4eadcc00cbdfe6",
+      "codeHash": "a4d7e88d54c316332beca722d6d82e79b448ef7da77e73e4dcd8c25ac4956222",
       "spec": {
         "template": "compare",
         "left": {
@@ -54,7 +54,7 @@
     {
       "partIndex": 2,
       "partTitle": "AWS Glue Data Catalog & Automated Schema Evolution: Crawlers & Partition Pruning",
-      "codeHash": "ebbbb47a4eea956d4173b76a6f47d58555367e2b0cda082d6b19c052990cb49d",
+      "codeHash": "84b32b8cae7173fb2f919223d8df67fc8495a86b8293b2ef075450dbe2331d57",
       "spec": {
         "template": "compare",
         "left": {
@@ -102,7 +102,7 @@
     {
       "partIndex": 3,
       "partTitle": "Amazon Athena Serverless Query Engine: Trino Execution, CTAS & Cost Optimization",
-      "codeHash": "b13fe0e6fc3078c75414cf3bb3d131d69924ae394b9d4071b94da1a932bfaf4a",
+      "codeHash": "2025b441343004145264718837240f5581d25858ce1cc44457445f2043ed8965",
       "spec": {
         "template": "compare",
         "left": {
@@ -150,7 +150,7 @@
     {
       "partIndex": 4,
       "partTitle": "Apache Iceberg Open Table Format on AWS: ACID Transactions, Time Travel & Schema Evolution",
-      "codeHash": "ff2b70bc3e09159b64c544ea07e4061f290697eeb157a8d2a3e3124de09e75cc",
+      "codeHash": "f7524797c341f0ba6d3f2f517d65f19ab74e9ff73d24ae97d3ab96b2e1967a8f",
       "spec": {
         "template": "compare",
         "left": {
@@ -198,7 +198,7 @@
     {
       "partIndex": 5,
       "partTitle": "S3 Intelligent-Tiering & Enterprise Lifecycle Automation: Storage Economics & Object Lock",
-      "codeHash": "feb79bb6a805e63d506466fc8ff2336592a49c5de2c3844d77f7c842189045b1",
+      "codeHash": "0c121c7251d716bf99391006f5da90c3228ef44260e306181b337d7c07c2fb19",
       "spec": {
         "template": "compare",
         "left": {
@@ -223,22 +223,22 @@
           {
             "at": "say1",
             "annotation": "Dormant historical data in standard storage causes runaway expenditure.",
-            "caption": "Dormant historical data in standard storage causes runaway expenditure. (S3 Intelligent-Tiering & Enterprise)"
+            "caption": "Dormant historical data in standard storage causes runaway expenditure."
           },
           {
             "at": "say2",
             "annotation": "Intelligent tiering moves unaccessed objects automatically to cooler tiers.",
-            "caption": "Intelligent tiering moves unaccessed objects automatically to cooler tiers. (S3 Intelligent-Tiering & Enterprise)"
+            "caption": "Intelligent tiering moves unaccessed objects automatically to cooler."
           },
           {
             "at": "example",
             "annotation": "Simulator proves seventy percent storage savings across aged partitions.",
-            "caption": "Simulator proves seventy percent storage savings across aged partitions. (S3 Intelligent-Tiering & Enterprise)"
+            "caption": "Simulator proves seventy percent storage savings across aged partitions."
           },
           {
             "at": "tryIt",
             "annotation": "Automated lifecycle tiering reduces costs while preserving instant access.",
-            "caption": "Automated lifecycle tiering reduces costs while preserving instant access. (S3 Intelligent-Tiering & Enterprise)"
+            "caption": "Automated lifecycle tiering reduces costs while preserving instant."
           }
         ]
       }

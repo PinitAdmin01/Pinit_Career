@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Declarative Power Query Architecture & T...",
+            "caption": "Baseline KPI cohort metrics for Declarative Power Query Architecture & T...",
             "max": 100,
             "bars": [
               {
@@ -41,7 +41,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate operational drivers and margin trends for Declarative Power Query Architecture & T...",
+            "caption": "Isolate operational drivers and margin trends for Declarative Power Query.",
             "max": 100,
             "bars": [
               {
@@ -68,7 +68,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Declarative Power Query Architecture & T...",
+            "caption": "Commit audited analytical dashboard for Declarative Power Query.",
             "max": 100,
             "bars": [
               {
@@ -132,7 +132,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Dynamic Unpivot Transformations & Normal...",
+            "caption": "Baseline KPI cohort metrics for Dynamic Unpivot Transformations & Normal...",
             "max": 100,
             "bars": [
               {
@@ -159,7 +159,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate operational drivers and margin trends for Dynamic Unpivot Transformations & Normal...",
+            "caption": "Isolate operational drivers and margin trends for Dynamic Unpivot.",
             "max": 100,
             "bars": [
               {
@@ -186,7 +186,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -213,7 +213,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Dynamic Unpivot Transformations & Normal...",
+            "caption": "Commit audited analytical dashboard for Dynamic Unpivot Transformations &.",
             "max": 100,
             "bars": [
               {
@@ -250,7 +250,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Type Coercion, Null Value Imputation & S...",
+            "caption": "Baseline KPI cohort metrics for Type Coercion, Null Value Imputation & S...",
             "max": 100,
             "bars": [
               {
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate operational drivers and margin trends for Type Coercion, Null Value Imputation & S...",
+            "caption": "Isolate operational drivers and margin trends for Type Coercion, Null.",
             "max": 100,
             "bars": [
               {
@@ -304,7 +304,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -331,7 +331,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Type Coercion, Null Value Imputation & S...",
+            "caption": "Commit audited analytical dashboard for Type Coercion, Null Value.",
             "max": 100,
             "bars": [
               {
@@ -368,7 +368,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Fuzzy Text Matching & Jaro-Winkler Simil...",
+            "caption": "Baseline KPI cohort metrics for Fuzzy Text Matching & Jaro-Winkler Simil...",
             "max": 100,
             "bars": [
               {
@@ -395,7 +395,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate operational drivers and margin trends for Fuzzy Text Matching & Jaro-Winkler Simil...",
+            "caption": "Isolate operational drivers and margin trends for Fuzzy Text Matching &.",
             "max": 100,
             "bars": [
               {
@@ -422,7 +422,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -449,7 +449,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Fuzzy Text Matching & Jaro-Winkler Simil...",
+            "caption": "Commit audited analytical dashboard for Fuzzy Text Matching &.",
             "max": 100,
             "bars": [
               {
@@ -486,7 +486,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline KPI cohort metrics for Production End-to-End Automated Power Qu...",
+            "caption": "Baseline KPI cohort metrics for Production End-to-End Automated Power Qu...",
             "max": 100,
             "bars": [
               {
@@ -513,7 +513,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate operational drivers and margin trends for Production End-to-End Automated Power Qu...",
+            "caption": "Isolate operational drivers and margin trends for Production End-to-End.",
             "max": 100,
             "bars": [
               {
@@ -540,7 +540,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Apply sensitivity model and benchmark variance thresholds",
+            "caption": "Apply sensitivity model and benchmark variance thresholds.",
             "max": 100,
             "bars": [
               {
@@ -567,7 +567,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited analytical dashboard for Production End-to-End Automated Power Qu...",
+            "caption": "Commit audited analytical dashboard for Production End-to-End Automated.",
             "max": 100,
             "bars": [
               {

@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state and parameters for Cross-Chain Bridge Topologies ...",
+            "caption": "Protocol monitors state and parameters for Cross-Chain Bridge Topologies.",
             "activeActor": "User Wallet",
             "messages": [
               {
@@ -33,7 +33,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes state transition and updates core invariant",
+            "caption": "Engine executes state transition and updates core invariant.",
             "activeActor": "Source Escrow Vault",
             "messages": [
               {
@@ -46,7 +46,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of freshness, deviation, or cross-chain signature bounds",
+            "caption": "Verification of freshness, deviation, or cross-chain signature bounds.",
             "activeActor": "Multi-Sig Relayer Committee",
             "messages": [
               {
@@ -59,7 +59,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; invariant preserved and state committed",
+            "caption": "Block settled atomically; invariant preserved and state committed.",
             "activeActor": "Source Escrow Vault",
             "messages": [
               {
@@ -152,7 +152,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state and parameters for Forensic Autopsy: The $624M Ro...",
+            "caption": "Protocol monitors state and parameters for Forensic Autopsy: The $M Ro...",
             "activeActor": "User Wallet",
             "messages": [
               {
@@ -165,7 +165,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes state transition and updates core invariant",
+            "caption": "Engine executes state transition and updates core invariant.",
             "activeActor": "Source Escrow Vault",
             "messages": [
               {
@@ -178,7 +178,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of freshness, deviation, or cross-chain signature bounds",
+            "caption": "Verification of freshness, deviation, or cross-chain signature bounds.",
             "activeActor": "Multi-Sig Relayer Committee",
             "messages": [
               {
@@ -191,7 +191,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; invariant preserved and state committed",
+            "caption": "Block settled atomically; invariant preserved and state committed.",
             "activeActor": "Source Escrow Vault",
             "messages": [
               {
@@ -284,7 +284,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state and parameters for Daily Withdrawal Rate Limits &...",
+            "caption": "Protocol monitors state and parameters for Daily Withdrawal Rate Limits.",
             "activeActor": "User Wallet",
             "messages": [
               {
@@ -297,7 +297,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes state transition and updates core invariant",
+            "caption": "Engine executes state transition and updates core invariant.",
             "activeActor": "Source Escrow Vault",
             "messages": [
               {
@@ -310,7 +310,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of freshness, deviation, or cross-chain signature bounds",
+            "caption": "Verification of freshness, deviation, or cross-chain signature bounds.",
             "activeActor": "Multi-Sig Relayer Committee",
             "messages": [
               {
@@ -323,7 +323,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; invariant preserved and state committed",
+            "caption": "Block settled atomically; invariant preserved and state committed.",
             "activeActor": "Source Escrow Vault",
             "messages": [
               {
@@ -416,7 +416,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state and parameters for Detective Lab: Source Chain Fi...",
+            "caption": "Protocol monitors state and parameters for Detective Lab: Source Chain.",
             "activeActor": "User Wallet",
             "messages": [
               {
@@ -429,7 +429,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes state transition and updates core invariant",
+            "caption": "Engine executes state transition and updates core invariant.",
             "activeActor": "Source Escrow Vault",
             "messages": [
               {
@@ -442,7 +442,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of freshness, deviation, or cross-chain signature bounds",
+            "caption": "Verification of freshness, deviation, or cross-chain signature bounds.",
             "activeActor": "Multi-Sig Relayer Committee",
             "messages": [
               {
@@ -455,7 +455,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; invariant preserved and state committed",
+            "caption": "Block settled atomically; invariant preserved and state committed.",
             "activeActor": "Source Escrow Vault",
             "messages": [
               {
@@ -548,7 +548,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state and parameters for Cross-Chain Bridge Hardening A...",
+            "caption": "Protocol monitors state and parameters for Cross-Chain Bridge Hardening.",
             "activeActor": "User Wallet",
             "messages": [
               {
@@ -561,7 +561,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes state transition and updates core invariant",
+            "caption": "Engine executes state transition and updates core invariant.",
             "activeActor": "Source Escrow Vault",
             "messages": [
               {
@@ -574,7 +574,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of freshness, deviation, or cross-chain signature bounds",
+            "caption": "Verification of freshness, deviation, or cross-chain signature bounds.",
             "activeActor": "Multi-Sig Relayer Committee",
             "messages": [
               {
@@ -587,7 +587,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; invariant preserved and state committed",
+            "caption": "Block settled atomically; invariant preserved and state committed.",
             "activeActor": "Source Escrow Vault",
             "messages": [
               {

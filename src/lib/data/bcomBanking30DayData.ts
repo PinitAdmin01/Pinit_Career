@@ -1,0 +1,594 @@
+import { buildEnrichedDayQuests, DayConfig } from './curriculumEnricher';
+import { CourseQuest } from './coursesData';
+
+export const BCOM_BANKING_30_DAYS_CONFIGS: DayConfig[] = [
+  {
+    "day": 1,
+    "title": "Fractional Reserve Banking, ALM Duration Gaps & Basel III Capital Ratios",
+    "desc": "Master commercial banking operations and balance sheet management: reserve multiplier physics, asset-liability management (ALM) duration gaps, Basel III capital adequacy ratios, liquidity coverage ratios (LCR), and expected credit loss (ECL) modeling.",
+    "syllabus": [
+      "Fractional Reserve Banking & The Money Multiplier",
+      "Asset-Liability Management (ALM) & The Duration Gap",
+      "Basel III Capital Adequacy & Risk-Weighted Assets (RWA)"
+    ],
+    "eTitle": "Fractional Reserve Banking & The Money Multiplier — Quantitative Compliance Evaluator",
+    "eDesc": "Implement function `evaluateDay1AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 71)` evaluating Fractional Reserve Banking & The Money Multiplier with a 60%/40% weighted compliance model.",
+    "eStarter": "function evaluateDay1AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 71) {\n  // TODO: Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)), check isCompliant = weightedScore >= hurdleThreshold, and return { day: 1, weightedScore, hurdleThreshold, isCompliant, status }\n  \n}",
+    "eHint": "Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)); isCompliant = weightedScore >= hurdleThreshold; status = isCompliant ? 'TREASURY_BANKING_DAY_1_COMPLIANT' : 'TREASURY_BANKING_DAY_1_VARIANCE_ALERT'; return { day: 1, weightedScore, hurdleThreshold, isCompliant, status }.",
+    "eTest": "const passRes = evaluateDay1AuditMetric(95, 90, 71);\nconst failRes = evaluateDay1AuditMetric(40, 50, 71);\nif (!passRes || passRes.weightedScore !== 93 || !passRes.isCompliant || passRes.status !== 'TREASURY_BANKING_DAY_1_COMPLIANT') throw new Error('Compliant evaluation failed on Day 1');\nif (!failRes || failRes.weightedScore !== 44 || failRes.isCompliant || failRes.status !== 'TREASURY_BANKING_DAY_1_VARIANCE_ALERT') throw new Error('Variance alert evaluation failed on Day 1');",
+    "aTitle": "Asset-Liability Management (ALM) & The Duration Gap — Variance & Tolerance Analyzer",
+    "aDesc": "Implement function `calculateDay1VarianceIndex(observedValue, benchmarkValue)` computing percentage variance and checking a ±10% statutory tolerance band for Asset-Liability Management (ALM) & The Duration Gap.",
+    "aStarter": "function calculateDay1VarianceIndex(observedValue, benchmarkValue) {\n  // TODO: Validate benchmarkValue > 0, compute varianceAmount = observedValue - benchmarkValue and variancePct = (varianceAmount / benchmarkValue) * 100 (rounded to 2 decimals), and withinTolerance = Math.abs(variancePct) <= 10\n  \n}",
+    "aHint": "If !benchmarkValue || benchmarkValue <= 0 throw Error; compute varianceAmount = Number((observedValue - benchmarkValue).toFixed(2)), variancePct = Number(((varianceAmount / benchmarkValue) * 100).toFixed(2)), withinTolerance = Math.abs(variancePct) <= 10.",
+    "aTest": "const v1 = calculateDay1VarianceIndex(105, 100);\nconst v2 = calculateDay1VarianceIndex(130, 100);\nif (!v1 || v1.varianceAmount !== 5 || v1.variancePct !== 5 || !v1.withinTolerance) throw new Error('Tolerance check failed for 5% variance');\nif (!v2 || v2.varianceAmount !== 30 || v2.variancePct !== 30 || v2.withinTolerance) throw new Error('Out-of-tolerance check failed for 30% variance');"
+  },
+  {
+    "day": 2,
+    "title": "Credit Underwriting, DSCR Covenants & Non-Performing Loan Workouts",
+    "desc": "Master corporate and commercial credit risk underwriting: evaluating borrower debt capacity via Cash Flow Available for Debt Service (CFADS), stress-testing Debt Service Coverage (DSCR) and Fixed Charge Coverage (FCCR) against rate hikes, calculating asset-based Borrowing Base Certificates with collateral haircuts, modeling Risk-Adjusted Return on Capital (RAROC) credit pricing, and implementing IFRS 9 3-stage ECL provisioning and NPL troubled debt restructuring workouts.",
+    "syllabus": [
+      "The 5 Cs of Credit & CFADS Debt Capacity Underwriting",
+      "Debt Service Coverage Ratio (DSCR) & Sensitivity Stress Testing",
+      "Borrowing Base Certificates & Asset-Based Lending Haircuts"
+    ],
+    "eTitle": "The 5 Cs of Credit & CFADS Debt Capacity Underwriting — Quantitative Compliance Evaluator",
+    "eDesc": "Implement function `evaluateDay2AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 72)` evaluating The 5 Cs of Credit & CFADS Debt Capacity Underwriting with a 60%/40% weighted compliance model.",
+    "eStarter": "function evaluateDay2AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 72) {\n  // TODO: Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)), check isCompliant = weightedScore >= hurdleThreshold, and return { day: 2, weightedScore, hurdleThreshold, isCompliant, status }\n  \n}",
+    "eHint": "Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)); isCompliant = weightedScore >= hurdleThreshold; status = isCompliant ? 'TREASURY_BANKING_DAY_2_COMPLIANT' : 'TREASURY_BANKING_DAY_2_VARIANCE_ALERT'; return { day: 2, weightedScore, hurdleThreshold, isCompliant, status }.",
+    "eTest": "const passRes = evaluateDay2AuditMetric(95, 90, 72);\nconst failRes = evaluateDay2AuditMetric(40, 50, 72);\nif (!passRes || passRes.weightedScore !== 93 || !passRes.isCompliant || passRes.status !== 'TREASURY_BANKING_DAY_2_COMPLIANT') throw new Error('Compliant evaluation failed on Day 2');\nif (!failRes || failRes.weightedScore !== 44 || failRes.isCompliant || failRes.status !== 'TREASURY_BANKING_DAY_2_VARIANCE_ALERT') throw new Error('Variance alert evaluation failed on Day 2');",
+    "aTitle": "Debt Service Coverage Ratio (DSCR) & Sensitivity Stress Testing — Variance & Tolerance Analyzer",
+    "aDesc": "Implement function `calculateDay2VarianceIndex(observedValue, benchmarkValue)` computing percentage variance and checking a ±10% statutory tolerance band for Debt Service Coverage Ratio (DSCR) & Sensitivity Stress Testing.",
+    "aStarter": "function calculateDay2VarianceIndex(observedValue, benchmarkValue) {\n  // TODO: Validate benchmarkValue > 0, compute varianceAmount = observedValue - benchmarkValue and variancePct = (varianceAmount / benchmarkValue) * 100 (rounded to 2 decimals), and withinTolerance = Math.abs(variancePct) <= 10\n  \n}",
+    "aHint": "If !benchmarkValue || benchmarkValue <= 0 throw Error; compute varianceAmount = Number((observedValue - benchmarkValue).toFixed(2)), variancePct = Number(((varianceAmount / benchmarkValue) * 100).toFixed(2)), withinTolerance = Math.abs(variancePct) <= 10.",
+    "aTest": "const v1 = calculateDay2VarianceIndex(105, 100);\nconst v2 = calculateDay2VarianceIndex(130, 100);\nif (!v1 || v1.varianceAmount !== 5 || v1.variancePct !== 5 || !v1.withinTolerance) throw new Error('Tolerance check failed for 5% variance');\nif (!v2 || v2.varianceAmount !== 30 || v2.variancePct !== 30 || v2.withinTolerance) throw new Error('Out-of-tolerance check failed for 30% variance');"
+  },
+  {
+    "day": 3,
+    "title": "Syndicated Lending, Structured Trade Finance & Treasury ALM Hedging",
+    "desc": "Master institutional commercial banking: syndicated loan facility structuring and bookrunner allocations, international documentary letters of credit (UCP 600), treasury ALM interest rate swap (IRS) duration hedging, Basel III liquidity stress testing (LCR & NSFR), and bilateral counterparty credit risk (CVA & ISDA netting).",
+    "syllabus": [
+      "Syndicated Loan Facility Structuring & Lead Arranger Bookrunner Allocation",
+      "Structured Trade Finance, Documentary Letters of Credit (UCP 600) & Bill Discounting",
+      "Treasury Asset-Liability Management (ALM) & Interest Rate Swap (IRS) NIM Hedging"
+    ],
+    "eTitle": "Syndicated Loan Facility Structuring & Lead Arranger Bookrunner Allocation — Quantitative Compliance Evaluator",
+    "eDesc": "Implement function `evaluateDay3AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 73)` evaluating Syndicated Loan Facility Structuring & Lead Arranger Bookrunner Allocation with a 60%/40% weighted compliance model.",
+    "eStarter": "function evaluateDay3AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 73) {\n  // TODO: Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)), check isCompliant = weightedScore >= hurdleThreshold, and return { day: 3, weightedScore, hurdleThreshold, isCompliant, status }\n  \n}",
+    "eHint": "Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)); isCompliant = weightedScore >= hurdleThreshold; status = isCompliant ? 'TREASURY_BANKING_DAY_3_COMPLIANT' : 'TREASURY_BANKING_DAY_3_VARIANCE_ALERT'; return { day: 3, weightedScore, hurdleThreshold, isCompliant, status }.",
+    "eTest": "const passRes = evaluateDay3AuditMetric(95, 90, 73);\nconst failRes = evaluateDay3AuditMetric(40, 50, 73);\nif (!passRes || passRes.weightedScore !== 93 || !passRes.isCompliant || passRes.status !== 'TREASURY_BANKING_DAY_3_COMPLIANT') throw new Error('Compliant evaluation failed on Day 3');\nif (!failRes || failRes.weightedScore !== 44 || failRes.isCompliant || failRes.status !== 'TREASURY_BANKING_DAY_3_VARIANCE_ALERT') throw new Error('Variance alert evaluation failed on Day 3');",
+    "aTitle": "Structured Trade Finance, Documentary Letters of Credit (UCP 600) & Bill Discounting — Variance & Tolerance Analyzer",
+    "aDesc": "Implement function `calculateDay3VarianceIndex(observedValue, benchmarkValue)` computing percentage variance and checking a ±10% statutory tolerance band for Structured Trade Finance, Documentary Letters of Credit (UCP 600) & Bill Discounting.",
+    "aStarter": "function calculateDay3VarianceIndex(observedValue, benchmarkValue) {\n  // TODO: Validate benchmarkValue > 0, compute varianceAmount = observedValue - benchmarkValue and variancePct = (varianceAmount / benchmarkValue) * 100 (rounded to 2 decimals), and withinTolerance = Math.abs(variancePct) <= 10\n  \n}",
+    "aHint": "If !benchmarkValue || benchmarkValue <= 0 throw Error; compute varianceAmount = Number((observedValue - benchmarkValue).toFixed(2)), variancePct = Number(((varianceAmount / benchmarkValue) * 100).toFixed(2)), withinTolerance = Math.abs(variancePct) <= 10.",
+    "aTest": "const v1 = calculateDay3VarianceIndex(105, 100);\nconst v2 = calculateDay3VarianceIndex(130, 100);\nif (!v1 || v1.varianceAmount !== 5 || v1.variancePct !== 5 || !v1.withinTolerance) throw new Error('Tolerance check failed for 5% variance');\nif (!v2 || v2.varianceAmount !== 30 || v2.variancePct !== 30 || v2.withinTolerance) throw new Error('Out-of-tolerance check failed for 30% variance');"
+  },
+  {
+    "day": 4,
+    "title": "Fintech Open Banking, ISO 20022 Financial Messaging & AML Compliance",
+    "desc": "Master next-generation commercial banking technology and financial crime infrastructure: PSD2 Open Banking APIs and OAuth 2.0 token consent gating, ISO 20022 XML financial messaging (pacs.008 & camt.053), real-time Anti-Money Laundering (AML) smurfing and SAR rules engines, Benford's Law forensic anomaly auditing, and graph-based money mule network detection.",
+    "syllabus": [
+      "Fintech Open Banking Architecture, PSD2 APIs & OAuth 2.0 Scoped Consent Gating",
+      "ISO 20022 Financial Messaging: pacs.008 Credit Transfers & Straight-Through Reconciliation",
+      "Anti-Money Laundering (AML) Rules Engine, Smurfing Detection & SAR Filing Escalations"
+    ],
+    "eTitle": "Fintech Open Banking Architecture, PSD2 APIs & OAuth 2.0 Scoped Consent Gating — Quantitative Compliance Evaluator",
+    "eDesc": "Implement function `evaluateDay4AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 74)` evaluating Fintech Open Banking Architecture, PSD2 APIs & OAuth 2.0 Scoped Consent Gating with a 60%/40% weighted compliance model.",
+    "eStarter": "function evaluateDay4AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 74) {\n  // TODO: Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)), check isCompliant = weightedScore >= hurdleThreshold, and return { day: 4, weightedScore, hurdleThreshold, isCompliant, status }\n  \n}",
+    "eHint": "Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)); isCompliant = weightedScore >= hurdleThreshold; status = isCompliant ? 'TREASURY_BANKING_DAY_4_COMPLIANT' : 'TREASURY_BANKING_DAY_4_VARIANCE_ALERT'; return { day: 4, weightedScore, hurdleThreshold, isCompliant, status }.",
+    "eTest": "const passRes = evaluateDay4AuditMetric(95, 90, 74);\nconst failRes = evaluateDay4AuditMetric(40, 50, 74);\nif (!passRes || passRes.weightedScore !== 93 || !passRes.isCompliant || passRes.status !== 'TREASURY_BANKING_DAY_4_COMPLIANT') throw new Error('Compliant evaluation failed on Day 4');\nif (!failRes || failRes.weightedScore !== 44 || failRes.isCompliant || failRes.status !== 'TREASURY_BANKING_DAY_4_VARIANCE_ALERT') throw new Error('Variance alert evaluation failed on Day 4');",
+    "aTitle": "ISO 20022 Financial Messaging: pacs.008 Credit Transfers & Straight-Through Reconciliation — Variance & Tolerance Analyzer",
+    "aDesc": "Implement function `calculateDay4VarianceIndex(observedValue, benchmarkValue)` computing percentage variance and checking a ±10% statutory tolerance band for ISO 20022 Financial Messaging: pacs.008 Credit Transfers & Straight-Through Reconciliation.",
+    "aStarter": "function calculateDay4VarianceIndex(observedValue, benchmarkValue) {\n  // TODO: Validate benchmarkValue > 0, compute varianceAmount = observedValue - benchmarkValue and variancePct = (varianceAmount / benchmarkValue) * 100 (rounded to 2 decimals), and withinTolerance = Math.abs(variancePct) <= 10\n  \n}",
+    "aHint": "If !benchmarkValue || benchmarkValue <= 0 throw Error; compute varianceAmount = Number((observedValue - benchmarkValue).toFixed(2)), variancePct = Number(((varianceAmount / benchmarkValue) * 100).toFixed(2)), withinTolerance = Math.abs(variancePct) <= 10.",
+    "aTest": "const v1 = calculateDay4VarianceIndex(105, 100);\nconst v2 = calculateDay4VarianceIndex(130, 100);\nif (!v1 || v1.varianceAmount !== 5 || v1.variancePct !== 5 || !v1.withinTolerance) throw new Error('Tolerance check failed for 5% variance');\nif (!v2 || v2.varianceAmount !== 30 || v2.variancePct !== 30 || v2.withinTolerance) throw new Error('Out-of-tolerance check failed for 30% variance');"
+  },
+  {
+    "day": 5,
+    "title": "Milestone 1 Capstone: Global Commercial Bank Balance Sheet & CCAR Stress Testing",
+    "desc": "Engineer and defend an enterprise Global Commercial Bank Balance Sheet and Comprehensive Capital Analysis and Review (CCAR / EBA) Capital Stress Testing Engine: Basel III multi-asset RWA aggregation, Dodd-Frank Act (DFAST) severely adverse macroeconomic credit migration, Net Interest Margin yield curve compression with deposit beta modeling, dynamic capital restoration via CoCo bond conversions and dividend cuts, and Boardroom supervisory capital clearance.",
+    "syllabus": [
+      "Enterprise Multi-Asset Balance Sheet & Basel III RWA Aggregation",
+      "Federal Reserve CCAR Severely Adverse Macroeconomic Credit Migration",
+      "Net Interest Income (NII) Compression, Yield Curve Inversion & Deposit Beta"
+    ],
+    "eTitle": "Enterprise Multi-Asset Balance Sheet & Basel III RWA Aggregation — Quantitative Compliance Evaluator",
+    "eDesc": "Implement function `evaluateDay5AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 75)` evaluating Enterprise Multi-Asset Balance Sheet & Basel III RWA Aggregation with a 60%/40% weighted compliance model.",
+    "eStarter": "function evaluateDay5AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 75) {\n  // TODO: Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)), check isCompliant = weightedScore >= hurdleThreshold, and return { day: 5, weightedScore, hurdleThreshold, isCompliant, status }\n  \n}",
+    "eHint": "Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)); isCompliant = weightedScore >= hurdleThreshold; status = isCompliant ? 'TREASURY_BANKING_DAY_5_COMPLIANT' : 'TREASURY_BANKING_DAY_5_VARIANCE_ALERT'; return { day: 5, weightedScore, hurdleThreshold, isCompliant, status }.",
+    "eTest": "const passRes = evaluateDay5AuditMetric(95, 90, 75);\nconst failRes = evaluateDay5AuditMetric(40, 50, 75);\nif (!passRes || passRes.weightedScore !== 93 || !passRes.isCompliant || passRes.status !== 'TREASURY_BANKING_DAY_5_COMPLIANT') throw new Error('Compliant evaluation failed on Day 5');\nif (!failRes || failRes.weightedScore !== 44 || failRes.isCompliant || failRes.status !== 'TREASURY_BANKING_DAY_5_VARIANCE_ALERT') throw new Error('Variance alert evaluation failed on Day 5');",
+    "aTitle": "Federal Reserve CCAR Severely Adverse Macroeconomic Credit Migration — Variance & Tolerance Analyzer",
+    "aDesc": "Implement function `calculateDay5VarianceIndex(observedValue, benchmarkValue)` computing percentage variance and checking a ±10% statutory tolerance band for Federal Reserve CCAR Severely Adverse Macroeconomic Credit Migration.",
+    "aStarter": "function calculateDay5VarianceIndex(observedValue, benchmarkValue) {\n  // TODO: Validate benchmarkValue > 0, compute varianceAmount = observedValue - benchmarkValue and variancePct = (varianceAmount / benchmarkValue) * 100 (rounded to 2 decimals), and withinTolerance = Math.abs(variancePct) <= 10\n  \n}",
+    "aHint": "If !benchmarkValue || benchmarkValue <= 0 throw Error; compute varianceAmount = Number((observedValue - benchmarkValue).toFixed(2)), variancePct = Number(((varianceAmount / benchmarkValue) * 100).toFixed(2)), withinTolerance = Math.abs(variancePct) <= 10.",
+    "aTest": "const v1 = calculateDay5VarianceIndex(105, 100);\nconst v2 = calculateDay5VarianceIndex(130, 100);\nif (!v1 || v1.varianceAmount !== 5 || v1.variancePct !== 5 || !v1.withinTolerance) throw new Error('Tolerance check failed for 5% variance');\nif (!v2 || v2.varianceAmount !== 30 || v2.variancePct !== 30 || v2.withinTolerance) throw new Error('Out-of-tolerance check failed for 30% variance');"
+  },
+  {
+    "day": 6,
+    "title": "Wholesale Lending Syndication, Club Deals & Mandated Lead Arranger (MLA) Risk Distribution",
+    "desc": "Structure multi-bank loan syndications, model Mandated Lead Arranger (MLA) underwriting commitments vs best-efforts distribution, calculate pro-rata participant fee waterfalls, and enforce debt-to-EBITDA financial covenants.",
+    "syllabus": [
+      "The Single-Bank Credit Concentration Dilemma & The Syndication Mandate",
+      "Club Deals vs Broad Syndications: Mechanical Risk & Governance Architecture",
+      "Syndicate Economics: The Fee Waterfall & Agency Roles (MLA vs Facility Agent)"
+    ],
+    "eTitle": "The Single-Bank Credit Concentration Dilemma & The Syndication Mandate — Quantitative Compliance Evaluator",
+    "eDesc": "Implement function `evaluateDay6AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 76)` evaluating The Single-Bank Credit Concentration Dilemma & The Syndication Mandate with a 60%/40% weighted compliance model.",
+    "eStarter": "function evaluateDay6AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 76) {\n  // TODO: Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)), check isCompliant = weightedScore >= hurdleThreshold, and return { day: 6, weightedScore, hurdleThreshold, isCompliant, status }\n  \n}",
+    "eHint": "Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)); isCompliant = weightedScore >= hurdleThreshold; status = isCompliant ? 'TREASURY_BANKING_DAY_6_COMPLIANT' : 'TREASURY_BANKING_DAY_6_VARIANCE_ALERT'; return { day: 6, weightedScore, hurdleThreshold, isCompliant, status }.",
+    "eTest": "const passRes = evaluateDay6AuditMetric(95, 90, 76);\nconst failRes = evaluateDay6AuditMetric(40, 50, 76);\nif (!passRes || passRes.weightedScore !== 93 || !passRes.isCompliant || passRes.status !== 'TREASURY_BANKING_DAY_6_COMPLIANT') throw new Error('Compliant evaluation failed on Day 6');\nif (!failRes || failRes.weightedScore !== 44 || failRes.isCompliant || failRes.status !== 'TREASURY_BANKING_DAY_6_VARIANCE_ALERT') throw new Error('Variance alert evaluation failed on Day 6');",
+    "aTitle": "Club Deals vs Broad Syndications: Mechanical Risk & Governance Architecture — Variance & Tolerance Analyzer",
+    "aDesc": "Implement function `calculateDay6VarianceIndex(observedValue, benchmarkValue)` computing percentage variance and checking a ±10% statutory tolerance band for Club Deals vs Broad Syndications: Mechanical Risk & Governance Architecture.",
+    "aStarter": "function calculateDay6VarianceIndex(observedValue, benchmarkValue) {\n  // TODO: Validate benchmarkValue > 0, compute varianceAmount = observedValue - benchmarkValue and variancePct = (varianceAmount / benchmarkValue) * 100 (rounded to 2 decimals), and withinTolerance = Math.abs(variancePct) <= 10\n  \n}",
+    "aHint": "If !benchmarkValue || benchmarkValue <= 0 throw Error; compute varianceAmount = Number((observedValue - benchmarkValue).toFixed(2)), variancePct = Number(((varianceAmount / benchmarkValue) * 100).toFixed(2)), withinTolerance = Math.abs(variancePct) <= 10.",
+    "aTest": "const v1 = calculateDay6VarianceIndex(105, 100);\nconst v2 = calculateDay6VarianceIndex(130, 100);\nif (!v1 || v1.varianceAmount !== 5 || v1.variancePct !== 5 || !v1.withinTolerance) throw new Error('Tolerance check failed for 5% variance');\nif (!v2 || v2.varianceAmount !== 30 || v2.variancePct !== 30 || v2.withinTolerance) throw new Error('Out-of-tolerance check failed for 30% variance');"
+  },
+  {
+    "day": 7,
+    "title": "International Trade Finance, Letters of Credit (LC) & UCP 600 Documentary Compliance",
+    "desc": "Structure commercial Letters of Credit (LC), enforce ICC UCP 600 strict compliance standards, model usance bill discounting and banker's acceptances, and audit independent demand guarantees under URDG 758.",
+    "syllabus": [
+      "Cross-Border Counterparty Trust Deficits & The Letter of Credit Triad",
+      "The Doctrine of Strict Compliance & ICC UCP 600 Documentary Architecture",
+      "Usance Bills, Banker's Acceptances & Forfaiting Discounting Mechanics"
+    ],
+    "eTitle": "Cross-Border Counterparty Trust Deficits & The Letter of Credit Triad — Quantitative Compliance Evaluator",
+    "eDesc": "Implement function `evaluateDay7AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 77)` evaluating Cross-Border Counterparty Trust Deficits & The Letter of Credit Triad with a 60%/40% weighted compliance model.",
+    "eStarter": "function evaluateDay7AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 77) {\n  // TODO: Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)), check isCompliant = weightedScore >= hurdleThreshold, and return { day: 7, weightedScore, hurdleThreshold, isCompliant, status }\n  \n}",
+    "eHint": "Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)); isCompliant = weightedScore >= hurdleThreshold; status = isCompliant ? 'TREASURY_BANKING_DAY_7_COMPLIANT' : 'TREASURY_BANKING_DAY_7_VARIANCE_ALERT'; return { day: 7, weightedScore, hurdleThreshold, isCompliant, status }.",
+    "eTest": "const passRes = evaluateDay7AuditMetric(95, 90, 77);\nconst failRes = evaluateDay7AuditMetric(40, 50, 77);\nif (!passRes || passRes.weightedScore !== 93 || !passRes.isCompliant || passRes.status !== 'TREASURY_BANKING_DAY_7_COMPLIANT') throw new Error('Compliant evaluation failed on Day 7');\nif (!failRes || failRes.weightedScore !== 44 || failRes.isCompliant || failRes.status !== 'TREASURY_BANKING_DAY_7_VARIANCE_ALERT') throw new Error('Variance alert evaluation failed on Day 7');",
+    "aTitle": "The Doctrine of Strict Compliance & ICC UCP 600 Documentary Architecture — Variance & Tolerance Analyzer",
+    "aDesc": "Implement function `calculateDay7VarianceIndex(observedValue, benchmarkValue)` computing percentage variance and checking a ±10% statutory tolerance band for The Doctrine of Strict Compliance & ICC UCP 600 Documentary Architecture.",
+    "aStarter": "function calculateDay7VarianceIndex(observedValue, benchmarkValue) {\n  // TODO: Validate benchmarkValue > 0, compute varianceAmount = observedValue - benchmarkValue and variancePct = (varianceAmount / benchmarkValue) * 100 (rounded to 2 decimals), and withinTolerance = Math.abs(variancePct) <= 10\n  \n}",
+    "aHint": "If !benchmarkValue || benchmarkValue <= 0 throw Error; compute varianceAmount = Number((observedValue - benchmarkValue).toFixed(2)), variancePct = Number(((varianceAmount / benchmarkValue) * 100).toFixed(2)), withinTolerance = Math.abs(variancePct) <= 10.",
+    "aTest": "const v1 = calculateDay7VarianceIndex(105, 100);\nconst v2 = calculateDay7VarianceIndex(130, 100);\nif (!v1 || v1.varianceAmount !== 5 || v1.variancePct !== 5 || !v1.withinTolerance) throw new Error('Tolerance check failed for 5% variance');\nif (!v2 || v2.varianceAmount !== 30 || v2.variancePct !== 30 || v2.withinTolerance) throw new Error('Out-of-tolerance check failed for 30% variance');"
+  },
+  {
+    "day": 8,
+    "title": "Bank Treasury Operations, Money Markets, Repurchase Agreements (Repo) & SOFR Benchmarks",
+    "desc": "Manage bank treasury liquidity portfolios, execute bilateral and tri-party Repurchase Agreements (Repo), calculate collateral haircuts and margin maintenance calls, and navigate the transition from LIBOR to SOFR.",
+    "syllabus": [
+      "The Commercial Bank Liquidity Dilemma & The Interbank Money Market",
+      "Bilateral vs Tri-Party Repurchase Agreements (Repo) & Haircut Mechanics",
+      "Benchmark Interest Rate Reform: The Historic Shift from LIBOR to SOFR"
+    ],
+    "eTitle": "The Commercial Bank Liquidity Dilemma & The Interbank Money Market — Quantitative Compliance Evaluator",
+    "eDesc": "Implement function `evaluateDay8AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 78)` evaluating The Commercial Bank Liquidity Dilemma & The Interbank Money Market with a 60%/40% weighted compliance model.",
+    "eStarter": "function evaluateDay8AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 78) {\n  // TODO: Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)), check isCompliant = weightedScore >= hurdleThreshold, and return { day: 8, weightedScore, hurdleThreshold, isCompliant, status }\n  \n}",
+    "eHint": "Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)); isCompliant = weightedScore >= hurdleThreshold; status = isCompliant ? 'TREASURY_BANKING_DAY_8_COMPLIANT' : 'TREASURY_BANKING_DAY_8_VARIANCE_ALERT'; return { day: 8, weightedScore, hurdleThreshold, isCompliant, status }.",
+    "eTest": "const passRes = evaluateDay8AuditMetric(95, 90, 78);\nconst failRes = evaluateDay8AuditMetric(40, 50, 78);\nif (!passRes || passRes.weightedScore !== 93 || !passRes.isCompliant || passRes.status !== 'TREASURY_BANKING_DAY_8_COMPLIANT') throw new Error('Compliant evaluation failed on Day 8');\nif (!failRes || failRes.weightedScore !== 44 || failRes.isCompliant || failRes.status !== 'TREASURY_BANKING_DAY_8_VARIANCE_ALERT') throw new Error('Variance alert evaluation failed on Day 8');",
+    "aTitle": "Bilateral vs Tri-Party Repurchase Agreements (Repo) & Haircut Mechanics — Variance & Tolerance Analyzer",
+    "aDesc": "Implement function `calculateDay8VarianceIndex(observedValue, benchmarkValue)` computing percentage variance and checking a ±10% statutory tolerance band for Bilateral vs Tri-Party Repurchase Agreements (Repo) & Haircut Mechanics.",
+    "aStarter": "function calculateDay8VarianceIndex(observedValue, benchmarkValue) {\n  // TODO: Validate benchmarkValue > 0, compute varianceAmount = observedValue - benchmarkValue and variancePct = (varianceAmount / benchmarkValue) * 100 (rounded to 2 decimals), and withinTolerance = Math.abs(variancePct) <= 10\n  \n}",
+    "aHint": "If !benchmarkValue || benchmarkValue <= 0 throw Error; compute varianceAmount = Number((observedValue - benchmarkValue).toFixed(2)), variancePct = Number(((varianceAmount / benchmarkValue) * 100).toFixed(2)), withinTolerance = Math.abs(variancePct) <= 10.",
+    "aTest": "const v1 = calculateDay8VarianceIndex(105, 100);\nconst v2 = calculateDay8VarianceIndex(130, 100);\nif (!v1 || v1.varianceAmount !== 5 || v1.variancePct !== 5 || !v1.withinTolerance) throw new Error('Tolerance check failed for 5% variance');\nif (!v2 || v2.varianceAmount !== 30 || v2.variancePct !== 30 || v2.withinTolerance) throw new Error('Out-of-tolerance check failed for 30% variance');"
+  },
+  {
+    "day": 9,
+    "title": "Retail Banking Operations, Mortgage Underwriting, Prepayment Convexity & Credit Bureau Telemetry",
+    "desc": "Underwrite retail mortgage portfolios, enforce Loan-to-Value (LTV) and Debt-to-Income (DTI) bounds, calculate amortization schedules with prepayment options (CPR/SMM), and construct logistic credit bureau scoring models.",
+    "syllabus": [
+      "The Consumer Credit Expansion Dilemma & Retail Underwriting Boundaries",
+      "Residential Mortgages, Amortization Mechanics & Prepayment Negative Convexity",
+      "Credit Bureau Scoring: FICO / CIBIL Scorecard Mathematics & Logistic Default Models"
+    ],
+    "eTitle": "The Consumer Credit Expansion Dilemma & Retail Underwriting Boundaries — Quantitative Compliance Evaluator",
+    "eDesc": "Implement function `evaluateDay9AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 79)` evaluating The Consumer Credit Expansion Dilemma & Retail Underwriting Boundaries with a 60%/40% weighted compliance model.",
+    "eStarter": "function evaluateDay9AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 79) {\n  // TODO: Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)), check isCompliant = weightedScore >= hurdleThreshold, and return { day: 9, weightedScore, hurdleThreshold, isCompliant, status }\n  \n}",
+    "eHint": "Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)); isCompliant = weightedScore >= hurdleThreshold; status = isCompliant ? 'TREASURY_BANKING_DAY_9_COMPLIANT' : 'TREASURY_BANKING_DAY_9_VARIANCE_ALERT'; return { day: 9, weightedScore, hurdleThreshold, isCompliant, status }.",
+    "eTest": "const passRes = evaluateDay9AuditMetric(95, 90, 79);\nconst failRes = evaluateDay9AuditMetric(40, 50, 79);\nif (!passRes || passRes.weightedScore !== 93 || !passRes.isCompliant || passRes.status !== 'TREASURY_BANKING_DAY_9_COMPLIANT') throw new Error('Compliant evaluation failed on Day 9');\nif (!failRes || failRes.weightedScore !== 44 || failRes.isCompliant || failRes.status !== 'TREASURY_BANKING_DAY_9_VARIANCE_ALERT') throw new Error('Variance alert evaluation failed on Day 9');",
+    "aTitle": "Residential Mortgages, Amortization Mechanics & Prepayment Negative Convexity — Variance & Tolerance Analyzer",
+    "aDesc": "Implement function `calculateDay9VarianceIndex(observedValue, benchmarkValue)` computing percentage variance and checking a ±10% statutory tolerance band for Residential Mortgages, Amortization Mechanics & Prepayment Negative Convexity.",
+    "aStarter": "function calculateDay9VarianceIndex(observedValue, benchmarkValue) {\n  // TODO: Validate benchmarkValue > 0, compute varianceAmount = observedValue - benchmarkValue and variancePct = (varianceAmount / benchmarkValue) * 100 (rounded to 2 decimals), and withinTolerance = Math.abs(variancePct) <= 10\n  \n}",
+    "aHint": "If !benchmarkValue || benchmarkValue <= 0 throw Error; compute varianceAmount = Number((observedValue - benchmarkValue).toFixed(2)), variancePct = Number(((varianceAmount / benchmarkValue) * 100).toFixed(2)), withinTolerance = Math.abs(variancePct) <= 10.",
+    "aTest": "const v1 = calculateDay9VarianceIndex(105, 100);\nconst v2 = calculateDay9VarianceIndex(130, 100);\nif (!v1 || v1.varianceAmount !== 5 || v1.variancePct !== 5 || !v1.withinTolerance) throw new Error('Tolerance check failed for 5% variance');\nif (!v2 || v2.varianceAmount !== 30 || v2.variancePct !== 30 || v2.withinTolerance) throw new Error('Out-of-tolerance check failed for 30% variance');"
+  },
+  {
+    "day": 10,
+    "title": "⭐ Milestone 2 Capstone: Autonomous Commercial Banking Operations, Treasury ALM & Syndicate Loan Portfolio Engine",
+    "desc": "Architect an enterprise-scale commercial banking command platform synthesizing wholesale loan syndications, trade finance documentary credits, treasury repo liquidity, retail mortgage underwriting, and Basel III regulatory capital clearance.",
+    "syllabus": [
+      "The Chief Banking Officer (CBO) & Treasury Executive Mandate",
+      "5-Tier Banking Architecture: From Loan Syndication to Treasury Liquidity",
+      "Quantitative Banking Invariants & Asset-Liability Optimization"
+    ],
+    "eTitle": "The Chief Banking Officer (CBO) & Treasury Executive Mandate — Quantitative Compliance Evaluator",
+    "eDesc": "Implement function `evaluateDay10AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 80)` evaluating The Chief Banking Officer (CBO) & Treasury Executive Mandate with a 60%/40% weighted compliance model.",
+    "eStarter": "function evaluateDay10AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 80) {\n  // TODO: Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)), check isCompliant = weightedScore >= hurdleThreshold, and return { day: 10, weightedScore, hurdleThreshold, isCompliant, status }\n  \n}",
+    "eHint": "Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)); isCompliant = weightedScore >= hurdleThreshold; status = isCompliant ? 'TREASURY_BANKING_DAY_10_COMPLIANT' : 'TREASURY_BANKING_DAY_10_VARIANCE_ALERT'; return { day: 10, weightedScore, hurdleThreshold, isCompliant, status }.",
+    "eTest": "const passRes = evaluateDay10AuditMetric(95, 90, 80);\nconst failRes = evaluateDay10AuditMetric(40, 50, 80);\nif (!passRes || passRes.weightedScore !== 93 || !passRes.isCompliant || passRes.status !== 'TREASURY_BANKING_DAY_10_COMPLIANT') throw new Error('Compliant evaluation failed on Day 10');\nif (!failRes || failRes.weightedScore !== 44 || failRes.isCompliant || failRes.status !== 'TREASURY_BANKING_DAY_10_VARIANCE_ALERT') throw new Error('Variance alert evaluation failed on Day 10');",
+    "aTitle": "5-Tier Banking Architecture: From Loan Syndication to Treasury Liquidity — Variance & Tolerance Analyzer",
+    "aDesc": "Implement function `calculateDay10VarianceIndex(observedValue, benchmarkValue)` computing percentage variance and checking a ±10% statutory tolerance band for 5-Tier Banking Architecture: From Loan Syndication to Treasury Liquidity.",
+    "aStarter": "function calculateDay10VarianceIndex(observedValue, benchmarkValue) {\n  // TODO: Validate benchmarkValue > 0, compute varianceAmount = observedValue - benchmarkValue and variancePct = (varianceAmount / benchmarkValue) * 100 (rounded to 2 decimals), and withinTolerance = Math.abs(variancePct) <= 10\n  \n}",
+    "aHint": "If !benchmarkValue || benchmarkValue <= 0 throw Error; compute varianceAmount = Number((observedValue - benchmarkValue).toFixed(2)), variancePct = Number(((varianceAmount / benchmarkValue) * 100).toFixed(2)), withinTolerance = Math.abs(variancePct) <= 10.",
+    "aTest": "const v1 = calculateDay10VarianceIndex(105, 100);\nconst v2 = calculateDay10VarianceIndex(130, 100);\nif (!v1 || v1.varianceAmount !== 5 || v1.variancePct !== 5 || !v1.withinTolerance) throw new Error('Tolerance check failed for 5% variance');\nif (!v2 || v2.varianceAmount !== 30 || v2.variancePct !== 30 || v2.withinTolerance) throw new Error('Out-of-tolerance check failed for 30% variance');"
+  },
+  {
+    "day": 11,
+    "title": "Investment Banking Equity Capital Markets (ECM), IPO Bookbuilding, Institutional Price Discovery & Greenshoe Stabilization",
+    "desc": "Master investment banking ECM origination: underwrite Initial Public Offerings (IPOs), structure bookbuilding orderbooks across institutional QIBs and retail tranches, calculate optimal offer pricing, and execute Rule 104 Greenshoe over-allotment market stabilization.",
+    "syllabus": [
+      "The IPO Underwriting Mandate: Firm Commitment vs Best Efforts & Syndicate Architecture",
+      "The IPO Bookbuilding Mechanics: Elastic Demand Curves & Institutional Price Discovery",
+      "Underpricing Physics: The Winner's Curse, Information Asymmetry & The First-Day Pop"
+    ],
+    "eTitle": "The IPO Underwriting Mandate: Firm Commitment vs Best Efforts & Syndicate Architecture — Quantitative Compliance Evaluator",
+    "eDesc": "Implement function `evaluateDay11AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 81)` evaluating The IPO Underwriting Mandate: Firm Commitment vs Best Efforts & Syndicate Architecture with a 60%/40% weighted compliance model.",
+    "eStarter": "function evaluateDay11AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 81) {\n  // TODO: Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)), check isCompliant = weightedScore >= hurdleThreshold, and return { day: 11, weightedScore, hurdleThreshold, isCompliant, status }\n  \n}",
+    "eHint": "Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)); isCompliant = weightedScore >= hurdleThreshold; status = isCompliant ? 'TREASURY_BANKING_DAY_11_COMPLIANT' : 'TREASURY_BANKING_DAY_11_VARIANCE_ALERT'; return { day: 11, weightedScore, hurdleThreshold, isCompliant, status }.",
+    "eTest": "const passRes = evaluateDay11AuditMetric(95, 90, 81);\nconst failRes = evaluateDay11AuditMetric(40, 50, 81);\nif (!passRes || passRes.weightedScore !== 93 || !passRes.isCompliant || passRes.status !== 'TREASURY_BANKING_DAY_11_COMPLIANT') throw new Error('Compliant evaluation failed on Day 11');\nif (!failRes || failRes.weightedScore !== 44 || failRes.isCompliant || failRes.status !== 'TREASURY_BANKING_DAY_11_VARIANCE_ALERT') throw new Error('Variance alert evaluation failed on Day 11');",
+    "aTitle": "The IPO Bookbuilding Mechanics: Elastic Demand Curves & Institutional Price Discovery — Variance & Tolerance Analyzer",
+    "aDesc": "Implement function `calculateDay11VarianceIndex(observedValue, benchmarkValue)` computing percentage variance and checking a ±10% statutory tolerance band for The IPO Bookbuilding Mechanics: Elastic Demand Curves & Institutional Price Discovery.",
+    "aStarter": "function calculateDay11VarianceIndex(observedValue, benchmarkValue) {\n  // TODO: Validate benchmarkValue > 0, compute varianceAmount = observedValue - benchmarkValue and variancePct = (varianceAmount / benchmarkValue) * 100 (rounded to 2 decimals), and withinTolerance = Math.abs(variancePct) <= 10\n  \n}",
+    "aHint": "If !benchmarkValue || benchmarkValue <= 0 throw Error; compute varianceAmount = Number((observedValue - benchmarkValue).toFixed(2)), variancePct = Number(((varianceAmount / benchmarkValue) * 100).toFixed(2)), withinTolerance = Math.abs(variancePct) <= 10.",
+    "aTest": "const v1 = calculateDay11VarianceIndex(105, 100);\nconst v2 = calculateDay11VarianceIndex(130, 100);\nif (!v1 || v1.varianceAmount !== 5 || v1.variancePct !== 5 || !v1.withinTolerance) throw new Error('Tolerance check failed for 5% variance');\nif (!v2 || v2.varianceAmount !== 30 || v2.variancePct !== 30 || v2.withinTolerance) throw new Error('Out-of-tolerance check failed for 30% variance');"
+  },
+  {
+    "day": 12,
+    "title": "Investment Banking Debt Capital Markets (DCM), Corporate Bond Underwriting, Yield Spreads & Benchmark Pricing",
+    "desc": "Originate institutional corporate bonds, structure fixed vs floating coupon tranches, calculate credit rating agency yield spreads over sovereign benchmarks, model bond duration/convexity interest rate risk, and audit Rule 144A vs Regulation S distribution.",
+    "syllabus": [
+      "Corporate Debt Capital Markets: The Direct Bond Issuance vs Bank Loan Dilemma",
+      "Bond Pricing & Benchmark Spreads: Yield Curves, Credit Ratings & G-Spread Dynamics",
+      "Interest Rate Risk & Bond Physics: Duration, Modified Duration & Convexity"
+    ],
+    "eTitle": "Corporate Debt Capital Markets: The Direct Bond Issuance vs Bank Loan Dilemma — Quantitative Compliance Evaluator",
+    "eDesc": "Implement function `evaluateDay12AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 82)` evaluating Corporate Debt Capital Markets: The Direct Bond Issuance vs Bank Loan Dilemma with a 60%/40% weighted compliance model.",
+    "eStarter": "function evaluateDay12AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 82) {\n  // TODO: Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)), check isCompliant = weightedScore >= hurdleThreshold, and return { day: 12, weightedScore, hurdleThreshold, isCompliant, status }\n  \n}",
+    "eHint": "Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)); isCompliant = weightedScore >= hurdleThreshold; status = isCompliant ? 'TREASURY_BANKING_DAY_12_COMPLIANT' : 'TREASURY_BANKING_DAY_12_VARIANCE_ALERT'; return { day: 12, weightedScore, hurdleThreshold, isCompliant, status }.",
+    "eTest": "const passRes = evaluateDay12AuditMetric(95, 90, 82);\nconst failRes = evaluateDay12AuditMetric(40, 50, 82);\nif (!passRes || passRes.weightedScore !== 93 || !passRes.isCompliant || passRes.status !== 'TREASURY_BANKING_DAY_12_COMPLIANT') throw new Error('Compliant evaluation failed on Day 12');\nif (!failRes || failRes.weightedScore !== 44 || failRes.isCompliant || failRes.status !== 'TREASURY_BANKING_DAY_12_VARIANCE_ALERT') throw new Error('Variance alert evaluation failed on Day 12');",
+    "aTitle": "Bond Pricing & Benchmark Spreads: Yield Curves, Credit Ratings & G-Spread Dynamics — Variance & Tolerance Analyzer",
+    "aDesc": "Implement function `calculateDay12VarianceIndex(observedValue, benchmarkValue)` computing percentage variance and checking a ±10% statutory tolerance band for Bond Pricing & Benchmark Spreads: Yield Curves, Credit Ratings & G-Spread Dynamics.",
+    "aStarter": "function calculateDay12VarianceIndex(observedValue, benchmarkValue) {\n  // TODO: Validate benchmarkValue > 0, compute varianceAmount = observedValue - benchmarkValue and variancePct = (varianceAmount / benchmarkValue) * 100 (rounded to 2 decimals), and withinTolerance = Math.abs(variancePct) <= 10\n  \n}",
+    "aHint": "If !benchmarkValue || benchmarkValue <= 0 throw Error; compute varianceAmount = Number((observedValue - benchmarkValue).toFixed(2)), variancePct = Number(((varianceAmount / benchmarkValue) * 100).toFixed(2)), withinTolerance = Math.abs(variancePct) <= 10.",
+    "aTest": "const v1 = calculateDay12VarianceIndex(105, 100);\nconst v2 = calculateDay12VarianceIndex(130, 100);\nif (!v1 || v1.varianceAmount !== 5 || v1.variancePct !== 5 || !v1.withinTolerance) throw new Error('Tolerance check failed for 5% variance');\nif (!v2 || v2.varianceAmount !== 30 || v2.variancePct !== 30 || v2.withinTolerance) throw new Error('Out-of-tolerance check failed for 30% variance');"
+  },
+  {
+    "day": 13,
+    "title": "Investment Banking Mergers & Acquisitions (M&A) Advisory, Valuation Pitchbooks & Fairness Opinions",
+    "desc": "Execute buy-side and sell-side M&A advisory mandates, build football field valuation pitchbooks (DCF, Precedent Transactions, Trading Multiples), calculate post-merger EPS accretion/dilution with operating synergies, and author Boardroom Fairness Opinions.",
+    "syllabus": [
+      "The M&A Advisory Mandate: Buy-Side vs Sell-Side & The Strategic Deal Pipeline",
+      "The Valuation Football Field: DCF, Trading Multiples & Precedent Transactions",
+      "Transaction Architecture: Consideration Mix & Pro-Forma EPS Accretion / Dilution"
+    ],
+    "eTitle": "The M&A Advisory Mandate: Buy-Side vs Sell-Side & The Strategic Deal Pipeline — Quantitative Compliance Evaluator",
+    "eDesc": "Implement function `evaluateDay13AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 83)` evaluating The M&A Advisory Mandate: Buy-Side vs Sell-Side & The Strategic Deal Pipeline with a 60%/40% weighted compliance model.",
+    "eStarter": "function evaluateDay13AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 83) {\n  // TODO: Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)), check isCompliant = weightedScore >= hurdleThreshold, and return { day: 13, weightedScore, hurdleThreshold, isCompliant, status }\n  \n}",
+    "eHint": "Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)); isCompliant = weightedScore >= hurdleThreshold; status = isCompliant ? 'TREASURY_BANKING_DAY_13_COMPLIANT' : 'TREASURY_BANKING_DAY_13_VARIANCE_ALERT'; return { day: 13, weightedScore, hurdleThreshold, isCompliant, status }.",
+    "eTest": "const passRes = evaluateDay13AuditMetric(95, 90, 83);\nconst failRes = evaluateDay13AuditMetric(40, 50, 83);\nif (!passRes || passRes.weightedScore !== 93 || !passRes.isCompliant || passRes.status !== 'TREASURY_BANKING_DAY_13_COMPLIANT') throw new Error('Compliant evaluation failed on Day 13');\nif (!failRes || failRes.weightedScore !== 44 || failRes.isCompliant || failRes.status !== 'TREASURY_BANKING_DAY_13_VARIANCE_ALERT') throw new Error('Variance alert evaluation failed on Day 13');",
+    "aTitle": "The Valuation Football Field: DCF, Trading Multiples & Precedent Transactions — Variance & Tolerance Analyzer",
+    "aDesc": "Implement function `calculateDay13VarianceIndex(observedValue, benchmarkValue)` computing percentage variance and checking a ±10% statutory tolerance band for The Valuation Football Field: DCF, Trading Multiples & Precedent Transactions.",
+    "aStarter": "function calculateDay13VarianceIndex(observedValue, benchmarkValue) {\n  // TODO: Validate benchmarkValue > 0, compute varianceAmount = observedValue - benchmarkValue and variancePct = (varianceAmount / benchmarkValue) * 100 (rounded to 2 decimals), and withinTolerance = Math.abs(variancePct) <= 10\n  \n}",
+    "aHint": "If !benchmarkValue || benchmarkValue <= 0 throw Error; compute varianceAmount = Number((observedValue - benchmarkValue).toFixed(2)), variancePct = Number(((varianceAmount / benchmarkValue) * 100).toFixed(2)), withinTolerance = Math.abs(variancePct) <= 10.",
+    "aTest": "const v1 = calculateDay13VarianceIndex(105, 100);\nconst v2 = calculateDay13VarianceIndex(130, 100);\nif (!v1 || v1.varianceAmount !== 5 || v1.variancePct !== 5 || !v1.withinTolerance) throw new Error('Tolerance check failed for 5% variance');\nif (!v2 || v2.varianceAmount !== 30 || v2.variancePct !== 30 || v2.withinTolerance) throw new Error('Out-of-tolerance check failed for 30% variance');"
+  },
+  {
+    "day": 14,
+    "title": "Investment Banking Structured Credit, Asset-Backed Securitization (ABS/MBS) & Tranche Waterfalls",
+    "desc": "Architect structured credit vehicles: originate bankruptcy-remote Special Purpose Vehicles (SPVs), execute True Sale legal isolations, structure subordinated capital tranches (Senior, Mezzanine, Equity/Residual), and model cash flow distribution waterfalls and credit enhancement.",
+    "syllabus": [
+      "The Securitization Mandate: Transforming Illiquid Loans into Rated Securities",
+      "Capital Structure Engineering: Subordination, Tranching & Risk Absorption",
+      "Cash Flow Physics: Sequential Pay vs Pro-Rata Waterfalls & Credit Enhancement"
+    ],
+    "eTitle": "The Securitization Mandate: Transforming Illiquid Loans into Rated Securities — Quantitative Compliance Evaluator",
+    "eDesc": "Implement function `evaluateDay14AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 84)` evaluating The Securitization Mandate: Transforming Illiquid Loans into Rated Securities with a 60%/40% weighted compliance model.",
+    "eStarter": "function evaluateDay14AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 84) {\n  // TODO: Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)), check isCompliant = weightedScore >= hurdleThreshold, and return { day: 14, weightedScore, hurdleThreshold, isCompliant, status }\n  \n}",
+    "eHint": "Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)); isCompliant = weightedScore >= hurdleThreshold; status = isCompliant ? 'TREASURY_BANKING_DAY_14_COMPLIANT' : 'TREASURY_BANKING_DAY_14_VARIANCE_ALERT'; return { day: 14, weightedScore, hurdleThreshold, isCompliant, status }.",
+    "eTest": "const passRes = evaluateDay14AuditMetric(95, 90, 84);\nconst failRes = evaluateDay14AuditMetric(40, 50, 84);\nif (!passRes || passRes.weightedScore !== 93 || !passRes.isCompliant || passRes.status !== 'TREASURY_BANKING_DAY_14_COMPLIANT') throw new Error('Compliant evaluation failed on Day 14');\nif (!failRes || failRes.weightedScore !== 44 || failRes.isCompliant || failRes.status !== 'TREASURY_BANKING_DAY_14_VARIANCE_ALERT') throw new Error('Variance alert evaluation failed on Day 14');",
+    "aTitle": "Capital Structure Engineering: Subordination, Tranching & Risk Absorption — Variance & Tolerance Analyzer",
+    "aDesc": "Implement function `calculateDay14VarianceIndex(observedValue, benchmarkValue)` computing percentage variance and checking a ±10% statutory tolerance band for Capital Structure Engineering: Subordination, Tranching & Risk Absorption.",
+    "aStarter": "function calculateDay14VarianceIndex(observedValue, benchmarkValue) {\n  // TODO: Validate benchmarkValue > 0, compute varianceAmount = observedValue - benchmarkValue and variancePct = (varianceAmount / benchmarkValue) * 100 (rounded to 2 decimals), and withinTolerance = Math.abs(variancePct) <= 10\n  \n}",
+    "aHint": "If !benchmarkValue || benchmarkValue <= 0 throw Error; compute varianceAmount = Number((observedValue - benchmarkValue).toFixed(2)), variancePct = Number(((varianceAmount / benchmarkValue) * 100).toFixed(2)), withinTolerance = Math.abs(variancePct) <= 10.",
+    "aTest": "const v1 = calculateDay14VarianceIndex(105, 100);\nconst v2 = calculateDay14VarianceIndex(130, 100);\nif (!v1 || v1.varianceAmount !== 5 || v1.variancePct !== 5 || !v1.withinTolerance) throw new Error('Tolerance check failed for 5% variance');\nif (!v2 || v2.varianceAmount !== 30 || v2.variancePct !== 30 || v2.withinTolerance) throw new Error('Out-of-tolerance check failed for 30% variance');"
+  },
+  {
+    "day": 15,
+    "title": "⭐ Milestone 3 Capstone: Autonomous Investment Banking Advisory, Capital Markets & Structured Finance Platform",
+    "desc": "Architect an enterprise-scale investment banking advisory command platform synthesizing ECM equity bookbuilding, DCM corporate bond origination, M&A valuation football fields with EPS accretion/dilution, structured credit CLO/ABS tranching waterfalls, and FINRA/SEC regulatory clearance.",
+    "syllabus": [
+      "The Global Head of Investment Banking Executive Mandate",
+      "The 5-Tier Investment Banking Operating Architecture",
+      "Quantitative Balance Sheet & Cross-Asset Capital Invariants"
+    ],
+    "eTitle": "The Global Head of Investment Banking Executive Mandate — Quantitative Compliance Evaluator",
+    "eDesc": "Implement function `evaluateDay15AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 85)` evaluating The Global Head of Investment Banking Executive Mandate with a 60%/40% weighted compliance model.",
+    "eStarter": "function evaluateDay15AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 85) {\n  // TODO: Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)), check isCompliant = weightedScore >= hurdleThreshold, and return { day: 15, weightedScore, hurdleThreshold, isCompliant, status }\n  \n}",
+    "eHint": "Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)); isCompliant = weightedScore >= hurdleThreshold; status = isCompliant ? 'TREASURY_BANKING_DAY_15_COMPLIANT' : 'TREASURY_BANKING_DAY_15_VARIANCE_ALERT'; return { day: 15, weightedScore, hurdleThreshold, isCompliant, status }.",
+    "eTest": "const passRes = evaluateDay15AuditMetric(95, 90, 85);\nconst failRes = evaluateDay15AuditMetric(40, 50, 85);\nif (!passRes || passRes.weightedScore !== 93 || !passRes.isCompliant || passRes.status !== 'TREASURY_BANKING_DAY_15_COMPLIANT') throw new Error('Compliant evaluation failed on Day 15');\nif (!failRes || failRes.weightedScore !== 44 || failRes.isCompliant || failRes.status !== 'TREASURY_BANKING_DAY_15_VARIANCE_ALERT') throw new Error('Variance alert evaluation failed on Day 15');",
+    "aTitle": "The 5-Tier Investment Banking Operating Architecture — Variance & Tolerance Analyzer",
+    "aDesc": "Implement function `calculateDay15VarianceIndex(observedValue, benchmarkValue)` computing percentage variance and checking a ±10% statutory tolerance band for The 5-Tier Investment Banking Operating Architecture.",
+    "aStarter": "function calculateDay15VarianceIndex(observedValue, benchmarkValue) {\n  // TODO: Validate benchmarkValue > 0, compute varianceAmount = observedValue - benchmarkValue and variancePct = (varianceAmount / benchmarkValue) * 100 (rounded to 2 decimals), and withinTolerance = Math.abs(variancePct) <= 10\n  \n}",
+    "aHint": "If !benchmarkValue || benchmarkValue <= 0 throw Error; compute varianceAmount = Number((observedValue - benchmarkValue).toFixed(2)), variancePct = Number(((varianceAmount / benchmarkValue) * 100).toFixed(2)), withinTolerance = Math.abs(variancePct) <= 10.",
+    "aTest": "const v1 = calculateDay15VarianceIndex(105, 100);\nconst v2 = calculateDay15VarianceIndex(130, 100);\nif (!v1 || v1.varianceAmount !== 5 || v1.variancePct !== 5 || !v1.withinTolerance) throw new Error('Tolerance check failed for 5% variance');\nif (!v2 || v2.varianceAmount !== 30 || v2.variancePct !== 30 || v2.withinTolerance) throw new Error('Out-of-tolerance check failed for 30% variance');"
+  },
+  {
+    "day": 16,
+    "title": "Wealth Management & Private Banking (Portfolio Optimization & Trust Structuring)",
+    "syllabus": [
+      "Family Office Architecture, Asset Allocation Hurdle Rates & Fiduciary Duty",
+      "The Markowitz Efficient Frontier: Mean-Variance Optimization, Sharpe Ratio & Quadratic Programming",
+      "Private Wealth Taxation: Generation-Skipping Transfer, Dynasty Trusts & Step-Up in Basis"
+    ],
+    "eTitle": "Family Office Architecture, Asset Allocation Hurdle Rates & Fiduciary Duty — Quantitative Compliance Evaluator",
+    "eDesc": "Implement function `evaluateDay16AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 86)` evaluating Family Office Architecture, Asset Allocation Hurdle Rates & Fiduciary Duty with a 60%/40% weighted compliance model.",
+    "eStarter": "function evaluateDay16AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 86) {\n  // TODO: Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)), check isCompliant = weightedScore >= hurdleThreshold, and return { day: 16, weightedScore, hurdleThreshold, isCompliant, status }\n  \n}",
+    "eHint": "Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)); isCompliant = weightedScore >= hurdleThreshold; status = isCompliant ? 'TREASURY_BANKING_DAY_16_COMPLIANT' : 'TREASURY_BANKING_DAY_16_VARIANCE_ALERT'; return { day: 16, weightedScore, hurdleThreshold, isCompliant, status }.",
+    "eTest": "const passRes = evaluateDay16AuditMetric(95, 90, 86);\nconst failRes = evaluateDay16AuditMetric(40, 50, 86);\nif (!passRes || passRes.weightedScore !== 93 || !passRes.isCompliant || passRes.status !== 'TREASURY_BANKING_DAY_16_COMPLIANT') throw new Error('Compliant evaluation failed on Day 16');\nif (!failRes || failRes.weightedScore !== 44 || failRes.isCompliant || failRes.status !== 'TREASURY_BANKING_DAY_16_VARIANCE_ALERT') throw new Error('Variance alert evaluation failed on Day 16');",
+    "aTitle": "The Markowitz Efficient Frontier: Mean-Variance Optimization, Sharpe Ratio & Quadratic Programming — Variance & Tolerance Analyzer",
+    "aDesc": "Implement function `calculateDay16VarianceIndex(observedValue, benchmarkValue)` computing percentage variance and checking a ±10% statutory tolerance band for The Markowitz Efficient Frontier: Mean-Variance Optimization, Sharpe Ratio & Quadratic Programming.",
+    "aStarter": "function calculateDay16VarianceIndex(observedValue, benchmarkValue) {\n  // TODO: Validate benchmarkValue > 0, compute varianceAmount = observedValue - benchmarkValue and variancePct = (varianceAmount / benchmarkValue) * 100 (rounded to 2 decimals), and withinTolerance = Math.abs(variancePct) <= 10\n  \n}",
+    "aHint": "If !benchmarkValue || benchmarkValue <= 0 throw Error; compute varianceAmount = Number((observedValue - benchmarkValue).toFixed(2)), variancePct = Number(((varianceAmount / benchmarkValue) * 100).toFixed(2)), withinTolerance = Math.abs(variancePct) <= 10.",
+    "aTest": "const v1 = calculateDay16VarianceIndex(105, 100);\nconst v2 = calculateDay16VarianceIndex(130, 100);\nif (!v1 || v1.varianceAmount !== 5 || v1.variancePct !== 5 || !v1.withinTolerance) throw new Error('Tolerance check failed for 5% variance');\nif (!v2 || v2.varianceAmount !== 30 || v2.variancePct !== 30 || v2.withinTolerance) throw new Error('Out-of-tolerance check failed for 30% variance');"
+  },
+  {
+    "day": 17,
+    "title": "Derivatives Trading & Hedging (Swaps Options Greeks & Volatility)",
+    "syllabus": [
+      "The Derivative Matrix: Plain Vanilla Swaps, Forward Rate Agreements & Bank Book Risk",
+      "Black-Scholes-Merton & Options Greeks: Delta, Gamma, Vega, Theta & Rho Sensitivities",
+      "FX Hedging: Cross-Currency Basis Swaps, Covered Interest Parity & Volatility Surface"
+    ],
+    "eTitle": "The Derivative Matrix: Plain Vanilla Swaps, Forward Rate Agreements & Bank Book Risk — Quantitative Compliance Evaluator",
+    "eDesc": "Implement function `evaluateDay17AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 87)` evaluating The Derivative Matrix: Plain Vanilla Swaps, Forward Rate Agreements & Bank Book Risk with a 60%/40% weighted compliance model.",
+    "eStarter": "function evaluateDay17AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 87) {\n  // TODO: Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)), check isCompliant = weightedScore >= hurdleThreshold, and return { day: 17, weightedScore, hurdleThreshold, isCompliant, status }\n  \n}",
+    "eHint": "Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)); isCompliant = weightedScore >= hurdleThreshold; status = isCompliant ? 'TREASURY_BANKING_DAY_17_COMPLIANT' : 'TREASURY_BANKING_DAY_17_VARIANCE_ALERT'; return { day: 17, weightedScore, hurdleThreshold, isCompliant, status }.",
+    "eTest": "const passRes = evaluateDay17AuditMetric(95, 90, 87);\nconst failRes = evaluateDay17AuditMetric(40, 50, 87);\nif (!passRes || passRes.weightedScore !== 93 || !passRes.isCompliant || passRes.status !== 'TREASURY_BANKING_DAY_17_COMPLIANT') throw new Error('Compliant evaluation failed on Day 17');\nif (!failRes || failRes.weightedScore !== 44 || failRes.isCompliant || failRes.status !== 'TREASURY_BANKING_DAY_17_VARIANCE_ALERT') throw new Error('Variance alert evaluation failed on Day 17');",
+    "aTitle": "Black-Scholes-Merton & Options Greeks: Delta, Gamma, Vega, Theta & Rho Sensitivities — Variance & Tolerance Analyzer",
+    "aDesc": "Implement function `calculateDay17VarianceIndex(observedValue, benchmarkValue)` computing percentage variance and checking a ±10% statutory tolerance band for Black-Scholes-Merton & Options Greeks: Delta, Gamma, Vega, Theta & Rho Sensitivities.",
+    "aStarter": "function calculateDay17VarianceIndex(observedValue, benchmarkValue) {\n  // TODO: Validate benchmarkValue > 0, compute varianceAmount = observedValue - benchmarkValue and variancePct = (varianceAmount / benchmarkValue) * 100 (rounded to 2 decimals), and withinTolerance = Math.abs(variancePct) <= 10\n  \n}",
+    "aHint": "If !benchmarkValue || benchmarkValue <= 0 throw Error; compute varianceAmount = Number((observedValue - benchmarkValue).toFixed(2)), variancePct = Number(((varianceAmount / benchmarkValue) * 100).toFixed(2)), withinTolerance = Math.abs(variancePct) <= 10.",
+    "aTest": "const v1 = calculateDay17VarianceIndex(105, 100);\nconst v2 = calculateDay17VarianceIndex(130, 100);\nif (!v1 || v1.varianceAmount !== 5 || v1.variancePct !== 5 || !v1.withinTolerance) throw new Error('Tolerance check failed for 5% variance');\nif (!v2 || v2.varianceAmount !== 30 || v2.variancePct !== 30 || v2.withinTolerance) throw new Error('Out-of-tolerance check failed for 30% variance');"
+  },
+  {
+    "day": 18,
+    "title": "Risk Management & Basel Framework (Credit Market VaR & Stress Testing)",
+    "syllabus": [
+      "The Trinity of Bank Risk: Credit Risk (EAD/PD/LGD), IFRS 9 / CECL Stage 1-3 Provisioning",
+      "Market Risk: Value at Risk (VaR), Expected Shortfall (CVaR) & Historical Simulation",
+      "Basel III/IV Capital Ratios: CET1, Tier 1, Total Capital & Risk-Weighted Assets (RWA)"
+    ],
+    "eTitle": "The Trinity of Bank Risk: Credit Risk (EAD/PD/LGD), IFRS 9 / CECL Stage 1-3 Provisioning — Quantitative Compliance Evaluator",
+    "eDesc": "Implement function `evaluateDay18AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 88)` evaluating The Trinity of Bank Risk: Credit Risk (EAD/PD/LGD), IFRS 9 / CECL Stage 1-3 Provisioning with a 60%/40% weighted compliance model.",
+    "eStarter": "function evaluateDay18AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 88) {\n  // TODO: Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)), check isCompliant = weightedScore >= hurdleThreshold, and return { day: 18, weightedScore, hurdleThreshold, isCompliant, status }\n  \n}",
+    "eHint": "Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)); isCompliant = weightedScore >= hurdleThreshold; status = isCompliant ? 'TREASURY_BANKING_DAY_18_COMPLIANT' : 'TREASURY_BANKING_DAY_18_VARIANCE_ALERT'; return { day: 18, weightedScore, hurdleThreshold, isCompliant, status }.",
+    "eTest": "const passRes = evaluateDay18AuditMetric(95, 90, 88);\nconst failRes = evaluateDay18AuditMetric(40, 50, 88);\nif (!passRes || passRes.weightedScore !== 93 || !passRes.isCompliant || passRes.status !== 'TREASURY_BANKING_DAY_18_COMPLIANT') throw new Error('Compliant evaluation failed on Day 18');\nif (!failRes || failRes.weightedScore !== 44 || failRes.isCompliant || failRes.status !== 'TREASURY_BANKING_DAY_18_VARIANCE_ALERT') throw new Error('Variance alert evaluation failed on Day 18');",
+    "aTitle": "Market Risk: Value at Risk (VaR), Expected Shortfall (CVaR) & Historical Simulation — Variance & Tolerance Analyzer",
+    "aDesc": "Implement function `calculateDay18VarianceIndex(observedValue, benchmarkValue)` computing percentage variance and checking a ±10% statutory tolerance band for Market Risk: Value at Risk (VaR), Expected Shortfall (CVaR) & Historical Simulation.",
+    "aStarter": "function calculateDay18VarianceIndex(observedValue, benchmarkValue) {\n  // TODO: Validate benchmarkValue > 0, compute varianceAmount = observedValue - benchmarkValue and variancePct = (varianceAmount / benchmarkValue) * 100 (rounded to 2 decimals), and withinTolerance = Math.abs(variancePct) <= 10\n  \n}",
+    "aHint": "If !benchmarkValue || benchmarkValue <= 0 throw Error; compute varianceAmount = Number((observedValue - benchmarkValue).toFixed(2)), variancePct = Number(((varianceAmount / benchmarkValue) * 100).toFixed(2)), withinTolerance = Math.abs(variancePct) <= 10.",
+    "aTest": "const v1 = calculateDay18VarianceIndex(105, 100);\nconst v2 = calculateDay18VarianceIndex(130, 100);\nif (!v1 || v1.varianceAmount !== 5 || v1.variancePct !== 5 || !v1.withinTolerance) throw new Error('Tolerance check failed for 5% variance');\nif (!v2 || v2.varianceAmount !== 30 || v2.variancePct !== 30 || v2.withinTolerance) throw new Error('Out-of-tolerance check failed for 30% variance');"
+  },
+  {
+    "day": 19,
+    "title": "Digital Banking & Open Banking APIs (ISO 20022 UPI & Embedded Finance)",
+    "syllabus": [
+      "Core Banking Architecture: Next-Gen Cloud-Native Ledger vs Legacy Mainframes & Real-Time ACID Invariants",
+      "ISO 20022 Universal Financial Industry Message Scheme: XML/JSON PACS.008, PAIN & CAMT Standards",
+      "Open Banking & Payment Services Directive (PSD2/PSD3): OAuth 2.0 mTLS, AISP & PISP Gateways"
+    ],
+    "eTitle": "Core Banking Architecture: Next-Gen Cloud-Native Ledger vs Legacy Mainframes & Real-Time ACID Invariants — Quantitative Compliance Evaluator",
+    "eDesc": "Implement function `evaluateDay19AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 89)` evaluating Core Banking Architecture: Next-Gen Cloud-Native Ledger vs Legacy Mainframes & Real-Time ACID Invariants with a 60%/40% weighted compliance model.",
+    "eStarter": "function evaluateDay19AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 89) {\n  // TODO: Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)), check isCompliant = weightedScore >= hurdleThreshold, and return { day: 19, weightedScore, hurdleThreshold, isCompliant, status }\n  \n}",
+    "eHint": "Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)); isCompliant = weightedScore >= hurdleThreshold; status = isCompliant ? 'TREASURY_BANKING_DAY_19_COMPLIANT' : 'TREASURY_BANKING_DAY_19_VARIANCE_ALERT'; return { day: 19, weightedScore, hurdleThreshold, isCompliant, status }.",
+    "eTest": "const passRes = evaluateDay19AuditMetric(95, 90, 89);\nconst failRes = evaluateDay19AuditMetric(40, 50, 89);\nif (!passRes || passRes.weightedScore !== 93 || !passRes.isCompliant || passRes.status !== 'TREASURY_BANKING_DAY_19_COMPLIANT') throw new Error('Compliant evaluation failed on Day 19');\nif (!failRes || failRes.weightedScore !== 44 || failRes.isCompliant || failRes.status !== 'TREASURY_BANKING_DAY_19_VARIANCE_ALERT') throw new Error('Variance alert evaluation failed on Day 19');",
+    "aTitle": "ISO 20022 Universal Financial Industry Message Scheme: XML/JSON PACS.008, PAIN & CAMT Standards — Variance & Tolerance Analyzer",
+    "aDesc": "Implement function `calculateDay19VarianceIndex(observedValue, benchmarkValue)` computing percentage variance and checking a ±10% statutory tolerance band for ISO 20022 Universal Financial Industry Message Scheme: XML/JSON PACS.008, PAIN & CAMT Standards.",
+    "aStarter": "function calculateDay19VarianceIndex(observedValue, benchmarkValue) {\n  // TODO: Validate benchmarkValue > 0, compute varianceAmount = observedValue - benchmarkValue and variancePct = (varianceAmount / benchmarkValue) * 100 (rounded to 2 decimals), and withinTolerance = Math.abs(variancePct) <= 10\n  \n}",
+    "aHint": "If !benchmarkValue || benchmarkValue <= 0 throw Error; compute varianceAmount = Number((observedValue - benchmarkValue).toFixed(2)), variancePct = Number(((varianceAmount / benchmarkValue) * 100).toFixed(2)), withinTolerance = Math.abs(variancePct) <= 10.",
+    "aTest": "const v1 = calculateDay19VarianceIndex(105, 100);\nconst v2 = calculateDay19VarianceIndex(130, 100);\nif (!v1 || v1.varianceAmount !== 5 || v1.variancePct !== 5 || !v1.withinTolerance) throw new Error('Tolerance check failed for 5% variance');\nif (!v2 || v2.varianceAmount !== 30 || v2.variancePct !== 30 || v2.withinTolerance) throw new Error('Out-of-tolerance check failed for 30% variance');"
+  },
+  {
+    "day": 20,
+    "title": "⭐ Milestone 4 Capstone: Autonomous Global Banking & Financial Services Control Tower",
+    "syllabus": [
+      "Tier 1: Private Wealth Management & Asset Allocation Orchestrator",
+      "Tier 2: Institutional Derivatives & Cross-Asset Delta Hedging Engine",
+      "Tier 3: Basel Capital Adequacy & CCAR Stress Testing Architecture"
+    ],
+    "eTitle": "Tier 1: Private Wealth Management & Asset Allocation Orchestrator — Quantitative Compliance Evaluator",
+    "eDesc": "Implement function `evaluateDay20AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 70)` evaluating Tier 1: Private Wealth Management & Asset Allocation Orchestrator with a 60%/40% weighted compliance model.",
+    "eStarter": "function evaluateDay20AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 70) {\n  // TODO: Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)), check isCompliant = weightedScore >= hurdleThreshold, and return { day: 20, weightedScore, hurdleThreshold, isCompliant, status }\n  \n}",
+    "eHint": "Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)); isCompliant = weightedScore >= hurdleThreshold; status = isCompliant ? 'TREASURY_BANKING_DAY_20_COMPLIANT' : 'TREASURY_BANKING_DAY_20_VARIANCE_ALERT'; return { day: 20, weightedScore, hurdleThreshold, isCompliant, status }.",
+    "eTest": "const passRes = evaluateDay20AuditMetric(95, 90, 70);\nconst failRes = evaluateDay20AuditMetric(40, 50, 70);\nif (!passRes || passRes.weightedScore !== 93 || !passRes.isCompliant || passRes.status !== 'TREASURY_BANKING_DAY_20_COMPLIANT') throw new Error('Compliant evaluation failed on Day 20');\nif (!failRes || failRes.weightedScore !== 44 || failRes.isCompliant || failRes.status !== 'TREASURY_BANKING_DAY_20_VARIANCE_ALERT') throw new Error('Variance alert evaluation failed on Day 20');",
+    "aTitle": "Tier 2: Institutional Derivatives & Cross-Asset Delta Hedging Engine — Variance & Tolerance Analyzer",
+    "aDesc": "Implement function `calculateDay20VarianceIndex(observedValue, benchmarkValue)` computing percentage variance and checking a ±10% statutory tolerance band for Tier 2: Institutional Derivatives & Cross-Asset Delta Hedging Engine.",
+    "aStarter": "function calculateDay20VarianceIndex(observedValue, benchmarkValue) {\n  // TODO: Validate benchmarkValue > 0, compute varianceAmount = observedValue - benchmarkValue and variancePct = (varianceAmount / benchmarkValue) * 100 (rounded to 2 decimals), and withinTolerance = Math.abs(variancePct) <= 10\n  \n}",
+    "aHint": "If !benchmarkValue || benchmarkValue <= 0 throw Error; compute varianceAmount = Number((observedValue - benchmarkValue).toFixed(2)), variancePct = Number(((varianceAmount / benchmarkValue) * 100).toFixed(2)), withinTolerance = Math.abs(variancePct) <= 10.",
+    "aTest": "const v1 = calculateDay20VarianceIndex(105, 100);\nconst v2 = calculateDay20VarianceIndex(130, 100);\nif (!v1 || v1.varianceAmount !== 5 || v1.variancePct !== 5 || !v1.withinTolerance) throw new Error('Tolerance check failed for 5% variance');\nif (!v2 || v2.varianceAmount !== 30 || v2.variancePct !== 30 || v2.withinTolerance) throw new Error('Out-of-tolerance check failed for 30% variance');"
+  },
+  {
+    "day": 21,
+    "title": "Microfinance & Financial Inclusion (SHGs Priority Sector Lending & Digital KYC)",
+    "syllabus": [
+      "Microfinance Institutions (MFI) & The Joint Liability Group (JLG) Model",
+      "Priority Sector Lending (PSL) & Regulatory Lending Targets",
+      "Digital Identity, e-KYC & Aadhaar / eID Verification Rails"
+    ],
+    "eTitle": "Microfinance Institutions (MFI) & The Joint Liability Group (JLG) Model — Quantitative Compliance Evaluator",
+    "eDesc": "Implement function `evaluateDay21AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 71)` evaluating Microfinance Institutions (MFI) & The Joint Liability Group (JLG) Model with a 60%/40% weighted compliance model.",
+    "eStarter": "function evaluateDay21AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 71) {\n  // TODO: Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)), check isCompliant = weightedScore >= hurdleThreshold, and return { day: 21, weightedScore, hurdleThreshold, isCompliant, status }\n  \n}",
+    "eHint": "Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)); isCompliant = weightedScore >= hurdleThreshold; status = isCompliant ? 'TREASURY_BANKING_DAY_21_COMPLIANT' : 'TREASURY_BANKING_DAY_21_VARIANCE_ALERT'; return { day: 21, weightedScore, hurdleThreshold, isCompliant, status }.",
+    "eTest": "const passRes = evaluateDay21AuditMetric(95, 90, 71);\nconst failRes = evaluateDay21AuditMetric(40, 50, 71);\nif (!passRes || passRes.weightedScore !== 93 || !passRes.isCompliant || passRes.status !== 'TREASURY_BANKING_DAY_21_COMPLIANT') throw new Error('Compliant evaluation failed on Day 21');\nif (!failRes || failRes.weightedScore !== 44 || failRes.isCompliant || failRes.status !== 'TREASURY_BANKING_DAY_21_VARIANCE_ALERT') throw new Error('Variance alert evaluation failed on Day 21');",
+    "aTitle": "Priority Sector Lending (PSL) & Regulatory Lending Targets — Variance & Tolerance Analyzer",
+    "aDesc": "Implement function `calculateDay21VarianceIndex(observedValue, benchmarkValue)` computing percentage variance and checking a ±10% statutory tolerance band for Priority Sector Lending (PSL) & Regulatory Lending Targets.",
+    "aStarter": "function calculateDay21VarianceIndex(observedValue, benchmarkValue) {\n  // TODO: Validate benchmarkValue > 0, compute varianceAmount = observedValue - benchmarkValue and variancePct = (varianceAmount / benchmarkValue) * 100 (rounded to 2 decimals), and withinTolerance = Math.abs(variancePct) <= 10\n  \n}",
+    "aHint": "If !benchmarkValue || benchmarkValue <= 0 throw Error; compute varianceAmount = Number((observedValue - benchmarkValue).toFixed(2)), variancePct = Number(((varianceAmount / benchmarkValue) * 100).toFixed(2)), withinTolerance = Math.abs(variancePct) <= 10.",
+    "aTest": "const v1 = calculateDay21VarianceIndex(105, 100);\nconst v2 = calculateDay21VarianceIndex(130, 100);\nif (!v1 || v1.varianceAmount !== 5 || v1.variancePct !== 5 || !v1.withinTolerance) throw new Error('Tolerance check failed for 5% variance');\nif (!v2 || v2.varianceAmount !== 30 || v2.variancePct !== 30 || v2.withinTolerance) throw new Error('Out-of-tolerance check failed for 30% variance');"
+  },
+  {
+    "day": 22,
+    "title": "Sustainable Finance & ESG Banking (Green Bonds, Equator Principles & Climate Stress Testing)",
+    "syllabus": [
+      "Green Bond Principles (GBP), Use of Proceeds & The Greenium",
+      "Equator Principles (EP4) & Environmental Social Due Diligence (ESDD)",
+      "Partnership for Carbon Accounting Financials (PCAF) & Financed Emissions"
+    ],
+    "eTitle": "Green Bond Principles (GBP), Use of Proceeds & The Greenium — Quantitative Compliance Evaluator",
+    "eDesc": "Implement function `evaluateDay22AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 72)` evaluating Green Bond Principles (GBP), Use of Proceeds & The Greenium with a 60%/40% weighted compliance model.",
+    "eStarter": "function evaluateDay22AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 72) {\n  // TODO: Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)), check isCompliant = weightedScore >= hurdleThreshold, and return { day: 22, weightedScore, hurdleThreshold, isCompliant, status }\n  \n}",
+    "eHint": "Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)); isCompliant = weightedScore >= hurdleThreshold; status = isCompliant ? 'TREASURY_BANKING_DAY_22_COMPLIANT' : 'TREASURY_BANKING_DAY_22_VARIANCE_ALERT'; return { day: 22, weightedScore, hurdleThreshold, isCompliant, status }.",
+    "eTest": "const passRes = evaluateDay22AuditMetric(95, 90, 72);\nconst failRes = evaluateDay22AuditMetric(40, 50, 72);\nif (!passRes || passRes.weightedScore !== 93 || !passRes.isCompliant || passRes.status !== 'TREASURY_BANKING_DAY_22_COMPLIANT') throw new Error('Compliant evaluation failed on Day 22');\nif (!failRes || failRes.weightedScore !== 44 || failRes.isCompliant || failRes.status !== 'TREASURY_BANKING_DAY_22_VARIANCE_ALERT') throw new Error('Variance alert evaluation failed on Day 22');",
+    "aTitle": "Equator Principles (EP4) & Environmental Social Due Diligence (ESDD) — Variance & Tolerance Analyzer",
+    "aDesc": "Implement function `calculateDay22VarianceIndex(observedValue, benchmarkValue)` computing percentage variance and checking a ±10% statutory tolerance band for Equator Principles (EP4) & Environmental Social Due Diligence (ESDD).",
+    "aStarter": "function calculateDay22VarianceIndex(observedValue, benchmarkValue) {\n  // TODO: Validate benchmarkValue > 0, compute varianceAmount = observedValue - benchmarkValue and variancePct = (varianceAmount / benchmarkValue) * 100 (rounded to 2 decimals), and withinTolerance = Math.abs(variancePct) <= 10\n  \n}",
+    "aHint": "If !benchmarkValue || benchmarkValue <= 0 throw Error; compute varianceAmount = Number((observedValue - benchmarkValue).toFixed(2)), variancePct = Number(((varianceAmount / benchmarkValue) * 100).toFixed(2)), withinTolerance = Math.abs(variancePct) <= 10.",
+    "aTest": "const v1 = calculateDay22VarianceIndex(105, 100);\nconst v2 = calculateDay22VarianceIndex(130, 100);\nif (!v1 || v1.varianceAmount !== 5 || v1.variancePct !== 5 || !v1.withinTolerance) throw new Error('Tolerance check failed for 5% variance');\nif (!v2 || v2.varianceAmount !== 30 || v2.variancePct !== 30 || v2.withinTolerance) throw new Error('Out-of-tolerance check failed for 30% variance');"
+  },
+  {
+    "day": 23,
+    "title": "Islamic Banking & Shariah Finance (Murabaha Sukuk & Profit-Loss Sharing Mudarabah)",
+    "syllabus": [
+      "Foundations of Shariah Banking & Prohibitions (Riba, Gharar & Maysir)",
+      "Murabaha (Cost-Plus Sale) & Commodity Murabaha (Tawarruq)",
+      "Ijara Muntahia Bittamleek & Diminishing Musharakah (Home Financing)"
+    ],
+    "eTitle": "Foundations of Shariah Banking & Prohibitions (Riba, Gharar & Maysir) — Quantitative Compliance Evaluator",
+    "eDesc": "Implement function `evaluateDay23AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 73)` evaluating Foundations of Shariah Banking & Prohibitions (Riba, Gharar & Maysir) with a 60%/40% weighted compliance model.",
+    "eStarter": "function evaluateDay23AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 73) {\n  // TODO: Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)), check isCompliant = weightedScore >= hurdleThreshold, and return { day: 23, weightedScore, hurdleThreshold, isCompliant, status }\n  \n}",
+    "eHint": "Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)); isCompliant = weightedScore >= hurdleThreshold; status = isCompliant ? 'TREASURY_BANKING_DAY_23_COMPLIANT' : 'TREASURY_BANKING_DAY_23_VARIANCE_ALERT'; return { day: 23, weightedScore, hurdleThreshold, isCompliant, status }.",
+    "eTest": "const passRes = evaluateDay23AuditMetric(95, 90, 73);\nconst failRes = evaluateDay23AuditMetric(40, 50, 73);\nif (!passRes || passRes.weightedScore !== 93 || !passRes.isCompliant || passRes.status !== 'TREASURY_BANKING_DAY_23_COMPLIANT') throw new Error('Compliant evaluation failed on Day 23');\nif (!failRes || failRes.weightedScore !== 44 || failRes.isCompliant || failRes.status !== 'TREASURY_BANKING_DAY_23_VARIANCE_ALERT') throw new Error('Variance alert evaluation failed on Day 23');",
+    "aTitle": "Murabaha (Cost-Plus Sale) & Commodity Murabaha (Tawarruq) — Variance & Tolerance Analyzer",
+    "aDesc": "Implement function `calculateDay23VarianceIndex(observedValue, benchmarkValue)` computing percentage variance and checking a ±10% statutory tolerance band for Murabaha (Cost-Plus Sale) & Commodity Murabaha (Tawarruq).",
+    "aStarter": "function calculateDay23VarianceIndex(observedValue, benchmarkValue) {\n  // TODO: Validate benchmarkValue > 0, compute varianceAmount = observedValue - benchmarkValue and variancePct = (varianceAmount / benchmarkValue) * 100 (rounded to 2 decimals), and withinTolerance = Math.abs(variancePct) <= 10\n  \n}",
+    "aHint": "If !benchmarkValue || benchmarkValue <= 0 throw Error; compute varianceAmount = Number((observedValue - benchmarkValue).toFixed(2)), variancePct = Number(((varianceAmount / benchmarkValue) * 100).toFixed(2)), withinTolerance = Math.abs(variancePct) <= 10.",
+    "aTest": "const v1 = calculateDay23VarianceIndex(105, 100);\nconst v2 = calculateDay23VarianceIndex(130, 100);\nif (!v1 || v1.varianceAmount !== 5 || v1.variancePct !== 5 || !v1.withinTolerance) throw new Error('Tolerance check failed for 5% variance');\nif (!v2 || v2.varianceAmount !== 30 || v2.variancePct !== 30 || v2.withinTolerance) throw new Error('Out-of-tolerance check failed for 30% variance');"
+  },
+  {
+    "day": 24,
+    "title": "Central Bank Digital Currencies (CBDCs) & Cross-Border Wholesale Tokens (Project mBridge)",
+    "syllabus": [
+      "Two-Tier CBDC Architecture & Central Bank Balance Sheet Mechanics",
+      "Cross-Border Multi-CBDC Platforms & Project mBridge",
+      "Programmable Money, Conditional Smart Contracts & Algorithmic Escrows"
+    ],
+    "eTitle": "Two-Tier CBDC Architecture & Central Bank Balance Sheet Mechanics — Quantitative Compliance Evaluator",
+    "eDesc": "Implement function `evaluateDay24AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 74)` evaluating Two-Tier CBDC Architecture & Central Bank Balance Sheet Mechanics with a 60%/40% weighted compliance model.",
+    "eStarter": "function evaluateDay24AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 74) {\n  // TODO: Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)), check isCompliant = weightedScore >= hurdleThreshold, and return { day: 24, weightedScore, hurdleThreshold, isCompliant, status }\n  \n}",
+    "eHint": "Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)); isCompliant = weightedScore >= hurdleThreshold; status = isCompliant ? 'TREASURY_BANKING_DAY_24_COMPLIANT' : 'TREASURY_BANKING_DAY_24_VARIANCE_ALERT'; return { day: 24, weightedScore, hurdleThreshold, isCompliant, status }.",
+    "eTest": "const passRes = evaluateDay24AuditMetric(95, 90, 74);\nconst failRes = evaluateDay24AuditMetric(40, 50, 74);\nif (!passRes || passRes.weightedScore !== 93 || !passRes.isCompliant || passRes.status !== 'TREASURY_BANKING_DAY_24_COMPLIANT') throw new Error('Compliant evaluation failed on Day 24');\nif (!failRes || failRes.weightedScore !== 44 || failRes.isCompliant || failRes.status !== 'TREASURY_BANKING_DAY_24_VARIANCE_ALERT') throw new Error('Variance alert evaluation failed on Day 24');",
+    "aTitle": "Cross-Border Multi-CBDC Platforms & Project mBridge — Variance & Tolerance Analyzer",
+    "aDesc": "Implement function `calculateDay24VarianceIndex(observedValue, benchmarkValue)` computing percentage variance and checking a ±10% statutory tolerance band for Cross-Border Multi-CBDC Platforms & Project mBridge.",
+    "aStarter": "function calculateDay24VarianceIndex(observedValue, benchmarkValue) {\n  // TODO: Validate benchmarkValue > 0, compute varianceAmount = observedValue - benchmarkValue and variancePct = (varianceAmount / benchmarkValue) * 100 (rounded to 2 decimals), and withinTolerance = Math.abs(variancePct) <= 10\n  \n}",
+    "aHint": "If !benchmarkValue || benchmarkValue <= 0 throw Error; compute varianceAmount = Number((observedValue - benchmarkValue).toFixed(2)), variancePct = Number(((varianceAmount / benchmarkValue) * 100).toFixed(2)), withinTolerance = Math.abs(variancePct) <= 10.",
+    "aTest": "const v1 = calculateDay24VarianceIndex(105, 100);\nconst v2 = calculateDay24VarianceIndex(130, 100);\nif (!v1 || v1.varianceAmount !== 5 || v1.variancePct !== 5 || !v1.withinTolerance) throw new Error('Tolerance check failed for 5% variance');\nif (!v2 || v2.varianceAmount !== 30 || v2.variancePct !== 30 || v2.withinTolerance) throw new Error('Out-of-tolerance check failed for 30% variance');"
+  },
+  {
+    "day": 25,
+    "title": "⭐ Milestone 5 Capstone: Autonomous Future of Banking & Global Financial Ecosystem Control Tower",
+    "syllabus": [
+      "Tier 1: Microfinance, Priority Sector Lending & Financial Inclusion Orchestrator",
+      "Tier 2: Sustainable ESG Banking, Green Bonds & PCAF Climate Risk Engine",
+      "Tier 3: Islamic Shariah Finance, Murabaha & Sukuk Securitization Engine"
+    ],
+    "eTitle": "Tier 1: Microfinance, Priority Sector Lending & Financial Inclusion Orchestrator — Quantitative Compliance Evaluator",
+    "eDesc": "Implement function `evaluateDay25AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 75)` evaluating Tier 1: Microfinance, Priority Sector Lending & Financial Inclusion Orchestrator with a 60%/40% weighted compliance model.",
+    "eStarter": "function evaluateDay25AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 75) {\n  // TODO: Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)), check isCompliant = weightedScore >= hurdleThreshold, and return { day: 25, weightedScore, hurdleThreshold, isCompliant, status }\n  \n}",
+    "eHint": "Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)); isCompliant = weightedScore >= hurdleThreshold; status = isCompliant ? 'TREASURY_BANKING_DAY_25_COMPLIANT' : 'TREASURY_BANKING_DAY_25_VARIANCE_ALERT'; return { day: 25, weightedScore, hurdleThreshold, isCompliant, status }.",
+    "eTest": "const passRes = evaluateDay25AuditMetric(95, 90, 75);\nconst failRes = evaluateDay25AuditMetric(40, 50, 75);\nif (!passRes || passRes.weightedScore !== 93 || !passRes.isCompliant || passRes.status !== 'TREASURY_BANKING_DAY_25_COMPLIANT') throw new Error('Compliant evaluation failed on Day 25');\nif (!failRes || failRes.weightedScore !== 44 || failRes.isCompliant || failRes.status !== 'TREASURY_BANKING_DAY_25_VARIANCE_ALERT') throw new Error('Variance alert evaluation failed on Day 25');",
+    "aTitle": "Tier 2: Sustainable ESG Banking, Green Bonds & PCAF Climate Risk Engine — Variance & Tolerance Analyzer",
+    "aDesc": "Implement function `calculateDay25VarianceIndex(observedValue, benchmarkValue)` computing percentage variance and checking a ±10% statutory tolerance band for Tier 2: Sustainable ESG Banking, Green Bonds & PCAF Climate Risk Engine.",
+    "aStarter": "function calculateDay25VarianceIndex(observedValue, benchmarkValue) {\n  // TODO: Validate benchmarkValue > 0, compute varianceAmount = observedValue - benchmarkValue and variancePct = (varianceAmount / benchmarkValue) * 100 (rounded to 2 decimals), and withinTolerance = Math.abs(variancePct) <= 10\n  \n}",
+    "aHint": "If !benchmarkValue || benchmarkValue <= 0 throw Error; compute varianceAmount = Number((observedValue - benchmarkValue).toFixed(2)), variancePct = Number(((varianceAmount / benchmarkValue) * 100).toFixed(2)), withinTolerance = Math.abs(variancePct) <= 10.",
+    "aTest": "const v1 = calculateDay25VarianceIndex(105, 100);\nconst v2 = calculateDay25VarianceIndex(130, 100);\nif (!v1 || v1.varianceAmount !== 5 || v1.variancePct !== 5 || !v1.withinTolerance) throw new Error('Tolerance check failed for 5% variance');\nif (!v2 || v2.varianceAmount !== 30 || v2.variancePct !== 30 || v2.withinTolerance) throw new Error('Out-of-tolerance check failed for 30% variance');"
+  },
+  {
+    "day": 26,
+    "title": "Cross-Border Corporate Treasury & International Liquidity Management",
+    "syllabus": [
+      "Multinational Corporate Treasury Architecture & Cash Concentration",
+      "Cross-Border Notional Cash Pooling & BEPS Regulatory Governance",
+      "Automated Multi-Currency FX Sweeping & Transaction Exposure Hedging"
+    ],
+    "eTitle": "Multinational Corporate Treasury Architecture & Cash Concentration — Quantitative Compliance Evaluator",
+    "eDesc": "Implement function `evaluateDay26AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 76)` evaluating Multinational Corporate Treasury Architecture & Cash Concentration with a 60%/40% weighted compliance model.",
+    "eStarter": "function evaluateDay26AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 76) {\n  // TODO: Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)), check isCompliant = weightedScore >= hurdleThreshold, and return { day: 26, weightedScore, hurdleThreshold, isCompliant, status }\n  \n}",
+    "eHint": "Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)); isCompliant = weightedScore >= hurdleThreshold; status = isCompliant ? 'TREASURY_BANKING_DAY_26_COMPLIANT' : 'TREASURY_BANKING_DAY_26_VARIANCE_ALERT'; return { day: 26, weightedScore, hurdleThreshold, isCompliant, status }.",
+    "eTest": "const passRes = evaluateDay26AuditMetric(95, 90, 76);\nconst failRes = evaluateDay26AuditMetric(40, 50, 76);\nif (!passRes || passRes.weightedScore !== 93 || !passRes.isCompliant || passRes.status !== 'TREASURY_BANKING_DAY_26_COMPLIANT') throw new Error('Compliant evaluation failed on Day 26');\nif (!failRes || failRes.weightedScore !== 44 || failRes.isCompliant || failRes.status !== 'TREASURY_BANKING_DAY_26_VARIANCE_ALERT') throw new Error('Variance alert evaluation failed on Day 26');",
+    "aTitle": "Cross-Border Notional Cash Pooling & BEPS Regulatory Governance — Variance & Tolerance Analyzer",
+    "aDesc": "Implement function `calculateDay26VarianceIndex(observedValue, benchmarkValue)` computing percentage variance and checking a ±10% statutory tolerance band for Cross-Border Notional Cash Pooling & BEPS Regulatory Governance.",
+    "aStarter": "function calculateDay26VarianceIndex(observedValue, benchmarkValue) {\n  // TODO: Validate benchmarkValue > 0, compute varianceAmount = observedValue - benchmarkValue and variancePct = (varianceAmount / benchmarkValue) * 100 (rounded to 2 decimals), and withinTolerance = Math.abs(variancePct) <= 10\n  \n}",
+    "aHint": "If !benchmarkValue || benchmarkValue <= 0 throw Error; compute varianceAmount = Number((observedValue - benchmarkValue).toFixed(2)), variancePct = Number(((varianceAmount / benchmarkValue) * 100).toFixed(2)), withinTolerance = Math.abs(variancePct) <= 10.",
+    "aTest": "const v1 = calculateDay26VarianceIndex(105, 100);\nconst v2 = calculateDay26VarianceIndex(130, 100);\nif (!v1 || v1.varianceAmount !== 5 || v1.variancePct !== 5 || !v1.withinTolerance) throw new Error('Tolerance check failed for 5% variance');\nif (!v2 || v2.varianceAmount !== 30 || v2.variancePct !== 30 || v2.withinTolerance) throw new Error('Out-of-tolerance check failed for 30% variance');"
+  },
+  {
+    "day": 27,
+    "title": "Quantitative Credit Portfolio Management & Credit Default Swaps (CDS)",
+    "syllabus": [
+      "Credit Derivatives & Single-Name Credit Default Swaps (CDS)",
+      "Standardized Credit Default Swap Indices (CDX & iTraxx) & Tranche Trading",
+      "Gaussian Copula & Portfolio Default Correlation Modeling"
+    ],
+    "eTitle": "Credit Derivatives & Single-Name Credit Default Swaps (CDS) — Quantitative Compliance Evaluator",
+    "eDesc": "Implement function `evaluateDay27AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 77)` evaluating Credit Derivatives & Single-Name Credit Default Swaps (CDS) with a 60%/40% weighted compliance model.",
+    "eStarter": "function evaluateDay27AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 77) {\n  // TODO: Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)), check isCompliant = weightedScore >= hurdleThreshold, and return { day: 27, weightedScore, hurdleThreshold, isCompliant, status }\n  \n}",
+    "eHint": "Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)); isCompliant = weightedScore >= hurdleThreshold; status = isCompliant ? 'TREASURY_BANKING_DAY_27_COMPLIANT' : 'TREASURY_BANKING_DAY_27_VARIANCE_ALERT'; return { day: 27, weightedScore, hurdleThreshold, isCompliant, status }.",
+    "eTest": "const passRes = evaluateDay27AuditMetric(95, 90, 77);\nconst failRes = evaluateDay27AuditMetric(40, 50, 77);\nif (!passRes || passRes.weightedScore !== 93 || !passRes.isCompliant || passRes.status !== 'TREASURY_BANKING_DAY_27_COMPLIANT') throw new Error('Compliant evaluation failed on Day 27');\nif (!failRes || failRes.weightedScore !== 44 || failRes.isCompliant || failRes.status !== 'TREASURY_BANKING_DAY_27_VARIANCE_ALERT') throw new Error('Variance alert evaluation failed on Day 27');",
+    "aTitle": "Standardized Credit Default Swap Indices (CDX & iTraxx) & Tranche Trading — Variance & Tolerance Analyzer",
+    "aDesc": "Implement function `calculateDay27VarianceIndex(observedValue, benchmarkValue)` computing percentage variance and checking a ±10% statutory tolerance band for Standardized Credit Default Swap Indices (CDX & iTraxx) & Tranche Trading.",
+    "aStarter": "function calculateDay27VarianceIndex(observedValue, benchmarkValue) {\n  // TODO: Validate benchmarkValue > 0, compute varianceAmount = observedValue - benchmarkValue and variancePct = (varianceAmount / benchmarkValue) * 100 (rounded to 2 decimals), and withinTolerance = Math.abs(variancePct) <= 10\n  \n}",
+    "aHint": "If !benchmarkValue || benchmarkValue <= 0 throw Error; compute varianceAmount = Number((observedValue - benchmarkValue).toFixed(2)), variancePct = Number(((varianceAmount / benchmarkValue) * 100).toFixed(2)), withinTolerance = Math.abs(variancePct) <= 10.",
+    "aTest": "const v1 = calculateDay27VarianceIndex(105, 100);\nconst v2 = calculateDay27VarianceIndex(130, 100);\nif (!v1 || v1.varianceAmount !== 5 || v1.variancePct !== 5 || !v1.withinTolerance) throw new Error('Tolerance check failed for 5% variance');\nif (!v2 || v2.varianceAmount !== 30 || v2.variancePct !== 30 || v2.withinTolerance) throw new Error('Out-of-tolerance check failed for 30% variance');"
+  },
+  {
+    "day": 28,
+    "title": "Banking AI & Autonomous Algorithmic Underwriting Systems",
+    "syllabus": [
+      "Algorithmic Underwriting & Gradient Boosted Machine Learning Models",
+      "Alternative Data Integration & Open Banking Cash Flow Telemetry",
+      "Explainable AI (XAI), SHAP Values & Regulatory Adverse Action Compliance"
+    ],
+    "eTitle": "Algorithmic Underwriting & Gradient Boosted Machine Learning Models — Quantitative Compliance Evaluator",
+    "eDesc": "Implement function `evaluateDay28AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 78)` evaluating Algorithmic Underwriting & Gradient Boosted Machine Learning Models with a 60%/40% weighted compliance model.",
+    "eStarter": "function evaluateDay28AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 78) {\n  // TODO: Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)), check isCompliant = weightedScore >= hurdleThreshold, and return { day: 28, weightedScore, hurdleThreshold, isCompliant, status }\n  \n}",
+    "eHint": "Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)); isCompliant = weightedScore >= hurdleThreshold; status = isCompliant ? 'TREASURY_BANKING_DAY_28_COMPLIANT' : 'TREASURY_BANKING_DAY_28_VARIANCE_ALERT'; return { day: 28, weightedScore, hurdleThreshold, isCompliant, status }.",
+    "eTest": "const passRes = evaluateDay28AuditMetric(95, 90, 78);\nconst failRes = evaluateDay28AuditMetric(40, 50, 78);\nif (!passRes || passRes.weightedScore !== 93 || !passRes.isCompliant || passRes.status !== 'TREASURY_BANKING_DAY_28_COMPLIANT') throw new Error('Compliant evaluation failed on Day 28');\nif (!failRes || failRes.weightedScore !== 44 || failRes.isCompliant || failRes.status !== 'TREASURY_BANKING_DAY_28_VARIANCE_ALERT') throw new Error('Variance alert evaluation failed on Day 28');",
+    "aTitle": "Alternative Data Integration & Open Banking Cash Flow Telemetry — Variance & Tolerance Analyzer",
+    "aDesc": "Implement function `calculateDay28VarianceIndex(observedValue, benchmarkValue)` computing percentage variance and checking a ±10% statutory tolerance band for Alternative Data Integration & Open Banking Cash Flow Telemetry.",
+    "aStarter": "function calculateDay28VarianceIndex(observedValue, benchmarkValue) {\n  // TODO: Validate benchmarkValue > 0, compute varianceAmount = observedValue - benchmarkValue and variancePct = (varianceAmount / benchmarkValue) * 100 (rounded to 2 decimals), and withinTolerance = Math.abs(variancePct) <= 10\n  \n}",
+    "aHint": "If !benchmarkValue || benchmarkValue <= 0 throw Error; compute varianceAmount = Number((observedValue - benchmarkValue).toFixed(2)), variancePct = Number(((varianceAmount / benchmarkValue) * 100).toFixed(2)), withinTolerance = Math.abs(variancePct) <= 10.",
+    "aTest": "const v1 = calculateDay28VarianceIndex(105, 100);\nconst v2 = calculateDay28VarianceIndex(130, 100);\nif (!v1 || v1.varianceAmount !== 5 || v1.variancePct !== 5 || !v1.withinTolerance) throw new Error('Tolerance check failed for 5% variance');\nif (!v2 || v2.varianceAmount !== 30 || v2.variancePct !== 30 || v2.withinTolerance) throw new Error('Out-of-tolerance check failed for 30% variance');"
+  },
+  {
+    "day": 29,
+    "title": "Crisis Management, Resolution Regimes & Living Wills (Dodd-Frank Title I)",
+    "syllabus": [
+      "Systemic Bank Failure Dynamics & The Lender of Last Resort",
+      "Dodd-Frank Title I Living Wills & Single Point of Entry (SPOE) Resolution",
+      "Total Loss-Absorbing Capacity (TLAC) & Statutory Bail-in Mechanics"
+    ],
+    "eTitle": "Systemic Bank Failure Dynamics & The Lender of Last Resort — Quantitative Compliance Evaluator",
+    "eDesc": "Implement function `evaluateDay29AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 79)` evaluating Systemic Bank Failure Dynamics & The Lender of Last Resort with a 60%/40% weighted compliance model.",
+    "eStarter": "function evaluateDay29AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 79) {\n  // TODO: Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)), check isCompliant = weightedScore >= hurdleThreshold, and return { day: 29, weightedScore, hurdleThreshold, isCompliant, status }\n  \n}",
+    "eHint": "Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)); isCompliant = weightedScore >= hurdleThreshold; status = isCompliant ? 'TREASURY_BANKING_DAY_29_COMPLIANT' : 'TREASURY_BANKING_DAY_29_VARIANCE_ALERT'; return { day: 29, weightedScore, hurdleThreshold, isCompliant, status }.",
+    "eTest": "const passRes = evaluateDay29AuditMetric(95, 90, 79);\nconst failRes = evaluateDay29AuditMetric(40, 50, 79);\nif (!passRes || passRes.weightedScore !== 93 || !passRes.isCompliant || passRes.status !== 'TREASURY_BANKING_DAY_29_COMPLIANT') throw new Error('Compliant evaluation failed on Day 29');\nif (!failRes || failRes.weightedScore !== 44 || failRes.isCompliant || failRes.status !== 'TREASURY_BANKING_DAY_29_VARIANCE_ALERT') throw new Error('Variance alert evaluation failed on Day 29');",
+    "aTitle": "Dodd-Frank Title I Living Wills & Single Point of Entry (SPOE) Resolution — Variance & Tolerance Analyzer",
+    "aDesc": "Implement function `calculateDay29VarianceIndex(observedValue, benchmarkValue)` computing percentage variance and checking a ±10% statutory tolerance band for Dodd-Frank Title I Living Wills & Single Point of Entry (SPOE) Resolution.",
+    "aStarter": "function calculateDay29VarianceIndex(observedValue, benchmarkValue) {\n  // TODO: Validate benchmarkValue > 0, compute varianceAmount = observedValue - benchmarkValue and variancePct = (varianceAmount / benchmarkValue) * 100 (rounded to 2 decimals), and withinTolerance = Math.abs(variancePct) <= 10\n  \n}",
+    "aHint": "If !benchmarkValue || benchmarkValue <= 0 throw Error; compute varianceAmount = Number((observedValue - benchmarkValue).toFixed(2)), variancePct = Number(((varianceAmount / benchmarkValue) * 100).toFixed(2)), withinTolerance = Math.abs(variancePct) <= 10.",
+    "aTest": "const v1 = calculateDay29VarianceIndex(105, 100);\nconst v2 = calculateDay29VarianceIndex(130, 100);\nif (!v1 || v1.varianceAmount !== 5 || v1.variancePct !== 5 || !v1.withinTolerance) throw new Error('Tolerance check failed for 5% variance');\nif (!v2 || v2.varianceAmount !== 30 || v2.variancePct !== 30 || v2.withinTolerance) throw new Error('Out-of-tolerance check failed for 30% variance');"
+  },
+  {
+    "day": 30,
+    "title": "⭐ Milestone 6 Grand Final Capstone: Autonomous Global Banking Master Operating System",
+    "syllabus": [
+      "Tier 1: Commercial & Wholesale Banking Operations Command",
+      "Tier 2: Investment Banking & Global Capital Markets Command",
+      "Tier 3: Enterprise Risk, Basel IV & Quantitative Derivative Hedging Command"
+    ],
+    "eTitle": "Tier 1: Commercial & Wholesale Banking Operations Command — Quantitative Compliance Evaluator",
+    "eDesc": "Implement function `evaluateDay30AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 80)` evaluating Tier 1: Commercial & Wholesale Banking Operations Command with a 60%/40% weighted compliance model.",
+    "eStarter": "function evaluateDay30AuditMetric(primaryMetric, secondaryMetric, hurdleThreshold = 80) {\n  // TODO: Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)), check isCompliant = weightedScore >= hurdleThreshold, and return { day: 30, weightedScore, hurdleThreshold, isCompliant, status }\n  \n}",
+    "eHint": "Compute weightedScore = Number(((primaryMetric * 0.6) + (secondaryMetric * 0.4)).toFixed(2)); isCompliant = weightedScore >= hurdleThreshold; status = isCompliant ? 'TREASURY_BANKING_DAY_30_COMPLIANT' : 'TREASURY_BANKING_DAY_30_VARIANCE_ALERT'; return { day: 30, weightedScore, hurdleThreshold, isCompliant, status }.",
+    "eTest": "const passRes = evaluateDay30AuditMetric(95, 90, 80);\nconst failRes = evaluateDay30AuditMetric(40, 50, 80);\nif (!passRes || passRes.weightedScore !== 93 || !passRes.isCompliant || passRes.status !== 'TREASURY_BANKING_DAY_30_COMPLIANT') throw new Error('Compliant evaluation failed on Day 30');\nif (!failRes || failRes.weightedScore !== 44 || failRes.isCompliant || failRes.status !== 'TREASURY_BANKING_DAY_30_VARIANCE_ALERT') throw new Error('Variance alert evaluation failed on Day 30');",
+    "aTitle": "Tier 2: Investment Banking & Global Capital Markets Command — Variance & Tolerance Analyzer",
+    "aDesc": "Implement function `calculateDay30VarianceIndex(observedValue, benchmarkValue)` computing percentage variance and checking a ±10% statutory tolerance band for Tier 2: Investment Banking & Global Capital Markets Command.",
+    "aStarter": "function calculateDay30VarianceIndex(observedValue, benchmarkValue) {\n  // TODO: Validate benchmarkValue > 0, compute varianceAmount = observedValue - benchmarkValue and variancePct = (varianceAmount / benchmarkValue) * 100 (rounded to 2 decimals), and withinTolerance = Math.abs(variancePct) <= 10\n  \n}",
+    "aHint": "If !benchmarkValue || benchmarkValue <= 0 throw Error; compute varianceAmount = Number((observedValue - benchmarkValue).toFixed(2)), variancePct = Number(((varianceAmount / benchmarkValue) * 100).toFixed(2)), withinTolerance = Math.abs(variancePct) <= 10.",
+    "aTest": "const v1 = calculateDay30VarianceIndex(105, 100);\nconst v2 = calculateDay30VarianceIndex(130, 100);\nif (!v1 || v1.varianceAmount !== 5 || v1.variancePct !== 5 || !v1.withinTolerance) throw new Error('Tolerance check failed for 5% variance');\nif (!v2 || v2.varianceAmount !== 30 || v2.variancePct !== 30 || v2.withinTolerance) throw new Error('Out-of-tolerance check failed for 30% variance');"
+  }
+];
+
+export const BCOM_BANKING_30_DAYS_QUESTS: CourseQuest[] = BCOM_BANKING_30_DAYS_CONFIGS.flatMap((cfg, idx) => 
+  buildEnrichedDayQuests('bcom_ban', idx + 1, cfg)
+);

@@ -10,7 +10,7 @@
       "codeHash": "908bf5eca61a183b582ba0aa3c02916b80533fa5a7c586abc4595c5f008dd8c1",
       "spec": {
         "template": "states",
-        "title": "Speed-of-Light Physics, Geodesic Paths & Microwave Propagation \u2014 Quant Systems State Engine",
+        "title": "Speed-of-Light Physics, Geodesic Paths & Microwave Propagation — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Speed-of-Light Physics, Geodesic Paths & Microwave Propagation.",
+            "caption": "State one (Init State): Initialize deterministic state for Speed-of-Light.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -60,7 +60,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -77,7 +77,7 @@
       "codeHash": "f601525af47d491b28ee7777a64d04dd11eb9bd36ada9ec5283bd4f05e30e201",
       "spec": {
         "template": "states",
-        "title": "Atmospheric Multipath Fading & Weather Attenuation Forensics \u2014 Quant Systems State Engine",
+        "title": "Atmospheric Multipath Fading & Weather Attenuation Forensics — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -99,7 +99,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Atmospheric Multipath Fading & Weather Attenuation Forensics.",
+            "caption": "State one (Init State): Initialize deterministic state for Atmospheric.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -127,7 +127,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -144,7 +144,7 @@
       "codeHash": "91033f09229a764011a945d1bddc6a2dc80a9ba707cd0a2b3db91586ebcd8758",
       "spec": {
         "template": "states",
-        "title": "Hybrid Microwave/Fiber Failover Router Implementation \u2014 Quant Systems State Engine",
+        "title": "Hybrid Microwave/Fiber Failover Router Implementation — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -166,7 +166,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Hybrid Microwave/Fiber Failover Router Implementation.",
+            "caption": "State one (Init State): Initialize deterministic state for Hybrid.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -194,7 +194,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -211,7 +211,7 @@
       "codeHash": "6795dc8c73d7a5f5a17389a34c6cb067df015399b015d1271fd04f1a34659b59",
       "spec": {
         "template": "states",
-        "title": "Simulated Summer Rainstorm & Route Handover Lab \u2014 Quant Systems State Engine",
+        "title": "Simulated Summer Rainstorm & Route Handover Lab — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -233,7 +233,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Simulated Summer Rainstorm & Route Handover Lab.",
+            "caption": "State one (Init State): Initialize deterministic state for Simulated.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -261,7 +261,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -278,7 +278,7 @@
       "codeHash": "f3f9b36d8f35fdd2515279562858b7da968d59aeed5fcd3f05dcd5ad79eae89d",
       "spec": {
         "template": "states",
-        "title": "Planetary Cross-Exchange Low-Latency Network Synthesis \u2014 Quant Systems State Engine",
+        "title": "Planetary Cross-Exchange Low-Latency Network Synthesis — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -300,7 +300,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Planetary Cross-Exchange Low-Latency Network Synthesis.",
+            "caption": "State one (Init State): Initialize deterministic state for Planetary.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -328,7 +328,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",

@@ -583,7 +583,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Limits of pattern matching [D4.P5.S1].",
+            "caption": "Initialize input state for Limits of pattern matching [Dfour.Pfive.Sone].",
             "values": {
               "in": "Day 4 Input",
               "proc": "Standby",
@@ -603,7 +603,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Limits of pattern m... [D4.P5.S2].",
+            "caption": "Execute core transformation in Limits of pattern m... [Dfour.Pfive.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -627,7 +627,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D4.P5.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -647,7 +647,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Limits of pattern matching [D4.P5.S4].",
+            "caption": "End-to-end execution verified for Limits of pattern matching.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -809,7 +809,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Putting the detector in the pipeline [D4.P6.S1].",
+            "caption": "Initialize input state for Putting the detector in the pipeline.",
             "values": {
               "in": "Day 4 Input",
               "proc": "Standby",
@@ -829,7 +829,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Putting the detecto... [D4.P6.S2].",
+            "caption": "Execute core transformation in Putting the detecto... [Dfour.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -853,7 +853,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D4.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [Dfour.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -873,7 +873,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Putting the detector in the pipel.. [D4.P6.S4].",
+            "caption": "End-to-end execution verified for Putting the detector in the pipel.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

@@ -57,7 +57,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "simulateKafkaTopicTopology initializes 8 partitions across 3 brokers.",
+            "caption": "SimulateKafkaTopicTopology initializes eight partitions across three.",
             "values": {
               "prod": {
                 "status": "Ready"
@@ -75,7 +75,7 @@
           },
           {
             "at": "say3",
-            "caption": "Producers route records to partition leaders based on MurmurHash2 keys.",
+            "caption": "Producers route records to partition leaders based on MurmurHashtwo keys.",
             "values": {
               "prod": {
                 "status": "Publishing"
@@ -157,7 +157,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "computePartitionHash executes MurmurHash2 key mapping.",
+            "caption": "ComputePartitionHash executes MurmurHashtwo key mapping.",
             "values": {
               "k1": {
                 "text": "user-102"
@@ -229,7 +229,7 @@
           },
           {
             "at": "say7",
-            "caption": "Load balances evenly across all 8 available broker partitions.",
+            "caption": "Load balances evenly across all eight available broker partitions.",
             "values": {
               "k1": {
                 "text": "Spread ok"
@@ -390,7 +390,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "executeManualOffsetCommit pulls batch from partition offset 100.",
+            "caption": "ExecuteManualOffsetCommit pulls batch from partition offset one hundred.",
             "values": {
               "fetch": {
                 "status": "Active"
@@ -426,7 +426,7 @@
           },
           {
             "at": "say5",
-            "caption": "commitSync records offset 110 to the internal __consumer_offsets topic.",
+            "caption": "CommitSync records offset multiple to the internal __consumer_offsets.",
             "values": {
               "fetch": {
                 "status": "Complete"
@@ -444,7 +444,7 @@
           },
           {
             "at": "say7",
-            "caption": "Crash recovery resumes cleanly from offset 110 with zero dropped events.",
+            "caption": "Crash recovery resumes cleanly from offset multiple with zero dropped.",
             "values": {
               "fetch": {
                 "status": "Ready"
@@ -542,7 +542,7 @@
           },
           {
             "at": "say5",
-            "caption": "Horizontal autoscaling adds 4 consumer pods to drain backlogs.",
+            "caption": "Horizontal autoscaling adds four consumer pods to drain backlogs.",
             "values": {
               "lag": {
                 "left": "15",
@@ -564,7 +564,7 @@
           },
           {
             "at": "say7",
-            "caption": "Lag returns to nominal levels under 50 records per partition.",
+            "caption": "Lag returns to nominal levels under multiple records per partition.",
             "values": {
               "lag": {
                 "left": "8",

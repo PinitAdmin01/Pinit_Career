@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Debugging is a normal part of the job [D28.P1.S1].",
+            "caption": "Initialize input state for Debugging is a normal part of the job.",
             "values": {
               "in": "Day 28 Input",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Debugging is a norm... [D28.P1.S2].",
+            "caption": "Execute core transformation in Debugging is a norm... [D.Pone.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -75,7 +75,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D28.P1.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Pone.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Debugging is a normal part of the.. [D28.P1.S4].",
+            "caption": "End-to-end execution verified for Debugging is a normal part of the.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -257,7 +257,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Reading a traceback, from the bottom up [D28.P2.S1].",
+            "caption": "Initialize input state for Reading a traceback, from the bottom up.",
             "values": {
               "in": "Day 28 Input",
               "proc": "Standby",
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Reading a traceback... [D28.P2.S2].",
+            "caption": "Execute core transformation in Reading a traceback... [D.Ptwo.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -301,7 +301,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D28.P2.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Ptwo.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -321,7 +321,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Reading a traceback, from the bot.. [D28.P2.S4].",
+            "caption": "End-to-end execution verified for Reading a traceback, from the bot.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -483,7 +483,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for The most common errors and their usual c.. [D28.P3.S1].",
+            "caption": "Initialize input state for The most common errors and their usual c.",
             "values": {
               "in": "Day 28 Input",
               "proc": "Standby",
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The most common err... [D28.P3.S2].",
+            "caption": "Execute core transformation in The most common err... [D.Pthree.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -527,7 +527,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D28.P3.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Pthree.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -547,7 +547,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The most common errors and their .. [D28.P3.S4].",
+            "caption": "End-to-end execution verified for The most common errors and their .",
             "values": {
               "in": "Committed",
               "proc": "Verified",

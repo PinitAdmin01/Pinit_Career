@@ -10,7 +10,7 @@
       "codeHash": "a14bfddf81c19b1f0586e09983b9439c2adef0428d5e764ed96def9c40530792",
       "spec": {
         "template": "tree-graph",
-        "title": "RPA Architecture: Attended vs Unattended... \u2014 Enterprise AI Decision Graph",
+        "title": "RPA Architecture: Attended vs Unattended... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -54,7 +54,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for RPA Architecture: Attended vs Unattended....",
+            "caption": "Ingest enterprise Context Query for RPA Architecture: Attended vs.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -68,7 +68,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -87,7 +87,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & hallucination bounds in Policy Guardrail.",
+            "caption": "Validate compliance & hallucination bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -107,7 +107,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -134,7 +134,7 @@
       "codeHash": "d6eecb9de6fc515d22bdd8ba4b1ac2da73478c3693a2816aff4eefa8e3e06e98",
       "spec": {
         "template": "tree-graph",
-        "title": "Intelligent Document Processing (IDP): L... \u2014 Enterprise AI Decision Graph",
+        "title": "Intelligent Document Processing (IDP): L... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -178,7 +178,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for Intelligent Document Processing (IDP): L....",
+            "caption": "Ingest enterprise Context Query for Intelligent Document Processing.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -192,7 +192,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -211,7 +211,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & hallucination bounds in Policy Guardrail.",
+            "caption": "Validate compliance & hallucination bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -231,7 +231,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -258,7 +258,7 @@
       "codeHash": "fa3c6315490367f40f9a7bd07bb82570fd02fab498e5cf4a09cf22aed97a79fb",
       "spec": {
         "template": "tree-graph",
-        "title": "Straight-Through Processing (STP) Econom... \u2014 Enterprise AI Decision Graph",
+        "title": "Straight-Through Processing (STP) Econom... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -302,7 +302,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for Straight-Through Processing (STP) Econom....",
+            "caption": "Ingest enterprise Context Query for Straight-Through Processing (STP).",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -316,7 +316,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -335,7 +335,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & hallucination bounds in Policy Guardrail.",
+            "caption": "Validate compliance & hallucination bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -355,7 +355,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -382,7 +382,7 @@
       "codeHash": "1a4d74addbd6ff8dbf743ba30400c87ff72fdf5c42696b5848695c9eb1909c77",
       "spec": {
         "template": "tree-graph",
-        "title": "Human-in-the-Loop (HITL) Exception Manag... \u2014 Enterprise AI Decision Graph",
+        "title": "Human-in-the-Loop (HITL) Exception Manag... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -426,7 +426,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for Human-in-the-Loop (HITL) Exception Manag....",
+            "caption": "Ingest enterprise Context Query for Human-in-the-Loop (HITL) Exception.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -440,7 +440,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -459,7 +459,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & hallucination bounds in Policy Guardrail.",
+            "caption": "Validate compliance & hallucination bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -479,7 +479,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -506,7 +506,7 @@
       "codeHash": "fc3cfbadb99e1726973774ba42ca783a253be1e88da66a8d71ceebfb41996fb7",
       "spec": {
         "template": "tree-graph",
-        "title": "Enterprise Automation Center of Excellen... \u2014 Enterprise AI Decision Graph",
+        "title": "Enterprise Automation Center of Excellen... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -550,7 +550,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for Enterprise Automation Center of Excellen....",
+            "caption": "Ingest enterprise Context Query for Enterprise Automation Center of.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -564,7 +564,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -583,7 +583,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & hallucination bounds in Policy Guardrail.",
+            "caption": "Validate compliance & hallucination bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -603,7 +603,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",

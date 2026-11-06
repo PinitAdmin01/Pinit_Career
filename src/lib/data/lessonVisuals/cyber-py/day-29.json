@@ -1,0 +1,815 @@
+{
+  "schemaVersion": 1,
+  "prefix": "cyber-py",
+  "day": 29,
+  "promptSha": "05b8ae1693612e6c6bcffc6d65e5e9de64ff858d1940255a65d0856da479eb13",
+  "model": "gpt-4o",
+  "entries": [
+    {
+      "partTitle": "The incident response lifecycle",
+      "codeHash": "cc550d7a5935120fc0e13a5897a1ed3289dfde7d1cc12eeae2cbff2ec2f3f95d",
+      "spec": {
+        "template": "states",
+        "title": "NIST incident response lifecycle phases and continuous containment workflow",
+        "states": [
+          {
+            "id": "prep",
+            "label": "Preparation Phase"
+          },
+          {
+            "id": "detection",
+            "label": "Detection and Analysis"
+          },
+          {
+            "id": "containment",
+            "label": "Containment Eradication Recovery"
+          },
+          {
+            "id": "postIncident",
+            "label": "Post Incident Lessons Learned"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Incident response lifecycle phases guide structured containment and recovery.",
+            "activeStateId": "detection",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say6",
+            "caption": "Containment strategies prevent damage spread while removing attacker footholds.",
+            "activeStateId": "containment",
+            "statusBadge": "completed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "NIST incident response lifecycle phases and continuous containment workflow",
+        "states": [
+          {
+            "id": "prep",
+            "label": "Preparation Phase"
+          },
+          {
+            "id": "detection",
+            "label": "Detection and Analysis"
+          },
+          {
+            "id": "containment",
+            "label": "Containment Eradication Recovery"
+          },
+          {
+            "id": "postIncident",
+            "label": "Post Incident Lessons Learned"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Incident response lifecycle phases guide structured containment and recovery.",
+            "activeStateId": "detection",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say6",
+            "caption": "Containment strategies prevent damage spread while removing attacker footholds.",
+            "activeStateId": "containment",
+            "statusBadge": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Containment choices",
+      "codeHash": "fad6341bd47b9e471c8abcef844abe549fb562bdf17877fdc738c2e788278b59",
+      "spec": {
+        "template": "table",
+        "title": "RFC 3227 order of volatility hierarchy and cryptographic evidence handling",
+        "columns": [
+          "Volatility Tier",
+          "Evidence Artifact",
+          "Preservation Urgency"
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Order of volatility mandates capturing memory prior to hard disk storage.",
+            "activeRowIndex": 1,
+            "statusBadge": "active",
+            "rows": [
+              {
+                "cells": [
+                  "Tier One",
+                  "CPU Registers and Cache",
+                  "Immediate In-Memory Capture"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Tier Two",
+                  "Volatile System RAM",
+                  "Capture Prior to Machine Shutdown"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Tier Three",
+                  "Network State and Sockets",
+                  "Extract Active Process Connections"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Tier Four",
+                  "Hard Disk Raw Image",
+                  "Bit for Bit Cryptographic Hash"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Cryptographic hash algorithms verify evidence integrity bit for bit in court.",
+            "activeRowIndex": 3,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "Tier One",
+                  "CPU Registers and Cache",
+                  "Immediate In-Memory Capture"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Tier Two",
+                  "Volatile System RAM",
+                  "Capture Prior to Machine Shutdown"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Tier Three",
+                  "Network State and Sockets",
+                  "Extract Active Process Connections"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Tier Four",
+                  "Hard Disk Raw Image",
+                  "Bit for Bit Cryptographic Hash"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "RFC 3227 order of volatility hierarchy and cryptographic evidence handling",
+        "columns": [
+          "Volatility Tier",
+          "Evidence Artifact",
+          "Preservation Urgency"
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Order of volatility mandates capturing memory prior to hard disk storage.",
+            "activeRowIndex": 1,
+            "statusBadge": "active",
+            "rows": [
+              {
+                "cells": [
+                  "Tier One",
+                  "CPU Registers and Cache",
+                  "Immediate In-Memory Capture"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Tier Two",
+                  "Volatile System RAM",
+                  "Capture Prior to Machine Shutdown"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Tier Three",
+                  "Network State and Sockets",
+                  "Extract Active Process Connections"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Tier Four",
+                  "Hard Disk Raw Image",
+                  "Bit for Bit Cryptographic Hash"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say6",
+            "caption": "Cryptographic hash algorithms verify evidence integrity bit for bit in court.",
+            "activeRowIndex": 3,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "Tier One",
+                  "CPU Registers and Cache",
+                  "Immediate In-Memory Capture"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Tier Two",
+                  "Volatile System RAM",
+                  "Capture Prior to Machine Shutdown"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Tier Three",
+                  "Network State and Sockets",
+                  "Extract Active Process Connections"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Tier Four",
+                  "Hard Disk Raw Image",
+                  "Bit for Bit Cryptographic Hash"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Evidence and chain of custody",
+      "codeHash": "5fc89b6a5fcab025c801d82d7f2e8b368c71f91b4ef4948c2366a8375a90fe40",
+      "spec": {
+        "template": "flow",
+        "title": "Automated network host isolation architecture and containment rules",
+        "nodes": [
+          {
+            "id": "compromise",
+            "label": "Compromised Endpoint Host",
+            "tappable": false
+          },
+          {
+            "id": "firewall",
+            "label": "Local Host Isolation Firewall",
+            "tappable": false
+          },
+          {
+            "id": "dropped",
+            "label": "Drop Inbound and Outbound Traffic",
+            "tappable": false
+          },
+          {
+            "id": "console",
+            "label": "Encrypted EDR Management Tunnel",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "compromise",
+            "to": "firewall",
+            "label": "Agent Command"
+          },
+          {
+            "from": "firewall",
+            "to": "dropped",
+            "label": "Sever Network"
+          },
+          {
+            "from": "firewall",
+            "to": "console",
+            "label": "Maintain Port 8443"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say5",
+            "caption": "Isolation rules immediately drop incoming and outgoing traffic across ports.",
+            "activeNodes": [
+              "firewall",
+              "dropped"
+            ],
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say6",
+            "caption": "Host isolation maintains secure telemetry connections with management consoles.",
+            "activeNodes": [
+              "firewall",
+              "console"
+            ],
+            "statusBadge": "completed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Automated network host isolation architecture and containment rules",
+        "nodes": [
+          {
+            "id": "compromise",
+            "label": "Compromised Endpoint Host",
+            "tappable": false
+          },
+          {
+            "id": "firewall",
+            "label": "Local Host Isolation Firewall",
+            "tappable": false
+          },
+          {
+            "id": "dropped",
+            "label": "Drop Inbound and Outbound Traffic",
+            "tappable": false
+          },
+          {
+            "id": "console",
+            "label": "Encrypted EDR Management Tunnel",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "compromise",
+            "to": "firewall",
+            "label": "Agent Command"
+          },
+          {
+            "from": "firewall",
+            "to": "dropped",
+            "label": "Sever Network"
+          },
+          {
+            "from": "firewall",
+            "to": "console",
+            "label": "Maintain Port 8443"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say5",
+            "caption": "Isolation rules immediately drop incoming and outgoing traffic across ports.",
+            "activeNodes": [
+              "firewall",
+              "dropped"
+            ],
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say6",
+            "caption": "Host isolation maintains secure telemetry connections with management consoles.",
+            "activeNodes": [
+              "firewall",
+              "console"
+            ],
+            "statusBadge": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Detecting tampering",
+      "codeHash": "9fef8c0bb0c511f364ee0c0bb359164e68a838ff841fe3f7082b9f1c4b00ed99",
+      "spec": {
+        "template": "flow",
+        "title": "Post-Incident Eradication, Root Cause Analysi... — Execution Pipeline",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "1. Input & State",
+            "tappable": true
+          },
+          {
+            "id": "proc",
+            "label": "2. Post-Incident Eradi...",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "3. Verified Output",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize input state for Post-Incident Eradication, Root Cause An.",
+            "values": {
+              "in": "Day 29 Input",
+              "proc": "Standby",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "data",
+              "proc": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Execute core transformation in Post-Incident Eradi... [D.Pfour.Stwo].",
+            "values": {
+              "in": "Validated",
+              "proc": "Processing...",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Inspect concrete example output and invariants [D.Pfour.object-storage].",
+            "values": {
+              "in": "Validated",
+              "proc": "Invariant OK",
+              "out": "Emitting"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "End-to-end execution verified for Post-Incident Eradication, Root C.",
+            "values": {
+              "in": "Committed",
+              "proc": "Verified",
+              "out": "Complete ✓"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Post-Incident Eradication, Root Cause Analysi... — Execution Pipeline",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "1. Input & State",
+            "tappable": true
+          },
+          {
+            "id": "proc",
+            "label": "2. Post-Incident Eradi...",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "3. Verified Output",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Step 1: Initialize input state for Post-Incident Eradication, Root Cause An.. [D29.P4.S1].",
+            "values": {
+              "in": "Day 29 Input",
+              "proc": "Standby",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "data",
+              "proc": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Step 2: Execute core transformation in Post-Incident Eradi... [D29.P4.S2].",
+            "values": {
+              "in": "Validated",
+              "proc": "Processing...",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Step 3: Inspect concrete example output and invariants [D29.P4.S3].",
+            "values": {
+              "in": "Validated",
+              "proc": "Invariant OK",
+              "out": "Emitting"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Step 4: End-to-end execution verified for Post-Incident Eradication, Root C.. [D29.P4.S4].",
+            "values": {
+              "in": "Committed",
+              "proc": "Verified",
+              "out": "Complete ✓"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Recovery and the blameless review",
+      "codeHash": "2b61e3b0d0c6af80398bd19aa323502aeb3b26526f9cecdba5a81cf839d0802a",
+      "spec": {
+        "template": "compare",
+        "title": "Standard operating system process listing versus hidden memory rootkits",
+        "left": {
+          "title": "Standard Process Listing",
+          "items": [
+            "Traverses ActiveProcessLinks doubly-linked list",
+            "Enumerates standard operating system process threads",
+            "Visible to standard administrative commands and pslist",
+            "Represents benign user applications and services"
+          ]
+        },
+        "right": {
+          "title": "Hidden Rootkit Processes",
+          "items": [
+            "Unlinked from active operating system process list",
+            "Remains active inside kernel thread scheduler",
+            "Exposed through structure discrepancy tools like psxview",
+            "Hides injected dynamic libraries and in-memory malware"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say6",
+            "caption": "Rootkit malware unlinks processes to evade standard system process listings.",
+            "highlightSide": "right",
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say7",
+            "caption": "Structure discrepancy analysis reveals hidden rootkit processes in memory.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Standard Process Listing",
+        "rightLabel": "Hidden Rootkit Processes"
+      },
+      "filled": {
+        "template": "compare",
+        "title": "Standard operating system process listing versus hidden memory rootkits",
+        "left": {
+          "title": "Standard Process Listing",
+          "items": [
+            "Traverses ActiveProcessLinks doubly-linked list",
+            "Enumerates standard operating system process threads",
+            "Visible to standard administrative commands and pslist",
+            "Represents benign user applications and services"
+          ]
+        },
+        "right": {
+          "title": "Hidden Rootkit Processes",
+          "items": [
+            "Unlinked from active operating system process list",
+            "Remains active inside kernel thread scheduler",
+            "Exposed through structure discrepancy tools like psxview",
+            "Hides injected dynamic libraries and in-memory malware"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say6",
+            "caption": "Rootkit malware unlinks processes to evade standard system process listings.",
+            "highlightSide": "right",
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say7",
+            "caption": "Structure discrepancy analysis reveals hidden rootkit processes in memory.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Standard Process Listing",
+        "rightLabel": "Hidden Rootkit Processes"
+      }
+    },
+    {
+      "partTitle": "Practice time: custody chains",
+      "codeHash": "cf8f6d05ccffe7a799e08e7c077d65f90648cdf3d812c0b6fc1d05925bde5bdb",
+      "spec": {
+        "template": "sequence",
+        "title": "Forensic super-timeline aggregation and chronological event correlation",
+        "actors": [
+          {
+            "id": "authLog",
+            "label": "Authentication Log"
+          },
+          {
+            "id": "filesystemMft",
+            "label": "Filesystem MFT"
+          },
+          {
+            "id": "processExec",
+            "label": "Process Execution Log"
+          }
+        ],
+        "messages": [
+          {
+            "from": "authLog",
+            "to": "filesystemMft",
+            "label": "Record Remote SSH Authentication",
+            "tone": "data"
+          },
+          {
+            "from": "processExec",
+            "to": "filesystemMft",
+            "label": "Record Shell Payload Invocation",
+            "tone": "data"
+          },
+          {
+            "from": "filesystemMft",
+            "to": "processExec",
+            "label": "Correlate Staging File Creation Timestamp",
+            "tone": "success"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Super timelines aggregate chronological events across forensic data sources.",
+            "activeMessageIndex": 0,
+            "statusBadge": "active"
+          },
+          {
+            "at": "say8",
+            "caption": "Correlating timestamps reveals adversary staging and data exfiltration paths.",
+            "activeMessageIndex": 2,
+            "statusBadge": "completed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "sequence",
+        "title": "Forensic super-timeline aggregation and chronological event correlation",
+        "actors": [
+          {
+            "id": "authLog",
+            "label": "Authentication Log"
+          },
+          {
+            "id": "filesystemMft",
+            "label": "Filesystem MFT"
+          },
+          {
+            "id": "processExec",
+            "label": "Process Execution Log"
+          }
+        ],
+        "messages": [
+          {
+            "from": "authLog",
+            "to": "filesystemMft",
+            "label": "Record Remote SSH Authentication",
+            "tone": "data"
+          },
+          {
+            "from": "processExec",
+            "to": "filesystemMft",
+            "label": "Record Shell Payload Invocation",
+            "tone": "data"
+          },
+          {
+            "from": "filesystemMft",
+            "to": "processExec",
+            "label": "Correlate Staging File Creation Timestamp",
+            "tone": "success"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Super timelines aggregate chronological events across forensic data sources.",
+            "activeMessageIndex": 0,
+            "statusBadge": "active"
+          },
+          {
+            "at": "say8",
+            "caption": "Correlating timestamps reveals adversary staging and data exfiltration paths.",
+            "activeMessageIndex": 2,
+            "statusBadge": "completed"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress relational model definition and initialize Pillar 1: Prisma Schema Declarations,....",
+            "caption": "Ingress relational model definition and initialize Pillar one: Prisma.",
             "values": {
               "in": "Day 12 Input",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute query compilation and schema migration in Pillar 1: Prisma Schema Declarations,....",
+            "caption": "Execute query compilation and schema migration in Pillar one: Prisma.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -75,7 +75,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate transactional atomicity and connection pooling rules.",
+            "caption": "Evaluate transactional atomicity and connection pooling rules.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end relational persistence confirmed for Pillar 1: Prisma Schema Declarations,....",
+            "caption": "End-to-end relational persistence confirmed for Pillar one: Prisma Schema.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -257,7 +257,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress relational model definition and initialize Pillar 2: Declarative Migrations, Dri....",
+            "caption": "Ingress relational model definition and initialize Pillar two.",
             "values": {
               "in": "Day 12 Input",
               "proc": "Standby",
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute query compilation and schema migration in Pillar 2: Declarative Migrations, Dri....",
+            "caption": "Execute query compilation and schema migration in Pillar two: Declarative.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -301,7 +301,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate transactional atomicity and connection pooling rules.",
+            "caption": "Evaluate transactional atomicity and connection pooling rules.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -321,7 +321,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end relational persistence confirmed for Pillar 2: Declarative Migrations, Dri....",
+            "caption": "End-to-end relational persistence confirmed for Pillar two: Declarative.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -483,7 +483,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress relational model definition and initialize Pillar 3: Type-Safe Query Execution: ....",
+            "caption": "Ingress relational model definition and initialize Pillar three.",
             "values": {
               "in": "Day 12 Input",
               "proc": "Standby",
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute query compilation and schema migration in Pillar 3: Type-Safe Query Execution: ....",
+            "caption": "Execute query compilation and schema migration in Pillar three: Type-Safe.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -527,7 +527,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate transactional atomicity and connection pooling rules.",
+            "caption": "Evaluate transactional atomicity and connection pooling rules.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -547,7 +547,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end relational persistence confirmed for Pillar 3: Type-Safe Query Execution: ....",
+            "caption": "End-to-end relational persistence confirmed for Pillar three: Type-Safe.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -709,7 +709,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress relational model definition and initialize Pillar 4: Transactional Workflows: In....",
+            "caption": "Ingress relational model definition and initialize Pillar four.",
             "values": {
               "in": "Day 12 Input",
               "proc": "Standby",
@@ -729,7 +729,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute query compilation and schema migration in Pillar 4: Transactional Workflows: In....",
+            "caption": "Execute query compilation and schema migration in Pillar four.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -753,7 +753,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate transactional atomicity and connection pooling rules.",
+            "caption": "Evaluate transactional atomicity and connection pooling rules.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -773,7 +773,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end relational persistence confirmed for Pillar 4: Transactional Workflows: In....",
+            "caption": "End-to-end relational persistence confirmed for Pillar four.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -935,7 +935,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress relational model definition and initialize Pillar 5: Serverless Connection Pooli....",
+            "caption": "Ingress relational model definition and initialize Pillar five.",
             "values": {
               "in": "Day 12 Input",
               "proc": "Standby",
@@ -955,7 +955,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute query compilation and schema migration in Pillar 5: Serverless Connection Pooli....",
+            "caption": "Execute query compilation and schema migration in Pillar five: Serverless.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -979,7 +979,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate transactional atomicity and connection pooling rules.",
+            "caption": "Evaluate transactional atomicity and connection pooling rules.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -999,7 +999,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end relational persistence confirmed for Pillar 5: Serverless Connection Pooli....",
+            "caption": "End-to-end relational persistence confirmed for Pillar five: Serverless.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

@@ -61,7 +61,7 @@
             "at": "say2",
             "focus": "inspection_hub",
             "annotation": "Transit Gateway route tables enforce Layer 3 isolation and route traffic to Suricata DPI firewall.",
-            "caption": "Transit Gateway route tables enforce Layer 3 isolation and route traffic to Suricata DPI firewall. (Multi-Account PCI-DSS Foundation: L)"
+            "caption": "Transit Gateway route tables enforce Layer three isolation and route."
           },
           {
             "at": "example",
@@ -136,7 +136,7 @@
             "at": "say2",
             "focus": "inspection_hub",
             "annotation": "Transit Gateway route tables enforce Layer 3 isolation and route traffic to Suricata DPI firewall.",
-            "caption": "Transit Gateway route tables enforce Layer 3 isolation and route traffic to Suricata DPI firewall. (CDE Network Segmentation: Transit G)"
+            "caption": "Transit Gateway route tables enforce Layer three isolation and route."
           },
           {
             "at": "example",
@@ -211,7 +211,7 @@
             "at": "say2",
             "focus": "inspection_hub",
             "annotation": "Transit Gateway route tables enforce Layer 3 isolation and route traffic to Suricata DPI firewall.",
-            "caption": "Transit Gateway route tables enforce Layer 3 isolation and route traffic to Suricata DPI firewall. (Edge Tokenization & In-Transit Prot)"
+            "caption": "Transit Gateway route tables enforce Layer three isolation and route."
           },
           {
             "at": "example",
@@ -286,7 +286,7 @@
             "at": "say2",
             "focus": "inspection_hub",
             "annotation": "Transit Gateway route tables enforce Layer 3 isolation and route traffic to Suricata DPI firewall.",
-            "caption": "Transit Gateway route tables enforce Layer 3 isolation and route traffic to Suricata DPI firewall. (Zero Static Credentials in CDE: OID)"
+            "caption": "Transit Gateway route tables enforce Layer three isolation and route."
           },
           {
             "at": "example",
@@ -355,25 +355,25 @@
             "at": "say1",
             "focus": "public_dmz",
             "annotation": "Inbound payment transactions enter public DMZ and are inspected by AWS WAF for OWASP threats.",
-            "caption": "Inbound payment transactions enter public DMZ and are inspected by AWS WAF for OWASP threats. (⭐ Milestone 8 Synthesis: Full-Mesh )"
+            "caption": "Inbound payment transactions enter public DMZ and are inspected by AWS."
           },
           {
             "at": "say2",
             "focus": "inspection_hub",
             "annotation": "Transit Gateway route tables enforce Layer 3 isolation and route traffic to Suricata DPI firewall.",
-            "caption": "Transit Gateway route tables enforce Layer 3 isolation and route traffic to Suricata DPI firewall. (⭐ Milestone 8 Synthesis: Full-Mesh )"
+            "caption": "Transit Gateway route tables enforce Layer three isolation and route."
           },
           {
             "at": "example",
             "focus": "hsm_vault",
             "annotation": "Dedicated CloudHSM appliances tokenize raw card numbers, replacing PANs with surrogate tokens.",
-            "caption": "Dedicated CloudHSM appliances tokenize raw card numbers, replacing PANs with surrogate tokens. (⭐ Milestone 8 Synthesis: Full-Mesh )"
+            "caption": "Dedicated CloudHSM appliances tokenize raw card numbers, replacing PANs."
           },
           {
             "at": "tryIt",
             "focus": "cde_core",
             "annotation": "Payment core processes non-sensitive tokens using short-lived OIDC STS credentials with zero static keys.",
-            "caption": "Payment core processes non-sensitive tokens using short-lived OIDC STS credentials with zero static keys. (⭐ Milestone 8 Synthesis: Full-Mesh )"
+            "caption": "Payment core processes non-sensitive tokens using short-lived OIDC STS."
           }
         ]
       }

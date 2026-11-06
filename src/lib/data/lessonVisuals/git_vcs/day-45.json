@@ -40,7 +40,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Working Tree): Inspect ApexAudit Systems Architecture...",
+            "caption": "Stage one (Working Tree): Inspect ApexAudit Systems Architecture...",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Staging Index): Execute cryptographic signing / entropy scan.",
+            "caption": "Stage two (Staging Index): Execute cryptographic signing / entropy scan.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -108,7 +108,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Feature Branch): Validate Merkle tree and secret elimination.",
+            "caption": "Stage three (Feature Branch): Validate Merkle tree and secret elimination.",
             "activeStageId": "s3",
             "statusBadge": "PROCESSING",
             "throughput": "Nominal",
@@ -142,7 +142,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Mainline CI): Complete sovereign audit seal certification.",
+            "caption": "Stage four (Mainline CI): Complete sovereign audit seal certification.",
             "activeStageId": "s4",
             "statusBadge": "VERIFIED",
             "throughput": "Complete",
@@ -212,7 +212,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Working Tree): Inspect Forensic Incident Resolution: ...",
+            "caption": "Stage one (Working Tree): Inspect Forensic Incident Resolution: ...",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -246,7 +246,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Staging Index): Execute cryptographic signing / entropy scan.",
+            "caption": "Stage two (Staging Index): Execute cryptographic signing / entropy scan.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -280,7 +280,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Feature Branch): Validate Merkle tree and secret elimination.",
+            "caption": "Stage three (Feature Branch): Validate Merkle tree and secret elimination.",
             "activeStageId": "s3",
             "statusBadge": "PROCESSING",
             "throughput": "Nominal",
@@ -314,7 +314,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Mainline CI): Complete sovereign audit seal certification.",
+            "caption": "Stage four (Mainline CI): Complete sovereign audit seal certification.",
             "activeStageId": "s4",
             "statusBadge": "VERIFIED",
             "throughput": "Complete",
@@ -384,7 +384,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Working Tree): Inspect Platform Execution: Full-Scale...",
+            "caption": "Stage one (Working Tree): Inspect Platform Execution: Full-Scale...",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -418,7 +418,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Staging Index): Execute cryptographic signing / entropy scan.",
+            "caption": "Stage two (Staging Index): Execute cryptographic signing / entropy scan.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -452,7 +452,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Feature Branch): Validate Merkle tree and secret elimination.",
+            "caption": "Stage three (Feature Branch): Validate Merkle tree and secret elimination.",
             "activeStageId": "s3",
             "statusBadge": "PROCESSING",
             "throughput": "Nominal",
@@ -486,7 +486,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Mainline CI): Complete sovereign audit seal certification.",
+            "caption": "Stage four (Mainline CI): Complete sovereign audit seal certification.",
             "activeStageId": "s4",
             "statusBadge": "VERIFIED",
             "throughput": "Complete",
@@ -556,7 +556,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Working Tree): Inspect Adversarial Stress Testing: Pe...",
+            "caption": "Stage one (Working Tree): Inspect Adversarial Stress Testing: Pe...",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -590,7 +590,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Staging Index): Execute cryptographic signing / entropy scan.",
+            "caption": "Stage two (Staging Index): Execute cryptographic signing / entropy scan.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -624,7 +624,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Feature Branch): Validate Merkle tree and secret elimination.",
+            "caption": "Stage three (Feature Branch): Validate Merkle tree and secret elimination.",
             "activeStageId": "s3",
             "statusBadge": "PROCESSING",
             "throughput": "Nominal",
@@ -658,7 +658,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Mainline CI): Complete sovereign audit seal certification.",
+            "caption": "Stage four (Mainline CI): Complete sovereign audit seal certification.",
             "activeStageId": "s4",
             "statusBadge": "VERIFIED",
             "throughput": "Complete",
@@ -728,7 +728,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Working Tree): Inspect Milestone 6 Viva Defense: Sove...",
+            "caption": "Stage one (Working Tree): Inspect Milestone six Viva Defense: Sove...",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -762,7 +762,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Staging Index): Execute cryptographic signing / entropy scan.",
+            "caption": "Stage two (Staging Index): Execute cryptographic signing / entropy scan.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -796,7 +796,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Feature Branch): Validate Merkle tree and secret elimination.",
+            "caption": "Stage three (Feature Branch): Validate Merkle tree and secret elimination.",
             "activeStageId": "s3",
             "statusBadge": "PROCESSING",
             "throughput": "Nominal",
@@ -830,7 +830,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Mainline CI): Complete sovereign audit seal certification.",
+            "caption": "Stage four (Mainline CI): Complete sovereign audit seal certification.",
             "activeStageId": "s4",
             "statusBadge": "VERIFIED",
             "throughput": "Complete",

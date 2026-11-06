@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for The Memory-Bound Decoding Wall: Why Memo...",
+            "caption": "Initialize input state for The Memory-Bound Decoding Wall: Why Memo...",
             "values": {
               "in": "Day 47 Input",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The Memory-Bound De....",
+            "caption": "Execute core transformation in The Memory-Bound De....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -75,7 +75,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The Memory-Bound Decoding Wall: W...",
+            "caption": "End-to-end execution verified for The Memory-Bound Decoding Wall: W...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -257,7 +257,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Target-Draft Rejection Sampling: Mathema...",
+            "caption": "Initialize input state for Target-Draft Rejection Sampling: Mathema...",
             "values": {
               "in": "Day 47 Input",
               "proc": "Standby",
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Target-Draft Reject....",
+            "caption": "Execute core transformation in Target-Draft Reject....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -301,7 +301,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -321,7 +321,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Target-Draft Rejection Sampling: ...",
+            "caption": "End-to-end execution verified for Target-Draft Rejection Sampling: ...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -483,7 +483,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Speculative Decoding Speedup Modeling: A...",
+            "caption": "Initialize input state for Speculative Decoding Speedup Modeling: A...",
             "values": {
               "in": "Day 47 Input",
               "proc": "Standby",
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Speculative Decodin....",
+            "caption": "Execute core transformation in Speculative Decodin....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -527,7 +527,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -547,7 +547,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Speculative Decoding Speedup Mode...",
+            "caption": "End-to-end execution verified for Speculative Decoding Speedup Mode...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -709,7 +709,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Self-Speculative Decoding, Medusa Heads ...",
+            "caption": "Initialize input state for Self-Speculative Decoding, Medusa Heads ...",
             "values": {
               "in": "Day 47 Input",
               "proc": "Standby",
@@ -729,7 +729,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Self-Speculative De....",
+            "caption": "Execute core transformation in Self-Speculative De....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -753,7 +753,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -773,7 +773,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Self-Speculative Decoding, Medusa...",
+            "caption": "End-to-end execution verified for Self-Speculative Decoding, Medusa...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -935,7 +935,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Masterclass Synthesis: Building.",
+            "caption": "Initialize input state for Masterclass Synthesis: Building.",
             "values": {
               "in": "Day 47 Input",
               "proc": "Standby",
@@ -955,7 +955,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Masterclass Synthes....",
+            "caption": "Execute core transformation in Masterclass Synthes....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -979,7 +979,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -999,7 +999,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Masterclass Synthesis: Building t...",
+            "caption": "End-to-end execution verified for Masterclass Synthesis: Building t...",
             "values": {
               "in": "Committed",
               "proc": "Verified",

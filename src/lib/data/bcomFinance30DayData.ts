@@ -4,7 +4,7 @@ import { CourseQuest } from './coursesData';
 export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
   {
     "day": 1,
-    "title": "Introduction to Corporate Finance & The Financial Ecosystem",
+    "title": "Corporate Financial Engineering & Valuation Invariants",
     "desc": "Understand the core goal of financial management (Shareholder Wealth Maximization), corporate financial decisions (Investment, Financing, Dividend), primary vs secondary capital markets, and Money Market instruments.",
     "syllabus": [
       "Core Corporate Finance Objective: Maximizing long-term equity market capitalization.",
@@ -24,7 +24,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 2,
-    "title": "Time Value of Money (TVM): Compounding & Future Value ($FV$)",
+    "title": "LBO Financial Modeling, M&A Accretion, Real Options & FX Risk Hedging",
     "desc": "Master the foundational axiom of finance: A dollar today is worth more than a dollar tomorrow. Compute Future Value ($FV = PV(1 + r)^t$), effective annual rate, and discrete vs continuous compounding.",
     "syllabus": [
       "Future Value Core Equation: $FV = PV(1 + r)^t$ for single cash flows.",
@@ -44,7 +44,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 3,
-    "title": "Time Value of Money (TVM): Discounting & Present Value ($PV$)",
+    "title": "Advanced Corporate Valuation: Multi-Stage DCF, Hamada Beta Relevering, WACC Sensitivity & LBO Waterfall",
     "desc": "Reverse the compounding timeline through Discounting: Present Value ($PV = FV / (1 + r)^t$), opportunity cost of capital, multi-period cash flow discounting, and zero-growth vs growing perpetuities.",
     "syllabus": [
       "Present Value Equation: $PV = FV / (1 + r)^t$ and Discount Factor ($DF = 1/(1+r)^t$).",
@@ -64,7 +64,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 4,
-    "title": "Annuities & Loan Amortization: Ordinary Annuity, Annuity Due & EMI",
+    "title": "Fixed Income Analytics, Duration, Convexity, CDS Default Modeling & Options Risk Hedging",
     "desc": "Model structured uniform periodic payment streams: Future Value of Ordinary Annuity vs Annuity Due, Loan Amortization Schedules, and Equated Monthly Installment (EMI) calculation.",
     "syllabus": [
       "Ordinary Annuity vs Annuity Due: Cash flow at end of period vs beginning of period ($FV_{Due} = FV_{Ord} \\times (1 + r)$).",
@@ -84,7 +84,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 5,
-    "title": "⭐ MILESTONE 1: Complete Time Value of Money & Financial Valuation Engine",
+    "title": "Milestone 1 Capstone: Enterprise Corporate Finance, Strategic Capital Structure & Global Treasury Control Tower",
     "desc": "Milestone 1: Build an industrial-grade Time Value of Money computation engine: Present value discounting, multi-frequency compounding, annuity scheduling, and automated loan amortization modeling.",
     "syllabus": [
       "TVM Mathematical Engine Synthesis: Unifying PV, FV, EAR, and Annuities.",
@@ -224,7 +224,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 12,
-    "title": "Cost of Capital: Cost of Debt ($K_d$) & Tax Shield",
+    "title": "Cost of Capital: Cost of Debt (Kd) & Tax Shield",
     "desc": "Determine corporate cost of debt financing: Pre-Tax Cost of Debt ($K_d$), Corporate Tax Shield ($T$), Effective After-Tax Cost of Debt ($K_{d,after} = K_{d,pre} \\times (1 - T)$), and flotation cost impact.",
     "syllabus": [
       "Pre-tax vs After-tax Debt Cost: Interest expense is tax-deductible under income tax laws.",
@@ -244,7 +244,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 13,
-    "title": "Cost of Capital: Cost of Equity ($K_e$) via CAPM & Dividend Growth",
+    "title": "Cost of Capital: Cost of Equity (Ke) via CAPM & Dividend Growth",
     "desc": "Calculate the expected return demanded by equity shareholders: Capital Asset Pricing Model ($K_e = R_f + \\beta(R_m - R_f)$), Gordon Constant Growth Dividend Model ($K_e = D_1/P_0 + g$), and Bond Yield Plus Risk Premium approach.",
     "syllabus": [
       "CAPM Equity Valuation: Risk-free rate ($R_f$), Systematic Risk Beta ($\\beta$), and Market Risk Premium ($R_m - R_f$).",
@@ -284,7 +284,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 15,
-    "title": "⭐ MILESTONE 2: Complete Capital Budgeting & Cost of Capital Valuation Engine",
+    "title": "⭐ MILESTONE 3: Complete Capital Budgeting & Cost of Capital Valuation Engine",
     "desc": "Milestone 2: Construct an institutional capital budgeting appraisal suite: Computing enterprise WACC hurdle rates, discounting multi-year cash flow projections, resolving NPV/IRR conflicts, and determining capital allocation.",
     "syllabus": [
       "Capital Budgeting & WACC synthesis.",
@@ -404,7 +404,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 21,
-    "title": "⭐ MILESTONE 3: Complete Corporate Capital Structure & Dividend Optimization Engine",
+    "title": "⭐ MILESTONE 4: Complete Corporate Capital Structure & Dividend Optimization Engine",
     "desc": "Milestone 3: Construct an integrated corporate financial policy engine: Analyzing financial leverage multipliers, optimizing MM capital structure tax shields, and determining value-maximizing dividend payout policies.",
     "syllabus": [
       "Capital Structure and Dividend Policy integration.",
@@ -444,7 +444,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 23,
-    "title": "Modern Portfolio Theory: 2-Asset Portfolio Return, Variance & Diversification",
+    "title": "Modern Portfolio Theory: Risk, Return & the Markowitz Efficient Frontier",
     "desc": "Engineer efficient multi-asset investment portfolios: Harry Markowitz Modern Portfolio Theory (MPT), Portfolio Expected Return, Portfolio Variance with Correlation Coefficient ($\\rho$), and the Power of Diversification.",
     "syllabus": [
       "Portfolio Expected Return: $E(R_p) = w_1 R_1 + w_2 R_2$.",
@@ -464,7 +464,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 24,
-    "title": "Capital Asset Pricing Model (CAPM) & Security Market Line (SML)",
+    "title": "Capital Asset Pricing Model (CAPM) & the Security Market Line (SML)",
     "desc": "Priced market systematic risk: Beta ($\\beta$), Security Market Line (SML), estimating required returns under CAPM ($E(R_i) = R_f + \\beta_i(R_m - R_f)$), and identifying mispriced securities via Jensen's Alpha.",
     "syllabus": [
       "Systematic Risk vs Unsystematic Risk: Why diversification eliminates unsystematic risk but leaves systematic risk.",
@@ -484,7 +484,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 25,
-    "title": "Portfolio Performance Measurement: Sharpe, Treynor & Jensen Ratios",
+    "title": "Portfolio Performance Measurement: Sharpe, Treynor, Alpha & Information Ratio",
     "desc": "Evaluate portfolio manager performance on a risk-adjusted basis: Sharpe Ratio (Excess return per unit of total risk $\\sigma$), Treynor Ratio (Excess return per unit of systematic risk $\\beta$), and Jensen's Alpha.",
     "syllabus": [
       "Sharpe Ratio: $S = \\frac{R_p - R_f}{\\sigma_p}$ (Evaluates un-diversified portfolios).",
@@ -504,7 +504,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 26,
-    "title": "Financial Derivatives: Futures Hedging & Black-Scholes Option Pricing",
+    "title": "Derivatives & Financial Risk Management: Futures, Options & Swaps",
     "desc": "Hedge financial risk with derivatives: Forwards vs Futures contracts, Cost of Carry model ($F = S_0 e^{rT}$), European Call and Put options, Put-Call Parity ($C + PV(K) = P + S$), and Black-Scholes pricing.",
     "syllabus": [
       "Futures Fair Value & Cost of Carry: Compounding spot price at risk-free rate net of dividend yields.",
@@ -524,7 +524,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 27,
-    "title": "Corporate Restructuring: Mergers & Acquisitions (M&A) Accretion/Dilution",
+    "title": "Mergers & Acquisitions (M&A): Valuation, Synergies & Accretion/Dilution",
     "desc": "Evaluate corporate restructuring and takeover transactions: Strategic synergies (Operational & Financial), M&A deal financing (Cash vs Stock swap), and Post-Merger EPS Accretion/Dilution analysis.",
     "syllabus": [
       "Motives for M&A: Economies of scale, horizontal/vertical integration, tax advantages, and market power.",
@@ -544,7 +544,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 28,
-    "title": "Corporate Credit Analysis & Altman Z-Score Bankruptcy Prediction",
+    "title": "International Financial Management & FX Exposure (PPP, IRP & Hedging)",
     "desc": "Assess corporate creditworthiness and default probability: The 5 Cs of Credit, Credit Rating Agency matrices, and Edward Altman's 5-Factor $Z$-Score quantitative bankruptcy forecasting model.",
     "syllabus": [
       "Altman Z-Score Model: $Z = 1.2 X_1 + 1.4 X_2 + 3.3 X_3 + 0.6 X_4 + 1.0 X_5$.",
@@ -564,7 +564,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 29,
-    "title": "FinTech, Robo-Advisory & ESG Sustainable Investment Scoring",
+    "title": "Behavioral Finance, Market Anomalies & Corporate Governance",
     "desc": "Apply technology and sustainability frameworks in modern finance: Automated algorithmic Robo-Advisors (Risk-profile driven asset allocation), and Environmental, Social, and Governance (ESG) investment integration.",
     "syllabus": [
       "Robo-Advisory Mechanics: Rule-based utility optimization mapping risk tolerance questionnaires to target portfolios.",
@@ -584,7 +584,7 @@ export const BCOM_FINANCE_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 30,
-    "title": "🏆 FINAL CAPSTONE: Integrated Corporate Finance, Valuation & Portfolio Investment Management Suite",
+    "title": "🏆 FINAL GRAND CAPSTONE: Complete Enterprise Financial Officer (CFO) & Investment Portfolio Suite",
     "desc": "Final Capstone Synthesis: The complete corporate finance and institutional investment operating system bringing together TVM discounting, Capital Budgeting (NPV/IRR), WACC cost of capital, DCF Valuation, MPT Portfolio optimization, and Altman credit risk forecasting.",
     "syllabus": [
       "End-to-End Corporate Financial Decision Synthesis.",

@@ -445,7 +445,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Multi-Head Attention (MHA) & Subspace Re.. [D1.P4.S1].",
+            "caption": "Initialize input state for Multi-Head Attention (MHA) & Subspace Re.",
             "values": {
               "in": "Day 1 Input",
               "proc": "Standby",
@@ -465,7 +465,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Multi-Head Attentio... [D1.P4.S2].",
+            "caption": "Execute core transformation in Multi-Head Attentio... [Done.Pfour.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -489,7 +489,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D1.P4.S3].",
+            "caption": "Inspect concrete example output and invariants [Done.Pfour.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -509,7 +509,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Multi-Head Attention (MHA) & Subs.. [D1.P4.S4].",
+            "caption": "End-to-end execution verified for Multi-Head Attention (MHA) & Subs.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

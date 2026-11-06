@@ -10,7 +10,7 @@
       "codeHash": "864d1f44e6d1f59f057f7224bdfd5294e5f9005a016e900b1cda587f284f2aab",
       "spec": {
         "template": "states",
-        "title": "Low-Latency Language Architectures & Zero-Cost Abstractions \u2014 Quant Systems State Engine",
+        "title": "Low-Latency Language Architectures & Zero-Cost Abstractions — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Low-Latency Language Architectures & Zero-Cost Abstractions.",
+            "caption": "State one (Init State): Initialize deterministic state for Low-Latency.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -60,7 +60,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -77,7 +77,7 @@
       "codeHash": "502a8e6dcfc2088907accb99c814474bd049d980ab0b64aee2e94b4561fdb898",
       "spec": {
         "template": "states",
-        "title": "Heap Allocation Latency Spike & Lock Contention Forensics \u2014 Quant Systems State Engine",
+        "title": "Heap Allocation Latency Spike & Lock Contention Forensics — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -99,7 +99,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Heap Allocation Latency Spike & Lock Contention Forensics.",
+            "caption": "State one (Init State): Initialize deterministic state for Heap.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -127,7 +127,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -144,7 +144,7 @@
       "codeHash": "f5a738c3ceaaae7384465895b049ddf5e43a4556b55586b245fcb3fc72f95331",
       "spec": {
         "template": "states",
-        "title": "Zero-Allocation Object Pool & Memory Arena Implementation \u2014 Quant Systems State Engine",
+        "title": "Zero-Allocation Object Pool & Memory Arena Implementation — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -166,7 +166,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Zero-Allocation Object Pool & Memory Arena Implementation.",
+            "caption": "State one (Init State): Initialize deterministic state for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -194,7 +194,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -211,7 +211,7 @@
       "codeHash": "565785bbae3e553aeb669db2c043f45fafc084e34d5960f280c65391c167ed15",
       "spec": {
         "template": "states",
-        "title": "Heap vs Pool Micro-Benchmark & Latency Profile Lab \u2014 Quant Systems State Engine",
+        "title": "Heap vs Pool Micro-Benchmark & Latency Profile Lab — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -233,7 +233,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Heap vs Pool Micro-Benchmark & Latency Profile Lab.",
+            "caption": "State one (Init State): Initialize deterministic state for Heap vs Pool.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -261,7 +261,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -278,7 +278,7 @@
       "codeHash": "e188a7159ebaf09a35558432745c52bb926cafae50e594119b60bfdc176c4813",
       "spec": {
         "template": "states",
-        "title": "Comprehensive Hot-Path Memory Safety & SEC Rule 15c3-5 Gate \u2014 Quant Systems State Engine",
+        "title": "Comprehensive Hot-Path Memory Safety & SEC Rule 15c3-5 Gate — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -300,7 +300,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Comprehensive Hot-Path Memory Safety & SEC Rule 15c3-5 Gate.",
+            "caption": "State one (Init State): Initialize deterministic state for Comprehensive.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -328,7 +328,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",

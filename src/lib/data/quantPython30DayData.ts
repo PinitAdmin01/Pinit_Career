@@ -1,6 +1,7 @@
 import { buildEnrichedDayQuests, DayConfig } from './curriculumEnricher';
 import { CourseQuest } from './coursesData';
 import { QUANT_SYSTEMS_30_DAYS_CONFIGS } from './quant30DayData';
+import { QUANT_PYTHON_LONG_LESSONS } from './quantPythonLongLessons';
 
 /**
  * Quantitative Trading Systems in Python (course-quant-python), for the Python track.
@@ -500,6 +501,7 @@ export const QUANT_PYTHON_30_DAYS_CONFIGS: DayConfig[] = QUANT_SYSTEMS_30_DAYS_C
   const day = DAYS[i];
   return {
     ...cfg,
+    title: QUANT_PYTHON_LONG_LESSONS[i]?.title ?? cfg.title,
     eTitle: day.e.title,
     eDesc: day.e.desc,
     eStarter: day.e.starter,

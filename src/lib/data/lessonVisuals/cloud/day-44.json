@@ -61,13 +61,13 @@
             "at": "say2",
             "focus": "transit_gateway",
             "annotation": "Transit Gateway route tables enforce Layer 3 isolation and route traffic to inspection hubs.",
-            "caption": "Transit Gateway route tables enforce Layer 3 isolation and route traffic to inspection hubs. (AWS Transit Gateway (TGW) Architect)"
+            "caption": "Transit Gateway route tables enforce Layer three isolation and route."
           },
           {
             "at": "example",
             "focus": "inspection_firewall",
             "annotation": "AWS Network Firewall executes stateful Suricata inspection, dropping unauthorized C2 traffic.",
-            "caption": "AWS Network Firewall executes stateful Suricata inspection, dropping unauthorized C2 traffic. (AWS Transit Gateway (TGW) Architect)"
+            "caption": "AWS Network Firewall executes stateful Suricata inspection, dropping."
           },
           {
             "at": "tryIt",
@@ -136,13 +136,13 @@
             "at": "say2",
             "focus": "transit_gateway",
             "annotation": "Transit Gateway route tables enforce Layer 3 isolation and route traffic to inspection hubs.",
-            "caption": "Transit Gateway route tables enforce Layer 3 isolation and route traffic to inspection hubs. (Centralized Ingress & Egress Inspec)"
+            "caption": "Transit Gateway route tables enforce Layer three isolation and route."
           },
           {
             "at": "example",
             "focus": "inspection_firewall",
             "annotation": "AWS Network Firewall executes stateful Suricata inspection, dropping unauthorized C2 traffic.",
-            "caption": "AWS Network Firewall executes stateful Suricata inspection, dropping unauthorized C2 traffic. (Centralized Ingress & Egress Inspec)"
+            "caption": "AWS Network Firewall executes stateful Suricata inspection, dropping."
           },
           {
             "at": "tryIt",
@@ -211,13 +211,13 @@
             "at": "say2",
             "focus": "transit_gateway",
             "annotation": "Transit Gateway route tables enforce Layer 3 isolation and route traffic to inspection hubs.",
-            "caption": "Transit Gateway route tables enforce Layer 3 isolation and route traffic to inspection hubs. (AWS PrivateLink & VPC Endpoint Serv)"
+            "caption": "Transit Gateway route tables enforce Layer three isolation and route."
           },
           {
             "at": "example",
             "focus": "inspection_firewall",
             "annotation": "AWS Network Firewall executes stateful Suricata inspection, dropping unauthorized C2 traffic.",
-            "caption": "AWS Network Firewall executes stateful Suricata inspection, dropping unauthorized C2 traffic. (AWS PrivateLink & VPC Endpoint Serv)"
+            "caption": "AWS Network Firewall executes stateful Suricata inspection, dropping."
           },
           {
             "at": "tryIt",
@@ -286,13 +286,13 @@
             "at": "say2",
             "focus": "transit_gateway",
             "annotation": "Transit Gateway route tables enforce Layer 3 isolation and route traffic to inspection hubs.",
-            "caption": "Transit Gateway route tables enforce Layer 3 isolation and route traffic to inspection hubs. (Cross-Region Transit Gateway Peerin)"
+            "caption": "Transit Gateway route tables enforce Layer three isolation and route."
           },
           {
             "at": "example",
             "focus": "inspection_firewall",
             "annotation": "AWS Network Firewall executes stateful Suricata inspection, dropping unauthorized C2 traffic.",
-            "caption": "AWS Network Firewall executes stateful Suricata inspection, dropping unauthorized C2 traffic. (Cross-Region Transit Gateway Peerin)"
+            "caption": "AWS Network Firewall executes stateful Suricata inspection, dropping."
           },
           {
             "at": "tryIt",
@@ -361,13 +361,13 @@
             "at": "say2",
             "focus": "transit_gateway",
             "annotation": "Transit Gateway route tables enforce Layer 3 isolation and route traffic to inspection hubs.",
-            "caption": "Transit Gateway route tables enforce Layer 3 isolation and route traffic to inspection hubs. (Masterclass Synthesis: Zero-Trust E)"
+            "caption": "Transit Gateway route tables enforce Layer three isolation and route."
           },
           {
             "at": "example",
             "focus": "inspection_firewall",
             "annotation": "AWS Network Firewall executes stateful Suricata inspection, dropping unauthorized C2 traffic.",
-            "caption": "AWS Network Firewall executes stateful Suricata inspection, dropping unauthorized C2 traffic. (Masterclass Synthesis: Zero-Trust E)"
+            "caption": "AWS Network Firewall executes stateful Suricata inspection, dropping."
           },
           {
             "at": "tryIt",

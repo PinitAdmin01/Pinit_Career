@@ -51,7 +51,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <MobileAppShell /> for Flux Architecture & Redux Tool...",
+            "caption": "Mount root <MobileAppShell /> for Flux Architecture & Redux Tool...",
             "activeId": "AppShell",
             "tone": "data",
             "nodes": [
@@ -94,7 +94,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Dispatch actions and reconcile state slices in <StoreProvider />.",
+            "caption": "Dispatch actions and reconcile state slices in <StoreProvider />.",
             "activeId": "StoreProvider",
             "reRenderingIds": [
               "StoreProvider",
@@ -147,7 +147,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Render responsive UI tree in <ScreenViewport /> at 120 FPS.",
+            "caption": "Render responsive UI tree in <ScreenViewport /> at multiple FPS.",
             "activeId": "ScreenView",
             "reRenderingIds": [
               "ScreenView"
@@ -193,7 +193,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Synchronize native bridge telemetry via <NativeSensorBridge />.",
+            "caption": "Synchronize native bridge telemetry via <NativeSensorBridge />.",
             "activeId": "NativeBridge",
             "tone": "accent",
             "nodes": [
@@ -511,7 +511,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <MobileAppShell /> for Transient State & Micro-Stores...",
+            "caption": "Mount root <MobileAppShell /> for Transient State & Micro-Stores...",
             "activeId": "AppShell",
             "tone": "data",
             "nodes": [
@@ -554,7 +554,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Dispatch actions and reconcile state slices in <StoreProvider />.",
+            "caption": "Dispatch actions and reconcile state slices in <StoreProvider />.",
             "activeId": "StoreProvider",
             "reRenderingIds": [
               "StoreProvider",
@@ -607,7 +607,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Render responsive UI tree in <ScreenViewport /> at 120 FPS.",
+            "caption": "Render responsive UI tree in <ScreenViewport /> at multiple FPS.",
             "activeId": "ScreenView",
             "reRenderingIds": [
               "ScreenView"
@@ -653,7 +653,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Synchronize native bridge telemetry via <NativeSensorBridge />.",
+            "caption": "Synchronize native bridge telemetry via <NativeSensorBridge />.",
             "activeId": "NativeBridge",
             "tone": "accent",
             "nodes": [
@@ -971,7 +971,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <MobileAppShell /> for MMKV vs AsyncStorage: Memory-M...",
+            "caption": "Mount root <MobileAppShell /> for MMKV vs AsyncStorage: Memory-M...",
             "activeId": "AppShell",
             "tone": "data",
             "nodes": [
@@ -1014,7 +1014,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Dispatch actions and reconcile state slices in <StoreProvider />.",
+            "caption": "Dispatch actions and reconcile state slices in <StoreProvider />.",
             "activeId": "StoreProvider",
             "reRenderingIds": [
               "StoreProvider",
@@ -1067,7 +1067,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Render responsive UI tree in <ScreenViewport /> at 120 FPS.",
+            "caption": "Render responsive UI tree in <ScreenViewport /> at multiple FPS.",
             "activeId": "ScreenView",
             "reRenderingIds": [
               "ScreenView"
@@ -1113,7 +1113,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Synchronize native bridge telemetry via <NativeSensorBridge />.",
+            "caption": "Synchronize native bridge telemetry via <NativeSensorBridge />.",
             "activeId": "NativeBridge",
             "tone": "accent",
             "nodes": [
@@ -1431,7 +1431,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <MobileAppShell /> for Offline SQLite Storage & Write...",
+            "caption": "Mount root <MobileAppShell /> for Offline SQLite Storage & Write...",
             "activeId": "AppShell",
             "tone": "data",
             "nodes": [
@@ -1474,7 +1474,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Dispatch actions and reconcile state slices in <StoreProvider />.",
+            "caption": "Dispatch actions and reconcile state slices in <StoreProvider />.",
             "activeId": "StoreProvider",
             "reRenderingIds": [
               "StoreProvider",
@@ -1527,7 +1527,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Render responsive UI tree in <ScreenViewport /> at 120 FPS.",
+            "caption": "Render responsive UI tree in <ScreenViewport /> at multiple FPS.",
             "activeId": "ScreenView",
             "reRenderingIds": [
               "ScreenView"
@@ -1573,7 +1573,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Synchronize native bridge telemetry via <NativeSensorBridge />.",
+            "caption": "Synchronize native bridge telemetry via <NativeSensorBridge />.",
             "activeId": "NativeBridge",
             "tone": "accent",
             "nodes": [
@@ -1891,7 +1891,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <MobileAppShell /> for State Hydration, Cache Reconci...",
+            "caption": "Mount root <MobileAppShell /> for State Hydration, Cache Reconci...",
             "activeId": "AppShell",
             "tone": "data",
             "nodes": [
@@ -1934,7 +1934,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Dispatch actions and reconcile state slices in <StoreProvider />.",
+            "caption": "Dispatch actions and reconcile state slices in <StoreProvider />.",
             "activeId": "StoreProvider",
             "reRenderingIds": [
               "StoreProvider",
@@ -1987,7 +1987,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Render responsive UI tree in <ScreenViewport /> at 120 FPS.",
+            "caption": "Render responsive UI tree in <ScreenViewport /> at multiple FPS.",
             "activeId": "ScreenView",
             "reRenderingIds": [
               "ScreenView"
@@ -2033,7 +2033,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Synchronize native bridge telemetry via <NativeSensorBridge />.",
+            "caption": "Synchronize native bridge telemetry via <NativeSensorBridge />.",
             "activeId": "NativeBridge",
             "tone": "accent",
             "nodes": [

@@ -51,7 +51,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <GestureRootView /> for Hermes Worklets & The UI Threa...",
+            "caption": "Mount root <GestureRootView /> for Hermes Worklets & The UI Threa...",
             "activeId": "AppShell",
             "tone": "data",
             "nodes": [
@@ -94,7 +94,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Stream touch events directly into <PanGestureHandler />.",
+            "caption": "Stream touch events directly into <PanGestureHandler />.",
             "activeId": "PanResponder",
             "reRenderingIds": [
               "PanResponder",
@@ -147,7 +147,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute spring physics in <AnimatedLayer /> at 120 FPS.",
+            "caption": "Execute spring physics in <AnimatedLayer /> at multiple FPS.",
             "activeId": "AnimatedLayer",
             "reRenderingIds": [
               "AnimatedLayer"
@@ -193,7 +193,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit display link transform to <NativeRenderNode />.",
+            "caption": "Commit display link transform to <NativeRenderNode />.",
             "activeId": "RenderNode",
             "tone": "accent",
             "nodes": [
@@ -511,7 +511,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <GestureRootView /> for Gesture Handler 2 Pan Responde...",
+            "caption": "Mount root <GestureRootView /> for Gesture Handler two Pan Responde...",
             "activeId": "AppShell",
             "tone": "data",
             "nodes": [
@@ -554,7 +554,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Stream touch events directly into <PanGestureHandler />.",
+            "caption": "Stream touch events directly into <PanGestureHandler />.",
             "activeId": "PanResponder",
             "reRenderingIds": [
               "PanResponder",
@@ -607,7 +607,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute spring physics in <AnimatedLayer /> at 120 FPS.",
+            "caption": "Execute spring physics in <AnimatedLayer /> at multiple FPS.",
             "activeId": "AnimatedLayer",
             "reRenderingIds": [
               "AnimatedLayer"
@@ -653,7 +653,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit display link transform to <NativeRenderNode />.",
+            "caption": "Commit display link transform to <NativeRenderNode />.",
             "activeId": "RenderNode",
             "tone": "accent",
             "nodes": [
@@ -971,7 +971,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <GestureRootView /> for Spring Physics & Decay Inertia...",
+            "caption": "Mount root <GestureRootView /> for Spring Physics & Decay Inertia...",
             "activeId": "AppShell",
             "tone": "data",
             "nodes": [
@@ -1014,7 +1014,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Stream touch events directly into <PanGestureHandler />.",
+            "caption": "Stream touch events directly into <PanGestureHandler />.",
             "activeId": "PanResponder",
             "reRenderingIds": [
               "PanResponder",
@@ -1067,7 +1067,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute spring physics in <AnimatedLayer /> at 120 FPS.",
+            "caption": "Execute spring physics in <AnimatedLayer /> at multiple FPS.",
             "activeId": "AnimatedLayer",
             "reRenderingIds": [
               "AnimatedLayer"
@@ -1113,7 +1113,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit display link transform to <NativeRenderNode />.",
+            "caption": "Commit display link transform to <NativeRenderNode />.",
             "activeId": "RenderNode",
             "tone": "accent",
             "nodes": [
@@ -1431,7 +1431,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <GestureRootView /> for Interpolation & Extrapolation:...",
+            "caption": "Mount root <GestureRootView /> for Interpolation & Extrapolation:...",
             "activeId": "AppShell",
             "tone": "data",
             "nodes": [
@@ -1474,7 +1474,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Stream touch events directly into <PanGestureHandler />.",
+            "caption": "Stream touch events directly into <PanGestureHandler />.",
             "activeId": "PanResponder",
             "reRenderingIds": [
               "PanResponder",
@@ -1527,7 +1527,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute spring physics in <AnimatedLayer /> at 120 FPS.",
+            "caption": "Execute spring physics in <AnimatedLayer /> at multiple FPS.",
             "activeId": "AnimatedLayer",
             "reRenderingIds": [
               "AnimatedLayer"
@@ -1573,7 +1573,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit display link transform to <NativeRenderNode />.",
+            "caption": "Commit display link transform to <NativeRenderNode />.",
             "activeId": "RenderNode",
             "tone": "accent",
             "nodes": [
@@ -1891,7 +1891,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <GestureRootView /> for Layout Animations & Shared Ele...",
+            "caption": "Mount root <GestureRootView /> for Layout Animations & Shared Ele...",
             "activeId": "AppShell",
             "tone": "data",
             "nodes": [
@@ -1934,7 +1934,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Stream touch events directly into <PanGestureHandler />.",
+            "caption": "Stream touch events directly into <PanGestureHandler />.",
             "activeId": "PanResponder",
             "reRenderingIds": [
               "PanResponder",
@@ -1987,7 +1987,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute spring physics in <AnimatedLayer /> at 120 FPS.",
+            "caption": "Execute spring physics in <AnimatedLayer /> at multiple FPS.",
             "activeId": "AnimatedLayer",
             "reRenderingIds": [
               "AnimatedLayer"
@@ -2033,7 +2033,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit display link transform to <NativeRenderNode />.",
+            "caption": "Commit display link transform to <NativeRenderNode />.",
             "activeId": "RenderNode",
             "tone": "accent",
             "nodes": [

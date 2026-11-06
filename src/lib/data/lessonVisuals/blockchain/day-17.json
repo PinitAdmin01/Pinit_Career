@@ -10,7 +10,7 @@
       "codeHash": "1456051b37f7e7f808df9926097c5fda640108f7cb129a6b9f78ebd38818bb67",
       "spec": {
         "template": "sequence",
-        "title": "EIP-712 Typed Structured Data Hashing & Domain Separator Architecture \u2014 Gasless Permit Sequence",
+        "title": "EIP-712 Typed Structured Data Hashing & Domain Separator Architecture — Gasless Permit Sequence",
         "actors": [
           "Token Owner",
           "Gasless Relayer",
@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Owner signs off-chain EIP-712 permit for EIP-712 Typed Structured Data Ha",
+            "caption": "Owner signs off-chain EIP-multiple permit for EIP-multiple Typed.",
             "activeActor": "Token Owner",
             "messages": [
               {
@@ -33,20 +33,20 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Relayer broadcasts permit on-chain; contract recovers signer and increments nonce",
+            "caption": "Relayer broadcasts permit on-chain; contract recovers signer and.",
             "activeActor": "Gasless Relayer",
             "messages": [
               {
                 "from": "Gasless Relayer",
                 "to": "EIP-2612 Token Contract",
-                "label": "permit(owner, spender, val, dl, v, r, s) [ecrecover \u2713]",
+                "label": "permit(owner, spender, val, dl, v, r, s) [ecrecover ✓]",
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Token contract verifies deadline, consumes nonce and sets allowance",
+            "caption": "Token contract verifies deadline, consumes nonce and sets allowance.",
             "activeActor": "EIP-2612 Token Contract",
             "messages": [
               {
@@ -59,13 +59,13 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Vault transfers tokens atomically; relayer reimbursed with zero user ETH spent",
+            "caption": "Vault transfers tokens atomically; relayer reimbursed with zero user ETH.",
             "activeActor": "Protocol Spender Vault",
             "messages": [
               {
                 "from": "Protocol Spender Vault",
                 "to": "Token Owner",
-                "label": "GaslessOperationFinalized(ZeroUserEthSpent \u2713)",
+                "label": "GaslessOperationFinalized(ZeroUserEthSpent ✓)",
                 "tone": "ok"
               }
             ]
@@ -74,7 +74,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "EIP-712 Typed Structured Data Hashing & Domain Separator Architecture \u2014 Gasless Permit Sequence",
+        "title": "EIP-712 Typed Structured Data Hashing & Domain Separator Architecture — Gasless Permit Sequence",
         "actors": [
           "Token Owner",
           "Gasless Relayer",
@@ -103,7 +103,7 @@
               {
                 "from": "Gasless Relayer",
                 "to": "EIP-2612 Token Contract",
-                "label": "permit(owner, spender, val, dl, v, r, s) [ecrecover \u2713]",
+                "label": "permit(owner, spender, val, dl, v, r, s) [ecrecover ✓]",
                 "tone": "ok"
               }
             ]
@@ -129,7 +129,7 @@
               {
                 "from": "Protocol Spender Vault",
                 "to": "Token Owner",
-                "label": "GaslessOperationFinalized(ZeroUserEthSpent \u2713)",
+                "label": "GaslessOperationFinalized(ZeroUserEthSpent ✓)",
                 "tone": "ok"
               }
             ]
@@ -142,7 +142,7 @@
       "codeHash": "856b4305e74bd69c2e77f7993c54ced1e8f656f835a85b3242d37722dc861ce3",
       "spec": {
         "template": "sequence",
-        "title": "EIP-2612 Permit Standard & Cryptographic ecrecover Signature Validation \u2014 Gasless Permit Sequence",
+        "title": "EIP-2612 Permit Standard & Cryptographic ecrecover Signature Validation — Gasless Permit Sequence",
         "actors": [
           "Token Owner",
           "Gasless Relayer",
@@ -152,7 +152,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Owner signs off-chain EIP-712 permit for EIP-2612 Permit Standard & Crypt",
+            "caption": "Owner signs off-chain EIP-multiple permit for EIP-multiple Permit.",
             "activeActor": "Token Owner",
             "messages": [
               {
@@ -165,20 +165,20 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Relayer broadcasts permit on-chain; contract recovers signer and increments nonce",
+            "caption": "Relayer broadcasts permit on-chain; contract recovers signer and.",
             "activeActor": "Gasless Relayer",
             "messages": [
               {
                 "from": "Gasless Relayer",
                 "to": "EIP-2612 Token Contract",
-                "label": "permit(owner, spender, val, dl, v, r, s) [ecrecover \u2713]",
+                "label": "permit(owner, spender, val, dl, v, r, s) [ecrecover ✓]",
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Token contract verifies deadline, consumes nonce and sets allowance",
+            "caption": "Token contract verifies deadline, consumes nonce and sets allowance.",
             "activeActor": "EIP-2612 Token Contract",
             "messages": [
               {
@@ -191,13 +191,13 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Vault transfers tokens atomically; relayer reimbursed with zero user ETH spent",
+            "caption": "Vault transfers tokens atomically; relayer reimbursed with zero user ETH.",
             "activeActor": "Protocol Spender Vault",
             "messages": [
               {
                 "from": "Protocol Spender Vault",
                 "to": "Token Owner",
-                "label": "GaslessOperationFinalized(ZeroUserEthSpent \u2713)",
+                "label": "GaslessOperationFinalized(ZeroUserEthSpent ✓)",
                 "tone": "ok"
               }
             ]
@@ -206,7 +206,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "EIP-2612 Permit Standard & Cryptographic ecrecover Signature Validation \u2014 Gasless Permit Sequence",
+        "title": "EIP-2612 Permit Standard & Cryptographic ecrecover Signature Validation — Gasless Permit Sequence",
         "actors": [
           "Token Owner",
           "Gasless Relayer",
@@ -235,7 +235,7 @@
               {
                 "from": "Gasless Relayer",
                 "to": "EIP-2612 Token Contract",
-                "label": "permit(owner, spender, val, dl, v, r, s) [ecrecover \u2713]",
+                "label": "permit(owner, spender, val, dl, v, r, s) [ecrecover ✓]",
                 "tone": "ok"
               }
             ]
@@ -261,7 +261,7 @@
               {
                 "from": "Protocol Spender Vault",
                 "to": "Token Owner",
-                "label": "GaslessOperationFinalized(ZeroUserEthSpent \u2713)",
+                "label": "GaslessOperationFinalized(ZeroUserEthSpent ✓)",
                 "tone": "ok"
               }
             ]
@@ -274,7 +274,7 @@
       "codeHash": "4050334ab68aa4490bd2304e750caf1404bd7f3939a6b7b647f75a8bb099f1c6",
       "spec": {
         "template": "sequence",
-        "title": "Permit Front-Running, Griefing Attacks & Slippage Protections \u2014 Gasless Permit Sequence",
+        "title": "Permit Front-Running, Griefing Attacks & Slippage Protections — Gasless Permit Sequence",
         "actors": [
           "Token Owner",
           "Gasless Relayer",
@@ -284,7 +284,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Owner signs off-chain EIP-712 permit for Permit Front-Running, Griefing A",
+            "caption": "Owner signs off-chain EIP-multiple permit for Permit Front-Running.",
             "activeActor": "Token Owner",
             "messages": [
               {
@@ -297,20 +297,20 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Relayer broadcasts permit on-chain; contract recovers signer and increments nonce",
+            "caption": "Relayer broadcasts permit on-chain; contract recovers signer and.",
             "activeActor": "Gasless Relayer",
             "messages": [
               {
                 "from": "Gasless Relayer",
                 "to": "EIP-2612 Token Contract",
-                "label": "permit(owner, spender, val, dl, v, r, s) [ecrecover \u2713]",
+                "label": "permit(owner, spender, val, dl, v, r, s) [ecrecover ✓]",
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Token contract verifies deadline, consumes nonce and sets allowance",
+            "caption": "Token contract verifies deadline, consumes nonce and sets allowance.",
             "activeActor": "EIP-2612 Token Contract",
             "messages": [
               {
@@ -323,13 +323,13 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Vault transfers tokens atomically; relayer reimbursed with zero user ETH spent",
+            "caption": "Vault transfers tokens atomically; relayer reimbursed with zero user ETH.",
             "activeActor": "Protocol Spender Vault",
             "messages": [
               {
                 "from": "Protocol Spender Vault",
                 "to": "Token Owner",
-                "label": "GaslessOperationFinalized(ZeroUserEthSpent \u2713)",
+                "label": "GaslessOperationFinalized(ZeroUserEthSpent ✓)",
                 "tone": "ok"
               }
             ]
@@ -338,7 +338,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Permit Front-Running, Griefing Attacks & Slippage Protections \u2014 Gasless Permit Sequence",
+        "title": "Permit Front-Running, Griefing Attacks & Slippage Protections — Gasless Permit Sequence",
         "actors": [
           "Token Owner",
           "Gasless Relayer",
@@ -367,7 +367,7 @@
               {
                 "from": "Gasless Relayer",
                 "to": "EIP-2612 Token Contract",
-                "label": "permit(owner, spender, val, dl, v, r, s) [ecrecover \u2713]",
+                "label": "permit(owner, spender, val, dl, v, r, s) [ecrecover ✓]",
                 "tone": "ok"
               }
             ]
@@ -393,7 +393,7 @@
               {
                 "from": "Protocol Spender Vault",
                 "to": "Token Owner",
-                "label": "GaslessOperationFinalized(ZeroUserEthSpent \u2713)",
+                "label": "GaslessOperationFinalized(ZeroUserEthSpent ✓)",
                 "tone": "ok"
               }
             ]
@@ -406,7 +406,7 @@
       "codeHash": "039239dd88a01ed4e49256024ea4ef115ee7fd184f0c9c3ec0d810d23e5c73ee",
       "spec": {
         "template": "sequence",
-        "title": "Multi-Token Gasless Relayer & Batch Permit Spender Router \u2014 Gasless Permit Sequence",
+        "title": "Multi-Token Gasless Relayer & Batch Permit Spender Router — Gasless Permit Sequence",
         "actors": [
           "Token Owner",
           "Gasless Relayer",
@@ -416,7 +416,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Owner signs off-chain EIP-712 permit for Multi-Token Gasless Relayer & Ba",
+            "caption": "Owner signs off-chain EIP-multiple permit for Multi-Token Gasless Relayer.",
             "activeActor": "Token Owner",
             "messages": [
               {
@@ -429,20 +429,20 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Relayer broadcasts permit on-chain; contract recovers signer and increments nonce",
+            "caption": "Relayer broadcasts permit on-chain; contract recovers signer and.",
             "activeActor": "Gasless Relayer",
             "messages": [
               {
                 "from": "Gasless Relayer",
                 "to": "EIP-2612 Token Contract",
-                "label": "permit(owner, spender, val, dl, v, r, s) [ecrecover \u2713]",
+                "label": "permit(owner, spender, val, dl, v, r, s) [ecrecover ✓]",
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Token contract verifies deadline, consumes nonce and sets allowance",
+            "caption": "Token contract verifies deadline, consumes nonce and sets allowance.",
             "activeActor": "EIP-2612 Token Contract",
             "messages": [
               {
@@ -455,13 +455,13 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Vault transfers tokens atomically; relayer reimbursed with zero user ETH spent",
+            "caption": "Vault transfers tokens atomically; relayer reimbursed with zero user ETH.",
             "activeActor": "Protocol Spender Vault",
             "messages": [
               {
                 "from": "Protocol Spender Vault",
                 "to": "Token Owner",
-                "label": "GaslessOperationFinalized(ZeroUserEthSpent \u2713)",
+                "label": "GaslessOperationFinalized(ZeroUserEthSpent ✓)",
                 "tone": "ok"
               }
             ]
@@ -470,7 +470,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Multi-Token Gasless Relayer & Batch Permit Spender Router \u2014 Gasless Permit Sequence",
+        "title": "Multi-Token Gasless Relayer & Batch Permit Spender Router — Gasless Permit Sequence",
         "actors": [
           "Token Owner",
           "Gasless Relayer",
@@ -499,7 +499,7 @@
               {
                 "from": "Gasless Relayer",
                 "to": "EIP-2612 Token Contract",
-                "label": "permit(owner, spender, val, dl, v, r, s) [ecrecover \u2713]",
+                "label": "permit(owner, spender, val, dl, v, r, s) [ecrecover ✓]",
                 "tone": "ok"
               }
             ]
@@ -525,7 +525,7 @@
               {
                 "from": "Protocol Spender Vault",
                 "to": "Token Owner",
-                "label": "GaslessOperationFinalized(ZeroUserEthSpent \u2713)",
+                "label": "GaslessOperationFinalized(ZeroUserEthSpent ✓)",
                 "tone": "ok"
               }
             ]
@@ -538,7 +538,7 @@
       "codeHash": "4303eb6b1bc32582c8378a9dfdcc0ccf22c9b937ffccbd220374ed6085e56b64",
       "spec": {
         "template": "sequence",
-        "title": "Master Gasless Permit Architecture & Signature Certification Engine \u2014 Gasless Permit Sequence",
+        "title": "Master Gasless Permit Architecture & Signature Certification Engine — Gasless Permit Sequence",
         "actors": [
           "Token Owner",
           "Gasless Relayer",
@@ -548,7 +548,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Owner signs off-chain EIP-712 permit for Master Gasless Permit Architectu",
+            "caption": "Owner signs off-chain EIP-multiple permit for Master Gasless Permit.",
             "activeActor": "Token Owner",
             "messages": [
               {
@@ -561,20 +561,20 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Relayer broadcasts permit on-chain; contract recovers signer and increments nonce",
+            "caption": "Relayer broadcasts permit on-chain; contract recovers signer and.",
             "activeActor": "Gasless Relayer",
             "messages": [
               {
                 "from": "Gasless Relayer",
                 "to": "EIP-2612 Token Contract",
-                "label": "permit(owner, spender, val, dl, v, r, s) [ecrecover \u2713]",
+                "label": "permit(owner, spender, val, dl, v, r, s) [ecrecover ✓]",
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Token contract verifies deadline, consumes nonce and sets allowance",
+            "caption": "Token contract verifies deadline, consumes nonce and sets allowance.",
             "activeActor": "EIP-2612 Token Contract",
             "messages": [
               {
@@ -587,13 +587,13 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Vault transfers tokens atomically; relayer reimbursed with zero user ETH spent",
+            "caption": "Vault transfers tokens atomically; relayer reimbursed with zero user ETH.",
             "activeActor": "Protocol Spender Vault",
             "messages": [
               {
                 "from": "Protocol Spender Vault",
                 "to": "Token Owner",
-                "label": "GaslessOperationFinalized(ZeroUserEthSpent \u2713)",
+                "label": "GaslessOperationFinalized(ZeroUserEthSpent ✓)",
                 "tone": "ok"
               }
             ]
@@ -602,7 +602,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Master Gasless Permit Architecture & Signature Certification Engine \u2014 Gasless Permit Sequence",
+        "title": "Master Gasless Permit Architecture & Signature Certification Engine — Gasless Permit Sequence",
         "actors": [
           "Token Owner",
           "Gasless Relayer",
@@ -631,7 +631,7 @@
               {
                 "from": "Gasless Relayer",
                 "to": "EIP-2612 Token Contract",
-                "label": "permit(owner, spender, val, dl, v, r, s) [ecrecover \u2713]",
+                "label": "permit(owner, spender, val, dl, v, r, s) [ecrecover ✓]",
                 "tone": "ok"
               }
             ]
@@ -657,7 +657,7 @@
               {
                 "from": "Protocol Spender Vault",
                 "to": "Token Owner",
-                "label": "GaslessOperationFinalized(ZeroUserEthSpent \u2713)",
+                "label": "GaslessOperationFinalized(ZeroUserEthSpent ✓)",
                 "tone": "ok"
               }
             ]

@@ -50,7 +50,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Synchronize encrypted signing credentials and release keys for PulseMobile High-Frequency Tra.",
+            "caption": "Synchronize encrypted signing credentials and release keys for.",
             "activeId": "FastlaneMatchSignerNode",
             "tone": "primary",
             "nodes": [
@@ -66,7 +66,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Hydrate runtime-fingerprinted bundle with instant rollback protection.",
+            "caption": "Hydrate runtime-fingerprinted bundle with instant rollback protection.",
             "activeId": "EasUpdateManagerNode",
             "tone": "accent",
             "nodes": [
@@ -82,7 +82,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Ingest 1,000 ticks/sec via C++ JSI driving 120 FPS UI thread worklets.",
+            "caption": "Ingest one,multiple ticks/sec via C++ JSI driving multiple FPS UI thread.",
             "activeId": "PulseMobileTerminalNode",
             "tone": "data",
             "nodes": [
@@ -98,7 +98,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Certify Grand Capstone Viva and Principal Mobile Architect credential.",
+            "caption": "Certify Grand Capstone Viva and Principal Mobile Architect credential.",
             "activeId": "AppRoot",
             "tone": "ok",
             "nodes": [
@@ -266,7 +266,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Synchronize encrypted signing credentials and release keys for 1,000 Ticks/Sec 120 FPS High-F.",
+            "caption": "Synchronize encrypted signing credentials and release keys for.",
             "activeId": "FastlaneMatchSignerNode",
             "tone": "primary",
             "nodes": [
@@ -282,7 +282,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Hydrate runtime-fingerprinted bundle with instant rollback protection.",
+            "caption": "Hydrate runtime-fingerprinted bundle with instant rollback protection.",
             "activeId": "EasUpdateManagerNode",
             "tone": "accent",
             "nodes": [
@@ -298,7 +298,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Ingest 1,000 ticks/sec via C++ JSI driving 120 FPS UI thread worklets.",
+            "caption": "Ingest one,multiple ticks/sec via C++ JSI driving multiple FPS UI thread.",
             "activeId": "PulseMobileTerminalNode",
             "tone": "data",
             "nodes": [
@@ -314,7 +314,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Certify Grand Capstone Viva and Principal Mobile Architect credential.",
+            "caption": "Certify Grand Capstone Viva and Principal Mobile Architect credential.",
             "activeId": "AppRoot",
             "tone": "ok",
             "nodes": [
@@ -482,7 +482,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Synchronize encrypted signing credentials and release keys for Offline Airplane Mode Delta Sy.",
+            "caption": "Synchronize encrypted signing credentials and release keys for Offline.",
             "activeId": "FastlaneMatchSignerNode",
             "tone": "primary",
             "nodes": [
@@ -498,7 +498,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Hydrate runtime-fingerprinted bundle with instant rollback protection.",
+            "caption": "Hydrate runtime-fingerprinted bundle with instant rollback protection.",
             "activeId": "EasUpdateManagerNode",
             "tone": "accent",
             "nodes": [
@@ -514,7 +514,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Ingest 1,000 ticks/sec via C++ JSI driving 120 FPS UI thread worklets.",
+            "caption": "Ingest one,multiple ticks/sec via C++ JSI driving multiple FPS UI thread.",
             "activeId": "PulseMobileTerminalNode",
             "tone": "data",
             "nodes": [
@@ -530,7 +530,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Certify Grand Capstone Viva and Principal Mobile Architect credential.",
+            "caption": "Certify Grand Capstone Viva and Principal Mobile Architect credential.",
             "activeId": "AppRoot",
             "tone": "ok",
             "nodes": [
@@ -698,7 +698,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Synchronize encrypted signing credentials and release keys for Automated CI/CD, Signing & Sto.",
+            "caption": "Synchronize encrypted signing credentials and release keys for Automated.",
             "activeId": "FastlaneMatchSignerNode",
             "tone": "primary",
             "nodes": [
@@ -714,7 +714,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Hydrate runtime-fingerprinted bundle with instant rollback protection.",
+            "caption": "Hydrate runtime-fingerprinted bundle with instant rollback protection.",
             "activeId": "EasUpdateManagerNode",
             "tone": "accent",
             "nodes": [
@@ -730,7 +730,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Ingest 1,000 ticks/sec via C++ JSI driving 120 FPS UI thread worklets.",
+            "caption": "Ingest one,multiple ticks/sec via C++ JSI driving multiple FPS UI thread.",
             "activeId": "PulseMobileTerminalNode",
             "tone": "data",
             "nodes": [
@@ -746,7 +746,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Certify Grand Capstone Viva and Principal Mobile Architect credential.",
+            "caption": "Certify Grand Capstone Viva and Principal Mobile Architect credential.",
             "activeId": "AppRoot",
             "tone": "ok",
             "nodes": [
@@ -914,7 +914,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Synchronize encrypted signing credentials and release keys for Grand Capstone Viva: Sovereign.",
+            "caption": "Synchronize encrypted signing credentials and release keys for Grand.",
             "activeId": "FastlaneMatchSignerNode",
             "tone": "primary",
             "nodes": [
@@ -930,7 +930,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Hydrate runtime-fingerprinted bundle with instant rollback protection.",
+            "caption": "Hydrate runtime-fingerprinted bundle with instant rollback protection.",
             "activeId": "EasUpdateManagerNode",
             "tone": "accent",
             "nodes": [
@@ -946,7 +946,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Ingest 1,000 ticks/sec via C++ JSI driving 120 FPS UI thread worklets.",
+            "caption": "Ingest one,multiple ticks/sec via C++ JSI driving multiple FPS UI thread.",
             "activeId": "PulseMobileTerminalNode",
             "tone": "data",
             "nodes": [
@@ -962,7 +962,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Certify Grand Capstone Viva and Principal Mobile Architect credential.",
+            "caption": "Certify Grand Capstone Viva and Principal Mobile Architect credential.",
             "activeId": "AppRoot",
             "tone": "ok",
             "nodes": [

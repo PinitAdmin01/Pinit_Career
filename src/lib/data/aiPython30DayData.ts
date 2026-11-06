@@ -135,7 +135,7 @@ const DAYS: Day[] = [
       "test": "docs = [\n    {'id': '1', 'embedding': [1, 0], 'metadata': {'category': 'cloud'}},\n    {'id': '2', 'embedding': [0.9, 0.1], 'metadata': {'category': 'devops'}},\n    {'id': '3', 'embedding': [0.95, 0.05], 'metadata': {'category': 'cloud'}},\n    {'id': '4', 'embedding': [0, 1], 'metadata': {'category': 'cloud'}},\n]\nres = search_vector_index([1, 0], docs, 2, {'category': 'cloud'})\nassert [r['id'] for r in res] == ['1', '3'], f\"Expected ids ['1', '3'], got {res}\"\nassert res[0]['score'] == 1.0 and res[1]['score'] == 0.9986, 'Scores are cosine similarities rounded to 4'\nassert [r['id'] for r in search_vector_index([1, 0], docs, 3)] == ['1', '3', '2'], 'Without filters, search every doc'\nprint('All checks passed.')"
     },
     "a": {
-      "title": "Top-K Selector",
+      "title": "Top-K Selector (Vector Databases)",
       "desc": "Write `top_k(items, k)` that returns the k items with the highest 'score', best first. The input list may be in any order and must not be changed.",
       "starter": "def top_k(items, k):\n    pass",
       "hint": "sorted(items, key=lambda i: i['score'], reverse=True)[:k]",

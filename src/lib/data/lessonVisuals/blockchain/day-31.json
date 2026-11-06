@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state and pool parameters for Constant Product Formula Mecha...",
+            "caption": "Protocol monitors state and pool parameters for Constant Product Formula.",
             "activeActor": "Trader Wallet",
             "messages": [
               {
@@ -33,7 +33,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes mathematical transition and updates core invariant",
+            "caption": "Engine executes mathematical transition and updates core invariant.",
             "activeActor": "Uniswap v2 Router",
             "messages": [
               {
@@ -46,7 +46,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of fee accounting, tick boundary or solvency thresholds",
+            "caption": "Verification of fee accounting, tick boundary or solvency thresholds.",
             "activeActor": "Constant Product Pair",
             "messages": [
               {
@@ -59,7 +59,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; invariant preserved and state committed",
+            "caption": "Block settled atomically; invariant preserved and state committed.",
             "activeActor": "Uniswap v2 Router",
             "messages": [
               {
@@ -152,7 +152,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state and pool parameters for Impermanent Loss Derivation & ...",
+            "caption": "Protocol monitors state and pool parameters for Impermanent Loss.",
             "activeActor": "Trader Wallet",
             "messages": [
               {
@@ -165,7 +165,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes mathematical transition and updates core invariant",
+            "caption": "Engine executes mathematical transition and updates core invariant.",
             "activeActor": "Uniswap v2 Router",
             "messages": [
               {
@@ -178,7 +178,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of fee accounting, tick boundary or solvency thresholds",
+            "caption": "Verification of fee accounting, tick boundary or solvency thresholds.",
             "activeActor": "Constant Product Pair",
             "messages": [
               {
@@ -191,7 +191,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; invariant preserved and state committed",
+            "caption": "Block settled atomically; invariant preserved and state committed.",
             "activeActor": "Uniswap v2 Router",
             "messages": [
               {
@@ -284,7 +284,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state and pool parameters for Detective Lab: Arbitrage Mecha...",
+            "caption": "Protocol monitors state and pool parameters for Detective Lab: Arbitrage.",
             "activeActor": "Trader Wallet",
             "messages": [
               {
@@ -297,7 +297,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes mathematical transition and updates core invariant",
+            "caption": "Engine executes mathematical transition and updates core invariant.",
             "activeActor": "Uniswap v2 Router",
             "messages": [
               {
@@ -310,7 +310,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of fee accounting, tick boundary or solvency thresholds",
+            "caption": "Verification of fee accounting, tick boundary or solvency thresholds.",
             "activeActor": "Constant Product Pair",
             "messages": [
               {
@@ -323,7 +323,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; invariant preserved and state committed",
+            "caption": "Block settled atomically; invariant preserved and state committed.",
             "activeActor": "Uniswap v2 Router",
             "messages": [
               {
@@ -416,7 +416,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state and pool parameters for LP Token Minting & The First D...",
+            "caption": "Protocol monitors state and pool parameters for LP Token Minting & The.",
             "activeActor": "Trader Wallet",
             "messages": [
               {
@@ -429,7 +429,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes mathematical transition and updates core invariant",
+            "caption": "Engine executes mathematical transition and updates core invariant.",
             "activeActor": "Uniswap v2 Router",
             "messages": [
               {
@@ -442,7 +442,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of fee accounting, tick boundary or solvency thresholds",
+            "caption": "Verification of fee accounting, tick boundary or solvency thresholds.",
             "activeActor": "Constant Product Pair",
             "messages": [
               {
@@ -455,7 +455,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; invariant preserved and state committed",
+            "caption": "Block settled atomically; invariant preserved and state committed.",
             "activeActor": "Uniswap v2 Router",
             "messages": [
               {
@@ -548,7 +548,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state and pool parameters for Constant Product AMM Protocol ...",
+            "caption": "Protocol monitors state and pool parameters for Constant Product AMM.",
             "activeActor": "Trader Wallet",
             "messages": [
               {
@@ -561,7 +561,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes mathematical transition and updates core invariant",
+            "caption": "Engine executes mathematical transition and updates core invariant.",
             "activeActor": "Uniswap v2 Router",
             "messages": [
               {
@@ -574,7 +574,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of fee accounting, tick boundary or solvency thresholds",
+            "caption": "Verification of fee accounting, tick boundary or solvency thresholds.",
             "activeActor": "Constant Product Pair",
             "messages": [
               {
@@ -587,7 +587,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; invariant preserved and state committed",
+            "caption": "Block settled atomically; invariant preserved and state committed.",
             "activeActor": "Uniswap v2 Router",
             "messages": [
               {

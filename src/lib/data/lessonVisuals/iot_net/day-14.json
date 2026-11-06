@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register CONN_IND_REG for Connection Handshake, CONNECT_IN.",
+            "caption": "Arm hardware register CONN_IND_REG for Connection Handshake, CONNECT_IN.",
             "registerName": "CONN_IND_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into CONN_IND_REG and assert validation flag.",
+            "caption": "Latch sampling bits into CONN_IND_REG and assert validation flag.",
             "registerName": "CONN_IND_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in CONN_IND_REG with pipeline status.",
+            "caption": "Execute hardware transformation in CONN_IND_REG with pipeline status.",
             "registerName": "CONN_IND_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register CONN_IND_REG upon verified hardware completion.",
+            "caption": "Lock register CONN_IND_REG upon verified hardware completion.",
             "registerName": "CONN_IND_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -266,7 +266,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register PARAM_TRIAD_REG for The Connection Parameter Triad: .",
+            "caption": "Arm hardware register PARAM_TRIAD_REG for The Connection Parameter Triad: .",
             "registerName": "PARAM_TRIAD_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -326,7 +326,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into PARAM_TRIAD_REG and assert validation flag.",
+            "caption": "Latch sampling bits into PARAM_TRIAD_REG and assert validation flag.",
             "registerName": "PARAM_TRIAD_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -387,7 +387,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in PARAM_TRIAD_REG with pipeline status.",
+            "caption": "Execute hardware transformation in PARAM_TRIAD_REG with pipeline status.",
             "registerName": "PARAM_TRIAD_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -448,7 +448,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register PARAM_TRIAD_REG upon verified hardware completion.",
+            "caption": "Lock register PARAM_TRIAD_REG upon verified hardware completion.",
             "registerName": "PARAM_TRIAD_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -518,7 +518,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register SUPER_INVAR_REG for The Supervision Timeout Invarian.",
+            "caption": "Arm hardware register SUPER_INVAR_REG for The Supervision Timeout Invarian.",
             "registerName": "SUPER_INVAR_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -578,7 +578,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into SUPER_INVAR_REG and assert validation flag.",
+            "caption": "Latch sampling bits into SUPER_INVAR_REG and assert validation flag.",
             "registerName": "SUPER_INVAR_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -639,7 +639,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in SUPER_INVAR_REG with pipeline status.",
+            "caption": "Execute hardware transformation in SUPER_INVAR_REG with pipeline status.",
             "registerName": "SUPER_INVAR_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -700,7 +700,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register SUPER_INVAR_REG upon verified hardware completion.",
+            "caption": "Lock register SUPER_INVAR_REG upon verified hardware completion.",
             "registerName": "SUPER_INVAR_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -770,7 +770,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register CSA2_HOP_REG for Adaptive Frequency Hopping (AFH).",
+            "caption": "Arm hardware register CSAtwo_HOP_REG for Adaptive Frequency Hopping (AFH).",
             "registerName": "CSA2_HOP_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -830,7 +830,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into CSA2_HOP_REG and assert validation flag.",
+            "caption": "Latch sampling bits into CSAtwo_HOP_REG and assert validation flag.",
             "registerName": "CSA2_HOP_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -891,7 +891,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in CSA2_HOP_REG with pipeline status.",
+            "caption": "Execute hardware transformation in CSAtwo_HOP_REG with pipeline status.",
             "registerName": "CSA2_HOP_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -952,7 +952,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register CSA2_HOP_REG upon verified hardware completion.",
+            "caption": "Lock register CSAtwo_HOP_REG upon verified hardware completion.",
             "registerName": "CSA2_HOP_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1022,7 +1022,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register LINK_UPDATE_REG for Full BLE Link Parameter Negotiat.",
+            "caption": "Arm hardware register LINK_UPDATE_REG for Full BLE Link Parameter Negotiat.",
             "registerName": "LINK_UPDATE_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1082,7 +1082,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into LINK_UPDATE_REG and assert validation flag.",
+            "caption": "Latch sampling bits into LINK_UPDATE_REG and assert validation flag.",
             "registerName": "LINK_UPDATE_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -1143,7 +1143,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in LINK_UPDATE_REG with pipeline status.",
+            "caption": "Execute hardware transformation in LINK_UPDATE_REG with pipeline status.",
             "registerName": "LINK_UPDATE_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -1204,7 +1204,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register LINK_UPDATE_REG upon verified hardware completion.",
+            "caption": "Lock register LINK_UPDATE_REG upon verified hardware completion.",
             "registerName": "LINK_UPDATE_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

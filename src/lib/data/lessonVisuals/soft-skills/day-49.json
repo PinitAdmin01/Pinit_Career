@@ -40,7 +40,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Financial & Context Grounding): Initialize The Epistemology of Bad News Delivery in High...",
+            "caption": "Stage one (Financial & Context Grounding): Initialize The Epistemology of.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Leverage & Dial Optimization): Model state transitions and compensation matrices.",
+            "caption": "Stage two (Leverage & Dial Optimization): Model state transitions and.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active Flow",
@@ -108,7 +108,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Collaborative Defense & De-escalation): Align stakeholder incentives and bridge gap.",
+            "caption": "Stage three (Collaborative Defense & De-escalation): Align stakeholder.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "High Signal",
@@ -142,7 +142,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Executive Ratification): Ratify enterprise technical sovereignty.",
+            "caption": "Stage four (Executive Ratification): Ratify enterprise technical.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "Principal Strategist ✓",
@@ -380,7 +380,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Financial & Context Grounding): Initialize The Bad News Escalation Briefing Blueprint: C...",
+            "caption": "Stage one (Financial & Context Grounding): Initialize The Bad News.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -414,7 +414,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Leverage & Dial Optimization): Model state transitions and compensation matrices.",
+            "caption": "Stage two (Leverage & Dial Optimization): Model state transitions and.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active Flow",
@@ -448,7 +448,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Collaborative Defense & De-escalation): Align stakeholder incentives and bridge gap.",
+            "caption": "Stage three (Collaborative Defense & De-escalation): Align stakeholder.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "High Signal",
@@ -482,7 +482,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Executive Ratification): Ratify enterprise technical sovereignty.",
+            "caption": "Stage four (Executive Ratification): Ratify enterprise technical.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "Principal Strategist ✓",
@@ -720,7 +720,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Financial & Context Grounding): Initialize Project Health Risk Telemetry Sentinel CLI: A...",
+            "caption": "Stage one (Financial & Context Grounding): Initialize Project Health Risk.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -754,7 +754,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Leverage & Dial Optimization): Model state transitions and compensation matrices.",
+            "caption": "Stage two (Leverage & Dial Optimization): Model state transitions and.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active Flow",
@@ -788,7 +788,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Collaborative Defense & De-escalation): Align stakeholder incentives and bridge gap.",
+            "caption": "Stage three (Collaborative Defense & De-escalation): Align stakeholder.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "High Signal",
@@ -822,7 +822,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Executive Ratification): Ratify enterprise technical sovereignty.",
+            "caption": "Stage four (Executive Ratification): Ratify enterprise technical.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "Principal Strategist ✓",
@@ -1060,7 +1060,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Financial & Context Grounding): Initialize Hostile Executive Bad News Delivery Lab: 10-M...",
+            "caption": "Stage one (Financial & Context Grounding): Initialize Hostile Executive.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -1094,7 +1094,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Leverage & Dial Optimization): Model state transitions and compensation matrices.",
+            "caption": "Stage two (Leverage & Dial Optimization): Model state transitions and.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active Flow",
@@ -1128,7 +1128,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Collaborative Defense & De-escalation): Align stakeholder incentives and bridge gap.",
+            "caption": "Stage three (Collaborative Defense & De-escalation): Align stakeholder.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "High Signal",
@@ -1162,7 +1162,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Executive Ratification): Ratify enterprise technical sovereignty.",
+            "caption": "Stage four (Executive Ratification): Ratify enterprise technical.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "Principal Strategist ✓",
@@ -1400,7 +1400,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Financial & Context Grounding): Initialize Master Bad News Delivery & Crisis Governance ...",
+            "caption": "Stage one (Financial & Context Grounding): Initialize Master Bad News.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -1434,7 +1434,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Leverage & Dial Optimization): Model state transitions and compensation matrices.",
+            "caption": "Stage two (Leverage & Dial Optimization): Model state transitions and.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active Flow",
@@ -1468,7 +1468,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Collaborative Defense & De-escalation): Align stakeholder incentives and bridge gap.",
+            "caption": "Stage three (Collaborative Defense & De-escalation): Align stakeholder.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "High Signal",
@@ -1502,7 +1502,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Executive Ratification): Ratify enterprise technical sovereignty.",
+            "caption": "Stage four (Executive Ratification): Ratify enterprise technical.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "Principal Strategist ✓",

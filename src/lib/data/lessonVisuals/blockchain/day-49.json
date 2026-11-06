@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingestion and initialization of L2 state payload for The Calldata Cost Bottleneck &...",
+            "caption": "Ingestion and initialization of level-two state payload for The Calldata.",
             "activeActor": "Rollup Sequencer",
             "messages": [
               {
@@ -33,7 +33,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine verifies data availability, state transition, and routing",
+            "caption": "Engine verifies data availability, state transition, and routing.",
             "activeActor": "Consensus Node Blob Pool",
             "messages": [
               {
@@ -46,7 +46,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of mathematical validity, fraud challenge, or KZG opening",
+            "caption": "Verification of mathematical validity, fraud challenge, or KZG opening.",
             "activeActor": "Point Evaluation Precompile (0x0a)",
             "messages": [
               {
@@ -59,7 +59,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Canonical state settled on Layer 1; invariant verified and committed",
+            "caption": "Canonical state settled on Layer one; invariant verified and committed.",
             "activeActor": "Consensus Node Blob Pool",
             "messages": [
               {
@@ -152,7 +152,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingestion and initialization of L2 state payload for Blob-Carrying Transactions (12...",
+            "caption": "Ingestion and initialization of level-two state payload for Blob-Carrying.",
             "activeActor": "Rollup Sequencer",
             "messages": [
               {
@@ -165,7 +165,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine verifies data availability, state transition, and routing",
+            "caption": "Engine verifies data availability, state transition, and routing.",
             "activeActor": "Consensus Node Blob Pool",
             "messages": [
               {
@@ -178,7 +178,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of mathematical validity, fraud challenge, or KZG opening",
+            "caption": "Verification of mathematical validity, fraud challenge, or KZG opening.",
             "activeActor": "Point Evaluation Precompile (0x0a)",
             "messages": [
               {
@@ -191,7 +191,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Canonical state settled on Layer 1; invariant verified and committed",
+            "caption": "Canonical state settled on Layer one; invariant verified and committed.",
             "activeActor": "Consensus Node Blob Pool",
             "messages": [
               {
@@ -284,7 +284,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingestion and initialization of L2 state payload for Detective Lab: KZG Polynomial ...",
+            "caption": "Ingestion and initialization of level-two state payload for Detective.",
             "activeActor": "Rollup Sequencer",
             "messages": [
               {
@@ -297,7 +297,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine verifies data availability, state transition, and routing",
+            "caption": "Engine verifies data availability, state transition, and routing.",
             "activeActor": "Consensus Node Blob Pool",
             "messages": [
               {
@@ -310,7 +310,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of mathematical validity, fraud challenge, or KZG opening",
+            "caption": "Verification of mathematical validity, fraud challenge, or KZG opening.",
             "activeActor": "Point Evaluation Precompile (0x0a)",
             "messages": [
               {
@@ -323,7 +323,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Canonical state settled on Layer 1; invariant verified and committed",
+            "caption": "Canonical state settled on Layer one; invariant verified and committed.",
             "activeActor": "Consensus Node Blob Pool",
             "messages": [
               {
@@ -416,7 +416,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingestion and initialization of L2 state payload for Independent Multi-Dimensional ...",
+            "caption": "Ingestion and initialization of level-two state payload for Independent.",
             "activeActor": "Rollup Sequencer",
             "messages": [
               {
@@ -429,7 +429,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine verifies data availability, state transition, and routing",
+            "caption": "Engine verifies data availability, state transition, and routing.",
             "activeActor": "Consensus Node Blob Pool",
             "messages": [
               {
@@ -442,7 +442,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of mathematical validity, fraud challenge, or KZG opening",
+            "caption": "Verification of mathematical validity, fraud challenge, or KZG opening.",
             "activeActor": "Point Evaluation Precompile (0x0a)",
             "messages": [
               {
@@ -455,7 +455,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Canonical state settled on Layer 1; invariant verified and committed",
+            "caption": "Canonical state settled on Layer one; invariant verified and committed.",
             "activeActor": "Consensus Node Blob Pool",
             "messages": [
               {
@@ -548,7 +548,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingestion and initialization of L2 state payload for Production Blob Ingestion Pipe...",
+            "caption": "Ingestion and initialization of level-two state payload for Production.",
             "activeActor": "Rollup Sequencer",
             "messages": [
               {
@@ -561,7 +561,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine verifies data availability, state transition, and routing",
+            "caption": "Engine verifies data availability, state transition, and routing.",
             "activeActor": "Consensus Node Blob Pool",
             "messages": [
               {
@@ -574,7 +574,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of mathematical validity, fraud challenge, or KZG opening",
+            "caption": "Verification of mathematical validity, fraud challenge, or KZG opening.",
             "activeActor": "Point Evaluation Precompile (0x0a)",
             "messages": [
               {
@@ -587,7 +587,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Canonical state settled on Layer 1; invariant verified and committed",
+            "caption": "Canonical state settled on Layer one; invariant verified and committed.",
             "activeActor": "Consensus Node Blob Pool",
             "messages": [
               {

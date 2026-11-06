@@ -10,11 +10,11 @@
       "codeHash": "a36fd57757af86c73b08e0beb2c11780b317e4ae48c0c7f51d4b626a4f07377d",
       "spec": {
         "template": "register-bits",
-        "title": "Day 16 Part 1 \u2014 CoAP 4-Byte Binary Header Bitf \u2014 Register Architecture",
+        "title": "Day 16 Part 1 — CoAP 4-Byte Binary Header Bitf — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register COAP_VER_TYPE_REG for CoAP 4-Byte Binary Header Bitfie.",
+            "caption": "Arm hardware register COAP_VER_TYPE_REG for CoAP four-Byte Binary Header.",
             "registerName": "COAP_VER_TYPE_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into COAP_VER_TYPE_REG and assert validation flag.",
+            "caption": "Latch sampling bits into COAP_VER_TYPE_REG and assert validation flag.",
             "registerName": "COAP_VER_TYPE_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in COAP_VER_TYPE_REG with pipeline status.",
+            "caption": "Execute hardware transformation in COAP_VER_TYPE_REG with pipeline status.",
             "registerName": "COAP_VER_TYPE_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register COAP_VER_TYPE_REG upon verified hardware completion.",
+            "caption": "Lock register COAP_VER_TYPE_REG upon verified hardware completion.",
             "registerName": "COAP_VER_TYPE_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -262,11 +262,11 @@
       "codeHash": "cdc8d37d675a19aea5aa99f0d15a3b897967c3d383f1a96b2bf76b2af538cef5",
       "spec": {
         "template": "register-bits",
-        "title": "Day 16 Part 2 \u2014 CoAP Request/Response Methods, \u2014 Register Architecture",
+        "title": "Day 16 Part 2 — CoAP Request/Response Methods, — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register COAP_CODE_TKL_REG for CoAP Request/Response Methods, U.",
+            "caption": "Arm hardware register COAP_CODE_TKL_REG for CoAP Request/Response.",
             "registerName": "COAP_CODE_TKL_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -326,7 +326,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into COAP_CODE_TKL_REG and assert validation flag.",
+            "caption": "Latch sampling bits into COAP_CODE_TKL_REG and assert validation flag.",
             "registerName": "COAP_CODE_TKL_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -387,7 +387,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in COAP_CODE_TKL_REG with pipeline status.",
+            "caption": "Execute hardware transformation in COAP_CODE_TKL_REG with pipeline status.",
             "registerName": "COAP_CODE_TKL_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -448,7 +448,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register COAP_CODE_TKL_REG upon verified hardware completion.",
+            "caption": "Lock register COAP_CODE_TKL_REG upon verified hardware completion.",
             "registerName": "COAP_CODE_TKL_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -514,11 +514,11 @@
       "codeHash": "f621b5cc53570a24cdc702c2a979eff831b6be942d55577f98ba7bc3b4f152d6",
       "spec": {
         "template": "register-bits",
-        "title": "Day 16 Part 3 \u2014 Asynchronous Subscriptions wit \u2014 Register Architecture",
+        "title": "Day 16 Part 3 — Asynchronous Subscriptions wit — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register COAP_OPT_DELTA_REG for Asynchronous Subscriptions with .",
+            "caption": "Arm hardware register COAP_OPT_DELTA_REG for Asynchronous Subscriptions.",
             "registerName": "COAP_OPT_DELTA_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -578,7 +578,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into COAP_OPT_DELTA_REG and assert validation flag.",
+            "caption": "Latch sampling bits into COAP_OPT_DELTA_REG and assert validation flag.",
             "registerName": "COAP_OPT_DELTA_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -639,7 +639,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in COAP_OPT_DELTA_REG with pipeline status.",
+            "caption": "Execute hardware transformation in COAP_OPT_DELTA_REG with pipeline status.",
             "registerName": "COAP_OPT_DELTA_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -700,7 +700,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register COAP_OPT_DELTA_REG upon verified hardware completion.",
+            "caption": "Lock register COAP_OPT_DELTA_REG upon verified hardware completion.",
             "registerName": "COAP_OPT_DELTA_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -766,11 +766,11 @@
       "codeHash": "d499adc908f17f32e37ecca815f894380a1fa53a5f50d0fb443ea387fd091e9c",
       "spec": {
         "template": "register-bits",
-        "title": "Day 16 Part 4 \u2014 Large Payload Segmentation wit \u2014 Register Architecture",
+        "title": "Day 16 Part 4 — Large Payload Segmentation wit — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register COAP_BLOCK2_REG for Large Payload Segmentation with .",
+            "caption": "Arm hardware register COAP_BLOCKtwo_REG for Large Payload Segmentation.",
             "registerName": "COAP_BLOCK2_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -830,7 +830,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into COAP_BLOCK2_REG and assert validation flag.",
+            "caption": "Latch sampling bits into COAP_BLOCKtwo_REG and assert validation flag.",
             "registerName": "COAP_BLOCK2_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -891,7 +891,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in COAP_BLOCK2_REG with pipeline status.",
+            "caption": "Execute hardware transformation in COAP_BLOCKtwo_REG with pipeline status.",
             "registerName": "COAP_BLOCK2_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -952,7 +952,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register COAP_BLOCK2_REG upon verified hardware completion.",
+            "caption": "Lock register COAP_BLOCKtwo_REG upon verified hardware completion.",
             "registerName": "COAP_BLOCK2_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1018,11 +1018,11 @@
       "codeHash": "a82c99bb101e6db97b299aeec5bb79a1e82bf4ee4af3635454218865f192f2af",
       "spec": {
         "template": "register-bits",
-        "title": "Day 16 Part 5 \u2014 Complete CoAP UDP REST Engine  \u2014 Register Architecture",
+        "title": "Day 16 Part 5 — Complete CoAP UDP REST Engine  — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register COAP_REST_ENG_REG for Complete CoAP UDP REST Engine Im.",
+            "caption": "Arm hardware register COAP_REST_ENG_REG for Complete CoAP UDP REST Engine.",
             "registerName": "COAP_REST_ENG_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1082,7 +1082,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into COAP_REST_ENG_REG and assert validation flag.",
+            "caption": "Latch sampling bits into COAP_REST_ENG_REG and assert validation flag.",
             "registerName": "COAP_REST_ENG_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -1143,7 +1143,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in COAP_REST_ENG_REG with pipeline status.",
+            "caption": "Execute hardware transformation in COAP_REST_ENG_REG with pipeline status.",
             "registerName": "COAP_REST_ENG_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -1204,7 +1204,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register COAP_REST_ENG_REG upon verified hardware completion.",
+            "caption": "Lock register COAP_REST_ENG_REG upon verified hardware completion.",
             "registerName": "COAP_REST_ENG_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

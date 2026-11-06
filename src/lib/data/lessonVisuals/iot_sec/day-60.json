@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register APEX_ROUTING_REG for ApexShield Architecture & Full-S.",
+            "caption": "Arm hardware register APEX_ROUTING_REG for ApexShield Architecture &.",
             "registerName": "APEX_ROUTING_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into APEX_ROUTING_REG and assert validation flag.",
+            "caption": "Latch sampling bits into APEX_ROUTING_REG and assert validation flag.",
             "registerName": "APEX_ROUTING_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in APEX_ROUTING_REG with pipeline status.",
+            "caption": "Execute hardware transformation in APEX_ROUTING_REG with pipeline status.",
             "registerName": "APEX_ROUTING_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register APEX_ROUTING_REG upon verified hardware completion.",
+            "caption": "Lock register APEX_ROUTING_REG upon verified hardware completion.",
             "registerName": "APEX_ROUTING_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -266,7 +266,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register PUF_SOVEREIGN_REG for Multilayer Hardware Root of Trus.",
+            "caption": "Arm hardware register PUF_SOVEREIGN_REG for Multilayer Hardware Root of.",
             "registerName": "PUF_SOVEREIGN_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -326,7 +326,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into PUF_SOVEREIGN_REG and assert validation flag.",
+            "caption": "Latch sampling bits into PUF_SOVEREIGN_REG and assert validation flag.",
             "registerName": "PUF_SOVEREIGN_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -387,7 +387,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in PUF_SOVEREIGN_REG with pipeline status.",
+            "caption": "Execute hardware transformation in PUF_SOVEREIGN_REG with pipeline status.",
             "registerName": "PUF_SOVEREIGN_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -448,7 +448,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register PUF_SOVEREIGN_REG upon verified hardware completion.",
+            "caption": "Lock register PUF_SOVEREIGN_REG upon verified hardware completion.",
             "registerName": "PUF_SOVEREIGN_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -518,7 +518,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register PQC_HYBRID_REG for Zero-Trust Industrial Mesh Netwo.",
+            "caption": "Arm hardware register PQC_HYBRID_REG for Zero-Trust Industrial Mesh Netwo.",
             "registerName": "PQC_HYBRID_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -578,7 +578,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into PQC_HYBRID_REG and assert validation flag.",
+            "caption": "Latch sampling bits into PQC_HYBRID_REG and assert validation flag.",
             "registerName": "PQC_HYBRID_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -639,7 +639,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in PQC_HYBRID_REG with pipeline status.",
+            "caption": "Execute hardware transformation in PQC_HYBRID_REG with pipeline status.",
             "registerName": "PQC_HYBRID_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -700,7 +700,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register PQC_HYBRID_REG upon verified hardware completion.",
+            "caption": "Lock register PQC_HYBRID_REG upon verified hardware completion.",
             "registerName": "PQC_HYBRID_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -770,7 +770,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register ZERO_TRUST_REG for Real-Time Cyber-Physical Defense.",
+            "caption": "Arm hardware register ZERO_TRUST_REG for Real-Time Cyber-Physical Defense.",
             "registerName": "ZERO_TRUST_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -830,7 +830,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into ZERO_TRUST_REG and assert validation flag.",
+            "caption": "Latch sampling bits into ZERO_TRUST_REG and assert validation flag.",
             "registerName": "ZERO_TRUST_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -891,7 +891,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in ZERO_TRUST_REG with pipeline status.",
+            "caption": "Execute hardware transformation in ZERO_TRUST_REG with pipeline status.",
             "registerName": "ZERO_TRUST_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -952,7 +952,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register ZERO_TRUST_REG upon verified hardware completion.",
+            "caption": "Lock register ZERO_TRUST_REG upon verified hardware completion.",
             "registerName": "ZERO_TRUST_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1022,7 +1022,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register GRAND_CAPSTONE_REG for Milestone 12 Grand Enterprise Ca.",
+            "caption": "Arm hardware register GRAND_CAPSTONE_REG for Milestone twelve Grand.",
             "registerName": "GRAND_CAPSTONE_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1082,7 +1082,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into GRAND_CAPSTONE_REG and assert validation flag.",
+            "caption": "Latch sampling bits into GRAND_CAPSTONE_REG and assert validation flag.",
             "registerName": "GRAND_CAPSTONE_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -1143,7 +1143,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in GRAND_CAPSTONE_REG with pipeline status.",
+            "caption": "Execute hardware transformation in GRAND_CAPSTONE_REG with pipeline status.",
             "registerName": "GRAND_CAPSTONE_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -1204,7 +1204,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register GRAND_CAPSTONE_REG upon verified hardware completion.",
+            "caption": "Lock register GRAND_CAPSTONE_REG upon verified hardware completion.",
             "registerName": "GRAND_CAPSTONE_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

@@ -41,25 +41,25 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1: Initialize The Strategic Role of the Transnationa...",
+            "caption": "Stage one: Initialize The Strategic Role of the Transnationa...",
             "activeStageId": "s1",
             "statusBadge": "INGRESS"
           },
           {
             "at": "say1",
-            "caption": "Stage 2: Evaluate statutory corporate parameters and legal tests.",
+            "caption": "Stage two: Evaluate statutory corporate parameters and legal tests.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS"
           },
           {
             "at": "example",
-            "caption": "Stage 3: Apply Board governance oversight and compliance controls.",
+            "caption": "Stage three: Apply Board governance oversight and compliance controls.",
             "activeStageId": "s3",
             "statusBadge": "ACTIVE"
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4: Execute deterministic Python engine and verify compliance.",
+            "caption": "Stage four: Execute deterministic Python engine and verify compliance.",
             "activeStageId": "s4",
             "statusBadge": "DONE"
           }
@@ -102,25 +102,25 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1: Initialize Neutralizing the Hostile Raid: SEBI SA...",
+            "caption": "Stage one: Initialize Neutralizing the Hostile Raid: SEBI SA...",
             "activeStageId": "s1",
             "statusBadge": "INGRESS"
           },
           {
             "at": "say1",
-            "caption": "Stage 2: Evaluate statutory corporate parameters and legal tests.",
+            "caption": "Stage two: Evaluate statutory corporate parameters and legal tests.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS"
           },
           {
             "at": "example",
-            "caption": "Stage 3: Apply Board governance oversight and compliance controls.",
+            "caption": "Stage three: Apply Board governance oversight and compliance controls.",
             "activeStageId": "s3",
             "statusBadge": "ACTIVE"
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4: Execute deterministic Python engine and verify compliance.",
+            "caption": "Stage four: Execute deterministic Python engine and verify compliance.",
             "activeStageId": "s4",
             "statusBadge": "DONE"
           }
@@ -163,25 +163,25 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1: Initialize Deploying the Sanctions Shield: OFAC S...",
+            "caption": "Stage one: Initialize Deploying the Sanctions Shield: OFAC S...",
             "activeStageId": "s1",
             "statusBadge": "INGRESS"
           },
           {
             "at": "say1",
-            "caption": "Stage 2: Evaluate statutory corporate parameters and legal tests.",
+            "caption": "Stage two: Evaluate statutory corporate parameters and legal tests.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS"
           },
           {
             "at": "example",
-            "caption": "Stage 3: Apply Board governance oversight and compliance controls.",
+            "caption": "Stage three: Apply Board governance oversight and compliance controls.",
             "activeStageId": "s3",
             "statusBadge": "ACTIVE"
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4: Execute deterministic Python engine and verify compliance.",
+            "caption": "Stage four: Execute deterministic Python engine and verify compliance.",
             "activeStageId": "s4",
             "statusBadge": "DONE"
           }
@@ -224,25 +224,25 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1: Initialize Cross-Border Restructuring & Enforcing...",
+            "caption": "Stage one: Initialize Cross-Border Restructuring & Enforcing...",
             "activeStageId": "s1",
             "statusBadge": "INGRESS"
           },
           {
             "at": "say1",
-            "caption": "Stage 2: Evaluate statutory corporate parameters and legal tests.",
+            "caption": "Stage two: Evaluate statutory corporate parameters and legal tests.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS"
           },
           {
             "at": "example",
-            "caption": "Stage 3: Apply Board governance oversight and compliance controls.",
+            "caption": "Stage three: Apply Board governance oversight and compliance controls.",
             "activeStageId": "s3",
             "statusBadge": "ACTIVE"
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4: Execute deterministic Python engine and verify compliance.",
+            "caption": "Stage four: Execute deterministic Python engine and verify compliance.",
             "activeStageId": "s4",
             "statusBadge": "DONE"
           }
@@ -285,25 +285,25 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1: Initialize The Grand Master Boardroom Crisis Simu...",
+            "caption": "Stage one: Initialize The Grand Master Boardroom Crisis Simu...",
             "activeStageId": "s1",
             "statusBadge": "INGRESS"
           },
           {
             "at": "say1",
-            "caption": "Stage 2: Evaluate statutory corporate parameters and legal tests.",
+            "caption": "Stage two: Evaluate statutory corporate parameters and legal tests.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS"
           },
           {
             "at": "example",
-            "caption": "Stage 3: Apply Board governance oversight and compliance controls.",
+            "caption": "Stage three: Apply Board governance oversight and compliance controls.",
             "activeStageId": "s3",
             "statusBadge": "ACTIVE"
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4: Execute deterministic Python engine and verify compliance.",
+            "caption": "Stage four: Execute deterministic Python engine and verify compliance.",
             "activeStageId": "s4",
             "statusBadge": "DONE"
           }

@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Optical Frame): Initialize deterministic state for MoldUDP64 Protocol Specification & M...",
+            "caption": "State one (Optical Frame): Initialize deterministic state for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -99,7 +99,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Optical Frame): Initialize deterministic state for NASDAQ ITCH 5.0 Binary Direct Feed P...",
+            "caption": "State one (Optical Frame): Initialize deterministic state for NASDAQ ITCH.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -166,7 +166,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Optical Frame): Initialize deterministic state for Gap Detection, Missing Sequence Ring...",
+            "caption": "State one (Optical Frame): Initialize deterministic state for Gap.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -233,7 +233,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Optical Frame): Initialize deterministic state for NASDAQ OUCH 5.0 Binary Order Entry P...",
+            "caption": "State one (Optical Frame): Initialize deterministic state for NASDAQ OUCH.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -300,7 +300,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Optical Frame): Initialize deterministic state for High-Throughput Binary Feed Handler ...",
+            "caption": "State one (Optical Frame): Initialize deterministic state for.",
             "currentState": "st1",
             "tone": "data"
           },

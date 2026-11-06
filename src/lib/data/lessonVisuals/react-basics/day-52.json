@@ -198,7 +198,7 @@
           },
           {
             "at": "say2",
-            "caption": "Excessive requests are blocked immediately with HTTP 429 Too Many Requests.",
+            "caption": "Excessive requests are blocked immediately with HTTP rate-limited Too.",
             "values": {
               "incoming_req": {
                 "text": "\"Blocked Bot\""
@@ -336,7 +336,7 @@
           },
           {
             "at": "say2",
-            "caption": "Web Crypto API verifies HMAC SHA-256 signature in under 0.5 milliseconds.",
+            "caption": "Web Crypto API verifies HMAC SHA digest signature in under zero.five.",
             "values": {
               "raw_jwt": {
                 "text": "\"Token Valid\""
@@ -506,7 +506,7 @@
           },
           {
             "at": "say3",
-            "caption": "When the bucket empties, edge immediately returns HTTP 429 with Retry-After header.",
+            "caption": "When the bucket empties, edge immediately returns HTTP rate-limited with.",
             "values": {
               "normal_flow": {
                 "status": "INACTIVE"
@@ -608,7 +608,7 @@
           },
           {
             "at": "say2",
-            "caption": "Web Crypto verification executes in 0.8ms without network round-trips.",
+            "caption": "Web Crypto verification executes in zero.eightms without network.",
             "values": {
               "left": {
                 "items": [

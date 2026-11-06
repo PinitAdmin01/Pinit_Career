@@ -21,7 +21,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize RFC 4944 fragmentation engine: Evaluate 250-byte IPv6 datagram against 102-byte IEEE 802.15.4 MTU.",
+            "caption": "Initialize RFC multiple fragmentation engine: Evaluate multiple-byte.",
             "registerName": "LOWPAN_FRAG_CTRL_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -89,7 +89,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Construct FRAG1 header: Encode 11-bit datagram size and allocate unique 16-bit transaction tag.",
+            "caption": "Construct FRAGone header: Encode eleven-bit datagram size and allocate.",
             "registerName": "LOWPAN_FRAG_CTRL_REG",
             "bitWidth": 8,
             "hexValue": "0xD9",
@@ -157,7 +157,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Construct FRAGN headers: Encode 8-byte scaled offset (offset // 8) for subsequent 96-byte payload slices.",
+            "caption": "Construct FRAGN headers: Encode eight-byte scaled offset (offset //.",
             "registerName": "LOWPAN_FRAG_CTRL_REG",
             "bitWidth": 8,
             "hexValue": "0xFD",
@@ -225,7 +225,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Commit fragmentation sequence: Transmit 3 compliant IEEE 802.15.4 radio frames across wireless mesh link.",
+            "caption": "Commit fragmentation sequence: Transmit three compliant IEEE.",
             "registerName": "LOWPAN_FRAG_CTRL_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -303,7 +303,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize RFC 6282 LOWPAN_IPHC compressor: Assert 3-bit dispatch identifier 011b (0x60).",
+            "caption": "Initialize RFC multiple LOWPAN_IPHC compressor: Assert three-bit dispatch.",
             "registerName": "LOWPAN_IPHC_BASE_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -371,7 +371,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Elide Traffic Class and Flow Label (TF=11b) and compress Hop Limit 64 to 2 bits (HLIM=10b).",
+            "caption": "Elide Traffic Class and Flow Label (TF=elevenb) and compress Hop Limit.",
             "registerName": "LOWPAN_IPHC_BASE_REG",
             "bitWidth": 8,
             "hexValue": "0xD0",
@@ -439,7 +439,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Execute stateless MAC address elision: Derive 128-bit source and destination IPs directly from IEEE 802.15.4 frame.",
+            "caption": "Execute stateless MAC address elision: Derive one-twenty-eight-bit source.",
             "registerName": "LOWPAN_IPHC_BASE_REG",
             "bitWidth": 8,
             "hexValue": "0xFD",
@@ -507,7 +507,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Collapse standard 40-byte IPv6 header into a 3-byte wire header, achieving 92.5% compression efficiency.",
+            "caption": "Collapse standard multiple-byte IPvsix header into a three-byte wire.",
             "registerName": "LOWPAN_IPHC_BASE_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -585,7 +585,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Activate LOWPAN_NHC transport compressor: Detect UDP next header and assert 5-bit dispatch 11110b.",
+            "caption": "Activate LOWPAN_NHC transport compressor: Detect UDP next header and.",
             "registerName": "LOWPAN_NHC_UDP_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -653,7 +653,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Compress CoAP ports (0xF0B0-0xF0BF) down to 4-bit nibbles, packing source and destination into 1 byte (P=11b).",
+            "caption": "Compress CoAP ports (zeroxFzeroBzero-zeroxFzeroBF) down to four-bit.",
             "registerName": "LOWPAN_NHC_UDP_REG",
             "bitWidth": 8,
             "hexValue": "0xC0",
@@ -721,7 +721,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Elide redundant UDP Length field and match 64-bit global prefix against 6LoWPAN Context Table (CID=1).",
+            "caption": "Elide redundant UDP Length field and match sixty-four-bit global prefix.",
             "registerName": "LOWPAN_NHC_UDP_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -789,7 +789,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Commit compressed UDP header: Output 4-byte transport header with inline 16-bit Internet checksum.",
+            "caption": "Commit compressed UDP header: Output four-byte transport header with.",
             "registerName": "LOWPAN_NHC_UDP_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -867,7 +867,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Ingest incoming 6LoWPAN fragment: Allocate reassembly buffer indexed by (src_mac, datagram_tag).",
+            "caption": "Ingest incoming LowPAN fragment: Allocate reassembly buffer indexed by.",
             "registerName": "LOWPAN_REASSEMBLY_REG",
             "bitWidth": 8,
             "hexValue": "0xC8",
@@ -935,7 +935,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Latch out-of-order FRAGN fragment (offset 96 to 191) directly into pre-allocated memory buffer.",
+            "caption": "Latch out-of-order FRAGN fragment (offset multiple to multiple) directly.",
             "registerName": "LOWPAN_REASSEMBLY_REG",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -1003,7 +1003,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Ingest FRAG1 (offset 0 to 95): Arm 3.0-second RFC 4944 reassembly timeout timer to prevent buffer starvation.",
+            "caption": "Ingest FRAGone (offset zero to multiple): Arm three.zero-second RFC.",
             "registerName": "LOWPAN_REASSEMBLY_REG",
             "bitWidth": 8,
             "hexValue": "0xFC",
@@ -1071,7 +1071,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Verify 100% datagram reconstruction: Deallocate buffer and dispatch reassembled packet to IPv6 stack.",
+            "caption": "Verify one hundred% datagram reconstruction: Deallocate buffer and.",
             "registerName": "LOWPAN_REASSEMBLY_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1149,7 +1149,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize LowPANMasterEngine: Configure IEEE 802.15.4 MAC interface and register global context prefixes.",
+            "caption": "Initialize LowPANMasterEngine: Configure IEEE multiple.multiple.four MAC.",
             "registerName": "LOWPAN_MASTER_ENGINE_REG",
             "bitWidth": 8,
             "hexValue": "0xC0",
@@ -1217,7 +1217,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Compress 48 bytes of IPv6/UDP headers into 6 bytes using combined LOWPAN_IPHC and LOWPAN_NHC.",
+            "caption": "Compress multiple bytes of IPvsix/UDP headers into six bytes using.",
             "registerName": "LOWPAN_MASTER_ENGINE_REG",
             "bitWidth": 8,
             "hexValue": "0xF0",
@@ -1285,7 +1285,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Execute RFC 4944 fragmentation and out-of-order reassembly across simulated lossy mesh channels.",
+            "caption": "Execute RFC multiple fragmentation and out-of-order reassembly across.",
             "registerName": "LOWPAN_MASTER_ENGINE_REG",
             "bitWidth": 8,
             "hexValue": "0xFC",
@@ -1353,7 +1353,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Verify 100% payload integrity and emit certification token LOWPAN_IPHC_ADAPTATION_ENGINE_GRADE_A_PLUS_CERTIFIED.",
+            "caption": "Verify one hundred% payload integrity and emit certification token.",
             "registerName": "LOWPAN_MASTER_ENGINE_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

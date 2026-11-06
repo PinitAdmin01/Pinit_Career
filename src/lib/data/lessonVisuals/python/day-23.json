@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Why plan before coding [D23.P1.S1].",
+            "caption": "Initialize input state for Why plan before coding [D.Pone.Sone].",
             "values": {
               "in": "Day 23 Input",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Why plan before coding [D23.P1.S2].",
+            "caption": "Execute core transformation in Why plan before coding [D.Pone.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -75,7 +75,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D23.P1.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Pone.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Why plan before coding [D23.P1.S4].",
+            "caption": "End-to-end execution verified for Why plan before coding [D.Pone.Sfour].",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -443,7 +443,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Breaking the program into small functions [D23.P4.S1].",
+            "caption": "Initialize input state for Breaking the program into small functions.",
             "values": {
               "in": "Day 23 Input",
               "proc": "Standby",
@@ -463,7 +463,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Breaking the progra... [D23.P4.S2].",
+            "caption": "Execute core transformation in Breaking the progra... [D.Pfour.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -487,7 +487,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D23.P4.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Pfour.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -507,7 +507,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Breaking the program into small f.. [D23.P4.S4].",
+            "caption": "End-to-end execution verified for Breaking the program into small f.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -763,7 +763,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Putting it together: PLAN.md and the fir.. [D23.P6.S1].",
+            "caption": "Initialize input state for Putting it together: PLAN.md and the fir.",
             "values": {
               "in": "Day 23 Input",
               "proc": "Standby",
@@ -783,7 +783,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Putting it together... [D23.P6.S2].",
+            "caption": "Execute core transformation in Putting it together... [D.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -807,7 +807,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D23.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -827,7 +827,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Putting it together: PLAN.md and .. [D23.P6.S4].",
+            "caption": "End-to-end execution verified for Putting it together: PLAN.md and .",
             "values": {
               "in": "Committed",
               "proc": "Verified",

@@ -49,7 +49,7 @@ export async function judgeCodeWarsSubmission(problemId: unknown, code: unknown,
       const pyRes = await runPythonInSandbox({
         code,
         tests: config.pythonTests,
-        timeoutMs: 3500,
+        timeoutMs: 5000,
       });
 
       if (pyRes.isSecurityViolation) {

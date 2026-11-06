@@ -15,7 +15,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Allocate stack frame and inspect reference pointers for Superclass Constructor Ch.",
+            "caption": "Allocate stack frame and inspect reference pointers for Superclass.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -32,7 +32,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Push active execution frame onto JVM thread call stack.",
+            "caption": "Push active execution frame onto JVM thread call stack.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -51,7 +51,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Pop completed execution frame after verifying heap state invariant.",
+            "caption": "Pop completed execution frame after verifying heap state invariant.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -68,7 +68,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Push interactive mutation frame to test edge cases and boundary guards.",
+            "caption": "Push interactive mutation frame to test edge cases and boundary guards.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -96,7 +96,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Allocate stack frame and inspect reference pointers for State Initialization Orde.",
+            "caption": "Allocate stack frame and inspect reference pointers for State.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -113,7 +113,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Push active execution frame onto JVM thread call stack.",
+            "caption": "Push active execution frame onto JVM thread call stack.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -132,7 +132,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Pop completed execution frame after verifying heap state invariant.",
+            "caption": "Pop completed execution frame after verifying heap state invariant.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -149,7 +149,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Push interactive mutation frame to test edge cases and boundary guards.",
+            "caption": "Push interactive mutation frame to test edge cases and boundary guards.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -177,7 +177,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Allocate stack frame and inspect reference pointers for Detective Lab: The Mispla.",
+            "caption": "Allocate stack frame and inspect reference pointers for Detective Lab.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -194,7 +194,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Push active execution frame onto JVM thread call stack.",
+            "caption": "Push active execution frame onto JVM thread call stack.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -213,7 +213,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Pop completed execution frame after verifying heap state invariant.",
+            "caption": "Pop completed execution frame after verifying heap state invariant.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -230,7 +230,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Push interactive mutation frame to test edge cases and boundary guards.",
+            "caption": "Push interactive mutation frame to test edge cases and boundary guards.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -258,7 +258,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Allocate stack frame and inspect reference pointers for Mastery Assignment: Speci.",
+            "caption": "Allocate stack frame and inspect reference pointers for Mastery.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -275,7 +275,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Push active execution frame onto JVM thread call stack.",
+            "caption": "Push active execution frame onto JVM thread call stack.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -294,7 +294,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Pop completed execution frame after verifying heap state invariant.",
+            "caption": "Pop completed execution frame after verifying heap state invariant.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -311,7 +311,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Push interactive mutation frame to test edge cases and boundary guards.",
+            "caption": "Push interactive mutation frame to test edge cases and boundary guards.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -339,7 +339,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Allocate stack frame and inspect reference pointers for Production Incident Lab: .",
+            "caption": "Allocate stack frame and inspect reference pointers for Production.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -356,7 +356,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Push active execution frame onto JVM thread call stack.",
+            "caption": "Push active execution frame onto JVM thread call stack.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -375,7 +375,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Pop completed execution frame after verifying heap state invariant.",
+            "caption": "Pop completed execution frame after verifying heap state invariant.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -392,7 +392,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Push interactive mutation frame to test edge cases and boundary guards.",
+            "caption": "Push interactive mutation frame to test edge cases and boundary guards.",
             "mode": "stack",
             "items": [
               "main() Frame",

@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize Differential Electrical Physics, Co with hardware clock gate & EN=1.",
+            "caption": "Initialize Differential Electrical Physics, Co with hardware clock gate &.",
             "registerName": "CAN_BTR1",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Assert RDY and IRQ flags under hardware interrupt preemption.",
+            "caption": "Assert RDY and IRQ flags under hardware interrupt preemption.",
             "registerName": "CAN_BTR1",
             "bitWidth": 8,
             "hexValue": "0xE0",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enable DMA burst and hardware CRC error verification.",
+            "caption": "Enable DMA burst and hardware CRC error verification.",
             "registerName": "CAN_BTR1",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full TX/RX transceiver active with 0% error verified.",
+            "caption": "Full TX/RX transceiver active with zero% error verified.",
             "registerName": "CAN_BTR1",
             "bitWidth": 8,
             "hexValue": "0xFE",
@@ -267,7 +267,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize Non-Destructive Bitwise Arbitration with hardware clock gate & EN=1.",
+            "caption": "Initialize Non-Destructive Bitwise Arbitration with hardware clock gate &.",
             "registerName": "CAN_BTR2",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -327,7 +327,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Assert RDY and IRQ flags under hardware interrupt preemption.",
+            "caption": "Assert RDY and IRQ flags under hardware interrupt preemption.",
             "registerName": "CAN_BTR2",
             "bitWidth": 8,
             "hexValue": "0xE0",
@@ -388,7 +388,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enable DMA burst and hardware CRC error verification.",
+            "caption": "Enable DMA burst and hardware CRC error verification.",
             "registerName": "CAN_BTR2",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -449,7 +449,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full TX/RX transceiver active with 0% error verified.",
+            "caption": "Full TX/RX transceiver active with zero% error verified.",
             "registerName": "CAN_BTR2",
             "bitWidth": 8,
             "hexValue": "0xFE",
@@ -520,7 +520,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize CAN Nominal Bit Timing & Time Quant with hardware clock gate & EN=1.",
+            "caption": "Initialize CAN Nominal Bit Timing & Time Quant with hardware clock gate &.",
             "registerName": "CAN_BTR3",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -580,7 +580,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Assert RDY and IRQ flags under hardware interrupt preemption.",
+            "caption": "Assert RDY and IRQ flags under hardware interrupt preemption.",
             "registerName": "CAN_BTR3",
             "bitWidth": 8,
             "hexValue": "0xE0",
@@ -641,7 +641,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enable DMA burst and hardware CRC error verification.",
+            "caption": "Enable DMA burst and hardware CRC error verification.",
             "registerName": "CAN_BTR3",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -702,7 +702,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full TX/RX transceiver active with 0% error verified.",
+            "caption": "Full TX/RX transceiver active with zero% error verified.",
             "registerName": "CAN_BTR3",
             "bitWidth": 8,
             "hexValue": "0xFE",
@@ -773,7 +773,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize Hardware Acceptance Filtering (32-B with hardware clock gate & EN=1.",
+            "caption": "Initialize Hardware Acceptance Filtering (thirty-two-B with hardware.",
             "registerName": "CAN_BTR4",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -833,7 +833,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Assert RDY and IRQ flags under hardware interrupt preemption.",
+            "caption": "Assert RDY and IRQ flags under hardware interrupt preemption.",
             "registerName": "CAN_BTR4",
             "bitWidth": 8,
             "hexValue": "0xE0",
@@ -894,7 +894,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enable DMA burst and hardware CRC error verification.",
+            "caption": "Enable DMA burst and hardware CRC error verification.",
             "registerName": "CAN_BTR4",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -955,7 +955,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full TX/RX transceiver active with 0% error verified.",
+            "caption": "Full TX/RX transceiver active with zero% error verified.",
             "registerName": "CAN_BTR4",
             "bitWidth": 8,
             "hexValue": "0xFE",
@@ -1026,7 +1026,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize Industrial CAN Message Dispatcher & with hardware clock gate & EN=1.",
+            "caption": "Initialize Industrial CAN Message Dispatcher & with hardware clock gate &.",
             "registerName": "CAN_BTR5",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1086,7 +1086,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Assert RDY and IRQ flags under hardware interrupt preemption.",
+            "caption": "Assert RDY and IRQ flags under hardware interrupt preemption.",
             "registerName": "CAN_BTR5",
             "bitWidth": 8,
             "hexValue": "0xE0",
@@ -1147,7 +1147,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enable DMA burst and hardware CRC error verification.",
+            "caption": "Enable DMA burst and hardware CRC error verification.",
             "registerName": "CAN_BTR5",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -1208,7 +1208,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full TX/RX transceiver active with 0% error verified.",
+            "caption": "Full TX/RX transceiver active with zero% error verified.",
             "registerName": "CAN_BTR5",
             "bitWidth": 8,
             "hexValue": "0xFE",

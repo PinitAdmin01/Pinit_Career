@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Remote procedure calls [D3.P1.S1].",
+            "caption": "Initialize input state for Remote procedure calls [Dthree.Pone.Sone].",
             "values": {
               "in": "Day 3 Input",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Remote procedure calls [D3.P1.S2].",
+            "caption": "Execute core transformation in Remote procedure calls [Dthree.Pone.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -75,7 +75,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D3.P1.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Remote procedure calls [D3.P1.S4].",
+            "caption": "End-to-end execution verified for Remote procedure calls.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -433,7 +433,7 @@
           },
           {
             "at": "say3",
-            "caption": "Function encode_varint encodes values exceeding 128 across bytes.",
+            "caption": "Function encode_varint encodes values exceeding one-twenty-eight across.",
             "rows": [
               {
                 "cells": [
@@ -913,7 +913,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Deadlines, retries and status codes [D3.P6.S1].",
+            "caption": "Initialize input state for Deadlines, retries and status codes.",
             "values": {
               "in": "Day 3 Input",
               "proc": "Standby",
@@ -933,7 +933,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Deadlines, retries ... [D3.P6.S2].",
+            "caption": "Execute core transformation in Deadlines, retries ... [Dthree.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -957,7 +957,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D3.P6.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -977,7 +977,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Deadlines, retries and status codes [D3.P6.S4].",
+            "caption": "End-to-end execution verified for Deadlines, retries and status codes.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

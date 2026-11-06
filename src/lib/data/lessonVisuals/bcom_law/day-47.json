@@ -11,7 +11,7 @@
       "filled": {},
       "spec": {
         "template": "workflow",
-        "title": "Part 1: Foreign Main vs. Foreign Non-Main ... \u2014 Cross-Border Workflow",
+        "title": "Part 1: Foreign Main vs. Foreign Non-Main ... — Cross-Border Workflow",
         "stages": [
           {
             "id": "s1",
@@ -41,25 +41,25 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1: Initialize Part 1: Foreign Main vs. Foreign Non-M...",
+            "caption": "Stage one: Initialize Part one: Foreign Main vs. Foreign Non-M...",
             "activeStageId": "s1",
             "statusBadge": "INGRESS"
           },
           {
             "at": "say1",
-            "caption": "Stage 2: Evaluate statutory cross-border criteria under UNCITRAL Model Law.",
+            "caption": "Stage two: Evaluate statutory cross-border criteria under UNCITRAL Model.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS"
           },
           {
             "at": "example",
-            "caption": "Stage 3: Apply judicial comity protocols and Article 22 creditor protections.",
+            "caption": "Stage three: Apply judicial comity protocols and Article multiple.",
             "activeStageId": "s3",
             "statusBadge": "ACTIVE"
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4: Execute deterministic Python engine and verify compliance.",
+            "caption": "Stage four: Execute deterministic Python engine and verify compliance.",
             "activeStageId": "s4",
             "statusBadge": "DONE"
           }
@@ -72,7 +72,7 @@
       "filled": {},
       "spec": {
         "template": "workflow",
-        "title": "Part 2: Article 2(f) Establishment Verific... \u2014 Cross-Border Workflow",
+        "title": "Part 2: Article 2(f) Establishment Verific... — Cross-Border Workflow",
         "stages": [
           {
             "id": "s1",
@@ -102,25 +102,25 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1: Initialize Part 2: Article 2(f) Establishment Ver...",
+            "caption": "Stage one: Initialize Part two: Article two(f) Establishment Ver...",
             "activeStageId": "s1",
             "statusBadge": "INGRESS"
           },
           {
             "at": "say1",
-            "caption": "Stage 2: Evaluate statutory cross-border criteria under UNCITRAL Model Law.",
+            "caption": "Stage two: Evaluate statutory cross-border criteria under UNCITRAL Model.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS"
           },
           {
             "at": "example",
-            "caption": "Stage 3: Apply judicial comity protocols and Article 22 creditor protections.",
+            "caption": "Stage three: Apply judicial comity protocols and Article multiple.",
             "activeStageId": "s3",
             "statusBadge": "ACTIVE"
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4: Execute deterministic Python engine and verify compliance.",
+            "caption": "Stage four: Execute deterministic Python engine and verify compliance.",
             "activeStageId": "s4",
             "statusBadge": "DONE"
           }
@@ -133,7 +133,7 @@
       "filled": {},
       "spec": {
         "template": "workflow",
-        "title": "Part 3: Section 234/235 Bilateral Treaties... \u2014 Cross-Border Workflow",
+        "title": "Part 3: Section 234/235 Bilateral Treaties... — Cross-Border Workflow",
         "stages": [
           {
             "id": "s1",
@@ -163,25 +163,25 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1: Initialize Part 3: Section 234/235 Bilateral Trea...",
+            "caption": "Stage one: Initialize Part three: Section multiple/multiple Bilateral.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS"
           },
           {
             "at": "say1",
-            "caption": "Stage 2: Evaluate statutory cross-border criteria under UNCITRAL Model Law.",
+            "caption": "Stage two: Evaluate statutory cross-border criteria under UNCITRAL Model.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS"
           },
           {
             "at": "example",
-            "caption": "Stage 3: Apply judicial comity protocols and Article 22 creditor protections.",
+            "caption": "Stage three: Apply judicial comity protocols and Article multiple.",
             "activeStageId": "s3",
             "statusBadge": "ACTIVE"
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4: Execute deterministic Python engine and verify compliance.",
+            "caption": "Stage four: Execute deterministic Python engine and verify compliance.",
             "activeStageId": "s4",
             "statusBadge": "DONE"
           }
@@ -194,7 +194,7 @@
       "filled": {},
       "spec": {
         "template": "workflow",
-        "title": "Part 4: Article 32 Hotchpot Equalization &... \u2014 Cross-Border Workflow",
+        "title": "Part 4: Article 32 Hotchpot Equalization &... — Cross-Border Workflow",
         "stages": [
           {
             "id": "s1",
@@ -224,25 +224,25 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1: Initialize Part 4: Article 32 Hotchpot Equalizati...",
+            "caption": "Stage one: Initialize Part four: Article thirty-two Hotchpot Equalizati...",
             "activeStageId": "s1",
             "statusBadge": "INGRESS"
           },
           {
             "at": "say1",
-            "caption": "Stage 2: Evaluate statutory cross-border criteria under UNCITRAL Model Law.",
+            "caption": "Stage two: Evaluate statutory cross-border criteria under UNCITRAL Model.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS"
           },
           {
             "at": "example",
-            "caption": "Stage 3: Apply judicial comity protocols and Article 22 creditor protections.",
+            "caption": "Stage three: Apply judicial comity protocols and Article multiple.",
             "activeStageId": "s3",
             "statusBadge": "ACTIVE"
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4: Execute deterministic Python engine and verify compliance.",
+            "caption": "Stage four: Execute deterministic Python engine and verify compliance.",
             "activeStageId": "s4",
             "statusBadge": "DONE"
           }
@@ -255,7 +255,7 @@
       "filled": {},
       "spec": {
         "template": "workflow",
-        "title": "Part 5: Production Cross-Border Foreign Pr... \u2014 Cross-Border Workflow",
+        "title": "Part 5: Production Cross-Border Foreign Pr... — Cross-Border Workflow",
         "stages": [
           {
             "id": "s1",
@@ -285,25 +285,25 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1: Initialize Part 5: Production Cross-Border Foreig...",
+            "caption": "Stage one: Initialize Part five: Production Cross-Border Foreig...",
             "activeStageId": "s1",
             "statusBadge": "INGRESS"
           },
           {
             "at": "say1",
-            "caption": "Stage 2: Evaluate statutory cross-border criteria under UNCITRAL Model Law.",
+            "caption": "Stage two: Evaluate statutory cross-border criteria under UNCITRAL Model.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS"
           },
           {
             "at": "example",
-            "caption": "Stage 3: Apply judicial comity protocols and Article 22 creditor protections.",
+            "caption": "Stage three: Apply judicial comity protocols and Article multiple.",
             "activeStageId": "s3",
             "statusBadge": "ACTIVE"
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4: Execute deterministic Python engine and verify compliance.",
+            "caption": "Stage four: Execute deterministic Python engine and verify compliance.",
             "activeStageId": "s4",
             "statusBadge": "DONE"
           }

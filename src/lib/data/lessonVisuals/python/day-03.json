@@ -72,7 +72,7 @@
           },
           {
             "at": "say3",
-            "caption": "* repeats a string: one dash, 20 times.",
+            "caption": "* repeats a string: one dash, twenty times.",
             "values": {
               "a": {
                 "text": "-"
@@ -187,7 +187,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "len() counts every character: 5.",
+            "caption": "Len() counts every character: five.",
             "range": [
               0,
               5
@@ -200,7 +200,7 @@
           },
           {
             "at": "say2",
-            "caption": "The first character is at position 0, not 1.",
+            "caption": "The first character is at position zero, not one.",
             "pointer": 0,
             "result": "name[0] = P",
             "tone": "data",
@@ -210,7 +210,7 @@
           },
           {
             "at": "say3",
-            "caption": "-1 is always the last character.",
+            "caption": "-one is always the last character.",
             "pointer": -1,
             "result": "name[-1] = a",
             "tone": "data",
@@ -220,7 +220,7 @@
           },
           {
             "at": "say4",
-            "caption": "There is nothing at position 10, so Python gives an IndexError.",
+            "caption": "There is nothing at position ten, so Python gives an IndexError.",
             "pointer": 10,
             "result": "IndexError",
             "tone": "error",
@@ -293,7 +293,7 @@
         "steps": [
           {
             "at": "say2",
-            "caption": "Positions 0 to 3 are taken; position 4 is not.",
+            "caption": "Positions zero to three are taken; position four is not.",
             "range": [
               0,
               4

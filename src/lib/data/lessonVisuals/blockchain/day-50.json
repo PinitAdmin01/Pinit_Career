@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingestion and initialization of L2 state payload for Milestone 9 System Blueprint: ...",
+            "caption": "Ingestion and initialization of level-two state payload for Milestone.",
             "activeActor": "Senior Web3 L2 Architect",
             "messages": [
               {
@@ -33,7 +33,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine verifies data availability, state transition, and routing",
+            "caption": "Engine verifies data availability, state transition, and routing.",
             "activeActor": "EIP-4844 Blob Pipeline",
             "messages": [
               {
@@ -46,7 +46,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of mathematical validity, fraud challenge, or KZG opening",
+            "caption": "Verification of mathematical validity, fraud challenge, or KZG opening.",
             "activeActor": "Interactive Bisection Dispute Arbiter",
             "messages": [
               {
@@ -59,7 +59,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Canonical state settled on Layer 1; invariant verified and committed",
+            "caption": "Canonical state settled on Layer one; invariant verified and committed.",
             "activeActor": "EIP-4844 Blob Pipeline",
             "messages": [
               {
@@ -152,7 +152,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingestion and initialization of L2 state payload for EIP-4844 Blob Packing & Versio...",
+            "caption": "Ingestion and initialization of level-two state payload for EIP-multiple.",
             "activeActor": "Senior Web3 L2 Architect",
             "messages": [
               {
@@ -165,7 +165,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine verifies data availability, state transition, and routing",
+            "caption": "Engine verifies data availability, state transition, and routing.",
             "activeActor": "EIP-4844 Blob Pipeline",
             "messages": [
               {
@@ -178,7 +178,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of mathematical validity, fraud challenge, or KZG opening",
+            "caption": "Verification of mathematical validity, fraud challenge, or KZG opening.",
             "activeActor": "Interactive Bisection Dispute Arbiter",
             "messages": [
               {
@@ -191,7 +191,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Canonical state settled on Layer 1; invariant verified and committed",
+            "caption": "Canonical state settled on Layer one; invariant verified and committed.",
             "activeActor": "EIP-4844 Blob Pipeline",
             "messages": [
               {
@@ -284,7 +284,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingestion and initialization of L2 state payload for 10-Step Interactive Bisection ...",
+            "caption": "Ingestion and initialization of level-two state payload for ten-Step.",
             "activeActor": "Senior Web3 L2 Architect",
             "messages": [
               {
@@ -297,7 +297,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine verifies data availability, state transition, and routing",
+            "caption": "Engine verifies data availability, state transition, and routing.",
             "activeActor": "EIP-4844 Blob Pipeline",
             "messages": [
               {
@@ -310,7 +310,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of mathematical validity, fraud challenge, or KZG opening",
+            "caption": "Verification of mathematical validity, fraud challenge, or KZG opening.",
             "activeActor": "Interactive Bisection Dispute Arbiter",
             "messages": [
               {
@@ -323,7 +323,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Canonical state settled on Layer 1; invariant verified and committed",
+            "caption": "Canonical state settled on Layer one; invariant verified and committed.",
             "activeActor": "EIP-4844 Blob Pipeline",
             "messages": [
               {
@@ -416,7 +416,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingestion and initialization of L2 state payload for One-Step Prover Opcode Executi...",
+            "caption": "Ingestion and initialization of level-two state payload for One-Step.",
             "activeActor": "Senior Web3 L2 Architect",
             "messages": [
               {
@@ -429,7 +429,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine verifies data availability, state transition, and routing",
+            "caption": "Engine verifies data availability, state transition, and routing.",
             "activeActor": "EIP-4844 Blob Pipeline",
             "messages": [
               {
@@ -442,7 +442,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of mathematical validity, fraud challenge, or KZG opening",
+            "caption": "Verification of mathematical validity, fraud challenge, or KZG opening.",
             "activeActor": "Interactive Bisection Dispute Arbiter",
             "messages": [
               {
@@ -455,7 +455,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Canonical state settled on Layer 1; invariant verified and committed",
+            "caption": "Canonical state settled on Layer one; invariant verified and committed.",
             "activeActor": "EIP-4844 Blob Pipeline",
             "messages": [
               {
@@ -548,7 +548,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingestion and initialization of L2 state payload for Milestone 9 Final Defense & Fu...",
+            "caption": "Ingestion and initialization of level-two state payload for Milestone.",
             "activeActor": "Senior Web3 L2 Architect",
             "messages": [
               {
@@ -561,7 +561,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine verifies data availability, state transition, and routing",
+            "caption": "Engine verifies data availability, state transition, and routing.",
             "activeActor": "EIP-4844 Blob Pipeline",
             "messages": [
               {
@@ -574,7 +574,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of mathematical validity, fraud challenge, or KZG opening",
+            "caption": "Verification of mathematical validity, fraud challenge, or KZG opening.",
             "activeActor": "Interactive Bisection Dispute Arbiter",
             "messages": [
               {
@@ -587,7 +587,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Canonical state settled on Layer 1; invariant verified and committed",
+            "caption": "Canonical state settled on Layer one; invariant verified and committed.",
             "activeActor": "EIP-4844 Blob Pipeline",
             "messages": [
               {

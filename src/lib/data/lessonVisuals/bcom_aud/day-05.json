@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary debit entry (3250) for Multi-Stage Forensic Ingestion,...",
+            "caption": "Open primary debit entry (multiple) for Multi-Stage Forensic Ingestion,...",
             "title": "Day 5 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 3250,
@@ -40,7 +40,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary accrual adjustment (650).",
+            "caption": "Record secondary accrual adjustment (multiple).",
             "title": "Day 5 Journal — Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 3900,
@@ -71,7 +71,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Reconcile sub-ledger balances against control total (3900).",
+            "caption": "Reconcile sub-ledger balances against control total (multiple).",
             "title": "Day 5 Journal — Reconciliation Check",
             "isBalanced": true,
             "totalDebit": 3900,
@@ -102,7 +102,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Double-entry invariant verified (Total DR 3900 = CR 3900).",
+            "caption": "Double-entry invariant verified (Total DR multiple = CR multiple).",
             "title": "Day 5 Journal — Audited Trial Balance",
             "isBalanced": true,
             "totalDebit": 3900,
@@ -268,7 +268,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary debit entry (3450) for High-Risk Journal Entry Overrid...",
+            "caption": "Open primary debit entry (multiple) for High-Risk Journal Entry Overrid...",
             "title": "Day 5 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 3450,
@@ -294,7 +294,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary accrual adjustment (690).",
+            "caption": "Record secondary accrual adjustment (multiple).",
             "title": "Day 5 Journal — Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 4140,
@@ -325,7 +325,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Reconcile sub-ledger balances against control total (4140).",
+            "caption": "Reconcile sub-ledger balances against control total (multiple).",
             "title": "Day 5 Journal — Reconciliation Check",
             "isBalanced": true,
             "totalDebit": 4140,
@@ -356,7 +356,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Double-entry invariant verified (Total DR 4140 = CR 4140).",
+            "caption": "Double-entry invariant verified (Total DR multiple = CR multiple).",
             "title": "Day 5 Journal — Audited Trial Balance",
             "isBalanced": true,
             "totalDebit": 4140,
@@ -522,7 +522,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary debit entry (3650) for Electronic Evidence Custody (NI...",
+            "caption": "Open primary debit entry (multiple) for Electronic Evidence Custody (NI...",
             "title": "Day 5 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 3650,
@@ -548,7 +548,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary accrual adjustment (730).",
+            "caption": "Record secondary accrual adjustment (multiple).",
             "title": "Day 5 Journal — Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 4380,
@@ -579,7 +579,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Reconcile sub-ledger balances against control total (4380).",
+            "caption": "Reconcile sub-ledger balances against control total (multiple).",
             "title": "Day 5 Journal — Reconciliation Check",
             "isBalanced": true,
             "totalDebit": 4380,
@@ -610,7 +610,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Double-entry invariant verified (Total DR 4380 = CR 4380).",
+            "caption": "Double-entry invariant verified (Total DR multiple = CR multiple).",
             "title": "Day 5 Journal — Audited Trial Balance",
             "isBalanced": true,
             "totalDebit": 4380,
@@ -776,7 +776,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary debit entry (3850) for Forensic Net Worth Method & Ill...",
+            "caption": "Open primary debit entry (multiple) for Forensic Net Worth Method & Ill...",
             "title": "Day 5 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 3850,
@@ -802,7 +802,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary accrual adjustment (770).",
+            "caption": "Record secondary accrual adjustment (multiple).",
             "title": "Day 5 Journal — Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 4620,
@@ -833,7 +833,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Reconcile sub-ledger balances against control total (4620).",
+            "caption": "Reconcile sub-ledger balances against control total (multiple).",
             "title": "Day 5 Journal — Reconciliation Check",
             "isBalanced": true,
             "totalDebit": 4620,
@@ -864,7 +864,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Double-entry invariant verified (Total DR 4620 = CR 4620).",
+            "caption": "Double-entry invariant verified (Total DR multiple = CR multiple).",
             "title": "Day 5 Journal — Audited Trial Balance",
             "isBalanced": true,
             "totalDebit": 4620,
@@ -1030,7 +1030,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary debit entry (4050) for Milestone 1 Synthesis: Expert W...",
+            "caption": "Open primary debit entry (multiple) for Milestone one Synthesis: Expert.",
             "title": "Day 5 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 4050,
@@ -1056,7 +1056,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary accrual adjustment (810).",
+            "caption": "Record secondary accrual adjustment (multiple).",
             "title": "Day 5 Journal — Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 4860,
@@ -1087,7 +1087,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Reconcile sub-ledger balances against control total (4860).",
+            "caption": "Reconcile sub-ledger balances against control total (multiple).",
             "title": "Day 5 Journal — Reconciliation Check",
             "isBalanced": true,
             "totalDebit": 4860,
@@ -1118,7 +1118,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Double-entry invariant verified (Total DR 4860 = CR 4860).",
+            "caption": "Double-entry invariant verified (Total DR multiple = CR multiple).",
             "title": "Day 5 Journal — Audited Trial Balance",
             "isBalanced": true,
             "totalDebit": 4860,

@@ -386,13 +386,13 @@
         "steps": [
           {
             "at": "say4",
-            "caption": "Argon2 is specifically designed to require large memory allocations.",
+            "caption": "Argontwo is specifically designed to require large memory allocations.",
             "highlightSide": "left",
             "statusBadge": "active"
           },
           {
             "at": "say8",
-            "caption": "Argon2id combines passes to defeat side channels and cracking farms.",
+            "caption": "Argontwoid combines passes to defeat side channels and cracking farms.",
             "highlightSide": "right",
             "statusBadge": "completed"
           }
@@ -667,7 +667,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Building an Enterprise Credential Storag.. [D7.P6.S1].",
+            "caption": "Initialize input state for Building an Enterprise Credential Storag.",
             "values": {
               "in": "Day 7 Input",
               "proc": "Standby",
@@ -687,7 +687,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building an Enterpr... [D7.P6.S2].",
+            "caption": "Execute core transformation in Building an Enterpr... [Dseven.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -711,7 +711,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D7.P6.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -731,7 +731,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building an Enterprise Credential.. [D7.P6.S4].",
+            "caption": "End-to-end execution verified for Building an Enterprise Credential.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

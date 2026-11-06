@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Queue individual component keys and initialize Pillar 1: The Anatomy of N+1 Query De....",
+            "caption": "Queue individual component keys and initialize Pillar one: The Anatomy of.",
             "values": {
               "in": "Day 13 Input",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute microtask coalescing and primary key deduplication in Pillar 1: The Anatomy of N+1 Query De....",
+            "caption": "Execute microtask coalescing and primary key deduplication in Pillar one.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -75,7 +75,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate single batch SQL query and array length invariant.",
+            "caption": "Evaluate single batch SQL query and array length invariant.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end batched query resolution confirmed for Pillar 1: The Anatomy of N+1 Query De....",
+            "caption": "End-to-end batched query resolution confirmed for Pillar one: The Anatomy.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -257,7 +257,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Queue individual component keys and initialize Pillar 2: The DataLoader Pattern: Mic....",
+            "caption": "Queue individual component keys and initialize Pillar two: The DataLoader.",
             "values": {
               "in": "Day 13 Input",
               "proc": "Standby",
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute microtask coalescing and primary key deduplication in Pillar 2: The DataLoader Pattern: Mic....",
+            "caption": "Execute microtask coalescing and primary key deduplication in Pillar two.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -301,7 +301,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate single batch SQL query and array length invariant.",
+            "caption": "Evaluate single batch SQL query and array length invariant.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -321,7 +321,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end batched query resolution confirmed for Pillar 2: The DataLoader Pattern: Mic....",
+            "caption": "End-to-end batched query resolution confirmed for Pillar two: The.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -483,7 +483,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Queue individual component keys and initialize Pillar 3: Request-Scoped Caching & Me....",
+            "caption": "Queue individual component keys and initialize Pillar three.",
             "values": {
               "in": "Day 13 Input",
               "proc": "Standby",
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute microtask coalescing and primary key deduplication in Pillar 3: Request-Scoped Caching & Me....",
+            "caption": "Execute microtask coalescing and primary key deduplication in Pillar.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -527,7 +527,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate single batch SQL query and array length invariant.",
+            "caption": "Evaluate single batch SQL query and array length invariant.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -547,7 +547,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end batched query resolution confirmed for Pillar 3: Request-Scoped Caching & Me....",
+            "caption": "End-to-end batched query resolution confirmed for Pillar three.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -709,7 +709,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Queue individual component keys and initialize Pillar 4: Complex Relational Batching....",
+            "caption": "Queue individual component keys and initialize Pillar four: Complex.",
             "values": {
               "in": "Day 13 Input",
               "proc": "Standby",
@@ -729,7 +729,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute microtask coalescing and primary key deduplication in Pillar 4: Complex Relational Batching....",
+            "caption": "Execute microtask coalescing and primary key deduplication in Pillar.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -753,7 +753,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate single batch SQL query and array length invariant.",
+            "caption": "Evaluate single batch SQL query and array length invariant.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -773,7 +773,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end batched query resolution confirmed for Pillar 4: Complex Relational Batching....",
+            "caption": "End-to-end batched query resolution confirmed for Pillar four: Complex.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -935,7 +935,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Queue individual component keys and initialize Pillar 5: Production DataLoader Integ....",
+            "caption": "Queue individual component keys and initialize Pillar five: Production.",
             "values": {
               "in": "Day 13 Input",
               "proc": "Standby",
@@ -955,7 +955,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute microtask coalescing and primary key deduplication in Pillar 5: Production DataLoader Integ....",
+            "caption": "Execute microtask coalescing and primary key deduplication in Pillar.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -979,7 +979,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate single batch SQL query and array length invariant.",
+            "caption": "Evaluate single batch SQL query and array length invariant.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -999,7 +999,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end batched query resolution confirmed for Pillar 5: Production DataLoader Integ....",
+            "caption": "End-to-end batched query resolution confirmed for Pillar five: Production.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

@@ -675,7 +675,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Content Security Policy (CSP): Nonces, H.. [D3.P6.S1].",
+            "caption": "Initialize input state for Content Security Policy (CSP): Nonces, H.",
             "values": {
               "in": "Day 3 Input",
               "proc": "Standby",
@@ -695,7 +695,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Content Security Po... [D3.P6.S2].",
+            "caption": "Execute core transformation in Content Security Po... [Dthree.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -719,7 +719,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D3.P6.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -739,7 +739,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Content Security Policy (CSP): No.. [D3.P6.S4].",
+            "caption": "End-to-end execution verified for Content Security Policy (CSP): No.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

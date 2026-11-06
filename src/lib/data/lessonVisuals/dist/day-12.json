@@ -509,7 +509,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Enterprise Multi-Partition Event Hub Sim.. [D12.P6.S1].",
+            "caption": "Initialize input state for Enterprise Multi-Partition Event Hub Sim.",
             "values": {
               "in": "Day 12 Input",
               "proc": "Standby",
@@ -529,7 +529,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Enterprise Multi-Pa... [D12.P6.S2].",
+            "caption": "Execute core transformation in Enterprise Multi-Pa... [Dtwelve.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -553,7 +553,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D12.P6.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -573,7 +573,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Enterprise Multi-Partition Event .. [D12.P6.S4].",
+            "caption": "End-to-end execution verified for Enterprise Multi-Partition Event .",
             "values": {
               "in": "Committed",
               "proc": "Verified",

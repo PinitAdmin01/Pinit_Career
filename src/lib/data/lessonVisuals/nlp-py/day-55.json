@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for ApexOmni Master Architecture: Unifying V...",
+            "caption": "Initialize input state for ApexOmni Master Architecture: Unifying V...",
             "values": {
               "in": "Day 55 Input",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in ApexOmni Master Arc....",
+            "caption": "Execute core transformation in ApexOmni Master Arc....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -75,7 +75,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for ApexOmni Master Architecture: Uni...",
+            "caption": "End-to-end execution verified for ApexOmni Master Architecture: Uni...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -257,7 +257,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Subsystem 1: Dual-Stream AnyRes Vision P...",
+            "caption": "Initialize input state for Subsystem one: Dual-Stream AnyRes Vision P...",
             "values": {
               "in": "Day 55 Input",
               "proc": "Standby",
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Subsystem 1: Dual-S....",
+            "caption": "Execute core transformation in Subsystem one: Dual-S....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -301,7 +301,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -321,7 +321,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Subsystem 1: Dual-Stream AnyRes V...",
+            "caption": "End-to-end execution verified for Subsystem one: Dual-Stream AnyRes V...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -483,7 +483,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Subsystem 2: 2-Layer GELU MLP Projection...",
+            "caption": "Initialize input state for Subsystem two: two-Layer GELU MLP Projection...",
             "values": {
               "in": "Day 55 Input",
               "proc": "Standby",
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Subsystem 2: 2-Laye....",
+            "caption": "Execute core transformation in Subsystem two: two-Laye....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -527,7 +527,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -547,7 +547,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Subsystem 2: 2-Layer GELU MLP Pro...",
+            "caption": "End-to-end execution verified for Subsystem two: two-Layer GELU MLP Pro...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -709,7 +709,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Subsystems 3 & 4: Discrete Coordinate Vi...",
+            "caption": "Initialize input state for Subsystems three & four: Discrete Coordinate.",
             "values": {
               "in": "Day 55 Input",
               "proc": "Standby",
@@ -729,7 +729,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Subsystems 3 & 4: D....",
+            "caption": "Execute core transformation in Subsystems three & four: D....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -753,7 +753,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -773,7 +773,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Subsystems 3 & 4: Discrete Coordi...",
+            "caption": "End-to-end execution verified for Subsystems three & four: Discrete.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -935,7 +935,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Subsystem 5: Milestone Capstone Defense,...",
+            "caption": "Initialize input state for Subsystem five: Milestone Capstone Defense,...",
             "values": {
               "in": "Day 55 Input",
               "proc": "Standby",
@@ -955,7 +955,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Subsystem 5: Milest....",
+            "caption": "Execute core transformation in Subsystem five: Milest....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -979,7 +979,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -999,7 +999,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Subsystem 5: Milestone Capstone D...",
+            "caption": "End-to-end execution verified for Subsystem five: Milestone Capstone D...",
             "values": {
               "in": "Committed",
               "proc": "Verified",

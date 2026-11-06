@@ -44,7 +44,7 @@
           },
           {
             "at": "say5",
-            "caption": "V8 decodes binary payloads directly into typed memory structures.",
+            "caption": "Engine decodes binary payloads directly into typed memory structures.",
             "values": {
               "activeSide": "both"
             }
@@ -94,7 +94,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Field tag combines 1-based field number with 3-bit wire type identifier.",
+            "caption": "Field tag combines one-based field number with three-bit wire type.",
             "values": {
               "tag": {
                 "status": "Inspecting"
@@ -112,7 +112,7 @@
           },
           {
             "at": "say3",
-            "caption": "Varint encoding compresses integers using 7 payload bits per byte.",
+            "caption": "Varint encoding compresses integers using seven payload bits per byte.",
             "values": {
               "tag": {
                 "status": "Synchronized"
@@ -130,7 +130,7 @@
           },
           {
             "at": "say5",
-            "caption": "Fixed-width types provide fast direct memory copying for float64 and uint64.",
+            "caption": "Fixed-width types provide fast direct memory copying for floatsixty-four.",
             "values": {
               "tag": {
                 "status": "Synchronized"
@@ -237,7 +237,7 @@
           },
           {
             "at": "say3",
-            "caption": "Input value is split into 7-bit payload chunks from least to most significant.",
+            "caption": "Input value is split into seven-bit payload chunks from least to most.",
             "values": {
               "input": {
                 "status": "Processing"
@@ -255,7 +255,7 @@
           },
           {
             "at": "say5",
-            "caption": "MSB (Most Significant Bit, 0x80) is set to 1 for all continuation bytes.",
+            "caption": "MSB (Most Significant Bit, zerox) is set to one for all continuation bytes.",
             "values": {
               "input": {
                 "status": "Committed"
@@ -273,7 +273,7 @@
           },
           {
             "at": "say7",
-            "caption": "Final byte clears MSB to 0, signaling the end of the Varint sequence.",
+            "caption": "Final byte clears MSB to zero, signaling the end of the Varint sequence.",
             "values": {
               "input": {
                 "status": "Online"

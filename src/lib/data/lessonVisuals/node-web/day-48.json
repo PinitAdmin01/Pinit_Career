@@ -431,7 +431,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Chaos harness injects latency spikes and 100% crash rates.",
+            "caption": "Chaos harness injects latency spikes and one hundred% crash rates.",
             "values": {
               "fastfail": {
                 "status": "Inspecting"
@@ -449,7 +449,7 @@
           },
           {
             "at": "say3",
-            "caption": "Circuit breakers trip instantly, dropping latencies to sub-1ms fallbacks.",
+            "caption": "Circuit breakers trip instantly, dropping latencies to sub-onems fallbacks.",
             "values": {
               "fastfail": {
                 "status": "Synchronized"

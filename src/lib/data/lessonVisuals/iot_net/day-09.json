@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register PAN_SCAN_REG for PAN Formation & Channel Scanning.",
+            "caption": "Arm hardware register PAN_SCAN_REG for PAN Formation & Channel Scanning.",
             "registerName": "PAN_SCAN_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into PAN_SCAN_REG and assert validation flag.",
+            "caption": "Latch sampling bits into PAN_SCAN_REG and assert validation flag.",
             "registerName": "PAN_SCAN_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in PAN_SCAN_REG with pipeline status.",
+            "caption": "Execute hardware transformation in PAN_SCAN_REG with pipeline status.",
             "registerName": "PAN_SCAN_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register PAN_SCAN_REG upon verified hardware completion.",
+            "caption": "Lock register PAN_SCAN_REG upon verified hardware completion.",
             "registerName": "PAN_SCAN_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -266,7 +266,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register ADDR_TRANS_REG for Address Space & Translation: 64-.",
+            "caption": "Arm hardware register ADDR_TRANS_REG for Address Space & Translation.",
             "registerName": "ADDR_TRANS_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -326,7 +326,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into ADDR_TRANS_REG and assert validation flag.",
+            "caption": "Latch sampling bits into ADDR_TRANS_REG and assert validation flag.",
             "registerName": "ADDR_TRANS_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -387,7 +387,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in ADDR_TRANS_REG with pipeline status.",
+            "caption": "Execute hardware transformation in ADDR_TRANS_REG with pipeline status.",
             "registerName": "ADDR_TRANS_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -448,7 +448,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register ADDR_TRANS_REG upon verified hardware completion.",
+            "caption": "Lock register ADDR_TRANS_REG upon verified hardware completion.",
             "registerName": "ADDR_TRANS_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -518,7 +518,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register ASSOC_STATE_REG for The 4-Way Association Handshake .",
+            "caption": "Arm hardware register ASSOC_STATE_REG for The four-Way Association.",
             "registerName": "ASSOC_STATE_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -578,7 +578,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into ASSOC_STATE_REG and assert validation flag.",
+            "caption": "Latch sampling bits into ASSOC_STATE_REG and assert validation flag.",
             "registerName": "ASSOC_STATE_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -639,7 +639,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in ASSOC_STATE_REG with pipeline status.",
+            "caption": "Execute hardware transformation in ASSOC_STATE_REG with pipeline status.",
             "registerName": "ASSOC_STATE_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -700,7 +700,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register ASSOC_STATE_REG upon verified hardware completion.",
+            "caption": "Lock register ASSOC_STATE_REG upon verified hardware completion.",
             "registerName": "ASSOC_STATE_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -770,7 +770,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register ORPHAN_SYNC_REG for Network Maintenance: Disassociat.",
+            "caption": "Arm hardware register ORPHAN_SYNC_REG for Network Maintenance: Disassociat.",
             "registerName": "ORPHAN_SYNC_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -830,7 +830,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into ORPHAN_SYNC_REG and assert validation flag.",
+            "caption": "Latch sampling bits into ORPHAN_SYNC_REG and assert validation flag.",
             "registerName": "ORPHAN_SYNC_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -891,7 +891,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in ORPHAN_SYNC_REG with pipeline status.",
+            "caption": "Execute hardware transformation in ORPHAN_SYNC_REG with pipeline status.",
             "registerName": "ORPHAN_SYNC_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -952,7 +952,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register ORPHAN_SYNC_REG upon verified hardware completion.",
+            "caption": "Lock register ORPHAN_SYNC_REG upon verified hardware completion.",
             "registerName": "ORPHAN_SYNC_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1022,7 +1022,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register INDIRECT_Q_REG for Full PAN Coordinator Association.",
+            "caption": "Arm hardware register INDIRECT_Q_REG for Full PAN Coordinator Association.",
             "registerName": "INDIRECT_Q_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1082,7 +1082,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into INDIRECT_Q_REG and assert validation flag.",
+            "caption": "Latch sampling bits into INDIRECT_Q_REG and assert validation flag.",
             "registerName": "INDIRECT_Q_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -1143,7 +1143,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in INDIRECT_Q_REG with pipeline status.",
+            "caption": "Execute hardware transformation in INDIRECT_Q_REG with pipeline status.",
             "registerName": "INDIRECT_Q_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -1204,7 +1204,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register INDIRECT_Q_REG upon verified hardware completion.",
+            "caption": "Lock register INDIRECT_Q_REG upon verified hardware completion.",
             "registerName": "INDIRECT_Q_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

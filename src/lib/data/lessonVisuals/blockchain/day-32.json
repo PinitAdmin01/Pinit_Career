@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state and pool parameters for Q64.96 Fixed-Point Math & Squa...",
+            "caption": "Protocol monitors state and pool parameters for Qsixty-four.multiple.",
             "activeActor": "Liquidity Provider",
             "messages": [
               {
@@ -33,7 +33,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes mathematical transition and updates core invariant",
+            "caption": "Engine executes mathematical transition and updates core invariant.",
             "activeActor": "Uniswap v3 Pool",
             "messages": [
               {
@@ -46,7 +46,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of fee accounting, tick boundary or solvency thresholds",
+            "caption": "Verification of fee accounting, tick boundary or solvency thresholds.",
             "activeActor": "TickBitmap Indexer",
             "messages": [
               {
@@ -59,7 +59,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; invariant preserved and state committed",
+            "caption": "Block settled atomically; invariant preserved and state committed.",
             "activeActor": "Uniswap v3 Pool",
             "messages": [
               {
@@ -152,7 +152,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state and pool parameters for Discrete Price Ticks & The Geo...",
+            "caption": "Protocol monitors state and pool parameters for Discrete Price Ticks &.",
             "activeActor": "Liquidity Provider",
             "messages": [
               {
@@ -165,7 +165,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes mathematical transition and updates core invariant",
+            "caption": "Engine executes mathematical transition and updates core invariant.",
             "activeActor": "Uniswap v3 Pool",
             "messages": [
               {
@@ -178,7 +178,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of fee accounting, tick boundary or solvency thresholds",
+            "caption": "Verification of fee accounting, tick boundary or solvency thresholds.",
             "activeActor": "TickBitmap Indexer",
             "messages": [
               {
@@ -191,7 +191,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; invariant preserved and state committed",
+            "caption": "Block settled atomically; invariant preserved and state committed.",
             "activeActor": "Uniswap v3 Pool",
             "messages": [
               {
@@ -284,7 +284,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state and pool parameters for Capital Efficiency & Virtual R...",
+            "caption": "Protocol monitors state and pool parameters for Capital Efficiency &.",
             "activeActor": "Liquidity Provider",
             "messages": [
               {
@@ -297,7 +297,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes mathematical transition and updates core invariant",
+            "caption": "Engine executes mathematical transition and updates core invariant.",
             "activeActor": "Uniswap v3 Pool",
             "messages": [
               {
@@ -310,7 +310,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of fee accounting, tick boundary or solvency thresholds",
+            "caption": "Verification of fee accounting, tick boundary or solvency thresholds.",
             "activeActor": "TickBitmap Indexer",
             "messages": [
               {
@@ -323,7 +323,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; invariant preserved and state committed",
+            "caption": "Block settled atomically; invariant preserved and state committed.",
             "activeActor": "Uniswap v3 Pool",
             "messages": [
               {
@@ -416,7 +416,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state and pool parameters for Detective Lab: Tick Crossing D...",
+            "caption": "Protocol monitors state and pool parameters for Detective Lab: Tick.",
             "activeActor": "Liquidity Provider",
             "messages": [
               {
@@ -429,7 +429,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes mathematical transition and updates core invariant",
+            "caption": "Engine executes mathematical transition and updates core invariant.",
             "activeActor": "Uniswap v3 Pool",
             "messages": [
               {
@@ -442,7 +442,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of fee accounting, tick boundary or solvency thresholds",
+            "caption": "Verification of fee accounting, tick boundary or solvency thresholds.",
             "activeActor": "TickBitmap Indexer",
             "messages": [
               {
@@ -455,7 +455,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; invariant preserved and state committed",
+            "caption": "Block settled atomically; invariant preserved and state committed.",
             "activeActor": "Uniswap v3 Pool",
             "messages": [
               {
@@ -548,7 +548,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state and pool parameters for Concentrated Liquidity Positio...",
+            "caption": "Protocol monitors state and pool parameters for Concentrated Liquidity.",
             "activeActor": "Liquidity Provider",
             "messages": [
               {
@@ -561,7 +561,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes mathematical transition and updates core invariant",
+            "caption": "Engine executes mathematical transition and updates core invariant.",
             "activeActor": "Uniswap v3 Pool",
             "messages": [
               {
@@ -574,7 +574,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of fee accounting, tick boundary or solvency thresholds",
+            "caption": "Verification of fee accounting, tick boundary or solvency thresholds.",
             "activeActor": "TickBitmap Indexer",
             "messages": [
               {
@@ -587,7 +587,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; invariant preserved and state committed",
+            "caption": "Block settled atomically; invariant preserved and state committed.",
             "activeActor": "Uniswap v3 Pool",
             "messages": [
               {

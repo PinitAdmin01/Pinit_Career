@@ -58,7 +58,7 @@
               ],
               "status": "PACKETS_INTERCEPTED"
             },
-            "caption": "Istio-init configures PREROUTING and OUTPUT chains redirecting TCP to ports 15006 and 15001. (Service Mesh Architecture: Control )"
+            "caption": "Istio-init configures PREROUTING and OUTPUT chains redirecting TCP to."
           },
           {
             "at": "tryIt",
@@ -102,7 +102,7 @@
               ],
               "status": "MTLS_ESTABLISHED"
             },
-            "caption": "Client and server Envoys present X.509 certs, verifying identities before data exchange. (Mutual TLS (mTLS) Deep Dive: Crypto)"
+            "caption": "Client and server Envoys present X.multiple certs, verifying identities."
           },
           {
             "at": "say2",
@@ -150,7 +150,7 @@
               ],
               "status": "STRICT_MTLS_CERTIFIED"
             },
-            "caption": "Automated 12-hour rotation guarantees in-memory cryptographic freshness without downtime. (Mutual TLS (mTLS) Deep Dive: Crypto)"
+            "caption": "Automated twelve-hour rotation guarantees in-memory cryptographic."
           }
         ]
       }
@@ -178,7 +178,7 @@
               ],
               "status": "WEIGHT_SPLIT_APPLIED"
             },
-            "caption": "DestinationRule defines v1/v2 subsets while VirtualService splits traffic by weight percentage. (Traffic Shifting, Canary Deployment)"
+            "caption": "DestinationRule defines vone/vtwo subsets while VirtualService splits."
           },
           {
             "at": "say2",
@@ -194,7 +194,7 @@
               ],
               "status": "HEADER_MATCH_ROUTED"
             },
-            "caption": "Beta tester headers or cookies route directly to v2 while standard users remain on v1. (Traffic Shifting, Canary Deployment)"
+            "caption": "Beta tester headers or cookies route directly to vtwo while standard."
           },
           {
             "at": "example",
@@ -210,7 +210,7 @@
               ],
               "status": "CIRCUIT_TRIPPED"
             },
-            "caption": "Envoy detects 3 consecutive 5xx errors and immediately ejects the failing pod instance. (Traffic Shifting, Canary Deployment)"
+            "caption": "Envoy detects three consecutive fivexx errors and immediately ejects the."
           },
           {
             "at": "tryIt",
@@ -254,7 +254,7 @@
               ],
               "status": "RBAC_EVALUATED"
             },
-            "caption": "AuthorizationPolicy matches SPIFFE source principal and HTTP paths directly in Envoy. (Layer 7 Authorization Policies & Ob)"
+            "caption": "AuthorizationPolicy matches SPIFFE source principal and HTTP paths."
           },
           {
             "at": "say2",
@@ -270,7 +270,7 @@
               ],
               "status": "JWT_CLAIMS_VERIFIED"
             },
-            "caption": "Envoy validates external JWT signature and role claims before allowing state mutations. (Layer 7 Authorization Policies & Ob)"
+            "caption": "Envoy validates external JWT signature and role claims before allowing."
           },
           {
             "at": "example",
@@ -286,7 +286,7 @@
               ],
               "status": "UNAUTHORIZED_BLOCKED"
             },
-            "caption": "Unauthorized calls receive an immediate 403 Forbidden without reaching the container. (Layer 7 Authorization Policies & Ob)"
+            "caption": "Unauthorized calls receive an immediate forbidden Forbidden without."
           },
           {
             "at": "tryIt",
@@ -302,7 +302,7 @@
               ],
               "status": "OBSERVABILITY_LIVE"
             },
-            "caption": "Envoy injects W3C traceparent headers, streaming real-time topologies and metrics. (Layer 7 Authorization Policies & Ob)"
+            "caption": "Envoy injects WthreeC traceparent headers, streaming real-time topologies."
           }
         ]
       }
@@ -346,7 +346,7 @@
               ],
               "status": "MTLS_VERIFIED_STRICT"
             },
-            "caption": "Cryptographic SPIFFE X.509 handshake authenticates client/server with zero plaintext. (Masterclass Synthesis: Production I)"
+            "caption": "Cryptographic SPIFFE X.multiple handshake authenticates client/server."
           },
           {
             "at": "example",
@@ -362,7 +362,7 @@
               ],
               "status": "TRAFFIC_SPLIT_10_90"
             },
-            "caption": "VirtualService routes 90% to stable v1 and 10% to canary v2 with 1.25ms transit. (Masterclass Synthesis: Production I)"
+            "caption": "VirtualService routes multiple% to stable vone and ten% to canary vtwo."
           },
           {
             "at": "tryIt",
@@ -378,7 +378,7 @@
               ],
               "status": "GRADE_A_PLUS_CERTIFIED"
             },
-            "caption": "Zero-trust service mesh engine certified with 100% test coverage and resilience. (Masterclass Synthesis: Production I)"
+            "caption": "Zero-trust service mesh engine certified with one hundred% test coverage."
           }
         ]
       }

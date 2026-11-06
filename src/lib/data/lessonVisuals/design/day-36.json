@@ -139,28 +139,28 @@
             "label": "Semantic Role Contract",
             "leftCaption": "Legacy uncoordinated architecture lacks disciplined semantic role contract validation.",
             "rightCaption": "Sovereign design systems enforce rigorous semantic role contract standards.",
-            "caption": "Semantic Role Contract (WAI-ARIA 1.2 Modal Dialog Contracts)"
+            "caption": "Semantic Role Contract (WAI-ARIA one.two Modal Dialog Contracts)."
           },
           {
             "stepNumber": 2,
             "label": "Aria Modal Declaration",
             "leftCaption": "Legacy uncoordinated architecture lacks disciplined aria modal declaration validation.",
             "rightCaption": "Sovereign design systems enforce rigorous aria modal declaration standards.",
-            "caption": "Aria Modal Declaration (WAI-ARIA 1.2 Modal Dialog Contracts)"
+            "caption": "Aria Modal Declaration (WAI-ARIA one.two Modal Dialog Contracts)."
           },
           {
             "stepNumber": 3,
             "label": "Bidirectional Labeling",
             "leftCaption": "Legacy uncoordinated architecture lacks disciplined bidirectional labeling validation.",
             "rightCaption": "Sovereign design systems enforce rigorous bidirectional labeling standards.",
-            "caption": "Bidirectional Labeling (WAI-ARIA 1.2 Modal Dialog Contracts)"
+            "caption": "Bidirectional Labeling (WAI-ARIA one.two Modal Dialog Contracts)."
           },
           {
             "stepNumber": 4,
             "label": "Escape Listener Binding",
             "leftCaption": "Legacy uncoordinated architecture lacks disciplined escape listener binding validation.",
             "rightCaption": "Sovereign design systems enforce rigorous escape listener binding standards.",
-            "caption": "Escape Listener Binding (WAI-ARIA 1.2 Modal Dialog Contracts)"
+            "caption": "Escape Listener Binding (WAI-ARIA one.two Modal Dialog Contracts)."
           }
         ]
       }

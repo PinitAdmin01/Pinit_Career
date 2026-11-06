@@ -66,7 +66,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Context Framing): Initialize The Principal Engineering Communicati...",
+            "caption": "Stage one (Context Framing): Initialize The Principal Engineering.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -100,7 +100,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Structured Thesis): Process core workflow stage.",
+            "caption": "Stage two (Structured Thesis): Process core workflow stage.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -134,7 +134,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Objection Defense): Verify quality and invariants.",
+            "caption": "Stage three (Objection Defense): Verify quality and invariants.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "Zero Defects",
@@ -168,7 +168,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Executive Alignment): Commit end-to-end delivery.",
+            "caption": "Stage four (Executive Alignment): Commit end-to-end delivery.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "SLA Met ✓",
@@ -434,7 +434,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Context Framing): Initialize The Master Executive Communications P...",
+            "caption": "Stage one (Context Framing): Initialize The Master Executive.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -468,7 +468,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Structured Thesis): Process core workflow stage.",
+            "caption": "Stage two (Structured Thesis): Process core workflow stage.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -502,7 +502,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Objection Defense): Verify quality and invariants.",
+            "caption": "Stage three (Objection Defense): Verify quality and invariants.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "Zero Defects",
@@ -536,7 +536,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Executive Alignment): Commit end-to-end delivery.",
+            "caption": "Stage four (Executive Alignment): Commit end-to-end delivery.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "SLA Met ✓",
@@ -802,7 +802,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Context Framing): Initialize ApexExecutiveComms Live Examination S...",
+            "caption": "Stage one (Context Framing): Initialize ApexExecutiveComms Live.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -836,7 +836,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Structured Thesis): Process core workflow stage.",
+            "caption": "Stage two (Structured Thesis): Process core workflow stage.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -870,7 +870,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Objection Defense): Verify quality and invariants.",
+            "caption": "Stage three (Objection Defense): Verify quality and invariants.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "Zero Defects",
@@ -904,7 +904,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Executive Alignment): Commit end-to-end delivery.",
+            "caption": "Stage four (Executive Alignment): Commit end-to-end delivery.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "SLA Met ✓",
@@ -1170,7 +1170,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Context Framing): Initialize Grand Master Capstone Viva Voce Exami...",
+            "caption": "Stage one (Context Framing): Initialize Grand Master Capstone Viva Voce.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -1204,7 +1204,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Structured Thesis): Process core workflow stage.",
+            "caption": "Stage two (Structured Thesis): Process core workflow stage.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -1238,7 +1238,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Objection Defense): Verify quality and invariants.",
+            "caption": "Stage three (Objection Defense): Verify quality and invariants.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "Zero Defects",
@@ -1272,7 +1272,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Executive Alignment): Commit end-to-end delivery.",
+            "caption": "Stage four (Executive Alignment): Commit end-to-end delivery.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "SLA Met ✓",
@@ -1538,7 +1538,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Context Framing): Initialize Full 60-Day Curriculum Graduation Cer...",
+            "caption": "Stage one (Context Framing): Initialize Full multiple-Day Curriculum.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -1572,7 +1572,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Structured Thesis): Process core workflow stage.",
+            "caption": "Stage two (Structured Thesis): Process core workflow stage.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -1606,7 +1606,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Objection Defense): Verify quality and invariants.",
+            "caption": "Stage three (Objection Defense): Verify quality and invariants.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "Zero Defects",
@@ -1640,7 +1640,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Executive Alignment): Commit end-to-end delivery.",
+            "caption": "Stage four (Executive Alignment): Commit end-to-end delivery.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "SLA Met ✓",

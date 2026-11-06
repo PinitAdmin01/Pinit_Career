@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for The Frontier Evaluation Crisis: Static B...",
+            "caption": "Initialize input state for The Frontier Evaluation Crisis: Static B...",
             "values": {
               "in": "Day 59 Input",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The Frontier Evalua....",
+            "caption": "Execute core transformation in The Frontier Evalua....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -75,7 +75,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The Frontier Evaluation Crisis: S...",
+            "caption": "End-to-end execution verified for The Frontier Evaluation Crisis: S...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -257,7 +257,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Multi-Turn & Open-Ended Evaluation: MT-B...",
+            "caption": "Initialize input state for Multi-Turn & Open-Ended Evaluation: MT-B...",
             "values": {
               "in": "Day 59 Input",
               "proc": "Standby",
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Multi-Turn & Open-E....",
+            "caption": "Execute core transformation in Multi-Turn & Open-E....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -301,7 +301,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -321,7 +321,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Multi-Turn & Open-Ended Evaluatio...",
+            "caption": "End-to-end execution verified for Multi-Turn & Open-Ended Evaluatio...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -483,7 +483,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for LLM-as-a-Judge Architecture & Calibratio...",
+            "caption": "Initialize input state for LLM-as-a-Judge Architecture & Calibratio...",
             "values": {
               "in": "Day 59 Input",
               "proc": "Standby",
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in LLM-as-a-Judge Arch....",
+            "caption": "Execute core transformation in LLM-as-a-Judge Arch....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -527,7 +527,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -547,7 +547,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for LLM-as-a-Judge Architecture & Cal...",
+            "caption": "End-to-end execution verified for LLM-as-a-Judge Architecture & Cal...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -709,7 +709,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Fiduciary & Compliance Auditing: Halluci...",
+            "caption": "Initialize input state for Fiduciary & Compliance Auditing: Halluci...",
             "values": {
               "in": "Day 59 Input",
               "proc": "Standby",
@@ -729,7 +729,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Fiduciary & Complia....",
+            "caption": "Execute core transformation in Fiduciary & Complia....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -753,7 +753,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -773,7 +773,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Fiduciary & Compliance Auditing: ...",
+            "caption": "End-to-end execution verified for Fiduciary & Compliance Auditing: ...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -935,7 +935,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Masterclass Implementation: ApexEval Ent...",
+            "caption": "Initialize input state for Masterclass Implementation: ApexEval Ent...",
             "values": {
               "in": "Day 59 Input",
               "proc": "Standby",
@@ -955,7 +955,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Masterclass Impleme....",
+            "caption": "Execute core transformation in Masterclass Impleme....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -979,7 +979,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -999,7 +999,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Masterclass Implementation: ApexE...",
+            "caption": "End-to-end execution verified for Masterclass Implementation: ApexE...",
             "values": {
               "in": "Committed",
               "proc": "Verified",

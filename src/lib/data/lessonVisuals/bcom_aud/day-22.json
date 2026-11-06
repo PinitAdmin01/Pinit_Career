@@ -10,12 +10,12 @@
       "codeHash": "ba354f9063041e5c3cd2c5b30f4d8a0830f960cd7ae6bfe18bc8383e941fa469",
       "spec": {
         "template": "ledger-sheet",
-        "title": "The Decision Matrix for Opinion Modifications: SA  \u2014 Statutory Audit Ledger",
+        "title": "The Decision Matrix for Opinion Modifications: SA  — Statutory Audit Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open statutory audit reporting verification ledger (1930000) for The Decision Matrix for Opinion Modifica...",
-            "title": "Day 22 Statutory Reporting Ledger \u2014 Initial Posting",
+            "caption": "Open statutory audit reporting verification ledger (multiple) for The.",
+            "title": "Day 22 Statutory Reporting Ledger — Initial Posting",
             "isBalanced": true,
             "totalDebit": 1930000,
             "totalCredit": 1930000,
@@ -40,8 +40,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / reporting entry (205000) under applicable standard.",
-            "title": "Day 22 Statutory Reporting Ledger \u2014 Substantive Adjustment",
+            "caption": "Record statutory adjustment / reporting entry (multiple) under applicable.",
+            "title": "Day 22 Statutory Reporting Ledger — Substantive Adjustment",
             "isBalanced": true,
             "totalDebit": 2135000,
             "totalCredit": 2135000,
@@ -72,8 +72,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated enterprise statutory audit case study for The Decision Matrix for Opinion Modifica...",
-            "title": "Day 22 Statutory Reporting Ledger \u2014 Substantive Audit",
+            "caption": "Execute simulated enterprise statutory audit case study for The Decision.",
+            "title": "Day 22 Statutory Reporting Ledger — Substantive Audit",
             "isBalanced": true,
             "totalDebit": 2135000,
             "totalCredit": 2135000,
@@ -103,8 +103,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify 100% balanced ledger closure and working paper archival for The Decision Matrix for Opinion Modifica...",
-            "title": "Day 22 Statutory Reporting Ledger \u2014 Final Certified Balances",
+            "caption": "Verify one hundred% balanced ledger closure and working paper archival.",
+            "title": "Day 22 Statutory Reporting Ledger — Final Certified Balances",
             "isBalanced": true,
             "totalDebit": 2135000,
             "totalCredit": 2135000,
@@ -141,12 +141,12 @@
       "codeHash": "e750626dcd3d78eeadd03711fa4c33d98b6af514b93b53b334021d7c265eda76",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Qualified Opinion Drafting & Quantification: SA 70 \u2014 Statutory Audit Ledger",
+        "title": "Qualified Opinion Drafting & Quantification: SA 70 — Statutory Audit Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open statutory audit reporting verification ledger (1950000) for Qualified Opinion Drafting & Quantificat...",
-            "title": "Day 22 Statutory Reporting Ledger \u2014 Initial Posting",
+            "caption": "Open statutory audit reporting verification ledger (multiple) for.",
+            "title": "Day 22 Statutory Reporting Ledger — Initial Posting",
             "isBalanced": true,
             "totalDebit": 1950000,
             "totalCredit": 1950000,
@@ -171,8 +171,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / reporting entry (214500) under applicable standard.",
-            "title": "Day 22 Statutory Reporting Ledger \u2014 Substantive Adjustment",
+            "caption": "Record statutory adjustment / reporting entry (multiple) under applicable.",
+            "title": "Day 22 Statutory Reporting Ledger — Substantive Adjustment",
             "isBalanced": true,
             "totalDebit": 2164500,
             "totalCredit": 2164500,
@@ -203,8 +203,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated enterprise statutory audit case study for Qualified Opinion Drafting & Quantificat...",
-            "title": "Day 22 Statutory Reporting Ledger \u2014 Substantive Audit",
+            "caption": "Execute simulated enterprise statutory audit case study for Qualified.",
+            "title": "Day 22 Statutory Reporting Ledger — Substantive Audit",
             "isBalanced": true,
             "totalDebit": 2164500,
             "totalCredit": 2164500,
@@ -234,8 +234,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify 100% balanced ledger closure and working paper archival for Qualified Opinion Drafting & Quantificat...",
-            "title": "Day 22 Statutory Reporting Ledger \u2014 Final Certified Balances",
+            "caption": "Verify one hundred% balanced ledger closure and working paper archival.",
+            "title": "Day 22 Statutory Reporting Ledger — Final Certified Balances",
             "isBalanced": true,
             "totalDebit": 2164500,
             "totalCredit": 2164500,
@@ -272,12 +272,12 @@
       "codeHash": "6a3c85158758d7f648a5b53769d0d31f0a1cf4760b75b372fbde1c9fa0b222ac",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Adverse Opinions & Disclaimers of Opinion: Pervasi \u2014 Statutory Audit Ledger",
+        "title": "Adverse Opinions & Disclaimers of Opinion: Pervasi — Statutory Audit Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open statutory audit reporting verification ledger (1970000) for Adverse Opinions & Disclaimers of Opinio...",
-            "title": "Day 22 Statutory Reporting Ledger \u2014 Initial Posting",
+            "caption": "Open statutory audit reporting verification ledger (multiple) for Adverse.",
+            "title": "Day 22 Statutory Reporting Ledger — Initial Posting",
             "isBalanced": true,
             "totalDebit": 1970000,
             "totalCredit": 1970000,
@@ -302,8 +302,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / reporting entry (224000) under applicable standard.",
-            "title": "Day 22 Statutory Reporting Ledger \u2014 Substantive Adjustment",
+            "caption": "Record statutory adjustment / reporting entry (multiple) under applicable.",
+            "title": "Day 22 Statutory Reporting Ledger — Substantive Adjustment",
             "isBalanced": true,
             "totalDebit": 2194000,
             "totalCredit": 2194000,
@@ -334,8 +334,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated enterprise statutory audit case study for Adverse Opinions & Disclaimers of Opinio...",
-            "title": "Day 22 Statutory Reporting Ledger \u2014 Substantive Audit",
+            "caption": "Execute simulated enterprise statutory audit case study for Adverse.",
+            "title": "Day 22 Statutory Reporting Ledger — Substantive Audit",
             "isBalanced": true,
             "totalDebit": 2194000,
             "totalCredit": 2194000,
@@ -365,8 +365,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify 100% balanced ledger closure and working paper archival for Adverse Opinions & Disclaimers of Opinio...",
-            "title": "Day 22 Statutory Reporting Ledger \u2014 Final Certified Balances",
+            "caption": "Verify one hundred% balanced ledger closure and working paper archival.",
+            "title": "Day 22 Statutory Reporting Ledger — Final Certified Balances",
             "isBalanced": true,
             "totalDebit": 2194000,
             "totalCredit": 2194000,
@@ -403,12 +403,12 @@
       "codeHash": "7d4eb611d37d4826fa4fbe133606421c79035601ab256fa121f3ca1c695fc6cb",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Emphasis of Matter & Other Matter Paragraphs: SA 7 \u2014 Statutory Audit Ledger",
+        "title": "Emphasis of Matter & Other Matter Paragraphs: SA 7 — Statutory Audit Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open statutory audit reporting verification ledger (1990000) for Emphasis of Matter & Other Matter Paragr...",
-            "title": "Day 22 Statutory Reporting Ledger \u2014 Initial Posting",
+            "caption": "Open statutory audit reporting verification ledger (multiple) for.",
+            "title": "Day 22 Statutory Reporting Ledger — Initial Posting",
             "isBalanced": true,
             "totalDebit": 1990000,
             "totalCredit": 1990000,
@@ -433,8 +433,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / reporting entry (233500) under applicable standard.",
-            "title": "Day 22 Statutory Reporting Ledger \u2014 Substantive Adjustment",
+            "caption": "Record statutory adjustment / reporting entry (multiple) under applicable.",
+            "title": "Day 22 Statutory Reporting Ledger — Substantive Adjustment",
             "isBalanced": true,
             "totalDebit": 2223500,
             "totalCredit": 2223500,
@@ -465,8 +465,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated enterprise statutory audit case study for Emphasis of Matter & Other Matter Paragr...",
-            "title": "Day 22 Statutory Reporting Ledger \u2014 Substantive Audit",
+            "caption": "Execute simulated enterprise statutory audit case study for Emphasis of.",
+            "title": "Day 22 Statutory Reporting Ledger — Substantive Audit",
             "isBalanced": true,
             "totalDebit": 2223500,
             "totalCredit": 2223500,
@@ -496,8 +496,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify 100% balanced ledger closure and working paper archival for Emphasis of Matter & Other Matter Paragr...",
-            "title": "Day 22 Statutory Reporting Ledger \u2014 Final Certified Balances",
+            "caption": "Verify one hundred% balanced ledger closure and working paper archival.",
+            "title": "Day 22 Statutory Reporting Ledger — Final Certified Balances",
             "isBalanced": true,
             "totalDebit": 2223500,
             "totalCredit": 2223500,
@@ -534,12 +534,12 @@
       "codeHash": "a36d025ef6f5951d12ceeef4349105523c1fde7e16e6938db4fc55a89f65939b",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Comprehensive Audit Opinion Formulation & Modifica \u2014 Statutory Audit Ledger",
+        "title": "Comprehensive Audit Opinion Formulation & Modifica — Statutory Audit Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open statutory audit reporting verification ledger (2010000) for Comprehensive Audit Opinion Formulation ...",
-            "title": "Day 22 Statutory Reporting Ledger \u2014 Initial Posting",
+            "caption": "Open statutory audit reporting verification ledger (multiple) for.",
+            "title": "Day 22 Statutory Reporting Ledger — Initial Posting",
             "isBalanced": true,
             "totalDebit": 2010000,
             "totalCredit": 2010000,
@@ -564,8 +564,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / reporting entry (243000) under applicable standard.",
-            "title": "Day 22 Statutory Reporting Ledger \u2014 Substantive Adjustment",
+            "caption": "Record statutory adjustment / reporting entry (multiple) under applicable.",
+            "title": "Day 22 Statutory Reporting Ledger — Substantive Adjustment",
             "isBalanced": true,
             "totalDebit": 2253000,
             "totalCredit": 2253000,
@@ -596,8 +596,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated enterprise statutory audit case study for Comprehensive Audit Opinion Formulation ...",
-            "title": "Day 22 Statutory Reporting Ledger \u2014 Substantive Audit",
+            "caption": "Execute simulated enterprise statutory audit case study for Comprehensive.",
+            "title": "Day 22 Statutory Reporting Ledger — Substantive Audit",
             "isBalanced": true,
             "totalDebit": 2253000,
             "totalCredit": 2253000,
@@ -627,8 +627,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify 100% balanced ledger closure and working paper archival for Comprehensive Audit Opinion Formulation ...",
-            "title": "Day 22 Statutory Reporting Ledger \u2014 Final Certified Balances",
+            "caption": "Verify one hundred% balanced ledger closure and working paper archival.",
+            "title": "Day 22 Statutory Reporting Ledger — Final Certified Balances",
             "isBalanced": true,
             "totalDebit": 2253000,
             "totalCredit": 2253000,

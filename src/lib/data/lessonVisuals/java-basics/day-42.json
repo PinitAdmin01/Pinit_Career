@@ -15,7 +15,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Allocate stack frame and inspect reference pointers for Stack Unwinding & Finally.",
+            "caption": "Allocate stack frame and inspect reference pointers for Stack Unwinding &.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -32,7 +32,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Push active execution frame onto JVM thread call stack.",
+            "caption": "Push active execution frame onto JVM thread call stack.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -51,7 +51,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Pop completed execution frame after verifying heap state invariant.",
+            "caption": "Pop completed execution frame after verifying heap state invariant.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -68,7 +68,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Push tryIt verification frame and evaluate assertions.",
+            "caption": "Push tryIt verification frame and evaluate assertions.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -98,7 +98,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Allocate stack frame and inspect reference pointers for Detective Lab: The Hijack.",
+            "caption": "Allocate stack frame and inspect reference pointers for Detective Lab.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -115,7 +115,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Push active execution frame onto JVM thread call stack.",
+            "caption": "Push active execution frame onto JVM thread call stack.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -134,7 +134,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Pop completed execution frame after verifying heap state invariant.",
+            "caption": "Pop completed execution frame after verifying heap state invariant.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -151,7 +151,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Push tryIt verification frame and evaluate assertions.",
+            "caption": "Push tryIt verification frame and evaluate assertions.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -181,7 +181,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Allocate stack frame and inspect reference pointers for Mastery Assignment: Multi.",
+            "caption": "Allocate stack frame and inspect reference pointers for Mastery.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -198,7 +198,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Push active execution frame onto JVM thread call stack.",
+            "caption": "Push active execution frame onto JVM thread call stack.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -217,7 +217,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Pop completed execution frame after verifying heap state invariant.",
+            "caption": "Pop completed execution frame after verifying heap state invariant.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -234,7 +234,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Push tryIt verification frame and evaluate assertions.",
+            "caption": "Push tryIt verification frame and evaluate assertions.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -264,7 +264,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Allocate stack frame and inspect reference pointers for Pr.",
+            "caption": "Allocate stack frame and inspect reference pointers for Pr.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -281,7 +281,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Push active execution frame onto JVM thread call stack.",
+            "caption": "Push active execution frame onto JVM thread call stack.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -300,7 +300,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Pop completed execution frame after verifying heap state invariant.",
+            "caption": "Pop completed execution frame after verifying heap state invariant.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -317,7 +317,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Push tryIt verification frame and evaluate assertions.",
+            "caption": "Push tryIt verification frame and evaluate assertions.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -347,7 +347,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Allocate stack frame and inspect reference pointers for Comprehensive Finally Gua.",
+            "caption": "Allocate stack frame and inspect reference pointers for Comprehensive.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -364,7 +364,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Push active execution frame onto JVM thread call stack.",
+            "caption": "Push active execution frame onto JVM thread call stack.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -383,7 +383,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Pop completed execution frame after verifying heap state invariant.",
+            "caption": "Pop completed execution frame after verifying heap state invariant.",
             "mode": "stack",
             "items": [
               "main() Frame",
@@ -400,7 +400,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Push tryIt verification frame and evaluate assertions.",
+            "caption": "Push tryIt verification frame and evaluate assertions.",
             "mode": "stack",
             "items": [
               "main() Frame",

@@ -59,7 +59,7 @@ export const NODE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
   // ── DAY 2: Modules & Path Resolution ──────────────────────────────────────
   {
     ...NODE_WEB_DAYS[1],
-    eTitle: "Normalize API URL Path",
+    eTitle: "Normalize API URL Path (The Six Libuv Event Loop Phases & Execution Order)",
     eDesc: "Write `normalizeApiPath(base: string, endpoint: string): string` that joins a base path and endpoint ensuring exactly one leading `/`, no trailing `/` (unless root), and no duplicate slashes.",
     eLanguage: "typescript",
     eStarter: lines("function normalizeApiPath(base: string, endpoint: string): string {", "  // Normalize and join paths", "  return '';", "}"),
@@ -124,7 +124,7 @@ export const NODE_WEB_30_DAYS_CONFIGS: DayConfig[] = [
   // ── DAY 4: Generics & Utility Types ───────────────────────────────────────
   {
     ...NODE_WEB_DAYS[3],
-    eTitle: "Generic Pick Fields Utility",
+    eTitle: "Generic Pick Fields Utility (Node.js Process Architecture)",
     eDesc: "Write `pickFields<T extends Record<string, unknown>, K extends keyof T>(obj: T, keys: K[]): Pick<T, K>` that extracts only the selected keys into a new object.",
     eLanguage: "typescript",
     eStarter: lines("function pickFields<T extends Record<string, unknown>, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> {", "  // Return new object with selected keys", "  return {} as any;", "}"),

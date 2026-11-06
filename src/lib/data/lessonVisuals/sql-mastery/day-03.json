@@ -421,7 +421,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for DELETE: removing rows [D3.P4.S1].",
+            "caption": "Initialize input state for DELETE: removing rows [Dthree.Pfour.Sone].",
             "values": {
               "in": "Day 3 Input",
               "proc": "Standby",
@@ -441,7 +441,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in DELETE: removing rows [D3.P4.S2].",
+            "caption": "Execute core transformation in DELETE: removing rows [Dthree.Pfour.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -465,7 +465,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D3.P4.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -485,7 +485,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for DELETE: removing rows [D3.P4.S4].",
+            "caption": "End-to-end execution verified for DELETE: removing rows.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -647,7 +647,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for The most dangerous mistake: forgetting W.. [D3.P5.S1].",
+            "caption": "Initialize input state for The most dangerous mistake: forgetting W.",
             "values": {
               "in": "Day 3 Input",
               "proc": "Standby",
@@ -667,7 +667,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The most dangerous ... [D3.P5.S2].",
+            "caption": "Execute core transformation in The most dangerous ... [Dthree.Pfive.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -691,7 +691,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D3.P5.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -711,7 +711,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The most dangerous mistake: forge.. [D3.P5.S4].",
+            "caption": "End-to-end execution verified for The most dangerous mistake: forge.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

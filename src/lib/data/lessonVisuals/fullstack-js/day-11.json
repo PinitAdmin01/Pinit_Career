@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress credential payload and initialize Pillar 1: Threat Models, Rainbow Tabl....",
+            "caption": "Ingress credential payload and initialize Pillar one: Threat Models.",
             "values": {
               "in": "Day 11 Input",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute memory-hard key derivation and salt evaluation in Pillar 1: Threat Models, Rainbow Tabl....",
+            "caption": "Execute memory-hard key derivation and salt evaluation in Pillar one.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -75,7 +75,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate constant-time comparison and re-hash policy rules.",
+            "caption": "Evaluate constant-time comparison and re-hash policy rules.",
             "values": {
               "in": "Validated",
               "proc": "Hash Computed",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end cryptographic verification confirmed for Pillar 1: Threat Models, Rainbow Tabl....",
+            "caption": "End-to-end cryptographic verification confirmed for Pillar one: Threat.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -257,7 +257,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress credential payload and initialize Pillar 2: Bcrypt Architecture: Adapti....",
+            "caption": "Ingress credential payload and initialize Pillar two: Bcrypt.",
             "values": {
               "in": "Day 11 Input",
               "proc": "Standby",
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute memory-hard key derivation and salt evaluation in Pillar 2: Bcrypt Architecture: Adapti....",
+            "caption": "Execute memory-hard key derivation and salt evaluation in Pillar two.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -301,7 +301,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate constant-time comparison and re-hash policy rules.",
+            "caption": "Evaluate constant-time comparison and re-hash policy rules.",
             "values": {
               "in": "Validated",
               "proc": "Hash Computed",
@@ -321,7 +321,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end cryptographic verification confirmed for Pillar 2: Bcrypt Architecture: Adapti....",
+            "caption": "End-to-end cryptographic verification confirmed for Pillar two: Bcrypt.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -483,7 +483,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress credential payload and initialize Pillar 3: Argon2id: Memory-Hard Funct....",
+            "caption": "Ingress credential payload and initialize Pillar three: Argontwoid.",
             "values": {
               "in": "Day 11 Input",
               "proc": "Standby",
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute memory-hard key derivation and salt evaluation in Pillar 3: Argon2id: Memory-Hard Funct....",
+            "caption": "Execute memory-hard key derivation and salt evaluation in Pillar three.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -527,7 +527,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate constant-time comparison and re-hash policy rules.",
+            "caption": "Evaluate constant-time comparison and re-hash policy rules.",
             "values": {
               "in": "Validated",
               "proc": "Hash Computed",
@@ -547,7 +547,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end cryptographic verification confirmed for Pillar 3: Argon2id: Memory-Hard Funct....",
+            "caption": "End-to-end cryptographic verification confirmed for Pillar three.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -709,7 +709,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress credential payload and initialize Pillar 4: Constant-Time String Equali....",
+            "caption": "Ingress credential payload and initialize Pillar four: Constant-Time.",
             "values": {
               "in": "Day 11 Input",
               "proc": "Standby",
@@ -729,7 +729,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute memory-hard key derivation and salt evaluation in Pillar 4: Constant-Time String Equali....",
+            "caption": "Execute memory-hard key derivation and salt evaluation in Pillar four.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -753,7 +753,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate constant-time comparison and re-hash policy rules.",
+            "caption": "Evaluate constant-time comparison and re-hash policy rules.",
             "values": {
               "in": "Validated",
               "proc": "Hash Computed",
@@ -773,7 +773,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end cryptographic verification confirmed for Pillar 4: Constant-Time String Equali....",
+            "caption": "End-to-end cryptographic verification confirmed for Pillar four.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -935,7 +935,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress credential payload and initialize Pillar 5: Enterprise Password Lifecyc....",
+            "caption": "Ingress credential payload and initialize Pillar five: Enterprise.",
             "values": {
               "in": "Day 11 Input",
               "proc": "Standby",
@@ -955,7 +955,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute memory-hard key derivation and salt evaluation in Pillar 5: Enterprise Password Lifecyc....",
+            "caption": "Execute memory-hard key derivation and salt evaluation in Pillar five.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -979,7 +979,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate constant-time comparison and re-hash policy rules.",
+            "caption": "Evaluate constant-time comparison and re-hash policy rules.",
             "values": {
               "in": "Validated",
               "proc": "Hash Computed",
@@ -999,7 +999,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end cryptographic verification confirmed for Pillar 5: Enterprise Password Lifecyc....",
+            "caption": "End-to-end cryptographic verification confirmed for Pillar five.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

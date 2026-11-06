@@ -12,7 +12,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingesting data structures and architectural scope for Advanced Power Query M Language ...",
+            "caption": "Ingesting data structures and architectural scope for Advanced Power.",
             "max": 100,
             "bars": [
               {
@@ -39,7 +39,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing transformation algorithms and data pipelines for Advanced Power Query M Language ...",
+            "caption": "Processing transformation algorithms and data pipelines for Advanced.",
             "max": 100,
             "bars": [
               {
@@ -66,7 +66,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluating real-world institutional enterprise scenario for Advanced Power Query M Language ...",
+            "caption": "Evaluating real-world institutional enterprise scenario for Advanced.",
             "max": 100,
             "bars": [
               {
@@ -93,7 +93,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Enterprise Big Data gateway certification and SHA-256 seal for Advanced Power Query M Language ...",
+            "caption": "Enterprise Big Data gateway certification and SHA digest seal for.",
             "max": 100,
             "bars": [
               {
@@ -244,7 +244,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingesting data structures and architectural scope for Automated Web Scraping & Regulat...",
+            "caption": "Ingesting data structures and architectural scope for Automated Web.",
             "max": 100,
             "bars": [
               {
@@ -271,7 +271,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing transformation algorithms and data pipelines for Automated Web Scraping & Regulat...",
+            "caption": "Processing transformation algorithms and data pipelines for Automated Web.",
             "max": 100,
             "bars": [
               {
@@ -298,7 +298,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluating real-world institutional enterprise scenario for Automated Web Scraping & Regulat...",
+            "caption": "Evaluating real-world institutional enterprise scenario for Automated Web.",
             "max": 100,
             "bars": [
               {
@@ -325,7 +325,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Enterprise Big Data gateway certification and SHA-256 seal for Automated Web Scraping & Regulat...",
+            "caption": "Enterprise Big Data gateway certification and SHA digest seal for.",
             "max": 100,
             "bars": [
               {
@@ -476,7 +476,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingesting data structures and architectural scope for Fuzzy Matching, Jaccard Similari...",
+            "caption": "Ingesting data structures and architectural scope for Fuzzy Matching.",
             "max": 100,
             "bars": [
               {
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing transformation algorithms and data pipelines for Fuzzy Matching, Jaccard Similari...",
+            "caption": "Processing transformation algorithms and data pipelines for Fuzzy.",
             "max": 100,
             "bars": [
               {
@@ -530,7 +530,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluating real-world institutional enterprise scenario for Fuzzy Matching, Jaccard Similari...",
+            "caption": "Evaluating real-world institutional enterprise scenario for Fuzzy.",
             "max": 100,
             "bars": [
               {
@@ -557,7 +557,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Enterprise Big Data gateway certification and SHA-256 seal for Fuzzy Matching, Jaccard Similari...",
+            "caption": "Enterprise Big Data gateway certification and SHA digest seal for Fuzzy.",
             "max": 100,
             "bars": [
               {
@@ -708,7 +708,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingesting data structures and architectural scope for Automated Multi-Source Reconcili...",
+            "caption": "Ingesting data structures and architectural scope for Automated.",
             "max": 100,
             "bars": [
               {
@@ -735,7 +735,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing transformation algorithms and data pipelines for Automated Multi-Source Reconcili...",
+            "caption": "Processing transformation algorithms and data pipelines for Automated.",
             "max": 100,
             "bars": [
               {
@@ -762,7 +762,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluating real-world institutional enterprise scenario for Automated Multi-Source Reconcili...",
+            "caption": "Evaluating real-world institutional enterprise scenario for Automated.",
             "max": 100,
             "bars": [
               {
@@ -789,7 +789,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Enterprise Big Data gateway certification and SHA-256 seal for Automated Multi-Source Reconcili...",
+            "caption": "Enterprise Big Data gateway certification and SHA digest seal for.",
             "max": 100,
             "bars": [
               {
@@ -940,7 +940,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingesting data structures and architectural scope for Enterprise Big Data Excel Pipeli...",
+            "caption": "Ingesting data structures and architectural scope for Enterprise Big Data.",
             "max": 100,
             "bars": [
               {
@@ -967,7 +967,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing transformation algorithms and data pipelines for Enterprise Big Data Excel Pipeli...",
+            "caption": "Processing transformation algorithms and data pipelines for Enterprise.",
             "max": 100,
             "bars": [
               {
@@ -994,7 +994,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluating real-world institutional enterprise scenario for Enterprise Big Data Excel Pipeli...",
+            "caption": "Evaluating real-world institutional enterprise scenario for Enterprise.",
             "max": 100,
             "bars": [
               {
@@ -1021,7 +1021,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Enterprise Big Data gateway certification and SHA-256 seal for Enterprise Big Data Excel Pipeli...",
+            "caption": "Enterprise Big Data gateway certification and SHA digest seal for.",
             "max": 100,
             "bars": [
               {

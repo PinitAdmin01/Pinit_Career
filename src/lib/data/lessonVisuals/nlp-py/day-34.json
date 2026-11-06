@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for The Tokenization Problem: From Character...",
+            "caption": "Initialize input state for The Tokenization Problem: From Character...",
             "values": {
               "in": "Day 34 Input",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The Tokenization Pr....",
+            "caption": "Execute core transformation in The Tokenization Pr....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -75,7 +75,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The Tokenization Problem: From Ch...",
+            "caption": "End-to-end execution verified for The Tokenization Problem: From Ch...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -257,7 +257,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Byte-Pair Encoding (BPE): Iterative Pair...",
+            "caption": "Initialize input state for Byte-Pair Encoding (BPE): Iterative Pair...",
             "values": {
               "in": "Day 34 Input",
               "proc": "Standby",
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Byte-Pair Encoding ....",
+            "caption": "Execute core transformation in Byte-Pair Encoding ....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -301,7 +301,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -321,7 +321,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Byte-Pair Encoding (BPE): Iterati...",
+            "caption": "End-to-end execution verified for Byte-Pair Encoding (BPE): Iterati...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -483,7 +483,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for WordPiece and Unigram Language Model Tok...",
+            "caption": "Initialize input state for WordPiece and Unigram Language Model Tok...",
             "values": {
               "in": "Day 34 Input",
               "proc": "Standby",
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in WordPiece and Unigr....",
+            "caption": "Execute core transformation in WordPiece and Unigr....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -527,7 +527,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -547,7 +547,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for WordPiece and Unigram Language Mo...",
+            "caption": "End-to-end execution verified for WordPiece and Unigram Language Mo...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -709,7 +709,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Byte-Level BPE & Byte-Fallback: Eliminat...",
+            "caption": "Initialize input state for Byte-Level BPE & Byte-Fallback: Eliminat...",
             "values": {
               "in": "Day 34 Input",
               "proc": "Standby",
@@ -729,7 +729,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Byte-Level BPE & By....",
+            "caption": "Execute core transformation in Byte-Level BPE & By....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -753,7 +753,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -773,7 +773,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Byte-Level BPE & Byte-Fallback: E...",
+            "caption": "End-to-end execution verified for Byte-Level BPE & Byte-Fallback: E...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -935,7 +935,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Production Tokenizer Engineering: Specia...",
+            "caption": "Initialize input state for Production Tokenizer Engineering: Specia...",
             "values": {
               "in": "Day 34 Input",
               "proc": "Standby",
@@ -955,7 +955,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Production Tokenize....",
+            "caption": "Execute core transformation in Production Tokenize....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -979,7 +979,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -999,7 +999,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Production Tokenizer Engineering:...",
+            "caption": "End-to-end execution verified for Production Tokenizer Engineering:...",
             "values": {
               "in": "Committed",
               "proc": "Verified",

@@ -774,7 +774,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Word2Vec predicts local context while GloVe fits global co-occurrence.",
+            "caption": "WordtwoVec predicts local context while GloVe fits global co-occurrence.",
             "rows": [
               {
                 "cells": [
@@ -819,7 +819,7 @@
           },
           {
             "at": "say4",
-            "caption": "Word2Vec streaming training accommodates datasets exceeding memory limits.",
+            "caption": "WordtwoVec streaming training accommodates datasets exceeding memory.",
             "rows": [
               {
                 "cells": [
@@ -1039,7 +1039,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Using pre-trained embeddings [D9.P5.S1].",
+            "caption": "Initialize input state for Using pre-trained embeddings [Dnine.Pfive.Sone].",
             "values": {
               "in": "Day 9 Input",
               "proc": "Standby",
@@ -1059,7 +1059,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Using pre-trained e... [D9.P5.S2].",
+            "caption": "Execute core transformation in Using pre-trained e... [Dnine.Pfive.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -1083,7 +1083,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D9.P5.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -1103,7 +1103,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Using pre-trained embeddings [D9.P5.S4].",
+            "caption": "End-to-end execution verified for Using pre-trained embeddings.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -1265,7 +1265,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: weights and counts [D9.P6.S1].",
+            "caption": "Initialize input state for Practice time: weights and counts.",
             "values": {
               "in": "Day 9 Input",
               "proc": "Standby",
@@ -1285,7 +1285,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: weig... [D9.P6.S2].",
+            "caption": "Execute core transformation in Practice time: weig... [Dnine.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -1309,7 +1309,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D9.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [Dnine.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -1329,7 +1329,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: weights and counts [D9.P6.S4].",
+            "caption": "End-to-end execution verified for Practice time: weights and counts.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

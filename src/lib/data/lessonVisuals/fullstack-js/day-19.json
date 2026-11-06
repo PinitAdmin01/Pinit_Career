@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress task descriptor and initialize Producer-Consumer Architecture & Bu....",
+            "caption": "Ingress task descriptor and initialize Producer-Consumer Architecture &.",
             "values": {
               "in": "Job Enqueued",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute queue lifecycle, backoff scheduling, and worker dispatch in Producer-Consumer Architecture & Bu....",
+            "caption": "Execute queue lifecycle, backoff scheduling, and worker dispatch in.",
             "values": {
               "in": "Claimed",
               "proc": "Executing...",
@@ -71,7 +71,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world asynchronous execution pattern in Producer-Consumer Architecture & Bu....",
+            "caption": "Real-world asynchronous execution pattern in Producer-Consumer.",
             "values": {
               "in": "Active Worker",
               "proc": "Processing",
@@ -91,7 +91,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify deterministic idempotency, DLQ isolation, and queue throughput in Producer-Consumer Architecture & Bu....",
+            "caption": "Verify deterministic idempotency, DLQ isolation, and queue throughput in.",
             "values": {
               "in": "Terminal State",
               "proc": "Quiesced",
@@ -138,7 +138,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress task descriptor and initialize Concurrency, Sandboxed Workers & Ev....",
+            "caption": "Ingress task descriptor and initialize Concurrency, Sandboxed Workers &.",
             "values": {
               "in": "Job Enqueued",
               "proc": "Standby",
@@ -158,7 +158,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute queue lifecycle, backoff scheduling, and worker dispatch in Concurrency, Sandboxed Workers & Ev....",
+            "caption": "Execute queue lifecycle, backoff scheduling, and worker dispatch in.",
             "values": {
               "in": "Claimed",
               "proc": "Executing...",
@@ -178,7 +178,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world asynchronous execution pattern in Concurrency, Sandboxed Workers & Ev....",
+            "caption": "Real-world asynchronous execution pattern in Concurrency, Sandboxed.",
             "values": {
               "in": "Active Worker",
               "proc": "Processing",
@@ -198,7 +198,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify deterministic idempotency, DLQ isolation, and queue throughput in Concurrency, Sandboxed Workers & Ev....",
+            "caption": "Verify deterministic idempotency, DLQ isolation, and queue throughput in.",
             "values": {
               "in": "Terminal State",
               "proc": "Quiesced",
@@ -245,7 +245,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress task descriptor and initialize Retry Strategies, Exponential Backo....",
+            "caption": "Ingress task descriptor and initialize Retry Strategies, Exponential.",
             "values": {
               "in": "Job Enqueued",
               "proc": "Standby",
@@ -265,7 +265,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute queue lifecycle, backoff scheduling, and worker dispatch in Retry Strategies, Exponential Backo....",
+            "caption": "Execute queue lifecycle, backoff scheduling, and worker dispatch in Retry.",
             "values": {
               "in": "Claimed",
               "proc": "Executing...",
@@ -285,7 +285,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world asynchronous execution pattern in Retry Strategies, Exponential Backo....",
+            "caption": "Real-world asynchronous execution pattern in Retry Strategies.",
             "values": {
               "in": "Active Worker",
               "proc": "Processing",
@@ -305,7 +305,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify deterministic idempotency, DLQ isolation, and queue throughput in Retry Strategies, Exponential Backo....",
+            "caption": "Verify deterministic idempotency, DLQ isolation, and queue throughput in.",
             "values": {
               "in": "Terminal State",
               "proc": "Quiesced",
@@ -352,7 +352,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress task descriptor and initialize Rate Limiting, Group Throttling & P....",
+            "caption": "Ingress task descriptor and initialize Rate Limiting, Group Throttling &.",
             "values": {
               "in": "Job Enqueued",
               "proc": "Standby",
@@ -372,7 +372,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute queue lifecycle, backoff scheduling, and worker dispatch in Rate Limiting, Group Throttling & P....",
+            "caption": "Execute queue lifecycle, backoff scheduling, and worker dispatch in Rate.",
             "values": {
               "in": "Claimed",
               "proc": "Executing...",
@@ -392,7 +392,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world asynchronous execution pattern in Rate Limiting, Group Throttling & P....",
+            "caption": "Real-world asynchronous execution pattern in Rate Limiting, Group.",
             "values": {
               "in": "Active Worker",
               "proc": "Processing",
@@ -412,7 +412,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify deterministic idempotency, DLQ isolation, and queue throughput in Rate Limiting, Group Throttling & P....",
+            "caption": "Verify deterministic idempotency, DLQ isolation, and queue throughput in.",
             "values": {
               "in": "Terminal State",
               "proc": "Quiesced",
@@ -459,7 +459,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress task descriptor and initialize Distributed Job Deduplication, Idem....",
+            "caption": "Ingress task descriptor and initialize Distributed Job Deduplication.",
             "values": {
               "in": "Job Enqueued",
               "proc": "Standby",
@@ -479,7 +479,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute queue lifecycle, backoff scheduling, and worker dispatch in Distributed Job Deduplication, Idem....",
+            "caption": "Execute queue lifecycle, backoff scheduling, and worker dispatch in.",
             "values": {
               "in": "Claimed",
               "proc": "Executing...",
@@ -499,7 +499,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world asynchronous execution pattern in Distributed Job Deduplication, Idem....",
+            "caption": "Real-world asynchronous execution pattern in Distributed Job.",
             "values": {
               "in": "Active Worker",
               "proc": "Processing",
@@ -519,7 +519,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify deterministic idempotency, DLQ isolation, and queue throughput in Distributed Job Deduplication, Idem....",
+            "caption": "Verify deterministic idempotency, DLQ isolation, and queue throughput in.",
             "values": {
               "in": "Terminal State",
               "proc": "Quiesced",

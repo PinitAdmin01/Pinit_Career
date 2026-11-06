@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Inspecting network packet headers and interface states for Network Architecture Foun...",
+            "caption": "Inspecting network packet headers and interface states for Network.",
             "items": [
               "0x00: ETH_FRAME",
               "0x40: IP_PACKET",
@@ -41,7 +41,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Subnet prefix matching and routing evaluation for Network Architecture Foun...",
+            "caption": "Subnet prefix matching and routing evaluation for Network Architecture.",
             "items": [
               "0x00: ETH_FRAME",
               "0x40: IP_PACKET",
@@ -68,7 +68,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world operational state and DNS resolution flow for Network Architecture Foun...",
+            "caption": "Real-world operational state and DNS resolution flow for Network.",
             "items": [
               "0x00: ETH_FRAME",
               "0x40: IP_PACKET",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive verification and network telemetry diagnostics for Network Architecture Foun...",
+            "caption": "Interactive verification and network telemetry diagnostics for Network.",
             "items": [
               "0x00: ETH_FRAME",
               "0x40: IP_PACKET",
@@ -132,7 +132,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Inspecting network packet headers and interface states for Link Layer Frames, Ethern...",
+            "caption": "Inspecting network packet headers and interface states for Link Layer.",
             "items": [
               "0x00: ETH_FRAME",
               "0x40: IP_PACKET",
@@ -159,7 +159,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Subnet prefix matching and routing evaluation for Link Layer Frames, Ethern...",
+            "caption": "Subnet prefix matching and routing evaluation for Link Layer Frames.",
             "items": [
               "0x00: ETH_FRAME",
               "0x40: IP_PACKET",
@@ -186,7 +186,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world operational state and DNS resolution flow for Link Layer Frames, Ethern...",
+            "caption": "Real-world operational state and DNS resolution flow for Link Layer.",
             "items": [
               "0x00: ETH_FRAME",
               "0x40: IP_PACKET",
@@ -213,7 +213,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive verification and network telemetry diagnostics for Link Layer Frames, Ethern...",
+            "caption": "Interactive verification and network telemetry diagnostics for Link Layer.",
             "items": [
               "0x00: ETH_FRAME",
               "0x40: IP_PACKET",
@@ -250,7 +250,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Inspecting network packet headers and interface states for Network Layer IPv4 Addres...",
+            "caption": "Inspecting network packet headers and interface states for Network Layer.",
             "items": [
               "0x00: ETH_FRAME",
               "0x40: IP_PACKET",
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Subnet prefix matching and routing evaluation for Network Layer IPv4 Addres...",
+            "caption": "Subnet prefix matching and routing evaluation for Network Layer IPvfour.",
             "items": [
               "0x00: ETH_FRAME",
               "0x40: IP_PACKET",
@@ -304,7 +304,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world operational state and DNS resolution flow for Network Layer IPv4 Addres...",
+            "caption": "Real-world operational state and DNS resolution flow for Network Layer.",
             "items": [
               "0x00: ETH_FRAME",
               "0x40: IP_PACKET",
@@ -331,7 +331,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive verification and network telemetry diagnostics for Network Layer IPv4 Addres...",
+            "caption": "Interactive verification and network telemetry diagnostics for Network.",
             "items": [
               "0x00: ETH_FRAME",
               "0x40: IP_PACKET",
@@ -368,7 +368,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Inspecting network packet headers and interface states for Domain Name System (DNS) ...",
+            "caption": "Inspecting network packet headers and interface states for Domain Name.",
             "items": [
               "0x00: ETH_FRAME",
               "0x40: IP_PACKET",
@@ -395,7 +395,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Subnet prefix matching and routing evaluation for Domain Name System (DNS) ...",
+            "caption": "Subnet prefix matching and routing evaluation for Domain Name System.",
             "items": [
               "0x00: ETH_FRAME",
               "0x40: IP_PACKET",
@@ -422,7 +422,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world operational state and DNS resolution flow for Domain Name System (DNS) ...",
+            "caption": "Real-world operational state and DNS resolution flow for Domain Name.",
             "items": [
               "0x00: ETH_FRAME",
               "0x40: IP_PACKET",
@@ -449,7 +449,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive verification and network telemetry diagnostics for Domain Name System (DNS) ...",
+            "caption": "Interactive verification and network telemetry diagnostics for Domain.",
             "items": [
               "0x00: ETH_FRAME",
               "0x40: IP_PACKET",
@@ -486,7 +486,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Inspecting network packet headers and interface states for Master Network Interface ...",
+            "caption": "Inspecting network packet headers and interface states for Master Network.",
             "items": [
               "0x00: ETH_FRAME",
               "0x40: IP_PACKET",
@@ -513,7 +513,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Subnet prefix matching and routing evaluation for Master Network Interface ...",
+            "caption": "Subnet prefix matching and routing evaluation for Master Network.",
             "items": [
               "0x00: ETH_FRAME",
               "0x40: IP_PACKET",
@@ -540,7 +540,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world operational state and DNS resolution flow for Master Network Interface ...",
+            "caption": "Real-world operational state and DNS resolution flow for Master Network.",
             "items": [
               "0x00: ETH_FRAME",
               "0x40: IP_PACKET",
@@ -567,7 +567,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive verification and network telemetry diagnostics for Master Network Interface ...",
+            "caption": "Interactive verification and network telemetry diagnostics for Master.",
             "items": [
               "0x00: ETH_FRAME",
               "0x40: IP_PACKET",

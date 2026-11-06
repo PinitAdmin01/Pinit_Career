@@ -49,7 +49,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Validate Apple Privacy Manifests and Required Reason APIs via <ApplePrivacyManifest />.",
+            "caption": "Validate Apple Privacy Manifests and Required Reason APIs via.",
             "activeId": "PrivacyValidator",
             "tone": "primary",
             "nodes": [
@@ -65,7 +65,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Audit Android App Bundle, targetSdkVersion >= 34, and 16 KB ELF alignment via <AndroidAppBundleAuditor />.",
+            "caption": "Audit Android App Bundle, targetSdkVersion >= multiple, and sixteen KB.",
             "activeId": "AabAuditor",
             "tone": "accent",
             "nodes": [
@@ -81,7 +81,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enforce App Tracking Transparency (ATT) zeroed IDFA handling via <AttTrackingCoordinator />.",
+            "caption": "Enforce App Tracking Transparency (ATT) zeroed IDFA handling via.",
             "activeId": "AttCoordinator",
             "tone": "data",
             "nodes": [
@@ -97,7 +97,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute comprehensive Global App Store Submission & Compliance Certification.",
+            "caption": "Execute comprehensive Global App Store Submission & Compliance.",
             "activeId": "root",
             "tone": "ok",
             "nodes": [
@@ -263,7 +263,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Validate Apple Privacy Manifests and Required Reason APIs.",
+            "caption": "Validate Apple Privacy Manifests and Required Reason APIs.",
             "activeId": "PrivacyValidator",
             "tone": "primary",
             "nodes": [
@@ -279,7 +279,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Audit Android App Bundle, targetSdkVersion >= 34, and 16 KB ELF alignment via <AndroidAppBundleAuditor />.",
+            "caption": "Audit Android App Bundle, targetSdkVersion >= multiple, and sixteen KB.",
             "activeId": "AabAuditor",
             "tone": "accent",
             "nodes": [
@@ -295,7 +295,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enforce App Tracking Transparency (ATT) zeroed IDFA handling via <AttTrackingCoordinator />.",
+            "caption": "Enforce App Tracking Transparency (ATT) zeroed IDFA handling via.",
             "activeId": "AttCoordinator",
             "tone": "data",
             "nodes": [
@@ -311,7 +311,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute comprehensive Global App Store Submission & Compliance Certification.",
+            "caption": "Execute comprehensive Global App Store Submission & Compliance.",
             "activeId": "root",
             "tone": "ok",
             "nodes": [
@@ -477,7 +477,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Validate Apple Privacy Manifests and Required Reason APIs.",
+            "caption": "Validate Apple Privacy Manifests and Required Reason APIs.",
             "activeId": "PrivacyValidator",
             "tone": "primary",
             "nodes": [
@@ -493,7 +493,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Audit Android App Bundle, targetSdkVersion >= 34, and 16 KB ELF alignment via <AndroidAppBundleAuditor />.",
+            "caption": "Audit Android App Bundle, targetSdkVersion >= multiple, and sixteen KB.",
             "activeId": "AabAuditor",
             "tone": "accent",
             "nodes": [
@@ -509,7 +509,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enforce App Tracking Transparency (ATT) zeroed IDFA handling via <AttTrackingCoordinator />.",
+            "caption": "Enforce App Tracking Transparency (ATT) zeroed IDFA handling via.",
             "activeId": "AttCoordinator",
             "tone": "data",
             "nodes": [
@@ -525,7 +525,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute comprehensive Global App Store Submission & Compliance Certification.",
+            "caption": "Execute comprehensive Global App Store Submission & Compliance.",
             "activeId": "root",
             "tone": "ok",
             "nodes": [
@@ -691,7 +691,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Validate Apple Privacy Manifests and Required Reason APIs.",
+            "caption": "Validate Apple Privacy Manifests and Required Reason APIs.",
             "activeId": "PrivacyValidator",
             "tone": "primary",
             "nodes": [
@@ -707,7 +707,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Audit Android App Bundle, targetSdkVersion >= 34, and 16 KB ELF alignment via <AndroidAppBundleAuditor />.",
+            "caption": "Audit Android App Bundle, targetSdkVersion >= multiple, and sixteen KB.",
             "activeId": "AabAuditor",
             "tone": "accent",
             "nodes": [
@@ -723,7 +723,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enforce App Tracking Transparency (ATT) zeroed IDFA handling via <AttTrackingCoordinator />.",
+            "caption": "Enforce App Tracking Transparency (ATT) zeroed IDFA handling via.",
             "activeId": "AttCoordinator",
             "tone": "data",
             "nodes": [
@@ -739,7 +739,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute comprehensive Global App Store Submission & Compliance Certification.",
+            "caption": "Execute comprehensive Global App Store Submission & Compliance.",
             "activeId": "root",
             "tone": "ok",
             "nodes": [
@@ -905,7 +905,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Validate Apple Privacy Manifests and Required Reason APIs.",
+            "caption": "Validate Apple Privacy Manifests and Required Reason APIs.",
             "activeId": "PrivacyValidator",
             "tone": "primary",
             "nodes": [
@@ -921,7 +921,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Audit Android App Bundle, targetSdkVersion >= 34, and 16 KB ELF alignment via <AndroidAppBundleAuditor />.",
+            "caption": "Audit Android App Bundle, targetSdkVersion >= multiple, and sixteen KB.",
             "activeId": "AabAuditor",
             "tone": "accent",
             "nodes": [
@@ -937,7 +937,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enforce App Tracking Transparency (ATT) zeroed IDFA handling via <AttTrackingCoordinator />.",
+            "caption": "Enforce App Tracking Transparency (ATT) zeroed IDFA handling via.",
             "activeId": "AttCoordinator",
             "tone": "data",
             "nodes": [
@@ -953,7 +953,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute comprehensive Global App Store Submission & Compliance Certification.",
+            "caption": "Execute comprehensive Global App Store Submission & Compliance.",
             "activeId": "root",
             "tone": "ok",
             "nodes": [

@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors cross-chain packet and state for The Interoperability Trilemma ...",
+            "caption": "Protocol monitors cross-chain packet and state for The Interoperability.",
             "activeActor": "User Wallet",
             "messages": [
               {
@@ -33,7 +33,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine verifies packet consensus, DVN quorum, or RMN watchdog blessing",
+            "caption": "Engine verifies packet consensus, DVN quorum, or RMN watchdog blessing.",
             "activeActor": "Source Lock Vault",
             "messages": [
               {
@@ -46,7 +46,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of rate limits, nonce monotonicity, or ZK-SNARK proof",
+            "caption": "Verification of rate limits, nonce monotonicity, or ZK-SNARK proof.",
             "activeActor": "Attestation Committee",
             "messages": [
               {
@@ -59,7 +59,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Packet delivered; destination state committed with zero trust leakage",
+            "caption": "Packet delivered; destination state committed with zero trust leakage.",
             "activeActor": "Source Lock Vault",
             "messages": [
               {
@@ -152,7 +152,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors cross-chain packet and state for Arbitrary Messaging Protocols:...",
+            "caption": "Protocol monitors cross-chain packet and state for Arbitrary Messaging.",
             "activeActor": "User Application",
             "messages": [
               {
@@ -165,7 +165,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine verifies packet consensus, DVN quorum, or RMN watchdog blessing",
+            "caption": "Engine verifies packet consensus, DVN quorum, or RMN watchdog blessing.",
             "activeActor": "EndpointV2",
             "messages": [
               {
@@ -178,7 +178,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of rate limits, nonce monotonicity, or ZK-SNARK proof",
+            "caption": "Verification of rate limits, nonce monotonicity, or ZK-SNARK proof.",
             "activeActor": "DVN Quorum",
             "messages": [
               {
@@ -191,7 +191,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Packet delivered; destination state committed with zero trust leakage",
+            "caption": "Packet delivered; destination state committed with zero trust leakage.",
             "activeActor": "EndpointV2",
             "messages": [
               {
@@ -284,7 +284,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors cross-chain packet and state for Chainlink Cross-Chain Interope...",
+            "caption": "Protocol monitors cross-chain packet and state for Chainlink Cross-Chain.",
             "activeActor": "Source CCIP Router",
             "messages": [
               {
@@ -297,7 +297,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine verifies packet consensus, DVN quorum, or RMN watchdog blessing",
+            "caption": "Engine verifies packet consensus, DVN quorum, or RMN watchdog blessing.",
             "activeActor": "Primary DON",
             "messages": [
               {
@@ -310,7 +310,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of rate limits, nonce monotonicity, or ZK-SNARK proof",
+            "caption": "Verification of rate limits, nonce monotonicity, or ZK-SNARK proof.",
             "activeActor": "RMN Sentinel Network",
             "messages": [
               {
@@ -323,7 +323,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Packet delivered; destination state committed with zero trust leakage",
+            "caption": "Packet delivered; destination state committed with zero trust leakage.",
             "activeActor": "Primary DON",
             "messages": [
               {
@@ -416,7 +416,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors cross-chain packet and state for Optimistic vs Zero-Knowledge R...",
+            "caption": "Protocol monitors cross-chain packet and state for Optimistic vs.",
             "activeActor": "Ethereum Validator",
             "messages": [
               {
@@ -429,7 +429,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine verifies packet consensus, DVN quorum, or RMN watchdog blessing",
+            "caption": "Engine verifies packet consensus, DVN quorum, or RMN watchdog blessing.",
             "activeActor": "ZK Consensus Prover",
             "messages": [
               {
@@ -442,7 +442,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of rate limits, nonce monotonicity, or ZK-SNARK proof",
+            "caption": "Verification of rate limits, nonce monotonicity, or ZK-SNARK proof.",
             "activeActor": "Light Client Verifier",
             "messages": [
               {
@@ -455,7 +455,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Packet delivered; destination state committed with zero trust leakage",
+            "caption": "Packet delivered; destination state committed with zero trust leakage.",
             "activeActor": "ZK Consensus Prover",
             "messages": [
               {
@@ -548,7 +548,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors cross-chain packet and state for Enterprise Cross-Chain Liquidi...",
+            "caption": "Protocol monitors cross-chain packet and state for Enterprise Cross-Chain.",
             "activeActor": "Enterprise Sentinel",
             "messages": [
               {
@@ -561,7 +561,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine verifies packet consensus, DVN quorum, or RMN watchdog blessing",
+            "caption": "Engine verifies packet consensus, DVN quorum, or RMN watchdog blessing.",
             "activeActor": "Bridge Topology Gate",
             "messages": [
               {
@@ -574,7 +574,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of rate limits, nonce monotonicity, or ZK-SNARK proof",
+            "caption": "Verification of rate limits, nonce monotonicity, or ZK-SNARK proof.",
             "activeActor": "Rate Limiter Gate",
             "messages": [
               {
@@ -587,7 +587,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Packet delivered; destination state committed with zero trust leakage",
+            "caption": "Packet delivered; destination state committed with zero trust leakage.",
             "activeActor": "Bridge Topology Gate",
             "messages": [
               {

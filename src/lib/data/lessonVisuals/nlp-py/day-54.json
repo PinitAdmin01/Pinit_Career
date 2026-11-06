@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for The Frontier of Multimodal SFT: Interlea...",
+            "caption": "Initialize input state for The Frontier of Multimodal SFT: Interlea...",
             "values": {
               "in": "Day 54 Input",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The Frontier of Mul....",
+            "caption": "Execute core transformation in The Frontier of Mul....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -75,7 +75,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The Frontier of Multimodal SFT: I...",
+            "caption": "End-to-end execution verified for The Frontier of Multimodal SFT: I...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -257,7 +257,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Visual Grounding & Spatial Coordinate To...",
+            "caption": "Initialize input state for Visual Grounding & Spatial Coordinate To...",
             "values": {
               "in": "Day 54 Input",
               "proc": "Standby",
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Visual Grounding & ....",
+            "caption": "Execute core transformation in Visual Grounding & ....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -301,7 +301,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -321,7 +321,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Visual Grounding & Spatial Coordi...",
+            "caption": "End-to-end execution verified for Visual Grounding & Spatial Coordi...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -483,7 +483,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Referring Expression Comprehension (REC)...",
+            "caption": "Initialize input state for Referring Expression Comprehension (REC)...",
             "values": {
               "in": "Day 54 Input",
               "proc": "Standby",
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Referring Expressio....",
+            "caption": "Execute core transformation in Referring Expressio....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -527,7 +527,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -547,7 +547,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Referring Expression Comprehensio...",
+            "caption": "End-to-end execution verified for Referring Expression Comprehensio...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -709,7 +709,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Multimodal Loss Masking: Causal Autoregr...",
+            "caption": "Initialize input state for Multimodal Loss Masking: Causal Autoregr...",
             "values": {
               "in": "Day 54 Input",
               "proc": "Standby",
@@ -729,7 +729,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Multimodal Loss Mas....",
+            "caption": "Execute core transformation in Multimodal Loss Mas....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -753,7 +753,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -773,7 +773,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Multimodal Loss Masking: Causal A...",
+            "caption": "End-to-end execution verified for Multimodal Loss Masking: Causal A...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -935,7 +935,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Masterclass Synthesis: Building.",
+            "caption": "Initialize input state for Masterclass Synthesis: Building.",
             "values": {
               "in": "Day 54 Input",
               "proc": "Standby",
@@ -955,7 +955,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Masterclass Synthes....",
+            "caption": "Execute core transformation in Masterclass Synthes....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -979,7 +979,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -999,7 +999,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Masterclass Synthesis: Building t...",
+            "caption": "End-to-end execution verified for Masterclass Synthesis: Building t...",
             "values": {
               "in": "Committed",
               "proc": "Verified",

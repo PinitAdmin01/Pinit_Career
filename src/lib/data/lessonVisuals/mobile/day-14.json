@@ -10,7 +10,7 @@
       "codeHash": "f1ce7f6090b5f802c96e56d196b887bd395199eb25cbb03144f1efcbea1de0ae",
       "spec": {
         "template": "component-tree",
-        "title": "Embedded Relational Engines & SQLite WAL: Con... \u2014 Mobile Component Hierarchy",
+        "title": "Embedded Relational Engines & SQLite WAL: Con... — Mobile Component Hierarchy",
         "nodes": [
           {
             "id": "OfflineAppRoot",
@@ -54,7 +54,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <OfflineFirstApp /> for Embedded Relational Engines & ...",
+            "caption": "Mount root <OfflineFirstApp /> for Embedded Relational Engines & ...",
             "activeId": "OfflineAppRoot",
             "tone": "data",
             "nodes": [
@@ -70,7 +70,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Initialize <SQLiteWalStorageEngine /> with PRAGMA journal_mode = WAL",
+            "caption": "Initialize <SQLiteWalStorageEngine /> with PRAGMA journal_mode = WAL.",
             "activeId": "WalStorage",
             "tone": "accent",
             "nodes": [
@@ -86,7 +86,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enqueue offline mutation into <MonotonicMutationOutbox /> with UUID idempotency key",
+            "caption": "Enqueue offline mutation into <MonotonicMutationOutbox /> with UUID.",
             "activeId": "OutboxQueue",
             "tone": "data",
             "nodes": [
@@ -102,7 +102,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Reconcile UI via <OptimisticReconciliationView /> with automatic snapshot rollback",
+            "caption": "Reconcile UI via <OptimisticReconciliationView /> with automatic snapshot.",
             "activeId": "ReconciliationView",
             "tone": "ok",
             "nodes": [
@@ -120,7 +120,7 @@
       },
       "filled": {
         "template": "component-tree",
-        "title": "Embedded Relational Engines & SQLite WAL: Con... \u2014 Mobile Component Hierarchy",
+        "title": "Embedded Relational Engines & SQLite WAL: Con... — Mobile Component Hierarchy",
         "nodes": [
           {
             "id": "OfflineAppRoot",
@@ -234,7 +234,7 @@
       "codeHash": "d595ef654946a0b8243df7d2185b7d3c228e2dc6fbd2cc2f27a1186de4b91651",
       "spec": {
         "template": "component-tree",
-        "title": "Deterministic Schema Migrations: PRAGMA user_... \u2014 Mobile Component Hierarchy",
+        "title": "Deterministic Schema Migrations: PRAGMA user_... — Mobile Component Hierarchy",
         "nodes": [
           {
             "id": "OfflineAppRoot",
@@ -278,7 +278,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <OfflineFirstApp /> for Deterministic Schema Migration...",
+            "caption": "Mount root <OfflineFirstApp /> for Deterministic Schema Migration...",
             "activeId": "OfflineAppRoot",
             "tone": "data",
             "nodes": [
@@ -294,7 +294,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Initialize <SQLiteWalStorageEngine /> with PRAGMA journal_mode = WAL",
+            "caption": "Initialize <SQLiteWalStorageEngine /> with PRAGMA journal_mode = WAL.",
             "activeId": "WalStorage",
             "tone": "accent",
             "nodes": [
@@ -310,7 +310,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enqueue offline mutation into <MonotonicMutationOutbox /> with UUID idempotency key",
+            "caption": "Enqueue offline mutation into <MonotonicMutationOutbox /> with UUID.",
             "activeId": "OutboxQueue",
             "tone": "data",
             "nodes": [
@@ -326,7 +326,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Reconcile UI via <OptimisticReconciliationView /> with automatic snapshot rollback",
+            "caption": "Reconcile UI via <OptimisticReconciliationView /> with automatic snapshot.",
             "activeId": "ReconciliationView",
             "tone": "ok",
             "nodes": [
@@ -344,7 +344,7 @@
       },
       "filled": {
         "template": "component-tree",
-        "title": "Deterministic Schema Migrations: PRAGMA user_... \u2014 Mobile Component Hierarchy",
+        "title": "Deterministic Schema Migrations: PRAGMA user_... — Mobile Component Hierarchy",
         "nodes": [
           {
             "id": "OfflineAppRoot",
@@ -458,7 +458,7 @@
       "codeHash": "de858e07e75f535495b06646e25958aa32e86811be71b5c5e17ad957594350b1",
       "spec": {
         "template": "component-tree",
-        "title": "The Monotonic Mutation Outbox & UUID Idempote... \u2014 Mobile Component Hierarchy",
+        "title": "The Monotonic Mutation Outbox & UUID Idempote... — Mobile Component Hierarchy",
         "nodes": [
           {
             "id": "OfflineAppRoot",
@@ -502,7 +502,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <OfflineFirstApp /> for The Monotonic Mutation Outbox ...",
+            "caption": "Mount root <OfflineFirstApp /> for The Monotonic Mutation Outbox ...",
             "activeId": "OfflineAppRoot",
             "tone": "data",
             "nodes": [
@@ -518,7 +518,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Initialize <SQLiteWalStorageEngine /> with PRAGMA journal_mode = WAL",
+            "caption": "Initialize <SQLiteWalStorageEngine /> with PRAGMA journal_mode = WAL.",
             "activeId": "WalStorage",
             "tone": "accent",
             "nodes": [
@@ -534,7 +534,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enqueue offline mutation into <MonotonicMutationOutbox /> with UUID idempotency key",
+            "caption": "Enqueue offline mutation into <MonotonicMutationOutbox /> with UUID.",
             "activeId": "OutboxQueue",
             "tone": "data",
             "nodes": [
@@ -550,7 +550,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Reconcile UI via <OptimisticReconciliationView /> with automatic snapshot rollback",
+            "caption": "Reconcile UI via <OptimisticReconciliationView /> with automatic snapshot.",
             "activeId": "ReconciliationView",
             "tone": "ok",
             "nodes": [
@@ -568,7 +568,7 @@
       },
       "filled": {
         "template": "component-tree",
-        "title": "The Monotonic Mutation Outbox & UUID Idempote... \u2014 Mobile Component Hierarchy",
+        "title": "The Monotonic Mutation Outbox & UUID Idempote... — Mobile Component Hierarchy",
         "nodes": [
           {
             "id": "OfflineAppRoot",
@@ -682,7 +682,7 @@
       "codeHash": "15c2ffe745a88398fb4ac8c6b17339653ec0b070060ec4f47316d17bff78aebb",
       "spec": {
         "template": "component-tree",
-        "title": "Optimistic UI Updates & Conflict Resolution: ... \u2014 Mobile Component Hierarchy",
+        "title": "Optimistic UI Updates & Conflict Resolution: ... — Mobile Component Hierarchy",
         "nodes": [
           {
             "id": "OfflineAppRoot",
@@ -726,7 +726,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <OfflineFirstApp /> for Optimistic UI Updates & Confli...",
+            "caption": "Mount root <OfflineFirstApp /> for Optimistic UI Updates & Confli...",
             "activeId": "OfflineAppRoot",
             "tone": "data",
             "nodes": [
@@ -742,7 +742,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Initialize <SQLiteWalStorageEngine /> with PRAGMA journal_mode = WAL",
+            "caption": "Initialize <SQLiteWalStorageEngine /> with PRAGMA journal_mode = WAL.",
             "activeId": "WalStorage",
             "tone": "accent",
             "nodes": [
@@ -758,7 +758,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enqueue offline mutation into <MonotonicMutationOutbox /> with UUID idempotency key",
+            "caption": "Enqueue offline mutation into <MonotonicMutationOutbox /> with UUID.",
             "activeId": "OutboxQueue",
             "tone": "data",
             "nodes": [
@@ -774,7 +774,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Reconcile UI via <OptimisticReconciliationView /> with automatic snapshot rollback",
+            "caption": "Reconcile UI via <OptimisticReconciliationView /> with automatic snapshot.",
             "activeId": "ReconciliationView",
             "tone": "ok",
             "nodes": [
@@ -792,7 +792,7 @@
       },
       "filled": {
         "template": "component-tree",
-        "title": "Optimistic UI Updates & Conflict Resolution: ... \u2014 Mobile Component Hierarchy",
+        "title": "Optimistic UI Updates & Conflict Resolution: ... — Mobile Component Hierarchy",
         "nodes": [
           {
             "id": "OfflineAppRoot",
@@ -906,7 +906,7 @@
       "codeHash": "6001e76b24af84d030d90fbc425e0bd933934eb2d4adb276164cd5cc04dc1780",
       "spec": {
         "template": "component-tree",
-        "title": "Enterprise Offline-First Relational & Sync Ma... \u2014 Mobile Component Hierarchy",
+        "title": "Enterprise Offline-First Relational & Sync Ma... — Mobile Component Hierarchy",
         "nodes": [
           {
             "id": "OfflineAppRoot",
@@ -950,7 +950,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <OfflineFirstApp /> for Enterprise Offline-First Relat...",
+            "caption": "Mount root <OfflineFirstApp /> for Enterprise Offline-First Relat...",
             "activeId": "OfflineAppRoot",
             "tone": "data",
             "nodes": [
@@ -966,7 +966,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Initialize <SQLiteWalStorageEngine /> with PRAGMA journal_mode = WAL",
+            "caption": "Initialize <SQLiteWalStorageEngine /> with PRAGMA journal_mode = WAL.",
             "activeId": "WalStorage",
             "tone": "accent",
             "nodes": [
@@ -982,7 +982,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enqueue offline mutation into <MonotonicMutationOutbox /> with UUID idempotency key",
+            "caption": "Enqueue offline mutation into <MonotonicMutationOutbox /> with UUID.",
             "activeId": "OutboxQueue",
             "tone": "data",
             "nodes": [
@@ -998,7 +998,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Reconcile UI via <OptimisticReconciliationView /> with automatic snapshot rollback",
+            "caption": "Reconcile UI via <OptimisticReconciliationView /> with automatic snapshot.",
             "activeId": "ReconciliationView",
             "tone": "ok",
             "nodes": [
@@ -1016,7 +1016,7 @@
       },
       "filled": {
         "template": "component-tree",
-        "title": "Enterprise Offline-First Relational & Sync Ma... \u2014 Mobile Component Hierarchy",
+        "title": "Enterprise Offline-First Relational & Sync Ma... — Mobile Component Hierarchy",
         "nodes": [
           {
             "id": "OfflineAppRoot",

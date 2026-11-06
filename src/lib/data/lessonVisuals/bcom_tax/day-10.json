@@ -10,12 +10,12 @@
       "codeHash": "11123f0c8ef744f642189b19e73259681d15eb2a1ab7c7f8e7d762cbc38be861",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Outward Return Architecture: GSTR-1 Table Synthesi \u2014 GST Ledger Verification",
+        "title": "Outward Return Architecture: GSTR-1 Table Synthesi — GST Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary taxable supply ledger entry (350000) for Outward Return Architecture: GSTR-1 Tabl...",
-            "title": "Day 10 GST Ledger \u2014 Initial Recognition",
+            "caption": "Open primary taxable supply ledger entry (multiple) for Outward Return.",
+            "title": "Day 10 GST Ledger — Initial Recognition",
             "isBalanced": true,
             "totalDebit": 350000,
             "totalCredit": 350000,
@@ -40,8 +40,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory accrual adjustment (50000) under applicable CGST/IGST section.",
-            "title": "Day 10 GST Ledger \u2014 Statutory Adjustment",
+            "caption": "Record statutory accrual adjustment (multiple) under applicable CGST/IGST.",
+            "title": "Day 10 GST Ledger — Statutory Adjustment",
             "isBalanced": true,
             "totalDebit": 400000,
             "totalCredit": 400000,
@@ -72,8 +72,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated commercial case study for Outward Return Architecture: GSTR-1 Tabl...",
-            "title": "Day 10 GST Ledger \u2014 Simulation Audit",
+            "caption": "Execute simulated commercial case study for Outward Return Architecture.",
+            "title": "Day 10 GST Ledger — Simulation Audit",
             "isBalanced": true,
             "totalDebit": 400000,
             "totalCredit": 400000,
@@ -103,8 +103,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and regulatory compliance signoff.",
-            "title": "Day 10 GST Ledger \u2014 Final Audit Settlement",
+            "caption": "Verify ledger equilibrium and regulatory compliance signoff.",
+            "title": "Day 10 GST Ledger — Final Audit Settlement",
             "isBalanced": true,
             "totalDebit": 400000,
             "totalCredit": 400000,
@@ -141,12 +141,12 @@
       "codeHash": "bbf867063b4c6da995c5d72bd1dcaa1711d616f19fc0736b39e8bebf95c0b633",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Inward Return Architecture: GSTR-2B Ingestion & St \u2014 GST Ledger Verification",
+        "title": "Inward Return Architecture: GSTR-2B Ingestion & St — GST Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary taxable supply ledger entry (355000) for Inward Return Architecture: GSTR-2B Inge...",
-            "title": "Day 10 GST Ledger \u2014 Initial Recognition",
+            "caption": "Open primary taxable supply ledger entry (multiple) for Inward Return.",
+            "title": "Day 10 GST Ledger — Initial Recognition",
             "isBalanced": true,
             "totalDebit": 355000,
             "totalCredit": 355000,
@@ -171,8 +171,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory accrual adjustment (52500) under applicable CGST/IGST section.",
-            "title": "Day 10 GST Ledger \u2014 Statutory Adjustment",
+            "caption": "Record statutory accrual adjustment (multiple) under applicable CGST/IGST.",
+            "title": "Day 10 GST Ledger — Statutory Adjustment",
             "isBalanced": true,
             "totalDebit": 407500,
             "totalCredit": 407500,
@@ -203,8 +203,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated commercial case study for Inward Return Architecture: GSTR-2B Inge...",
-            "title": "Day 10 GST Ledger \u2014 Simulation Audit",
+            "caption": "Execute simulated commercial case study for Inward Return Architecture.",
+            "title": "Day 10 GST Ledger — Simulation Audit",
             "isBalanced": true,
             "totalDebit": 407500,
             "totalCredit": 407500,
@@ -234,8 +234,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and regulatory compliance signoff.",
-            "title": "Day 10 GST Ledger \u2014 Final Audit Settlement",
+            "caption": "Verify ledger equilibrium and regulatory compliance signoff.",
+            "title": "Day 10 GST Ledger — Final Audit Settlement",
             "isBalanced": true,
             "totalDebit": 407500,
             "totalCredit": 407500,
@@ -272,12 +272,12 @@
       "codeHash": "2f349cc6f3a35995cdbf57bab85aaae97ba55c5cd936066fa51afea5f94bf850",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Rule 42/43 Reversals & Section 17(5) Blocking Inte \u2014 GST Ledger Verification",
+        "title": "Rule 42/43 Reversals & Section 17(5) Blocking Inte — GST Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary taxable supply ledger entry (360000) for Rule 42/43 Reversals & Section 17(5) Blo...",
-            "title": "Day 10 GST Ledger \u2014 Initial Recognition",
+            "caption": "Open primary taxable supply ledger entry (multiple) for Rule.",
+            "title": "Day 10 GST Ledger — Initial Recognition",
             "isBalanced": true,
             "totalDebit": 360000,
             "totalCredit": 360000,
@@ -302,8 +302,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory accrual adjustment (55000) under applicable CGST/IGST section.",
-            "title": "Day 10 GST Ledger \u2014 Statutory Adjustment",
+            "caption": "Record statutory accrual adjustment (multiple) under applicable CGST/IGST.",
+            "title": "Day 10 GST Ledger — Statutory Adjustment",
             "isBalanced": true,
             "totalDebit": 415000,
             "totalCredit": 415000,
@@ -334,8 +334,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated commercial case study for Rule 42/43 Reversals & Section 17(5) Blo...",
-            "title": "Day 10 GST Ledger \u2014 Simulation Audit",
+            "caption": "Execute simulated commercial case study for Rule multiple/multiple.",
+            "title": "Day 10 GST Ledger — Simulation Audit",
             "isBalanced": true,
             "totalDebit": 415000,
             "totalCredit": 415000,
@@ -365,8 +365,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and regulatory compliance signoff.",
-            "title": "Day 10 GST Ledger \u2014 Final Audit Settlement",
+            "caption": "Verify ledger equilibrium and regulatory compliance signoff.",
+            "title": "Day 10 GST Ledger — Final Audit Settlement",
             "isBalanced": true,
             "totalDebit": 415000,
             "totalCredit": 415000,
@@ -403,12 +403,12 @@
       "codeHash": "58acbbcc9fb2ad5cf3f23145e0d8fecc88bc3f5603c3517809c8330bb7e930a6",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Tax Offset Priority Optimization: Section 49, 49A, \u2014 GST Ledger Verification",
+        "title": "Tax Offset Priority Optimization: Section 49, 49A, — GST Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary taxable supply ledger entry (365000) for Tax Offset Priority Optimization: Sectio...",
-            "title": "Day 10 GST Ledger \u2014 Initial Recognition",
+            "caption": "Open primary taxable supply ledger entry (multiple) for Tax Offset.",
+            "title": "Day 10 GST Ledger — Initial Recognition",
             "isBalanced": true,
             "totalDebit": 365000,
             "totalCredit": 365000,
@@ -433,8 +433,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory accrual adjustment (57500) under applicable CGST/IGST section.",
-            "title": "Day 10 GST Ledger \u2014 Statutory Adjustment",
+            "caption": "Record statutory accrual adjustment (multiple) under applicable CGST/IGST.",
+            "title": "Day 10 GST Ledger — Statutory Adjustment",
             "isBalanced": true,
             "totalDebit": 422500,
             "totalCredit": 422500,
@@ -465,8 +465,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated commercial case study for Tax Offset Priority Optimization: Sectio...",
-            "title": "Day 10 GST Ledger \u2014 Simulation Audit",
+            "caption": "Execute simulated commercial case study for Tax Offset Priority.",
+            "title": "Day 10 GST Ledger — Simulation Audit",
             "isBalanced": true,
             "totalDebit": 422500,
             "totalCredit": 422500,
@@ -496,8 +496,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and regulatory compliance signoff.",
-            "title": "Day 10 GST Ledger \u2014 Final Audit Settlement",
+            "caption": "Verify ledger equilibrium and regulatory compliance signoff.",
+            "title": "Day 10 GST Ledger — Final Audit Settlement",
             "isBalanced": true,
             "totalDebit": 422500,
             "totalCredit": 422500,
@@ -534,12 +534,12 @@
       "codeHash": "d1e6a8f228d5ca54135dedbb46ddd3a1e8e199c6c63b3cf9d3e5d47802606e1d",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Grand Milestone Capstone: Automated GSTR-3B Comput \u2014 GST Ledger Verification",
+        "title": "Grand Milestone Capstone: Automated GSTR-3B Comput — GST Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary taxable supply ledger entry (370000) for Grand Milestone Capstone: Automated GSTR...",
-            "title": "Day 10 GST Ledger \u2014 Initial Recognition",
+            "caption": "Open primary taxable supply ledger entry (multiple) for Grand Milestone.",
+            "title": "Day 10 GST Ledger — Initial Recognition",
             "isBalanced": true,
             "totalDebit": 370000,
             "totalCredit": 370000,
@@ -564,8 +564,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory accrual adjustment (60000) under applicable CGST/IGST section.",
-            "title": "Day 10 GST Ledger \u2014 Statutory Adjustment",
+            "caption": "Record statutory accrual adjustment (multiple) under applicable CGST/IGST.",
+            "title": "Day 10 GST Ledger — Statutory Adjustment",
             "isBalanced": true,
             "totalDebit": 430000,
             "totalCredit": 430000,
@@ -596,8 +596,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated commercial case study for Grand Milestone Capstone: Automated GSTR...",
-            "title": "Day 10 GST Ledger \u2014 Simulation Audit",
+            "caption": "Execute simulated commercial case study for Grand Milestone Capstone.",
+            "title": "Day 10 GST Ledger — Simulation Audit",
             "isBalanced": true,
             "totalDebit": 430000,
             "totalCredit": 430000,
@@ -627,8 +627,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and regulatory compliance signoff.",
-            "title": "Day 10 GST Ledger \u2014 Final Audit Settlement",
+            "caption": "Verify ledger equilibrium and regulatory compliance signoff.",
+            "title": "Day 10 GST Ledger — Final Audit Settlement",
             "isBalanced": true,
             "totalDebit": 430000,
             "totalCredit": 430000,

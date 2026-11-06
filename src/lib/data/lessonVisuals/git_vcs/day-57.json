@@ -40,7 +40,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Working Tree): Initialize The 3.2-Second Exploitation Wi...",
+            "caption": "Stage one (Working Tree): Initialize The three.two-Second Exploitation.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Security Gate): Enforce Pre-Receive CAS, Entropy & AST invariants.",
+            "caption": "Stage two (Security Gate): Enforce Pre-Receive CAS, Entropy & AST.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -108,7 +108,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Merge Queue): Validate speculative post-merge tree & SLSA attestation.",
+            "caption": "Stage three (Merge Queue): Validate speculative post-merge tree & SLSA.",
             "activeStageId": "s3",
             "statusBadge": "PROCESSING",
             "throughput": "Nominal",
@@ -142,7 +142,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (GitOps Fleet): Issue sovereign ApexEnterpriseGitOps certification.",
+            "caption": "Stage four (GitOps Fleet): Issue sovereign ApexEnterpriseGitOps.",
             "activeStageId": "s4",
             "statusBadge": "VERIFIED",
             "throughput": "Complete",
@@ -212,7 +212,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Working Tree): Initialize CloudTrail Forensic Correlatio...",
+            "caption": "Stage one (Working Tree): Initialize CloudTrail Forensic Correlatio...",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -246,7 +246,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Security Gate): Enforce Pre-Receive CAS, Entropy & AST invariants.",
+            "caption": "Stage two (Security Gate): Enforce Pre-Receive CAS, Entropy & AST.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -280,7 +280,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Merge Queue): Validate speculative post-merge tree & SLSA attestation.",
+            "caption": "Stage three (Merge Queue): Validate speculative post-merge tree & SLSA.",
             "activeStageId": "s3",
             "statusBadge": "PROCESSING",
             "throughput": "Nominal",
@@ -314,7 +314,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (GitOps Fleet): Issue sovereign ApexEnterpriseGitOps certification.",
+            "caption": "Stage four (GitOps Fleet): Issue sovereign ApexEnterpriseGitOps.",
             "activeStageId": "s4",
             "statusBadge": "VERIFIED",
             "throughput": "Complete",
@@ -384,7 +384,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Working Tree): Initialize Automated Pre-Push Secret Fire...",
+            "caption": "Stage one (Working Tree): Initialize Automated Pre-Push Secret Fire...",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -418,7 +418,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Security Gate): Enforce Pre-Receive CAS, Entropy & AST invariants.",
+            "caption": "Stage two (Security Gate): Enforce Pre-Receive CAS, Entropy & AST.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -452,7 +452,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Merge Queue): Validate speculative post-merge tree & SLSA attestation.",
+            "caption": "Stage three (Merge Queue): Validate speculative post-merge tree & SLSA.",
             "activeStageId": "s3",
             "statusBadge": "PROCESSING",
             "throughput": "Nominal",
@@ -486,7 +486,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (GitOps Fleet): Issue sovereign ApexEnterpriseGitOps certification.",
+            "caption": "Stage four (GitOps Fleet): Issue sovereign ApexEnterpriseGitOps.",
             "activeStageId": "s4",
             "statusBadge": "VERIFIED",
             "throughput": "Complete",
@@ -556,7 +556,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Working Tree): Initialize Sub-Second Automated Cloud IAM...",
+            "caption": "Stage one (Working Tree): Initialize Sub-Second Automated Cloud IAM...",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -590,7 +590,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Security Gate): Enforce Pre-Receive CAS, Entropy & AST invariants.",
+            "caption": "Stage two (Security Gate): Enforce Pre-Receive CAS, Entropy & AST.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -624,7 +624,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Merge Queue): Validate speculative post-merge tree & SLSA attestation.",
+            "caption": "Stage three (Merge Queue): Validate speculative post-merge tree & SLSA.",
             "activeStageId": "s3",
             "statusBadge": "PROCESSING",
             "throughput": "Nominal",
@@ -658,7 +658,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (GitOps Fleet): Issue sovereign ApexEnterpriseGitOps certification.",
+            "caption": "Stage four (GitOps Fleet): Issue sovereign ApexEnterpriseGitOps.",
             "activeStageId": "s4",
             "statusBadge": "VERIFIED",
             "throughput": "Complete",
@@ -728,7 +728,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Working Tree): Initialize Master Zero-Exposure Secret Ga...",
+            "caption": "Stage one (Working Tree): Initialize Master Zero-Exposure Secret Ga...",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -762,7 +762,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Security Gate): Enforce Pre-Receive CAS, Entropy & AST invariants.",
+            "caption": "Stage two (Security Gate): Enforce Pre-Receive CAS, Entropy & AST.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -796,7 +796,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Merge Queue): Validate speculative post-merge tree & SLSA attestation.",
+            "caption": "Stage three (Merge Queue): Validate speculative post-merge tree & SLSA.",
             "activeStageId": "s3",
             "statusBadge": "PROCESSING",
             "throughput": "Nominal",
@@ -830,7 +830,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (GitOps Fleet): Issue sovereign ApexEnterpriseGitOps certification.",
+            "caption": "Stage four (GitOps Fleet): Issue sovereign ApexEnterpriseGitOps.",
             "activeStageId": "s4",
             "statusBadge": "VERIFIED",
             "throughput": "Complete",

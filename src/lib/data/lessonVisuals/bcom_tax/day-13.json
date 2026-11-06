@@ -10,12 +10,12 @@
       "codeHash": "2f915285fc96dd31fc80d6545587cdef8a6082ec4a7695d38b7eb9780a2503b0",
       "spec": {
         "template": "ledger-sheet",
-        "title": "The 2019 Corporate Tax Revolution: Section 115BAA  \u2014 Tax Ledger Verification",
+        "title": "The 2019 Corporate Tax Revolution: Section 115BAA  — Tax Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary taxable assessment ledger (545000) for The 2019 Corporate Tax Revolution: Secti...",
-            "title": "Day 13 Tax Ledger \u2014 Initial Assessment",
+            "caption": "Open primary taxable assessment ledger (multiple) for The multiple.",
+            "title": "Day 13 Tax Ledger — Initial Assessment",
             "isBalanced": true,
             "totalDebit": 545000,
             "totalCredit": 545000,
@@ -40,8 +40,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / tax shield (75000) under applicable corporate tax section.",
-            "title": "Day 13 Tax Ledger \u2014 Statutory Adjustment",
+            "caption": "Record statutory adjustment / tax shield (multiple) under applicable.",
+            "title": "Day 13 Tax Ledger — Statutory Adjustment",
             "isBalanced": true,
             "totalDebit": 620000,
             "totalCredit": 620000,
@@ -72,8 +72,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated computational case study for The 2019 Corporate Tax Revolution: Secti...",
-            "title": "Day 13 Tax Ledger \u2014 Audit Verification",
+            "caption": "Execute simulated computational case study for The multiple Corporate Tax.",
+            "title": "Day 13 Tax Ledger — Audit Verification",
             "isBalanced": true,
             "totalDebit": 620000,
             "totalCredit": 620000,
@@ -103,8 +103,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and corporate tax statutory signoff.",
-            "title": "Day 13 Tax Ledger \u2014 Final Settlement",
+            "caption": "Verify ledger equilibrium and corporate tax statutory signoff.",
+            "title": "Day 13 Tax Ledger — Final Settlement",
             "isBalanced": true,
             "totalDebit": 620000,
             "totalCredit": 620000,
@@ -141,12 +141,12 @@
       "codeHash": "25038a255796518c60fab5358a5a146af9ade367eb4b8bea4d87d910740fc7f3",
       "spec": {
         "template": "ledger-sheet",
-        "title": "The Statutory Bargain: Forfeited Deductions & Inel \u2014 Tax Ledger Verification",
+        "title": "The Statutory Bargain: Forfeited Deductions & Inel — Tax Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary taxable assessment ledger (552500) for The Statutory Bargain: Forfeited Deducti...",
-            "title": "Day 13 Tax Ledger \u2014 Initial Assessment",
+            "caption": "Open primary taxable assessment ledger (multiple) for The Statutory.",
+            "title": "Day 13 Tax Ledger — Initial Assessment",
             "isBalanced": true,
             "totalDebit": 552500,
             "totalCredit": 552500,
@@ -171,8 +171,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / tax shield (78500) under applicable corporate tax section.",
-            "title": "Day 13 Tax Ledger \u2014 Statutory Adjustment",
+            "caption": "Record statutory adjustment / tax shield (multiple) under applicable.",
+            "title": "Day 13 Tax Ledger — Statutory Adjustment",
             "isBalanced": true,
             "totalDebit": 631000,
             "totalCredit": 631000,
@@ -203,8 +203,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated computational case study for The Statutory Bargain: Forfeited Deducti...",
-            "title": "Day 13 Tax Ledger \u2014 Audit Verification",
+            "caption": "Execute simulated computational case study for The Statutory Bargain.",
+            "title": "Day 13 Tax Ledger — Audit Verification",
             "isBalanced": true,
             "totalDebit": 631000,
             "totalCredit": 631000,
@@ -234,8 +234,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and corporate tax statutory signoff.",
-            "title": "Day 13 Tax Ledger \u2014 Final Settlement",
+            "caption": "Verify ledger equilibrium and corporate tax statutory signoff.",
+            "title": "Day 13 Tax Ledger — Final Settlement",
             "isBalanced": true,
             "totalDebit": 631000,
             "totalCredit": 631000,
@@ -272,12 +272,12 @@
       "codeHash": "d6093b6115d69ad74292dc6aef04477e38c28e896fcd789389f7e8409d0d48a2",
       "spec": {
         "template": "ledger-sheet",
-        "title": "The Irrevocable Election & Complete MAT Immunity u \u2014 Tax Ledger Verification",
+        "title": "The Irrevocable Election & Complete MAT Immunity u — Tax Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary taxable assessment ledger (560000) for The Irrevocable Election & Complete MAT ...",
-            "title": "Day 13 Tax Ledger \u2014 Initial Assessment",
+            "caption": "Open primary taxable assessment ledger (multiple) for The Irrevocable.",
+            "title": "Day 13 Tax Ledger — Initial Assessment",
             "isBalanced": true,
             "totalDebit": 560000,
             "totalCredit": 560000,
@@ -302,8 +302,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / tax shield (82000) under applicable corporate tax section.",
-            "title": "Day 13 Tax Ledger \u2014 Statutory Adjustment",
+            "caption": "Record statutory adjustment / tax shield (multiple) under applicable.",
+            "title": "Day 13 Tax Ledger — Statutory Adjustment",
             "isBalanced": true,
             "totalDebit": 642000,
             "totalCredit": 642000,
@@ -334,8 +334,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated computational case study for The Irrevocable Election & Complete MAT ...",
-            "title": "Day 13 Tax Ledger \u2014 Audit Verification",
+            "caption": "Execute simulated computational case study for The Irrevocable Election &.",
+            "title": "Day 13 Tax Ledger — Audit Verification",
             "isBalanced": true,
             "totalDebit": 642000,
             "totalCredit": 642000,
@@ -365,8 +365,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and corporate tax statutory signoff.",
-            "title": "Day 13 Tax Ledger \u2014 Final Settlement",
+            "caption": "Verify ledger equilibrium and corporate tax statutory signoff.",
+            "title": "Day 13 Tax Ledger — Final Settlement",
             "isBalanced": true,
             "totalDebit": 642000,
             "totalCredit": 642000,
@@ -403,12 +403,12 @@
       "codeHash": "ab973a63781c6572ae6fcb1c675fd30f0bb3cf57d83a52e8ff859c9b72b5cc87",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Section 115BAB: The Ultra-Concessional 15% Manufac \u2014 Tax Ledger Verification",
+        "title": "Section 115BAB: The Ultra-Concessional 15% Manufac — Tax Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary taxable assessment ledger (567500) for Section 115BAB: The Ultra-Concessional 1...",
-            "title": "Day 13 Tax Ledger \u2014 Initial Assessment",
+            "caption": "Open primary taxable assessment ledger (multiple) for Section BAB: The.",
+            "title": "Day 13 Tax Ledger — Initial Assessment",
             "isBalanced": true,
             "totalDebit": 567500,
             "totalCredit": 567500,
@@ -433,8 +433,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / tax shield (85500) under applicable corporate tax section.",
-            "title": "Day 13 Tax Ledger \u2014 Statutory Adjustment",
+            "caption": "Record statutory adjustment / tax shield (multiple) under applicable.",
+            "title": "Day 13 Tax Ledger — Statutory Adjustment",
             "isBalanced": true,
             "totalDebit": 653000,
             "totalCredit": 653000,
@@ -465,8 +465,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated computational case study for Section 115BAB: The Ultra-Concessional 1...",
-            "title": "Day 13 Tax Ledger \u2014 Audit Verification",
+            "caption": "Execute simulated computational case study for Section BAB: The.",
+            "title": "Day 13 Tax Ledger — Audit Verification",
             "isBalanced": true,
             "totalDebit": 653000,
             "totalCredit": 653000,
@@ -496,8 +496,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and corporate tax statutory signoff.",
-            "title": "Day 13 Tax Ledger \u2014 Final Settlement",
+            "caption": "Verify ledger equilibrium and corporate tax statutory signoff.",
+            "title": "Day 13 Tax Ledger — Final Settlement",
             "isBalanced": true,
             "totalDebit": 653000,
             "totalCredit": 653000,
@@ -534,12 +534,12 @@
       "codeHash": "dbd93cb792b87b9840a7b41354628d1910142a710008320d2e8d9d557956ceab",
       "spec": {
         "template": "ledger-sheet",
-        "title": "The Strategic Crossover Framework: Old Regime vs S \u2014 Tax Ledger Verification",
+        "title": "The Strategic Crossover Framework: Old Regime vs S — Tax Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary taxable assessment ledger (575000) for The Strategic Crossover Framework: Old R...",
-            "title": "Day 13 Tax Ledger \u2014 Initial Assessment",
+            "caption": "Open primary taxable assessment ledger (multiple) for The Strategic.",
+            "title": "Day 13 Tax Ledger — Initial Assessment",
             "isBalanced": true,
             "totalDebit": 575000,
             "totalCredit": 575000,
@@ -564,8 +564,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / tax shield (89000) under applicable corporate tax section.",
-            "title": "Day 13 Tax Ledger \u2014 Statutory Adjustment",
+            "caption": "Record statutory adjustment / tax shield (multiple) under applicable.",
+            "title": "Day 13 Tax Ledger — Statutory Adjustment",
             "isBalanced": true,
             "totalDebit": 664000,
             "totalCredit": 664000,
@@ -596,8 +596,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated computational case study for The Strategic Crossover Framework: Old R...",
-            "title": "Day 13 Tax Ledger \u2014 Audit Verification",
+            "caption": "Execute simulated computational case study for The Strategic Crossover.",
+            "title": "Day 13 Tax Ledger — Audit Verification",
             "isBalanced": true,
             "totalDebit": 664000,
             "totalCredit": 664000,
@@ -627,8 +627,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and corporate tax statutory signoff.",
-            "title": "Day 13 Tax Ledger \u2014 Final Settlement",
+            "caption": "Verify ledger equilibrium and corporate tax statutory signoff.",
+            "title": "Day 13 Tax Ledger — Final Settlement",
             "isBalanced": true,
             "totalDebit": 664000,
             "totalCredit": 664000,

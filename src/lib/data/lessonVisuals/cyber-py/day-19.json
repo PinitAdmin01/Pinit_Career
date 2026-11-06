@@ -1,0 +1,889 @@
+{
+  "schemaVersion": 1,
+  "prefix": "cyber-py",
+  "day": 19,
+  "promptSha": "eb1d3d9c99f086dda74c156037fb0d24a937a45e27347a5e9c5e5bb4b1778fbb",
+  "model": "gpt-4o",
+  "entries": [
+    {
+      "partTitle": "Your code is mostly dependencies",
+      "codeHash": "f74d1027919dc30a23429d3cc65d23647bae3d0ad2488a527dd28af7b1cdc392",
+      "spec": {
+        "template": "compare",
+        "title": "First-party application codebase versus third-party supply chain attack surface",
+        "left": {
+          "title": "First-Party Application Code",
+          "items": [
+            "Handcrafted business logic authored by internal team",
+            "Carefully reviewed during internal pull requests",
+            "Represents tiny fraction of overall executable logic"
+          ]
+        },
+        "right": {
+          "title": "Third-Party Open Source Supply Chain",
+          "items": [
+            "Thousands of direct and transitive package dependencies",
+            "Vulnerable to compromised upstream maintainer accounts",
+            "Dramatically expands application security attack surface"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Open source libraries expand the attack surface and risk footprint.",
+            "highlightSide": "right",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say7",
+            "caption": "Compromised upstream packages make downstream applications vulnerable.",
+            "highlightSide": "right",
+            "statusBadge": "failed"
+          }
+        ],
+        "leftLabel": "First-Party Application Code",
+        "rightLabel": "Third-Party Open Source Supply Chain"
+      },
+      "filled": {
+        "template": "compare",
+        "title": "First-party application codebase versus third-party supply chain attack surface",
+        "left": {
+          "title": "First-Party Application Code",
+          "items": [
+            "Handcrafted business logic authored by internal team",
+            "Carefully reviewed during internal pull requests",
+            "Represents tiny fraction of overall executable logic"
+          ]
+        },
+        "right": {
+          "title": "Third-Party Open Source Supply Chain",
+          "items": [
+            "Thousands of direct and transitive package dependencies",
+            "Vulnerable to compromised upstream maintainer accounts",
+            "Dramatically expands application security attack surface"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Open source libraries expand the attack surface and risk footprint.",
+            "highlightSide": "right",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say7",
+            "caption": "Compromised upstream packages make downstream applications vulnerable.",
+            "highlightSide": "right",
+            "statusBadge": "failed"
+          }
+        ],
+        "leftLabel": "First-Party Application Code",
+        "rightLabel": "Third-Party Open Source Supply Chain"
+      }
+    },
+    {
+      "partTitle": "SBOMs and CVEs",
+      "codeHash": "3392f74c887ec495a66ca5c788d312d651ac09ade9fd6b596259aa4c0b1969bf",
+      "spec": {
+        "template": "table",
+        "title": "Software Bill of Materials (SBOM) international governance standards",
+        "columns": [
+          "SBOM Standard",
+          "Governing Body",
+          "Format Ecosystem",
+          "Declared Metadata Attributes"
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "An SBOM provides a machine readable inventory of software components.",
+            "activeRowIndex": 0,
+            "statusBadge": "active",
+            "rows": [
+              {
+                "cells": [
+                  "CycloneDX",
+                  "OWASP Community",
+                  "JSON and XML Schema",
+                  "Package URLs and Cryptographic Hashes"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "SPDX Specification",
+                  "Linux Foundation",
+                  "ISO International Standard",
+                  "Component Provenance and Licenses"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Syft Cataloger",
+                  "Open Source Tooling",
+                  "Container and Filesystem",
+                  "Automatic Direct Component Catalog"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "An SBOM query identifies all impacted microservices in seconds.",
+            "activeRowIndex": 1,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "CycloneDX",
+                  "OWASP Community",
+                  "JSON and XML Schema",
+                  "Package URLs and Cryptographic Hashes"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "SPDX Specification",
+                  "Linux Foundation",
+                  "ISO International Standard",
+                  "Component Provenance and Licenses"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Syft Cataloger",
+                  "Open Source Tooling",
+                  "Container and Filesystem",
+                  "Automatic Direct Component Catalog"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Software Bill of Materials (SBOM) international governance standards",
+        "columns": [
+          "SBOM Standard",
+          "Governing Body",
+          "Format Ecosystem",
+          "Declared Metadata Attributes"
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "An SBOM provides a machine readable inventory of software components.",
+            "activeRowIndex": 0,
+            "statusBadge": "active",
+            "rows": [
+              {
+                "cells": [
+                  "CycloneDX",
+                  "OWASP Community",
+                  "JSON and XML Schema",
+                  "Package URLs and Cryptographic Hashes"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "SPDX Specification",
+                  "Linux Foundation",
+                  "ISO International Standard",
+                  "Component Provenance and Licenses"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Syft Cataloger",
+                  "Open Source Tooling",
+                  "Container and Filesystem",
+                  "Automatic Direct Component Catalog"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "An SBOM query identifies all impacted microservices in seconds.",
+            "activeRowIndex": 1,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "CycloneDX",
+                  "OWASP Community",
+                  "JSON and XML Schema",
+                  "Package URLs and Cryptographic Hashes"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "SPDX Specification",
+                  "Linux Foundation",
+                  "ISO International Standard",
+                  "Component Provenance and Licenses"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Syft Cataloger",
+                  "Open Source Tooling",
+                  "Container and Filesystem",
+                  "Automatic Direct Component Catalog"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Comparing versions correctly",
+      "codeHash": "387c2bc7500c7587e6058d97f804737176cd372292525190ffb761d3a8abad6c",
+      "spec": {
+        "template": "table",
+        "title": "Common Vulnerability Scoring System (CVSS) severity scoring tiers",
+        "columns": [
+          "CVSS Severity Tier",
+          "Score Range Interval",
+          "Typical Impact Vector",
+          "CI/CD Build Policy"
+        ],
+        "steps": [
+          {
+            "at": "say5",
+            "caption": "Scores are categorized into qualitative severity tiers for assessment.",
+            "activeRowIndex": 0,
+            "statusBadge": "active",
+            "rows": [
+              {
+                "cells": [
+                  "Critical Severity",
+                  "Nine to Ten Points",
+                  "Remote Code Execution Zero Day",
+                  "Fail Build Immediately"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "High Severity",
+                  "Seven to Eight Points",
+                  "Privilege Escalation Exploit",
+                  "Fail Build If Patch Available"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Medium Severity",
+                  "Four to Six Points",
+                  "Information Disclosure Vulnerability",
+                  "Emit Warning and Remediation Ticket"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Low Severity",
+                  "Zero to Three Points",
+                  "Minor Security Bypass Vector",
+                  "Log Advisory for Regular Patch Cycle"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Build gates enforce policies that fail builds when critical CVEs are found.",
+            "activeRowIndex": 0,
+            "statusBadge": "failed",
+            "rows": [
+              {
+                "cells": [
+                  "Critical Severity",
+                  "Nine to Ten Points",
+                  "Remote Code Execution Zero Day",
+                  "Fail Build Immediately"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "High Severity",
+                  "Seven to Eight Points",
+                  "Privilege Escalation Exploit",
+                  "Fail Build If Patch Available"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Medium Severity",
+                  "Four to Six Points",
+                  "Information Disclosure Vulnerability",
+                  "Emit Warning and Remediation Ticket"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Low Severity",
+                  "Zero to Three Points",
+                  "Minor Security Bypass Vector",
+                  "Log Advisory for Regular Patch Cycle"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Common Vulnerability Scoring System (CVSS) severity scoring tiers",
+        "columns": [
+          "CVSS Severity Tier",
+          "Score Range Interval",
+          "Typical Impact Vector",
+          "CI/CD Build Policy"
+        ],
+        "steps": [
+          {
+            "at": "say5",
+            "caption": "Scores are categorized into qualitative severity tiers for assessment.",
+            "activeRowIndex": 0,
+            "statusBadge": "active",
+            "rows": [
+              {
+                "cells": [
+                  "Critical Severity",
+                  "Nine to Ten Points",
+                  "Remote Code Execution Zero Day",
+                  "Fail Build Immediately"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "High Severity",
+                  "Seven to Eight Points",
+                  "Privilege Escalation Exploit",
+                  "Fail Build If Patch Available"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Medium Severity",
+                  "Four to Six Points",
+                  "Information Disclosure Vulnerability",
+                  "Emit Warning and Remediation Ticket"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Low Severity",
+                  "Zero to Three Points",
+                  "Minor Security Bypass Vector",
+                  "Log Advisory for Regular Patch Cycle"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Build gates enforce policies that fail builds when critical CVEs are found.",
+            "activeRowIndex": 0,
+            "statusBadge": "failed",
+            "rows": [
+              {
+                "cells": [
+                  "Critical Severity",
+                  "Nine to Ten Points",
+                  "Remote Code Execution Zero Day",
+                  "Fail Build Immediately"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "High Severity",
+                  "Seven to Eight Points",
+                  "Privilege Escalation Exploit",
+                  "Fail Build If Patch Available"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Medium Severity",
+                  "Four to Six Points",
+                  "Information Disclosure Vulnerability",
+                  "Emit Warning and Remediation Ticket"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Low Severity",
+                  "Zero to Three Points",
+                  "Minor Security Bypass Vector",
+                  "Log Advisory for Regular Patch Cycle"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Licences",
+      "codeHash": "3575f248e99f3122d1324193fb25824b66b91ceda40e6d21e2f8623c485ad18c",
+      "spec": {
+        "template": "states",
+        "title": "Typosquatting package detection and private namespace isolation stages",
+        "states": [
+          {
+            "id": "packageRequested",
+            "label": "Developer Requests Package Installation"
+          },
+          {
+            "id": "distanceCalculated",
+            "label": "Levenshtein Distance Calculated"
+          },
+          {
+            "id": "squattingDetected",
+            "label": "Adversarial Counterfeit Detected"
+          },
+          {
+            "id": "registryEnforced",
+            "label": "Scoped Namespace Blocks Public Registry"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Typosquatting occurs when an attacker publishes an adversarial package.",
+            "activeStateId": "squattingDetected",
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say7",
+            "caption": "Security tools calculate edit distances against catalogs of package names.",
+            "activeStateId": "distanceCalculated",
+            "statusBadge": "completed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Typosquatting package detection and private namespace isolation stages",
+        "states": [
+          {
+            "id": "packageRequested",
+            "label": "Developer Requests Package Installation"
+          },
+          {
+            "id": "distanceCalculated",
+            "label": "Levenshtein Distance Calculated"
+          },
+          {
+            "id": "squattingDetected",
+            "label": "Adversarial Counterfeit Detected"
+          },
+          {
+            "id": "registryEnforced",
+            "label": "Scoped Namespace Blocks Public Registry"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Typosquatting occurs when an attacker publishes an adversarial package.",
+            "activeStateId": "squattingDetected",
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say7",
+            "caption": "Security tools calculate edit distances against catalogs of package names.",
+            "activeStateId": "distanceCalculated",
+            "statusBadge": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Updating safely",
+      "codeHash": "b6792d98a5e603e06a7faae6e4c6c72f6c3a56cec2a91bda9408dce4422d843d",
+      "spec": {
+        "template": "flow",
+        "title": "Transitive dependency graph traversal revealing deeply buried vulnerabilities",
+        "nodes": [
+          {
+            "id": "appRoot",
+            "label": "Top-Level Web Application",
+            "tappable": false
+          },
+          {
+            "id": "directDep",
+            "label": "Direct Express Framework Dependency",
+            "tappable": false
+          },
+          {
+            "id": "transitiveOne",
+            "label": "Transitive Cookie Parsing Module",
+            "tappable": false
+          },
+          {
+            "id": "vulnerableDeep",
+            "label": "Vulnerable Nested Dependency",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "appRoot",
+            "to": "directDep",
+            "label": "Imports"
+          },
+          {
+            "from": "directDep",
+            "to": "transitiveOne",
+            "label": "Requires"
+          },
+          {
+            "from": "transitiveOne",
+            "to": "vulnerableDeep",
+            "label": "Chains"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Transitive dependencies form a deep directed acyclic graph.",
+            "activeNodes": [
+              "appRoot",
+              "directDep"
+            ],
+            "statusBadge": "active"
+          },
+          {
+            "at": "say8",
+            "caption": "Scanners recursively traverse the entire graph to identify vulnerabilities.",
+            "activeNodes": [
+              "transitiveOne",
+              "vulnerableDeep"
+            ],
+            "statusBadge": "completed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Transitive dependency graph traversal revealing deeply buried vulnerabilities",
+        "nodes": [
+          {
+            "id": "appRoot",
+            "label": "Top-Level Web Application",
+            "tappable": false
+          },
+          {
+            "id": "directDep",
+            "label": "Direct Express Framework Dependency",
+            "tappable": false
+          },
+          {
+            "id": "transitiveOne",
+            "label": "Transitive Cookie Parsing Module",
+            "tappable": false
+          },
+          {
+            "id": "vulnerableDeep",
+            "label": "Vulnerable Nested Dependency",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "appRoot",
+            "to": "directDep",
+            "label": "Imports"
+          },
+          {
+            "from": "directDep",
+            "to": "transitiveOne",
+            "label": "Requires"
+          },
+          {
+            "from": "transitiveOne",
+            "to": "vulnerableDeep",
+            "label": "Chains"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Transitive dependencies form a deep directed acyclic graph.",
+            "activeNodes": [
+              "appRoot",
+              "directDep"
+            ],
+            "statusBadge": "active"
+          },
+          {
+            "at": "say8",
+            "caption": "Scanners recursively traverse the entire graph to identify vulnerabilities.",
+            "activeNodes": [
+              "transitiveOne",
+              "vulnerableDeep"
+            ],
+            "statusBadge": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Practice time: CVEs and licences",
+      "codeHash": "ef327e7c7d833b63283ed7157d9ffb591eda3dccaee04c093284b7af46aa52b5",
+      "spec": {
+        "template": "flow",
+        "title": "Cryptographic Package Integrity Verification ... — Execution Pipeline",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "1. Input & State",
+            "tappable": true
+          },
+          {
+            "id": "proc",
+            "label": "2. Cryptographic Packa...",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "3. Verified Output",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize input state for Cryptographic Package Integrity Verifica.",
+            "values": {
+              "in": "Day 19 Input",
+              "proc": "Standby",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "data",
+              "proc": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Execute core transformation in Cryptographic Packa... [D.Psix.Stwo].",
+            "values": {
+              "in": "Validated",
+              "proc": "Processing...",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "values": {
+              "in": "Validated",
+              "proc": "Invariant OK",
+              "out": "Emitting"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "End-to-end execution verified for Cryptographic Package Integrity V.",
+            "values": {
+              "in": "Committed",
+              "proc": "Verified",
+              "out": "Complete ✓"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Cryptographic Package Integrity Verification ... — Execution Pipeline",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "1. Input & State",
+            "tappable": true
+          },
+          {
+            "id": "proc",
+            "label": "2. Cryptographic Packa...",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "3. Verified Output",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Step 1: Initialize input state for Cryptographic Package Integrity Verifica.. [D19.P6.S1].",
+            "values": {
+              "in": "Day 19 Input",
+              "proc": "Standby",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "data",
+              "proc": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Step 2: Execute core transformation in Cryptographic Packa... [D19.P6.S2].",
+            "values": {
+              "in": "Validated",
+              "proc": "Processing...",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Step 3: Inspect concrete example output and invariants [D19.P6.S3].",
+            "values": {
+              "in": "Validated",
+              "proc": "Invariant OK",
+              "out": "Emitting"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Step 4: End-to-end execution verified for Cryptographic Package Integrity V.. [D19.P6.S4].",
+            "values": {
+              "in": "Committed",
+              "proc": "Verified",
+              "out": "Complete ✓"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

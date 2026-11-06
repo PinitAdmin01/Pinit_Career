@@ -10,12 +10,12 @@
       "codeHash": "8048967acab0f74ffd76d0f66f3666ec90fa23d6403c31b1ccc6a44333c04596",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Form GSTR-9 Annual Return Architecture & Outward A \u2014 Tax Governance Ledger",
+        "title": "Form GSTR-9 Annual Return Architecture & Outward A — Tax Governance Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary enterprise tax / governance ledger (1460000) for Form GSTR-9 Annual Return Architecture &...",
-            "title": "Day 27 Enterprise Tax Ledger \u2014 Master Entry",
+            "caption": "Open primary enterprise tax / governance ledger (multiple) for Form.",
+            "title": "Day 27 Enterprise Tax Ledger — Master Entry",
             "isBalanced": true,
             "totalDebit": 1460000,
             "totalCredit": 1460000,
@@ -40,8 +40,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / reconciliation entry (125000) under applicable code.",
-            "title": "Day 27 Enterprise Tax Ledger \u2014 Statutory Adjustment",
+            "caption": "Record statutory adjustment / reconciliation entry (multiple) under.",
+            "title": "Day 27 Enterprise Tax Ledger — Statutory Adjustment",
             "isBalanced": true,
             "totalDebit": 1585000,
             "totalCredit": 1585000,
@@ -72,8 +72,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated enterprise case study for Form GSTR-9 Annual Return Architecture &...",
-            "title": "Day 27 Enterprise Tax Ledger \u2014 Executive Audit",
+            "caption": "Execute simulated enterprise case study for Form GSTR-nine Annual Return.",
+            "title": "Day 27 Enterprise Tax Ledger — Executive Audit",
             "isBalanced": true,
             "totalDebit": 1585000,
             "totalCredit": 1585000,
@@ -103,8 +103,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and enterprise tax signoff.",
-            "title": "Day 27 Enterprise Tax Ledger \u2014 Final Signoff",
+            "caption": "Verify ledger equilibrium and enterprise tax signoff.",
+            "title": "Day 27 Enterprise Tax Ledger — Final Signoff",
             "isBalanced": true,
             "totalDebit": 1585000,
             "totalCredit": 1585000,
@@ -141,12 +141,12 @@
       "codeHash": "f26c1f4b6af2f77f8246368c2142bfe7e84fd450902b3b21e990cdeab26c0a89",
       "spec": {
         "template": "ledger-sheet",
-        "title": "GSTR-9 Table 8 Inward ITC Reconciliation with Form \u2014 Tax Governance Ledger",
+        "title": "GSTR-9 Table 8 Inward ITC Reconciliation with Form — Tax Governance Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary enterprise tax / governance ledger (1475000) for GSTR-9 Table 8 Inward ITC Reconciliation...",
-            "title": "Day 27 Enterprise Tax Ledger \u2014 Master Entry",
+            "caption": "Open primary enterprise tax / governance ledger (multiple) for GSTR-nine.",
+            "title": "Day 27 Enterprise Tax Ledger — Master Entry",
             "isBalanced": true,
             "totalDebit": 1475000,
             "totalCredit": 1475000,
@@ -171,8 +171,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / reconciliation entry (132500) under applicable code.",
-            "title": "Day 27 Enterprise Tax Ledger \u2014 Statutory Adjustment",
+            "caption": "Record statutory adjustment / reconciliation entry (multiple) under.",
+            "title": "Day 27 Enterprise Tax Ledger — Statutory Adjustment",
             "isBalanced": true,
             "totalDebit": 1607500,
             "totalCredit": 1607500,
@@ -203,8 +203,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated enterprise case study for GSTR-9 Table 8 Inward ITC Reconciliation...",
-            "title": "Day 27 Enterprise Tax Ledger \u2014 Executive Audit",
+            "caption": "Execute simulated enterprise case study for GSTR-nine Table eight Inward.",
+            "title": "Day 27 Enterprise Tax Ledger — Executive Audit",
             "isBalanced": true,
             "totalDebit": 1607500,
             "totalCredit": 1607500,
@@ -234,8 +234,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and enterprise tax signoff.",
-            "title": "Day 27 Enterprise Tax Ledger \u2014 Final Signoff",
+            "caption": "Verify ledger equilibrium and enterprise tax signoff.",
+            "title": "Day 27 Enterprise Tax Ledger — Final Signoff",
             "isBalanced": true,
             "totalDebit": 1607500,
             "totalCredit": 1607500,
@@ -272,12 +272,12 @@
       "codeHash": "de92dbc1ab589bdecc79ae91793b074fda92833b8c557d5bc736f91d30bb23f9",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Form GSTR-9C Self-Certified Reconciliation Stateme \u2014 Tax Governance Ledger",
+        "title": "Form GSTR-9C Self-Certified Reconciliation Stateme — Tax Governance Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary enterprise tax / governance ledger (1490000) for Form GSTR-9C Self-Certified Reconciliati...",
-            "title": "Day 27 Enterprise Tax Ledger \u2014 Master Entry",
+            "caption": "Open primary enterprise tax / governance ledger (multiple) for Form.",
+            "title": "Day 27 Enterprise Tax Ledger — Master Entry",
             "isBalanced": true,
             "totalDebit": 1490000,
             "totalCredit": 1490000,
@@ -302,8 +302,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / reconciliation entry (140000) under applicable code.",
-            "title": "Day 27 Enterprise Tax Ledger \u2014 Statutory Adjustment",
+            "caption": "Record statutory adjustment / reconciliation entry (multiple) under.",
+            "title": "Day 27 Enterprise Tax Ledger — Statutory Adjustment",
             "isBalanced": true,
             "totalDebit": 1630000,
             "totalCredit": 1630000,
@@ -334,8 +334,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated enterprise case study for Form GSTR-9C Self-Certified Reconciliati...",
-            "title": "Day 27 Enterprise Tax Ledger \u2014 Executive Audit",
+            "caption": "Execute simulated enterprise case study for Form GSTR-nineC.",
+            "title": "Day 27 Enterprise Tax Ledger — Executive Audit",
             "isBalanced": true,
             "totalDebit": 1630000,
             "totalCredit": 1630000,
@@ -365,8 +365,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and enterprise tax signoff.",
-            "title": "Day 27 Enterprise Tax Ledger \u2014 Final Signoff",
+            "caption": "Verify ledger equilibrium and enterprise tax signoff.",
+            "title": "Day 27 Enterprise Tax Ledger — Final Signoff",
             "isBalanced": true,
             "totalDebit": 1630000,
             "totalCredit": 1630000,
@@ -403,12 +403,12 @@
       "codeHash": "2565c48cfc59b3280979ea19af94e84df47c887ef2c285bebd22d9f171a6b449",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Expense Head-wise ITC Reconciliation under GSTR-9C \u2014 Tax Governance Ledger",
+        "title": "Expense Head-wise ITC Reconciliation under GSTR-9C — Tax Governance Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary enterprise tax / governance ledger (1505000) for Expense Head-wise ITC Reconciliation und...",
-            "title": "Day 27 Enterprise Tax Ledger \u2014 Master Entry",
+            "caption": "Open primary enterprise tax / governance ledger (multiple) for Expense.",
+            "title": "Day 27 Enterprise Tax Ledger — Master Entry",
             "isBalanced": true,
             "totalDebit": 1505000,
             "totalCredit": 1505000,
@@ -433,8 +433,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / reconciliation entry (147500) under applicable code.",
-            "title": "Day 27 Enterprise Tax Ledger \u2014 Statutory Adjustment",
+            "caption": "Record statutory adjustment / reconciliation entry (multiple) under.",
+            "title": "Day 27 Enterprise Tax Ledger — Statutory Adjustment",
             "isBalanced": true,
             "totalDebit": 1652500,
             "totalCredit": 1652500,
@@ -465,8 +465,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated enterprise case study for Expense Head-wise ITC Reconciliation und...",
-            "title": "Day 27 Enterprise Tax Ledger \u2014 Executive Audit",
+            "caption": "Execute simulated enterprise case study for Expense Head-wise ITC.",
+            "title": "Day 27 Enterprise Tax Ledger — Executive Audit",
             "isBalanced": true,
             "totalDebit": 1652500,
             "totalCredit": 1652500,
@@ -496,8 +496,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and enterprise tax signoff.",
-            "title": "Day 27 Enterprise Tax Ledger \u2014 Final Signoff",
+            "caption": "Verify ledger equilibrium and enterprise tax signoff.",
+            "title": "Day 27 Enterprise Tax Ledger — Final Signoff",
             "isBalanced": true,
             "totalDebit": 1652500,
             "totalCredit": 1652500,
@@ -534,12 +534,12 @@
       "codeHash": "b004e318e0ff016331b30e0cd98c31da764b6acf364e222b2e8c8bf44f9521fd",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Audit Remediation & Voluntary Tax Settlement via F \u2014 Tax Governance Ledger",
+        "title": "Audit Remediation & Voluntary Tax Settlement via F — Tax Governance Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary enterprise tax / governance ledger (1520000) for Audit Remediation & Voluntary Tax Settle...",
-            "title": "Day 27 Enterprise Tax Ledger \u2014 Master Entry",
+            "caption": "Open primary enterprise tax / governance ledger (multiple) for Audit.",
+            "title": "Day 27 Enterprise Tax Ledger — Master Entry",
             "isBalanced": true,
             "totalDebit": 1520000,
             "totalCredit": 1520000,
@@ -564,8 +564,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / reconciliation entry (155000) under applicable code.",
-            "title": "Day 27 Enterprise Tax Ledger \u2014 Statutory Adjustment",
+            "caption": "Record statutory adjustment / reconciliation entry (multiple) under.",
+            "title": "Day 27 Enterprise Tax Ledger — Statutory Adjustment",
             "isBalanced": true,
             "totalDebit": 1675000,
             "totalCredit": 1675000,
@@ -596,8 +596,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated enterprise case study for Audit Remediation & Voluntary Tax Settle...",
-            "title": "Day 27 Enterprise Tax Ledger \u2014 Executive Audit",
+            "caption": "Execute simulated enterprise case study for Audit Remediation & Voluntary.",
+            "title": "Day 27 Enterprise Tax Ledger — Executive Audit",
             "isBalanced": true,
             "totalDebit": 1675000,
             "totalCredit": 1675000,
@@ -627,8 +627,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and enterprise tax signoff.",
-            "title": "Day 27 Enterprise Tax Ledger \u2014 Final Signoff",
+            "caption": "Verify ledger equilibrium and enterprise tax signoff.",
+            "title": "Day 27 Enterprise Tax Ledger — Final Signoff",
             "isBalanced": true,
             "totalDebit": 1675000,
             "totalCredit": 1675000,

@@ -157,7 +157,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "dispatchWorkerPool initializes 4 isolated V8 execution threads.",
+            "caption": "DispatchWorkerPool initializes four isolated engine execution threads.",
             "values": {
               "b1": {
                 "text": "4"
@@ -229,7 +229,7 @@
           },
           {
             "at": "say7",
-            "caption": "All 10 tasks complete across worker threads, returning results cleanly.",
+            "caption": "All ten tasks complete across worker threads, returning results cleanly.",
             "values": {
               "b1": {
                 "text": "0"
@@ -542,7 +542,7 @@
           },
           {
             "at": "say5",
-            "caption": "Telemetry alerts fire when lag exceeds the 20ms production threshold.",
+            "caption": "Telemetry alerts fire when lag exceeds the twentyms production threshold.",
             "values": {
               "lag": {
                 "left": "1.1ms",

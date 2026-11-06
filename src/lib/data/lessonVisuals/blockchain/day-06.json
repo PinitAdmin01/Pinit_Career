@@ -10,7 +10,7 @@
       "codeHash": "61334e11380dbeccf0c6dbfbdbebaa9efc5a743eb2d250c20c4fd9836e9f71cf",
       "spec": {
         "template": "sequence",
-        "title": "PoS Consensus Architecture: 32 ETH Staking, Beacon Chain & RANDAO \u2014 On-Chain PoS Consensus Sequence",
+        "title": "PoS Consensus Architecture: 32 ETH Staking, Beacon Chain & RANDAO — On-Chain PoS Consensus Sequence",
         "actors": [
           "Validator Node",
           "Beacon Chain",
@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Validator Node broadcasts attestation for PoS Consensus Architecture: 32 E",
+            "caption": "Validator Node broadcasts attestation for PoS Consensus Architecture.",
             "activeActor": "Validator Node",
             "messages": [
               {
@@ -33,7 +33,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Beacon Chain accumulates RANDAO and updates Casper FFG checkpoint",
+            "caption": "Beacon Chain accumulates RANDAO and updates Casper FFG checkpoint.",
             "activeActor": "Beacon Chain",
             "messages": [
               {
@@ -52,7 +52,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Casper FFG justifies checkpoint and asserts anti-slashing invariants",
+            "caption": "Casper FFG justifies checkpoint and asserts anti-slashing invariants.",
             "activeActor": "Casper FFG",
             "messages": [
               {
@@ -77,7 +77,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Consensus engine finalizes epoch and issues validation receipt",
+            "caption": "Consensus engine finalizes epoch and issues validation receipt.",
             "activeActor": "Slashing Slurper",
             "messages": [
               {
@@ -101,7 +101,7 @@
               {
                 "from": "Slashing Slurper",
                 "to": "Validator Node",
-                "label": "EpochFinalized(Receipt \u2713)",
+                "label": "EpochFinalized(Receipt ✓)",
                 "tone": "ok"
               }
             ]
@@ -110,7 +110,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "PoS Consensus Architecture: 32 ETH Staking, Beacon Chain & RANDAO \u2014 On-Chain PoS Consensus Sequence",
+        "title": "PoS Consensus Architecture: 32 ETH Staking, Beacon Chain & RANDAO — On-Chain PoS Consensus Sequence",
         "actors": [
           "Validator Node",
           "Beacon Chain",
@@ -201,7 +201,7 @@
               {
                 "from": "Slashing Slurper",
                 "to": "Validator Node",
-                "label": "EpochFinalized(Receipt \u2713)",
+                "label": "EpochFinalized(Receipt ✓)",
                 "tone": "ok"
               }
             ]
@@ -214,7 +214,7 @@
       "codeHash": "08f5323ad02cb2c3df06bd8f063dae2106d3e24ca0fb8cab6dab71d1c5993bac",
       "spec": {
         "template": "sequence",
-        "title": "Casper FFG & LMD GHOST: Slots, Epochs & Supermajority Finality \u2014 On-Chain PoS Consensus Sequence",
+        "title": "Casper FFG & LMD GHOST: Slots, Epochs & Supermajority Finality — On-Chain PoS Consensus Sequence",
         "actors": [
           "Validator Node",
           "Beacon Chain",
@@ -224,7 +224,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Validator Node broadcasts attestation for Casper FFG & LMD GHOST: Slots, E",
+            "caption": "Validator Node broadcasts attestation for Casper FFG & LMD GHOST: Slots, E.",
             "activeActor": "Validator Node",
             "messages": [
               {
@@ -237,7 +237,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Beacon Chain accumulates RANDAO and updates Casper FFG checkpoint",
+            "caption": "Beacon Chain accumulates RANDAO and updates Casper FFG checkpoint.",
             "activeActor": "Beacon Chain",
             "messages": [
               {
@@ -256,7 +256,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Casper FFG justifies checkpoint and asserts anti-slashing invariants",
+            "caption": "Casper FFG justifies checkpoint and asserts anti-slashing invariants.",
             "activeActor": "Casper FFG",
             "messages": [
               {
@@ -281,7 +281,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Consensus engine finalizes epoch and issues validation receipt",
+            "caption": "Consensus engine finalizes epoch and issues validation receipt.",
             "activeActor": "Slashing Slurper",
             "messages": [
               {
@@ -305,7 +305,7 @@
               {
                 "from": "Slashing Slurper",
                 "to": "Validator Node",
-                "label": "EpochFinalized(Receipt \u2713)",
+                "label": "EpochFinalized(Receipt ✓)",
                 "tone": "ok"
               }
             ]
@@ -314,7 +314,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Casper FFG & LMD GHOST: Slots, Epochs & Supermajority Finality \u2014 On-Chain PoS Consensus Sequence",
+        "title": "Casper FFG & LMD GHOST: Slots, Epochs & Supermajority Finality — On-Chain PoS Consensus Sequence",
         "actors": [
           "Validator Node",
           "Beacon Chain",
@@ -405,7 +405,7 @@
               {
                 "from": "Slashing Slurper",
                 "to": "Validator Node",
-                "label": "EpochFinalized(Receipt \u2713)",
+                "label": "EpochFinalized(Receipt ✓)",
                 "tone": "ok"
               }
             ]
@@ -418,7 +418,7 @@
       "codeHash": "f7405783291e2c2b6293e96480a20c2d610ef87cec160e64c06ae606f69c3fd3",
       "spec": {
         "template": "sequence",
-        "title": "Slashing Conditions & Provable Cryptographic Equivocation \u2014 On-Chain PoS Consensus Sequence",
+        "title": "Slashing Conditions & Provable Cryptographic Equivocation — On-Chain PoS Consensus Sequence",
         "actors": [
           "Validator Node",
           "Beacon Chain",
@@ -428,7 +428,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Validator Node broadcasts attestation for Slashing Conditions & Provable C",
+            "caption": "Validator Node broadcasts attestation for Slashing Conditions & Provable C.",
             "activeActor": "Validator Node",
             "messages": [
               {
@@ -441,7 +441,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Beacon Chain accumulates RANDAO and updates Casper FFG checkpoint",
+            "caption": "Beacon Chain accumulates RANDAO and updates Casper FFG checkpoint.",
             "activeActor": "Beacon Chain",
             "messages": [
               {
@@ -460,7 +460,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Casper FFG justifies checkpoint and asserts anti-slashing invariants",
+            "caption": "Casper FFG justifies checkpoint and asserts anti-slashing invariants.",
             "activeActor": "Casper FFG",
             "messages": [
               {
@@ -485,7 +485,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Consensus engine finalizes epoch and issues validation receipt",
+            "caption": "Consensus engine finalizes epoch and issues validation receipt.",
             "activeActor": "Slashing Slurper",
             "messages": [
               {
@@ -509,7 +509,7 @@
               {
                 "from": "Slashing Slurper",
                 "to": "Validator Node",
-                "label": "EpochFinalized(Receipt \u2713)",
+                "label": "EpochFinalized(Receipt ✓)",
                 "tone": "ok"
               }
             ]
@@ -518,7 +518,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Slashing Conditions & Provable Cryptographic Equivocation \u2014 On-Chain PoS Consensus Sequence",
+        "title": "Slashing Conditions & Provable Cryptographic Equivocation — On-Chain PoS Consensus Sequence",
         "actors": [
           "Validator Node",
           "Beacon Chain",
@@ -609,7 +609,7 @@
               {
                 "from": "Slashing Slurper",
                 "to": "Validator Node",
-                "label": "EpochFinalized(Receipt \u2713)",
+                "label": "EpochFinalized(Receipt ✓)",
                 "tone": "ok"
               }
             ]
@@ -622,7 +622,7 @@
       "codeHash": "7bec95609b93d49111791215f0609b22d6b1f1737ff3e21b3f42fad7e973880b",
       "spec": {
         "template": "sequence",
-        "title": "Validator Lifecycle: Activation Queue, Inactivity Leaks & Voluntary Exit \u2014 On-Chain PoS Consensus Sequence",
+        "title": "Validator Lifecycle: Activation Queue, Inactivity Leaks & Voluntary Exit — On-Chain PoS Consensus Sequence",
         "actors": [
           "Validator Node",
           "Beacon Chain",
@@ -632,7 +632,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Validator Node broadcasts attestation for Validator Lifecycle: Activation ",
+            "caption": "Validator Node broadcasts attestation for Validator Lifecycle: Activation.",
             "activeActor": "Validator Node",
             "messages": [
               {
@@ -645,7 +645,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Beacon Chain accumulates RANDAO and updates Casper FFG checkpoint",
+            "caption": "Beacon Chain accumulates RANDAO and updates Casper FFG checkpoint.",
             "activeActor": "Beacon Chain",
             "messages": [
               {
@@ -664,7 +664,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Casper FFG justifies checkpoint and asserts anti-slashing invariants",
+            "caption": "Casper FFG justifies checkpoint and asserts anti-slashing invariants.",
             "activeActor": "Casper FFG",
             "messages": [
               {
@@ -689,7 +689,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Consensus engine finalizes epoch and issues validation receipt",
+            "caption": "Consensus engine finalizes epoch and issues validation receipt.",
             "activeActor": "Slashing Slurper",
             "messages": [
               {
@@ -713,7 +713,7 @@
               {
                 "from": "Slashing Slurper",
                 "to": "Validator Node",
-                "label": "EpochFinalized(Receipt \u2713)",
+                "label": "EpochFinalized(Receipt ✓)",
                 "tone": "ok"
               }
             ]
@@ -722,7 +722,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Validator Lifecycle: Activation Queue, Inactivity Leaks & Voluntary Exit \u2014 On-Chain PoS Consensus Sequence",
+        "title": "Validator Lifecycle: Activation Queue, Inactivity Leaks & Voluntary Exit — On-Chain PoS Consensus Sequence",
         "actors": [
           "Validator Node",
           "Beacon Chain",
@@ -813,7 +813,7 @@
               {
                 "from": "Slashing Slurper",
                 "to": "Validator Node",
-                "label": "EpochFinalized(Receipt \u2713)",
+                "label": "EpochFinalized(Receipt ✓)",
                 "tone": "ok"
               }
             ]
@@ -826,7 +826,7 @@
       "codeHash": "849ddf27c3c60fe9bf78c09fd6cea4d3d45889dd6d5508060edc4bbdde9f30d6",
       "spec": {
         "template": "sequence",
-        "title": "Master PoS Validator Security & Consensus Health Certification Engine \u2014 On-Chain PoS Consensus Sequence",
+        "title": "Master PoS Validator Security & Consensus Health Certification Engine — On-Chain PoS Consensus Sequence",
         "actors": [
           "Validator Node",
           "Beacon Chain",
@@ -836,7 +836,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Validator Node broadcasts attestation for Master PoS Validator Security & ",
+            "caption": "Validator Node broadcasts attestation for Master PoS Validator Security &.",
             "activeActor": "Validator Node",
             "messages": [
               {
@@ -849,7 +849,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Beacon Chain accumulates RANDAO and updates Casper FFG checkpoint",
+            "caption": "Beacon Chain accumulates RANDAO and updates Casper FFG checkpoint.",
             "activeActor": "Beacon Chain",
             "messages": [
               {
@@ -868,7 +868,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Casper FFG justifies checkpoint and asserts anti-slashing invariants",
+            "caption": "Casper FFG justifies checkpoint and asserts anti-slashing invariants.",
             "activeActor": "Casper FFG",
             "messages": [
               {
@@ -893,7 +893,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Consensus engine finalizes epoch and issues validation receipt",
+            "caption": "Consensus engine finalizes epoch and issues validation receipt.",
             "activeActor": "Slashing Slurper",
             "messages": [
               {
@@ -917,7 +917,7 @@
               {
                 "from": "Slashing Slurper",
                 "to": "Validator Node",
-                "label": "EpochFinalized(Receipt \u2713)",
+                "label": "EpochFinalized(Receipt ✓)",
                 "tone": "ok"
               }
             ]
@@ -926,7 +926,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Master PoS Validator Security & Consensus Health Certification Engine \u2014 On-Chain PoS Consensus Sequence",
+        "title": "Master PoS Validator Security & Consensus Health Certification Engine — On-Chain PoS Consensus Sequence",
         "actors": [
           "Validator Node",
           "Beacon Chain",
@@ -1017,7 +1017,7 @@
               {
                 "from": "Slashing Slurper",
                 "to": "Validator Node",
-                "label": "EpochFinalized(Receipt \u2713)",
+                "label": "EpochFinalized(Receipt ✓)",
                 "tone": "ok"
               }
             ]

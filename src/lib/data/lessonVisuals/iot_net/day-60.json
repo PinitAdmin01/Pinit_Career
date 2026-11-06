@@ -157,7 +157,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Register 6LoWPAN wireless sensor subnets via lightweight 2-byte Topic ID MQTT-SN bridge.",
+            "caption": "Register LowPAN wireless sensor subnets via lightweight two-byte Topic ID.",
             "registerName": "MESH_ROUTER_REG",
             "bitWidth": 8,
             "hexValue": "0xBE",
@@ -303,7 +303,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize SovereignHardwareSecurityPipeline: Confirm permanent silicon hardware lock on Slot 0.",
+            "caption": "Initialize SovereignHardwareSecurityPipeline: Confirm permanent silicon.",
             "registerName": "SOVEREIGN_SEC_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -371,7 +371,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Execute on-chip ECDSA CertificateVerify signature delegation via PKCS#11 token interface.",
+            "caption": "Execute on-chip ECDSA CertificateVerify signature delegation via.",
             "registerName": "SOVEREIGN_SEC_REG",
             "bitWidth": 8,
             "hexValue": "0xDF",
@@ -507,7 +507,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Establish authenticated mutual TLS 1.3 session and commit signed entry to immutable audit journal.",
+            "caption": "Establish authenticated mutual modern TLS session and commit signed entry.",
             "registerName": "SOVEREIGN_SEC_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -585,7 +585,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize ClosedLoopDigitalTwinMesh: Subscribe to cloud desired state document at Version 10.",
+            "caption": "Initialize ClosedLoopDigitalTwinMesh: Subscribe to cloud desired state.",
             "registerName": "TWIN_CLOSED_LOOP_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -653,7 +653,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Parse desired setpoints: Accelerate spindle to 3600 RPM and energize pneumatic cooling valve relay.",
+            "caption": "Parse desired setpoints: Accelerate spindle to multiple RPM and energize.",
             "registerName": "TWIN_CLOSED_LOOP_REG",
             "bitWidth": 8,
             "hexValue": "0xDC",
@@ -721,7 +721,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Wait for physical sensor feedback: Confirm optical tachometer 3600 RPM and limit switch closure.",
+            "caption": "Wait for physical sensor feedback: Confirm optical tachometer multiple.",
             "registerName": "TWIN_CLOSED_LOOP_REG",
             "bitWidth": 8,
             "hexValue": "0xBE",
@@ -789,7 +789,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Confirm physical convergence: Publish updated reported state and advance twin to Version 11.",
+            "caption": "Confirm physical convergence: Publish updated reported state and advance.",
             "registerName": "TWIN_CLOSED_LOOP_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1003,7 +1003,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Execute atomic bootloader swap to Bank B and arm 60-second hardware watchdog countdown timer.",
+            "caption": "Execute atomic bootloader swap to Bank B and arm multiple-second hardware.",
             "registerName": "OTA_GUARDIAN_REG",
             "bitWidth": 8,
             "hexValue": "0xEF",
@@ -1353,7 +1353,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Assert OPERATIONAL_SOVEREIGN_MESH and latch COURSE_18_IOT_NET_MASTER_CAPSTONE_GRADE_A_PLUS_CERTIFIED.",
+            "caption": "Assert OPERATIONAL_SOVEREIGN_MESH and latch.",
             "registerName": "GRAND_CAPSTONE_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

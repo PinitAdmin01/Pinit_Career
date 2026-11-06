@@ -10,7 +10,7 @@
       "codeHash": "92e101e744063b7a1274c6aa565baf38efc08011f48b176f677d8d564f7aa96b",
       "spec": {
         "template": "states",
-        "title": "SEC Rule 15c3-5 Market Access Rule & Pre-Trad \u2014 High-Frequency Systems State Machine",
+        "title": "SEC Rule 15c3-5 Market Access Rule & Pre-Trad — High-Frequency Systems State Machine",
         "states": [
           {
             "id": "st1",
@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (SEC 15c3-5 DMA): Initialize deterministic state for SEC Rule 15c3-5 Market Access Rule ...",
+            "caption": "State one (SEC cthree-five DMA): Initialize deterministic state for SEC.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -60,7 +60,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Pre-Trade Pass): Execute deterministic verification with zero heap allocations.",
+            "caption": "State four (Pre-Trade Pass): Execute deterministic verification with zero.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -77,7 +77,7 @@
       "codeHash": "c1ce3116e331a47c4b093cd77c520cfffabdc21fa06c2c357d6bc60beebd8a47",
       "spec": {
         "template": "states",
-        "title": "Fat-Finger Clip Limits & Notional Order Value \u2014 High-Frequency Systems State Machine",
+        "title": "Fat-Finger Clip Limits & Notional Order Value — High-Frequency Systems State Machine",
         "states": [
           {
             "id": "st1",
@@ -99,7 +99,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Clip Limit Qty): Initialize deterministic state for Fat-Finger Clip Limits & Notional O...",
+            "caption": "State one (Clip Limit Qty): Initialize deterministic state for Fat-Finger.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -127,7 +127,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Order Approved): Execute deterministic verification with zero heap allocations.",
+            "caption": "State four (Order Approved): Execute deterministic verification with zero.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -144,7 +144,7 @@
       "codeHash": "25ca9bb691e1be0e4d9ac98c35fcd658060d6682d067b7980331369e16b7d446",
       "spec": {
         "template": "states",
-        "title": "Multi-Tiered NBBO Dynamic Price Collar Enforc \u2014 High-Frequency Systems State Machine",
+        "title": "Multi-Tiered NBBO Dynamic Price Collar Enforc — High-Frequency Systems State Machine",
         "states": [
           {
             "id": "st1",
@@ -166,7 +166,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (NBBO Feed): Initialize deterministic state for Multi-Tiered NBBO Dynamic Price Col...",
+            "caption": "State one (NBBO Feed): Initialize deterministic state for Multi-Tiered.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -194,7 +194,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Price Protected): Execute deterministic verification with zero heap allocations.",
+            "caption": "State four (Price Protected): Execute deterministic verification with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -211,7 +211,7 @@
       "codeHash": "277deb5efbcb427b2f6ab547bbb49354fd6bd07abb281c76248314c819e92f34",
       "spec": {
         "template": "states",
-        "title": "Sub-Millisecond Global Kill Switches & State  \u2014 High-Frequency Systems State Machine",
+        "title": "Sub-Millisecond Global Kill Switches & State  — High-Frequency Systems State Machine",
         "states": [
           {
             "id": "st1",
@@ -233,7 +233,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Normal Trading): Initialize deterministic state for Sub-Millisecond Global Kill Switche...",
+            "caption": "State one (Normal Trading): Initialize deterministic state for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -261,7 +261,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Orders Purged): Execute deterministic verification with zero heap allocations.",
+            "caption": "State four (Orders Purged): Execute deterministic verification with zero.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -278,7 +278,7 @@
       "codeHash": "9f2fdac9c4cb3b10524e3750f4b8870b095f2dc4960764643c469023fa15a05a",
       "spec": {
         "template": "states",
-        "title": "Production Pre-Trade Risk Gateway Integration \u2014 High-Frequency Systems State Machine",
+        "title": "Production Pre-Trade Risk Gateway Integration — High-Frequency Systems State Machine",
         "states": [
           {
             "id": "st1",
@@ -300,13 +300,13 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Gate 1 KillSwitch): Initialize deterministic state for Production Pre-Trade Risk Gateway I...",
+            "caption": "State one (Gate one KillSwitch): Initialize deterministic state for.",
             "currentState": "st1",
             "tone": "data"
           },
           {
             "at": "say1",
-            "caption": "Transition to Gate 2 DMA/Credit with zero-allocation buffer pipeline.",
+            "caption": "Transition to Gate two DMA/Credit with zero-allocation buffer pipeline.",
             "currentState": "st2",
             "transition": {
               "from": "st1",
@@ -317,7 +317,7 @@
           },
           {
             "at": "example",
-            "caption": "Transition to Gate 3 Clip/Price and evaluate hot-path latency invariant.",
+            "caption": "Transition to Gate three Clip/Price and evaluate hot-path latency.",
             "currentState": "st3",
             "transition": {
               "from": "st2",
@@ -328,7 +328,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Gate 4/5 Approved): Execute deterministic verification with zero heap allocations.",
+            "caption": "State four (Gate four/five Approved): Execute deterministic verification.",
             "currentState": "st4",
             "transition": {
               "from": "st3",

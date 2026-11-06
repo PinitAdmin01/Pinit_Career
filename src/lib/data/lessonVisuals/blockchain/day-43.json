@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Caller submits transaction or upgrade proposal for UUPS vs Transparent Proxy Arch...",
+            "caption": "Caller submits transaction or upgrade proposal for UUPS vs Transparent.",
             "activeActor": "Governance Multi-Sig",
             "messages": [
               {
@@ -33,7 +33,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Proxy evaluates execution context, caller identity, and routing table",
+            "caption": "Proxy evaluates execution context, caller identity, and routing table.",
             "activeActor": "UUPS Proxy Forwarder",
             "messages": [
               {
@@ -46,7 +46,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execution of business logic and storage slot state mutation",
+            "caption": "Execution of business logic and storage slot state mutation.",
             "activeActor": "UUPS Implementation V1/V2",
             "messages": [
               {
@@ -59,7 +59,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: State transition committed; returndata returned to caller",
+            "caption": "State transition committed; returndata returned to caller.",
             "activeActor": "UUPS Proxy Forwarder",
             "messages": [
               {
@@ -152,7 +152,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Caller submits transaction or upgrade proposal for Implementation-Side Upgrades &...",
+            "caption": "Caller submits transaction or upgrade proposal for Implementation-Side.",
             "activeActor": "Governance Multi-Sig",
             "messages": [
               {
@@ -165,7 +165,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Proxy evaluates execution context, caller identity, and routing table",
+            "caption": "Proxy evaluates execution context, caller identity, and routing table.",
             "activeActor": "UUPS Proxy Forwarder",
             "messages": [
               {
@@ -178,7 +178,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execution of business logic and storage slot state mutation",
+            "caption": "Execution of business logic and storage slot state mutation.",
             "activeActor": "UUPS Implementation V1/V2",
             "messages": [
               {
@@ -191,7 +191,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: State transition committed; returndata returned to caller",
+            "caption": "State transition committed; returndata returned to caller.",
             "activeActor": "UUPS Proxy Forwarder",
             "messages": [
               {
@@ -284,7 +284,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Caller submits transaction or upgrade proposal for Detective Lab: Uninitialized L...",
+            "caption": "Caller submits transaction or upgrade proposal for Detective Lab.",
             "activeActor": "Governance Multi-Sig",
             "messages": [
               {
@@ -297,7 +297,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Proxy evaluates execution context, caller identity, and routing table",
+            "caption": "Proxy evaluates execution context, caller identity, and routing table.",
             "activeActor": "UUPS Proxy Forwarder",
             "messages": [
               {
@@ -310,7 +310,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execution of business logic and storage slot state mutation",
+            "caption": "Execution of business logic and storage slot state mutation.",
             "activeActor": "UUPS Implementation V1/V2",
             "messages": [
               {
@@ -323,7 +323,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: State transition committed; returndata returned to caller",
+            "caption": "State transition committed; returndata returned to caller.",
             "activeActor": "UUPS Proxy Forwarder",
             "messages": [
               {
@@ -416,7 +416,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Caller submits transaction or upgrade proposal for Storage Gaps (__gap[50]) & Inh...",
+            "caption": "Caller submits transaction or upgrade proposal for Storage Gaps.",
             "activeActor": "Governance Multi-Sig",
             "messages": [
               {
@@ -429,7 +429,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Proxy evaluates execution context, caller identity, and routing table",
+            "caption": "Proxy evaluates execution context, caller identity, and routing table.",
             "activeActor": "UUPS Proxy Forwarder",
             "messages": [
               {
@@ -442,7 +442,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execution of business logic and storage slot state mutation",
+            "caption": "Execution of business logic and storage slot state mutation.",
             "activeActor": "UUPS Implementation V1/V2",
             "messages": [
               {
@@ -455,7 +455,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: State transition committed; returndata returned to caller",
+            "caption": "State transition committed; returndata returned to caller.",
             "activeActor": "UUPS Proxy Forwarder",
             "messages": [
               {
@@ -548,7 +548,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Caller submits transaction or upgrade proposal for Production UUPS Architecture S...",
+            "caption": "Caller submits transaction or upgrade proposal for Production UUPS.",
             "activeActor": "Governance Multi-Sig",
             "messages": [
               {
@@ -561,7 +561,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Proxy evaluates execution context, caller identity, and routing table",
+            "caption": "Proxy evaluates execution context, caller identity, and routing table.",
             "activeActor": "UUPS Proxy Forwarder",
             "messages": [
               {
@@ -574,7 +574,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execution of business logic and storage slot state mutation",
+            "caption": "Execution of business logic and storage slot state mutation.",
             "activeActor": "UUPS Implementation V1/V2",
             "messages": [
               {
@@ -587,7 +587,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: State transition committed; returndata returned to caller",
+            "caption": "State transition committed; returndata returned to caller.",
             "activeActor": "UUPS Proxy Forwarder",
             "messages": [
               {

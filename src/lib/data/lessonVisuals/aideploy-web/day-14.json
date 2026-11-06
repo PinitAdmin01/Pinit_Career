@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "say3",
-            "caption": "Single precision FP32 consumes four bytes for every model parameter.",
+            "caption": "Single precision single-precision consumes four bytes for every model.",
             "highlightRow": 0,
             "rows": [
               {
@@ -63,7 +63,7 @@
           },
           {
             "at": "say4",
-            "caption": "Modern inference uses FP16 reducing memory consumption to two bytes.",
+            "caption": "Modern inference uses half-precision reducing memory consumption to two.",
             "highlightRow": 1,
             "rows": [
               {
@@ -106,7 +106,7 @@
           },
           {
             "at": "say5",
-            "caption": "Quantization compresses weights to one byte in INT8 and half byte in INT4.",
+            "caption": "Quantization compresses weights to one byte in byte-quantized and half.",
             "highlightRow": 3,
             "rows": [
               {
@@ -379,7 +379,7 @@
           },
           {
             "at": "say7",
-            "caption": "With INT4 quantization massive 70B models compress into modest weight VRAM.",
+            "caption": "With INTfour quantization massive B models compress into modest weight.",
             "highlightBar": 2,
             "bars": [
               {
@@ -845,7 +845,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Production GPU Hardware Sizing Engine [D14.P6.S1].",
+            "caption": "Initialize input state for Production GPU Hardware Sizing Engine.",
             "values": {
               "in": "Day 14 Input",
               "proc": "Standby",
@@ -865,7 +865,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Production GPU Hard... [D14.P6.S2].",
+            "caption": "Execute core transformation in Production GPU Hard... [D.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -889,7 +889,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D14.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -909,7 +909,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Production GPU Hardware Sizing En.. [D14.P6.S4].",
+            "caption": "End-to-end execution verified for Production GPU Hardware Sizing En.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

@@ -227,7 +227,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Counting the ways instead [D26.P3.S1].",
+            "caption": "Initialize input state for Counting the ways instead [D.Pthree.Sone].",
             "values": {
               "in": "Day 26 Input",
               "proc": "Standby",
@@ -247,7 +247,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Counting the ways i... [D26.P3.S2].",
+            "caption": "Execute core transformation in Counting the ways i... [D.Pthree.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -271,7 +271,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D26.P3.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Pthree.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -291,7 +291,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Counting the ways instead [D26.P3.S4].",
+            "caption": "End-to-end execution verified for Counting the ways instead.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -557,7 +557,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Which items were taken? [D26.P5.S1].",
+            "caption": "Initialize input state for Which items were taken? [D.Pfive.Sone].",
             "values": {
               "in": "Day 26 Input",
               "proc": "Standby",
@@ -577,7 +577,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Which items were ta... [D26.P5.S2].",
+            "caption": "Execute core transformation in Which items were ta... [D.Pfive.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -601,7 +601,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D26.P5.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -621,7 +621,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Which items were taken? [D26.P5.S4].",
+            "caption": "End-to-end execution verified for Which items were taken? [D.Pfive.Sfour].",
             "values": {
               "in": "Committed",
               "proc": "Verified",

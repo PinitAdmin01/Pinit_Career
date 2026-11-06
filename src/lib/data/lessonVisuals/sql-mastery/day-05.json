@@ -403,7 +403,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for BETWEEN: ranges of numbers and dates [D5.P4.S1].",
+            "caption": "Initialize input state for BETWEEN: ranges of numbers and dates.",
             "values": {
               "in": "Day 5 Input",
               "proc": "Standby",
@@ -423,7 +423,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in BETWEEN: ranges of ... [D5.P4.S2].",
+            "caption": "Execute core transformation in BETWEEN: ranges of ... [Dfive.Pfour.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -447,7 +447,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D5.P4.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -467,7 +467,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for BETWEEN: ranges of numbers and da.. [D5.P4.S4].",
+            "caption": "End-to-end execution verified for BETWEEN: ranges of numbers and da.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -629,7 +629,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Combining text, list and range filters [D5.P5.S1].",
+            "caption": "Initialize input state for Combining text, list and range filters.",
             "values": {
               "in": "Day 5 Input",
               "proc": "Standby",
@@ -649,7 +649,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Combining text, lis... [D5.P5.S2].",
+            "caption": "Execute core transformation in Combining text, lis... [Dfive.Pfive.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -673,7 +673,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D5.P5.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -693,7 +693,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Combining text, list and range fi.. [D5.P5.S4].",
+            "caption": "End-to-end execution verified for Combining text, list and range fi.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

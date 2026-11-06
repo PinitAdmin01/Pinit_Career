@@ -10,7 +10,7 @@
       "codeHash": "ffc08283d58042908da01325d5e25f3f7edaee842af4c154039997688405042c",
       "spec": {
         "template": "sequence",
-        "title": "Minting & Modifying Concentrated Positions: modifyPosition & Tick State \u2014 Concentrated Liquidity Sequence",
+        "title": "Minting & Modifying Concentrated Positions: modifyPosition & Tick State — Concentrated Liquidity Sequence",
         "actors": [
           "Trader / LP",
           "Position Manager",
@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: LP invokes Position Manager for Minting & Modifying Concentrated",
+            "caption": "LP invokes Position Manager for Minting & Modifying Concentrated.",
             "activeActor": "Trader / LP",
             "messages": [
               {
@@ -33,7 +33,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Position Manager calls pool modifyPosition; tick liquidityNet updated",
+            "caption": "Position Manager calls pool modifyPosition; tick liquidityNet updated.",
             "activeActor": "Position Manager",
             "messages": [
               {
@@ -46,7 +46,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Pool feeGrowthInside checkpointed and ERC-721 token minted to LP",
+            "caption": "Pool feeGrowthInside checkpointed and non-fungible token token minted to.",
             "activeActor": "Uniswap v3 Pool",
             "messages": [
               {
@@ -59,13 +59,13 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Position confirmed; NFT transferred to owner with active fee accrual",
+            "caption": "Position confirmed; NFT transferred to owner with active fee accrual.",
             "activeActor": "ERC-721 Ledger",
             "messages": [
               {
                 "from": "ERC-721 Ledger",
                 "to": "Trader / LP",
-                "label": "Transfer(0x0, owner, tokenId) [Active Yield \u2713]",
+                "label": "Transfer(0x0, owner, tokenId) [Active Yield ✓]",
                 "tone": "ok"
               }
             ]
@@ -74,7 +74,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Minting & Modifying Concentrated Positions: modifyPosition & Tick State \u2014 Concentrated Liquidity Sequence",
+        "title": "Minting & Modifying Concentrated Positions: modifyPosition & Tick State — Concentrated Liquidity Sequence",
         "actors": [
           "Trader / LP",
           "Position Manager",
@@ -129,7 +129,7 @@
               {
                 "from": "ERC-721 Ledger",
                 "to": "Trader / LP",
-                "label": "Transfer(0x0, owner, tokenId) [Active Yield \u2713]",
+                "label": "Transfer(0x0, owner, tokenId) [Active Yield ✓]",
                 "tone": "ok"
               }
             ]
@@ -142,7 +142,7 @@
       "codeHash": "0a54930e7d324f68cf1509a8a9ef0193c4f1337bd4d7a8bc6c73a65687eed450",
       "spec": {
         "template": "sequence",
-        "title": "Fee Growth Accounting: Global, Outside & Inside Tick Formulas \u2014 Concentrated Liquidity Sequence",
+        "title": "Fee Growth Accounting: Global, Outside & Inside Tick Formulas — Concentrated Liquidity Sequence",
         "actors": [
           "Trader / LP",
           "Position Manager",
@@ -152,7 +152,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: LP invokes Position Manager for Fee Growth Accounting: Global, O",
+            "caption": "LP invokes Position Manager for Fee Growth Accounting: Global, O.",
             "activeActor": "Trader / LP",
             "messages": [
               {
@@ -165,7 +165,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Position Manager calls pool modifyPosition; tick liquidityNet updated",
+            "caption": "Position Manager calls pool modifyPosition; tick liquidityNet updated.",
             "activeActor": "Position Manager",
             "messages": [
               {
@@ -178,7 +178,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Pool feeGrowthInside checkpointed and ERC-721 token minted to LP",
+            "caption": "Pool feeGrowthInside checkpointed and non-fungible token token minted to.",
             "activeActor": "Uniswap v3 Pool",
             "messages": [
               {
@@ -191,13 +191,13 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Position confirmed; NFT transferred to owner with active fee accrual",
+            "caption": "Position confirmed; NFT transferred to owner with active fee accrual.",
             "activeActor": "ERC-721 Ledger",
             "messages": [
               {
                 "from": "ERC-721 Ledger",
                 "to": "Trader / LP",
-                "label": "Transfer(0x0, owner, tokenId) [Active Yield \u2713]",
+                "label": "Transfer(0x0, owner, tokenId) [Active Yield ✓]",
                 "tone": "ok"
               }
             ]
@@ -206,7 +206,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Fee Growth Accounting: Global, Outside & Inside Tick Formulas \u2014 Concentrated Liquidity Sequence",
+        "title": "Fee Growth Accounting: Global, Outside & Inside Tick Formulas — Concentrated Liquidity Sequence",
         "actors": [
           "Trader / LP",
           "Position Manager",
@@ -261,7 +261,7 @@
               {
                 "from": "ERC-721 Ledger",
                 "to": "Trader / LP",
-                "label": "Transfer(0x0, owner, tokenId) [Active Yield \u2713]",
+                "label": "Transfer(0x0, owner, tokenId) [Active Yield ✓]",
                 "tone": "ok"
               }
             ]
@@ -274,7 +274,7 @@
       "codeHash": "aff1df62bbcd1a4847f8e08429e4409c532cd651dbf396d7905fb18e247e6963",
       "spec": {
         "template": "sequence",
-        "title": "Impermanent Loss in Concentrated Ranges: Non-Linear Risk Proofs \u2014 Concentrated Liquidity Sequence",
+        "title": "Impermanent Loss in Concentrated Ranges: Non-Linear Risk Proofs — Concentrated Liquidity Sequence",
         "actors": [
           "Trader / LP",
           "Position Manager",
@@ -284,7 +284,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: LP invokes Position Manager for Impermanent Loss in Concentrated",
+            "caption": "LP invokes Position Manager for Impermanent Loss in Concentrated.",
             "activeActor": "Trader / LP",
             "messages": [
               {
@@ -297,7 +297,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Position Manager calls pool modifyPosition; tick liquidityNet updated",
+            "caption": "Position Manager calls pool modifyPosition; tick liquidityNet updated.",
             "activeActor": "Position Manager",
             "messages": [
               {
@@ -310,7 +310,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Pool feeGrowthInside checkpointed and ERC-721 token minted to LP",
+            "caption": "Pool feeGrowthInside checkpointed and non-fungible token token minted to.",
             "activeActor": "Uniswap v3 Pool",
             "messages": [
               {
@@ -323,13 +323,13 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Position confirmed; NFT transferred to owner with active fee accrual",
+            "caption": "Position confirmed; NFT transferred to owner with active fee accrual.",
             "activeActor": "ERC-721 Ledger",
             "messages": [
               {
                 "from": "ERC-721 Ledger",
                 "to": "Trader / LP",
-                "label": "Transfer(0x0, owner, tokenId) [Active Yield \u2713]",
+                "label": "Transfer(0x0, owner, tokenId) [Active Yield ✓]",
                 "tone": "ok"
               }
             ]
@@ -338,7 +338,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Impermanent Loss in Concentrated Ranges: Non-Linear Risk Proofs \u2014 Concentrated Liquidity Sequence",
+        "title": "Impermanent Loss in Concentrated Ranges: Non-Linear Risk Proofs — Concentrated Liquidity Sequence",
         "actors": [
           "Trader / LP",
           "Position Manager",
@@ -393,7 +393,7 @@
               {
                 "from": "ERC-721 Ledger",
                 "to": "Trader / LP",
-                "label": "Transfer(0x0, owner, tokenId) [Active Yield \u2713]",
+                "label": "Transfer(0x0, owner, tokenId) [Active Yield ✓]",
                 "tone": "ok"
               }
             ]
@@ -406,7 +406,7 @@
       "codeHash": "dcc31e36b07dd9e1f5b120290e6864c3f0bb835d400504dca36f251b445a4477",
       "spec": {
         "template": "sequence",
-        "title": "Range Orders & Non-Fungible Position Manager (ERC-721) \u2014 Concentrated Liquidity Sequence",
+        "title": "Range Orders & Non-Fungible Position Manager (ERC-721) — Concentrated Liquidity Sequence",
         "actors": [
           "Trader / LP",
           "Position Manager",
@@ -416,7 +416,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: LP invokes Position Manager for Range Orders & Non-Fungible Posi",
+            "caption": "LP invokes Position Manager for Range Orders & Non-Fungible Posi.",
             "activeActor": "Trader / LP",
             "messages": [
               {
@@ -429,7 +429,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Position Manager calls pool modifyPosition; tick liquidityNet updated",
+            "caption": "Position Manager calls pool modifyPosition; tick liquidityNet updated.",
             "activeActor": "Position Manager",
             "messages": [
               {
@@ -442,7 +442,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Pool feeGrowthInside checkpointed and ERC-721 token minted to LP",
+            "caption": "Pool feeGrowthInside checkpointed and non-fungible token token minted to.",
             "activeActor": "Uniswap v3 Pool",
             "messages": [
               {
@@ -455,13 +455,13 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Position confirmed; NFT transferred to owner with active fee accrual",
+            "caption": "Position confirmed; NFT transferred to owner with active fee accrual.",
             "activeActor": "ERC-721 Ledger",
             "messages": [
               {
                 "from": "ERC-721 Ledger",
                 "to": "Trader / LP",
-                "label": "Transfer(0x0, owner, tokenId) [Active Yield \u2713]",
+                "label": "Transfer(0x0, owner, tokenId) [Active Yield ✓]",
                 "tone": "ok"
               }
             ]
@@ -470,7 +470,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Range Orders & Non-Fungible Position Manager (ERC-721) \u2014 Concentrated Liquidity Sequence",
+        "title": "Range Orders & Non-Fungible Position Manager (ERC-721) — Concentrated Liquidity Sequence",
         "actors": [
           "Trader / LP",
           "Position Manager",
@@ -525,7 +525,7 @@
               {
                 "from": "ERC-721 Ledger",
                 "to": "Trader / LP",
-                "label": "Transfer(0x0, owner, tokenId) [Active Yield \u2713]",
+                "label": "Transfer(0x0, owner, tokenId) [Active Yield ✓]",
                 "tone": "ok"
               }
             ]
@@ -538,7 +538,7 @@
       "codeHash": "efc4e7984a9f4962c19d762681f4993dc544d6e4ec1569e64e2d34d6930b74be",
       "spec": {
         "template": "sequence",
-        "title": "Master Liquidity Provisioning Engine & Position Risk Auditor \u2014 Concentrated Liquidity Sequence",
+        "title": "Master Liquidity Provisioning Engine & Position Risk Auditor — Concentrated Liquidity Sequence",
         "actors": [
           "Trader / LP",
           "Position Manager",
@@ -548,7 +548,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: LP invokes Position Manager for Master Liquidity Provisioning En",
+            "caption": "LP invokes Position Manager for Master Liquidity Provisioning En.",
             "activeActor": "Trader / LP",
             "messages": [
               {
@@ -561,7 +561,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Position Manager calls pool modifyPosition; tick liquidityNet updated",
+            "caption": "Position Manager calls pool modifyPosition; tick liquidityNet updated.",
             "activeActor": "Position Manager",
             "messages": [
               {
@@ -574,7 +574,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Pool feeGrowthInside checkpointed and ERC-721 token minted to LP",
+            "caption": "Pool feeGrowthInside checkpointed and non-fungible token token minted to.",
             "activeActor": "Uniswap v3 Pool",
             "messages": [
               {
@@ -587,13 +587,13 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Position confirmed; NFT transferred to owner with active fee accrual",
+            "caption": "Position confirmed; NFT transferred to owner with active fee accrual.",
             "activeActor": "ERC-721 Ledger",
             "messages": [
               {
                 "from": "ERC-721 Ledger",
                 "to": "Trader / LP",
-                "label": "Transfer(0x0, owner, tokenId) [Active Yield \u2713]",
+                "label": "Transfer(0x0, owner, tokenId) [Active Yield ✓]",
                 "tone": "ok"
               }
             ]
@@ -602,7 +602,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Master Liquidity Provisioning Engine & Position Risk Auditor \u2014 Concentrated Liquidity Sequence",
+        "title": "Master Liquidity Provisioning Engine & Position Risk Auditor — Concentrated Liquidity Sequence",
         "actors": [
           "Trader / LP",
           "Position Manager",
@@ -657,7 +657,7 @@
               {
                 "from": "ERC-721 Ledger",
                 "to": "Trader / LP",
-                "label": "Transfer(0x0, owner, tokenId) [Active Yield \u2713]",
+                "label": "Transfer(0x0, owner, tokenId) [Active Yield ✓]",
                 "tone": "ok"
               }
             ]

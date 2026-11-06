@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream payload and initialize Kubernetes Architecture: Control....",
+            "caption": "Ingress stream payload and initialize Kubernetes Architecture: Control....",
             "values": {
               "in": "Stream Ingress",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute protocol handling, encoding, and routing in Kubernetes Architecture: Control....",
+            "caption": "Execute protocol handling, encoding, and routing in Kubernetes.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -71,7 +71,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world distributed microservices interaction in Kubernetes Architecture: Control....",
+            "caption": "Real-world distributed microservices interaction in Kubernetes.",
             "values": {
               "in": "Validated",
               "proc": "Dispatched",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify end-to-end telemetry and state consistency in Kubernetes Architecture: Control....",
+            "caption": "Verify end-to-end telemetry and state consistency in Kubernetes.",
             "values": {
               "in": "ACK Received",
               "proc": "Committed",
@@ -142,7 +142,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream payload and initialize Pods, ReplicaSets & RollingUpdat....",
+            "caption": "Ingress stream payload and initialize Pods, ReplicaSets & RollingUpdat....",
             "values": {
               "in": "Stream Ingress",
               "proc": "Standby",
@@ -162,7 +162,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute protocol handling, encoding, and routing in Pods, ReplicaSets & RollingUpdat....",
+            "caption": "Execute protocol handling, encoding, and routing in Pods, ReplicaSets &.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -182,7 +182,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world distributed microservices interaction in Pods, ReplicaSets & RollingUpdat....",
+            "caption": "Real-world distributed microservices interaction in Pods, ReplicaSets &.",
             "values": {
               "in": "Validated",
               "proc": "Dispatched",
@@ -206,7 +206,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify end-to-end telemetry and state consistency in Pods, ReplicaSets & RollingUpdat....",
+            "caption": "Verify end-to-end telemetry and state consistency in Pods, ReplicaSets &.",
             "values": {
               "in": "ACK Received",
               "proc": "Committed",
@@ -253,7 +253,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream payload and initialize Service Discovery, ClusterIP, In....",
+            "caption": "Ingress stream payload and initialize Service Discovery, ClusterIP, In....",
             "values": {
               "in": "Stream Ingress",
               "proc": "Standby",
@@ -273,7 +273,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute protocol handling, encoding, and routing in Service Discovery, ClusterIP, In....",
+            "caption": "Execute protocol handling, encoding, and routing in Service Discovery.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -293,7 +293,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world distributed microservices interaction in Service Discovery, ClusterIP, In....",
+            "caption": "Real-world distributed microservices interaction in Service Discovery.",
             "values": {
               "in": "Validated",
               "proc": "Dispatched",
@@ -317,7 +317,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify end-to-end telemetry and state consistency in Service Discovery, ClusterIP, In....",
+            "caption": "Verify end-to-end telemetry and state consistency in Service Discovery.",
             "values": {
               "in": "ACK Received",
               "proc": "Committed",
@@ -364,7 +364,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream payload and initialize Configuration Decoupling: Config....",
+            "caption": "Ingress stream payload and initialize Configuration Decoupling: Config....",
             "values": {
               "in": "Stream Ingress",
               "proc": "Standby",
@@ -384,7 +384,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute protocol handling, encoding, and routing in Configuration Decoupling: Config....",
+            "caption": "Execute protocol handling, encoding, and routing in Configuration.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -404,7 +404,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world distributed microservices interaction in Configuration Decoupling: Config....",
+            "caption": "Real-world distributed microservices interaction in Configuration.",
             "values": {
               "in": "Validated",
               "proc": "Dispatched",
@@ -428,7 +428,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify end-to-end telemetry and state consistency in Configuration Decoupling: Config....",
+            "caption": "Verify end-to-end telemetry and state consistency in Configuration.",
             "values": {
               "in": "ACK Received",
               "proc": "Committed",
@@ -475,7 +475,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream payload and initialize Helm Package Management: Charts,....",
+            "caption": "Ingress stream payload and initialize Helm Package Management: Charts,....",
             "values": {
               "in": "Stream Ingress",
               "proc": "Standby",
@@ -495,7 +495,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute protocol handling, encoding, and routing in Helm Package Management: Charts,....",
+            "caption": "Execute protocol handling, encoding, and routing in Helm Package.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -515,7 +515,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world distributed microservices interaction in Helm Package Management: Charts,....",
+            "caption": "Real-world distributed microservices interaction in Helm Package.",
             "values": {
               "in": "Validated",
               "proc": "Dispatched",
@@ -539,7 +539,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify end-to-end telemetry and state consistency in Helm Package Management: Charts,....",
+            "caption": "Verify end-to-end telemetry and state consistency in Helm Package.",
             "values": {
               "in": "ACK Received",
               "proc": "Committed",

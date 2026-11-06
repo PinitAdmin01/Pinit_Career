@@ -30,21 +30,21 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Fixed windows reset counters at discrete 1-minute clock boundaries.",
+            "caption": "Fixed windows reset counters at discrete one-minute clock boundaries.",
             "values": {
               "activeSide": "left"
             }
           },
           {
             "at": "say3",
-            "caption": "Attackers burst max limit at 12:00:59 and another burst at 12:01:01.",
+            "caption": "Attackers burst max limit at twelve:multiple:multiple and another burst.",
             "values": {
               "activeSide": "right"
             }
           },
           {
             "at": "say5",
-            "caption": "Sliding window logs remove expired timestamps and count active items in rolling 60s.",
+            "caption": "Sliding window logs remove expired timestamps and count active items in.",
             "values": {
               "activeSide": "both"
             }
@@ -165,7 +165,7 @@
           },
           {
             "at": "say7",
-            "caption": "Consumes only 2 integer keys in Redis while providing near-perfect sliding accuracy.",
+            "caption": "Consumes only two integer keys in Redis while providing near-perfect.",
             "values": {
               "prev": {
                 "status": "Online"
@@ -209,7 +209,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Token bucket enables web clients to burst 10 requests to load full page assets.",
+            "caption": "Token bucket enables web clients to burst ten requests to load full page.",
             "values": {
               "activeSide": "left"
             }
@@ -344,7 +344,7 @@
           },
           {
             "at": "say7",
-            "caption": "Returns remaining tokens and reset seconds, mapped to RFC 6585 response headers.",
+            "caption": "Returns remaining tokens and reset seconds, mapped to RFC multiple.",
             "values": {
               "clt": {
                 "status": "Online"
@@ -425,7 +425,7 @@
           },
           {
             "at": "say5",
-            "caption": "If quota is exhausted, gateway intercepts request and returns HTTP 429 Too Many Requests.",
+            "caption": "If quota is exhausted, gateway intercepts request and returns HTTP.",
             "values": {
               "activeState": "THROTTLED_429"
             }

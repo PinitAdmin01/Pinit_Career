@@ -12,7 +12,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ledger ingestion and statutory framework for Three-Statement Ledger Invariants & Accounting Equilibrium Checksum",
+            "caption": "Ledger ingestion and statutory framework for Three-Statement Ledger.",
             "max": 100,
             "bars": [
               {
@@ -39,7 +39,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing recursive linkages and calculations for Three-Statement Ledger Invariants & Accounting Equilibrium Checksum",
+            "caption": "Processing recursive linkages and calculations for Three-Statement Ledger.",
             "max": 100,
             "bars": [
               {
@@ -66,7 +66,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world stress testing and scenarios for Three-Statement Ledger Invariants & Accounting Equilibrium Checksum",
+            "caption": "Real-world stress testing and scenarios for Three-Statement Ledger.",
             "max": 100,
             "bars": [
               {
@@ -93,7 +93,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Active experimentation and parameter tuning for Three-Statement Ledger Invariants & Accounting Equilibrium Checksum",
+            "caption": "Active experimentation and parameter tuning for Three-Statement Ledger.",
             "max": 100,
             "bars": [
               {
@@ -244,7 +244,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ledger ingestion and statutory framework for Operating Working Capital Schedules & Cash Flow Bridge",
+            "caption": "Ledger ingestion and statutory framework for Operating Working Capital.",
             "max": 100,
             "bars": [
               {
@@ -271,7 +271,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing recursive linkages and calculations for Operating Working Capital Schedules & Cash Flow Bridge",
+            "caption": "Processing recursive linkages and calculations for Operating Working.",
             "max": 100,
             "bars": [
               {
@@ -298,7 +298,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world stress testing and scenarios for Operating Working Capital Schedules & Cash Flow Bridge",
+            "caption": "Real-world stress testing and scenarios for Operating Working Capital.",
             "max": 100,
             "bars": [
               {
@@ -325,7 +325,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Active experimentation and parameter tuning for Operating Working Capital Schedules & Cash Flow Bridge",
+            "caption": "Active experimentation and parameter tuning for Operating Working Capital.",
             "max": 100,
             "bars": [
               {
@@ -476,7 +476,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ledger ingestion and statutory framework for Fixed Asset PP&E Schedules, CapEx Outflows & Depreciation Addbacks",
+            "caption": "Ledger ingestion and statutory framework for Fixed Asset PP&E Schedules.",
             "max": 100,
             "bars": [
               {
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing recursive linkages and calculations for Fixed Asset PP&E Schedules, CapEx Outflows & Depreciation Addbacks",
+            "caption": "Processing recursive linkages and calculations for Fixed Asset PP&E.",
             "max": 100,
             "bars": [
               {
@@ -530,7 +530,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world stress testing and scenarios for Fixed Asset PP&E Schedules, CapEx Outflows & Depreciation Addbacks",
+            "caption": "Real-world stress testing and scenarios for Fixed Asset PP&E Schedules.",
             "max": 100,
             "bars": [
               {
@@ -557,7 +557,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Active experimentation and parameter tuning for Fixed Asset PP&E Schedules, CapEx Outflows & Depreciation Addbacks",
+            "caption": "Active experimentation and parameter tuning for Fixed Asset PP&E.",
             "max": 100,
             "bars": [
               {
@@ -708,7 +708,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ledger ingestion and statutory framework for Retained Earnings Linkers, Dividends & Share Buyback Equity Updates",
+            "caption": "Ledger ingestion and statutory framework for Retained Earnings Linkers.",
             "max": 100,
             "bars": [
               {
@@ -735,7 +735,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing recursive linkages and calculations for Retained Earnings Linkers, Dividends & Share Buyback Equity Updates",
+            "caption": "Processing recursive linkages and calculations for Retained Earnings.",
             "max": 100,
             "bars": [
               {
@@ -762,7 +762,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world stress testing and scenarios for Retained Earnings Linkers, Dividends & Share Buyback Equity Updates",
+            "caption": "Real-world stress testing and scenarios for Retained Earnings Linkers.",
             "max": 100,
             "bars": [
               {
@@ -789,7 +789,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Active experimentation and parameter tuning for Retained Earnings Linkers, Dividends & Share Buyback Equity Updates",
+            "caption": "Active experimentation and parameter tuning for Retained Earnings.",
             "max": 100,
             "bars": [
               {
@@ -940,7 +940,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ledger ingestion and statutory framework for Master Integrated Five-Year Three-Statement Forecast Simulator",
+            "caption": "Ledger ingestion and statutory framework for Master Integrated Five-Year.",
             "max": 100,
             "bars": [
               {
@@ -967,7 +967,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing recursive linkages and calculations for Master Integrated Five-Year Three-Statement Forecast Simulator",
+            "caption": "Processing recursive linkages and calculations for Master Integrated.",
             "max": 100,
             "bars": [
               {
@@ -994,7 +994,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world stress testing and scenarios for Master Integrated Five-Year Three-Statement Forecast Simulator",
+            "caption": "Real-world stress testing and scenarios for Master Integrated Five-Year.",
             "max": 100,
             "bars": [
               {
@@ -1021,7 +1021,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Active experimentation and parameter tuning for Master Integrated Five-Year Three-Statement Forecast Simulator",
+            "caption": "Active experimentation and parameter tuning for Master Integrated.",
             "max": 100,
             "bars": [
               {

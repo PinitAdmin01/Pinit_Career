@@ -445,6 +445,170 @@ class NexaCommerceCore:
   },
 ];
 
+
+export const TIER1_SYSTEMS_IOT_MILESTONES: readonly GeneratedTask[] = [
+  {
+    title: 'Milestone 1 (Days 1-3): Telemetry Ring-Buffer & ADC Calibration Refactor',
+    brief:
+      'Firmware ticket IOT-101 at NexaCommerce: Sensor packets drop on burst sampling and uncalibrated ADC values cause false alarms. Refactor calibrate_adc_sample() and push_ring_buffer() for bounded FIFO telemetry.',
+    starter_code: `def calibrate_adc_sample(raw_value, offset=0, scale=1.0):
+    # BUG: Does not clamp to [0, 4095] before scaling
+    return round((raw_value + offset) * scale, 2)
+
+def push_ring_buffer(buffer, item, capacity=4):
+    # BUG: Grows unbounded instead of evicting oldest element
+    return list(buffer) + [item]
+`,
+    visible_tests: `assert calibrate_adc_sample(2000, offset=-100, scale=0.5) == 950.0
+assert push_ring_buffer([1, 2, 3, 4], 5, capacity=4) == [2, 3, 4, 5]
+`,
+    hidden_tests: `assert calibrate_adc_sample(-50, offset=-100, scale=1.0) == 0.0
+assert calibrate_adc_sample(5000, offset=100, scale=1.0) == 4095.0
+assert push_ring_buffer([], 10, capacity=3) == [10]
+assert push_ring_buffer([10, 20, 30], 40, capacity=3) == [20, 30, 40]
+`,
+    reference_solution: `def calibrate_adc_sample(raw_value, offset=0, scale=1.0):
+    adjusted = max(0, min(4095, raw_value + offset))
+    return round(adjusted * scale, 2)
+
+def push_ring_buffer(buffer, item, capacity=4):
+    if capacity <= 0:
+        return []
+    next_buf = list(buffer) + [item]
+    return next_buf[-capacity:]
+`,
+    skills: ['Python Functions', 'Lists and Indexing'],
+    sql_setup: null,
+  },
+  ...TIER1_PYTHON_MILESTONES.slice(1),
+];
+
+export const TIER1_CYBER_MILESTONES: readonly GeneratedTask[] = [
+  {
+    title: 'Milestone 1 (Days 1-3): Token-Bucket Rate Limiter & Header Sanitizer',
+    brief:
+      'Security ticket SEC-101 at NexaCommerce: Credential stuffing bypasses naive counters and CRLF header injection corrupts audit logs. Implement sanitize_header_value() and evaluate_rate_limit().',
+    starter_code: `def sanitize_header_value(raw_header):
+    # BUG: Leaves CR/LF characters intact
+    return str(raw_header or "")
+
+def evaluate_rate_limit(tokens, capacity, refill_amount, cost=1):
+    # BUG: Does not cap refilled tokens at capacity or block when tokens < cost
+    return {"allowed": True, "remaining": tokens}
+`,
+    visible_tests: `assert sanitize_header_value("Bearer abc\r\nX-Injected: 1") == "Bearer abcX-Injected: 1"
+assert evaluate_rate_limit(4, 5, 2, cost=3) == {"allowed": True, "remaining": 2}
+`,
+    hidden_tests: `assert sanitize_header_value(None) == ""
+assert evaluate_rate_limit(0, 5, 1, cost=2) == {"allowed": False, "remaining": 1}
+assert evaluate_rate_limit(5, 5, 10, cost=5) == {"allowed": True, "remaining": 0}
+`,
+    reference_solution: `def sanitize_header_value(raw_header):
+    if raw_header is None:
+        return ""
+    return str(raw_header).replace("\r", "").replace("\n", "").strip()
+
+def evaluate_rate_limit(tokens, capacity, refill_amount, cost=1):
+    available = min(capacity, max(0, tokens) + max(0, refill_amount))
+    if available >= cost:
+        return {"allowed": True, "remaining": available - cost}
+    return {"allowed": False, "remaining": available}
+`,
+    skills: ['String Manipulation', 'Dictionaries and Lookups'],
+    sql_setup: null,
+  },
+  ...TIER1_PYTHON_MILESTONES.slice(1),
+];
+
+export const TIER1_CLOUD_DEVOPS_MILESTONES: readonly GeneratedTask[] = [
+  {
+    title: 'Milestone 1 (Days 1-3): SLO Error-Budget Burn Rate & Canary Gate',
+    brief:
+      'SRE ticket OPS-101 at NexaCommerce: Canary deployments promote even when 5xx error budgets burn >2x threshold. Implement compute_error_budget_burn() and should_halt_canary().',
+    starter_code: `def compute_error_budget_burn(total_requests, error_requests, slo_target=0.999):
+    # BUG: Divides by zero on empty window and ignores slo_target
+    return 0.0
+
+def should_halt_canary(burn_rate, p99_ms, max_burn=2.0, max_p99_ms=250):
+    return False
+`,
+    visible_tests: `assert compute_error_budget_burn(10000, 20, slo_target=0.999) == 2.0
+assert should_halt_canary(2.5, 180, max_burn=2.0, max_p99_ms=250) is True
+`,
+    hidden_tests: `assert compute_error_budget_burn(0, 0, slo_target=0.999) == 0.0
+assert should_halt_canary(1.2, 310, max_burn=2.0, max_p99_ms=250) is True
+assert should_halt_canary(1.2, 180, max_burn=2.0, max_p99_ms=250) is False
+`,
+    reference_solution: `def compute_error_budget_burn(total_requests, error_requests, slo_target=0.999):
+    if total_requests <= 0:
+        return 0.0
+    allowed_error_rate = max(1e-9, 1.0 - slo_target)
+    observed_error_rate = max(0, error_requests) / float(total_requests)
+    return round(observed_error_rate / allowed_error_rate, 4)
+
+def should_halt_canary(burn_rate, p99_ms, max_burn=2.0, max_p99_ms=250):
+    return bool(burn_rate > max_burn or p99_ms > max_p99_ms)
+`,
+    skills: ['Python Functions', 'Error Handling and Exceptions'],
+    sql_setup: null,
+  },
+  ...TIER1_PYTHON_MILESTONES.slice(1),
+];
+
+export const TIER1_COMMERCE_MILESTONES: readonly GeneratedTask[] = [
+  {
+    title: 'Milestone 1 (Days 1-3): Double-Entry Trial Balance & GST ITC Reconciler',
+    brief:
+      'ERP Audit ticket FIN-101 at NexaCommerce: Unbalanced journal vouchers and unclaimed GSTR-2B input tax credits distort monthly closes. Implement verify_voucher_balance() and calculate_net_gst_liability().',
+    starter_code: `from decimal import Decimal
+
+def verify_voucher_balance(entries):
+    # BUG: Does not compare sum of debits and credits using Decimal
+    return {"balanced": False, "difference": Decimal("0.00")}
+
+def calculate_net_gst_liability(output_tax, eligible_itc):
+    return Decimal("0.00")
+`,
+    visible_tests: `from decimal import Decimal
+v = [{"debit": "150.00", "credit": "0.00"}, {"debit": "0.00", "credit": "150.00"}]
+assert verify_voucher_balance(v) == {"balanced": True, "difference": Decimal("0.00")}
+assert calculate_net_gst_liability(Decimal("180.00"), Decimal("120.00")) == Decimal("60.00")
+`,
+    hidden_tests: `from decimal import Decimal
+v_bad = [{"debit": "150.00", "credit": "0.00"}, {"debit": "0.00", "credit": "120.00"}]
+assert verify_voucher_balance(v_bad) == {"balanced": False, "difference": Decimal("30.00")}
+assert calculate_net_gst_liability(Decimal("100.00"), Decimal("140.00")) == Decimal("0.00")
+`,
+    reference_solution: `from decimal import Decimal, ROUND_HALF_UP
+
+def verify_voucher_balance(entries):
+    debits = Decimal("0.00")
+    credits = Decimal("0.00")
+    for e in entries or []:
+        debits += Decimal(str(e.get("debit", "0.00")))
+        credits += Decimal(str(e.get("credit", "0.00")))
+    diff = abs(debits - credits).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+    return {"balanced": diff == Decimal("0.00") and len(entries or []) > 0, "difference": diff}
+
+def calculate_net_gst_liability(output_tax, eligible_itc):
+    out_dec = Decimal(str(output_tax))
+    itc_dec = Decimal(str(eligible_itc))
+    return max(Decimal("0.00"), (out_dec - itc_dec).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP))
+`,
+    skills: ['Python Functions', 'Dictionaries and Lookups'],
+    sql_setup: null,
+  },
+  ...TIER1_PYTHON_MILESTONES.slice(1),
+];
+
+export const TIER1_TRACK_MANIFESTS: Record<string, readonly GeneratedTask[]> = {
+  python_ai: TIER1_PYTHON_MILESTONES,
+  systems_iot: TIER1_SYSTEMS_IOT_MILESTONES,
+  cybersecurity: TIER1_CYBER_MILESTONES,
+  cloud_devops: TIER1_CLOUD_DEVOPS_MILESTONES,
+  commerce_erp: TIER1_COMMERCE_MILESTONES,
+};
+
 export async function generateTier1Tasks(
   opts: GenerateTier1TasksOptions
 ): Promise<GenerateTier1TasksResult> {
@@ -501,7 +665,8 @@ export async function generateTier1Tasks(
   // Python Track: 5 Curated 14-Day Engineering Milestones (Instant & Deterministic)
   // V1-V7 validation & sandbox execution are pre-verified in CI tests (tests/tier1_milestones.test.ts)
   const companyName = opts.companyProfile?.name?.trim() || 'NexaCommerce';
-  const tickets: GeneratedTicketResult[] = TIER1_PYTHON_MILESTONES.map((template, idx) => ({
+  const selectedManifest = (opts.track && TIER1_TRACK_MANIFESTS[opts.track]) ? TIER1_TRACK_MANIFESTS[opts.track] : TIER1_PYTHON_MILESTONES;
+  const tickets: GeneratedTicketResult[] = selectedManifest.map((template, idx) => ({
     seq: idx + 1,
     kind: TIER1_TICKET_KINDS[idx],
     task: {

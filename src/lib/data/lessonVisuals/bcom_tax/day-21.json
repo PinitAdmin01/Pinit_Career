@@ -10,12 +10,12 @@
       "codeHash": "1a114de041bbf1979751a4af9360fd089e4acb77e9887f0c21517dde6c790410",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Return Processing & Summary Intimation under Secti \u2014 Tax Controversy Ledger",
+        "title": "Return Processing & Summary Intimation under Secti — Tax Controversy Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary tax demand / controversy ledger (1075000) for Return Processing & Summary Intimation u...",
-            "title": "Day 21 Tax Controversy Ledger \u2014 Demand Recognition",
+            "caption": "Open primary tax demand / controversy ledger (multiple) for Return.",
+            "title": "Day 21 Tax Controversy Ledger — Demand Recognition",
             "isBalanced": true,
             "totalDebit": 1075000,
             "totalCredit": 1075000,
@@ -40,8 +40,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record appellate deposit / stay adjustment (110000) under applicable tax sections.",
-            "title": "Day 21 Tax Controversy Ledger \u2014 Statutory Deposit",
+            "caption": "Record appellate deposit / stay adjustment (multiple) under applicable.",
+            "title": "Day 21 Tax Controversy Ledger — Statutory Deposit",
             "isBalanced": true,
             "totalDebit": 1185000,
             "totalCredit": 1185000,
@@ -72,8 +72,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated litigation case study for Return Processing & Summary Intimation u...",
-            "title": "Day 21 Tax Controversy Ledger \u2014 Tribunal Audit",
+            "caption": "Execute simulated litigation case study for Return Processing & Summary.",
+            "title": "Day 21 Tax Controversy Ledger — Tribunal Audit",
             "isBalanced": true,
             "totalDebit": 1185000,
             "totalCredit": 1185000,
@@ -103,8 +103,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and controversy resolution signoff.",
-            "title": "Day 21 Tax Controversy Ledger \u2014 Final Settlement",
+            "caption": "Verify ledger equilibrium and controversy resolution signoff.",
+            "title": "Day 21 Tax Controversy Ledger — Final Settlement",
             "isBalanced": true,
             "totalDebit": 1185000,
             "totalCredit": 1185000,
@@ -141,12 +141,12 @@
       "codeHash": "d223ba7e3b098c8f1ec3d9318133f1f8926965edcfd3259874c52c12d5e241b9",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Inquiry before Assessment & Notice Issuance (Secti \u2014 Tax Controversy Ledger",
+        "title": "Inquiry before Assessment & Notice Issuance (Secti — Tax Controversy Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary tax demand / controversy ledger (1087500) for Inquiry before Assessment & Notice Issua...",
-            "title": "Day 21 Tax Controversy Ledger \u2014 Demand Recognition",
+            "caption": "Open primary tax demand / controversy ledger (multiple) for Inquiry.",
+            "title": "Day 21 Tax Controversy Ledger — Demand Recognition",
             "isBalanced": true,
             "totalDebit": 1087500,
             "totalCredit": 1087500,
@@ -171,8 +171,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record appellate deposit / stay adjustment (116000) under applicable tax sections.",
-            "title": "Day 21 Tax Controversy Ledger \u2014 Statutory Deposit",
+            "caption": "Record appellate deposit / stay adjustment (multiple) under applicable.",
+            "title": "Day 21 Tax Controversy Ledger — Statutory Deposit",
             "isBalanced": true,
             "totalDebit": 1203500,
             "totalCredit": 1203500,
@@ -203,8 +203,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated litigation case study for Inquiry before Assessment & Notice Issua...",
-            "title": "Day 21 Tax Controversy Ledger \u2014 Tribunal Audit",
+            "caption": "Execute simulated litigation case study for Inquiry before Assessment &.",
+            "title": "Day 21 Tax Controversy Ledger — Tribunal Audit",
             "isBalanced": true,
             "totalDebit": 1203500,
             "totalCredit": 1203500,
@@ -234,8 +234,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and controversy resolution signoff.",
-            "title": "Day 21 Tax Controversy Ledger \u2014 Final Settlement",
+            "caption": "Verify ledger equilibrium and controversy resolution signoff.",
+            "title": "Day 21 Tax Controversy Ledger — Final Settlement",
             "isBalanced": true,
             "totalDebit": 1203500,
             "totalCredit": 1203500,
@@ -272,12 +272,12 @@
       "codeHash": "a5198ccb927d0234755dd5e842ec0d5c1b4ed69b12f467ed94cd6fea7c8a7e84",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Regular Scrutiny Assessment (Section 143(3)) & Bes \u2014 Tax Controversy Ledger",
+        "title": "Regular Scrutiny Assessment (Section 143(3)) & Bes — Tax Controversy Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary tax demand / controversy ledger (1100000) for Regular Scrutiny Assessment (Section 143...",
-            "title": "Day 21 Tax Controversy Ledger \u2014 Demand Recognition",
+            "caption": "Open primary tax demand / controversy ledger (multiple) for Regular.",
+            "title": "Day 21 Tax Controversy Ledger — Demand Recognition",
             "isBalanced": true,
             "totalDebit": 1100000,
             "totalCredit": 1100000,
@@ -302,8 +302,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record appellate deposit / stay adjustment (122000) under applicable tax sections.",
-            "title": "Day 21 Tax Controversy Ledger \u2014 Statutory Deposit",
+            "caption": "Record appellate deposit / stay adjustment (multiple) under applicable.",
+            "title": "Day 21 Tax Controversy Ledger — Statutory Deposit",
             "isBalanced": true,
             "totalDebit": 1222000,
             "totalCredit": 1222000,
@@ -334,8 +334,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated litigation case study for Regular Scrutiny Assessment (Section 143...",
-            "title": "Day 21 Tax Controversy Ledger \u2014 Tribunal Audit",
+            "caption": "Execute simulated litigation case study for Regular Scrutiny Assessment.",
+            "title": "Day 21 Tax Controversy Ledger — Tribunal Audit",
             "isBalanced": true,
             "totalDebit": 1222000,
             "totalCredit": 1222000,
@@ -365,8 +365,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and controversy resolution signoff.",
-            "title": "Day 21 Tax Controversy Ledger \u2014 Final Settlement",
+            "caption": "Verify ledger equilibrium and controversy resolution signoff.",
+            "title": "Day 21 Tax Controversy Ledger — Final Settlement",
             "isBalanced": true,
             "totalDebit": 1222000,
             "totalCredit": 1222000,
@@ -403,12 +403,12 @@
       "codeHash": "477ee7c18601762efb2035a8893f498c0cdbfe28fd8d655d16a901f9116dc8f2",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Faceless E-Assessment Architecture under Section 1 \u2014 Tax Controversy Ledger",
+        "title": "Faceless E-Assessment Architecture under Section 1 — Tax Controversy Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary tax demand / controversy ledger (1112500) for Faceless E-Assessment Architecture under...",
-            "title": "Day 21 Tax Controversy Ledger \u2014 Demand Recognition",
+            "caption": "Open primary tax demand / controversy ledger (multiple) for Faceless.",
+            "title": "Day 21 Tax Controversy Ledger — Demand Recognition",
             "isBalanced": true,
             "totalDebit": 1112500,
             "totalCredit": 1112500,
@@ -433,8 +433,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record appellate deposit / stay adjustment (128000) under applicable tax sections.",
-            "title": "Day 21 Tax Controversy Ledger \u2014 Statutory Deposit",
+            "caption": "Record appellate deposit / stay adjustment (multiple) under applicable.",
+            "title": "Day 21 Tax Controversy Ledger — Statutory Deposit",
             "isBalanced": true,
             "totalDebit": 1240500,
             "totalCredit": 1240500,
@@ -465,8 +465,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated litigation case study for Faceless E-Assessment Architecture under...",
-            "title": "Day 21 Tax Controversy Ledger \u2014 Tribunal Audit",
+            "caption": "Execute simulated litigation case study for Faceless E-Assessment.",
+            "title": "Day 21 Tax Controversy Ledger — Tribunal Audit",
             "isBalanced": true,
             "totalDebit": 1240500,
             "totalCredit": 1240500,
@@ -496,8 +496,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and controversy resolution signoff.",
-            "title": "Day 21 Tax Controversy Ledger \u2014 Final Settlement",
+            "caption": "Verify ledger equilibrium and controversy resolution signoff.",
+            "title": "Day 21 Tax Controversy Ledger — Final Settlement",
             "isBalanced": true,
             "totalDebit": 1240500,
             "totalCredit": 1240500,
@@ -534,12 +534,12 @@
       "codeHash": "9a17fab4b81a28149cef9269098df82b7a16e3b3a56aef0cba352f8ee5798137",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Assessment Timelines & Statutory Limitation Schedu \u2014 Tax Controversy Ledger",
+        "title": "Assessment Timelines & Statutory Limitation Schedu — Tax Controversy Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary tax demand / controversy ledger (1125000) for Assessment Timelines & Statutory Limitat...",
-            "title": "Day 21 Tax Controversy Ledger \u2014 Demand Recognition",
+            "caption": "Open primary tax demand / controversy ledger (multiple) for Assessment.",
+            "title": "Day 21 Tax Controversy Ledger — Demand Recognition",
             "isBalanced": true,
             "totalDebit": 1125000,
             "totalCredit": 1125000,
@@ -564,8 +564,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record appellate deposit / stay adjustment (134000) under applicable tax sections.",
-            "title": "Day 21 Tax Controversy Ledger \u2014 Statutory Deposit",
+            "caption": "Record appellate deposit / stay adjustment (multiple) under applicable.",
+            "title": "Day 21 Tax Controversy Ledger — Statutory Deposit",
             "isBalanced": true,
             "totalDebit": 1259000,
             "totalCredit": 1259000,
@@ -596,8 +596,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated litigation case study for Assessment Timelines & Statutory Limitat...",
-            "title": "Day 21 Tax Controversy Ledger \u2014 Tribunal Audit",
+            "caption": "Execute simulated litigation case study for Assessment Timelines &.",
+            "title": "Day 21 Tax Controversy Ledger — Tribunal Audit",
             "isBalanced": true,
             "totalDebit": 1259000,
             "totalCredit": 1259000,
@@ -627,8 +627,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and controversy resolution signoff.",
-            "title": "Day 21 Tax Controversy Ledger \u2014 Final Settlement",
+            "caption": "Verify ledger equilibrium and controversy resolution signoff.",
+            "title": "Day 21 Tax Controversy Ledger — Final Settlement",
             "isBalanced": true,
             "totalDebit": 1259000,
             "totalCredit": 1259000,

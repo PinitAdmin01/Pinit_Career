@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream payload and initialize The Three Pillars of Observabili....",
+            "caption": "Ingress stream payload and initialize The Three Pillars of Observabili....",
             "values": {
               "in": "Stream Ingress",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute protocol handling, encoding, and routing in The Three Pillars of Observabili....",
+            "caption": "Execute protocol handling, encoding, and routing in The Three Pillars of.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -71,7 +71,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world distributed microservices interaction in The Three Pillars of Observabili....",
+            "caption": "Real-world distributed microservices interaction in The Three Pillars of.",
             "values": {
               "in": "Validated",
               "proc": "Dispatched",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify end-to-end telemetry and state consistency in The Three Pillars of Observabili....",
+            "caption": "Verify end-to-end telemetry and state consistency in The Three Pillars of.",
             "values": {
               "in": "ACK Received",
               "proc": "Committed",
@@ -142,7 +142,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream payload and initialize OpenTelemetry (OTel) Standard & ....",
+            "caption": "Ingress stream payload and initialize OpenTelemetry (OTel) Standard & ....",
             "values": {
               "in": "Stream Ingress",
               "proc": "Standby",
@@ -162,7 +162,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute protocol handling, encoding, and routing in OpenTelemetry (OTel) Standard & ....",
+            "caption": "Execute protocol handling, encoding, and routing in OpenTelemetry (OTel).",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -182,7 +182,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world distributed microservices interaction in OpenTelemetry (OTel) Standard & ....",
+            "caption": "Real-world distributed microservices interaction in OpenTelemetry (OTel).",
             "values": {
               "in": "Validated",
               "proc": "Dispatched",
@@ -206,7 +206,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify end-to-end telemetry and state consistency in OpenTelemetry (OTel) Standard & ....",
+            "caption": "Verify end-to-end telemetry and state consistency in OpenTelemetry (OTel).",
             "values": {
               "in": "ACK Received",
               "proc": "Committed",
@@ -253,7 +253,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream payload and initialize Prometheus Metrics Architecture:....",
+            "caption": "Ingress stream payload and initialize Prometheus Metrics Architecture:....",
             "values": {
               "in": "Stream Ingress",
               "proc": "Standby",
@@ -273,7 +273,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute protocol handling, encoding, and routing in Prometheus Metrics Architecture:....",
+            "caption": "Execute protocol handling, encoding, and routing in Prometheus Metrics.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -293,7 +293,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world distributed microservices interaction in Prometheus Metrics Architecture:....",
+            "caption": "Real-world distributed microservices interaction in Prometheus Metrics.",
             "values": {
               "in": "Validated",
               "proc": "Dispatched",
@@ -317,7 +317,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify end-to-end telemetry and state consistency in Prometheus Metrics Architecture:....",
+            "caption": "Verify end-to-end telemetry and state consistency in Prometheus Metrics.",
             "values": {
               "in": "ACK Received",
               "proc": "Committed",
@@ -364,7 +364,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream payload and initialize Distributed Tracing Visualizatio....",
+            "caption": "Ingress stream payload and initialize Distributed Tracing Visualizatio....",
             "values": {
               "in": "Stream Ingress",
               "proc": "Standby",
@@ -384,7 +384,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute protocol handling, encoding, and routing in Distributed Tracing Visualizatio....",
+            "caption": "Execute protocol handling, encoding, and routing in Distributed Tracing.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -404,7 +404,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world distributed microservices interaction in Distributed Tracing Visualizatio....",
+            "caption": "Real-world distributed microservices interaction in Distributed Tracing.",
             "values": {
               "in": "Validated",
               "proc": "Dispatched",
@@ -428,7 +428,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify end-to-end telemetry and state consistency in Distributed Tracing Visualizatio....",
+            "caption": "Verify end-to-end telemetry and state consistency in Distributed Tracing.",
             "values": {
               "in": "ACK Received",
               "proc": "Committed",
@@ -475,7 +475,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream payload and initialize Service Level Objectives (SLOs),....",
+            "caption": "Ingress stream payload and initialize Service Level Objectives (SLOs),....",
             "values": {
               "in": "Stream Ingress",
               "proc": "Standby",
@@ -495,7 +495,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute protocol handling, encoding, and routing in Service Level Objectives (SLOs),....",
+            "caption": "Execute protocol handling, encoding, and routing in Service Level.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -515,7 +515,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world distributed microservices interaction in Service Level Objectives (SLOs),....",
+            "caption": "Real-world distributed microservices interaction in Service Level.",
             "values": {
               "in": "Validated",
               "proc": "Dispatched",
@@ -539,7 +539,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify end-to-end telemetry and state consistency in Service Level Objectives (SLOs),....",
+            "caption": "Verify end-to-end telemetry and state consistency in Service Level.",
             "values": {
               "in": "ACK Received",
               "proc": "Committed",

@@ -61,19 +61,19 @@
             "at": "say2",
             "focus": "router",
             "annotation": "128-bit MD5 hashing assigns partition keys to shard ranges.",
-            "caption": "128-bit MD5 hashing assigns partition keys to shard ranges. (Kinesis Shard Architecture: Log-Str)"
+            "caption": "Bit MDfive hashing assigns partition keys to shard ranges. (Kinesis Shard."
           },
           {
             "at": "example",
             "focus": "shards",
             "annotation": "Shard capacity limits enforced: 1MB/s write and 2MB/s read per shard.",
-            "caption": "Shard capacity limits enforced: 1MB/s write and 2MB/s read per shard. (Kinesis Shard Architecture: Log-Str)"
+            "caption": "Shard capacity limits enforced: oneMB/s write and twoMB/s read per shard."
           },
           {
             "at": "tryIt",
             "focus": "consumers",
             "annotation": "Enhanced Fan-Out streams records via dedicated HTTP/2 pipes.",
-            "caption": "Enhanced Fan-Out streams records via dedicated HTTP/2 pipes. (Kinesis Shard Architecture: Log-Str)"
+            "caption": "Enhanced Fan-Out streams records via dedicated HTTP multiplexed pipes."
           }
         ]
       }
@@ -136,19 +136,19 @@
             "at": "say2",
             "focus": "router",
             "annotation": "128-bit MD5 hashing assigns partition keys to shard ranges.",
-            "caption": "128-bit MD5 hashing assigns partition keys to shard ranges. (Partition Key Design: Hash Key Spac)"
+            "caption": "Bit MDfive hashing assigns partition keys to shard ranges. (Partition Key."
           },
           {
             "at": "example",
             "focus": "shards",
             "annotation": "Shard capacity limits enforced: 1MB/s write and 2MB/s read per shard.",
-            "caption": "Shard capacity limits enforced: 1MB/s write and 2MB/s read per shard. (Partition Key Design: Hash Key Spac)"
+            "caption": "Shard capacity limits enforced: oneMB/s write and twoMB/s read per shard."
           },
           {
             "at": "tryIt",
             "focus": "consumers",
             "annotation": "Enhanced Fan-Out streams records via dedicated HTTP/2 pipes.",
-            "caption": "Enhanced Fan-Out streams records via dedicated HTTP/2 pipes. (Partition Key Design: Hash Key Spac)"
+            "caption": "Enhanced Fan-Out streams records via dedicated HTTP multiplexed pipes."
           }
         ]
       }
@@ -211,19 +211,19 @@
             "at": "say2",
             "focus": "router",
             "annotation": "128-bit MD5 hashing assigns partition keys to shard ranges.",
-            "caption": "128-bit MD5 hashing assigns partition keys to shard ranges. (Shard Lifecycle Engineering: Shard )"
+            "caption": "Bit MDfive hashing assigns partition keys to shard ranges. (Shard."
           },
           {
             "at": "example",
             "focus": "shards",
             "annotation": "Shard capacity limits enforced: 1MB/s write and 2MB/s read per shard.",
-            "caption": "Shard capacity limits enforced: 1MB/s write and 2MB/s read per shard. (Shard Lifecycle Engineering: Shard )"
+            "caption": "Shard capacity limits enforced: oneMB/s write and twoMB/s read per shard."
           },
           {
             "at": "tryIt",
             "focus": "consumers",
             "annotation": "Enhanced Fan-Out streams records via dedicated HTTP/2 pipes.",
-            "caption": "Enhanced Fan-Out streams records via dedicated HTTP/2 pipes. (Shard Lifecycle Engineering: Shard )"
+            "caption": "Enhanced Fan-Out streams records via dedicated HTTP multiplexed pipes."
           }
         ]
       }
@@ -286,19 +286,19 @@
             "at": "say2",
             "focus": "router",
             "annotation": "128-bit MD5 hashing assigns partition keys to shard ranges.",
-            "caption": "128-bit MD5 hashing assigns partition keys to shard ranges. (Consumer Topologies: Classic Shared)"
+            "caption": "Bit MDfive hashing assigns partition keys to shard ranges. (Consumer."
           },
           {
             "at": "example",
             "focus": "shards",
             "annotation": "Shard capacity limits enforced: 1MB/s write and 2MB/s read per shard.",
-            "caption": "Shard capacity limits enforced: 1MB/s write and 2MB/s read per shard. (Consumer Topologies: Classic Shared)"
+            "caption": "Shard capacity limits enforced: oneMB/s write and twoMB/s read per shard."
           },
           {
             "at": "tryIt",
             "focus": "consumers",
             "annotation": "Enhanced Fan-Out streams records via dedicated HTTP/2 pipes.",
-            "caption": "Enhanced Fan-Out streams records via dedicated HTTP/2 pipes. (Consumer Topologies: Classic Shared)"
+            "caption": "Enhanced Fan-Out streams records via dedicated HTTP multiplexed pipes."
           }
         ]
       }
@@ -361,19 +361,19 @@
             "at": "say2",
             "focus": "router",
             "annotation": "128-bit MD5 hashing assigns partition keys to shard ranges.",
-            "caption": "128-bit MD5 hashing assigns partition keys to shard ranges. (Masterclass Synthesis: High-Through)"
+            "caption": "Bit MDfive hashing assigns partition keys to shard ranges. (Masterclass."
           },
           {
             "at": "example",
             "focus": "shards",
             "annotation": "Shard capacity limits enforced: 1MB/s write and 2MB/s read per shard.",
-            "caption": "Shard capacity limits enforced: 1MB/s write and 2MB/s read per shard. (Masterclass Synthesis: High-Through)"
+            "caption": "Shard capacity limits enforced: oneMB/s write and twoMB/s read per shard."
           },
           {
             "at": "tryIt",
             "focus": "consumers",
             "annotation": "Enhanced Fan-Out streams records via dedicated HTTP/2 pipes.",
-            "caption": "Enhanced Fan-Out streams records via dedicated HTTP/2 pipes. (Masterclass Synthesis: High-Through)"
+            "caption": "Enhanced Fan-Out streams records via dedicated HTTP multiplexed pipes."
           }
         ]
       }

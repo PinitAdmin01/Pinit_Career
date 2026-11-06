@@ -10,7 +10,7 @@
       "codeHash": "52afd8d63c904bac89130488e87c8e320432e19b35154925c6f512691321c909",
       "spec": {
         "template": "tree-graph",
-        "title": "Tier 1: Enterprise No-Code Application G... \u2014 Enterprise AI Decision Graph",
+        "title": "Tier 1: Enterprise No-Code Application G... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -54,7 +54,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Context Query for Tier 1: Enterprise No-Code Application G....",
+            "caption": "Ingest enterprise Context Query for Tier one: Enterprise No-Code.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -68,7 +68,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Vector Retriever for grounded domain knowledge.",
+            "caption": "Traverse Vector Retriever for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -87,7 +87,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & governance bounds in Policy Guardrail.",
+            "caption": "Validate compliance & governance bounds in Policy Guardrail.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -107,7 +107,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Synthesized Action with audit provenance.",
+            "caption": "Emit verified Synthesized Action with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -134,7 +134,7 @@
       "codeHash": "bad0cad366925eccf4211d0a61ba97e493c168407c9f3dbd633bb828202f6f70",
       "spec": {
         "template": "tree-graph",
-        "title": "Tier 2: Multi-Agent Swarm Consensus & Bl... \u2014 Enterprise AI Decision Graph",
+        "title": "Tier 2: Multi-Agent Swarm Consensus & Bl... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -178,7 +178,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Workflow Trigger for Tier 2: Multi-Agent Swarm Consensus & Bl....",
+            "caption": "Ingest enterprise Workflow Trigger for Tier two: Multi-Agent Swarm.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -192,7 +192,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Citizen Builder for grounded domain knowledge.",
+            "caption": "Traverse Citizen Builder for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -211,7 +211,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & governance bounds in HMAC Security Gate.",
+            "caption": "Validate compliance & governance bounds in HMAC Security Gate.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -231,7 +231,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Production Deploy with audit provenance.",
+            "caption": "Emit verified Production Deploy with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -258,7 +258,7 @@
       "codeHash": "69686c3b1dfb69a0896acde3cf7ac39996465aec47a18ce059ea0280dd81894b",
       "spec": {
         "template": "tree-graph",
-        "title": "Tier 3: Cloud AI FinOps Governance & Sub... \u2014 Enterprise AI Decision Graph",
+        "title": "Tier 3: Cloud AI FinOps Governance & Sub... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -302,7 +302,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Master Objective for Tier 3: Cloud AI FinOps Governance & Sub....",
+            "caption": "Ingest enterprise Master Objective for Tier three: Cloud AI FinOps.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -316,7 +316,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Task Decomposition for grounded domain knowledge.",
+            "caption": "Traverse Task Decomposition for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -335,7 +335,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & governance bounds in Swarm Consensus.",
+            "caption": "Validate compliance & governance bounds in Swarm Consensus.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -355,7 +355,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Boardroom Strategy with audit provenance.",
+            "caption": "Emit verified Boardroom Strategy with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -382,7 +382,7 @@
       "codeHash": "03df32b3be4cddf0a60e294f27a2533ca14ad40c32582c165c094f842a0ea97e",
       "spec": {
         "template": "tree-graph",
-        "title": "Tier 4: Modern Data Lakehouse, Delta ACI... \u2014 Enterprise AI Decision Graph",
+        "title": "Tier 4: Modern Data Lakehouse, Delta ACI... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -426,7 +426,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Inference Workload for Tier 4: Modern Data Lakehouse, Delta ACI....",
+            "caption": "Ingest enterprise Inference Workload for Tier four: Modern Data.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -440,7 +440,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Semantic Cache for grounded domain knowledge.",
+            "caption": "Traverse Semantic Cache for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -459,7 +459,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & governance bounds in FinOps Budget Gate.",
+            "caption": "Validate compliance & governance bounds in FinOps Budget Gate.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -479,7 +479,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Sub-Cent SLA Passed with audit provenance.",
+            "caption": "Emit verified Sub-Cent SLA Passed with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",
@@ -506,7 +506,7 @@
       "codeHash": "943aa86597f95c54b9541f1c26c3d8ccdcf7cdad529283a0389fecf7a910ead2",
       "spec": {
         "template": "tree-graph",
-        "title": "Milestone 2 Grand Capstone Defense: Ente... \u2014 Enterprise AI Decision Graph",
+        "title": "Milestone 2 Grand Capstone Defense: Ente... — Enterprise AI Decision Graph",
         "nodes": [
           {
             "id": "n1",
@@ -550,7 +550,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingest enterprise Raw Bronze Feed for Milestone 2 Grand Capstone Defense: Ente....",
+            "caption": "Ingest enterprise Raw Bronze Feed for Milestone two Grand Capstone.",
             "activeNodeId": "n1",
             "visitedNodeIds": [
               "n1"
@@ -564,7 +564,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Traverse Silver Delta Clean for grounded domain knowledge.",
+            "caption": "Traverse Silver Delta Clean for grounded domain knowledge.",
             "activeNodeId": "n2",
             "visitedNodeIds": [
               "n1",
@@ -583,7 +583,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Validate compliance & governance bounds in DQI Quality Check.",
+            "caption": "Validate compliance & governance bounds in DQI Quality Check.",
             "activeNodeId": "n3",
             "visitedNodeIds": [
               "n1",
@@ -603,7 +603,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Emit verified Gold Feature Store with audit provenance.",
+            "caption": "Emit verified Gold Feature Store with audit provenance.",
             "activeNodeId": "n4",
             "visitedNodeIds": [
               "n1",

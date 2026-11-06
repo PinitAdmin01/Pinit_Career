@@ -10,7 +10,7 @@
       "codeHash": "f1c26b1913c239cec39335cda823fb2f75ca1fb9142685dbd253a6e577a7bad8",
       "spec": {
         "template": "states",
-        "title": "ApexQuant Sovereign Platform Master Architectural Charter \u2014 Quant Systems State Engine",
+        "title": "ApexQuant Sovereign Platform Master Architectural Charter — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for ApexQuant Sovereign Platform Master Architectural Charter.",
+            "caption": "State one (Init State): Initialize deterministic state for ApexQuant.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -60,7 +60,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -77,7 +77,7 @@
       "codeHash": "be8dbcc2a27f9059013fdf21b4c25567755e823a8d26b4237bd9107749238cff",
       "spec": {
         "template": "states",
-        "title": "Full-Platform Adversarial Chaos & Multi-Vector Stress Testing \u2014 Quant Systems State Engine",
+        "title": "Full-Platform Adversarial Chaos & Multi-Vector Stress Testing — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -99,7 +99,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Full-Platform Adversarial Chaos & Multi-Vector Stress Testing.",
+            "caption": "State one (Init State): Initialize deterministic state for Full-Platform.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -127,7 +127,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -144,7 +144,7 @@
       "codeHash": "a76e083f2e8c4d29c93a274ebfa68b3e349000ff816699087379bbd65ccb29d1",
       "spec": {
         "template": "states",
-        "title": "ApexQuant Sovereign Platform Master Synthesis Engine \u2014 Quant Systems State Engine",
+        "title": "ApexQuant Sovereign Platform Master Synthesis Engine — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -166,7 +166,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for ApexQuant Sovereign Platform Master Synthesis Engine.",
+            "caption": "State one (Init State): Initialize deterministic state for ApexQuant.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -194,7 +194,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -211,7 +211,7 @@
       "codeHash": "65ac73d3487aa49c70b56a5311e7b71f797e993250fc2e0b9c16372761149645",
       "spec": {
         "template": "states",
-        "title": "Multi-Vector Flash Crash Stress Verification Lab \u2014 Quant Systems State Engine",
+        "title": "Multi-Vector Flash Crash Stress Verification Lab — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -233,7 +233,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Multi-Vector Flash Crash Stress Verification Lab.",
+            "caption": "State one (Init State): Initialize deterministic state for Multi-Vector.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -261,7 +261,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -278,7 +278,7 @@
       "codeHash": "561eba4184dfb09956b8f7a1e4cba891629247533c31b7004fdf751157f2c683",
       "spec": {
         "template": "states",
-        "title": "Senior Quantitative Board Master Capstone 2 Viva Defense Gate \u2014 Quant Systems State Engine",
+        "title": "Senior Quantitative Board Master Capstone 2 Viva Defense Gate — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -300,7 +300,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Senior Quantitative Board Master Capstone 2 Viva Defense Gate.",
+            "caption": "State one (Init State): Initialize deterministic state for Senior.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -328,7 +328,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",

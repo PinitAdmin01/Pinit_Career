@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize IOT_EDGE_CR1 with EN bit asserted (0x80).",
+            "caption": "Initialize IOT_EDGE_CRone with EN bit asserted (zerox).",
             "registerName": "IOT_EDGE_CR1",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Peripheral asserts RDY & IRQ flags (0xE0) on IOT_EDGE_CR1.",
+            "caption": "Peripheral asserts RDY & IRQ flags (zeroxEzero) on IOT_EDGE_CRone.",
             "registerName": "IOT_EDGE_CR1",
             "bitWidth": 8,
             "hexValue": "0xE0",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enable DMA burst & CRC verification bits (0xF8).",
+            "caption": "Enable DMA burst & CRC verification bits (zeroxFeight).",
             "registerName": "IOT_EDGE_CR1",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full TX/RX frame committed with ERR=0 verified (0xFE).",
+            "caption": "Full TX/RX frame committed with ERR=zero verified (zeroxFE).",
             "registerName": "IOT_EDGE_CR1",
             "bitWidth": 8,
             "hexValue": "0xFE",
@@ -516,7 +516,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize IOT_EDGE_CR2 with EN bit asserted (0x80).",
+            "caption": "Initialize IOT_EDGE_CRtwo with EN bit asserted (zerox).",
             "registerName": "IOT_EDGE_CR2",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -576,7 +576,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Peripheral asserts RDY & IRQ flags (0xE0) on IOT_EDGE_CR2.",
+            "caption": "Peripheral asserts RDY & IRQ flags (zeroxEzero) on IOT_EDGE_CRtwo.",
             "registerName": "IOT_EDGE_CR2",
             "bitWidth": 8,
             "hexValue": "0xE0",
@@ -637,7 +637,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enable DMA burst & CRC verification bits (0xF8).",
+            "caption": "Enable DMA burst & CRC verification bits (zeroxFeight).",
             "registerName": "IOT_EDGE_CR2",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -698,7 +698,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full TX/RX frame committed with ERR=0 verified (0xFE).",
+            "caption": "Full TX/RX frame committed with ERR=zero verified (zeroxFE).",
             "registerName": "IOT_EDGE_CR2",
             "bitWidth": 8,
             "hexValue": "0xFE",
@@ -1018,7 +1018,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize IOT_EDGE_CR3 with EN bit asserted (0x80).",
+            "caption": "Initialize IOT_EDGE_CRthree with EN bit asserted (zerox).",
             "registerName": "IOT_EDGE_CR3",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1078,7 +1078,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Peripheral asserts RDY & IRQ flags (0xE0) on IOT_EDGE_CR3.",
+            "caption": "Peripheral asserts RDY & IRQ flags (zeroxEzero) on IOT_EDGE_CRthree.",
             "registerName": "IOT_EDGE_CR3",
             "bitWidth": 8,
             "hexValue": "0xE0",
@@ -1139,7 +1139,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enable DMA burst & CRC verification bits (0xF8).",
+            "caption": "Enable DMA burst & CRC verification bits (zeroxFeight).",
             "registerName": "IOT_EDGE_CR3",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -1200,7 +1200,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full TX/RX frame committed with ERR=0 verified (0xFE).",
+            "caption": "Full TX/RX frame committed with ERR=zero verified (zeroxFE).",
             "registerName": "IOT_EDGE_CR3",
             "bitWidth": 8,
             "hexValue": "0xFE",
@@ -1520,7 +1520,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize IOT_EDGE_CR4 with EN bit asserted (0x80).",
+            "caption": "Initialize IOT_EDGE_CRfour with EN bit asserted (zerox).",
             "registerName": "IOT_EDGE_CR4",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1580,7 +1580,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Peripheral asserts RDY & IRQ flags (0xE0) on IOT_EDGE_CR4.",
+            "caption": "Peripheral asserts RDY & IRQ flags (zeroxEzero) on IOT_EDGE_CRfour.",
             "registerName": "IOT_EDGE_CR4",
             "bitWidth": 8,
             "hexValue": "0xE0",
@@ -1641,7 +1641,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enable DMA burst & CRC verification bits (0xF8).",
+            "caption": "Enable DMA burst & CRC verification bits (zeroxFeight).",
             "registerName": "IOT_EDGE_CR4",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -1702,7 +1702,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full TX/RX frame committed with ERR=0 verified (0xFE).",
+            "caption": "Full TX/RX frame committed with ERR=zero verified (zeroxFE).",
             "registerName": "IOT_EDGE_CR4",
             "bitWidth": 8,
             "hexValue": "0xFE",
@@ -2022,7 +2022,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize IOT_EDGE_CR1 with EN bit asserted (0x80).",
+            "caption": "Initialize IOT_EDGE_CRone with EN bit asserted (zerox).",
             "registerName": "IOT_EDGE_CR1",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -2082,7 +2082,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Peripheral asserts RDY & IRQ flags (0xE0) on IOT_EDGE_CR1.",
+            "caption": "Peripheral asserts RDY & IRQ flags (zeroxEzero) on IOT_EDGE_CRone.",
             "registerName": "IOT_EDGE_CR1",
             "bitWidth": 8,
             "hexValue": "0xE0",
@@ -2143,7 +2143,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enable DMA burst & CRC verification bits (0xF8).",
+            "caption": "Enable DMA burst & CRC verification bits (zeroxFeight).",
             "registerName": "IOT_EDGE_CR1",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -2204,7 +2204,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full TX/RX frame committed with ERR=0 verified (0xFE).",
+            "caption": "Full TX/RX frame committed with ERR=zero verified (zeroxFE).",
             "registerName": "IOT_EDGE_CR1",
             "bitWidth": 8,
             "hexValue": "0xFE",

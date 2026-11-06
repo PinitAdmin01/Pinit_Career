@@ -10,7 +10,7 @@
       "codeHash": "ed006356cbd4f8356cd46fa06ff053812b5630c79425b464d7c0ce6be8ac4e1b",
       "spec": {
         "template": "states",
-        "title": "FPGA-CPU Hybrid System Architecture & Partitioning Blueprint \u2014 Quant Systems State Engine",
+        "title": "FPGA-CPU Hybrid System Architecture & Partitioning Blueprint — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for FPGA-CPU Hybrid System Architecture & Partitioning Blueprint.",
+            "caption": "State one (Init State): Initialize deterministic state for FPGA-CPU.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -60,7 +60,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -77,7 +77,7 @@
       "codeHash": "2d7c6e2b8086053af05e11afb32ddb6226909e14ec13798626c1008e54ebe34c",
       "spec": {
         "template": "states",
-        "title": "Ring Buffer Overrun & PCIe DMA Synchronization Forensics \u2014 Quant Systems State Engine",
+        "title": "Ring Buffer Overrun & PCIe DMA Synchronization Forensics — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -99,7 +99,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Ring Buffer Overrun & PCIe DMA Synchronization Forensics.",
+            "caption": "State one (Init State): Initialize deterministic state for Ring Buffer.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -127,7 +127,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -144,7 +144,7 @@
       "codeHash": "d72d368e9350f7fd0064cafad0723163d76cf7818cd03439a956b2cca9d61301",
       "spec": {
         "template": "states",
-        "title": "Milestone 8 Engine Implementation: Hybrid Execution Platform \u2014 Quant Systems State Engine",
+        "title": "Milestone 8 Engine Implementation: Hybrid Execution Platform — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -166,7 +166,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Milestone 8 Engine Implementation.",
+            "caption": "State one (Init State): Initialize deterministic state for Milestone.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -194,7 +194,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -211,7 +211,7 @@
       "codeHash": "5acc108529a4182f75ee85b1310d2be5e64f3d86d33848004b63b328f6795226",
       "spec": {
         "template": "states",
-        "title": "Milestone 8 Sub-Microsecond Burst Verification Lab \u2014 Quant Systems State Engine",
+        "title": "Milestone 8 Sub-Microsecond Burst Verification Lab — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -233,7 +233,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Milestone 8 Sub-Microsecond Burst Verification Lab.",
+            "caption": "State one (Init State): Initialize deterministic state for Milestone.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -261,7 +261,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -278,7 +278,7 @@
       "codeHash": "548252f9e0cb1d4343b645214e79406a55ce78f70158d1daab0f88f3b17ba783",
       "spec": {
         "template": "states",
-        "title": "Grand Master Defense Audit & Milestone 8 Capstone Defense \u2014 Quant Systems State Engine",
+        "title": "Grand Master Defense Audit & Milestone 8 Capstone Defense — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -300,7 +300,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Grand Master Defense Audit & Milestone 8 Capstone Defense.",
+            "caption": "State one (Init State): Initialize deterministic state for Grand Master.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -328,7 +328,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",

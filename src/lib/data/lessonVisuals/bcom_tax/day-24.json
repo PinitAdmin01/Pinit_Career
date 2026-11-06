@@ -10,12 +10,12 @@
       "codeHash": "ae87d022cda82c5fe239358138aa90d51104ffae04900a46e8037f340c13b744",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Section 270A Penalty Architecture: Under-Reporting \u2014 Tax Controversy Ledger",
+        "title": "Section 270A Penalty Architecture: Under-Reporting — Tax Controversy Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary tax demand / controversy ledger (1150000) for Section 270A Penalty Architecture: Under...",
-            "title": "Day 24 Tax Controversy Ledger \u2014 Demand Recognition",
+            "caption": "Open primary tax demand / controversy ledger (multiple) for Section A.",
+            "title": "Day 24 Tax Controversy Ledger — Demand Recognition",
             "isBalanced": true,
             "totalDebit": 1150000,
             "totalCredit": 1150000,
@@ -40,8 +40,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record appellate deposit / stay adjustment (110000) under applicable tax sections.",
-            "title": "Day 24 Tax Controversy Ledger \u2014 Statutory Deposit",
+            "caption": "Record appellate deposit / stay adjustment (multiple) under applicable.",
+            "title": "Day 24 Tax Controversy Ledger — Statutory Deposit",
             "isBalanced": true,
             "totalDebit": 1260000,
             "totalCredit": 1260000,
@@ -72,8 +72,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated litigation case study for Section 270A Penalty Architecture: Under...",
-            "title": "Day 24 Tax Controversy Ledger \u2014 Tribunal Audit",
+            "caption": "Execute simulated litigation case study for Section A Penalty.",
+            "title": "Day 24 Tax Controversy Ledger — Tribunal Audit",
             "isBalanced": true,
             "totalDebit": 1260000,
             "totalCredit": 1260000,
@@ -103,8 +103,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and controversy resolution signoff.",
-            "title": "Day 24 Tax Controversy Ledger \u2014 Final Settlement",
+            "caption": "Verify ledger equilibrium and controversy resolution signoff.",
+            "title": "Day 24 Tax Controversy Ledger — Final Settlement",
             "isBalanced": true,
             "totalDebit": 1260000,
             "totalCredit": 1260000,
@@ -141,12 +141,12 @@
       "codeHash": "6eaf5d708b00cdf03f2e2425180cb9f98fb2dccffc5dfa4ae6f195bae2b0ab81",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Misreporting of Income under Section 270A(8) & (9) \u2014 Tax Controversy Ledger",
+        "title": "Misreporting of Income under Section 270A(8) & (9) — Tax Controversy Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary tax demand / controversy ledger (1162500) for Misreporting of Income under Section 270...",
-            "title": "Day 24 Tax Controversy Ledger \u2014 Demand Recognition",
+            "caption": "Open primary tax demand / controversy ledger (multiple) for Misreporting.",
+            "title": "Day 24 Tax Controversy Ledger — Demand Recognition",
             "isBalanced": true,
             "totalDebit": 1162500,
             "totalCredit": 1162500,
@@ -171,8 +171,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record appellate deposit / stay adjustment (116000) under applicable tax sections.",
-            "title": "Day 24 Tax Controversy Ledger \u2014 Statutory Deposit",
+            "caption": "Record appellate deposit / stay adjustment (multiple) under applicable.",
+            "title": "Day 24 Tax Controversy Ledger — Statutory Deposit",
             "isBalanced": true,
             "totalDebit": 1278500,
             "totalCredit": 1278500,
@@ -203,8 +203,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated litigation case study for Misreporting of Income under Section 270...",
-            "title": "Day 24 Tax Controversy Ledger \u2014 Tribunal Audit",
+            "caption": "Execute simulated litigation case study for Misreporting of Income under.",
+            "title": "Day 24 Tax Controversy Ledger — Tribunal Audit",
             "isBalanced": true,
             "totalDebit": 1278500,
             "totalCredit": 1278500,
@@ -234,8 +234,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and controversy resolution signoff.",
-            "title": "Day 24 Tax Controversy Ledger \u2014 Final Settlement",
+            "caption": "Verify ledger equilibrium and controversy resolution signoff.",
+            "title": "Day 24 Tax Controversy Ledger — Final Settlement",
             "isBalanced": true,
             "totalDebit": 1278500,
             "totalCredit": 1278500,
@@ -272,12 +272,12 @@
       "codeHash": "12e32057b6c4e9b601751b55a3c97d3df4494c3537284f869b8940004a4e5df9",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Statutory Immunity from Penalty & Prosecution (Sec \u2014 Tax Controversy Ledger",
+        "title": "Statutory Immunity from Penalty & Prosecution (Sec — Tax Controversy Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary tax demand / controversy ledger (1175000) for Statutory Immunity from Penalty & Prosec...",
-            "title": "Day 24 Tax Controversy Ledger \u2014 Demand Recognition",
+            "caption": "Open primary tax demand / controversy ledger (multiple) for Statutory.",
+            "title": "Day 24 Tax Controversy Ledger — Demand Recognition",
             "isBalanced": true,
             "totalDebit": 1175000,
             "totalCredit": 1175000,
@@ -302,8 +302,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record appellate deposit / stay adjustment (122000) under applicable tax sections.",
-            "title": "Day 24 Tax Controversy Ledger \u2014 Statutory Deposit",
+            "caption": "Record appellate deposit / stay adjustment (multiple) under applicable.",
+            "title": "Day 24 Tax Controversy Ledger — Statutory Deposit",
             "isBalanced": true,
             "totalDebit": 1297000,
             "totalCredit": 1297000,
@@ -334,8 +334,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated litigation case study for Statutory Immunity from Penalty & Prosec...",
-            "title": "Day 24 Tax Controversy Ledger \u2014 Tribunal Audit",
+            "caption": "Execute simulated litigation case study for Statutory Immunity from.",
+            "title": "Day 24 Tax Controversy Ledger — Tribunal Audit",
             "isBalanced": true,
             "totalDebit": 1297000,
             "totalCredit": 1297000,
@@ -365,8 +365,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and controversy resolution signoff.",
-            "title": "Day 24 Tax Controversy Ledger \u2014 Final Settlement",
+            "caption": "Verify ledger equilibrium and controversy resolution signoff.",
+            "title": "Day 24 Tax Controversy Ledger — Final Settlement",
             "isBalanced": true,
             "totalDebit": 1297000,
             "totalCredit": 1297000,
@@ -403,12 +403,12 @@
       "codeHash": "3d5ee91a6efe56e0c53618fab432aec281c85b45bd0d463c8afe429204ec34fa",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Unexplained Credits Penalties under Section 271AAC \u2014 Tax Controversy Ledger",
+        "title": "Unexplained Credits Penalties under Section 271AAC — Tax Controversy Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary tax demand / controversy ledger (1187500) for Unexplained Credits Penalties under Sect...",
-            "title": "Day 24 Tax Controversy Ledger \u2014 Demand Recognition",
+            "caption": "Open primary tax demand / controversy ledger (multiple) for Unexplained.",
+            "title": "Day 24 Tax Controversy Ledger — Demand Recognition",
             "isBalanced": true,
             "totalDebit": 1187500,
             "totalCredit": 1187500,
@@ -433,8 +433,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record appellate deposit / stay adjustment (128000) under applicable tax sections.",
-            "title": "Day 24 Tax Controversy Ledger \u2014 Statutory Deposit",
+            "caption": "Record appellate deposit / stay adjustment (multiple) under applicable.",
+            "title": "Day 24 Tax Controversy Ledger — Statutory Deposit",
             "isBalanced": true,
             "totalDebit": 1315500,
             "totalCredit": 1315500,
@@ -465,8 +465,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated litigation case study for Unexplained Credits Penalties under Sect...",
-            "title": "Day 24 Tax Controversy Ledger \u2014 Tribunal Audit",
+            "caption": "Execute simulated litigation case study for Unexplained Credits Penalties.",
+            "title": "Day 24 Tax Controversy Ledger — Tribunal Audit",
             "isBalanced": true,
             "totalDebit": 1315500,
             "totalCredit": 1315500,
@@ -496,8 +496,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and controversy resolution signoff.",
-            "title": "Day 24 Tax Controversy Ledger \u2014 Final Settlement",
+            "caption": "Verify ledger equilibrium and controversy resolution signoff.",
+            "title": "Day 24 Tax Controversy Ledger — Final Settlement",
             "isBalanced": true,
             "totalDebit": 1315500,
             "totalCredit": 1315500,
@@ -534,12 +534,12 @@
       "codeHash": "47018b8bcee2cd4662508e9e592acbe6b712aa4b473907b844085bee6351e995",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Criminal Prosecutions & Compounding of Offenses (S \u2014 Tax Controversy Ledger",
+        "title": "Criminal Prosecutions & Compounding of Offenses (S — Tax Controversy Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary tax demand / controversy ledger (1200000) for Criminal Prosecutions & Compounding of O...",
-            "title": "Day 24 Tax Controversy Ledger \u2014 Demand Recognition",
+            "caption": "Open primary tax demand / controversy ledger (multiple) for Criminal.",
+            "title": "Day 24 Tax Controversy Ledger — Demand Recognition",
             "isBalanced": true,
             "totalDebit": 1200000,
             "totalCredit": 1200000,
@@ -564,8 +564,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record appellate deposit / stay adjustment (134000) under applicable tax sections.",
-            "title": "Day 24 Tax Controversy Ledger \u2014 Statutory Deposit",
+            "caption": "Record appellate deposit / stay adjustment (multiple) under applicable.",
+            "title": "Day 24 Tax Controversy Ledger — Statutory Deposit",
             "isBalanced": true,
             "totalDebit": 1334000,
             "totalCredit": 1334000,
@@ -596,8 +596,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated litigation case study for Criminal Prosecutions & Compounding of O...",
-            "title": "Day 24 Tax Controversy Ledger \u2014 Tribunal Audit",
+            "caption": "Execute simulated litigation case study for Criminal Prosecutions &.",
+            "title": "Day 24 Tax Controversy Ledger — Tribunal Audit",
             "isBalanced": true,
             "totalDebit": 1334000,
             "totalCredit": 1334000,
@@ -627,8 +627,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and controversy resolution signoff.",
-            "title": "Day 24 Tax Controversy Ledger \u2014 Final Settlement",
+            "caption": "Verify ledger equilibrium and controversy resolution signoff.",
+            "title": "Day 24 Tax Controversy Ledger — Final Settlement",
             "isBalanced": true,
             "totalDebit": 1334000,
             "totalCredit": 1334000,

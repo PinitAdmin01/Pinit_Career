@@ -13643,3 +13643,105 @@ export const DISTRIBUTED_WEB_LONG_LESSONS: LongLesson[] = [
   ]
 }
 ];
+
+// --- AUTO-ENRICHED FAST/SLOW READER & PROJECT SCAFFOLDING ---
+const _SCAFFOLD_PATCHES: Record<number, Partial<import('./longLessonTypes').LongLesson>> = {
+  "31": {
+    "recap": "In Day 30 (🏆 FINAL CAPSTONE: Enterprise Global Real-Time Financial Trading & Ledger Exchange Engine), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 31 (Consensus Foundations: Paxos vs Raft, State Machine Replication (SMR) & Safety Invariants), we build directly on that foundation by mastering State Machine Replication (SMR) & The FLP Impossibility Result and Paxos Deconstructed: Proposers, Acceptors, Promises & Value Adoption."
+  },
+  "32": {
+    "recap": "In Day 31 (Consensus Foundations: Paxos vs Raft, State Machine Replication (SMR) & Safety Invariants), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 32 (Raft Leader Election, Randomized Heartbeat Timers & Split-Vote Prevention), we build directly on that foundation by mastering Raft Node State Transitions, Terms & Democratic Succession and Randomized Election Timers & Split-Vote Eradication."
+  },
+  "33": {
+    "recap": "In Day 32 (Raft Leader Election, Randomized Heartbeat Timers & Split-Vote Prevention), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 33 (Raft Log Replication, Log Matching Invariant & Strict Quorum Commit Indexing), we build directly on that foundation by mastering The AppendEntries RPC & Majority Quorum Commit Indexing and The Log Matching Invariant & Conflict Resolution Back-Off."
+  },
+  "34": {
+    "recap": "In Day 33 (Raft Log Replication, Log Matching Invariant & Strict Quorum Commit Indexing), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 34 (Raft Dynamic Cluster Membership Changes, Joint Consensus & Configuration Entry Handoff), we build directly on that foundation by mastering Membership Transition Challenges & Split-Brain Risks in Direct Switches and Two-Phase Joint Consensus (C_old,new) & Dual-Quorum Enforcement."
+  },
+  "35": {
+    "recap": "In Day 34 (Raft Dynamic Cluster Membership Changes, Joint Consensus & Configuration Entry Handoff), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 35 (Milestone 7 Capstone: The Production-Grade Fault-Tolerant Raft Consensus Engine & Distributed Key-Value Store), we build directly on that foundation by mastering Architectural Convergence: Unifying the 6-Pillar Raft Consensus Engine and Linearizable Client Read/Write Semantics & Leader Lease Optimization."
+  },
+  "36": {
+    "recap": "In Day 35 (Milestone 7 Capstone: The Production-Grade Fault-Tolerant Raft Consensus Engine & Distributed Key-Value Store), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 36 (Distributed Transactions & Two-Phase Commit (2PC): Coordinator Lifecycle, Prepare/Commit Phases & Blocking Fallacies), we build directly on that foundation by mastering Foundations of Atomic Commitment & The Two-Phase Commit (2PC) Protocol and 2PC Prepare Phase, Resource Locking & The Prepared Promise Contract."
+  },
+  "37": {
+    "recap": "In Day 36 (Distributed Transactions & Two-Phase Commit (2PC): Coordinator Lifecycle, Prepare/Commit Phases & Blocking Fallacies), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 37 (Three-Phase Commit (3PC) & Non-Blocking Atomic Commitment: PreCommit Phase & Timeout Transition Matrix), we build directly on that foundation by mastering Skeen's Atomic Commitment Theorem & The Motivation for Three-Phase Commit and The PreCommit State: Eliminating Participant Epistemic Uncertainty."
+  },
+  "38": {
+    "recap": "In Day 37 (Three-Phase Commit (3PC) & Non-Blocking Atomic Commitment: PreCommit Phase & Timeout Transition Matrix), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 38 (The Saga Pattern: Orchestration vs Choreography, Compensating Transactions & Semantic Rollbacks), we build directly on that foundation by mastering Sagas vs 2PC: Long-Lived Transactions (LLTs) & Eventual Consistency and Choreography-Based Sagas: Event-Driven State Decoupling & Reactive Loops."
+  },
+  "39": {
+    "recap": "In Day 38 (The Saga Pattern: Orchestration vs Choreography, Compensating Transactions & Semantic Rollbacks), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 39 (Transactional Outbox & Change Data Capture (CDC): Debezium, Exactly-Once Processing & Dual-Write Hazard Eradication), we build directly on that foundation by mastering The Dual-Write Hazard: Why Database Updates & Message Publishing Inevitably Diverge and The Transactional Outbox Pattern: Atomic Local Database State & Outbox Tables."
+  },
+  "40": {
+    "recap": "In Day 39 (Transactional Outbox & Change Data Capture (CDC): Debezium, Exactly-Once Processing & Dual-Write Hazard Eradication), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 40 (Milestone 8 Capstone: The Enterprise Multi-Service Distributed Transaction Orchestrator & Saga Workflow Engine), we build directly on that foundation by mastering Architectural Convergence: Unifying 2PC, Sagas, Outbox & CDC into the Master Platform and The Enterprise Saga Orchestration Engine: State Graphs & Context Routing."
+  },
+  "41": {
+    "recap": "In Day 40 (Milestone 8 Capstone: The Enterprise Multi-Service Distributed Transaction Orchestrator & Saga Workflow Engine), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 41 (Distributed Caching Architecture: Cache-Aside, Write-Through, Write-Behind & Write-Around Patterns), we build directly on that foundation by mastering Distributed Caching Topology & Hardware Memory Hierarchies and The Cache-Aside (Lazy-Loading) Pattern: Mechanics & Concurrency Paths."
+  },
+  "42": {
+    "recap": "In Day 41 (Distributed Caching Architecture: Cache-Aside, Write-Through, Write-Behind & Write-Around Patterns), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 42 (Cache Invalidation & Consistency: TTLs, Lease-Based Invalidation & The Thundering Herd Problem), we build directly on that foundation by mastering Phil Karlton's Hard Problem: Cache Invalidation & Stale Read Windows and Time-To-Live (TTL) Eviction Policies & Sliding vs Fixed Expirations."
+  },
+  "43": {
+    "recap": "In Day 42 (Cache Invalidation & Consistency: TTLs, Lease-Based Invalidation & The Thundering Herd Problem), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 43 (Distributed Redis Architecture: Sentinel, Redis Cluster, Hash Slots & Slot Migration), we build directly on that foundation by mastering High Availability via Redis Sentinel: Heartbeats & Quorum Failover and Horizontal Sharding with Redis Cluster: 16,384 Hash Slots & CRC16 Mechanics."
+  },
+  "44": {
+    "recap": "In Day 43 (Distributed Redis Architecture: Sentinel, Redis Cluster, Hash Slots & Slot Migration), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 44 (Consistent Hashing & Dynamic Ring Topologies: Virtual Nodes, Replication & Load Balancing), we build directly on that foundation by mastering The Modulo Hashing Limitation: The Rebalancing Catastrophe of Scale and The Consistent Hashing Ring: Mapping Keys & Nodes to Integer Space."
+  },
+  "45": {
+    "recap": "In Day 44 (Consistent Hashing & Dynamic Ring Topologies: Virtual Nodes, Replication & Load Balancing), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 45 (Milestone 9 Capstone: The Production Ultra-Low Latency Distributed Multi-Tier Cache Engine), we build directly on that foundation by mastering Multi-Tier Caching Architecture: L1 In-Process Memory & L2 Distributed Clustered Tier and Consistent Hashing Ring with Virtual Nodes & Binary Search Routing."
+  },
+  "46": {
+    "recap": "In Day 45 (Milestone 9 Capstone: The Production Ultra-Low Latency Distributed Multi-Tier Cache Engine), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 46 (Distributed Message Brokers: Append-Only Commit Logs, Partitioning, Offsets & High Watermarks), we build directly on that foundation by mastering Append-Only Commit Logs: Immutability, Monotonic Offsets & Hardware Sequential I/O and Topic Partitioning: Hash Routing, Horizontal Scalability & Ordering Invariants."
+  },
+  "47": {
+    "recap": "In Day 46 (Distributed Message Brokers: Append-Only Commit Logs, Partitioning, Offsets & High Watermarks), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 47 (Consumer Groups & Rebalancing Protocols: Range, RoundRobin & Cooperative Sticky Assignors), we build directly on that foundation by mastering Consumer Group Coordination: Group Coordinators, JoinGroup & Monotonic Generation IDs and Partition Assignment Strategies: Range vs Round-Robin Assignors & Co-Partitioning Skew."
+  },
+  "48": {
+    "recap": "In Day 47 (Consumer Groups & Rebalancing Protocols: Range, RoundRobin & Cooperative Sticky Assignors), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 48 (Delivery Guarantees & Fault Tolerance: At-Least-Once, At-Most-Once, Idempotent Producers & Transactional IDs), we build directly on that foundation by mastering Idempotent Producers: Producer IDs (PID), Monotonic Sequence Numbers & Broker Deduplication and The Transaction Coordinator: Two-Phase Commit over Logs, Control Markers & Fencing Zombie Producers."
+  },
+  "49": {
+    "recap": "In Day 48 (Delivery Guarantees & Fault Tolerance: At-Least-Once, At-Most-Once, Idempotent Producers & Transactional IDs), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 49 (Stream Processing Topologies: State Stores, Tumbling/Sliding/Session Windows & Watermarks), we build directly on that foundation by mastering Stateful Stream Processing: Embedded RocksDB Stores & Durable Changelog Topics and Windowing Topologies: Tumbling vs Sliding Windows & Incremental Add/Subtract Optimization."
+  },
+  "50": {
+    "recap": "In Day 49 (Stream Processing Topologies: State Stores, Tumbling/Sliding/Session Windows & Watermarks), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 50 (Milestone 10 Capstone: The Production Exactly-Once Real-Time Stream Analytics Engine), we build directly on that foundation by mastering Architecture of the Exactly-Once Stream Analytics Engine: Ingestion, Replication, Coordination & Processing and Partitioned Append-Only Ingestion: ISR Quorum Replication & Zero-Copy Socket Transfers."
+  },
+  "51": {
+    "recap": "In Day 50 (Milestone 10 Capstone: The Production Exactly-Once Real-Time Stream Analytics Engine), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 51 (Distributed Tracing & Context Propagation: W3C TraceContext, Spans, Baggage & OpenTelemetry), we build directly on that foundation by mastering Anatomy of a Distributed Trace: Traces, Spans, Timestamps & Call Graph DAGs and Context Propagation & The W3C TraceContext Standard: traceparent, tracestate & Baggage."
+  },
+  "52": {
+    "recap": "In Day 51 (Distributed Tracing & Context Propagation: W3C TraceContext, Spans, Baggage & OpenTelemetry), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 52 (Service Mesh Architecture: Envoy Proxy, Sidecar Pattern, mTLS & Traffic Shifting), we build directly on that foundation by mastering The Service Mesh & The Sidecar Pattern: Transparent Interception with Envoy Proxy and Mutual TLS (mTLS) & Zero-Trust Identity: SPIFFE IDs, SVIDs & Automated SDS Rotation."
+  },
+  "53": {
+    "recap": "In Day 52 (Service Mesh Architecture: Envoy Proxy, Sidecar Pattern, mTLS & Traffic Shifting), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 53 (Metrics, Aggregation & Time-Series: Prometheus Exposition, Counter/Gauge/Histogram & PromQL), we build directly on that foundation by mastering Prometheus Metric Primitives: Counters, Gauges & Histograms and The Fallacy of Average Latency & Histogram Quantile Interpolation."
+  },
+  "54": {
+    "recap": "In Day 53 (Metrics, Aggregation & Time-Series: Prometheus Exposition, Counter/Gauge/Histogram & PromQL), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 54 (Distributed Chaos Engineering & Fault Injection: Latency Injection, Packet Loss, Pod Eviction & Steady-State Hypotheses), we build directly on that foundation by mastering The Principles of Chaos Engineering & Defining Steady-State Hypotheses and Network-Level Fault Injection: Artificial Latency & Packet Loss."
+  },
+  "55": {
+    "recap": "In Day 54 (Distributed Chaos Engineering & Fault Injection: Latency Injection, Packet Loss, Pod Eviction & Steady-State Hypotheses), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 55 (Milestone 11 Capstone: The Production Autonomous Self-Healing Observability & Chaos Resilience Mesh), we build directly on that foundation by mastering Architectural Blueprint: The Closed-Loop Autonomous Observability & Resilience Mesh and Distributed Telemetry Fusion: Correlating Spans, Metrics & Error Budgets."
+  },
+  "56": {
+    "recap": "In Day 55 (Milestone 11 Capstone: The Production Autonomous Self-Healing Observability & Chaos Resilience Mesh), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 56 (Edge Computing & Geo-Distributed Topologies: Anycast Routing, Edge Caching, CDN Edge Workers & Cloudflare/Fastly Architecture), we build directly on that foundation by mastering The Geometry of Latency: The Speed of Light, Anycast BGP Routing & Edge PoPs and Edge Caching Topologies & Origin Shielding: Tiered Cache Hierarchies & Cache Collapse."
+  },
+  "57": {
+    "recap": "In Day 56 (Edge Computing & Geo-Distributed Topologies: Anycast Routing, Edge Caching, CDN Edge Workers & Cloudflare/Fastly Architecture), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 57 (Distributed CRDTs & Conflict-Free Replication: State-based (CvRDT), Operation-based (CmRDT), PN-Counters, LWW-Element-Set & Automerge/Yjs), we build directly on that foundation by mastering The Decentralized State Challenge: Strong Eventual Consistency & Mathematical Semilattices and State-Based (CvRDT) vs Operation-Based (CmRDT) Topologies & PN-Counters."
+  },
+  "58": {
+    "recap": "In Day 57 (Distributed CRDTs & Conflict-Free Replication: State-based (CvRDT), Operation-based (CmRDT), PN-Counters, LWW-Element-Set & Automerge/Yjs), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 58 (Decentralized Peer-to-Peer Topologies: Kademlia DHT, Chord Ring, BitTorrent Protocol & IPFS Content-Addressed Storage), we build directly on that foundation by mastering The Geometry of Decentralized Overlays: Consistent Hash Rings vs XOR Metric (Chord vs Kademlia) and Kademlia Routing Topologies: k-Buckets, Alpha Concurrency & Node Lookup Mechanics."
+  },
+  "59": {
+    "recap": "In Day 58 (Decentralized Peer-to-Peer Topologies: Kademlia DHT, Chord Ring, BitTorrent Protocol & IPFS Content-Addressed Storage), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 59 (High-Frequency Zero-Allocation Systems: Ring Buffers (LMAX Disruptor), Kernel-Bypass (DPDK/io_uring), Off-Heap Memory & Lock-Free Data Structures), we build directly on that foundation by mastering The Mechanical Sympathy Paradigm: CPU Cache Hierarchies, False Sharing & Lock Contention and Lock-Free Circular Ring Buffers: Pre-Allocation & Power-of-Two Bitmasking."
+  },
+  "60": {
+    "recap": "In Day 59 (High-Frequency Zero-Allocation Systems: Ring Buffers (LMAX Disruptor), Kernel-Bypass (DPDK/io_uring), Off-Heap Memory & Lock-Free Data Structures), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 60 (Course 16 Grand Master Capstone: Planetary Distributed Cloud Architecture), we build directly on that foundation by mastering Architectural Blueprint: The Planetary Multi-Cloud Heterogeneous Grid and Hybrid Consensus & State Synchronization Across Planetary Boundaries."
+  }
+};
+for (const _lesson of DISTRIBUTED_WEB_LONG_LESSONS as import('./longLessonTypes').LongLesson[]) {
+  const _p = _SCAFFOLD_PATCHES[_lesson.day];
+  if (_p) {
+    if (_p.recap && !_lesson.recap) (_lesson as any).recap = _p.recap;
+    if (_p.summary && (!_lesson.summary || _lesson.summary.length === 0)) (_lesson as any).summary = _p.summary;
+    if (_p.projectStep && (!_lesson.projectStep || !_lesson.projectStep.steps?.length)) (_lesson as any).projectStep = _p.projectStep;
+  }
+}

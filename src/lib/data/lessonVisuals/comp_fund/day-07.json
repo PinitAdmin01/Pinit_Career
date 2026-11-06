@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Inspecting memory cache hierarchy and address layout for Memory Hierarchy Latency ...",
+            "caption": "Inspecting memory cache hierarchy and address layout for Memory Hierarchy.",
             "items": [
               "0x00: L1_HIT",
               "0x40: L2_LINE",
@@ -41,7 +41,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Locality evaluation and hardware latency pipeline for Memory Hierarchy Latency ...",
+            "caption": "Locality evaluation and hardware latency pipeline for Memory Hierarchy.",
             "items": [
               "0x00: L1_HIT",
               "0x40: L2_LINE",
@@ -68,7 +68,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world operational state and TLB translation for Memory Hierarchy Latency ...",
+            "caption": "Real-world operational state and TLB translation for Memory Hierarchy.",
             "items": [
               "0x00: L1_HIT",
               "0x40: L2_LINE",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive verification and memory audit telemetry for Memory Hierarchy Latency ...",
+            "caption": "Interactive verification and memory audit telemetry for Memory Hierarchy.",
             "items": [
               "0x00: L1_HIT",
               "0x40: L2_LINE",
@@ -132,7 +132,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Inspecting memory cache hierarchy and address layout for CPU Cache Microarchitectu...",
+            "caption": "Inspecting memory cache hierarchy and address layout for CPU Cache.",
             "items": [
               "0x00: L1_HIT",
               "0x40: L2_LINE",
@@ -159,7 +159,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Locality evaluation and hardware latency pipeline for CPU Cache Microarchitectu...",
+            "caption": "Locality evaluation and hardware latency pipeline for CPU Cache.",
             "items": [
               "0x00: L1_HIT",
               "0x40: L2_LINE",
@@ -186,7 +186,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world operational state and TLB translation for CPU Cache Microarchitectu...",
+            "caption": "Real-world operational state and TLB translation for CPU Cache.",
             "items": [
               "0x00: L1_HIT",
               "0x40: L2_LINE",
@@ -213,7 +213,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive verification and memory audit telemetry for CPU Cache Microarchitectu...",
+            "caption": "Interactive verification and memory audit telemetry for CPU Cache.",
             "items": [
               "0x00: L1_HIT",
               "0x40: L2_LINE",
@@ -250,7 +250,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Inspecting memory cache hierarchy and address layout for Cache Coherence, MESI Pro...",
+            "caption": "Inspecting memory cache hierarchy and address layout for Cache Coherence.",
             "items": [
               "0x00: L1_HIT",
               "0x40: L2_LINE",
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Locality evaluation and hardware latency pipeline for Cache Coherence, MESI Pro...",
+            "caption": "Locality evaluation and hardware latency pipeline for Cache Coherence.",
             "items": [
               "0x00: L1_HIT",
               "0x40: L2_LINE",
@@ -304,7 +304,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world operational state and TLB translation for Cache Coherence, MESI Pro...",
+            "caption": "Real-world operational state and TLB translation for Cache Coherence.",
             "items": [
               "0x00: L1_HIT",
               "0x40: L2_LINE",
@@ -331,7 +331,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive verification and memory audit telemetry for Cache Coherence, MESI Pro...",
+            "caption": "Interactive verification and memory audit telemetry for Cache Coherence.",
             "items": [
               "0x00: L1_HIT",
               "0x40: L2_LINE",
@@ -368,7 +368,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Inspecting memory cache hierarchy and address layout for Virtual Memory, Paging, M...",
+            "caption": "Inspecting memory cache hierarchy and address layout for Virtual Memory.",
             "items": [
               "0x00: L1_HIT",
               "0x40: L2_LINE",
@@ -395,7 +395,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Locality evaluation and hardware latency pipeline for Virtual Memory, Paging, M...",
+            "caption": "Locality evaluation and hardware latency pipeline for Virtual Memory.",
             "items": [
               "0x00: L1_HIT",
               "0x40: L2_LINE",
@@ -422,7 +422,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world operational state and TLB translation for Virtual Memory, Paging, M...",
+            "caption": "Real-world operational state and TLB translation for Virtual Memory.",
             "items": [
               "0x00: L1_HIT",
               "0x40: L2_LINE",
@@ -449,7 +449,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive verification and memory audit telemetry for Virtual Memory, Paging, M...",
+            "caption": "Interactive verification and memory audit telemetry for Virtual Memory.",
             "items": [
               "0x00: L1_HIT",
               "0x40: L2_LINE",
@@ -486,7 +486,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Inspecting memory cache hierarchy and address layout for Master Hardware Memory Di...",
+            "caption": "Inspecting memory cache hierarchy and address layout for Master Hardware.",
             "items": [
               "0x00: L1_HIT",
               "0x40: L2_LINE",
@@ -513,7 +513,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Locality evaluation and hardware latency pipeline for Master Hardware Memory Di...",
+            "caption": "Locality evaluation and hardware latency pipeline for Master Hardware.",
             "items": [
               "0x00: L1_HIT",
               "0x40: L2_LINE",
@@ -540,7 +540,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world operational state and TLB translation for Master Hardware Memory Di...",
+            "caption": "Real-world operational state and TLB translation for Master Hardware.",
             "items": [
               "0x00: L1_HIT",
               "0x40: L2_LINE",
@@ -567,7 +567,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive verification and memory audit telemetry for Master Hardware Memory Di...",
+            "caption": "Interactive verification and memory audit telemetry for Master Hardware.",
             "items": [
               "0x00: L1_HIT",
               "0x40: L2_LINE",

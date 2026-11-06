@@ -15,7 +15,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary Ind AS ledger posting ($27,505,000) for Ind AS 105 Classification Criteria: Avai...",
+            "caption": "Open primary Ind AS ledger posting ($multiple,multiple,multiple) for Ind.",
             "title": "Day 54 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 27505000,
@@ -41,7 +41,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary valuation & impairment adjustment accrual ($4,500,000).",
+            "caption": "Record secondary valuation & impairment adjustment accrual.",
             "title": "Day 54 Journal — Valuation & Adjustment Posting",
             "isBalanced": true,
             "totalDebit": 32005000,
@@ -72,7 +72,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of balance sheet carrying values and statutory group disclosures.",
+            "caption": "Verification of balance sheet carrying values and statutory group.",
             "title": "Day 54 Journal — Balance Sheet Realignment",
             "isBalanced": true,
             "totalDebit": 32005000,
@@ -103,7 +103,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute deterministic Python engine and verify mathematical equilibrium.",
+            "caption": "Execute deterministic Python engine and verify mathematical equilibrium.",
             "title": "Day 54 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 32005000,
@@ -145,7 +145,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary Ind AS ledger posting ($27,510,000) for Measurement Architecture: Lower of Carry...",
+            "caption": "Open primary Ind AS ledger posting ($multiple,multiple,multiple) for.",
             "title": "Day 54 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 27510000,
@@ -171,7 +171,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary valuation & impairment adjustment accrual ($4,500,000).",
+            "caption": "Record secondary valuation & impairment adjustment accrual.",
             "title": "Day 54 Journal — Valuation & Adjustment Posting",
             "isBalanced": true,
             "totalDebit": 32010000,
@@ -202,7 +202,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of balance sheet carrying values and statutory group disclosures.",
+            "caption": "Verification of balance sheet carrying values and statutory group.",
             "title": "Day 54 Journal — Balance Sheet Realignment",
             "isBalanced": true,
             "totalDebit": 32010000,
@@ -233,7 +233,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute deterministic Python engine and verify mathematical equilibrium.",
+            "caption": "Execute deterministic Python engine and verify mathematical equilibrium.",
             "title": "Day 54 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 32010000,
@@ -275,7 +275,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary Ind AS ledger posting ($27,515,000) for Operational Invariants: Cessation of Dep...",
+            "caption": "Open primary Ind AS ledger posting ($multiple,multiple,multiple) for.",
             "title": "Day 54 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 27515000,
@@ -301,7 +301,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary valuation & impairment adjustment accrual ($4,500,000).",
+            "caption": "Record secondary valuation & impairment adjustment accrual.",
             "title": "Day 54 Journal — Valuation & Adjustment Posting",
             "isBalanced": true,
             "totalDebit": 32015000,
@@ -332,7 +332,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of balance sheet carrying values and statutory group disclosures.",
+            "caption": "Verification of balance sheet carrying values and statutory group.",
             "title": "Day 54 Journal — Balance Sheet Realignment",
             "isBalanced": true,
             "totalDebit": 32015000,
@@ -363,7 +363,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute deterministic Python engine and verify mathematical equilibrium.",
+            "caption": "Execute deterministic Python engine and verify mathematical equilibrium.",
             "title": "Day 54 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 32015000,
@@ -405,7 +405,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary Ind AS ledger posting ($27,520,000) for Discontinued Operations Architecture & S...",
+            "caption": "Open primary Ind AS ledger posting ($multiple,multiple,multiple) for.",
             "title": "Day 54 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 27520000,
@@ -431,7 +431,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary valuation & impairment adjustment accrual ($4,500,000).",
+            "caption": "Record secondary valuation & impairment adjustment accrual.",
             "title": "Day 54 Journal — Valuation & Adjustment Posting",
             "isBalanced": true,
             "totalDebit": 32020000,
@@ -462,7 +462,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of balance sheet carrying values and statutory group disclosures.",
+            "caption": "Verification of balance sheet carrying values and statutory group.",
             "title": "Day 54 Journal — Balance Sheet Realignment",
             "isBalanced": true,
             "totalDebit": 32020000,
@@ -493,7 +493,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute deterministic Python engine and verify mathematical equilibrium.",
+            "caption": "Execute deterministic Python engine and verify mathematical equilibrium.",
             "title": "Day 54 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 32020000,
@@ -535,7 +535,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary Ind AS ledger posting ($27,525,000) for Enterprise Ind AS 105 Software Engine, B...",
+            "caption": "Open primary Ind AS ledger posting ($multiple,multiple,multiple) for.",
             "title": "Day 54 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 27525000,
@@ -561,7 +561,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary valuation & impairment adjustment accrual ($4,500,000).",
+            "caption": "Record secondary valuation & impairment adjustment accrual.",
             "title": "Day 54 Journal — Valuation & Adjustment Posting",
             "isBalanced": true,
             "totalDebit": 32025000,
@@ -592,7 +592,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of balance sheet carrying values and statutory group disclosures.",
+            "caption": "Verification of balance sheet carrying values and statutory group.",
             "title": "Day 54 Journal — Balance Sheet Realignment",
             "isBalanced": true,
             "totalDebit": 32025000,
@@ -623,7 +623,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute deterministic Python engine and verify mathematical equilibrium.",
+            "caption": "Execute deterministic Python engine and verify mathematical equilibrium.",
             "title": "Day 54 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 32025000,

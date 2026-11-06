@@ -40,7 +40,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Context Framing): Initialize Top-Down Executive Communication vs Bott...",
+            "caption": "Stage one (Context Framing): Initialize Top-Down Executive Communication.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Structured Thesis): Process core communication model.",
+            "caption": "Stage two (Structured Thesis): Process core communication model.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -108,7 +108,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Objection Defense): Verify high-trust invariants.",
+            "caption": "Stage three (Objection Defense): Verify high-trust invariants.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "Zero Friction",
@@ -142,7 +142,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Executive Alignment): Commit collaborative action plan.",
+            "caption": "Stage four (Executive Alignment): Commit collaborative action plan.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "Alignment Met ✓",
@@ -380,7 +380,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Context Framing): Initialize Barbara Minto's Pyramid Principle: Gover...",
+            "caption": "Stage one (Context Framing): Initialize Barbara Minto's Pyramid.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -414,7 +414,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Structured Thesis): Process core communication model.",
+            "caption": "Stage two (Structured Thesis): Process core communication model.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -448,7 +448,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Objection Defense): Verify high-trust invariants.",
+            "caption": "Stage three (Objection Defense): Verify high-trust invariants.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "Zero Friction",
@@ -482,7 +482,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Executive Alignment): Commit collaborative action plan.",
+            "caption": "Stage four (Executive Alignment): Commit collaborative action plan.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "Alignment Met ✓",
@@ -720,7 +720,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Context Framing): Initialize The SCQA Narrative Arc: Situation, Compl...",
+            "caption": "Stage one (Context Framing): Initialize The SCQA Narrative Arc.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -754,7 +754,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Structured Thesis): Process core communication model.",
+            "caption": "Stage two (Structured Thesis): Process core communication model.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -788,7 +788,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Objection Defense): Verify high-trust invariants.",
+            "caption": "Stage three (Objection Defense): Verify high-trust invariants.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "Zero Friction",
@@ -822,7 +822,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Executive Alignment): Commit collaborative action plan.",
+            "caption": "Stage four (Executive Alignment): Commit collaborative action plan.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "Alignment Met ✓",
@@ -1060,7 +1060,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Context Framing): Initialize High-Signal Visual Slide Design: The 1-I...",
+            "caption": "Stage one (Context Framing): Initialize High-Signal Visual Slide Design.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -1094,7 +1094,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Structured Thesis): Process core communication model.",
+            "caption": "Stage two (Structured Thesis): Process core communication model.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -1128,7 +1128,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Objection Defense): Verify high-trust invariants.",
+            "caption": "Stage three (Objection Defense): Verify high-trust invariants.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "Zero Friction",
@@ -1162,7 +1162,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Executive Alignment): Commit collaborative action plan.",
+            "caption": "Stage four (Executive Alignment): Commit collaborative action plan.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "Alignment Met ✓",
@@ -1400,7 +1400,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Context Framing): Initialize Master Technical Presentation Suite: Exe...",
+            "caption": "Stage one (Context Framing): Initialize Master Technical Presentation.",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -1434,7 +1434,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Structured Thesis): Process core communication model.",
+            "caption": "Stage two (Structured Thesis): Process core communication model.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -1468,7 +1468,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Objection Defense): Verify high-trust invariants.",
+            "caption": "Stage three (Objection Defense): Verify high-trust invariants.",
             "activeStageId": "s3",
             "statusBadge": "VALIDATED",
             "throughput": "Zero Friction",
@@ -1502,7 +1502,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Executive Alignment): Commit collaborative action plan.",
+            "caption": "Stage four (Executive Alignment): Commit collaborative action plan.",
             "activeStageId": "s4",
             "statusBadge": "COMPLETED",
             "throughput": "Alignment Met ✓",

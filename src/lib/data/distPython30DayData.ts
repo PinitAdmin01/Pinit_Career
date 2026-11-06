@@ -471,7 +471,7 @@ const DAYS: Day[] = [
       "test": "assert dr_compliance(2, 5, 5, 15) == {'compliant': True, 'rpo': 'OK', 'rto': 'OK', 'grade': 'TIER_1'}, 'Within both targets'\nassert dr_compliance(10, 5, 5, 15) == {'compliant': False, 'rpo': 'BREACHED', 'rto': 'OK', 'grade': 'FAILED'}, 'Too much data lost'\nassert dr_compliance(5, 20, 5, 15)['rto'] == 'BREACHED', 'Down for too long'\nprint('All checks passed.')"
     },
     "a": {
-      "title": "RTO Formatter",
+      "title": "RTO Formatter (Disaster Recovery)",
       "desc": "Write `format_rto(minutes)` returning '15 min RTO' for 15.",
       "starter": "def format_rto(minutes):\n    pass",
       "hint": "f'{minutes} min RTO'",

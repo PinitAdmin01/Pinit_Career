@@ -138,7 +138,7 @@
         "steps": [
           {
             "at": "say4",
-            "caption": "The checkpointing protocol executes periodically every 2 processed records.",
+            "caption": "The checkpointing protocol executes periodically every two processed.",
             "messages": [
               {
                 "from": "stream",
@@ -155,7 +155,7 @@
           },
           {
             "at": "say8",
-            "caption": "Atomically pairing the snapshot with committed offset 11 guides recovery.",
+            "caption": "Atomically pairing the snapshot with committed offset eleven guides.",
             "messages": [
               {
                 "from": "cpManager",
@@ -292,7 +292,7 @@
         "steps": [
           {
             "at": "say4",
-            "caption": "The snapshot restores the state that existed as of lastOffset = 100.",
+            "caption": "The snapshot restores the state that existed as of lastOffset = one.",
             "items": [
               {
                 "text": "Snap #100 (A:50, B:80)"
@@ -314,7 +314,7 @@
           },
           {
             "at": "say7",
-            "caption": "Phase 2 replays only tail changelog records with offset > 100 (#101, #102).",
+            "caption": "Phase two replays only tail changelog records with offset > one hundred.",
             "items": [
               {
                 "text": "Snap #100 (A:50, B:80)"
@@ -507,7 +507,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Building Milestone 4: The Fault-Tolerant.. [D25.P6.S1].",
+            "caption": "Initialize input state for Building Milestone four: The Fault-Tolerant.",
             "values": {
               "in": "Day 25 Input",
               "proc": "Standby",
@@ -527,7 +527,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building Milestone ... [D25.P6.S2].",
+            "caption": "Execute core transformation in Building Milestone ... [D.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -551,7 +551,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D25.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -571,7 +571,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building Milestone 4: The Fault-T.. [D25.P6.S4].",
+            "caption": "End-to-end execution verified for Building Milestone four: The Fault-T.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

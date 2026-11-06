@@ -234,7 +234,7 @@
           },
           {
             "at": "say5",
-            "caption": "Reading entry after 60 seconds triggers database reload.",
+            "caption": "Reading entry after multiple seconds triggers database reload.",
             "rows": [
               {
                 "cells": [
@@ -520,7 +520,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Spreading expiries with jitter [D5.P4.S1].",
+            "caption": "Initialize input state for Spreading expiries with jitter.",
             "values": {
               "in": "Day 5 Input",
               "proc": "Standby",
@@ -540,7 +540,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Spreading expiries ... [D5.P4.S2].",
+            "caption": "Execute core transformation in Spreading expiries ... [Dfive.Pfour.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -564,7 +564,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D5.P4.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -584,7 +584,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Spreading expiries with jitter [D5.P4.S4].",
+            "caption": "End-to-end execution verified for Spreading expiries with jitter.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -880,7 +880,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Milestone 1: a bounded, distributed cache [D5.P6.S1].",
+            "caption": "Initialize input state for Milestone one: a bounded, distributed cache.",
             "values": {
               "in": "Day 5 Input",
               "proc": "Standby",
@@ -900,7 +900,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Milestone 1: a boun... [D5.P6.S2].",
+            "caption": "Execute core transformation in Milestone one: a boun... [Dfive.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -924,7 +924,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D5.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [Dfive.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -944,7 +944,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Milestone 1: a bounded, distribut.. [D5.P6.S4].",
+            "caption": "End-to-end execution verified for Milestone one: a bounded, distribut.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

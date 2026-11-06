@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Probe Status Evaluation): Initialize operational telemetry pipeline for Kubernetes Container Probes & Lifecycles.",
+            "caption": "State one (Probe Status Evaluation): Initialize operational telemetry.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -60,7 +60,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Keep-Alive Socket Draining): Production invariant verified with zero telemetry loss.",
+            "caption": "State four (Keep-Alive Socket Draining): Production invariant verified.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -99,7 +99,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Probe Status Evaluation): Initialize operational telemetry pipeline for Shallow vs Deep Health Check Architecture.",
+            "caption": "State one (Probe Status Evaluation): Initialize operational telemetry.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -127,7 +127,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Keep-Alive Socket Draining): Production invariant verified with zero telemetry loss.",
+            "caption": "State four (Keep-Alive Socket Draining): Production invariant verified.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -166,7 +166,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Probe Status Evaluation): Initialize operational telemetry pipeline for Graceful Shutdown & POSIX Signal Handling.",
+            "caption": "State one (Probe Status Evaluation): Initialize operational telemetry.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -194,7 +194,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Keep-Alive Socket Draining): Production invariant verified with zero telemetry loss.",
+            "caption": "State four (Keep-Alive Socket Draining): Production invariant verified.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -233,7 +233,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Probe Status Evaluation): Initialize operational telemetry pipeline for Connection Draining & TCP Keep-Alive Mechanics.",
+            "caption": "State one (Probe Status Evaluation): Initialize operational telemetry.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -261,7 +261,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Keep-Alive Socket Draining): Production invariant verified with zero telemetry loss.",
+            "caption": "State four (Keep-Alive Socket Draining): Production invariant verified.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -300,7 +300,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Probe Status Evaluation): Initialize operational telemetry pipeline for Rolling Deployment Zero-Downtime Verification Lab.",
+            "caption": "State one (Probe Status Evaluation): Initialize operational telemetry.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -328,7 +328,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Keep-Alive Socket Draining): Production invariant verified with zero telemetry loss.",
+            "caption": "State four (Keep-Alive Socket Draining): Production invariant verified.",
             "currentState": "st4",
             "transition": {
               "from": "st3",

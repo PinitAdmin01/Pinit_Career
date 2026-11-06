@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state and parameters for Spot Price Flash Loan Distorti...",
+            "caption": "Protocol monitors state and parameters for Spot Price Flash Loan.",
             "activeActor": "Attacker Agent",
             "messages": [
               {
@@ -33,7 +33,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes state transition and updates core invariant",
+            "caption": "Engine executes state transition and updates core invariant.",
             "activeActor": "Spot AMM Pair",
             "messages": [
               {
@@ -46,7 +46,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of freshness, deviation, or cross-chain signature bounds",
+            "caption": "Verification of freshness, deviation, or cross-chain signature bounds.",
             "activeActor": "Victim Lending Pool",
             "messages": [
               {
@@ -59,7 +59,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; invariant preserved and state committed",
+            "caption": "Block settled atomically; invariant preserved and state committed.",
             "activeActor": "Spot AMM Pair",
             "messages": [
               {
@@ -152,7 +152,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state and parameters for Historical Exploit Forensic: b...",
+            "caption": "Protocol monitors state and parameters for Historical Exploit Forensic.",
             "activeActor": "Attacker Agent",
             "messages": [
               {
@@ -165,7 +165,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes state transition and updates core invariant",
+            "caption": "Engine executes state transition and updates core invariant.",
             "activeActor": "Spot AMM Pair",
             "messages": [
               {
@@ -178,7 +178,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of freshness, deviation, or cross-chain signature bounds",
+            "caption": "Verification of freshness, deviation, or cross-chain signature bounds.",
             "activeActor": "Victim Lending Pool",
             "messages": [
               {
@@ -191,7 +191,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; invariant preserved and state committed",
+            "caption": "Block settled atomically; invariant preserved and state committed.",
             "activeActor": "Spot AMM Pair",
             "messages": [
               {
@@ -284,7 +284,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state and parameters for Detective Lab: Volatility Circ...",
+            "caption": "Protocol monitors state and parameters for Detective Lab: Volatility.",
             "activeActor": "Attacker Agent",
             "messages": [
               {
@@ -297,7 +297,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes state transition and updates core invariant",
+            "caption": "Engine executes state transition and updates core invariant.",
             "activeActor": "Spot AMM Pair",
             "messages": [
               {
@@ -310,7 +310,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of freshness, deviation, or cross-chain signature bounds",
+            "caption": "Verification of freshness, deviation, or cross-chain signature bounds.",
             "activeActor": "Victim Lending Pool",
             "messages": [
               {
@@ -323,7 +323,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; invariant preserved and state committed",
+            "caption": "Block settled atomically; invariant preserved and state committed.",
             "activeActor": "Spot AMM Pair",
             "messages": [
               {
@@ -416,7 +416,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state and parameters for Dynamic Close Factors & Asymme...",
+            "caption": "Protocol monitors state and parameters for Dynamic Close Factors &.",
             "activeActor": "Attacker Agent",
             "messages": [
               {
@@ -429,7 +429,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes state transition and updates core invariant",
+            "caption": "Engine executes state transition and updates core invariant.",
             "activeActor": "Spot AMM Pair",
             "messages": [
               {
@@ -442,7 +442,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of freshness, deviation, or cross-chain signature bounds",
+            "caption": "Verification of freshness, deviation, or cross-chain signature bounds.",
             "activeActor": "Victim Lending Pool",
             "messages": [
               {
@@ -455,7 +455,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; invariant preserved and state committed",
+            "caption": "Block settled atomically; invariant preserved and state committed.",
             "activeActor": "Spot AMM Pair",
             "messages": [
               {
@@ -548,7 +548,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state and parameters for Anti-Oracle Manipulation Defen...",
+            "caption": "Protocol monitors state and parameters for Anti-Oracle Manipulation.",
             "activeActor": "Attacker Agent",
             "messages": [
               {
@@ -561,7 +561,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes state transition and updates core invariant",
+            "caption": "Engine executes state transition and updates core invariant.",
             "activeActor": "Spot AMM Pair",
             "messages": [
               {
@@ -574,7 +574,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of freshness, deviation, or cross-chain signature bounds",
+            "caption": "Verification of freshness, deviation, or cross-chain signature bounds.",
             "activeActor": "Victim Lending Pool",
             "messages": [
               {
@@ -587,7 +587,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; invariant preserved and state committed",
+            "caption": "Block settled atomically; invariant preserved and state committed.",
             "activeActor": "Spot AMM Pair",
             "messages": [
               {

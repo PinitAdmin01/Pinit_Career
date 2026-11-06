@@ -10,11 +10,11 @@
       "codeHash": "00197eedf1026e25601a83ab6aa942a3ec8a61c098c83d1922809a5f90caa75d",
       "spec": {
         "template": "register-bits",
-        "title": "Day 26 Part 1 \u2014 SUIT Manifest Architecture (RF \u2014 Register Architecture",
+        "title": "Day 26 Part 1 — SUIT Manifest Architecture (RF — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register FUOTA_SUIT_SEQ_REG for SUIT Manifest Architecture (RFC .",
+            "caption": "Arm hardware register FUOTA_SUIT_SEQ_REG for SUIT Manifest Architecture.",
             "registerName": "FUOTA_SUIT_SEQ_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into FUOTA_SUIT_SEQ_REG and assert validation flag.",
+            "caption": "Latch sampling bits into FUOTA_SUIT_SEQ_REG and assert validation flag.",
             "registerName": "FUOTA_SUIT_SEQ_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in FUOTA_SUIT_SEQ_REG with pipeline status.",
+            "caption": "Execute hardware transformation in FUOTA_SUIT_SEQ_REG with pipeline status.",
             "registerName": "FUOTA_SUIT_SEQ_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register FUOTA_SUIT_SEQ_REG upon verified hardware completion.",
+            "caption": "Lock register FUOTA_SUIT_SEQ_REG upon verified hardware completion.",
             "registerName": "FUOTA_SUIT_SEQ_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -262,11 +262,11 @@
       "codeHash": "4e8e3d58c64948b676784438e535c11dfe30d3a1afc5ae082d62cbfa6177f248",
       "spec": {
         "template": "register-bits",
-        "title": "Day 26 Part 2 \u2014 Multicast Fragment Reassembly  \u2014 Register Architecture",
+        "title": "Day 26 Part 2 — Multicast Fragment Reassembly  — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register FUOTA_CHUNK_MAP_REG for Multicast Fragment Reassembly & .",
+            "caption": "Arm hardware register FUOTA_CHUNK_MAP_REG for Multicast Fragment.",
             "registerName": "FUOTA_CHUNK_MAP_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -326,7 +326,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into FUOTA_CHUNK_MAP_REG and assert validation flag.",
+            "caption": "Latch sampling bits into FUOTA_CHUNK_MAP_REG and assert validation flag.",
             "registerName": "FUOTA_CHUNK_MAP_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -387,7 +387,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in FUOTA_CHUNK_MAP_REG with pipeline status.",
+            "caption": "Execute hardware transformation in FUOTA_CHUNK_MAP_REG with pipeline.",
             "registerName": "FUOTA_CHUNK_MAP_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -448,7 +448,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register FUOTA_CHUNK_MAP_REG upon verified hardware completion.",
+            "caption": "Lock register FUOTA_CHUNK_MAP_REG upon verified hardware completion.",
             "registerName": "FUOTA_CHUNK_MAP_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -514,11 +514,11 @@
       "codeHash": "3562b74eacee43fb8964432447fe985a64a16abf6facb2d42f5ccb5bffb55e53",
       "spec": {
         "template": "register-bits",
-        "title": "Day 26 Part 3 \u2014 Firmware Delta Differential Up \u2014 Register Architecture",
+        "title": "Day 26 Part 3 — Firmware Delta Differential Up — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register FUOTA_DELTA_DIFF_REG for Firmware Delta Differential Upda.",
+            "caption": "Arm hardware register FUOTA_DELTA_DIFF_REG for Firmware Delta.",
             "registerName": "FUOTA_DELTA_DIFF_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -578,7 +578,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into FUOTA_DELTA_DIFF_REG and assert validation flag.",
+            "caption": "Latch sampling bits into FUOTA_DELTA_DIFF_REG and assert validation flag.",
             "registerName": "FUOTA_DELTA_DIFF_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -639,7 +639,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in FUOTA_DELTA_DIFF_REG with pipeline status.",
+            "caption": "Execute hardware transformation in FUOTA_DELTA_DIFF_REG with pipeline.",
             "registerName": "FUOTA_DELTA_DIFF_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -700,7 +700,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register FUOTA_DELTA_DIFF_REG upon verified hardware completion.",
+            "caption": "Lock register FUOTA_DELTA_DIFF_REG upon verified hardware completion.",
             "registerName": "FUOTA_DELTA_DIFF_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -766,11 +766,11 @@
       "codeHash": "8270562c480b214625aec3f721345c90ebbee47ea7d3cb963390ff00508d5434",
       "spec": {
         "template": "register-bits",
-        "title": "Day 26 Part 4 \u2014 Dual-Bank Flash Architecture,  \u2014 Register Architecture",
+        "title": "Day 26 Part 4 — Dual-Bank Flash Architecture,  — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register FUOTA_DUAL_BANK_REG for Dual-Bank Flash Architecture, At.",
+            "caption": "Arm hardware register FUOTA_DUAL_BANK_REG for Dual-Bank Flash.",
             "registerName": "FUOTA_DUAL_BANK_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -830,7 +830,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into FUOTA_DUAL_BANK_REG and assert validation flag.",
+            "caption": "Latch sampling bits into FUOTA_DUAL_BANK_REG and assert validation flag.",
             "registerName": "FUOTA_DUAL_BANK_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -891,7 +891,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in FUOTA_DUAL_BANK_REG with pipeline status.",
+            "caption": "Execute hardware transformation in FUOTA_DUAL_BANK_REG with pipeline.",
             "registerName": "FUOTA_DUAL_BANK_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -952,7 +952,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register FUOTA_DUAL_BANK_REG upon verified hardware completion.",
+            "caption": "Lock register FUOTA_DUAL_BANK_REG upon verified hardware completion.",
             "registerName": "FUOTA_DUAL_BANK_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1018,11 +1018,11 @@
       "codeHash": "ddff9ccebb1712951d1a343be171e0dc8e77b1b9a1af90f84063b603cf2b1cfd",
       "spec": {
         "template": "register-bits",
-        "title": "Day 26 Part 5 \u2014 Masterclass Synthesis: Full FO \u2014 Register Architecture",
+        "title": "Day 26 Part 5 — Masterclass Synthesis: Full FO — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register FUOTA_ORCH_MAST_REG for Masterclass Synthesis: Full FOTA.",
+            "caption": "Arm hardware register FUOTA_ORCH_MAST_REG for Masterclass Synthesis: Full.",
             "registerName": "FUOTA_ORCH_MAST_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1082,7 +1082,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into FUOTA_ORCH_MAST_REG and assert validation flag.",
+            "caption": "Latch sampling bits into FUOTA_ORCH_MAST_REG and assert validation flag.",
             "registerName": "FUOTA_ORCH_MAST_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -1143,7 +1143,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in FUOTA_ORCH_MAST_REG with pipeline status.",
+            "caption": "Execute hardware transformation in FUOTA_ORCH_MAST_REG with pipeline.",
             "registerName": "FUOTA_ORCH_MAST_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -1204,7 +1204,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register FUOTA_ORCH_MAST_REG upon verified hardware completion.",
+            "caption": "Lock register FUOTA_ORCH_MAST_REG upon verified hardware completion.",
             "registerName": "FUOTA_ORCH_MAST_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

@@ -10,7 +10,7 @@
       "codeHash": "870f3bb7182fb98feebc5d140779bde24761c6822b64807419d14d4a506f4210",
       "spec": {
         "template": "states",
-        "title": "GARCH(1,1) Volatility Clustering & HMM State-Space \u2014 Quant Systems State Engine",
+        "title": "GARCH(1,1) Volatility Clustering & HMM State-Space — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for GARCH(1,1) Volatility Clustering & HMM State-Space.",
+            "caption": "State one (Init State): Initialize deterministic state for GARCH(one,one).",
             "currentState": "st1",
             "tone": "data"
           },
@@ -60,7 +60,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -77,7 +77,7 @@
       "codeHash": "f1531e3ae05a35fff0edd64cd931f9ba3766362501a122e2af5c60c952e1d509",
       "spec": {
         "template": "states",
-        "title": "Regime Blindness & Mean-Reversion Divergence Forensics \u2014 Quant Systems State Engine",
+        "title": "Regime Blindness & Mean-Reversion Divergence Forensics — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -99,7 +99,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Regime Blindness & Mean-Reversion Divergence Forensics.",
+            "caption": "State one (Init State): Initialize deterministic state for Regime.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -127,7 +127,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -144,7 +144,7 @@
       "codeHash": "3893e2df1a70c92e999ac2922b134dabe653ea8ce4fecb1ce44f44383161c7bf",
       "spec": {
         "template": "states",
-        "title": "GARCH & Viterbi Market Regime Detector Implementation \u2014 Quant Systems State Engine",
+        "title": "GARCH & Viterbi Market Regime Detector Implementation — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -166,7 +166,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for GARCH & Viterbi Market Regime Detector Implementation.",
+            "caption": "State one (Init State): Initialize deterministic state for GARCH &.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -194,7 +194,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -211,7 +211,7 @@
       "codeHash": "907c539e1ee739b1e4bd02d80c3613e8e560613bb974dc791f7346a1d3fceb75",
       "spec": {
         "template": "states",
-        "title": "Live Regime Transition & Quoting Spread Adaptation Lab \u2014 Quant Systems State Engine",
+        "title": "Live Regime Transition & Quoting Spread Adaptation Lab — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -233,7 +233,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Live Regime Transition & Quoting Spread Adaptation Lab.",
+            "caption": "State one (Init State): Initialize deterministic state for Live Regime.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -261,7 +261,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -278,7 +278,7 @@
       "codeHash": "6506f0f50f17371a1820b76dff1078a7aeb155762e56f5d68524f47900cf46d1",
       "spec": {
         "template": "states",
-        "title": "Enterprise Regime Auditing & Capital Reallocation \u2014 Quant Systems State Engine",
+        "title": "Enterprise Regime Auditing & Capital Reallocation — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -300,7 +300,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Enterprise Regime Auditing & Capital Reallocation.",
+            "caption": "State one (Init State): Initialize deterministic state for Enterprise.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -328,7 +328,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",

@@ -1,0 +1,787 @@
+{
+  "schemaVersion": 1,
+  "prefix": "cyber-py",
+  "day": 26,
+  "promptSha": "e9f464cdcc494cf8ca5ab9d9ebd09b3a3022dd38ae395562903614eb12e5d0a3",
+  "model": "gpt-4o",
+  "entries": [
+    {
+      "partTitle": "Penetration testing",
+      "codeHash": "87cfcad5dab794fbe85db330214a4d0d55aad3ca11c9bd851224ec35ed84f123",
+      "spec": {
+        "template": "compare",
+        "title": "Common vulnerability scoring exploitability and impact metric dimensions",
+        "left": {
+          "title": "Exploitability Metrics",
+          "items": [
+            "Network Attack Vector",
+            "Low Attack Complexity",
+            "Privileges Required",
+            "User Interaction"
+          ]
+        },
+        "right": {
+          "title": "Impact Metrics",
+          "items": [
+            "Scope Evaluation",
+            "Confidentiality Impact",
+            "Integrity Impact",
+            "Availability Impact"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say6",
+            "caption": "Exploitability metrics evaluate attack vector and user interaction.",
+            "highlightSide": "left",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say8",
+            "caption": "Impact metrics quantify damage to confidentiality integrity and availability.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Exploitability Metrics",
+        "rightLabel": "Impact Metrics"
+      },
+      "filled": {
+        "template": "compare",
+        "title": "Common vulnerability scoring exploitability and impact metric dimensions",
+        "left": {
+          "title": "Exploitability Metrics",
+          "items": [
+            "Network Attack Vector",
+            "Low Attack Complexity",
+            "Privileges Required",
+            "User Interaction"
+          ]
+        },
+        "right": {
+          "title": "Impact Metrics",
+          "items": [
+            "Scope Evaluation",
+            "Confidentiality Impact",
+            "Integrity Impact",
+            "Availability Impact"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say6",
+            "caption": "Exploitability metrics evaluate attack vector and user interaction.",
+            "highlightSide": "left",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say8",
+            "caption": "Impact metrics quantify damage to confidentiality integrity and availability.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Exploitability Metrics",
+        "rightLabel": "Impact Metrics"
+      }
+    },
+    {
+      "partTitle": "CVSS: scoring severity",
+      "codeHash": "29fc0e939539dc2fad44dcf873cf5a41e2dffd47db75dd423a5ba601afdb4580",
+      "spec": {
+        "template": "table",
+        "title": "Standardized qualitative severity ratings and operational response tiers",
+        "columns": [
+          "Severity Rating",
+          "Score Range",
+          "Operational Response"
+        ],
+        "steps": [
+          {
+            "at": "say6",
+            "caption": "High severity ratings encompass remote flaws with significant impact.",
+            "activeRowIndex": 1,
+            "statusBadge": "active",
+            "rows": [
+              {
+                "cells": [
+                  "Critical",
+                  "Nine to Ten",
+                  "Immediate Emergency Response"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "High",
+                  "Seven to Eight",
+                  "Expedited Remediation SLA"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Medium",
+                  "Four to Six",
+                  "Standard Sprint Backlog"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Low",
+                  "One to Three",
+                  "Routine Maintenance Window"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Critical severity vulnerabilities require immediate incident response.",
+            "activeRowIndex": 0,
+            "statusBadge": "failed",
+            "rows": [
+              {
+                "cells": [
+                  "Critical",
+                  "Nine to Ten",
+                  "Immediate Emergency Response"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "High",
+                  "Seven to Eight",
+                  "Expedited Remediation SLA"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Medium",
+                  "Four to Six",
+                  "Standard Sprint Backlog"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Low",
+                  "One to Three",
+                  "Routine Maintenance Window"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Standardized qualitative severity ratings and operational response tiers",
+        "columns": [
+          "Severity Rating",
+          "Score Range",
+          "Operational Response"
+        ],
+        "steps": [
+          {
+            "at": "say6",
+            "caption": "High severity ratings encompass remote flaws with significant impact.",
+            "activeRowIndex": 1,
+            "statusBadge": "active",
+            "rows": [
+              {
+                "cells": [
+                  "Critical",
+                  "Nine to Ten",
+                  "Immediate Emergency Response"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "High",
+                  "Seven to Eight",
+                  "Expedited Remediation SLA"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Medium",
+                  "Four to Six",
+                  "Standard Sprint Backlog"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Low",
+                  "One to Three",
+                  "Routine Maintenance Window"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Critical severity vulnerabilities require immediate incident response.",
+            "activeRowIndex": 0,
+            "statusBadge": "failed",
+            "rows": [
+              {
+                "cells": [
+                  "Critical",
+                  "Nine to Ten",
+                  "Immediate Emergency Response"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "High",
+                  "Seven to Eight",
+                  "Expedited Remediation SLA"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Medium",
+                  "Four to Six",
+                  "Standard Sprint Backlog"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Low",
+                  "One to Three",
+                  "Routine Maintenance Window"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Computing the base score",
+      "codeHash": "84fc579fb727119889743ed50d760dfaf5b51e93327537e8af45037bd557ea34",
+      "spec": {
+        "template": "flow",
+        "title": "CVSS v3.1 Vector Strings & Automated Triage P... — Execution Pipeline",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "1. Input & State",
+            "tappable": true
+          },
+          {
+            "id": "proc",
+            "label": "2. CVSS v3.1 Vector St...",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "3. Verified Output",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize input state for CVSS vthree.one Vector Strings & Automated.",
+            "values": {
+              "in": "Day 26 Input",
+              "proc": "Standby",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "data",
+              "proc": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Execute core transformation in CVSS vthree.one Vector St.",
+            "values": {
+              "in": "Validated",
+              "proc": "Processing...",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Inspect concrete example output and invariants [D.Pthree.object-storage].",
+            "values": {
+              "in": "Validated",
+              "proc": "Invariant OK",
+              "out": "Emitting"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "End-to-end execution verified for CVSS vthree.one Vector Strings &.",
+            "values": {
+              "in": "Committed",
+              "proc": "Verified",
+              "out": "Complete ✓"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "CVSS v3.1 Vector Strings & Automated Triage P... — Execution Pipeline",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "1. Input & State",
+            "tappable": true
+          },
+          {
+            "id": "proc",
+            "label": "2. CVSS v3.1 Vector St...",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "3. Verified Output",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Step 1: Initialize input state for CVSS v3.1 Vector Strings & Automated Tri.. [D26.P3.S1].",
+            "values": {
+              "in": "Day 26 Input",
+              "proc": "Standby",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "data",
+              "proc": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Step 2: Execute core transformation in CVSS v3.1 Vector St... [D26.P3.S2].",
+            "values": {
+              "in": "Validated",
+              "proc": "Processing...",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Step 3: Inspect concrete example output and invariants [D26.P3.S3].",
+            "values": {
+              "in": "Validated",
+              "proc": "Invariant OK",
+              "out": "Emitting"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Step 4: End-to-end execution verified for CVSS v3.1 Vector Strings & Automa.. [D26.P3.S4].",
+            "values": {
+              "in": "Committed",
+              "proc": "Verified",
+              "out": "Complete ✓"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "From score to priority",
+      "codeHash": "c92db70d2594acdab2990c70568d13a8f3892798177800d4b7a36b4241a17706",
+      "spec": {
+        "template": "flow",
+        "title": "Coordinated vulnerability disclosure and remediation service level agreement pipeline",
+        "nodes": [
+          {
+            "id": "discovery",
+            "label": "Vulnerability Discovered",
+            "tappable": false
+          },
+          {
+            "id": "cvd",
+            "label": "Private Vendor Disclosure",
+            "tappable": false
+          },
+          {
+            "id": "patch",
+            "label": "Patch Development Window",
+            "tappable": false
+          },
+          {
+            "id": "release",
+            "label": "Public Security Advisory",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "discovery",
+            "to": "cvd",
+            "label": "CVD Report"
+          },
+          {
+            "from": "cvd",
+            "to": "patch",
+            "label": "Remediation SLA"
+          },
+          {
+            "from": "patch",
+            "to": "release",
+            "label": "Public Advisory"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Responsible disclosure establishes coordinated vulnerability reporting.",
+            "activeNodes": [
+              "discovery",
+              "cvd"
+            ],
+            "statusBadge": "active"
+          },
+          {
+            "at": "say5",
+            "caption": "Remediation agreements establish deadlines tied directly to severity ratings.",
+            "activeNodes": [
+              "patch",
+              "release"
+            ],
+            "statusBadge": "completed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Coordinated vulnerability disclosure and remediation service level agreement pipeline",
+        "nodes": [
+          {
+            "id": "discovery",
+            "label": "Vulnerability Discovered",
+            "tappable": false
+          },
+          {
+            "id": "cvd",
+            "label": "Private Vendor Disclosure",
+            "tappable": false
+          },
+          {
+            "id": "patch",
+            "label": "Patch Development Window",
+            "tappable": false
+          },
+          {
+            "id": "release",
+            "label": "Public Security Advisory",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "discovery",
+            "to": "cvd",
+            "label": "CVD Report"
+          },
+          {
+            "from": "cvd",
+            "to": "patch",
+            "label": "Remediation SLA"
+          },
+          {
+            "from": "patch",
+            "to": "release",
+            "label": "Public Advisory"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Responsible disclosure establishes coordinated vulnerability reporting.",
+            "activeNodes": [
+              "discovery",
+              "cvd"
+            ],
+            "statusBadge": "active"
+          },
+          {
+            "at": "say5",
+            "caption": "Remediation agreements establish deadlines tied directly to severity ratings.",
+            "activeNodes": [
+              "patch",
+              "release"
+            ],
+            "statusBadge": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Writing good findings",
+      "codeHash": "5a1dfe0332948bda6b07610861ad5f65c7eceb791633d63cf2a948b225bcd40e",
+      "spec": {
+        "template": "states",
+        "title": "Temporal exploit code maturity score adjustments and remediation lifecycle",
+        "states": [
+          {
+            "id": "unproven",
+            "label": "Unproven Exploit"
+          },
+          {
+            "id": "poc",
+            "label": "Proof of Concept"
+          },
+          {
+            "id": "functional",
+            "label": "Functional Weaponized"
+          },
+          {
+            "id": "patched",
+            "label": "Remediated Vendor Patch"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "Exploit code maturity adjusts temporal vulnerability scores.",
+            "activeStateId": "functional",
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say5",
+            "caption": "Applying an official vendor patch lowers the temporal vulnerability score.",
+            "activeStateId": "patched",
+            "statusBadge": "completed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Temporal exploit code maturity score adjustments and remediation lifecycle",
+        "states": [
+          {
+            "id": "unproven",
+            "label": "Unproven Exploit"
+          },
+          {
+            "id": "poc",
+            "label": "Proof of Concept"
+          },
+          {
+            "id": "functional",
+            "label": "Functional Weaponized"
+          },
+          {
+            "id": "patched",
+            "label": "Remediated Vendor Patch"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "Exploit code maturity adjusts temporal vulnerability scores.",
+            "activeStateId": "functional",
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say5",
+            "caption": "Applying an official vendor patch lowers the temporal vulnerability score.",
+            "activeStateId": "patched",
+            "statusBadge": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Practice time: CVSS",
+      "codeHash": "9903ca7818153ab2a547b4d1ebc71303353908f7fc8c3d9d343bb4daaaeaea89",
+      "spec": {
+        "template": "compare",
+        "title": "Penetration testing methodology scoping comparison and access boundaries",
+        "left": {
+          "title": "Black Box Engagement",
+          "items": [
+            "Zero internal system knowledge",
+            "Simulates opportunistic external adversaries",
+            "Focuses on perimeter reconnaissance",
+            "Relies on unauthenticated network probes"
+          ]
+        },
+        "right": {
+          "title": "White Box Engagement",
+          "items": [
+            "Complete architectural transparency provided",
+            "Source code and administrative API schemas",
+            "Identifies deep structural logic vulnerabilities",
+            "Maximizes engineering testing efficiency"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Black box engagements provide zero insider knowledge to testers.",
+            "highlightSide": "left",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say5",
+            "caption": "White box testers receive complete architectural transparency.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Black Box Engagement",
+        "rightLabel": "White Box Engagement"
+      },
+      "filled": {
+        "template": "compare",
+        "title": "Penetration testing methodology scoping comparison and access boundaries",
+        "left": {
+          "title": "Black Box Engagement",
+          "items": [
+            "Zero internal system knowledge",
+            "Simulates opportunistic external adversaries",
+            "Focuses on perimeter reconnaissance",
+            "Relies on unauthenticated network probes"
+          ]
+        },
+        "right": {
+          "title": "White Box Engagement",
+          "items": [
+            "Complete architectural transparency provided",
+            "Source code and administrative API schemas",
+            "Identifies deep structural logic vulnerabilities",
+            "Maximizes engineering testing efficiency"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Black box engagements provide zero insider knowledge to testers.",
+            "highlightSide": "left",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say5",
+            "caption": "White box testers receive complete architectural transparency.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Black Box Engagement",
+        "rightLabel": "White Box Engagement"
+      }
+    }
+  ]
+}

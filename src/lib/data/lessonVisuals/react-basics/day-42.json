@@ -110,7 +110,7 @@
           },
           {
             "at": "say4",
-            "caption": "Streaming SSR delivers a 288ms improvement in initial perceived latency on mobile devices.",
+            "caption": "Streaming SSR delivers a ms improvement in initial perceived latency on.",
             "values": {
               "left": {
                 "items": [
@@ -169,7 +169,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The client request arrives; the server commits 200 OK headers and begins streaming.",
+            "caption": "The client request arrives; the server commits OK OK headers and begins.",
             "values": {
               "http_req": {
                 "text": "\"GET /catalog\""
@@ -323,7 +323,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "React embeds a template placeholder tag (B:0) alongside an animated loading skeleton.",
+            "caption": "React embeds a template placeholder tag (B:zero) alongside an animated.",
             "values": {
               "s_fallback": {
                 "text": "\"B:0 Placeholder\""
@@ -371,7 +371,7 @@
           },
           {
             "at": "say3",
-            "caption": "When reviews resolve, the server streams `<div hidden id='S:0'>` followed by `<script>$RC('B:0','S:0')</script>`.",
+            "caption": "When reviews resolve, the server streams `<div hidden id='S:zero'>`.",
             "values": {
               "s_fallback": {
                 "text": "\"Target B:0\""
@@ -452,7 +452,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Once the initial shell is flushed, HTTP headers are committed and cannot be rewritten to 500.",
+            "caption": "Once the initial shell is flushed, HTTP headers are committed and cannot.",
             "values": {
               "headers_status": {
                 "text": "\"200 OK Locked\""
@@ -581,7 +581,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The pipeline initializes, streaming the HTML5 head metadata and application shell.",
+            "caption": "The pipeline initializes, streaming the HTMLfive head metadata and.",
             "values": {
               "start_pipe": {
                 "text": "\"FLUSH_HEAD\""

@@ -13899,3 +13899,87 @@ export const CYBER_WEB_LONG_LESSONS: LongLesson[] = [
   }
 }
 ];
+
+// --- AUTO-ENRICHED FAST/SLOW READER & PROJECT SCAFFOLDING ---
+const _SCAFFOLD_PATCHES: Record<number, Partial<import('./longLessonTypes').LongLesson>> = {
+  "37": {
+    "recap": "In Day 36 (OAuth 2.1 Framework & Core Grant Flows: Authorization Code Grant, PKCE (RFC 7636), Client Authentication & Refresh Token Rotation), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 37 (JSON Web Tokens (JWT) & JOSE Standards: JWS Signatures, JWE Encryption, Key IDs (kid), Algorithm Confusion & Clock Skew Mitigation), we build directly on that foundation by mastering Anatomy of JOSE & JWS: Header, Payload, Signature & Base64URL Mechanics and Asymmetric JWS Signatures & Key Identification: RS256 vs ES256 & kid Resolution."
+  },
+  "38": {
+    "recap": "In Day 37 (JSON Web Tokens (JWT) & JOSE Standards: JWS Signatures, JWE Encryption, Key IDs (kid), Algorithm Confusion & Clock Skew Mitigation), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 38 (OpenID Connect (OIDC) & Identity Federation: ID Tokens, UserInfo Endpoint, Discovery Document & JWKS Management), we build directly on that foundation by mastering OpenID Connect (OIDC) Core Architecture: Identity Layer on OAuth 2.0 & ID Tokens vs Access Tokens and OIDC Discovery Document (.well-known/openid-configuration) & Dynamic Provider Metadata."
+  },
+  "39": {
+    "recap": "In Day 38 (OpenID Connect (OIDC) & Identity Federation: ID Tokens, UserInfo Endpoint, Discovery Document & JWKS Management), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 39 (SAML 2.0 & Enterprise Single Sign-On (SSO): XML Signatures (XMLDSig), Canonicalization (C14N) & Replay Mitigation), we build directly on that foundation by mastering SAML 2.0 Architecture & Protocol Flow: IdP, SP, AuthnRequest, Response & Assertion Structure and XML Digital Signatures (XMLDSig) & XML Canonicalization (C14N: exc-c14n)."
+  },
+  "40": {
+    "recap": "In Day 39 (SAML 2.0 & Enterprise Single Sign-On (SSO): XML Signatures (XMLDSig), Canonicalization (C14N) & Replay Mitigation), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 40 (Milestone 8 Capstone: The Sovereign Enterprise Identity Provider (IdP) & Zero-Trust Token Exchange Gateway), we build directly on that foundation by mastering Capstone Architecture: The Sovereign Hybrid Identity Gateway & Multi-Protocol Routing and RFC 8693 OAuth 2.0 Token Exchange: Subject Tokens, Actor Tokens & Cross-Domain Delegation."
+  },
+  "41": {
+    "recap": "In Day 40 (Milestone 8 Capstone: The Sovereign Enterprise Identity Provider (IdP) & Zero-Trust Token Exchange Gateway), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 41 (OWASP Top 10 Core Mechanics & Injection Mitigation: SQL Injection, Blind SQLi, NoSQL Injection & Command Injection), we build directly on that foundation by mastering Injection Threat Modeling: SQL Injection (SQLi) Mechanics, Union-Based vs Blind SQLi & SQL Tokenizers and Defense-in-Depth Parameterization: Prepared Statements, Abstract Syntax Trees & Whitelisting."
+  },
+  "42": {
+    "recap": "In Day 41 (OWASP Top 10 Core Mechanics & Injection Mitigation: SQL Injection, Blind SQLi, NoSQL Injection & Command Injection), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 42 (Cross-Site Scripting (XSS) & Content Security Policy (CSP): Stored, Reflected, DOM XSS, Nonces & Context-Aware Escaping), we build directly on that foundation by mastering XSS Taxonomy & Threat Modeling: Stored (Persistent), Reflected (Non-Persistent) & DOM-Based XSS and Context-Aware Output Escaping: HTML Entity, JavaScript Literal, Attribute & URL Encoding."
+  },
+  "43": {
+    "recap": "In Day 42 (Cross-Site Scripting (XSS) & Content Security Policy (CSP): Stored, Reflected, DOM XSS, Nonces & Context-Aware Escaping), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 43 (Cross-Site Request Forgery (CSRF) & Cross-Origin Resource Sharing (CORS): SameSite, STP & Preflight Auditing), we build directly on that foundation by mastering CSRF Threat Modeling & Browser Ambient Authority: Ambient Credentials & State-Changing Requests and SameSite Cookie Semantics: Strict, Lax vs None & The Top-Level Navigation Exception."
+  },
+  "44": {
+    "recap": "In Day 43 (Cross-Site Request Forgery (CSRF) & Cross-Origin Resource Sharing (CORS): SameSite, STP & Preflight Auditing), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 44 (API Security & Broken Object Level Authorization (BOLA / IDOR): Mass Assignment & Rate Limiting), we build directly on that foundation by mastering OWASP API Security Top 10 & Broken Object Level Authorization (BOLA / IDOR Mechanics) and Object-Level Authorization Engines: Tenant Scoping, Ownership Context & Policy Decision Points."
+  },
+  "45": {
+    "recap": "In Day 44 (API Security & Broken Object Level Authorization (BOLA / IDOR): Mass Assignment & Rate Limiting), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 45 (Milestone 9 Capstone: The Enterprise Web Application Firewall (WAF) & Runtime Application Self-Protection (RASP) Engine), we build directly on that foundation by mastering Capstone Architecture: The Unified WAF & RASP Ingress Defense Pipeline and High-Performance WAF Inspection Engine: Regex Compilation & Negative vs Positive Security Models."
+  },
+  "46": {
+    "recap": "In Day 45 (Milestone 9 Capstone: The Enterprise Web Application Firewall (WAF) & Runtime Application Self-Protection (RASP) Engine), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 46 (Linux Kernel Hardening & Host Defense: Namespaces, cgroups v2, Capabilities, seccomp & FIM), we build directly on that foundation by mastering Linux Kernel Security Architecture: Process Isolation, Namespaces & cgroups v2 Governance and POSIX Linux Capabilities: CAP_SYS_ADMIN, CAP_NET_BIND_SERVICE & Dropping Superuser Privileges."
+  },
+  "47": {
+    "recap": "In Day 46 (Linux Kernel Hardening & Host Defense: Namespaces, cgroups v2, Capabilities, seccomp & FIM), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 47 (Container Security & Docker Isolation: Rootless Containers, Immutable Filesystems, Distroless Images, Vulnerability Scanning (Trivy/Grype) & Docker Daemon Hardening), we build directly on that foundation by mastering Container Threat Vectors & Daemon Hardening: Rootless Docker, Daemon Socket Security & Inter-Container Isolation and Minimal Base Images & Distroless: Attack Surface Reduction, Shell Stripping & Multi-Stage Builds."
+  },
+  "48": {
+    "recap": "In Day 47 (Container Security & Docker Isolation: Rootless Containers, Immutable Filesystems, Distroless Images, Vulnerability Scanning (Trivy/Grype) & Docker Daemon Hardening), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 48 (Kubernetes Security & Pod Security Standards: Admission Controllers, Pod Security Standards (Privileged vs Baseline vs Restricted), Network Policies & RBAC Least Privilege), we build directly on that foundation by mastering Kubernetes Attack Surface & API Server Authentication/Authorization: Control Plane Defense & Etcd Encryption and Kubernetes RBAC & Least Privilege Service Accounts: Roles, ClusterRoles & Token Automounting Defense."
+  },
+  "49": {
+    "recap": "In Day 48 (Kubernetes Security & Pod Security Standards: Admission Controllers, Pod Security Standards (Privileged vs Baseline vs Restricted), Network Policies & RBAC Least Privilege), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 49 (Cloud IAM & Infrastructure as Code (IaC) Hardening: Cross-Account Role Assumption, Principle of Least Privilege, SCPs, Terraform/OpenTofu Security & Static IaC Analysis (Checkov/Tfsec)), we build directly on that foundation by mastering Cloud IAM Foundations & Cross-Account Role Assumption: STS AssumeRole, External IDs & Confused Deputy Defense and Multi-Account Governance & Service Control Policies (SCPs): Organizational Guardrails & Region Confinement."
+  },
+  "50": {
+    "recap": "In Day 49 (Cloud IAM & Infrastructure as Code (IaC) Hardening: Cross-Account Role Assumption, Principle of Least Privilege, SCPs, Terraform/OpenTofu Security & Static IaC Analysis (Checkov/Tfsec)), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 50 (Milestone 10 Capstone: The Multi-Cloud Zero-Trust Security Mesh & Automated Continuous Compliance Engine), we build directly on that foundation by mastering Milestone 10 Architectural Foundation: SPIFFE Workload Identity & Multi-Cloud Zero-Trust Mesh and Defense-in-Depth Pipeline Integration: Kernel to Cloud Control Plane Boundary Defense."
+  },
+  "51": {
+    "recap": "In Day 50 (Milestone 10 Capstone: The Multi-Cloud Zero-Trust Security Mesh & Automated Continuous Compliance Engine), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 51 (Security Operations Center (SOC) Architecture & SIEM Fundamentals: Log Aggregation, Normalization (CEF/Syslog) & Correlation Engines), we build directly on that foundation by mastering SOC Operational Hierarchy & Log Ingestion: Analyst Tiers, Syslog Protocols & Semantic CEF/ECS Normalization and SIEM Event Correlation & Sliding Time Window Detection: Temporal Logic, Thresholds & Kill Chain Tracking."
+  },
+  "52": {
+    "recap": "In Day 51 (Security Operations Center (SOC) Architecture & SIEM Fundamentals: Log Aggregation, Normalization (CEF/Syslog) & Correlation Engines), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 52 (Threat Hunting & Detection Engineering: MITRE ATT&CK Mapping, Sigma Rules, YARA Rules & Anomaly Detection), we build directly on that foundation by mastering Proactive Threat Hunting vs Reactive Alerting: The Hunting Loop & The Pyramid of Pain and MITRE ATT&CK Framework Mapping: Enterprise Matrix Hierarchy, Tactics & Coverage Heatmaps."
+  },
+  "53": {
+    "recap": "In Day 52 (Threat Hunting & Detection Engineering: MITRE ATT&CK Mapping, Sigma Rules, YARA Rules & Anomaly Detection), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 53 (Security Orchestration, Automation & Response (SOAR): Automated Playbooks, Webhook Triggers, Threat Intelligence Feeds (STIX/TAXII) & Incident Containment), we build directly on that foundation by mastering The SOAR Revolution: Overcoming SOC Bottlenecks, API Connectors & Sub-Second MTTR and Threat Intelligence Standardization with STIX & TAXII: SDOs, SROs & Automated Threat Ingestion."
+  },
+  "54": {
+    "recap": "In Day 53 (Security Orchestration, Automation & Response (SOAR): Automated Playbooks, Webhook Triggers, Threat Intelligence Feeds (STIX/TAXII) & Incident Containment), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 54 (Digital Forensics & Incident Response (DFIR): Memory Forensics (Volatility), Disk Image Acquisition, Timeline Analysis & Chain of Custody), we build directly on that foundation by mastering DFIR Foundations & The Order of Volatility: RFC 3227 Guidelines & Chain of Custody Protocols and Live Memory Forensics with Volatility 3: RAM Acquisition, Symbol Tables & In-Memory Malfind Inspection."
+  },
+  "55": {
+    "recap": "In Day 54 (Digital Forensics & Incident Response (DFIR): Memory Forensics (Volatility), Disk Image Acquisition, Timeline Analysis & Chain of Custody), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 55 (Milestone 11 Capstone: The Autonomous Enterprise SOC & Automated Threat Hunting Engine), we build directly on that foundation by mastering Milestone 11 Architectural Foundation: Autonomous SOC Ingestion & Normalization Mesh and Detection-to-Response Pipeline Integration: From Telemetry Ingestion to Forensic Timeline Reconstruction."
+  },
+  "56": {
+    "recap": "In Day 55 (Milestone 11 Capstone: The Autonomous Enterprise SOC & Automated Threat Hunting Engine), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 56 (Global Zero-Trust Architectures & Sovereign Cloud Isolation: BeyondCorp, Micro-Perimeters & Cross-Region Air-Gaps), we build directly on that foundation by mastering BeyondCorp Architecture & Identity-Aware Access Proxies: Perimeterless Access & Context-Aware Trust and Sovereign Cloud Isolation & Cross-Domain Data Diodes: Photonic Air-Gaps & Content Sanitization."
+  },
+  "57": {
+    "recap": "In Day 56 (Global Zero-Trust Architectures & Sovereign Cloud Isolation: BeyondCorp, Micro-Perimeters & Cross-Region Air-Gaps), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 57 (Cloud-Native Security Resilience & Chaos Security Engineering: Fault Injection, Byzantine Fault Tolerance & Self-Healing Meshes), we build directly on that foundation by mastering Principles of Chaos Security Engineering: Hypothesizing Steady State & Automated Fault Injection and eBPF & Kernel-Level Security Chaos: Simulating Syscall Hijacking & Network Partitioning."
+  },
+  "58": {
+    "recap": "In Day 57 (Cloud-Native Security Resilience & Chaos Security Engineering: Fault Injection, Byzantine Fault Tolerance & Self-Healing Meshes), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 58 (Enterprise Cyber War Gaming, Adversary Emulation & Red/Blue/Purple Operations: TIBER-EU, MITRE Shield & Live-Fire Ranges), we build directly on that foundation by mastering Enterprise Adversary Emulation Frameworks: TIBER-EU & Live-Fire Range Architecture and Red Team Operations & Weaponized TTP Emulation: Living-off-the-Land & Kerberoasting."
+  },
+  "59": {
+    "recap": "In Day 58 (Enterprise Cyber War Gaming, Adversary Emulation & Red/Blue/Purple Operations: TIBER-EU, MITRE Shield & Live-Fire Ranges), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 59 (Cybersecurity Governance, Risk & Executive Leadership: SEC Cyber Rules, NIS2, DORA, Board Reporting & CISO Strategy), we build directly on that foundation by mastering Global Cybersecurity Regulatory Directives: SEC 4-Day Materiality, EU NIS2 & DORA and Quantitative Cyber Risk Modeling & Financial Quantification: FAIR Methodology & ALE."
+  },
+  "60": {
+    "recap": "In Day 59 (Cybersecurity Governance, Risk & Executive Leadership: SEC Cyber Rules, NIS2, DORA, Board Reporting & CISO Strategy), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 60 (Course 09 Grand Master Milestone 12 Capstone: The Sovereign Planetary Enterprise Cyber Defense Platform & Chief Information Security Officer (CISO) Grand Master Accreditation), we build directly on that foundation by mastering Milestone 12 Capstone Architectural Foundation: Planetary Zero-Trust Mesh & Sovereign Cloud Ingestion and Autonomous Threat Defense & Chaos-Resilient Immune Mesh: Sub-Second Containment & Byzantine Consensus."
+  }
+};
+for (const _lesson of CYBER_WEB_LONG_LESSONS as import('./longLessonTypes').LongLesson[]) {
+  const _p = _SCAFFOLD_PATCHES[_lesson.day];
+  if (_p) {
+    if (_p.recap && !_lesson.recap) (_lesson as any).recap = _p.recap;
+    if (_p.summary && (!_lesson.summary || _lesson.summary.length === 0)) (_lesson as any).summary = _p.summary;
+    if (_p.projectStep && (!_lesson.projectStep || !_lesson.projectStep.steps?.length)) (_lesson as any).projectStep = _p.projectStep;
+  }
+}

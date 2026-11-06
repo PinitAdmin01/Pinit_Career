@@ -6,7 +6,7 @@
   "entries": [
     {
       "partTitle": "The Mechanics Of Socratic Multi-Persona Prompting: Overcoming Monolithic Cognitive Blind Spots",
-      "codeHash": "06696541f0f64fc8118522754b9846b497bc96064b41b2a03f1ff5c393ae6d00",
+      "codeHash": "41f23b0a24e90918f602ca666defc7b58687210468c921234fea589ea3e96775",
       "spec": {
         "template": "table",
         "title": "Monolithic Prompt Blind Spots And Multi Persona Socratic Foundations.",
@@ -160,7 +160,7 @@
     },
     {
       "partTitle": "Structured Persona Specialization: Role Alignment, Domain Invariants & Adversarial Prompting",
-      "codeHash": "06696541f0f64fc8118522754b9846b497bc96064b41b2a03f1ff5c393ae6d00",
+      "codeHash": "41f23b0a24e90918f602ca666defc7b58687210468c921234fea589ea3e96775",
       "spec": {
         "template": "table",
         "title": "Structured Persona Specialization And Domain Invariant Boundaries.",
@@ -314,7 +314,7 @@
     },
     {
       "partTitle": "Multi-Round Deliberative Protocols: Cross-Examination, Rebuttal Cycles & Dialectical Synthesis",
-      "codeHash": "06696541f0f64fc8118522754b9846b497bc96064b41b2a03f1ff5c393ae6d00",
+      "codeHash": "41f23b0a24e90918f602ca666defc7b58687210468c921234fea589ea3e96775",
       "spec": {
         "template": "table",
         "title": "Multi Round Deliberation Choreography And Dialectical Synthesis.",
@@ -468,7 +468,7 @@
     },
     {
       "partTitle": "Consensus Mechanisms: Plurality Voting, Confidence-Weighted Tallying & Borda Count Selection",
-      "codeHash": "06696541f0f64fc8118522754b9846b497bc96064b41b2a03f1ff5c393ae6d00",
+      "codeHash": "41f23b0a24e90918f602ca666defc7b58687210468c921234fea589ea3e96775",
       "spec": {
         "template": "table",
         "title": "Mathematical Consensus Protocols And Confidence Weighted Tallying.",
@@ -622,7 +622,7 @@
     },
     {
       "partTitle": "Enterprise Ensemble Architecture: Hardening Multi-Agent Socratic Networks In Python",
-      "codeHash": "06696541f0f64fc8118522754b9846b497bc96064b41b2a03f1ff5c393ae6d00",
+      "codeHash": "41f23b0a24e90918f602ca666defc7b58687210468c921234fea589ea3e96775",
       "spec": {
         "template": "table",
         "title": "Enterprise Multi Agent Architecture And Python Asyncio Orchestration.",

@@ -88,7 +88,7 @@
             "focus": [
               0
             ],
-            "caption": "intro (Milestone 3 Host Defense: CPU Rings)"
+            "caption": "Intro (Milestone three Host Defense: CPU Rings)."
           },
           {
             "label": "say1",
@@ -96,7 +96,7 @@
             "focus": [
               1
             ],
-            "caption": "say1 (Milestone 3 Host Defense: CPU Rings)"
+            "caption": "Sayone (Milestone three Host Defense: CPU Rings)."
           },
           {
             "label": "example",
@@ -104,7 +104,7 @@
             "focus": [
               1
             ],
-            "caption": "example (Milestone 3 Host Defense: CPU Rings)"
+            "caption": "Example (Milestone three Host Defense: CPU Rings)."
           },
           {
             "label": "tryIt",
@@ -112,7 +112,7 @@
             "focus": [
               2
             ],
-            "caption": "tryIt (Milestone 3 Host Defense: CPU Rings)"
+            "caption": "TryIt (Milestone three Host Defense: CPU Rings)."
           }
         ]
       },
@@ -256,7 +256,7 @@
             "focus": [
               0
             ],
-            "caption": "intro (Milestone 3 Cryptographic Trust: AE)"
+            "caption": "Intro (Milestone three Cryptographic Trust: AE)."
           },
           {
             "label": "say1",
@@ -264,7 +264,7 @@
             "focus": [
               1
             ],
-            "caption": "say1 (Milestone 3 Cryptographic Trust: AE)"
+            "caption": "Sayone (Milestone three Cryptographic Trust: AE)."
           },
           {
             "label": "example",
@@ -272,7 +272,7 @@
             "focus": [
               1
             ],
-            "caption": "example (Milestone 3 Cryptographic Trust: AE)"
+            "caption": "Example (Milestone three Cryptographic Trust: AE)."
           },
           {
             "label": "tryIt",
@@ -280,7 +280,7 @@
             "focus": [
               2
             ],
-            "caption": "tryIt (Milestone 3 Cryptographic Trust: AE)"
+            "caption": "TryIt (Milestone three Cryptographic Trust: AE)."
           }
         ]
       },
@@ -424,7 +424,7 @@
             "focus": [
               0
             ],
-            "caption": "intro (Milestone 3 Hardware Interconnects:)"
+            "caption": "Intro (Milestone three Hardware Interconnects:)."
           },
           {
             "label": "say1",
@@ -432,7 +432,7 @@
             "focus": [
               1
             ],
-            "caption": "say1 (Milestone 3 Hardware Interconnects:)"
+            "caption": "Sayone (Milestone three Hardware Interconnects:)."
           },
           {
             "label": "example",
@@ -440,7 +440,7 @@
             "focus": [
               1
             ],
-            "caption": "example (Milestone 3 Hardware Interconnects:)"
+            "caption": "Example (Milestone three Hardware Interconnects:)."
           },
           {
             "label": "tryIt",
@@ -448,7 +448,7 @@
             "focus": [
               2
             ],
-            "caption": "tryIt (Milestone 3 Hardware Interconnects:)"
+            "caption": "TryIt (Milestone three Hardware Interconnects:)."
           }
         ]
       },
@@ -592,7 +592,7 @@
             "focus": [
               0
             ],
-            "caption": "intro (Milestone 3 Software Environments: )"
+            "caption": "Intro (Milestone three Software Environments: )."
           },
           {
             "label": "say1",
@@ -600,7 +600,7 @@
             "focus": [
               1
             ],
-            "caption": "say1 (Milestone 3 Software Environments: )"
+            "caption": "Sayone (Milestone three Software Environments: )."
           },
           {
             "label": "example",
@@ -608,7 +608,7 @@
             "focus": [
               1
             ],
-            "caption": "example (Milestone 3 Software Environments: )"
+            "caption": "Example (Milestone three Software Environments: )."
           },
           {
             "label": "tryIt",
@@ -616,7 +616,7 @@
             "focus": [
               2
             ],
-            "caption": "tryIt (Milestone 3 Software Environments: )"
+            "caption": "TryIt (Milestone three Software Environments: )."
           }
         ]
       },
@@ -760,7 +760,7 @@
             "focus": [
               0
             ],
-            "caption": "intro (⭐ MILESTONE 3 Master Capstone Synth)"
+            "caption": "Intro (⭐ MILESTONE three Master Capstone Synth)."
           },
           {
             "label": "say1",
@@ -768,7 +768,7 @@
             "focus": [
               1
             ],
-            "caption": "say1 (⭐ MILESTONE 3 Master Capstone Synth)"
+            "caption": "Sayone (⭐ MILESTONE three Master Capstone Synth)."
           },
           {
             "label": "example",
@@ -776,7 +776,7 @@
             "focus": [
               1
             ],
-            "caption": "example (⭐ MILESTONE 3 Master Capstone Synth)"
+            "caption": "Example (⭐ MILESTONE three Master Capstone Synth)."
           },
           {
             "label": "tryIt",
@@ -784,7 +784,7 @@
             "focus": [
               2
             ],
-            "caption": "tryIt (⭐ MILESTONE 3 Master Capstone Synth)"
+            "caption": "TryIt (⭐ MILESTONE three Master Capstone Synth)."
           }
         ]
       },

@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Caller submits transaction or upgrade proposal for The 4-Byte Function Selector C...",
+            "caption": "Caller submits transaction or upgrade proposal for The four-Byte Function.",
             "activeActor": "Admin / User Caller",
             "messages": [
               {
@@ -33,7 +33,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Proxy evaluates execution context, caller identity, and routing table",
+            "caption": "Proxy evaluates execution context, caller identity, and routing table.",
             "activeActor": "Transparent Proxy Core",
             "messages": [
               {
@@ -46,7 +46,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execution of business logic and storage slot state mutation",
+            "caption": "Execution of business logic and storage slot state mutation.",
             "activeActor": "ProxyAdmin Governance Contract",
             "messages": [
               {
@@ -59,7 +59,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: State transition committed; returndata returned to caller",
+            "caption": "State transition committed; returndata returned to caller.",
             "activeActor": "Transparent Proxy Core",
             "messages": [
               {
@@ -152,7 +152,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Caller submits transaction or upgrade proposal for The Transparent Rule: Caller-B...",
+            "caption": "Caller submits transaction or upgrade proposal for The Transparent Rule.",
             "activeActor": "Admin / User Caller",
             "messages": [
               {
@@ -165,7 +165,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Proxy evaluates execution context, caller identity, and routing table",
+            "caption": "Proxy evaluates execution context, caller identity, and routing table.",
             "activeActor": "Transparent Proxy Core",
             "messages": [
               {
@@ -178,7 +178,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execution of business logic and storage slot state mutation",
+            "caption": "Execution of business logic and storage slot state mutation.",
             "activeActor": "ProxyAdmin Governance Contract",
             "messages": [
               {
@@ -191,7 +191,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: State transition committed; returndata returned to caller",
+            "caption": "State transition committed; returndata returned to caller.",
             "activeActor": "Transparent Proxy Core",
             "messages": [
               {
@@ -284,7 +284,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Caller submits transaction or upgrade proposal for Detective Lab: Admin Intercept...",
+            "caption": "Caller submits transaction or upgrade proposal for Detective Lab: Admin.",
             "activeActor": "Admin / User Caller",
             "messages": [
               {
@@ -297,7 +297,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Proxy evaluates execution context, caller identity, and routing table",
+            "caption": "Proxy evaluates execution context, caller identity, and routing table.",
             "activeActor": "Transparent Proxy Core",
             "messages": [
               {
@@ -310,7 +310,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execution of business logic and storage slot state mutation",
+            "caption": "Execution of business logic and storage slot state mutation.",
             "activeActor": "ProxyAdmin Governance Contract",
             "messages": [
               {
@@ -323,7 +323,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: State transition committed; returndata returned to caller",
+            "caption": "State transition committed; returndata returned to caller.",
             "activeActor": "Transparent Proxy Core",
             "messages": [
               {
@@ -416,7 +416,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Caller submits transaction or upgrade proposal for Foundry Call Frame Tracing & S...",
+            "caption": "Caller submits transaction or upgrade proposal for Foundry Call Frame.",
             "activeActor": "Admin / User Caller",
             "messages": [
               {
@@ -429,7 +429,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Proxy evaluates execution context, caller identity, and routing table",
+            "caption": "Proxy evaluates execution context, caller identity, and routing table.",
             "activeActor": "Transparent Proxy Core",
             "messages": [
               {
@@ -442,7 +442,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execution of business logic and storage slot state mutation",
+            "caption": "Execution of business logic and storage slot state mutation.",
             "activeActor": "ProxyAdmin Governance Contract",
             "messages": [
               {
@@ -455,7 +455,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: State transition committed; returndata returned to caller",
+            "caption": "State transition committed; returndata returned to caller.",
             "activeActor": "Transparent Proxy Core",
             "messages": [
               {
@@ -548,7 +548,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Caller submits transaction or upgrade proposal for Production Transparent Upgrade...",
+            "caption": "Caller submits transaction or upgrade proposal for Production Transparent.",
             "activeActor": "Admin / User Caller",
             "messages": [
               {
@@ -561,7 +561,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Proxy evaluates execution context, caller identity, and routing table",
+            "caption": "Proxy evaluates execution context, caller identity, and routing table.",
             "activeActor": "Transparent Proxy Core",
             "messages": [
               {
@@ -574,7 +574,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execution of business logic and storage slot state mutation",
+            "caption": "Execution of business logic and storage slot state mutation.",
             "activeActor": "ProxyAdmin Governance Contract",
             "messages": [
               {
@@ -587,7 +587,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: State transition committed; returndata returned to caller",
+            "caption": "State transition committed; returndata returned to caller.",
             "activeActor": "Transparent Proxy Core",
             "messages": [
               {

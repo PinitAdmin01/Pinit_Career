@@ -136,7 +136,7 @@
           },
           {
             "at": "say7",
-            "caption": "Compensations restore consistent distributed business state without 2PC.",
+            "caption": "Compensations restore consistent distributed business state without twoPC.",
             "values": {
               "order": {
                 "status": "Online"
@@ -185,7 +185,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Choreography works well for simple linear flows between 2 services.",
+            "caption": "Choreography works well for simple linear flows between two services.",
             "values": {
               "activeSide": "left"
             }

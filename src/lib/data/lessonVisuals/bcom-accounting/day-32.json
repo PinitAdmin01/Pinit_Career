@@ -11,12 +11,12 @@
       "filled": {},
       "spec": {
         "template": "ledger-sheet",
-        "title": "Demise of Off-Balance-Sheet Leases: The ... \u2014 Ledger Verification",
+        "title": "Demise of Off-Balance-Sheet Leases: The ... — Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary Ind AS ledger posting ($522,024) for Demise of Off-Balance-Sheet Leases: The ...",
-            "title": "Day 32 Journal \u2014 Initial Posting",
+            "caption": "Open primary Ind AS ledger posting ($multiple,multiple) for Demise of.",
+            "title": "Day 32 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 522024,
             "totalCredit": 522024,
@@ -41,8 +41,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary valuation & amortization accrual ($34,442).",
-            "title": "Day 32 Journal \u2014 Accrual / Amortization Adjustment",
+            "caption": "Record secondary valuation & amortization accrual ($multiple,multiple).",
+            "title": "Day 32 Journal — Accrual / Amortization Adjustment",
             "isBalanced": true,
             "totalDebit": 556466,
             "totalCredit": 556466,
@@ -72,8 +72,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of balance sheet carrying values and statutory disclosures.",
-            "title": "Day 32 Journal \u2014 Balance Sheet Realignment",
+            "caption": "Verification of balance sheet carrying values and statutory disclosures.",
+            "title": "Day 32 Journal — Balance Sheet Realignment",
             "isBalanced": true,
             "totalDebit": 556466,
             "totalCredit": 556466,
@@ -103,8 +103,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute deterministic Python engine and verify mathematical equilibrium.",
-            "title": "Day 32 Journal \u2014 Balanced Closure",
+            "caption": "Execute deterministic Python engine and verify mathematical equilibrium.",
+            "title": "Day 32 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 556466,
             "totalCredit": 556466,
@@ -141,12 +141,12 @@
       "filled": {},
       "spec": {
         "template": "ledger-sheet",
-        "title": "Initial Measurement of Lease Liabilities... \u2014 Ledger Verification",
+        "title": "Initial Measurement of Lease Liabilities... — Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary Ind AS ledger posting ($527,024) for Initial Measurement of Lease Liabilities...",
-            "title": "Day 32 Journal \u2014 Initial Posting",
+            "caption": "Open primary Ind AS ledger posting ($multiple,multiple) for Initial.",
+            "title": "Day 32 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 527024,
             "totalCredit": 527024,
@@ -171,8 +171,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary valuation & amortization accrual ($34,442).",
-            "title": "Day 32 Journal \u2014 Accrual / Amortization Adjustment",
+            "caption": "Record secondary valuation & amortization accrual ($multiple,multiple).",
+            "title": "Day 32 Journal — Accrual / Amortization Adjustment",
             "isBalanced": true,
             "totalDebit": 561466,
             "totalCredit": 561466,
@@ -202,8 +202,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of balance sheet carrying values and statutory disclosures.",
-            "title": "Day 32 Journal \u2014 Balance Sheet Realignment",
+            "caption": "Verification of balance sheet carrying values and statutory disclosures.",
+            "title": "Day 32 Journal — Balance Sheet Realignment",
             "isBalanced": true,
             "totalDebit": 561466,
             "totalCredit": 561466,
@@ -233,8 +233,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute deterministic Python engine and verify mathematical equilibrium.",
-            "title": "Day 32 Journal \u2014 Balanced Closure",
+            "caption": "Execute deterministic Python engine and verify mathematical equilibrium.",
+            "title": "Day 32 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 561466,
             "totalCredit": 561466,
@@ -271,12 +271,12 @@
       "filled": {},
       "spec": {
         "template": "ledger-sheet",
-        "title": "Subsequent Measurement & The P&L Front-L... \u2014 Ledger Verification",
+        "title": "Subsequent Measurement & The P&L Front-L... — Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary Ind AS ledger posting ($532,024) for Subsequent Measurement & The P&L Front-L...",
-            "title": "Day 32 Journal \u2014 Initial Posting",
+            "caption": "Open primary Ind AS ledger posting ($multiple,multiple) for Subsequent.",
+            "title": "Day 32 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 532024,
             "totalCredit": 532024,
@@ -301,8 +301,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary valuation & amortization accrual ($34,442).",
-            "title": "Day 32 Journal \u2014 Accrual / Amortization Adjustment",
+            "caption": "Record secondary valuation & amortization accrual ($multiple,multiple).",
+            "title": "Day 32 Journal — Accrual / Amortization Adjustment",
             "isBalanced": true,
             "totalDebit": 566466,
             "totalCredit": 566466,
@@ -332,8 +332,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of balance sheet carrying values and statutory disclosures.",
-            "title": "Day 32 Journal \u2014 Balance Sheet Realignment",
+            "caption": "Verification of balance sheet carrying values and statutory disclosures.",
+            "title": "Day 32 Journal — Balance Sheet Realignment",
             "isBalanced": true,
             "totalDebit": 566466,
             "totalCredit": 566466,
@@ -363,8 +363,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute deterministic Python engine and verify mathematical equilibrium.",
-            "title": "Day 32 Journal \u2014 Balanced Closure",
+            "caption": "Execute deterministic Python engine and verify mathematical equilibrium.",
+            "title": "Day 32 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 566466,
             "totalCredit": 566466,
@@ -401,12 +401,12 @@
       "filled": {},
       "spec": {
         "template": "ledger-sheet",
-        "title": "Financial Metric Transformations (EBITDA... \u2014 Ledger Verification",
+        "title": "Financial Metric Transformations (EBITDA... — Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary Ind AS ledger posting ($537,024) for Financial Metric Transformations (EBITDA...",
-            "title": "Day 32 Journal \u2014 Initial Posting",
+            "caption": "Open primary Ind AS ledger posting ($multiple,multiple) for Financial.",
+            "title": "Day 32 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 537024,
             "totalCredit": 537024,
@@ -431,8 +431,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary valuation & amortization accrual ($34,442).",
-            "title": "Day 32 Journal \u2014 Accrual / Amortization Adjustment",
+            "caption": "Record secondary valuation & amortization accrual ($multiple,multiple).",
+            "title": "Day 32 Journal — Accrual / Amortization Adjustment",
             "isBalanced": true,
             "totalDebit": 571466,
             "totalCredit": 571466,
@@ -462,8 +462,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of balance sheet carrying values and statutory disclosures.",
-            "title": "Day 32 Journal \u2014 Balance Sheet Realignment",
+            "caption": "Verification of balance sheet carrying values and statutory disclosures.",
+            "title": "Day 32 Journal — Balance Sheet Realignment",
             "isBalanced": true,
             "totalDebit": 571466,
             "totalCredit": 571466,
@@ -493,8 +493,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute deterministic Python engine and verify mathematical equilibrium.",
-            "title": "Day 32 Journal \u2014 Balanced Closure",
+            "caption": "Execute deterministic Python engine and verify mathematical equilibrium.",
+            "title": "Day 32 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 571466,
             "totalCredit": 571466,
@@ -531,12 +531,12 @@
       "filled": {},
       "spec": {
         "template": "ledger-sheet",
-        "title": "Lessor Accounting, Sale-and-Leaseback Tr... \u2014 Ledger Verification",
+        "title": "Lessor Accounting, Sale-and-Leaseback Tr... — Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary Ind AS ledger posting ($542,024) for Lessor Accounting, Sale-and-Leaseback Tr...",
-            "title": "Day 32 Journal \u2014 Initial Posting",
+            "caption": "Open primary Ind AS ledger posting ($multiple,multiple) for Lessor.",
+            "title": "Day 32 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 542024,
             "totalCredit": 542024,
@@ -561,8 +561,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary valuation & amortization accrual ($34,442).",
-            "title": "Day 32 Journal \u2014 Accrual / Amortization Adjustment",
+            "caption": "Record secondary valuation & amortization accrual ($multiple,multiple).",
+            "title": "Day 32 Journal — Accrual / Amortization Adjustment",
             "isBalanced": true,
             "totalDebit": 576466,
             "totalCredit": 576466,
@@ -592,8 +592,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of balance sheet carrying values and statutory disclosures.",
-            "title": "Day 32 Journal \u2014 Balance Sheet Realignment",
+            "caption": "Verification of balance sheet carrying values and statutory disclosures.",
+            "title": "Day 32 Journal — Balance Sheet Realignment",
             "isBalanced": true,
             "totalDebit": 576466,
             "totalCredit": 576466,
@@ -623,8 +623,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Execute deterministic Python engine and verify mathematical equilibrium.",
-            "title": "Day 32 Journal \u2014 Balanced Closure",
+            "caption": "Execute deterministic Python engine and verify mathematical equilibrium.",
+            "title": "Day 32 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 576466,
             "totalCredit": 576466,

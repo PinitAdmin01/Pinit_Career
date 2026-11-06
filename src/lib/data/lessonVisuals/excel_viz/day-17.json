@@ -12,7 +12,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline optimization parameters for Scenario Manager Architecture: Base...",
+            "caption": "Baseline optimization parameters for Scenario Manager Architecture: Base...",
             "max": 100,
             "bars": [
               {
@@ -39,7 +39,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Constraint evaluation and iterative gradient steps for Scenario Manager Architecture: Base...",
+            "caption": "Constraint evaluation and iterative gradient steps for Scenario Manager.",
             "max": 100,
             "bars": [
               {
@@ -66,7 +66,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Simplex vertex pivot or GRG gradient convergence in Scenario Manager Architecture: Base...",
+            "caption": "Simplex vertex pivot or GRG gradient convergence in Scenario Manager.",
             "max": 100,
             "bars": [
               {
@@ -93,7 +93,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Optimal global solution reached satisfying all covenant boundaries for Scenario Manager Architecture: Base...",
+            "caption": "Optimal global solution reached satisfying all covenant boundaries for.",
             "max": 100,
             "bars": [
               {
@@ -244,7 +244,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline optimization parameters for Goal Seek Numerical Root-Finding: S...",
+            "caption": "Baseline optimization parameters for Goal Seek Numerical Root-Finding: S...",
             "max": 100,
             "bars": [
               {
@@ -271,7 +271,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Constraint evaluation and iterative gradient steps for Goal Seek Numerical Root-Finding: S...",
+            "caption": "Constraint evaluation and iterative gradient steps for Goal Seek.",
             "max": 100,
             "bars": [
               {
@@ -298,7 +298,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Simplex vertex pivot or GRG gradient convergence in Goal Seek Numerical Root-Finding: S...",
+            "caption": "Simplex vertex pivot or GRG gradient convergence in Goal Seek Numerical.",
             "max": 100,
             "bars": [
               {
@@ -325,7 +325,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Optimal global solution reached satisfying all covenant boundaries for Goal Seek Numerical Root-Finding: S...",
+            "caption": "Optimal global solution reached satisfying all covenant boundaries for.",
             "max": 100,
             "bars": [
               {
@@ -476,7 +476,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline optimization parameters for Introduction to Linear Programming ...",
+            "caption": "Baseline optimization parameters for Introduction to Linear Programming ...",
             "max": 100,
             "bars": [
               {
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Constraint evaluation and iterative gradient steps for Introduction to Linear Programming ...",
+            "caption": "Constraint evaluation and iterative gradient steps for Introduction to.",
             "max": 100,
             "bars": [
               {
@@ -530,7 +530,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Simplex vertex pivot or GRG gradient convergence in Introduction to Linear Programming ...",
+            "caption": "Simplex vertex pivot or GRG gradient convergence in Introduction to.",
             "max": 100,
             "bars": [
               {
@@ -557,7 +557,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Optimal global solution reached satisfying all covenant boundaries for Introduction to Linear Programming ...",
+            "caption": "Optimal global solution reached satisfying all covenant boundaries for.",
             "max": 100,
             "bars": [
               {
@@ -708,7 +708,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline optimization parameters for Non-Linear Optimization & Solving A...",
+            "caption": "Baseline optimization parameters for Non-Linear Optimization & Solving A...",
             "max": 100,
             "bars": [
               {
@@ -735,7 +735,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Constraint evaluation and iterative gradient steps for Non-Linear Optimization & Solving A...",
+            "caption": "Constraint evaluation and iterative gradient steps for Non-Linear.",
             "max": 100,
             "bars": [
               {
@@ -762,7 +762,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Simplex vertex pivot or GRG gradient convergence in Non-Linear Optimization & Solving A...",
+            "caption": "Simplex vertex pivot or GRG gradient convergence in Non-Linear.",
             "max": 100,
             "bars": [
               {
@@ -789,7 +789,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Optimal global solution reached satisfying all covenant boundaries for Non-Linear Optimization & Solving A...",
+            "caption": "Optimal global solution reached satisfying all covenant boundaries for.",
             "max": 100,
             "bars": [
               {
@@ -940,7 +940,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline optimization parameters for Enterprise Capital Structure & Work...",
+            "caption": "Baseline optimization parameters for Enterprise Capital Structure & Work...",
             "max": 100,
             "bars": [
               {
@@ -967,7 +967,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Constraint evaluation and iterative gradient steps for Enterprise Capital Structure & Work...",
+            "caption": "Constraint evaluation and iterative gradient steps for Enterprise Capital.",
             "max": 100,
             "bars": [
               {
@@ -994,7 +994,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Simplex vertex pivot or GRG gradient convergence in Enterprise Capital Structure & Work...",
+            "caption": "Simplex vertex pivot or GRG gradient convergence in Enterprise Capital.",
             "max": 100,
             "bars": [
               {
@@ -1021,7 +1021,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Optimal global solution reached satisfying all covenant boundaries for Enterprise Capital Structure & Work...",
+            "caption": "Optimal global solution reached satisfying all covenant boundaries for.",
             "max": 100,
             "bars": [
               {

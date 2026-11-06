@@ -136,7 +136,7 @@
           },
           {
             "at": "say7",
-            "caption": "Resilient cluster dispatcher balances least-connections and injects W3C traces.",
+            "caption": "Resilient cluster dispatcher balances least-connections and injects.",
             "values": {
               "client": {
                 "status": "Online"
@@ -471,7 +471,7 @@
           },
           {
             "at": "say3",
-            "caption": "Injects W3C traceparent header to preserve end-to-end distributed causality.",
+            "caption": "Injects WthreeC traceparent header to preserve end-to-end distributed.",
             "values": {
               "dispatcher": {
                 "status": "Processing"
@@ -660,7 +660,7 @@
           },
           {
             "at": "say7",
-            "caption": "Awards official Grade A+ Milestone 10 Capstone Certification.",
+            "caption": "Awards official Grade A+ Milestone ten Capstone Certification.",
             "values": {
               "sla_route": {
                 "status": "Synchronized"

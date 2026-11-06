@@ -13816,3 +13816,21 @@ export const AI_WEB_LONG_LESSONS: LongLesson[] = [
   ]
 }
 ];
+
+// --- AUTO-ENRICHED FAST/SLOW READER & PROJECT SCAFFOLDING ---
+const _SCAFFOLD_PATCHES: Record<number, Partial<import('./longLessonTypes').LongLesson>> = {
+  "59": {
+    "recap": "In Day 58 (Self-Healing Infrastructure & Automated Remediation: K8s Pod Eviction, Traffic Shedding & Circuit Breakers), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 59 (Continuous Verification, Chaos Engineering & Blast Radius Guardrails), we build directly on that foundation by mastering Chaos Engineering For Autonomous Agents: Injecting Network Latency, Memory Pressure & Simulated Node Failures and Blast Radius Containment: Strict Scope Boundaries, Rate Limits & Anti-Flapping Logic."
+  },
+  "60": {
+    "recap": "In Day 59 (Continuous Verification, Chaos Engineering & Blast Radius Guardrails), you mastered foundational workflows and verified deterministic execution outputs. Today in Day 60 (Milestone 12 Grand Capstone: The Autonomous AI SRE Agent & Planetary Production Mesh), we build directly on that foundation by mastering The Unified Autonomous SRE Operating System: Telemetry, Diagnostics, Remediation & Post-Mortems and Multi-Agent Collaboration Topology: Triage, Investigator, Actuator & Communications Roles."
+  }
+};
+for (const _lesson of AI_WEB_LONG_LESSONS as import('./longLessonTypes').LongLesson[]) {
+  const _p = _SCAFFOLD_PATCHES[_lesson.day];
+  if (_p) {
+    if (_p.recap && !_lesson.recap) (_lesson as any).recap = _p.recap;
+    if (_p.summary && (!_lesson.summary || _lesson.summary.length === 0)) (_lesson as any).summary = _p.summary;
+    if (_p.projectStep && (!_lesson.projectStep || !_lesson.projectStep.steps?.length)) (_lesson as any).projectStep = _p.projectStep;
+  }
+}

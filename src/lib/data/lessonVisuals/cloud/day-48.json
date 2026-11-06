@@ -112,25 +112,25 @@
             "at": "say1",
             "focus": "left",
             "annotation": "Primitive CloudFormation resources require manual parameter configuration.",
-            "caption": "Primitive CloudFormation resources require manual parameter configuration. (Construct Layers & Abstractions: L1)"
+            "caption": "Primitive CloudFormation resources require manual parameter."
           },
           {
             "at": "say2",
             "focus": "right",
             "annotation": "Curated constructs embed security best practices and encryption defaults.",
-            "caption": "Curated constructs embed security best practices and encryption defaults. (Construct Layers & Abstractions: L1)"
+            "caption": "Curated constructs embed security best practices and encryption defaults."
           },
           {
             "at": "example",
             "focus": "both",
             "annotation": "Higher level constructs compose complete architectural service patterns.",
-            "caption": "Higher level constructs compose complete architectural service patterns. (Construct Layers & Abstractions: L1)"
+            "caption": "Higher level constructs compose complete architectural service patterns."
           },
           {
             "at": "tryIt",
             "focus": "right",
             "annotation": "Enterprise teams achieve rapid developer velocity using curated patterns.",
-            "caption": "Enterprise teams achieve rapid developer velocity using curated patterns. (Construct Layers & Abstractions: L1)"
+            "caption": "Enterprise teams achieve rapid developer velocity using curated patterns."
           }
         ]
       }

@@ -185,7 +185,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "acks=0 fires packets into socket buffer without acknowledgment.",
+            "caption": "Acks=zero fires packets into socket buffer without acknowledgment.",
             "values": {
               "activeSide": "left"
             }
@@ -206,7 +206,7 @@
           },
           {
             "at": "say7",
-            "caption": "Critical transaction pipelines mandate acks=all and min.insync.replicas=2.",
+            "caption": "Critical transaction pipelines mandate acks=all and.",
             "values": {
               "activeSide": "both"
             }

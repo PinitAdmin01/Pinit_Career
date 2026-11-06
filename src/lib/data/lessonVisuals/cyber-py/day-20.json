@@ -1,0 +1,841 @@
+{
+  "schemaVersion": 1,
+  "prefix": "cyber-py",
+  "day": 20,
+  "promptSha": "66fb74bcb5f5837637882445e3d3d18366890ab93443e3da31688b2d7a67de7b",
+  "model": "gpt-4o",
+  "entries": [
+    {
+      "partTitle": "Why rate limiting",
+      "codeHash": "b4315a945dba8f9491d72169648f5168510eeb587f32fe08682aafbeb24a8f43",
+      "spec": {
+        "template": "states",
+        "title": "Token bucket rate limiting traffic shaping and request evaluation states",
+        "states": [
+          {
+            "id": "bucketRefilled",
+            "label": "Continuous Token Refill at Rate R"
+          },
+          {
+            "id": "requestArrived",
+            "label": "Incoming Request Requests Token"
+          },
+          {
+            "id": "tokenDeducted",
+            "label": "Tokens Available and Deducted"
+          },
+          {
+            "id": "limitExceeded",
+            "label": "Bucket Empty Yields Rate Limit Error"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say6",
+            "caption": "Available tokens are deducted and requests proceed without penalty.",
+            "activeStateId": "tokenDeducted",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say7",
+            "caption": "If the bucket is empty requests are dropped with rate limit headers.",
+            "activeStateId": "limitExceeded",
+            "statusBadge": "failed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Token bucket rate limiting traffic shaping and request evaluation states",
+        "states": [
+          {
+            "id": "bucketRefilled",
+            "label": "Continuous Token Refill at Rate R"
+          },
+          {
+            "id": "requestArrived",
+            "label": "Incoming Request Requests Token"
+          },
+          {
+            "id": "tokenDeducted",
+            "label": "Tokens Available and Deducted"
+          },
+          {
+            "id": "limitExceeded",
+            "label": "Bucket Empty Yields Rate Limit Error"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say6",
+            "caption": "Available tokens are deducted and requests proceed without penalty.",
+            "activeStateId": "tokenDeducted",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say7",
+            "caption": "If the bucket is empty requests are dropped with rate limit headers.",
+            "activeStateId": "limitExceeded",
+            "statusBadge": "failed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "The token bucket",
+      "codeHash": "cee03952782d96c33eaa09f41ff7ffc3ba2c1df53a3ddb09599162f8993a02ff",
+      "spec": {
+        "template": "table",
+        "title": "RFC rate limit response headers and automated client backoff policies",
+        "columns": [
+          "Response Header",
+          "Semantic Purpose",
+          "Example Header Payload",
+          "Client Behavior"
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "The gateway extracts the client address and evaluates their individual quota.",
+            "activeRowIndex": 0,
+            "statusBadge": "active",
+            "rows": [
+              {
+                "cells": [
+                  "X-RateLimit-Limit",
+                  "Total Window Quota Limit",
+                  "One Hundred Requests per Minute",
+                  "Establishes Client Baseline"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "X-RateLimit-Remaining",
+                  "Current Available Token Count",
+                  "Forty Two Requests Remaining",
+                  "Monitors Remaining Capacity"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Retry-After Header",
+                  "Seconds Until Next Refill Window",
+                  "Thirty Seconds Remaining",
+                  "Triggers Exponential Backoff"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Quarantine Block",
+                  "Dynamic Threshold Enforcement",
+                  "Firewall IP Drop Injected",
+                  "Terminates Volumetric Abuse"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Emitting rate limit headers enables clients to back off automatically.",
+            "activeRowIndex": 2,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "X-RateLimit-Limit",
+                  "Total Window Quota Limit",
+                  "One Hundred Requests per Minute",
+                  "Establishes Client Baseline"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "X-RateLimit-Remaining",
+                  "Current Available Token Count",
+                  "Forty Two Requests Remaining",
+                  "Monitors Remaining Capacity"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Retry-After Header",
+                  "Seconds Until Next Refill Window",
+                  "Thirty Seconds Remaining",
+                  "Triggers Exponential Backoff"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Quarantine Block",
+                  "Dynamic Threshold Enforcement",
+                  "Firewall IP Drop Injected",
+                  "Terminates Volumetric Abuse"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "RFC rate limit response headers and automated client backoff policies",
+        "columns": [
+          "Response Header",
+          "Semantic Purpose",
+          "Example Header Payload",
+          "Client Behavior"
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "The gateway extracts the client address and evaluates their individual quota.",
+            "activeRowIndex": 0,
+            "statusBadge": "active",
+            "rows": [
+              {
+                "cells": [
+                  "X-RateLimit-Limit",
+                  "Total Window Quota Limit",
+                  "One Hundred Requests per Minute",
+                  "Establishes Client Baseline"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "X-RateLimit-Remaining",
+                  "Current Available Token Count",
+                  "Forty Two Requests Remaining",
+                  "Monitors Remaining Capacity"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Retry-After Header",
+                  "Seconds Until Next Refill Window",
+                  "Thirty Seconds Remaining",
+                  "Triggers Exponential Backoff"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Quarantine Block",
+                  "Dynamic Threshold Enforcement",
+                  "Firewall IP Drop Injected",
+                  "Terminates Volumetric Abuse"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Emitting rate limit headers enables clients to back off automatically.",
+            "activeRowIndex": 2,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "X-RateLimit-Limit",
+                  "Total Window Quota Limit",
+                  "One Hundred Requests per Minute",
+                  "Establishes Client Baseline"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "X-RateLimit-Remaining",
+                  "Current Available Token Count",
+                  "Forty Two Requests Remaining",
+                  "Monitors Remaining Capacity"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Retry-After Header",
+                  "Seconds Until Next Refill Window",
+                  "Thirty Seconds Remaining",
+                  "Triggers Exponential Backoff"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Quarantine Block",
+                  "Dynamic Threshold Enforcement",
+                  "Firewall IP Drop Injected",
+                  "Terminates Volumetric Abuse"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "OAuth 2.0 in brief",
+      "codeHash": "73b0d4300c9ed1f92754ddec9cf587bb8ada595a33a5666e51f29593205e1e3f",
+      "spec": {
+        "template": "sequence",
+        "title": "OAuth 2.0 PKCE code challenge initiation and verification exchange",
+        "actors": [
+          {
+            "id": "client",
+            "label": "Public Client Application"
+          },
+          {
+            "id": "authServer",
+            "label": "OAuth Authorization Server"
+          },
+          {
+            "id": "api",
+            "label": "Protected Resource API"
+          }
+        ],
+        "messages": [
+          {
+            "from": "client",
+            "to": "authServer",
+            "label": "Initiate Auth with SHA-256 Code Challenge",
+            "tone": "data"
+          },
+          {
+            "from": "authServer",
+            "to": "client",
+            "label": "Issue Temporary Authorization Code",
+            "tone": "ok"
+          },
+          {
+            "from": "client",
+            "to": "authServer",
+            "label": "Exchange Code and Plaintext Code Verifier",
+            "tone": "data"
+          },
+          {
+            "from": "authServer",
+            "to": "client",
+            "label": "Validate Challenge and Issue Access Tokens",
+            "tone": "ok"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say6",
+            "caption": "The client computes the challenge by hashing the verifier with SHA.",
+            "activeMessageIndex": 0,
+            "statusBadge": "active"
+          },
+          {
+            "at": "say8",
+            "caption": "The client presents the secret verifier to prove authorization initiation.",
+            "activeMessageIndex": 2,
+            "statusBadge": "completed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "sequence",
+        "title": "OAuth 2.0 PKCE code challenge initiation and verification exchange",
+        "actors": [
+          {
+            "id": "client",
+            "label": "Public Client Application"
+          },
+          {
+            "id": "authServer",
+            "label": "OAuth Authorization Server"
+          },
+          {
+            "id": "api",
+            "label": "Protected Resource API"
+          }
+        ],
+        "messages": [
+          {
+            "from": "client",
+            "to": "authServer",
+            "label": "Initiate Auth with SHA-256 Code Challenge",
+            "tone": "data"
+          },
+          {
+            "from": "authServer",
+            "to": "client",
+            "label": "Issue Temporary Authorization Code",
+            "tone": "ok"
+          },
+          {
+            "from": "client",
+            "to": "authServer",
+            "label": "Exchange Code and Plaintext Code Verifier",
+            "tone": "data"
+          },
+          {
+            "from": "authServer",
+            "to": "client",
+            "label": "Validate Challenge and Issue Access Tokens",
+            "tone": "ok"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say6",
+            "caption": "The client computes the challenge by hashing the verifier with SHA.",
+            "activeMessageIndex": 0,
+            "statusBadge": "active"
+          },
+          {
+            "at": "say8",
+            "caption": "The client presents the secret verifier to prove authorization initiation.",
+            "activeMessageIndex": 2,
+            "statusBadge": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "PKCE",
+      "codeHash": "b58a3fc82e233c2db7df6f42b8d70e60cfb525443b3e91cce4fc8e2a6272fcd4",
+      "spec": {
+        "template": "flow",
+        "title": "Multi-stage API gateway defense-in-depth security inspection pipeline",
+        "nodes": [
+          {
+            "id": "gatewayEntry",
+            "label": "API Gateway Edge Listener",
+            "tappable": false
+          },
+          {
+            "id": "rateLimiter",
+            "label": "Token Bucket Rate Guard",
+            "tappable": false
+          },
+          {
+            "id": "authzGate",
+            "label": "OAuth PKCE Token Verifier",
+            "tappable": false
+          },
+          {
+            "id": "sanitizerGate",
+            "label": "Payload Sanitization Filter",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "gatewayEntry",
+            "to": "rateLimiter",
+            "label": "Enforces"
+          },
+          {
+            "from": "rateLimiter",
+            "to": "authzGate",
+            "label": "Authenticates"
+          },
+          {
+            "from": "authzGate",
+            "to": "sanitizerGate",
+            "label": "Proxies"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "The gateway checks clients against rate limiters rejecting volumetric abuse.",
+            "activeNodes": [
+              "gatewayEntry",
+              "rateLimiter"
+            ],
+            "statusBadge": "active"
+          },
+          {
+            "at": "say7",
+            "caption": "Only when all security gates pass does the gateway proxy the request.",
+            "activeNodes": [
+              "authzGate",
+              "sanitizerGate"
+            ],
+            "statusBadge": "completed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Multi-stage API gateway defense-in-depth security inspection pipeline",
+        "nodes": [
+          {
+            "id": "gatewayEntry",
+            "label": "API Gateway Edge Listener",
+            "tappable": false
+          },
+          {
+            "id": "rateLimiter",
+            "label": "Token Bucket Rate Guard",
+            "tappable": false
+          },
+          {
+            "id": "authzGate",
+            "label": "OAuth PKCE Token Verifier",
+            "tappable": false
+          },
+          {
+            "id": "sanitizerGate",
+            "label": "Payload Sanitization Filter",
+            "tappable": false
+          }
+        ],
+        "edges": [
+          {
+            "from": "gatewayEntry",
+            "to": "rateLimiter",
+            "label": "Enforces"
+          },
+          {
+            "from": "rateLimiter",
+            "to": "authzGate",
+            "label": "Authenticates"
+          },
+          {
+            "from": "authzGate",
+            "to": "sanitizerGate",
+            "label": "Proxies"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "The gateway checks clients against rate limiters rejecting volumetric abuse.",
+            "activeNodes": [
+              "gatewayEntry",
+              "rateLimiter"
+            ],
+            "statusBadge": "active"
+          },
+          {
+            "at": "say7",
+            "caption": "Only when all security gates pass does the gateway proxy the request.",
+            "activeNodes": [
+              "authzGate",
+              "sanitizerGate"
+            ],
+            "statusBadge": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Other API protections",
+      "codeHash": "6c95eb2d94d7f99e797252cce5bdb60f16a1726210abb01959fcec0fa9e29b6b",
+      "spec": {
+        "template": "compare",
+        "title": "Token bucket burst accommodation versus sliding window log precision",
+        "left": {
+          "title": "Token Bucket Burst Allowance",
+          "items": [
+            "Permits temporary bursts of requests up to capacity limit",
+            "Smooth replenishment at constant refill rate over time",
+            "Very low memory consumption with only two numeric values"
+          ]
+        },
+        "right": {
+          "title": "Sliding Window Log Precision",
+          "items": [
+            "Records timestamp for every individual request in cache",
+            "Eliminates boundary burst flaws with absolute precision",
+            "High memory overhead storing logs for millions of users"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Uniform rate algorithms process requests smoothing erratic traffic spikes.",
+            "highlightSide": "left",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say6",
+            "caption": "Sliding window logs eliminate boundary vulnerabilities with precision.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Token Bucket Burst Allowance",
+        "rightLabel": "Sliding Window Log Precision"
+      },
+      "filled": {
+        "template": "compare",
+        "title": "Token bucket burst accommodation versus sliding window log precision",
+        "left": {
+          "title": "Token Bucket Burst Allowance",
+          "items": [
+            "Permits temporary bursts of requests up to capacity limit",
+            "Smooth replenishment at constant refill rate over time",
+            "Very low memory consumption with only two numeric values"
+          ]
+        },
+        "right": {
+          "title": "Sliding Window Log Precision",
+          "items": [
+            "Records timestamp for every individual request in cache",
+            "Eliminates boundary burst flaws with absolute precision",
+            "High memory overhead storing logs for millions of users"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Uniform rate algorithms process requests smoothing erratic traffic spikes.",
+            "highlightSide": "left",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say6",
+            "caption": "Sliding window logs eliminate boundary vulnerabilities with precision.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Token Bucket Burst Allowance",
+        "rightLabel": "Sliding Window Log Precision"
+      }
+    },
+    {
+      "partTitle": "Practice time: buckets and PKCE",
+      "codeHash": "a8c18557c696a567dc0f4707948672d41eee876f7821f79cce810567c97aa7ce",
+      "spec": {
+        "template": "flow",
+        "title": "OAuth 2.0 PKCE Code Challenge Derivation & Ve... — Execution Pipeline",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "1. Input & State",
+            "tappable": true
+          },
+          {
+            "id": "proc",
+            "label": "2. OAuth 2.0 PKCE Code...",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "3. Verified Output",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize input state for OAuth two.zero PKCE Code Challenge.",
+            "values": {
+              "in": "Day 20 Input",
+              "proc": "Standby",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "data",
+              "proc": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Execute core transformation in OAuth two.zero PKCE Code.",
+            "values": {
+              "in": "Validated",
+              "proc": "Processing...",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Inspect concrete example output and invariants.",
+            "values": {
+              "in": "Validated",
+              "proc": "Invariant OK",
+              "out": "Emitting"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "End-to-end execution verified for OAuth two.zero PKCE Code Challenge.",
+            "values": {
+              "in": "Committed",
+              "proc": "Verified",
+              "out": "Complete ✓"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "OAuth 2.0 PKCE Code Challenge Derivation & Ve... — Execution Pipeline",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "1. Input & State",
+            "tappable": true
+          },
+          {
+            "id": "proc",
+            "label": "2. OAuth 2.0 PKCE Code...",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "3. Verified Output",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Step 1: Initialize input state for OAuth 2.0 PKCE Code Challenge Derivation.. [D20.P6.S1].",
+            "values": {
+              "in": "Day 20 Input",
+              "proc": "Standby",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "data",
+              "proc": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Step 2: Execute core transformation in OAuth 2.0 PKCE Code... [D20.P6.S2].",
+            "values": {
+              "in": "Validated",
+              "proc": "Processing...",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Step 3: Inspect concrete example output and invariants [D20.P6.S3].",
+            "values": {
+              "in": "Validated",
+              "proc": "Invariant OK",
+              "out": "Emitting"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Step 4: End-to-end execution verified for OAuth 2.0 PKCE Code Challenge Der.. [D20.P6.S4].",
+            "values": {
+              "in": "Committed",
+              "proc": "Verified",
+              "out": "Complete ✓"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

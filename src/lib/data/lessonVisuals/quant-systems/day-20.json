@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (VPIN Shield): Initialize deterministic state for Architectural Blueprint of an In...",
+            "caption": "State one (VPIN Shield): Initialize deterministic state for Architectural.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -99,7 +99,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (VPIN Shield): Initialize deterministic state for Real-Time VPIN Toxicity Filterin...",
+            "caption": "State one (VPIN Shield): Initialize deterministic state for Real-Time.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -166,7 +166,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (VPIN Shield): Initialize deterministic state for Online Multivariate Cointegratio...",
+            "caption": "State one (VPIN Shield): Initialize deterministic state for Online.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -233,7 +233,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (VPIN Shield): Initialize deterministic state for Sub-Microsecond Kalman Dynamic B...",
+            "caption": "State one (VPIN Shield): Initialize deterministic state for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -300,7 +300,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (VPIN Shield): Initialize deterministic state for Milestone 4 Capstone: Full Platf...",
+            "caption": "State one (VPIN Shield): Initialize deterministic state for Milestone.",
             "currentState": "st1",
             "tone": "data"
           },

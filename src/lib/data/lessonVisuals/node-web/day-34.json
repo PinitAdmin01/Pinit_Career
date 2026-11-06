@@ -56,7 +56,7 @@
           },
           {
             "at": "say3",
-            "caption": "Radix tree indexes entries efficiently by 64-bit millisecond key.",
+            "caption": "Radix tree indexes entries efficiently by sixty-four-bit millisecond key.",
             "values": {
               "ts": {
                 "text": "1710000000001"
@@ -199,7 +199,7 @@
           },
           {
             "at": "say3",
-            "caption": "Worker 1 requests new entries using the special '>' operator.",
+            "caption": "Worker one requests new entries using the special '>' operator.",
             "values": {
               "str": {
                 "status": "Active"
@@ -217,7 +217,7 @@
           },
           {
             "at": "say5",
-            "caption": "Worker 2 pulls subsequent entries without duplicate delivery.",
+            "caption": "Worker two pulls subsequent entries without duplicate delivery.",
             "values": {
               "str": {
                 "status": "Active"
@@ -408,7 +408,7 @@
           },
           {
             "at": "say3",
-            "caption": "Messages with idle time > 30 seconds are identified in the PEL.",
+            "caption": "Messages with idle time > multiple seconds are identified in the PEL.",
             "values": {
               "dead": {
                 "status": "Dead"

@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register CSMA_BACKOFF_REG for Medium Access Control Dynamics: .",
+            "caption": "Arm hardware register CSMA_BACKOFF_REG for Medium Access Control.",
             "registerName": "CSMA_BACKOFF_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into CSMA_BACKOFF_REG and assert validation flag.",
+            "caption": "Latch sampling bits into CSMA_BACKOFF_REG and assert validation flag.",
             "registerName": "CSMA_BACKOFF_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in CSMA_BACKOFF_REG with pipeline status.",
+            "caption": "Execute hardware transformation in CSMA_BACKOFF_REG with pipeline status.",
             "registerName": "CSMA_BACKOFF_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register CSMA_BACKOFF_REG upon verified hardware completion.",
+            "caption": "Lock register CSMA_BACKOFF_REG upon verified hardware completion.",
             "registerName": "CSMA_BACKOFF_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -266,7 +266,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register EXP_WINDOW_REG for Backoff Exponents & Contention W.",
+            "caption": "Arm hardware register EXP_WINDOW_REG for Backoff Exponents & Contention W.",
             "registerName": "EXP_WINDOW_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -326,7 +326,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into EXP_WINDOW_REG and assert validation flag.",
+            "caption": "Latch sampling bits into EXP_WINDOW_REG and assert validation flag.",
             "registerName": "EXP_WINDOW_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -387,7 +387,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in EXP_WINDOW_REG with pipeline status.",
+            "caption": "Execute hardware transformation in EXP_WINDOW_REG with pipeline status.",
             "registerName": "EXP_WINDOW_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -448,7 +448,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register EXP_WINDOW_REG upon verified hardware completion.",
+            "caption": "Lock register EXP_WINDOW_REG upon verified hardware completion.",
             "registerName": "EXP_WINDOW_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -518,7 +518,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register CCA_ENERGY_REG for Clear Channel Assessment Physics.",
+            "caption": "Arm hardware register CCA_ENERGY_REG for Clear Channel Assessment Physics.",
             "registerName": "CCA_ENERGY_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -578,7 +578,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into CCA_ENERGY_REG and assert validation flag.",
+            "caption": "Latch sampling bits into CCA_ENERGY_REG and assert validation flag.",
             "registerName": "CCA_ENERGY_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -639,7 +639,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in CCA_ENERGY_REG with pipeline status.",
+            "caption": "Execute hardware transformation in CCA_ENERGY_REG with pipeline status.",
             "registerName": "CCA_ENERGY_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -700,7 +700,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register CCA_ENERGY_REG upon verified hardware completion.",
+            "caption": "Lock register CCA_ENERGY_REG upon verified hardware completion.",
             "registerName": "CCA_ENERGY_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -770,7 +770,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register DUAL_CCA_REG for Slotted CSMA/CA for Beacon-Enabl.",
+            "caption": "Arm hardware register DUAL_CCA_REG for Slotted CSMA/CA for Beacon-Enabl.",
             "registerName": "DUAL_CCA_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -830,7 +830,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into DUAL_CCA_REG and assert validation flag.",
+            "caption": "Latch sampling bits into DUAL_CCA_REG and assert validation flag.",
             "registerName": "DUAL_CCA_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -891,7 +891,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in DUAL_CCA_REG with pipeline status.",
+            "caption": "Execute hardware transformation in DUAL_CCA_REG with pipeline status.",
             "registerName": "DUAL_CCA_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -952,7 +952,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register DUAL_CCA_REG upon verified hardware completion.",
+            "caption": "Lock register DUAL_CCA_REG upon verified hardware completion.",
             "registerName": "DUAL_CCA_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1022,7 +1022,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register CONTENTION_REG for Full Discrete-Event CSMA/CA Simu.",
+            "caption": "Arm hardware register CONTENTION_REG for Full Discrete-Event CSMA/CA Simu.",
             "registerName": "CONTENTION_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1082,7 +1082,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into CONTENTION_REG and assert validation flag.",
+            "caption": "Latch sampling bits into CONTENTION_REG and assert validation flag.",
             "registerName": "CONTENTION_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -1143,7 +1143,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in CONTENTION_REG with pipeline status.",
+            "caption": "Execute hardware transformation in CONTENTION_REG with pipeline status.",
             "registerName": "CONTENTION_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -1204,7 +1204,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register CONTENTION_REG upon verified hardware completion.",
+            "caption": "Lock register CONTENTION_REG upon verified hardware completion.",
             "registerName": "CONTENTION_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

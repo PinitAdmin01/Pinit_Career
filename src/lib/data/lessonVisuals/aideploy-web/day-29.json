@@ -723,7 +723,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Comprehensive 20-Point Production Readin.. [D29.P6.S1].",
+            "caption": "Initialize input state for Comprehensive twenty-Point Production Readin.",
             "values": {
               "in": "Day 29 Input",
               "proc": "Standby",
@@ -743,7 +743,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Comprehensive 20-Po... [D29.P6.S2].",
+            "caption": "Execute core transformation in Comprehensive twenty-Po... [D.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -767,7 +767,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D29.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -787,7 +787,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Comprehensive 20-Point Production.. [D29.P6.S4].",
+            "caption": "End-to-end execution verified for Comprehensive twenty-Point Production.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

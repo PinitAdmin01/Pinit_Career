@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary facility debit entry ($98,500) for End-to-End Enterprise ERP Setup & G...",
+            "caption": "Open primary facility debit entry ($multiple,server-error) for End-to-End.",
             "title": "Day 21 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 98500,
@@ -40,7 +40,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary interest & fee accrual adjustment ($19,700).",
+            "caption": "Record secondary interest & fee accrual adjustment ($multiple,multiple).",
             "title": "Day 21 Journal — Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 118200,
@@ -71,7 +71,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of institutional reserve provisioning & counterparty collateral.",
+            "caption": "Verification of institutional reserve provisioning & counterparty.",
             "title": "Day 21 Journal — Collateral & Reserve Alignment",
             "isBalanced": true,
             "totalDebit": 118200,
@@ -102,7 +102,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Real-time balance sheet reconciliation and regulatory capital confirmation.",
+            "caption": "Real-time balance sheet reconciliation and regulatory capital confirmation.",
             "title": "Day 21 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 118200,
@@ -143,7 +143,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary facility debit entry ($99,750) for Automated Multi-Item Invoice Genera...",
+            "caption": "Open primary facility debit entry ($multiple,multiple) for Automated.",
             "title": "Day 21 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 99750,
@@ -169,7 +169,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary interest & fee accrual adjustment ($19,950).",
+            "caption": "Record secondary interest & fee accrual adjustment ($multiple,multiple).",
             "title": "Day 21 Journal — Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 119700,
@@ -200,7 +200,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of institutional reserve provisioning & counterparty collateral.",
+            "caption": "Verification of institutional reserve provisioning & counterparty.",
             "title": "Day 21 Journal — Collateral & Reserve Alignment",
             "isBalanced": true,
             "totalDebit": 119700,
@@ -231,7 +231,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Real-time balance sheet reconciliation and regulatory capital confirmation.",
+            "caption": "Real-time balance sheet reconciliation and regulatory capital confirmation.",
             "title": "Day 21 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 119700,
@@ -272,7 +272,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary facility debit entry ($101,000) for Automated Purchase Ingestion, Rule ...",
+            "caption": "Open primary facility debit entry ($multiple,multiple) for Automated.",
             "title": "Day 21 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 101000,
@@ -298,7 +298,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary interest & fee accrual adjustment ($20,200).",
+            "caption": "Record secondary interest & fee accrual adjustment ($twenty,OK).",
             "title": "Day 21 Journal — Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 121200,
@@ -329,7 +329,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of institutional reserve provisioning & counterparty collateral.",
+            "caption": "Verification of institutional reserve provisioning & counterparty.",
             "title": "Day 21 Journal — Collateral & Reserve Alignment",
             "isBalanced": true,
             "totalDebit": 121200,
@@ -360,7 +360,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Real-time balance sheet reconciliation and regulatory capital confirmation.",
+            "caption": "Real-time balance sheet reconciliation and regulatory capital confirmation.",
             "title": "Day 21 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 121200,
@@ -401,7 +401,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary facility debit entry ($102,250) for Dynamic Section 49 Tax Set-Off & El...",
+            "caption": "Open primary facility debit entry ($multiple,multiple) for Dynamic.",
             "title": "Day 21 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 102250,
@@ -427,7 +427,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary interest & fee accrual adjustment ($20,450).",
+            "caption": "Record secondary interest & fee accrual adjustment ($twenty,multiple).",
             "title": "Day 21 Journal — Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 122700,
@@ -458,7 +458,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of institutional reserve provisioning & counterparty collateral.",
+            "caption": "Verification of institutional reserve provisioning & counterparty.",
             "title": "Day 21 Journal — Collateral & Reserve Alignment",
             "isBalanced": true,
             "totalDebit": 122700,
@@ -489,7 +489,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Real-time balance sheet reconciliation and regulatory capital confirmation.",
+            "caption": "Real-time balance sheet reconciliation and regulatory capital confirmation.",
             "title": "Day 21 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 122700,
@@ -530,7 +530,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary facility debit entry ($103,500) for Complete ERP to Statutory Tax Retur...",
+            "caption": "Open primary facility debit entry ($multiple,server-error) for Complete.",
             "title": "Day 21 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 103500,
@@ -556,7 +556,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary interest & fee accrual adjustment ($20,700).",
+            "caption": "Record secondary interest & fee accrual adjustment ($twenty,multiple).",
             "title": "Day 21 Journal — Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 124200,
@@ -587,7 +587,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of institutional reserve provisioning & counterparty collateral.",
+            "caption": "Verification of institutional reserve provisioning & counterparty.",
             "title": "Day 21 Journal — Collateral & Reserve Alignment",
             "isBalanced": true,
             "totalDebit": 124200,
@@ -618,7 +618,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Real-time balance sheet reconciliation and regulatory capital confirmation.",
+            "caption": "Real-time balance sheet reconciliation and regulatory capital confirmation.",
             "title": "Day 21 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 124200,

@@ -770,7 +770,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Top-of-funnel acquisition baseline (16,500 prospects) [D26.P4.S1].",
+            "caption": "Top-of-funnel acquisition baseline (sixteen,server-error prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -808,7 +808,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filter retains 45% high-intent cohort (7,425) [D26.P4.S2].",
+            "caption": "Qualification filter retains multiple% high-intent cohort.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -846,7 +846,7 @@
           },
           {
             "at": "example",
-            "caption": "Active pipeline evaluation stage (2,970 engaged accounts) [D26.P4.S3].",
+            "caption": "Active pipeline evaluation stage (two,multiple engaged accounts).",
             "activeStageId": "target",
             "stages": [
               {
@@ -884,7 +884,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Closed-won & retained customer cohort verified (1,188) [D26.P4.S4].",
+            "caption": "Closed-won & retained customer cohort verified (one,multiple).",
             "activeStageId": "final",
             "stages": [
               {
@@ -1342,7 +1342,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Top-of-funnel acquisition baseline (16,500 prospects) [D26.P6.S1].",
+            "caption": "Top-of-funnel acquisition baseline (sixteen,server-error prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -1380,7 +1380,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filter retains 45% high-intent cohort (7,425) [D26.P6.S2].",
+            "caption": "Qualification filter retains multiple% high-intent cohort.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -1418,7 +1418,7 @@
           },
           {
             "at": "example",
-            "caption": "Active pipeline evaluation stage (2,970 engaged accounts) [D26.P6.S3].",
+            "caption": "Active pipeline evaluation stage (two,multiple engaged accounts).",
             "activeStageId": "target",
             "stages": [
               {
@@ -1456,7 +1456,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Closed-won & retained customer cohort verified (1,188) [D26.P6.S4].",
+            "caption": "Closed-won & retained customer cohort verified (one,multiple).",
             "activeStageId": "final",
             "stages": [
               {

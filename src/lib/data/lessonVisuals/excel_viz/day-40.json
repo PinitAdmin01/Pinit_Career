@@ -12,7 +12,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ledger ingestion and statutory framework for Enterprise Multi-Table Star Schema Architecture Audit",
+            "caption": "Ledger ingestion and statutory framework for Enterprise Multi-Table Star.",
             "max": 100,
             "bars": [
               {
@@ -39,7 +39,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing recursive linkages and calculations for Enterprise Multi-Table Star Schema Architecture Audit",
+            "caption": "Processing recursive linkages and calculations for Enterprise Multi-Table.",
             "max": 100,
             "bars": [
               {
@@ -66,7 +66,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world stress testing and scenarios for Enterprise Multi-Table Star Schema Architecture Audit",
+            "caption": "Real-world stress testing and scenarios for Enterprise Multi-Table Star.",
             "max": 100,
             "bars": [
               {
@@ -93,7 +93,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Active experimentation and parameter tuning for Enterprise Multi-Table Star Schema Architecture Audit",
+            "caption": "Active experimentation and parameter tuning for Enterprise Multi-Table.",
             "max": 100,
             "bars": [
               {
@@ -244,7 +244,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ledger ingestion and statutory framework for End-to-End Power Query M Ingestion & 100% Query Folding Pipeline",
+            "caption": "Ledger ingestion and statutory framework for End-to-End Power Query M.",
             "max": 100,
             "bars": [
               {
@@ -271,7 +271,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing recursive linkages and calculations for End-to-End Power Query M Ingestion & 100% Query Folding Pipeline",
+            "caption": "Processing recursive linkages and calculations for End-to-End Power Query.",
             "max": 100,
             "bars": [
               {
@@ -298,7 +298,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world stress testing and scenarios for End-to-End Power Query M Ingestion & 100% Query Folding Pipeline",
+            "caption": "Real-world stress testing and scenarios for End-to-End Power Query M.",
             "max": 100,
             "bars": [
               {
@@ -325,7 +325,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Active experimentation and parameter tuning for End-to-End Power Query M Ingestion & 100% Query Folding Pipeline",
+            "caption": "Active experimentation and parameter tuning for End-to-End Power Query M.",
             "max": 100,
             "bars": [
               {
@@ -476,7 +476,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ledger ingestion and statutory framework for VertiPaq Columnar Engine Memory Profiling & Compression Benchmark",
+            "caption": "Ledger ingestion and statutory framework for VertiPaq Columnar Engine.",
             "max": 100,
             "bars": [
               {
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing recursive linkages and calculations for VertiPaq Columnar Engine Memory Profiling & Compression Benchmark",
+            "caption": "Processing recursive linkages and calculations for VertiPaq Columnar.",
             "max": 100,
             "bars": [
               {
@@ -530,7 +530,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world stress testing and scenarios for VertiPaq Columnar Engine Memory Profiling & Compression Benchmark",
+            "caption": "Real-world stress testing and scenarios for VertiPaq Columnar Engine.",
             "max": 100,
             "bars": [
               {
@@ -557,7 +557,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Active experimentation and parameter tuning for VertiPaq Columnar Engine Memory Profiling & Compression Benchmark",
+            "caption": "Active experimentation and parameter tuning for VertiPaq Columnar Engine.",
             "max": 100,
             "bars": [
               {
@@ -708,7 +708,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ledger ingestion and statutory framework for High-Performance DAX Executive Scorecard Engine",
+            "caption": "Ledger ingestion and statutory framework for High-Performance DAX.",
             "max": 100,
             "bars": [
               {
@@ -735,7 +735,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing recursive linkages and calculations for High-Performance DAX Executive Scorecard Engine",
+            "caption": "Processing recursive linkages and calculations for High-Performance DAX.",
             "max": 100,
             "bars": [
               {
@@ -762,7 +762,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world stress testing and scenarios for High-Performance DAX Executive Scorecard Engine",
+            "caption": "Real-world stress testing and scenarios for High-Performance DAX.",
             "max": 100,
             "bars": [
               {
@@ -789,7 +789,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Active experimentation and parameter tuning for High-Performance DAX Executive Scorecard Engine",
+            "caption": "Active experimentation and parameter tuning for High-Performance DAX.",
             "max": 100,
             "bars": [
               {
@@ -940,7 +940,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ledger ingestion and statutory framework for ApexModel Production Certification & Sovereign SHA-256 Audit Seal",
+            "caption": "Ledger ingestion and statutory framework for ApexModel Production.",
             "max": 100,
             "bars": [
               {
@@ -967,7 +967,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing recursive linkages and calculations for ApexModel Production Certification & Sovereign SHA-256 Audit Seal",
+            "caption": "Processing recursive linkages and calculations for ApexModel Production.",
             "max": 100,
             "bars": [
               {
@@ -994,7 +994,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world stress testing and scenarios for ApexModel Production Certification & Sovereign SHA-256 Audit Seal",
+            "caption": "Real-world stress testing and scenarios for ApexModel Production.",
             "max": 100,
             "bars": [
               {
@@ -1021,7 +1021,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Active experimentation and parameter tuning for ApexModel Production Certification & Sovereign SHA-256 Audit Seal",
+            "caption": "Active experimentation and parameter tuning for ApexModel Production.",
             "max": 100,
             "bars": [
               {

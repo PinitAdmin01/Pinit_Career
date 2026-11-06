@@ -41,6 +41,10 @@ import { BCOM_ENTREPRENEURSHIP_30_DAYS_QUESTS } from './bcomEntrepreneurship30Da
 import { BCOM_SALES_CRM_30_DAYS_QUESTS } from './bcomSalesCrm30DayData';
 import { BCOM_OPERATIONS_30_DAYS_QUESTS } from './bcomOperations30DayData';
 import { BCOM_AI_TRANSFORMATION_30_DAYS_QUESTS } from './bcomAiTransformation30DayData';
+import { BCOM_AUDITING_30_DAYS_QUESTS } from './bcomAuditing30DayData';
+import { BCOM_BANKING_30_DAYS_QUESTS } from './bcomBanking30DayData';
+import { BCOM_LAW_30_DAYS_QUESTS } from './bcomLaw30DayData';
+import { BCOM_TAXATION_30_DAYS_QUESTS } from './bcomTaxation30DayData';
 import { COMPUTER_FUNDAMENTALS_30_DAYS_QUESTS } from './computerFundamentals30DayData';
 import { AI_PROMPT_LITERACY_30_DAYS_QUESTS } from './aiPromptLiteracy30DayData';
 import { EXCEL_DATA_VIZ_30_DAYS_QUESTS } from './excelDataViz30DayData';
@@ -50,6 +54,7 @@ import { SRE_WEB_30_DAYS_QUESTS } from './sreWeb30DayData';
 import { STREAM_WEB_30_DAYS_QUESTS } from './streamWeb30DayData';
 import { AI_DEPLOY_WEB_30_DAYS_QUESTS } from './aiDeployWeb30DayData';
 import { addBlockTests } from './blockTests';
+import { withMonth2Lessons } from './month2Quests';
 
 
 import type { CodeLanguage } from '../code/types';
@@ -472,6 +477,42 @@ const RAW_COURSES: Course[] = [
     icon: '🤖',
     quests: BCOM_AI_TRANSFORMATION_30_DAYS_QUESTS as any
   },
+  {
+    id: 'course-statutory-auditing',
+    title: 'Statutory Audit, Forensic Accounting & Corporate Assurance (B.Com / BBA / CA)',
+    desc: 'University-grade curriculum covering audit risk models, Benford fraud analytics, SOX 404 internal controls, Monetary Unit Sampling (MUS), substantive verification, and ISA 700 statutory reporting.',
+    difficulty: 'Intermediate',
+    durationWeeks: 4,
+    icon: '🔍',
+    quests: BCOM_AUDITING_30_DAYS_QUESTS as any
+  },
+  {
+    id: 'course-banking-treasury',
+    title: 'Commercial Banking, Treasury & Credit Risk Operations (B.Com / BBA / MBA)',
+    desc: 'University-grade curriculum covering fractional reserve banking, Asset-Liability Management (ALM) duration gaps, Basel III capital ratios, Liquidity Coverage Ratios (LCR), and Expected Credit Loss (ECL) modeling.',
+    difficulty: 'Intermediate',
+    durationWeeks: 4,
+    icon: '🏦',
+    quests: BCOM_BANKING_30_DAYS_QUESTS as any
+  },
+  {
+    id: 'course-corporate-law',
+    title: 'Corporate & Commercial Law, Contracts & Governance (B.Com / BBA / LLB)',
+    desc: 'University-grade curriculum covering commercial contracts, liquidated damages, corporate veil piercing, director fiduciary duties, securities compliance, and M&A antitrust HHI regulation.',
+    difficulty: 'Intermediate',
+    durationWeeks: 4,
+    icon: '⚖️',
+    quests: BCOM_LAW_30_DAYS_QUESTS as any
+  },
+  {
+    id: 'course-corporate-taxation',
+    title: 'Corporate Taxation, Direct Taxes & Tax Shield Strategy (B.Com / BBA / MBA)',
+    desc: 'University-grade curriculum covering ASC 740 / IAS 12 deferred taxes (DTA/DTL), Modigliani-Miller debt tax shields, OECD arm-length transfer pricing, NOL carryforwards, and GST/VAT input tax credit chains.',
+    difficulty: 'Intermediate',
+    durationWeeks: 4,
+    icon: '📑',
+    quests: BCOM_TAXATION_30_DAYS_QUESTS as any
+  },
   // 🌐 UNIVERSAL FOUNDATIONAL COURSES (ESSENTIAL FOR BOTH TECH & NON-TECH)
   {
     id: 'course-computer-fundamentals',
@@ -548,7 +589,7 @@ const RAW_COURSES: Course[] = [
 ];
 
 /** Every day-based course gets a short test after every 5 days (see courseTests.ts). */
-export const COURSES_REGISTRY: Course[] = RAW_COURSES.map((course) => ({
+export const COURSES_REGISTRY: Course[] = RAW_COURSES.map(withMonth2Lessons).map((course) => ({
   ...course,
   quests: addBlockTests(course.quests),
 }));

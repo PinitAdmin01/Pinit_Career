@@ -89,7 +89,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Uplink complete: Power amplifier asleep, hardware timer opens RX1 window at T+1.0s.",
+            "caption": "Uplink complete: Power amplifier asleep, hardware timer opens RXone.",
             "registerName": "LORA_MAC_CLASS_CTRL_REG",
             "bitWidth": 8,
             "hexValue": "0x88",
@@ -157,7 +157,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "RX1 preamble acquisition timeout: Radio switches frequency and opens RX2 window at T+2.0s.",
+            "caption": "RXone preamble acquisition timeout: Radio switches frequency and opens.",
             "registerName": "LORA_MAC_CLASS_CTRL_REG",
             "bitWidth": 8,
             "hexValue": "0x90",
@@ -507,7 +507,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Commit activated OTAA session: Allocate 32-bit DevAddr and arm operational state machine.",
+            "caption": "Commit activated OTAA session: Allocate thirty-two-bit DevAddr and arm.",
             "registerName": "LORA_OTAA_JOIN_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -653,7 +653,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Generate AES-128-CTR keystream and encrypt FRMPayload under AppSKey with zero padding overhead.",
+            "caption": "Generate AES-one-twenty-eight-CTR keystream and encrypt FRMPayload under.",
             "registerName": "LORA_CRYPTO_ENGINE_REG",
             "bitWidth": 8,
             "hexValue": "0xF0",
@@ -721,7 +721,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Construct integrity block B_0 and compute RFC 4493 AES-128-CMAC signature under NwkSKey.",
+            "caption": "Construct integrity block B_zero and compute RFC multiple.",
             "registerName": "LORA_CRYPTO_ENGINE_REG",
             "bitWidth": 8,
             "hexValue": "0xFC",
@@ -789,7 +789,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Append 4-byte MIC to physical frame: Output fully authenticated, multi-tenant secure payload.",
+            "caption": "Append four-byte MIC to physical frame: Output fully authenticated.",
             "registerName": "LORA_CRYPTO_ENGINE_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -935,7 +935,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Synchronize 16-bit physical FHDR counter with 32-bit internal cryptographic rollover state.",
+            "caption": "Synchronize sixteen-bit physical FHDR counter with thirty-two-bit.",
             "registerName": "LORA_FCNT_MAC_CTRL_REG",
             "bitWidth": 8,
             "hexValue": "0xF0",
@@ -1149,7 +1149,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize LoRaWAN L2 1.0.4 stack: Complete OTAA cryptographic handshake and derive session keys.",
+            "caption": "Initialize LoRaWAN level-two one.zero.four stack: Complete OTAA.",
             "registerName": "LORA_MASTER_MAC_REG",
             "bitWidth": 8,
             "hexValue": "0xC0",
@@ -1217,7 +1217,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Lock 32-bit frame counter sequencer and activate dual-key AES-CTR/CMAC isolation pipeline.",
+            "caption": "Lock thirty-two-bit frame counter sequencer and activate dual-key.",
             "registerName": "LORA_MASTER_MAC_REG",
             "bitWidth": 8,
             "hexValue": "0xF0",
@@ -1285,7 +1285,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Dispatch authenticated telemetry frame: Verify 4-byte MIC and arm microsecond RX1/RX2 timers.",
+            "caption": "Dispatch authenticated telemetry frame: Verify four-byte MIC and arm.",
             "registerName": "LORA_MASTER_MAC_REG",
             "bitWidth": 8,
             "hexValue": "0xFC",

@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Enqueued to Broker): Publish serialized message envelope to broker queue for Milestone 8 Architecture Specification & Distributed Contracts.",
+            "caption": "State one (Enqueued to Broker): Publish serialized message envelope to.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -60,7 +60,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Late ACK / Result Resolved): Atomic late ACK confirmed, zero task loss, and terminal state persisted.",
+            "caption": "State four (Late ACK / Result Resolved): Atomic late ACK confirmed, zero.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -99,7 +99,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Enqueued to Broker): Publish serialized message envelope to broker queue for Worker Crash Recovery & Idempotency Stress Testing.",
+            "caption": "State one (Enqueued to Broker): Publish serialized message envelope to.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -127,7 +127,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Late ACK / Result Resolved): Atomic late ACK confirmed, zero task loss, and terminal state persisted.",
+            "caption": "State four (Late ACK / Result Resolved): Atomic late ACK confirmed, zero.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -166,7 +166,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Enqueued to Broker): Publish serialized message envelope to broker queue for Distributed Task Queue & Canvas Workflow Engine Implementation.",
+            "caption": "State one (Enqueued to Broker): Publish serialized message envelope to.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -194,7 +194,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Late ACK / Result Resolved): Atomic late ACK confirmed, zero task loss, and terminal state persisted.",
+            "caption": "State four (Late ACK / Result Resolved): Atomic late ACK confirmed, zero.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -233,7 +233,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Enqueued to Broker): Publish serialized message envelope to broker queue for Poison Pill Interception & Dead-Letter Queue Self-Healing.",
+            "caption": "State one (Enqueued to Broker): Publish serialized message envelope to.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -261,7 +261,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Late ACK / Result Resolved): Atomic late ACK confirmed, zero task loss, and terminal state persisted.",
+            "caption": "State four (Late ACK / Result Resolved): Atomic late ACK confirmed, zero.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -300,7 +300,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Enqueued to Broker): Publish serialized message envelope to broker queue for Milestone 8 Production Defense & Verification Gate.",
+            "caption": "State one (Enqueued to Broker): Publish serialized message envelope to.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -328,7 +328,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Late ACK / Result Resolved): Atomic late ACK confirmed, zero task loss, and terminal state persisted.",
+            "caption": "State four (Late ACK / Result Resolved): Atomic late ACK confirmed, zero.",
             "currentState": "st4",
             "transition": {
               "from": "st3",

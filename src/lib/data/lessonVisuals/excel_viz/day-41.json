@@ -12,7 +12,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingestion and distributional baseline setup for Mathematical Moments of Continuous Distributions: Mean, Variance, Skewness & Excess Kurtosis",
+            "caption": "Ingestion and distributional baseline setup for Mathematical Moments of.",
             "max": 100,
             "bars": [
               {
@@ -39,7 +39,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Algorithmic calculation and statistical analysis for Mathematical Moments of Continuous Distributions: Mean, Variance, Skewness & Excess Kurtosis",
+            "caption": "Algorithmic calculation and statistical analysis for Mathematical Moments.",
             "max": 100,
             "bars": [
               {
@@ -66,7 +66,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stress testing and statistical validation for Mathematical Moments of Continuous Distributions: Mean, Variance, Skewness & Excess Kurtosis",
+            "caption": "Stress testing and statistical validation for Mathematical Moments of.",
             "max": 100,
             "bars": [
               {
@@ -93,7 +93,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Econometric gating and production verification for Mathematical Moments of Continuous Distributions: Mean, Variance, Skewness & Excess Kurtosis",
+            "caption": "Econometric gating and production verification for Mathematical Moments.",
             "max": 100,
             "bars": [
               {
@@ -244,7 +244,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingestion and distributional baseline setup for Tukey's Interquartile Range (IQR) & Non-Parametric Outlier Fences",
+            "caption": "Ingestion and distributional baseline setup for Tukey's Interquartile.",
             "max": 100,
             "bars": [
               {
@@ -271,7 +271,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Algorithmic calculation and statistical analysis for Tukey's Interquartile Range (IQR) & Non-Parametric Outlier Fences",
+            "caption": "Algorithmic calculation and statistical analysis for Tukey's.",
             "max": 100,
             "bars": [
               {
@@ -298,7 +298,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stress testing and statistical validation for Tukey's Interquartile Range (IQR) & Non-Parametric Outlier Fences",
+            "caption": "Stress testing and statistical validation for Tukey's Interquartile Range.",
             "max": 100,
             "bars": [
               {
@@ -325,7 +325,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Econometric gating and production verification for Tukey's Interquartile Range (IQR) & Non-Parametric Outlier Fences",
+            "caption": "Econometric gating and production verification for Tukey's Interquartile.",
             "max": 100,
             "bars": [
               {
@@ -476,7 +476,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingestion and distributional baseline setup for Distribution Shape Diagnostics: Skewness Direction & Kurtosis Tail Risk",
+            "caption": "Ingestion and distributional baseline setup for Distribution Shape.",
             "max": 100,
             "bars": [
               {
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Algorithmic calculation and statistical analysis for Distribution Shape Diagnostics: Skewness Direction & Kurtosis Tail Risk",
+            "caption": "Algorithmic calculation and statistical analysis for Distribution Shape.",
             "max": 100,
             "bars": [
               {
@@ -530,7 +530,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stress testing and statistical validation for Distribution Shape Diagnostics: Skewness Direction & Kurtosis Tail Risk",
+            "caption": "Stress testing and statistical validation for Distribution Shape.",
             "max": 100,
             "bars": [
               {
@@ -557,7 +557,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Econometric gating and production verification for Distribution Shape Diagnostics: Skewness Direction & Kurtosis Tail Risk",
+            "caption": "Econometric gating and production verification for Distribution Shape.",
             "max": 100,
             "bars": [
               {
@@ -708,7 +708,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingestion and distributional baseline setup for Multi-Cohort Exploratory Data Profiling & Executive Discrepancy Audits",
+            "caption": "Ingestion and distributional baseline setup for Multi-Cohort Exploratory.",
             "max": 100,
             "bars": [
               {
@@ -735,7 +735,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Algorithmic calculation and statistical analysis for Multi-Cohort Exploratory Data Profiling & Executive Discrepancy Audits",
+            "caption": "Algorithmic calculation and statistical analysis for Multi-Cohort.",
             "max": 100,
             "bars": [
               {
@@ -762,7 +762,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stress testing and statistical validation for Multi-Cohort Exploratory Data Profiling & Executive Discrepancy Audits",
+            "caption": "Stress testing and statistical validation for Multi-Cohort Exploratory.",
             "max": 100,
             "bars": [
               {
@@ -789,7 +789,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Econometric gating and production verification for Multi-Cohort Exploratory Data Profiling & Executive Discrepancy Audits",
+            "caption": "Econometric gating and production verification for Multi-Cohort.",
             "max": 100,
             "bars": [
               {
@@ -940,7 +940,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingestion and distributional baseline setup for Master Exploratory Data Analysis Gateway: SOX 404 Cryptographic Audit Digest",
+            "caption": "Ingestion and distributional baseline setup for Master Exploratory Data.",
             "max": 100,
             "bars": [
               {
@@ -967,7 +967,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Algorithmic calculation and statistical analysis for Master Exploratory Data Analysis Gateway: SOX 404 Cryptographic Audit Digest",
+            "caption": "Algorithmic calculation and statistical analysis for Master Exploratory.",
             "max": 100,
             "bars": [
               {
@@ -994,7 +994,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stress testing and statistical validation for Master Exploratory Data Analysis Gateway: SOX 404 Cryptographic Audit Digest",
+            "caption": "Stress testing and statistical validation for Master Exploratory Data.",
             "max": 100,
             "bars": [
               {
@@ -1021,7 +1021,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Econometric gating and production verification for Master Exploratory Data Analysis Gateway: SOX 404 Cryptographic Audit Digest",
+            "caption": "Econometric gating and production verification for Master Exploratory.",
             "max": 100,
             "bars": [
               {

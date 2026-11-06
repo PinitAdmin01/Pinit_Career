@@ -106,7 +106,7 @@
           },
           {
             "at": "say4",
-            "caption": "Nested layouts completely eliminate layout thrashing and maintain 60 FPS transitions.",
+            "caption": "Nested layouts completely eliminate layout thrashing and maintain.",
             "values": {
               "root_layout": {
                 "state": "Persistent"
@@ -452,7 +452,7 @@
           },
           {
             "at": "say2",
-            "caption": "App Router updates browser URL to /photo/42 while keeping feed page mounted.",
+            "caption": "App Router updates browser URL to /photo/multiple while keeping feed page.",
             "values": {
               "feed_click": {
                 "text": "\"Feed Kept in Background\""

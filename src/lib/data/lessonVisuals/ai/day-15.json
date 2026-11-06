@@ -527,7 +527,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Auditing & Telemetry: Monitoring Real-Ti.. [D15.P5.S1].",
+            "caption": "Initialize input state for Auditing & Telemetry: Monitoring Real-Ti.",
             "values": {
               "in": "Day 15 Input",
               "proc": "Standby",
@@ -547,7 +547,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Auditing & Telemetr... [D15.P5.S2].",
+            "caption": "Execute core transformation in Auditing & Telemetr... [D.Pfive.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -571,7 +571,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D15.P5.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -591,7 +591,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Auditing & Telemetry: Monitoring .. [D15.P5.S4].",
+            "caption": "End-to-end execution verified for Auditing & Telemetry: Monitoring .",
             "values": {
               "in": "Committed",
               "proc": "Verified",

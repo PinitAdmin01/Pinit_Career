@@ -145,7 +145,7 @@
           },
           {
             "at": "say6",
-            "caption": "In a KTable, a null value acts as a delete operation, removing usr-2.",
+            "caption": "In a KTable, a null value acts as a delete operation, removing usr-two.",
             "rows": [
               {
                 "cells": [
@@ -263,7 +263,7 @@
           },
           {
             "at": "say7",
-            "caption": "Compaction purges obsolete updates and tombstones, leaving offsets #4 and #5.",
+            "caption": "Compaction purges obsolete updates and tombstones, leaving offsets #four.",
             "items": [
               {
                 "text": "#4 GOOG=135.00"
@@ -360,7 +360,7 @@
           },
           {
             "at": "say4",
-            "caption": "When acc-2 balance reaches 0, the ledger prunes the key to save memory.",
+            "caption": "When acc-two balance reaches zero, the ledger prunes the key to save.",
             "activeState": "closedZero",
             "transition": {
               "from": "debited",
@@ -549,7 +549,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for End-to-End KStream-KTable Pipeline Archi.. [D22.P6.S1].",
+            "caption": "Initialize input state for End-to-End KStream-KTable Pipeline Archi.",
             "values": {
               "in": "Day 22 Input",
               "proc": "Standby",
@@ -569,7 +569,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in End-to-End KStream-... [D22.P6.S2].",
+            "caption": "Execute core transformation in End-to-End KStream-... [D.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -593,7 +593,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D22.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -613,7 +613,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for End-to-End KStream-KTable Pipelin.. [D22.P6.S4].",
+            "caption": "End-to-end execution verified for End-to-End KStream-KTable Pipelin.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

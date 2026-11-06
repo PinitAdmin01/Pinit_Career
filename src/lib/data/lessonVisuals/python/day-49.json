@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Token Bucket Rate Check): Initialize component pipeline for Circuit Breaker State Machine & Cascading Failures.",
+            "caption": "State one (Token Bucket Rate Check): Initialize component pipeline for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -60,7 +60,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Fast-Fail Fallback / Healed): Atomic execution verified with zero failure cascade.",
+            "caption": "State four (Fast-Fail Fallback / Healed): Atomic execution verified with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -99,7 +99,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Token Bucket Rate Check): Initialize component pipeline for Bulkhead Isolation & Concurrency Partitioning.",
+            "caption": "State one (Token Bucket Rate Check): Initialize component pipeline for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -127,7 +127,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Fast-Fail Fallback / Healed): Atomic execution verified with zero failure cascade.",
+            "caption": "State four (Fast-Fail Fallback / Healed): Atomic execution verified with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -166,7 +166,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Token Bucket Rate Check): Initialize component pipeline for Distributed Rate Limiting.",
+            "caption": "State one (Token Bucket Rate Check): Initialize component pipeline for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -194,7 +194,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Fast-Fail Fallback / Healed): Atomic execution verified with zero failure cascade.",
+            "caption": "State four (Fast-Fail Fallback / Healed): Atomic execution verified with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -233,7 +233,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Token Bucket Rate Check): Initialize component pipeline for Resilience Composition.",
+            "caption": "State one (Token Bucket Rate Check): Initialize component pipeline for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -261,7 +261,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Fast-Fail Fallback / Healed): Atomic execution verified with zero failure cascade.",
+            "caption": "State four (Fast-Fail Fallback / Healed): Atomic execution verified with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -300,7 +300,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Token Bucket Rate Check): Initialize component pipeline for E-Commerce Gateway Cascading Failure Remediation.",
+            "caption": "State one (Token Bucket Rate Check): Initialize component pipeline for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -328,7 +328,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Fast-Fail Fallback / Healed): Atomic execution verified with zero failure cascade.",
+            "caption": "State four (Fast-Fail Fallback / Healed): Atomic execution verified with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",

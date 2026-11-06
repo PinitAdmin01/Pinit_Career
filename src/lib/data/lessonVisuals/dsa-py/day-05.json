@@ -287,7 +287,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Building get and put [D5.P3.S1].",
+            "caption": "Initialize input state for Building get and put [Dfive.Pthree.Sone].",
             "values": {
               "in": "Day 5 Input",
               "proc": "Standby",
@@ -307,7 +307,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building get and put [D5.P3.S2].",
+            "caption": "Execute core transformation in Building get and put [Dfive.Pthree.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -331,7 +331,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D5.P3.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -351,7 +351,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building get and put [D5.P3.S4].",
+            "caption": "End-to-end execution verified for Building get and put.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -513,7 +513,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for The OrderedDict shortcut [D5.P4.S1].",
+            "caption": "Initialize input state for The OrderedDict shortcut [Dfive.Pfour.Sone].",
             "values": {
               "in": "Day 5 Input",
               "proc": "Standby",
@@ -533,7 +533,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The OrderedDict sho... [D5.P4.S2].",
+            "caption": "Execute core transformation in The OrderedDict sho... [Dfive.Pfour.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -557,7 +557,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D5.P4.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -577,7 +577,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The OrderedDict shortcut [D5.P4.S4].",
+            "caption": "End-to-end execution verified for The OrderedDict shortcut.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Axis-Aligned Bound Setup): Initialize pipeline state for Axis-Aligned Bounding Box (AABB) & Broad-Phase Collision Detection.",
+            "caption": "State one (Axis-Aligned Bound Setup): Initialize pipeline state for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -99,7 +99,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Screen-to-World Ra Setup): Initialize pipeline state for Screen-to-World Raycasting & 3D Mouse Object Picking.",
+            "caption": "State one (Screen-to-World Ra Setup): Initialize pipeline state for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -166,7 +166,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Oriented Bounding Setup): Initialize pipeline state for Oriented Bounding Boxes (OBB) & Rotational Separating Axis Theorem.",
+            "caption": "State one (Oriented Bounding Setup): Initialize pipeline state for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -233,7 +233,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Narrow-Phase Ray-T Setup): Initialize pipeline state for Narrow-Phase Ray-Triangle Intersection: Möller-Trumbore Algorithm.",
+            "caption": "State one (Narrow-Phase Ray-T Setup): Initialize pipeline state for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -300,7 +300,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Unified Real-Time Setup): Initialize pipeline state for Unified Real-Time 3D Spatial Collision & Raycast Engine.",
+            "caption": "State one (Unified Real-Time Setup): Initialize pipeline state for.",
             "currentState": "st1",
             "tone": "data"
           },

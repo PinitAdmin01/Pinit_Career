@@ -12,7 +12,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Architectural ingestion and baseline configuration for Native Python in Excel (=PY()): Anaconda Runtime, Azure Containers & Row-Major Order",
+            "caption": "Architectural ingestion and baseline configuration for Native Python in.",
             "max": 100,
             "bars": [
               {
@@ -39,7 +39,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execution pipeline and memory array processing for Native Python in Excel (=PY()): Anaconda Runtime, Azure Containers & Row-Major Order",
+            "caption": "Execution pipeline and memory array processing for Native Python in Excel.",
             "max": 100,
             "bars": [
               {
@@ -66,7 +66,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stress testing and failure boundary validation for Native Python in Excel (=PY()): Anaconda Runtime, Azure Containers & Row-Major Order",
+            "caption": "Stress testing and failure boundary validation for Native Python in Excel.",
             "max": 100,
             "bars": [
               {
@@ -93,7 +93,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Institutional governance and production certification for Native Python in Excel (=PY()): Anaconda Runtime, Azure Containers & Row-Major Order",
+            "caption": "Institutional governance and production certification for Native Python.",
             "max": 100,
             "bars": [
               {
@@ -244,7 +244,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Architectural ingestion and baseline configuration for DataFrame Grid Marshalling: Ingesting Tabular Ranges via xl(), Type Casting & Imputation",
+            "caption": "Architectural ingestion and baseline configuration for DataFrame Grid.",
             "max": 100,
             "bars": [
               {
@@ -271,7 +271,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execution pipeline and memory array processing for DataFrame Grid Marshalling: Ingesting Tabular Ranges via xl(), Type Casting & Imputation",
+            "caption": "Execution pipeline and memory array processing for DataFrame Grid.",
             "max": 100,
             "bars": [
               {
@@ -298,7 +298,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stress testing and failure boundary validation for DataFrame Grid Marshalling: Ingesting Tabular Ranges via xl(), Type Casting & Imputation",
+            "caption": "Stress testing and failure boundary validation for DataFrame Grid.",
             "max": 100,
             "bars": [
               {
@@ -325,7 +325,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Institutional governance and production certification for DataFrame Grid Marshalling: Ingesting Tabular Ranges via xl(), Type Casting & Imputation",
+            "caption": "Institutional governance and production certification for DataFrame Grid.",
             "max": 100,
             "bars": [
               {
@@ -476,7 +476,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Architectural ingestion and baseline configuration for In-Grid Machine Learning & Predictive Analytics: Feature Importance & Default Scoring",
+            "caption": "Architectural ingestion and baseline configuration for In-Grid Machine.",
             "max": 100,
             "bars": [
               {
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execution pipeline and memory array processing for In-Grid Machine Learning & Predictive Analytics: Feature Importance & Default Scoring",
+            "caption": "Execution pipeline and memory array processing for In-Grid Machine.",
             "max": 100,
             "bars": [
               {
@@ -530,7 +530,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stress testing and failure boundary validation for In-Grid Machine Learning & Predictive Analytics: Feature Importance & Default Scoring",
+            "caption": "Stress testing and failure boundary validation for In-Grid Machine.",
             "max": 100,
             "bars": [
               {
@@ -557,7 +557,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Institutional governance and production certification for In-Grid Machine Learning & Predictive Analytics: Feature Importance & Default Scoring",
+            "caption": "Institutional governance and production certification for In-Grid Machine.",
             "max": 100,
             "bars": [
               {
@@ -708,7 +708,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Architectural ingestion and baseline configuration for Statistical Visualizations in Excel Cells: Matplotlib, Seaborn & High-DPI Rendering",
+            "caption": "Architectural ingestion and baseline configuration for Statistical.",
             "max": 100,
             "bars": [
               {
@@ -735,7 +735,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execution pipeline and memory array processing for Statistical Visualizations in Excel Cells: Matplotlib, Seaborn & High-DPI Rendering",
+            "caption": "Execution pipeline and memory array processing for Statistical.",
             "max": 100,
             "bars": [
               {
@@ -762,7 +762,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stress testing and failure boundary validation for Statistical Visualizations in Excel Cells: Matplotlib, Seaborn & High-DPI Rendering",
+            "caption": "Stress testing and failure boundary validation for Statistical.",
             "max": 100,
             "bars": [
               {
@@ -789,7 +789,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Institutional governance and production certification for Statistical Visualizations in Excel Cells: Matplotlib, Seaborn & High-DPI Rendering",
+            "caption": "Institutional governance and production certification for Statistical.",
             "max": 100,
             "bars": [
               {
@@ -940,7 +940,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Architectural ingestion and baseline configuration for Master Python in Excel Gateway: Pipeline Orchestration & Cloud Sandbox Governance",
+            "caption": "Architectural ingestion and baseline configuration for Master Python in.",
             "max": 100,
             "bars": [
               {
@@ -967,7 +967,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execution pipeline and memory array processing for Master Python in Excel Gateway: Pipeline Orchestration & Cloud Sandbox Governance",
+            "caption": "Execution pipeline and memory array processing for Master Python in Excel.",
             "max": 100,
             "bars": [
               {
@@ -994,7 +994,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Stress testing and failure boundary validation for Master Python in Excel Gateway: Pipeline Orchestration & Cloud Sandbox Governance",
+            "caption": "Stress testing and failure boundary validation for Master Python in Excel.",
             "max": 100,
             "bars": [
               {
@@ -1021,7 +1021,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Institutional governance and production certification for Master Python in Excel Gateway: Pipeline Orchestration & Cloud Sandbox Governance",
+            "caption": "Institutional governance and production certification for Master Python.",
             "max": 100,
             "bars": [
               {

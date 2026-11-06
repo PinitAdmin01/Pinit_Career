@@ -265,7 +265,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for O(1) and O(N): constant and linear time [D1.P3.S1].",
+            "caption": "Initialize input state for constant-time and O(N): constant and linear.",
             "values": {
               "in": "Day 1 Input",
               "proc": "Standby",
@@ -285,7 +285,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in O(1) and O(N): cons... [D1.P3.S2].",
+            "caption": "Execute core transformation in constant-time and O(N): cons.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -309,7 +309,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D1.P3.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -329,7 +329,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for O(1) and O(N): constant and linea.. [D1.P3.S4].",
+            "caption": "End-to-end execution verified for constant-time and O(N): constant and.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -629,7 +629,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for O(N^2) and how to spot it [D1.P5.S1].",
+            "caption": "Initialize input state for quadratic-time and how to spot it.",
             "values": {
               "in": "Day 1 Input",
               "proc": "Standby",
@@ -649,7 +649,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in O(N^2) and how to s... [D1.P5.S2].",
+            "caption": "Execute core transformation in quadratic-time and how to s.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -673,7 +673,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D1.P5.S3].",
+            "caption": "Inspect concrete example output and invariants [Done.Pfive.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -693,7 +693,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for O(N^2) and how to spot it [D1.P5.S4].",
+            "caption": "End-to-end execution verified for quadratic-time and how to spot it.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

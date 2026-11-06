@@ -10,7 +10,7 @@
       "codeHash": "3d68566c46b629a9aeb966862ce6c1096fc4f4d6c93f9a46982d879c8564ac86",
       "spec": {
         "template": "sequence",
-        "title": "The 256-Bit EVM Word & Stack Machine Architecture: PUSH, POP, DUP & Stack Limits \u2014 EVM Low-Level Execution Sequence",
+        "title": "The 256-Bit EVM Word & Stack Machine Architecture: PUSH, POP, DUP & Stack Limits — EVM Low-Level Execution Sequence",
         "actors": [
           "EVM Bytecode Stream",
           "Execution Stack (256-bit)",
@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Bytecode Stream decodes opcode for The 256-Bit EVM Word & Stack Mac",
+            "caption": "Bytecode Stream decodes opcode for The two-fifty-six-Bit EVM Word & Stack.",
             "activeActor": "EVM Bytecode Stream",
             "messages": [
               {
@@ -33,7 +33,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execution Stack pops operands and checks 1024-word limits",
+            "caption": "Execution Stack pops operands and checks multiple-word limits.",
             "activeActor": "Execution Stack (256-bit)",
             "messages": [
               {
@@ -52,7 +52,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Linear Memory allocates buffer and triggers storage slot resolution",
+            "caption": "Linear Memory allocates buffer and triggers storage slot resolution.",
             "activeActor": "Linear Memory Buffer",
             "messages": [
               {
@@ -77,7 +77,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Storage Slot Trie updates state root and returns execution receipt",
+            "caption": "Storage Slot Trie updates state root and returns execution receipt.",
             "activeActor": "Storage Slot Trie",
             "messages": [
               {
@@ -101,7 +101,7 @@
               {
                 "from": "Storage Slot Trie",
                 "to": "EVM Bytecode Stream",
-                "label": "OpcodeExecuted(PC++, GasAccurate \u2713)",
+                "label": "OpcodeExecuted(PC++, GasAccurate ✓)",
                 "tone": "ok"
               }
             ]
@@ -110,7 +110,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "The 256-Bit EVM Word & Stack Machine Architecture: PUSH, POP, DUP & Stack Limits \u2014 EVM Low-Level Execution Sequence",
+        "title": "The 256-Bit EVM Word & Stack Machine Architecture: PUSH, POP, DUP & Stack Limits — EVM Low-Level Execution Sequence",
         "actors": [
           "EVM Bytecode Stream",
           "Execution Stack (256-bit)",
@@ -201,7 +201,7 @@
               {
                 "from": "Storage Slot Trie",
                 "to": "EVM Bytecode Stream",
-                "label": "OpcodeExecuted(PC++, GasAccurate \u2713)",
+                "label": "OpcodeExecuted(PC++, GasAccurate ✓)",
                 "tone": "ok"
               }
             ]
@@ -214,7 +214,7 @@
       "codeHash": "da9260b581b10fec5d6616bbbf2c6bc85e6350427ff91d7d3213ab9610f36b84",
       "spec": {
         "template": "sequence",
-        "title": "Volatile Linear Memory & Quadratic Expansion Gas: MLOAD, MSTORE & Memory Pointers \u2014 EVM Low-Level Execution Sequence",
+        "title": "Volatile Linear Memory & Quadratic Expansion Gas: MLOAD, MSTORE & Memory Pointers — EVM Low-Level Execution Sequence",
         "actors": [
           "EVM Bytecode Stream",
           "Execution Stack (256-bit)",
@@ -224,7 +224,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Bytecode Stream decodes opcode for Volatile Linear Memory & Quadrat",
+            "caption": "Bytecode Stream decodes opcode for Volatile Linear Memory & Quadrat.",
             "activeActor": "EVM Bytecode Stream",
             "messages": [
               {
@@ -237,7 +237,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execution Stack pops operands and checks 1024-word limits",
+            "caption": "Execution Stack pops operands and checks multiple-word limits.",
             "activeActor": "Execution Stack (256-bit)",
             "messages": [
               {
@@ -256,7 +256,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Linear Memory allocates buffer and triggers storage slot resolution",
+            "caption": "Linear Memory allocates buffer and triggers storage slot resolution.",
             "activeActor": "Linear Memory Buffer",
             "messages": [
               {
@@ -281,7 +281,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Storage Slot Trie updates state root and returns execution receipt",
+            "caption": "Storage Slot Trie updates state root and returns execution receipt.",
             "activeActor": "Storage Slot Trie",
             "messages": [
               {
@@ -305,7 +305,7 @@
               {
                 "from": "Storage Slot Trie",
                 "to": "EVM Bytecode Stream",
-                "label": "OpcodeExecuted(PC++, GasAccurate \u2713)",
+                "label": "OpcodeExecuted(PC++, GasAccurate ✓)",
                 "tone": "ok"
               }
             ]
@@ -314,7 +314,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Volatile Linear Memory & Quadratic Expansion Gas: MLOAD, MSTORE & Memory Pointers \u2014 EVM Low-Level Execution Sequence",
+        "title": "Volatile Linear Memory & Quadratic Expansion Gas: MLOAD, MSTORE & Memory Pointers — EVM Low-Level Execution Sequence",
         "actors": [
           "EVM Bytecode Stream",
           "Execution Stack (256-bit)",
@@ -405,7 +405,7 @@
               {
                 "from": "Storage Slot Trie",
                 "to": "EVM Bytecode Stream",
-                "label": "OpcodeExecuted(PC++, GasAccurate \u2713)",
+                "label": "OpcodeExecuted(PC++, GasAccurate ✓)",
                 "tone": "ok"
               }
             ]
@@ -418,7 +418,7 @@
       "codeHash": "458d9c0d7edcb9cde6960c25bee46fea21a101a2bd54a785c4afdca24b6c44e5",
       "spec": {
         "template": "sequence",
-        "title": "Persistent Storage Slots: SLOAD, SSTORE & Deterministic Keccak Mapping Layouts \u2014 EVM Low-Level Execution Sequence",
+        "title": "Persistent Storage Slots: SLOAD, SSTORE & Deterministic Keccak Mapping Layouts — EVM Low-Level Execution Sequence",
         "actors": [
           "EVM Bytecode Stream",
           "Execution Stack (256-bit)",
@@ -428,7 +428,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Bytecode Stream decodes opcode for Persistent Storage Slots: SLOAD,",
+            "caption": "Bytecode Stream decodes opcode for Persistent Storage Slots: SLOAD.",
             "activeActor": "EVM Bytecode Stream",
             "messages": [
               {
@@ -441,7 +441,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execution Stack pops operands and checks 1024-word limits",
+            "caption": "Execution Stack pops operands and checks multiple-word limits.",
             "activeActor": "Execution Stack (256-bit)",
             "messages": [
               {
@@ -460,7 +460,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Linear Memory allocates buffer and triggers storage slot resolution",
+            "caption": "Linear Memory allocates buffer and triggers storage slot resolution.",
             "activeActor": "Linear Memory Buffer",
             "messages": [
               {
@@ -485,7 +485,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Storage Slot Trie updates state root and returns execution receipt",
+            "caption": "Storage Slot Trie updates state root and returns execution receipt.",
             "activeActor": "Storage Slot Trie",
             "messages": [
               {
@@ -509,7 +509,7 @@
               {
                 "from": "Storage Slot Trie",
                 "to": "EVM Bytecode Stream",
-                "label": "OpcodeExecuted(PC++, GasAccurate \u2713)",
+                "label": "OpcodeExecuted(PC++, GasAccurate ✓)",
                 "tone": "ok"
               }
             ]
@@ -518,7 +518,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Persistent Storage Slots: SLOAD, SSTORE & Deterministic Keccak Mapping Layouts \u2014 EVM Low-Level Execution Sequence",
+        "title": "Persistent Storage Slots: SLOAD, SSTORE & Deterministic Keccak Mapping Layouts — EVM Low-Level Execution Sequence",
         "actors": [
           "EVM Bytecode Stream",
           "Execution Stack (256-bit)",
@@ -609,7 +609,7 @@
               {
                 "from": "Storage Slot Trie",
                 "to": "EVM Bytecode Stream",
-                "label": "OpcodeExecuted(PC++, GasAccurate \u2713)",
+                "label": "OpcodeExecuted(PC++, GasAccurate ✓)",
                 "tone": "ok"
               }
             ]
@@ -622,7 +622,7 @@
       "codeHash": "01899484bb00e3a602012b5919b508f15e2bbe651d0cd61fff6ead311943adaf",
       "spec": {
         "template": "sequence",
-        "title": "Dynamic Control Flow, JUMPDEST Validation & Program Counter State \u2014 EVM Low-Level Execution Sequence",
+        "title": "Dynamic Control Flow, JUMPDEST Validation & Program Counter State — EVM Low-Level Execution Sequence",
         "actors": [
           "EVM Bytecode Stream",
           "Execution Stack (256-bit)",
@@ -632,7 +632,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Bytecode Stream decodes opcode for Dynamic Control Flow, JUMPDEST V",
+            "caption": "Bytecode Stream decodes opcode for Dynamic Control Flow, JUMPDEST V.",
             "activeActor": "EVM Bytecode Stream",
             "messages": [
               {
@@ -645,7 +645,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execution Stack pops operands and checks 1024-word limits",
+            "caption": "Execution Stack pops operands and checks multiple-word limits.",
             "activeActor": "Execution Stack (256-bit)",
             "messages": [
               {
@@ -664,7 +664,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Linear Memory allocates buffer and triggers storage slot resolution",
+            "caption": "Linear Memory allocates buffer and triggers storage slot resolution.",
             "activeActor": "Linear Memory Buffer",
             "messages": [
               {
@@ -689,7 +689,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Storage Slot Trie updates state root and returns execution receipt",
+            "caption": "Storage Slot Trie updates state root and returns execution receipt.",
             "activeActor": "Storage Slot Trie",
             "messages": [
               {
@@ -713,7 +713,7 @@
               {
                 "from": "Storage Slot Trie",
                 "to": "EVM Bytecode Stream",
-                "label": "OpcodeExecuted(PC++, GasAccurate \u2713)",
+                "label": "OpcodeExecuted(PC++, GasAccurate ✓)",
                 "tone": "ok"
               }
             ]
@@ -722,7 +722,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Dynamic Control Flow, JUMPDEST Validation & Program Counter State \u2014 EVM Low-Level Execution Sequence",
+        "title": "Dynamic Control Flow, JUMPDEST Validation & Program Counter State — EVM Low-Level Execution Sequence",
         "actors": [
           "EVM Bytecode Stream",
           "Execution Stack (256-bit)",
@@ -813,7 +813,7 @@
               {
                 "from": "Storage Slot Trie",
                 "to": "EVM Bytecode Stream",
-                "label": "OpcodeExecuted(PC++, GasAccurate \u2713)",
+                "label": "OpcodeExecuted(PC++, GasAccurate ✓)",
                 "tone": "ok"
               }
             ]
@@ -826,7 +826,7 @@
       "codeHash": "8208a0788a6597b0bec561730ff863109cf1a3dc6de7619e48b8e3a6c9a12e7e",
       "spec": {
         "template": "sequence",
-        "title": "Master Low-Level EVM Bytecode Execution & Invariant Verification Engine \u2014 EVM Low-Level Execution Sequence",
+        "title": "Master Low-Level EVM Bytecode Execution & Invariant Verification Engine — EVM Low-Level Execution Sequence",
         "actors": [
           "EVM Bytecode Stream",
           "Execution Stack (256-bit)",
@@ -836,7 +836,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Bytecode Stream decodes opcode for Master Low-Level EVM Bytecode Ex",
+            "caption": "Bytecode Stream decodes opcode for Master Low-Level EVM Bytecode Ex.",
             "activeActor": "EVM Bytecode Stream",
             "messages": [
               {
@@ -849,7 +849,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execution Stack pops operands and checks 1024-word limits",
+            "caption": "Execution Stack pops operands and checks multiple-word limits.",
             "activeActor": "Execution Stack (256-bit)",
             "messages": [
               {
@@ -868,7 +868,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Linear Memory allocates buffer and triggers storage slot resolution",
+            "caption": "Linear Memory allocates buffer and triggers storage slot resolution.",
             "activeActor": "Linear Memory Buffer",
             "messages": [
               {
@@ -893,7 +893,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Storage Slot Trie updates state root and returns execution receipt",
+            "caption": "Storage Slot Trie updates state root and returns execution receipt.",
             "activeActor": "Storage Slot Trie",
             "messages": [
               {
@@ -917,7 +917,7 @@
               {
                 "from": "Storage Slot Trie",
                 "to": "EVM Bytecode Stream",
-                "label": "OpcodeExecuted(PC++, GasAccurate \u2713)",
+                "label": "OpcodeExecuted(PC++, GasAccurate ✓)",
                 "tone": "ok"
               }
             ]
@@ -926,7 +926,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Master Low-Level EVM Bytecode Execution & Invariant Verification Engine \u2014 EVM Low-Level Execution Sequence",
+        "title": "Master Low-Level EVM Bytecode Execution & Invariant Verification Engine — EVM Low-Level Execution Sequence",
         "actors": [
           "EVM Bytecode Stream",
           "Execution Stack (256-bit)",
@@ -1017,7 +1017,7 @@
               {
                 "from": "Storage Slot Trie",
                 "to": "EVM Bytecode Stream",
-                "label": "OpcodeExecuted(PC++, GasAccurate \u2713)",
+                "label": "OpcodeExecuted(PC++, GasAccurate ✓)",
                 "tone": "ok"
               }
             ]

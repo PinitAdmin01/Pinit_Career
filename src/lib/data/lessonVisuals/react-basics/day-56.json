@@ -57,7 +57,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Exchange WebSocket stream delivers 100k live market ticks per second.",
+            "caption": "Exchange WebSocket stream delivers one hundredk live market ticks per.",
             "values": {
               "exchange": {
                 "status": "Streaming"
@@ -129,7 +129,7 @@
           },
           {
             "at": "say4",
-            "caption": "useSyncExternalStore dispatches snapshot updates to UI at locked 120 FPS.",
+            "caption": "UseSyncExternalStore dispatches snapshot updates to UI at locked multiple.",
             "values": {
               "exchange": {
                 "status": "Streaming"
@@ -283,7 +283,7 @@
           },
           {
             "at": "say4",
-            "caption": "RENDERED state guarantees visual refresh with sub-5ms paint latency.",
+            "caption": "RENDERED state guarantees visual refresh with sub-fivems paint latency.",
             "values": {
               "idle": {
                 "active": false
@@ -459,7 +459,7 @@
           },
           {
             "at": "say4",
-            "caption": "Decoupled component architecture sustains 120 FPS animations without DOM churn.",
+            "caption": "Decoupled component architecture sustains multiple FPS animations without.",
             "values": {
               "terminal_root": {
                 "state": "Stable"
@@ -559,7 +559,7 @@
           },
           {
             "at": "say2",
-            "caption": "Off-Screen canvas draws thousands of price bars directly via 2D GPU context.",
+            "caption": "Off-Screen canvas draws thousands of price bars directly via.",
             "values": {
               "b1": {
                 "val": "Static"
@@ -607,7 +607,7 @@
           },
           {
             "at": "say4",
-            "caption": "Hardware-accelerated layered pipeline delivers sub-2ms frame paint times.",
+            "caption": "Hardware-accelerated layered pipeline delivers sub-twoms frame paint times.",
             "values": {
               "b1": {
                 "val": "Zero Reflow"

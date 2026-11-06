@@ -315,7 +315,7 @@
           },
           {
             "at": "say3",
-            "caption": "Reversing input sentence tokens helped early seq2seq models align context.",
+            "caption": "Reversing input sentence tokens helped early seqtwoseq models align.",
             "rows": [
               {
                 "cells": [
@@ -1039,7 +1039,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Scheduled sampling [D16.P5.S1].",
+            "caption": "Initialize input state for Scheduled sampling [Dsixteen.Pfive.Sone].",
             "values": {
               "in": "Day 16 Input",
               "proc": "Standby",
@@ -1059,7 +1059,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Scheduled sampling [D16.P5.S2].",
+            "caption": "Execute core transformation in Scheduled sampling [Dsixteen.Pfive.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -1083,7 +1083,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D16.P5.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -1103,7 +1103,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Scheduled sampling [D16.P5.S4].",
+            "caption": "End-to-end execution verified for Scheduled sampling.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -1265,7 +1265,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: schedules and inputs [D16.P6.S1].",
+            "caption": "Initialize input state for Practice time: schedules and inputs.",
             "values": {
               "in": "Day 16 Input",
               "proc": "Standby",
@@ -1285,7 +1285,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: sche... [D16.P6.S2].",
+            "caption": "Execute core transformation in Practice time: sche... [Dsixteen.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -1309,7 +1309,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D16.P6.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -1329,7 +1329,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: schedules and inputs [D16.P6.S4].",
+            "caption": "End-to-end execution verified for Practice time: schedules and inputs.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

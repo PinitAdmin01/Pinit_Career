@@ -48,13 +48,13 @@
           },
           {
             "at": "example",
-            "caption": "Karpenter bypasses ASGs, evaluating pending pods directly against the EC2 catalog.",
+            "caption": "Karpenter bypasses ASGs, evaluating pending pods directly against the.",
             "activeStageId": "ec2api",
             "statusBadge": "verified"
           },
           {
             "at": "tryIt",
-            "caption": "Direct CreateFleet calls launch right-sized nodes in under 45 seconds.",
+            "caption": "Direct CreateFleet calls launch right-sized nodes in under multiple.",
             "activeStageId": "ready",
             "statusBadge": "verified"
           }
@@ -107,13 +107,13 @@
           },
           {
             "at": "example",
-            "caption": "Direct EC2 CreateFleet call provisions tight-fitting compute with zero idle waste.",
+            "caption": "Direct compute-node CreateFleet call provisions tight-fitting compute.",
             "activeStageId": "fleet",
             "statusBadge": "verified"
           },
           {
             "at": "tryIt",
-            "caption": "Pre-warmed AMIs join the EKS cluster and transition to Ready in 40 seconds.",
+            "caption": "Pre-warmed AMIs join the EKS cluster and transition to Ready in multiple.",
             "activeStageId": "join",
             "statusBadge": "verified"
           }
@@ -160,7 +160,7 @@
           },
           {
             "at": "say2",
-            "caption": "EC2NodeClass binds AWS IAM roles, security groups, and root EBS volume configs.",
+            "caption": "ECtwoNodeClass binds AWS IAM roles, security groups, and root EBS volume.",
             "activeStageId": "nodeclass",
             "statusBadge": "active"
           },
@@ -172,7 +172,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Automatic Graviton arm64 fallback delivers up to 40% better price-performance.",
+            "caption": "Automatic Graviton armsixty-four fallback delivers up to multiple% better.",
             "activeStageId": "graviton",
             "statusBadge": "verified"
           }
@@ -225,7 +225,7 @@
           },
           {
             "at": "example",
-            "caption": "AWS EventBridge routes 2-minute Spot interruption warnings to Karpenter.",
+            "caption": "AWS EventBridge routes two-minute Spot interruption warnings to Karpenter.",
             "activeStageId": "eventBridge",
             "statusBadge": "verified"
           },
@@ -290,7 +290,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Execution verification confirms 100% deterministic SLA protection.",
+            "caption": "Execution verification confirms one hundred% deterministic SLA protection.",
             "activeStageId": "certGrade",
             "statusBadge": "verified"
           }

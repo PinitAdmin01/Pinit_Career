@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Boolean state management creates 2^N potential states, inviting impossible combinations.",
+            "caption": "Boolean state management creates two^N potential states, inviting.",
             "values": {
               "left": {
                 "items": [
@@ -110,7 +110,7 @@
           },
           {
             "at": "say4",
-            "caption": "Statecharts reduce production edge-case bug reports by over 90% in enterprise apps.",
+            "caption": "Statecharts reduce production edge-case bug reports by over multiple% in.",
             "values": {
               "left": {
                 "items": [
@@ -648,7 +648,7 @@
           },
           {
             "at": "say4",
-            "caption": "Risk actor recovers in 4ms, restoring state while trading desk runs without downtime.",
+            "caption": "Risk actor recovers in fourms, restoring state while trading desk runs.",
             "values": {
               "healthy": {
                 "text": "\"All Actors Green\""

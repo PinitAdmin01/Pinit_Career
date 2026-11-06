@@ -10,7 +10,7 @@
       "codeHash": "38dabfe8936e4e613d4eb520f55523b0da64c1e1c0bd9ee3456f2adc6a90ef0f",
       "spec": {
         "template": "states",
-        "title": "Point-in-Time Data Integrity & Lookahead Bias \u2014 High-Frequency Systems State Machine",
+        "title": "Point-in-Time Data Integrity & Lookahead Bias — High-Frequency Systems State Machine",
         "states": [
           {
             "id": "st1",
@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Bi-Temporal Rec): Initialize deterministic state for Point-in-Time Data Integrity & Look...",
+            "caption": "State one (Bi-Temporal Rec): Initialize deterministic state for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -60,7 +60,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Point-In-Time Pass): Execute deterministic verification with zero heap allocations.",
+            "caption": "State four (Point-In-Time Pass): Execute deterministic verification with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -77,7 +77,7 @@
       "codeHash": "fd1e7ad593359ba3c5c4b5d01857ec16ec57083006c4789aff623e54b0eb5688",
       "spec": {
         "template": "states",
-        "title": "Survivorship Bias, Delisting Events & Corpora \u2014 High-Frequency Systems State Machine",
+        "title": "Survivorship Bias, Delisting Events & Corpora — High-Frequency Systems State Machine",
         "states": [
           {
             "id": "st1",
@@ -99,7 +99,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Universe List): Initialize deterministic state for Survivorship Bias, Delisting Events...",
+            "caption": "State one (Universe List): Initialize deterministic state for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -127,7 +127,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Survivorship Valid): Execute deterministic verification with zero heap allocations.",
+            "caption": "State four (Survivorship Valid): Execute deterministic verification with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -144,7 +144,7 @@
       "codeHash": "ea8c930368bc3a7bc7efe74033a694c9402bdd1e87d17e303258011d7da6b5db",
       "spec": {
         "template": "states",
-        "title": "Overfitting, Multiple Testing & Deflated Shar \u2014 High-Frequency Systems State Machine",
+        "title": "Overfitting, Multiple Testing & Deflated Shar — High-Frequency Systems State Machine",
         "states": [
           {
             "id": "st1",
@@ -166,7 +166,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Observed Sharpe): Initialize deterministic state for Overfitting, Multiple Testing & Def...",
+            "caption": "State one (Observed Sharpe): Initialize deterministic state for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -194,7 +194,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (DSR Certified): Execute deterministic verification with zero heap allocations.",
+            "caption": "State four (DSR Certified): Execute deterministic verification with zero.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -211,7 +211,7 @@
       "codeHash": "d3b9bdb6c851aa6521be04d566fcbc3322a277fd16b4366f5c283d58d3ff65b2",
       "spec": {
         "template": "states",
-        "title": "Walk-Forward Optimization & Combinatorial Pur \u2014 High-Frequency Systems State Machine",
+        "title": "Walk-Forward Optimization & Combinatorial Pur — High-Frequency Systems State Machine",
         "states": [
           {
             "id": "st1",
@@ -233,7 +233,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (IS Train Window): Initialize deterministic state for Walk-Forward Optimization & Combina...",
+            "caption": "State one (IS Train Window): Initialize deterministic state for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -261,7 +261,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (OOS Walk-Forward): Execute deterministic verification with zero heap allocations.",
+            "caption": "State four (OOS Walk-Forward): Execute deterministic verification with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -278,7 +278,7 @@
       "codeHash": "3c30e1a9b30c48240eda18859eccafed2ca12bcad9df8502fbeba986d95ed99f",
       "spec": {
         "template": "states",
-        "title": "Production Institutional Backtesting Engine & \u2014 High-Frequency Systems State Machine",
+        "title": "Production Institutional Backtesting Engine & — High-Frequency Systems State Machine",
         "states": [
           {
             "id": "st1",
@@ -300,7 +300,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (PIT Ingestion): Initialize deterministic state for Production Institutional Backtestin...",
+            "caption": "State one (PIT Ingestion): Initialize deterministic state for Production.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -328,7 +328,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Institutional Cert): Execute deterministic verification with zero heap allocations.",
+            "caption": "State four (Institutional Cert): Execute deterministic verification with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",

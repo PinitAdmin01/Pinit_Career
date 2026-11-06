@@ -74,7 +74,7 @@
           },
           {
             "at": "say2",
-            "caption": "Heavy markdown and syntax tokenizers execute with 0 KB client bundle overhead.",
+            "caption": "Heavy markdown and syntax tokenizers execute with zero KB client bundle.",
             "values": {
               "cat_root": {
                 "text": "\"Layout Shell\""
@@ -281,7 +281,7 @@
           },
           {
             "at": "say4",
-            "caption": "The shell flushes immediately, delivering sub-50ms TTFB with exactly 0 KB client dependencies.",
+            "caption": "The shell flushes immediately, delivering sub-ms TTFB with exactly zero.",
             "values": {
               "inv_db": {
                 "text": "\"Pooled DB\""
@@ -468,7 +468,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "The customer taps Add to Cart; useOptimistic increments the cart count immediately in 0ms.",
+            "caption": "The customer taps Add to Cart; useOptimistic increments the cart count.",
             "values": {
               "click_buy": {
                 "text": "\"Tapped (2 Units)\""
@@ -532,7 +532,7 @@
           },
           {
             "at": "say3",
-            "caption": "If inventory is available, stock decrements from 10 to 8, and the order commits securely.",
+            "caption": "If inventory is available, stock decrements from ten to eight, and the.",
             "values": {
               "click_buy": {
                 "text": "\"Success\""
@@ -613,7 +613,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Audit Criterion 1: Total Blocking Time is certified at exactly 0ms with zero long tasks.",
+            "caption": "Audit Criterion one: Total Blocking Time is certified at exactly zeroms.",
             "values": {
               "tbt_box": {
                 "text": "\"0ms (60 FPS)\""
@@ -637,7 +637,7 @@
           },
           {
             "at": "say2",
-            "caption": "Audit Criterion 2: Time to First Byte flushes in 38ms, easily beating the 100ms benchmark.",
+            "caption": "Audit Criterion two: Time to First Byte flushes in ms, easily beating the.",
             "values": {
               "tbt_box": {
                 "text": "\"PASS\""
@@ -661,7 +661,7 @@
           },
           {
             "at": "say3",
-            "caption": "Audit Criterion 3: Zero client dependency leakage: 0 KB parser code in browser bundle.",
+            "caption": "Audit Criterion three: Zero client dependency leakage: zero KB parser.",
             "values": {
               "tbt_box": {
                 "text": "\"PASS\""

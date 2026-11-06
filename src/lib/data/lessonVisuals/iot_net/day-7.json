@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register MAC_FCF_REG for IEEE 802.15.4 General.",
+            "caption": "Arm hardware register MAC_FCF_REG for IEEE multiple.multiple.four General.",
             "registerName": "MAC_FCF_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into MAC_FCF_REG and assert validation flag.",
+            "caption": "Latch sampling bits into MAC_FCF_REG and assert validation flag.",
             "registerName": "MAC_FCF_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in MAC_FCF_REG with pipeline status.",
+            "caption": "Execute hardware transformation in MAC_FCF_REG with pipeline status.",
             "registerName": "MAC_FCF_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register MAC_FCF_REG upon verified hardware completion.",
+            "caption": "Lock register MAC_FCF_REG upon verified hardware completion.",
             "registerName": "MAC_FCF_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -266,7 +266,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register DEV_ROLE_REG for Operating Topologies.",
+            "caption": "Arm hardware register DEV_ROLE_REG for Operating Topologies.",
             "registerName": "DEV_ROLE_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -326,7 +326,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into DEV_ROLE_REG and assert validation flag.",
+            "caption": "Latch sampling bits into DEV_ROLE_REG and assert validation flag.",
             "registerName": "DEV_ROLE_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -387,7 +387,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in DEV_ROLE_REG with pipeline status.",
+            "caption": "Execute hardware transformation in DEV_ROLE_REG with pipeline status.",
             "registerName": "DEV_ROLE_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -448,7 +448,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register DEV_ROLE_REG upon verified hardware completion.",
+            "caption": "Lock register DEV_ROLE_REG upon verified hardware completion.",
             "registerName": "DEV_ROLE_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -518,7 +518,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register SUPERFRAME_REG for Superframe Archite.",
+            "caption": "Arm hardware register SUPERFRAME_REG for Superframe Archite.",
             "registerName": "SUPERFRAME_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -578,7 +578,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into SUPERFRAME_REG and assert validation flag.",
+            "caption": "Latch sampling bits into SUPERFRAME_REG and assert validation flag.",
             "registerName": "SUPERFRAME_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -639,7 +639,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in SUPERFRAME_REG with pipeline status.",
+            "caption": "Execute hardware transformation in SUPERFRAME_REG with pipeline status.",
             "registerName": "SUPERFRAME_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -700,7 +700,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register SUPERFRAME_REG upon verified hardware completion.",
+            "caption": "Lock register SUPERFRAME_REG upon verified hardware completion.",
             "registerName": "SUPERFRAME_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -770,7 +770,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register GTS_ALLOC_REG for Contention Access P.",
+            "caption": "Arm hardware register GTS_ALLOC_REG for Contention Access P.",
             "registerName": "GTS_ALLOC_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -830,7 +830,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into GTS_ALLOC_REG and assert validation flag.",
+            "caption": "Latch sampling bits into GTS_ALLOC_REG and assert validation flag.",
             "registerName": "GTS_ALLOC_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -891,7 +891,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in GTS_ALLOC_REG with pipeline status.",
+            "caption": "Execute hardware transformation in GTS_ALLOC_REG with pipeline status.",
             "registerName": "GTS_ALLOC_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -952,7 +952,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register GTS_ALLOC_REG upon verified hardware completion.",
+            "caption": "Lock register GTS_ALLOC_REG upon verified hardware completion.",
             "registerName": "GTS_ALLOC_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1022,7 +1022,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register CRC16_FCS_REG for Full IEEE 802.15.4.",
+            "caption": "Arm hardware register CRCsixteen_FCS_REG for Full IEEE.",
             "registerName": "CRC16_FCS_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1082,7 +1082,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into CRC16_FCS_REG and assert validation flag.",
+            "caption": "Latch sampling bits into CRCsixteen_FCS_REG and assert validation flag.",
             "registerName": "CRC16_FCS_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -1143,7 +1143,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in CRC16_FCS_REG with pipeline status.",
+            "caption": "Execute hardware transformation in CRCsixteen_FCS_REG with pipeline status.",
             "registerName": "CRC16_FCS_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -1204,7 +1204,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register CRC16_FCS_REG upon verified hardware completion.",
+            "caption": "Lock register CRCsixteen_FCS_REG upon verified hardware completion.",
             "registerName": "CRC16_FCS_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

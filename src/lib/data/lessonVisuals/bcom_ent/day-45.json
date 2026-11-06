@@ -610,16 +610,16 @@
       }
     },
     {
-      "partTitle": "\u2b50 Milestone 9 Capstone Control Tower: Cross-Border Holding & Tax Defense Suite",
+      "partTitle": "⭐ Milestone 9 Capstone Control Tower: Cross-Border Holding & Tax Defense Suite",
       "codeHash": "33809f99edf30212e44e1dc7d89503788b88aea848ec6d4179f836bbdb3a0dad",
       "filled": {},
       "spec": {
         "template": "funnel",
-        "title": "\u2b50 Milestone 9 Capstone Control Tower: Cross-Border Holding & Tax Defense Suite Capstone",
+        "title": "⭐ Milestone 9 Capstone Control Tower: Cross-Border Holding & Tax Defense Suite Capstone",
         "steps": [
           {
             "at": "intro",
-            "caption": "Milestone 9 control tower for cross border corporate and tax engineering.",
+            "caption": "Milestone nine control tower for cross border corporate and tax.",
             "activeStageId": "stage_1",
             "stages": [
               {
@@ -654,7 +654,7 @@
           },
           {
             "at": "say1",
-            "caption": "Milestone 9 control towers execute exhaustive multi jurisdictional audits.",
+            "caption": "Milestone nine control towers execute exhaustive multi jurisdictional.",
             "activeStageId": "stage_2",
             "stages": [
               {

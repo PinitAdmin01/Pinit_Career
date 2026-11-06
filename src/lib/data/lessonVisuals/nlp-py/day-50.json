@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for High-Throughput Serving Architecture: Un...",
+            "caption": "Initialize input state for High-Throughput Serving Architecture: Un...",
             "values": {
               "in": "Day 50 Input",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in High-Throughput Ser....",
+            "caption": "Execute core transformation in High-Throughput Ser....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -75,7 +75,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for High-Throughput Serving Architect...",
+            "caption": "End-to-end execution verified for High-Throughput Serving Architect...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -257,7 +257,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Subsystem 1: Paged KV Cache Orchestratio...",
+            "caption": "Initialize input state for Subsystem one: Paged KV Cache Orchestratio...",
             "values": {
               "in": "Day 50 Input",
               "proc": "Standby",
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Subsystem 1: Paged ....",
+            "caption": "Execute core transformation in Subsystem one: Paged ....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -301,7 +301,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -321,7 +321,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Subsystem 1: Paged KV Cache Orche...",
+            "caption": "End-to-end execution verified for Subsystem one: Paged KV Cache Orche...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -483,7 +483,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Subsystem 2: Dynamic Draft Model Specula...",
+            "caption": "Initialize input state for Subsystem two: Dynamic Draft Model Specula...",
             "values": {
               "in": "Day 50 Input",
               "proc": "Standby",
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Subsystem 2: Dynami....",
+            "caption": "Execute core transformation in Subsystem two: Dynami....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -527,7 +527,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -547,7 +547,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Subsystem 2: Dynamic Draft Model ...",
+            "caption": "End-to-end execution verified for Subsystem two: Dynamic Draft Model ...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -709,7 +709,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Subsystem 3 & 4: Hybrid AWQ/SmoothQuant ...",
+            "caption": "Initialize input state for Subsystem three & four: Hybrid AWQ/SmoothQuant.",
             "values": {
               "in": "Day 50 Input",
               "proc": "Standby",
@@ -729,7 +729,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Subsystem 3 & 4: Hy....",
+            "caption": "Execute core transformation in Subsystem three & four: Hy....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -753,7 +753,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -773,7 +773,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Subsystem 3 & 4: Hybrid AWQ/Smoot...",
+            "caption": "End-to-end execution verified for Subsystem three & four: Hybrid.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -935,7 +935,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Subsystem 5: Milestone 10 Capstone Defen...",
+            "caption": "Initialize input state for Subsystem five: Milestone ten Capstone Defen...",
             "values": {
               "in": "Day 50 Input",
               "proc": "Standby",
@@ -955,7 +955,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Subsystem 5: Milest....",
+            "caption": "Execute core transformation in Subsystem five: Milest....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -979,7 +979,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -999,7 +999,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Subsystem 5: Milestone 10 Capston...",
+            "caption": "End-to-end execution verified for Subsystem five: Milestone ten Capston...",
             "values": {
               "in": "Committed",
               "proc": "Verified",

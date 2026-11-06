@@ -10,11 +10,11 @@
       "codeHash": "669a237fd0cbb8a73de18e5eec45b79e5f2b2e53d08e1c90f70e0f87bd8e6b32",
       "spec": {
         "template": "register-bits",
-        "title": "Day 32 Part 1 \u2014 CAN Physical Layer, Differential \u2014 Register Architecture",
+        "title": "Day 32 Part 1 — CAN Physical Layer, Differential — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register CAN_ARBITRATION_REG for CAN Physical Layer, Differential.",
+            "caption": "Arm hardware register CAN_ARBITRATION_REG for CAN Physical Layer.",
             "registerName": "CAN_ARBITRATION_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into CAN_ARBITRATION_REG and assert validation flag.",
+            "caption": "Latch sampling bits into CAN_ARBITRATION_REG and assert validation flag.",
             "registerName": "CAN_ARBITRATION_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in CAN_ARBITRATION_REG with pipeline status.",
+            "caption": "Execute hardware transformation in CAN_ARBITRATION_REG with pipeline.",
             "registerName": "CAN_ARBITRATION_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register CAN_ARBITRATION_REG upon verified hardware completion.",
+            "caption": "Lock register CAN_ARBITRATION_REG upon verified hardware completion.",
             "registerName": "CAN_ARBITRATION_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -262,11 +262,11 @@
       "codeHash": "e4a332f439402280d42b9c29cf386a0d0a3ef2da967dd9fa4f6d996cc4b5ae79",
       "spec": {
         "template": "register-bits",
-        "title": "Day 32 Part 2 \u2014 CAN 2.0 Frame Structure, CRC-15  \u2014 Register Architecture",
+        "title": "Day 32 Part 2 — CAN 2.0 Frame Structure, CRC-15  — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register CAN_BIT_STUFFING_REG for CAN 2.0 Frame Structure, CRC-15 .",
+            "caption": "Arm hardware register CAN_BIT_STUFFING_REG for CAN two.zero Frame.",
             "registerName": "CAN_BIT_STUFFING_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -326,7 +326,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into CAN_BIT_STUFFING_REG and assert validation flag.",
+            "caption": "Latch sampling bits into CAN_BIT_STUFFING_REG and assert validation flag.",
             "registerName": "CAN_BIT_STUFFING_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -387,7 +387,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in CAN_BIT_STUFFING_REG with pipeline status.",
+            "caption": "Execute hardware transformation in CAN_BIT_STUFFING_REG with pipeline.",
             "registerName": "CAN_BIT_STUFFING_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -448,7 +448,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register CAN_BIT_STUFFING_REG upon verified hardware completion.",
+            "caption": "Lock register CAN_BIT_STUFFING_REG upon verified hardware completion.",
             "registerName": "CAN_BIT_STUFFING_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -514,11 +514,11 @@
       "codeHash": "7fc9429fa981eadff1f66784574e545bbbe6c848f488d23f9c1905cd77c4a4f5",
       "spec": {
         "template": "register-bits",
-        "title": "Day 32 Part 3 \u2014 CAN-FD (Flexible Data-Rate) Arch \u2014 Register Architecture",
+        "title": "Day 32 Part 3 — CAN-FD (Flexible Data-Rate) Arch — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register CAN_FD_BRS_SPEED_REG for CAN-FD (Flexible Data-Rate) Arch.",
+            "caption": "Arm hardware register CAN_FD_BRS_SPEED_REG for CAN-FD (Flexible.",
             "registerName": "CAN_FD_BRS_SPEED_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -578,7 +578,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into CAN_FD_BRS_SPEED_REG and assert validation flag.",
+            "caption": "Latch sampling bits into CAN_FD_BRS_SPEED_REG and assert validation flag.",
             "registerName": "CAN_FD_BRS_SPEED_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -639,7 +639,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in CAN_FD_BRS_SPEED_REG with pipeline status.",
+            "caption": "Execute hardware transformation in CAN_FD_BRS_SPEED_REG with pipeline.",
             "registerName": "CAN_FD_BRS_SPEED_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -700,7 +700,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register CAN_FD_BRS_SPEED_REG upon verified hardware completion.",
+            "caption": "Lock register CAN_FD_BRS_SPEED_REG upon verified hardware completion.",
             "registerName": "CAN_FD_BRS_SPEED_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -766,11 +766,11 @@
       "codeHash": "b8dee36a01238427395567febba6bb9be497c236514c073440286518d04b205d",
       "spec": {
         "template": "register-bits",
-        "title": "Day 32 Part 4 \u2014 Linux SocketCAN Architecture, Ha \u2014 Register Architecture",
+        "title": "Day 32 Part 4 — Linux SocketCAN Architecture, Ha — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register CAN_SOCKET_FILTER_REG for Linux SocketCAN Architecture, Ha.",
+            "caption": "Arm hardware register CAN_SOCKET_FILTER_REG for Linux SocketCAN.",
             "registerName": "CAN_SOCKET_FILTER_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -830,7 +830,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into CAN_SOCKET_FILTER_REG and assert validation flag.",
+            "caption": "Latch sampling bits into CAN_SOCKET_FILTER_REG and assert validation flag.",
             "registerName": "CAN_SOCKET_FILTER_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -891,7 +891,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in CAN_SOCKET_FILTER_REG with pipeline status.",
+            "caption": "Execute hardware transformation in CAN_SOCKET_FILTER_REG with pipeline.",
             "registerName": "CAN_SOCKET_FILTER_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -952,7 +952,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register CAN_SOCKET_FILTER_REG upon verified hardware completion.",
+            "caption": "Lock register CAN_SOCKET_FILTER_REG upon verified hardware completion.",
             "registerName": "CAN_SOCKET_FILTER_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1018,11 +1018,11 @@
       "codeHash": "405989df18709191833ba41a8d6e7213adfe5d0fae397fd2684ff05bdb68ecc3",
       "spec": {
         "template": "register-bits",
-        "title": "Day 32 Part 5 \u2014 Masterclass Synthesis: Full Indu \u2014 Register Architecture",
+        "title": "Day 32 Part 5 — Masterclass Synthesis: Full Indu — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register CAN_FD_AUDIT_MAST_REG for Masterclass Synthesis: Full Indu.",
+            "caption": "Arm hardware register CAN_FD_AUDIT_MAST_REG for Masterclass Synthesis.",
             "registerName": "CAN_FD_AUDIT_MAST_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1082,7 +1082,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into CAN_FD_AUDIT_MAST_REG and assert validation flag.",
+            "caption": "Latch sampling bits into CAN_FD_AUDIT_MAST_REG and assert validation flag.",
             "registerName": "CAN_FD_AUDIT_MAST_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -1143,7 +1143,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in CAN_FD_AUDIT_MAST_REG with pipeline status.",
+            "caption": "Execute hardware transformation in CAN_FD_AUDIT_MAST_REG with pipeline.",
             "registerName": "CAN_FD_AUDIT_MAST_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -1204,7 +1204,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register CAN_FD_AUDIT_MAST_REG upon verified hardware completion.",
+            "caption": "Lock register CAN_FD_AUDIT_MAST_REG upon verified hardware completion.",
             "registerName": "CAN_FD_AUDIT_MAST_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

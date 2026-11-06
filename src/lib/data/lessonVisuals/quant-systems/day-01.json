@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Market Feed): Initialize state for CPU Cache Hierarchy, Cache Line...",
+            "caption": "State one (Market Feed): Initialize state for CPU Cache Hierarchy, Cache.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -162,7 +162,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Market Feed): Initialize state for Lock-Free Concurrency & The Sin...",
+            "caption": "State one (Market Feed): Initialize state for Lock-Free Concurrency & The.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -292,7 +292,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Market Feed): Initialize state for Fixed-Point Arithmetic & Elimin...",
+            "caption": "State one (Market Feed): Initialize state for Fixed-Point Arithmetic &.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -422,7 +422,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Market Feed): Initialize state for Price-Time Priority (FIFO) Orde...",
+            "caption": "State one (Market Feed): Initialize state for Price-Time Priority (FIFO).",
             "currentState": "st1",
             "tone": "data"
           },
@@ -552,7 +552,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Market Feed): Initialize state for Nanosecond Latency Budgets & Co...",
+            "caption": "State one (Market Feed): Initialize state for Nanosecond Latency Budgets.",
             "currentState": "st1",
             "tone": "data"
           },

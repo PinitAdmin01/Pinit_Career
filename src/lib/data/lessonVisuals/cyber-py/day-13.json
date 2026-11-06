@@ -1,0 +1,787 @@
+{
+  "schemaVersion": 1,
+  "prefix": "cyber-py",
+  "day": 13,
+  "promptSha": "656918c5704e1001220cf034c052c5bebfb7449e8fc52a876b0e9a65c6a15123",
+  "model": "gpt-4o",
+  "entries": [
+    {
+      "partTitle": "The TCP handshake",
+      "codeHash": "418ebcc51663a58c4cf3123e5f0de6e96c9b54390a347611ced48f1054df2975",
+      "spec": {
+        "template": "sequence",
+        "title": "TCP three-way handshake and kernel transmission control block allocation",
+        "actors": [
+          {
+            "id": "client",
+            "label": "Client Host"
+          },
+          {
+            "id": "server",
+            "label": "Server Host"
+          },
+          {
+            "id": "tcb",
+            "label": "Transmission Control Block"
+          }
+        ],
+        "messages": [
+          {
+            "from": "client",
+            "to": "server",
+            "label": "TCP SYN Packet with Client Initial Sequence",
+            "tone": "data"
+          },
+          {
+            "from": "server",
+            "to": "tcb",
+            "label": "Allocate Half-Open Connection in Memory",
+            "tone": "data"
+          },
+          {
+            "from": "server",
+            "to": "client",
+            "label": "TCP SYN-ACK Packet with Server Sequence",
+            "tone": "ok"
+          },
+          {
+            "from": "client",
+            "to": "server",
+            "label": "TCP ACK Completes Three-Way Handshake",
+            "tone": "ok"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "The server receives the packet and allocates connection backlog memory.",
+            "activeMessageIndex": 1,
+            "statusBadge": "active"
+          },
+          {
+            "at": "say7",
+            "caption": "The connection transitions to established state for data streaming.",
+            "activeMessageIndex": 3,
+            "statusBadge": "completed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "sequence",
+        "title": "TCP three-way handshake and kernel transmission control block allocation",
+        "actors": [
+          {
+            "id": "client",
+            "label": "Client Host"
+          },
+          {
+            "id": "server",
+            "label": "Server Host"
+          },
+          {
+            "id": "tcb",
+            "label": "Transmission Control Block"
+          }
+        ],
+        "messages": [
+          {
+            "from": "client",
+            "to": "server",
+            "label": "TCP SYN Packet with Client Initial Sequence",
+            "tone": "data"
+          },
+          {
+            "from": "server",
+            "to": "tcb",
+            "label": "Allocate Half-Open Connection in Memory",
+            "tone": "data"
+          },
+          {
+            "from": "server",
+            "to": "client",
+            "label": "TCP SYN-ACK Packet with Server Sequence",
+            "tone": "ok"
+          },
+          {
+            "from": "client",
+            "to": "server",
+            "label": "TCP ACK Completes Three-Way Handshake",
+            "tone": "ok"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "The server receives the packet and allocates connection backlog memory.",
+            "activeMessageIndex": 1,
+            "statusBadge": "active"
+          },
+          {
+            "at": "say7",
+            "caption": "The connection transitions to established state for data streaming.",
+            "activeMessageIndex": 3,
+            "statusBadge": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "SYN floods",
+      "codeHash": "80f045fe92900e29719fdd4cc2ad025765480e3693fcb1b0532babf4d7af0b16",
+      "spec": {
+        "template": "states",
+        "title": "Asymmetric TCP SYN flood denial-of-service queue exhaustion lifecycle",
+        "states": [
+          {
+            "id": "spoofedSyn",
+            "label": "Spoofed SYN Packets Inundate Host"
+          },
+          {
+            "id": "backlogAllocated",
+            "label": "Half-Open Connections Occupy Queue"
+          },
+          {
+            "id": "queueExhausted",
+            "label": "Kernel SYN Backlog Queue Exhausted"
+          },
+          {
+            "id": "serviceDenied",
+            "label": "Legitimate Client Connections Dropped"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Incoming packets cause the kernel to allocate memory in its queue.",
+            "activeStateId": "backlogAllocated",
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say8",
+            "caption": "The server drops legitimate connection packets when queue slots fill.",
+            "activeStateId": "serviceDenied",
+            "statusBadge": "failed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Asymmetric TCP SYN flood denial-of-service queue exhaustion lifecycle",
+        "states": [
+          {
+            "id": "spoofedSyn",
+            "label": "Spoofed SYN Packets Inundate Host"
+          },
+          {
+            "id": "backlogAllocated",
+            "label": "Half-Open Connections Occupy Queue"
+          },
+          {
+            "id": "queueExhausted",
+            "label": "Kernel SYN Backlog Queue Exhausted"
+          },
+          {
+            "id": "serviceDenied",
+            "label": "Legitimate Client Connections Dropped"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "Incoming packets cause the kernel to allocate memory in its queue.",
+            "activeStateId": "backlogAllocated",
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say8",
+            "caption": "The server drops legitimate connection packets when queue slots fill.",
+            "activeStateId": "serviceDenied",
+            "statusBadge": "failed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Port scanning",
+      "codeHash": "d82ed991c9115e76412e0f3f96851a6254238bdc19d84abec4e7f1b2ba873122",
+      "spec": {
+        "template": "compare",
+        "title": "Stateful connection backlog queue versus stateless cryptographic SYN cookies",
+        "left": {
+          "title": "Standard SYN Backlog Queue",
+          "items": [
+            "Allocates kernel memory for every incoming SYN packet",
+            "Queue becomes exhausted within seconds under flood",
+            "Legitimate user connections dropped due to full queue"
+          ]
+        },
+        "right": {
+          "title": "Cryptographic SYN Cookie Defense",
+          "items": [
+            "Zero memory allocated upon receiving initial SYN packet",
+            "Connection state encoded into thirty-two bit sequence",
+            "Allocates connection memory only after valid client ACK"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "The server allocates zero memory when receiving an initial SYN packet.",
+            "highlightSide": "right",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say9",
+            "caption": "Stateless cookies neutralize floods without allocating memory in queues.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Standard SYN Backlog Queue",
+        "rightLabel": "Cryptographic SYN Cookie Defense"
+      },
+      "filled": {
+        "template": "compare",
+        "title": "Stateful connection backlog queue versus stateless cryptographic SYN cookies",
+        "left": {
+          "title": "Standard SYN Backlog Queue",
+          "items": [
+            "Allocates kernel memory for every incoming SYN packet",
+            "Queue becomes exhausted within seconds under flood",
+            "Legitimate user connections dropped due to full queue"
+          ]
+        },
+        "right": {
+          "title": "Cryptographic SYN Cookie Defense",
+          "items": [
+            "Zero memory allocated upon receiving initial SYN packet",
+            "Connection state encoded into thirty-two bit sequence",
+            "Allocates connection memory only after valid client ACK"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "The server allocates zero memory when receiving an initial SYN packet.",
+            "highlightSide": "right",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say9",
+            "caption": "Stateless cookies neutralize floods without allocating memory in queues.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Standard SYN Backlog Queue",
+        "rightLabel": "Cryptographic SYN Cookie Defense"
+      }
+    },
+    {
+      "partTitle": "Firewall rules",
+      "codeHash": "00867bfe2ad8ee9883583152cd01fb0d50ba522f6e40872b822f55ced010d58a",
+      "spec": {
+        "template": "table",
+        "title": "Reconnaissance scanning probe responses and port status determinations",
+        "columns": [
+          "Scan Technique",
+          "Probe Packet",
+          "Server Response",
+          "Resulting Port Status"
+        ],
+        "steps": [
+          {
+            "at": "say5",
+            "caption": "Attackers utilize the stealth scan to probe ports without logging.",
+            "activeRowIndex": 0,
+            "statusBadge": "active",
+            "rows": [
+              {
+                "cells": [
+                  "SYN Stealth Probe",
+                  "Raw SYN Packet",
+                  "SYN-ACK Packet Arrives",
+                  "Open Port (Scanner Sends RST)"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Closed Port Probe",
+                  "Raw SYN Packet",
+                  "RST Reset Packet Arrives",
+                  "Closed Port (Service Inactive)"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Filtered Port Probe",
+                  "Raw SYN Packet",
+                  "No Packet Response Arrives",
+                  "Filtered Port (Firewall Dropped)"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Connect Scan Probe",
+                  "Full Three-Way Handshake",
+                  "Full Connection Established",
+                  "Open Port (Logged by Daemon)"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "The scanner immediately sends a reset packet to tear down connections.",
+            "activeRowIndex": 0,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "SYN Stealth Probe",
+                  "Raw SYN Packet",
+                  "SYN-ACK Packet Arrives",
+                  "Open Port (Scanner Sends RST)"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Closed Port Probe",
+                  "Raw SYN Packet",
+                  "RST Reset Packet Arrives",
+                  "Closed Port (Service Inactive)"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Filtered Port Probe",
+                  "Raw SYN Packet",
+                  "No Packet Response Arrives",
+                  "Filtered Port (Firewall Dropped)"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Connect Scan Probe",
+                  "Full Three-Way Handshake",
+                  "Full Connection Established",
+                  "Open Port (Logged by Daemon)"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Reconnaissance scanning probe responses and port status determinations",
+        "columns": [
+          "Scan Technique",
+          "Probe Packet",
+          "Server Response",
+          "Resulting Port Status"
+        ],
+        "steps": [
+          {
+            "at": "say5",
+            "caption": "Attackers utilize the stealth scan to probe ports without logging.",
+            "activeRowIndex": 0,
+            "statusBadge": "active",
+            "rows": [
+              {
+                "cells": [
+                  "SYN Stealth Probe",
+                  "Raw SYN Packet",
+                  "SYN-ACK Packet Arrives",
+                  "Open Port (Scanner Sends RST)"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Closed Port Probe",
+                  "Raw SYN Packet",
+                  "RST Reset Packet Arrives",
+                  "Closed Port (Service Inactive)"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Filtered Port Probe",
+                  "Raw SYN Packet",
+                  "No Packet Response Arrives",
+                  "Filtered Port (Firewall Dropped)"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Connect Scan Probe",
+                  "Full Three-Way Handshake",
+                  "Full Connection Established",
+                  "Open Port (Logged by Daemon)"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "The scanner immediately sends a reset packet to tear down connections.",
+            "activeRowIndex": 0,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "SYN Stealth Probe",
+                  "Raw SYN Packet",
+                  "SYN-ACK Packet Arrives",
+                  "Open Port (Scanner Sends RST)"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Closed Port Probe",
+                  "Raw SYN Packet",
+                  "RST Reset Packet Arrives",
+                  "Closed Port (Service Inactive)"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Filtered Port Probe",
+                  "Raw SYN Packet",
+                  "No Packet Response Arrives",
+                  "Filtered Port (Firewall Dropped)"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Connect Scan Probe",
+                  "Full Three-Way Handshake",
+                  "Full Connection Established",
+                  "Open Port (Logged by Daemon)"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Network segmentation",
+      "codeHash": "ae0c1aa21332fd35a0b88139e72d53305d97d455987881f1538c739b0f3bdd68",
+      "spec": {
+        "template": "compare",
+        "title": "Stateless five-tuple packet filtering versus stateful packet inspection",
+        "left": {
+          "title": "Stateless Packet Filtering",
+          "items": [
+            "Inspects each packet in isolation using header rules",
+            "Cannot track bidirectional connection context or phase",
+            "Requires opening broad ranges of ephemeral ports"
+          ]
+        },
+        "right": {
+          "title": "Stateful Packet Inspection",
+          "items": [
+            "Maintains dynamic connection tracking state tables",
+            "Automatically correlates outbound requests with replies",
+            "Blocks unsolicited inbound packets while permitting web"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Stateless firewalls inspect each packet in complete isolation.",
+            "highlightSide": "left",
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say8",
+            "caption": "Unsolicited inbound packets without established connections are dropped.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Stateless Packet Filtering",
+        "rightLabel": "Stateful Packet Inspection"
+      },
+      "filled": {
+        "template": "compare",
+        "title": "Stateless five-tuple packet filtering versus stateful packet inspection",
+        "left": {
+          "title": "Stateless Packet Filtering",
+          "items": [
+            "Inspects each packet in isolation using header rules",
+            "Cannot track bidirectional connection context or phase",
+            "Requires opening broad ranges of ephemeral ports"
+          ]
+        },
+        "right": {
+          "title": "Stateful Packet Inspection",
+          "items": [
+            "Maintains dynamic connection tracking state tables",
+            "Automatically correlates outbound requests with replies",
+            "Blocks unsolicited inbound packets while permitting web"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Stateless firewalls inspect each packet in complete isolation.",
+            "highlightSide": "left",
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say8",
+            "caption": "Unsolicited inbound packets without established connections are dropped.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Stateless Packet Filtering",
+        "rightLabel": "Stateful Packet Inspection"
+      }
+    },
+    {
+      "partTitle": "Practice time: floods and firewalls",
+      "codeHash": "572e6845ca146532d62ee149a631d13b64f5786f09ee3eac40a218f564e0cd87",
+      "spec": {
+        "template": "flow",
+        "title": "Constructing a Stateful Connection Tracker & ... — Execution Pipeline",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "1. Input & State",
+            "tappable": true
+          },
+          {
+            "id": "proc",
+            "label": "2. Constructing a Stat...",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "3. Verified Output",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize input state for Constructing a Stateful Connection Track.",
+            "values": {
+              "in": "Day 13 Input",
+              "proc": "Standby",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "data",
+              "proc": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Execute core transformation in Constructing a Stat... [D.Psix.Stwo].",
+            "values": {
+              "in": "Validated",
+              "proc": "Processing...",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "values": {
+              "in": "Validated",
+              "proc": "Invariant OK",
+              "out": "Emitting"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "End-to-end execution verified for Constructing a Stateful Connectio.",
+            "values": {
+              "in": "Committed",
+              "proc": "Verified",
+              "out": "Complete ✓"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Constructing a Stateful Connection Tracker & ... — Execution Pipeline",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "1. Input & State",
+            "tappable": true
+          },
+          {
+            "id": "proc",
+            "label": "2. Constructing a Stat...",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "3. Verified Output",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Step 1: Initialize input state for Constructing a Stateful Connection Track.. [D13.P6.S1].",
+            "values": {
+              "in": "Day 13 Input",
+              "proc": "Standby",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "data",
+              "proc": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Step 2: Execute core transformation in Constructing a Stat... [D13.P6.S2].",
+            "values": {
+              "in": "Validated",
+              "proc": "Processing...",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Step 3: Inspect concrete example output and invariants [D13.P6.S3].",
+            "values": {
+              "in": "Validated",
+              "proc": "Invariant OK",
+              "out": "Emitting"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Step 4: End-to-end execution verified for Constructing a Stateful Connectio.. [D13.P6.S4].",
+            "values": {
+              "in": "Committed",
+              "proc": "Verified",
+              "out": "Complete ✓"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -89,7 +89,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Verify OT serial and Ethernet links: Modbus RS-485 UP, OPC UA 100BASE-TX UP.",
+            "caption": "Verify OT serial and Ethernet links: Modbus RS-multiple UP, OPC UA one.",
             "registerName": "IND_GW_ARCH_REG",
             "bitWidth": 8,
             "hexValue": "0xE7",
@@ -157,7 +157,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Bring up IEEE 802.15.4 wireless modem and Gigabit TSN deterministic switch port.",
+            "caption": "Bring up IEEE multiple.multiple.four wireless modem and Gigabit TSN.",
             "registerName": "IND_GW_ARCH_REG",
             "bitWidth": 8,
             "hexValue": "0xBF",
@@ -225,7 +225,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Engage ISA/IEC 62443 security boundary lock: Confirm zero listening ports on WAN uplink.",
+            "caption": "Engage ISA/IEC multiple security boundary lock: Confirm zero listening.",
             "registerName": "IND_GW_ARCH_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -371,7 +371,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Decode synchronous Modbus RTU response: Extract 16-bit register value 1850 with valid CRC-16.",
+            "caption": "Decode synchronous Modbus RTU response: Extract sixteen-bit register.",
             "registerName": "IND_GW_INGEST_REG",
             "bitWidth": 8,
             "hexValue": "0xC7",
@@ -439,7 +439,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Ingest OPC UA double variant (45.85 degC) and unpack 8-byte MQTT-SN datagram.",
+            "caption": "Ingest OPC UA double variant (multiple.multiple degC) and unpack.",
             "registerName": "IND_GW_INGEST_REG",
             "bitWidth": 8,
             "hexValue": "0xEF",
@@ -585,7 +585,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Activate SemanticDataNormalizer: Bind incoming records to ISA-95 asset hierarchy model.",
+            "caption": "Activate SemanticDataNormalizer: Bind incoming records to ISA-multiple.",
             "registerName": "IND_GW_SEMANTIC_NORM_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -653,7 +653,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Map Modbus register 40001 to PLANT_DETROIT.WELDING_CELL_04.MAIN_PUMP_01 rotational_speed.",
+            "caption": "Map Modbus register multiple to PLANT_DETROIT.WELDING_CELL_.MAIN_PUMP_.",
             "registerName": "IND_GW_SEMANTIC_NORM_REG",
             "bitWidth": 8,
             "hexValue": "0xC7",
@@ -721,7 +721,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Apply engineering unit scaling (RPM, degC) and synchronize deterministic ISO-8601 UTC timestamp.",
+            "caption": "Apply engineering unit scaling (RPM, degC) and synchronize deterministic.",
             "registerName": "IND_GW_SEMANTIC_NORM_REG",
             "bitWidth": 8,
             "hexValue": "0xEF",
@@ -789,7 +789,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Serialize normalized JSON payload with verified schema structure and 100% quality flag.",
+            "caption": "Serialize normalized JSON payload with verified schema structure and one.",
             "registerName": "IND_GW_SEMANTIC_NORM_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1071,7 +1071,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Restore WAN connection: Burst buffered backlog to cloud and verify 100% zero data loss.",
+            "caption": "Restore WAN connection: Burst buffered backlog to cloud and verify one.",
             "registerName": "IND_GW_RESILIENCY_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1217,7 +1217,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Ingest Modbus, OPC UA, and MQTT-SN frames: Apply ISA-95 normalization and unit scaling.",
+            "caption": "Ingest Modbus, OPC UA, and MQTT-SN frames: Apply ISA-multiple.",
             "registerName": "IND_GW_MASTER_CAPSTONE_REG",
             "bitWidth": 8,
             "hexValue": "0xE7",
@@ -1353,7 +1353,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Verify 100% cloud telemetry arrival and latch INDUSTRIAL_IOT_GATEWAY_ENGINE_GRADE_A_PLUS_CERTIFIED.",
+            "caption": "Verify one hundred% cloud telemetry arrival and latch.",
             "registerName": "IND_GW_MASTER_CAPSTONE_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

@@ -58,7 +58,7 @@
               ],
               "status": "IMDS_ISOLATION_ENFORCED"
             },
-            "caption": "Setting IMDSv2 hop limit to 1 prevents containerized pods from stealing host node IAM credentials. (Enterprise EKS Platform Blueprint: )"
+            "caption": "Setting IMDSvtwo hop limit to one prevents containerized pods from."
           },
           {
             "at": "tryIt",
@@ -102,7 +102,7 @@
               ],
               "status": "SPOT_PROVISIONED_42S"
             },
-            "caption": "Karpenter watches scheduler queue, bin-packs pending pods, and launches Spot instances in under 45s. (Dynamic Compute Tier: Karpenter Jus)"
+            "caption": "Karpenter watches scheduler queue, bin-packs pending pods, and launches."
           },
           {
             "at": "say2",
@@ -118,7 +118,7 @@
               ],
               "status": "COMPUTE_DIVERSIFIED"
             },
-            "caption": "NodePool mixes Graviton ARM64 and x86_64 across 20+ instance types for 70% cost savings. (Dynamic Compute Tier: Karpenter Jus)"
+            "caption": "NodePool mixes Graviton ARMsixty-four and x_sixty-four across twenty+."
           },
           {
             "at": "example",
@@ -134,7 +134,7 @@
               ],
               "status": "PDB_VIOLATION_BLOCKED"
             },
-            "caption": "PodDisruptionBudget (minAvailable: 1) blocks node consolidation from evicting all replicas simultaneously. (Dynamic Compute Tier: Karpenter Jus)"
+            "caption": "PodDisruptionBudget (minAvailable: one) blocks node consolidation from."
           },
           {
             "at": "tryIt",
@@ -150,7 +150,7 @@
               ],
               "status": "SPOT_DRAINED_GRACEFULLY"
             },
-            "caption": "EventBridge SQS receives 2-minute Spot warning, cordoning node and migrating pods seamlessly. (Dynamic Compute Tier: Karpenter Jus)"
+            "caption": "EventBridge SQS receives two-minute Spot warning, cordoning node and."
           }
         ]
       }
@@ -210,7 +210,7 @@
               ],
               "status": "ZERO_502_ERRORS"
             },
-            "caption": "Target-health.elbv2.k8s.aws holds pod in unready state until AWS Target Group confirms healthy status. (Edge-to-Pod Ingress: AWS Load Balan)"
+            "caption": "Target-health.elbvtwo.keights.aws holds pod in unready state until AWS."
           },
           {
             "at": "tryIt",
@@ -254,7 +254,7 @@
               ],
               "status": "TRANSPARENT_INTERCEPTION"
             },
-            "caption": "Linux iptables traps TCP packets, redirecting traffic to local Envoy proxy on port 15001/15006. (Zero-Trust Microservice Mesh: Istio)"
+            "caption": "Linux iptables traps TCP packets, redirecting traffic to local Envoy."
           },
           {
             "at": "say2",
@@ -286,7 +286,7 @@
               ],
               "status": "RBAC_ENFORCED"
             },
-            "caption": "Envoy evaluates client SPIFFE principal, path, and method, dropping unauthorized calls with 403 Forbidden. (Zero-Trust Microservice Mesh: Istio)"
+            "caption": "Envoy evaluates client SPIFFE principal, path, and method, dropping."
           },
           {
             "at": "tryIt",
@@ -302,7 +302,7 @@
               ],
               "status": "SELF_HEALING_MESH"
             },
-            "caption": "VirtualService splits traffic 90/10; circuit breaker ejects pods after 3 consecutive 5xx errors. (Zero-Trust Microservice Mesh: Istio)"
+            "caption": "VirtualService splits traffic multiple/ten; circuit breaker ejects pods."
           }
         ]
       }
@@ -330,7 +330,7 @@
               ],
               "status": "ENTERPRISE_PLATFORM_INTEGRATED"
             },
-            "caption": "Complete platform unification: hardened control plane, Karpenter, ALB, and Istio Zero Trust. (⭐ MILESTONE 6 SYNTHESIS: Enterprise)"
+            "caption": "Complete platform unification: hardened control plane, Karpenter, ALB."
           },
           {
             "at": "say2",
@@ -346,7 +346,7 @@
               ],
               "status": "SCALE_OUT_42S_VERIFIED"
             },
-            "caption": "Deployment scales from 2 to 100 pods in 42 seconds with Karpenter bin-packing Spot compute. (⭐ MILESTONE 6 SYNTHESIS: Enterprise)"
+            "caption": "Deployment scales from two to one hundred pods in multiple seconds with."
           },
           {
             "at": "example",
@@ -362,7 +362,7 @@
               ],
               "status": "RELIABILITY_VERIFIED"
             },
-            "caption": "PodDisruptionBudgets protect consolidation; Pod Readiness Gates ensure zero dropped requests. (⭐ MILESTONE 6 SYNTHESIS: Enterprise)"
+            "caption": "PodDisruptionBudgets protect consolidation; Pod Readiness Gates ensure."
           },
           {
             "at": "tryIt",
@@ -378,7 +378,7 @@
               ],
               "status": "GRADE_A_PLUS_PRODUCTION_CERTIFIED"
             },
-            "caption": "Platform proof validated across all security, compute, networking, and mesh invariants. (⭐ MILESTONE 6 SYNTHESIS: Enterprise)"
+            "caption": "Platform proof validated across all security, compute, networking, and."
           }
         ]
       }

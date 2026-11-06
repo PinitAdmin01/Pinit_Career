@@ -10,11 +10,11 @@
       "codeHash": "da3d299c574030b06a74b018644724c2a16d159869064c3f4be7c2d3a71cb548",
       "spec": {
         "template": "register-bits",
-        "title": "Day 34 Part 1 \u2014 Standard Ethernet Limitations, N \u2014 Register Architecture",
+        "title": "Day 34 Part 1 — Standard Ethernet Limitations, N — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register TSN_GPTP_DELAY_REG for Standard Ethernet Limitations, N.",
+            "caption": "Arm hardware register TSN_GPTP_DELAY_REG for Standard Ethernet.",
             "registerName": "TSN_GPTP_DELAY_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into TSN_GPTP_DELAY_REG and assert validation flag.",
+            "caption": "Latch sampling bits into TSN_GPTP_DELAY_REG and assert validation flag.",
             "registerName": "TSN_GPTP_DELAY_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in TSN_GPTP_DELAY_REG with pipeline status.",
+            "caption": "Execute hardware transformation in TSN_GPTP_DELAY_REG with pipeline status.",
             "registerName": "TSN_GPTP_DELAY_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register TSN_GPTP_DELAY_REG upon verified hardware completion.",
+            "caption": "Lock register TSN_GPTP_DELAY_REG upon verified hardware completion.",
             "registerName": "TSN_GPTP_DELAY_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -262,11 +262,11 @@
       "codeHash": "fe8a0585db6e75602a478f9dcc3c049f9d97b7cdaa2d6068235a07c6c3411e2c",
       "spec": {
         "template": "register-bits",
-        "title": "Day 34 Part 2 \u2014 IEEE 802.1Qbv Time-Aware Shaper  \u2014 Register Architecture",
+        "title": "Day 34 Part 2 — IEEE 802.1Qbv Time-Aware Shaper  — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register TSN_TAS_GCL_SCHED_REG for IEEE 802.1Qbv Time-Aware Shaper .",
+            "caption": "Arm hardware register TSN_TAS_GCL_SCHED_REG for IEEE multiple.oneQbv.",
             "registerName": "TSN_TAS_GCL_SCHED_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -326,7 +326,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into TSN_TAS_GCL_SCHED_REG and assert validation flag.",
+            "caption": "Latch sampling bits into TSN_TAS_GCL_SCHED_REG and assert validation flag.",
             "registerName": "TSN_TAS_GCL_SCHED_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -387,7 +387,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in TSN_TAS_GCL_SCHED_REG with pipeline status.",
+            "caption": "Execute hardware transformation in TSN_TAS_GCL_SCHED_REG with pipeline.",
             "registerName": "TSN_TAS_GCL_SCHED_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -448,7 +448,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register TSN_TAS_GCL_SCHED_REG upon verified hardware completion.",
+            "caption": "Lock register TSN_TAS_GCL_SCHED_REG upon verified hardware completion.",
             "registerName": "TSN_TAS_GCL_SCHED_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -514,11 +514,11 @@
       "codeHash": "94ebd530ba9d761ce058d6a2d08974b64a51e4aed68e4968f1decb8eef32a2b3",
       "spec": {
         "template": "register-bits",
-        "title": "Day 34 Part 3 \u2014 IEEE 802.1Qbu / 802.3br Frame Pr \u2014 Register Architecture",
+        "title": "Day 34 Part 3 — IEEE 802.1Qbu / 802.3br Frame Pr — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register TSN_PREEMPT_SLIC_REG for IEEE 802.1Qbu / 802.3br Frame Pr.",
+            "caption": "Arm hardware register TSN_PREEMPT_SLIC_REG for IEEE multiple.oneQbu /.",
             "registerName": "TSN_PREEMPT_SLIC_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -578,7 +578,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into TSN_PREEMPT_SLIC_REG and assert validation flag.",
+            "caption": "Latch sampling bits into TSN_PREEMPT_SLIC_REG and assert validation flag.",
             "registerName": "TSN_PREEMPT_SLIC_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -639,7 +639,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in TSN_PREEMPT_SLIC_REG with pipeline status.",
+            "caption": "Execute hardware transformation in TSN_PREEMPT_SLIC_REG with pipeline.",
             "registerName": "TSN_PREEMPT_SLIC_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -700,7 +700,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register TSN_PREEMPT_SLIC_REG upon verified hardware completion.",
+            "caption": "Lock register TSN_PREEMPT_SLIC_REG upon verified hardware completion.",
             "registerName": "TSN_PREEMPT_SLIC_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -766,11 +766,11 @@
       "codeHash": "033c40253d9e32618e45a62b1d57ec743086f973f40e4cbfae0c0f2acd88fb38",
       "spec": {
         "template": "register-bits",
-        "title": "Day 34 Part 4 \u2014 IEEE 802.1CB Frame Replication & \u2014 Register Architecture",
+        "title": "Day 34 Part 4 — IEEE 802.1CB Frame Replication & — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register TSN_FRER_REDUND_REG for IEEE 802.1CB Frame Replication &.",
+            "caption": "Arm hardware register TSN_FRER_REDUND_REG for IEEE multiple.oneCB Frame.",
             "registerName": "TSN_FRER_REDUND_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -830,7 +830,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into TSN_FRER_REDUND_REG and assert validation flag.",
+            "caption": "Latch sampling bits into TSN_FRER_REDUND_REG and assert validation flag.",
             "registerName": "TSN_FRER_REDUND_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -891,7 +891,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in TSN_FRER_REDUND_REG with pipeline status.",
+            "caption": "Execute hardware transformation in TSN_FRER_REDUND_REG with pipeline.",
             "registerName": "TSN_FRER_REDUND_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -952,7 +952,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register TSN_FRER_REDUND_REG upon verified hardware completion.",
+            "caption": "Lock register TSN_FRER_REDUND_REG upon verified hardware completion.",
             "registerName": "TSN_FRER_REDUND_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1018,11 +1018,11 @@
       "codeHash": "50ed6dd6a7b2d5ec03488c1cec6a2ad93c1d05641691a3a79b9231852f0c35fc",
       "spec": {
         "template": "register-bits",
-        "title": "Day 34 Part 5 \u2014 Masterclass Synthesis: Full Indu \u2014 Register Architecture",
+        "title": "Day 34 Part 5 — Masterclass Synthesis: Full Indu — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register TSN_DETERM_AUDIT_REG for Masterclass Synthesis: Full Indu.",
+            "caption": "Arm hardware register TSN_DETERM_AUDIT_REG for Masterclass Synthesis.",
             "registerName": "TSN_DETERM_AUDIT_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1082,7 +1082,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into TSN_DETERM_AUDIT_REG and assert validation flag.",
+            "caption": "Latch sampling bits into TSN_DETERM_AUDIT_REG and assert validation flag.",
             "registerName": "TSN_DETERM_AUDIT_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -1143,7 +1143,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in TSN_DETERM_AUDIT_REG with pipeline status.",
+            "caption": "Execute hardware transformation in TSN_DETERM_AUDIT_REG with pipeline.",
             "registerName": "TSN_DETERM_AUDIT_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -1204,7 +1204,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register TSN_DETERM_AUDIT_REG upon verified hardware completion.",
+            "caption": "Lock register TSN_DETERM_AUDIT_REG upon verified hardware completion.",
             "registerName": "TSN_DETERM_AUDIT_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

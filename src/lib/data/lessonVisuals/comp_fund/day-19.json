@@ -96,7 +96,7 @@
             "focus": [
               1
             ],
-            "caption": "say1 (USB Architecture Evolution: Type-C )"
+            "caption": "Sayone (USB Architecture Evolution: Type-C )."
           },
           {
             "label": "example",
@@ -264,7 +264,7 @@
             "focus": [
               1
             ],
-            "caption": "say1 (High-Bandwidth Display Protocols: D)"
+            "caption": "Sayone (High-Bandwidth Display Protocols: D)."
           },
           {
             "label": "example",
@@ -432,7 +432,7 @@
             "focus": [
               1
             ],
-            "caption": "say1 (PCIe Bus Topologies, Direct Memory )"
+            "caption": "Sayone (PCIe Bus Topologies, Direct Memory )."
           },
           {
             "label": "example",
@@ -592,7 +592,7 @@
             "focus": [
               0
             ],
-            "caption": "intro (USB-C Power Delivery 3.1 (EPR 240W))"
+            "caption": "Intro (USB-C Power Delivery three.one (EPR W))."
           },
           {
             "label": "say1",
@@ -600,7 +600,7 @@
             "focus": [
               1
             ],
-            "caption": "say1 (USB-C Power Delivery 3.1 (EPR 240W))"
+            "caption": "Sayone (USB-C Power Delivery three.one (EPR W))."
           },
           {
             "label": "example",
@@ -608,7 +608,7 @@
             "focus": [
               1
             ],
-            "caption": "example (USB-C Power Delivery 3.1 (EPR 240W))"
+            "caption": "Example (USB-C Power Delivery three.one (EPR W))."
           },
           {
             "label": "tryIt",
@@ -616,7 +616,7 @@
             "focus": [
               2
             ],
-            "caption": "tryIt (USB-C Power Delivery 3.1 (EPR 240W))"
+            "caption": "TryIt (USB-C Power Delivery three.one (EPR W))."
           }
         ]
       },
@@ -768,7 +768,7 @@
             "focus": [
               1
             ],
-            "caption": "say1 (Master Peripheral Interconnect, Dis)"
+            "caption": "Sayone (Master Peripheral Interconnect, Dis)."
           },
           {
             "label": "example",

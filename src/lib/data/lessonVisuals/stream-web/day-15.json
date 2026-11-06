@@ -138,7 +138,7 @@
         "steps": [
           {
             "at": "say5",
-            "caption": "At 0.8 High Watermark (8 items), the pool trips its throttled state.",
+            "caption": "At zero.eight High Watermark (eight items), the pool trips its throttled.",
             "activeState": "highThrottled",
             "transition": {
               "from": "normalFlow",
@@ -148,7 +148,7 @@
           },
           {
             "at": "say8",
-            "caption": "After 5 dequeues drop occupancy to 3 (<= 0.4 Low Mark), throttling clears.",
+            "caption": "After five dequeues drop occupancy to three (<= zero.four Low Mark).",
             "activeState": "lowCleared",
             "transition": {
               "from": "highThrottled",
@@ -214,7 +214,7 @@
         "steps": [
           {
             "at": "say4",
-            "caption": "High arrival velocity fills capacity (3 records) and dispatches immediately.",
+            "caption": "High arrival velocity fills capacity (three records) and dispatches.",
             "rows": [
               {
                 "cells": [
@@ -229,7 +229,7 @@
           },
           {
             "at": "say7",
-            "caption": "If lingerMs (20ms) expires first, pollTimeout closes the batch immediately.",
+            "caption": "If lingerMs (twentyms) expires first, pollTimeout closes the batch.",
             "rows": [
               {
                 "cells": [
@@ -328,7 +328,7 @@
         "steps": [
           {
             "at": "say5",
-            "caption": "When throttled, the coordinator returns THROTTLED_RETRY with backoffMs: 20.",
+            "caption": "When throttled, the coordinator returns THROTTLED_RETRY with backoffMs.",
             "messages": [
               {
                 "from": "producer",
@@ -436,7 +436,7 @@
         "steps": [
           {
             "at": "say4",
-            "caption": "Queue Saturation is calculated as currentQueueDepth (4) over maxCapacity (10).",
+            "caption": "Queue Saturation is calculated as currentQueueDepth (four) over.",
             "bars": [
               {
                 "label": "Throughput (msg/sec)",
@@ -456,7 +456,7 @@
           },
           {
             "at": "say8",
-            "caption": "Correlating queue saturation with p95 latency (14ms) pinpoints bottlenecks.",
+            "caption": "Correlating queue saturation with p latency (ms) pinpoints bottlenecks.",
             "bars": [
               {
                 "label": "Throughput (msg/sec)",
@@ -553,7 +553,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for End-to-End Milestone 3 Verification: Hig.. [D15.P6.S1].",
+            "caption": "Initialize input state for End-to-End Milestone three Verification: Hig.",
             "values": {
               "in": "Day 15 Input",
               "proc": "Standby",
@@ -573,7 +573,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in End-to-End Mileston... [D15.P6.S2].",
+            "caption": "Execute core transformation in End-to-End Mileston... [D.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -597,7 +597,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D15.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -617,7 +617,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for End-to-End Milestone 3 Verificati.. [D15.P6.S4].",
+            "caption": "End-to-end execution verified for End-to-End Milestone three Verificati.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

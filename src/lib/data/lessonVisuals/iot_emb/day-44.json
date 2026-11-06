@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize NOR Flash Physical Physics: Prog with EN=1 & hardware security boundary active.",
+            "caption": "Initialize NOR Flash Physical Physics: Prog with EN=one & hardware.",
             "registerName": "FLASH_LFS_CR1",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Cryptographic computation active - LOCK=1 and BUSY=1.",
+            "caption": "Cryptographic computation active - LOCK=one and BUSY=one.",
             "registerName": "FLASH_LFS_CR1",
             "bitWidth": 8,
             "hexValue": "0xE0",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification complete - VALID=1 and AUTH=1.",
+            "caption": "Verification complete - VALID=one and AUTH=one.",
             "registerName": "FLASH_LFS_CR1",
             "bitWidth": 8,
             "hexValue": "0xD8",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Certified state - SEC=1 asserted with zero hardware faults.",
+            "caption": "Certified state - SEC=one asserted with zero hardware faults.",
             "registerName": "FLASH_LFS_CR1",
             "bitWidth": 8,
             "hexValue": "0xDC",
@@ -266,7 +266,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize Dynamic vs Static Wear-Leveling  with EN=1 & hardware security boundary active.",
+            "caption": "Initialize Dynamic vs Static Wear-Leveling with EN=one & hardware.",
             "registerName": "FLASH_LFS_CR2",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -326,7 +326,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Cryptographic computation active - LOCK=1 and BUSY=1.",
+            "caption": "Cryptographic computation active - LOCK=one and BUSY=one.",
             "registerName": "FLASH_LFS_CR2",
             "bitWidth": 8,
             "hexValue": "0xE0",
@@ -387,7 +387,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification complete - VALID=1 and AUTH=1.",
+            "caption": "Verification complete - VALID=one and AUTH=one.",
             "registerName": "FLASH_LFS_CR2",
             "bitWidth": 8,
             "hexValue": "0xD8",
@@ -448,7 +448,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Certified state - SEC=1 asserted with zero hardware faults.",
+            "caption": "Certified state - SEC=one asserted with zero hardware faults.",
             "registerName": "FLASH_LFS_CR2",
             "bitWidth": 8,
             "hexValue": "0xDC",
@@ -518,7 +518,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize LittleFS Architecture: Copy-on-W with EN=1 & hardware security boundary active.",
+            "caption": "Initialize LittleFS Architecture: Copy-on-W with EN=one & hardware.",
             "registerName": "FLASH_LFS_CR3",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -578,7 +578,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Cryptographic computation active - LOCK=1 and BUSY=1.",
+            "caption": "Cryptographic computation active - LOCK=one and BUSY=one.",
             "registerName": "FLASH_LFS_CR3",
             "bitWidth": 8,
             "hexValue": "0xE0",
@@ -639,7 +639,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification complete - VALID=1 and AUTH=1.",
+            "caption": "Verification complete - VALID=one and AUTH=one.",
             "registerName": "FLASH_LFS_CR3",
             "bitWidth": 8,
             "hexValue": "0xD8",
@@ -700,7 +700,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Certified state - SEC=1 asserted with zero hardware faults.",
+            "caption": "Certified state - SEC=one asserted with zero hardware faults.",
             "registerName": "FLASH_LFS_CR3",
             "bitWidth": 8,
             "hexValue": "0xDC",
@@ -770,7 +770,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize Power-Loss Resiliency: Surviving with EN=1 & hardware security boundary active.",
+            "caption": "Initialize Power-Loss Resiliency: Surviving with EN=one & hardware.",
             "registerName": "FLASH_LFS_CR4",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -830,7 +830,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Cryptographic computation active - LOCK=1 and BUSY=1.",
+            "caption": "Cryptographic computation active - LOCK=one and BUSY=one.",
             "registerName": "FLASH_LFS_CR4",
             "bitWidth": 8,
             "hexValue": "0xE0",
@@ -891,7 +891,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification complete - VALID=1 and AUTH=1.",
+            "caption": "Verification complete - VALID=one and AUTH=one.",
             "registerName": "FLASH_LFS_CR4",
             "bitWidth": 8,
             "hexValue": "0xD8",
@@ -952,7 +952,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Certified state - SEC=1 asserted with zero hardware faults.",
+            "caption": "Certified state - SEC=one asserted with zero hardware faults.",
             "registerName": "FLASH_LFS_CR4",
             "bitWidth": 8,
             "hexValue": "0xDC",
@@ -1022,7 +1022,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize 3 AM SRE War Room: Fleet Filesys with EN=1 & hardware security boundary active.",
+            "caption": "Initialize three AM SRE War Room: Fleet Filesys with EN=one & hardware.",
             "registerName": "FLASH_LFS_CR5",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1082,7 +1082,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Cryptographic computation active - LOCK=1 and BUSY=1.",
+            "caption": "Cryptographic computation active - LOCK=one and BUSY=one.",
             "registerName": "FLASH_LFS_CR5",
             "bitWidth": 8,
             "hexValue": "0xE0",
@@ -1143,7 +1143,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification complete - VALID=1 and AUTH=1.",
+            "caption": "Verification complete - VALID=one and AUTH=one.",
             "registerName": "FLASH_LFS_CR5",
             "bitWidth": 8,
             "hexValue": "0xD8",
@@ -1204,7 +1204,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Certified state - SEC=1 asserted with zero hardware faults.",
+            "caption": "Certified state - SEC=one asserted with zero hardware faults.",
             "registerName": "FLASH_LFS_CR5",
             "bitWidth": 8,
             "hexValue": "0xDC",

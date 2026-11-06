@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Following one request through many servi.. [D26.P1.S1].",
+            "caption": "Initialize input state for Following one request through many servi.",
             "values": {
               "in": "Day 26 Input",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Following one reque... [D26.P1.S2].",
+            "caption": "Execute core transformation in Following one reque... [D.Pone.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -75,7 +75,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D26.P1.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Pone.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Following one request through man.. [D26.P1.S4].",
+            "caption": "End-to-end execution verified for Following one request through man.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -559,7 +559,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Validating headers [D26.P4.S1].",
+            "caption": "Initialize input state for Validating headers [D.Pfour.Sone].",
             "values": {
               "in": "Day 26 Input",
               "proc": "Standby",
@@ -579,7 +579,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Validating headers [D26.P4.S2].",
+            "caption": "Execute core transformation in Validating headers [D.Pfour.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -603,7 +603,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D26.P4.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Pfour.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -623,7 +623,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Validating headers [D26.P4.S4].",
+            "caption": "End-to-end execution verified for Validating headers [D.Pfour.Sfour].",
             "values": {
               "in": "Committed",
               "proc": "Verified",

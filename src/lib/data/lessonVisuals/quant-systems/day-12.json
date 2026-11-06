@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Venue Scanner): Initialize deterministic state for Modern Market Fragmentation & Venue Fee ...",
+            "caption": "State one (Venue Scanner): Initialize deterministic state for Modern.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -99,7 +99,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Venue Scanner): Initialize deterministic state for Queue Priority, Depth Estimation & Expec...",
+            "caption": "State one (Venue Scanner): Initialize deterministic state for Queue.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -166,7 +166,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Venue Scanner): Initialize deterministic state for Adverse Selection, Informed Order Flow &...",
+            "caption": "State one (Venue Scanner): Initialize deterministic state for Adverse.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -233,7 +233,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Venue Scanner): Initialize deterministic state for Static vs Dynamic Routing Policies: Mult...",
+            "caption": "State one (Venue Scanner): Initialize deterministic state for Static vs.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -300,7 +300,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Venue Scanner): Initialize deterministic state for Production C++ Low-Latency Smart Order R...",
+            "caption": "State one (Venue Scanner): Initialize deterministic state for Production.",
             "currentState": "st1",
             "tone": "data"
           },

@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register SE_SLOT_CFG_REG for Secure Element (SE) Silicon Arch.",
+            "caption": "Arm hardware register SE_SLOT_CFG_REG for Secure Element (SE) Silicon Arch.",
             "registerName": "SE_SLOT_CFG_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into SE_SLOT_CFG_REG and assert validation flag.",
+            "caption": "Latch sampling bits into SE_SLOT_CFG_REG and assert validation flag.",
             "registerName": "SE_SLOT_CFG_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in SE_SLOT_CFG_REG with pipeline status.",
+            "caption": "Execute hardware transformation in SE_SLOT_CFG_REG with pipeline status.",
             "registerName": "SE_SLOT_CFG_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register SE_SLOT_CFG_REG upon verified hardware completion.",
+            "caption": "Lock register SE_SLOT_CFG_REG upon verified hardware completion.",
             "registerName": "SE_SLOT_CFG_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -266,7 +266,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register I2C_IO_ENC_REG for I2C Inter-Chip Bus Eavesdropping.",
+            "caption": "Arm hardware register ItwoC_IO_ENC_REG for ItwoC Inter-Chip Bus.",
             "registerName": "I2C_IO_ENC_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -326,7 +326,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into I2C_IO_ENC_REG and assert validation flag.",
+            "caption": "Latch sampling bits into ItwoC_IO_ENC_REG and assert validation flag.",
             "registerName": "I2C_IO_ENC_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -387,7 +387,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in I2C_IO_ENC_REG with pipeline status.",
+            "caption": "Execute hardware transformation in ItwoC_IO_ENC_REG with pipeline status.",
             "registerName": "I2C_IO_ENC_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -448,7 +448,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register I2C_IO_ENC_REG upon verified hardware completion.",
+            "caption": "Lock register ItwoC_IO_ENC_REG upon verified hardware completion.",
             "registerName": "I2C_IO_ENC_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -518,7 +518,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register TEMPKEY_NONCE_REG for Asymmetric Signature Delegation .",
+            "caption": "Arm hardware register TEMPKEY_NONCE_REG for Asymmetric Signature.",
             "registerName": "TEMPKEY_NONCE_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -578,7 +578,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into TEMPKEY_NONCE_REG and assert validation flag.",
+            "caption": "Latch sampling bits into TEMPKEY_NONCE_REG and assert validation flag.",
             "registerName": "TEMPKEY_NONCE_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -639,7 +639,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in TEMPKEY_NONCE_REG with pipeline status.",
+            "caption": "Execute hardware transformation in TEMPKEY_NONCE_REG with pipeline status.",
             "registerName": "TEMPKEY_NONCE_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -700,7 +700,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register TEMPKEY_NONCE_REG upon verified hardware completion.",
+            "caption": "Lock register TEMPKEY_NONCE_REG upon verified hardware completion.",
             "registerName": "TEMPKEY_NONCE_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -770,7 +770,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register APDU_STATUS_REG for APDU Command Serialization & ISO.",
+            "caption": "Arm hardware register APDU_STATUS_REG for APDU Command Serialization & ISO.",
             "registerName": "APDU_STATUS_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -830,7 +830,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into APDU_STATUS_REG and assert validation flag.",
+            "caption": "Latch sampling bits into APDU_STATUS_REG and assert validation flag.",
             "registerName": "APDU_STATUS_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -891,7 +891,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in APDU_STATUS_REG with pipeline status.",
+            "caption": "Execute hardware transformation in APDU_STATUS_REG with pipeline status.",
             "registerName": "APDU_STATUS_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -952,7 +952,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register APDU_STATUS_REG upon verified hardware completion.",
+            "caption": "Lock register APDU_STATUS_REG upon verified hardware completion.",
             "registerName": "APDU_STATUS_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1022,7 +1022,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register SE_HARDWARE_REG for End-to-End Hardware Secure Eleme.",
+            "caption": "Arm hardware register SE_HARDWARE_REG for End-to-End Hardware Secure Eleme.",
             "registerName": "SE_HARDWARE_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1082,7 +1082,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into SE_HARDWARE_REG and assert validation flag.",
+            "caption": "Latch sampling bits into SE_HARDWARE_REG and assert validation flag.",
             "registerName": "SE_HARDWARE_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -1143,7 +1143,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in SE_HARDWARE_REG with pipeline status.",
+            "caption": "Execute hardware transformation in SE_HARDWARE_REG with pipeline status.",
             "registerName": "SE_HARDWARE_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -1204,7 +1204,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register SE_HARDWARE_REG upon verified hardware completion.",
+            "caption": "Lock register SE_HARDWARE_REG upon verified hardware completion.",
             "registerName": "SE_HARDWARE_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

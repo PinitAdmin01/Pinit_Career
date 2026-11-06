@@ -10,7 +10,7 @@
       "codeHash": "f2342d694835b434329cc616afc61de3c997694c6a184edeeff565e0e13b9695",
       "spec": {
         "template": "sequence",
-        "title": "The UTXO Paradigm: Graph Transactions, Set Accumulators & Bitcoin Script \u2014 Ledger State Transition Sequence",
+        "title": "The UTXO Paradigm: Graph Transactions, Set Accumulators & Bitcoin Script — Ledger State Transition Sequence",
         "actors": [
           "Transaction Signer",
           "Mempool Node",
@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Signer broadcasts transaction for The UTXO Paradigm: Graph Transac",
+            "caption": "Signer broadcasts transaction for The UTXO Paradigm: Graph Transac.",
             "activeActor": "Transaction Signer",
             "messages": [
               {
@@ -33,7 +33,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Mempool Node verifies anti-replay guards and passes to State Engine",
+            "caption": "Mempool Node verifies anti-replay guards and passes to State Engine.",
             "activeActor": "Mempool Node",
             "messages": [
               {
@@ -52,7 +52,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: State Transition Engine mutates balances and updates Merkle Trie root",
+            "caption": "State Transition Engine mutates balances and updates Merkle Trie root.",
             "activeActor": "State Transition Engine",
             "messages": [
               {
@@ -77,7 +77,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: State Trie DB commits new root hash and returns execution receipt",
+            "caption": "State Trie DB commits new root hash and returns execution receipt.",
             "activeActor": "State Trie DB",
             "messages": [
               {
@@ -101,7 +101,7 @@
               {
                 "from": "State Trie DB",
                 "to": "Transaction Signer",
-                "label": "StateTransitionReceipt(Root 0x8dfc... \u2713)",
+                "label": "StateTransitionReceipt(Root 0x8dfc... ✓)",
                 "tone": "ok"
               }
             ]
@@ -110,7 +110,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "The UTXO Paradigm: Graph Transactions, Set Accumulators & Bitcoin Script \u2014 Ledger State Transition Sequence",
+        "title": "The UTXO Paradigm: Graph Transactions, Set Accumulators & Bitcoin Script — Ledger State Transition Sequence",
         "actors": [
           "Transaction Signer",
           "Mempool Node",
@@ -201,7 +201,7 @@
               {
                 "from": "State Trie DB",
                 "to": "Transaction Signer",
-                "label": "StateTransitionReceipt(Root 0x8dfc... \u2713)",
+                "label": "StateTransitionReceipt(Root 0x8dfc... ✓)",
                 "tone": "ok"
               }
             ]
@@ -214,7 +214,7 @@
       "codeHash": "f6ea23f941b4a6735609ccf59b6263525215d1ea7cfd6d202c637042b5f04597",
       "spec": {
         "template": "sequence",
-        "title": "The Account-Based State Model: World State Trie, Nonces & Storage Roots \u2014 Ledger State Transition Sequence",
+        "title": "The Account-Based State Model: World State Trie, Nonces & Storage Roots — Ledger State Transition Sequence",
         "actors": [
           "Transaction Signer",
           "Mempool Node",
@@ -224,7 +224,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Signer broadcasts transaction for The Account-Based State Model: W",
+            "caption": "Signer broadcasts transaction for The Account-Based State Model: W.",
             "activeActor": "Transaction Signer",
             "messages": [
               {
@@ -237,7 +237,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Mempool Node verifies anti-replay guards and passes to State Engine",
+            "caption": "Mempool Node verifies anti-replay guards and passes to State Engine.",
             "activeActor": "Mempool Node",
             "messages": [
               {
@@ -256,7 +256,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: State Transition Engine mutates balances and updates Merkle Trie root",
+            "caption": "State Transition Engine mutates balances and updates Merkle Trie root.",
             "activeActor": "State Transition Engine",
             "messages": [
               {
@@ -281,7 +281,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: State Trie DB commits new root hash and returns execution receipt",
+            "caption": "State Trie DB commits new root hash and returns execution receipt.",
             "activeActor": "State Trie DB",
             "messages": [
               {
@@ -305,7 +305,7 @@
               {
                 "from": "State Trie DB",
                 "to": "Transaction Signer",
-                "label": "StateTransitionReceipt(Root 0x8dfc... \u2713)",
+                "label": "StateTransitionReceipt(Root 0x8dfc... ✓)",
                 "tone": "ok"
               }
             ]
@@ -314,7 +314,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "The Account-Based State Model: World State Trie, Nonces & Storage Roots \u2014 Ledger State Transition Sequence",
+        "title": "The Account-Based State Model: World State Trie, Nonces & Storage Roots — Ledger State Transition Sequence",
         "actors": [
           "Transaction Signer",
           "Mempool Node",
@@ -405,7 +405,7 @@
               {
                 "from": "State Trie DB",
                 "to": "Transaction Signer",
-                "label": "StateTransitionReceipt(Root 0x8dfc... \u2713)",
+                "label": "StateTransitionReceipt(Root 0x8dfc... ✓)",
                 "tone": "ok"
               }
             ]
@@ -418,7 +418,7 @@
       "codeHash": "3fcd47293c90eccdddfef969bdd7e7acb538339ef91422e4d46c7074b8c93749",
       "spec": {
         "template": "sequence",
-        "title": "Double-Spend Mitigation, Replay Attack Defenses & Nonce Monotonicity \u2014 Ledger State Transition Sequence",
+        "title": "Double-Spend Mitigation, Replay Attack Defenses & Nonce Monotonicity — Ledger State Transition Sequence",
         "actors": [
           "Transaction Signer",
           "Mempool Node",
@@ -428,7 +428,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Signer broadcasts transaction for Double-Spend Mitigation, Replay ",
+            "caption": "Signer broadcasts transaction for Double-Spend Mitigation, Replay.",
             "activeActor": "Transaction Signer",
             "messages": [
               {
@@ -441,7 +441,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Mempool Node verifies anti-replay guards and passes to State Engine",
+            "caption": "Mempool Node verifies anti-replay guards and passes to State Engine.",
             "activeActor": "Mempool Node",
             "messages": [
               {
@@ -460,7 +460,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: State Transition Engine mutates balances and updates Merkle Trie root",
+            "caption": "State Transition Engine mutates balances and updates Merkle Trie root.",
             "activeActor": "State Transition Engine",
             "messages": [
               {
@@ -485,7 +485,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: State Trie DB commits new root hash and returns execution receipt",
+            "caption": "State Trie DB commits new root hash and returns execution receipt.",
             "activeActor": "State Trie DB",
             "messages": [
               {
@@ -509,7 +509,7 @@
               {
                 "from": "State Trie DB",
                 "to": "Transaction Signer",
-                "label": "StateTransitionReceipt(Root 0x8dfc... \u2713)",
+                "label": "StateTransitionReceipt(Root 0x8dfc... ✓)",
                 "tone": "ok"
               }
             ]
@@ -518,7 +518,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Double-Spend Mitigation, Replay Attack Defenses & Nonce Monotonicity \u2014 Ledger State Transition Sequence",
+        "title": "Double-Spend Mitigation, Replay Attack Defenses & Nonce Monotonicity — Ledger State Transition Sequence",
         "actors": [
           "Transaction Signer",
           "Mempool Node",
@@ -609,7 +609,7 @@
               {
                 "from": "State Trie DB",
                 "to": "Transaction Signer",
-                "label": "StateTransitionReceipt(Root 0x8dfc... \u2713)",
+                "label": "StateTransitionReceipt(Root 0x8dfc... ✓)",
                 "tone": "ok"
               }
             ]
@@ -622,7 +622,7 @@
       "codeHash": "1f342422fc0fc15ab3bf9c35cf00e947a1979785d57f36046430f5326181e5d3",
       "spec": {
         "template": "sequence",
-        "title": "State Bloat, History Expiry (EIP-4444) & Verkle Trees \u2014 Ledger State Transition Sequence",
+        "title": "State Bloat, History Expiry (EIP-4444) & Verkle Trees — Ledger State Transition Sequence",
         "actors": [
           "Transaction Signer",
           "Mempool Node",
@@ -632,7 +632,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Signer broadcasts transaction for State Bloat, History Expiry (EIP",
+            "caption": "Signer broadcasts transaction for State Bloat, History Expiry (EIP.",
             "activeActor": "Transaction Signer",
             "messages": [
               {
@@ -645,7 +645,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Mempool Node verifies anti-replay guards and passes to State Engine",
+            "caption": "Mempool Node verifies anti-replay guards and passes to State Engine.",
             "activeActor": "Mempool Node",
             "messages": [
               {
@@ -664,7 +664,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: State Transition Engine mutates balances and updates Merkle Trie root",
+            "caption": "State Transition Engine mutates balances and updates Merkle Trie root.",
             "activeActor": "State Transition Engine",
             "messages": [
               {
@@ -689,7 +689,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: State Trie DB commits new root hash and returns execution receipt",
+            "caption": "State Trie DB commits new root hash and returns execution receipt.",
             "activeActor": "State Trie DB",
             "messages": [
               {
@@ -713,7 +713,7 @@
               {
                 "from": "State Trie DB",
                 "to": "Transaction Signer",
-                "label": "StateTransitionReceipt(Root 0x8dfc... \u2713)",
+                "label": "StateTransitionReceipt(Root 0x8dfc... ✓)",
                 "tone": "ok"
               }
             ]
@@ -722,7 +722,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "State Bloat, History Expiry (EIP-4444) & Verkle Trees \u2014 Ledger State Transition Sequence",
+        "title": "State Bloat, History Expiry (EIP-4444) & Verkle Trees — Ledger State Transition Sequence",
         "actors": [
           "Transaction Signer",
           "Mempool Node",
@@ -813,7 +813,7 @@
               {
                 "from": "State Trie DB",
                 "to": "Transaction Signer",
-                "label": "StateTransitionReceipt(Root 0x8dfc... \u2713)",
+                "label": "StateTransitionReceipt(Root 0x8dfc... ✓)",
                 "tone": "ok"
               }
             ]
@@ -826,7 +826,7 @@
       "codeHash": "a9c88103ed6cab8fe4c6c2b3c8c8ed6cfddcadf79cd744cc584a6a10ba5288a2",
       "spec": {
         "template": "sequence",
-        "title": "Master Distributed Ledger State Model Architecture & Transition Engine \u2014 Ledger State Transition Sequence",
+        "title": "Master Distributed Ledger State Model Architecture & Transition Engine — Ledger State Transition Sequence",
         "actors": [
           "Transaction Signer",
           "Mempool Node",
@@ -836,7 +836,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Signer broadcasts transaction for Master Distributed Ledger State ",
+            "caption": "Signer broadcasts transaction for Master Distributed Ledger State.",
             "activeActor": "Transaction Signer",
             "messages": [
               {
@@ -849,7 +849,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Mempool Node verifies anti-replay guards and passes to State Engine",
+            "caption": "Mempool Node verifies anti-replay guards and passes to State Engine.",
             "activeActor": "Mempool Node",
             "messages": [
               {
@@ -868,7 +868,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: State Transition Engine mutates balances and updates Merkle Trie root",
+            "caption": "State Transition Engine mutates balances and updates Merkle Trie root.",
             "activeActor": "State Transition Engine",
             "messages": [
               {
@@ -893,7 +893,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: State Trie DB commits new root hash and returns execution receipt",
+            "caption": "State Trie DB commits new root hash and returns execution receipt.",
             "activeActor": "State Trie DB",
             "messages": [
               {
@@ -917,7 +917,7 @@
               {
                 "from": "State Trie DB",
                 "to": "Transaction Signer",
-                "label": "StateTransitionReceipt(Root 0x8dfc... \u2713)",
+                "label": "StateTransitionReceipt(Root 0x8dfc... ✓)",
                 "tone": "ok"
               }
             ]
@@ -926,7 +926,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Master Distributed Ledger State Model Architecture & Transition Engine \u2014 Ledger State Transition Sequence",
+        "title": "Master Distributed Ledger State Model Architecture & Transition Engine — Ledger State Transition Sequence",
         "actors": [
           "Transaction Signer",
           "Mempool Node",
@@ -1017,7 +1017,7 @@
               {
                 "from": "State Trie DB",
                 "to": "Transaction Signer",
-                "label": "StateTransitionReceipt(Root 0x8dfc... \u2713)",
+                "label": "StateTransitionReceipt(Root 0x8dfc... ✓)",
                 "tone": "ok"
               }
             ]

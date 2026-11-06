@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream frame vector and initialize Unified Architecture: Type-Safe API....",
+            "caption": "Ingress stream frame vector and initialize Unified Architecture.",
             "values": {
               "in": "Capstone Input",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute hybrid routing, CRDT merge, and sharded pub/sub dispatch in Unified Architecture: Type-Safe API....",
+            "caption": "Execute hybrid routing, CRDT merge, and sharded pub/sub dispatch in.",
             "values": {
               "in": "Verified Frame",
               "proc": "Processing...",
@@ -71,7 +71,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world collaborative synchronization and compute offload in Unified Architecture: Type-Safe API....",
+            "caption": "Real-world collaborative synchronization and compute offload in Unified.",
             "values": {
               "in": "Multiplayer Mesh",
               "proc": "Executing",
@@ -91,7 +91,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify strong eventual consistency, DAG resolution, and telemetry health in Unified Architecture: Type-Safe API....",
+            "caption": "Verify strong eventual consistency, DAG resolution, and telemetry health.",
             "values": {
               "in": "Terminal State",
               "proc": "Quiesced",
@@ -138,7 +138,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream frame vector and initialize High-Frequency CRDT State Synchroni....",
+            "caption": "Ingress stream frame vector and initialize High-Frequency CRDT State.",
             "values": {
               "in": "Capstone Input",
               "proc": "Standby",
@@ -158,7 +158,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute hybrid routing, CRDT merge, and sharded pub/sub dispatch in High-Frequency CRDT State Synchroni....",
+            "caption": "Execute hybrid routing, CRDT merge, and sharded pub/sub dispatch in.",
             "values": {
               "in": "Verified Frame",
               "proc": "Processing...",
@@ -178,7 +178,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world collaborative synchronization and compute offload in High-Frequency CRDT State Synchroni....",
+            "caption": "Real-world collaborative synchronization and compute offload in.",
             "values": {
               "in": "Multiplayer Mesh",
               "proc": "Executing",
@@ -198,7 +198,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify strong eventual consistency, DAG resolution, and telemetry health in High-Frequency CRDT State Synchroni....",
+            "caption": "Verify strong eventual consistency, DAG resolution, and telemetry health.",
             "values": {
               "in": "Terminal State",
               "proc": "Quiesced",
@@ -245,7 +245,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream frame vector and initialize Distributed Multi-Tenant Redis Pub/....",
+            "caption": "Ingress stream frame vector and initialize Distributed Multi-Tenant Redis.",
             "values": {
               "in": "Capstone Input",
               "proc": "Standby",
@@ -265,7 +265,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute hybrid routing, CRDT merge, and sharded pub/sub dispatch in Distributed Multi-Tenant Redis Pub/....",
+            "caption": "Execute hybrid routing, CRDT merge, and sharded pub/sub dispatch in.",
             "values": {
               "in": "Verified Frame",
               "proc": "Processing...",
@@ -285,7 +285,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world collaborative synchronization and compute offload in Distributed Multi-Tenant Redis Pub/....",
+            "caption": "Real-world collaborative synchronization and compute offload in.",
             "values": {
               "in": "Multiplayer Mesh",
               "proc": "Executing",
@@ -305,7 +305,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify strong eventual consistency, DAG resolution, and telemetry health in Distributed Multi-Tenant Redis Pub/....",
+            "caption": "Verify strong eventual consistency, DAG resolution, and telemetry health.",
             "values": {
               "in": "Terminal State",
               "proc": "Quiesced",
@@ -352,7 +352,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream frame vector and initialize Heavy Compute Offloading: BullMQ Sa....",
+            "caption": "Ingress stream frame vector and initialize Heavy Compute Offloading.",
             "values": {
               "in": "Capstone Input",
               "proc": "Standby",
@@ -372,7 +372,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute hybrid routing, CRDT merge, and sharded pub/sub dispatch in Heavy Compute Offloading: BullMQ Sa....",
+            "caption": "Execute hybrid routing, CRDT merge, and sharded pub/sub dispatch in Heavy.",
             "values": {
               "in": "Verified Frame",
               "proc": "Processing...",
@@ -392,7 +392,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world collaborative synchronization and compute offload in Heavy Compute Offloading: BullMQ Sa....",
+            "caption": "Real-world collaborative synchronization and compute offload in Heavy.",
             "values": {
               "in": "Multiplayer Mesh",
               "proc": "Executing",
@@ -412,7 +412,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify strong eventual consistency, DAG resolution, and telemetry health in Heavy Compute Offloading: BullMQ Sa....",
+            "caption": "Verify strong eventual consistency, DAG resolution, and telemetry health.",
             "values": {
               "in": "Terminal State",
               "proc": "Quiesced",
@@ -459,7 +459,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream frame vector and initialize Production Resilience: Exponential ....",
+            "caption": "Ingress stream frame vector and initialize Production Resilience.",
             "values": {
               "in": "Capstone Input",
               "proc": "Standby",
@@ -479,7 +479,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute hybrid routing, CRDT merge, and sharded pub/sub dispatch in Production Resilience: Exponential ....",
+            "caption": "Execute hybrid routing, CRDT merge, and sharded pub/sub dispatch in.",
             "values": {
               "in": "Verified Frame",
               "proc": "Processing...",
@@ -499,7 +499,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world collaborative synchronization and compute offload in Production Resilience: Exponential ....",
+            "caption": "Real-world collaborative synchronization and compute offload in.",
             "values": {
               "in": "Multiplayer Mesh",
               "proc": "Executing",
@@ -519,7 +519,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify strong eventual consistency, DAG resolution, and telemetry health in Production Resilience: Exponential ....",
+            "caption": "Verify strong eventual consistency, DAG resolution, and telemetry health.",
             "values": {
               "in": "Terminal State",
               "proc": "Quiesced",

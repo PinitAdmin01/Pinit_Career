@@ -36,7 +36,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "10,000 nodes are partitioned into contiguous memory arrays across 5 enterprise categories.",
+            "caption": "Ten,multiple nodes are partitioned into contiguous memory arrays across.",
             "values": {
               "g_comp": {
                 "text": "\"2000 Nodes\""
@@ -60,7 +60,7 @@
           },
           {
             "at": "say2",
-            "caption": "Contiguous memory layout maximizes CPU L1/L2 cache locality, eliminating cache misses.",
+            "caption": "Contiguous memory layout maximizes CPU level-one/level-two cache.",
             "values": {
               "g_comp": {
                 "text": "\"L1 Cached\""
@@ -84,7 +84,7 @@
           },
           {
             "at": "say3",
-            "caption": "Nodes declare geometric coordinates (x, y) across a simulated 2000x2000 canvas plane.",
+            "caption": "Nodes declare geometric coordinates (x, y) across a simulated x canvas.",
             "values": {
               "g_comp": {
                 "text": "\"Plane 2000x2000\""
@@ -288,7 +288,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "User types 'Database'; search input updates immediately in SyncLane (< 0.2ms latency).",
+            "caption": "User types 'Database'; search input updates immediately in SyncLane (<.",
             "values": {
               "gf_sync": {
                 "text": "\"'Database' (0.1ms)\""
@@ -318,7 +318,7 @@
           },
           {
             "at": "say2",
-            "caption": "Graph filter evaluates 10,000 nodes across 4 discrete cooperative slices of 2,500 nodes each.",
+            "caption": "Graph filter evaluates ten,multiple nodes across four discrete.",
             "values": {
               "gf_sync": {
                 "text": "\"Instant\""
@@ -348,7 +348,7 @@
           },
           {
             "at": "say3",
-            "caption": "Between slices, the scheduler yields to the event loop, preserving 60 FPS animation smoothness.",
+            "caption": "Between slices, the scheduler yields to the event loop, preserving.",
             "values": {
               "gf_sync": {
                 "text": "\"Main Thread Free\""
@@ -378,7 +378,7 @@
           },
           {
             "at": "say4",
-            "caption": "Exactly 2,000 matching Database nodes commit cleanly without dropping a single frame.",
+            "caption": "Exactly two,multiple matching Database nodes commit cleanly without.",
             "values": {
               "gf_sync": {
                 "text": "\"Synced\""
@@ -584,19 +584,19 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "User types 'S'; graph begins slicing through 10,000 nodes in INITIAL_QUERY_SLICING.",
+            "caption": "User types 'S'; graph begins slicing through ten,multiple nodes in.",
             "activeId": "gps1",
             "tone": "idle"
           },
           {
             "at": "say2",
-            "caption": "User rapidly types 'e' before slice 2 runs; RAPID_KEYSTROKE_INTERRUPT fires in SyncLane.",
+            "caption": "User rapidly types 'e' before slice two runs; RAPID_KEYSTROKE_INTERRUPT.",
             "activeId": "gps2",
             "tone": "data"
           },
           {
             "at": "say3",
-            "caption": "Scheduler immediately enters STALE_WORK_ABORTED, saving 7,500 unneeded node checks.",
+            "caption": "Scheduler immediately enters STALE_WORK_ABORTED, saving.",
             "activeId": "gps3",
             "tone": "error"
           },
@@ -673,13 +673,13 @@
           "viewport": {
             "totalHeightPx": 240,
             "renderedRange": "245 Visible Nodes Rendered (1,755 Offscreen Nodes Culled - 87.8% GPU Reduction)",
-            "opacity": 1.0
+            "opacity": 1
           }
         },
         "steps": [
           {
             "at": "say1",
-            "caption": "The full graph spans a 2000x2000 coordinate plane containing 2,000 matching Database nodes.",
+            "caption": "The full graph spans a x coordinate plane containing two,multiple.",
             "values": {
               "plane": {
                 "text": "\"Total Matched: 2000\""
@@ -691,7 +691,7 @@
           },
           {
             "at": "say2",
-            "caption": "Camera viewport (800x600) encloses only 245 nodes; spatial culling discards remaining 1,755.",
+            "caption": "Camera viewport (x) encloses only multiple nodes; spatial culling.",
             "values": {
               "visible": {
                 "text": "\"Visible: 245 (Culled: 1755)\""
@@ -703,7 +703,7 @@
           },
           {
             "at": "say3",
-            "caption": "GPU draw calls and layout passes are reduced by 87.8%, guaranteeing instantaneous rasterization.",
+            "caption": "GPU draw calls and layout passes are reduced by multiple.eight%.",
             "values": {
               "gpu": {
                 "text": "\"GPU Load: -87.8%\""
@@ -715,7 +715,7 @@
           },
           {
             "at": "say4",
-            "caption": "Panning camera updates viewport boundaries and re-renders visible slice in < 1ms.",
+            "caption": "Panning camera updates viewport boundaries and re-renders visible slice.",
             "values": {
               "pan": {
                 "text": "\"Camera Pan: 60 FPS\""
@@ -740,7 +740,7 @@
           "viewport": {
             "totalHeightPx": 240,
             "renderedRange": "245 Visible Nodes Rendered (1,755 Offscreen Nodes Culled - 87.8% GPU Reduction)",
-            "opacity": 1.0
+            "opacity": 1
           }
         },
         "steps": [
@@ -826,7 +826,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "User keystrokes echo in SyncLane in under 0.2 milliseconds with zero dropped frames.",
+            "caption": "User keystrokes echo in SyncLane in under zero.two milliseconds with zero.",
             "values": {
               "cap_sync": {
                 "text": "\"0.1ms Echo\""
@@ -886,7 +886,7 @@
           },
           {
             "at": "say3",
-            "caption": "10,000 nodes are filtered in 5ms cooperative slices with zero Total Blocking Time (TBT).",
+            "caption": "Ten,multiple nodes are filtered in fivems cooperative slices with zero.",
             "values": {
               "cap_sync": {
                 "text": "\"Synced\""
@@ -916,7 +916,7 @@
           },
           {
             "at": "say4",
-            "caption": "Spatial culling renders 245 visible nodes; Milestone 7 achieves certified 60 FPS compliance.",
+            "caption": "Spatial culling renders multiple visible nodes; Milestone seven achieves.",
             "values": {
               "cap_sync": {
                 "text": "\"0ms TBT\""

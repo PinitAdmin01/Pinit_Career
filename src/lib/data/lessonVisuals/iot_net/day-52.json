@@ -21,7 +21,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize OPC UA AddressSpace: Instantiate standard Root (ns=0;i=84) and Objects folders.",
+            "caption": "Initialize OPC UA AddressSpace: Instantiate standard Root.",
             "registerName": "OPC_UA_ADDRSPACE_REG",
             "bitWidth": 8,
             "hexValue": "0x83",
@@ -89,7 +89,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Create ObjectNode for CentrifugalPump_01 linked to Objects folder via Organizes reference.",
+            "caption": "Create ObjectNode for CentrifugalPump_ linked to Objects folder via.",
             "registerName": "OPC_UA_ADDRSPACE_REG",
             "bitWidth": 8,
             "hexValue": "0x87",
@@ -303,7 +303,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Resolve Namespace Index: Map ns=2 to custom plant URI and parse NodeId identifier.",
+            "caption": "Resolve Namespace Index: Map ns=two to custom plant URI and parse NodeId.",
             "registerName": "OPC_UA_NODEID_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -371,7 +371,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Encapsulate sensor reading within DataValue: Assign float value and StatusCode Good (0x00000000).",
+            "caption": "Encapsulate sensor reading within DataValue: Assign float value and.",
             "registerName": "OPC_UA_NODEID_REG",
             "bitWidth": 8,
             "hexValue": "0x8F",
@@ -653,7 +653,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Encode length-prefixed UTF-8 string: Prefix 4-byte Int32 length followed by raw byte payload.",
+            "caption": "Encode length-prefixed UTF encoding string: Prefix four-byte word-integer.",
             "registerName": "OPC_UA_BINARY_ENC_REG",
             "bitWidth": 8,
             "hexValue": "0x8B",
@@ -721,7 +721,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Serialize multi-variable packet: Pack node name, Int32 speed (1750 RPM), and Float temp (68.45 C).",
+            "caption": "Serialize multi-variable packet: Pack node name, word-integer speed.",
             "registerName": "OPC_UA_BINARY_ENC_REG",
             "bitWidth": 8,
             "hexValue": "0xBF",
@@ -789,7 +789,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Verify zero-copy buffer deserialization and confirm 100% lossless binary round-trip.",
+            "caption": "Verify zero-copy buffer deserialization and confirm one hundred% lossless.",
             "registerName": "OPC_UA_BINARY_ENC_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -867,7 +867,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Establish raw TCP connection on port 4840: Complete Hello (HEL) and Acknowledge (ACK) handshake.",
+            "caption": "Establish raw TCP connection on port multiple: Complete Hello (HEL) and.",
             "registerName": "OPC_UA_SEC_CHANNEL_REG",
             "bitWidth": 8,
             "hexValue": "0x83",
@@ -935,7 +935,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Issue OpenSecureChannel request: Negotiate Basic256Sha256 security policy with SignAndEncrypt mode.",
+            "caption": "Issue OpenSecureChannel request: Negotiate.",
             "registerName": "OPC_UA_SEC_CHANNEL_REG",
             "bitWidth": 8,
             "hexValue": "0x8F",
@@ -1003,7 +1003,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Exchange X.509 digital certificates and 32-byte nonces; verify CA signature trust chains.",
+            "caption": "Exchange X.multiple digital certificates and thirty-two-byte nonces.",
             "registerName": "OPC_UA_SEC_CHANNEL_REG",
             "bitWidth": 8,
             "hexValue": "0xBF",
@@ -1071,7 +1071,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Derive symmetric AES-256 session keys and latch active secure channel state.",
+            "caption": "Derive symmetric AES cipher session keys and latch active secure channel.",
             "registerName": "OPC_UA_SEC_CHANNEL_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1149,7 +1149,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize OpcUaMasterServerEngine: Register TurbineSpeed variable with 3600 RPM baseline.",
+            "caption": "Initialize OpcUaMasterServerEngine: Register TurbineSpeed variable with.",
             "registerName": "OPC_UA_MASTER_SRV_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -1217,7 +1217,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Create Subscription with 250ms interval and attach MonitoredItem with 5.0 RPM deadband.",
+            "caption": "Create Subscription with ms interval and attach MonitoredItem with.",
             "registerName": "OPC_UA_MASTER_SRV_REG",
             "bitWidth": 8,
             "hexValue": "0x8F",
@@ -1285,7 +1285,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Sample sensor reading 3602 RPM: Fluctuation (< 5.0) suppressed by deadband filter.",
+            "caption": "Sample sensor reading multiple RPM: Fluctuation (< five.zero) suppressed.",
             "registerName": "OPC_UA_MASTER_SRV_REG",
             "bitWidth": 8,
             "hexValue": "0xBF",
@@ -1353,7 +1353,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Sample sensor reading 3608.5 RPM: Exceeds deadband; fire notification and latch token.",
+            "caption": "Sample sensor reading multiple.five RPM: Exceeds deadband; fire.",
             "registerName": "OPC_UA_MASTER_SRV_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

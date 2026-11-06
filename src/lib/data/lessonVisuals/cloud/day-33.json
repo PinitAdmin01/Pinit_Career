@@ -42,7 +42,7 @@
               ],
               "status": "CRD_RECONCILED"
             },
-            "caption": "Watch loop detects Ingress and TargetGroupBinding CRDs, translating specs into AWS ELBv2 calls. (AWS Load Balancer Controller Archit)"
+            "caption": "Watch loop detects Ingress and TargetGroupBinding CRDs, translating specs."
           },
           {
             "at": "example",
@@ -102,7 +102,7 @@
               ],
               "status": "HOP_1_RECEIVED"
             },
-            "caption": "ALB routes incoming traffic to random EC2 worker node high NodePort (30000-32767). (Target Types Deep Dive: Instance Mo)"
+            "caption": "ALB routes incoming traffic to random compute-node worker node high."
           },
           {
             "at": "say2",
@@ -178,7 +178,7 @@
               ],
               "status": "LAYER4_MICROSECONDS"
             },
-            "caption": "NLB terminates raw TCP/UDP connections with microsecond latency and static Elastic IPs per AZ. (Layer 4 NLB vs Layer 7 ALB Ingress:)"
+            "caption": "NLB terminates raw TCP/UDP connections with microsecond latency and."
           },
           {
             "at": "say2",
@@ -194,7 +194,7 @@
               ],
               "status": "LAYER7_CONTENT_ROUTED"
             },
-            "caption": "ALB inspects HTTP paths, headers, and hosts, directing traffic to specialized microservice pod pools. (Layer 4 NLB vs Layer 7 ALB Ingress:)"
+            "caption": "ALB inspects HTTP paths, headers, and hosts, directing traffic to."
           },
           {
             "at": "example",
@@ -210,7 +210,7 @@
               ],
               "status": "TLS_1_3_TERMINATED"
             },
-            "caption": "Controller discovers valid ACM wildcard certificates matching Ingress hostnames without manual ARNs. (Layer 4 NLB vs Layer 7 ALB Ingress:)"
+            "caption": "Controller discovers valid ACM wildcard certificates matching Ingress."
           },
           {
             "at": "tryIt",
@@ -226,7 +226,7 @@
               ],
               "status": "HTTPS_ENFORCED"
             },
-            "caption": "Port 80 HTTP requests immediately trigger 301 Moved Permanently redirects to port 443 at the ALB edge. (Layer 4 NLB vs Layer 7 ALB Ingress:)"
+            "caption": "Port multiple HTTP requests immediately trigger multiple Moved."
           }
         ]
       }
@@ -254,7 +254,7 @@
               ],
               "status": "SUBNETS_DISCOVERED"
             },
-            "caption": "Controller queries AWS EC2 API for 'kubernetes.io/role/elb: 1' tags to allocate ALB interfaces. (VPC Subnet Discovery, Security Grou)"
+            "caption": "Controller queries AWS compute-node API for 'kubernetes.io/role/elb: one'."
           },
           {
             "at": "say2",
@@ -286,7 +286,7 @@
               ],
               "status": "RACE_CONDITION_AVOIDED"
             },
-            "caption": "Without readiness gates, Kubernetes marks pods ready before ALB health checks pass, causing HTTP 504 errors. (VPC Subnet Discovery, Security Grou)"
+            "caption": "Without readiness gates, Kubernetes marks pods ready before ALB health."
           },
           {
             "at": "tryIt",
@@ -302,7 +302,7 @@
               ],
               "status": "ZERO_DOWNTIME_CERTIFIED"
             },
-            "caption": "Target-health.elbv2.k8s.aws gate holds pod in unready state until AWS Target Group status is healthy. (VPC Subnet Discovery, Security Grou)"
+            "caption": "Target-health.elbvtwo.keights.aws gate holds pod in unready state until."
           }
         ]
       }
@@ -330,7 +330,7 @@
               ],
               "status": "EDGE_TRAFFIC_INGESTED"
             },
-            "caption": "External client requests hit multi-AZ ALB; TLS 1.3 terminated via ACM wildcard certificates. (Masterclass Synthesis: Production A)"
+            "caption": "External client requests hit multi-AZ ALB; modern TLS terminated via ACM."
           },
           {
             "at": "say2",
@@ -362,7 +362,7 @@
               ],
               "status": "SINGLE_HOP_1_6MS"
             },
-            "caption": "Packet delivered directly across VPC to pod secondary ENI IP (100.64.12.8:8080) in 1.6ms. (Masterclass Synthesis: Production A)"
+            "caption": "Packet delivered directly across VPC to pod secondary ENI IP (one."
           },
           {
             "at": "tryIt",
@@ -378,7 +378,7 @@
               ],
               "status": "GRADE_A_PLUS_CERTIFIED"
             },
-            "caption": "Masterclass engine verified with 100% test coverage, zero double-hopping, and zero-downtime rolling updates. (Masterclass Synthesis: Production A)"
+            "caption": "Masterclass engine verified with one hundred% test coverage, zero."
           }
         ]
       }

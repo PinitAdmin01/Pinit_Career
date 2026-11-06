@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize RS-485 Differential Physical Lay with EN=1 & peripheral clock enabled.",
+            "caption": "Initialize RS-multiple Differential Physical Lay with EN=one & peripheral.",
             "registerName": "MODBUS_RTU_CR1",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Core processing active - RDY=1 and DMA streaming enabled.",
+            "caption": "Core processing active - RDY=one and DMA streaming enabled.",
             "registerName": "MODBUS_RTU_CR1",
             "bitWidth": 8,
             "hexValue": "0xD0",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Transfer complete - TC=1 asserted and IRQ interrupt raised.",
+            "caption": "Transfer complete - TC=one asserted and IRQ interrupt raised.",
             "registerName": "MODBUS_RTU_CR1",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Certified state - TXE buffer clean and all status flags verified.",
+            "caption": "Certified state - TXE buffer clean and all status flags verified.",
             "registerName": "MODBUS_RTU_CR1",
             "bitWidth": 8,
             "hexValue": "0xFC",
@@ -266,7 +266,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize Modbus RTU Frame Silence Timing: with EN=1 & peripheral clock enabled.",
+            "caption": "Initialize Modbus RTU Frame Silence Timing: with EN=one & peripheral.",
             "registerName": "MODBUS_RTU_CR2",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -326,7 +326,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Core processing active - RDY=1 and DMA streaming enabled.",
+            "caption": "Core processing active - RDY=one and DMA streaming enabled.",
             "registerName": "MODBUS_RTU_CR2",
             "bitWidth": 8,
             "hexValue": "0xD0",
@@ -387,7 +387,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Transfer complete - TC=1 asserted and IRQ interrupt raised.",
+            "caption": "Transfer complete - TC=one asserted and IRQ interrupt raised.",
             "registerName": "MODBUS_RTU_CR2",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -448,7 +448,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Certified state - TXE buffer clean and all status flags verified.",
+            "caption": "Certified state - TXE buffer clean and all status flags verified.",
             "registerName": "MODBUS_RTU_CR2",
             "bitWidth": 8,
             "hexValue": "0xFC",
@@ -518,7 +518,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize Modbus CRC-16 Polynomial 0xA001  with EN=1 & peripheral clock enabled.",
+            "caption": "Initialize Modbus CRC-sixteen Polynomial zeroxA with EN=one & peripheral.",
             "registerName": "MODBUS_RTU_CR3",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -578,7 +578,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Core processing active - RDY=1 and DMA streaming enabled.",
+            "caption": "Core processing active - RDY=one and DMA streaming enabled.",
             "registerName": "MODBUS_RTU_CR3",
             "bitWidth": 8,
             "hexValue": "0xD0",
@@ -639,7 +639,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Transfer complete - TC=1 asserted and IRQ interrupt raised.",
+            "caption": "Transfer complete - TC=one asserted and IRQ interrupt raised.",
             "registerName": "MODBUS_RTU_CR3",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -700,7 +700,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Certified state - TXE buffer clean and all status flags verified.",
+            "caption": "Certified state - TXE buffer clean and all status flags verified.",
             "registerName": "MODBUS_RTU_CR3",
             "bitWidth": 8,
             "hexValue": "0xFC",
@@ -770,7 +770,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize Modbus Function Codes: Reading H with EN=1 & peripheral clock enabled.",
+            "caption": "Initialize Modbus Function Codes: Reading H with EN=one & peripheral.",
             "registerName": "MODBUS_RTU_CR4",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -830,7 +830,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Core processing active - RDY=1 and DMA streaming enabled.",
+            "caption": "Core processing active - RDY=one and DMA streaming enabled.",
             "registerName": "MODBUS_RTU_CR4",
             "bitWidth": 8,
             "hexValue": "0xD0",
@@ -891,7 +891,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Transfer complete - TC=1 asserted and IRQ interrupt raised.",
+            "caption": "Transfer complete - TC=one asserted and IRQ interrupt raised.",
             "registerName": "MODBUS_RTU_CR4",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -952,7 +952,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Certified state - TXE buffer clean and all status flags verified.",
+            "caption": "Certified state - TXE buffer clean and all status flags verified.",
             "registerName": "MODBUS_RTU_CR4",
             "bitWidth": 8,
             "hexValue": "0xFC",
@@ -1022,7 +1022,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize Modbus TCP Architecture & MBAP 7 with EN=1 & peripheral clock enabled.",
+            "caption": "Initialize Modbus TCP Architecture & MBAP seven with EN=one & peripheral.",
             "registerName": "MODBUS_RTU_CR5",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1082,7 +1082,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Core processing active - RDY=1 and DMA streaming enabled.",
+            "caption": "Core processing active - RDY=one and DMA streaming enabled.",
             "registerName": "MODBUS_RTU_CR5",
             "bitWidth": 8,
             "hexValue": "0xD0",
@@ -1143,7 +1143,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Transfer complete - TC=1 asserted and IRQ interrupt raised.",
+            "caption": "Transfer complete - TC=one asserted and IRQ interrupt raised.",
             "registerName": "MODBUS_RTU_CR5",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -1204,7 +1204,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Certified state - TXE buffer clean and all status flags verified.",
+            "caption": "Certified state - TXE buffer clean and all status flags verified.",
             "registerName": "MODBUS_RTU_CR5",
             "bitWidth": 8,
             "hexValue": "0xFC",

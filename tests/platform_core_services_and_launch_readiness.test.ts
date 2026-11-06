@@ -78,9 +78,9 @@ test('Launch Readiness [Service 2]: Career Intelligence & ATS Resume Synthesis w
 test('Launch Readiness [Service 3]: Pin Economy Invariants, Non-Negative Balances & Deduplication', () => {
   // Pin Economy Costs
   assert.strictEqual(PIN_COSTS.quest.cost, 20);
-  assert.strictEqual(PIN_COSTS.interview.cost, 35);
+  assert.strictEqual(PIN_COSTS.interview.cost, 25);
   assert.strictEqual(PIN_COSTS.code_arena.cost, 10);
-  assert.strictEqual(PIN_COSTS.group_discussion.cost, 35);
+  assert.strictEqual(PIN_COSTS.group_discussion.cost, 25);
 
   // Balance spend safety: cannot spend more than available
   let balance = 15;

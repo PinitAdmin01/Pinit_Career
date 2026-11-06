@@ -51,7 +51,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <MobileAppShell /> for Mobile Architecture: JS Thread, U...",
+            "caption": "Mount root <MobileAppShell /> for Mobile Architecture: JS Thread, U...",
             "activeId": "AppShell",
             "tone": "data",
             "nodes": [
@@ -94,7 +94,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Pass route params down to <NavigationStack />.",
+            "caption": "Pass route params down to <NavigationStack />.",
             "activeId": "NavStack",
             "reRenderingIds": [
               "NavStack",
@@ -147,7 +147,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Render <ScreenViewport /> with reactive state bindings.",
+            "caption": "Render <ScreenViewport /> with reactive state bindings.",
             "activeId": "ScreenView",
             "reRenderingIds": [
               "ScreenView"
@@ -199,7 +199,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Dispatch gesture event from <NativeSensorBridge /> to shell.",
+            "caption": "Dispatch gesture event from <NativeSensorBridge /> to shell.",
             "activeId": "NativeBridge",
             "eventFired": {
               "from": "NativeBridge",
@@ -533,7 +533,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <MobileAppShell /> for Layout Geometry, Safe Area Invari...",
+            "caption": "Mount root <MobileAppShell /> for Layout Geometry, Safe Area Invari...",
             "activeId": "AppShell",
             "tone": "data",
             "nodes": [
@@ -576,7 +576,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Pass route params down to <NavigationStack />.",
+            "caption": "Pass route params down to <NavigationStack />.",
             "activeId": "NavStack",
             "reRenderingIds": [
               "NavStack",
@@ -629,7 +629,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Render <ScreenViewport /> with reactive state bindings.",
+            "caption": "Render <ScreenViewport /> with reactive state bindings.",
             "activeId": "ScreenView",
             "reRenderingIds": [
               "ScreenView"
@@ -681,7 +681,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Dispatch gesture event from <NativeSensorBridge /> to shell.",
+            "caption": "Dispatch gesture event from <NativeSensorBridge /> to shell.",
             "activeId": "NativeBridge",
             "eventFired": {
               "from": "NativeBridge",
@@ -1015,7 +1015,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <MobileAppShell /> for Virtualized Lists: FlatList Memor...",
+            "caption": "Mount root <MobileAppShell /> for Virtualized Lists: FlatList Memor...",
             "activeId": "AppShell",
             "tone": "data",
             "nodes": [
@@ -1058,7 +1058,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Pass route params down to <NavigationStack />.",
+            "caption": "Pass route params down to <NavigationStack />.",
             "activeId": "NavStack",
             "reRenderingIds": [
               "NavStack",
@@ -1111,7 +1111,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Render <ScreenViewport /> with reactive state bindings.",
+            "caption": "Render <ScreenViewport /> with reactive state bindings.",
             "activeId": "ScreenView",
             "reRenderingIds": [
               "ScreenView"
@@ -1163,7 +1163,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Dispatch gesture event from <NativeSensorBridge /> to shell.",
+            "caption": "Dispatch gesture event from <NativeSensorBridge /> to shell.",
             "activeId": "NativeBridge",
             "eventFired": {
               "from": "NativeBridge",
@@ -1497,7 +1497,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <MobileAppShell /> for Touch Responder System & Gesture ...",
+            "caption": "Mount root <MobileAppShell /> for Touch Responder System & Gesture ...",
             "activeId": "AppShell",
             "tone": "data",
             "nodes": [
@@ -1540,7 +1540,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Pass route params down to <NavigationStack />.",
+            "caption": "Pass route params down to <NavigationStack />.",
             "activeId": "NavStack",
             "reRenderingIds": [
               "NavStack",
@@ -1593,7 +1593,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Render <ScreenViewport /> with reactive state bindings.",
+            "caption": "Render <ScreenViewport /> with reactive state bindings.",
             "activeId": "ScreenView",
             "reRenderingIds": [
               "ScreenView"
@@ -1645,7 +1645,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Dispatch gesture event from <NativeSensorBridge /> to shell.",
+            "caption": "Dispatch gesture event from <NativeSensorBridge /> to shell.",
             "activeId": "NativeBridge",
             "eventFired": {
               "from": "NativeBridge",
@@ -1979,7 +1979,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <MobileAppShell /> for Offline-First Synchronization & O...",
+            "caption": "Mount root <MobileAppShell /> for Offline-First Synchronization & O...",
             "activeId": "AppShell",
             "tone": "data",
             "nodes": [
@@ -2022,7 +2022,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Pass route params down to <NavigationStack />.",
+            "caption": "Pass route params down to <NavigationStack />.",
             "activeId": "NavStack",
             "reRenderingIds": [
               "NavStack",
@@ -2075,7 +2075,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Render <ScreenViewport /> with reactive state bindings.",
+            "caption": "Render <ScreenViewport /> with reactive state bindings.",
             "activeId": "ScreenView",
             "reRenderingIds": [
               "ScreenView"
@@ -2127,7 +2127,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Dispatch gesture event from <NativeSensorBridge /> to shell.",
+            "caption": "Dispatch gesture event from <NativeSensorBridge /> to shell.",
             "activeId": "NativeBridge",
             "eventFired": {
               "from": "NativeBridge",

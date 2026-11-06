@@ -10,7 +10,7 @@
       "codeHash": "c48078a5f99df0f621dd0ee393b6fadd492089ccc148712a275f3146926da5b0",
       "spec": {
         "template": "component-tree",
-        "title": "Hardware Camera Vision Pipeline: Zero-Copy C+... \u2014 Mobile Component Hierarchy",
+        "title": "Hardware Camera Vision Pipeline: Zero-Copy C+... — Mobile Component Hierarchy",
         "nodes": [
           {
             "id": "CapstoneAppRoot",
@@ -64,7 +64,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <Milestone3CapstoneApp /> for Hardware Camera Vision Pipelin...",
+            "caption": "Mount root <MilestonethreeCapstoneApp /> for Hardware Camera Vision.",
             "activeId": "CapstoneAppRoot",
             "tone": "data",
             "nodes": [
@@ -80,7 +80,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Initialize <CameraVisionProcessor /> zero-copy worklets & downsampler",
+            "caption": "Initialize <CameraVisionProcessor /> zero-copy worklets & downsampler.",
             "activeId": "VisionSubsystem",
             "tone": "accent",
             "nodes": [
@@ -96,7 +96,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Authorize <SecureEnclaveAttestationVault /> P-256 hardware attestation signature",
+            "caption": "Authorize <SecureEnclaveAttestationVault /> P-two-fifty-six hardware.",
             "activeId": "EnclaveBiometricSubsystem",
             "tone": "data",
             "nodes": [
@@ -112,7 +112,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit transaction to <SQLiteWalOutboxLedger /> with sub-16ms optimistic UI pacing",
+            "caption": "Commit transaction to <SQLiteWalOutboxLedger /> with sub-sixteenms.",
             "activeId": "PersistenceSubsystem",
             "tone": "ok",
             "nodes": [
@@ -130,7 +130,7 @@
       },
       "filled": {
         "template": "component-tree",
-        "title": "Hardware Camera Vision Pipeline: Zero-Copy C+... \u2014 Mobile Component Hierarchy",
+        "title": "Hardware Camera Vision Pipeline: Zero-Copy C+... — Mobile Component Hierarchy",
         "nodes": [
           {
             "id": "CapstoneAppRoot",
@@ -254,7 +254,7 @@
       "codeHash": "b3504a99e075992ec4c7d459aa10af4bd16c415a28cbcc569ceb19f989c6c740",
       "spec": {
         "template": "component-tree",
-        "title": "Spatial Intelligence: Coprocessor Geofencing,... \u2014 Mobile Component Hierarchy",
+        "title": "Spatial Intelligence: Coprocessor Geofencing,... — Mobile Component Hierarchy",
         "nodes": [
           {
             "id": "CapstoneAppRoot",
@@ -308,7 +308,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <Milestone3CapstoneApp /> for Spatial Intelligence: Coproces...",
+            "caption": "Mount root <MilestonethreeCapstoneApp /> for Spatial Intelligence.",
             "activeId": "CapstoneAppRoot",
             "tone": "data",
             "nodes": [
@@ -324,7 +324,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Initialize <CameraVisionProcessor /> zero-copy worklets & downsampler",
+            "caption": "Initialize <CameraVisionProcessor /> zero-copy worklets & downsampler.",
             "activeId": "VisionSubsystem",
             "tone": "accent",
             "nodes": [
@@ -340,7 +340,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Authorize <SecureEnclaveAttestationVault /> P-256 hardware attestation signature",
+            "caption": "Authorize <SecureEnclaveAttestationVault /> P-two-fifty-six hardware.",
             "activeId": "EnclaveBiometricSubsystem",
             "tone": "data",
             "nodes": [
@@ -356,7 +356,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit transaction to <SQLiteWalOutboxLedger /> with sub-16ms optimistic UI pacing",
+            "caption": "Commit transaction to <SQLiteWalOutboxLedger /> with sub-sixteenms.",
             "activeId": "PersistenceSubsystem",
             "tone": "ok",
             "nodes": [
@@ -374,7 +374,7 @@
       },
       "filled": {
         "template": "component-tree",
-        "title": "Spatial Intelligence: Coprocessor Geofencing,... \u2014 Mobile Component Hierarchy",
+        "title": "Spatial Intelligence: Coprocessor Geofencing,... — Mobile Component Hierarchy",
         "nodes": [
           {
             "id": "CapstoneAppRoot",
@@ -498,7 +498,7 @@
       "codeHash": "5b6fcc8e9e7222d68fe0f9482ece304f488456a072acce380c1e8bc262f79e48",
       "spec": {
         "template": "component-tree",
-        "title": "Hardware Biometric Vault: Secure Enclave P-25... \u2014 Mobile Component Hierarchy",
+        "title": "Hardware Biometric Vault: Secure Enclave P-25... — Mobile Component Hierarchy",
         "nodes": [
           {
             "id": "CapstoneAppRoot",
@@ -552,7 +552,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <Milestone3CapstoneApp /> for Hardware Biometric Vault: Secu...",
+            "caption": "Mount root <MilestonethreeCapstoneApp /> for Hardware Biometric Vault.",
             "activeId": "CapstoneAppRoot",
             "tone": "data",
             "nodes": [
@@ -568,7 +568,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Initialize <CameraVisionProcessor /> zero-copy worklets & downsampler",
+            "caption": "Initialize <CameraVisionProcessor /> zero-copy worklets & downsampler.",
             "activeId": "VisionSubsystem",
             "tone": "accent",
             "nodes": [
@@ -584,7 +584,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Authorize <SecureEnclaveAttestationVault /> P-256 hardware attestation signature",
+            "caption": "Authorize <SecureEnclaveAttestationVault /> P-two-fifty-six hardware.",
             "activeId": "EnclaveBiometricSubsystem",
             "tone": "data",
             "nodes": [
@@ -600,7 +600,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit transaction to <SQLiteWalOutboxLedger /> with sub-16ms optimistic UI pacing",
+            "caption": "Commit transaction to <SQLiteWalOutboxLedger /> with sub-sixteenms.",
             "activeId": "PersistenceSubsystem",
             "tone": "ok",
             "nodes": [
@@ -618,7 +618,7 @@
       },
       "filled": {
         "template": "component-tree",
-        "title": "Hardware Biometric Vault: Secure Enclave P-25... \u2014 Mobile Component Hierarchy",
+        "title": "Hardware Biometric Vault: Secure Enclave P-25... — Mobile Component Hierarchy",
         "nodes": [
           {
             "id": "CapstoneAppRoot",
@@ -742,7 +742,7 @@
       "codeHash": "cb4b60a8e1f68abf301cce0855832678fdda00585b1b76713a306675486f49aa",
       "spec": {
         "template": "component-tree",
-        "title": "Offline Relational Persistence: SQLite WAL, S... \u2014 Mobile Component Hierarchy",
+        "title": "Offline Relational Persistence: SQLite WAL, S... — Mobile Component Hierarchy",
         "nodes": [
           {
             "id": "CapstoneAppRoot",
@@ -796,7 +796,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <Milestone3CapstoneApp /> for Offline Relational Persistence...",
+            "caption": "Mount root <MilestonethreeCapstoneApp /> for Offline Relational.",
             "activeId": "CapstoneAppRoot",
             "tone": "data",
             "nodes": [
@@ -812,7 +812,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Initialize <CameraVisionProcessor /> zero-copy worklets & downsampler",
+            "caption": "Initialize <CameraVisionProcessor /> zero-copy worklets & downsampler.",
             "activeId": "VisionSubsystem",
             "tone": "accent",
             "nodes": [
@@ -828,7 +828,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Authorize <SecureEnclaveAttestationVault /> P-256 hardware attestation signature",
+            "caption": "Authorize <SecureEnclaveAttestationVault /> P-two-fifty-six hardware.",
             "activeId": "EnclaveBiometricSubsystem",
             "tone": "data",
             "nodes": [
@@ -844,7 +844,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit transaction to <SQLiteWalOutboxLedger /> with sub-16ms optimistic UI pacing",
+            "caption": "Commit transaction to <SQLiteWalOutboxLedger /> with sub-sixteenms.",
             "activeId": "PersistenceSubsystem",
             "tone": "ok",
             "nodes": [
@@ -862,7 +862,7 @@
       },
       "filled": {
         "template": "component-tree",
-        "title": "Offline Relational Persistence: SQLite WAL, S... \u2014 Mobile Component Hierarchy",
+        "title": "Offline Relational Persistence: SQLite WAL, S... — Mobile Component Hierarchy",
         "nodes": [
           {
             "id": "CapstoneAppRoot",
@@ -986,7 +986,7 @@
       "codeHash": "8cd8cef71c0664280b31d4d90031b3dfa94c802114ef43018c472c883e50a5ee",
       "spec": {
         "template": "component-tree",
-        "title": "Milestone 3 Capstone Systems Audit & Zero-Def... \u2014 Mobile Component Hierarchy",
+        "title": "Milestone 3 Capstone Systems Audit & Zero-Def... — Mobile Component Hierarchy",
         "nodes": [
           {
             "id": "CapstoneAppRoot",
@@ -1040,7 +1040,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Mount root <Milestone3CapstoneApp /> for Milestone 3 Capstone Systems A...",
+            "caption": "Mount root <MilestonethreeCapstoneApp /> for Milestone three Capstone.",
             "activeId": "CapstoneAppRoot",
             "tone": "data",
             "nodes": [
@@ -1056,7 +1056,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Initialize <CameraVisionProcessor /> zero-copy worklets & downsampler",
+            "caption": "Initialize <CameraVisionProcessor /> zero-copy worklets & downsampler.",
             "activeId": "VisionSubsystem",
             "tone": "accent",
             "nodes": [
@@ -1072,7 +1072,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Authorize <SecureEnclaveAttestationVault /> P-256 hardware attestation signature",
+            "caption": "Authorize <SecureEnclaveAttestationVault /> P-two-fifty-six hardware.",
             "activeId": "EnclaveBiometricSubsystem",
             "tone": "data",
             "nodes": [
@@ -1088,7 +1088,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit transaction to <SQLiteWalOutboxLedger /> with sub-16ms optimistic UI pacing",
+            "caption": "Commit transaction to <SQLiteWalOutboxLedger /> with sub-sixteenms.",
             "activeId": "PersistenceSubsystem",
             "tone": "ok",
             "nodes": [
@@ -1106,7 +1106,7 @@
       },
       "filled": {
         "template": "component-tree",
-        "title": "Milestone 3 Capstone Systems Audit & Zero-Def... \u2014 Mobile Component Hierarchy",
+        "title": "Milestone 3 Capstone Systems Audit & Zero-Def... — Mobile Component Hierarchy",
         "nodes": [
           {
             "id": "CapstoneAppRoot",

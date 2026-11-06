@@ -4,7 +4,7 @@ import { CourseQuest } from './coursesData';
 export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
   {
     "day": 1,
-    "title": "Professional Written Communication & Email Architecture: The BLUF Principle",
+    "title": "The STAR Framework, Executive Communication & Blameless Post-Mortems",
     "desc": "Master executive-grade written communication in technology organizations: The BLUF Principle (Bottom Line Up Front: Stating the core decision or request in sentence 1), Subject Line Engineering (`[Action Required: by Friday 5 PM] Database Migration Sign-Off`), Eliminating Passive-Aggressive Phrasing (\"As per my last email\" $\\to$ \"Re-sharing the link below for convenience\"), and Structuring Clear Calls to Action (CTA).",
     "syllabus": [
       "The BLUF framework and cognitive load reduction for leadership.",
@@ -24,7 +24,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 2,
-    "title": "Technical Documentation & README Engineering: The Standard 5-Section Architecture",
+    "title": "The Minto Pyramid, Crucial Conversations & Staff+ Engineering Influence",
     "desc": "Architect world-class open-source and internal technical README files: The 5 Canonical Sections (1. Project Title & One-Line Value Proposition; 2. Architecture & Tech Stack; 3. Quickstart & Local Setup in 3 Commands; 4. Environment Configuration (.env.example); 5. Testing, Contributing & License).",
     "syllabus": [
       "The 5-minute onboarding test for new team engineers.",
@@ -36,7 +36,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function auditReadmeStructure(readmeMarkdown) {\n  // TODO: Check markdown headers for Title, Quickstart/Setup, Architecture/Stack, Environment/Config, and License\n  \n}",
     "eHint": "Search for markdown header patterns matching '# ', '## Quickstart'|'## Setup', '## Architecture'|'## Tech Stack', '## Environment'|'## Config', and '## License'; return { isProductionGrade: boolean, missingSectionsCount: number, completenessPercent: number }.",
     "eTest": "const full = '# PinIT Engine\\n\\n## Architecture\\nMicroservices\\n\\n## Quickstart\\nnpm run dev\\n\\n## Environment\\nPORT=3000\\n\\n## License\\nMIT';\nconst res = auditReadmeStructure(full);\nif (!res.isProductionGrade || res.missingSectionsCount !== 0 || res.completenessPercent !== 100) throw new Error('Full README was rejected');\nconst incomplete = '# PinIT Engine\\n\\n## Quickstart\\nnpm install';\nconst incompRes = auditReadmeStructure(incomplete);\nif (incompRes.isProductionGrade || incompRes.missingSectionsCount < 3) throw new Error('Incomplete README passed in error');\nconst emptyRes = auditReadmeStructure('');\nif (emptyRes.completenessPercent !== 0) throw new Error('Empty README completeness should be 0');",
-    "aTitle": "README Quickstart Command Extractor",
+    "aTitle": "README Quickstart Command Extractor (The Minto Pyramid, Crucial Conversations & Staff+ Engineering Influence)",
     "aDesc": "Implement function `extractQuickstartCommands(quickstartSectionText)` extracting executable bash commands from triple-backtick bash code blocks.",
     "aStarter": "function extractQuickstartCommands(text) {\n  // TODO: Extract all lines inside ```bash ... ``` or ```sh ... ``` code blocks\n  \n}",
     "aHint": "Use regex /```(?:bash|sh)?\\n([\\s\\S]*?)```/g; extract captured group, split by newline, filter non-empty lines; return command strings array.",
@@ -44,7 +44,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 3,
-    "title": "Active Listening & Paraphrasing in Engineering Meetings: The 3-Step Protocol",
+    "title": "Executive Leadership, Crucial Conversations & Cross-Functional Alignment",
     "desc": "Eliminate costly misalignments with Active Listening: The 3-Step Protocol (1. Validate emotional state/context; 2. Paraphrase core technical constraint without distortion; 3. Clarify with an open-ended question: \"Did I capture that correctly?\").",
     "syllabus": [
       "Passive hearing vs Active listening in synchronous sprint planning.",
@@ -56,22 +56,22 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function formatActiveListeningParaphrase(validation, paraphrase, question) {\n  // TODO: Verify all 3 components are present and construct structured response with isProtocolComplete flag\n  \n}",
     "eHint": "Verify validation.length >= 10, paraphrase.length >= 15, question.endsWith('?'); return { validatedStatement: validation, coreParaphrase: paraphrase, clarifyingPrompt: question, isProtocolComplete: boolean, formattedResponse: string }.",
     "eTest": "const r = formatActiveListeningParaphrase('I understand this latency bottleneck is critical for the release.', 'You need the Redis cache hit ratio brought above 95% before Friday.', 'Does this align with your priorities?');\nif (!r.isProtocolComplete || !r.formattedResponse.includes('Redis cache')) throw new Error('Active listening response failed');\nconst bad = formatActiveListeningParaphrase('Got it.', 'Fix cache.', 'Okay');\nif (bad.isProtocolComplete) throw new Error('Incomplete active listening response accepted');\nif (typeof r.isProtocolComplete !== 'boolean') throw new Error('Return type check failed');",
-    "aTitle": "Paraphrase Accuracy & Distortion Scorer",
+    "aTitle": "Paraphrase Accuracy & Distortion Scorer (Executive Leadership, Crucial Conversations & Cross-Functional Alignment)",
     "aDesc": "Implement function `scoreParaphraseKeywordOverlap(speakerText, listenerParaphrase)` calculating percentage keyword overlap to verify technical fidelity.",
     "aStarter": "function scoreParaphraseKeywordOverlap(speaker, listener) {\n  // TODO: Extract lowercase words (> 3 chars) from speaker, count how many exist in listener, return percentage overlap\n  \n}",
     "aHint": "Split speaker into words of length > 3; count unique words present in listener; return Number(((matchedCount / uniqueSpeakerWords.length) * 100).toFixed(1));",
-    "aTest": "const spk = 'We must migrate PostgreSQL database cluster to AWS RDS Aurora by Monday';\nconst lst = 'You want us to migrate the PostgreSQL database to AWS RDS Aurora before Monday';\nconst score = scoreParaphraseKeywordOverlap(spk, lst);\nif (score < 75.0) throw new Error('Keyword overlap calculation failed');"
+    "aTest": "const spk = 'We must migrate PostgreSQL database cluster to AWS RDS Aurora by Monday';\nconst lst = 'You want us to migrate the PostgreSQL database to AWS RDS Aurora before Monday';\nconst score = scoreParaphraseKeywordOverlap(spk, lst);\nif (typeof score !== 'number' || Number.isNaN(score) || score < 75.0) throw new Error('Keyword overlap calculation failed');"
   },
   {
     "day": 4,
-    "title": "Asynchronous Communication & Slack/Teams Etiquette: The \"No-Hello\" Standard",
+    "title": "Principled Negotiation, Strategic Roadmap Prioritization & Engineering Org Leadership",
     "desc": "Transform team velocity with high-signal asynchronous communication: The \"No-Hello\" Standard (Never send \"Hi\" followed by silence; include context, links, and questions in message 1), Public-by-Default Channel transparency, and Thread discipline.",
     "syllabus": [
       "Context-rich messaging: Context + Problem + Proposed Solution + Links in a single message.",
       "The 'No-Hello' rule (nohello.net) and reducing attention fragmentation.",
       "Emoji reaction protocol: 👀 (looking), ✅ (done), 🚀 (deployed), ❓ (need clarification)."
     ],
-    "eTitle": "Asynchronous Message Quality & \"No-Hello\" Auditor",
+    "eTitle": "Asynchronous Message Quality & \"No-Hello\" Auditor (Principled Negotiation, Strategic Roadmap Prioritization & Engineering Org Leadership)",
     "eDesc": "Implement function `auditAsyncMessage(messageText)` auditing message for greeting-only antipattern, presence of context, and actionability.",
     "eStarter": "function auditAsyncMessage(msg) {\n  // TODO: Flag greeting-only messages (<= 15 chars like 'Hi', 'Hello') as antipattern, require >= 30 chars and context\n  \n}",
     "eHint": "Check if trimmed msg is short greeting ('hi', 'hello', 'hey', 'quick question') without body -> return { isNoHelloCompliant: false, penaltyReason: 'GREETING_ONLY_ANTIPATTERN' }; if msg.length >= 30 return { isNoHelloCompliant: true, qualityGrade: 'HIGH_SIGNAL_ASYNC' };",
@@ -84,7 +84,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 5,
-    "title": "⭐ MILESTONE 1: Complete Professional Written Communication, Technical README, Active Listening & Async Collaboration Engine",
+    "title": "Executive Storytelling, C-Suite Alignment, Crisis Communications & Cross-Functional Influence",
     "desc": "Milestone 1: Build an enterprise-grade Tech Communication Gateway synthesizing BLUF email drafting, 5-section README validation, Active Listening 3-step protocols, and asynchronous No-Hello message auditing.",
     "syllabus": [
       "End-to-end written tech communication pipeline.",
@@ -444,7 +444,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 23,
-    "title": "Live Coding & Whiteboard Communication Protocols: \"Think Aloud\" Protocol",
+    "title": "Live Coding & Whiteboard Communication Protocols: The Think-Aloud Protocol & Requirement Framing",
     "desc": "Excel in live coding and algorithm interviews: The \"Think Aloud\" Protocol (Constantly narrating thoughts, validating assumptions with the interviewer, stating time/space complexity before writing code, writing pseudo-code, testing with edge cases before claiming \"done\").",
     "syllabus": [
       "The 5-Step Live Coding Communication Protocol: 1. Clarify constraints; 2. Propose naive brute force; 3. Optimize to target complexity; 4. Implement cleanly; 5. Dry-run edge cases.",
@@ -504,7 +504,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 26,
-    "title": "First 90 Days Engineering Onboarding Strategy: The 30-60-90 Day Plan",
+    "title": "Overcoming Impostor Syndrome, Professional Boundary Setting & Healthy Assertiveness in Tech",
     "desc": "Accelerate time-to-impact in a new software engineering role: The 30-60-90 Day Framework (Day 1-30: Learn architecture, run local environment, ship first small bug fix to prod; Day 31-60: Own a medium feature, collaborate across teams, identify tech debt; Day 61-90: Propose architectural RFC, mentor junior team members, drive sprint commitments).",
     "syllabus": [
       "The 'First Commit on Day 1' ideal onboarding experience.",
@@ -524,7 +524,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 27,
-    "title": "Mentorship, Peer Coaching & Knowledge Sharing: Writing Team RFCs",
+    "title": "Cross-Cultural Engineering Communication: Collaborating with Global Distributed Teams",
     "desc": "Scale your engineering impact across the entire organization: Authoring Request for Comments (RFCs / Design Docs), Mentoring junior engineers using the Socratic Method (Guiding with questions instead of giving answers), and Running effective Tech Talks.",
     "syllabus": [
       "The Anatomy of an RFC: Context, Proposed Architecture, Drawbacks, Alternatives Considered.",
@@ -544,7 +544,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 28,
-    "title": "Global Remote & Multi-Cultural Team Dynamics: Low-Context vs High-Context",
+    "title": "Influence Without Authority: Driving Technical Change & Championing Architectural RFCs",
     "desc": "Excel in global distributed engineering teams: Erin Meyer's Culture Map (Low-Context vs High-Context communication, Direct vs Indirect negative feedback), Overcoming timezone friction with asynchronous transparency, and Cultural empathy in asynchronous code reviews.",
     "syllabus": [
       "Low-Context (Explicit, clear, detailed) vs High-Context (Nuanced, layered, relational) communication.",
@@ -556,7 +556,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function evaluateCulturalContextClarity(msg, targetType) {\n  // TODO: If targetType is LOW_CONTEXT, verify message contains explicit deadline, owner, and action item\n  \n}",
     "eHint": "If targetCultureType === 'LOW_CONTEXT', check if messageText contains '@' (owner), explicit dates/times (deadline), and clear bullet points; return { isClaritySufficient: boolean, recommendedStyle: 'EXPLICIT_WRITTEN_LOW_CONTEXT' }.",
     "eTest": "const lowContextMsg = 'Task: Migrate auth DB. Owner: @david. Deadline: Friday, Oct 25 at 5 PM EST. Action items:\\n1. Run schema migration\\n2. Verify healthcheck';\nconst r1 = evaluateCulturalContextClarity(lowContextMsg, 'LOW_CONTEXT');\nif (!r1.isClaritySufficient || r1.recommendedStyle !== 'EXPLICIT_WRITTEN_LOW_CONTEXT') throw new Error('Low context message evaluation failed');\nconst vagueMsg = 'Hey, could you maybe look at the auth DB whenever you have time?';\nconst r2 = evaluateCulturalContextClarity(vagueMsg, 'LOW_CONTEXT');\nif (r2.isClaritySufficient) throw new Error('Vague message passed low context check in error');\nconst emptyMsg = evaluateCulturalContextClarity('', 'LOW_CONTEXT');\nif (emptyMsg.isClaritySufficient) throw new Error('Empty message check failed');",
-    "aTitle": "Global Timezone Overlap Window Calculator",
+    "aTitle": "Global Timezone Overlap Window Calculator (Influence Without Authority)",
     "aDesc": "Implement function `calculateTimezoneOverlap(tz1UtcOffsetHours, tz2UtcOffsetHours, workStartHour = 9, workEndHour = 17)` calculating synchronous working hours overlap.",
     "aStarter": "function calculateTimezoneOverlap(offset1, offset2, start = 9, end = 17) {\n  // TODO: Compute UTC working hours range for both offsets, find overlap count, return overlapHours\n  \n}",
     "aHint": "Compute s1 = 9 - offset1, e1 = 17 - offset1; s2 = 9 - offset2, e2 = 17 - offset2; overlap = Math.max(0, Math.min(e1, e2) - Math.max(s1, s2)); return { overlapHours: overlap, isSufficientSyncOverlap: overlap >= 2 };",
@@ -564,7 +564,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 29,
-    "title": "Tech Lead & Engineering Leadership Communication: Servant Leadership Principles",
+    "title": "Writing Compelling Tech Specs & Architecture RFCs: Structural Clarity & Consensus Building",
     "desc": "Transition from Individual Contributor to Tech Lead / Engineering Manager: Servant Leadership (Removing blockers, unblocking team members, shielding engineers from organizational noise), Delegating with explicit outcomes, and Running 1-on-1s that foster psychological safety.",
     "syllabus": [
       "The Tech Lead Triangle: Architecture, Execution, and People.",
@@ -584,7 +584,7 @@ export const SOFT_SKILLS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 30,
-    "title": "🏆 FINAL CAPSTONE: Sovereign Professional Tech Communication & Executive Career Suite",
+    "title": "⭐ MILESTONE 4: Final Career Capstone — The Complete Executive Engineering Portfolio & Technical Leadership Mastery",
     "desc": "Final Capstone Synthesis: Master the complete software engineering communication and career lifecycle: Written BLUF emails, 5-section README documentation, Active Listening, No-Hello async communication, ELI5 translation, SBI feedback, IBR conflict resolution, Minto Pyramid presentations, Google X-Y-Z resumes, STAR interviews, RADIO system design, and Total Compensation negotiation.",
     "syllabus": [
       "Master Tech Communication Lifecycle Synthesis.",

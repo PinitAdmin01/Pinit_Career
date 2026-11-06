@@ -66,7 +66,7 @@
           },
           {
             "at": "say2",
-            "caption": "Concurrent background filter processes 10,000 records in 2,500-item cooperative slices.",
+            "caption": "Concurrent background filter processes ten,multiple records in.",
             "values": {
               "g1": {
                 "text": "\"Responsive\""
@@ -96,7 +96,7 @@
           },
           {
             "at": "say3",
-            "caption": "Virtualization math calculates visible window of 15 rows with overscan buffers.",
+            "caption": "Virtualization math calculates visible window of multiple rows with.",
             "values": {
               "g1": {
                 "text": "\"Synced\""
@@ -332,7 +332,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Grid begins in IDLE state displaying pre-allocated 10,000 record store.",
+            "caption": "Grid begins in IDLE state displaying pre-allocated ten,multiple record.",
             "activeId": "gs1",
             "tone": "idle"
           },
@@ -436,7 +436,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Filter engine evaluates initial 2,500 records in sub-2ms slice.",
+            "caption": "Filter engine evaluates initial two,server-error records in sub-twoms.",
             "values": {
               "sl1": {
                 "text": "\"Evaluated\""
@@ -466,7 +466,7 @@
           },
           {
             "at": "say2",
-            "caption": "Yield check detects no urgent cancellation, allowing scheduler to process Chunk 2.",
+            "caption": "Yield check detects no urgent cancellation, allowing scheduler to process.",
             "values": {
               "sl1": {
                 "text": "\"Done\""
@@ -726,7 +726,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Outer scroll container maintains full height of 120,000px for accurate scrollbar track.",
+            "caption": "Outer scroll container maintains full height of multiple,px for accurate.",
             "values": {
               "scroll": {
                 "text": "\"scrollTop: 800px\""
@@ -738,7 +738,7 @@
           },
           {
             "at": "say2",
-            "caption": "Only 15 rows (rows 18 to 32) are physically mounted in the DOM with 720px translateY.",
+            "caption": "Only multiple rows (rows multiple to thirty-two) are physically mounted.",
             "values": {
               "viewport": {
                 "text": "\"15 Active Nodes\""
@@ -750,7 +750,7 @@
           },
           {
             "at": "say3",
-            "caption": "Subtle 0.65 opacity signals visual staleness while background filter recalculates.",
+            "caption": "Subtle zero.multiple opacity signals visual staleness while background.",
             "values": {
               "staleness": {
                 "text": "\"Opacity: 0.65\""
@@ -762,7 +762,7 @@
           },
           {
             "at": "say4",
-            "caption": "When deferred query matches urgent query, opacity returns to 1.0 and badge says Synced.",
+            "caption": "When deferred query matches urgent query, opacity returns to one.zero and.",
             "values": {
               "sync": {
                 "text": "\"Opacity: 1.0\""
@@ -872,7 +872,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Automated synthetic benchmark executes rapid 4-keystroke sequence across 10,000 rows.",
+            "caption": "Automated synthetic benchmark executes rapid four-keystroke sequence.",
             "values": {
               "bm1": {
                 "text": "\"0ms\""
@@ -944,7 +944,7 @@
           },
           {
             "at": "say4",
-            "caption": "Final committed query delivers exactly 2,500 matching records with 0 dropped frames.",
+            "caption": "Final committed query delivers exactly two,server-error matching records.",
             "values": {
               "bm1": {
                 "text": "\"0ms\""

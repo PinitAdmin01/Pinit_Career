@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress GraphQL document AST and initialize GraphQL Architecture & Schema Defin....",
+            "caption": "Ingress GraphQL document AST and initialize GraphQL Architecture & Schema.",
             "values": {
               "in": "Day 16 Input",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute AST traversal, depth validation, and resolver tree routing in GraphQL Architecture & Schema Defin....",
+            "caption": "Execute AST traversal, depth validation, and resolver tree routing in.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -75,7 +75,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate complexity budget, custom directives, and field invariants.",
+            "caption": "Evaluate complexity budget, custom directives, and field invariants.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end graph resolution confirmed for GraphQL Architecture & Schema Defin....",
+            "caption": "End-to-end graph resolution confirmed for GraphQL Architecture & Schema.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -257,7 +257,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress GraphQL document AST and initialize Resolver Execution Trees, Field-Lev....",
+            "caption": "Ingress GraphQL document AST and initialize Resolver Execution Trees.",
             "values": {
               "in": "Day 16 Input",
               "proc": "Standby",
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute AST traversal, depth validation, and resolver tree routing in Resolver Execution Trees, Field-Lev....",
+            "caption": "Execute AST traversal, depth validation, and resolver tree routing in.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -301,7 +301,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate complexity budget, custom directives, and field invariants.",
+            "caption": "Evaluate complexity budget, custom directives, and field invariants.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -321,7 +321,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end graph resolution confirmed for Resolver Execution Trees, Field-Lev....",
+            "caption": "End-to-end graph resolution confirmed for Resolver Execution Trees.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -483,7 +483,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress GraphQL document AST and initialize Query Depth Limiting & Algorithmic ....",
+            "caption": "Ingress GraphQL document AST and initialize Query Depth Limiting &.",
             "values": {
               "in": "Day 16 Input",
               "proc": "Standby",
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute AST traversal, depth validation, and resolver tree routing in Query Depth Limiting & Algorithmic ....",
+            "caption": "Execute AST traversal, depth validation, and resolver tree routing in.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -527,7 +527,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate complexity budget, custom directives, and field invariants.",
+            "caption": "Evaluate complexity budget, custom directives, and field invariants.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -547,7 +547,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end graph resolution confirmed for Query Depth Limiting & Algorithmic ....",
+            "caption": "End-to-end graph resolution confirmed for Query Depth Limiting &.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -709,7 +709,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress GraphQL document AST and initialize Custom Directives, Authorization De....",
+            "caption": "Ingress GraphQL document AST and initialize Custom Directives.",
             "values": {
               "in": "Day 16 Input",
               "proc": "Standby",
@@ -729,7 +729,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute AST traversal, depth validation, and resolver tree routing in Custom Directives, Authorization De....",
+            "caption": "Execute AST traversal, depth validation, and resolver tree routing in.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -753,7 +753,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate complexity budget, custom directives, and field invariants.",
+            "caption": "Evaluate complexity budget, custom directives, and field invariants.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -773,7 +773,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end graph resolution confirmed for Custom Directives, Authorization De....",
+            "caption": "End-to-end graph resolution confirmed for Custom Directives.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -935,7 +935,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress GraphQL document AST and initialize Enterprise Production GraphQL Gatew....",
+            "caption": "Ingress GraphQL document AST and initialize Enterprise Production GraphQL.",
             "values": {
               "in": "Day 16 Input",
               "proc": "Standby",
@@ -955,7 +955,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute AST traversal, depth validation, and resolver tree routing in Enterprise Production GraphQL Gatew....",
+            "caption": "Execute AST traversal, depth validation, and resolver tree routing in.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -979,7 +979,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate complexity budget, custom directives, and field invariants.",
+            "caption": "Evaluate complexity budget, custom directives, and field invariants.",
             "values": {
               "in": "Validated",
               "proc": "Action Committed",
@@ -999,7 +999,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end graph resolution confirmed for Enterprise Production GraphQL Gatew....",
+            "caption": "End-to-end graph resolution confirmed for Enterprise Production GraphQL.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

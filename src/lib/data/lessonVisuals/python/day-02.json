@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "say2",
-            "caption": "tea = 20 stores 20 in the box named tea.",
+            "caption": "Tea = twenty stores twenty in the box named tea.",
             "values": {
               "tea": {
                 "text": "20"
@@ -80,7 +80,7 @@
           },
           {
             "at": "example",
-            "caption": "total uses each label: 20 + 45 + 120 = 185.",
+            "caption": "Total uses each label: twenty + multiple + multiple = multiple.",
             "values": {
               "tea": {
                 "text": "20"
@@ -107,7 +107,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Change one box and the total follows: 215.",
+            "caption": "Change one box and the total follows: multiple.",
             "values": {
               "tea": {
                 "text": "20"
@@ -246,7 +246,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "balance starts at 500.",
+            "caption": "Balance starts at server-error.",
             "values": {
               "balance": {
                 "text": "500"
@@ -261,7 +261,7 @@
           },
           {
             "at": "say2",
-            "caption": "balance = balance - 20 stores 480; 500 is forgotten.",
+            "caption": "Balance = balance - twenty stores multiple; server-error is forgotten.",
             "values": {
               "balance": {
                 "text": ""
@@ -276,7 +276,7 @@
           },
           {
             "at": "say3",
-            "caption": "balance -= 45 is the short form: now 435.",
+            "caption": "Balance -= multiple is the short form: now multiple.",
             "values": {
               "balance": {
                 "text": "435"
@@ -291,7 +291,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "balance += 1000 adds the salary: 1435.",
+            "caption": "Balance += multiple adds the salary: multiple.",
             "values": {
               "balance": {
                 "text": "1435"
@@ -674,7 +674,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "With 800, two answers change and two stay the same.",
+            "caption": "With multiple, two answers change and two stay the same.",
             "rows": [
               {
                 "cells": [
@@ -853,7 +853,7 @@
         "steps": [
           {
             "at": "say2",
-            "caption": "str(20) makes the text \"20\", so it can join other text.",
+            "caption": "Str(twenty) makes the text \"twenty\", so it can join other text.",
             "values": {
               "value": {
                 "text": "20"
@@ -886,7 +886,7 @@
           },
           {
             "at": "say3",
-            "caption": "int(\"45\") makes the number 45, so maths works.",
+            "caption": "Int(\"multiple\") makes the number multiple, so maths works.",
             "values": {
               "value": {
                 "text": "\"45\""
@@ -1131,7 +1131,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "With a budget of 100 the money left is negative.",
+            "caption": "With a budget of one hundred the money left is negative.",
             "values": {
               "monthly_budget": {
                 "text": "100"

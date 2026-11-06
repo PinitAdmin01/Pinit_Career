@@ -268,7 +268,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize NBIOT_RF_CARRIER_REG: Select 180 kHz single-PRB standalone carrier.",
+            "caption": "Initialize NBIOT_RF_CARRIER_REG: Select multiple kHz single-PRB.",
             "registerName": "NBIOT_RF_CARRIER_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -329,7 +329,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Configure 3.75 kHz single-tone subcarrier spacing for extreme coverage enhancement.",
+            "caption": "Configure three.multiple kHz single-tone subcarrier spacing for extreme.",
             "registerName": "NBIOT_RF_CARRIER_REG",
             "bitWidth": 8,
             "hexValue": "0xA4",
@@ -390,7 +390,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Assert 164 dB MCL link budget threshold across subterranean penetration channel.",
+            "caption": "Assert multiple dB MCL link budget threshold across subterranean.",
             "registerName": "NBIOT_RF_CARRIER_REG",
             "bitWidth": 8,
             "hexValue": "0xFE",
@@ -522,7 +522,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize NBIOT_PSM_TIMER_REG: Enable 3GPP Rel-12 Power Saving Mode.",
+            "caption": "Initialize NBIOT_PSM_TIMER_REG: Enable threeGPP Rel-twelve Power Saving.",
             "registerName": "NBIOT_PSM_TIMER_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -583,7 +583,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Serialize T3412 extended periodic TAU timer to 24 hours and T3324 to 10 seconds.",
+            "caption": "Serialize T extended periodic TAU timer to multiple hours and T to ten.",
             "registerName": "NBIOT_PSM_TIMER_REG",
             "bitWidth": 8,
             "hexValue": "0xB6",
@@ -705,7 +705,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Commit deep PSM sleep mode transition with 10-year battery preservation.",
+            "caption": "Commit deep PSM sleep mode transition with ten-year battery preservation.",
             "registerName": "NBIOT_PSM_TIMER_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -837,7 +837,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Configure 20.48-minute eDRX sleep cycle with 5.12-second Paging Time Window.",
+            "caption": "Configure twenty.multiple-minute eDRX sleep cycle with five.twelve-second.",
             "registerName": "NBIOT_EDRX_PAGING_REG",
             "bitWidth": 8,
             "hexValue": "0xA6",
@@ -1091,7 +1091,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Encapsulate sensor telemetry payload into PRACH Msg3 Random Access transport block.",
+            "caption": "Encapsulate sensor telemetry payload into PRACH Msgthree Random Access.",
             "registerName": "NBIOT_EDT_TRANS_REG",
             "bitWidth": 8,
             "hexValue": "0xDC",
@@ -1213,7 +1213,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Commit successful EDT data burst, saving 85% energy over legacy signaling.",
+            "caption": "Commit successful EDT data burst, saving multiple% energy over legacy.",
             "registerName": "NBIOT_EDT_TRANS_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1284,7 +1284,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize NBIOT_BATT_LIFETIME_REG: Profile 5,000 mAh LiSOCl2 cell capacity.",
+            "caption": "Initialize NBIOT_BATT_LIFETIME_REG: Profile five,multiple mAh LiSOCltwo.",
             "registerName": "NBIOT_BATT_LIFETIME_REG",
             "bitWidth": 8,
             "hexValue": "0xC0",
@@ -1345,7 +1345,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Account for 2.5 uA sleep current, 220 mA transmit bursts, and annual self-discharge.",
+            "caption": "Account for two.five uA sleep current, multiple mA transmit bursts, and.",
             "registerName": "NBIOT_BATT_LIFETIME_REG",
             "bitWidth": 8,
             "hexValue": "0xF0",
@@ -1406,7 +1406,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Calculate 14.8-year projected battery lifetime under daily 100-byte reporting schedule.",
+            "caption": "Calculate multiple.eight-year projected battery lifetime under daily one.",
             "registerName": "NBIOT_BATT_LIFETIME_REG",
             "bitWidth": 8,
             "hexValue": "0xFE",
@@ -1467,7 +1467,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Commit verified 15-year industrial battery lifetime certification.",
+            "caption": "Commit verified multiple-year industrial battery lifetime certification.",
             "registerName": "NBIOT_BATT_LIFETIME_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

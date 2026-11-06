@@ -625,7 +625,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for End-to-End Resilient Inference Dispatcher [D1.P6.S1].",
+            "caption": "Initialize input state for End-to-End Resilient Inference Dispatcher.",
             "values": {
               "in": "Day 1 Input",
               "proc": "Standby",
@@ -645,7 +645,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in End-to-End Resilien... [D1.P6.S2].",
+            "caption": "Execute core transformation in End-to-End Resilien... [Done.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -669,7 +669,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D1.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [Done.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -689,7 +689,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for End-to-End Resilient Inference Di.. [D1.P6.S4].",
+            "caption": "End-to-end execution verified for End-to-End Resilient Inference Di.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

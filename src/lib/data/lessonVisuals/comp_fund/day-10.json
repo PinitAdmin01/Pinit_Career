@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Inspecting web protocol headers and port mappings for Transport Layer Protocols...",
+            "caption": "Inspecting web protocol headers and port mappings for Transport Layer.",
             "items": [
               "0x00: PORT_443",
               "0x40: TCP_SYN",
@@ -41,7 +41,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Connection state transitions and stream multiplexing for Transport Layer Protocols...",
+            "caption": "Connection state transitions and stream multiplexing for Transport Layer.",
             "items": [
               "0x00: PORT_443",
               "0x40: TCP_SYN",
@@ -68,7 +68,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world operational state and TLS handshake flow for Transport Layer Protocols...",
+            "caption": "Real-world operational state and TLS handshake flow for Transport Layer.",
             "items": [
               "0x00: PORT_443",
               "0x40: TCP_SYN",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive verification and web protocol diagnostics for Transport Layer Protocols...",
+            "caption": "Interactive verification and web protocol diagnostics for Transport Layer.",
             "items": [
               "0x00: PORT_443",
               "0x40: TCP_SYN",
@@ -132,7 +132,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Inspecting web protocol headers and port mappings for The TCP State Machine: Th...",
+            "caption": "Inspecting web protocol headers and port mappings for The TCP State.",
             "items": [
               "0x00: PORT_443",
               "0x40: TCP_SYN",
@@ -159,7 +159,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Connection state transitions and stream multiplexing for The TCP State Machine: Th...",
+            "caption": "Connection state transitions and stream multiplexing for The TCP State.",
             "items": [
               "0x00: PORT_443",
               "0x40: TCP_SYN",
@@ -186,7 +186,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world operational state and TLS handshake flow for The TCP State Machine: Th...",
+            "caption": "Real-world operational state and TLS handshake flow for The TCP State.",
             "items": [
               "0x00: PORT_443",
               "0x40: TCP_SYN",
@@ -213,7 +213,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive verification and web protocol diagnostics for The TCP State Machine: Th...",
+            "caption": "Interactive verification and web protocol diagnostics for The TCP State.",
             "items": [
               "0x00: PORT_443",
               "0x40: TCP_SYN",
@@ -250,7 +250,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Inspecting web protocol headers and port mappings for HTTP Evolution: HTTP/1.1 ...",
+            "caption": "Inspecting web protocol headers and port mappings for HTTP Evolution.",
             "items": [
               "0x00: PORT_443",
               "0x40: TCP_SYN",
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Connection state transitions and stream multiplexing for HTTP Evolution: HTTP/1.1 ...",
+            "caption": "Connection state transitions and stream multiplexing for HTTP Evolution.",
             "items": [
               "0x00: PORT_443",
               "0x40: TCP_SYN",
@@ -304,7 +304,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world operational state and TLS handshake flow for HTTP Evolution: HTTP/1.1 ...",
+            "caption": "Real-world operational state and TLS handshake flow for HTTP Evolution.",
             "items": [
               "0x00: PORT_443",
               "0x40: TCP_SYN",
@@ -331,7 +331,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive verification and web protocol diagnostics for HTTP Evolution: HTTP/1.1 ...",
+            "caption": "Interactive verification and web protocol diagnostics for HTTP Evolution.",
             "items": [
               "0x00: PORT_443",
               "0x40: TCP_SYN",
@@ -368,7 +368,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Inspecting web protocol headers and port mappings for Transport Layer Security ...",
+            "caption": "Inspecting web protocol headers and port mappings for Transport Layer.",
             "items": [
               "0x00: PORT_443",
               "0x40: TCP_SYN",
@@ -395,7 +395,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Connection state transitions and stream multiplexing for Transport Layer Security ...",
+            "caption": "Connection state transitions and stream multiplexing for Transport Layer.",
             "items": [
               "0x00: PORT_443",
               "0x40: TCP_SYN",
@@ -422,7 +422,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world operational state and TLS handshake flow for Transport Layer Security ...",
+            "caption": "Real-world operational state and TLS handshake flow for Transport Layer.",
             "items": [
               "0x00: PORT_443",
               "0x40: TCP_SYN",
@@ -449,7 +449,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive verification and web protocol diagnostics for Transport Layer Security ...",
+            "caption": "Interactive verification and web protocol diagnostics for Transport Layer.",
             "items": [
               "0x00: PORT_443",
               "0x40: TCP_SYN",
@@ -486,7 +486,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Inspecting web protocol headers and port mappings for Master Web Protocol Telem...",
+            "caption": "Inspecting web protocol headers and port mappings for Master Web Protocol.",
             "items": [
               "0x00: PORT_443",
               "0x40: TCP_SYN",
@@ -513,7 +513,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Connection state transitions and stream multiplexing for Master Web Protocol Telem...",
+            "caption": "Connection state transitions and stream multiplexing for Master Web.",
             "items": [
               "0x00: PORT_443",
               "0x40: TCP_SYN",
@@ -540,7 +540,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world operational state and TLS handshake flow for Master Web Protocol Telem...",
+            "caption": "Real-world operational state and TLS handshake flow for Master Web.",
             "items": [
               "0x00: PORT_443",
               "0x40: TCP_SYN",
@@ -567,7 +567,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive verification and web protocol diagnostics for Master Web Protocol Telem...",
+            "caption": "Interactive verification and web protocol diagnostics for Master Web.",
             "items": [
               "0x00: PORT_443",
               "0x40: TCP_SYN",

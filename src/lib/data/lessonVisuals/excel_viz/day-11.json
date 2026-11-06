@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline working capital metrics for The Three-Statement Integration Invari...",
+            "caption": "Baseline working capital metrics for The Three-Statement Integration.",
             "max": 100,
             "bars": [
               {
@@ -41,7 +41,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate cash conversion cycles and debt buffers for The Three-Statement Integration Invari...",
+            "caption": "Isolate cash conversion cycles and debt buffers for The Three-Statement.",
             "max": 100,
             "bars": [
               {
@@ -68,7 +68,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate working capital sensitivity and revolver triggers",
+            "caption": "Evaluate working capital sensitivity and revolver triggers.",
             "max": 100,
             "bars": [
               {
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited treasury liquidity schedule for The Three-Statement Integration Invari...",
+            "caption": "Commit audited treasury liquidity schedule for The Three-Statement.",
             "max": 100,
             "bars": [
               {
@@ -132,7 +132,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline working capital metrics for Working Capital Mechanics: Days Sales ...",
+            "caption": "Baseline working capital metrics for Working Capital Mechanics: Days.",
             "max": 100,
             "bars": [
               {
@@ -159,7 +159,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate cash conversion cycles and debt buffers for Working Capital Mechanics: Days Sales ...",
+            "caption": "Isolate cash conversion cycles and debt buffers for Working Capital.",
             "max": 100,
             "bars": [
               {
@@ -186,7 +186,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate working capital sensitivity and revolver triggers",
+            "caption": "Evaluate working capital sensitivity and revolver triggers.",
             "max": 100,
             "bars": [
               {
@@ -213,7 +213,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited treasury liquidity schedule for Working Capital Mechanics: Days Sales ...",
+            "caption": "Commit audited treasury liquidity schedule for Working Capital Mechanics.",
             "max": 100,
             "bars": [
               {
@@ -250,7 +250,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline working capital metrics for The Cash Conversion Cycle (CCC) & Oper...",
+            "caption": "Baseline working capital metrics for The Cash Conversion Cycle (CCC) &.",
             "max": 100,
             "bars": [
               {
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate cash conversion cycles and debt buffers for The Cash Conversion Cycle (CCC) & Oper...",
+            "caption": "Isolate cash conversion cycles and debt buffers for The Cash Conversion.",
             "max": 100,
             "bars": [
               {
@@ -304,7 +304,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate working capital sensitivity and revolver triggers",
+            "caption": "Evaluate working capital sensitivity and revolver triggers.",
             "max": 100,
             "bars": [
               {
@@ -331,7 +331,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited treasury liquidity schedule for The Cash Conversion Cycle (CCC) & Oper...",
+            "caption": "Commit audited treasury liquidity schedule for The Cash Conversion Cycle.",
             "max": 100,
             "bars": [
               {
@@ -368,7 +368,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline working capital metrics for Dynamic Cash Flow Forecasting: Revolve...",
+            "caption": "Baseline working capital metrics for Dynamic Cash Flow Forecasting.",
             "max": 100,
             "bars": [
               {
@@ -395,7 +395,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate cash conversion cycles and debt buffers for Dynamic Cash Flow Forecasting: Revolve...",
+            "caption": "Isolate cash conversion cycles and debt buffers for Dynamic Cash Flow.",
             "max": 100,
             "bars": [
               {
@@ -422,7 +422,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate working capital sensitivity and revolver triggers",
+            "caption": "Evaluate working capital sensitivity and revolver triggers.",
             "max": 100,
             "bars": [
               {
@@ -449,7 +449,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited treasury liquidity schedule for Dynamic Cash Flow Forecasting: Revolve...",
+            "caption": "Commit audited treasury liquidity schedule for Dynamic Cash Flow.",
             "max": 100,
             "bars": [
               {
@@ -486,7 +486,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Baseline working capital metrics for Institutional Treasury Liquidity Dashb...",
+            "caption": "Baseline working capital metrics for Institutional Treasury Liquidity.",
             "max": 100,
             "bars": [
               {
@@ -513,7 +513,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Isolate cash conversion cycles and debt buffers for Institutional Treasury Liquidity Dashb...",
+            "caption": "Isolate cash conversion cycles and debt buffers for Institutional.",
             "max": 100,
             "bars": [
               {
@@ -540,7 +540,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Evaluate working capital sensitivity and revolver triggers",
+            "caption": "Evaluate working capital sensitivity and revolver triggers.",
             "max": 100,
             "bars": [
               {
@@ -567,7 +567,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Commit audited treasury liquidity schedule for Institutional Treasury Liquidity Dashb...",
+            "caption": "Commit audited treasury liquidity schedule for Institutional Treasury.",
             "max": 100,
             "bars": [
               {

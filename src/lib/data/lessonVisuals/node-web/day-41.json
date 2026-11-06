@@ -293,7 +293,7 @@
           },
           {
             "at": "say7",
-            "caption": "Destroy hook fires once V8 garbage collector reclaims the async resource.",
+            "caption": "Destroy hook fires once engine garbage collector reclaims the async.",
             "values": {
               "init": {
                 "status": "Online"
@@ -471,7 +471,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Inbound HTTP request arrives with standard W3C traceparent header.",
+            "caption": "Inbound HTTP request arrives with standard WthreeC traceparent header.",
             "values": {
               "http_in": {
                 "status": "Online"
@@ -489,7 +489,7 @@
           },
           {
             "at": "say3",
-            "caption": "Parser extracts 32-character traceId, 16-character parentId, and traceFlags.",
+            "caption": "Parser extracts thirty-two-character traceId, sixteen-character parentId.",
             "values": {
               "http_in": {
                 "status": "Processing"

@@ -108,6 +108,14 @@ export function LessonNavigationBar({
 
       {/* Zone 1 (Left-Down): Clean Classroom Status Tag (2D Cartoon avatar removed per user request) */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0, minWidth: 0 }}>
+        <TeacherAvatarFrame
+          userId={userId || "guest"}
+          teacherId={teacherId || "kashyap"}
+          teacher={safeTeacher}
+          isPlaying={Boolean(isPlaying)}
+          speechText={speechText || ""}
+          questData={questData}
+        />
         <div
           data-testid="classroom-topic-pill"
           style={{
@@ -278,7 +286,7 @@ export function LessonNavigationBar({
               ? '🧩 Synthesis Puzzle'
               : isBattleSlide
               ? '⚡ 60s MCQ Battle'
-              : `✓ ${Math.min(confirmedCount, slidesLength)}/${slidesLength} Concepts Confirmed`}
+              : `✓ ${Math.min(confirmedCount, slidesLength)}/${slidesLength} Checks`}
           </span>
         )}
       </div>

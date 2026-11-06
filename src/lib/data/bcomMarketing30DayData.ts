@@ -4,7 +4,7 @@ import { CourseQuest } from './coursesData';
 export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
   {
     "day": 1,
-    "title": "The Modern Marketing Philosophy & Value Equation Orientation",
+    "title": "Customer Value Creation, Modern Marketing Orientations, CSAT Gaps & Brand Equity Architecture",
     "desc": "Master the 5 competing organizational orientations: Production, Product, Selling, Marketing, and Societal Marketing Concepts, along with the Customer Value Equation ($Value = \\frac{\\text{Total Customer Benefit}}{\\text{Total Customer Cost}}$) and Customer Satisfaction Index ($CSAT = \\text{Perception} - \\text{Expectations}$).",
     "syllabus": [
       "Evolution of Marketing Philosophy: Production Concept to Modern Societal Marketing.",
@@ -24,7 +24,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 2,
-    "title": "Marketing Environment: PESTLE & Porter's Five Forces",
+    "title": "Marketing Environment: PESTLE Analysis, Porter's Five Forces & Strategic Market Dynamics",
     "desc": "Analyze macro and micro marketing forces: PESTLE Analysis (Political, Economic, Socio-Cultural, Technological, Legal, Environmental) and Michael Porter's Five Forces (Threat of New Entrants, Bargaining Power of Buyers, Bargaining Power of Suppliers, Threat of Substitutes, Industry Rivalry).",
     "syllabus": [
       "Macro-Environment: PESTLE framework forces shaping consumer demand.",
@@ -44,7 +44,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 3,
-    "title": "Consumer Buying Behavior: The 5-Stage Decision Journey",
+    "title": "Consumer Buying Behavior: The 5-Stage Decision Journey & Cognitive Dissonance",
     "desc": "Deconstruct the consumer buying decision process: 1. Need Recognition; 2. Information Search; 3. Evaluation of Alternatives; 4. Purchase Decision; 5. Post-Purchase Evaluation (Cognitive Dissonance / Buyer's Remorse reduction).",
     "syllabus": [
       "The 5-Stage Consumer Purchase Funnel.",
@@ -64,7 +64,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 4,
-    "title": "Market Research & Net Promoter Score (NPS) Analytics",
+    "title": "Marketing Research & Demand Forecasting: Scientific Methodology & Predictive Modeling",
     "desc": "Collect actionable consumer intelligence: Primary Research (Surveys, Focus Groups, Ethnography) vs Secondary Research, Likert Scales, and Net Promoter Score ($\\text{NPS} = \\% \\text{Promoters (9-10)} - \\% \\text{Detractors (0-6)}$).",
     "syllabus": [
       "Market Research Process: Problem definition, Research plan, Data collection, Analysis, Reporting.",
@@ -84,7 +84,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 5,
-    "title": "⭐ MILESTONE 1: Complete Market Research & Customer Insight Engine",
+    "title": "Market Segmentation, Targeting Strategies & Behavioral Clustering",
     "desc": "Milestone 1: Build a complete customer intelligence engine: Synthesizing PESTLE macro risks, Porter competitive forces, customer journey funnels, and Net Promoter Score loyalty analytics.",
     "syllabus": [
       "Market Research and Consumer Behavior synthesis.",
@@ -104,7 +104,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 6,
-    "title": "STP Strategy: Market Segmentation (Bases & Criteria)",
+    "title": "STP Strategy: Market Segmentation (Bases & MASDA Criteria)",
     "desc": "Segment total heterogeneous consumer markets into homogeneous clusters: Geographic, Demographic (Age, Income, Gender), Psychographic (VALS framework, Lifestyle), and Behavioral (Usage rate, Loyalty, Occasions).",
     "syllabus": [
       "Bases for Segmentation: Demographic, Geographic, Psychographic (VALS), Behavioral.",
@@ -184,7 +184,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 10,
-    "title": "Portfolio Lifecycle Dynamics: PLC Stages & BCG Growth-Share Matrix",
+    "title": "Milestone 2 Capstone: Portfolio Lifecycle Dynamics & BCG Strategic Growth-Share Matrix",
     "desc": "Manage products through life stages and portfolio matrices: Product Life Cycle (Introduction, Growth, Maturity, Decline), and BCG Growth-Share Matrix (Stars, Cash Cows, Question Marks, Dogs).",
     "syllabus": [
       "PLC Stages & Marketing Strategies: Early adopters (Intro), Market penetration (Growth), Defend market share (Maturity), Harvest/Divest (Decline).",
@@ -204,7 +204,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 11,
-    "title": "Brand Architecture: Keller's CBBE Resonance Pyramid & Customer Equity",
+    "title": "Pricing Architecture: Cost-Plus, Target-Return & Customer Value-Based Models",
     "desc": "Build enduring brand equity using Kevin Lane Keller's Customer-Based Brand Equity (CBBE) Pyramid: 1. Salience (Identity); 2. Performance & Imagery (Meaning); 3. Judgments & Feelings (Response); 4. Brand Resonance (Relationships & Active Loyalty).",
     "syllabus": [
       "Keller's CBBE Model: Four building blocks and six brand building sub-dimensions.",
@@ -224,7 +224,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 12,
-    "title": "Pricing Strategies: Value-Based, Cost-Plus, Skimming & Penetration",
+    "title": "Price Elasticity of Demand, Cross-Price Dynamics & Algorithmic Yield Optimization",
     "desc": "Master strategic pricing models: Cost-Plus Pricing, Value-Based Pricing (Customer perceived economic value), Market Skimming (High intro prices for inelastic innovators), Market Penetration (Low price for rapid volume capture), and Price Elasticity of Demand ($PED$).",
     "syllabus": [
       "The 3 Cs of Pricing: Customer Demand (Ceiling), Competitors (Orientation), and Costs (Floor).",
@@ -244,7 +244,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 13,
-    "title": "Distribution Channels & Omnichannel Retailing (Place)",
+    "title": "Promotional Pricing, Skimming vs Penetration & Product Bundling Economics",
     "desc": "Design omnichannel distribution networks: Direct vs Indirect channels (Zero-level to 3-level), Intensive vs Selective vs Exclusive distribution, Channel Conflict management, and Direct-to-Consumer (D2C) e-commerce margins.",
     "syllabus": [
       "Channel Levels: Direct D2C (0-level), Retailer (1-level), Wholesaler + Retailer (2-level), Agent network (3-level).",
@@ -264,7 +264,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 14,
-    "title": "Integrated Marketing Communications (IMC) & The AIDA Model",
+    "title": "Omnichannel Distribution, Channel Conflict & Value Chain Margin Decomposition",
     "desc": "Unify marketing messaging across promotional mix tools: Advertising, Public Relations, Direct Marketing, Personal Selling, and Sales Promotions guided by the classic AIDA Communication Hierarchy (Attention, Interest, Desire, Action).",
     "syllabus": [
       "The IMC Philosophy: 360-degree brand consistency across touchpoints.",
@@ -276,7 +276,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function evaluateAidaFunnel(imp, clicks, leads, purchases) {\n  // TODO: Compute Attention-to-Interest (CTR), Interest-to-Desire (Lead rate), and Desire-to-Action (Sales conversion rate)\n  \n}",
     "eHint": "ctr = (clicks / imp) * 100; leadRate = (leads / clicks) * 100; salesRate = (purchases / leads) * 100; overallFunnelConversion = (purchases / imp) * 100; return { clickThroughRateAttentionToInterest: Number(ctr.toFixed(2)), leadRateInterestToDesire: Number(leadRate.toFixed(2)), purchaseRateDesireToAction: Number(salesRate.toFixed(2)), overallConversionPercent: Number(overallFunnelConversion.toFixed(4)) }.",
     "eTest": "const aida = evaluateAidaFunnel(100000, 2000, 200, 20); // CTR = 2.0%, Lead = 10.0%, Sales = 10.0%, Overall = 0.02%\nif (aida.clickThroughRateAttentionToInterest !== 2.00 || aida.leadRateInterestToDesire !== 10.00 || aida.purchaseRateDesireToAction !== 10.00) throw new Error('AIDA conversion failed');\nconst highPerf = evaluateAidaFunnel(10000, 500, 100, 25);\nif (highPerf.purchaseRateDesireToAction !== 25.00) throw new Error('High performance AIDA failed');\nconst zeroSales = evaluateAidaFunnel(1000, 50, 5, 0);\nif (zeroSales.purchaseRateDesireToAction !== 0.00) throw new Error('Zero sales AIDA check failed');",
-    "aTitle": "Promotional Mix Budget Allocation Calculator",
+    "aTitle": "Promotional Mix Budget Allocation Calculator (Omnichannel Distribution, Channel Conflict & Value Chain Margin Decomposition)",
     "aDesc": "Implement function `allocatePromoMixBudget(totalBudget, advertisingPct, digitalMarketingPct, salesPromotionPct, prPct)` computing budget split across traditional ads, performance digital, and PR.",
     "aStarter": "function allocatePromoMixBudget(budget, adPct, digitalPct, promoPct, prPct) {\n  // TODO: Compute monetary allocations for each promotional mix channel\n  \n}",
     "aHint": "ad = budget * (adPct / 100); digital = budget * (digitalPct / 100); promo = budget * (promoPct / 100); pr = budget * (prPct / 100); return { advertisingAmount: ad, digitalAmount: digital, salesPromoAmount: promo, prAmount: pr, isFullyAllocated: (adPct + digitalPct + promoPct + prPct) === 100 }.",
@@ -284,7 +284,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 15,
-    "title": "⭐ MILESTONE 2: Complete Product, Brand Equity & Go-To-Market Engine",
+    "title": "Milestone 3 Capstone: Integrated Dynamic Pricing, Yield Optimization & Omnichannel Distribution Engine",
     "desc": "Milestone 2: Construct an end-to-end Go-To-Market (GTM) strategy engine: Product level configuration, Value-based pricing models, Omnichannel intermediary distribution margins, and AIDA promotional conversion.",
     "syllabus": [
       "4Ps Go-To-Market Synthesis.",
@@ -304,7 +304,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 16,
-    "title": "Services Marketing: The 7Ps & The SERVQUAL Gap Model",
+    "title": "Integrated Marketing Communications (IMC) & The Promotional Mix",
     "desc": "Master the unique dynamics of service management: The 4 Service Characteristics (Intangibility, Inseparability, Variability, Perishability), the Extended 7Ps (People, Process, Physical Evidence), and the SERVQUAL 5-Dimension Gap Model.",
     "syllabus": [
       "IHIP Service Characteristics: Intangibility, Heterogeneity, Inseparability, Perishability.",
@@ -324,7 +324,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 17,
-    "title": "B2B Marketing & The Buying Center (DMU) Decision Process",
+    "title": "Advertising Media Planning, GRPs & Multi-Touch Attribution Models",
     "desc": "Navigate complex business-to-business organizational purchasing: Derived Demand, Inelastic Short-Term Demand, The Buying Center / Decision Making Unit (Initiator, User, Influencer, Decider, Buyer, Gatekeeper), and Buygrid Framework.",
     "syllabus": [
       "Characteristics of B2B Markets: Fewer, larger buyers; Geographically concentrated; Close supplier relationships.",
@@ -336,7 +336,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function evaluateB2bBuyingCenter(init, inf, gate, dec, buy, user) {\n  // TODO: Weight stakeholder votes: Decider (35%), Influencer (20%), Gatekeeper (15%), User (15%), Buyer (10%), Initiator (5%)\n  \n}",
     "eHint": "weightedScore = init * 0.05 + inf * 0.20 + gate * 0.15 + dec * 0.35 + buy * 0.10 + user * 0.15; isApproved = weightedScore >= 7.0 && dec >= 7; return { consensusScore: Number(weightedScore.toFixed(2)), isProcurementApproved: isApproved, gatingReason: dec < 7 ? 'DECIDER_VETO' : (isApproved ? 'DEAL_APPROVED' : 'INSUFFICIENT_CONSENSUS') }.",
     "eTest": "const deal = evaluateB2bBuyingCenter(8, 8, 7, 9, 8, 8); // High scores across all\nif (!deal.isProcurementApproved || deal.gatingReason !== 'DEAL_APPROVED') throw new Error('Approved B2B buying center check failed');\nconst veto = evaluateB2bBuyingCenter(10, 10, 10, 4, 10, 10); // Decider votes low (4)\nif (deal.isProcurementApproved && veto.gatingReason !== 'DECIDER_VETO') throw new Error('Decider veto check failed');\nconst weak = evaluateB2bBuyingCenter(5, 5, 5, 6, 5, 5);\nif (weak.isProcurementApproved || weak.gatingReason !== 'INSUFFICIENT_CONSENSUS') throw new Error('Low consensus check failed');",
-    "aTitle": "B2B Straight Rebuy vs Modified Rebuy Risk Classifier",
+    "aTitle": "B2B Straight Rebuy vs Modified Rebuy Risk Classifier (Advertising Media Planning, GRPs & Multi-Touch Attribution Models)",
     "aDesc": "Implement function `classifyB2bPurchaseType(orderHistoryCount, specificationChangeFlag, priceVariancePct)` classifying B2B buying situations into Straight Rebuy, Modified Rebuy, or New Task.",
     "aStarter": "function classifyB2bPurchaseType(history, specChanged, priceVar) {\n  // TODO: If history == 0 -> NEW_TASK; if specChanged || priceVar > 5 -> MODIFIED_REBUY; else -> STRAIGHT_REBUY\n  \n}",
     "aHint": "if (orderHistoryCount === 0) type = 'NEW_TASK_PURCHASE'; else if (specificationChangeFlag || priceVariancePct > 5.0) type = 'MODIFIED_REBUY'; else type = 'STRAIGHT_REBUY'; return { buyclassCategory: type }.",
@@ -344,7 +344,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 18,
-    "title": "Digital Media Strategy: The Owned, Earned & Paid (OEP) Media Trifecta",
+    "title": "Public Relations, Crisis Communications & Corporate Reputation Moats",
     "desc": "Structure digital marketing investments: The POEM framework (Paid: Search ads, Display, Sponsored content; Owned: Website, App, Blog, Email lists; Earned: Viral mentions, Organic PR, Word of Mouth), and Blended Customer Acquisition Cost ($CAC$).",
     "syllabus": [
       "The POEM Digital Media Framework: Roles, benefits, and trade-offs of Paid, Owned, and Earned media.",
@@ -364,7 +364,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 19,
-    "title": "CRM Retention Analytics: Churn Economics & Lifetime Value Maximization",
+    "title": "Direct Marketing, Account-Based Marketing (ABM) & B2B Lead Nurturing",
     "desc": "Maximize customer asset value: Customer Lifetime Value ($CLV = \\frac{Margin \\times AOV \\times Frequency}{Churn\\ Rate}$), $CLV:CAC$ ratios, Retention vs Acquisition economics, and calculating Customer Equity.",
     "syllabus": [
       "The Economics of Retention: Why a 5% increase in retention can boost profits by 25% to 95% (Bain & Co).",
@@ -384,7 +384,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 20,
-    "title": "Return on Marketing Investment (ROMI) & Marketing Performance Auditing",
+    "title": "⭐ Milestone 4 Capstone: Multi-Channel IMC Campaign Orchestrator & Media Mix Optimization Engine",
     "desc": "Quantify financial accountability in marketing: Return on Marketing Investment ($ROMI = \\frac{\\text{Net Profit Attributed to Marketing}}{\\text{Marketing Expenditure}} \\times 100$), Marketing Expense to Sales Ratio, and Marketing Audits.",
     "syllabus": [
       "Financial Accountability in Marketing: Bridging marketing activity metrics to C-Suite balance sheet returns.",
@@ -404,7 +404,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 21,
-    "title": "⭐ MILESTONE 3: Complete Services, B2B & Marketing Performance Engine",
+    "title": "Global Marketing Environment, EPRG Framework & Cross-Cultural Trade Dynamics",
     "desc": "Milestone 3: Build an enterprise-level B2B and Services marketing orchestration engine: SERVQUAL gap reconciliation, Buying Center consensus tracking, Blended CAC attribution, and ROMI financial auditing.",
     "syllabus": [
       "Services, B2B, and Performance Marketing synthesis.",
@@ -424,7 +424,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 22,
-    "title": "Viral Marketing & Growth Loops: The K-Factor Coefficient",
+    "title": "International Market Entry Strategies, Risk Hierarchy & Partner Selection",
     "desc": "Engineer viral consumer growth loops: The Viral Coefficient ($K = i \\times c$, where $i$ is invites sent per customer and $c$ is conversion rate per invite), Viral Cycle Time, and Organic Network Effects.",
     "syllabus": [
       "Viral Growth Mechanics: Word-of-mouth loops vs Product-embedded referral mechanics.",
@@ -444,7 +444,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 23,
-    "title": "Neuromarketing & Behavioral Economics: Anchoring & The Decoy Effect",
+    "title": "Global Product & Communication Adaptation vs Standardization",
     "desc": "Apply cognitive psychology to pricing and consumer choice: Daniel Kahneman's System 1 vs System 2 thinking, Anchoring and Adjustment heuristics, Loss Aversion ($2.5\\times$ pain of loss), and The Decoy Effect (Asymmetric Dominance).",
     "syllabus": [
       "Heuristics & Biases: Anchoring effect, framing effect, status quo bias, scarcity principle.",
@@ -464,7 +464,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 24,
-    "title": "Financial Brand Valuation: Interbrand Method & Royalty Relief Modeling",
+    "title": "International Pricing, Transfer Pricing & Foreign Exchange Risk Hedging",
     "desc": "Quantify the monetary balance sheet value of brands: The Interbrand 3-Step Methodology (Financial Analysis, Role of Brand Index - RBI, Brand Strength Score - BSS), Royalty Relief Method, and ISO 10668 Brand Valuation standards.",
     "syllabus": [
       "Interbrand Brand Valuation Method: Economic value added multiplied by Role of Brand and Brand Strength discount multiplier.",
@@ -484,7 +484,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 25,
-    "title": "Global Marketing Strategy: Standardization vs Adaptation (Glocalization)",
+    "title": "⭐ Milestone 5 Capstone: Cross-Border Global Brand Expansion & Market Entry Orchestrator",
     "desc": "Scale brands across international borders: Standardization (Economies of scale) vs Adaptation (Local cultural customization), Glocalization ('Think Global, Act Local'), and the EPRG Framework (Ethnocentric, Polycentric, Regiocentric, Geocentric).",
     "syllabus": [
       "The Globalization Dilemma: Pressures for Cost Reduction vs Pressures for Local Responsiveness.",
@@ -504,7 +504,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 26,
-    "title": "Public Relations (PR), Crisis Management & Brand Reputation",
+    "title": "Digital Marketing Transformation, Omnichannel MarTech Stacks & Customer Data Platforms (CDP)",
     "desc": "Protect brand equity in times of corporate distress: Coombs Situational Crisis Communication Theory (SCCT: Denial, Diminishment, Rebuilding, Bolstering), proactive media relations, and Advertising Value Equivalency ($AVE$).",
     "syllabus": [
       "Situational Crisis Communication Theory (SCCT): Assessing victim crises, accidental crises, and preventable crises.",
@@ -524,7 +524,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 27,
-    "title": "Sustainability & Green Marketing: Greenwashing Audits",
+    "title": "Search Engine Marketing: SEO Architecture, Technical Crawl Budgets & PPC Quality Score Mechanics",
     "desc": "Build credible sustainable marketing campaigns: TerraChoice 7 Sins of Greenwashing (Hidden Trade-Off, No Proof, Vagueness, False Labels, Irrelevance, Lesser of Two Evils, Fibbing), Circular Economy branding, and ESG consumer trust.",
     "syllabus": [
       "The 7 Sins of Greenwashing: Recognizing unsubstantiated or deceptive environmental marketing claims.",
@@ -544,7 +544,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 28,
-    "title": "AI in Marketing: Predictive Lead Scoring & Automated Personalization",
+    "title": "Social Media Marketing Algorithms, Influencer Unit Economics & Viral Loop K-Factors",
     "desc": "Leverage Artificial Intelligence in modern marketing operations: Machine learning predictive lead scoring, real-time dynamic website personalization, Generative AI creative workflows, and algorithmic A/B testing optimization.",
     "syllabus": [
       "Predictive Lead Scoring Models: Behavioral signals + Firmographics + Real-time Intent surge data.",
@@ -564,7 +564,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 29,
-    "title": "Marketing Law, Ethics & Regulatory Advertising Compliance",
+    "title": "Marketing Analytics, Cohort Retention Curves, Churn Prevention & Marketing Mix Modeling (MMM)",
     "desc": "Ensure rigorous legal and ethical marketing compliance: Advertising Standards Council (ASCI / FTC truth-in-advertising regulations), Comparative puffery vs False claims, Data Privacy frameworks (GDPR, DPDP Act), and Consumer Protection laws.",
     "syllabus": [
       "Truth in Advertising Guidelines: Substantiation doctrine, unambiguous qualification of promotional claims.",
@@ -584,7 +584,7 @@ export const BCOM_MARKETING_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 30,
-    "title": "🏆 FINAL CAPSTONE: Integrated Corporate Marketing & Global Brand Management Master Suite",
+    "title": "Milestone 6 Capstone: Autonomous Chief Marketing Officer (CMO) Enterprise Growth Engine & 30-Day Marketing Operating System",
     "desc": "Final Capstone Synthesis: The complete corporate marketing and global brand management operating system integrating Market Research, STP segmentation, 4Ps GTM launch strategy, Performance Digital CAC, CRM retention, and Brand Valuation.",
     "syllabus": [
       "End-to-End Enterprise Marketing Architecture Synthesis.",

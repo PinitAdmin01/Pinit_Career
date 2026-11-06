@@ -255,7 +255,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Estimating context size [D12.P3.S1].",
+            "caption": "Initialize input state for Estimating context size [Dtwelve.Pthree.Sone].",
             "values": {
               "in": "Day 12 Input",
               "proc": "Standby",
@@ -275,7 +275,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Estimating context ... [D12.P3.S2].",
+            "caption": "Execute core transformation in Estimating context .",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -299,7 +299,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D12.P3.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -319,7 +319,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Estimating context size [D12.P3.S4].",
+            "caption": "End-to-end execution verified for Estimating context size.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -693,7 +693,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Fitting a token budget [D12.P6.S1].",
+            "caption": "Initialize input state for Fitting a token budget [Dtwelve.Psix.Sone].",
             "values": {
               "in": "Day 12 Input",
               "proc": "Standby",
@@ -713,7 +713,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Fitting a token budget [D12.P6.S2].",
+            "caption": "Execute core transformation in Fitting a token budget [Dtwelve.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -737,7 +737,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D12.P6.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -757,7 +757,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Fitting a token budget [D12.P6.S4].",
+            "caption": "End-to-end execution verified for Fitting a token budget.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Capstone protocol coordinates omnichain state, liquidity, or CDP for Omnichain Architecture Synthes...",
+            "caption": "Capstone protocol coordinates omnichain state, liquidity, or CDP for.",
             "activeActor": "Yield Strategist",
             "messages": [
               {
@@ -33,7 +33,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes rebalance swap, flash liquidation, or private MEV routing",
+            "caption": "Engine executes rebalance swap, flash liquidation, or private MEV routing.",
             "activeActor": "LayerZero EndpointV2",
             "messages": [
               {
@@ -46,7 +46,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of multi-chain rate limits, health factor solvency, or TWAP bounds",
+            "caption": "Verification of multi-chain rate limits, health factor solvency, or TWAP.",
             "activeActor": "CCIP Rate Limiter",
             "messages": [
               {
@@ -59,7 +59,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; yield compounded and protocol fully certified",
+            "caption": "Block settled atomically; yield compounded and protocol fully certified.",
             "activeActor": "LayerZero EndpointV2",
             "messages": [
               {
@@ -152,7 +152,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Capstone protocol coordinates omnichain state, liquidity, or CDP for Concentrated Liquidity & Dynam...",
+            "caption": "Capstone protocol coordinates omnichain state, liquidity, or CDP for.",
             "activeActor": "TWAP Price Oracle",
             "messages": [
               {
@@ -165,7 +165,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes rebalance swap, flash liquidation, or private MEV routing",
+            "caption": "Engine executes rebalance swap, flash liquidation, or private MEV routing.",
             "activeActor": "Concentrated Liquidity Manager",
             "messages": [
               {
@@ -178,7 +178,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of multi-chain rate limits, health factor solvency, or TWAP bounds",
+            "caption": "Verification of multi-chain rate limits, health factor solvency, or TWAP.",
             "activeActor": "Uniswap v3 Pool",
             "messages": [
               {
@@ -191,7 +191,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; yield compounded and protocol fully certified",
+            "caption": "Block settled atomically; yield compounded and protocol fully certified.",
             "activeActor": "Concentrated Liquidity Manager",
             "messages": [
               {
@@ -284,7 +284,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Capstone protocol coordinates omnichain state, liquidity, or CDP for Autonomous CDP Lending & Flash...",
+            "caption": "Capstone protocol coordinates omnichain state, liquidity, or CDP for.",
             "activeActor": "Liquidator Keeper",
             "messages": [
               {
@@ -297,7 +297,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes rebalance swap, flash liquidation, or private MEV routing",
+            "caption": "Engine executes rebalance swap, flash liquidation, or private MEV routing.",
             "activeActor": "CDP Lending Pool",
             "messages": [
               {
@@ -310,7 +310,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of multi-chain rate limits, health factor solvency, or TWAP bounds",
+            "caption": "Verification of multi-chain rate limits, health factor solvency, or TWAP.",
             "activeActor": "Aave Flash Loan",
             "messages": [
               {
@@ -323,7 +323,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; yield compounded and protocol fully certified",
+            "caption": "Block settled atomically; yield compounded and protocol fully certified.",
             "activeActor": "CDP Lending Pool",
             "messages": [
               {
@@ -416,7 +416,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Capstone protocol coordinates omnichain state, liquidity, or CDP for Institutional Anti-MEV Sentine...",
+            "caption": "Capstone protocol coordinates omnichain state, liquidity, or CDP for.",
             "activeActor": "Protocol Execution Gateway",
             "messages": [
               {
@@ -429,7 +429,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes rebalance swap, flash liquidation, or private MEV routing",
+            "caption": "Engine executes rebalance swap, flash liquidation, or private MEV routing.",
             "activeActor": "Private Relay Tunnel",
             "messages": [
               {
@@ -442,7 +442,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of multi-chain rate limits, health factor solvency, or TWAP bounds",
+            "caption": "Verification of multi-chain rate limits, health factor solvency, or TWAP.",
             "activeActor": "MEV-Share Matcher",
             "messages": [
               {
@@ -455,7 +455,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; yield compounded and protocol fully certified",
+            "caption": "Block settled atomically; yield compounded and protocol fully certified.",
             "activeActor": "Private Relay Tunnel",
             "messages": [
               {
@@ -548,7 +548,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Capstone protocol coordinates omnichain state, liquidity, or CDP for ⭐ 🏆 Grand Final Capstone: Sov...",
+            "caption": "Capstone protocol coordinates omnichain state, liquidity, or CDP for ⭐ 🏆.",
             "activeActor": "Principal Architect",
             "messages": [
               {
@@ -561,7 +561,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes rebalance swap, flash liquidation, or private MEV routing",
+            "caption": "Engine executes rebalance swap, flash liquidation, or private MEV routing.",
             "activeActor": "Sovereign DeFi Suite",
             "messages": [
               {
@@ -574,7 +574,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of multi-chain rate limits, health factor solvency, or TWAP bounds",
+            "caption": "Verification of multi-chain rate limits, health factor solvency, or TWAP.",
             "activeActor": "Audit Verification Gates",
             "messages": [
               {
@@ -587,7 +587,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; yield compounded and protocol fully certified",
+            "caption": "Block settled atomically; yield compounded and protocol fully certified.",
             "activeActor": "Sovereign DeFi Suite",
             "messages": [
               {

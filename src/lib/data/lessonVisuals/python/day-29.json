@@ -125,7 +125,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Getting the project ready [D29.P2.S1].",
+            "caption": "Initialize input state for Getting the project ready [D.Ptwo.Sone].",
             "values": {
               "in": "Day 29 Input",
               "proc": "Standby",
@@ -145,7 +145,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Getting the project... [D29.P2.S2].",
+            "caption": "Execute core transformation in Getting the project... [D.Ptwo.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -169,7 +169,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D29.P2.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Ptwo.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -189,7 +189,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Getting the project ready [D29.P2.S4].",
+            "caption": "End-to-end execution verified for Getting the project ready [D.Ptwo.Sfour].",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -443,7 +443,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Deploying and checking it works [D29.P4.S1].",
+            "caption": "Initialize input state for Deploying and checking it works [D.Pfour.Sone].",
             "values": {
               "in": "Day 29 Input",
               "proc": "Standby",
@@ -463,7 +463,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Deploying and check... [D29.P4.S2].",
+            "caption": "Execute core transformation in Deploying and check... [D.Pfour.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -487,7 +487,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D29.P4.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Pfour.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -507,7 +507,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Deploying and checking it works [D29.P4.S4].",
+            "caption": "End-to-end execution verified for Deploying and checking it works.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -761,7 +761,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Putting it together: your deployment che.. [D29.P6.S1].",
+            "caption": "Initialize input state for Putting it together: your deployment che.",
             "values": {
               "in": "Day 29 Input",
               "proc": "Standby",
@@ -781,7 +781,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Putting it together... [D29.P6.S2].",
+            "caption": "Execute core transformation in Putting it together... [D.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -805,7 +805,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D29.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -825,7 +825,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Putting it together: your deploym.. [D29.P6.S4].",
+            "caption": "End-to-end execution verified for Putting it together: your deploym.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

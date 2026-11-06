@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Inspecting storage physical topology and queue layouts for Storage Physical Foundati...",
+            "caption": "Inspecting storage physical topology and queue layouts for Storage.",
             "items": [
               "0x00: NVMe_SQ",
               "0x40: NAND_BLK",
@@ -41,7 +41,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: PCIe lane bandwidth and parity striping evaluation for Storage Physical Foundati...",
+            "caption": "PCIe lane bandwidth and parity striping evaluation for Storage Physical.",
             "items": [
               "0x00: NVMe_SQ",
               "0x40: NAND_BLK",
@@ -68,7 +68,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world operational state and self-healing telemetry for Storage Physical Foundati...",
+            "caption": "Real-world operational state and self-healing telemetry for Storage.",
             "items": [
               "0x00: NVMe_SQ",
               "0x40: NAND_BLK",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive verification and storage health diagnostics for Storage Physical Foundati...",
+            "caption": "Interactive verification and storage health diagnostics for Storage.",
             "items": [
               "0x00: NVMe_SQ",
               "0x40: NAND_BLK",
@@ -132,7 +132,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Inspecting storage physical topology and queue layouts for NVMe Architecture, PCIe B...",
+            "caption": "Inspecting storage physical topology and queue layouts for NVMe.",
             "items": [
               "0x00: NVMe_SQ",
               "0x40: NAND_BLK",
@@ -159,7 +159,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: PCIe lane bandwidth and parity striping evaluation for NVMe Architecture, PCIe B...",
+            "caption": "PCIe lane bandwidth and parity striping evaluation for NVMe Architecture.",
             "items": [
               "0x00: NVMe_SQ",
               "0x40: NAND_BLK",
@@ -186,7 +186,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world operational state and self-healing telemetry for NVMe Architecture, PCIe B...",
+            "caption": "Real-world operational state and self-healing telemetry for NVMe.",
             "items": [
               "0x00: NVMe_SQ",
               "0x40: NAND_BLK",
@@ -213,7 +213,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive verification and storage health diagnostics for NVMe Architecture, PCIe B...",
+            "caption": "Interactive verification and storage health diagnostics for NVMe.",
             "items": [
               "0x00: NVMe_SQ",
               "0x40: NAND_BLK",
@@ -250,7 +250,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Inspecting storage physical topology and queue layouts for RAID Redundancy Architect...",
+            "caption": "Inspecting storage physical topology and queue layouts for RAID.",
             "items": [
               "0x00: NVMe_SQ",
               "0x40: NAND_BLK",
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: PCIe lane bandwidth and parity striping evaluation for RAID Redundancy Architect...",
+            "caption": "PCIe lane bandwidth and parity striping evaluation for RAID Redundancy.",
             "items": [
               "0x00: NVMe_SQ",
               "0x40: NAND_BLK",
@@ -304,7 +304,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world operational state and self-healing telemetry for RAID Redundancy Architect...",
+            "caption": "Real-world operational state and self-healing telemetry for RAID.",
             "items": [
               "0x00: NVMe_SQ",
               "0x40: NAND_BLK",
@@ -331,7 +331,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive verification and storage health diagnostics for RAID Redundancy Architect...",
+            "caption": "Interactive verification and storage health diagnostics for RAID.",
             "items": [
               "0x00: NVMe_SQ",
               "0x40: NAND_BLK",
@@ -368,7 +368,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Inspecting storage physical topology and queue layouts for Silent Data Corruption (B...",
+            "caption": "Inspecting storage physical topology and queue layouts for Silent Data.",
             "items": [
               "0x00: NVMe_SQ",
               "0x40: NAND_BLK",
@@ -395,7 +395,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: PCIe lane bandwidth and parity striping evaluation for Silent Data Corruption (B...",
+            "caption": "PCIe lane bandwidth and parity striping evaluation for Silent Data.",
             "items": [
               "0x00: NVMe_SQ",
               "0x40: NAND_BLK",
@@ -422,7 +422,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world operational state and self-healing telemetry for Silent Data Corruption (B...",
+            "caption": "Real-world operational state and self-healing telemetry for Silent Data.",
             "items": [
               "0x00: NVMe_SQ",
               "0x40: NAND_BLK",
@@ -449,7 +449,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive verification and storage health diagnostics for Silent Data Corruption (B...",
+            "caption": "Interactive verification and storage health diagnostics for Silent Data.",
             "items": [
               "0x00: NVMe_SQ",
               "0x40: NAND_BLK",
@@ -486,7 +486,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Inspecting storage physical topology and queue layouts for Master Enterprise Storage...",
+            "caption": "Inspecting storage physical topology and queue layouts for Master.",
             "items": [
               "0x00: NVMe_SQ",
               "0x40: NAND_BLK",
@@ -513,7 +513,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: PCIe lane bandwidth and parity striping evaluation for Master Enterprise Storage...",
+            "caption": "PCIe lane bandwidth and parity striping evaluation for Master Enterprise.",
             "items": [
               "0x00: NVMe_SQ",
               "0x40: NAND_BLK",
@@ -540,7 +540,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world operational state and self-healing telemetry for Master Enterprise Storage...",
+            "caption": "Real-world operational state and self-healing telemetry for Master.",
             "items": [
               "0x00: NVMe_SQ",
               "0x40: NAND_BLK",
@@ -567,7 +567,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Interactive verification and storage health diagnostics for Master Enterprise Storage...",
+            "caption": "Interactive verification and storage health diagnostics for Master.",
             "items": [
               "0x00: NVMe_SQ",
               "0x40: NAND_BLK",

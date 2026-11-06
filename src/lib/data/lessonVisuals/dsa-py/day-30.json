@@ -243,7 +243,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for A heap-based alternative [D30.P3.S1].",
+            "caption": "Initialize input state for A heap-based alternative [D.Pthree.Sone].",
             "values": {
               "in": "Day 30 Input",
               "proc": "Standby",
@@ -263,7 +263,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in A heap-based altern... [D30.P3.S2].",
+            "caption": "Execute core transformation in A heap-based altern... [D.Pthree.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -287,7 +287,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D30.P3.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Pthree.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -307,7 +307,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for A heap-based alternative [D30.P3.S4].",
+            "caption": "End-to-end execution verified for A heap-based alternative.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -701,7 +701,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Looking back, and next steps [D30.P6.S1].",
+            "caption": "Initialize input state for Looking back, and next steps [D.Psix.Sone].",
             "values": {
               "in": "Day 30 Input",
               "proc": "Standby",
@@ -721,7 +721,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Looking back, and n... [D30.P6.S2].",
+            "caption": "Execute core transformation in Looking back, and n... [D.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -745,7 +745,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D30.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -765,7 +765,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Looking back, and next steps [D30.P6.S4].",
+            "caption": "End-to-end execution verified for Looking back, and next steps.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

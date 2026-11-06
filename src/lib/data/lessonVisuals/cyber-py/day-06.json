@@ -1,0 +1,843 @@
+{
+  "schemaVersion": 1,
+  "prefix": "cyber-py",
+  "day": 6,
+  "promptSha": "304fc5630e629ff82b7b260318eff6fd88cee9062adb5de10206e30c637f728d",
+  "model": "gpt-4o",
+  "entries": [
+    {
+      "partTitle": "Symmetric encryption",
+      "codeHash": "7da5b5fc1e6660e0eb0fea734faaa858fb4676645a24757270cfd7eb8aa71345",
+      "spec": {
+        "template": "compare",
+        "title": "Symmetric versus asymmetric cipher computational performance trade-offs",
+        "left": {
+          "title": "Symmetric Encryption (AES)",
+          "items": [
+            "Single shared secret key for encryption and decryption",
+            "Hardware acceleration with dedicated AES-NI instructions",
+            "High throughput for gigabytes of bulk payload data"
+          ]
+        },
+        "right": {
+          "title": "Asymmetric Cryptography (RSA/ECC)",
+          "items": [
+            "Mathematically linked public and private key pairs",
+            "Solves key distribution over untrusted networks",
+            "Higher computational cost suited for key exchange"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Symmetric encryption uses a single shared secret key for throughput.",
+            "highlightSide": "left",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say5",
+            "caption": "Asymmetric cryptography solves key distribution using linked key pairs.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Symmetric Encryption (AES)",
+        "rightLabel": "Asymmetric Cryptography (RSA/ECC)"
+      },
+      "filled": {
+        "template": "compare",
+        "title": "Symmetric versus asymmetric cipher computational performance trade-offs",
+        "left": {
+          "title": "Symmetric Encryption (AES)",
+          "items": [
+            "Single shared secret key for encryption and decryption",
+            "Hardware acceleration with dedicated AES-NI instructions",
+            "High throughput for gigabytes of bulk payload data"
+          ]
+        },
+        "right": {
+          "title": "Asymmetric Cryptography (RSA/ECC)",
+          "items": [
+            "Mathematically linked public and private key pairs",
+            "Solves key distribution over untrusted networks",
+            "Higher computational cost suited for key exchange"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "Symmetric encryption uses a single shared secret key for throughput.",
+            "highlightSide": "left",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say5",
+            "caption": "Asymmetric cryptography solves key distribution using linked key pairs.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Symmetric Encryption (AES)",
+        "rightLabel": "Asymmetric Cryptography (RSA/ECC)"
+      }
+    },
+    {
+      "partTitle": "Authenticated encryption and nonces",
+      "codeHash": "52276c40d21f4ec760f6417b66de8143160a59f17eaa179626fbba2c5ee5bbf4",
+      "spec": {
+        "template": "table",
+        "title": "Block cipher modes of operation security and performance comparison",
+        "columns": [
+          "Cipher Mode",
+          "Deterministic Output",
+          "Padding Required",
+          "Authentication Guarantee"
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "Electronic codebook mode preserves visual patterns and structural leaks.",
+            "activeRowIndex": 0,
+            "statusBadge": "failed",
+            "rows": [
+              {
+                "cells": [
+                  "ECB Mode",
+                  "Deterministic (Insecure)",
+                  "PKCS Padding Required",
+                  "None (Vulnerable to Pattern Leaks)"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "CBC Mode",
+                  "Randomized with IV",
+                  "PKCS Padding Required",
+                  "None (Vulnerable to Padding Oracles)"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "GCM Mode",
+                  "Counter Keystream Stream",
+                  "Zero Padding Needed",
+                  "Galois Field Cryptographic Tag"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Galois counter mode turns block ciphers into authenticated stream ciphers.",
+            "activeRowIndex": 2,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "ECB Mode",
+                  "Deterministic (Insecure)",
+                  "PKCS Padding Required",
+                  "None (Vulnerable to Pattern Leaks)"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "CBC Mode",
+                  "Randomized with IV",
+                  "PKCS Padding Required",
+                  "None (Vulnerable to Padding Oracles)"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "GCM Mode",
+                  "Counter Keystream Stream",
+                  "Zero Padding Needed",
+                  "Galois Field Cryptographic Tag"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Block cipher modes of operation security and performance comparison",
+        "columns": [
+          "Cipher Mode",
+          "Deterministic Output",
+          "Padding Required",
+          "Authentication Guarantee"
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "Electronic codebook mode preserves visual patterns and structural leaks.",
+            "activeRowIndex": 0,
+            "statusBadge": "failed",
+            "rows": [
+              {
+                "cells": [
+                  "ECB Mode",
+                  "Deterministic (Insecure)",
+                  "PKCS Padding Required",
+                  "None (Vulnerable to Pattern Leaks)"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "CBC Mode",
+                  "Randomized with IV",
+                  "PKCS Padding Required",
+                  "None (Vulnerable to Padding Oracles)"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "GCM Mode",
+                  "Counter Keystream Stream",
+                  "Zero Padding Needed",
+                  "Galois Field Cryptographic Tag"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Galois counter mode turns block ciphers into authenticated stream ciphers.",
+            "activeRowIndex": 2,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "ECB Mode",
+                  "Deterministic (Insecure)",
+                  "PKCS Padding Required",
+                  "None (Vulnerable to Pattern Leaks)"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "CBC Mode",
+                  "Randomized with IV",
+                  "PKCS Padding Required",
+                  "None (Vulnerable to Padding Oracles)"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "GCM Mode",
+                  "Counter Keystream Stream",
+                  "Zero Padding Needed",
+                  "Galois Field Cryptographic Tag"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Asymmetric encryption",
+      "codeHash": "5ec594edae6d1e18fde70fdefbd81205ede2836f52d049b54657bfac4a9b6205",
+      "spec": {
+        "template": "states",
+        "title": "Authenticated encryption with associated data verification states",
+        "states": [
+          {
+            "id": "encrypting",
+            "label": "Plaintext Encrypted via Galois Counter"
+          },
+          {
+            "id": "tagGenerated",
+            "label": "Authentication Tag Computed Over Data"
+          },
+          {
+            "id": "tamperDetected",
+            "label": "Tampered Payload Verification Aborts"
+          },
+          {
+            "id": "authenticated",
+            "label": "Constant-Time Tag Match Confirms Integrity"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "Authenticated encryption unites confidentiality and integrity guarantees.",
+            "activeStateId": "tagGenerated",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say7",
+            "caption": "If ciphertext is altered tag verification fails and the engine aborts.",
+            "activeStateId": "tamperDetected",
+            "statusBadge": "failed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Authenticated encryption with associated data verification states",
+        "states": [
+          {
+            "id": "encrypting",
+            "label": "Plaintext Encrypted via Galois Counter"
+          },
+          {
+            "id": "tagGenerated",
+            "label": "Authentication Tag Computed Over Data"
+          },
+          {
+            "id": "tamperDetected",
+            "label": "Tampered Payload Verification Aborts"
+          },
+          {
+            "id": "authenticated",
+            "label": "Constant-Time Tag Match Confirms Integrity"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "Authenticated encryption unites confidentiality and integrity guarantees.",
+            "activeStateId": "tagGenerated",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say7",
+            "caption": "If ciphertext is altered tag verification fails and the engine aborts.",
+            "activeStateId": "tamperDetected",
+            "statusBadge": "failed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Hashes and MACs",
+      "codeHash": "455f6c6c389d8280bba44c32710aaa39a960590949792428870928b68b0fa441",
+      "spec": {
+        "template": "sequence",
+        "title": "Cryptographic nonce uniqueness verification and reuse detection sequence",
+        "actors": [
+          {
+            "id": "client",
+            "label": "Data Producer"
+          },
+          {
+            "id": "cryptoEngine",
+            "label": "Encryption Engine"
+          },
+          {
+            "id": "nonceAuditor",
+            "label": "Nonce Collision Auditor"
+          }
+        ],
+        "messages": [
+          {
+            "from": "client",
+            "to": "cryptoEngine",
+            "label": "Submit Payload with Fresh Random Nonce",
+            "tone": "data"
+          },
+          {
+            "from": "cryptoEngine",
+            "to": "nonceAuditor",
+            "label": "Audit Nonce Uniqueness Against Cache",
+            "tone": "ok"
+          },
+          {
+            "from": "client",
+            "to": "cryptoEngine",
+            "label": "Submit Secondary Payload with Reused Nonce",
+            "tone": "error"
+          },
+          {
+            "from": "nonceAuditor",
+            "to": "cryptoEngine",
+            "label": "Raise Critical Alert Blocking Nonce Reuse",
+            "tone": "error"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The initialization vector must never be repeated under the same key.",
+            "activeMessageIndex": 1,
+            "statusBadge": "active"
+          },
+          {
+            "at": "say7",
+            "caption": "Nonce reuse allows attackers to forge valid authentication tags.",
+            "activeMessageIndex": 3,
+            "statusBadge": "failed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "sequence",
+        "title": "Cryptographic nonce uniqueness verification and reuse detection sequence",
+        "actors": [
+          {
+            "id": "client",
+            "label": "Data Producer"
+          },
+          {
+            "id": "cryptoEngine",
+            "label": "Encryption Engine"
+          },
+          {
+            "id": "nonceAuditor",
+            "label": "Nonce Collision Auditor"
+          }
+        ],
+        "messages": [
+          {
+            "from": "client",
+            "to": "cryptoEngine",
+            "label": "Submit Payload with Fresh Random Nonce",
+            "tone": "data"
+          },
+          {
+            "from": "cryptoEngine",
+            "to": "nonceAuditor",
+            "label": "Audit Nonce Uniqueness Against Cache",
+            "tone": "ok"
+          },
+          {
+            "from": "client",
+            "to": "cryptoEngine",
+            "label": "Submit Secondary Payload with Reused Nonce",
+            "tone": "error"
+          },
+          {
+            "from": "nonceAuditor",
+            "to": "cryptoEngine",
+            "label": "Raise Critical Alert Blocking Nonce Reuse",
+            "tone": "error"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The initialization vector must never be repeated under the same key.",
+            "activeMessageIndex": 1,
+            "statusBadge": "active"
+          },
+          {
+            "at": "say7",
+            "caption": "Nonce reuse allows attackers to forge valid authentication tags.",
+            "activeMessageIndex": 3,
+            "statusBadge": "failed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Choosing algorithms and key sizes",
+      "codeHash": "b999ac7702ce1932db258900a8310f72558717b6c11fd2b0f72ae488f7bf13dd",
+      "spec": {
+        "template": "table",
+        "title": "Asymmetric key exchange algorithms efficiency and forward secrecy matrix",
+        "columns": [
+          "Algorithm",
+          "Public Key Size",
+          "Security Level",
+          "Forward Secrecy Support"
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "Large rsa keys incur severe performance penalties during handshakes.",
+            "activeRowIndex": 0,
+            "statusBadge": "failed",
+            "rows": [
+              {
+                "cells": [
+                  "RSA-4096",
+                  "512 bytes (Heavy)",
+                  "128-bit Equivalent",
+                  "Static Key Decryption Vulnerability"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "NIST P-256",
+                  "64 bytes (Compact)",
+                  "128-bit Equivalent",
+                  "Ephemeral ECDHE Forward Secrecy"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Curve25519",
+                  "32 bytes (Ultra-Fast)",
+                  "128-bit Equivalent",
+                  "Optimal Ephemeral Handshake Security"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Elliptic curve diffie hellman enables parties to compute shared secrets.",
+            "activeRowIndex": 2,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "RSA-4096",
+                  "512 bytes (Heavy)",
+                  "128-bit Equivalent",
+                  "Static Key Decryption Vulnerability"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "NIST P-256",
+                  "64 bytes (Compact)",
+                  "128-bit Equivalent",
+                  "Ephemeral ECDHE Forward Secrecy"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Curve25519",
+                  "32 bytes (Ultra-Fast)",
+                  "128-bit Equivalent",
+                  "Optimal Ephemeral Handshake Security"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Asymmetric key exchange algorithms efficiency and forward secrecy matrix",
+        "columns": [
+          "Algorithm",
+          "Public Key Size",
+          "Security Level",
+          "Forward Secrecy Support"
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "Large rsa keys incur severe performance penalties during handshakes.",
+            "activeRowIndex": 0,
+            "statusBadge": "failed",
+            "rows": [
+              {
+                "cells": [
+                  "RSA-4096",
+                  "512 bytes (Heavy)",
+                  "128-bit Equivalent",
+                  "Static Key Decryption Vulnerability"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "NIST P-256",
+                  "64 bytes (Compact)",
+                  "128-bit Equivalent",
+                  "Ephemeral ECDHE Forward Secrecy"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Curve25519",
+                  "32 bytes (Ultra-Fast)",
+                  "128-bit Equivalent",
+                  "Optimal Ephemeral Handshake Security"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Elliptic curve diffie hellman enables parties to compute shared secrets.",
+            "activeRowIndex": 2,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "RSA-4096",
+                  "512 bytes (Heavy)",
+                  "128-bit Equivalent",
+                  "Static Key Decryption Vulnerability"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "NIST P-256",
+                  "64 bytes (Compact)",
+                  "128-bit Equivalent",
+                  "Ephemeral ECDHE Forward Secrecy"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Curve25519",
+                  "32 bytes (Ultra-Fast)",
+                  "128-bit Equivalent",
+                  "Optimal Ephemeral Handshake Security"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Practice time: nonces and key strength",
+      "codeHash": "16049e2abd6d4056175bbd3a82b9c68c1f463a0cc0cd0d6def1e8ca01db70231",
+      "spec": {
+        "template": "flow",
+        "title": "Engineering an Enterprise Hybrid Cryptographi... — Execution Pipeline",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "1. Input & State",
+            "tappable": true
+          },
+          {
+            "id": "proc",
+            "label": "2. Engineering an Ente...",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "3. Verified Output",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize input state for Engineering an Enterprise Hybrid Cryptog.",
+            "values": {
+              "in": "Day 6 Input",
+              "proc": "Standby",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "data",
+              "proc": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Execute core transformation in Engineering an Ente... [Dsix.Psix.Stwo].",
+            "values": {
+              "in": "Validated",
+              "proc": "Processing...",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Inspect concrete example output and invariants [Dsix.Psix.object-storage].",
+            "values": {
+              "in": "Validated",
+              "proc": "Invariant OK",
+              "out": "Emitting"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "End-to-end execution verified for Engineering an Enterprise Hybrid .",
+            "values": {
+              "in": "Committed",
+              "proc": "Verified",
+              "out": "Complete ✓"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Engineering an Enterprise Hybrid Cryptographi... — Execution Pipeline",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "1. Input & State",
+            "tappable": true
+          },
+          {
+            "id": "proc",
+            "label": "2. Engineering an Ente...",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "3. Verified Output",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Step 1: Initialize input state for Engineering an Enterprise Hybrid Cryptog.. [D6.P6.S1].",
+            "values": {
+              "in": "Day 6 Input",
+              "proc": "Standby",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "data",
+              "proc": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Step 2: Execute core transformation in Engineering an Ente... [D6.P6.S2].",
+            "values": {
+              "in": "Validated",
+              "proc": "Processing...",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Step 3: Inspect concrete example output and invariants [D6.P6.S3].",
+            "values": {
+              "in": "Validated",
+              "proc": "Invariant OK",
+              "out": "Emitting"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Step 4: End-to-end execution verified for Engineering an Enterprise Hybrid .. [D6.P6.S4].",
+            "values": {
+              "in": "Committed",
+              "proc": "Verified",
+              "out": "Complete ✓"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

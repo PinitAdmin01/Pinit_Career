@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialization of architectural payload for Uniswap v4 Architecture: The S...",
+            "caption": "Initialization of architectural payload for Uniswap vfour Architecture.",
             "activeActor": "Trader Wallet",
             "messages": [
               {
@@ -33,7 +33,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Constraint validation, delta accounting, or risk parameter evaluation",
+            "caption": "Constraint validation, delta accounting, or risk parameter evaluation.",
             "activeActor": "Uniswap v4 Router",
             "messages": [
               {
@@ -46,7 +46,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of hook callback, isolation ceiling, or ZK pairing precompile",
+            "caption": "Verification of hook callback, isolation ceiling, or ZK pairing precompile.",
             "activeActor": "PoolManager (Singleton)",
             "messages": [
               {
@@ -59,7 +59,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Transaction settled and finalized; institutional invariant sealed",
+            "caption": "Transaction settled and finalized; institutional invariant sealed.",
             "activeActor": "Uniswap v4 Router",
             "messages": [
               {
@@ -152,7 +152,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialization of architectural payload for EIP-1153 Transient Storage (TS...",
+            "caption": "Initialization of architectural payload for EIP-multiple Transient.",
             "activeActor": "Trader Wallet",
             "messages": [
               {
@@ -165,7 +165,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Constraint validation, delta accounting, or risk parameter evaluation",
+            "caption": "Constraint validation, delta accounting, or risk parameter evaluation.",
             "activeActor": "Uniswap v4 Router",
             "messages": [
               {
@@ -178,7 +178,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of hook callback, isolation ceiling, or ZK pairing precompile",
+            "caption": "Verification of hook callback, isolation ceiling, or ZK pairing precompile.",
             "activeActor": "PoolManager (Singleton)",
             "messages": [
               {
@@ -191,7 +191,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Transaction settled and finalized; institutional invariant sealed",
+            "caption": "Transaction settled and finalized; institutional invariant sealed.",
             "activeActor": "Uniswap v4 Router",
             "messages": [
               {
@@ -284,7 +284,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialization of architectural payload for CREATE2 Hook Address Mining & ...",
+            "caption": "Initialization of architectural payload for CREATEtwo Hook Address Mining.",
             "activeActor": "Trader Wallet",
             "messages": [
               {
@@ -297,7 +297,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Constraint validation, delta accounting, or risk parameter evaluation",
+            "caption": "Constraint validation, delta accounting, or risk parameter evaluation.",
             "activeActor": "Uniswap v4 Router",
             "messages": [
               {
@@ -310,7 +310,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of hook callback, isolation ceiling, or ZK pairing precompile",
+            "caption": "Verification of hook callback, isolation ceiling, or ZK pairing precompile.",
             "activeActor": "PoolManager (Singleton)",
             "messages": [
               {
@@ -323,7 +323,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Transaction settled and finalized; institutional invariant sealed",
+            "caption": "Transaction settled and finalized; institutional invariant sealed.",
             "activeActor": "Uniswap v4 Router",
             "messages": [
               {
@@ -416,7 +416,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialization of architectural payload for Production Uniswap v4 Dynamic ...",
+            "caption": "Initialization of architectural payload for Production Uniswap vfour.",
             "activeActor": "Trader Wallet",
             "messages": [
               {
@@ -429,7 +429,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Constraint validation, delta accounting, or risk parameter evaluation",
+            "caption": "Constraint validation, delta accounting, or risk parameter evaluation.",
             "activeActor": "Uniswap v4 Router",
             "messages": [
               {
@@ -442,7 +442,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of hook callback, isolation ceiling, or ZK pairing precompile",
+            "caption": "Verification of hook callback, isolation ceiling, or ZK pairing precompile.",
             "activeActor": "PoolManager (Singleton)",
             "messages": [
               {
@@ -455,7 +455,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Transaction settled and finalized; institutional invariant sealed",
+            "caption": "Transaction settled and finalized; institutional invariant sealed.",
             "activeActor": "Uniswap v4 Router",
             "messages": [
               {
@@ -548,7 +548,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialization of architectural payload for Production PoolManager Swap Ex...",
+            "caption": "Initialization of architectural payload for Production PoolManager Swap.",
             "activeActor": "Trader Wallet",
             "messages": [
               {
@@ -561,7 +561,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Constraint validation, delta accounting, or risk parameter evaluation",
+            "caption": "Constraint validation, delta accounting, or risk parameter evaluation.",
             "activeActor": "Uniswap v4 Router",
             "messages": [
               {
@@ -574,7 +574,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of hook callback, isolation ceiling, or ZK pairing precompile",
+            "caption": "Verification of hook callback, isolation ceiling, or ZK pairing precompile.",
             "activeActor": "PoolManager (Singleton)",
             "messages": [
               {
@@ -587,7 +587,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Transaction settled and finalized; institutional invariant sealed",
+            "caption": "Transaction settled and finalized; institutional invariant sealed.",
             "activeActor": "Uniswap v4 Router",
             "messages": [
               {

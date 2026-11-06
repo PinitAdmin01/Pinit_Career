@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize ARM Cortex-M7 Harvard Architecture  with hardware clock gate & EN=1.",
+            "caption": "Initialize ARM Cortex-Mseven Harvard Architecture with hardware clock.",
             "registerName": "SCB_CCR1",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Assert RDY and IRQ flags under hardware interrupt preemption.",
+            "caption": "Assert RDY and IRQ flags under hardware interrupt preemption.",
             "registerName": "SCB_CCR1",
             "bitWidth": 8,
             "hexValue": "0xE0",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enable DMA burst and Transfer Complete flags.",
+            "caption": "Enable DMA burst and Transfer Complete flags.",
             "registerName": "SCB_CCR1",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full ping-pong streaming active with zero-drop verified.",
+            "caption": "Full ping-pong streaming active with zero-drop verified.",
             "registerName": "SCB_CCR1",
             "bitWidth": 8,
             "hexValue": "0xFE",
@@ -267,7 +267,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize The DMA Cache Coherency Hazard: Sta with hardware clock gate & EN=1.",
+            "caption": "Initialize The DMA Cache Coherency Hazard: Sta with hardware clock gate &.",
             "registerName": "SCB_CCR2",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -327,7 +327,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Assert RDY and IRQ flags under hardware interrupt preemption.",
+            "caption": "Assert RDY and IRQ flags under hardware interrupt preemption.",
             "registerName": "SCB_CCR2",
             "bitWidth": 8,
             "hexValue": "0xE0",
@@ -388,7 +388,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enable DMA burst and Transfer Complete flags.",
+            "caption": "Enable DMA burst and Transfer Complete flags.",
             "registerName": "SCB_CCR2",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -449,7 +449,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full ping-pong streaming active with zero-drop verified.",
+            "caption": "Full ping-pong streaming active with zero-drop verified.",
             "registerName": "SCB_CCR2",
             "bitWidth": 8,
             "hexValue": "0xFE",
@@ -520,7 +520,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize Cache Maintenance Operations: SCB_I with hardware clock gate & EN=1.",
+            "caption": "Initialize Cache Maintenance Operations: SCB_I with hardware clock gate &.",
             "registerName": "SCB_CCR3",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -580,7 +580,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Assert RDY and IRQ flags under hardware interrupt preemption.",
+            "caption": "Assert RDY and IRQ flags under hardware interrupt preemption.",
             "registerName": "SCB_CCR3",
             "bitWidth": 8,
             "hexValue": "0xE0",
@@ -641,7 +641,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enable DMA burst and Transfer Complete flags.",
+            "caption": "Enable DMA burst and Transfer Complete flags.",
             "registerName": "SCB_CCR3",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -702,7 +702,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full ping-pong streaming active with zero-drop verified.",
+            "caption": "Full ping-pong streaming active with zero-drop verified.",
             "registerName": "SCB_CCR3",
             "bitWidth": 8,
             "hexValue": "0xFE",
@@ -773,7 +773,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize 32-Byte Cache Line Alignment & Data with hardware clock gate & EN=1.",
+            "caption": "Initialize thirty-two-Byte Cache Line Alignment & Data with hardware.",
             "registerName": "SCB_CCR4",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -833,7 +833,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Assert RDY and IRQ flags under hardware interrupt preemption.",
+            "caption": "Assert RDY and IRQ flags under hardware interrupt preemption.",
             "registerName": "SCB_CCR4",
             "bitWidth": 8,
             "hexValue": "0xE0",
@@ -894,7 +894,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enable DMA burst and Transfer Complete flags.",
+            "caption": "Enable DMA burst and Transfer Complete flags.",
             "registerName": "SCB_CCR4",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -955,7 +955,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full ping-pong streaming active with zero-drop verified.",
+            "caption": "Full ping-pong streaming active with zero-drop verified.",
             "registerName": "SCB_CCR4",
             "bitWidth": 8,
             "hexValue": "0xFE",
@@ -1026,7 +1026,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize Building a Coherent High-Speed DMA  with hardware clock gate & EN=1.",
+            "caption": "Initialize Building a Coherent High-Speed DMA with hardware clock gate &.",
             "registerName": "SCB_CCR5",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1086,7 +1086,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Assert RDY and IRQ flags under hardware interrupt preemption.",
+            "caption": "Assert RDY and IRQ flags under hardware interrupt preemption.",
             "registerName": "SCB_CCR5",
             "bitWidth": 8,
             "hexValue": "0xE0",
@@ -1147,7 +1147,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Enable DMA burst and Transfer Complete flags.",
+            "caption": "Enable DMA burst and Transfer Complete flags.",
             "registerName": "SCB_CCR5",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -1208,7 +1208,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Full ping-pong streaming active with zero-drop verified.",
+            "caption": "Full ping-pong streaming active with zero-drop verified.",
             "registerName": "SCB_CCR5",
             "bitWidth": 8,
             "hexValue": "0xFE",

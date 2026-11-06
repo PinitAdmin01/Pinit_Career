@@ -10,11 +10,11 @@
       "codeHash": "180deb2f576b6de2d0153d880cb1c9e0588aaf695bb4c64395f32e5d424f3e18",
       "spec": {
         "template": "register-bits",
-        "title": "Day 30 Part 1 \u2014 ApexLink Heterogeneous Multi-R \u2014 Register Architecture",
+        "title": "Day 30 Part 1 — ApexLink Heterogeneous Multi-R — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register APEX_MULTI_RADIO_REG for ApexLink Heterogeneous Multi-Rad.",
+            "caption": "Arm hardware register APEX_MULTI_RADIO_REG for ApexLink Heterogeneous.",
             "registerName": "APEX_MULTI_RADIO_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into APEX_MULTI_RADIO_REG and assert validation flag.",
+            "caption": "Latch sampling bits into APEX_MULTI_RADIO_REG and assert validation flag.",
             "registerName": "APEX_MULTI_RADIO_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in APEX_MULTI_RADIO_REG with pipeline status.",
+            "caption": "Execute hardware transformation in APEX_MULTI_RADIO_REG with pipeline.",
             "registerName": "APEX_MULTI_RADIO_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register APEX_MULTI_RADIO_REG upon verified hardware completion.",
+            "caption": "Lock register APEX_MULTI_RADIO_REG upon verified hardware completion.",
             "registerName": "APEX_MULTI_RADIO_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -262,11 +262,11 @@
       "codeHash": "cef811d1c7eac5cf3b3017de96f90e3d42204ef05d32a98a99b1bfabb9a67e12",
       "spec": {
         "template": "register-bits",
-        "title": "Day 30 Part 2 \u2014 Sovereign Cryptographic Bounda \u2014 Register Architecture",
+        "title": "Day 30 Part 2 — Sovereign Cryptographic Bounda — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register APEX_CRYPTO_BOUND_REG for Sovereign Cryptographic Boundary.",
+            "caption": "Arm hardware register APEX_CRYPTO_BOUND_REG for Sovereign Cryptographic.",
             "registerName": "APEX_CRYPTO_BOUND_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -326,7 +326,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into APEX_CRYPTO_BOUND_REG and assert validation flag.",
+            "caption": "Latch sampling bits into APEX_CRYPTO_BOUND_REG and assert validation flag.",
             "registerName": "APEX_CRYPTO_BOUND_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -387,7 +387,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in APEX_CRYPTO_BOUND_REG with pipeline status.",
+            "caption": "Execute hardware transformation in APEX_CRYPTO_BOUND_REG with pipeline.",
             "registerName": "APEX_CRYPTO_BOUND_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -448,7 +448,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register APEX_CRYPTO_BOUND_REG upon verified hardware completion.",
+            "caption": "Lock register APEX_CRYPTO_BOUND_REG upon verified hardware completion.",
             "registerName": "APEX_CRYPTO_BOUND_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -514,11 +514,11 @@
       "codeHash": "b83fee88b364e307a2a54dcb4937fcf2035070f1d356f05b391af537d6ceb900",
       "spec": {
         "template": "register-bits",
-        "title": "Day 30 Part 3 \u2014 Carrier-Grade Multi-WAN Cloud  \u2014 Register Architecture",
+        "title": "Day 30 Part 3 — Carrier-Grade Multi-WAN Cloud  — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register APEX_WAN_MIRROR_REG for Carrier-Grade Multi-WAN Cloud Mi.",
+            "caption": "Arm hardware register APEX_WAN_MIRROR_REG for Carrier-Grade Multi-WAN.",
             "registerName": "APEX_WAN_MIRROR_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -578,7 +578,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into APEX_WAN_MIRROR_REG and assert validation flag.",
+            "caption": "Latch sampling bits into APEX_WAN_MIRROR_REG and assert validation flag.",
             "registerName": "APEX_WAN_MIRROR_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -639,7 +639,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in APEX_WAN_MIRROR_REG with pipeline status.",
+            "caption": "Execute hardware transformation in APEX_WAN_MIRROR_REG with pipeline.",
             "registerName": "APEX_WAN_MIRROR_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -700,7 +700,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register APEX_WAN_MIRROR_REG upon verified hardware completion.",
+            "caption": "Lock register APEX_WAN_MIRROR_REG upon verified hardware completion.",
             "registerName": "APEX_WAN_MIRROR_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -766,11 +766,11 @@
       "codeHash": "dfce99de9d4ca90be53f2776a992475c19a0693677aff616ca9fa0e923c5c02b",
       "spec": {
         "template": "register-bits",
-        "title": "Day 30 Part 4 \u2014 Energy-Neutral Power Governor  \u2014 Register Architecture",
+        "title": "Day 30 Part 4 — Energy-Neutral Power Governor  — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register APEX_POWER_GOV_REG for Energy-Neutral Power Governor wi.",
+            "caption": "Arm hardware register APEX_POWER_GOV_REG for Energy-Neutral Power.",
             "registerName": "APEX_POWER_GOV_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -830,7 +830,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into APEX_POWER_GOV_REG and assert validation flag.",
+            "caption": "Latch sampling bits into APEX_POWER_GOV_REG and assert validation flag.",
             "registerName": "APEX_POWER_GOV_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -891,7 +891,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in APEX_POWER_GOV_REG with pipeline status.",
+            "caption": "Execute hardware transformation in APEX_POWER_GOV_REG with pipeline status.",
             "registerName": "APEX_POWER_GOV_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -952,7 +952,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register APEX_POWER_GOV_REG upon verified hardware completion.",
+            "caption": "Lock register APEX_POWER_GOV_REG upon verified hardware completion.",
             "registerName": "APEX_POWER_GOV_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1018,11 +1018,11 @@
       "codeHash": "7e1c589401bbb704086fa89072789f72101f0ad5f200ceefe8d1f4e9f03d8fa0",
       "spec": {
         "template": "register-bits",
-        "title": "Day 30 Part 5 \u2014 Grand Capstone 1 Viva Defense  \u2014 Register Architecture",
+        "title": "Day 30 Part 5 — Grand Capstone 1 Viva Defense  — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register APEX_VIVA_MASTER_REG for Grand Capstone 1 Viva Defense & .",
+            "caption": "Arm hardware register APEX_VIVA_MASTER_REG for Grand Capstone one Viva.",
             "registerName": "APEX_VIVA_MASTER_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1082,7 +1082,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into APEX_VIVA_MASTER_REG and assert validation flag.",
+            "caption": "Latch sampling bits into APEX_VIVA_MASTER_REG and assert validation flag.",
             "registerName": "APEX_VIVA_MASTER_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -1143,7 +1143,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in APEX_VIVA_MASTER_REG with pipeline status.",
+            "caption": "Execute hardware transformation in APEX_VIVA_MASTER_REG with pipeline.",
             "registerName": "APEX_VIVA_MASTER_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -1204,7 +1204,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register APEX_VIVA_MASTER_REG upon verified hardware completion.",
+            "caption": "Lock register APEX_VIVA_MASTER_REG upon verified hardware completion.",
             "registerName": "APEX_VIVA_MASTER_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

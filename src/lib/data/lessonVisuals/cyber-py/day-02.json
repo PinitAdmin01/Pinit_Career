@@ -1,0 +1,751 @@
+{
+  "schemaVersion": 1,
+  "prefix": "cyber-py",
+  "day": 2,
+  "promptSha": "b49a2824de246a43252a753bcd38a5a5a245a27714e8daf096a44bf3d517657c",
+  "model": "gpt-4o",
+  "entries": [
+    {
+      "partTitle": "How SQL injection happens",
+      "codeHash": "aa573b6567b5ecbe160d0761d2b8a4f0a8825635c94a3cd3a192c151e82a0235",
+      "spec": {
+        "template": "compare",
+        "title": "Vulnerable dynamic SQL concatenation versus secure parameterized query architecture",
+        "left": {
+          "title": "Vulnerable Concatenation",
+          "items": [
+            "Raw user input interpolated into query template",
+            "Attacker input modifies the query abstract syntax tree",
+            "Bypasses authentication and leaks confidential tables"
+          ]
+        },
+        "right": {
+          "title": "Parameterized Statement",
+          "items": [
+            "SQL logic compiled ahead of execution phase",
+            "User inputs bound purely as literal scalar values",
+            "Input quotes and operators cannot alter command logic"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "SQL injection occurs when untrusted input is directly concatenated.",
+            "highlightSide": "left",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say9",
+            "caption": "Prepared statements separate query logic from runtime parameters.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Vulnerable Concatenation",
+        "rightLabel": "Parameterized Statement"
+      },
+      "filled": {
+        "template": "compare",
+        "title": "Vulnerable dynamic SQL concatenation versus secure parameterized query architecture",
+        "left": {
+          "title": "Vulnerable Concatenation",
+          "items": [
+            "Raw user input interpolated into query template",
+            "Attacker input modifies the query abstract syntax tree",
+            "Bypasses authentication and leaks confidential tables"
+          ]
+        },
+        "right": {
+          "title": "Parameterized Statement",
+          "items": [
+            "SQL logic compiled ahead of execution phase",
+            "User inputs bound purely as literal scalar values",
+            "Input quotes and operators cannot alter command logic"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "SQL injection occurs when untrusted input is directly concatenated.",
+            "highlightSide": "left",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say9",
+            "caption": "Prepared statements separate query logic from runtime parameters.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Vulnerable Concatenation",
+        "rightLabel": "Parameterized Statement"
+      }
+    },
+    {
+      "partTitle": "Parameterised queries",
+      "codeHash": "b3a32c3ede88043397860679dd5bdf4a31ceac4add9ecec70893ceca6f17710d",
+      "spec": {
+        "template": "states",
+        "title": "Authentication query evaluation states under boolean tautology injection",
+        "states": [
+          {
+            "id": "cleanInput",
+            "label": "Standard Credential Verification"
+          },
+          {
+            "id": "tautologyInjected",
+            "label": "Tautology Expression Evaluates to True"
+          },
+          {
+            "id": "passwordBypassed",
+            "label": "Password Check Truncated by Comments"
+          },
+          {
+            "id": "adminReturned",
+            "label": "First Administrator Record Returned"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "A tautology attack crafts boolean expressions evaluating to true.",
+            "activeStateId": "tautologyInjected",
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say7",
+            "caption": "When comment tokens appear the database ignores password verification.",
+            "activeStateId": "passwordBypassed",
+            "statusBadge": "active"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Authentication query evaluation states under boolean tautology injection",
+        "states": [
+          {
+            "id": "cleanInput",
+            "label": "Standard Credential Verification"
+          },
+          {
+            "id": "tautologyInjected",
+            "label": "Tautology Expression Evaluates to True"
+          },
+          {
+            "id": "passwordBypassed",
+            "label": "Password Check Truncated by Comments"
+          },
+          {
+            "id": "adminReturned",
+            "label": "First Administrator Record Returned"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "A tautology attack crafts boolean expressions evaluating to true.",
+            "activeStateId": "tautologyInjected",
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say7",
+            "caption": "When comment tokens appear the database ignores password verification.",
+            "activeStateId": "passwordBypassed",
+            "statusBadge": "active"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Identifiers cannot be parameters",
+      "codeHash": "f4521317ae18a06b25f320b31e4bf597dbbc1d308d903d646e7816e7b129f4a5",
+      "spec": {
+        "template": "table",
+        "title": "Advanced SQL injection exploit techniques and impact classification",
+        "columns": [
+          "Attack Technique",
+          "SQL Mechanism",
+          "Objective",
+          "Prevention Strategy"
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "A union based injection merges the result set with secondary queries.",
+            "activeRowIndex": 0,
+            "statusBadge": "active",
+            "rows": [
+              {
+                "cells": [
+                  "UNION SELECT",
+                  "Appends secondary SELECT query",
+                  "Extracts hidden credentials and schema",
+                  "Parameterized Statements"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Piggybacked Query",
+                  "Semicolon statement delimiter",
+                  "Executes DROP or INSERT commands",
+                  "Disable Multi-Statement Support"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Schema Mapping",
+                  "Queries information_schema",
+                  "Discovers table and column layouts",
+                  "Least Privilege Database Grants"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Attackers execute piggybacked queries separated by semicolons.",
+            "activeRowIndex": 1,
+            "statusBadge": "failed",
+            "rows": [
+              {
+                "cells": [
+                  "UNION SELECT",
+                  "Appends secondary SELECT query",
+                  "Extracts hidden credentials and schema",
+                  "Parameterized Statements"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Piggybacked Query",
+                  "Semicolon statement delimiter",
+                  "Executes DROP or INSERT commands",
+                  "Disable Multi-Statement Support"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Schema Mapping",
+                  "Queries information_schema",
+                  "Discovers table and column layouts",
+                  "Least Privilege Database Grants"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Advanced SQL injection exploit techniques and impact classification",
+        "columns": [
+          "Attack Technique",
+          "SQL Mechanism",
+          "Objective",
+          "Prevention Strategy"
+        ],
+        "steps": [
+          {
+            "at": "say2",
+            "caption": "A union based injection merges the result set with secondary queries.",
+            "activeRowIndex": 0,
+            "statusBadge": "active",
+            "rows": [
+              {
+                "cells": [
+                  "UNION SELECT",
+                  "Appends secondary SELECT query",
+                  "Extracts hidden credentials and schema",
+                  "Parameterized Statements"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Piggybacked Query",
+                  "Semicolon statement delimiter",
+                  "Executes DROP or INSERT commands",
+                  "Disable Multi-Statement Support"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Schema Mapping",
+                  "Queries information_schema",
+                  "Discovers table and column layouts",
+                  "Least Privilege Database Grants"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say7",
+            "caption": "Attackers execute piggybacked queries separated by semicolons.",
+            "activeRowIndex": 1,
+            "statusBadge": "failed",
+            "rows": [
+              {
+                "cells": [
+                  "UNION SELECT",
+                  "Appends secondary SELECT query",
+                  "Extracts hidden credentials and schema",
+                  "Parameterized Statements"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Piggybacked Query",
+                  "Semicolon statement delimiter",
+                  "Executes DROP or INSERT commands",
+                  "Disable Multi-Statement Support"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Schema Mapping",
+                  "Queries information_schema",
+                  "Discovers table and column layouts",
+                  "Least Privilege Database Grants"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Detection as an extra alarm",
+      "codeHash": "39c1b5f7c81a6e8ed19c03c60d6a7af43545d4fb3933c420f7c50c207780b0e1",
+      "spec": {
+        "template": "sequence",
+        "title": "Time-based blind SQL injection extraction and delay inference sequence",
+        "actors": [
+          {
+            "id": "adversary",
+            "label": "Attacking Client"
+          },
+          {
+            "id": "webApp",
+            "label": "Web Application"
+          },
+          {
+            "id": "dbServer",
+            "label": "Database Server"
+          }
+        ],
+        "messages": [
+          {
+            "from": "adversary",
+            "to": "webApp",
+            "label": "Submit Injected Sleep Payload in Parameter",
+            "tone": "error"
+          },
+          {
+            "from": "webApp",
+            "to": "dbServer",
+            "label": "Execute Blind Query with Sleep Conditional",
+            "tone": "error"
+          },
+          {
+            "from": "dbServer",
+            "to": "webApp",
+            "label": "Execution Thread Sleeps on True Condition",
+            "tone": "data"
+          },
+          {
+            "from": "webApp",
+            "to": "adversary",
+            "label": "Delayed HTTP Response Confirms Character Bit",
+            "tone": "ok"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say5",
+            "caption": "The attacker forces the database execution thread to sleep.",
+            "activeMessageIndex": 0,
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say7",
+            "caption": "Automated tools can exfiltrate entire databases over blind channels.",
+            "activeMessageIndex": 3,
+            "statusBadge": "completed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "sequence",
+        "title": "Time-based blind SQL injection extraction and delay inference sequence",
+        "actors": [
+          {
+            "id": "adversary",
+            "label": "Attacking Client"
+          },
+          {
+            "id": "webApp",
+            "label": "Web Application"
+          },
+          {
+            "id": "dbServer",
+            "label": "Database Server"
+          }
+        ],
+        "messages": [
+          {
+            "from": "adversary",
+            "to": "webApp",
+            "label": "Submit Injected Sleep Payload in Parameter",
+            "tone": "error"
+          },
+          {
+            "from": "webApp",
+            "to": "dbServer",
+            "label": "Execute Blind Query with Sleep Conditional",
+            "tone": "error"
+          },
+          {
+            "from": "dbServer",
+            "to": "webApp",
+            "label": "Execution Thread Sleeps on True Condition",
+            "tone": "data"
+          },
+          {
+            "from": "webApp",
+            "to": "adversary",
+            "label": "Delayed HTTP Response Confirms Character Bit",
+            "tone": "ok"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say5",
+            "caption": "The attacker forces the database execution thread to sleep.",
+            "activeMessageIndex": 0,
+            "statusBadge": "failed"
+          },
+          {
+            "at": "say7",
+            "caption": "Automated tools can exfiltrate entire databases over blind channels.",
+            "activeMessageIndex": 3,
+            "statusBadge": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Least privilege for databases",
+      "codeHash": "8ebd27ae6e2569030405a483e4e03443b9017be28472d40f84334bee78b45f47",
+      "spec": {
+        "template": "states",
+        "title": "Parameterized prepared statement compilation and execution phases",
+        "states": [
+          {
+            "id": "templateSent",
+            "label": "SQL Template Transmitted with Placeholders"
+          },
+          {
+            "id": "astCompiled",
+            "label": "Immutable Query AST Pre-Compiled"
+          },
+          {
+            "id": "paramsBound",
+            "label": "User Values Bound as Literal Scalars"
+          },
+          {
+            "id": "safeExecuted",
+            "label": "Query Plan Executed Safely"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "The database parses the template and compiles an immutable syntax tree.",
+            "activeStateId": "astCompiled",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say6",
+            "caption": "The database treats bound parameters purely as literal scalar values.",
+            "activeStateId": "paramsBound",
+            "statusBadge": "completed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Parameterized prepared statement compilation and execution phases",
+        "states": [
+          {
+            "id": "templateSent",
+            "label": "SQL Template Transmitted with Placeholders"
+          },
+          {
+            "id": "astCompiled",
+            "label": "Immutable Query AST Pre-Compiled"
+          },
+          {
+            "id": "paramsBound",
+            "label": "User Values Bound as Literal Scalars"
+          },
+          {
+            "id": "safeExecuted",
+            "label": "Query Plan Executed Safely"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "The database parses the template and compiles an immutable syntax tree.",
+            "activeStateId": "astCompiled",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say6",
+            "caption": "The database treats bound parameters purely as literal scalar values.",
+            "activeStateId": "paramsBound",
+            "statusBadge": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Practice time: build and detect",
+      "codeHash": "c6eb6a79d121e30db4f27ddd1db727ef93ec14114443395524e5b168f9140c8c",
+      "spec": {
+        "template": "flow",
+        "title": "Building an Enterprise Query Parameterizer & ... — Execution Pipeline",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "1. Input & State",
+            "tappable": true
+          },
+          {
+            "id": "proc",
+            "label": "2. Building an Enterpr...",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "3. Verified Output",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize input state for Building an Enterprise Query Parameteriz.",
+            "values": {
+              "in": "Day 2 Input",
+              "proc": "Standby",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "data",
+              "proc": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Execute core transformation in Building an Enterpr... [Dtwo.Psix.Stwo].",
+            "values": {
+              "in": "Validated",
+              "proc": "Processing...",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Inspect concrete example output and invariants [Dtwo.Psix.object-storage].",
+            "values": {
+              "in": "Validated",
+              "proc": "Invariant OK",
+              "out": "Emitting"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "End-to-end execution verified for Building an Enterprise Query Para.",
+            "values": {
+              "in": "Committed",
+              "proc": "Verified",
+              "out": "Complete ✓"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Building an Enterprise Query Parameterizer & ... — Execution Pipeline",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "1. Input & State",
+            "tappable": true
+          },
+          {
+            "id": "proc",
+            "label": "2. Building an Enterpr...",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "3. Verified Output",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Step 1: Initialize input state for Building an Enterprise Query Parameteriz.. [D2.P6.S1].",
+            "values": {
+              "in": "Day 2 Input",
+              "proc": "Standby",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "data",
+              "proc": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Step 2: Execute core transformation in Building an Enterpr... [D2.P6.S2].",
+            "values": {
+              "in": "Validated",
+              "proc": "Processing...",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Step 3: Inspect concrete example output and invariants [D2.P6.S3].",
+            "values": {
+              "in": "Validated",
+              "proc": "Invariant OK",
+              "out": "Emitting"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Step 4: End-to-end execution verified for Building an Enterprise Query Para.. [D2.P6.S4].",
+            "values": {
+              "in": "Committed",
+              "proc": "Verified",
+              "out": "Complete ✓"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

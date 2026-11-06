@@ -10,11 +10,11 @@
       "codeHash": "983607b23ec4cdb590d4d6304ac5e3ed357fa425a6c1e17c9f03917df6c292b1",
       "spec": {
         "template": "register-bits",
-        "title": "Day 23 Part 1 \u2014 Microstrip Transmission Lines, \u2014 Register Architecture",
+        "title": "Day 23 Part 1 — Microstrip Transmission Lines, — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register RF_MICROSTRIP_Z0_REG for Microstrip Transmission Lines, 5.",
+            "caption": "Arm hardware register RF_MICROSTRIP_Zzero_REG for Microstrip Transmission.",
             "registerName": "RF_MICROSTRIP_Z0_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into RF_MICROSTRIP_Z0_REG and assert validation flag.",
+            "caption": "Latch sampling bits into RF_MICROSTRIP_Zzero_REG and assert validation.",
             "registerName": "RF_MICROSTRIP_Z0_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in RF_MICROSTRIP_Z0_REG with pipeline status.",
+            "caption": "Execute hardware transformation in RF_MICROSTRIP_Zzero_REG with pipeline.",
             "registerName": "RF_MICROSTRIP_Z0_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register RF_MICROSTRIP_Z0_REG upon verified hardware completion.",
+            "caption": "Lock register RF_MICROSTRIP_Zzero_REG upon verified hardware completion.",
             "registerName": "RF_MICROSTRIP_Z0_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -262,11 +262,11 @@
       "codeHash": "98ea3c4ef380a97c864bf26ff5c59e15434d74fa1f2863bc863af431a21a0361",
       "spec": {
         "template": "register-bits",
-        "title": "Day 23 Part 2 \u2014 Reflection Coefficient (Gamma) \u2014 Register Architecture",
+        "title": "Day 23 Part 2 — Reflection Coefficient (Gamma) — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register RF_GAMMA_VSWR_REG for Reflection Coefficient (Gamma), .",
+            "caption": "Arm hardware register RF_GAMMA_VSWR_REG for Reflection Coefficient.",
             "registerName": "RF_GAMMA_VSWR_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -326,7 +326,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into RF_GAMMA_VSWR_REG and assert validation flag.",
+            "caption": "Latch sampling bits into RF_GAMMA_VSWR_REG and assert validation flag.",
             "registerName": "RF_GAMMA_VSWR_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -387,7 +387,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in RF_GAMMA_VSWR_REG with pipeline status.",
+            "caption": "Execute hardware transformation in RF_GAMMA_VSWR_REG with pipeline status.",
             "registerName": "RF_GAMMA_VSWR_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -448,7 +448,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register RF_GAMMA_VSWR_REG upon verified hardware completion.",
+            "caption": "Lock register RF_GAMMA_VSWR_REG upon verified hardware completion.",
             "registerName": "RF_GAMMA_VSWR_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -514,11 +514,11 @@
       "codeHash": "25b803973d712a369993ea87d1b1076f4234485103665ea9c7a250a6bb3b1f79",
       "spec": {
         "template": "register-bits",
-        "title": "Day 23 Part 3 \u2014 L-Section Impedance Matching N \u2014 Register Architecture",
+        "title": "Day 23 Part 3 — L-Section Impedance Matching N — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register RF_L_MATCH_SYNTH_REG for L-Section Impedance Matching Net.",
+            "caption": "Arm hardware register RF_L_MATCH_SYNTH_REG for L-Section Impedance.",
             "registerName": "RF_L_MATCH_SYNTH_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -578,7 +578,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into RF_L_MATCH_SYNTH_REG and assert validation flag.",
+            "caption": "Latch sampling bits into RF_L_MATCH_SYNTH_REG and assert validation flag.",
             "registerName": "RF_L_MATCH_SYNTH_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -639,7 +639,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in RF_L_MATCH_SYNTH_REG with pipeline status.",
+            "caption": "Execute hardware transformation in RF_L_MATCH_SYNTH_REG with pipeline.",
             "registerName": "RF_L_MATCH_SYNTH_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -700,7 +700,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register RF_L_MATCH_SYNTH_REG upon verified hardware completion.",
+            "caption": "Lock register RF_L_MATCH_SYNTH_REG upon verified hardware completion.",
             "registerName": "RF_L_MATCH_SYNTH_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -766,11 +766,11 @@
       "codeHash": "51fb8fcaec888e7286624daec694e3bf8588d483f16dcc1da9794898a31edf98",
       "spec": {
         "template": "register-bits",
-        "title": "Day 23 Part 4 \u2014 Antenna Gain (dBi), EIRP & Fri \u2014 Register Architecture",
+        "title": "Day 23 Part 4 — Antenna Gain (dBi), EIRP & Fri — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register RF_FRIIS_FSPL_REG for Antenna Gain (dBi), EIRP & Friis.",
+            "caption": "Arm hardware register RF_FRIIS_FSPL_REG for Antenna Gain (dBi), EIRP &.",
             "registerName": "RF_FRIIS_FSPL_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -830,7 +830,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into RF_FRIIS_FSPL_REG and assert validation flag.",
+            "caption": "Latch sampling bits into RF_FRIIS_FSPL_REG and assert validation flag.",
             "registerName": "RF_FRIIS_FSPL_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -891,7 +891,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in RF_FRIIS_FSPL_REG with pipeline status.",
+            "caption": "Execute hardware transformation in RF_FRIIS_FSPL_REG with pipeline status.",
             "registerName": "RF_FRIIS_FSPL_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -952,7 +952,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register RF_FRIIS_FSPL_REG upon verified hardware completion.",
+            "caption": "Lock register RF_FRIIS_FSPL_REG upon verified hardware completion.",
             "registerName": "RF_FRIIS_FSPL_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1018,11 +1018,11 @@
       "codeHash": "2011889ed1ab1de14647e3673913b3ca8b28ec30743e157a213daa5868b2cf72",
       "spec": {
         "template": "register-bits",
-        "title": "Day 23 Part 5 \u2014 Masterclass Synthesis: Full RF \u2014 Register Architecture",
+        "title": "Day 23 Part 5 — Masterclass Synthesis: Full RF — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register RF_FRONTEND_AUDIT_REG for Masterclass Synthesis: Full RF F.",
+            "caption": "Arm hardware register RF_FRONTEND_AUDIT_REG for Masterclass Synthesis.",
             "registerName": "RF_FRONTEND_AUDIT_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1082,7 +1082,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into RF_FRONTEND_AUDIT_REG and assert validation flag.",
+            "caption": "Latch sampling bits into RF_FRONTEND_AUDIT_REG and assert validation flag.",
             "registerName": "RF_FRONTEND_AUDIT_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -1143,7 +1143,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in RF_FRONTEND_AUDIT_REG with pipeline status.",
+            "caption": "Execute hardware transformation in RF_FRONTEND_AUDIT_REG with pipeline.",
             "registerName": "RF_FRONTEND_AUDIT_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -1204,7 +1204,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register RF_FRONTEND_AUDIT_REG upon verified hardware completion.",
+            "caption": "Lock register RF_FRONTEND_AUDIT_REG upon verified hardware completion.",
             "registerName": "RF_FRONTEND_AUDIT_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

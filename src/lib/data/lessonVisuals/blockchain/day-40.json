@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state and parameters for Milestone 7 Architecture Topol...",
+            "caption": "Protocol monitors state and parameters for Milestone seven Architecture.",
             "activeActor": "Senior Web3 Architect",
             "messages": [
               {
@@ -33,7 +33,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes state transition and updates core invariant",
+            "caption": "Engine executes state transition and updates core invariant.",
             "activeActor": "Multi-Oracle Aggregator Core",
             "messages": [
               {
@@ -46,7 +46,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of freshness, deviation, or cross-chain signature bounds",
+            "caption": "Verification of freshness, deviation, or cross-chain signature bounds.",
             "activeActor": "Cross-Chain Bridge Escrow",
             "messages": [
               {
@@ -59,7 +59,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; invariant preserved and state committed",
+            "caption": "Block settled atomically; invariant preserved and state committed.",
             "activeActor": "Multi-Oracle Aggregator Core",
             "messages": [
               {
@@ -152,7 +152,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state and parameters for Simultaneous Flash Loan Attack...",
+            "caption": "Protocol monitors state and parameters for Simultaneous Flash Loan.",
             "activeActor": "Senior Web3 Architect",
             "messages": [
               {
@@ -165,7 +165,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes state transition and updates core invariant",
+            "caption": "Engine executes state transition and updates core invariant.",
             "activeActor": "Multi-Oracle Aggregator Core",
             "messages": [
               {
@@ -178,7 +178,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of freshness, deviation, or cross-chain signature bounds",
+            "caption": "Verification of freshness, deviation, or cross-chain signature bounds.",
             "activeActor": "Cross-Chain Bridge Escrow",
             "messages": [
               {
@@ -191,7 +191,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; invariant preserved and state committed",
+            "caption": "Block settled atomically; invariant preserved and state committed.",
             "activeActor": "Multi-Oracle Aggregator Core",
             "messages": [
               {
@@ -284,7 +284,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state and parameters for Cross-Chain Signature Replay A...",
+            "caption": "Protocol monitors state and parameters for Cross-Chain Signature Replay.",
             "activeActor": "Senior Web3 Architect",
             "messages": [
               {
@@ -297,7 +297,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes state transition and updates core invariant",
+            "caption": "Engine executes state transition and updates core invariant.",
             "activeActor": "Multi-Oracle Aggregator Core",
             "messages": [
               {
@@ -310,7 +310,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of freshness, deviation, or cross-chain signature bounds",
+            "caption": "Verification of freshness, deviation, or cross-chain signature bounds.",
             "activeActor": "Cross-Chain Bridge Escrow",
             "messages": [
               {
@@ -323,7 +323,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; invariant preserved and state committed",
+            "caption": "Block settled atomically; invariant preserved and state committed.",
             "activeActor": "Multi-Oracle Aggregator Core",
             "messages": [
               {
@@ -416,7 +416,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state and parameters for Dynamic Daily Rate Limits & Es...",
+            "caption": "Protocol monitors state and parameters for Dynamic Daily Rate Limits &.",
             "activeActor": "Senior Web3 Architect",
             "messages": [
               {
@@ -429,7 +429,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes state transition and updates core invariant",
+            "caption": "Engine executes state transition and updates core invariant.",
             "activeActor": "Multi-Oracle Aggregator Core",
             "messages": [
               {
@@ -442,7 +442,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of freshness, deviation, or cross-chain signature bounds",
+            "caption": "Verification of freshness, deviation, or cross-chain signature bounds.",
             "activeActor": "Cross-Chain Bridge Escrow",
             "messages": [
               {
@@ -455,7 +455,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; invariant preserved and state committed",
+            "caption": "Block settled atomically; invariant preserved and state committed.",
             "activeActor": "Multi-Oracle Aggregator Core",
             "messages": [
               {
@@ -548,7 +548,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Protocol monitors state and parameters for Milestone 7 Viva Gate: Oracle ...",
+            "caption": "Protocol monitors state and parameters for Milestone seven Viva Gate.",
             "activeActor": "Senior Web3 Architect",
             "messages": [
               {
@@ -561,7 +561,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Engine executes state transition and updates core invariant",
+            "caption": "Engine executes state transition and updates core invariant.",
             "activeActor": "Multi-Oracle Aggregator Core",
             "messages": [
               {
@@ -574,7 +574,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of freshness, deviation, or cross-chain signature bounds",
+            "caption": "Verification of freshness, deviation, or cross-chain signature bounds.",
             "activeActor": "Cross-Chain Bridge Escrow",
             "messages": [
               {
@@ -587,7 +587,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Block settled atomically; invariant preserved and state committed",
+            "caption": "Block settled atomically; invariant preserved and state committed.",
             "activeActor": "Multi-Oracle Aggregator Core",
             "messages": [
               {

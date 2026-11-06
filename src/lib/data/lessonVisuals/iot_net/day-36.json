@@ -268,7 +268,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize NR_REDCAP_RF_CTRL_REG: Cap FR1 bandwidth to 20 MHz and assert baseline 1RX.",
+            "caption": "Initialize NR_REDCAP_RF_CTRL_REG: Cap FRone bandwidth to twenty MHz and.",
             "registerName": "NR_REDCAP_RF_CTRL_REG",
             "bitWidth": 8,
             "hexValue": "0x84",
@@ -329,7 +329,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Configure 64-QAM modulation limit and enable HD-FDD mode.",
+            "caption": "Configure sixty-four-QAM modulation limit and enable HD-FDD mode.",
             "registerName": "NR_REDCAP_RF_CTRL_REG",
             "bitWidth": 8,
             "hexValue": "0x96",
@@ -390,7 +390,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Latch 2RX antenna diversity and disable carrier aggregation for BOM reduction.",
+            "caption": "Latch twoRX antenna diversity and disable carrier aggregation for BOM.",
             "registerName": "NR_REDCAP_RF_CTRL_REG",
             "bitWidth": 8,
             "hexValue": "0xBA",
@@ -451,7 +451,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Commit verified 3GPP Release 17 RedCap RF configuration state.",
+            "caption": "Commit verified threeGPP Release multiple RedCap RF configuration state.",
             "registerName": "NR_REDCAP_RF_CTRL_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -522,7 +522,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize NR_BWP_DYNAMIC_CTRL_REG: Activate default 5 MHz idle monitoring BWP.",
+            "caption": "Initialize NR_BWP_DYNAMIC_CTRL_REG: Activate default five MHz idle.",
             "registerName": "NR_BWP_DYNAMIC_CTRL_REG",
             "bitWidth": 8,
             "hexValue": "0x82",
@@ -583,7 +583,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Trigger DCI 1_0 indication and switch to 20 MHz active transmission burst BWP.",
+            "caption": "Trigger DCI one_zero indication and switch to twenty MHz active.",
             "registerName": "NR_BWP_DYNAMIC_CTRL_REG",
             "bitWidth": 8,
             "hexValue": "0xA4",
@@ -705,7 +705,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Commit dynamic BWP transition acknowledgement across 5GC control plane.",
+            "caption": "Commit dynamic BWP transition acknowledgement across fiveGC control plane.",
             "registerName": "NR_BWP_DYNAMIC_CTRL_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -837,7 +837,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Allocate downlink reception slot and program 2-symbol guard period.",
+            "caption": "Allocate downlink reception slot and program two-symbol guard period.",
             "registerName": "NR_HDFDD_SLOT_CFG_REG",
             "bitWidth": 8,
             "hexValue": "0xA8",
@@ -1030,7 +1030,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize NR_5GC_QOS_POLICY_REG: Activate 5G Service-Based Architecture QoS flow.",
+            "caption": "Initialize NR_fiveGC_QOS_POLICY_REG: Activate fiveG Service-Based.",
             "registerName": "NR_5GC_QOS_POLICY_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -1091,7 +1091,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Map critical industrial telemetry to bounded 5QI delay and GFBR allocation.",
+            "caption": "Map critical industrial telemetry to bounded fiveQI delay and GFBR.",
             "registerName": "NR_5GC_QOS_POLICY_REG",
             "bitWidth": 8,
             "hexValue": "0xBC",
@@ -1345,7 +1345,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Lock HD-FDD slot boundaries and verify 5GC QoS telemetry mappings.",
+            "caption": "Lock HD-FDD slot boundaries and verify fiveGC QoS telemetry mappings.",
             "registerName": "NR_REDCAP_MASTER_AUDIT_REG",
             "bitWidth": 8,
             "hexValue": "0xF0",
@@ -1406,7 +1406,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Verify 65% BOM cost reduction and 5-year battery life calculation under Rel-17.",
+            "caption": "Verify multiple% BOM cost reduction and five-year battery life.",
             "registerName": "NR_REDCAP_MASTER_AUDIT_REG",
             "bitWidth": 8,
             "hexValue": "0xFE",
@@ -1467,7 +1467,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Commit full 5G NR RedCap masterclass specification certification.",
+            "caption": "Commit full fiveG NR RedCap masterclass specification certification.",
             "registerName": "NR_REDCAP_MASTER_AUDIT_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

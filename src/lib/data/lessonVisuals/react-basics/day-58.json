@@ -140,7 +140,7 @@
           },
           {
             "at": "say4",
-            "caption": "Normalized block tree maintains sub-16ms typing latency across 10,000 blocks.",
+            "caption": "Normalized block tree maintains sub-sixteenms typing latency across.",
             "values": {
               "doc_root": {
                 "state": "60 FPS Synced"
@@ -563,7 +563,7 @@
           },
           {
             "at": "say3",
-            "caption": "Topological sort evaluates cells in strict acyclic order within 1.5ms.",
+            "caption": "Topological sort evaluates cells in strict acyclic order within one.fivems.",
             "values": {
               "clean": {
                 "active": false

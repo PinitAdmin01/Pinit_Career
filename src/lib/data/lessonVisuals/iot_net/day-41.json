@@ -268,7 +268,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize LORA_CSS_MODEM_REG: Enable Chirp Spread Spectrum and select 125 kHz bandwidth.",
+            "caption": "Initialize LORA_CSS_MODEM_REG: Enable Chirp Spread Spectrum and select.",
             "registerName": "LORA_CSS_MODEM_REG",
             "bitWidth": 8,
             "hexValue": "0x89",
@@ -329,7 +329,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Configure Spreading Factor 7 (2^7 = 128 chips per symbol) with linear up-chirp sweep.",
+            "caption": "Configure Spreading Factor seven (two^seven = one-twenty-eight chips per.",
             "registerName": "LORA_CSS_MODEM_REG",
             "bitWidth": 8,
             "hexValue": "0xA9",
@@ -451,7 +451,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Commit verified CSS physical layer modulation state with 1.024 ms symbol timing.",
+            "caption": "Commit verified CSS physical layer modulation state with one.multiple ms.",
             "registerName": "LORA_CSS_MODEM_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -522,7 +522,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize LORA_TOA_CALC_REG: Arm 8-symbol preamble and explicit physical header.",
+            "caption": "Initialize LORA_TOA_CALC_REG: Arm eight-symbol preamble and explicit.",
             "registerName": "LORA_TOA_CALC_REG",
             "bitWidth": 8,
             "hexValue": "0x83",
@@ -583,7 +583,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Apply Semtech SX1276 payload symbol count formula with CR=4/5 and payload CRC.",
+            "caption": "Apply Semtech SX payload symbol count formula with CR=four/five and.",
             "registerName": "LORA_TOA_CALC_REG",
             "bitWidth": 8,
             "hexValue": "0xB3",
@@ -644,7 +644,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Activate Low Data Rate Optimization for symbols > 16ms and compute 61.7ms ToA.",
+            "caption": "Activate Low Data Rate Optimization for symbols > sixteenms and compute.",
             "registerName": "LORA_TOA_CALC_REG",
             "bitWidth": 8,
             "hexValue": "0xFB",
@@ -837,7 +837,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Detect co-channel collision; assert +6.0 dB SIR capture threshold for desired packet.",
+            "caption": "Detect co-channel collision; assert +six.zero dB SIR capture threshold.",
             "registerName": "LORA_QUASI_ORTHO_REG",
             "bitWidth": 8,
             "hexValue": "0xB1",
@@ -1030,7 +1030,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize LORA_LINK_BUDGET_REG: Configure +14 dBm transmit power and 125 kHz noise floor.",
+            "caption": "Initialize LORA_LINK_BUDGET_REG: Configure +multiple dBm transmit power.",
             "registerName": "LORA_LINK_BUDGET_REG",
             "bitWidth": 8,
             "hexValue": "0x83",
@@ -1091,7 +1091,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Calculate receiver sensitivity (-124.5 dBm @ SF7, -137.0 dBm @ SF12) and MAPL.",
+            "caption": "Calculate receiver sensitivity (-multiple.five dBm @ SFseven.",
             "registerName": "LORA_LINK_BUDGET_REG",
             "bitWidth": 8,
             "hexValue": "0xB3",
@@ -1152,7 +1152,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Evaluate log-distance path loss with 8 dB shadowing margin for 10 km rural link.",
+            "caption": "Evaluate log-distance path loss with eight dB shadowing margin for ten km.",
             "registerName": "LORA_LINK_BUDGET_REG",
             "bitWidth": 8,
             "hexValue": "0xFB",
@@ -1284,7 +1284,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize LORA_MASTER_PHY_REG: Lock CSS chirp modem and verify SX1276 ToA parameters.",
+            "caption": "Initialize LORA_MASTER_PHY_REG: Lock CSS chirp modem and verify SX ToA.",
             "registerName": "LORA_MASTER_PHY_REG",
             "bitWidth": 8,
             "hexValue": "0xC0",
@@ -1406,7 +1406,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Calculate per-packet energy dissipation (6.11 mJ @ SF7) and verify battery lifespan.",
+            "caption": "Calculate per-packet energy dissipation (six.eleven mJ @ SFseven) and.",
             "registerName": "LORA_MASTER_PHY_REG",
             "bitWidth": 8,
             "hexValue": "0xFE",

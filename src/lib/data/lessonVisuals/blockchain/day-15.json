@@ -10,7 +10,7 @@
       "codeHash": "7c53717f5140208a5e7a5f2c5e0d0a06d6e262825357dccbbb414ff43ef645e3",
       "spec": {
         "template": "sequence",
-        "title": "Collateral Valuation, Loan-to-Value (LTV) & Health Factor Mechanics \u2014 Lending & Liquidation Sequence",
+        "title": "Collateral Valuation, Loan-to-Value (LTV) & Health Factor Mechanics — Lending & Liquidation Sequence",
         "actors": [
           "Borrower Account",
           "DeFi Lending Pool",
@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Lending pool evaluates Health Factor for Collateral Valuation, Loan-to-Va",
+            "caption": "Lending pool evaluates Health Factor for Collateral Valuation, Loan-to-Va.",
             "activeActor": "Borrower Account",
             "messages": [
               {
@@ -33,7 +33,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Dual-oracle consensus computes conservative collateral price",
+            "caption": "Dual-oracle consensus computes conservative collateral price.",
             "activeActor": "Chainlink & TWAP Oracles",
             "messages": [
               {
@@ -45,14 +45,14 @@
               {
                 "from": "Chainlink & TWAP Oracles",
                 "to": "DeFi Lending Pool",
-                "label": "return(min(Chainlink, TWAP)) [Fresh \u2713]",
+                "label": "return(min(Chainlink, TWAP)) [Fresh ✓]",
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Market declines; Health Factor drops below 1.0 (HF < 1.0)",
+            "caption": "Market declines; Health Factor drops below one.zero (HF < one.zero).",
             "activeActor": "DeFi Lending Pool",
             "messages": [
               {
@@ -65,7 +65,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Keeper executes atomic liquidation; transient mutex armed and keeper captures profit",
+            "caption": "Keeper executes atomic liquidation; transient mutex armed and keeper.",
             "activeActor": "Liquidation Keeper",
             "messages": [
               {
@@ -83,7 +83,7 @@
               {
                 "from": "DeFi Lending Pool",
                 "to": "Borrower Account",
-                "label": "SolvencyRestored(HF = 1.15 \u2713) [TSTORE Mutex 0]",
+                "label": "SolvencyRestored(HF = 1.15 ✓) [TSTORE Mutex 0]",
                 "tone": "ok"
               }
             ]
@@ -92,7 +92,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Collateral Valuation, Loan-to-Value (LTV) & Health Factor Mechanics \u2014 Lending & Liquidation Sequence",
+        "title": "Collateral Valuation, Loan-to-Value (LTV) & Health Factor Mechanics — Lending & Liquidation Sequence",
         "actors": [
           "Borrower Account",
           "DeFi Lending Pool",
@@ -127,7 +127,7 @@
               {
                 "from": "Chainlink & TWAP Oracles",
                 "to": "DeFi Lending Pool",
-                "label": "return(min(Chainlink, TWAP)) [Fresh \u2713]",
+                "label": "return(min(Chainlink, TWAP)) [Fresh ✓]",
                 "tone": "ok"
               }
             ]
@@ -165,7 +165,7 @@
               {
                 "from": "DeFi Lending Pool",
                 "to": "Borrower Account",
-                "label": "SolvencyRestored(HF = 1.15 \u2713) [TSTORE Mutex 0]",
+                "label": "SolvencyRestored(HF = 1.15 ✓) [TSTORE Mutex 0]",
                 "tone": "ok"
               }
             ]
@@ -178,7 +178,7 @@
       "codeHash": "a9965b1fd41ba35aaff8834b08180dec200f8a69bba5af7e26ca9d0a4ac31fe3",
       "spec": {
         "template": "sequence",
-        "title": "Borrow, Repay, Accrued Interest & Cumulative Debt Index Mechanics \u2014 Lending & Liquidation Sequence",
+        "title": "Borrow, Repay, Accrued Interest & Cumulative Debt Index Mechanics — Lending & Liquidation Sequence",
         "actors": [
           "Borrower Account",
           "DeFi Lending Pool",
@@ -188,7 +188,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Lending pool evaluates Health Factor for Borrow, Repay, Accrued Interest ",
+            "caption": "Lending pool evaluates Health Factor for Borrow, Repay, Accrued Interest.",
             "activeActor": "Borrower Account",
             "messages": [
               {
@@ -201,7 +201,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Dual-oracle consensus computes conservative collateral price",
+            "caption": "Dual-oracle consensus computes conservative collateral price.",
             "activeActor": "Chainlink & TWAP Oracles",
             "messages": [
               {
@@ -213,14 +213,14 @@
               {
                 "from": "Chainlink & TWAP Oracles",
                 "to": "DeFi Lending Pool",
-                "label": "return(min(Chainlink, TWAP)) [Fresh \u2713]",
+                "label": "return(min(Chainlink, TWAP)) [Fresh ✓]",
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Market declines; Health Factor drops below 1.0 (HF < 1.0)",
+            "caption": "Market declines; Health Factor drops below one.zero (HF < one.zero).",
             "activeActor": "DeFi Lending Pool",
             "messages": [
               {
@@ -233,7 +233,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Keeper executes atomic liquidation; transient mutex armed and keeper captures profit",
+            "caption": "Keeper executes atomic liquidation; transient mutex armed and keeper.",
             "activeActor": "Liquidation Keeper",
             "messages": [
               {
@@ -251,7 +251,7 @@
               {
                 "from": "DeFi Lending Pool",
                 "to": "Borrower Account",
-                "label": "SolvencyRestored(HF = 1.15 \u2713) [TSTORE Mutex 0]",
+                "label": "SolvencyRestored(HF = 1.15 ✓) [TSTORE Mutex 0]",
                 "tone": "ok"
               }
             ]
@@ -260,7 +260,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Borrow, Repay, Accrued Interest & Cumulative Debt Index Mechanics \u2014 Lending & Liquidation Sequence",
+        "title": "Borrow, Repay, Accrued Interest & Cumulative Debt Index Mechanics — Lending & Liquidation Sequence",
         "actors": [
           "Borrower Account",
           "DeFi Lending Pool",
@@ -295,7 +295,7 @@
               {
                 "from": "Chainlink & TWAP Oracles",
                 "to": "DeFi Lending Pool",
-                "label": "return(min(Chainlink, TWAP)) [Fresh \u2713]",
+                "label": "return(min(Chainlink, TWAP)) [Fresh ✓]",
                 "tone": "ok"
               }
             ]
@@ -333,7 +333,7 @@
               {
                 "from": "DeFi Lending Pool",
                 "to": "Borrower Account",
-                "label": "SolvencyRestored(HF = 1.15 \u2713) [TSTORE Mutex 0]",
+                "label": "SolvencyRestored(HF = 1.15 ✓) [TSTORE Mutex 0]",
                 "tone": "ok"
               }
             ]
@@ -346,7 +346,7 @@
       "codeHash": "a14d2ee6d496ebd3d0329a26c8585b6487a9d1e05c984c56e9e1e443650ea78d",
       "spec": {
         "template": "sequence",
-        "title": "Liquidation Execution, Close Factors & Seized Collateral Bonus Accounting \u2014 Lending & Liquidation Sequence",
+        "title": "Liquidation Execution, Close Factors & Seized Collateral Bonus Accounting — Lending & Liquidation Sequence",
         "actors": [
           "Borrower Account",
           "DeFi Lending Pool",
@@ -356,7 +356,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Lending pool evaluates Health Factor for Liquidation Execution, Close Fac",
+            "caption": "Lending pool evaluates Health Factor for Liquidation Execution, Close Fac.",
             "activeActor": "Borrower Account",
             "messages": [
               {
@@ -369,7 +369,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Dual-oracle consensus computes conservative collateral price",
+            "caption": "Dual-oracle consensus computes conservative collateral price.",
             "activeActor": "Chainlink & TWAP Oracles",
             "messages": [
               {
@@ -381,14 +381,14 @@
               {
                 "from": "Chainlink & TWAP Oracles",
                 "to": "DeFi Lending Pool",
-                "label": "return(min(Chainlink, TWAP)) [Fresh \u2713]",
+                "label": "return(min(Chainlink, TWAP)) [Fresh ✓]",
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Market declines; Health Factor drops below 1.0 (HF < 1.0)",
+            "caption": "Market declines; Health Factor drops below one.zero (HF < one.zero).",
             "activeActor": "DeFi Lending Pool",
             "messages": [
               {
@@ -401,7 +401,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Keeper executes atomic liquidation; transient mutex armed and keeper captures profit",
+            "caption": "Keeper executes atomic liquidation; transient mutex armed and keeper.",
             "activeActor": "Liquidation Keeper",
             "messages": [
               {
@@ -419,7 +419,7 @@
               {
                 "from": "DeFi Lending Pool",
                 "to": "Borrower Account",
-                "label": "SolvencyRestored(HF = 1.15 \u2713) [TSTORE Mutex 0]",
+                "label": "SolvencyRestored(HF = 1.15 ✓) [TSTORE Mutex 0]",
                 "tone": "ok"
               }
             ]
@@ -428,7 +428,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Liquidation Execution, Close Factors & Seized Collateral Bonus Accounting \u2014 Lending & Liquidation Sequence",
+        "title": "Liquidation Execution, Close Factors & Seized Collateral Bonus Accounting — Lending & Liquidation Sequence",
         "actors": [
           "Borrower Account",
           "DeFi Lending Pool",
@@ -463,7 +463,7 @@
               {
                 "from": "Chainlink & TWAP Oracles",
                 "to": "DeFi Lending Pool",
-                "label": "return(min(Chainlink, TWAP)) [Fresh \u2713]",
+                "label": "return(min(Chainlink, TWAP)) [Fresh ✓]",
                 "tone": "ok"
               }
             ]
@@ -501,7 +501,7 @@
               {
                 "from": "DeFi Lending Pool",
                 "to": "Borrower Account",
-                "label": "SolvencyRestored(HF = 1.15 \u2713) [TSTORE Mutex 0]",
+                "label": "SolvencyRestored(HF = 1.15 ✓) [TSTORE Mutex 0]",
                 "tone": "ok"
               }
             ]
@@ -514,7 +514,7 @@
       "codeHash": "72817fb31de0476f8dd977f66db385a3cb7e6e9b7361e84823f3e67fd3be6edc",
       "spec": {
         "template": "sequence",
-        "title": "Flash-Loan-Powered Atomic Liquidations with Reentrancy & Oracle Guards \u2014 Lending & Liquidation Sequence",
+        "title": "Flash-Loan-Powered Atomic Liquidations with Reentrancy & Oracle Guards — Lending & Liquidation Sequence",
         "actors": [
           "Borrower Account",
           "DeFi Lending Pool",
@@ -524,7 +524,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Lending pool evaluates Health Factor for Flash-Loan-Powered Atomic Liquid",
+            "caption": "Lending pool evaluates Health Factor for Flash-Loan-Powered Atomic Liquid.",
             "activeActor": "Borrower Account",
             "messages": [
               {
@@ -537,7 +537,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Dual-oracle consensus computes conservative collateral price",
+            "caption": "Dual-oracle consensus computes conservative collateral price.",
             "activeActor": "Chainlink & TWAP Oracles",
             "messages": [
               {
@@ -549,14 +549,14 @@
               {
                 "from": "Chainlink & TWAP Oracles",
                 "to": "DeFi Lending Pool",
-                "label": "return(min(Chainlink, TWAP)) [Fresh \u2713]",
+                "label": "return(min(Chainlink, TWAP)) [Fresh ✓]",
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Market declines; Health Factor drops below 1.0 (HF < 1.0)",
+            "caption": "Market declines; Health Factor drops below one.zero (HF < one.zero).",
             "activeActor": "DeFi Lending Pool",
             "messages": [
               {
@@ -569,7 +569,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Keeper executes atomic liquidation; transient mutex armed and keeper captures profit",
+            "caption": "Keeper executes atomic liquidation; transient mutex armed and keeper.",
             "activeActor": "Liquidation Keeper",
             "messages": [
               {
@@ -587,7 +587,7 @@
               {
                 "from": "DeFi Lending Pool",
                 "to": "Borrower Account",
-                "label": "SolvencyRestored(HF = 1.15 \u2713) [TSTORE Mutex 0]",
+                "label": "SolvencyRestored(HF = 1.15 ✓) [TSTORE Mutex 0]",
                 "tone": "ok"
               }
             ]
@@ -596,7 +596,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Flash-Loan-Powered Atomic Liquidations with Reentrancy & Oracle Guards \u2014 Lending & Liquidation Sequence",
+        "title": "Flash-Loan-Powered Atomic Liquidations with Reentrancy & Oracle Guards — Lending & Liquidation Sequence",
         "actors": [
           "Borrower Account",
           "DeFi Lending Pool",
@@ -631,7 +631,7 @@
               {
                 "from": "Chainlink & TWAP Oracles",
                 "to": "DeFi Lending Pool",
-                "label": "return(min(Chainlink, TWAP)) [Fresh \u2713]",
+                "label": "return(min(Chainlink, TWAP)) [Fresh ✓]",
                 "tone": "ok"
               }
             ]
@@ -669,7 +669,7 @@
               {
                 "from": "DeFi Lending Pool",
                 "to": "Borrower Account",
-                "label": "SolvencyRestored(HF = 1.15 \u2713) [TSTORE Mutex 0]",
+                "label": "SolvencyRestored(HF = 1.15 ✓) [TSTORE Mutex 0]",
                 "tone": "ok"
               }
             ]
@@ -682,7 +682,7 @@
       "codeHash": "b0846d579ceed9a1fbddb63c0e4c7b2f35f5b35b95393690907b18532b7d20c9",
       "spec": {
         "template": "sequence",
-        "title": "Master Milestone 3 Capstone: DeFi Lending & Liquidation Engine Architecture \u2014 Lending & Liquidation Sequence",
+        "title": "Master Milestone 3 Capstone: DeFi Lending & Liquidation Engine Architecture — Lending & Liquidation Sequence",
         "actors": [
           "Borrower Account",
           "DeFi Lending Pool",
@@ -692,7 +692,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Lending pool evaluates Health Factor for Master Milestone 3 Capstone: DeF",
+            "caption": "Lending pool evaluates Health Factor for Master Milestone three Capstone.",
             "activeActor": "Borrower Account",
             "messages": [
               {
@@ -705,7 +705,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Dual-oracle consensus computes conservative collateral price",
+            "caption": "Dual-oracle consensus computes conservative collateral price.",
             "activeActor": "Chainlink & TWAP Oracles",
             "messages": [
               {
@@ -717,14 +717,14 @@
               {
                 "from": "Chainlink & TWAP Oracles",
                 "to": "DeFi Lending Pool",
-                "label": "return(min(Chainlink, TWAP)) [Fresh \u2713]",
+                "label": "return(min(Chainlink, TWAP)) [Fresh ✓]",
                 "tone": "ok"
               }
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Market declines; Health Factor drops below 1.0 (HF < 1.0)",
+            "caption": "Market declines; Health Factor drops below one.zero (HF < one.zero).",
             "activeActor": "DeFi Lending Pool",
             "messages": [
               {
@@ -737,7 +737,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Keeper executes atomic liquidation; transient mutex armed and keeper captures profit",
+            "caption": "Keeper executes atomic liquidation; transient mutex armed and keeper.",
             "activeActor": "Liquidation Keeper",
             "messages": [
               {
@@ -755,7 +755,7 @@
               {
                 "from": "DeFi Lending Pool",
                 "to": "Borrower Account",
-                "label": "SolvencyRestored(HF = 1.15 \u2713) [TSTORE Mutex 0]",
+                "label": "SolvencyRestored(HF = 1.15 ✓) [TSTORE Mutex 0]",
                 "tone": "ok"
               }
             ]
@@ -764,7 +764,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Master Milestone 3 Capstone: DeFi Lending & Liquidation Engine Architecture \u2014 Lending & Liquidation Sequence",
+        "title": "Master Milestone 3 Capstone: DeFi Lending & Liquidation Engine Architecture — Lending & Liquidation Sequence",
         "actors": [
           "Borrower Account",
           "DeFi Lending Pool",
@@ -799,7 +799,7 @@
               {
                 "from": "Chainlink & TWAP Oracles",
                 "to": "DeFi Lending Pool",
-                "label": "return(min(Chainlink, TWAP)) [Fresh \u2713]",
+                "label": "return(min(Chainlink, TWAP)) [Fresh ✓]",
                 "tone": "ok"
               }
             ]
@@ -837,7 +837,7 @@
               {
                 "from": "DeFi Lending Pool",
                 "to": "Borrower Account",
-                "label": "SolvencyRestored(HF = 1.15 \u2713) [TSTORE Mutex 0]",
+                "label": "SolvencyRestored(HF = 1.15 ✓) [TSTORE Mutex 0]",
                 "tone": "ok"
               }
             ]

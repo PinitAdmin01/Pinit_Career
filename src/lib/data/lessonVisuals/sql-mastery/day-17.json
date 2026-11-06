@@ -439,7 +439,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for The top item per group [D17.P4.S1].",
+            "caption": "Initialize input state for The top item per group [D.Pfour.Sone].",
             "values": {
               "in": "Day 17 Input",
               "proc": "Standby",
@@ -459,7 +459,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The top item per group [D17.P4.S2].",
+            "caption": "Execute core transformation in The top item per group [D.Pfour.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -483,7 +483,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D17.P4.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Pfour.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -503,7 +503,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The top item per group [D17.P4.S4].",
+            "caption": "End-to-end execution verified for The top item per group [D.Pfour.Sfour].",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -665,7 +665,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Comparing with the previous row: LAG and.. [D17.P5.S1].",
+            "caption": "Initialize input state for Comparing with the previous row: LAG and.",
             "values": {
               "in": "Day 17 Input",
               "proc": "Standby",
@@ -685,7 +685,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Comparing with the ... [D17.P5.S2].",
+            "caption": "Execute core transformation in Comparing with the ... [D.Pfive.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -709,7 +709,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D17.P5.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -729,7 +729,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Comparing with the previous row: .. [D17.P5.S4].",
+            "caption": "End-to-end execution verified for Comparing with the previous row: .",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -899,7 +899,7 @@
           },
           {
             "at": "say2",
-            "caption": "The query uses row_number with PARTITION BY category keeping rank 1.",
+            "caption": "The query uses row_number with PARTITION BY category keeping rank one.",
             "rows": [
               {
                 "cells": [

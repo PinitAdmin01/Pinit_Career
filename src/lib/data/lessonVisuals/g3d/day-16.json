@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Skeletal Armatures Setup): Initialize pipeline state for Skeletal Armatures, Bone Trees & Forward Kinematics (FK).",
+            "caption": "State one (Skeletal Armatures Setup): Initialize pipeline state for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -99,7 +99,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Local Transform De Setup): Initialize pipeline state for Local Transform Decompositions: Translation, Rotation & Scale (TRS).",
+            "caption": "State one (Local Transform De Setup): Initialize pipeline state for Local.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -166,7 +166,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (The Joint Matrix P Setup): Initialize pipeline state for The Joint Matrix Palette (uniform mat4 u_JointMatrix[64]).",
+            "caption": "State one (The Joint Matrix P Setup): Initialize pipeline state for The.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -233,7 +233,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Bind Poses vs Anim Setup): Initialize pipeline state for Bind Poses vs Animated Poses: The Rest Frame Problem.",
+            "caption": "State one (Bind Poses vs Anim Setup): Initialize pipeline state for Bind.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -300,7 +300,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Full Forward Kinem Setup): Initialize pipeline state for Full Forward Kinematic Hierarchy Evaluator & Joint Chain Synthesis.",
+            "caption": "State one (Full Forward Kinem Setup): Initialize pipeline state for Full.",
             "currentState": "st1",
             "tone": "data"
           },

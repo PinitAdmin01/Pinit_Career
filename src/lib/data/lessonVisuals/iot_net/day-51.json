@@ -21,7 +21,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Configure RS-485 transceiver: Enable differential driver and 120-ohm bus termination.",
+            "caption": "Configure RS-multiple transceiver: Enable differential driver and.",
             "registerName": "MODBUS_RTU_FRAME_REG",
             "bitWidth": 8,
             "hexValue": "0x83",
@@ -89,7 +89,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Arm frame timer: Measure 3.5 character silent interval (4.01 ms at 9600 baud).",
+            "caption": "Arm frame timer: Measure three.five character silent interval.",
             "registerName": "MODBUS_RTU_FRAME_REG",
             "bitWidth": 8,
             "hexValue": "0x8B",
@@ -157,7 +157,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Detect valid t3.5 bus silence and initiate slave address and function code decoding.",
+            "caption": "Detect valid tthree.five bus silence and initiate slave address and.",
             "registerName": "MODBUS_RTU_FRAME_REG",
             "bitWidth": 8,
             "hexValue": "0xBF",
@@ -303,7 +303,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize 16-bit CRC register to 0xFFFF and load reflected polynomial 0xA001.",
+            "caption": "Initialize sixteen-bit CRC register to zeroxFFFF and load reflected.",
             "registerName": "MODBUS_CRC16_CALC_REG",
             "bitWidth": 8,
             "hexValue": "0x83",
@@ -371,7 +371,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Process PDU bytes: Execute 8-bit right shifts with conditional 0xA001 XOR reduction.",
+            "caption": "Process PDU bytes: Execute eight-bit right shifts with conditional zeroxA.",
             "registerName": "MODBUS_CRC16_CALC_REG",
             "bitWidth": 8,
             "hexValue": "0x8F",
@@ -585,7 +585,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Resolve Modbus data table: Map PDU address 0x000A to 4x Holding Register table.",
+            "caption": "Resolve Modbus data table: Map PDU address zeroxA to fourx Holding.",
             "registerName": "MODBUS_FUNC_EXEC_REG",
             "bitWidth": 8,
             "hexValue": "0x83",
@@ -653,7 +653,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Execute Function 16: Write motor speed (1750 RPM) and temperature setpoint (68 C).",
+            "caption": "Execute Function sixteen: Write motor speed (multiple RPM) and.",
             "registerName": "MODBUS_FUNC_EXEC_REG",
             "bitWidth": 8,
             "hexValue": "0x8F",
@@ -721,7 +721,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Execute Function 03: Read back 2 holding registers and format byte count header.",
+            "caption": "Execute Function multiple: Read back two holding registers and format.",
             "registerName": "MODBUS_FUNC_EXEC_REG",
             "bitWidth": 8,
             "hexValue": "0xBF",
@@ -867,7 +867,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Bind Modbus TCP server to designated TCP port 502 with socket pooling enabled.",
+            "caption": "Bind Modbus TCP server to designated TCP port bad-gateway with socket.",
             "registerName": "MODBUS_TCP_MBAP_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -935,7 +935,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Generate 7-byte MBAP header: Increment Transaction ID and enforce Protocol ID 0x0000.",
+            "caption": "Generate seven-byte MBAP header: Increment Transaction ID and enforce.",
             "registerName": "MODBUS_TCP_MBAP_REG",
             "bitWidth": 8,
             "hexValue": "0x8F",
@@ -1003,7 +1003,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Calculate MBAP length field and route command PDU to downstream Unit ID 1.",
+            "caption": "Calculate MBAP length field and route command PDU to downstream Unit ID.",
             "registerName": "MODBUS_TCP_MBAP_REG",
             "bitWidth": 8,
             "hexValue": "0xBF",
@@ -1149,7 +1149,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize ModbusIndustrialBridgeEngine: Bind RS-485 serial port and Ethernet TCP socket.",
+            "caption": "Initialize ModbusIndustrialBridgeEngine: Bind RS-multiple serial port and.",
             "registerName": "MODBUS_MASTER_BRIDGE_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -1217,7 +1217,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Execute cyclic polling across Unit 1 (Pump Station) and Unit 2 (VFD Inverter).",
+            "caption": "Execute cyclic polling across Unit one (Pump Station) and Unit two (VFD.",
             "registerName": "MODBUS_MASTER_BRIDGE_REG",
             "bitWidth": 8,
             "hexValue": "0x8F",

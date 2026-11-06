@@ -317,7 +317,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Lining up columns [D13.P4.S1].",
+            "caption": "Initialize input state for Lining up columns [D.Pfour.Sone].",
             "values": {
               "in": "Day 13 Input",
               "proc": "Standby",
@@ -337,7 +337,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Lining up columns [D13.P4.S2].",
+            "caption": "Execute core transformation in Lining up columns [D.Pfour.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -361,7 +361,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D13.P4.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Pfour.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -381,7 +381,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Lining up columns [D13.P4.S4].",
+            "caption": "End-to-end execution verified for Lining up columns [D.Pfour.Sfour].",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -543,7 +543,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Multi-line text and join [D13.P5.S1].",
+            "caption": "Initialize input state for Multi-line text and join [D.Pfive.Sone].",
             "values": {
               "in": "Day 13 Input",
               "proc": "Standby",
@@ -563,7 +563,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Multi-line text and... [D13.P5.S2].",
+            "caption": "Execute core transformation in Multi-line text and... [D.Pfive.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -587,7 +587,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D13.P5.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -607,7 +607,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Multi-line text and join [D13.P5.S4].",
+            "caption": "End-to-end execution verified for Multi-line text and join [D.Pfive.Sfour].",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -769,7 +769,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Putting it together: a printed receipt [D13.P6.S1].",
+            "caption": "Initialize input state for Putting it together: a printed receipt.",
             "values": {
               "in": "Day 13 Input",
               "proc": "Standby",
@@ -789,7 +789,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Putting it together... [D13.P6.S2].",
+            "caption": "Execute core transformation in Putting it together... [D.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -813,7 +813,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D13.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -833,7 +833,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Putting it together: a printed re.. [D13.P6.S4].",
+            "caption": "End-to-end execution verified for Putting it together: a printed re.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

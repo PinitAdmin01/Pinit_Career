@@ -21,7 +21,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize Regional Plan Manager: Select EU868 band profile and configure default 868.1/868.3/868.5 MHz channels.",
+            "caption": "Initialize Regional Plan Manager: Select EU band profile and configure.",
             "registerName": "LORA_REGIONAL_PLAN_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -89,7 +89,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Apply 16-bit channel mask (ChMask): Enable extended channels 0 through 7 via OTAA CFList.",
+            "caption": "Apply sixteen-bit channel mask (ChMask): Enable extended channels zero.",
             "registerName": "LORA_REGIONAL_PLAN_REG",
             "bitWidth": 8,
             "hexValue": "0x8D",
@@ -225,7 +225,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Switch regulatory profile to US915 Sub-band 2 (channels 8-15) with 500 kHz uplink channel support.",
+            "caption": "Switch regulatory profile to US Sub-band two (channels eight-multiple).",
             "registerName": "LORA_REGIONAL_PLAN_REG",
             "bitWidth": 8,
             "hexValue": "0x5F",
@@ -303,7 +303,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Activate statutory airtime compliance engine: Initialize 3,600-second rolling token bucket tracker.",
+            "caption": "Activate statutory airtime compliance engine: Initialize.",
             "registerName": "LORA_DUTY_CYCLE_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -371,7 +371,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Enforce ETSI Sub-band g 1.0% duty-cycle ceiling (36.0 seconds max transmission time per hour).",
+            "caption": "Enforce ETSI Sub-band g one.zero% duty-cycle ceiling (multiple.zero.",
             "registerName": "LORA_DUTY_CYCLE_REG",
             "bitWidth": 8,
             "hexValue": "0xC1",
@@ -439,7 +439,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Detect excessive SF12 packet burst: Sub-band g quota exhausted, hardware radio forces mandatory back-off.",
+            "caption": "Detect excessive SFtwelve packet burst: Sub-band g quota exhausted.",
             "registerName": "LORA_DUTY_CYCLE_REG",
             "bitWidth": 8,
             "hexValue": "0xE6",
@@ -507,7 +507,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Enforce FCC 47 CFR Part 15.247 400 ms dwell time boundary: Reject over-length packets on 125 kHz channels.",
+            "caption": "Enforce FCC multiple CFR Part multiple.multiple bad-request ms dwell time.",
             "registerName": "LORA_DUTY_CYCLE_REG",
             "bitWidth": 8,
             "hexValue": "0x91",
@@ -585,7 +585,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize ADR server controller: Collect 20 consecutive uplink frames into circular history buffer.",
+            "caption": "Initialize ADR server controller: Collect twenty consecutive uplink.",
             "registerName": "LORA_ADR_SERVER_REG",
             "bitWidth": 8,
             "hexValue": "0xC0",
@@ -653,7 +653,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Extract maximum SNR across observation window and compute available link margin relative to DR0 sensitivity.",
+            "caption": "Extract maximum SNR across observation window and compute available link.",
             "registerName": "LORA_ADR_SERVER_REG",
             "bitWidth": 8,
             "hexValue": "0xF0",
@@ -721,7 +721,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Allocate Nstep optimization: Stage 1 increases Data Rate from DR0 (SF12) to DR5 (SF7) to collapse airtime.",
+            "caption": "Allocate Nstep optimization: Stage one increases Data Rate from DRzero.",
             "registerName": "LORA_ADR_SERVER_REG",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -789,7 +789,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Allocate Stage 2: Reduce transmit power from 14 dBm down to 11 dBm and emit LinkADRReq command.",
+            "caption": "Allocate Stage two: Reduce transmit power from multiple dBm down to.",
             "registerName": "LORA_ADR_SERVER_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -935,7 +935,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Transmit LinkADRAns acknowledgment byte (0x07): All 3 ACK bits set, confirming atomic reconfiguration.",
+            "caption": "Transmit LinkADRAns acknowledgment byte (zerox): All three ACK bits set.",
             "registerName": "LORA_LINK_ADR_CMD_REG",
             "bitWidth": 8,
             "hexValue": "0xF1",
@@ -1003,7 +1003,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Simulate loss of downlink connectivity: Uplink counter exceeds ADR_ACK_LIMIT (64), assert ADRACKReq bit.",
+            "caption": "Simulate loss of downlink connectivity: Uplink counter exceeds.",
             "registerName": "LORA_LINK_ADR_CMD_REG",
             "bitWidth": 8,
             "hexValue": "0x18",
@@ -1071,7 +1071,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "ADR_ACK_DELAY (32 frames) expires without ACK: Node restores +14 dBm and steps down SF notch-by-notch.",
+            "caption": "ADR_ACK_DELAY (thirty-two frames) expires without ACK: Node restores.",
             "registerName": "LORA_LINK_ADR_CMD_REG",
             "bitWidth": 8,
             "hexValue": "0x1E",
@@ -1149,7 +1149,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize RegionalADRMasterEngine: Load EU868 parameters and arm 1.0% statutory airtime tracker.",
+            "caption": "Initialize RegionalADRMasterEngine: Load EU parameters and arm one.zero%.",
             "registerName": "LORA_MASTER_ADR_REG",
             "bitWidth": 8,
             "hexValue": "0xC0",
@@ -1217,7 +1217,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Execute telemetry cycle 1 at SF12: Record 1,318 ms time-on-air and deduct airtime from hourly budget.",
+            "caption": "Execute telemetry cycle one at SFtwelve: Record one,multiple ms.",
             "registerName": "LORA_MASTER_ADR_REG",
             "bitWidth": 8,
             "hexValue": "0xE0",
@@ -1285,7 +1285,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Complete 20-frame observation: ADR converges, stepping node to SF7 and cutting airtime by 95.3%.",
+            "caption": "Complete twenty-frame observation: ADR converges, stepping node to.",
             "registerName": "LORA_MASTER_ADR_REG",
             "bitWidth": 8,
             "hexValue": "0xFC",

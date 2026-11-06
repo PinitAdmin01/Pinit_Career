@@ -10,11 +10,11 @@
       "codeHash": "152fa8764788f66623d8cf27c4794a47e5fd6a570602c3304bfd859888d465a0",
       "spec": {
         "template": "register-bits",
-        "title": "Day 22 Part 1 \u2014 RPL DODAG Topologies, Objectiv \u2014 Register Architecture",
+        "title": "Day 22 Part 1 — RPL DODAG Topologies, Objectiv — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register RPL_DODAG_RANK_REG for RPL DODAG Topologies, Objective .",
+            "caption": "Arm hardware register RPL_DODAG_RANK_REG for RPL DODAG Topologies.",
             "registerName": "RPL_DODAG_RANK_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into RPL_DODAG_RANK_REG and assert validation flag.",
+            "caption": "Latch sampling bits into RPL_DODAG_RANK_REG and assert validation flag.",
             "registerName": "RPL_DODAG_RANK_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in RPL_DODAG_RANK_REG with pipeline status.",
+            "caption": "Execute hardware transformation in RPL_DODAG_RANK_REG with pipeline status.",
             "registerName": "RPL_DODAG_RANK_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register RPL_DODAG_RANK_REG upon verified hardware completion.",
+            "caption": "Lock register RPL_DODAG_RANK_REG upon verified hardware completion.",
             "registerName": "RPL_DODAG_RANK_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -262,11 +262,11 @@
       "codeHash": "c701e3bf41a6feee34db488feda290b184a483cb8671483fcb8f18b07d0bc431",
       "spec": {
         "template": "register-bits",
-        "title": "Day 22 Part 2 \u2014 ICMPv6 Control Message Binary  \u2014 Register Architecture",
+        "title": "Day 22 Part 2 — ICMPv6 Control Message Binary  — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register RPL_ICMP6_DIO_REG for ICMPv6 Control Message Binary Fr.",
+            "caption": "Arm hardware register RPL_ICMPsix_DIO_REG for ICMPvsix Control Message.",
             "registerName": "RPL_ICMP6_DIO_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -326,7 +326,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into RPL_ICMP6_DIO_REG and assert validation flag.",
+            "caption": "Latch sampling bits into RPL_ICMPsix_DIO_REG and assert validation flag.",
             "registerName": "RPL_ICMP6_DIO_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -387,7 +387,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in RPL_ICMP6_DIO_REG with pipeline status.",
+            "caption": "Execute hardware transformation in RPL_ICMPsix_DIO_REG with pipeline.",
             "registerName": "RPL_ICMP6_DIO_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -448,7 +448,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register RPL_ICMP6_DIO_REG upon verified hardware completion.",
+            "caption": "Lock register RPL_ICMPsix_DIO_REG upon verified hardware completion.",
             "registerName": "RPL_ICMP6_DIO_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -514,11 +514,11 @@
       "codeHash": "53414354c8748778ed13104626e3fe47a85eb0cfb31c4f298e320eebae65ec3a",
       "spec": {
         "template": "register-bits",
-        "title": "Day 22 Part 3 \u2014 Trickle Algorithm Dynamics: Po \u2014 Register Architecture",
+        "title": "Day 22 Part 3 — Trickle Algorithm Dynamics: Po — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register RPL_TRICKLE_I_REG for Trickle Algorithm Dynamics: Poli.",
+            "caption": "Arm hardware register RPL_TRICKLE_I_REG for Trickle Algorithm Dynamics.",
             "registerName": "RPL_TRICKLE_I_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -578,7 +578,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into RPL_TRICKLE_I_REG and assert validation flag.",
+            "caption": "Latch sampling bits into RPL_TRICKLE_I_REG and assert validation flag.",
             "registerName": "RPL_TRICKLE_I_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -639,7 +639,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in RPL_TRICKLE_I_REG with pipeline status.",
+            "caption": "Execute hardware transformation in RPL_TRICKLE_I_REG with pipeline status.",
             "registerName": "RPL_TRICKLE_I_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -700,7 +700,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register RPL_TRICKLE_I_REG upon verified hardware completion.",
+            "caption": "Lock register RPL_TRICKLE_I_REG upon verified hardware completion.",
             "registerName": "RPL_TRICKLE_I_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -766,11 +766,11 @@
       "codeHash": "fab1c14a39430c9bf20f0cd6e335401da51dbd515029640119aad36db04c248c",
       "spec": {
         "template": "register-bits",
-        "title": "Day 22 Part 4 \u2014 Downward Routing Architecture: \u2014 Register Architecture",
+        "title": "Day 22 Part 4 — Downward Routing Architecture: — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register RPL_DOWNWARD_SRH_REG for Downward Routing Architecture: S.",
+            "caption": "Arm hardware register RPL_DOWNWARD_SRH_REG for Downward Routing.",
             "registerName": "RPL_DOWNWARD_SRH_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -830,7 +830,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into RPL_DOWNWARD_SRH_REG and assert validation flag.",
+            "caption": "Latch sampling bits into RPL_DOWNWARD_SRH_REG and assert validation flag.",
             "registerName": "RPL_DOWNWARD_SRH_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -891,7 +891,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in RPL_DOWNWARD_SRH_REG with pipeline status.",
+            "caption": "Execute hardware transformation in RPL_DOWNWARD_SRH_REG with pipeline.",
             "registerName": "RPL_DOWNWARD_SRH_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -952,7 +952,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register RPL_DOWNWARD_SRH_REG upon verified hardware completion.",
+            "caption": "Lock register RPL_DOWNWARD_SRH_REG upon verified hardware completion.",
             "registerName": "RPL_DOWNWARD_SRH_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1018,11 +1018,11 @@
       "codeHash": "afcd84efc2b739fb6ef92b1930ef7eaab3529b002610215f43ff4978a5ff88f2",
       "spec": {
         "template": "register-bits",
-        "title": "Day 22 Part 5 \u2014 Masterclass Synthesis: Loop De \u2014 Register Architecture",
+        "title": "Day 22 Part 5 — Masterclass Synthesis: Loop De — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register RPL_LOOP_PREVENT_REG for Masterclass Synthesis: Loop Dete.",
+            "caption": "Arm hardware register RPL_LOOP_PREVENT_REG for Masterclass Synthesis.",
             "registerName": "RPL_LOOP_PREVENT_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1082,7 +1082,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into RPL_LOOP_PREVENT_REG and assert validation flag.",
+            "caption": "Latch sampling bits into RPL_LOOP_PREVENT_REG and assert validation flag.",
             "registerName": "RPL_LOOP_PREVENT_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -1143,7 +1143,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in RPL_LOOP_PREVENT_REG with pipeline status.",
+            "caption": "Execute hardware transformation in RPL_LOOP_PREVENT_REG with pipeline.",
             "registerName": "RPL_LOOP_PREVENT_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -1204,7 +1204,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register RPL_LOOP_PREVENT_REG upon verified hardware completion.",
+            "caption": "Lock register RPL_LOOP_PREVENT_REG upon verified hardware completion.",
             "registerName": "RPL_LOOP_PREVENT_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

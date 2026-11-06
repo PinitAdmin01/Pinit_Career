@@ -10,11 +10,11 @@
       "codeHash": "514d1711b5940c02ef5a854a5995b63f83059af485735193867708e20ed66872",
       "spec": {
         "template": "register-bits",
-        "title": "Day 25 Part 1 \u2014 IEEE 802.15.4 / LoRaWAN Nonce  \u2014 Register Architecture",
+        "title": "Day 25 Part 1 — IEEE 802.15.4 / LoRaWAN Nonce  — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register SEC_CCM_NONCE_REG for IEEE 802.15.4 / LoRaWAN Nonce Co.",
+            "caption": "Arm hardware register SEC_CCM_NONCE_REG for IEEE multiple.multiple.four /.",
             "registerName": "SEC_CCM_NONCE_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into SEC_CCM_NONCE_REG and assert validation flag.",
+            "caption": "Latch sampling bits into SEC_CCM_NONCE_REG and assert validation flag.",
             "registerName": "SEC_CCM_NONCE_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in SEC_CCM_NONCE_REG with pipeline status.",
+            "caption": "Execute hardware transformation in SEC_CCM_NONCE_REG with pipeline status.",
             "registerName": "SEC_CCM_NONCE_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register SEC_CCM_NONCE_REG upon verified hardware completion.",
+            "caption": "Lock register SEC_CCM_NONCE_REG upon verified hardware completion.",
             "registerName": "SEC_CCM_NONCE_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -262,11 +262,11 @@
       "codeHash": "c2c164c7fade3663571963ec12445a91882f2b9f111a3d52ccace582b32b4f49",
       "spec": {
         "template": "register-bits",
-        "title": "Day 25 Part 2 \u2014 NVRAM Monotonic Frame Counter  \u2014 Register Architecture",
+        "title": "Day 25 Part 2 — NVRAM Monotonic Frame Counter  — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register SEC_NVRAM_WEAR_REG for NVRAM Monotonic Frame Counter Ma.",
+            "caption": "Arm hardware register SEC_NVRAM_WEAR_REG for NVRAM Monotonic Frame.",
             "registerName": "SEC_NVRAM_WEAR_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -326,7 +326,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into SEC_NVRAM_WEAR_REG and assert validation flag.",
+            "caption": "Latch sampling bits into SEC_NVRAM_WEAR_REG and assert validation flag.",
             "registerName": "SEC_NVRAM_WEAR_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -387,7 +387,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in SEC_NVRAM_WEAR_REG with pipeline status.",
+            "caption": "Execute hardware transformation in SEC_NVRAM_WEAR_REG with pipeline status.",
             "registerName": "SEC_NVRAM_WEAR_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -448,7 +448,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register SEC_NVRAM_WEAR_REG upon verified hardware completion.",
+            "caption": "Lock register SEC_NVRAM_WEAR_REG upon verified hardware completion.",
             "registerName": "SEC_NVRAM_WEAR_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -514,11 +514,11 @@
       "codeHash": "2c63e69afda4569809a2518d6aebae772ed1f0dfa1de03a0a12083d48efe6c98",
       "spec": {
         "template": "register-bits",
-        "title": "Day 25 Part 3 \u2014 RF Jamming Detection & RSSI No \u2014 Register Architecture",
+        "title": "Day 25 Part 3 — RF Jamming Detection & RSSI No — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register SEC_RF_JAMMING_REG for RF Jamming Detection & RSSI Nois.",
+            "caption": "Arm hardware register SEC_RF_JAMMING_REG for RF Jamming Detection & RSSI.",
             "registerName": "SEC_RF_JAMMING_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -578,7 +578,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into SEC_RF_JAMMING_REG and assert validation flag.",
+            "caption": "Latch sampling bits into SEC_RF_JAMMING_REG and assert validation flag.",
             "registerName": "SEC_RF_JAMMING_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -639,7 +639,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in SEC_RF_JAMMING_REG with pipeline status.",
+            "caption": "Execute hardware transformation in SEC_RF_JAMMING_REG with pipeline status.",
             "registerName": "SEC_RF_JAMMING_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -700,7 +700,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register SEC_RF_JAMMING_REG upon verified hardware completion.",
+            "caption": "Lock register SEC_RF_JAMMING_REG upon verified hardware completion.",
             "registerName": "SEC_RF_JAMMING_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -766,11 +766,11 @@
       "codeHash": "cc5e1adfd0791e860d9148a2e383ba38f61e10547805deda0ae8d6ccd4422b62",
       "spec": {
         "template": "register-bits",
-        "title": "Day 25 Part 4 \u2014 Physical Enclosure Tamper Dete \u2014 Register Architecture",
+        "title": "Day 25 Part 4 — Physical Enclosure Tamper Dete — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register SEC_TAMPER_ZERO_REG for Physical Enclosure Tamper Detect.",
+            "caption": "Arm hardware register SEC_TAMPER_ZERO_REG for Physical Enclosure Tamper.",
             "registerName": "SEC_TAMPER_ZERO_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -830,7 +830,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into SEC_TAMPER_ZERO_REG and assert validation flag.",
+            "caption": "Latch sampling bits into SEC_TAMPER_ZERO_REG and assert validation flag.",
             "registerName": "SEC_TAMPER_ZERO_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -891,7 +891,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in SEC_TAMPER_ZERO_REG with pipeline status.",
+            "caption": "Execute hardware transformation in SEC_TAMPER_ZERO_REG with pipeline.",
             "registerName": "SEC_TAMPER_ZERO_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -952,7 +952,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register SEC_TAMPER_ZERO_REG upon verified hardware completion.",
+            "caption": "Lock register SEC_TAMPER_ZERO_REG upon verified hardware completion.",
             "registerName": "SEC_TAMPER_ZERO_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1018,11 +1018,11 @@
       "codeHash": "4d5175b19b8e42cf6112b0018100c73d9aa1ad6c6c2d1ddec469827cae749d22",
       "spec": {
         "template": "register-bits",
-        "title": "Day 25 Part 5 \u2014 Masterclass Synthesis: Full Wi \u2014 Register Architecture",
+        "title": "Day 25 Part 5 — Masterclass Synthesis: Full Wi — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register SEC_SOVEREIGN_PLAT_REG for Masterclass Synthesis: Full Wire.",
+            "caption": "Arm hardware register SEC_SOVEREIGN_PLAT_REG for Masterclass Synthesis.",
             "registerName": "SEC_SOVEREIGN_PLAT_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1082,7 +1082,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into SEC_SOVEREIGN_PLAT_REG and assert validation flag.",
+            "caption": "Latch sampling bits into SEC_SOVEREIGN_PLAT_REG and assert validation flag.",
             "registerName": "SEC_SOVEREIGN_PLAT_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -1143,7 +1143,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in SEC_SOVEREIGN_PLAT_REG with pipeline status.",
+            "caption": "Execute hardware transformation in SEC_SOVEREIGN_PLAT_REG with pipeline.",
             "registerName": "SEC_SOVEREIGN_PLAT_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -1204,7 +1204,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register SEC_SOVEREIGN_PLAT_REG upon verified hardware completion.",
+            "caption": "Lock register SEC_SOVEREIGN_PLAT_REG upon verified hardware completion.",
             "registerName": "SEC_SOVEREIGN_PLAT_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

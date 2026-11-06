@@ -40,7 +40,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Working Tree): Initialize Multi-Pack-Index (MIDX) Binary...",
+            "caption": "Stage one (Working Tree): Initialize Multi-Pack-Index (MIDX) Binary...",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Staging Index): Process core plumbing workflow.",
+            "caption": "Stage two (Staging Index): Process core plumbing workflow.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -108,7 +108,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Feature Branch): Validate delta and binary data integrity.",
+            "caption": "Stage three (Feature Branch): Validate delta and binary data integrity.",
             "activeStageId": "s3",
             "statusBadge": "PROCESSING",
             "throughput": "Nominal",
@@ -142,7 +142,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Mainline CI): Complete storage certification.",
+            "caption": "Stage four (Mainline CI): Complete storage certification.",
             "activeStageId": "s4",
             "statusBadge": "VERIFIED",
             "throughput": "Complete",
@@ -212,7 +212,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Working Tree): Initialize The Shared Alternates Accident...",
+            "caption": "Stage one (Working Tree): Initialize The Shared Alternates Accident...",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -246,7 +246,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Staging Index): Process core plumbing workflow.",
+            "caption": "Stage two (Staging Index): Process core plumbing workflow.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -280,7 +280,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Feature Branch): Validate delta and binary data integrity.",
+            "caption": "Stage three (Feature Branch): Validate delta and binary data integrity.",
             "activeStageId": "s3",
             "statusBadge": "PROCESSING",
             "throughput": "Nominal",
@@ -314,7 +314,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Mainline CI): Complete storage certification.",
+            "caption": "Stage four (Mainline CI): Complete storage certification.",
             "activeStageId": "s4",
             "statusBadge": "VERIFIED",
             "throughput": "Complete",
@@ -384,7 +384,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Working Tree): Initialize Commit-Graph Binary Accelerati...",
+            "caption": "Stage one (Working Tree): Initialize Commit-Graph Binary Accelerati...",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -418,7 +418,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Staging Index): Process core plumbing workflow.",
+            "caption": "Stage two (Staging Index): Process core plumbing workflow.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -452,7 +452,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Feature Branch): Validate delta and binary data integrity.",
+            "caption": "Stage three (Feature Branch): Validate delta and binary data integrity.",
             "activeStageId": "s3",
             "statusBadge": "PROCESSING",
             "throughput": "Nominal",
@@ -486,7 +486,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Mainline CI): Complete storage certification.",
+            "caption": "Stage four (Mainline CI): Complete storage certification.",
             "activeStageId": "s4",
             "statusBadge": "VERIFIED",
             "throughput": "Complete",
@@ -556,7 +556,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Working Tree): Initialize Object Quarantine Isolation: C...",
+            "caption": "Stage one (Working Tree): Initialize Object Quarantine Isolation: C...",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -590,7 +590,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Staging Index): Process core plumbing workflow.",
+            "caption": "Stage two (Staging Index): Process core plumbing workflow.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -624,7 +624,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Feature Branch): Validate delta and binary data integrity.",
+            "caption": "Stage three (Feature Branch): Validate delta and binary data integrity.",
             "activeStageId": "s3",
             "statusBadge": "PROCESSING",
             "throughput": "Nominal",
@@ -658,7 +658,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Mainline CI): Complete storage certification.",
+            "caption": "Stage four (Mainline CI): Complete storage certification.",
             "activeStageId": "s4",
             "statusBadge": "VERIFIED",
             "throughput": "Complete",
@@ -728,7 +728,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Stage 1 (Working Tree): Initialize Master Repository Maintenance ...",
+            "caption": "Stage one (Working Tree): Initialize Master Repository Maintenance ...",
             "activeStageId": "s1",
             "statusBadge": "INGRESS",
             "throughput": "100% Ready",
@@ -762,7 +762,7 @@
           },
           {
             "at": "say1",
-            "caption": "Stage 2 (Staging Index): Process core plumbing workflow.",
+            "caption": "Stage two (Staging Index): Process core plumbing workflow.",
             "activeStageId": "s2",
             "statusBadge": "IN_PROGRESS",
             "throughput": "Active",
@@ -796,7 +796,7 @@
           },
           {
             "at": "example",
-            "caption": "Stage 3 (Feature Branch): Validate delta and binary data integrity.",
+            "caption": "Stage three (Feature Branch): Validate delta and binary data integrity.",
             "activeStageId": "s3",
             "statusBadge": "PROCESSING",
             "throughput": "Nominal",
@@ -830,7 +830,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Stage 4 (Mainline CI): Complete storage certification.",
+            "caption": "Stage four (Mainline CI): Complete storage certification.",
             "activeStageId": "s4",
             "statusBadge": "VERIFIED",
             "throughput": "Complete",

@@ -10,12 +10,12 @@
       "codeHash": "751be4873d8ffee6825f07c436bb80a5f7c40f3cac31de49577ff9e8b0ec1589",
       "spec": {
         "template": "ledger-sheet",
-        "title": "The Derivative Matrix: Plain Vanilla Swaps... \u2014 General Ledger Verification",
+        "title": "The Derivative Matrix: Plain Vanilla Swaps... — General Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary facility debit entry ($84,500) for The Derivative Matrix: Plain Vanill...",
-            "title": "Day 17 Journal \u2014 Initial Posting",
+            "caption": "Open primary facility debit entry ($multiple,server-error) for The.",
+            "title": "Day 17 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 84500,
             "totalCredit": 84500,
@@ -40,8 +40,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary interest & fee accrual adjustment ($16,900).",
-            "title": "Day 17 Journal \u2014 Accrual Adjustment",
+            "caption": "Record secondary interest & fee accrual adjustment ($sixteen,multiple).",
+            "title": "Day 17 Journal — Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 101400,
             "totalCredit": 101400,
@@ -71,8 +71,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of institutional reserve provisioning & counterparty collateral.",
-            "title": "Day 17 Journal \u2014 Collateral & Reserve Alignment",
+            "caption": "Verification of institutional reserve provisioning & counterparty.",
+            "title": "Day 17 Journal — Collateral & Reserve Alignment",
             "isBalanced": true,
             "totalDebit": 101400,
             "totalCredit": 101400,
@@ -102,8 +102,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Real-time balance sheet reconciliation and regulatory capital confirmation.",
-            "title": "Day 17 Journal \u2014 Balanced Closure",
+            "caption": "Real-time balance sheet reconciliation and regulatory capital confirmation.",
+            "title": "Day 17 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 101400,
             "totalCredit": 101400,
@@ -139,12 +139,12 @@
       "codeHash": "407a3d299ad4867b15dd26b9b88cb808acfa24b9ae8d7008067b50106a42df88",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Black-Scholes-Merton & Options Greeks: Del... \u2014 General Ledger Verification",
+        "title": "Black-Scholes-Merton & Options Greeks: Del... — General Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary facility debit entry ($85,750) for Black-Scholes-Merton & Options Gree...",
-            "title": "Day 17 Journal \u2014 Initial Posting",
+            "caption": "Open primary facility debit entry ($multiple,multiple) for.",
+            "title": "Day 17 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 85750,
             "totalCredit": 85750,
@@ -169,8 +169,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary interest & fee accrual adjustment ($17,150).",
-            "title": "Day 17 Journal \u2014 Accrual Adjustment",
+            "caption": "Record secondary interest & fee accrual adjustment ($multiple,multiple).",
+            "title": "Day 17 Journal — Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 102900,
             "totalCredit": 102900,
@@ -200,8 +200,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of institutional reserve provisioning & counterparty collateral.",
-            "title": "Day 17 Journal \u2014 Collateral & Reserve Alignment",
+            "caption": "Verification of institutional reserve provisioning & counterparty.",
+            "title": "Day 17 Journal — Collateral & Reserve Alignment",
             "isBalanced": true,
             "totalDebit": 102900,
             "totalCredit": 102900,
@@ -231,8 +231,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Real-time balance sheet reconciliation and regulatory capital confirmation.",
-            "title": "Day 17 Journal \u2014 Balanced Closure",
+            "caption": "Real-time balance sheet reconciliation and regulatory capital confirmation.",
+            "title": "Day 17 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 102900,
             "totalCredit": 102900,
@@ -268,12 +268,12 @@
       "codeHash": "5913def355e8aeb28026287fcb1a00d83a144334084a9e9e067ae6223de3eb8b",
       "spec": {
         "template": "ledger-sheet",
-        "title": "FX Hedging: Cross-Currency Basis Swaps, Co... \u2014 General Ledger Verification",
+        "title": "FX Hedging: Cross-Currency Basis Swaps, Co... — General Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary facility debit entry ($87,000) for FX Hedging: Cross-Currency Basis Sw...",
-            "title": "Day 17 Journal \u2014 Initial Posting",
+            "caption": "Open primary facility debit entry ($multiple,multiple) for FX Hedging.",
+            "title": "Day 17 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 87000,
             "totalCredit": 87000,
@@ -298,8 +298,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary interest & fee accrual adjustment ($17,400).",
-            "title": "Day 17 Journal \u2014 Accrual Adjustment",
+            "caption": "Record secondary interest & fee accrual adjustment ($multiple,bad-request).",
+            "title": "Day 17 Journal — Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 104400,
             "totalCredit": 104400,
@@ -329,8 +329,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of institutional reserve provisioning & counterparty collateral.",
-            "title": "Day 17 Journal \u2014 Collateral & Reserve Alignment",
+            "caption": "Verification of institutional reserve provisioning & counterparty.",
+            "title": "Day 17 Journal — Collateral & Reserve Alignment",
             "isBalanced": true,
             "totalDebit": 104400,
             "totalCredit": 104400,
@@ -360,8 +360,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Real-time balance sheet reconciliation and regulatory capital confirmation.",
-            "title": "Day 17 Journal \u2014 Balanced Closure",
+            "caption": "Real-time balance sheet reconciliation and regulatory capital confirmation.",
+            "title": "Day 17 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 104400,
             "totalCredit": 104400,
@@ -397,12 +397,12 @@
       "codeHash": "3e5941dcde82e649485e12e95a5d100ed1bc4d17307dccf140ae69568fc01dfc",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Structured Notes & Exotics: Principal Prot... \u2014 General Ledger Verification",
+        "title": "Structured Notes & Exotics: Principal Prot... — General Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary facility debit entry ($88,250) for Structured Notes & Exotics: Princip...",
-            "title": "Day 17 Journal \u2014 Initial Posting",
+            "caption": "Open primary facility debit entry ($multiple,multiple) for Structured.",
+            "title": "Day 17 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 88250,
             "totalCredit": 88250,
@@ -427,8 +427,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary interest & fee accrual adjustment ($17,650).",
-            "title": "Day 17 Journal \u2014 Accrual Adjustment",
+            "caption": "Record secondary interest & fee accrual adjustment ($multiple,multiple).",
+            "title": "Day 17 Journal — Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 105900,
             "totalCredit": 105900,
@@ -458,8 +458,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of institutional reserve provisioning & counterparty collateral.",
-            "title": "Day 17 Journal \u2014 Collateral & Reserve Alignment",
+            "caption": "Verification of institutional reserve provisioning & counterparty.",
+            "title": "Day 17 Journal — Collateral & Reserve Alignment",
             "isBalanced": true,
             "totalDebit": 105900,
             "totalCredit": 105900,
@@ -489,8 +489,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Real-time balance sheet reconciliation and regulatory capital confirmation.",
-            "title": "Day 17 Journal \u2014 Balanced Closure",
+            "caption": "Real-time balance sheet reconciliation and regulatory capital confirmation.",
+            "title": "Day 17 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 105900,
             "totalCredit": 105900,
@@ -526,12 +526,12 @@
       "codeHash": "d45ff815f44112455a45fc3bd040058f93756ef4943beac249d71225159494e4",
       "spec": {
         "template": "ledger-sheet",
-        "title": "ISDA Master Agreement Governance: Credit S... \u2014 General Ledger Verification",
+        "title": "ISDA Master Agreement Governance: Credit S... — General Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary facility debit entry ($89,500) for ISDA Master Agreement Governance: C...",
-            "title": "Day 17 Journal \u2014 Initial Posting",
+            "caption": "Open primary facility debit entry ($multiple,server-error) for ISDA.",
+            "title": "Day 17 Journal — Initial Posting",
             "isBalanced": true,
             "totalDebit": 89500,
             "totalCredit": 89500,
@@ -556,8 +556,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record secondary interest & fee accrual adjustment ($17,900).",
-            "title": "Day 17 Journal \u2014 Accrual Adjustment",
+            "caption": "Record secondary interest & fee accrual adjustment ($multiple,multiple).",
+            "title": "Day 17 Journal — Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 107400,
             "totalCredit": 107400,
@@ -587,8 +587,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of institutional reserve provisioning & counterparty collateral.",
-            "title": "Day 17 Journal \u2014 Collateral & Reserve Alignment",
+            "caption": "Verification of institutional reserve provisioning & counterparty.",
+            "title": "Day 17 Journal — Collateral & Reserve Alignment",
             "isBalanced": true,
             "totalDebit": 107400,
             "totalCredit": 107400,
@@ -618,8 +618,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Real-time balance sheet reconciliation and regulatory capital confirmation.",
-            "title": "Day 17 Journal \u2014 Balanced Closure",
+            "caption": "Real-time balance sheet reconciliation and regulatory capital confirmation.",
+            "title": "Day 17 Journal — Balanced Closure",
             "isBalanced": true,
             "totalDebit": 107400,
             "totalCredit": 107400,

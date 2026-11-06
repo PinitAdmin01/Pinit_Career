@@ -218,7 +218,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Missing keys and get() [D10.P3.S1].",
+            "caption": "Initialize input state for Missing keys and get() [Dten.Pthree.Sone].",
             "values": {
               "in": "Day 10 Input",
               "proc": "Standby",
@@ -238,7 +238,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Missing keys and get() [D10.P3.S2].",
+            "caption": "Execute core transformation in Missing keys and get() [Dten.Pthree.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -262,7 +262,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D10.P3.S3].",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -282,7 +282,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Missing keys and get() [D10.P3.S4].",
+            "caption": "End-to-end execution verified for Missing keys and get().",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -444,7 +444,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Looping over a dictionary [D10.P4.S1].",
+            "caption": "Initialize input state for Looping over a dictionary [Dten.Pfour.Sone].",
             "values": {
               "in": "Day 10 Input",
               "proc": "Standby",
@@ -464,7 +464,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Looping over a dict... [D10.P4.S2].",
+            "caption": "Execute core transformation in Looping over a dict... [Dten.Pfour.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -488,7 +488,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D10.P4.S3].",
+            "caption": "Inspect concrete example output and invariants [Dten.Pfour.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -508,7 +508,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Looping over a dictionary [D10.P4.S4].",
+            "caption": "End-to-end execution verified for Looping over a dictionary.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -765,7 +765,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Putting it together: one expense as a di.. [D10.P6.S1].",
+            "caption": "Initialize input state for Putting it together: one expense as a di.",
             "values": {
               "in": "Day 10 Input",
               "proc": "Standby",
@@ -785,7 +785,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Putting it together... [D10.P6.S2].",
+            "caption": "Execute core transformation in Putting it together... [Dten.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -809,7 +809,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D10.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [Dten.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -829,7 +829,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Putting it together: one expense .. [D10.P6.S4].",
+            "caption": "End-to-end execution verified for Putting it together: one expense .",
             "values": {
               "in": "Committed",
               "proc": "Verified",

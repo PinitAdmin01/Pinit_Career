@@ -384,7 +384,7 @@
           },
           {
             "at": "say4",
-            "caption": "Request-scoped memoization eliminates N+1 query overhead completely.",
+            "caption": "Request-scoped memoization eliminates N+one query overhead completely.",
             "values": {
               "incoming_req": {
                 "text": "\"Request Finished\""

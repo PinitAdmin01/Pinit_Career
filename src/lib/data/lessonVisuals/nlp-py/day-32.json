@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Permutation Invariance & The Original Si...",
+            "caption": "Initialize input state for Permutation Invariance & The Original Si...",
             "values": {
               "in": "Day 32 Input",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Permutation Invaria....",
+            "caption": "Execute core transformation in Permutation Invaria....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -75,7 +75,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Permutation Invariance & The Orig...",
+            "caption": "End-to-end execution verified for Permutation Invariance & The Orig...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -257,7 +257,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Learned Absolute Position Embeddings (BE...",
+            "caption": "Initialize input state for Learned Absolute Position Embeddings (BE...",
             "values": {
               "in": "Day 32 Input",
               "proc": "Standby",
@@ -277,7 +277,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Learned Absolute Po....",
+            "caption": "Execute core transformation in Learned Absolute Po....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -301,7 +301,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -321,7 +321,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Learned Absolute Position Embeddi...",
+            "caption": "End-to-end execution verified for Learned Absolute Position Embeddi...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -483,7 +483,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Rotary Position Embedding (RoPE): 2D Com...",
+            "caption": "Initialize input state for Rotary Position Embedding (RoPE).",
             "values": {
               "in": "Day 32 Input",
               "proc": "Standby",
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Rotary Position Emb....",
+            "caption": "Execute core transformation in Rotary Position Emb....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -527,7 +527,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -547,7 +547,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Rotary Position Embedding (RoPE):...",
+            "caption": "End-to-end execution verified for Rotary Position Embedding (RoPE):...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -709,7 +709,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Attention with Linear Biases (ALiBi): Sl...",
+            "caption": "Initialize input state for Attention with Linear Biases (ALiBi): Sl...",
             "values": {
               "in": "Day 32 Input",
               "proc": "Standby",
@@ -729,7 +729,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Attention with Line....",
+            "caption": "Execute core transformation in Attention with Line....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -753,7 +753,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -773,7 +773,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Attention with Linear Biases (ALi...",
+            "caption": "End-to-end execution verified for Attention with Linear Biases (ALi...",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -935,7 +935,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Comparative Analysis: RoPE vs ALiBi in F...",
+            "caption": "Initialize input state for Comparative Analysis: RoPE vs ALiBi in F...",
             "values": {
               "in": "Day 32 Input",
               "proc": "Standby",
@@ -955,7 +955,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Comparative Analysi....",
+            "caption": "Execute core transformation in Comparative Analysi....",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -979,7 +979,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants.",
+            "caption": "Inspect concrete example output and invariants.",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -999,7 +999,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Comparative Analysis: RoPE vs ALi...",
+            "caption": "End-to-end execution verified for Comparative Analysis: RoPE vs ALi...",
             "values": {
               "in": "Committed",
               "proc": "Verified",

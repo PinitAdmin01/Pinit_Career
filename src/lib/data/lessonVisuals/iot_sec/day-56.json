@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register MESH_CTRL_REG for Industrial Mesh Threat Surface &.",
+            "caption": "Arm hardware register MESH_CTRL_REG for Industrial Mesh Threat Surface &.",
             "registerName": "MESH_CTRL_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into MESH_CTRL_REG and assert validation flag.",
+            "caption": "Latch sampling bits into MESH_CTRL_REG and assert validation flag.",
             "registerName": "MESH_CTRL_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in MESH_CTRL_REG with pipeline status.",
+            "caption": "Execute hardware transformation in MESH_CTRL_REG with pipeline status.",
             "registerName": "MESH_CTRL_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register MESH_CTRL_REG upon verified hardware completion.",
+            "caption": "Lock register MESH_CTRL_REG upon verified hardware completion.",
             "registerName": "MESH_CTRL_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -266,7 +266,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register AES_CCM_NONCE_REG for MAC Frame Counter Synchronizatio.",
+            "caption": "Arm hardware register AES_CCM_NONCE_REG for MAC Frame Counter.",
             "registerName": "AES_CCM_NONCE_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -326,7 +326,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into AES_CCM_NONCE_REG and assert validation flag.",
+            "caption": "Latch sampling bits into AES_CCM_NONCE_REG and assert validation flag.",
             "registerName": "AES_CCM_NONCE_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -387,7 +387,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in AES_CCM_NONCE_REG with pipeline status.",
+            "caption": "Execute hardware transformation in AES_CCM_NONCE_REG with pipeline status.",
             "registerName": "AES_CCM_NONCE_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -448,7 +448,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register AES_CCM_NONCE_REG upon verified hardware completion.",
+            "caption": "Lock register AES_CCM_NONCE_REG upon verified hardware completion.",
             "registerName": "AES_CCM_NONCE_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -518,7 +518,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register SLIDING_WIN_REG for 6LoWPAN Header Compression (IPHC.",
+            "caption": "Arm hardware register SLIDING_WIN_REG for LowPAN Header Compression (IPHC.",
             "registerName": "SLIDING_WIN_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -578,7 +578,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into SLIDING_WIN_REG and assert validation flag.",
+            "caption": "Latch sampling bits into SLIDING_WIN_REG and assert validation flag.",
             "registerName": "SLIDING_WIN_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -639,7 +639,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in SLIDING_WIN_REG with pipeline status.",
+            "caption": "Execute hardware transformation in SLIDING_WIN_REG with pipeline status.",
             "registerName": "SLIDING_WIN_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -700,7 +700,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register SLIDING_WIN_REG upon verified hardware completion.",
+            "caption": "Lock register SLIDING_WIN_REG upon verified hardware completion.",
             "registerName": "SLIDING_WIN_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -770,7 +770,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register IPHC_COMP_REG for Thread Commissioning Protocol (M.",
+            "caption": "Arm hardware register IPHC_COMP_REG for Thread Commissioning Protocol (M.",
             "registerName": "IPHC_COMP_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -830,7 +830,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into IPHC_COMP_REG and assert validation flag.",
+            "caption": "Latch sampling bits into IPHC_COMP_REG and assert validation flag.",
             "registerName": "IPHC_COMP_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -891,7 +891,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in IPHC_COMP_REG with pipeline status.",
+            "caption": "Execute hardware transformation in IPHC_COMP_REG with pipeline status.",
             "registerName": "IPHC_COMP_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -952,7 +952,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register IPHC_COMP_REG upon verified hardware completion.",
+            "caption": "Lock register IPHC_COMP_REG upon verified hardware completion.",
             "registerName": "IPHC_COMP_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1022,7 +1022,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register JPAKE_COMM_REG for End-to-End Zero-Trust Industrial.",
+            "caption": "Arm hardware register JPAKE_COMM_REG for End-to-End Zero-Trust Industrial.",
             "registerName": "JPAKE_COMM_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1082,7 +1082,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into JPAKE_COMM_REG and assert validation flag.",
+            "caption": "Latch sampling bits into JPAKE_COMM_REG and assert validation flag.",
             "registerName": "JPAKE_COMM_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -1143,7 +1143,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in JPAKE_COMM_REG with pipeline status.",
+            "caption": "Execute hardware transformation in JPAKE_COMM_REG with pipeline status.",
             "registerName": "JPAKE_COMM_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -1204,7 +1204,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register JPAKE_COMM_REG upon verified hardware completion.",
+            "caption": "Lock register JPAKE_COMM_REG upon verified hardware completion.",
             "registerName": "JPAKE_COMM_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

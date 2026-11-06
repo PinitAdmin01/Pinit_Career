@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize CoAP Architecture & The UDP Stat with EN=1 & peripheral clock enabled.",
+            "caption": "Initialize CoAP Architecture & The UDP Stat with EN=one & peripheral.",
             "registerName": "COAP_HDR_CR1",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Core processing active - RDY=1 and DMA streaming enabled.",
+            "caption": "Core processing active - RDY=one and DMA streaming enabled.",
             "registerName": "COAP_HDR_CR1",
             "bitWidth": 8,
             "hexValue": "0xD0",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Transfer complete - TC=1 asserted and IRQ interrupt raised.",
+            "caption": "Transfer complete - TC=one asserted and IRQ interrupt raised.",
             "registerName": "COAP_HDR_CR1",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Certified state - TXE buffer clean and all status flags verified.",
+            "caption": "Certified state - TXE buffer clean and all status flags verified.",
             "registerName": "COAP_HDR_CR1",
             "bitWidth": 8,
             "hexValue": "0xFC",
@@ -266,7 +266,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize 4-Byte Fixed Binary Header & Del with EN=1 & peripheral clock enabled.",
+            "caption": "Initialize four-Byte Fixed Binary Header & Del with EN=one & peripheral.",
             "registerName": "COAP_HDR_CR2",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -326,7 +326,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Core processing active - RDY=1 and DMA streaming enabled.",
+            "caption": "Core processing active - RDY=one and DMA streaming enabled.",
             "registerName": "COAP_HDR_CR2",
             "bitWidth": 8,
             "hexValue": "0xD0",
@@ -387,7 +387,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Transfer complete - TC=1 asserted and IRQ interrupt raised.",
+            "caption": "Transfer complete - TC=one asserted and IRQ interrupt raised.",
             "registerName": "COAP_HDR_CR2",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -448,7 +448,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Certified state - TXE buffer clean and all status flags verified.",
+            "caption": "Certified state - TXE buffer clean and all status flags verified.",
             "registerName": "COAP_HDR_CR2",
             "bitWidth": 8,
             "hexValue": "0xFC",
@@ -518,7 +518,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize Piggybacked vs Separate Response with EN=1 & peripheral clock enabled.",
+            "caption": "Initialize Piggybacked vs Separate Response with EN=one & peripheral.",
             "registerName": "COAP_HDR_CR3",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -578,7 +578,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Core processing active - RDY=1 and DMA streaming enabled.",
+            "caption": "Core processing active - RDY=one and DMA streaming enabled.",
             "registerName": "COAP_HDR_CR3",
             "bitWidth": 8,
             "hexValue": "0xD0",
@@ -639,7 +639,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Transfer complete - TC=1 asserted and IRQ interrupt raised.",
+            "caption": "Transfer complete - TC=one asserted and IRQ interrupt raised.",
             "registerName": "COAP_HDR_CR3",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -700,7 +700,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Certified state - TXE buffer clean and all status flags verified.",
+            "caption": "Certified state - TXE buffer clean and all status flags verified.",
             "registerName": "COAP_HDR_CR3",
             "bitWidth": 8,
             "hexValue": "0xFC",
@@ -770,7 +770,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize The CoAP Observe Pattern (RFC 76 with EN=1 & peripheral clock enabled.",
+            "caption": "Initialize The CoAP Observe Pattern (RFC multiple with EN=one &.",
             "registerName": "COAP_HDR_CR4",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -830,7 +830,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Core processing active - RDY=1 and DMA streaming enabled.",
+            "caption": "Core processing active - RDY=one and DMA streaming enabled.",
             "registerName": "COAP_HDR_CR4",
             "bitWidth": 8,
             "hexValue": "0xD0",
@@ -891,7 +891,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Transfer complete - TC=1 asserted and IRQ interrupt raised.",
+            "caption": "Transfer complete - TC=one asserted and IRQ interrupt raised.",
             "registerName": "COAP_HDR_CR4",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -952,7 +952,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Certified state - TXE buffer clean and all status flags verified.",
+            "caption": "Certified state - TXE buffer clean and all status flags verified.",
             "registerName": "COAP_HDR_CR4",
             "bitWidth": 8,
             "hexValue": "0xFC",
@@ -1022,7 +1022,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize Master Engine: Embedded CoAP Ser with EN=1 & peripheral clock enabled.",
+            "caption": "Initialize Master Engine: Embedded CoAP Ser with EN=one & peripheral.",
             "registerName": "COAP_HDR_CR5",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1082,7 +1082,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Core processing active - RDY=1 and DMA streaming enabled.",
+            "caption": "Core processing active - RDY=one and DMA streaming enabled.",
             "registerName": "COAP_HDR_CR5",
             "bitWidth": 8,
             "hexValue": "0xD0",
@@ -1143,7 +1143,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Transfer complete - TC=1 asserted and IRQ interrupt raised.",
+            "caption": "Transfer complete - TC=one asserted and IRQ interrupt raised.",
             "registerName": "COAP_HDR_CR5",
             "bitWidth": 8,
             "hexValue": "0xF8",
@@ -1204,7 +1204,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Certified state - TXE buffer clean and all status flags verified.",
+            "caption": "Certified state - TXE buffer clean and all status flags verified.",
             "registerName": "COAP_HDR_CR5",
             "bitWidth": 8,
             "hexValue": "0xFC",

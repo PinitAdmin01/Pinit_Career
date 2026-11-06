@@ -31,7 +31,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream payload and initialize CI/CD Engineering Principles: Tr....",
+            "caption": "Ingress stream payload and initialize CI/CD Engineering Principles: Tr....",
             "values": {
               "in": "Stream Ingress",
               "proc": "Standby",
@@ -51,7 +51,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute protocol handling, encoding, and routing in CI/CD Engineering Principles: Tr....",
+            "caption": "Execute protocol handling, encoding, and routing in CI/CD Engineering.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -71,7 +71,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world distributed microservices interaction in CI/CD Engineering Principles: Tr....",
+            "caption": "Real-world distributed microservices interaction in CI/CD Engineering.",
             "values": {
               "in": "Validated",
               "proc": "Dispatched",
@@ -95,7 +95,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify end-to-end telemetry and state consistency in CI/CD Engineering Principles: Tr....",
+            "caption": "Verify end-to-end telemetry and state consistency in CI/CD Engineering.",
             "values": {
               "in": "ACK Received",
               "proc": "Committed",
@@ -142,7 +142,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream payload and initialize GitHub Actions Architecture: Wor....",
+            "caption": "Ingress stream payload and initialize GitHub Actions Architecture: Wor....",
             "values": {
               "in": "Stream Ingress",
               "proc": "Standby",
@@ -162,7 +162,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute protocol handling, encoding, and routing in GitHub Actions Architecture: Wor....",
+            "caption": "Execute protocol handling, encoding, and routing in GitHub Actions.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -182,7 +182,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world distributed microservices interaction in GitHub Actions Architecture: Wor....",
+            "caption": "Real-world distributed microservices interaction in GitHub Actions.",
             "values": {
               "in": "Validated",
               "proc": "Dispatched",
@@ -206,7 +206,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify end-to-end telemetry and state consistency in GitHub Actions Architecture: Wor....",
+            "caption": "Verify end-to-end telemetry and state consistency in GitHub Actions.",
             "values": {
               "in": "ACK Received",
               "proc": "Committed",
@@ -253,7 +253,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream payload and initialize Dependency Caching, OIDC Cloud F....",
+            "caption": "Ingress stream payload and initialize Dependency Caching, OIDC Cloud F....",
             "values": {
               "in": "Stream Ingress",
               "proc": "Standby",
@@ -273,7 +273,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute protocol handling, encoding, and routing in Dependency Caching, OIDC Cloud F....",
+            "caption": "Execute protocol handling, encoding, and routing in Dependency Caching.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -293,7 +293,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world distributed microservices interaction in Dependency Caching, OIDC Cloud F....",
+            "caption": "Real-world distributed microservices interaction in Dependency Caching.",
             "values": {
               "in": "Validated",
               "proc": "Dispatched",
@@ -317,7 +317,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify end-to-end telemetry and state consistency in Dependency Caching, OIDC Cloud F....",
+            "caption": "Verify end-to-end telemetry and state consistency in Dependency Caching.",
             "values": {
               "in": "ACK Received",
               "proc": "Committed",
@@ -364,7 +364,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream payload and initialize Automated Multi-Arch Docker Buil....",
+            "caption": "Ingress stream payload and initialize Automated Multi-Arch Docker Buil....",
             "values": {
               "in": "Stream Ingress",
               "proc": "Standby",
@@ -384,7 +384,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute protocol handling, encoding, and routing in Automated Multi-Arch Docker Buil....",
+            "caption": "Execute protocol handling, encoding, and routing in Automated Multi-Arch.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -404,7 +404,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world distributed microservices interaction in Automated Multi-Arch Docker Buil....",
+            "caption": "Real-world distributed microservices interaction in Automated Multi-Arch.",
             "values": {
               "in": "Validated",
               "proc": "Dispatched",
@@ -428,7 +428,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify end-to-end telemetry and state consistency in Automated Multi-Arch Docker Buil....",
+            "caption": "Verify end-to-end telemetry and state consistency in Automated Multi-Arch.",
             "values": {
               "in": "ACK Received",
               "proc": "Committed",
@@ -475,7 +475,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ingress stream payload and initialize Automated Semantic Versioning, C....",
+            "caption": "Ingress stream payload and initialize Automated Semantic Versioning, C....",
             "values": {
               "in": "Stream Ingress",
               "proc": "Standby",
@@ -495,7 +495,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute protocol handling, encoding, and routing in Automated Semantic Versioning, C....",
+            "caption": "Execute protocol handling, encoding, and routing in Automated Semantic.",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -515,7 +515,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Real-world distributed microservices interaction in Automated Semantic Versioning, C....",
+            "caption": "Real-world distributed microservices interaction in Automated Semantic.",
             "values": {
               "in": "Validated",
               "proc": "Dispatched",
@@ -539,7 +539,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify end-to-end telemetry and state consistency in Automated Semantic Versioning, C....",
+            "caption": "Verify end-to-end telemetry and state consistency in Automated Semantic.",
             "values": {
               "in": "ACK Received",
               "proc": "Committed",

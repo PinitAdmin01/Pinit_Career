@@ -21,7 +21,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize 802.1Qbv TAS scheduler: Program 1000 us cycle time across 8 priority queues.",
+            "caption": "Initialize multiple.oneQbv TAS scheduler: Program multiple us cycle time.",
             "registerName": "TSN_TAS_GCL_SCHED_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -89,7 +89,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Activate Express time slice (0-300 us): Open gates for TC7/TC6 and close best-effort.",
+            "caption": "Activate Express time slice (zero-multiple us): Open gates for.",
             "registerName": "TSN_TAS_GCL_SCHED_REG",
             "bitWidth": 8,
             "hexValue": "0xCF",
@@ -157,7 +157,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Engage administrative Guard Band at offset 800 us: Block low-priority transmission overruns.",
+            "caption": "Engage administrative Guard Band at offset multiple us: Block.",
             "registerName": "TSN_TAS_GCL_SCHED_REG",
             "bitWidth": 8,
             "hexValue": "0xBF",
@@ -371,7 +371,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Preempt pMAC transmission: Terminate initial fragment with SMD-S0 and 32-bit mCRC checksum.",
+            "caption": "Preempt pMAC transmission: Terminate initial fragment with SMD-Szero and.",
             "registerName": "TSN_FRAME_PREEMPT_REG",
             "bitWidth": 8,
             "hexValue": "0xDF",
@@ -439,7 +439,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Transmit express frame using SMD-E delimiter with sub-100ns MAC Merge switching latency.",
+            "caption": "Transmit express frame using SMD-E delimiter with sub-one hundredns MAC.",
             "registerName": "TSN_FRAME_PREEMPT_REG",
             "bitWidth": 8,
             "hexValue": "0xEF",
@@ -507,7 +507,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Resume remaining 120 bytes using SMD-C0: Receiver verifies seamless bit-perfect reassembly.",
+            "caption": "Resume remaining multiple bytes using SMD-Czero: Receiver verifies.",
             "registerName": "TSN_FRAME_PREEMPT_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -653,7 +653,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Exchange Pdelay_Req and Pdelay_Resp frames: Latch nanosecond hardware MII timestamps t1-t4.",
+            "caption": "Exchange Pdelay_Req and Pdelay_Resp frames: Latch nanosecond hardware MII.",
             "registerName": "TSN_GPTP_SYNC_REG",
             "bitWidth": 8,
             "hexValue": "0xFD",
@@ -721,7 +721,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Calculate peer link propagation delay: Compensate for 460.0 ns fiber transit delay.",
+            "caption": "Calculate peer link propagation delay: Compensate for multiple.zero ns.",
             "registerName": "TSN_GPTP_SYNC_REG",
             "bitWidth": 8,
             "hexValue": "0xBF",
@@ -789,7 +789,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Apply Follow_Up drift correction: Lock local bridge clock with sub-100ns deterministic jitter.",
+            "caption": "Apply Follow_Up drift correction: Lock local bridge clock with sub-one.",
             "registerName": "TSN_GPTP_SYNC_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -867,7 +867,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Enable Layer 2 PROFINET RT engine: Bind dedicated Ethernet frame parser to EtherType 0x8892.",
+            "caption": "Enable Layer two PROFINET RT engine: Bind dedicated Ethernet frame parser.",
             "registerName": "TSN_PROFINET_RT_REG",
             "bitWidth": 8,
             "hexValue": "0xC1",
@@ -935,7 +935,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Unpack FrameID 0x8001: Extract 43 bytes of real-time drive speed and torque telemetry.",
+            "caption": "Unpack FrameID zerox: Extract multiple bytes of real-time drive speed and.",
             "registerName": "TSN_PROFINET_RT_REG",
             "bitWidth": 8,
             "hexValue": "0xDF",
@@ -1003,7 +1003,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Validate DataStatus byte (0x35): Confirm primary provider status and active PLC Run mode.",
+            "caption": "Validate DataStatus byte (zerox): Confirm primary provider status and.",
             "registerName": "TSN_PROFINET_RT_REG",
             "bitWidth": 8,
             "hexValue": "0xEF",
@@ -1071,7 +1071,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Bridge cyclic I/O into TSN scheduled queue: Verify deterministic delivery in under 1 millisecond.",
+            "caption": "Bridge cyclic I/O into TSN scheduled queue: Verify deterministic delivery.",
             "registerName": "TSN_PROFINET_RT_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1149,7 +1149,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize DeterministicTsnSwitchEngine: Align local clock to Grandmaster with -210 ns offset.",
+            "caption": "Initialize DeterministicTsnSwitchEngine: Align local clock to Grandmaster.",
             "registerName": "TSN_MASTER_ENGINE_REG",
             "bitWidth": 8,
             "hexValue": "0x91",
@@ -1217,7 +1217,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Load GCL schedule: Allocate express robot slot, best-effort window, and 150 us guard band.",
+            "caption": "Load GCL schedule: Allocate express robot slot, best-effort window, and.",
             "registerName": "TSN_MASTER_ENGINE_REG",
             "bitWidth": 8,
             "hexValue": "0xDF",

@@ -134,7 +134,7 @@
           },
           {
             "at": "say3",
-            "caption": "Raises ValueError when amount is not a number above 0.",
+            "caption": "Raises ValueError when amount is not a number above zero.",
             "values": {
               "item": {
                 "text": "Bus"
@@ -309,7 +309,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for The menu in main.py [D24.P4.S1].",
+            "caption": "Initialize input state for The menu in main.py [D.Pfour.Sone].",
             "values": {
               "in": "Day 24 Input",
               "proc": "Standby",
@@ -329,7 +329,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The menu in main.py [D24.P4.S2].",
+            "caption": "Execute core transformation in The menu in main.py [D.Pfour.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -353,7 +353,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D24.P4.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Pfour.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -373,7 +373,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The menu in main.py [D24.P4.S4].",
+            "caption": "End-to-end execution verified for The menu in main.py [D.Pfour.Sfour].",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -535,7 +535,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Testing what you built [D24.P5.S1].",
+            "caption": "Initialize input state for Testing what you built [D.Pfive.Sone].",
             "values": {
               "in": "Day 24 Input",
               "proc": "Standby",
@@ -555,7 +555,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Testing what you built [D24.P5.S2].",
+            "caption": "Execute core transformation in Testing what you built [D.Pfive.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -579,7 +579,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D24.P5.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -599,7 +599,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Testing what you built [D24.P5.S4].",
+            "caption": "End-to-end execution verified for Testing what you built [D.Pfive.Sfour].",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -761,7 +761,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Putting it together: today's working pro.. [D24.P6.S1].",
+            "caption": "Initialize input state for Putting it together: today's working pro.",
             "values": {
               "in": "Day 24 Input",
               "proc": "Standby",
@@ -781,7 +781,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Putting it together... [D24.P6.S2].",
+            "caption": "Execute core transformation in Putting it together... [D.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -805,7 +805,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D24.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -825,7 +825,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Putting it together: today's work.. [D24.P6.S4].",
+            "caption": "End-to-end execution verified for Putting it together: today's work.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

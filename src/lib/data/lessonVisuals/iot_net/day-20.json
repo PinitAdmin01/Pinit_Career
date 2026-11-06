@@ -10,11 +10,11 @@
       "codeHash": "90b1ef4a51198f20ecd7f7dd462438cd1f5e6c2d22687f708f32318cb0ad3cd0",
       "spec": {
         "template": "register-bits",
-        "title": "Day 20 Part 1 \u2014 The 6LoWPAN Adaptation Layer & \u2014 Register Architecture",
+        "title": "Day 20 Part 1 — The 6LoWPAN Adaptation Layer & — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register LOWPAN_ADAPT_REG for The 6LoWPAN Adaptation Layer & T.",
+            "caption": "Arm hardware register LOWPAN_ADAPT_REG for The LowPAN Adaptation Layer & T.",
             "registerName": "LOWPAN_ADAPT_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into LOWPAN_ADAPT_REG and assert validation flag.",
+            "caption": "Latch sampling bits into LOWPAN_ADAPT_REG and assert validation flag.",
             "registerName": "LOWPAN_ADAPT_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in LOWPAN_ADAPT_REG with pipeline status.",
+            "caption": "Execute hardware transformation in LOWPAN_ADAPT_REG with pipeline status.",
             "registerName": "LOWPAN_ADAPT_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register LOWPAN_ADAPT_REG upon verified hardware completion.",
+            "caption": "Lock register LOWPAN_ADAPT_REG upon verified hardware completion.",
             "registerName": "LOWPAN_ADAPT_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -262,11 +262,11 @@
       "codeHash": "8dd07a5565996857a3f1e2b2f7ca86a4494ee47dde7accf3ba289f4fc5145a4a",
       "spec": {
         "template": "register-bits",
-        "title": "Day 20 Part 2 \u2014 LOWPAN_IPHC Encoding & Bitfiel \u2014 Register Architecture",
+        "title": "Day 20 Part 2 — LOWPAN_IPHC Encoding & Bitfiel — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register LOWPAN_IPHC_REG for LOWPAN_IPHC Encoding & Bitfields.",
+            "caption": "Arm hardware register LOWPAN_IPHC_REG for LOWPAN_IPHC Encoding & Bitfields.",
             "registerName": "LOWPAN_IPHC_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -326,7 +326,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into LOWPAN_IPHC_REG and assert validation flag.",
+            "caption": "Latch sampling bits into LOWPAN_IPHC_REG and assert validation flag.",
             "registerName": "LOWPAN_IPHC_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -387,7 +387,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in LOWPAN_IPHC_REG with pipeline status.",
+            "caption": "Execute hardware transformation in LOWPAN_IPHC_REG with pipeline status.",
             "registerName": "LOWPAN_IPHC_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -448,7 +448,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register LOWPAN_IPHC_REG upon verified hardware completion.",
+            "caption": "Lock register LOWPAN_IPHC_REG upon verified hardware completion.",
             "registerName": "LOWPAN_IPHC_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -514,11 +514,11 @@
       "codeHash": "721644a4ff9da3ef07c26063fd543cbd215ae8c12cfb71eb1da4570119a0d1b3",
       "spec": {
         "template": "register-bits",
-        "title": "Day 20 Part 3 \u2014 UDP Next-Header Compression (L \u2014 Register Architecture",
+        "title": "Day 20 Part 3 — UDP Next-Header Compression (L — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register LOWPAN_UDP_NHC_REG for UDP Next-Header Compression (LOW.",
+            "caption": "Arm hardware register LOWPAN_UDP_NHC_REG for UDP Next-Header Compression.",
             "registerName": "LOWPAN_UDP_NHC_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -578,7 +578,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into LOWPAN_UDP_NHC_REG and assert validation flag.",
+            "caption": "Latch sampling bits into LOWPAN_UDP_NHC_REG and assert validation flag.",
             "registerName": "LOWPAN_UDP_NHC_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -639,7 +639,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in LOWPAN_UDP_NHC_REG with pipeline status.",
+            "caption": "Execute hardware transformation in LOWPAN_UDP_NHC_REG with pipeline status.",
             "registerName": "LOWPAN_UDP_NHC_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -700,7 +700,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register LOWPAN_UDP_NHC_REG upon verified hardware completion.",
+            "caption": "Lock register LOWPAN_UDP_NHC_REG upon verified hardware completion.",
             "registerName": "LOWPAN_UDP_NHC_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -766,11 +766,11 @@
       "codeHash": "72cee21f374323b1cf528199a96418716bfdcefd838293d77b19e434d18c1dd9",
       "spec": {
         "template": "register-bits",
-        "title": "Day 20 Part 4 \u2014 6LoWPAN Packet Fragmentation ( \u2014 Register Architecture",
+        "title": "Day 20 Part 4 — 6LoWPAN Packet Fragmentation ( — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register LOWPAN_FRAG_REG for 6LoWPAN Packet Fragmentation (FR.",
+            "caption": "Arm hardware register LOWPAN_FRAG_REG for LowPAN Packet Fragmentation (FR.",
             "registerName": "LOWPAN_FRAG_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -830,7 +830,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into LOWPAN_FRAG_REG and assert validation flag.",
+            "caption": "Latch sampling bits into LOWPAN_FRAG_REG and assert validation flag.",
             "registerName": "LOWPAN_FRAG_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -891,7 +891,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in LOWPAN_FRAG_REG with pipeline status.",
+            "caption": "Execute hardware transformation in LOWPAN_FRAG_REG with pipeline status.",
             "registerName": "LOWPAN_FRAG_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -952,7 +952,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register LOWPAN_FRAG_REG upon verified hardware completion.",
+            "caption": "Lock register LOWPAN_FRAG_REG upon verified hardware completion.",
             "registerName": "LOWPAN_FRAG_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1018,11 +1018,11 @@
       "codeHash": "d4a02be1f6b5ae795a4745eb89c5996109bf9660cb0e1e044c864a10337a3452",
       "spec": {
         "template": "register-bits",
-        "title": "Day 20 Part 5 \u2014 Milestone 4 Capstone: Full 6Lo \u2014 Register Architecture",
+        "title": "Day 20 Part 5 — Milestone 4 Capstone: Full 6Lo — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register M4_CAPSTONE_CERT_REG for Milestone 4 Capstone: Full 6LoWP.",
+            "caption": "Arm hardware register Mfour_CAPSTONE_CERT_REG for Milestone four.",
             "registerName": "M4_CAPSTONE_CERT_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1082,7 +1082,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into M4_CAPSTONE_CERT_REG and assert validation flag.",
+            "caption": "Latch sampling bits into Mfour_CAPSTONE_CERT_REG and assert validation.",
             "registerName": "M4_CAPSTONE_CERT_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -1143,7 +1143,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in M4_CAPSTONE_CERT_REG with pipeline status.",
+            "caption": "Execute hardware transformation in Mfour_CAPSTONE_CERT_REG with pipeline.",
             "registerName": "M4_CAPSTONE_CERT_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -1204,7 +1204,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register M4_CAPSTONE_CERT_REG upon verified hardware completion.",
+            "caption": "Lock register Mfour_CAPSTONE_CERT_REG upon verified hardware completion.",
             "registerName": "M4_CAPSTONE_CERT_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

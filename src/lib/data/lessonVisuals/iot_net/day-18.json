@@ -10,11 +10,11 @@
       "codeHash": "0c73bf1eb5d6b78e0c035c983d74a2931ad7aab6de162c874ba02ad29fd34a0a",
       "spec": {
         "template": "register-bits",
-        "title": "Day 18 Part 1 \u2014 CBOR (RFC 8949) Major Types &  \u2014 Register Architecture",
+        "title": "Day 18 Part 1 — CBOR (RFC 8949) Major Types &  — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register CBOR_MAJ_TYPE_REG for CBOR (RFC 8949) Major Types & In.",
+            "caption": "Arm hardware register CBOR_MAJ_TYPE_REG for CBOR (RFC multiple) Major.",
             "registerName": "CBOR_MAJ_TYPE_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into CBOR_MAJ_TYPE_REG and assert validation flag.",
+            "caption": "Latch sampling bits into CBOR_MAJ_TYPE_REG and assert validation flag.",
             "registerName": "CBOR_MAJ_TYPE_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in CBOR_MAJ_TYPE_REG with pipeline status.",
+            "caption": "Execute hardware transformation in CBOR_MAJ_TYPE_REG with pipeline status.",
             "registerName": "CBOR_MAJ_TYPE_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register CBOR_MAJ_TYPE_REG upon verified hardware completion.",
+            "caption": "Lock register CBOR_MAJ_TYPE_REG upon verified hardware completion.",
             "registerName": "CBOR_MAJ_TYPE_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -262,11 +262,11 @@
       "codeHash": "7308616163079dc286ca77cd443602d8b7b1f666eb01ed3c9a2ea756ca30f877",
       "spec": {
         "template": "register-bits",
-        "title": "Day 18 Part 2 \u2014 Text Strings, Byte Arrays & De \u2014 Register Architecture",
+        "title": "Day 18 Part 2 — Text Strings, Byte Arrays & De — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register CBOR_STR_BYTE_REG for Text Strings, Byte Arrays & Defi.",
+            "caption": "Arm hardware register CBOR_STR_BYTE_REG for Text Strings, Byte Arrays &.",
             "registerName": "CBOR_STR_BYTE_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -326,7 +326,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into CBOR_STR_BYTE_REG and assert validation flag.",
+            "caption": "Latch sampling bits into CBOR_STR_BYTE_REG and assert validation flag.",
             "registerName": "CBOR_STR_BYTE_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -387,7 +387,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in CBOR_STR_BYTE_REG with pipeline status.",
+            "caption": "Execute hardware transformation in CBOR_STR_BYTE_REG with pipeline status.",
             "registerName": "CBOR_STR_BYTE_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -448,7 +448,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register CBOR_STR_BYTE_REG upon verified hardware completion.",
+            "caption": "Lock register CBOR_STR_BYTE_REG upon verified hardware completion.",
             "registerName": "CBOR_STR_BYTE_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -514,11 +514,11 @@
       "codeHash": "dda1490fb11971ae61df1fa7241140467fc186db19800ecf74a1bfebc3719eac",
       "spec": {
         "template": "register-bits",
-        "title": "Day 18 Part 3 \u2014 Maps, Arrays & IEEE 754 Floati \u2014 Register Architecture",
+        "title": "Day 18 Part 3 — Maps, Arrays & IEEE 754 Floati — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register CBOR_MAP_F32_REG for Maps, Arrays & IEEE 754 Floating.",
+            "caption": "Arm hardware register CBOR_MAP_Fthirty-two_REG for Maps, Arrays & IEEE.",
             "registerName": "CBOR_MAP_F32_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -578,7 +578,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into CBOR_MAP_F32_REG and assert validation flag.",
+            "caption": "Latch sampling bits into CBOR_MAP_Fthirty-two_REG and assert validation.",
             "registerName": "CBOR_MAP_F32_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -639,7 +639,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in CBOR_MAP_F32_REG with pipeline status.",
+            "caption": "Execute hardware transformation in CBOR_MAP_Fthirty-two_REG with pipeline.",
             "registerName": "CBOR_MAP_F32_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -700,7 +700,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register CBOR_MAP_F32_REG upon verified hardware completion.",
+            "caption": "Lock register CBOR_MAP_Fthirty-two_REG upon verified hardware completion.",
             "registerName": "CBOR_MAP_F32_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -766,11 +766,11 @@
       "codeHash": "ee4b533249c94bf287f04def18d283835f8b4c5e4260b56f1c0e4a8df9cddd98",
       "spec": {
         "template": "register-bits",
-        "title": "Day 18 Part 4 \u2014 MessagePack Serialization Form \u2014 Register Architecture",
+        "title": "Day 18 Part 4 — MessagePack Serialization Form — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register CBOR_MP_BENCH_REG for MessagePack Serialization Format.",
+            "caption": "Arm hardware register CBOR_MP_BENCH_REG for MessagePack Serialization.",
             "registerName": "CBOR_MP_BENCH_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -830,7 +830,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into CBOR_MP_BENCH_REG and assert validation flag.",
+            "caption": "Latch sampling bits into CBOR_MP_BENCH_REG and assert validation flag.",
             "registerName": "CBOR_MP_BENCH_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -891,7 +891,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in CBOR_MP_BENCH_REG with pipeline status.",
+            "caption": "Execute hardware transformation in CBOR_MP_BENCH_REG with pipeline status.",
             "registerName": "CBOR_MP_BENCH_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -952,7 +952,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register CBOR_MP_BENCH_REG upon verified hardware completion.",
+            "caption": "Lock register CBOR_MP_BENCH_REG upon verified hardware completion.",
             "registerName": "CBOR_MP_BENCH_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1018,11 +1018,11 @@
       "codeHash": "75dd3540b5e36f223e14d0b96c029eaa56379e54b2b7d0a12e9688be35d667df",
       "spec": {
         "template": "register-bits",
-        "title": "Day 18 Part 5 \u2014 High-Performance Embedded Bina \u2014 Register Architecture",
+        "title": "Day 18 Part 5 — High-Performance Embedded Bina — Register Architecture",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register CBOR_TELEM_REG for High-Performance Embedded Binary.",
+            "caption": "Arm hardware register CBOR_TELEM_REG for High-Performance Embedded Binary.",
             "registerName": "CBOR_TELEM_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1082,7 +1082,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into CBOR_TELEM_REG and assert validation flag.",
+            "caption": "Latch sampling bits into CBOR_TELEM_REG and assert validation flag.",
             "registerName": "CBOR_TELEM_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -1143,7 +1143,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in CBOR_TELEM_REG with pipeline status.",
+            "caption": "Execute hardware transformation in CBOR_TELEM_REG with pipeline status.",
             "registerName": "CBOR_TELEM_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -1204,7 +1204,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register CBOR_TELEM_REG upon verified hardware completion.",
+            "caption": "Lock register CBOR_TELEM_REG upon verified hardware completion.",
             "registerName": "CBOR_TELEM_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

@@ -67,7 +67,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Client initiates TLS 1.3 handshake with modern AEAD cipher proposals.",
+            "caption": "Client initiates modern TLS handshake with modern AEAD cipher proposals.",
             "values": {
               "client": {
                 "status": "Online"
@@ -85,7 +85,7 @@
           },
           {
             "at": "say3",
-            "caption": "Gateway matches cipher suites and negotiates application protocol (h2) via ALPN.",
+            "caption": "Gateway matches cipher suites and negotiates application protocol (htwo).",
             "values": {
               "client": {
                 "status": "Processing"
@@ -121,7 +121,7 @@
           },
           {
             "at": "say7",
-            "caption": "Session ticket is issued for instant 0-RTT connection resumption.",
+            "caption": "Session ticket is issued for instant zero-RTT connection resumption.",
             "values": {
               "client": {
                 "status": "Online"
@@ -208,7 +208,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Client presents X.509 certificate during TLS handshake.",
+            "caption": "Client presents X.multiple certificate during TLS handshake.",
             "values": {
               "client": {
                 "status": "Online"
@@ -438,7 +438,7 @@
           },
           {
             "at": "say7",
-            "caption": "Unauthorized attempts trigger immediate HTTP 403 Forbidden rejection.",
+            "caption": "Unauthorized attempts trigger immediate HTTP forbidden Forbidden rejection.",
             "values": {
               "admin": {
                 "status": "Synchronized"

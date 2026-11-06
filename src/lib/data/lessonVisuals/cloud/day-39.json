@@ -67,7 +67,7 @@
             "at": "example",
             "focus": "resolver",
             "annotation": "Native APPSYNC_JS resolvers execute in microsecond V8 isolates without Lambda.",
-            "caption": "Native APPSYNC_JS resolvers execute in microsecond V8 isolates without Lambda. (AWS AppSync GraphQL Architecture: M)"
+            "caption": "Native APPSYNC_JS resolvers execute in microsecond engine isolates."
           },
           {
             "at": "tryIt",
@@ -142,7 +142,7 @@
             "at": "example",
             "focus": "resolver",
             "annotation": "Native APPSYNC_JS resolvers execute in microsecond V8 isolates without Lambda.",
-            "caption": "Native APPSYNC_JS resolvers execute in microsecond V8 isolates without Lambda. (Direct Data Sources: Native APPSYNC)"
+            "caption": "Native APPSYNC_JS resolvers execute in microsecond engine isolates."
           },
           {
             "at": "tryIt",
@@ -217,7 +217,7 @@
             "at": "example",
             "focus": "resolver",
             "annotation": "Native APPSYNC_JS resolvers execute in microsecond V8 isolates without Lambda.",
-            "caption": "Native APPSYNC_JS resolvers execute in microsecond V8 isolates without Lambda. (Advanced Pipeline Resolvers: Multi-)"
+            "caption": "Native APPSYNC_JS resolvers execute in microsecond engine isolates."
           },
           {
             "at": "tryIt",
@@ -292,7 +292,7 @@
             "at": "example",
             "focus": "resolver",
             "annotation": "Native APPSYNC_JS resolvers execute in microsecond V8 isolates without Lambda.",
-            "caption": "Native APPSYNC_JS resolvers execute in microsecond V8 isolates without Lambda. (Enterprise Security: Multi-Auth Mod)"
+            "caption": "Native APPSYNC_JS resolvers execute in microsecond engine isolates."
           },
           {
             "at": "tryIt",
@@ -367,7 +367,7 @@
             "at": "example",
             "focus": "resolver",
             "annotation": "Native APPSYNC_JS resolvers execute in microsecond V8 isolates without Lambda.",
-            "caption": "Native APPSYNC_JS resolvers execute in microsecond V8 isolates without Lambda. (Masterclass Synthesis: Production C)"
+            "caption": "Native APPSYNC_JS resolvers execute in microsecond engine isolates."
           },
           {
             "at": "tryIt",

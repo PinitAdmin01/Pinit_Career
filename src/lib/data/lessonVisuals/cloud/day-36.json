@@ -26,7 +26,7 @@
               ],
               "status": "DEVICE_MODEL_OPTIMIZED"
             },
-            "caption": "Traditional QEMU emulates legacy hardware (PCI/ACPI); Firecracker provides minimal 4-device model in Rust. (Firecracker MicroVM Architecture: L)"
+            "caption": "Traditional QEMU emulates legacy hardware (PCI/ACPI); Firecracker."
           },
           {
             "at": "say2",
@@ -58,7 +58,7 @@
               ],
               "status": "BOOT_5MS_ACHIEVED"
             },
-            "caption": "MicroVM boots, configures virtio interfaces, and starts execution in 5.3 milliseconds. (Firecracker MicroVM Architecture: L)"
+            "caption": "MicroVM boots, configures virtio interfaces, and starts execution in."
           },
           {
             "at": "tryIt",
@@ -178,7 +178,7 @@
               ],
               "status": "COLD_START_IDENTIFIED"
             },
-            "caption": "JVM class loading, dependency injection, and JIT compilation incur 6+ second initialization cold starts. (Lambda SnapStart & Micro-Snapshotti)"
+            "caption": "JVM class loading, dependency injection, and JIT compilation incur six+."
           },
           {
             "at": "say2",
@@ -226,7 +226,7 @@
               ],
               "status": "SNAPSTART_200MS_ACHIEVED"
             },
-            "caption": "Upon user invocation, memory is restored directly into guest RAM, resuming execution in under 150ms. (Lambda SnapStart & Micro-Snapshotti)"
+            "caption": "Upon user invocation, memory is restored directly into guest RAM."
           }
         ]
       }
@@ -254,7 +254,7 @@
               ],
               "status": "PRNG_COLLISION_RISK"
             },
-            "caption": "Memory snapshot captures internal PRNG seeds; 1000 restored instances share the exact same random state. (The SnapStart Security Trap: PRNG E)"
+            "caption": "Memory snapshot captures internal PRNG seeds; multiple restored instances."
           },
           {
             "at": "say2",
@@ -362,7 +362,7 @@
               ],
               "status": "PROVISIONED_AUTOSCALED"
             },
-            "caption": "Application Auto Scaling targets 70% provisioned utilization, scaling capacity proactively. (Masterclass Synthesis: Production F)"
+            "caption": "Application Auto Scaling targets multiple% provisioned utilization."
           },
           {
             "at": "tryIt",
@@ -378,7 +378,7 @@
               ],
               "status": "GRADE_A_PLUS_PRODUCTION_CERTIFIED"
             },
-            "caption": "Serverless virtualization engine verified with 100% test coverage and sub-200ms restoration. (Masterclass Synthesis: Production F)"
+            "caption": "Serverless virtualization engine verified with one hundred% test coverage."
           }
         ]
       }

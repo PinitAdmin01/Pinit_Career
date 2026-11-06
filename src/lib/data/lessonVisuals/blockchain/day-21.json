@@ -10,7 +10,7 @@
       "codeHash": "40b7409c5e16694af3260de9e1a088be3c4e0d210b8055b2d1fb53d1970dc090",
       "spec": {
         "template": "sequence",
-        "title": "Constant Product Formula Mechanics (x * y = k) & Marginal Pricing \u2014 Constant Product AMM Sequence",
+        "title": "Constant Product Formula Mechanics (x * y = k) & Marginal Pricing — Constant Product AMM Sequence",
         "actors": [
           "Trader / LP",
           "AMM Router",
@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Trader calls AMM Router for Constant Product Formula Mechani",
+            "caption": "Trader calls AMM Router for Constant Product Formula Mechani.",
             "activeActor": "Trader / LP",
             "messages": [
               {
@@ -33,7 +33,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Router transfers tokens to Pair; Pair calculates amountOut via constant product formula",
+            "caption": "Router transfers tokens to Pair; Pair calculates amountOut via constant.",
             "activeActor": "AMM Router",
             "messages": [
               {
@@ -46,7 +46,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Protocol fee shares accrued asynchronously via sqrt(k) growth tracking",
+            "caption": "Protocol fee shares accrued asynchronously via sqrt(k) growth tracking.",
             "activeActor": "Uniswap v2 Pair",
             "messages": [
               {
@@ -59,13 +59,13 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Swap finalized; output tokens transferred to recipient with monotonic K expansion",
+            "caption": "Swap finalized; output tokens transferred to recipient with monotonic K.",
             "activeActor": "Uniswap v2 Pair",
             "messages": [
               {
                 "from": "Uniswap v2 Pair",
                 "to": "Trader / LP",
-                "label": "TokensTransferred(InvariantConserved \u2713)",
+                "label": "TokensTransferred(InvariantConserved ✓)",
                 "tone": "ok"
               }
             ]
@@ -74,7 +74,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Constant Product Formula Mechanics (x * y = k) & Marginal Pricing \u2014 Constant Product AMM Sequence",
+        "title": "Constant Product Formula Mechanics (x * y = k) & Marginal Pricing — Constant Product AMM Sequence",
         "actors": [
           "Trader / LP",
           "AMM Router",
@@ -129,7 +129,7 @@
               {
                 "from": "Uniswap v2 Pair",
                 "to": "Trader / LP",
-                "label": "TokensTransferred(InvariantConserved \u2713)",
+                "label": "TokensTransferred(InvariantConserved ✓)",
                 "tone": "ok"
               }
             ]
@@ -142,7 +142,7 @@
       "codeHash": "fe625bf52dc14c9b234682613e8a3ce66a0a59d75b00e16c55555e36bee2e607",
       "spec": {
         "template": "sequence",
-        "title": "Swap Execution Mathematics, Exact Input vs Exact Output & Fee Accounting \u2014 Constant Product AMM Sequence",
+        "title": "Swap Execution Mathematics, Exact Input vs Exact Output & Fee Accounting — Constant Product AMM Sequence",
         "actors": [
           "Trader / LP",
           "AMM Router",
@@ -152,7 +152,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Trader calls AMM Router for Swap Execution Mathematics, Exac",
+            "caption": "Trader calls AMM Router for Swap Execution Mathematics, Exac.",
             "activeActor": "Trader / LP",
             "messages": [
               {
@@ -165,7 +165,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Router transfers tokens to Pair; Pair calculates amountOut via constant product formula",
+            "caption": "Router transfers tokens to Pair; Pair calculates amountOut via constant.",
             "activeActor": "AMM Router",
             "messages": [
               {
@@ -178,7 +178,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Protocol fee shares accrued asynchronously via sqrt(k) growth tracking",
+            "caption": "Protocol fee shares accrued asynchronously via sqrt(k) growth tracking.",
             "activeActor": "Uniswap v2 Pair",
             "messages": [
               {
@@ -191,13 +191,13 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Swap finalized; output tokens transferred to recipient with monotonic K expansion",
+            "caption": "Swap finalized; output tokens transferred to recipient with monotonic K.",
             "activeActor": "Uniswap v2 Pair",
             "messages": [
               {
                 "from": "Uniswap v2 Pair",
                 "to": "Trader / LP",
-                "label": "TokensTransferred(InvariantConserved \u2713)",
+                "label": "TokensTransferred(InvariantConserved ✓)",
                 "tone": "ok"
               }
             ]
@@ -206,7 +206,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Swap Execution Mathematics, Exact Input vs Exact Output & Fee Accounting \u2014 Constant Product AMM Sequence",
+        "title": "Swap Execution Mathematics, Exact Input vs Exact Output & Fee Accounting — Constant Product AMM Sequence",
         "actors": [
           "Trader / LP",
           "AMM Router",
@@ -261,7 +261,7 @@
               {
                 "from": "Uniswap v2 Pair",
                 "to": "Trader / LP",
-                "label": "TokensTransferred(InvariantConserved \u2713)",
+                "label": "TokensTransferred(InvariantConserved ✓)",
                 "tone": "ok"
               }
             ]
@@ -274,7 +274,7 @@
       "codeHash": "7a3298590c58db8528b93ab459ae70a183ba269f0c06a24cea716f5d935a02ff",
       "spec": {
         "template": "sequence",
-        "title": "The k Invariant Growth & Protocol Fee Split Architecture \u2014 Constant Product AMM Sequence",
+        "title": "The k Invariant Growth & Protocol Fee Split Architecture — Constant Product AMM Sequence",
         "actors": [
           "Trader / LP",
           "AMM Router",
@@ -284,7 +284,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Trader calls AMM Router for The k Invariant Growth & Protoco",
+            "caption": "Trader calls AMM Router for The k Invariant Growth & Protoco.",
             "activeActor": "Trader / LP",
             "messages": [
               {
@@ -297,7 +297,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Router transfers tokens to Pair; Pair calculates amountOut via constant product formula",
+            "caption": "Router transfers tokens to Pair; Pair calculates amountOut via constant.",
             "activeActor": "AMM Router",
             "messages": [
               {
@@ -310,7 +310,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Protocol fee shares accrued asynchronously via sqrt(k) growth tracking",
+            "caption": "Protocol fee shares accrued asynchronously via sqrt(k) growth tracking.",
             "activeActor": "Uniswap v2 Pair",
             "messages": [
               {
@@ -323,13 +323,13 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Swap finalized; output tokens transferred to recipient with monotonic K expansion",
+            "caption": "Swap finalized; output tokens transferred to recipient with monotonic K.",
             "activeActor": "Uniswap v2 Pair",
             "messages": [
               {
                 "from": "Uniswap v2 Pair",
                 "to": "Trader / LP",
-                "label": "TokensTransferred(InvariantConserved \u2713)",
+                "label": "TokensTransferred(InvariantConserved ✓)",
                 "tone": "ok"
               }
             ]
@@ -338,7 +338,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "The k Invariant Growth & Protocol Fee Split Architecture \u2014 Constant Product AMM Sequence",
+        "title": "The k Invariant Growth & Protocol Fee Split Architecture — Constant Product AMM Sequence",
         "actors": [
           "Trader / LP",
           "AMM Router",
@@ -393,7 +393,7 @@
               {
                 "from": "Uniswap v2 Pair",
                 "to": "Trader / LP",
-                "label": "TokensTransferred(InvariantConserved \u2713)",
+                "label": "TokensTransferred(InvariantConserved ✓)",
                 "tone": "ok"
               }
             ]
@@ -406,7 +406,7 @@
       "codeHash": "1d2a6664491e41916cfa7f1993d1808a3fc2558a10b0a6d4754e4354084fca75",
       "spec": {
         "template": "sequence",
-        "title": "Liquidity Minting, Burning & LP Share Tokenomics \u2014 Constant Product AMM Sequence",
+        "title": "Liquidity Minting, Burning & LP Share Tokenomics — Constant Product AMM Sequence",
         "actors": [
           "Trader / LP",
           "AMM Router",
@@ -416,7 +416,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Trader calls AMM Router for Liquidity Minting, Burning & LP ",
+            "caption": "Trader calls AMM Router for Liquidity Minting, Burning & LP.",
             "activeActor": "Trader / LP",
             "messages": [
               {
@@ -429,7 +429,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Router transfers tokens to Pair; Pair calculates amountOut via constant product formula",
+            "caption": "Router transfers tokens to Pair; Pair calculates amountOut via constant.",
             "activeActor": "AMM Router",
             "messages": [
               {
@@ -442,7 +442,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Protocol fee shares accrued asynchronously via sqrt(k) growth tracking",
+            "caption": "Protocol fee shares accrued asynchronously via sqrt(k) growth tracking.",
             "activeActor": "Uniswap v2 Pair",
             "messages": [
               {
@@ -455,13 +455,13 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Swap finalized; output tokens transferred to recipient with monotonic K expansion",
+            "caption": "Swap finalized; output tokens transferred to recipient with monotonic K.",
             "activeActor": "Uniswap v2 Pair",
             "messages": [
               {
                 "from": "Uniswap v2 Pair",
                 "to": "Trader / LP",
-                "label": "TokensTransferred(InvariantConserved \u2713)",
+                "label": "TokensTransferred(InvariantConserved ✓)",
                 "tone": "ok"
               }
             ]
@@ -470,7 +470,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Liquidity Minting, Burning & LP Share Tokenomics \u2014 Constant Product AMM Sequence",
+        "title": "Liquidity Minting, Burning & LP Share Tokenomics — Constant Product AMM Sequence",
         "actors": [
           "Trader / LP",
           "AMM Router",
@@ -525,7 +525,7 @@
               {
                 "from": "Uniswap v2 Pair",
                 "to": "Trader / LP",
-                "label": "TokensTransferred(InvariantConserved \u2713)",
+                "label": "TokensTransferred(InvariantConserved ✓)",
                 "tone": "ok"
               }
             ]
@@ -538,7 +538,7 @@
       "codeHash": "35bd0bc2ba58632c496088fb98cf5ebe8b680a166ff3f5112b92a0d872b64fb9",
       "spec": {
         "template": "sequence",
-        "title": "Master AMM Core Engine & Arbitrage Equilibrium Simulator \u2014 Constant Product AMM Sequence",
+        "title": "Master AMM Core Engine & Arbitrage Equilibrium Simulator — Constant Product AMM Sequence",
         "actors": [
           "Trader / LP",
           "AMM Router",
@@ -548,7 +548,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Trader calls AMM Router for Master AMM Core Engine & Arbitra",
+            "caption": "Trader calls AMM Router for Master AMM Core Engine & Arbitra.",
             "activeActor": "Trader / LP",
             "messages": [
               {
@@ -561,7 +561,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Router transfers tokens to Pair; Pair calculates amountOut via constant product formula",
+            "caption": "Router transfers tokens to Pair; Pair calculates amountOut via constant.",
             "activeActor": "AMM Router",
             "messages": [
               {
@@ -574,7 +574,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Protocol fee shares accrued asynchronously via sqrt(k) growth tracking",
+            "caption": "Protocol fee shares accrued asynchronously via sqrt(k) growth tracking.",
             "activeActor": "Uniswap v2 Pair",
             "messages": [
               {
@@ -587,13 +587,13 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Swap finalized; output tokens transferred to recipient with monotonic K expansion",
+            "caption": "Swap finalized; output tokens transferred to recipient with monotonic K.",
             "activeActor": "Uniswap v2 Pair",
             "messages": [
               {
                 "from": "Uniswap v2 Pair",
                 "to": "Trader / LP",
-                "label": "TokensTransferred(InvariantConserved \u2713)",
+                "label": "TokensTransferred(InvariantConserved ✓)",
                 "tone": "ok"
               }
             ]
@@ -602,7 +602,7 @@
       },
       "filled": {
         "template": "sequence",
-        "title": "Master AMM Core Engine & Arbitrage Equilibrium Simulator \u2014 Constant Product AMM Sequence",
+        "title": "Master AMM Core Engine & Arbitrage Equilibrium Simulator — Constant Product AMM Sequence",
         "actors": [
           "Trader / LP",
           "AMM Router",
@@ -657,7 +657,7 @@
               {
                 "from": "Uniswap v2 Pair",
                 "to": "Trader / LP",
-                "label": "TokensTransferred(InvariantConserved \u2713)",
+                "label": "TokensTransferred(InvariantConserved ✓)",
                 "tone": "ok"
               }
             ]

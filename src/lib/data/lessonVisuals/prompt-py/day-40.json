@@ -6,7 +6,7 @@
   "entries": [
     {
       "partTitle": "ApexStructuredGrammar Architecture: Converging Grammars, Tool Pools, Compression & Routing",
-      "codeHash": "d3cd8f25e3d9394cf5c98a7f9602b904a75b9c330dd9eea8931fb5b6c4f44d86",
+      "codeHash": "480032898460de01a26a034a7821d5e9e6a3aa165779a46b8b9261a2fcf67ea1",
       "spec": {
         "template": "table",
         "title": "ApexStructuredGrammar Unified Architecture And System Pipeline Synthesis.",
@@ -160,7 +160,7 @@
     },
     {
       "partTitle": "Grammatical Parsing & Line-Rate Logit Masking: Zero-Syntax-Error Schema Enforcement",
-      "codeHash": "d3cd8f25e3d9394cf5c98a7f9602b904a75b9c330dd9eea8931fb5b6c4f44d86",
+      "codeHash": "480032898460de01a26a034a7821d5e9e6a3aa165779a46b8b9261a2fcf67ea1",
       "spec": {
         "template": "table",
         "title": "Line Rate Grammatical Parsing And Finite State Automaton Logit Masking.",
@@ -314,7 +314,7 @@
     },
     {
       "partTitle": "Asynchronous Parallel Tool Orchestration: High-Concurrency Workers & Resilient Handlers",
-      "codeHash": "d3cd8f25e3d9394cf5c98a7f9602b904a75b9c330dd9eea8931fb5b6c4f44d86",
+      "codeHash": "480032898460de01a26a034a7821d5e9e6a3aa165779a46b8b9261a2fcf67ea1",
       "spec": {
         "template": "table",
         "title": "Asynchronous Parallel Multi Tool Dispatch And Concurrency Resilience.",
@@ -468,7 +468,7 @@
     },
     {
       "partTitle": "Perplexity-Aware Compression & Dynamic Dispatch: KV-Cache Economics & Tiered Serving",
-      "codeHash": "d3cd8f25e3d9394cf5c98a7f9602b904a75b9c330dd9eea8931fb5b6c4f44d86",
+      "codeHash": "480032898460de01a26a034a7821d5e9e6a3aa165779a46b8b9261a2fcf67ea1",
       "spec": {
         "template": "table",
         "title": "Perplexity Aware Context Compression And Dynamic Tiered Model Dispatch.",
@@ -622,7 +622,7 @@
     },
     {
       "partTitle": "Enterprise Capstone Integration: End-to-End Validation, Telemetry & Production Deployment",
-      "codeHash": "d3cd8f25e3d9394cf5c98a7f9602b904a75b9c330dd9eea8931fb5b6c4f44d86",
+      "codeHash": "480032898460de01a26a034a7821d5e9e6a3aa165779a46b8b9261a2fcf67ea1",
       "spec": {
         "template": "table",
         "title": "Enterprise Capstone Benchmark Certification And Production Deployment.",

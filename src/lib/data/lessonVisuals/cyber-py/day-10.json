@@ -1,0 +1,751 @@
+{
+  "schemaVersion": 1,
+  "prefix": "cyber-py",
+  "day": 10,
+  "promptSha": "915f91acf62ba5c18b5be6f2bb500431d43a7bda7a4ae0bcbc95a28fb2ec0646",
+  "model": "gpt-4o",
+  "entries": [
+    {
+      "partTitle": "Why multiple factors",
+      "codeHash": "802809133a8a0d0b1d1e266ee1fa51e231ac82773fa2b9ca3391b0de826009cd",
+      "spec": {
+        "template": "table",
+        "title": "Authentication factor classification principles and security strengths",
+        "columns": [
+          "Factor Family",
+          "Factor Category",
+          "Representative Mechanism",
+          "Inherent Security Strength"
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "The three classic authentication factors encompass knowledge and possession.",
+            "activeRowIndex": 0,
+            "statusBadge": "active",
+            "rows": [
+              {
+                "cells": [
+                  "Something You Know",
+                  "Knowledge",
+                  "Passwords and Passphrases",
+                  "Low (Phishable, Vulnerable to Dumps)"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Something You Have",
+                  "Possession",
+                  "Hardware FIDO Keys and TOTP Apps",
+                  "High (Cryptographically Sound)"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Something You Are",
+                  "Inherence",
+                  "Fingerprint and Face Biometrics",
+                  "Medium (Non-Revocable Credentials)"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Time-based one-time passwords provide robust possession factors offline.",
+            "activeRowIndex": 1,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "Something You Know",
+                  "Knowledge",
+                  "Passwords and Passphrases",
+                  "Low (Phishable, Vulnerable to Dumps)"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Something You Have",
+                  "Possession",
+                  "Hardware FIDO Keys and TOTP Apps",
+                  "High (Cryptographically Sound)"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Something You Are",
+                  "Inherence",
+                  "Fingerprint and Face Biometrics",
+                  "Medium (Non-Revocable Credentials)"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Authentication factor classification principles and security strengths",
+        "columns": [
+          "Factor Family",
+          "Factor Category",
+          "Representative Mechanism",
+          "Inherent Security Strength"
+        ],
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "The three classic authentication factors encompass knowledge and possession.",
+            "activeRowIndex": 0,
+            "statusBadge": "active",
+            "rows": [
+              {
+                "cells": [
+                  "Something You Know",
+                  "Knowledge",
+                  "Passwords and Passphrases",
+                  "Low (Phishable, Vulnerable to Dumps)"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Something You Have",
+                  "Possession",
+                  "Hardware FIDO Keys and TOTP Apps",
+                  "High (Cryptographically Sound)"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Something You Are",
+                  "Inherence",
+                  "Fingerprint and Face Biometrics",
+                  "Medium (Non-Revocable Credentials)"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say8",
+            "caption": "Time-based one-time passwords provide robust possession factors offline.",
+            "activeRowIndex": 1,
+            "statusBadge": "completed",
+            "rows": [
+              {
+                "cells": [
+                  "Something You Know",
+                  "Knowledge",
+                  "Passwords and Passphrases",
+                  "Low (Phishable, Vulnerable to Dumps)"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Something You Have",
+                  "Possession",
+                  "Hardware FIDO Keys and TOTP Apps",
+                  "High (Cryptographically Sound)"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Something You Are",
+                  "Inherence",
+                  "Fingerprint and Face Biometrics",
+                  "Medium (Non-Revocable Credentials)"
+                ],
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "How TOTP works",
+      "codeHash": "53f45e207a768d080dbc0eb01656f8fceb12001c5b0be05f64eb9ec0702d55e3",
+      "spec": {
+        "template": "states",
+        "title": "HMAC-based one-time password counter state progression and desynchronization",
+        "states": [
+          {
+            "id": "counterIncremented",
+            "label": "Token Button Increments Moving Counter"
+          },
+          {
+            "id": "hmacDerived",
+            "label": "HMAC-SHA1 Computed Over Shared Secret"
+          },
+          {
+            "id": "codeGenerated",
+            "label": "Truncated Decimal Passcode Displayed"
+          },
+          {
+            "id": "driftDetected",
+            "label": "Look-Ahead Window Resynchronizes Drift"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "The authenticator increments the counter when a user requests a new passcode.",
+            "activeStateId": "counterIncremented",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say8",
+            "caption": "Counter desynchronization occurs when users press token buttons repeatedly.",
+            "activeStateId": "driftDetected",
+            "statusBadge": "failed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "HMAC-based one-time password counter state progression and desynchronization",
+        "states": [
+          {
+            "id": "counterIncremented",
+            "label": "Token Button Increments Moving Counter"
+          },
+          {
+            "id": "hmacDerived",
+            "label": "HMAC-SHA1 Computed Over Shared Secret"
+          },
+          {
+            "id": "codeGenerated",
+            "label": "Truncated Decimal Passcode Displayed"
+          },
+          {
+            "id": "driftDetected",
+            "label": "Look-Ahead Window Resynchronizes Drift"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "The authenticator increments the counter when a user requests a new passcode.",
+            "activeStateId": "counterIncremented",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say8",
+            "caption": "Counter desynchronization occurs when users press token buttons repeatedly.",
+            "activeStateId": "driftDetected",
+            "statusBadge": "failed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Implementing TOTP",
+      "codeHash": "0d5d533166c80a0d7c6b7bcc32518f8c927b0b2e881f4241e2aa3dbb22b15cde",
+      "spec": {
+        "template": "compare",
+        "title": "Counter-based HOTP statefulness versus time-based TOTP epoch discretization",
+        "left": {
+          "title": "Stateful HOTP Counter",
+          "items": [
+            "Requires maintaining counter state on token and server",
+            "Vulnerable to button press desynchronization drift",
+            "Requires look-ahead resynchronization search loops"
+          ]
+        },
+        "right": {
+          "title": "Stateless TOTP Time-Step",
+          "items": [
+            "Counter derived directly from physical Unix epoch time",
+            "Discrete thirty-second intervals synchronized via NTP",
+            "Operates completely offline without database state"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "The algorithm discretizes continuous time into discrete time steps.",
+            "highlightSide": "right",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say8",
+            "caption": "Authenticator apps require zero internet access to generate valid codes.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Stateful HOTP Counter",
+        "rightLabel": "Stateless TOTP Time-Step"
+      },
+      "filled": {
+        "template": "compare",
+        "title": "Counter-based HOTP statefulness versus time-based TOTP epoch discretization",
+        "left": {
+          "title": "Stateful HOTP Counter",
+          "items": [
+            "Requires maintaining counter state on token and server",
+            "Vulnerable to button press desynchronization drift",
+            "Requires look-ahead resynchronization search loops"
+          ]
+        },
+        "right": {
+          "title": "Stateless TOTP Time-Step",
+          "items": [
+            "Counter derived directly from physical Unix epoch time",
+            "Discrete thirty-second intervals synchronized via NTP",
+            "Operates completely offline without database state"
+          ]
+        },
+        "steps": [
+          {
+            "at": "say3",
+            "caption": "The algorithm discretizes continuous time into discrete time steps.",
+            "highlightSide": "right",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say8",
+            "caption": "Authenticator apps require zero internet access to generate valid codes.",
+            "highlightSide": "right",
+            "statusBadge": "completed"
+          }
+        ],
+        "leftLabel": "Stateful HOTP Counter",
+        "rightLabel": "Stateless TOTP Time-Step"
+      }
+    },
+    {
+      "partTitle": "Clock drift and verification",
+      "codeHash": "ec1b8a798291dd6260a87dc972bb68228c64ed2de2ecd2024ad661546a53d987",
+      "spec": {
+        "template": "sequence",
+        "title": "RFC dynamic truncation hash byte extraction and passcode generation",
+        "actors": [
+          {
+            "id": "hmacEngine",
+            "label": "HMAC Generator"
+          },
+          {
+            "id": "offsetExtractor",
+            "label": "Nibble Offset Extractor"
+          },
+          {
+            "id": "codeFormatter",
+            "label": "Decimal Passcode Formatter"
+          }
+        ],
+        "messages": [
+          {
+            "from": "hmacEngine",
+            "to": "offsetExtractor",
+            "label": "Inspect Low-Order Bits of Final Hash Byte",
+            "tone": "data"
+          },
+          {
+            "from": "offsetExtractor",
+            "to": "offsetExtractor",
+            "label": "Extract Four Consecutive Bytes at Offset",
+            "tone": "ok"
+          },
+          {
+            "from": "offsetExtractor",
+            "to": "codeFormatter",
+            "label": "Mask Most Significant Bit for Unsigned Integer",
+            "tone": "ok"
+          },
+          {
+            "from": "codeFormatter",
+            "to": "hmacEngine",
+            "label": "Modulo Ten to Sixth Produces Padded Six-Digit Code",
+            "tone": "ok"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "Inspect low order bits of the last byte to determine offset values.",
+            "activeMessageIndex": 0,
+            "statusBadge": "active"
+          },
+          {
+            "at": "say7",
+            "caption": "Modulo integer operations yield concise numeric verification codes.",
+            "activeMessageIndex": 3,
+            "statusBadge": "completed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "sequence",
+        "title": "RFC dynamic truncation hash byte extraction and passcode generation",
+        "actors": [
+          {
+            "id": "hmacEngine",
+            "label": "HMAC Generator"
+          },
+          {
+            "id": "offsetExtractor",
+            "label": "Nibble Offset Extractor"
+          },
+          {
+            "id": "codeFormatter",
+            "label": "Decimal Passcode Formatter"
+          }
+        ],
+        "messages": [
+          {
+            "from": "hmacEngine",
+            "to": "offsetExtractor",
+            "label": "Inspect Low-Order Bits of Final Hash Byte",
+            "tone": "data"
+          },
+          {
+            "from": "offsetExtractor",
+            "to": "offsetExtractor",
+            "label": "Extract Four Consecutive Bytes at Offset",
+            "tone": "ok"
+          },
+          {
+            "from": "offsetExtractor",
+            "to": "codeFormatter",
+            "label": "Mask Most Significant Bit for Unsigned Integer",
+            "tone": "ok"
+          },
+          {
+            "from": "codeFormatter",
+            "to": "hmacEngine",
+            "label": "Modulo Ten to Sixth Produces Padded Six-Digit Code",
+            "tone": "ok"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say4",
+            "caption": "Inspect low order bits of the last byte to determine offset values.",
+            "activeMessageIndex": 0,
+            "statusBadge": "active"
+          },
+          {
+            "at": "say7",
+            "caption": "Modulo integer operations yield concise numeric verification codes.",
+            "activeMessageIndex": 3,
+            "statusBadge": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "MFA fatigue, phishing and recovery",
+      "codeHash": "8cd7d87c9e2f317df4a8a2b54f72dcc7781e9a2e6a94a2c567edd175630d1b8b",
+      "spec": {
+        "template": "states",
+        "title": "TOTP transmission drift window intervals and replay prevention states",
+        "states": [
+          {
+            "id": "driftEvaluated",
+            "label": "Transmission Envelope Checks Window"
+          },
+          {
+            "id": "matchFound",
+            "label": "Matching Interval Authenticates User"
+          },
+          {
+            "id": "replayCached",
+            "label": "Used Passcode Recorded in Replay Store"
+          },
+          {
+            "id": "replayBlocked",
+            "label": "Duplicate Code in Same Window Blocked"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say6",
+            "caption": "The server checks consecutive time intervals across drift windows.",
+            "activeStateId": "driftEvaluated",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say8",
+            "caption": "The server records used codes in cache to reject replay duplicates.",
+            "activeStateId": "replayBlocked",
+            "statusBadge": "failed"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "TOTP transmission drift window intervals and replay prevention states",
+        "states": [
+          {
+            "id": "driftEvaluated",
+            "label": "Transmission Envelope Checks Window"
+          },
+          {
+            "id": "matchFound",
+            "label": "Matching Interval Authenticates User"
+          },
+          {
+            "id": "replayCached",
+            "label": "Used Passcode Recorded in Replay Store"
+          },
+          {
+            "id": "replayBlocked",
+            "label": "Duplicate Code in Same Window Blocked"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say6",
+            "caption": "The server checks consecutive time intervals across drift windows.",
+            "activeStateId": "driftEvaluated",
+            "statusBadge": "active"
+          },
+          {
+            "at": "say8",
+            "caption": "The server records used codes in cache to reject replay duplicates.",
+            "activeStateId": "replayBlocked",
+            "statusBadge": "failed"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Practice time: generate and verify codes",
+      "codeHash": "ee6cedeef2f2b29bba98e3bee4ddb8e779029e8b1b9725dc85f60ee8a6890282",
+      "spec": {
+        "template": "flow",
+        "title": "Engineering an Enterprise TOTP Two-Factor Aut... — Execution Pipeline",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "1. Input & State",
+            "tappable": true
+          },
+          {
+            "id": "proc",
+            "label": "2. Engineering an Ente...",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "3. Verified Output",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Initialize input state for Engineering an Enterprise TOTP Two-Facto.",
+            "values": {
+              "in": "Day 10 Input",
+              "proc": "Standby",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "data",
+              "proc": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Execute core transformation in Engineering an Ente... [Dten.Psix.Stwo].",
+            "values": {
+              "in": "Validated",
+              "proc": "Processing...",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Inspect concrete example output and invariants [Dten.Psix.object-storage].",
+            "values": {
+              "in": "Validated",
+              "proc": "Invariant OK",
+              "out": "Emitting"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "End-to-end execution verified for Engineering an Enterprise TOTP Tw.",
+            "values": {
+              "in": "Committed",
+              "proc": "Verified",
+              "out": "Complete ✓"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "flow",
+        "title": "Engineering an Enterprise TOTP Two-Factor Aut... — Execution Pipeline",
+        "nodes": [
+          {
+            "id": "in",
+            "label": "1. Input & State",
+            "tappable": true
+          },
+          {
+            "id": "proc",
+            "label": "2. Engineering an Ente...",
+            "tappable": true
+          },
+          {
+            "id": "out",
+            "label": "3. Verified Output",
+            "tappable": true
+          }
+        ],
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Step 1: Initialize input state for Engineering an Enterprise TOTP Two-Facto.. [D10.P6.S1].",
+            "values": {
+              "in": "Day 10 Input",
+              "proc": "Standby",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "data",
+              "proc": "idle",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ]
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Step 2: Execute core transformation in Engineering an Ente... [D10.P6.S2].",
+            "values": {
+              "in": "Validated",
+              "proc": "Processing...",
+              "out": "Pending"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "data",
+              "out": "idle"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Step 3: Inspect concrete example output and invariants [D10.P6.S3].",
+            "values": {
+              "in": "Validated",
+              "proc": "Invariant OK",
+              "out": "Emitting"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "data"
+            },
+            "arrows": [
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Step 4: End-to-end execution verified for Engineering an Enterprise TOTP Tw.. [D10.P6.S4].",
+            "values": {
+              "in": "Committed",
+              "proc": "Verified",
+              "out": "Complete ✓"
+            },
+            "tones": {
+              "in": "ok",
+              "proc": "ok",
+              "out": "ok"
+            },
+            "arrows": [
+              [
+                "in",
+                "proc"
+              ],
+              [
+                "proc",
+                "out"
+              ]
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

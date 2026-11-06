@@ -57,7 +57,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "synthesizeOrderEngineTopology validates all 5 core platform subsystems.",
+            "caption": "SynthesizeOrderEngineTopology validates all five core platform subsystems.",
             "values": {
               "db": {
                 "status": "Checking"
@@ -93,7 +93,7 @@
           },
           {
             "at": "say5",
-            "caption": "Debezium CDC tails WAL stream, publishing events to Kafka in under 3 milliseconds.",
+            "caption": "Debezium CDC tails WAL stream, publishing events to Kafka in under three.",
             "values": {
               "db": {
                 "status": "Online"
@@ -181,7 +181,7 @@
           },
           {
             "at": "say3",
-            "caption": "Aggregate root orderId hashes deterministically across 8 Kafka partitions.",
+            "caption": "Aggregate root orderId hashes deterministically across eight Kafka.",
             "values": {
               "b1": {
                 "text": "3 records"
@@ -292,7 +292,7 @@
           },
           {
             "at": "say3",
-            "caption": "Message with duplicate key key_001 is intercepted by deduplication store.",
+            "caption": "Message with duplicate key key_ is intercepted by deduplication store.",
             "values": {
               "new_msg": {
                 "active": false
@@ -322,7 +322,7 @@
           },
           {
             "at": "say7",
-            "caption": "New keys key_002 and key_003 execute mutations and store keys atomically.",
+            "caption": "New keys key_ and key_ execute mutations and store keys atomically.",
             "values": {
               "new_msg": {
                 "active": true
@@ -408,7 +408,7 @@
           },
           {
             "at": "say3",
-            "caption": "Malformed record m3 triggers fatal corruption and bypasses further retries.",
+            "caption": "Malformed record mthree triggers fatal corruption and bypasses further.",
             "values": {
               "ingress": {
                 "status": "Active"
@@ -426,7 +426,7 @@
           },
           {
             "at": "say5",
-            "caption": "Message m2 exceeding max retry threshold diverts immediately to DLQ.",
+            "caption": "Message mtwo exceeding max retry threshold diverts immediately to DLQ.",
             "values": {
               "ingress": {
                 "status": "Active"
@@ -444,7 +444,7 @@
           },
           {
             "at": "say7",
-            "caption": "Healthy message m1 continues processing unimpeded without partition stalls.",
+            "caption": "Healthy message mone continues processing unimpeded without partition.",
             "values": {
               "ingress": {
                 "status": "Complete"
@@ -506,7 +506,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "verifyMilestone6SlaSuite audits all 6 critical production vectors.",
+            "caption": "VerifyMilestonesixSlaSuite audits all six critical production vectors.",
             "values": {
               "outbox": {
                 "left": "<=10.0ms",
@@ -536,7 +536,7 @@
           },
           {
             "at": "say3",
-            "caption": "Outbox and Kafka latencies surpass enterprise targets by over 60%.",
+            "caption": "Outbox and Kafka latencies surpass enterprise targets by over multiple%.",
             "values": {
               "outbox": {
                 "left": "PASS",
@@ -566,7 +566,7 @@
           },
           {
             "at": "say5",
-            "caption": "Throughput reaches 25,000 msg/s with 100% deduplication accuracy.",
+            "caption": "Throughput reaches multiple,multiple msg/s with one hundred%.",
             "values": {
               "outbox": {
                 "left": "PASS",
@@ -596,7 +596,7 @@
           },
           {
             "at": "say7",
-            "caption": "Platform satisfies all 6 SLAs and earns Grade A+ Production Certification.",
+            "caption": "Platform satisfies all six SLAs and earns Grade A+ Production.",
             "values": {
               "outbox": {
                 "left": "CERTIFIED",

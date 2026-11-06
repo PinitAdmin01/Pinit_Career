@@ -20,7 +20,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialization of architectural payload for Architectural Matrix: Monolith...",
+            "caption": "Initialization of architectural payload for Architectural Matrix.",
             "activeActor": "Principal Web3 Architect",
             "messages": [
               {
@@ -33,7 +33,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Constraint validation, delta accounting, or risk parameter evaluation",
+            "caption": "Constraint validation, delta accounting, or risk parameter evaluation.",
             "activeActor": "Monolithic L1 (Ethereum)",
             "messages": [
               {
@@ -46,7 +46,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of hook callback, isolation ceiling, or ZK pairing precompile",
+            "caption": "Verification of hook callback, isolation ceiling, or ZK pairing precompile.",
             "activeActor": "Modular Rollup (Arbitrum)",
             "messages": [
               {
@@ -59,7 +59,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Transaction settled and finalized; institutional invariant sealed",
+            "caption": "Transaction settled and finalized; institutional invariant sealed.",
             "activeActor": "Monolithic L1 (Ethereum)",
             "messages": [
               {
@@ -152,7 +152,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialization of architectural payload for Cross-Chain Liquidity Fragment...",
+            "caption": "Initialization of architectural payload for Cross-Chain Liquidity.",
             "activeActor": "Principal Web3 Architect",
             "messages": [
               {
@@ -165,7 +165,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Constraint validation, delta accounting, or risk parameter evaluation",
+            "caption": "Constraint validation, delta accounting, or risk parameter evaluation.",
             "activeActor": "Monolithic L1 (Ethereum)",
             "messages": [
               {
@@ -178,7 +178,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of hook callback, isolation ceiling, or ZK pairing precompile",
+            "caption": "Verification of hook callback, isolation ceiling, or ZK pairing precompile.",
             "activeActor": "Modular Rollup (Arbitrum)",
             "messages": [
               {
@@ -191,7 +191,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Transaction settled and finalized; institutional invariant sealed",
+            "caption": "Transaction settled and finalized; institutional invariant sealed.",
             "activeActor": "Monolithic L1 (Ethereum)",
             "messages": [
               {
@@ -284,7 +284,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialization of architectural payload for Alternative Data Availability ...",
+            "caption": "Initialization of architectural payload for Alternative Data Availability.",
             "activeActor": "Principal Web3 Architect",
             "messages": [
               {
@@ -297,7 +297,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Constraint validation, delta accounting, or risk parameter evaluation",
+            "caption": "Constraint validation, delta accounting, or risk parameter evaluation.",
             "activeActor": "Monolithic L1 (Ethereum)",
             "messages": [
               {
@@ -310,7 +310,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of hook callback, isolation ceiling, or ZK pairing precompile",
+            "caption": "Verification of hook callback, isolation ceiling, or ZK pairing precompile.",
             "activeActor": "Modular Rollup (Arbitrum)",
             "messages": [
               {
@@ -323,7 +323,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Transaction settled and finalized; institutional invariant sealed",
+            "caption": "Transaction settled and finalized; institutional invariant sealed.",
             "activeActor": "Monolithic L1 (Ethereum)",
             "messages": [
               {
@@ -416,7 +416,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialization of architectural payload for Principal Web3 Architect RFC S...",
+            "caption": "Initialization of architectural payload for Principal decentralized web.",
             "activeActor": "Principal Web3 Architect",
             "messages": [
               {
@@ -429,7 +429,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Constraint validation, delta accounting, or risk parameter evaluation",
+            "caption": "Constraint validation, delta accounting, or risk parameter evaluation.",
             "activeActor": "Monolithic L1 (Ethereum)",
             "messages": [
               {
@@ -442,7 +442,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of hook callback, isolation ceiling, or ZK pairing precompile",
+            "caption": "Verification of hook callback, isolation ceiling, or ZK pairing precompile.",
             "activeActor": "Modular Rollup (Arbitrum)",
             "messages": [
               {
@@ -455,7 +455,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Transaction settled and finalized; institutional invariant sealed",
+            "caption": "Transaction settled and finalized; institutional invariant sealed.",
             "activeActor": "Monolithic L1 (Ethereum)",
             "messages": [
               {
@@ -548,7 +548,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialization of architectural payload for Executive Architecture Review ...",
+            "caption": "Initialization of architectural payload for Executive Architecture Review.",
             "activeActor": "Principal Web3 Architect",
             "messages": [
               {
@@ -561,7 +561,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Constraint validation, delta accounting, or risk parameter evaluation",
+            "caption": "Constraint validation, delta accounting, or risk parameter evaluation.",
             "activeActor": "Monolithic L1 (Ethereum)",
             "messages": [
               {
@@ -574,7 +574,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Verification of hook callback, isolation ceiling, or ZK pairing precompile",
+            "caption": "Verification of hook callback, isolation ceiling, or ZK pairing precompile.",
             "activeActor": "Modular Rollup (Arbitrum)",
             "messages": [
               {
@@ -587,7 +587,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Transaction settled and finalized; institutional invariant sealed",
+            "caption": "Transaction settled and finalized; institutional invariant sealed.",
             "activeActor": "Monolithic L1 (Ethereum)",
             "messages": [
               {

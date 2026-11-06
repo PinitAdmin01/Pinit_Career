@@ -73,7 +73,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "Client routes keys through deterministic CRC16 slot calculation.",
+            "caption": "Client routes keys through deterministic CRCsixteen slot calculation.",
             "values": {
               "client": {
                 "status": "Online"
@@ -456,7 +456,7 @@
           },
           {
             "at": "say7",
-            "caption": "Write amplification slashed by over 75%, preserving database capacity.",
+            "caption": "Write amplification slashed by over multiple%, preserving database.",
             "values": {
               "buffer": {
                 "status": "Synchronized"
@@ -606,7 +606,7 @@
           },
           {
             "at": "say7",
-            "caption": "Write-behind coalescing reduces database writes by over 60%, awarding Grade A+.",
+            "caption": "Write-behind coalescing reduces database writes by over multiple%.",
             "values": {
               "harness": {
                 "status": "Online"

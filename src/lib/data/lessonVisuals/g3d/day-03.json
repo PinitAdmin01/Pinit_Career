@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Scene Graph): Initialize state for Skeletal Mesh Animation & Dual ...",
+            "caption": "State one (Scene Graph): Initialize state for Skeletal Mesh Animation &.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -162,7 +162,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Scene Graph): Initialize state for Screen-Space Ambient Occlusion ...",
+            "caption": "State one (Scene Graph): Initialize state for Screen-Space Ambient.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -292,7 +292,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Scene Graph): Initialize state for WebGPU Compute Shaders & GPU Pa...",
+            "caption": "State one (Scene Graph): Initialize state for WebGPU Compute Shaders &.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -422,7 +422,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Scene Graph): Initialize state for High Dynamic Range (HDR) & ACES...",
+            "caption": "State one (Scene Graph): Initialize state for High Dynamic Range (HDR) &.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -552,7 +552,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Scene Graph): Initialize state for Bounding Volume Hierarchy (BVH)...",
+            "caption": "State one (Scene Graph): Initialize state for Bounding Volume Hierarchy.",
             "currentState": "st1",
             "tone": "data"
           },

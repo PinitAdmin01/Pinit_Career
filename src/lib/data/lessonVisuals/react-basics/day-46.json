@@ -110,7 +110,7 @@
           },
           {
             "at": "say4",
-            "caption": "Pre-commit validation ensures zero torn frames even under 1,000 ticks/sec.",
+            "caption": "Pre-commit validation ensures zero torn frames even under one,multiple.",
             "values": {
               "left": {
                 "items": [
@@ -392,7 +392,7 @@
           },
           {
             "at": "say4",
-            "caption": "Only the active NVDA widget updates on screen, sustaining 60 FPS performance.",
+            "caption": "Only the active NVDA widget updates on screen, sustaining multiple FPS.",
             "values": {
               "ext_store": {
                 "text": "\"Synced\""
@@ -542,7 +542,7 @@
           },
           {
             "at": "say4",
-            "caption": "Full screen renders in 1.8ms with zero torn frames across all panels.",
+            "caption": "Full screen renders in one.eightms with zero torn frames across all panels.",
             "values": {
               "desk_root": {
                 "text": "\"60 FPS Stable\""

@@ -1039,7 +1039,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Rebuilding the book from a feed [D10.P5.S1].",
+            "caption": "Initialize input state for Rebuilding the book from a feed.",
             "values": {
               "in": "Day 10 Input",
               "proc": "Standby",
@@ -1059,7 +1059,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Rebuilding the book... [D10.P5.S2].",
+            "caption": "Execute core transformation in Rebuilding the book... [Dten.Pfive.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -1083,7 +1083,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D10.P5.S3].",
+            "caption": "Inspect concrete example output and invariants [Dten.Pfive.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -1103,7 +1103,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Rebuilding the book from a feed [D10.P5.S4].",
+            "caption": "End-to-end execution verified for Rebuilding the book from a feed.",
             "values": {
               "in": "Committed",
               "proc": "Verified",
@@ -1265,7 +1265,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: decode and convert [D10.P6.S1].",
+            "caption": "Initialize input state for Practice time: decode and convert.",
             "values": {
               "in": "Day 10 Input",
               "proc": "Standby",
@@ -1285,7 +1285,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: deco... [D10.P6.S2].",
+            "caption": "Execute core transformation in Practice time: deco... [Dten.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -1309,7 +1309,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D10.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [Dten.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -1329,7 +1329,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: decode and convert [D10.P6.S4].",
+            "caption": "End-to-end execution verified for Practice time: decode and convert.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

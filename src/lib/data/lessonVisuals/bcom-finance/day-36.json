@@ -10,12 +10,12 @@
       "codeHash": "a64a91252ccc9e195d8b88da532a09b13c6a53f4813ef04e139ed3f55e0ce2ba",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Sovereign Yield Curve Anatomy: Par Yield \u2014 General Ledger Verification",
+        "title": "Sovereign Yield Curve Anatomy: Par Yield — General Ledger Verification",
         "steps": [
           {
             "at": "intro",
             "caption": "Open primary capital facility balance for Sovereign Yield Curve Anatomy:.",
-            "title": "Day 36 Ledger \u2014 Initial Facility Allocation",
+            "title": "Day 36 Ledger — Initial Facility Allocation",
             "isBalanced": true,
             "totalDebit": 136000,
             "totalCredit": 136000,
@@ -41,7 +41,7 @@
           {
             "at": "say1",
             "caption": "Record secondary interest accrual and transaction fee adjustment.",
-            "title": "Day 36 Ledger \u2014 Transaction Accrual Adjustment",
+            "title": "Day 36 Ledger — Transaction Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 163200,
             "totalCredit": 163200,
@@ -72,7 +72,7 @@
           {
             "at": "example",
             "caption": "Audit balance sheet covenant thresholds and collateral allocations.",
-            "title": "Day 36 Ledger \u2014 Credit Covenant Alignment",
+            "title": "Day 36 Ledger — Credit Covenant Alignment",
             "isBalanced": true,
             "totalDebit": 163200,
             "totalCredit": 163200,
@@ -103,7 +103,7 @@
           {
             "at": "tryIt",
             "caption": "Execute real time general ledger reconciliation and final balanced sign off.",
-            "title": "Day 36 Ledger \u2014 Balanced Sign Off",
+            "title": "Day 36 Ledger — Balanced Sign Off",
             "isBalanced": true,
             "totalDebit": 163200,
             "totalCredit": 163200,
@@ -139,12 +139,12 @@
       "codeHash": "a64a91252ccc9e195d8b88da532a09b13c6a53f4813ef04e139ed3f55e0ce2ba",
       "spec": {
         "template": "ledger-sheet",
-        "title": "The Bootstrapping Algorithm: Recursive E \u2014 General Ledger Verification",
+        "title": "The Bootstrapping Algorithm: Recursive E — General Ledger Verification",
         "steps": [
           {
             "at": "intro",
             "caption": "Open primary capital facility balance for The Bootstrapping Algorithm: R.",
-            "title": "Day 36 Ledger \u2014 Initial Facility Allocation",
+            "title": "Day 36 Ledger — Initial Facility Allocation",
             "isBalanced": true,
             "totalDebit": 136250,
             "totalCredit": 136250,
@@ -170,7 +170,7 @@
           {
             "at": "say1",
             "caption": "Record secondary interest accrual and transaction fee adjustment.",
-            "title": "Day 36 Ledger \u2014 Transaction Accrual Adjustment",
+            "title": "Day 36 Ledger — Transaction Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 163500,
             "totalCredit": 163500,
@@ -201,7 +201,7 @@
           {
             "at": "example",
             "caption": "Audit balance sheet covenant thresholds and collateral allocations.",
-            "title": "Day 36 Ledger \u2014 Credit Covenant Alignment",
+            "title": "Day 36 Ledger — Credit Covenant Alignment",
             "isBalanced": true,
             "totalDebit": 163500,
             "totalCredit": 163500,
@@ -232,7 +232,7 @@
           {
             "at": "tryIt",
             "caption": "Execute real time general ledger reconciliation and final balanced sign off.",
-            "title": "Day 36 Ledger \u2014 Balanced Sign Off",
+            "title": "Day 36 Ledger — Balanced Sign Off",
             "isBalanced": true,
             "totalDebit": 163500,
             "totalCredit": 163500,
@@ -268,12 +268,12 @@
       "codeHash": "a64a91252ccc9e195d8b88da532a09b13c6a53f4813ef04e139ed3f55e0ce2ba",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Forward Rate Matrices, Term Premium Dyna \u2014 General Ledger Verification",
+        "title": "Forward Rate Matrices, Term Premium Dyna — General Ledger Verification",
         "steps": [
           {
             "at": "intro",
             "caption": "Open primary capital facility balance for Forward Rate Matrices, Term Pr.",
-            "title": "Day 36 Ledger \u2014 Initial Facility Allocation",
+            "title": "Day 36 Ledger — Initial Facility Allocation",
             "isBalanced": true,
             "totalDebit": 136500,
             "totalCredit": 136500,
@@ -299,7 +299,7 @@
           {
             "at": "say1",
             "caption": "Record secondary interest accrual and transaction fee adjustment.",
-            "title": "Day 36 Ledger \u2014 Transaction Accrual Adjustment",
+            "title": "Day 36 Ledger — Transaction Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 163800,
             "totalCredit": 163800,
@@ -330,7 +330,7 @@
           {
             "at": "example",
             "caption": "Audit balance sheet covenant thresholds and collateral allocations.",
-            "title": "Day 36 Ledger \u2014 Credit Covenant Alignment",
+            "title": "Day 36 Ledger — Credit Covenant Alignment",
             "isBalanced": true,
             "totalDebit": 163800,
             "totalCredit": 163800,
@@ -361,7 +361,7 @@
           {
             "at": "tryIt",
             "caption": "Execute real time general ledger reconciliation and final balanced sign off.",
-            "title": "Day 36 Ledger \u2014 Balanced Sign Off",
+            "title": "Day 36 Ledger — Balanced Sign Off",
             "isBalanced": true,
             "totalDebit": 163800,
             "totalCredit": 163800,
@@ -397,12 +397,12 @@
       "codeHash": "a64a91252ccc9e195d8b88da532a09b13c6a53f4813ef04e139ed3f55e0ce2ba",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Duration & Convexity Analytics: Macaulay \u2014 General Ledger Verification",
+        "title": "Duration & Convexity Analytics: Macaulay — General Ledger Verification",
         "steps": [
           {
             "at": "intro",
             "caption": "Open primary capital facility balance for Duration & Convexity Analytics.",
-            "title": "Day 36 Ledger \u2014 Initial Facility Allocation",
+            "title": "Day 36 Ledger — Initial Facility Allocation",
             "isBalanced": true,
             "totalDebit": 136750,
             "totalCredit": 136750,
@@ -428,7 +428,7 @@
           {
             "at": "say1",
             "caption": "Record secondary interest accrual and transaction fee adjustment.",
-            "title": "Day 36 Ledger \u2014 Transaction Accrual Adjustment",
+            "title": "Day 36 Ledger — Transaction Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 164100,
             "totalCredit": 164100,
@@ -459,7 +459,7 @@
           {
             "at": "example",
             "caption": "Audit balance sheet covenant thresholds and collateral allocations.",
-            "title": "Day 36 Ledger \u2014 Credit Covenant Alignment",
+            "title": "Day 36 Ledger — Credit Covenant Alignment",
             "isBalanced": true,
             "totalDebit": 164100,
             "totalCredit": 164100,
@@ -490,7 +490,7 @@
           {
             "at": "tryIt",
             "caption": "Execute real time general ledger reconciliation and final balanced sign off.",
-            "title": "Day 36 Ledger \u2014 Balanced Sign Off",
+            "title": "Day 36 Ledger — Balanced Sign Off",
             "isBalanced": true,
             "totalDebit": 164100,
             "totalCredit": 164100,
@@ -526,12 +526,12 @@
       "codeHash": "a64a91252ccc9e195d8b88da532a09b13c6a53f4813ef04e139ed3f55e0ce2ba",
       "spec": {
         "template": "ledger-sheet",
-        "title": "DV01 Sensitivity, Portfolio Immunization \u2014 General Ledger Verification",
+        "title": "DV01 Sensitivity, Portfolio Immunization — General Ledger Verification",
         "steps": [
           {
             "at": "intro",
-            "caption": "Open primary capital facility balance for DV01 Sensitivity, Portfolio Im.",
-            "title": "Day 36 Ledger \u2014 Initial Facility Allocation",
+            "caption": "Open primary capital facility balance for DV Sensitivity, Portfolio Im.",
+            "title": "Day 36 Ledger — Initial Facility Allocation",
             "isBalanced": true,
             "totalDebit": 137000,
             "totalCredit": 137000,
@@ -557,7 +557,7 @@
           {
             "at": "say1",
             "caption": "Record secondary interest accrual and transaction fee adjustment.",
-            "title": "Day 36 Ledger \u2014 Transaction Accrual Adjustment",
+            "title": "Day 36 Ledger — Transaction Accrual Adjustment",
             "isBalanced": true,
             "totalDebit": 164400,
             "totalCredit": 164400,
@@ -588,7 +588,7 @@
           {
             "at": "example",
             "caption": "Audit balance sheet covenant thresholds and collateral allocations.",
-            "title": "Day 36 Ledger \u2014 Credit Covenant Alignment",
+            "title": "Day 36 Ledger — Credit Covenant Alignment",
             "isBalanced": true,
             "totalDebit": 164400,
             "totalCredit": 164400,
@@ -619,7 +619,7 @@
           {
             "at": "tryIt",
             "caption": "Execute real time general ledger reconciliation and final balanced sign off.",
-            "title": "Day 36 Ledger \u2014 Balanced Sign Off",
+            "title": "Day 36 Ledger — Balanced Sign Off",
             "isBalanced": true,
             "totalDebit": 164400,
             "totalCredit": 164400,

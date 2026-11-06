@@ -21,7 +21,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize cloud device shadow engine: Register physical thing SMART_HVAC_PUMP_04.",
+            "caption": "Initialize cloud device shadow engine: Register physical thing.",
             "registerName": "SHADOW_DELTA_SYNC_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -89,7 +89,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Ingest initial reported state: Latch pump_speed_rpm 1200 and valve_open False at Version 1.",
+            "caption": "Ingest initial reported state: Latch pump_speed_rpm multiple and.",
             "registerName": "SHADOW_DELTA_SYNC_REG",
             "bitWidth": 8,
             "hexValue": "0xE7",
@@ -157,7 +157,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Cloud operator updates desired state: Advance to Version 2 and compute discrepancy.",
+            "caption": "Cloud operator updates desired state: Advance to Version two and compute.",
             "registerName": "SHADOW_DELTA_SYNC_REG",
             "bitWidth": 8,
             "hexValue": "0xEF",
@@ -225,7 +225,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Publish delta document to $aws/things/SMART_HVAC_PUMP_04/shadow/update/delta.",
+            "caption": "Publish delta document to $aws/things/SMART_HVAC_PUMP_/shadow/update/delta.",
             "registerName": "SHADOW_DELTA_SYNC_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -371,7 +371,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Parse delta target setpoints: Accelerate pump drive to 1800 RPM and energize valve relay.",
+            "caption": "Parse delta target setpoints: Accelerate pump drive to multiple RPM and.",
             "registerName": "TWIN_RECONCILE_REG",
             "bitWidth": 8,
             "hexValue": "0xDC",
@@ -585,7 +585,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Enable optimistic concurrency control: Track active document Version 10 in cloud registry.",
+            "caption": "Enable optimistic concurrency control: Track active document Version ten.",
             "registerName": "SHADOW_LOCK_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -653,7 +653,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Evaluate stale client update (expecting Version 9): Flag version mismatch and reject with HTTP 409.",
+            "caption": "Evaluate stale client update (expecting Version nine): Flag version.",
             "registerName": "SHADOW_LOCK_REG",
             "bitWidth": 8,
             "hexValue": "0xB9",
@@ -721,7 +721,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Evaluate valid client update (expecting Version 10): Accept mutation and atomically advance to Version 11.",
+            "caption": "Evaluate valid client update (expecting Version ten): Accept mutation and.",
             "registerName": "SHADOW_LOCK_REG",
             "bitWidth": 8,
             "hexValue": "0xEF",
@@ -935,7 +935,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Ingest desired properties patch ($version=2): Reconfigure telemetry sampling interval to 10 seconds.",
+            "caption": "Ingest desired properties patch ($version=two): Reconfigure telemetry.",
             "registerName": "AZURE_TWIN_PATCH_REG",
             "bitWidth": 8,
             "hexValue": "0xDF",
@@ -1003,7 +1003,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Acknowledge patch via reported properties: Set last_applied_desired_version to 2.",
+            "caption": "Acknowledge patch via reported properties: Set.",
             "registerName": "AZURE_TWIN_PATCH_REG",
             "bitWidth": 8,
             "hexValue": "0xEF",
@@ -1217,7 +1217,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Execute cloud directive: Accelerate spindle from 1500 to 3200 RPM and advance twin to Version 3.",
+            "caption": "Execute cloud directive: Accelerate spindle from multiple to multiple RPM.",
             "registerName": "TWIN_MASTER_ENGINE_REG",
             "bitWidth": 8,
             "hexValue": "0xDF",
@@ -1353,7 +1353,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Verify 100% digital twin synchronization and latch CLOUD_DEVICE_SHADOW_ENGINE_GRADE_A_PLUS_CERTIFIED.",
+            "caption": "Verify one hundred% digital twin synchronization and latch.",
             "registerName": "TWIN_MASTER_ENGINE_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

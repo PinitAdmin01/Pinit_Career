@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register PRIMARY_ADV_REG for Primary Advertising Channels, Ad.",
+            "caption": "Arm hardware register PRIMARY_ADV_REG for Primary Advertising Channels, Ad.",
             "registerName": "PRIMARY_ADV_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into PRIMARY_ADV_REG and assert validation flag.",
+            "caption": "Latch sampling bits into PRIMARY_ADV_REG and assert validation flag.",
             "registerName": "PRIMARY_ADV_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in PRIMARY_ADV_REG with pipeline status.",
+            "caption": "Execute hardware transformation in PRIMARY_ADV_REG with pipeline status.",
             "registerName": "PRIMARY_ADV_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register PRIMARY_ADV_REG upon verified hardware completion.",
+            "caption": "Lock register PRIMARY_ADV_REG upon verified hardware completion.",
             "registerName": "PRIMARY_ADV_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -266,7 +266,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register AD_STRUCT_REG for Legacy Advertising Payload Anato.",
+            "caption": "Arm hardware register AD_STRUCT_REG for Legacy Advertising Payload Anato.",
             "registerName": "AD_STRUCT_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -326,7 +326,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into AD_STRUCT_REG and assert validation flag.",
+            "caption": "Latch sampling bits into AD_STRUCT_REG and assert validation flag.",
             "registerName": "AD_STRUCT_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -387,7 +387,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in AD_STRUCT_REG with pipeline status.",
+            "caption": "Execute hardware transformation in AD_STRUCT_REG with pipeline status.",
             "registerName": "AD_STRUCT_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -448,7 +448,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register AD_STRUCT_REG upon verified hardware completion.",
+            "caption": "Lock register AD_STRUCT_REG upon verified hardware completion.",
             "registerName": "AD_STRUCT_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -518,7 +518,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register ACTIVE_SCAN_REG for Active Scanning, SCAN_REQ and SC.",
+            "caption": "Arm hardware register ACTIVE_SCAN_REG for Active Scanning, SCAN_REQ and SC.",
             "registerName": "ACTIVE_SCAN_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -578,7 +578,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into ACTIVE_SCAN_REG and assert validation flag.",
+            "caption": "Latch sampling bits into ACTIVE_SCAN_REG and assert validation flag.",
             "registerName": "ACTIVE_SCAN_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -639,7 +639,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in ACTIVE_SCAN_REG with pipeline status.",
+            "caption": "Execute hardware transformation in ACTIVE_SCAN_REG with pipeline status.",
             "registerName": "ACTIVE_SCAN_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -700,7 +700,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register ACTIVE_SCAN_REG upon verified hardware completion.",
+            "caption": "Lock register ACTIVE_SCAN_REG upon verified hardware completion.",
             "registerName": "ACTIVE_SCAN_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -770,7 +770,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register EXT_ADV_PTR_REG for Bluetooth 5.0 Extended Advertisi.",
+            "caption": "Arm hardware register EXT_ADV_PTR_REG for Bluetooth five.zero Extended.",
             "registerName": "EXT_ADV_PTR_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -830,7 +830,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into EXT_ADV_PTR_REG and assert validation flag.",
+            "caption": "Latch sampling bits into EXT_ADV_PTR_REG and assert validation flag.",
             "registerName": "EXT_ADV_PTR_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -891,7 +891,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in EXT_ADV_PTR_REG with pipeline status.",
+            "caption": "Execute hardware transformation in EXT_ADV_PTR_REG with pipeline status.",
             "registerName": "EXT_ADV_PTR_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -952,7 +952,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register EXT_ADV_PTR_REG upon verified hardware completion.",
+            "caption": "Lock register EXT_ADV_PTR_REG upon verified hardware completion.",
             "registerName": "EXT_ADV_PTR_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -1022,7 +1022,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register ADV_PARSER_REG for Full BLE Advertising & Extended .",
+            "caption": "Arm hardware register ADV_PARSER_REG for Full BLE Advertising & Extended .",
             "registerName": "ADV_PARSER_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1082,7 +1082,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into ADV_PARSER_REG and assert validation flag.",
+            "caption": "Latch sampling bits into ADV_PARSER_REG and assert validation flag.",
             "registerName": "ADV_PARSER_REG",
             "bitWidth": 8,
             "hexValue": "0xC4",
@@ -1143,7 +1143,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware transformation in ADV_PARSER_REG with pipeline status.",
+            "caption": "Execute hardware transformation in ADV_PARSER_REG with pipeline status.",
             "registerName": "ADV_PARSER_REG",
             "bitWidth": 8,
             "hexValue": "0xFA",
@@ -1204,7 +1204,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Lock register ADV_PARSER_REG upon verified hardware completion.",
+            "caption": "Lock register ADV_PARSER_REG upon verified hardware completion.",
             "registerName": "ADV_PARSER_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

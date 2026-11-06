@@ -10,7 +10,7 @@
       "codeHash": "d0914931b7f04c855b69a676fe5d1078a3e92b0d3d1edfe55bba65457eae4e2e",
       "spec": {
         "template": "states",
-        "title": "Telemetry & Chaos Engineering Architecture Blueprint \u2014 Quant Systems State Engine",
+        "title": "Telemetry & Chaos Engineering Architecture Blueprint — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Telemetry & Chaos Engineering Architecture Blueprint.",
+            "caption": "State one (Init State): Initialize deterministic state for Telemetry &.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -60,7 +60,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -77,7 +77,7 @@
       "codeHash": "43a81a505867b751e7996084258883b253c18fec398cf70f7c5b3d1a1af9ba1b",
       "spec": {
         "template": "states",
-        "title": "Cascading Socket Block & Single-Thread Stall Forensics \u2014 Quant Systems State Engine",
+        "title": "Cascading Socket Block & Single-Thread Stall Forensics — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -99,7 +99,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Cascading Socket Block & Single-Thread Stall Forensics.",
+            "caption": "State one (Init State): Initialize deterministic state for Cascading.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -127,7 +127,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -144,7 +144,7 @@
       "codeHash": "7f7be8c13d799e1937e53ff20a4ee94d95ff007898b7108eaed0c8aa9d717ce5",
       "spec": {
         "template": "states",
-        "title": "Milestone 10 Engine: Telemetry & Chaos Platform \u2014 Quant Systems State Engine",
+        "title": "Milestone 10 Engine: Telemetry & Chaos Platform — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -166,7 +166,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Milestone 10 Engine.",
+            "caption": "State one (Init State): Initialize deterministic state for Milestone ten.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -194,7 +194,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -211,7 +211,7 @@
       "codeHash": "ccf9a161420bcc1f41ae88c7ff980378a9b01c2d9c5e77d5637cf4053ac1a596",
       "spec": {
         "template": "states",
-        "title": "10,000-Event Live Chaos Stress & Resilience Lab \u2014 Quant Systems State Engine",
+        "title": "10,000-Event Live Chaos Stress & Resilience Lab — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -233,7 +233,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for 10,000-Event Live Chaos Stress & Resilience Lab.",
+            "caption": "State one (Init State): Initialize deterministic state for.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -261,7 +261,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -278,7 +278,7 @@
       "codeHash": "745ab5aeddc5ab7b0042267ba11aa07882dbab85bfacdd0af6723a80f28fe25a",
       "spec": {
         "template": "states",
-        "title": "Grand Master Infrastructure & Chaos Defense Audit \u2014 Quant Systems State Engine",
+        "title": "Grand Master Infrastructure & Chaos Defense Audit — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -300,7 +300,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Grand Master Infrastructure & Chaos Defense Audit.",
+            "caption": "State one (Init State): Initialize deterministic state for Grand Master.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -328,7 +328,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",

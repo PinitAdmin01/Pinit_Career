@@ -4,14 +4,14 @@ import { CourseQuest } from './coursesData';
 export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
   {
     "day": 1,
-    "title": "Quantitative Engineering & Electronic Trading Foundations",
+    "title": "Low-Latency Architecture, Cache Locality & High-Frequency C++ Matching Fundamentals",
     "desc": "Master market microstructure: Continuous Double Auctions (CDA), maker vs taker economics, order types (Market, Limit, Stop, Pegged, Iceberg), and NBBO (National Best Bid and Offer).",
     "syllabus": [
       "Market Microstructure: Lit markets vs Dark pools, electronic communication networks (ECNs), and maker-taker fee rebates.",
       "Order Types & TIF: Limit, Market, IOC (Immediate or Cancel), FOK (Fill or Kill), and GTC (Good 'Til Canceled).",
       "NBBO Spread & Liquidity: Bid-Ask Spread ($S = P_{\\text{ask}} - P_{\\text{bid}}$) and Midpoint ($P_{\\text{mid}} = (P_{\\text{bid}} + P_{\\text{ask}}) / 2$)."
     ],
-    "eTitle": "NBBO Spread & Midpoint Calculator",
+    "eTitle": "NBBO Spread & Midpoint Calculator (Low-Latency Architecture, Cache Locality & High-Frequency C++ Matching Fundamentals)",
     "eDesc": "Implement function `calculateNbboSpread(bestBid, bestAsk, tickSize = 0.01)` calculating dollar spread, spread in ticks, midpoint, and spread percentage.",
     "eStarter": "function calculateNbboSpread(bid, ask, tick = 0.01) {\n  // TODO: Compute spread = ask - bid, midpoint = (bid + ask) / 2, spreadTicks = round(spread / tick), and spreadBasisPoints\n  \n}",
     "eHint": "Compute spread = Number((ask - bid).toFixed(4)); midpoint = Number(((bid + ask) / 2).toFixed(4)); spreadTicks = Math.round(spread / tick); spreadBps = Number(((spread / midpoint) * 10000).toFixed(2)); return { bestBid: bid, bestAsk: ask, spreadDollars: spread, spreadTicks, midpoint, spreadBasisPoints: spreadBps, status: spread > 0 ? 'MARKET_TWO_SIDED_VALID' : 'CROSSED_OR_LOCKED_MARKET_ERROR' }.",
@@ -24,7 +24,7 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 2,
-    "title": "Limit Order Book (LOB) Architecture",
+    "title": "Kernel Bypass Networking, SIMD Vectorization, Microstructure Signals & FIX Protocol",
     "desc": "Build high-performance Limit Order Books: Bid/Ask Red-Black trees, FIFO Price-Time Priority queues, depth levels ($L_1..L_N$), and O(1) order lookup hash tables.",
     "syllabus": [
       "LOB Dual-Side Structure: Bids sorted descending (Highest price first), Asks sorted ascending (Lowest price first).",
@@ -44,7 +44,7 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 3,
-    "title": "Order Book Matching Engine Implementation",
+    "title": "Limit Order Book Dynamics, Avellaneda-Stoikov Market Making, OTR Throttling & Hardware Timestamping",
     "desc": "Implement a deterministic matching engine in JavaScript/TypeScript: Crossing the spread, partial fills, full fills, order cancellation, and generating trade execution reports.",
     "syllabus": [
       "Continuous Matching Algorithm: Invariant $P_{\\text{bid}} \\ge P_{\\text{ask}}$ triggers automatic trade execution.",
@@ -64,7 +64,7 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 4,
-    "title": "Algorithmic Execution: VWAP & TWAP Strategies",
+    "title": "Kernel Bypass Networking, FPGA Hardware Offload & Lock-Free SPSC Ring Buffers",
     "desc": "Design institutional execution algorithms minimizing market impact: Volume-Weighted Average Price ($VWAP = \\frac{\\sum P_i \\cdot V_i}{\\sum V_i}$), Time-Weighted Average Price ($TWAP = \\frac{1}{N} \\sum P_i$), and U-shaped intraday volume curves.",
     "syllabus": [
       "Intraday Volume Profiles: U-shaped curve with heavy volume at market open (9:30 AM) and market close (4:00 PM).",
@@ -76,7 +76,7 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function calculateVwapSchedule(totalSize, bins) {\n  // TODO: Distribute totalSize across bins proportional to bin.volumePercentage, returning child order quantities\n  \n}",
     "eHint": "Compute totalPct = bins.reduce((s, b) => s + b.volumePct, 0); map each bin to Math.round(totalOrderSize * (b.volumePct / totalPct)); adjust last bin for rounding remainder; return child orders array.",
     "eTest": "const bins = [{ interval: '09:30', volumePct: 40 }, { interval: '10:00', volumePct: 20 }, { interval: '10:30', volumePct: 40 }];\nconst schedule = calculateVwapSchedule(1000, bins);\nif (schedule[0].childOrderQty !== 400 || schedule[1].childOrderQty !== 200 || schedule[2].childOrderQty !== 400) throw new Error('VWAP child order allocation failed');\nconst totalScheduled = schedule.reduce((s, c) => s + c.childOrderQty, 0);\nif (totalScheduled !== 1000) throw new Error('Total scheduled volume must equal parent order size');\nconst emptySchedule = calculateVwapSchedule(0, bins);\nif (emptySchedule[0].childOrderQty !== 0) throw new Error('Zero parent order check failed');",
-    "aTitle": "TWAP Uniform Slice Interval Calculator",
+    "aTitle": "TWAP Uniform Slice Interval Calculator (Kernel Bypass Networking, FPGA Hardware Offload & Lock-Free SPSC Ring Buffers)",
     "aDesc": "Implement function `calculateTwapSchedule(parentOrderQuantity, executionDurationMinutes, sliceIntervalMinutes)` computing slice size and count. Return { sliceCount, quantityPerSlice }.",
     "aStarter": "function calculateTwapSchedule(qty, duration, interval) {\n  // TODO: Compute sliceCount = floor(duration / interval) and qtyPerSlice = round(qty / sliceCount)\n  \n}",
     "aHint": "sliceCount = Math.floor(executionDurationMinutes / sliceIntervalMinutes); qtyPerSlice = Math.round(parentOrderQuantity / sliceCount); return { sliceCount, quantityPerSlice: qtyPerSlice };",
@@ -84,7 +84,7 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 5,
-    "title": "⭐ MILESTONE 1: Complete Limit Order Book & Matching Engine Kernel",
+    "title": "Multi-Exchange Smart Order Routing (SOR), Cross-Venue Arbitrage & Real-Time Risk Management",
     "desc": "Milestone 1: Build a high-throughput Limit Order Book and deterministic matching engine kernel supporting Limit/Market orders, FIFO price-time priority, partial executions, and VWAP benchmark calculations.",
     "syllabus": [
       "Limit Order Book Data Structures & Performance Profiling.",
@@ -104,7 +104,7 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 6,
-    "title": "Market Impact & Slippage Models: Almgren-Chriss Framework",
+    "title": "Market Data Feeds: ITCH / OUCH Binary Protocols, MoldUDP64, Packet Reassembly & Zero-Copy Deserialization",
     "desc": "Model price impact of trading: The Almgren-Chriss framework for optimal execution (Temporary price impact $\\eta(v)$ vs Permanent price impact $\\gamma(v)$), Price Slippage, and Quadratic Risk-Aversion penalties.",
     "syllabus": [
       "Permanent Impact: Shift in fundamental mid-price resulting from information leakage ($I_{\\text{perm}} = \\gamma \\cdot V$).",
@@ -116,7 +116,7 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function calculateAlmgrenChrissCost(size, rate, gamma, eta) {\n  // TODO: permCost = 0.5 * gamma * size^2; tempCost = eta * (rate^2) * duration; return total expected impact cost\n  \n}",
     "eHint": "permCost = 0.5 * permanentGamma * (tradeSize * tradeSize); tempCost = temporaryEta * tradeSize * executionRate; total = permCost + tempCost; return { permanentImpactCost: Number(permCost.toFixed(2)), temporaryImpactCost: Number(tempCost.toFixed(2)), totalExpectedCost: Number(total.toFixed(2)) }.",
     "eTest": "const cost = calculateAlmgrenChrissCost(1000, 100, 0.0001, 0.0005); // Perm = 0.5*0.0001*1M = 50; Temp = 0.0005*1000*100 = 50 -> Total = 100.00\nif (cost.permanentImpactCost !== 50.00 || cost.temporaryImpactCost !== 50.00 || cost.totalExpectedCost !== 100.00) throw new Error('Almgren-Chriss cost calculation failed');\nconst zeroTrade = calculateAlmgrenChrissCost(0, 0, 0.0001, 0.0005);\nif (zeroTrade.totalExpectedCost !== 0.00) throw new Error('Zero trade cost check failed');\nif (typeof cost.totalExpectedCost !== 'number') throw new Error('Return type check failed');",
-    "aTitle": "Realized Slippage Basis Points Calculator",
+    "aTitle": "Realized Slippage Basis Points Calculator (Market Data Feeds)",
     "aDesc": "Implement function `calculateRealizedSlippageBps(decisionPrice, executionPrice, orderSide)` computing execution slippage in basis points. Round to 2 decimal places.",
     "aStarter": "function calculateRealizedSlippageBps(decisionP, execP, side) {\n  // TODO: For BUY: (execP - decisionP) / decisionP * 10000; for SELL: (decisionP - execP) / decisionP * 10000\n  \n}",
     "aHint": "diff = orderSide === 'BUY' ? (executionPrice - decisionPrice) : (decisionPrice - executionPrice); bps = (diff / decisionPrice) * 10000; return Number(bps.toFixed(2));",
@@ -124,7 +124,7 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 7,
-    "title": "Order Book Imbalance (OBI) & Micro-Price Estimation",
+    "title": "Fast Limit Order Book (LOB) Architecture: O(1) Price Ladder, Intrusive Linked Lists & Doubly-Linked Queues",
     "desc": "Predict short-term price movements from order book queue dynamics: Order Book Imbalance ($OBI = \\frac{Q_{\\text{bid}} - Q_{\\text{ask}}}{Q_{\\text{bid}} + Q_{\\text{ask}}}$), Micro-Price ($P_{\\text{micro}} = \\frac{Q_{\\text{bid}} P_{\\text{ask}} + Q_{\\text{ask}} P_{\\text{bid}}}{Q_{\\text{bid}} + Q_{\\text{ask}}}$), and Stoikov price adjustments.",
     "syllabus": [
       "Order Flow Toxicity & OBI Signal: Strong positive OBI ($> +0.6$) predicting upward mid-price movement.",
@@ -144,7 +144,7 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 8,
-    "title": "High-Frequency Market Making: Avellaneda-Stoikov Model",
+    "title": "Advanced Microstructure Alpha & High-Frequency Feature Engineering",
     "desc": "Design quantitative market-making strategies: The Avellaneda-Stoikov model for optimal bid/ask quotes ($r(s, q, t) = s - q \\gamma \\sigma^2 (T - t)$), Inventory Risk Management, and Reservation Price skewing.",
     "syllabus": [
       "Inventory Risk Invariant: As net inventory $q$ grows positive (long), skew quotes downward to attract sellers and deter buyers.",
@@ -164,7 +164,7 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 9,
-    "title": "Financial Information eXchange (FIX 4.4) Protocol & FAST Compression",
+    "title": "FPGA Acceleration & Hardware Offloading: PCIe DMA, Kernel Bypass & NIC Co-Processing",
     "desc": "Master Wall Street's standard messaging protocol: FIX 4.4 tag-value encoding (`8=FIX.4.4|9=...|35=D|...|10=128|`), Checksum validation (Sum modulo 256), Session heartbeats (35=0), Logon (35=A), New Order Single (35=D), and FAST binary compression.",
     "syllabus": [
       "FIX Message Structure: Standard Header (Tag 8, 9, 35), Message Body, Standard Trailer (Tag 10 Checksum).",
@@ -184,7 +184,7 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 10,
-    "title": "NASDAQ TotalView-ITCH 5.0 & OUCH Protocols: Direct Binary Market Feeds",
+    "title": "⭐ Milestone 2 Capstone: Sub-Microsecond Multi-Asset High-Frequency Matching & Market Making Engine",
     "desc": "Parse ultra-low latency direct exchange binary feeds: NASDAQ TotalView-ITCH 5.0 binary message parsing (Add Order 'A', Order Executed 'E', Order Cancel 'X', Order Replace 'U'), big-endian network byte order, and OUCH order entry.",
     "syllabus": [
       "Binary Feeds vs FIX: ITCH 5.0 zero-copy binary struct unpacking vs FIX ASCII parsing overhead (slashing latency from 5μs to 50ns).",
@@ -204,7 +204,7 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 11,
-    "title": "Kernel Bypass Networking: Solarflare Onload & DPDK Zero-Copy",
+    "title": "Algorithmic Execution: Almgren-Chriss Optimal Execution & Market Impact Theory",
     "desc": "Eliminate Linux OS network stack latency with Kernel Bypass: Solarflare OpenOnload, Intel DPDK (Data Plane Development Kit), ring buffers in user space, zero-copy socket reads, and avoiding context switches and CPU interrupts.",
     "syllabus": [
       "Traditional Linux Network Stack Latency: Interrupts, SKB allocation, page table switches adding 2-5μs of jitter.",
@@ -224,7 +224,7 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 12,
-    "title": "Lock-Free Ring Buffers: Single-Producer Single-Consumer (SPSC) Architecture",
+    "title": "Smart Order Routing (SOR) & Venue Microstructure: Maker-Taker Economics, Queue Position & Adverse Selection",
     "desc": "Implement ultra-fast inter-thread communication without mutex locks: Single-Producer Single-Consumer (SPSC) lock-free ring buffers, atomic memory orderings (`acquire`/`release`), cacheline padding to prevent false sharing, and power-of-2 bitwise modulo masking (`head & (N - 1)`).",
     "syllabus": [
       "The Cost of Mutex Contention: Thread descheduling and context switches wasting 1,000+ nanoseconds.",
@@ -236,7 +236,7 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function simulateSpscQueue(capacity) {\n  // TODO: Return queue object with enqueue(item) and dequeue() methods using bitwise masking (capacity - 1)\n  \n}",
     "eHint": "mask = capacity - 1; buffer = new Array(capacity); head = 0; tail = 0; enqueue(val): if ((tail - head) === capacity) return false; buffer[tail & mask] = val; tail++; return true; dequeue(): if (head === tail) return null; val = buffer[head & mask]; head++; return val.",
     "eTest": "const q = simulateSpscQueue(4); // Capacity = 4\nif (!q.enqueue(10) || !q.enqueue(20) || !q.enqueue(30) || !q.enqueue(40)) throw new Error('SPSC enqueue failed');\nif (q.enqueue(50) !== false) throw new Error('Full SPSC queue should reject enqueue');\nif (q.dequeue() !== 10 || q.dequeue() !== 20) throw new Error('FIFO order failed');\nif (!q.enqueue(50)) throw new Error('Enqueue after dequeue should succeed');\nif (q.dequeue() !== 30 || q.dequeue() !== 40 || q.dequeue() !== 50 || q.dequeue() !== null) throw new Error('Queue drain failed');",
-    "aTitle": "Power of 2 Capacity Mask Validator",
+    "aTitle": "Power of 2 Capacity Mask Validator (Smart Order Routing)",
     "aDesc": "Implement function `isPowerOfTwoCapacity(num)` verifying that ring buffer capacity is a power of 2 using bitwise `(n & (n - 1)) === 0`.",
     "aStarter": "function isPowerOfTwoCapacity(n) {\n  // TODO: Return true if n > 0 and (n & (n - 1)) === 0\n  \n}",
     "aHint": "Check n > 0 && (n & (n - 1)) === 0; return boolean.",
@@ -244,19 +244,19 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 13,
-    "title": "CPU Cacheline Alignment & False Sharing Elimination in C++",
+    "title": "Statistical Arbitrage & High-Frequency Pairs Trading: Cointegration, Kalman Filtering & Ornstein-Uhlenbeck Dynamics",
     "desc": "Master CPU memory hierarchy optimizations: 64-byte L1/L2/L3 cachelines, MESI cache coherency protocol, avoiding False Sharing with `alignas(64)` padding, and CPU cache-miss profiling with `perf`.",
     "syllabus": [
       "MESI Protocol States: Modified, Exclusive, Shared, Invalid (Cacheline ping-pong across CPU cores).",
       "False Sharing: Two independent threads modifying adjacent variables residing on the same 64-byte cacheline.",
       "Hardware Alignment: `alignas(hardware_destructive_interference_size)` in C++20 trading memory padding for throughput."
     ],
-    "eTitle": "CPU Cacheline Alignment & False Sharing Auditor",
+    "eTitle": "CPU Cacheline Alignment & False Sharing Auditor (Statistical Arbitrage & High-Frequency Pairs Trading)",
     "eDesc": "Implement function `auditStructAlignment(fieldsList)` checking if variables accessed by different threads share the same 64-byte cacheline offset. Fields with threadId 0 are padding. Return { hasFalseSharing, conflictingFields }.",
     "eStarter": "function auditStructAlignment(fields) {\n  // TODO: Compute cumulative byte offset; flag if two multi-threaded variables share the same Math.floor(offset / 64) block\n  \n}",
     "eHint": "Track currentOffset = 0; check for each field: cachelineIdx = Math.floor(currentOffset / 64); if fields with different threadId share same cachelineIdx -> record false sharing; currentOffset += field.sizeBytes; return { hasFalseSharing: boolean, conflictingFields: string[] }.",
     "eTest": "const unpadded = [\n  { name: 'producerTail', sizeBytes: 8, threadId: 1 },\n  { name: 'consumerHead', sizeBytes: 8, threadId: 2 }\n]; // Both in byte 0..16 -> Same 64B cacheline (Index 0)\nconst r1 = auditStructAlignment(unpadded);\nif (!r1.hasFalseSharing || !r1.conflictingFields.includes('consumerHead')) throw new Error('False sharing detection failed');\nconst padded = [\n  { name: 'producerTail', sizeBytes: 8, threadId: 1 },\n  { name: 'padding', sizeBytes: 56, threadId: 0 },\n  { name: 'consumerHead', sizeBytes: 8, threadId: 2 }\n]; // producerTail in Line 0, consumerHead in Line 1 (Offset 64)\nconst r2 = auditStructAlignment(padded);\nif (r2.hasFalseSharing) throw new Error('Padded struct flagged false sharing in error');\nconst emptyFields = auditStructAlignment([]);\nif (emptyFields.hasFalseSharing) throw new Error('Empty struct check failed');",
-    "aTitle": "Cacheline Padding Byte Calculator",
+    "aTitle": "Cacheline Padding Byte Calculator (Statistical Arbitrage & High-Frequency Pairs Trading)",
     "aDesc": "Implement function `calculatePaddingBytes(structSizeBytes, cachelineBytes = 64)` computing necessary padding to align struct to full cachelines.",
     "aStarter": "function calculatePaddingBytes(size, line = 64) {\n  // TODO: remainder = size % line; return remainder === 0 ? 0 : line - remainder\n  \n}",
     "aHint": "rem = structSizeBytes % cachelineBytes; return rem === 0 ? 0 : cachelineBytes - rem;",
@@ -264,7 +264,7 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 14,
-    "title": "SIMD Vectorization (AVX-512) for Pricing & Risk Kernels",
+    "title": "Dark Liquidity, Crossing Networks & Hidden Order Detection",
     "desc": "Accelerate numerical quantitative models with SIMD vectorization: Single Instruction Multiple Data (SSE, AVX-2, AVX-512), 512-bit registers processing 8 double-precision floats simultaneously, and auto-vectorization loop invariants.",
     "syllabus": [
       "Vectorization Scaling: Processing 8 x 64-bit doubles in a single CPU cycle (`_mm512_add_pd`, `_mm512_fmadd_pd`).",
@@ -276,7 +276,7 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
     "eStarter": "function vectorizedDotProduct(a, b, width = 8) {\n  // TODO: Process elements in chunks of simdWidth simulating vector registers, then compute scalar remainder\n  \n}",
     "eHint": "Loop i from 0 to N step simdWidth: sum chunks in parallel register; handle remainder i < N; return total dot product and number of SIMD vector cycles used.",
     "eTest": "const a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];\nconst b = [2, 2, 2, 2, 2, 2, 2, 2, 2, 2];\nconst res = vectorizedDotProduct(a, b, 8); // sum(a)*2 = 55*2 = 110\nif (res.dotProduct !== 110 || res.simdCycles !== 2) throw new Error('Vectorized dot product failed');\nconst emptyVec = vectorizedDotProduct([], [], 8);\nif (emptyVec.dotProduct !== 0 || emptyVec.simdCycles !== 0) throw new Error('Empty vector dot product check failed');\nif (typeof res.dotProduct !== 'number') throw new Error('Type mismatch');",
-    "aTitle": "SIMD Vector Speedup Multiplier Calculator",
+    "aTitle": "SIMD Vector Speedup Multiplier Calculator (Dark Liquidity, Crossing Networks & Hidden Order Detection)",
     "aDesc": "Implement function `calculateSimdTheoreticalSpeedup(vectorWidthElements, parallelizableFraction)` using Amdahl's Law. Round to 2 decimal places.",
     "aStarter": "function calculateSimdTheoreticalSpeedup(width, fraction) {\n  // TODO: Compute speedup = 1 / ((1 - fraction) + (fraction / width))\n  \n}",
     "aHint": "Compute 1 / ((1 - parallelizableFraction) + (parallelizableFraction / vectorWidthElements)); return Number(speedup.toFixed(2));",
@@ -284,7 +284,7 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 15,
-    "title": "⭐ MILESTONE 2: Complete Ultra-Low-Latency Order Messaging & Concurrency Engine",
+    "title": "⭐ Milestone 3 Capstone: Sub-Microsecond Multi-Venue Smart Order Router & Optimal Execution Engine",
     "desc": "Milestone 2: Build a production ultra-low-latency order gateway pipeline: Binary ITCH 5.0 packet ingestion -> Lock-Free SPSC Ring Buffer -> Cache-Aligned Matching Engine -> Low-overhead trade execution reporting.",
     "syllabus": [
       "End-to-end HFT order messaging pipeline synthesis.",
@@ -304,7 +304,7 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 16,
-    "title": "Option Pricing & Greeks: Black-Scholes-Merton (BSM) Analytical Engine",
+    "title": "Order Flow Toxicity, VPIN & Adverse Selection: Volume Clocking, Bulk Volume Classification & Flow Toxicity Shields",
     "desc": "Implement the Black-Scholes-Merton option pricing formula and Greeks: European Call and Put pricing ($C(S, K, T, r, \\sigma)$), Cumulative Normal Distribution approximation, and Greeks (Delta $\\Delta$, Gamma $\\Gamma$, Theta $\\Theta$, Vega $\\nu$, Rho $\\rho$).",
     "syllabus": [
       "BSM Partial Differential Equation & Analytical Solution for Call and Put options.",
@@ -324,7 +324,7 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 17,
-    "title": "Implied Volatility Surface: Newton-Raphson Solver",
+    "title": "Multivariate Cointegration, Vector Error Correction Models (VECM) & Multi-Asset Statistical Arbitrage",
     "desc": "Invert Black-Scholes to extract market-implied volatility: The Newton-Raphson root-finding algorithm ($\\sigma_{n+1} = \\sigma_n - \\frac{C(\\sigma_n) - C_{\\text{market}}}{\\text{Vega}(\\sigma_n)}$), Volatility Smile, and Volatility Skew surfaces.",
     "syllabus": [
       "Implied Volatility (IV) as Market Fear Gauge: Solving $f(\\sigma) = C_{\\text{BS}}(\\sigma) - C_{\\text{market}} = 0$.",
@@ -344,7 +344,7 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 18,
-    "title": "Risk Management: Parametric & Historical Value at Risk (VaR)",
+    "title": "Multidimensional Kalman Filtering & Real-Time Dynamic Beta Hedging",
     "desc": "Quantify financial portfolio downside risk: Value at Risk (VaR at 95% and 99% confidence levels: $\\text{VaR} = -(\\mu - z_{\\alpha} \\sigma) \\cdot \\text{Portfolio Value}$), Parametric (Variance-Covariance) vs Historical Simulation vs Monte Carlo VaR.",
     "syllabus": [
       "VaR Definition: Maximum expected loss over a specific time horizon $T$ at confidence level $1 - \\alpha$.",
@@ -364,7 +364,7 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 19,
-    "title": "Tail Risk & Expected Shortfall (CVaR / Conditional VaR)",
+    "title": "Tick-Level FIFO Queue Position Estimation & Cancellation Hazard Models",
     "desc": "Overcome VaR limitations with coherent risk measures: Expected Shortfall ($ES_\\alpha = E[L \\mid L > VaR_\\alpha]$), Subadditivity property of coherent risk measures ($ES(X + Y) \\le ES(X) + ES(Y)$), and Fat-tailed distributions (Student-t, Levy flights).",
     "syllabus": [
       "Why VaR Fails in Crises: VaR ignores the magnitude of tail losses beyond the percentile threshold.",
@@ -384,7 +384,7 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 20,
-    "title": "Portfolio Optimization: Modern Portfolio Theory (Markowitz Frontier)",
+    "title": "⭐ Milestone 4 Capstone: Real-Time High-Frequency Alpha Signal & Dynamic Hedging Engine",
     "desc": "Construct optimal mean-variance portfolios: Harry Markowitz Efficient Frontier (Maximizing Sharpe Ratio: $SR = \\frac{E[R_p] - R_f}{\\sigma_p}$), Covariance Matrix ($\\Sigma$), Minimum Variance Portfolio, and Capital Allocation Line (CAL).",
     "syllabus": [
       "Portfolio Expected Return & Variance: $E[R_p] = w^T \\mu$, $\\sigma_p^2 = w^T \\Sigma w$.",
@@ -404,7 +404,7 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 21,
-    "title": "⭐ MILESTONE 3: Complete Quantitative Pricing, Greeks & Risk Engine",
+    "title": "Quantitative Derivatives Pricing: Analytical Black-Scholes-Merton Model, Options Greeks & Newton-Raphson Implied Volatility Engine",
     "desc": "Milestone 3: Build an institutional quant risk management engine: Analytical Black-Scholes Greeks, Newton-Raphson IV solver, Historical Value at Risk (VaR), and Expected Shortfall (CVaR).",
     "syllabus": [
       "Quantitative Derivatives & Risk Synthesis.",
@@ -424,7 +424,7 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 22,
-    "title": "High-Frequency Alpha Signals & Statistical Arbitrage",
+    "title": "Multi-Asset Portfolio Risk: Parametric Value at Risk (VaR), Historical Simulation, Expected Shortfall (CVaR) & Extreme Value Theory",
     "desc": "Engineer statistical arbitrage strategies: Pairs Trading (Cointegration via Engle-Granger two-step method, Ornstein-Uhlenbeck mean-reversion process), Z-Score spread trading ($Z = \\frac{S_t - \\mu}{\\sigma}$), and Half-life of mean reversion ($\\tau = -\\frac{\\ln 2}{\\theta}$).",
     "syllabus": [
       "Stationarity vs Cointegration: Augmented Dickey-Fuller (ADF) test confirming mean-reverting spread.",
@@ -444,7 +444,7 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 23,
-    "title": "Smart Order Routing (SOR) & Best Execution Algorithms",
+    "title": "Extreme Tail Risk Stress Testing: Basel III / FRTB Framework, Cholesky Decomposition Monte Carlo Simulation & Cornish-Fisher Expansion",
     "desc": "Route orders across fragmented lit and dark liquidity venues: SEC Rule 611 (Order Protection Rule), Fee-sensitive routing (Maker-Taker rebates), Latency-arbitrage defense, and Venue Allocation Optimization.",
     "syllabus": [
       "Reg NMS & Fragmented Markets: Routing orders across 16 US stock exchanges (NASDAQ, NYSE, Cboe, IEX).",
@@ -464,7 +464,7 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 24,
-    "title": "Exchange Colocation & Cross-Connect Physics",
+    "title": "Exchange Colocation, Direct Market Access (DMA) & Network Hardware Physics: Secaucus NY4, Carteret, Mahwah, Fiber Optics vs Microwave Speed & Cut-Through Switching",
     "desc": "Master physical hardware low-latency realities: Equinix NY4 (Secaucus) vs Carteret (NASDAQ) vs Mahwah (NYSE), Light speed in fiber optic cable ($200{,}000\\text{ km/s}$ or $5\\text{ ns/meter}$), Direct Cross-Connects, and Cut-Through network switches.",
     "syllabus": [
       "Speed of Light in Fiber Optic Glass: Refractive index $n \\approx 1.4682 \\implies v = c / n \\approx 204{,}195\\text{ km/s}$ ($4.9\\text{ ns/meter}$).",
@@ -484,7 +484,7 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 25,
-    "title": "Microwave, Millimeter-Wave & Shortwave Radio Trading Networks",
+    "title": "⭐ Milestone 5 Capstone: Enterprise Real-Time Quantitative Risk Management, Derivatives Greeks & Extreme Stress-Testing Platform",
     "desc": "Transmit trading signals at near light speed: Microwave line-of-sight networks (Chicago CME to New Jersey NY4 in $3.97\\text{ ms}$ vs $6.5\\text{ ms}$ in fiber), Rain fade attenuation at 38 GHz, and Shortwave (HF 3-30 MHz) trans-Atlantic ionospheric bounce.",
     "syllabus": [
       "Free-Space Speed of Light: $c \\approx 299{,}792\\text{ km/s}$ in air ($n \\approx 1.0003$) vs fiber ($n \\approx 1.47$) delivering a 47% speed boost.",
@@ -504,7 +504,7 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 26,
-    "title": "Backtesting Pitfalls: Lookahead Bias & Overfitting Elimination",
+    "title": "Pre-Trade Risk Controls & Fat-Finger Circuit Breakers: SEC Rule 15c3-5, Dynamic Price Collars & Sub-Millisecond Kill Switches",
     "desc": "Build rigorous quantitative backtesting pipelines: Eliminating Lookahead Bias (Point-in-Time financial data), Survivorship Bias (Including delisted/bankrupt equities), Overfitting & Data Snooping, and Walk-Forward cross-validation.",
     "syllabus": [
       "Point-in-Time (PIT) Databases: Using data strictly available at timestamp $T$, preventing future revisions from leaking.",
@@ -524,7 +524,7 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 27,
-    "title": "Pre-Trade Risk Controls & Fat-Finger Circuit Breakers",
+    "title": "Backtesting Pitfalls, Point-in-Time Data & Overfitting Elimination: Point-in-Time Databases, Delisting Bias & Deflated Sharpe Ratio",
     "desc": "Enforce ultra-fast pre-trade risk controls (SEC Rule 15c3-5 Market Access Rule): Maximum order size limit, Maximum notional order value, Maximum price deviation from NBBO collar, and Global Kill Switch triggers.",
     "syllabus": [
       "SEC Rule 15c3-5: Mandatory broker-dealer pre-trade risk checks executed in hardware before order egress.",
@@ -544,7 +544,7 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 28,
-    "title": "Crypto Derivatives: Perpetual Futures & Funding Rate Arbitrage",
+    "title": "Crypto Derivatives: Perpetual Swaps, Funding Rate Arbitrage & Liquidation Engine Mechanics",
     "desc": "Trade cryptocurrency derivatives: Perpetual Swaps without expiry, Funding Rate mechanisms ($F = \\text{Clamp}(\\text{Premium Index}, -0.05\\%, +0.05\\%) + \\text{Interest}$), Cash-and-Carry Arbitrage, and Liquidation Engine cascading risk.",
     "syllabus": [
       "Perpetual Futures Mechanism: Using periodic 8-hour funding rate payments to tether perpetual price to spot index.",
@@ -564,7 +564,7 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 29,
-    "title": "High-Frequency Trading Infrastructure: FPGA & ASIC Offloading",
+    "title": "High-Frequency Trading Infrastructure: FPGA Acceleration & Silicon Offloading",
     "desc": "Accelerate order execution to hardware nanoseconds: Field Programmable Gate Arrays (FPGA: Xilinx Virtex UltraScale+), Verilog/VHDL hardware description, Tick-to-Trade in 50 nanoseconds, and AXI stream memory bus architecture.",
     "syllabus": [
       "Hardware Acceleration: FPGA parsing raw 10G/25G Ethernet MAC packets and generating FIX orders directly in silicon.",
@@ -584,7 +584,7 @@ export const QUANT_SYSTEMS_30_DAYS_CONFIGS: DayConfig[] = [
   },
   {
     "day": 30,
-    "title": "🏆 FINAL CAPSTONE: Ultra-Low-Latency Quantitative Trading & Market Making System",
+    "title": "🏆 Final Capstone: Sovereign Ultra-Low-Latency Quantitative Trading & Market Making System",
     "desc": "Final Capstone Synthesis: Build an end-to-end quantitative algorithmic trading system: Direct Binary ITCH 5.0 feed parser, Lock-free SPSC ring buffer, Deterministic Limit Order Book matching engine, Almgren-Chriss market impact optimizer, Avellaneda-Stoikov market making skewer, Black-Scholes Greeks, Parametric 99% VaR, Pre-trade fat-finger risk gate, and Microwave propagation routing.",
     "syllabus": [
       "Master Quantitative Trading & Execution Architecture Synthesis.",

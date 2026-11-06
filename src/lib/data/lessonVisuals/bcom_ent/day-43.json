@@ -317,7 +317,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Section 250 deductions and foreign tax credit limitations under Section 960.",
+            "caption": "Section multiple deductions and foreign tax credit limitations under.",
             "activeStageId": "stage_1",
             "stages": [
               {
@@ -468,7 +468,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Permanent establishment risks and dependent agent tax exposure under Article 5.",
+            "caption": "Permanent establishment risks and dependent agent tax exposure under.",
             "activeStageId": "stage_1",
             "stages": [
               {
@@ -724,7 +724,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Compare individual versus corporate ownership to assess Section 962 relief.",
+            "caption": "Compare individual versus corporate ownership to assess Section multiple.",
             "activeStageId": "stage_4",
             "stages": [
               {

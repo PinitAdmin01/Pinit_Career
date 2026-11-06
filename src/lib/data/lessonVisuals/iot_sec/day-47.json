@@ -14,7 +14,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register BCH_CODEC_REG for Noisy PUF Response Channels & Th.",
+            "caption": "Arm hardware register BCH_CODEC_REG for Noisy PUF Response Channels & Th.",
             "registerName": "BCH_CODEC_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -74,7 +74,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into BCH_CODEC_REG and assert validation flag.",
+            "caption": "Latch sampling bits into BCH_CODEC_REG and assert validation flag.",
             "registerName": "BCH_CODEC_REG",
             "bitWidth": 8,
             "hexValue": "0xC2",
@@ -135,7 +135,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware verification cycle and lock verified status.",
+            "caption": "Execute hardware verification cycle and lock verified status.",
             "registerName": "BCH_CODEC_REG",
             "bitWidth": 8,
             "hexValue": "0xF7",
@@ -196,7 +196,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Finalize hardware state and assert zero-residual lock.",
+            "caption": "Finalize hardware state and assert zero-residual lock.",
             "registerName": "BCH_CODEC_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -516,7 +516,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register SYNDROME_L1_REG for Code-Offset Secure Sketch: Helpe.",
+            "caption": "Arm hardware register SYNDROME_Lone_REG for Code-Offset Secure Sketch.",
             "registerName": "SYNDROME_L1_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -576,7 +576,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into SYNDROME_L1_REG and assert validation flag.",
+            "caption": "Latch sampling bits into SYNDROME_Lone_REG and assert validation flag.",
             "registerName": "SYNDROME_L1_REG",
             "bitWidth": 8,
             "hexValue": "0xC2",
@@ -637,7 +637,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware verification cycle and lock verified status.",
+            "caption": "Execute hardware verification cycle and lock verified status.",
             "registerName": "SYNDROME_L1_REG",
             "bitWidth": 8,
             "hexValue": "0xF7",
@@ -698,7 +698,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Finalize hardware state and assert zero-residual lock.",
+            "caption": "Finalize hardware state and assert zero-residual lock.",
             "registerName": "SYNDROME_L1_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -1018,7 +1018,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register CHIEN_SEARCH_REG for Linear Error-Correcting Codes: B.",
+            "caption": "Arm hardware register CHIEN_SEARCH_REG for Linear Error-Correcting Codes.",
             "registerName": "CHIEN_SEARCH_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1078,7 +1078,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into CHIEN_SEARCH_REG and assert validation flag.",
+            "caption": "Latch sampling bits into CHIEN_SEARCH_REG and assert validation flag.",
             "registerName": "CHIEN_SEARCH_REG",
             "bitWidth": 8,
             "hexValue": "0xC2",
@@ -1139,7 +1139,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware verification cycle and lock verified status.",
+            "caption": "Execute hardware verification cycle and lock verified status.",
             "registerName": "CHIEN_SEARCH_REG",
             "bitWidth": 8,
             "hexValue": "0xF7",
@@ -1200,7 +1200,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Finalize hardware state and assert zero-residual lock.",
+            "caption": "Finalize hardware state and assert zero-residual lock.",
             "registerName": "CHIEN_SEARCH_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -1520,7 +1520,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register HELPER_DATA_REG for Key Reconstruction Lifecycle: In.",
+            "caption": "Arm hardware register HELPER_DATA_REG for Key Reconstruction Lifecycle: In.",
             "registerName": "HELPER_DATA_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -1580,7 +1580,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into HELPER_DATA_REG and assert validation flag.",
+            "caption": "Latch sampling bits into HELPER_DATA_REG and assert validation flag.",
             "registerName": "HELPER_DATA_REG",
             "bitWidth": 8,
             "hexValue": "0xC2",
@@ -1641,7 +1641,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware verification cycle and lock verified status.",
+            "caption": "Execute hardware verification cycle and lock verified status.",
             "registerName": "HELPER_DATA_REG",
             "bitWidth": 8,
             "hexValue": "0xF7",
@@ -1702,7 +1702,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Finalize hardware state and assert zero-residual lock.",
+            "caption": "Finalize hardware state and assert zero-residual lock.",
             "registerName": "HELPER_DATA_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -2022,7 +2022,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Arm hardware register FUZZY_EXTR_REG for Cryptographic Hash Smoothing: HK.",
+            "caption": "Arm hardware register FUZZY_EXTR_REG for Cryptographic Hash Smoothing: HK.",
             "registerName": "FUZZY_EXTR_REG",
             "bitWidth": 8,
             "hexValue": "0x80",
@@ -2082,7 +2082,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Latch sampling bits into FUZZY_EXTR_REG and assert validation flag.",
+            "caption": "Latch sampling bits into FUZZY_EXTR_REG and assert validation flag.",
             "registerName": "FUZZY_EXTR_REG",
             "bitWidth": 8,
             "hexValue": "0xC2",
@@ -2143,7 +2143,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute hardware verification cycle and lock verified status.",
+            "caption": "Execute hardware verification cycle and lock verified status.",
             "registerName": "FUZZY_EXTR_REG",
             "bitWidth": 8,
             "hexValue": "0xF7",
@@ -2204,7 +2204,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Finalize hardware state and assert zero-residual lock.",
+            "caption": "Finalize hardware state and assert zero-residual lock.",
             "registerName": "FUZZY_EXTR_REG",
             "bitWidth": 8,
             "hexValue": "0x81",

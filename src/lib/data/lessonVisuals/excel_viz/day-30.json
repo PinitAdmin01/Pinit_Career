@@ -12,7 +12,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ledger ingestion and statutory framework for Sovereign Architecture & Master ...",
+            "caption": "Ledger ingestion and statutory framework for Sovereign Architecture &.",
             "max": 100,
             "bars": [
               {
@@ -39,7 +39,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing multi-currency translation and eliminations for Sovereign Architecture & Master ...",
+            "caption": "Processing multi-currency translation and eliminations for Sovereign.",
             "max": 100,
             "bars": [
               {
@@ -66,7 +66,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Treasury runway optimization and capital structure for Sovereign Architecture & Master ...",
+            "caption": "Treasury runway optimization and capital structure for Sovereign.",
             "max": 100,
             "bars": [
               {
@@ -93,7 +93,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Sovereign platform certification and SHA-256 seal for Sovereign Architecture & Master ...",
+            "caption": "Sovereign platform certification and SHA digest seal for Sovereign.",
             "max": 100,
             "bars": [
               {
@@ -244,7 +244,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ledger ingestion and statutory framework for Autonomous Multi-Currency Statut...",
+            "caption": "Ledger ingestion and statutory framework for Autonomous Multi-Currency.",
             "max": 100,
             "bars": [
               {
@@ -271,7 +271,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing multi-currency translation and eliminations for Autonomous Multi-Currency Statut...",
+            "caption": "Processing multi-currency translation and eliminations for Autonomous.",
             "max": 100,
             "bars": [
               {
@@ -298,7 +298,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Treasury runway optimization and capital structure for Autonomous Multi-Currency Statut...",
+            "caption": "Treasury runway optimization and capital structure for Autonomous.",
             "max": 100,
             "bars": [
               {
@@ -325,7 +325,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Sovereign platform certification and SHA-256 seal for Autonomous Multi-Currency Statut...",
+            "caption": "Sovereign platform certification and SHA digest seal for Autonomous.",
             "max": 100,
             "bars": [
               {
@@ -476,7 +476,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ledger ingestion and statutory framework for Autonomous Treasury Operations &...",
+            "caption": "Ledger ingestion and statutory framework for Autonomous Treasury.",
             "max": 100,
             "bars": [
               {
@@ -503,7 +503,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing multi-currency translation and eliminations for Autonomous Treasury Operations &...",
+            "caption": "Processing multi-currency translation and eliminations for Autonomous.",
             "max": 100,
             "bars": [
               {
@@ -530,7 +530,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Treasury runway optimization and capital structure for Autonomous Treasury Operations &...",
+            "caption": "Treasury runway optimization and capital structure for Autonomous.",
             "max": 100,
             "bars": [
               {
@@ -557,7 +557,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Sovereign platform certification and SHA-256 seal for Autonomous Treasury Operations &...",
+            "caption": "Sovereign platform certification and SHA digest seal for Autonomous.",
             "max": 100,
             "bars": [
               {
@@ -708,7 +708,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ledger ingestion and statutory framework for Dynamic Capital Structure & DCF ...",
+            "caption": "Ledger ingestion and statutory framework for Dynamic Capital Structure &.",
             "max": 100,
             "bars": [
               {
@@ -735,7 +735,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing multi-currency translation and eliminations for Dynamic Capital Structure & DCF ...",
+            "caption": "Processing multi-currency translation and eliminations for Dynamic.",
             "max": 100,
             "bars": [
               {
@@ -762,7 +762,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Treasury runway optimization and capital structure for Dynamic Capital Structure & DCF ...",
+            "caption": "Treasury runway optimization and capital structure for Dynamic Capital.",
             "max": 100,
             "bars": [
               {
@@ -789,7 +789,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Sovereign platform certification and SHA-256 seal for Dynamic Capital Structure & DCF ...",
+            "caption": "Sovereign platform certification and SHA digest seal for Dynamic Capital.",
             "max": 100,
             "bars": [
               {
@@ -940,7 +940,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Ledger ingestion and statutory framework for Grand Final Milestone 6 Capstone...",
+            "caption": "Ledger ingestion and statutory framework for Grand Final Milestone six.",
             "max": 100,
             "bars": [
               {
@@ -967,7 +967,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Processing multi-currency translation and eliminations for Grand Final Milestone 6 Capstone...",
+            "caption": "Processing multi-currency translation and eliminations for Grand Final.",
             "max": 100,
             "bars": [
               {
@@ -994,7 +994,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Treasury runway optimization and capital structure for Grand Final Milestone 6 Capstone...",
+            "caption": "Treasury runway optimization and capital structure for Grand Final.",
             "max": 100,
             "bars": [
               {
@@ -1021,7 +1021,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Sovereign platform certification and SHA-256 seal for Grand Final Milestone 6 Capstone...",
+            "caption": "Sovereign platform certification and SHA digest seal for Grand Final.",
             "max": 100,
             "bars": [
               {

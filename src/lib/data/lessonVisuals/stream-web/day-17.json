@@ -36,7 +36,7 @@
           },
           {
             "at": "say6",
-            "caption": "Tumbling windows never overlap, so t1, t2, and t3 map to separate windows.",
+            "caption": "Tumbling windows never overlap, so tone, ttwo, and tthree map to separate.",
             "items": [
               {
                 "text": "Win1 (t1:125s)"
@@ -146,7 +146,7 @@
           },
           {
             "at": "say6",
-            "caption": "Timestamp 1999 falls inside win_1000_2000, whereas 2000 starts win_2000_3000.",
+            "caption": "Timestamp multiple falls inside win__, whereas multiple starts win__.",
             "rows": [
               {
                 "cells": [
@@ -496,7 +496,7 @@
         "steps": [
           {
             "at": "say4",
-            "caption": "When the trigger fires at watermark 2000ms, accumulated state is published.",
+            "caption": "When the trigger fires at watermark ms, accumulated state is published.",
             "messages": [
               {
                 "from": "clock",
@@ -513,7 +513,7 @@
           },
           {
             "at": "say8",
-            "caption": "In event-time streaming, emission is coordinated by watermarks at 3500ms.",
+            "caption": "In event-time streaming, emission is coordinated by watermarks at ms.",
             "messages": [
               {
                 "from": "clock",
@@ -611,7 +611,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Initialize input state for Production Window Aggregator & Memory Li.. [D17.P6.S1].",
+            "caption": "Initialize input state for Production Window Aggregator & Memory Li.",
             "values": {
               "in": "Day 17 Input",
               "proc": "Standby",
@@ -631,7 +631,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Production Window A... [D17.P6.S2].",
+            "caption": "Execute core transformation in Production Window A... [D.Psix.Stwo].",
             "values": {
               "in": "Validated",
               "proc": "Processing...",
@@ -655,7 +655,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D17.P6.S3].",
+            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
             "values": {
               "in": "Validated",
               "proc": "Invariant OK",
@@ -675,7 +675,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Production Window Aggregator & Me.. [D17.P6.S4].",
+            "caption": "End-to-end execution verified for Production Window Aggregator & Me.",
             "values": {
               "in": "Committed",
               "proc": "Verified",

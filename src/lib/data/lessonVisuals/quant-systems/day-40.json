@@ -10,7 +10,7 @@
       "codeHash": "afd2efd31ce8dde8838f695a74d634cef334af51a65afb7711a781ffd63f1d22",
       "spec": {
         "template": "states",
-        "title": "Multi-Venue Arbitrage Architecture & Economic Framework \u2014 Quant Systems State Engine",
+        "title": "Multi-Venue Arbitrage Architecture & Economic Framework — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -32,7 +32,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Multi-Venue Arbitrage Architecture & Economic Framework.",
+            "caption": "State one (Init State): Initialize deterministic state for Multi-Venue.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -60,7 +60,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -77,7 +77,7 @@
       "codeHash": "e955d4702306d28a2b0fb47d60d1dbdd6cdd0f42ec2cd1b825430af63ca3ab73",
       "spec": {
         "template": "states",
-        "title": "Network Partition & Unhedged Inventory Leakage Forensics \u2014 Quant Systems State Engine",
+        "title": "Network Partition & Unhedged Inventory Leakage Forensics — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -99,7 +99,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Network Partition & Unhedged Inventory Leakage Forensics.",
+            "caption": "State one (Init State): Initialize deterministic state for Network.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -127,7 +127,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -144,7 +144,7 @@
       "codeHash": "3e90cbd0ec706e0818d4a5f753fd9c860c11a6d908f6659b0851979981ed3309",
       "spec": {
         "template": "states",
-        "title": "Milestone 7 Engine Implementation: Cross-Exchange Platform \u2014 Quant Systems State Engine",
+        "title": "Milestone 7 Engine Implementation: Cross-Exchange Platform — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -166,7 +166,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Milestone 7 Engine Implementation.",
+            "caption": "State one (Init State): Initialize deterministic state for Milestone.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -194,7 +194,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -211,7 +211,7 @@
       "codeHash": "a28792a7698f3ba45f1e081123427c7d06c4c578c255ffd7bd2f25e0ea7f6e5c",
       "spec": {
         "template": "states",
-        "title": "Milestone 7 Adversarial Venue Stress & Chaos Lab \u2014 Quant Systems State Engine",
+        "title": "Milestone 7 Adversarial Venue Stress & Chaos Lab — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -233,7 +233,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Milestone 7 Adversarial Venue Stress & Chaos Lab.",
+            "caption": "State one (Init State): Initialize deterministic state for Milestone.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -261,7 +261,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",
@@ -278,7 +278,7 @@
       "codeHash": "89da63ff8f7f2e6b9d6697cb5dffbda3ead19f9f518de4ae23ccd0238b39343b",
       "spec": {
         "template": "states",
-        "title": "Grand Master Defense Matrix: 5-Gate Institutional Accreditation \u2014 Quant Systems State Engine",
+        "title": "Grand Master Defense Matrix: 5-Gate Institutional Accreditation — Quant Systems State Engine",
         "states": [
           {
             "id": "st1",
@@ -300,7 +300,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "State 1 (Init State): Initialize deterministic state for Grand Master Defense Matrix.",
+            "caption": "State one (Init State): Initialize deterministic state for Grand Master.",
             "currentState": "st1",
             "tone": "data"
           },
@@ -328,7 +328,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "State 4 (Certified State): Production certification complete with verified terminal output.",
+            "caption": "State four (Certified State): Production certification complete with.",
             "currentState": "st4",
             "transition": {
               "from": "st3",

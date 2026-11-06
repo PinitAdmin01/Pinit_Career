@@ -89,7 +89,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Verify cloud broker Server Certificate: Validate X.509 signature chain against enterprise Root CA.",
+            "caption": "Verify cloud broker Server Certificate: Validate X.multiple signature.",
             "registerName": "MTLS_HANDSHAKE_REG",
             "bitWidth": 8,
             "hexValue": "0xDF",
@@ -157,7 +157,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Execute ECDHE ephemeral key exchange: Compute Curve25519 shared secret with Perfect Forward Secrecy.",
+            "caption": "Execute ECDHE ephemeral key exchange: Compute Curve shared secret with.",
             "registerName": "MTLS_HANDSHAKE_REG",
             "bitWidth": 8,
             "hexValue": "0xEF",
@@ -225,7 +225,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Sign handshake transcript with client private key and transition to AES-128-GCM cipher suite.",
+            "caption": "Sign handshake transcript with client private key and transition to.",
             "registerName": "MTLS_HANDSHAKE_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -303,7 +303,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Power up Microchip ATECC608A secure element: Establish 1 MHz I2C communications channel.",
+            "caption": "Power up Microchip ATECCA secure element: Establish one MHz ItwoC.",
             "registerName": "ATECC608A_SILICON_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -371,7 +371,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Verify Slot 0 configuration fuses: Confirm permanent hardware lock and read prohibition policy.",
+            "caption": "Verify Slot zero configuration fuses: Confirm permanent hardware lock and.",
             "registerName": "ATECC608A_SILICON_REG",
             "bitWidth": 8,
             "hexValue": "0xDC",
@@ -439,7 +439,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Dispatch Sign command targeting Slot 0: Feed 32-byte TLS transcript hash into internal coprocessor.",
+            "caption": "Dispatch Sign command targeting Slot zero: Feed thirty-two-byte TLS.",
             "registerName": "ATECC608A_SILICON_REG",
             "bitWidth": 8,
             "hexValue": "0xBE",
@@ -507,7 +507,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Compute P-256 scalar multiplication on silicon: Return 64-byte ECDSA signature (R, S) over I2C bus.",
+            "caption": "Compute P-two-fifty-six scalar multiplication on silicon: Return.",
             "registerName": "ATECC608A_SILICON_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -585,7 +585,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Initialize libtpm2_pkcs11 dynamic library: Connect to tpm2-abrmd resource manager daemon.",
+            "caption": "Initialize libtpmtwo_pkcseleven dynamic library: Connect to tpmtwo-abrmd.",
             "registerName": "TPM2_PKCS11_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -653,7 +653,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Resolve RFC 7512 PKCS#11 URI: Locate hardware token handle for iot_edge_device_key.",
+            "caption": "Resolve RFC multiple PKCS#eleven URI: Locate hardware token handle for.",
             "registerName": "TPM2_PKCS11_REG",
             "bitWidth": 8,
             "hexValue": "0xDF",
@@ -789,7 +789,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Delegate CertificateVerify signature to TPM 2.0 coprocessor without exposing private key to RAM.",
+            "caption": "Delegate CertificateVerify signature to TPM two.zero coprocessor without.",
             "registerName": "TPM2_PKCS11_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",
@@ -935,7 +935,7 @@
           {
             "at": "say2",
             "step": "say2",
-            "caption": "Inspect incoming device serial number 0A3F19BC45: Query status and verify active valid certificate.",
+            "caption": "Inspect incoming device serial number zeroAthreeFBC: Query status and.",
             "registerName": "X509_REVOCATION_REG",
             "bitWidth": 8,
             "hexValue": "0xB9",
@@ -1003,7 +1003,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Inspect compromised device serial number 0A3F19BC44: Detect KEY_COMPROMISE entry in revocation registry.",
+            "caption": "Inspect compromised device serial number zeroAthreeFBC: Detect.",
             "registerName": "X509_REVOCATION_REG",
             "bitWidth": 8,
             "hexValue": "0xEF",
@@ -1149,7 +1149,7 @@
           {
             "at": "say1",
             "step": "say1",
-            "caption": "Instantiate HardwareSecurityMeshEngine: Bind to TPM 2.0 PKCS#11 provider and verify slot lock.",
+            "caption": "Instantiate HardwareSecurityMeshEngine: Bind to TPM two.zero PKCS#eleven.",
             "registerName": "SEC_MASTER_ENGINE_REG",
             "bitWidth": 8,
             "hexValue": "0x81",
@@ -1285,7 +1285,7 @@
           {
             "at": "example",
             "step": "example",
-            "caption": "Authenticate genuine edge gateway: Execute hardware-delegated ECDSA mTLS 1.3 mutual handshake.",
+            "caption": "Authenticate genuine edge gateway: Execute hardware-delegated ECDSA mTLS.",
             "registerName": "SEC_MASTER_ENGINE_REG",
             "bitWidth": 8,
             "hexValue": "0xEF",
@@ -1353,7 +1353,7 @@
           {
             "at": "tryIt",
             "step": "tryIt",
-            "caption": "Verify 100% hardware-anchored zero-trust mesh and latch MTLS_HARDWARE_SECURITY_ENGINE_GRADE_A_PLUS_CERTIFIED.",
+            "caption": "Verify one hundred% hardware-anchored zero-trust mesh and latch.",
             "registerName": "SEC_MASTER_ENGINE_REG",
             "bitWidth": 8,
             "hexValue": "0xFF",

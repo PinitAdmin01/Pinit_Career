@@ -49,7 +49,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Execute fast in-memory Jest unit tests verifying pure reducer state invariants via <JestUnitTestHarness />.",
+            "caption": "Execute fast in-memory Jest unit tests verifying pure reducer state.",
             "activeId": "UnitTestEngine",
             "tone": "primary",
             "nodes": [
@@ -65,7 +65,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Verify component interactions and accessibility roles via <RntlComponentTester />.",
+            "caption": "Verify component interactions and accessibility roles via.",
             "activeId": "RntlTester",
             "tone": "accent",
             "nodes": [
@@ -81,7 +81,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Orchestrate declarative black-box E2E flows against release binaries via <MaestroE2eOrchestrator />.",
+            "caption": "Orchestrate declarative black-box EtwoE flows against release binaries.",
             "activeId": "MaestroRunner",
             "tone": "data",
             "nodes": [
@@ -97,7 +97,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Certify release candidate build through the Mobile Test Pyramid Continuous Quality Gate.",
+            "caption": "Certify release candidate build through the Mobile Test Pyramid.",
             "activeId": "root",
             "tone": "ok",
             "nodes": [
@@ -263,7 +263,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Execute fast in-memory Jest unit tests verifying pure redu.",
+            "caption": "Execute fast in-memory Jest unit tests verifying pure redu.",
             "activeId": "UnitTestEngine",
             "tone": "primary",
             "nodes": [
@@ -279,7 +279,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Verify component interactions and accessibility roles via <RntlComponentTester />.",
+            "caption": "Verify component interactions and accessibility roles via.",
             "activeId": "RntlTester",
             "tone": "accent",
             "nodes": [
@@ -295,7 +295,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Orchestrate declarative black-box E2E flows against release binaries via <MaestroE2eOrchestrator />.",
+            "caption": "Orchestrate declarative black-box EtwoE flows against release binaries.",
             "activeId": "MaestroRunner",
             "tone": "data",
             "nodes": [
@@ -311,7 +311,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Certify release candidate build through the Mobile Test Pyramid Continuous Quality Gate.",
+            "caption": "Certify release candidate build through the Mobile Test Pyramid.",
             "activeId": "root",
             "tone": "ok",
             "nodes": [
@@ -477,7 +477,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Execute fast in-memory Jest unit tests verifying pure redu.",
+            "caption": "Execute fast in-memory Jest unit tests verifying pure redu.",
             "activeId": "UnitTestEngine",
             "tone": "primary",
             "nodes": [
@@ -493,7 +493,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Verify component interactions and accessibility roles via <RntlComponentTester />.",
+            "caption": "Verify component interactions and accessibility roles via.",
             "activeId": "RntlTester",
             "tone": "accent",
             "nodes": [
@@ -509,7 +509,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Orchestrate declarative black-box E2E flows against release binaries via <MaestroE2eOrchestrator />.",
+            "caption": "Orchestrate declarative black-box EtwoE flows against release binaries.",
             "activeId": "MaestroRunner",
             "tone": "data",
             "nodes": [
@@ -525,7 +525,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Certify release candidate build through the Mobile Test Pyramid Continuous Quality Gate.",
+            "caption": "Certify release candidate build through the Mobile Test Pyramid.",
             "activeId": "root",
             "tone": "ok",
             "nodes": [
@@ -691,7 +691,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Execute fast in-memory Jest unit tests verifying pure redu.",
+            "caption": "Execute fast in-memory Jest unit tests verifying pure redu.",
             "activeId": "UnitTestEngine",
             "tone": "primary",
             "nodes": [
@@ -707,7 +707,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Verify component interactions and accessibility roles via <RntlComponentTester />.",
+            "caption": "Verify component interactions and accessibility roles via.",
             "activeId": "RntlTester",
             "tone": "accent",
             "nodes": [
@@ -723,7 +723,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Orchestrate declarative black-box E2E flows against release binaries via <MaestroE2eOrchestrator />.",
+            "caption": "Orchestrate declarative black-box EtwoE flows against release binaries.",
             "activeId": "MaestroRunner",
             "tone": "data",
             "nodes": [
@@ -739,7 +739,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Certify release candidate build through the Mobile Test Pyramid Continuous Quality Gate.",
+            "caption": "Certify release candidate build through the Mobile Test Pyramid.",
             "activeId": "root",
             "tone": "ok",
             "nodes": [
@@ -905,7 +905,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Execute fast in-memory Jest unit tests verifying pure redu.",
+            "caption": "Execute fast in-memory Jest unit tests verifying pure redu.",
             "activeId": "UnitTestEngine",
             "tone": "primary",
             "nodes": [
@@ -921,7 +921,7 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Verify component interactions and accessibility roles via <RntlComponentTester />.",
+            "caption": "Verify component interactions and accessibility roles via.",
             "activeId": "RntlTester",
             "tone": "accent",
             "nodes": [
@@ -937,7 +937,7 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Orchestrate declarative black-box E2E flows against release binaries via <MaestroE2eOrchestrator />.",
+            "caption": "Orchestrate declarative black-box EtwoE flows against release binaries.",
             "activeId": "MaestroRunner",
             "tone": "data",
             "nodes": [
@@ -953,7 +953,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Certify release candidate build through the Mobile Test Pyramid Continuous Quality Gate.",
+            "caption": "Certify release candidate build through the Mobile Test Pyramid.",
             "activeId": "root",
             "tone": "ok",
             "nodes": [

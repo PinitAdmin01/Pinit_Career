@@ -616,7 +616,7 @@
         "steps": [
           {
             "at": "say1",
-            "caption": "React encodes update priorities using 31 distinct 32-bit bitmask lanes.",
+            "caption": "React encodes update priorities using multiple distinct thirty-two-bit.",
             "values": {
               "sync": {
                 "text": "\"0b0001\""

@@ -10,12 +10,12 @@
       "codeHash": "a3a2029576cca1403817e0abdf73e39a74713532df472aedf5dae773fa695c11",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Treaty Architecture & Section 90(2) 'More Benefici \u2014 International Tax Ledger",
+        "title": "Treaty Architecture & Section 90(2) 'More Benefici — International Tax Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary international tax / TP ledger (810000) for Treaty Architecture & Section 90(2) 'Mor...",
-            "title": "Day 18 International Tax Ledger \u2014 Initial Recognition",
+            "caption": "Open primary international tax / TP ledger (multiple) for Treaty.",
+            "title": "Day 18 International Tax Ledger — Initial Recognition",
             "isBalanced": true,
             "totalDebit": 810000,
             "totalCredit": 810000,
@@ -40,8 +40,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / DTAA relief (95000) under applicable cross-border tax code.",
-            "title": "Day 18 International Tax Ledger \u2014 Statutory Adjustment",
+            "caption": "Record statutory adjustment / DTAA relief (multiple) under applicable.",
+            "title": "Day 18 International Tax Ledger — Statutory Adjustment",
             "isBalanced": true,
             "totalDebit": 905000,
             "totalCredit": 905000,
@@ -72,8 +72,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated cross-border case study for Treaty Architecture & Section 90(2) 'Mor...",
-            "title": "Day 18 International Tax Ledger \u2014 Simulation Audit",
+            "caption": "Execute simulated cross-border case study for Treaty Architecture &.",
+            "title": "Day 18 International Tax Ledger — Simulation Audit",
             "isBalanced": true,
             "totalDebit": 905000,
             "totalCredit": 905000,
@@ -103,8 +103,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and international tax compliance signoff.",
-            "title": "Day 18 International Tax Ledger \u2014 Final Settlement",
+            "caption": "Verify ledger equilibrium and international tax compliance signoff.",
+            "title": "Day 18 International Tax Ledger — Final Settlement",
             "isBalanced": true,
             "totalDebit": 905000,
             "totalCredit": 905000,
@@ -141,12 +141,12 @@
       "codeHash": "88072c88a428f30eee8d772906302b930fbd233355c061b6ae7598105051f705",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Mandatory Treaty Documentation: TRC, Form 10F & PA \u2014 International Tax Ledger",
+        "title": "Mandatory Treaty Documentation: TRC, Form 10F & PA — International Tax Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary international tax / TP ledger (820000) for Mandatory Treaty Documentation: TRC, For...",
-            "title": "Day 18 International Tax Ledger \u2014 Initial Recognition",
+            "caption": "Open primary international tax / TP ledger (multiple) for Mandatory.",
+            "title": "Day 18 International Tax Ledger — Initial Recognition",
             "isBalanced": true,
             "totalDebit": 820000,
             "totalCredit": 820000,
@@ -171,8 +171,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / DTAA relief (100000) under applicable cross-border tax code.",
-            "title": "Day 18 International Tax Ledger \u2014 Statutory Adjustment",
+            "caption": "Record statutory adjustment / DTAA relief (multiple) under applicable.",
+            "title": "Day 18 International Tax Ledger — Statutory Adjustment",
             "isBalanced": true,
             "totalDebit": 920000,
             "totalCredit": 920000,
@@ -203,8 +203,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated cross-border case study for Mandatory Treaty Documentation: TRC, For...",
-            "title": "Day 18 International Tax Ledger \u2014 Simulation Audit",
+            "caption": "Execute simulated cross-border case study for Mandatory Treaty.",
+            "title": "Day 18 International Tax Ledger — Simulation Audit",
             "isBalanced": true,
             "totalDebit": 920000,
             "totalCredit": 920000,
@@ -234,8 +234,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and international tax compliance signoff.",
-            "title": "Day 18 International Tax Ledger \u2014 Final Settlement",
+            "caption": "Verify ledger equilibrium and international tax compliance signoff.",
+            "title": "Day 18 International Tax Ledger — Final Settlement",
             "isBalanced": true,
             "totalDebit": 920000,
             "totalCredit": 920000,
@@ -272,12 +272,12 @@
       "codeHash": "4f00139184538ae066c9780c5db1300f08192c023e86f6bb8b0dbcef00ccd6d1",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Cross-Border Withholding Tax Mechanics under Secti \u2014 International Tax Ledger",
+        "title": "Cross-Border Withholding Tax Mechanics under Secti — International Tax Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary international tax / TP ledger (830000) for Cross-Border Withholding Tax Mechanics u...",
-            "title": "Day 18 International Tax Ledger \u2014 Initial Recognition",
+            "caption": "Open primary international tax / TP ledger (multiple) for Cross-Border.",
+            "title": "Day 18 International Tax Ledger — Initial Recognition",
             "isBalanced": true,
             "totalDebit": 830000,
             "totalCredit": 830000,
@@ -302,8 +302,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / DTAA relief (105000) under applicable cross-border tax code.",
-            "title": "Day 18 International Tax Ledger \u2014 Statutory Adjustment",
+            "caption": "Record statutory adjustment / DTAA relief (multiple) under applicable.",
+            "title": "Day 18 International Tax Ledger — Statutory Adjustment",
             "isBalanced": true,
             "totalDebit": 935000,
             "totalCredit": 935000,
@@ -334,8 +334,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated cross-border case study for Cross-Border Withholding Tax Mechanics u...",
-            "title": "Day 18 International Tax Ledger \u2014 Simulation Audit",
+            "caption": "Execute simulated cross-border case study for Cross-Border Withholding.",
+            "title": "Day 18 International Tax Ledger — Simulation Audit",
             "isBalanced": true,
             "totalDebit": 935000,
             "totalCredit": 935000,
@@ -365,8 +365,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and international tax compliance signoff.",
-            "title": "Day 18 International Tax Ledger \u2014 Final Settlement",
+            "caption": "Verify ledger equilibrium and international tax compliance signoff.",
+            "title": "Day 18 International Tax Ledger — Final Settlement",
             "isBalanced": true,
             "totalDebit": 935000,
             "totalCredit": 935000,
@@ -403,12 +403,12 @@
       "codeHash": "3899deec404542b12cc7b6f5394489ffb9e6ae5b10b94fbffa2a7afbe5c32c87",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Remittance Compliance Architecture: Form 15CA & Fo \u2014 International Tax Ledger",
+        "title": "Remittance Compliance Architecture: Form 15CA & Fo — International Tax Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary international tax / TP ledger (840000) for Remittance Compliance Architecture: Form...",
-            "title": "Day 18 International Tax Ledger \u2014 Initial Recognition",
+            "caption": "Open primary international tax / TP ledger (multiple) for Remittance.",
+            "title": "Day 18 International Tax Ledger — Initial Recognition",
             "isBalanced": true,
             "totalDebit": 840000,
             "totalCredit": 840000,
@@ -433,8 +433,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / DTAA relief (110000) under applicable cross-border tax code.",
-            "title": "Day 18 International Tax Ledger \u2014 Statutory Adjustment",
+            "caption": "Record statutory adjustment / DTAA relief (multiple) under applicable.",
+            "title": "Day 18 International Tax Ledger — Statutory Adjustment",
             "isBalanced": true,
             "totalDebit": 950000,
             "totalCredit": 950000,
@@ -465,8 +465,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated cross-border case study for Remittance Compliance Architecture: Form...",
-            "title": "Day 18 International Tax Ledger \u2014 Simulation Audit",
+            "caption": "Execute simulated cross-border case study for Remittance Compliance.",
+            "title": "Day 18 International Tax Ledger — Simulation Audit",
             "isBalanced": true,
             "totalDebit": 950000,
             "totalCredit": 950000,
@@ -496,8 +496,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and international tax compliance signoff.",
-            "title": "Day 18 International Tax Ledger \u2014 Final Settlement",
+            "caption": "Verify ledger equilibrium and international tax compliance signoff.",
+            "title": "Day 18 International Tax Ledger — Final Settlement",
             "isBalanced": true,
             "totalDebit": 950000,
             "totalCredit": 950000,
@@ -534,12 +534,12 @@
       "codeHash": "ed04ddfd03633055621270a2eabcb25fda1f26d1822930980c77db522b7ffcb1",
       "spec": {
         "template": "ledger-sheet",
-        "title": "Multilateral Instrument (MLI) & Principal Purpose  \u2014 International Tax Ledger",
+        "title": "Multilateral Instrument (MLI) & Principal Purpose  — International Tax Ledger",
         "steps": [
           {
             "at": "intro",
-            "caption": "Step 1: Open primary international tax / TP ledger (850000) for Multilateral Instrument (MLI) & Principa...",
-            "title": "Day 18 International Tax Ledger \u2014 Initial Recognition",
+            "caption": "Open primary international tax / TP ledger (multiple) for Multilateral.",
+            "title": "Day 18 International Tax Ledger — Initial Recognition",
             "isBalanced": true,
             "totalDebit": 850000,
             "totalCredit": 850000,
@@ -564,8 +564,8 @@
           },
           {
             "at": "say1",
-            "caption": "Step 2: Record statutory adjustment / DTAA relief (115000) under applicable cross-border tax code.",
-            "title": "Day 18 International Tax Ledger \u2014 Statutory Adjustment",
+            "caption": "Record statutory adjustment / DTAA relief (multiple) under applicable.",
+            "title": "Day 18 International Tax Ledger — Statutory Adjustment",
             "isBalanced": true,
             "totalDebit": 965000,
             "totalCredit": 965000,
@@ -596,8 +596,8 @@
           },
           {
             "at": "example",
-            "caption": "Step 3: Execute simulated cross-border case study for Multilateral Instrument (MLI) & Principa...",
-            "title": "Day 18 International Tax Ledger \u2014 Simulation Audit",
+            "caption": "Execute simulated cross-border case study for Multilateral Instrument.",
+            "title": "Day 18 International Tax Ledger — Simulation Audit",
             "isBalanced": true,
             "totalDebit": 965000,
             "totalCredit": 965000,
@@ -627,8 +627,8 @@
           },
           {
             "at": "tryIt",
-            "caption": "Step 4: Verify ledger equilibrium and international tax compliance signoff.",
-            "title": "Day 18 International Tax Ledger \u2014 Final Settlement",
+            "caption": "Verify ledger equilibrium and international tax compliance signoff.",
+            "title": "Day 18 International Tax Ledger — Final Settlement",
             "isBalanced": true,
             "totalDebit": 965000,
             "totalCredit": 965000,
