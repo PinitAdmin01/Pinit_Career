@@ -21,9 +21,301 @@ export interface GeneratedProject {
   source?: 'llm' | 'curated_template' | 'custom';
 }
 
-export function getDomainFallback(goal: string, skills: string[] = [], experienceLevel: string = ''): GeneratedProject[] {
+export function getDomainFallback(
+  goal: string,
+  skills: string[] = [],
+  experienceLevel: string = '',
+  courseId: string = ''
+): GeneratedProject[] {
   const g = goal.toLowerCase();
+  const c = courseId.toLowerCase();
   const primarySkills = skills.length > 0 ? skills.slice(0, 3).join(', ') : '';
+
+  // 0. Python Programming & Backend Systems (course-python-backend or Python track)
+  if (
+    c.includes('course-python-backend') ||
+    c.includes('python') ||
+    g.includes('python') ||
+    g.includes('fastapi') ||
+    g.includes('django') ||
+    g.includes('flask')
+  ) {
+    const stack1 = primarySkills ? `Python 3, ${primarySkills}, Pydantic, Pytest` : 'Python 3, Pydantic, Click, Pytest';
+    const stack2 = primarySkills ? `FastAPI, ${primarySkills}, SQLAlchemy, PostgreSQL` : 'Python 3, FastAPI, SQLAlchemy, PostgreSQL / SQLite, Docker';
+    const stack3 = primarySkills ? `Python, ${primarySkills}, Celery, Redis, Docker` : 'Python 3, FastAPI, Celery, Redis, Docker Compose, Pytest';
+    const stack4 = primarySkills ? `Python, ${primarySkills}, RabbitMQ, PostgreSQL` : 'Python 3, FastAPI, RabbitMQ / Kafka, Redis, PostgreSQL';
+    const stack5 = primarySkills ? `Python 3.12, ${primarySkills}, LangGraph, Redis` : 'Python 3.12, FastAPI, LangGraph / CrewAI, Redis, Docker Sandbox';
+
+    return [
+      {
+        id: 'proj-1',
+        name: 'Automated Personal Finance & Expense Tracker CLI',
+        level: 'Beginner',
+        description: 'Command-line budget and expense pipeline with JSON persistence, regex transaction parsing, and category budget summaries.',
+        techStack: stack1,
+        problem: 'Manual expense recording across bank statements is error-prone, unstructured, and lacks programmatic financial tracking.',
+        deliverable: 'Clean Python CLI tool parsing CSV/JSON expenses, computing categorical burn rates, and enforcing strict schema validation.',
+        xpReward: 250,
+        status: 'Not Started',
+        guideSteps: [
+          'Set up project structure with poetry/pipenv and create CLI entrypoint using Click or Argparse.',
+          'Define robust data models for Expense and Category using Pydantic validation.',
+          'Implement JSON/CSV file storage with atomic writes preventing corrupted transaction ledgers.',
+          'Write unit tests using pytest verifying mathematical summaries, category filters, and edge cases.'
+        ],
+        tips: [
+          'Use decimal.Decimal rather than float for financial transactions to avoid floating-point rounding errors.',
+          'Ensure the CLI exits with non-zero exit codes upon schema validation failures.'
+        ],
+        verificationReqs: ['Pydantic expense schema validation', 'Atomic file persistence module', 'Categorical summary calculator', 'Comprehensive Pytest suite passing 100%'],
+        minScore: 80,
+        isTemplate: true,
+        source: 'curated_template'
+      },
+      {
+        id: 'proj-2',
+        name: 'Asynchronous FastAPI REST Microservice with PostgreSQL',
+        level: 'Intermediate',
+        description: 'Production-ready async RESTful API with Pydantic schemas, SQLAlchemy 2.0 ORM models, JWT auth, and automated OpenAPI documentation.',
+        techStack: stack2,
+        problem: 'Synchronous Python web frameworks block worker threads during database queries, causing severe latency degradation under load.',
+        deliverable: 'Async ASGI web service with CRUD endpoints, JWT bearer auth middleware, connection pooling, and Docker environment.',
+        xpReward: 500,
+        status: 'Not Started',
+        guideSteps: [
+          'Initialize FastAPI app with async database engine using SQLAlchemy 2.0 and asyncpg/aiosqlite.',
+          'Build database migration pipeline using Alembic for version-controlled schema evolution.',
+          'Implement secure user authentication with bcrypt password hashing and HMAC-SHA256 JWT tokens.',
+          'Write integration tests using httpx.AsyncClient verifying authenticated endpoints and error handlers.'
+        ],
+        tips: [
+          'Use dependency injection (Depends) for database sessions to guarantee connection closure per request.',
+          'Run Uvicorn with multiple workers for production throughput.'
+        ],
+        verificationReqs: ['Async SQLAlchemy 2.0 database integration', 'Alembic migration scripts', 'JWT bearer authentication middleware', 'Async test suite with httpx client'],
+        minScore: 80,
+        isTemplate: true,
+        source: 'curated_template'
+      },
+      {
+        id: 'proj-3',
+        name: 'Distributed Task Queue & Background Worker with Redis & Celery',
+        level: 'Advanced',
+        description: 'Scalable background task execution architecture processing asynchronous batch jobs, rate-limited email reports, and scheduled cron jobs.',
+        techStack: stack3,
+        problem: 'Executing long-running computation or third-party webhooks inside HTTP request handlers causes client timeouts.',
+        deliverable: 'Distributed worker cluster offloading intensive jobs to Celery workers with Redis broker and dead-letter queues.',
+        xpReward: 750,
+        status: 'Not Started',
+        guideSteps: [
+          'Configure Celery app with Redis message broker and result backend.',
+          'Design idempotent task signatures with exponential backoff retries on transient network failures.',
+          'Implement Celery Beat periodic scheduler for daily analytical report compilation.',
+          'Package worker, broker, and web API inside docker-compose with healthcheck probes.'
+        ],
+        tips: [
+          'Always set acks_late=True and task_reject_on_worker_lost=True for critical delivery guarantees.',
+          'Monitor task queues using Flower or Prometheus telemetry.'
+        ],
+        verificationReqs: ['Celery worker and Redis broker integration', 'Exponential retry and dead-letter queue', 'Scheduled periodic tasks with Celery Beat', 'Docker-compose multi-container orchestration'],
+        minScore: 80,
+        isTemplate: true,
+        source: 'curated_template'
+      },
+      {
+        id: 'proj-4',
+        name: 'Enterprise Event-Driven Microservices Architecture',
+        level: 'Enterprise',
+        description: 'High-throughput asynchronous event processor with RabbitMQ/Kafka, circuit breaker fault tolerance, and comprehensive zero-trust API security.',
+        techStack: stack4,
+        problem: 'Tightly coupled REST microservices create cascading failure storms when downstream dependencies experience outages.',
+        deliverable: 'Decoupled event-driven backend handling 2,000+ events/sec with transactional outbox pattern and distributed tracing.',
+        xpReward: 1000,
+        status: 'Not Started',
+        guideSteps: [
+          'Implement transactional outbox pattern in PostgreSQL for atomic event publishing.',
+          'Build event consumers with idempotent message deduplication and dead-letter queues.',
+          'Add circuit breaker patterns using pybreaker to isolate failing external services.',
+          'Configure OpenTelemetry distributed tracing with Jaeger for end-to-end request visibility.'
+        ],
+        tips: [
+          'Pass traceparent headers across message metadata to link producer and consumer spans.',
+          'Ensure all consumers can handle out-of-order event arrivals gracefully.'
+        ],
+        verificationReqs: ['Transactional Outbox pattern', 'Idempotent message consumer with deduplication', 'Circuit breaker implementation', 'OpenTelemetry distributed trace logs'],
+        minScore: 80,
+        isTemplate: true,
+        source: 'curated_template'
+      },
+      {
+        id: 'proj-5',
+        name: 'Autonomous AI Agent Workflow & Tool-Calling Pipeline',
+        level: 'Future-Tech',
+        description: 'Multi-turn agent orchestrator executing Python code sandboxing, external API tool invocation, and streaming response delivery.',
+        techStack: stack5,
+        problem: 'Direct unconstrained LLM execution lacks reliability, safety guardrails, and deterministic tool verification.',
+        deliverable: 'Sandboxed Python agent execution engine with AST inspection, token budget management, and real-time SSE streaming.',
+        xpReward: 1500,
+        status: 'Not Started',
+        guideSteps: [
+          'Design stateful agent loop with structured tool definitions and JSON schema verification.',
+          'Build isolated Python execution sandbox using restricted AST evaluation and timeout monitors.',
+          'Implement multi-turn conversation memory with vector retrieval over user workspace context.',
+          'Expose Server-Sent Events (SSE) streaming endpoint for live token and tool step delivery.'
+        ],
+        tips: [
+          'Never execute unverified student or model code with raw eval() or exec(); use isolated subprocesses with resource limits.',
+          'Set strict maximum loop iterations (e.g. 5 steps) to prevent runaway execution.'
+        ],
+        verificationReqs: ['Sandboxed Python execution engine', 'Structured tool-calling schema', 'Real-time SSE streaming endpoint', 'Deterministic loop termination test suite'],
+        minScore: 80,
+        isTemplate: true,
+        source: 'curated_template'
+      }
+    ];
+  }
+
+  // 0.1 Java Fundamentals & Enterprise Core Logic (course-java-logic or Java track)
+  if (
+    c.includes('course-java-logic') ||
+    c.includes('java') ||
+    g.includes('java') ||
+    g.includes('spring')
+  ) {
+    const stack1 = primarySkills ? `Java 17, ${primarySkills}, JUnit 5, Maven` : 'Java 17, JUnit 5, Maven, OOP Patterns';
+    const stack2 = primarySkills ? `Java, Spring Boot, ${primarySkills}, PostgreSQL` : 'Java 21, Spring Boot 3, Hibernate JPA, PostgreSQL, Docker';
+    const stack3 = primarySkills ? `Java, Spring Cloud, ${primarySkills}, Redis` : 'Java, Spring Cloud, Redis, Resilience4j, Docker Compose';
+    const stack4 = primarySkills ? `Java, ${primarySkills}, Kafka, PostgreSQL` : 'Java, Apache Kafka, PostgreSQL, Redis, Docker';
+    const stack5 = primarySkills ? `Java, Raft, ${primarySkills}, Netty, RocksDB` : 'Java, Raft Consensus, Netty, RocksDB, gRPC';
+
+    return [
+      {
+        id: 'proj-1',
+        name: 'Multi-Threaded Banking & Transaction Core',
+        level: 'Beginner',
+        description: 'Robust core banking transaction ledger implementing synchronized account locks, thread-safe memory models, and audit logs.',
+        techStack: stack1,
+        problem: 'Concurrent debit and credit operations without thread synchronization create critical double-spending balance anomalies.',
+        deliverable: 'Java application with concurrent account management, deadlock detection, and comprehensive JUnit 5 concurrency tests.',
+        xpReward: 250,
+        status: 'Not Started',
+        guideSteps: [
+          'Design thread-safe Account and Transaction models using java.util.concurrent locks.',
+          'Implement atomic balance transfer methods avoiding deadlocks with lock-ordering algorithms.',
+          'Build an immutable audit logging pipeline recording all ledger events with timestamps.',
+          'Execute multi-threaded stress tests simulating 100 concurrent deposit/transfer threads.'
+        ],
+        tips: [
+          'Always acquire locks in a consistent order (e.g., lower account ID first) to eliminate deadlocks.',
+          'Use ReentrantLock with tryLock timeout to prevent indefinite thread blocking.'
+        ],
+        verificationReqs: ['Thread-safe atomic transfer implementation', 'Lock ordering deadlock prevention algorithm', 'Immutable audit log module', 'Concurrent stress test with 100% pass'],
+        minScore: 80,
+        isTemplate: true,
+        source: 'curated_template'
+      },
+      {
+        id: 'proj-2',
+        name: 'Spring Boot Microservice with JPA & Hibernate',
+        level: 'Intermediate',
+        description: 'Production-ready enterprise REST microservice with JPA entity relationships, connection pooling, and JWT security.',
+        techStack: stack2,
+        problem: 'Direct JDBC queries without ORM abstraction lead to SQL injection vulnerabilities and unmaintainable persistence code.',
+        deliverable: 'Spring Boot REST microservice with PostgreSQL database, Liquibase migrations, and unit/integration test coverage.',
+        xpReward: 500,
+        status: 'Not Started',
+        guideSteps: [
+          'Initialize Spring Boot project with Spring Data JPA and PostgreSQL driver.',
+          'Define domain entities with proper lazy-loading, cascaded relationships, and validation annotations.',
+          'Configure Spring Security with JWT authentication filter and role-based access control (RBAC).',
+          'Write MockMvc integration tests verifying REST endpoints and transaction rollbacks.'
+        ],
+        tips: [
+          'Watch out for N+1 query problems; use JOIN FETCH or EntityGraphs for eager relation loading.',
+          'Never expose JPA entities directly in REST controllers; use DTOs (Data Transfer Objects).'
+        ],
+        verificationReqs: ['Spring Data JPA entity mapping and repository', 'JWT authentication filter and security config', 'Liquibase database migrations', 'MockMvc integration test suite'],
+        minScore: 80,
+        isTemplate: true,
+        source: 'curated_template'
+      },
+      {
+        id: 'proj-3',
+        name: 'Distributed Rate Limiter & Token Bucket Cluster',
+        level: 'Advanced',
+        description: 'High-performance distributed API rate limiter implementing sliding-window and token-bucket algorithms with Redis.',
+        techStack: stack3,
+        problem: 'Malicious clients and misconfigured API consumers flood backend microservices with denial-of-service traffic.',
+        deliverable: 'Java Spring Cloud Gateway filter enforcing per-tenant request quotas with sub-millisecond Redis verification.',
+        xpReward: 750,
+        status: 'Not Started',
+        guideSteps: [
+          'Implement Token Bucket and Sliding Window Log algorithms in Java with atomic counters.',
+          'Integrate Jedis/Lettuce client for atomic Redis Lua script execution.',
+          'Create Spring Cloud Gateway global filter inspecting tenant API keys and evaluating quotas.',
+          'Benchmark rate limiter throughput using JMH and k6 reaching 10,000 req/sec.'
+        ],
+        tips: [
+          'Execute rate limiting logic in Redis Lua scripts to avoid race conditions between get and increment.',
+          'Return HTTP 429 Too Many Requests with Retry-After headers when quotas are exceeded.'
+        ],
+        verificationReqs: ['Token Bucket and Sliding Window algorithm implementation', 'Redis Lua atomic quota evaluation', 'Spring Cloud Gateway filter integration', 'JMH micro-benchmark report'],
+        minScore: 80,
+        isTemplate: true,
+        source: 'curated_template'
+      },
+      {
+        id: 'proj-4',
+        name: 'High-Concurrency Distributed Inventory Engine',
+        level: 'Enterprise',
+        description: 'Flash-sale inventory service with pessimistic and optimistic locking preventing overselling under heavy load.',
+        techStack: stack4,
+        problem: 'Concurrent checkout spikes during product drops cause overselling and negative inventory balances.',
+        deliverable: 'Java service handling 5,000+ checkout requests/sec with zero inventory race conditions.',
+        xpReward: 1000,
+        status: 'Not Started',
+        guideSteps: [
+          'Implement atomic inventory decrement using Redis Lua scripts for sub-millisecond checks.',
+          'Design PostgreSQL fallback with SELECT FOR UPDATE row-level locking.',
+          'Build reconciliation daemon syncing Redis in-memory counts with durable SQL storage.',
+          'Run distributed load tests proving zero stock discrepancies under 5,000 req/sec.'
+        ],
+        tips: [
+          'Use Redis Lua scripts to evaluate stock and deduct in a single atomic non-blocking operation.',
+          'Set up automated dead-letter queues for failed checkout reconciliation events.'
+        ],
+        verificationReqs: ['Atomic Lua inventory decrement', 'Pessimistic DB lock fallback', 'Load test report showing zero race conditions', 'Docker-compose local reproduction'],
+        minScore: 80,
+        isTemplate: true,
+        source: 'curated_template'
+      },
+      {
+        id: 'proj-5',
+        name: 'Distributed Consensus Raft Key-Value Store',
+        level: 'Future-Tech',
+        description: 'Fault-tolerant distributed key-value cluster implementing the Raft consensus algorithm in Java.',
+        techStack: stack5,
+        problem: 'Network partitions and node crashes corrupt distributed database state without formal consensus guarantees.',
+        deliverable: '3-node distributed Raft cluster with leader election, log replication, and linearizable read/write operations.',
+        xpReward: 1500,
+        status: 'Not Started',
+        guideSteps: [
+          'Implement Raft leader election state machine with randomized election timeouts.',
+          'Build log replication protocol with AppendEntries RPCs and heartbeat monitors.',
+          'Integrate RocksDB for durable on-disk log and state persistence.',
+          'Execute Jepsen-style fault injection tests verifying state linearizability across network splits.'
+        ],
+        tips: [
+          'Use Netty for asynchronous event-driven network communication between cluster peers.',
+          'Ensure leader leases or read-index protocols are enforced to avoid stale reads.'
+        ],
+        verificationReqs: ['Raft leader election state machine', 'Log replication AppendEntries protocol', 'RocksDB state persistence', 'Network partition fault tolerance test'],
+        minScore: 80,
+        isTemplate: true,
+        source: 'curated_template'
+      }
+    ];
+  }
 
   // 1. AI & Machine Learning / Data Science
   if (

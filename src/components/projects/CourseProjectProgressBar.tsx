@@ -6,7 +6,7 @@ import { Project } from '@/lib/data/projectData';
 interface CourseProjectProgressBarProps {
   courseName?: string;
   careerGoal?: string;
-  projects: Project[];
+  projects?: Project[];
   courseProgressPercent?: number;
   onStartCustomProject?: () => void;
   onSelectProject?: (project: Project) => void;
@@ -51,13 +51,15 @@ export const CourseProjectProgressBar: React.FC<CourseProjectProgressBarProps> =
     <div
       data-testid="course-project-progress-card"
       style={{
-        background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.85) 100%)',
-        border: '1px solid rgba(255, 255, 255, 0.1)',
+        background: 'var(--card)',
+        backgroundImage: 'linear-gradient(135deg, var(--card) 0%, var(--bg3) 100%)',
+        border: '1px solid var(--border)',
         borderRadius: 20,
         padding: '24px 28px',
         marginBottom: 28,
-        boxShadow: '0 12px 36px rgba(0, 0, 0, 0.35)',
+        boxShadow: 'var(--shadow-md, 0 8px 24px rgba(0, 0, 0, 0.08))',
         backdropFilter: 'blur(12px)',
+        transition: 'all 0.2s ease',
       }}
     >
       {/* Top Meta Header */}
@@ -68,39 +70,40 @@ export const CourseProjectProgressBar: React.FC<CourseProjectProgressBarProps> =
           alignItems: 'flex-start',
           flexWrap: 'wrap',
           gap: 16,
-          marginBottom: 18,
+          marginBottom: 20,
         }}
       >
-        <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 4 }}>
+        <div style={{ flex: '1 1 320px', minWidth: 260 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 6, flexWrap: 'wrap' }}>
             <span
               style={{
                 fontSize: 11,
                 fontWeight: 900,
                 letterSpacing: '0.6px',
                 textTransform: 'uppercase',
-                color: '#38bdf8',
-                background: 'rgba(56, 189, 248, 0.12)',
-                border: '1px solid rgba(56, 189, 248, 0.25)',
-                padding: '3px 8px',
+                color: 'var(--accent)',
+                background: 'var(--accent-light, rgba(99, 102, 241, 0.12))',
+                border: '1px solid var(--border2)',
+                padding: '3px 9px',
                 borderRadius: 6,
+                fontFamily: 'var(--font-mono, monospace)',
               }}
             >
               Academic Curriculum Pathway
             </span>
-            <span style={{ fontSize: 13, color: 'var(--t3)', fontWeight: 600 }}>Target: {careerGoal}</span>
+            <span style={{ fontSize: 13, color: 'var(--t2)', fontWeight: 600 }}>Target: {careerGoal}</span>
           </div>
 
-          <h2 style={{ fontSize: 22, fontWeight: 900, color: 'var(--t1)', margin: 0, letterSpacing: '-0.3px' }}>
+          <h2 style={{ fontSize: 23, fontWeight: 900, color: 'var(--t1)', margin: 0, letterSpacing: '-0.3px', lineHeight: 1.3 }}>
             {courseName}
           </h2>
-          <p style={{ fontSize: 14, color: 'var(--t2)', margin: '4px 0 0' }}>
+          <p style={{ fontSize: 14, color: 'var(--t2)', margin: '6px 0 0', lineHeight: 1.5 }}>
             Complete your verified course capstones to earn accredited industry credential certifications.
           </p>
         </div>
 
         {/* Action Controls */}
-        <div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
           {onStartCustomProject && (
             <button
               onClick={onStartCustomProject}
@@ -108,16 +111,21 @@ export const CourseProjectProgressBar: React.FC<CourseProjectProgressBarProps> =
               style={{
                 padding: '9px 18px',
                 borderRadius: 10,
-                background: 'rgba(99, 102, 241, 0.15)',
-                border: '1px solid rgba(129, 140, 248, 0.4)',
-                color: '#818cf8',
+                background: 'var(--accent-light, rgba(99, 102, 241, 0.12))',
+                border: '1.5px solid var(--accent)',
+                color: 'var(--accent)',
                 fontSize: 13.5,
                 fontWeight: 800,
+                fontFamily: 'var(--font-display, inherit)',
                 cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 6,
                 transition: 'all 0.15s ease',
               }}
             >
-              + Start Your Own Project
+              <span>+</span>
+              <span>Start Your Own Project</span>
             </button>
           )}
 
@@ -125,9 +133,10 @@ export const CourseProjectProgressBar: React.FC<CourseProjectProgressBarProps> =
             style={{
               padding: '8px 16px',
               borderRadius: 12,
-              background: projectProgressPct === 100 ? 'rgba(34, 197, 94, 0.15)' : 'rgba(56, 189, 248, 0.12)',
-              border: `1px solid ${projectProgressPct === 100 ? 'rgba(34, 197, 94, 0.3)' : 'rgba(56, 189, 248, 0.25)'}`,
+              background: projectProgressPct === 100 ? 'rgba(34, 197, 94, 0.12)' : 'var(--bg3)',
+              border: `1px solid ${projectProgressPct === 100 ? 'rgba(34, 197, 94, 0.35)' : 'var(--border2)'}`,
               textAlign: 'right',
+              minWidth: 160,
             }}
           >
             <div
@@ -135,13 +144,14 @@ export const CourseProjectProgressBar: React.FC<CourseProjectProgressBarProps> =
                 fontSize: 11,
                 fontWeight: 800,
                 textTransform: 'uppercase',
-                color: projectProgressPct === 100 ? '#22c55e' : '#38bdf8',
+                color: projectProgressPct === 100 ? '#16a34a' : 'var(--accent)',
                 letterSpacing: '0.4px',
+                fontFamily: 'var(--font-mono, monospace)',
               }}
             >
               {projectProgressPct === 100 ? '✓ Certification Ready' : 'Capstone Progress'}
             </div>
-            <div style={{ fontSize: 18, fontWeight: 900, color: 'var(--t1)' }}>
+            <div style={{ fontSize: 18, fontWeight: 900, color: 'var(--t1)', marginTop: 2 }}>
               {completedCount} / {totalRequired} Completed ({projectProgressPct}%)
             </div>
           </div>
@@ -149,11 +159,12 @@ export const CourseProjectProgressBar: React.FC<CourseProjectProgressBarProps> =
       </div>
 
       {/* Main Animated Progress Bar */}
-      <div style={{ marginBottom: 20 }}>
+      <div style={{ marginBottom: 22 }}>
         <div
           style={{
             height: 12,
-            background: 'rgba(255, 255, 255, 0.08)',
+            background: 'var(--bg3)',
+            border: '1px solid var(--border)',
             borderRadius: 999,
             overflow: 'hidden',
             position: 'relative',
@@ -167,7 +178,7 @@ export const CourseProjectProgressBar: React.FC<CourseProjectProgressBarProps> =
               background: 'linear-gradient(90deg, #38bdf8 0%, #6366f1 50%, #10b981 100%)',
               borderRadius: 999,
               transition: 'width 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
-              boxShadow: '0 0 16px rgba(56, 189, 248, 0.5)',
+              boxShadow: '0 0 12px rgba(99, 102, 241, 0.4)',
             }}
           />
         </div>
@@ -176,10 +187,12 @@ export const CourseProjectProgressBar: React.FC<CourseProjectProgressBarProps> =
           style={{
             display: 'flex',
             justifyContent: 'space-between',
-            fontSize: 12,
-            color: 'var(--t3)',
-            marginTop: 6,
+            fontSize: 12.5,
+            color: 'var(--t2)',
+            marginTop: 8,
             fontWeight: 600,
+            flexWrap: 'wrap',
+            gap: 8,
           }}
         >
           <span>Course Quests Progress: {courseProgressPercent}%</span>
@@ -215,26 +228,28 @@ export const CourseProjectProgressBar: React.FC<CourseProjectProgressBarProps> =
                   ? 'rgba(34, 197, 94, 0.08)'
                   : isInProgress
                   ? 'rgba(56, 189, 248, 0.08)'
-                  : 'rgba(255, 255, 255, 0.03)',
+                  : 'var(--bg2)',
                 border: isDone
                   ? '1px solid rgba(34, 197, 94, 0.35)'
                   : isInProgress
-                  ? '1.5px solid #38bdf8'
-                  : '1px solid rgba(255, 255, 255, 0.08)',
+                  ? '1.5px solid var(--accent)'
+                  : '1px solid var(--border)',
                 borderRadius: 14,
-                padding: '14px 16px',
+                padding: '16px 18px',
                 cursor: matchingProj ? 'pointer' : 'default',
                 transition: 'all 0.2s ease',
+                boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.05))',
               }}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
                 <span
                   style={{
                     fontSize: 11,
                     fontWeight: 800,
-                    color: isDone ? '#22c55e' : isInProgress ? '#38bdf8' : 'var(--t3)',
+                    color: isDone ? '#16a34a' : isInProgress ? 'var(--accent)' : 'var(--t2)',
                     textTransform: 'uppercase',
                     letterSpacing: '0.4px',
+                    fontFamily: 'var(--font-mono, monospace)',
                   }}
                 >
                   Stage {idx + 1} • {m.level}
@@ -244,25 +259,26 @@ export const CourseProjectProgressBar: React.FC<CourseProjectProgressBarProps> =
                   style={{
                     fontSize: 11,
                     fontWeight: 800,
-                    padding: '2px 8px',
+                    padding: '3px 8px',
                     borderRadius: 999,
                     background: isDone
-                      ? 'rgba(34, 197, 94, 0.2)'
+                      ? 'rgba(34, 197, 94, 0.15)'
                       : isInProgress
-                      ? 'rgba(56, 189, 248, 0.2)'
-                      : 'rgba(255, 255, 255, 0.06)',
-                    color: isDone ? '#22c55e' : isInProgress ? '#38bdf8' : 'var(--t3)',
+                      ? 'rgba(56, 189, 248, 0.15)'
+                      : 'var(--bg3)',
+                    border: '1px solid var(--border)',
+                    color: isDone ? '#16a34a' : isInProgress ? 'var(--accent)' : 'var(--t3)',
                   }}
                 >
                   {isDone ? '✓ Verified' : isInProgress ? '⏳ In Progress' : 'Not Started'}
                 </span>
               </div>
 
-              <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)', marginBottom: 4 }}>
+              <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--t1)', marginBottom: 5, lineHeight: 1.35 }}>
                 {matchingProj ? matchingProj.name : m.title}
               </div>
 
-              <div style={{ fontSize: 12.5, color: 'var(--t2)', lineHeight: 1.4 }}>
+              <div style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.45 }}>
                 {matchingProj ? matchingProj.description : m.desc}
               </div>
             </div>

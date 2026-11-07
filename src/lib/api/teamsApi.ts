@@ -44,49 +44,7 @@ export interface HackathonSquad {
   createdAt: number;
 }
 
-export const INITIAL_HACKATHON_SQUADS: HackathonSquad[] = [
-  {
-    id: 'squad_pin_agile_01',
-    name: 'ByteCraft Autonomous Systems',
-    hackathonTitle: 'Global AI & Cloud Distributed Systems Hackathon',
-    teamLeadStudentId: 'student_lead_101',
-    members: [
-      {
-        studentId: 'student_lead_101',
-        name: 'Devin Vance',
-        avatarUrl: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80',
-        role: 'backend_lead',
-        contributionPct: 35,
-        assignedTasks: ['Microservices gRPC Gateway', 'Distributed Transaction Coordinator']
-      },
-      {
-        studentId: 'student_dev_102',
-        name: 'Elena Rostova',
-        avatarUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80',
-        role: 'frontend_lead',
-        contributionPct: 30,
-        assignedTasks: ['Next.js App Router Realtime Telemetry HUD', 'WebSocket Live Terminal']
-      },
-      {
-        studentId: 'student_dev_103',
-        name: 'Kofi Mensah',
-        avatarUrl: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=100&auto=format&fit=crop&q=80',
-        role: 'devops_cloud',
-        contributionPct: 35,
-        assignedTasks: ['Kubernetes Helm Charts', 'GitHub Actions CI/CD Pipeline', 'Prometheus Monitoring']
-      }
-    ],
-    repoUrl: 'https://github.com/pinit-hackathon/bytecraft-autonomous',
-    liveUrl: 'https://bytecraft-demo.pinit.app',
-    milestones: [
-      { id: 'm1', title: 'Sprint 1: Architecture & Data Contracts', description: 'Whiteboard system design & define proto schemas', dueDate: '2026-03-01', isCompleted: true, completedAt: 1772400000000 },
-      { id: 'm2', title: 'Sprint 2: Core Distributed Service Implementation', description: 'Ship Redis caching & PostgreSQL connection pool', dueDate: '2026-03-15', isCompleted: true, completedAt: 1773500000000 },
-      { id: 'm3', title: 'Sprint 3: CI/CD Deployment & Jury Defense', description: 'Deploy live cluster and defend architecture to panel', dueDate: '2026-03-30', isCompleted: false }
-    ],
-    status: 'building',
-    createdAt: 1771000000000
-  }
-];
+export const INITIAL_HACKATHON_SQUADS: HackathonSquad[] = [];
 
 export class TeamsApiService {
   private static localSquadsKey = 'pinit_hackathon_squads_store';
@@ -195,11 +153,16 @@ export class TeamsApiService {
   }
 
   static getSquads(studentId?: string): HackathonSquad[] {
-    if (typeof window === 'undefined') return this.inMemorySquads;
+    if (typeof window === 'undefined') {
+      return this.inMemorySquads.filter(s => s.id !== 'squad_pin_agile_01' && !s.name.includes('ByteCraft'));
+    }
     try {
       const raw = localStorage.getItem(this.localSquadsKey);
       let list: HackathonSquad[] = raw ? JSON.parse(raw) : [...this.inMemorySquads];
       
+      // Purge any legacy dummy seed squads from storage
+      list = list.filter(s => s.id !== 'squad_pin_agile_01' && !s.name.includes('ByteCraft'));
+
       // If studentId is provided, merge with user-scoped storage to prevent data loss on refresh
       if (studentId) {
         const userRaw = localStorage.getItem(`pinit_${studentId}_hackathon_squads`);
@@ -207,13 +170,15 @@ export class TeamsApiService {
           const userSquads: HackathonSquad[] = JSON.parse(userRaw);
           const map = new Map<string, HackathonSquad>();
           list.forEach(s => map.set(s.id, s));
-          userSquads.forEach(s => map.set(s.id, s)); // user copy takes precedence
+          userSquads
+            .filter(s => s.id !== 'squad_pin_agile_01' && !s.name.includes('ByteCraft'))
+            .forEach(s => map.set(s.id, s));
           list = Array.from(map.values());
         }
       }
       return list;
     } catch {
-      return this.inMemorySquads;
+      return this.inMemorySquads.filter(s => s.id !== 'squad_pin_agile_01' && !s.name.includes('ByteCraft'));
     }
   }
 

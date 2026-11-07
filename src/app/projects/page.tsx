@@ -36,13 +36,14 @@ function ProjectsPageContent() {
   const initialTab = (searchParams?.get('tab') === 'squads' || searchParams?.get('tab') === 'innovation' || Boolean(searchParams?.get('join'))) ? 'innovation' : 'projects';
   const [mainTab, setMainTab] = useState<'projects' | 'innovation'>(initialTab);
 
-  // Sync tab with URL query parameter
+  // If user navigates with innovation / squad params, redirect to dedicated /innovation-hub route
   useEffect(() => {
     const tabParam = searchParams?.get('tab');
     const joinParam = searchParams?.get('join');
-    if (tabParam === 'squads' || tabParam === 'innovation' || Boolean(joinParam)) setMainTab('innovation');
-    else if (tabParam === 'solo' || tabParam === 'projects') setMainTab('projects');
-  }, [searchParams]);
+    if (tabParam === 'squads' || tabParam === 'innovation' || Boolean(joinParam)) {
+      router.replace('/innovation-hub' + (joinParam ? `?join=${encodeURIComponent(joinParam)}` : ''));
+    }
+  }, [searchParams, router]);
 
   // Squads state
   const [squads, setSquads] = useState<HackathonSquad[]>([]);
@@ -67,13 +68,111 @@ function ProjectsPageContent() {
   const studentName = (user && typeof (user as any).name === 'string') ? (user as any).name : 'Current Student';
   const cOS = useCareerOS();
 
-  const { completedQuests, onboardingAnswers, applyServerXp, earnPins, saveCareerProjects, spendPins, pins } = cOS;
+  const {
+    completedQuests,
+    onboardingAnswers,
+    applyServerXp,
+    earnPins,
+    saveCareerProjects,
+    spendPins,
+    pins,
+    activeCourseId: cOsCourseId,
+    setActiveCourseId: cOsSetActiveCourseId
+  } = cOS;
 
   const educationStr = String(user?.education || (onboardingAnswers as any)?.education || 'B.Tech in Computer Science');
   const degree = educationStr.split(' at ')[0] || 'B.Tech';
 
-  const activeCourseId = onboardingAnswers?.activeCourseId || COURSES_CATALOG[0].id;
-  const activeCourse = COURSES_CATALOG.find(c => c.id === activeCourseId) || COURSES_CATALOG[0];
+  // Dynamic Course Resolution: Honors standalone courses (e.g. Python 30-Day), custom roadmaps & certifications
+  const [selectedCourseId, setSelectedCourseId] = useState<string>('');
+
+  const activeCourse = React.useMemo(() => {
+    // 1. Explicit user selection in this view
+    if (selectedCourseId) {
+      const found = COURSES_CATALOG.find(c => c.id === selectedCourseId);
+      if (found) return found;
+    }
+
+    // 2. Query param: /projects?courseId=...
+    const qCourse = searchParams?.get('courseId');
+    if (qCourse) {
+      const found = COURSES_CATALOG.find(c => c.id === qCourse || c.id.toLowerCase() === qCourse.toLowerCase());
+      if (found) return found;
+    }
+
+    // 3. CareerOS context active course
+    if (cOsCourseId) {
+      const found = COURSES_CATALOG.find(c => c.id === cOsCourseId);
+      if (found) return found;
+    }
+
+    // 4. Onboarding answers activeCourseId or enrolled course
+    const obCourse = onboardingAnswers?.activeCourseId || (onboardingAnswers as any)?.selected_course || (onboardingAnswers as any)?.enrolled_course;
+    if (obCourse) {
+      const found = COURSES_CATALOG.find(c => c.id === obCourse);
+      if (found) return found;
+    }
+
+    // 5. Client localStorage (Quests view storage & active course)
+    if (typeof window !== 'undefined') {
+      try {
+        const viewRaw = localStorage.getItem(`pinit_${studentId}_quests_view`) || localStorage.getItem('pinit_quests_view');
+        if (viewRaw) {
+          const parsed = JSON.parse(viewRaw);
+          if (parsed?.courseId) {
+            const found = COURSES_CATALOG.find(c => c.id === parsed.courseId);
+            if (found) return found;
+          }
+        }
+
+        const directActive = localStorage.getItem(`pinit_${studentId}_active_course_id`) ||
+                             localStorage.getItem('pinit_active_course') ||
+                             localStorage.getItem(`pinit_${studentId}_selected_course`);
+        if (directActive) {
+          const found = COURSES_CATALOG.find(c => c.id === directActive);
+          if (found) return found;
+        }
+      } catch {}
+    }
+
+    // 6. Detect from completed or attempted quests
+    if (completedQuests && completedQuests.length > 0) {
+      const questBlob = completedQuests.join(' ').toLowerCase();
+      if (questBlob.includes('python') || questBlob.includes('py-')) {
+        const py = COURSES_CATALOG.find(c => c.id === 'course-python-backend');
+        if (py) return py;
+      }
+      if (questBlob.includes('react') || questBlob.includes('jsx')) {
+        const react = COURSES_CATALOG.find(c => c.id === 'course-react-web');
+        if (react) return react;
+      }
+      if (questBlob.includes('node') || questBlob.includes('express')) {
+        const node = COURSES_CATALOG.find(c => c.id === 'course-node-web');
+        if (node) return node;
+      }
+    }
+
+    // 7. Detect from career goal / onboarding role
+    const goalStr = String(onboardingAnswers?.role || '').toLowerCase();
+    if (goalStr.includes('python') || goalStr.includes('fastapi') || goalStr.includes('django')) {
+      const py = COURSES_CATALOG.find(c => c.id === 'course-python-backend');
+      if (py) return py;
+    }
+    if (goalStr.includes('react') || goalStr.includes('frontend')) {
+      const react = COURSES_CATALOG.find(c => c.id === 'course-react-web');
+      if (react) return react;
+    }
+    if (goalStr.includes('ai') || goalStr.includes('machine learning') || goalStr.includes('data')) {
+      const ai = COURSES_CATALOG.find(c => c.id === 'course-ai-eng');
+      if (ai) return ai;
+    }
+
+    // 8. Default to Python Programming & Backend Systems (foundational curriculum)
+    const pyDefault = COURSES_CATALOG.find(c => c.id === 'course-python-backend');
+    return pyDefault || COURSES_CATALOG[0];
+  }, [selectedCourseId, searchParams, cOsCourseId, onboardingAnswers, studentId, completedQuests]);
+
+  const activeCourseId = activeCourse.id;
 
   // PR-08 FIX: Dynamic course quest length derived from catalog duration (or minimum 10) instead of hardcoded 30.
   const totalQuestsCount = (activeCourse as any)?.totalQuests || (activeCourse?.durationWeeks ? activeCourse.durationWeeks * 3 : 15);
@@ -265,7 +364,22 @@ function ProjectsPageContent() {
         }
       }
     }
-  }, [user?.id, answerProjects, legacyAnswerProjects, saveCareerProjects]);
+
+    // Auto-seed projects for active course if still empty
+    if (saved.length === 0) {
+      const initialProjects = getDomainFallback(
+        selectedGoal,
+        [],
+        'Undergraduate',
+        activeCourse.id
+      );
+      if (initialProjects && initialProjects.length > 0) {
+        setProjects(initialProjects as Project[]);
+        setSelectedGuideProject(initialProjects[0] as Project);
+        saveCareerProjects(initialProjects);
+      }
+    }
+  }, [user?.id, answerProjects, legacyAnswerProjects, saveCareerProjects, activeCourse.id, selectedGoal]);
 
   // Roadmap journey certificate: the server re-verifies roadmap, capstone and interview, then issues it.
   const [issuingCertificate, setIssuingCertificate] = useState(false);
@@ -346,7 +460,8 @@ function ProjectsPageContent() {
         generated = getDomainFallback(
           goal,
           skillsList,
-          (onboardingAnswers as any)?.experience || (onboardingAnswers as any)?.codingExperience || 'Undergraduate'
+          (onboardingAnswers as any)?.experience || (onboardingAnswers as any)?.codingExperience || 'Undergraduate',
+          activeCourse.id
         );
         toast.info(
           'Curated Track Portfolio Loaded 📚',
@@ -721,87 +836,102 @@ function ProjectsPageContent() {
     <div style={{ maxWidth: 1340, margin: '0 auto', padding: '0 0 40px' }} className="fade-in">
       
       {/* Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
         <div>
-          <h1 style={{ margin: 0, fontSize: 26.5, fontWeight: 900, color: 'var(--t1)' }}>Projects & Squads Innovation Hub</h1>
+          <h1 style={{ margin: 0, fontSize: 26.5, fontWeight: 900, color: 'var(--t1)', letterSpacing: '-0.3px' }}>Projects & Course Capstones</h1>
           <p style={{ margin: '4px 0 0 0', fontSize: 14.5, color: 'var(--t3)' }}>
-            Build individual GitHub-verified Capstones or collaborate with 3-person Hackathon Squads.
+            Build individual GitHub-verified Capstones to earn accredited industry credential certifications.
           </p>
         </div>
-        
       </div>
 
-      {/* Mode Selector Tabs (Task 9: Divided to Project and Innovation Tabs) */}
-      <div style={{
-        display: 'flex',
-        gap: 8,
-        padding: '6px',
-        borderRadius: 14,
-        background: 'var(--bg2)',
-        border: '1px solid var(--border)',
-        marginBottom: 24,
-        overflowX: 'auto'
-      }}>
-        <button
-          onClick={() => setMainTab('projects')}
-          data-testid="tab-projects"
-          style={{
-            flex: 1,
-            minWidth: 200,
-            padding: '11px 18px',
-            borderRadius: 10,
-            border: mainTab === 'projects' ? '1.5px solid var(--accent)' : '1px solid transparent',
-            background: mainTab === 'projects'
-              ? 'linear-gradient(135deg, rgba(var(--brand-rgb),0.22), rgba(var(--reward-rgb),0.15))'
-              : 'transparent',
-            color: mainTab === 'projects' ? 'var(--text)' : 'var(--t2)',
-            fontFamily: 'var(--font-display)',
-            fontWeight: 800,
-            fontSize: 14.5,
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: 8,
-            transition: 'all 0.15s ease'
-          }}
-        >
-          <span>🛠️</span>
-          <span>Project Workspace (Course & Capstones)</span>
-        </button>
+      {/* ── PROJECT WORKSPACE & COURSE CAPSTONES ──────────────────── */}
+      <div>
+          {/* Active Course & Track Selector Bar */}
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              gap: 12,
+              marginBottom: 16,
+              padding: '12px 18px',
+              borderRadius: 14,
+              background: 'var(--card)',
+              border: '1px solid var(--border)',
+              boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.06))'
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+              <span
+                style={{
+                  fontSize: 11,
+                  fontWeight: 800,
+                  color: 'var(--accent)',
+                  background: 'var(--accent-light, rgba(99, 102, 241, 0.12))',
+                  border: '1px solid var(--border2)',
+                  padding: '3px 8px',
+                  borderRadius: 6,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.5px',
+                  fontFamily: 'var(--font-mono, monospace)'
+                }}
+              >
+                Active Learning Track
+              </span>
+              <span style={{ fontSize: 18 }}>{activeCourse.icon}</span>
+              <strong style={{ fontSize: 15, color: 'var(--t1)' }}>{activeCourse.title}</strong>
+              <span style={{ fontSize: 12, color: 'var(--t3)' }}>({activeCourse.difficulty} • {activeCourse.durationWeeks} Weeks)</span>
+            </div>
 
-        <button
-          onClick={() => setMainTab('innovation')}
-          data-testid="tab-innovation"
-          style={{
-            flex: 1,
-            minWidth: 200,
-            padding: '11px 18px',
-            borderRadius: 10,
-            border: mainTab === 'innovation' ? '1.5px solid var(--reward)' : '1px solid transparent',
-            background: mainTab === 'innovation'
-              ? 'linear-gradient(135deg, rgba(var(--reward-rgb),0.22), rgba(var(--reward-rgb),0.15))'
-              : 'transparent',
-            color: mainTab === 'innovation' ? 'var(--text)' : 'var(--t2)',
-            fontFamily: 'var(--font-display)',
-            fontWeight: 800,
-            fontSize: 14.5,
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: 8,
-            transition: 'all 0.15s ease'
-          }}
-        >
-          <span>💡</span>
-          <span>Innovation Hub (Group Projects & Invites)</span>
-        </button>
-      </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+              <label htmlFor="course-track-selector" style={{ fontSize: 12.5, color: 'var(--t2)', fontWeight: 700 }}>
+                Switch Track / Course:
+              </label>
+              <select
+                id="course-track-selector"
+                value={activeCourse.id}
+                onChange={(e) => {
+                  const newId = e.target.value;
+                  setSelectedCourseId(newId);
+                  cOsSetActiveCourseId?.(newId);
+                  if (typeof window !== 'undefined') {
+                    try {
+                      localStorage.setItem(`pinit_${studentId}_active_course_id`, newId);
+                    } catch {}
+                  }
+                  const courseObj = COURSES_CATALOG.find(c => c.id === newId);
+                  const newProjs = getDomainFallback(selectedGoal, [], degree, newId);
+                  if (newProjs && newProjs.length > 0) {
+                    setProjects(newProjs as Project[]);
+                    setSelectedGuideProject(newProjs[0] as Project);
+                    saveCareerProjects(newProjs);
+                    toast.success('Track Switched 🎯', `Now viewing capstones for ${courseObj?.title || newId}`);
+                  }
+                }}
+                style={{
+                  padding: '6px 12px',
+                  borderRadius: 8,
+                  background: 'var(--bg3)',
+                  border: '1px solid var(--border2)',
+                  color: 'var(--t1)',
+                  fontSize: 13,
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  outline: 'none',
+                  fontFamily: 'inherit'
+                }}
+              >
+                {COURSES_CATALOG.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    {c.icon} {c.title} ({c.difficulty})
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
 
-      {/* ── TAB 1: PROJECT WORKSPACE & COURSE CAPSTONES ──────────────────── */}
-      {mainTab === 'projects' && (
-        <>
           {/* Task 9: Course & Certificate Project Progress Bar */}
           <CourseProjectProgressBar
             courseName={activeCourse?.title || 'Cloud & Distributed Systems Engineering'}
@@ -1753,18 +1883,7 @@ function ProjectsPageContent() {
           </div>
         </div>
       )}
-      </>
-    )}
-
-      {/* ── TAB 2: INNOVATION HUB & GROUP PROJECTS (Task 9) ────────────────── */}
-      {mainTab === 'innovation' && (
-        <InnovationHub
-          studentId={studentId}
-          studentName={studentName}
-          studentAvatar={user?.avatar || (user as any)?.image}
-          initialJoinSquadId={searchParams?.get('join') || undefined}
-        />
-      )}
+      </div>
 
     </div>
   );

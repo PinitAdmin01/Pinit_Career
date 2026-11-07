@@ -245,10 +245,10 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
     toast.success('Peer Added to Squad! 🎉', `${req.studentName} is now active in your innovation project.`);
   };
 
-  // Build Invite Link URL
+  // Build Invite Link URL pointing to dedicated /innovation-hub route
   const inviteUrl = typeof window !== 'undefined'
-    ? `${window.location.origin}/projects?tab=innovation&join=${activeSquad?.id || ''}`
-    : `https://pinit.app/projects?tab=innovation&join=${activeSquad?.id || ''}`;
+    ? `${window.location.origin}/innovation-hub?join=${activeSquad?.id || ''}`
+    : `https://pinit.app/innovation-hub?join=${activeSquad?.id || ''}`;
 
   const whatsappShareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(
     `Join our collaborative engineering project "${activeSquad?.name || 'PinIT Squad'}" on PinIT Career OS! 🚀\n\nInvite Link: ${inviteUrl}`
@@ -318,84 +318,198 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
         </button>
       </div>
 
-      {/* Public Project Search & Filter Row */}
-      <div
-        style={{
-          display: 'flex',
-          gap: 12,
-          flexWrap: 'wrap',
-          marginBottom: 24,
-          alignItems: 'center',
-        }}
-      >
-        <div style={{ flex: 1, minWidth: 260, position: 'relative' }}>
-          <input
-            type="text"
-            data-testid="public-project-search-input"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search public innovation projects by title, stack, or role..."
-            style={{
-              width: '100%',
-              padding: '12px 18px 12px 42px',
-              borderRadius: 12,
-              background: 'var(--bg2)',
-              border: '1px solid var(--border)',
-              color: 'var(--t1)',
-              fontSize: 14,
-              outline: 'none',
-            }}
-          />
-          <span style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', opacity: 0.6 }}>
-            🔍
-          </span>
-          {searchQuery && (
-            <button
-              onClick={() => setSearchQuery('')}
-              style={{
-                position: 'absolute',
-                right: 14,
-                top: '50%',
-                transform: 'translateY(-50%)',
-                background: 'transparent',
-                border: 'none',
-                color: 'var(--t3)',
-                cursor: 'pointer',
-              }}
-            >
-              ✕
-            </button>
-          )}
-        </div>
+      {/* If no squads exist in this cohort, display high-impact Launch Center */}
+      {squads.length === 0 ? (
+        <div
+          data-testid="innovation-hub-empty-state"
+          style={{
+            background: 'var(--card)',
+            backgroundImage: 'linear-gradient(135deg, var(--card) 0%, var(--bg3) 100%)',
+            border: '1px solid var(--border)',
+            borderRadius: 20,
+            padding: '48px 36px',
+            textAlign: 'center',
+            boxShadow: 'var(--shadow-md, 0 8px 24px rgba(0, 0, 0, 0.08))',
+            marginBottom: 28,
+          }}
+        >
+          <div style={{ fontSize: 52, marginBottom: 16 }}>🚀</div>
+          <h3 style={{ fontSize: 23, fontWeight: 900, color: 'var(--t1)', margin: '0 0 10px', letterSpacing: '-0.3px' }}>
+            No Active Hackathon Squads Yet
+          </h3>
+          <p style={{ fontSize: 15, color: 'var(--t2)', maxWidth: 580, margin: '0 auto 28px', lineHeight: 1.6 }}>
+            Be the pioneer! Form a 3-person hackathon squad, invite peers from your batch or network via link or QR code, and collaborate on a verified production repository with real-time sprint tracking and jury evaluation.
+          </p>
 
-        {/* Role Filter Chips */}
-        <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-          {[
-            { id: 'all', label: 'All Projects' },
-            { id: 'frontend', label: 'Frontend' },
-            { id: 'backend', label: 'Backend' },
-            { id: 'ai', label: 'AI & ML' },
-            { id: 'devops', label: 'DevOps & Cloud' },
-          ].map((chip) => (
-            <button
-              key={chip.id}
-              onClick={() => setSelectedRoleFilter(chip.id)}
+          <button
+            onClick={() => setShowCreateModal(true)}
+            data-testid="start-first-squad-btn"
+            style={{
+              padding: '12px 28px',
+              borderRadius: 12,
+              background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+              color: '#fff',
+              fontSize: 15,
+              fontWeight: 800,
+              border: 'none',
+              cursor: 'pointer',
+              boxShadow: '0 6px 20px rgba(16, 185, 129, 0.35)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 8,
+              transition: 'transform 0.15s ease',
+            }}
+          >
+            <span>+</span>
+            <span>Form Your First Hackathon Squad</span>
+          </button>
+
+          {/* 3 Pillars of Innovation Hub */}
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+              gap: 20,
+              marginTop: 44,
+              textAlign: 'left',
+            }}
+          >
+            <div
               style={{
-                padding: '8px 14px',
-                borderRadius: 999,
-                fontSize: 13,
-                fontWeight: 700,
-                border: selectedRoleFilter === chip.id ? '1px solid #38bdf8' : '1px solid var(--border)',
-                background: selectedRoleFilter === chip.id ? 'rgba(56, 189, 248, 0.15)' : 'var(--bg2)',
-                color: selectedRoleFilter === chip.id ? '#38bdf8' : 'var(--t2)',
-                cursor: 'pointer',
+                padding: '20px 22px',
+                borderRadius: 14,
+                background: 'var(--bg2)',
+                border: '1px solid var(--border)',
+                boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.05))',
               }}
             >
-              {chip.label}
-            </button>
-          ))}
+              <div style={{ fontSize: 24, marginBottom: 10 }}>👥</div>
+              <h4 style={{ fontSize: 15, fontWeight: 800, color: 'var(--t1)', margin: '0 0 6px' }}>
+                Dynamic Squad Roles
+              </h4>
+              <p style={{ fontSize: 13, color: 'var(--t2)', margin: 0, lineHeight: 1.5 }}>
+                Lead as Frontend, Backend, DevOps, AI, or Data Architect with automated task distribution and individual sprint contribution metrics.
+              </p>
+            </div>
+
+            <div
+              style={{
+                padding: '20px 22px',
+                borderRadius: 14,
+                background: 'var(--bg2)',
+                border: '1px solid var(--border)',
+                boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.05))',
+              }}
+            >
+              <div style={{ fontSize: 24, marginBottom: 10 }}>🔗</div>
+              <h4 style={{ fontSize: 15, fontWeight: 800, color: 'var(--t1)', margin: '0 0 6px' }}>
+                Verifiable Code & Demo Proofs
+              </h4>
+              <p style={{ fontSize: 13, color: 'var(--t2)', margin: 0, lineHeight: 1.5 }}>
+                Connect your GitHub repository and live prototype. Code contributions are cryptographically verified for accredited certification.
+              </p>
+            </div>
+
+            <div
+              style={{
+                padding: '20px 22px',
+                borderRadius: 14,
+                background: 'var(--bg2)',
+                border: '1px solid var(--border)',
+                boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.05))',
+              }}
+            >
+              <div style={{ fontSize: 24, marginBottom: 10 }}>💬</div>
+              <h4 style={{ fontSize: 15, fontWeight: 800, color: 'var(--t1)', margin: '0 0 6px' }}>
+                Dedicated Team Discussion
+              </h4>
+              <p style={{ fontSize: 13, color: 'var(--t2)', margin: 0, lineHeight: 1.5 }}>
+                In-app real-time squad chat, candidate pitch reviews, sprint milestone management, and live jury defense preparation.
+              </p>
+            </div>
+          </div>
         </div>
-      </div>
+      ) : (
+        <>
+          {/* Public Project Search & Filter Row */}
+          <div
+            style={{
+              display: 'flex',
+              gap: 12,
+              flexWrap: 'wrap',
+              marginBottom: 24,
+              alignItems: 'center',
+            }}
+          >
+            <div style={{ flex: 1, minWidth: 260, position: 'relative' }}>
+              <input
+                type="text"
+                data-testid="public-project-search-input"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search public innovation projects by title, stack, or role..."
+                style={{
+                  width: '100%',
+                  padding: '12px 18px 12px 42px',
+                  borderRadius: 12,
+                  background: 'var(--bg2)',
+                  border: '1px solid var(--border)',
+                  color: 'var(--t1)',
+                  fontSize: 14,
+                  outline: 'none',
+                }}
+              />
+              <span style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', opacity: 0.6 }}>
+                🔍
+              </span>
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  style={{
+                    position: 'absolute',
+                    right: 14,
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    background: 'transparent',
+                    border: 'none',
+                    color: 'var(--t3)',
+                    cursor: 'pointer',
+                  }}
+                >
+                  ✕
+                </button>
+              )}
+            </div>
+
+            {/* Role Filter Chips */}
+            <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+              {[
+                { id: 'all', label: 'All Projects' },
+                { id: 'frontend', label: 'Frontend' },
+                { id: 'backend', label: 'Backend' },
+                { id: 'ai', label: 'AI & ML' },
+                { id: 'devops', label: 'DevOps & Cloud' },
+              ].map((chip) => (
+                <button
+                  key={chip.id}
+                  onClick={() => setSelectedRoleFilter(chip.id)}
+                  style={{
+                    padding: '8px 14px',
+                    borderRadius: 999,
+                    fontSize: 13,
+                    fontWeight: 700,
+                    border: selectedRoleFilter === chip.id ? '1.5px solid var(--accent)' : '1px solid var(--border)',
+                    background: selectedRoleFilter === chip.id ? 'var(--accent-light, rgba(99, 102, 241, 0.15))' : 'var(--bg2)',
+                    color: selectedRoleFilter === chip.id ? 'var(--accent)' : 'var(--t2)',
+                    cursor: 'pointer',
+                    transition: 'all 0.15s ease',
+                  }}
+                >
+                  {chip.label}
+                </button>
+              ))}
+            </div>
+          </div>
 
       {/* Main Dual Grid: Left Squad Directory | Right Project Workspace */}
       <div style={{ display: 'grid', gridTemplateColumns: 'minmax(300px, 340px) 1fr', gap: 24 }}>
@@ -515,8 +629,10 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
               style={{
                 padding: '24px 28px',
                 borderRadius: 18,
-                background: 'var(--bg2)',
+                background: 'var(--card)',
+                backgroundImage: 'linear-gradient(135deg, var(--card) 0%, var(--bg3) 100%)',
                 border: '1px solid var(--border)',
+                boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.06))',
                 position: 'relative',
               }}
             >
@@ -558,15 +674,16 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
                     style={{
                       padding: '9px 18px',
                       borderRadius: 10,
-                      background: 'rgba(56, 189, 248, 0.12)',
-                      border: '1px solid rgba(56, 189, 248, 0.3)',
-                      color: '#38bdf8',
+                      background: 'var(--accent-light, rgba(99, 102, 241, 0.12))',
+                      border: '1.5px solid var(--accent)',
+                      color: 'var(--accent)',
                       fontSize: 13.5,
                       fontWeight: 800,
                       cursor: 'pointer',
-                      display: 'flex',
+                      display: 'inline-flex',
                       alignItems: 'center',
                       gap: 6,
+                      transition: 'all 0.15s ease',
                     }}
                   >
                     <span>📱</span>
@@ -647,14 +764,14 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
             {activeTab === 'workspace' && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
                 {/* Roles Allocation */}
-                <div style={{ padding: 22, borderRadius: 16, background: 'var(--bg2)', border: '1px solid var(--border)' }}>
-                  <h3 style={{ margin: '0 0 16px', fontSize: 16, fontWeight: 800, color: 'var(--t1)' }}>
+                <div style={{ padding: '24px 26px', borderRadius: 18, background: 'var(--card)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.05))' }}>
+                  <h3 style={{ margin: '0 0 16px', fontSize: 17, fontWeight: 900, color: 'var(--t1)', letterSpacing: '-0.2px' }}>
                     Squad Roles & Assigned Tasks
                   </h3>
 
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 14 }}>
                     {activeSquad.members.map((member, idx) => (
-                      <div key={idx} style={{ padding: 14, borderRadius: 12, background: 'var(--bg3)', border: '1px solid var(--border)' }}>
+                      <div key={idx} style={{ padding: '16px 18px', borderRadius: 14, background: 'var(--bg3)', border: '1px solid var(--border2)' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
                           <img
                             src={member.avatarUrl}
@@ -663,7 +780,7 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
                           />
                           <div>
                             <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)' }}>{member.name}</div>
-                            <div style={{ fontSize: 11, color: '#38bdf8', fontWeight: 800, textTransform: 'uppercase' }}>
+                            <div style={{ fontSize: 11, color: 'var(--accent)', fontWeight: 800, textTransform: 'uppercase', fontFamily: 'var(--font-mono, monospace)' }}>
                               {member.role.replace('_', ' ')}
                             </div>
                           </div>
@@ -675,7 +792,7 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
 
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                           {member.assignedTasks.map((t, tIdx) => (
-                            <span key={tIdx} style={{ fontSize: 11.5, color: 'var(--t2)', background: 'var(--bg2)', padding: '3px 6px', borderRadius: 4 }}>
+                            <span key={tIdx} style={{ fontSize: 12, color: 'var(--t2)', background: 'var(--card)', border: '1px solid var(--border)', padding: '4px 8px', borderRadius: 6 }}>
                               • {t}
                             </span>
                           ))}
@@ -686,8 +803,8 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
                 </div>
 
                 {/* Sprints Milestones */}
-                <div style={{ padding: 22, borderRadius: 16, background: 'var(--bg2)', border: '1px solid var(--border)' }}>
-                  <h3 style={{ margin: '0 0 16px', fontSize: 16, fontWeight: 800, color: 'var(--t1)' }}>
+                <div style={{ padding: '24px 26px', borderRadius: 18, background: 'var(--card)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.05))' }}>
+                  <h3 style={{ margin: '0 0 16px', fontSize: 17, fontWeight: 900, color: 'var(--t1)', letterSpacing: '-0.2px' }}>
                     Sprint Milestones & Build Pipeline
                   </h3>
 
@@ -969,6 +1086,8 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
           </div>
         )}
       </div>
+      </>
+      )}
 
       {/* ── MODAL 1: START INNOVATION PROJECT ────────────────────────── */}
       {showCreateModal && (
@@ -990,7 +1109,7 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
             style={{
               width: '100%',
               maxWidth: 540,
-              background: 'var(--bg2)',
+              background: 'var(--card)',
               border: '1px solid var(--border)',
               borderRadius: 20,
               padding: '28px 32px',
@@ -1171,7 +1290,7 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
             style={{
               width: '100%',
               maxWidth: 480,
-              background: 'var(--bg2)',
+              background: 'var(--card)',
               border: '1px solid var(--border)',
               borderRadius: 20,
               padding: '28px 32px',
@@ -1318,7 +1437,7 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
             style={{
               width: '100%',
               maxWidth: 480,
-              background: 'var(--bg2)',
+              background: 'var(--card)',
               border: '1px solid var(--border)',
               borderRadius: 20,
               padding: '28px 32px',

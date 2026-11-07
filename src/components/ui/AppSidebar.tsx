@@ -35,9 +35,14 @@ export const ROUTE_TOOLTIPS: Record<string, { label: string; tooltip: string; de
     description: '1v1 coding duels, timed hackathons, and algorithmic skill matchmaking.'
   },
   '/projects': {
-    label: 'Projects & Innovation',
-    tooltip: 'Projects & Innovation Hub: Course Capstones & Collaborative Squads',
-    description: 'Collaborative real-world repositories, squad work, and production deploy pipelines.'
+    label: 'Projects',
+    tooltip: 'Projects: Course Capstones & Practical Development',
+    description: 'Build individual GitHub-verified Capstones to earn accredited industry credential certifications.'
+  },
+  '/innovation-hub': {
+    label: 'Innovation Hub',
+    tooltip: 'Innovation Hub: Collaborative Hackathon Squads & Public Projects',
+    description: 'Form or join 3-person hackathon squads, build live prototypes, and submit to jury evaluation.'
   },
   '/leaderboard': {
     label: 'Leaderboard & Leagues',
@@ -102,7 +107,8 @@ export const STUDENT_NAV: NavSection[] = [
     { href: '/quests', icon: '🗺', label: 'Quests & Courses' },
     { href: '/missions', icon: '⚡', label: 'Daily Missions' },
     { href: '/arena', icon: '⚔️', label: 'Challenging Arena' },
-    { href: '/projects', icon: '🚀', label: 'Projects & Innovation' },
+    { href: '/projects', icon: '📁', label: 'Projects' },
+    { href: '/innovation-hub', icon: '💡', label: 'Innovation Hub' },
     { href: '/leaderboard', icon: '🏆', label: 'Leaderboard & Leagues' },
     { href: '/interview', icon: '🎙', label: 'AI Interview' },
     { href: '/mirror', icon: '🪞', label: 'Mirror' },
