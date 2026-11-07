@@ -119,14 +119,21 @@ export async function GET(req: NextRequest) {
               const emailLower = (u.email || '').toLowerCase().trim();
               if (testNonStudentRegex.test(nameLower) || testNonStudentRegex.test(emailLower)) return false;
 
+              // ZERO DUMMY / DEMO DATA INVARIANT:
+              // Exclude uninitialized placeholder accounts with generic name 'student' or demo emails
+              if (!nameLower || nameLower === 'student' || nameLower === 'student peer' || nameLower === 'campus student') return false;
+              if (/\b(test|demo|dummy|sample|placeholder)\b/i.test(nameLower)) return false;
+              if (emailLower.includes('@pinit.in') || emailLower.includes('@example.com') || /\b(test|demo)\b/i.test(emailLower)) return false;
+
               return true;
             })
             .map(u => {
               const ob = u.onboarding_answers || {};
+              // ZERO DUMMY SKILLS INVARIANT:
               const rawSkills: any[] = Array.isArray(u.skill_tags) && u.skill_tags.length > 0
                 ? u.skill_tags
-                : (typeof ob.skills === 'string' && ob.skills.trim().length > 0
-                    ? [ob.skills]
+                : (Array.isArray(u.skills) && u.skills.length > 0
+                    ? u.skills
                     : []);
 
               // Sanitize skills: strip "Skills:" prefix, split on comma/semicolon/newline (preserve Next.js, Node.js)
@@ -147,7 +154,7 @@ export async function GET(req: NextRequest) {
                 id: u.id,
                 name,
                 headline: u.target_role || ob.role || 'CareerOS Student',
-                avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + encodeURIComponent(name),
+                avatar: (typeof u.avatar_url === 'string' && u.avatar_url.trim().length > 0) ? u.avatar_url : ('https://api.dicebear.com/7.x/avataaars/svg?seed=' + encodeURIComponent(u.id || name)),
                 college: (u as any).college_name || (ob.education ? ob.education.split('(')[0].trim() : (ob.college || 'Campus Student')),
                 course: (u as any).department || (ob.education && ob.education.includes('(') ? ob.education.match(/\(([^)]+)\)/)?.[1] || 'Degree' : (ob.course || 'Undergraduate')),
                 careerGoal: u.career_goal || u.target_role || ob.role || 'Aspiring Professional',
