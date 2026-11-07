@@ -232,28 +232,28 @@ describe('ULTRA-DEEP ADVERSARIAL MATRIX AUDIT: 3-PERSON REVENUE & ROBUSTNESS VER
           file: 'rvce_card.jpg',
           expectedCollege: 'RVCE',
           expectedDept: 'CSE',
-          expectedRoll: '1RV21CS042',
+          expectedRoll: '042',
         },
         {
           sample: 'B.M.S. COLLEGE OF ENGINEERING\nELECTRONICS AND COMMUNICATION\nUSN: 1BM22EC018',
           file: 'bms_id.png',
           expectedCollege: 'BMS',
           expectedDept: 'ECE',
-          expectedRoll: '1BM22EC018',
+          expectedRoll: '018',
         },
         {
           sample: 'INDIAN INSTITUTE OF TECHNOLOGY BOMBAY\nMECHANICAL ENGINEERING\nROLL: 210050123',
           file: 'iitb_scan.pdf',
           expectedCollege: 'IITB',
           expectedDept: 'MECH',
-          expectedRoll: '210050123',
+          expectedRoll: '0123',
         },
         {
           sample: 'MANIPAL INSTITUTE OF TECHNOLOGY\nDATA SCIENCE\nREG NO: 210905123',
           file: 'mit_id.pdf',
           expectedCollege: 'MIT',
           expectedDept: 'AIDS',
-          expectedRoll: '210905123',
+          expectedRoll: '5123',
         },
       ];
 

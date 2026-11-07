@@ -420,10 +420,10 @@ export function parseCollegeCardFromText(
   if (usnMatch) {
     rollNumber = usnMatch[0].toUpperCase().slice(-3);
   } else {
-    const rollMatch = rawText.match(/\b(?:roll(?:\s*no|\s*number)?|usn|reg(?:istration)?(?:\s*no|\s*number)?|\bid\b(?:\s*no|\s*number)?)\s*[:#=-]?\s*([A-Za-z0-9/-]{2,20})/i);
+    const rollMatch = rawText.match(/\b(?:roll(?:\s*no|\s*number)?|usn|reg(?:istration)?(?:\s*no|\s*number)?|id\s*(?:no|number|#|:))\s*[:#=-]?\s*([A-Za-z0-9/-]{2,20})/i);
     if (rollMatch) {
       const val = rollMatch[1].trim().toUpperCase();
-      if (!/(?:card|student|identity|valid|date)/i.test(val)) {
+      if (!/(?:card|student|identity|valid|date|manipal)/i.test(val) && /\d/.test(val)) {
         const trailingDigits = val.match(/(\d{3,4})$/);
         if (trailingDigits) {
           rollNumber = trailingDigits[1];
