@@ -367,8 +367,83 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   })();
 
   const ob = ((user as any)?.onboardingAnswers || (user as any)?.onboarding_answers || {}) as Record<string, any>;
-  const institutionName = (user as any)?.institutionName || (user as any)?.collegeName || ob.college || ob.university || ob.institution || 'Campus Academic';
-  const institutionInitials = (user as any)?.institutionInitials || (institutionName ? institutionName.split(' ').map((w: string) => w[0]).join('').slice(0, 4).toUpperCase() : 'HUB');
+  const rawCollege = (user as any)?.institutionName || (user as any)?.collegeName || (user as any)?.college || ob.college || ob.university || ob.institution || '';
+  const initialConnected = Boolean(rawCollege && rawCollege.trim().length > 0 && rawCollege.trim().toLowerCase() !== 'campus academic');
+
+  const [collegeAffiliation, setCollegeAffiliation] = useState<string | null>(() => {
+    if (typeof window !== 'undefined') {
+      const local = localStorage.getItem('pinit_connected_college');
+      if (local && local.trim().length > 0 && local.toLowerCase() !== 'campus academic') {
+        return local.trim();
+      }
+    }
+    return initialConnected ? rawCollege.trim() : null;
+  });
+
+  useEffect(() => {
+    if (initialConnected && !collegeAffiliation) {
+      setCollegeAffiliation(rawCollege.trim());
+    }
+  }, [initialConnected, rawCollege, collegeAffiliation]);
+
+  const isCollegeConnected = Boolean(collegeAffiliation && collegeAffiliation.trim().length > 0);
+  const institutionName = collegeAffiliation || 'Campus Academic';
+  const institutionInitials = institutionName.split(' ').map((w: string) => w[0]).join('').slice(0, 4).toUpperCase() || 'CA';
+
+  const [showConnectCollegeModal, setShowConnectCollegeModal] = useState(false);
+  const [connectCollegeForm, setConnectCollegeForm] = useState({
+    collegeName: '',
+    degree: 'B.Com / Undergraduate',
+    department: '',
+    rollNumber: '',
+  });
+  const [isSubmittingCollege, setIsSubmittingCollege] = useState(false);
+  const [collegeError, setCollegeError] = useState('');
+
+  const handleConnectCollegeSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!connectCollegeForm.collegeName || connectCollegeForm.collegeName.trim().length < 2) {
+      setCollegeError('Please enter a valid college or university name.');
+      return;
+    }
+
+    setIsSubmittingCollege(true);
+    setCollegeError('');
+
+    try {
+      const res = await fetch('/api/student/connect-college', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(user?.id ? { 'x-user-id': user.id } : {})
+        },
+        body: JSON.stringify({
+          collegeName: connectCollegeForm.collegeName.trim(),
+          degree: connectCollegeForm.degree.trim(),
+          department: connectCollegeForm.department.trim(),
+          rollNumber: connectCollegeForm.rollNumber.trim(),
+          userId: user?.id,
+        })
+      });
+
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.ok) {
+        throw new Error(data.message || 'Failed to connect to college');
+      }
+
+      const connectedName = data.institutionName || connectCollegeForm.collegeName.trim();
+      setCollegeAffiliation(connectedName);
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('pinit_connected_college', connectedName);
+      }
+      setShowConnectCollegeModal(false);
+      toast.success(`Successfully connected to ${connectedName}! Right sidebar unlocked.`);
+    } catch (err: any) {
+      setCollegeError(err?.message || 'Connection failed. Please try again.');
+    } finally {
+      setIsSubmittingCollege(false);
+    }
+  };
 
   useEffect(() => { 
     setMobileOpen(false); 
@@ -694,12 +769,12 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       </div>
 
       {/* Right Sidebar - hidden on all Quest routes so Quest workspace has 100% full screen space */}
-      {isStudent && !effectiveFocusMode && !cleanPath.startsWith('/quests') && (
+      {isStudent && !effectiveFocusMode && !cleanPath.startsWith('/quests') && isCollegeConnected && (
         <aside
           className={`sidebar right-sidebar${rightCollapsed ? ' collapsed' : ''}`}
           style={{
-            width: rightCollapsed ? 'var(--sidebar-collapsed-w, 68px)' : 'var(--sidebar-w, 240px)',
-            background: 'linear-gradient(180deg, rgba(99, 102, 241, 0.05) 0%, color-mix(in srgb, var(--bg-sidebar) 94%, transparent) 100%)',
+            width: rightCollapsed ? 'var(--sidebar-collapsed-w, 64px)' : 'var(--sidebar-right-w, 228px)',
+            background: 'radial-gradient(ellipse 180% 60% at 100% 0%, rgba(168, 85, 247, 0.16) 0%, transparent 65%), linear-gradient(270deg, transparent 0%, transparent 90%, rgba(168, 85, 247, 0.08) 100%), linear-gradient(180deg, rgba(99, 102, 241, 0.05) 0%, color-mix(in srgb, var(--bg-sidebar) 94%, transparent) 100%)',
             backdropFilter: 'blur(20px)',
             WebkitBackdropFilter: 'blur(20px)',
             borderLeft: '1.5px solid rgba(99, 102, 241, 0.18)',
@@ -853,6 +928,44 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         </aside>
       )}
 
+      {/* Task 4: Circular Campus Academic Trigger when not connected to college */}
+      {isStudent && !effectiveFocusMode && !cleanPath.startsWith('/quests') && !isCollegeConnected && (
+        <button
+          type="button"
+          className="campus-academic-circle-btn"
+          title="Campus Academic — Connect to College"
+          aria-label="Connect to College"
+          onClick={() => {
+            setCollegeError('');
+            setShowConnectCollegeModal(true);
+          }}
+          style={{
+            position: 'fixed',
+            right: 14,
+            top: 72,
+            width: 48,
+            height: 48,
+            borderRadius: '50%',
+            background: 'linear-gradient(135deg, #6366f1 0%, #a855f7 100%)',
+            border: '2px solid rgba(255, 255, 255, 0.25)',
+            boxShadow: '0 4px 18px rgba(99, 102, 241, 0.45), 0 0 12px rgba(168, 85, 247, 0.35)',
+            color: '#ffffff',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+            zIndex: 90,
+            transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+            padding: 0,
+            outline: 'none',
+          }}
+        >
+          <span style={{ fontSize: 16, lineHeight: 1 }}>🏛️</span>
+          <span style={{ fontSize: 8.5, fontWeight: 900, letterSpacing: '0.5px', marginTop: 1, textTransform: 'uppercase' }}>CA</span>
+        </button>
+      )}
+
       {isStudent && !isLandingPage && !isLessonOrDetail && (
         <GlobalAvatar
           user={user}
@@ -1001,6 +1114,233 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         }}>
           <span>🎮</span>
           <span>Gaming Mode Active · Press Shift + Space twice or Esc to exit</span>
+        </div>
+      )}
+
+      {/* Task 4: Connect to College Modal */}
+      {showConnectCollegeModal && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="connect-college-title"
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 99999,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: 'rgba(5, 8, 16, 0.78)',
+            backdropFilter: 'blur(10px)',
+            WebkitBackdropFilter: 'blur(10px)',
+            padding: 16,
+          }}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setShowConnectCollegeModal(false);
+          }}
+        >
+          <div
+            style={{
+              position: 'relative',
+              width: '100%',
+              maxWidth: 480,
+              background: 'linear-gradient(145deg, rgba(20, 27, 45, 0.96) 0%, rgba(11, 16, 29, 0.98) 100%)',
+              border: '1.5px solid rgba(99, 102, 241, 0.35)',
+              borderRadius: 20,
+              padding: '28px 28px 24px',
+              boxShadow: '0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(99, 102, 241, 0.2)',
+              color: '#f8fafc',
+            }}
+          >
+            {/* Header */}
+            <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 16 }}>
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span style={{ fontSize: 24 }}>🏛️</span>
+                  <h3 id="connect-college-title" style={{ margin: 0, fontSize: 20, fontWeight: 800, color: '#ffffff' }}>
+                    Connect to College
+                  </h3>
+                </div>
+                <p style={{ margin: '6px 0 0', fontSize: 13, color: '#94a3b8', lineHeight: 1.45 }}>
+                  Link your student profile to your university to unlock your Campus Academic right sidebar, exam rosters, and university leagues.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowConnectCollegeModal(false)}
+                style={{
+                  background: 'rgba(255, 255, 255, 0.08)',
+                  border: 'none',
+                  color: '#94a3b8',
+                  width: 30,
+                  height: 30,
+                  borderRadius: '50%',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 16,
+                }}
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Error banner if any */}
+            {collegeError && (
+              <div
+                style={{
+                  padding: '10px 14px',
+                  borderRadius: 10,
+                  background: 'rgba(239, 68, 68, 0.15)',
+                  border: '1px solid rgba(239, 68, 68, 0.35)',
+                  color: '#fca5a5',
+                  fontSize: 13,
+                  marginBottom: 14,
+                }}
+              >
+                {collegeError}
+              </div>
+            )}
+
+            {/* Form */}
+            <form onSubmit={handleConnectCollegeSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+              <div>
+                <label style={{ display: 'block', fontSize: 12.5, fontWeight: 700, color: '#cbd5e1', marginBottom: 6 }}>
+                  College / University Name <span style={{ color: '#ef4444' }}>*</span>
+                </label>
+                <input
+                  type="text"
+                  autoFocus
+                  required
+                  placeholder="e.g. Bangalore University / Christ University"
+                  value={connectCollegeForm.collegeName}
+                  onChange={(e) => setConnectCollegeForm(prev => ({ ...prev, collegeName: e.target.value }))}
+                  style={{
+                    width: '100%',
+                    padding: '11px 14px',
+                    borderRadius: 10,
+                    background: 'rgba(15, 23, 42, 0.8)',
+                    border: '1.5px solid rgba(99, 102, 241, 0.35)',
+                    color: '#ffffff',
+                    fontSize: 14,
+                    outline: 'none',
+                    boxSizing: 'border-box',
+                  }}
+                />
+              </div>
+
+              <div>
+                <label style={{ display: 'block', fontSize: 12.5, fontWeight: 700, color: '#cbd5e1', marginBottom: 6 }}>
+                  Degree &amp; Program
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. B.Com Accounting / B.Tech CS / BBA"
+                  value={connectCollegeForm.degree}
+                  onChange={(e) => setConnectCollegeForm(prev => ({ ...prev, degree: e.target.value }))}
+                  style={{
+                    width: '100%',
+                    padding: '11px 14px',
+                    borderRadius: 10,
+                    background: 'rgba(15, 23, 42, 0.8)',
+                    border: '1.5px solid rgba(255, 255, 255, 0.12)',
+                    color: '#ffffff',
+                    fontSize: 14,
+                    outline: 'none',
+                    boxSizing: 'border-box',
+                  }}
+                />
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+                <div>
+                  <label style={{ display: 'block', fontSize: 12.5, fontWeight: 700, color: '#cbd5e1', marginBottom: 6 }}>
+                    Department / Branch
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Commerce"
+                    value={connectCollegeForm.department}
+                    onChange={(e) => setConnectCollegeForm(prev => ({ ...prev, department: e.target.value }))}
+                    style={{
+                      width: '100%',
+                      padding: '11px 14px',
+                      borderRadius: 10,
+                      background: 'rgba(15, 23, 42, 0.8)',
+                      border: '1.5px solid rgba(255, 255, 255, 0.12)',
+                      color: '#ffffff',
+                      fontSize: 14,
+                      outline: 'none',
+                      boxSizing: 'border-box',
+                    }}
+                  />
+                </div>
+
+                <div>
+                  <label style={{ display: 'block', fontSize: 12.5, fontWeight: 700, color: '#cbd5e1', marginBottom: 6 }}>
+                    Roll / Register No
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="e.g. REG-2024-102"
+                    value={connectCollegeForm.rollNumber}
+                    onChange={(e) => setConnectCollegeForm(prev => ({ ...prev, rollNumber: e.target.value }))}
+                    style={{
+                      width: '100%',
+                      padding: '11px 14px',
+                      borderRadius: 10,
+                      background: 'rgba(15, 23, 42, 0.8)',
+                      border: '1.5px solid rgba(255, 255, 255, 0.12)',
+                      color: '#ffffff',
+                      fontSize: 14,
+                      outline: 'none',
+                      boxSizing: 'border-box',
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 10, marginTop: 10 }}>
+                <button
+                  type="button"
+                  onClick={() => setShowConnectCollegeModal(false)}
+                  style={{
+                    padding: '10px 18px',
+                    borderRadius: 10,
+                    background: 'rgba(255, 255, 255, 0.08)',
+                    border: '1px solid rgba(255, 255, 255, 0.14)',
+                    color: '#94a3b8',
+                    fontSize: 13.5,
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                  }}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isSubmittingCollege}
+                  style={{
+                    padding: '10px 22px',
+                    borderRadius: 10,
+                    background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+                    border: '1px solid rgba(255, 255, 255, 0.25)',
+                    color: '#ffffff',
+                    fontSize: 13.5,
+                    fontWeight: 700,
+                    cursor: isSubmittingCollege ? 'wait' : 'pointer',
+                    boxShadow: '0 4px 16px rgba(99, 102, 241, 0.4)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 6,
+                  }}
+                >
+                  {isSubmittingCollege ? 'Connecting...' : 'Connect to College ↵'}
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       )}
     </div>
