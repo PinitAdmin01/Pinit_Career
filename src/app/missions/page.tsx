@@ -10,7 +10,6 @@ import MissionsHistoryTab from '@/components/missions/MissionsHistoryTab';
 import { useMissionsState } from './hooks/useMissionsState';
 import { useMissionsData } from './hooks/useMissionsData';
 import { useMissionsList } from './hooks/useMissionsList';
-import MissionsHeader from './components/MissionsHeader';
 import MissionsPersonaSimulator from './components/MissionsPersonaSimulator';
 import MissionsStreakPanel from './components/MissionsStreakPanel';
 import MissionsLinguaLabWrapper from './components/MissionsLinguaLabWrapper';
@@ -154,46 +153,8 @@ function MissionsPageInner() {
       }}
       className="animate-fade-in"
     >
-      <MissionsHeader theme={theme} xp={xp} missionOnlyStreak={missionOnlyStreak} />
-
       {/* Top Section: Tab navigation & Main Hero Interactive Area (Full Width) */}
       <div style={{ width: '100%', marginBottom: 36 }}>
-        {/* Progress bar */}
-        {allTodayMissions.length > 0 && (
-          <div
-            style={{
-              background: theme.bgCard,
-              border: `1px solid ${theme.border}`,
-              borderRadius: 16,
-              padding: '16px 20px',
-              marginBottom: 20,
-              display: 'flex',
-              alignItems: 'center',
-              gap: 24,
-              boxShadow: 'var(--shadow-sm)',
-            }}
-          >
-            <div style={{ flex: 1 }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 7 }}>
-                <span style={{ fontSize: 13, fontWeight: 600, color: theme.tPrimary }}>Today&apos;s Progress</span>
-                <span style={{ fontSize: 12, fontFamily: 'var(--font-mono)', color: theme.tSecondary, fontWeight: 600 }}>
-                  {completed.length}/{allTodayMissions.length} Completed
-                </span>
-              </div>
-              <div className="progress-bar" style={{ height: 8, background: theme.bgInside, borderRadius: 4, overflow: 'hidden' }}>
-                <div
-                  className="progress-fill"
-                  style={{
-                    width: `${todayPct}%`,
-                    height: '100%',
-                    background: 'linear-gradient(90deg, var(--accent), var(--teal))',
-                    borderRadius: 4,
-                  }}
-                />
-              </div>
-            </div>
-          </div>
-        )}
 
         {/* Sub-Tabs Split System */}
         <div

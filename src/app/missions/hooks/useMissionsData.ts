@@ -242,10 +242,10 @@ export function useMissionsData({
       const data = await res.json();
       if (data && data.ok) {
         setSelectedChoiceIdx(null);
-        setTimerCount(25);
+        setTimerCount(45);
 
         const serverNodeCount = updatedHistory.filter(h => h.role === 'user').length;
-        const forceEnd = data.isEnded || serverNodeCount >= 3;
+        const forceEnd = data.isEnded || serverNodeCount >= 10;
 
         if (forceEnd) {
           data.isEnded = true;
@@ -341,11 +341,16 @@ export function useMissionsData({
         }
       });
       handleSelectChoiceRef.current(worstIdx);
-      setTimerCount(25);
+      setTimerCount(45);
     }
   }, [timerCount, roleplayActive, roleplayScenario, evaluationReport, animState, setTimerCount]);
 
   const initiateRoleplay = async () => {
+    // Auto-shift to browser fullscreen on direct user gesture for gaming mode
+    if (typeof document !== 'undefined' && document.documentElement && !document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(() => {});
+    }
+
     if (roleplayLoading || isUnlocking) return;
     setIsUnlocking(true);
     setRoleplayLoading(true);
@@ -362,7 +367,7 @@ export function useMissionsData({
       setScenario(null);
       setRoleplayHistory([]);
       setEvaluationReport('');
-      setTimerCount(25);
+      setTimerCount(45);
       setCognitiveLoad(30);
       setSessionElapsed(0);
       stopSpeaking();
@@ -401,6 +406,9 @@ export function useMissionsData({
     } catch (err: any) {
       toast.error("Simulation Error", err.message || "Could not launch role-play.");
       updateRoleplayActive(false);
+      if (typeof document !== 'undefined' && document.fullscreenElement) {
+        document.exitFullscreen().catch(() => {});
+      }
     } finally {
       setRoleplayLoading(false);
       setIsUnlocking(false);

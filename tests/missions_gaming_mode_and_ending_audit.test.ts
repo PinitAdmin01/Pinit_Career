@@ -6,13 +6,23 @@ import { executeRoleplayTurn } from '../src/lib/missions/roleplayEngine';
 import MissionsPersonaSimulator from '../src/app/missions/components/MissionsPersonaSimulator';
 
 describe('MISSIONS GAMING MODE & SESSION CONCLUSION AUDIT', () => {
+  const dummyTheme = {
+    bg: '#0a0a0a',
+    bgCard: '#121212',
+    bgInside: '#181818',
+    border: '#2a2a2a',
+    tPrimary: '#ffffff',
+    tSecondary: '#a0a0a0',
+    tTertiary: '#666666',
+    accentLight: '#2dd4bf',
+  };
 
-  describe('Task 3: Turn Limit & Crisp Session Ending (3 Decisions)', () => {
-    it('does not end after 1 turn (nodeCount = 1)', async () => {
+  describe('Task 3: Sustained 15-Minute Simulation & 10 Turns Ending Enforcement', () => {
+    it('does not end early during incident phases (nodeCount = 1, 2, or 5)', async () => {
       const turn1History = [
         { role: 'assistant' as const, content: 'Crisis begins. Server database locked up.' }
       ];
-      const res = await executeRoleplayTurn({
+      const res1 = await executeRoleplayTurn({
         action: 'respond',
         studentName: 'Alex',
         role: 'Software Developer',
@@ -20,47 +30,45 @@ describe('MISSIONS GAMING MODE & SESSION CONCLUSION AUDIT', () => {
         history: turn1History,
       });
 
-      assert.strictEqual(res.isEnded, false, 'Turn 1 should not end the session');
-      assert.ok(res.choices && res.choices.length === 3, 'Turn 1 must provide 3 next choices');
-    });
+      assert.strictEqual(res1.isEnded, false, 'Turn 1 should not end the session');
+      assert.ok(res1.choices && res1.choices.length === 3, 'Turn 1 must provide 3 next choices');
 
-    it('does not end after 2 turns (nodeCount = 2)', async () => {
-      const turn2History = [
-        { role: 'assistant' as const, content: 'Crisis begins. Server database locked up.' },
-        { role: 'user' as const, content: 'Investigate the database logs' },
-        { role: 'assistant' as const, content: 'The lead demands an update right now.' }
-      ];
-      const res = await executeRoleplayTurn({
+      // Check turn 5
+      const turn5History: any[] = [];
+      for (let i = 0; i < 5; i++) {
+        turn5History.push({ role: 'assistant', content: `Assistant msg ${i + 1}` });
+        turn5History.push({ role: 'user', content: `User choice ${i + 1}` });
+      }
+      turn5History.pop(); // last is assistant (5 assistant messages)
+      const res5 = await executeRoleplayTurn({
         action: 'respond',
         studentName: 'Alex',
         role: 'Software Developer',
-        choice: 'Give an honest 15-minute estimate',
-        history: turn2History,
+        choice: 'Hold the line against shortcuts',
+        history: turn5History,
       });
-
-      assert.strictEqual(res.isEnded, false, 'Turn 2 should not end the session');
-      assert.ok(res.choices && res.choices.length === 3, 'Turn 2 must provide 3 next choices');
+      assert.strictEqual(res5.isEnded, false, 'Turn 5 should still be active');
+      assert.ok(res5.choices && res5.choices.length === 3, 'Turn 5 must provide 3 next choices');
     });
 
-    it('ends reliably after 3 turns (nodeCount = 3)', async () => {
-      const turn3History = [
-        { role: 'assistant' as const, content: 'Crisis begins. Server database locked up.' },
-        { role: 'user' as const, content: 'Investigate the database logs' },
-        { role: 'assistant' as const, content: 'The lead demands an update right now.' },
-        { role: 'user' as const, content: 'Give an honest 15-minute estimate' },
-        { role: 'assistant' as const, content: 'Final pressure: client is calling the CEO.' }
-      ];
-      const res = await executeRoleplayTurn({
+    it('ends reliably after 10 turns (nodeCount = 10) for 15-minute simulation', async () => {
+      const turn10History: any[] = [];
+      for (let i = 0; i < 10; i++) {
+        turn10History.push({ role: 'assistant', content: `Assistant msg ${i + 1}` });
+        turn10History.push({ role: 'user', content: `User choice ${i + 1}` });
+      }
+      turn10History.pop(); // 10th assistant message is last in history before user responds
+      const res10 = await executeRoleplayTurn({
         action: 'respond',
         studentName: 'Alex',
         role: 'Software Developer',
-        choice: 'Stay calm and brief the team with facts',
-        history: turn3History,
+        choice: 'Stay calm and brief the team with verified recovery steps',
+        history: turn10History,
       });
 
-      assert.strictEqual(res.isEnded, true, 'Turn 3 must end the session');
-      assert.strictEqual(res.choices.length, 0, 'Final turn must clear choices');
-      assert.ok(res.message.includes('session has concluded') || res.message.includes('determined how the team handled'), 'Final message must conclude the crisis');
+      assert.strictEqual(res10.isEnded, true, 'Turn 10 must end the session');
+      assert.strictEqual(res10.choices.length, 0, 'Final turn must clear choices');
+      assert.ok(res10.message.toLowerCase().includes('concluded'), 'Final message must announce session conclusion');
     });
   });
 
@@ -217,6 +225,43 @@ describe('MISSIONS GAMING MODE & SESSION CONCLUSION AUDIT', () => {
   });
 
   describe('Task 2: Gaming Mode Reactivity Contract', () => {
+    it('verifies MissionsPersonaSimulator renders gaming mode banner and fullscreen toggle', () => {
+      const markup = renderToStaticMarkup(
+        React.createElement(MissionsPersonaSimulator, {
+          theme: dummyTheme,
+          roleplayScenario: {
+            scenarioTitle: 'Active Outage',
+            activeAvatar: 'rohan',
+            avatarName: 'Mr. Rohan',
+            avatarRole: 'Tech Lead',
+            message: 'What is our move?',
+            choices: [{ text: 'Choice 1', delta: 4 }],
+            isEnded: false,
+            scenarioId: 'sc_active',
+          },
+          roleplayHistory: [
+            { role: 'assistant', content: 'What is our move?' }
+          ],
+          roleplayLoading: false,
+          animState: 'idle',
+          evaluationReport: '',
+          evaluationLoading: false,
+          timerCount: 45,
+          selectedChoiceIdx: null,
+          qt2Delta: 0,
+          sessionElapsed: 60,
+          handleSelectChoice: () => {},
+          updateRoleplayActive: () => {},
+          setEvaluationReport: () => {},
+          triggerEvaluation: () => {},
+        })
+      );
+
+      assert.ok(markup.includes('GAMING MODE ACTIVE · 100% IMMERSIVE'), 'Must render gaming mode badge');
+      assert.ok(markup.includes('Fullscreen'), 'Must render fullscreen control');
+      assert.ok(markup.includes('15:00 Simulation'), 'Must render 15-minute simulation target');
+    });
+
     it('verifies updateRoleplayActive dispatches window event and global flag', () => {
       // Simulate window
       const mockEvents: string[] = [];

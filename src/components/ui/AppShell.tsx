@@ -300,7 +300,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
       const isRoleplay = e?.detail !== undefined
         ? Boolean(e.detail.active)
-        : (Boolean((window as any).__pinitMissionsRoleplayActive) || (window.location.search.includes('roleplay=true') && Boolean((window as any).__pinitMissionsRoleplayActive)));
+        : (Boolean((window as any).__pinitMissionsRoleplayActive) || window.location.search.includes('roleplay=true'));
       const activeRoleplay = window.location.pathname.startsWith('/missions') && isRoleplay;
       setIsRoleplayParamActive(activeRoleplay);
     };
@@ -729,9 +729,9 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         <main 
           className="page-content animate-fade-in"
           style={{
-            padding: isLessonOrDetail ? '0px' : ((isGroupDiscussionCall || isRoleplayActive) ? '16px' : (effectiveFocusMode ? '32px 48px' : undefined)),
-            maxWidth: (isGroupDiscussionCall || isRoleplayActive) ? '95%' : (isLessonOrDetail ? '100%' : (effectiveFocusMode ? 960 : '100%')),
-            margin: (isLessonOrDetail || isGroupDiscussionCall || isRoleplayActive) ? '0 auto' : (effectiveFocusMode ? '0 auto' : '0'),
+            padding: (isLessonOrDetail || isRoleplayActive) ? '0px' : (isGroupDiscussionCall ? '16px' : (effectiveFocusMode ? '32px 48px' : undefined)),
+            maxWidth: (isLessonOrDetail || isRoleplayActive) ? '100%' : (isGroupDiscussionCall ? '95%' : (effectiveFocusMode ? 960 : '100%')),
+            margin: (isLessonOrDetail || isRoleplayActive) ? '0' : (isGroupDiscussionCall ? '0 auto' : (effectiveFocusMode ? '0 auto' : '0')),
             width: '100%',
             transition: 'padding 0.25s, max-width 0.25s'
           }}
@@ -974,7 +974,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         </button>
       )}
 
-      {isStudent && !isLandingPage && !isLessonOrDetail && (
+      {isStudent && !isLandingPage && !isLessonOrDetail && !effectiveFocusMode && !isRoleplayActive && (
         <GlobalAvatar
           user={user}
           profile={profile}
