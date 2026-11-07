@@ -202,7 +202,7 @@ export function parseCollegeCardFromText(
 
   const headerLines = rawLines.slice(0, 8);
   let collegeLineIdx = headerLines.findIndex(l =>
-    /(?:institut[a-z]*|colleg[a-z]*|universit[a-z]*|academy|vidyalaya|polytechnic|school\s+of)/i.test(l) &&
+    /(?:institut[a-z]*|colleg[a-z]*|universit[a-z]*|academy|vidyalaya|polytechnic|\bschool\b)/i.test(l) &&
     !/(?:near|opposite|opposit|cross|road|street|behind|temple|nagar|address|property|instruction)/i.test(l)
   );
 
@@ -215,8 +215,10 @@ export function parseCollegeCardFromText(
   if (collegeLineIdx !== -1) {
     let matchedLine = headerLines[collegeLineIdx];
     matchedLine = matchedLine
-      .replace(/^[^a-zA-Z]+/, '')
+      .replace(/\s*\|\s*my\s*university/i, '')
+      .replace(/\b(?:ef|ee|es|br|sy)\b/gi, '')
       .replace(/[^a-zA-Z0-9\s/&-]/g, ' ')
+      .replace(/\s+/g, ' ')
       .trim();
 
     let fullCollege = matchedLine;
@@ -446,28 +448,40 @@ export function parseCollegeCardFromText(
     for (let i = 0; i < rawLines.length; i++) {
       const l = rawLines[i];
       if (isBoilerplateInstruction(l)) continue;
+      if (/@|\.com\b|\.org\b|\.edu\b|\.net\b|\.in\b|www\.|lorem|ipsum|dolor/i.test(l)) continue;
       if (isForbidden.test(l)) continue;
       // In all ID cards, student name is NEVER positioned above or at the college header
       if (collegeLineIdx !== -1 && i <= collegeLineIdx) continue;
 
-      const clean = l.replace(/^[^a-zA-Z]+|[^a-zA-Z.]+$/g, '').replace(/[^A-Za-z\s.]/g, ' ').trim();
+      let clean = l
+        .replace(/^[^a-zA-Z]+|[^a-zA-Z.]+$/g, '')
+        .replace(/([a-zA-Z])\.([a-zA-Z])/g, '$1. $2')
+        .replace(/[^A-Za-z\s.]/g, ' ')
+        .trim();
+
+      // Reject OCR gibberish with 3+ repeated characters (e.g. "PRS eee", "aaa", "---")
+      if (/(.)\1{2,}/i.test(clean)) continue;
+
       const words = clean.split(/\s+/).filter(Boolean);
 
       // Check if consecutive single-word lines form a complete First + Last name (e.g. "David" + "Smith")
-      if (words.length === 1 && words[0].length >= 3 && i + 1 < rawLines.length) {
+      if (words.length === 1 && words[0].length >= 3 && words[0].length <= 12 && i + 1 < rawLines.length) {
         const nextL = rawLines[i + 1];
-        if (!isBoilerplateInstruction(nextL) && !isForbidden.test(nextL)) {
+        if (!isBoilerplateInstruction(nextL) && !isForbidden.test(nextL) && !/\d/.test(nextL)) {
           const nextClean = nextL.replace(/^[^a-zA-Z]+|[^a-zA-Z.]+$/g, '').replace(/[^A-Za-z\s.]/g, ' ').trim();
           const nextWords = nextClean.split(/\s+/).filter(Boolean);
-          if (nextWords.length === 1 && nextWords[0].length >= 3) {
+          if (nextWords.length === 1 && nextWords[0].length >= 3 && nextWords[0].length <= 12 && !/^(?:vense|valid|terms|phone|email|batch)$/i.test(nextWords[0])) {
             const combined = `${words[0]} ${nextWords[0]}`;
             candidates.push({ line: combined, score: 75 });
           }
         }
       }
 
-      // Must have at least 1 word with >= 4 letters (e.g. Vinay, Arjun, Seema) or 2 words (Y. Abel)
+      // Reject if all words are tiny 1-2 letter syllables (e.g. "E EE", "ef es", "re ni")
+      if (words.every(w => w.length <= 2)) continue;
+      // Must have at least 1 word with >= 4 letters (e.g. Vinay, Arjun, Seema, Dewangan) or 2 words each >= 2 letters
       if (words.length === 1 && words[0].length < 4) continue;
+      if (!words.some(w => w.length >= 3)) continue;
       if (words.length > 4 || clean.length < 3 || clean.length > 32) continue;
 
       let score = 0;
@@ -487,12 +501,13 @@ export function parseCollegeCardFromText(
   if (studentName) {
     studentName = studentName
       .replace(/^[a-z]\s+([a-z]{3,})/i, '$1')
+      .replace(/^([a-z])\.([a-z])/i, '$1. $2')
       .toLowerCase()
       .split(/\s+/)
       .map(w => w.charAt(0).toUpperCase() + w.slice(1))
       .join(' ');
   } else {
-    studentName = fallbackDisplayName || 'Student';
+    studentName = fallbackDisplayName || '';
   }
 
   // 4. Identify Roll Number / USN / Contact Suffix

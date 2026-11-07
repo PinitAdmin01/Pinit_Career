@@ -104,7 +104,7 @@ function MissionsPageInner() {
     (pastCompleted?.length || 0) +
     (completedMissions?.length || 0) +
     (socraticHistory?.length || 0) +
-    (user?.missions_completed || 0);
+    (Number(user?.missions_completed) || 0);
   const hasCompletedAnyMission = totalCompletedCount > 0;
 
   const theme = {
@@ -260,7 +260,7 @@ function MissionsPageInner() {
           <MissionsLinguaLabWrapper
             streak={missionOnlyStreak}
             theme={theme}
-            activeCourseId={cOS.activeCourseId}
+            activeCourseId={cOS.activeCourseId || undefined}
             role={onboardingAnswers?.role}
           />
         ) : (

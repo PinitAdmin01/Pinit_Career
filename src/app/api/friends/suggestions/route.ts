@@ -104,9 +104,15 @@ export async function GET(req: NextRequest) {
               if (r && r !== 'student') return false;
 
               // Exclude test / demo recruiter & non-student profiles
-              const nameLower = (u.display_name || u.username || '').toLowerCase();
-              const emailLower = (u.email || '').toLowerCase();
+              const nameLower = (u.display_name || u.username || '').toLowerCase().trim();
+              const emailLower = (u.email || '').toLowerCase().trim();
               if (testNonStudentRegex.test(nameLower) || testNonStudentRegex.test(emailLower)) return false;
+
+              // ZERO DUMMY / DEMO DATA INVARIANT:
+              // Exclude uninitialized placeholder accounts with generic name 'student' or demo emails
+              if (!nameLower || nameLower === 'student' || nameLower === 'student peer' || nameLower === 'campus student') return false;
+              if (/\b(test|demo|dummy|sample|placeholder)\b/i.test(nameLower)) return false;
+              if (emailLower.includes('@pinit.in') || emailLower.includes('@example.com') || /\b(test|demo)\b/i.test(emailLower)) return false;
 
               return true;
             })

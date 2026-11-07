@@ -14,6 +14,7 @@ import { SmartMatchModal } from '@/components/friends/SmartMatchModal';
 import { PrivacySettingsModal } from '@/components/friends/PrivacySettingsModal';
 import { ReportStudentModal } from '@/components/friends/ReportStudentModal';
 import { computeStudentMatch, CURRENT_STUDENT_PROFILE, MatchStudentProfile, MatchBreakdown } from '@/lib/friends/matching';
+import { supabase } from '@/lib/supabaseClient';
 
 function FriendsContent() {
   const router = useRouter();
@@ -76,11 +77,29 @@ function FriendsContent() {
     return () => clearTimeout(timer);
   }, [searchQuery]);
 
+  // ── Helper to retrieve auth headers for live Supabase identity ───────────
+  const getAuthHeaders = async (): Promise<Record<string, string>> => {
+    try {
+      const { data } = await supabase.auth.getSession();
+      const headers: Record<string, string> = {};
+      if (data?.session?.access_token) {
+        headers['Authorization'] = `Bearer ${data.session.access_token}`;
+      }
+      if (data?.session?.user?.id) {
+        headers['x-user-id'] = data.session.user.id;
+      }
+      return headers;
+    } catch {
+      return {};
+    }
+  };
+
   // ── 1. Fetch Real Friendships & Counts From Supabase ──────────────────────
   const fetchNetworkData = async () => {
     try {
       console.log('[FriendsHub] Fetching live friendships from Supabase API /api/friends...');
-      const res = await fetch('/api/friends');
+      const headers = await getAuthHeaders();
+      const res = await fetch('/api/friends', { headers });
       const data = await res.json();
       console.log('[FriendsHub] /api/friends response:', data);
 
@@ -97,9 +116,9 @@ function FriendsContent() {
           studentId: r.sender?.id,
           name: r.sender?.name || 'Student Peer',
           avatar: r.sender?.avatar || 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + r.requestId,
-          college: r.sender?.college || 'Engineering Campus',
+          college: r.sender?.college || 'Campus Student',
           course: 'Undergraduate',
-          skills: ['Coding', 'Engineering']
+          skills: Array.isArray(r.sender?.skills) ? r.sender.skills : []
         }));
         setIncomingRequestsList(incoming);
 
@@ -129,7 +148,8 @@ function FriendsContent() {
       const url = `/api/friends/suggestions?filter=${activeFilter}${debouncedSearch ? `&q=${encodeURIComponent(debouncedSearch)}` : ''}`;
       console.log(`[FriendsHub] Fetching student suggestions from Supabase: ${url}`);
       
-      const res = await fetch(url);
+      const headers = await getAuthHeaders();
+      const res = await fetch(url, { headers });
       const data = await res.json();
       console.log('[FriendsHub] /api/friends/suggestions response:', data);
 
