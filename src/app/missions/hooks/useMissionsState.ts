@@ -63,6 +63,19 @@ export function useMissionsState(defaultRole: string = 'Software Developer') {
 
   const updateRoleplayActive = (active: boolean) => {
     setRoleplayActive(active);
+    if (typeof window !== 'undefined') {
+      (window as any).__pinitMissionsRoleplayActive = active;
+      window.dispatchEvent(new CustomEvent('pinit-roleplay-toggle', { detail: { active } }));
+      try {
+        const url = new URL(window.location.href);
+        if (active) {
+          url.searchParams.set('roleplay', 'true');
+        } else {
+          url.searchParams.delete('roleplay');
+        }
+        window.history.replaceState({}, '', url.toString());
+      } catch {}
+    }
     if (active && !isRoleplayParam) {
       router.replace('/missions?roleplay=true');
     } else if (!active && isRoleplayParam) {

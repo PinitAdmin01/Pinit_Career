@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { stopSpeaking } from '@/lib/tts';
 import { RoleplayScenario, RoleplayHistoryEntry } from '../hooks/useMissionsState';
@@ -31,6 +31,7 @@ interface MissionsPersonaSimulatorProps {
   handleSelectChoice: (choiceIdx: number) => void;
   updateRoleplayActive: (active: boolean) => void;
   setEvaluationReport: (report: string) => void;
+  triggerEvaluation?: (history: RoleplayHistoryEntry[]) => void;
 }
 
 export default function MissionsPersonaSimulator({
@@ -48,7 +49,14 @@ export default function MissionsPersonaSimulator({
   handleSelectChoice,
   updateRoleplayActive,
   setEvaluationReport,
+  triggerEvaluation,
 }: MissionsPersonaSimulatorProps) {
+  const chatEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [roleplayHistory, roleplayLoading]);
+
   return (
     <div
       style={{
@@ -137,13 +145,13 @@ export default function MissionsPersonaSimulator({
           </button>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1.8fr', gap: 20, minHeight: 380 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1.8fr', gap: 20, alignItems: 'start' }}>
           {/* Left Column Container: 3D Feed + Situation Summary */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             {/* Left Column: 3D Telemetry Feed */}
             <div
               style={{
-                height: 380,
+                height: 330,
                 background: theme.bgInside,
                 border: `1px solid ${theme.border}`,
                 borderRadius: 16,
@@ -254,6 +262,8 @@ export default function MissionsPersonaSimulator({
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 8,
+                maxHeight: 180,
+                overflow: 'hidden',
                 transition: 'all 0.3s ease-out',
               }}
             >
@@ -319,7 +329,7 @@ export default function MissionsPersonaSimulator({
                       Awaiting candidate's first action response...
                     </span>
                   ) : (
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 4, maxHeight: 90, overflowY: 'auto' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 4, maxHeight: 68, overflowY: 'auto' }}>
                       {roleplayHistory
                         .filter((h) => h.role === 'user')
                         .map((c, i) => (
@@ -346,16 +356,15 @@ export default function MissionsPersonaSimulator({
           </div>
 
           {/* Right Column: Dialogue Console */}
-          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: 16 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12, minHeight: 0 }}>
             {/* Chat Bubble Logs */}
             <div
               style={{
-                flex: 1,
+                height: 310,
                 overflowY: 'auto',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 12,
-                maxHeight: 280,
                 paddingRight: 6,
                 background: theme.bgInside,
                 borderRadius: 16,
@@ -429,6 +438,7 @@ export default function MissionsPersonaSimulator({
                   ✏️ Synthesizing dynamic branch parameters...
                 </div>
               )}
+              <div ref={chatEndRef} />
             </div>
 
             {/* Interactive Choices Panel */}
@@ -490,6 +500,52 @@ export default function MissionsPersonaSimulator({
                     style={{ width: '100%', marginTop: 12, justifyContent: 'center' }}
                   >
                     Return to Command Center
+                  </button>
+                </div>
+              ) : roleplayScenario && roleplayScenario.isEnded ? (
+                <div
+                  style={{
+                    background: 'rgba(20, 184, 166, 0.08)',
+                    border: '1.5px solid rgba(20, 184, 166, 0.3)',
+                    borderRadius: 14,
+                    padding: '16px 20px',
+                    textAlign: 'center',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: 10,
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <span className="animate-spin" style={{ fontSize: 16 }}>🔄</span>
+                    <span style={{ fontSize: 13.5, fontWeight: 800, color: 'var(--teal)' }}>
+                      Crisis Simulation Concluded · Generating Mindset Report...
+                    </span>
+                  </div>
+                  <p style={{ margin: 0, fontSize: 12, color: theme.tSecondary }}>
+                    Synthesizing your decisions into leadership competencies and cognitive archetype.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (triggerEvaluation) {
+                        triggerEvaluation(roleplayHistory);
+                      }
+                    }}
+                    className="btn-primary"
+                    style={{
+                      padding: '8px 18px',
+                      fontSize: 12.5,
+                      fontWeight: 800,
+                      borderRadius: 8,
+                      cursor: 'pointer',
+                      background: 'var(--teal)',
+                      color: '#000',
+                      border: 'none',
+                      marginTop: 4,
+                    }}
+                  >
+                    View Evolution Report Now ➔
                   </button>
                 </div>
               ) : roleplayScenario && roleplayScenario.choices && roleplayScenario.choices.length > 0 ? (

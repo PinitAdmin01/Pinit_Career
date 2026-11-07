@@ -25,7 +25,7 @@ export function useMissionsData({
   searchParams
 }: UseMissionsDataProps) {
   const {
-    roleplayActive, setRoleplayActive,
+    roleplayActive, setRoleplayActive, updateRoleplayActive,
     roleplayLoading, setRoleplayLoading,
     isUnlocking, setIsUnlocking,
     roleplayScenario, setScenario,
@@ -245,7 +245,7 @@ export function useMissionsData({
         setTimerCount(25);
 
         const serverNodeCount = updatedHistory.filter(h => h.role === 'user').length;
-        const forceEnd = data.isEnded || serverNodeCount >= 8;
+        const forceEnd = data.isEnded || serverNodeCount >= 3;
 
         if (forceEnd) {
           data.isEnded = true;
@@ -255,15 +255,24 @@ export function useMissionsData({
           setRoleplayHistory(prev => [...prev, finalMsg]);
 
           setAnimState('talking');
+          let evalTriggered = false;
+          const safeEval = () => {
+            if (evalTriggered) return;
+            evalTriggered = true;
+            triggerEvaluation([...updatedHistory, finalMsg]);
+          };
+
+          // 3.5s watchdog fallback timer in case avatar speech stalls or is muted
+          const fallbackTimer = setTimeout(safeEval, 3500);
+
           speakWithAvatar(
             data.message,
             data.activeAvatar,
             () => setAnimState('talking'),
             () => {
+              clearTimeout(fallbackTimer);
               setAnimState('idle');
-              setTimeout(() => {
-                triggerEvaluation([...updatedHistory, finalMsg]);
-              }, 800);
+              setTimeout(safeEval, 600);
             },
             false,
             true,
@@ -349,7 +358,7 @@ export function useMissionsData({
         return;
       }
 
-      setRoleplayActive(true);
+      updateRoleplayActive(true);
       setScenario(null);
       setRoleplayHistory([]);
       setEvaluationReport('');
@@ -391,7 +400,7 @@ export function useMissionsData({
       }
     } catch (err: any) {
       toast.error("Simulation Error", err.message || "Could not launch role-play.");
-      setRoleplayActive(false);
+      updateRoleplayActive(false);
     } finally {
       setRoleplayLoading(false);
       setIsUnlocking(false);

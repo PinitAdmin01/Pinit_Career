@@ -56,6 +56,7 @@ function MissionsPageInner() {
   const {
     initiateRoleplay,
     handleSelectChoice,
+    triggerEvaluation,
     handleGenerateCustomQuests,
   } = useMissionsData({
     state,
@@ -135,6 +136,7 @@ function MissionsPageInner() {
         handleSelectChoice={handleSelectChoice}
         updateRoleplayActive={updateRoleplayActive}
         setEvaluationReport={setEvaluationReport}
+        triggerEvaluation={triggerEvaluation}
       />
     );
   }
