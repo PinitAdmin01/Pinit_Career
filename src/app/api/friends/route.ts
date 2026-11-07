@@ -107,16 +107,25 @@ export async function GET(req: NextRequest) {
 
           (usersData || []).forEach(u => {
             const ob = u.onboarding_answers || {};
+            const collegeName = (u as any).college_name || (ob.education ? ob.education.split('(')[0].trim() : (ob.college || 'Campus Student'));
+            const courseName = (u as any).department || (ob.education && ob.education.includes('(') ? ob.education.match(/\(([^)]+)\)/)?.[1] || 'Degree' : (ob.course || 'Undergraduate'));
+            const name = u.display_name || u.username || (u.email ? u.email.split('@')[0] : 'Student');
+            const cleanSkills = Array.isArray(u.skill_tags) && u.skill_tags.length > 0
+              ? u.skill_tags.slice(0, 4)
+              : (Array.isArray((u as any).skills) && (u as any).skills.length > 0 ? (u as any).skills.slice(0, 4) : []);
+
             userProfilesMap.set(u.id, {
               id: u.id,
-              name: u.display_name || u.username || 'Student Peer',
-              headline: u.target_role || ob.role || 'Software Engineering Student',
-              avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + encodeURIComponent(u.display_name || u.username || u.id),
-              college: ob.education ? ob.education.split('(')[0].trim() : 'Engineering Campus',
-              course: ob.education && ob.education.includes('(') ? ob.education.match(/\(([^)]+)\)/)?.[1] || 'B.Tech' : 'B.Tech CS',
-              skills: Array.isArray(u.skill_tags) && u.skill_tags.length > 0 ? u.skill_tags.slice(0, 4) : ['React', 'TypeScript', 'Node.js'],
-              careerScore: u.career_dna_score || 85,
-              xp: u.xp_total || 1500,
+              name,
+              headline: u.target_role || ob.role || 'CareerOS Student',
+              avatar: (typeof (u as any).avatar_url === 'string' && (u as any).avatar_url.trim().length > 0)
+                ? (u as any).avatar_url
+                : ('https://api.dicebear.com/7.x/avataaars/svg?seed=' + encodeURIComponent(u.id || name)),
+              college: collegeName,
+              course: courseName,
+              skills: cleanSkills,
+              careerScore: u.career_dna_score || 0,
+              xp: u.xp_total || 0,
               online: true
             });
           });
@@ -138,9 +147,9 @@ export async function GET(req: NextRequest) {
           name: 'Student Peer',
           headline: 'PinIT Fellow',
           avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + peerId,
-          college: 'Campus',
-          course: 'B.Tech',
-          skills: ['Coding'],
+          college: 'Campus Student',
+          course: 'Undergraduate',
+          skills: [],
           online: false
         }
       };

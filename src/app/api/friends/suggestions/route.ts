@@ -65,7 +65,7 @@ export async function GET(req: NextRequest) {
         try {
           const { data: connections } = await admin
             .from('friendships')
-            .select('requester_id, addressee_id')
+            .select('requester_id, addressee_id, status')
             .or('requester_id.eq.' + userId + ',addressee_id.eq.' + userId);
           (connections || []).forEach((c: any) => {
             if (c.status === 'accepted') {
@@ -100,6 +100,7 @@ export async function GET(req: NextRequest) {
 
           candidates = users
             .filter(u => {
+              if (userId && u.id === userId) return false;
               if (connectedIds.has(u.id) || blockedIds.has(u.id)) return false;
 
               // Strict role check: exclude institutional staff (recruiters, consultants, parents, admins, teachers)
@@ -111,12 +112,8 @@ export async function GET(req: NextRequest) {
               const emailLower = (u.email || '').toLowerCase().trim();
               if (testNonStudentRegex.test(nameLower) || testNonStudentRegex.test(emailLower)) return false;
 
-              // ZERO DUMMY / DEMO DATA INVARIANT:
-              // Exclude uninitialized placeholder accounts with generic name 'student' or demo test emails
-              if (!nameLower || nameLower === 'student' || nameLower === 'student peer' || nameLower === 'campus student') return false;
-              if (/\b(test|demo|dummy|sample|placeholder)\b/i.test(nameLower)) return false;
-              if (emailLower.includes('@pinit.in') || emailLower.includes('@example.com') || /\b(test|demo)\b/i.test(emailLower)) return false;
-
+              // TASK 2 INVARIANT: Include ALL authentic users in the database, even if incomplete or brand new.
+              // Do NOT drop users because of default display names or email domains.
               return true;
             })
             .map(u => {
@@ -146,7 +143,7 @@ export async function GET(req: NextRequest) {
 
               const collegeName = u.college_name || (ob.education ? ob.education.split('(')[0].trim() : (ob.college || 'Campus Student'));
               const courseName = u.department || (ob.education && ob.education.includes('(') ? ob.education.match(/\(([^)]+)\)/)?.[1] || 'Degree' : (ob.course || 'Undergraduate'));
-              const name = u.display_name || u.username || (u.email ? u.email.split('@')[0] : 'Campus Peer');
+              const name = u.display_name || u.username || (u.email ? u.email.split('@')[0] : 'Campus Student');
 
               return {
                 id: u.id,

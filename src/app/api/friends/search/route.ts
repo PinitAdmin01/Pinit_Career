@@ -112,6 +112,7 @@ export async function GET(req: NextRequest) {
 
           students = users
             .filter(u => {
+              if (userId && u.id === userId) return false;
               const r = (u.role || '').toLowerCase().trim();
               if (r && nonStudentRoles.has(r)) return false;
 
@@ -119,12 +120,7 @@ export async function GET(req: NextRequest) {
               const emailLower = (u.email || '').toLowerCase().trim();
               if (testNonStudentRegex.test(nameLower) || testNonStudentRegex.test(emailLower)) return false;
 
-              // ZERO DUMMY / DEMO DATA INVARIANT:
-              // Exclude uninitialized placeholder accounts with generic name 'student' or demo emails
-              if (!nameLower || nameLower === 'student' || nameLower === 'student peer' || nameLower === 'campus student') return false;
-              if (/\b(test|demo|dummy|sample|placeholder)\b/i.test(nameLower)) return false;
-              if (emailLower.includes('@pinit.in') || emailLower.includes('@example.com') || /\b(test|demo)\b/i.test(emailLower)) return false;
-
+              // TASK 2 INVARIANT: Include ALL authentic users in the database, even if incomplete or brand new.
               return true;
             })
             .map(u => {

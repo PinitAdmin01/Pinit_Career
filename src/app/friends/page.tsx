@@ -643,9 +643,11 @@ function FriendsContent() {
                           </div>
 
                           <div className="student-list-skills">
-                            {student.skills.map((sk, idx) => (
-                              <span key={idx} className="mini-skill-pill">{sk}</span>
-                            ))}
+                            {Array.isArray(student.skills) && student.skills.length > 0
+                              ? student.skills.map((sk, idx) => (
+                                  <span key={idx} className="mini-skill-pill">{sk}</span>
+                                ))
+                              : null}
                           </div>
 
                           <div className="student-list-actions">
@@ -693,9 +695,11 @@ function FriendsContent() {
                           </div>
                           <div className="suggested-peer-degree">{student.course} • {student.college}</div>
                           <div className="suggested-skills-pills">
-                            {student.skills.map((s, i) => (
-                              <span key={i} className="mini-skill-pill">{s}</span>
-                            ))}
+                            {Array.isArray(student.skills) && student.skills.length > 0
+                              ? student.skills.map((s, i) => (
+                                  <span key={i} className="mini-skill-pill">{s}</span>
+                                ))
+                              : null}
                           </div>
                           <div className="suggested-card-btn-row">
                             <button
