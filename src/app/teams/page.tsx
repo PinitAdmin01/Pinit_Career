@@ -7,7 +7,7 @@ export default function TeamsRedirectPage() {
   const router = useRouter();
 
   useEffect(() => {
-    router.replace('/projects?tab=innovation');
+    router.replace('/innovation-hub');
   }, [router]);
 
   return (
