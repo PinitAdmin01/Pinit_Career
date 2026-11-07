@@ -11,7 +11,7 @@ import {
 interface Props {
   displayName: string;
   username: string;
-  onIdGenerated: (id: string, mode: 'college' | 'global', metadata?: CollegeMetadata) => void;
+  onIdGenerated: (id: string, mode: 'college' | 'global', metadata?: CollegeMetadata, file?: File | null) => void;
 }
 
 export default function CollegeIdScanner({
@@ -60,7 +60,7 @@ export default function CollegeIdScanner({
         rollNumber: rollNumber || '001',
       });
       setPreviewId(cid);
-      onIdGeneratedRef.current(cid, 'college', collegeMeta || undefined);
+      onIdGeneratedRef.current(cid, 'college', collegeMeta || undefined, uploadedFile);
     }
   }, [mode, collegeCode, deptCode, rollNumber, collegeMeta]);
 

@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useAuth } from '@/lib/context/AuthContext';
 import CollegeIdScanner from '@/components/auth/CollegeIdScanner';
 import { CollegeMetadata } from '@/lib/utils/pinitIdGenerator';
+import { supabase } from '@/lib/supabaseClient';
 
 export default function SignupPage() {
   const { signup } = useAuth();
@@ -15,13 +16,15 @@ export default function SignupPage() {
   const [pinitId, setPinitId] = useState('');
   const [idMode, setIdMode] = useState<'college' | 'global'>('global');
   const [collegeMeta, setCollegeMeta] = useState<CollegeMetadata | undefined>();
+  const [uploadedCardFile, setUploadedCardFile] = useState<File | null>(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleIdGenerated = useCallback((id: string, mode: 'college' | 'global', meta?: CollegeMetadata) => {
+  const handleIdGenerated = useCallback((id: string, mode: 'college' | 'global', meta?: CollegeMetadata, file?: File | null) => {
     setPinitId(id);
     setIdMode(mode);
     setCollegeMeta(meta);
+    if (file !== undefined) setUploadedCardFile(file);
   }, []);
 
   async function handleRegister(e: React.FormEvent) {
@@ -50,6 +53,20 @@ export default function SignupPage() {
         collegeInfo: collegeMeta,
       });
 
+            // Persist uploaded college ID card to Supabase storage bucket
+      if (uploadedCardFile && pinitId) {
+        try {
+          const fileExt = uploadedCardFile.name.split('.').pop() || 'png';
+          await supabase.storage
+            .from('student-id-cards')
+            .upload(`${pinitId}/card_${Date.now()}.${fileExt}`, uploadedCardFile, {
+              cacheControl: '3600',
+              upsert: true,
+            });
+        } catch (uploadErr) {
+          console.warn('[Signup] College ID card bucket upload notice:', uploadErr);
+        }
+      }
       // Persist local identification for offline continuity
       try {
         if (typeof window !== 'undefined') {
