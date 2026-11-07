@@ -48,6 +48,7 @@ dump.rdb
 start_backend.bat
 
 # Local pristine avatar source backups
+Student_collage_id/
 raw_avatars_source/
 
 # Graphify knowledge graph output & cache

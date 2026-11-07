@@ -254,3 +254,55 @@ ARJUN PRASAD
   assert.strictEqual(result.studentName, 'Arjun Prasad');
   assert.strictEqual(result.rollNumber, '045');
 });
+
+test('12. Correctly extracts Oxford University, Janud.h, and MBBS', () => {
+  const oxfordText = `
+UNIVERSITY OF
+OXFORD
+STUDENT ID CARD
+NAME :Janud.h
+IDNO :0002546
+COURSE : Mbbs
+BATCH :Mhd-21
+  `.trim();
+
+  const result = parseCollegeCardFromText(oxfordText);
+  assert.strictEqual(result.collegeCode, 'OXFORD');
+  assert.strictEqual(result.studentName, 'Janud.h');
+  assert.strictEqual(result.departmentCode, 'MBBS');
+  assert.strictEqual(result.rollNumber, '2546');
+
+  const pinitId = generateCollegePinItId({
+    collegeCode: result.collegeCode,
+    departmentCode: result.departmentCode,
+    rollNumber: result.rollNumber,
+  });
+  assert.strictEqual(pinitId, 'PIN-OXFORD-MBBS-2546');
+});
+
+test('13. Correctly extracts Dr MGR Educational Institute, Y. Abel, and LLB', () => {
+  const mgrText = `
+F/HR/003
+D r. M n G n R.
+EDUCATIONAL AND RESEARCH INSTITUTE
+(Deemed to be University)
+IDENTITY CARD
+Name 1 Y. ABEL
+Reg. No. :197011106002
+Batch 12019 - 2022
+Branch : LLB (Hons.)
+  `.trim();
+
+  const result = parseCollegeCardFromText(mgrText);
+  assert.strictEqual(result.collegeCode, 'MGR');
+  assert.strictEqual(result.studentName, 'Y. Abel');
+  assert.strictEqual(result.departmentCode, 'LLB');
+  assert.strictEqual(result.rollNumber, '6002');
+
+  const pinitId = generateCollegePinItId({
+    collegeCode: result.collegeCode,
+    departmentCode: result.departmentCode,
+    rollNumber: result.rollNumber,
+  });
+  assert.strictEqual(pinitId, 'PIN-MGR-LLB-6002');
+});

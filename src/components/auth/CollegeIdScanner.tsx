@@ -87,9 +87,22 @@ async function runClientOcr(file: File): Promise<string> {
 
     const Tesseract = (window as any).Tesseract;
     if (!Tesseract || typeof Tesseract.recognize !== 'function') return '';
+
+    // First attempt: Direct recognition on raw File for uncorrupted native color and text fidelity
+    try {
+      const res = await Tesseract.recognize(file, 'eng');
+      const text = res?.data?.text || '';
+      if (text && text.trim().length >= 15) {
+        return text;
+      }
+    } catch (rawOcrErr) {
+      console.warn('[CollegeIdScanner] Raw OCR attempt note:', rawOcrErr);
+    }
+
+    // Second attempt: Fallback to canvas preprocessing if raw image produced minimal text
     const preprocessed = await preprocessImageForOcr(file);
-    const res = await Tesseract.recognize(preprocessed, 'eng');
-    return res?.data?.text || '';
+    const resFallback = await Tesseract.recognize(preprocessed, 'eng');
+    return resFallback?.data?.text || '';
   } catch (err) {
     console.warn('[CollegeIdScanner] Client OCR execution note:', err);
     return '';
