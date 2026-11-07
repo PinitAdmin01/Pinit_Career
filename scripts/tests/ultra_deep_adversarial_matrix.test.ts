@@ -79,16 +79,16 @@ describe('ULTRA-DEEP ADVERSARIAL MATRIX AUDIT: 3-PERSON REVENUE & ROBUSTNESS VER
       );
     });
 
-    it('P3.4: Confirms Drawer privacy gate strictly hides all sensitive stats from non-friends', () => {
+    it('P3.4: Confirms Drawer enables full profile navigation and provides connection notice when not friends', () => {
       const drawerPath = path.join(process.cwd(), 'src', 'components', 'friends', 'FriendProfileDrawer.tsx');
       const content = fs.readFileSync(drawerPath, 'utf8');
 
-      // Must have locked state container
+      // Must have non-friend state container
       assert.match(content, /data-testid="drawer-profile-locked-state"/);
-      assert.match(content, /Profile Locked Behind Connection/);
+      assert.match(content, /Public Student Profile/);
 
-      // Sensitive stats must only render when isFriend === true
-      assert.match(content, /\{!isFriend \? \([\s\S]*?\) : \([\s\S]*?Career Score/);
+      // Must allow navigating to full profile
+      assert.match(content, /Full Profile →/);
     });
   });
 

@@ -196,11 +196,12 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
                     </button>
                     <button
                       className="friends-btn friends-btn-secondary"
-                      disabled
-                      style={{ opacity: 0.6, cursor: 'not-allowed' }}
-                      title="Accept friend request above to unlock full profile"
+                      onClick={() => {
+                        onClose();
+                        router.push(`/friends/${student.id}`);
+                      }}
                     >
-                      🔒 Full Profile
+                      Full Profile →
                     </button>
                     <button
                       className="friends-btn friends-btn-danger"
@@ -225,7 +226,7 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
                         router.push(`/friends/${student.id}`);
                       }}
                     >
-                      Full Profile
+                      Full Profile →
                     </button>
                   </>
                 ) : isSent ? (
@@ -233,13 +234,14 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
                     <button className="friends-btn friends-btn-pending" disabled>
                       ⏳ Request Pending
                     </button>
-                                        <button
+                    <button
                       className="friends-btn friends-btn-secondary"
-                      disabled
-                      style={{ opacity: 0.6, cursor: 'not-allowed' }}
-                      title="Profile locked until friend request is accepted"
+                      onClick={() => {
+                        onClose();
+                        router.push(`/friends/${student.id}`);
+                      }}
                     >
-                      🔒 Full Profile
+                      Full Profile →
                     </button>
                   </>
                 ) : (
@@ -250,13 +252,14 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
                     >
                       + Add to Network
                     </button>
-                                        <button
+                    <button
                       className="friends-btn friends-btn-secondary"
-                      disabled
-                      style={{ opacity: 0.6, cursor: 'not-allowed' }}
-                      title="Profile locked until friend request is accepted"
+                      onClick={() => {
+                        onClose();
+                        router.push(`/friends/${student.id}`);
+                      }}
                     >
-                      🔒 Full Profile
+                      Full Profile →
                     </button>
                   </>
                 )}
@@ -264,56 +267,60 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
             </div>
           </div>
 
-          {/* Task 11 Privacy Gate: Only reveal full profile details if accepted friends */}
-          {!isFriend ? (
+          {/* Public Student Profile Banner: Non-connected viewer notice */}
+          {!isFriend && (
             <div
               data-testid="drawer-profile-locked-state"
               style={{
-                margin: '20px 0',
-                padding: '36px 20px',
-                borderRadius: 16,
-                background: 'rgba(99, 102, 241, 0.06)',
-                border: '1.5px dashed rgba(99, 102, 241, 0.35)',
-                textAlign: 'center',
+                margin: '16px 0',
+                padding: '16px 18px',
+                borderRadius: 14,
+                background: 'rgba(99, 102, 241, 0.08)',
+                border: '1px solid rgba(99, 102, 241, 0.25)',
                 display: 'flex',
-                flexDirection: 'column',
                 alignItems: 'center',
+                justifyContent: 'space-between',
                 gap: 12,
+                flexWrap: 'wrap',
               }}
             >
-              <div style={{ fontSize: 36 }}>🔒</div>
-              <h3 style={{ fontSize: 17, fontWeight: 900, color: 'var(--t1)', margin: 0, fontFamily: 'var(--font-display)' }}>
-                Profile Locked Behind Connection
-              </h3>
-              <p style={{ fontSize: 13.5, color: 'var(--t2)', maxWidth: 360, margin: 0, lineHeight: 1.5 }}>
-                Full competency scores, verified projects, and duel records are private until your friend request is accepted.
-              </p>
-              <div style={{ marginTop: 4 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <span style={{ fontSize: 22 }}>🎓</span>
+                <div>
+                  <div style={{ fontSize: 13.5, fontWeight: 800, color: 'var(--t1)' }}>
+                    Public Student Profile
+                  </div>
+                  <div style={{ fontSize: 12, color: 'var(--t2)' }}>
+                    Connect to unlock 1v1 duels, direct messages & squad collaboration.
+                  </div>
+                </div>
+              </div>
+              <div>
                 {student.relationship === 'received' ? (
                   <button
                     className="friends-btn friends-btn-primary"
                     onClick={() => onAcceptRequest?.(student.id)}
-                    style={{ padding: '9px 20px', fontSize: 13.5, background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)' }}
+                    style={{ padding: '7px 14px', fontSize: 12.5, background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)' }}
                   >
-                    ✓ Accept Request to View Full Profile
+                    ✓ Accept Request
                   </button>
                 ) : isSent ? (
-                  <span style={{ fontSize: 13, fontFamily: 'var(--font-mono)', color: 'var(--accent)', fontWeight: 700, padding: '6px 14px', borderRadius: 8, background: 'rgba(99,102,241,0.12)' }}>
-                    ⏳ Connection Request Pending
+                  <span style={{ fontSize: 12, color: '#eab308', fontWeight: 700, padding: '5px 10px', background: 'rgba(234, 179, 8, 0.12)', borderRadius: 6, border: '1px solid rgba(234, 179, 8, 0.3)' }}>
+                    ⏳ Request Pending
                   </span>
                 ) : (
                   <button
                     className="friends-btn friends-btn-primary"
                     onClick={() => onSendRequest?.(student.id)}
-                    style={{ padding: '9px 20px', fontSize: 13.5 }}
+                    style={{ padding: '7px 14px', fontSize: 12.5 }}
                   >
-                    + Connect to View Full Profile
+                    + Connect
                   </button>
                 )}
               </div>
             </div>
-          ) : (
-            <>
+          )}
+
           {/* Quick Stats Grid — ZERO FAKE DATA */}
           <div className="drawer-stats-grid">
             <div className="drawer-section-card" style={{ textAlign: 'center' }}>
@@ -522,8 +529,6 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
               {compatScore}% Match
             </div>
           </div>
-            </>
-          )}
         </div>
       </div>
     </div>

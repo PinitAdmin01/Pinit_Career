@@ -261,63 +261,73 @@ export default function StudentProfilePage() {
         </div>
       </div>
 
-      {/* ── Task 11 Privacy Gate: Protected Full Profile State ── */}
-      {!isFriend ? (
+      {/* ── Public Student Profile: Non-connected Viewer Notice ── */}
+      {!isFriend && (
         <div
           data-testid="page-profile-locked-state"
           style={{
-            background: 'var(--card)',
-            border: '1px dashed rgba(255, 255, 255, 0.2)',
-            borderRadius: 20,
-            padding: '48px 32px',
-            textAlign: 'center',
-            boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
+            background: 'rgba(99, 102, 241, 0.08)',
+            border: '1px solid rgba(99, 102, 241, 0.25)',
+            borderRadius: 16,
+            padding: '16px 24px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: 16,
             marginBottom: 24,
+            flexWrap: 'wrap',
           }}
         >
-          <div style={{ fontSize: 44, marginBottom: 14 }}>🔒</div>
-          <h2 style={{ fontSize: 20, fontWeight: 900, color: 'var(--t1)', margin: '0 0 10px' }}>
-            Full Student Profile Locked Behind Connection
-          </h2>
-          <p style={{ fontSize: 15, color: 'var(--t2)', maxWidth: 480, margin: '0 auto 24px', lineHeight: 1.6 }}>
-            To safeguard collegiate academic privacy, verified skill credentials, proof-of-work project repositories, and live arena duel stats are accessible only after mutual connection approval.
-          </p>
-          <div style={{ display: 'inline-flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <span style={{ fontSize: 24 }}>🎓</span>
+            <div>
+              <div style={{ fontSize: 14.5, fontWeight: 800, color: 'var(--t1)' }}>
+                Public Student Profile
+              </div>
+              <div style={{ fontSize: 13, color: 'var(--t2)' }}>
+                Connect with {student.name} to unlock 1v1 Arena Duels, Direct Messaging, and Squad Invites.
+              </div>
+            </div>
+          </div>
+          <div>
             {student.relationship === 'received' ? (
               <button
                 className="friends-btn friends-btn-primary"
                 onClick={handleAcceptIncoming}
-                style={{ padding: '10px 24px', fontSize: 15 }}
+                style={{ padding: '8px 18px', fontSize: 13.5, background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)' }}
               >
-                ✓ Accept Friend Request to Unlock Profile
+                ✓ Accept Friend Request
               </button>
             ) : requestSent || student.relationship === 'sent' ? (
-              <div
+              <span
                 style={{
-                  padding: '10px 20px',
-                  borderRadius: 10,
+                  padding: '7px 14px',
+                  borderRadius: 8,
                   background: 'rgba(234, 179, 8, 0.12)',
                   color: '#eab308',
                   border: '1px solid rgba(234, 179, 8, 0.3)',
                   fontWeight: 700,
-                  fontSize: 14.5,
+                  fontSize: 13.5,
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 6
                 }}
               >
                 ⏳ Friend Request Sent — Pending Mutual Acceptance
-              </div>
+              </span>
             ) : (
               <button
                 className="friends-btn friends-btn-primary"
                 onClick={handleAddFriend}
-                style={{ padding: '10px 24px', fontSize: 15 }}
+                style={{ padding: '8px 20px', fontSize: 13.5 }}
               >
-                + Connect to View Full Profile
+                + Connect with {student.name.split(' ')[0]}
               </button>
             )}
           </div>
         </div>
-      ) : (
-        <>
+      )}
+
       {/* ── Stats Quad Cards ── */}
       <div className="profile-stats-grid">
         {[
@@ -447,8 +457,6 @@ export default function StudentProfilePage() {
             ))}
           </div>
         </div>
-      )}
-        </>
       )}
 
     </div>
