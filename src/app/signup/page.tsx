@@ -52,6 +52,25 @@ export default function SignupPage() {
     setError('');
 
     try {
+      // 0. Fraud & Collision Guard: Prevent duplicate registration of the same institutional ID
+      if (idMode === 'college' && pinitId) {
+        try {
+          const { data: existingUser } = await supabase
+            .from('users')
+            .select('id, register_number')
+            .or(`register_number.ilike.${pinitId},roll_number.ilike.${pinitId}`)
+            .maybeSingle();
+
+          if (existingUser) {
+            setError(`Institutional ID ${pinitId} has already been claimed by an existing student account. If this is your ID card, please sign in or contact campus support.`);
+            setLoading(false);
+            return;
+          }
+        } catch (checkErr) {
+          console.warn('[Signup] Duplicate check exception:', checkErr);
+        }
+      }
+
       // 1. Signup creates student account with verified/memorable PinIT ID
       await signup({
         username: form.username,

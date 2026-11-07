@@ -17,6 +17,47 @@ interface Props {
   onStoragePathExtracted?: (path: string) => void;
 }
 
+function preprocessImageForOcr(file: File): Promise<string | File> {
+  return new Promise((resolve) => {
+    try {
+      const img = new Image();
+      const url = URL.createObjectURL(file);
+      img.onload = () => {
+        URL.revokeObjectURL(url);
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return resolve(file);
+
+        // Optimal width for mobile ID badge OCR (~1400px)
+        const targetWidth = Math.min(1800, Math.max(1200, img.width));
+        const scale = targetWidth / Math.max(img.width, 1);
+        canvas.width = targetWidth;
+        canvas.height = Math.round(img.height * scale);
+
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const d = imgData.data;
+
+        // Grayscale + High contrast enhancement to sharpen red/dark text on badges
+        for (let i = 0; i < d.length; i += 4) {
+          const gray = 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
+          const contrast = (gray - 128) * 1.35 + 128;
+          const finalVal = Math.min(255, Math.max(0, contrast));
+          d[i] = finalVal;
+          d[i + 1] = finalVal;
+          d[i + 2] = finalVal;
+        }
+        ctx.putImageData(imgData, 0, 0);
+        resolve(canvas.toDataURL('image/jpeg', 0.92));
+      };
+      img.onerror = () => resolve(file);
+      img.src = url;
+    } catch {
+      resolve(file);
+    }
+  });
+}
+
 async function runClientOcr(file: File): Promise<string> {
   if (typeof window === 'undefined') return '';
   try {
@@ -39,7 +80,8 @@ async function runClientOcr(file: File): Promise<string> {
 
     const Tesseract = (window as any).Tesseract;
     if (!Tesseract || typeof Tesseract.recognize !== 'function') return '';
-    const res = await Tesseract.recognize(file, 'eng');
+    const preprocessed = await preprocessImageForOcr(file);
+    const res = await Tesseract.recognize(preprocessed, 'eng');
     return res?.data?.text || '';
   } catch (err) {
     console.warn('[CollegeIdScanner] Client OCR execution note:', err);

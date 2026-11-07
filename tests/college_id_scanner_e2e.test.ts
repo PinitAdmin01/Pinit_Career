@@ -115,3 +115,24 @@ test('5. Generates consistent memorable Global PinIT IDs', () => {
   assert.match(gid, /^PIN-GLB-VINAY-\d{3,4}$/);
   assert.strictEqual(isValidPinItId(gid), true);
 });
+
+test('6. Accurately extracts BCA and Vinay N even with noisy header text and address lines', () => {
+  const noisyOcr = `
+Jai Sri Gurudev
+BGS INSTITUTE OF MANAGEMENT
+Mahalakshmipuram, B'lore-86
+Ph:8660468132
+principalbimb@gmail.com
+VINAY N
+BCA ADMINOS
+Address : #17, 14TH CROSS, RAMA TEMPLE, JALAHALLI
+Contact : 8618530726
+Valid : 2023-26
+  `.trim();
+
+  const result = parseCollegeCardFromText(noisyOcr);
+  assert.strictEqual(result.collegeCode, 'BGS');
+  assert.strictEqual(result.studentName.toUpperCase(), 'VINAY N');
+  assert.strictEqual(result.departmentCode, 'BCA');
+  assert.strictEqual(result.rollNumber, '726');
+});
