@@ -80,7 +80,41 @@ function ProjectsPageContent() {
         localStorage.setItem('pinit_selected_project_pathway', p);
       } catch {}
     }
+
+    if (p === 'standalone') {
+      // Honors active standalone course (defaults to Python 30-Day crash)
+      const standaloneId = 'course-python-backend';
+      setSelectedCourseId(standaloneId);
+      const projs = getDomainFallback(selectedGoal, [], degree || 'Undergraduate', standaloneId);
+      if (projs && projs.length > 0) {
+        setProjects(projs as Project[]);
+        setSelectedGuideProject(projs[0] as Project);
+      }
+    } else if (p === 'certification') {
+      const certId = cOsCourseId || (onboardingAnswers as any)?.activeCourseId || selectedCourseId || 'course-python-backend';
+      setSelectedCourseId(certId);
+      const projs = getDomainFallback(selectedGoal, [], degree || 'Undergraduate', certId);
+      if (projs && projs.length > 0) {
+        setProjects(projs as Project[]);
+        setSelectedGuideProject(projs[0] as Project);
+      }
+    } else if (p === 'roadmap') {
+      if (roadmapCtx) {
+        const found = findRoadmapCapstone(projects, roadmapCtx);
+        if (found) setSelectedGuideProject(found);
+      }
+    } else if (p === 'independent') {
+      const indep = projects.filter(proj => !proj.isTemplate || Boolean(proj.githubLink) || proj.id.startsWith('custom_proj_'));
+      if (indep.length > 0) {
+        setSelectedGuideProject(indep[0]);
+      } else {
+        setOwnProjectStep('confirm');
+        setShowOwnProjectModal(true);
+      }
+    }
   };
+
+
 
   // Own Project Modal State
   const [showOwnProjectModal, setShowOwnProjectModal] = useState<boolean>(false);
@@ -414,6 +448,14 @@ function ProjectsPageContent() {
   const [selectedGoal, setSelectedGoal] = useState<string>(onboardingAnswers?.role || 'AI Engineer');
   const [projects, setProjects] = useState<Project[]>([]);
   const [selectedGuideProject, setSelectedGuideProject] = useState<Project | null>(null);
+
+  // Edge Case Guard: Ensure selectedGuideProject is safely bound whenever projects change
+  useEffect(() => {
+    if (!selectedGuideProject && projects.length > 0) {
+      const active = projects.find(p => p.status === 'In Progress') || projects[0];
+      setSelectedGuideProject(active);
+    }
+  }, [selectedGuideProject, projects]);
   
   // Workspace tabs: 'overview' | 'guide' | 'reqs' | 'resources' | 'submit'
   const [activeWorkspaceTab, setActiveWorkspaceTab] = useState<'overview' | 'guide' | 'reqs' | 'resources' | 'submit'>('overview');
@@ -1172,7 +1214,7 @@ function ProjectsPageContent() {
       </div>
 
       {/* ── ACTIVE TRACK SELECTOR (FOR CERTIFICATION PATHWAY) ── */}
-      {selectedPathway === 'certification' && (
+      {(selectedPathway === 'certification' || selectedPathway === 'standalone') && (
         <div
           style={{
             display: 'flex',
@@ -1203,7 +1245,7 @@ function ProjectsPageContent() {
                 fontFamily: 'var(--font-mono, monospace)'
               }}
             >
-              Active Learning Track
+              {selectedPathway === 'certification' ? 'Active Certification Track' : 'Active Standalone Course'}
             </span>
             <span style={{ fontSize: 18 }}>{activeCourse.icon}</span>
             <strong style={{ fontSize: 15, color: 'var(--t1)' }}>{activeCourse.title}</strong>
@@ -1212,7 +1254,7 @@ function ProjectsPageContent() {
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
             <label htmlFor="course-track-selector" style={{ fontSize: 12.5, color: 'var(--t2)', fontWeight: 700 }}>
-              Switch Track / Course:
+              {selectedPathway === 'certification' ? 'Switch Degree Track:' : 'Switch Standalone Skill:'}
             </label>
             <select
               id="course-track-selector"
@@ -1470,7 +1512,10 @@ function ProjectsPageContent() {
               
               {/* Left Column: Projects lists */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-                {projects.map((p) => {
+                {(selectedPathway === 'independent'
+                  ? projects.filter(p => !p.isTemplate || Boolean(p.githubLink) || p.id.startsWith('custom_proj_'))
+                  : projects
+                ).map((p) => {
                   const isActiveGuide = selectedGuideProject?.id === p.id;
                   const borderColors = {
                     'Beginner': 'var(--teal)',
