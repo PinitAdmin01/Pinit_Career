@@ -68,7 +68,7 @@ const DEPARTMENT_DICTIONARY: Array<{ patterns: RegExp[]; code: string; name: str
   { patterns: [/artif.*intel/i, /\baiml\b/i, /ai\s*&\s*ml/i], code: 'AIML', name: 'Artificial Intelligence & Machine Learning' },
   { patterns: [/data\s*sci/i, /\baids\b/i], code: 'AIDS', name: 'Data Science & AI' },
   { patterns: [/electron.*commun/i, /electronics\s*(?:&|and)\s*comm/i, /\bece\b/i], code: 'ECE', name: 'Electronics & Communication' },
-  { patterns: [/electrical\s*(?:&|and)\s*electr/i, /\beee\b/i], code: 'EEE', name: 'Electrical & Electronics' },
+  { patterns: [/electrical\s*(?:&|and)\s*electr/i, /\beee\b/i, /electrical\s*eng/i], code: 'EEE', name: 'Electrical & Electronics' },
   { patterns: [/mechanical/i, /\bmech\b/i], code: 'MECH', name: 'Mechanical Engineering' },
   { patterns: [/civil\s*eng/i, /\bcivil\b/i], code: 'CIVIL', name: 'Civil Engineering' },
   { patterns: [/biotech/i, /\bbiotech\b/i], code: 'BIOTECH', name: 'Biotechnology' },
@@ -180,14 +180,14 @@ export function parseCollegeCardFromText(
   rawText: string,
   fallbackDisplayName = ''
 ): CollegeMetadata {
-  if (!rawText || typeof rawText !== 'string') {
+  if (!rawText || typeof rawText !== 'string' || rawText.trim().length === 0) {
     return {
-      collegeName: 'Institution',
+      collegeName: 'Accredited Institution',
       collegeCode: 'COL',
-      department: 'General',
+      department: 'General Studies',
       departmentCode: 'GEN',
       rollNumber: '001',
-      studentName: fallbackDisplayName || 'Student',
+      studentName: fallbackDisplayName || '',
       rawExtractedText: '',
       confidence: 0.3,
     };
@@ -423,11 +423,12 @@ export function parseCollegeCardFromText(
       if (collegeLineIdx !== -1 && k <= collegeLineIdx) continue;
 
       const cleanCandidate = prevLine
+        .replace(/<[^>]*>/g, ' ')
         .replace(/^[^a-zA-Z]+|[^a-zA-Z.]+$/g, '')
         .replace(/[^A-Za-z\s.]/g, ' ')
         .trim();
       const words = cleanCandidate.split(/\s+/).filter(Boolean);
-      const isForbidden = /(?:college|institute|university|polytechnic|school|management|autonomous|approved|affiliated|recognized|address|cross|road|street|temple|near|behind|ph|phone|mobile|cell|contact|call|tel|help|email|www|http|valid|issued|expiry|expires|exp|date|birth|blood|group|roll|reg|usn|principal|signature|dean|director|\bstudent\b|\bcandidate\b|identity\s*card|father|mother|parent|guardian|husband|course|branch|dept|department|oepsriment|faculty|discipline|\bsem\b|\bsemester\b|\byear\b|\bclass\b|\bsec\b|\bsection\b|\bdiv\b|\bdivision\b|\bbatch\b|\bsession\b|bba|bca|btech|be|mba|mca|bcom|mbbs|llb|nursing|finance|f\/hr)/i.test(cleanCandidate);
+      const isForbidden = /(?:college|institute|university|polytechnic|school|management|autonomous|approved|affiliated|recognized|address|cross|road|street|temple|near|behind|ph|phone|mobile|cell|contact|call|tel|help|email|www|http|valid|issued|expiry|expires|exp|date|birth|blood|group|roll|reg|usn|principal|signature|dean|director|teacher|lecturer|professor|instructor|staff|hod|head\s*of|officer|guard|assistant|librarian|employee|holder|\bstudent\b|\bcandidate\b|identity\s*card|father|mother|parent|guardian|husband|course|branch|dept|department|oepsriment|faculty|discipline|\bsem\b|\bsemester\b|\byear\b|\bclass\b|\bsec\b|\bsection\b|\bdiv\b|\bdivision\b|\bbatch\b|\bsession\b|bba|bca|btech|be|mba|mca|bcom|mbbs|llb|\bnurse\b|nursing|finance|f\/hr)/i.test(cleanCandidate);
 
       if (!isForbidden && words.length >= 1 && words.length <= 4 && cleanCandidate.length >= 3) {
         studentName = cleanCandidate;
@@ -443,7 +444,7 @@ export function parseCollegeCardFromText(
       score: number;
     }
     const candidates: Candidate[] = [];
-    const isForbidden = /(?:college|institute|university|polytechnic|school|management|autonomous|approved|affiliated|recognized|address|cross|road|street|temple|near|behind|ph|phone|mobile|cell|contact|call|tel|help|email|www|http|valid|issued|expiry|expires|exp|date|birth|blood|group|roll|reg|usn|principal|signature|dean|director|\bstudent\b|\bcandidate\b|identity\s*card|father|mother|parent|guardian|husband|course|branch|dept|department|oepsriment|faculty|discipline|\bsem\b|\bsemester\b|\byear\b|\bclass\b|\bsec\b|\bsection\b|\bdiv\b|\bdivision\b|\bbatch\b|\bsession\b|bba|bca|btech|be|mba|mca|bcom|mbbs|llb|nursing|finance|f\/hr)/i;
+    const isForbidden = /(?:college|institute|university|polytechnic|school|management|autonomous|approved|affiliated|recognized|address|cross|road|street|temple|near|behind|ph|phone|mobile|cell|contact|call|tel|help|email|www|http|valid|issued|expiry|expires|exp|date|birth|blood|group|roll|reg|usn|principal|signature|dean|director|teacher|lecturer|professor|instructor|staff|hod|head\s*of|officer|guard|assistant|librarian|employee|holder|\bstudent\b|\bcandidate\b|identity\s*card|father|mother|parent|guardian|husband|course|branch|dept|department|oepsriment|faculty|discipline|\bsem\b|\bsemester\b|\byear\b|\bclass\b|\bsec\b|\bsection\b|\bdiv\b|\bdivision\b|\bbatch\b|\bsession\b|bba|bca|btech|be|mba|mca|bcom|mbbs|llb|\bnurse\b|nursing|finance|f\/hr)/i;
 
     for (let i = 0; i < rawLines.length; i++) {
       const l = rawLines[i];
@@ -454,6 +455,7 @@ export function parseCollegeCardFromText(
       if (collegeLineIdx !== -1 && i <= collegeLineIdx) continue;
 
       let clean = l
+        .replace(/<[^>]*>/g, ' ')
         .replace(/^[^a-zA-Z]+|[^a-zA-Z.]+$/g, '')
         .replace(/([a-zA-Z])\.([a-zA-Z])/g, '$1. $2')
         .replace(/[^A-Za-z\s.]/g, ' ')
@@ -626,11 +628,11 @@ export function validatePinItId(id: string): { valid: boolean; type: 'college' |
   const trimmed = id.trim().toUpperCase();
 
   if (trimmed.startsWith('PIN-GLB-')) {
-    const globalRegex = /^PIN-GLB-[A-Z0-9]{2,12}-[0-9]{3,4}$/;
+    const globalRegex = /^PIN-GLB-[A-Z0-9]{2,12}-[0-9]{3}$/;
     if (globalRegex.test(trimmed)) {
       return { valid: true, type: 'global' };
     }
-    return { valid: false, type: 'invalid', error: 'Global PinIT ID must end with 3 or 4 digits' };
+    return { valid: false, type: 'invalid', error: 'Global PinIT ID must end with 3 digits' };
   }
 
   const collegeRegex = /^PIN-[A-Z0-9]{2,6}-[A-Z0-9]{2,6}-[A-Z0-9]{1,6}$/;

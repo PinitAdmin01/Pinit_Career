@@ -29,12 +29,10 @@ export default function SignupPage() {
   }, []);
 
   const handleNameExtracted = useCallback((extractedName: string) => {
-    if (extractedName && extractedName !== 'Student') {
-      setForm((prev) => ({
-        ...prev,
-        displayName: extractedName,
-      }));
-    }
+    setForm((prev) => ({
+      ...prev,
+      displayName: extractedName === 'Student' ? '' : extractedName,
+    }));
   }, []);
 
   async function handleRegister(e: React.FormEvent) {

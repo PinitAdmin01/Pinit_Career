@@ -152,6 +152,18 @@ export default function CollegeIdScanner({
     onStoragePathExtractedRef.current = onStoragePathExtracted;
   });
 
+  // Race condition sequence guard & memory leak object URL tracking
+  const scanSequenceRef = useRef<number>(0);
+  const previewUrlRef = useRef<string>('');
+
+  useEffect(() => {
+    return () => {
+      if (previewUrlRef.current) {
+        try { URL.revokeObjectURL(previewUrlRef.current); } catch {}
+      }
+    };
+  }, []);
+
   // Compute live Global ID whenever displayName or username changes
   useEffect(() => {
     const gid = generateMemorableGlobalId(displayName, username);
@@ -183,6 +195,8 @@ export default function CollegeIdScanner({
   };
 
   const processUploadedFile = async (file: File) => {
+    const currentScanId = ++scanSequenceRef.current;
+
     // 0. Reset all previous card extraction state immediately to prevent state pollution
     setUploadedFile(file);
     setCollegeMeta(null);
@@ -195,9 +209,21 @@ export default function CollegeIdScanner({
     setScanProgress(20);
     setScanStatus('Reading student ID card image...');
 
+    // Clear display name on parent signup form while scanning new card
+    if (onNameExtractedRef.current) {
+      onNameExtractedRef.current('');
+    }
+
+    // Revoke previous blob URL to prevent browser memory leaks
+    if (previewUrlRef.current) {
+      try { URL.revokeObjectURL(previewUrlRef.current); } catch {}
+      previewUrlRef.current = '';
+    }
+
     // Generate instant client preview thumbnail
     try {
       const localUrl = URL.createObjectURL(file);
+      previewUrlRef.current = localUrl;
       setImagePreviewUrl(localUrl);
     } catch {}
 
@@ -218,6 +244,8 @@ export default function CollegeIdScanner({
         body: formData,
       });
 
+      if (scanSequenceRef.current !== currentScanId) return; // Drop stale async responses
+
       if (res.ok) {
         const json = await res.json();
         storagePath = json.storagePath || '';
@@ -229,12 +257,15 @@ export default function CollegeIdScanner({
       console.warn('[CollegeIdScanner] Server scan note:', apiErr);
     }
 
+    if (scanSequenceRef.current !== currentScanId) return;
+
     // 2. Client-side OCR fallback if server vision wasn't available
     if (!extracted) {
       setScanProgress(70);
       setScanStatus('Scanning institutional credentials via optical OCR...');
       try {
         const ocrText = await runClientOcr(file);
+        if (scanSequenceRef.current !== currentScanId) return;
         if (ocrText && ocrText.trim().length > 10) {
           extracted = parseCollegeCardFromText(ocrText);
         }
@@ -243,16 +274,21 @@ export default function CollegeIdScanner({
       }
     }
 
+    if (scanSequenceRef.current !== currentScanId) return;
+
     // 3. Client-side heuristic fallback if OCR didn't catch text
     if (!extracted) {
       setScanProgress(90);
       setScanStatus('Synthesizing institutional contours...');
       try {
         extracted = await parseCollegeIdCard(file);
+        if (scanSequenceRef.current !== currentScanId) return;
       } catch (parseErr) {
         console.warn('[CollegeIdScanner] Heuristic parse note:', parseErr);
       }
     }
+
+    if (scanSequenceRef.current !== currentScanId) return;
 
     setScanProgress(100);
     setScanStatus('✓ Verified student identity card parsed successfully');
@@ -273,6 +309,9 @@ export default function CollegeIdScanner({
       } else {
         // Explicitly clear when name is not visible on card
         setEditableStudentName('');
+        if (onNameExtractedRef.current) {
+          onNameExtractedRef.current('');
+        }
       }
 
       if (storagePath && onStoragePathExtractedRef.current) {
@@ -280,7 +319,11 @@ export default function CollegeIdScanner({
       }
     }
 
-    setTimeout(() => setIsScanning(false), 350);
+    setTimeout(() => {
+      if (scanSequenceRef.current === currentScanId) {
+        setIsScanning(false);
+      }
+    }, 350);
   };
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -300,8 +343,16 @@ export default function CollegeIdScanner({
   const switchToGlobalMode = () => {
     setMode('global');
     setUploadedFile(null);
+    if (previewUrlRef.current) {
+      try { URL.revokeObjectURL(previewUrlRef.current); } catch {}
+      previewUrlRef.current = '';
+    }
     setImagePreviewUrl('');
     setCollegeMeta(null);
+    setEditableStudentName('');
+    setCollegeCode('');
+    setDeptCode('');
+    setRollNumber('');
     setIsEditingDetails(false);
   };
 
