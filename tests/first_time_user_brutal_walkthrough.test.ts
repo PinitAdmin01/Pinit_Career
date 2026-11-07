@@ -181,26 +181,25 @@ describe('BRUTAL FIRST-TIME USER FULL JOURNEY AUDIT', () => {
   });
 
   describe('3. Turn Limitation & Session Ending Enforcement', () => {
-    it('Crisp 3-turn format: completes after exactly 3 user choices', async () => {
-      const history = [
-        { role: 'assistant' as const, content: 'Crisis Step 1' },
-        { role: 'user' as const, content: 'Choice 1' },
-        { role: 'assistant' as const, content: 'Crisis Step 2' },
-        { role: 'user' as const, content: 'Choice 2' },
-        { role: 'assistant' as const, content: 'Crisis Step 3' }
-      ];
+    it('Sustained 15-minute simulation: completes after exactly 10 user choices', async () => {
+      const history: any[] = [];
+      for (let i = 0; i < 10; i++) {
+        history.push({ role: 'assistant', content: `Crisis Step ${i + 1}` });
+        history.push({ role: 'user', content: `Choice ${i + 1}` });
+      }
+      history.pop(); // last is assistant (10th assistant message)
 
-      const turn3Response = await executeRoleplayTurn({
+      const turn10Response = await executeRoleplayTurn({
         action: 'respond',
         studentName: 'Priya',
         role: 'Data Analyst',
-        choice: 'Final Strategic Choice 3',
+        choice: 'Final Strategic Choice 10',
         history,
       });
 
-      assert.strictEqual(turn3Response.isEnded, true, 'Must end the session after 3 decisions');
-      assert.strictEqual(turn3Response.choices.length, 0, 'Must clear choices on ending');
-      assert.ok(turn3Response.message.toLowerCase().includes('concluded'), 'Verdict message must declare session conclusion');
+      assert.strictEqual(turn10Response.isEnded, true, 'Must end the session after 10 decisions');
+      assert.strictEqual(turn10Response.choices.length, 0, 'Must clear choices on ending');
+      assert.ok(turn10Response.message.toLowerCase().includes('concluded'), 'Verdict message must declare session conclusion');
     });
 
     it('Displays conclusion banner with manual report trigger when isEnded is true and report is preparing', () => {

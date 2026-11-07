@@ -260,7 +260,7 @@ function generateInitializeNode(req: RoleplayRequest): RoleplayNode {
 function generateRespondNode(req: RoleplayRequest): RoleplayNode {
   const history = req.history || [];
   const nodeCount = history.filter(h => h.role === 'assistant').length;
-  const isFinal = nodeCount >= 3;
+  const isFinal = nodeCount >= 10;
   const seed = hashString(`${sessionSeed(req)}|${nodeCount}|${req.choice || ''}`);
   const rng = mulberry32(seed);
   const used = history
@@ -282,19 +282,139 @@ function generateRespondNode(req: RoleplayRequest): RoleplayNode {
       activeAvatar: avatar,
       avatarName: cast.name,
       avatarRole: cast.role,
-      message: `${name}, the session has concluded. ${incident.pressure}. Your final choice — "${choice}" — determined how the team handled this challenge. Let's review your mindset and leadership results.`,
+      message: `${name}, excellent work holding the line. The 15-minute crisis simulation has concluded. Your steady decisions guided the team through the emergency, protected customer trust, and brought our systems back to safety. Let's review your mindset and leadership results.`,
       choices: [],
       isEnded: true,
       source: 'generated',
     };
   }
 
-  const beats: Record<string, string> = {
-    rajesh: `${name}, you chose to: "${choice}". Fine! But if anything breaks, you take full responsibility. I already told ${CAST.abhijit.name} what you said, so be ready to defend your choice.`,
-    abhijit: `${name}, we don't have time for long explanations. You chose: "${choice}". Can you guarantee this works before ${incident.pressure}, or will you delay the whole project?`,
-    sneha: `${name}, people are asking questions in the team chat about your choice: "${choice}". I still have that quick patch ready. Are you sure you want to do it the hard way?`,
-    rohan: `${name}, you decided to: "${choice}". That sounds like a start, but explain the exact details. What is step one, who is double-checking your work, and how do we prevent this from breaking again?`,
+  // 5 Progressive Incident Phases across 10 Turns
+  const phase = Math.min(5, Math.floor(nodeCount / 2) + 1);
+
+  const phaseBeats: Record<number, Record<string, string>> = {
+    1: {
+      rajesh: `${name}, the alerts just spiked! You chose: "${choice}". The dashboard is flashing yellow and customers are posting complaints. What is our immediate first move?`,
+      abhijit: `${name}, you opted to: "${choice}". Leadership noticed the latency graph climbing. Tell me right now: are we pausing writes or investigating live?`,
+      sneha: `${name}, I saw your choice: "${choice}". Chat room is filling up with error tickets. Should we pull the plug on incoming requests or keep troubleshooting?`,
+      rohan: `${name}, you decided to: "${choice}". Good initial reaction, but let's stay methodical. Which component is showing the highest error rate right now?`,
+    },
+    2: {
+      sneha: `${name}, people are panicking in the group chat after you chose: "${choice}". I have a quick hacky bypass ready in my branch. We can push it in 30 seconds to quiet the alarms. Do you want to take it?`,
+      rajesh: `${name}, you chose to: "${choice}". If management asks, let's just say it's scheduled maintenance so nobody gets blamed. Should we cover for each other?`,
+      abhijit: `${name}, about your step: "${choice}". I don't care about root causes right now. I just need this red indicator turned green before the VP calls me in 5 minutes!`,
+      rohan: `${name}, regarding: "${choice}". Shortcut fixes will blow up the database later. Are you prepared to tell the team to hold the line and fix this properly?`,
+    },
+    3: {
+      rohan: `${name}, you chose: "${choice}". The secondary database is now showing queue backup. If we isolate the bad worker, we save the core checkout, but some background jobs will pause. How do you isolate it safely?`,
+      rajesh: `${name}, after you chose: "${choice}", I checked the memory heap. It's climbing fast. Do we do a clean roll-back of the last release or restart the containers one by one?`,
+      abhijit: `${name}, you went with: "${choice}". Half the team wants to purge the cache, the other half wants a rollback. Make the call — which path protects user data?`,
+      sneha: `${name}, regarding: "${choice}". We found the exact script that leaked memory. Should we revert the git commit or hot-patch the variable directly in production?`,
+    },
+    4: {
+      abhijit: `${name}, the Client Relations VP is on line 2 asking what happened after you decided to: "${choice}". They want a guaranteed fix time. What exact message do we communicate to them right now?`,
+      rohan: `${name}, you chose: "${choice}". The team is tired and tempers are rising. Someone wants to argue whose fault this was. How do you steer the conversation back to fixing the problem?`,
+      rajesh: `${name}, you decided to: "${choice}". Marketing wants to post an apology tweet right away. Do we tell them the full truth or keep our update short and measured?`,
+      sneha: `${name}, after your move: "${choice}", the server error rate dropped by 80%, but 20% of users are still seeing slow load times. Do we announce recovery now or wait for full verification?`,
+    },
+    5: {
+      rohan: `${name}, the patch is deployed and verified after your choice: "${choice}". Traffic is normalizing. How do we ensure this exact bug can never happen again in next month's release?`,
+      abhijit: `${name}, you guided us through this with: "${choice}". The dashboard is green. What is your plan for the blameless post-mortem meeting with the engineering team tomorrow?`,
+      rajesh: `${name}, we survived the crunch after you chose: "${choice}". Thanks for keeping your cool. Who should document the recovery steps in our internal incident wiki?`,
+      sneha: `${name}, traffic is 100% normal now following your choice: "${choice}". Let's do a final check on data consistency before closing the war room. What is our closing verification step?`,
+    },
   };
+
+  const phaseChoices: Record<number, RoleplayChoice[]> = {
+    1: [
+      {
+        text: `Stay calm and verify the logs: isolate the affected service, check error rates, and communicate calmly to the team.`,
+        delta: 4,
+        rationale: 'Calm, methodical triage and transparent communication',
+      },
+      {
+        text: `Hit panic restart on all production servers immediately without checking what caused the error.`,
+        delta: -2,
+        rationale: 'Rushed impulsive action that risks data corruption',
+      },
+      {
+        text: `Dismiss the alarms as a false positive and tell complaining users to simply refresh their browsers.`,
+        delta: -4,
+        rationale: 'Denial and brushing off customer impact',
+      },
+    ],
+    2: [
+      {
+        text: `Reject the quick hack: explain that hiding the error will cause worse data loss, and stick to the verified fix.`,
+        delta: 4,
+        rationale: 'Courage to uphold safety standards under acute pressure',
+      },
+      {
+        text: `Silently push the untested hack to hide the red dashboard indicators before management notices.`,
+        delta: -2,
+        rationale: 'Superficial cosmetic fix that hides systemic failure',
+      },
+      {
+        text: `Blame the junior engineer who merged the PR and refuse to take responsibility until they apologize.`,
+        delta: -4,
+        rationale: 'Toxic blame culture and dodging accountability',
+      },
+    ],
+    3: [
+      {
+        text: `Safely roll back to the last known stable release with peer review, and verify database integrity before re-enabling traffic.`,
+        delta: 4,
+        rationale: 'Safe containment, rollback hygiene, and verified data safety',
+      },
+      {
+        text: `Directly edit live production database values using manual SQL queries without taking a backup.`,
+        delta: -2,
+        rationale: 'High-risk cowboy troubleshooting in a live environment',
+      },
+      {
+        text: `Argue with the team over who wrote the code instead of taking action to stop the memory leak.`,
+        delta: -4,
+        rationale: 'Wasting critical incident time on unproductive infighting',
+      },
+    ],
+    4: [
+      {
+        text: `Deliver an honest, professional status update: state the current customer impact, immediate mitigation in progress, and the next checkpoint in 15 minutes.`,
+        delta: 4,
+        rationale: 'Executive communication anchor: impact, action, timeline',
+      },
+      {
+        text: `Make an unrealistic promise that everything will be 100% resolved in 2 minutes just to get leadership off the call.`,
+        delta: -2,
+        rationale: 'Over-promising trap that destroys trust when missed',
+      },
+      {
+        text: `Confront the leadership angrily and tell them to stop bothering engineers while they are trying to work.`,
+        delta: -4,
+        rationale: 'Hostile communication and loss of professional composure',
+      },
+    ],
+    5: [
+      {
+        text: `Verify 100% traffic stability, write automated regression tests to prevent repeats, and schedule a blameless post-mortem with actionable takeaways.`,
+        delta: 4,
+        rationale: 'Long-term engineering excellence and blameless learning culture',
+      },
+      {
+        text: `Close the war room immediately and go home without verifying data integrity or writing any documentation.`,
+        delta: -2,
+        rationale: 'Cutting corners at the finish line without safety verification',
+      },
+      {
+        text: `Write an incident email publicly criticizing other teams for causing the outage.`,
+        delta: -4,
+        rationale: 'Sabotaging cross-team trust and toxic retrospective culture',
+      },
+    ],
+  };
+
+  const message = phaseBeats[phase]?.[avatar] || `${name}, you chose to: "${choice}". Let's take the next measured step to protect the system and our team.`;
+  const choices = phaseChoices[phase] || phaseChoices[1];
 
   return {
     ok: true,
@@ -302,24 +422,8 @@ function generateRespondNode(req: RoleplayRequest): RoleplayNode {
     activeAvatar: avatar,
     avatarName: cast.name,
     avatarRole: cast.role,
-    message: beats[avatar],
-    choices: [
-      {
-        text: `Stay focused and transparent: outline the concrete steps to fix the issue, and provide an honest progress update in 15 minutes.`,
-        delta: 4,
-        rationale: 'Calm, transparent problem solving',
-      },
-      {
-        text: `Rush a temporary bypass to silence complaints and promise it will never happen again.`,
-        delta: -2,
-        rationale: 'Panicked over-promising trap',
-      },
-      {
-        text: `Argue with ${cast.name} in front of the team and insist the expectations are unfair.`,
-        delta: -4,
-        rationale: 'Emotional confrontation and defensiveness',
-      },
-    ],
+    message,
+    choices,
     isEnded: false,
     source: 'generated',
   };
@@ -403,14 +507,24 @@ Return ONLY valid JSON with no markdown:
 
 function respondPrompt(req: RoleplayRequest, isFinal: boolean): string {
   const name = firstName(req.studentName);
+  const history = req.history || [];
+  const nodeCount = history.filter(h => h.role === 'assistant').length;
+  const phase = Math.min(5, Math.floor(nodeCount / 2) + 1);
+
   return `Continue the PinIT workplace scenario for ${name}.
 User just chose: "${req.choice || ''}".
+Simulation Step: Turn ${nodeCount} of 10 (Incident Phase ${phase} of 5).
 isFinalNode: ${isFinal}.
 
 CRITICAL INSTRUCTION - SIMPLE ENGLISH:
-- Write in SIMPLE, NATURAL, EVERYDAY ENGLISH.
+- Write in SIMPLE, NATURAL, EVERYDAY ENGLISH (Grade 6-8 level).
 - Keep the dialogue direct, clear, and easy to understand.
-- If isFinalNode, choices must be [] and isEnded true.
+- Absolutely NO jargon, technical acronyms, or complex buzzwords.
+- If isFinalNode (Turn >= 10), choices MUST be [] and isEnded true. Conclude the simulation warmly and acknowledge how the team resolved the incident.
+- Otherwise, provide 3 simple, realistic, easy-to-understand choices:
+  1. A calm, mature, responsible decision (+4 delta)
+  2. A panicked quick shortcut or over-promising trap (-2 delta)
+  3. An emotional, defensive, or blaming response (-4 delta)
 
 Return ONLY valid JSON with no markdown:
 {
@@ -419,9 +533,9 @@ Return ONLY valid JSON with no markdown:
   "avatarRole": "Role",
   "message": "Spoken reply to ${name} in simple English",
   "choices": [
-    {"text": "Calm, responsible next step", "delta": 4},
-    {"text": "Rushed temporary patch", "delta": -2},
-    {"text": "Defensive or blaming response", "delta": -4}
+    {"text": "Calm, responsible next step in simple words", "delta": 4},
+    {"text": "Rushed shortcut or temporary fix in simple words", "delta": -2},
+    {"text": "Defensive or blaming response in simple words", "delta": -4}
   ],
   "isEnded": ${isFinal}
 }`;
@@ -459,7 +573,7 @@ export async function executeRoleplayTurn(req: RoleplayRequest, llm: LlmFn): Pro
   if (action === 'respond') {
     const history = req.history || [];
     const nodeCount = history.filter(h => h.role === 'assistant').length;
-    const isFinal = nodeCount >= 3;
+    const isFinal = nodeCount >= 10;
     const generated = generateRespondNode(req);
     try {
       const text = await llm(

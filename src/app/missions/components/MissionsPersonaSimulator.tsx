@@ -110,39 +110,87 @@ export default function MissionsPersonaSimulator({
               Mindset scaling active: Onboarding QT2 index
             </span>
           </div>
-          <button
-            onClick={() => {
-              if (
-                window.confirm(
-                  'Are you sure you want to abort this mindset simulation session? Your progress will not be saved.'
-                )
-              ) {
-                updateRoleplayActive(false);
-                stopSpeaking();
-              }
-            }}
-            style={{
-              background: 'rgba(var(--danger-rgb), 0.05)',
-              border: '1px solid rgba(var(--danger-rgb), 0.2)',
-              padding: '5px 12px',
-              borderRadius: 8,
-              fontSize: 12,
-              fontWeight: 600,
-              cursor: 'pointer',
-              color: 'var(--red)',
-              transition: 'all 0.2s ease-out',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'rgba(var(--danger-rgb), 0.12)';
-              e.currentTarget.style.borderColor = 'var(--red)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'rgba(var(--danger-rgb), 0.05)';
-              e.currentTarget.style.borderColor = 'rgba(var(--danger-rgb), 0.2)';
-            }}
-          >
-            ❌ Abort Session
-          </button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+            <span
+              style={{
+                background: 'rgba(99, 102, 241, 0.12)',
+                border: '1px solid rgba(99, 102, 241, 0.3)',
+                color: '#818cf8',
+                fontSize: 11,
+                fontWeight: 700,
+                padding: '4px 10px',
+                borderRadius: 999,
+                fontFamily: 'var(--font-mono)',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 5,
+              }}
+            >
+              🎮 GAMING MODE ACTIVE · 100% IMMERSIVE
+            </span>
+            <button
+              type="button"
+              onClick={() => {
+                if (typeof document !== 'undefined') {
+                  if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen().catch(() => {});
+                  } else {
+                    document.exitFullscreen().catch(() => {});
+                  }
+                }
+              }}
+              style={{
+                background: 'rgba(255, 255, 255, 0.05)',
+                border: `1px solid ${theme.border}`,
+                padding: '5px 12px',
+                borderRadius: 8,
+                fontSize: 12,
+                fontWeight: 600,
+                cursor: 'pointer',
+                color: theme.tPrimary,
+                transition: 'all 0.2s ease-out',
+              }}
+              title="Toggle Fullscreen"
+            >
+              ⛶ Fullscreen
+            </button>
+            <button
+              onClick={() => {
+                if (
+                  window.confirm(
+                    'Are you sure you want to abort this mindset simulation session? Your progress will not be saved.'
+                  )
+                ) {
+                  if (typeof document !== 'undefined' && document.fullscreenElement) {
+                    document.exitFullscreen().catch(() => {});
+                  }
+                  updateRoleplayActive(false);
+                  stopSpeaking();
+                }
+              }}
+              style={{
+                background: 'rgba(var(--danger-rgb), 0.05)',
+                border: '1px solid rgba(var(--danger-rgb), 0.2)',
+                padding: '5px 12px',
+                borderRadius: 8,
+                fontSize: 12,
+                fontWeight: 600,
+                cursor: 'pointer',
+                color: 'var(--red)',
+                transition: 'all 0.2s ease-out',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'rgba(var(--danger-rgb), 0.12)';
+                e.currentTarget.style.borderColor = 'var(--red)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'rgba(var(--danger-rgb), 0.05)';
+                e.currentTarget.style.borderColor = 'rgba(var(--danger-rgb), 0.2)';
+              }}
+            >
+              ❌ Abort Session
+            </button>
+          </div>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1.8fr', gap: 20, alignItems: 'start' }}>
@@ -287,9 +335,9 @@ export default function MissionsPersonaSimulator({
                 >
                   📋 SITUATION SUMMARY
                 </span>
-                <span style={{ fontSize: 10.5, fontFamily: 'var(--font-mono)', color: theme.tTertiary }}>
+                <span style={{ fontSize: 10.5, fontFamily: 'var(--font-mono)', color: 'var(--accent)', fontWeight: 700 }}>
                   ⏳ {Math.floor(sessionElapsed / 60).toString().padStart(2, '0')}:
-                  {(sessionElapsed % 60).toString().padStart(2, '0')} elapsed
+                  {(sessionElapsed % 60).toString().padStart(2, '0')} / 15:00 Simulation
                 </span>
               </div>
 
@@ -304,9 +352,9 @@ export default function MissionsPersonaSimulator({
                       fontFamily: 'var(--font-mono)',
                     }}
                   >
-                    Crisis Context
+                    Phase {Math.min(5, Math.floor(roleplayHistory.filter((h) => h.role === 'user').length / 2) + 1)} of 5 · Turn {roleplayHistory.filter((h) => h.role === 'user').length + 1} of 10
                   </strong>
-                  <span style={{ color: theme.tPrimary }}>
+                  <span style={{ color: theme.tPrimary, fontWeight: 600 }}>
                     {roleplayScenario?.scenarioTitle || 'Synthesizing scenario parameters...'}
                   </span>
                 </div>
@@ -492,6 +540,9 @@ export default function MissionsPersonaSimulator({
                   </div>
                   <button
                     onClick={() => {
+                      if (typeof document !== 'undefined' && document.fullscreenElement) {
+                        document.exitFullscreen().catch(() => {});
+                      }
                       updateRoleplayActive(false);
                       setEvaluationReport('');
                       stopSpeaking();
