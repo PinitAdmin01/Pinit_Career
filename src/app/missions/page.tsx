@@ -132,11 +132,11 @@ function MissionsPageInner() {
   return (
     <div
       style={{
-        maxWidth: 1140,
+        maxWidth: 1280,
         margin: '0 auto',
         background: theme.bg,
         color: theme.tPrimary,
-        padding: '4px 0 24px',
+        padding: '4px 0 32px',
         borderRadius: '24px',
         transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
       }}
@@ -144,141 +144,182 @@ function MissionsPageInner() {
     >
       <MissionsHeader theme={theme} xp={xp} missionOnlyStreak={missionOnlyStreak} />
 
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'minmax(0, 1.8fr) minmax(0, 1.2fr)',
-          gap: 24,
-          alignItems: 'start',
-        }}
-      >
-        {/* Left Column: Tab contents */}
-        <div>
-          {/* Progress bar */}
-          {allTodayMissions.length > 0 && (
-            <div
-              style={{
-                background: theme.bgCard,
-                border: `1px solid ${theme.border}`,
-                borderRadius: 16,
-                padding: '16px 20px',
-                marginBottom: 20,
-                display: 'flex',
-                alignItems: 'center',
-                gap: 24,
-                boxShadow: 'var(--shadow-sm)',
-              }}
-            >
-              <div style={{ flex: 1 }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 7 }}>
-                  <span style={{ fontSize: 13, fontWeight: 600, color: theme.tPrimary }}>Today's Progress</span>
-                  <span style={{ fontSize: 12, fontFamily: 'var(--font-mono)', color: theme.tSecondary, fontWeight: 600 }}>
-                    {completed.length}/{allTodayMissions.length} Completed
-                  </span>
-                </div>
-                <div className="progress-bar" style={{ height: 8, background: theme.bgInside, borderRadius: 4, overflow: 'hidden' }}>
-                  <div
-                    className="progress-fill"
-                    style={{
-                      width: `${todayPct}%`,
-                      height: '100%',
-                      background: 'linear-gradient(90deg, var(--accent), var(--teal))',
-                      borderRadius: 4,
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Sub-Tabs Split System */}
+      {/* Top Section: Tab navigation & Main Hero Interactive Area (Full Width) */}
+      <div style={{ width: '100%', marginBottom: 36 }}>
+        {/* Progress bar */}
+        {allTodayMissions.length > 0 && (
           <div
             style={{
-              display: 'flex',
-              gap: 12,
+              background: theme.bgCard,
+              border: `1px solid ${theme.border}`,
+              borderRadius: 16,
+              padding: '16px 20px',
               marginBottom: 20,
-              borderBottom: `1px solid ${theme.border}`,
-              paddingBottom: 12,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 24,
+              boxShadow: 'var(--shadow-sm)',
             }}
           >
-            {(['evolve', 'language', 'history'] as const).map((tKey) => (
-              <button
-                key={tKey}
-                onClick={() => {
-                  setActiveTab(tKey);
-                  stopSpeaking();
-                  updateRoleplayActive(false);
-                  if (tKey === 'history') setSelectedHistoryRecord(null);
-                }}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  padding: '8px 16px',
-                  fontSize: 15.5,
-                  fontWeight: activeTab === tKey ? 800 : 500,
-                  color: activeTab === tKey ? 'var(--accent)' : theme.tTertiary,
-                  borderBottom: activeTab === tKey ? '3px solid var(--accent)' : '3px solid transparent',
-                  cursor: 'pointer',
-                  transition: 'all 0.15s',
-                }}
-              >
-                {tKey === 'evolve' && '🧬 Evolve Yourself'}
-                {tKey === 'language' && '🎙️ Career Communication Lab'}
-                {tKey === 'history' && '📋 Conclusion History'}
-              </button>
-            ))}
-          </div>
-
-          {activeTab === 'evolve' ? (
-            <MissionsEvolveBanner
-              theme={theme}
-              onboardingAnswers={onboardingAnswers}
-              roleplayLoading={roleplayLoading}
-              isUnlocking={isUnlocking}
-              initiateRoleplay={initiateRoleplay}
-              showTraditionalMissions={showTraditionalMissions}
-              setShowTraditionalMissions={setShowTraditionalMissions}
-              tab={tab}
-              setTab={setTab}
-              generating={generating}
-              handleTriggerRegenerate={handleTriggerRegenerate}
-              pending={pending}
-              completedMissions={completedMissions}
-              allTodayMissions={allTodayMissions}
-              pastCompleted={pastCompleted}
-              completeMission={completeMission}
-              customSkill={customSkill}
-              setCustomSkill={setCustomSkill}
-              handleGenerateCustomQuests={handleGenerateCustomQuests}
-              generatingSkill={generatingSkill}
-            />
-          ) : activeTab === 'language' ? (
-            <MissionsLinguaLabWrapper streak={missionOnlyStreak} theme={theme} />
-          ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-              {selectedHistoryRecord ? (
-                <MissionsConclusionDetail
-                  theme={theme}
-                  record={selectedHistoryRecord}
-                  onBack={() => setSelectedHistoryRecord(null)}
+            <div style={{ flex: 1 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 7 }}>
+                <span style={{ fontSize: 13, fontWeight: 600, color: theme.tPrimary }}>Today&apos;s Progress</span>
+                <span style={{ fontSize: 12, fontFamily: 'var(--font-mono)', color: theme.tSecondary, fontWeight: 600 }}>
+                  {completed.length}/{allTodayMissions.length} Completed
+                </span>
+              </div>
+              <div className="progress-bar" style={{ height: 8, background: theme.bgInside, borderRadius: 4, overflow: 'hidden' }}>
+                <div
+                  className="progress-fill"
+                  style={{
+                    width: `${todayPct}%`,
+                    height: '100%',
+                    background: 'linear-gradient(90deg, var(--accent), var(--teal))',
+                    borderRadius: 4,
+                  }}
                 />
-              ) : (
-                <MissionsHistoryTab
-                  theme={theme}
-                  socraticHistory={socraticHistory}
-                  historySearchQuery={historySearchQuery}
-                  setHistorySearchQuery={setHistorySearchQuery}
-                  historyCategoryFilter={historyCategoryFilter}
-                  setHistoryCategoryFilter={setHistoryCategoryFilter}
-                  selectedHistoryRecord={selectedHistoryRecord}
-                  setSelectedHistoryRecord={setSelectedHistoryRecord}
-                />
-              )}
+              </div>
             </div>
-          )}
+          </div>
+        )}
+
+        {/* Sub-Tabs Split System */}
+        <div
+          style={{
+            display: 'flex',
+            gap: 12,
+            marginBottom: 20,
+            borderBottom: `1px solid ${theme.border}`,
+            paddingBottom: 12,
+          }}
+        >
+          {(['evolve', 'language', 'history'] as const).map((tKey) => (
+            <button
+              key={tKey}
+              onClick={() => {
+                setActiveTab(tKey);
+                stopSpeaking();
+                updateRoleplayActive(false);
+                if (tKey === 'history') setSelectedHistoryRecord(null);
+              }}
+              style={{
+                background: 'none',
+                border: 'none',
+                padding: '8px 16px',
+                fontSize: 15.5,
+                fontWeight: activeTab === tKey ? 800 : 500,
+                color: activeTab === tKey ? 'var(--accent)' : theme.tTertiary,
+                borderBottom: activeTab === tKey ? '3px solid var(--accent)' : '3px solid transparent',
+                cursor: 'pointer',
+                transition: 'all 0.15s',
+              }}
+            >
+              {tKey === 'evolve' && '🧬 Evolve Yourself'}
+              {tKey === 'language' && '🎙️ Career Communication Lab'}
+              {tKey === 'history' && '📋 Conclusion History'}
+            </button>
+          ))}
         </div>
 
-        {/* Right Column: Mission Insights sidebar */}
+        {/* Tab Content Rendered at 100% Full Width */}
+        {activeTab === 'evolve' ? (
+          <MissionsEvolveBanner
+            theme={theme}
+            onboardingAnswers={onboardingAnswers}
+            roleplayLoading={roleplayLoading}
+            isUnlocking={isUnlocking}
+            initiateRoleplay={initiateRoleplay}
+            showTraditionalMissions={showTraditionalMissions}
+            setShowTraditionalMissions={setShowTraditionalMissions}
+            tab={tab}
+            setTab={setTab}
+            generating={generating}
+            handleTriggerRegenerate={handleTriggerRegenerate}
+            pending={pending}
+            completedMissions={completedMissions}
+            allTodayMissions={allTodayMissions}
+            pastCompleted={pastCompleted}
+            completeMission={completeMission}
+            customSkill={customSkill}
+            setCustomSkill={setCustomSkill}
+            handleGenerateCustomQuests={handleGenerateCustomQuests}
+            generatingSkill={generatingSkill}
+          />
+        ) : activeTab === 'language' ? (
+          <MissionsLinguaLabWrapper streak={missionOnlyStreak} theme={theme} />
+        ) : (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+            {selectedHistoryRecord ? (
+              <MissionsConclusionDetail
+                theme={theme}
+                record={selectedHistoryRecord}
+                onBack={() => setSelectedHistoryRecord(null)}
+              />
+            ) : (
+              <MissionsHistoryTab
+                theme={theme}
+                socraticHistory={socraticHistory}
+                historySearchQuery={historySearchQuery}
+                setHistorySearchQuery={setHistorySearchQuery}
+                historyCategoryFilter={historyCategoryFilter}
+                setHistoryCategoryFilter={setHistoryCategoryFilter}
+                selectedHistoryRecord={selectedHistoryRecord}
+                setSelectedHistoryRecord={setSelectedHistoryRecord}
+              />
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* Downstairs Analysis Section ("rest analisis will be down") */}
+      <div style={{ marginTop: 28 }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginBottom: 18,
+            paddingBottom: 10,
+            borderBottom: `1px solid ${theme.border}`,
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <span style={{ fontSize: 20 }}>📊</span>
+            <div>
+              <h3
+                style={{
+                  fontSize: 17,
+                  fontWeight: 800,
+                  color: theme.tPrimary,
+                  margin: 0,
+                  fontFamily: 'var(--font-display)',
+                  letterSpacing: '0.2px',
+                }}
+              >
+                Cognitive Intelligence &amp; Performance Analysis
+              </h3>
+              <span style={{ fontSize: 12.5, color: theme.tSecondary }}>
+                Real-time mindset trajectory, competency radar, and archetype progression
+              </span>
+            </div>
+          </div>
+          <span
+            style={{
+              fontSize: 11.5,
+              fontWeight: 700,
+              padding: '4px 10px',
+              borderRadius: 8,
+              background: 'rgba(20, 184, 166, 0.1)',
+              color: 'var(--teal)',
+              border: '1px solid rgba(20, 184, 166, 0.25)',
+              fontFamily: 'var(--font-mono)',
+              textTransform: 'uppercase',
+            }}
+          >
+            ● Live Reactive
+          </span>
+        </div>
+
         <MissionsStreakPanel
           theme={theme}
           xp={xp}
