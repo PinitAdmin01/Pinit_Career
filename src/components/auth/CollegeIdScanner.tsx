@@ -32,7 +32,7 @@ async function runClientOcr(file: File): Promise<string> {
         script.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';
         script.async = true;
         script.onload = () => resolve();
-        script.onerror = () => reject(new Error('Tesseract script failed to load'));
+        script.onerror = (e) => reject(new Error('Tesseract script failed to load: ' + e));
         document.head.appendChild(script);
       });
     }
@@ -54,18 +54,20 @@ export default function CollegeIdScanner({
   onNameExtracted,
   onStoragePathExtracted,
 }: Props) {
+  // By default, system creates a Global ID
   const [mode, setMode] = useState<'global' | 'college'>('global');
   const [globalId, setGlobalId] = useState<string>('');
-  
-  // College ID workflow state
+
+  // College ID state
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string>('');
   const [isScanning, setIsScanning] = useState<boolean>(false);
   const [scanProgress, setScanProgress] = useState<number>(0);
   const [scanStatus, setScanStatus] = useState<string>('');
   const [collegeMeta, setCollegeMeta] = useState<CollegeMetadata | null>(null);
-  
-  // Form fields for editing/verifying extracted details (Dynamic: no hardcoded RVCE)
+  const [isEditingDetails, setIsEditingDetails] = useState<boolean>(false);
+
+  // Extracted details (Auto-filled on upload)
   const [collegeCode, setCollegeCode] = useState<string>('');
   const [deptCode, setDeptCode] = useState<string>('');
   const [rollNumber, setRollNumber] = useState<string>('');
@@ -120,8 +122,8 @@ export default function CollegeIdScanner({
   const processUploadedFile = async (file: File) => {
     setUploadedFile(file);
     setIsScanning(true);
-    setScanProgress(15);
-    setScanStatus('Reading institutional card image...');
+    setScanProgress(20);
+    setScanStatus('Reading student ID card image...');
 
     // Generate instant client preview thumbnail
     try {
@@ -133,8 +135,8 @@ export default function CollegeIdScanner({
     let storagePath = '';
 
     try {
-      setScanProgress(30);
-      setScanStatus('Analyzing ID card layout & server storage...');
+      setScanProgress(45);
+      setScanStatus('Analyzing layout & server archival...');
 
       // 1. Call server API route (/api/auth/scan-id-card)
       const formData = new FormData();
@@ -154,44 +156,45 @@ export default function CollegeIdScanner({
         }
       }
     } catch (apiErr) {
-      console.warn('[CollegeIdScanner] Server scan notice, falling back to local OCR:', apiErr);
+      console.warn('[CollegeIdScanner] Server scan note:', apiErr);
     }
 
-    // 2. Client-side OCR engine fallback if server vision wasn't available
+    // 2. Client-side OCR fallback if server vision wasn't available
     if (!extracted) {
-      setScanProgress(60);
-      setScanStatus('Scanning document text via client OCR...');
+      setScanProgress(70);
+      setScanStatus('Scanning institutional credentials via optical OCR...');
       try {
         const ocrText = await runClientOcr(file);
         if (ocrText && ocrText.trim().length > 10) {
           extracted = parseCollegeCardFromText(ocrText, displayName);
         }
       } catch (ocrErr) {
-        console.warn('[CollegeIdScanner] Client OCR fallback:', ocrErr);
+        console.warn('[CollegeIdScanner] Client OCR note:', ocrErr);
       }
     }
 
     // 3. Client-side heuristic fallback if OCR didn't catch text
     if (!extracted) {
-      setScanProgress(85);
+      setScanProgress(90);
       setScanStatus('Synthesizing institutional contours...');
       try {
         extracted = await parseCollegeIdCard(file, displayName);
       } catch (parseErr) {
-        console.warn('[CollegeIdScanner] Local parse fallback:', parseErr);
+        console.warn('[CollegeIdScanner] Heuristic parse note:', parseErr);
       }
     }
 
     setScanProgress(100);
-    setScanStatus('✓ Verified accreditation card parsed successfully');
+    setScanStatus('✓ Verified student identity card parsed successfully');
 
+    // AUTO-FILL ALL DETAILS
     if (extracted) {
       setCollegeMeta(extracted);
       setCollegeCode(extracted.collegeCode);
       setDeptCode(extracted.departmentCode);
       setRollNumber(extracted.rollNumber);
 
-      // Auto-populate student's name on signup form if extracted
+      // Auto-populate student's name on signup form
       if (extracted.studentName && extracted.studentName !== 'Student' && onNameExtractedRef.current) {
         onNameExtractedRef.current(extracted.studentName);
       }
@@ -214,6 +217,18 @@ export default function CollegeIdScanner({
     if (file) await processUploadedFile(file);
   };
 
+  const switchToCollegeMode = () => {
+    setMode('college');
+  };
+
+  const switchToGlobalMode = () => {
+    setMode('global');
+    setUploadedFile(null);
+    setImagePreviewUrl('');
+    setCollegeMeta(null);
+    setIsEditingDetails(false);
+  };
+
   return (
     <div
       data-testid="college-id-scanner-root"
@@ -228,299 +243,367 @@ export default function CollegeIdScanner({
         marginTop: 4,
       }}
     >
-      {/* Header and Mode Selector */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8 }}>
-        <div>
-          <span style={{ fontSize: 10, fontWeight: 900, fontFamily: 'var(--font-mono)', color: 'var(--accent)', letterSpacing: '1px', textTransform: 'uppercase' }}>
-            PinIT Student Identity System
-          </span>
-          <h4 style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)', margin: '2px 0 0', fontFamily: 'var(--font-display)' }}>
-            Choose Your PinIT ID Type
-          </h4>
-        </div>
-
-        {/* Mode Toggle Pills */}
-        <div
-          role="radiogroup"
-          aria-label="PinIT ID Generation Method"
-          style={{
-            display: 'flex',
-            background: 'var(--bg3, rgba(0,0,0,0.25))',
-            padding: 3,
-            borderRadius: 9,
-            border: '1px solid var(--border, rgba(255,255,255,0.06))',
-          }}
-        >
-          <button
-            type="button"
-            role="radio"
-            aria-checked={mode === 'global'}
-            onClick={() => setMode('global')}
-            style={{
-              padding: '6px 12px',
-              borderRadius: 7,
-              border: 'none',
-              background: mode === 'global' ? 'var(--accent)' : 'transparent',
-              color: mode === 'global' ? '#ffffff' : 'var(--t2)',
-              fontSize: 12,
-              fontWeight: 800,
-              fontFamily: 'var(--font-mono)',
-              cursor: 'pointer',
-              transition: 'all 0.18s ease',
-            }}
-          >
-            🌐 Global ID
-          </button>
-
-          <button
-            type="button"
-            role="radio"
-            aria-checked={mode === 'college'}
-            data-testid="btn-select-college-mode"
-            onClick={() => setMode('college')}
-            style={{
-              padding: '6px 12px',
-              borderRadius: 7,
-              border: 'none',
-              background: mode === 'college' ? 'var(--accent)' : 'transparent',
-              color: mode === 'college' ? '#ffffff' : 'var(--t2)',
-              fontSize: 12,
-              fontWeight: 800,
-              fontFamily: 'var(--font-mono)',
-              cursor: 'pointer',
-              transition: 'all 0.18s ease',
-            }}
-          >
-            🏛️ College ID
-          </button>
-        </div>
-      </div>
-
-      {/* Render Mode A: Global ID (Default) */}
+      {/* ─── CASE 1: GLOBAL ID MODE (DEFAULT) ─── */}
       {mode === 'global' && (
-        <div
-          data-testid="global-id-preview-box"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            padding: '12px 14px',
-            borderRadius: 10,
-            background: 'rgba(99, 102, 241, 0.08)',
-            border: '1px dashed rgba(99, 102, 241, 0.3)',
-          }}
-        >
-          <div>
-            <div style={{ fontSize: 11, color: 'var(--t2)', marginBottom: 2 }}>
-              Default Easy-to-Memorize Global Handle:
-            </div>
-            <div
-              data-testid="generated-global-pinit-id"
-              style={{
-                fontSize: 16,
-                fontWeight: 900,
-                color: 'var(--accent)',
-                fontFamily: 'var(--font-mono)',
-                letterSpacing: '0.8px',
-              }}
-            >
-              {globalId}
-            </div>
-          </div>
-          <span style={{ fontSize: 11, padding: '3px 8px', borderRadius: 6, background: 'rgba(99,102,241,0.18)', color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontWeight: 800 }}>
-            Global Tier
-          </span>
-        </div>
-      )}
-
-      {/* Render Mode B: College ID Upload & Live Scanner */}
-      {mode === 'college' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-          {/* Dropzone */}
-          <div
-            onDragOver={handleDragOver}
-            onDrop={handleDrop}
-            onClick={() => fileInputRef.current?.click()}
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: '16px',
-              borderRadius: 12,
-              background: imagePreviewUrl ? 'rgba(16, 185, 129, 0.08)' : 'rgba(16, 185, 129, 0.04)',
-              border: '1.5px dashed rgba(16, 185, 129, 0.4)',
-              cursor: 'pointer',
-              transition: 'all 0.2s ease',
-              textAlign: 'center',
-              position: 'relative',
-              overflow: 'hidden',
-            }}
-          >
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/*,.pdf"
-              data-testid="college-id-file-input"
-              style={{ display: 'none' }}
-              onChange={handleFileChange}
-            />
-
-            {imagePreviewUrl ? (
-              <div style={{ display: 'flex', alignItems: 'center', gap: 14, width: '100%', justifyContent: 'center' }}>
-                <img
-                  src={imagePreviewUrl}
-                  alt="College ID Preview"
-                  style={{
-                    width: 58,
-                    height: 58,
-                    borderRadius: 8,
-                    objectFit: 'cover',
-                    border: '1.5px solid rgba(16, 185, 129, 0.6)',
-                  }}
-                />
-                <div style={{ textAlign: 'left' }}>
-                  <div style={{ fontSize: 13, fontWeight: 800, color: '#10b981' }}>
-                    ✓ {uploadedFile ? uploadedFile.name : 'Card Image Loaded'}
-                  </div>
-                  <div style={{ fontSize: 11, color: 'var(--t2)', marginTop: 2 }}>
-                    Click or drop to replace ID card
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <>
-                <span style={{ fontSize: 26, marginBottom: 4 }}>🪪</span>
-                <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--t1)' }}>
-                  Upload College ID Card (Front Side)
-                </div>
-                <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 2, fontFamily: 'var(--font-mono)' }}>
-                  Drag & drop JPG, PNG, WEBP, or PDF &middot; OCR extracts college name, student & roll
-                </div>
-              </>
-            )}
+          {/* Header */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <span style={{ fontSize: 10, fontWeight: 900, fontFamily: 'var(--font-mono)', color: 'var(--accent)', letterSpacing: '1px', textTransform: 'uppercase' }}>
+                PinIT Identity System
+              </span>
+              <h4 style={{ fontSize: 13.5, fontWeight: 800, color: 'var(--t1)', margin: '2px 0 0' }}>
+                Your Assigned Student PinIT ID
+              </h4>
+            </div>
+            <span style={{ fontSize: 11, padding: '3px 8px', borderRadius: 6, background: 'rgba(99,102,241,0.18)', color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontWeight: 800 }}>
+              Global ID
+            </span>
           </div>
 
-          {/* Scanner Progress Animation */}
-          {isScanning && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 6, padding: '10px 14px', borderRadius: 8, background: 'var(--bg3)' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11.5, fontFamily: 'var(--font-mono)', color: 'var(--accent)' }}>
-                <span>{scanStatus}</span>
-                <span>{scanProgress}%</span>
-              </div>
-              <div style={{ height: 4, width: '100%', background: 'rgba(255,255,255,0.1)', borderRadius: 2, overflow: 'hidden' }}>
-                <div style={{ height: '100%', width: `${scanProgress}%`, background: 'linear-gradient(90deg, var(--accent), #10b981)', transition: 'width 0.3s ease' }} />
-              </div>
-            </div>
-          )}
-
-          {/* Extracted Accreditation Banner (if scanned) */}
-          {collegeMeta && !isScanning && (
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                padding: '8px 12px',
-                borderRadius: 8,
-                background: 'rgba(16, 185, 129, 0.1)',
-                border: '1px solid rgba(16, 185, 129, 0.25)',
-                fontSize: 11.5,
-              }}
-            >
-              <span style={{ color: '#10b981', fontWeight: 700 }}>
-                🏛️ {collegeMeta.collegeName} &middot; {collegeMeta.studentName}
-              </span>
-              <span style={{ fontSize: 10, padding: '2px 6px', borderRadius: 4, background: '#10b981', color: '#000', fontWeight: 900 }}>
-                {Math.round(collegeMeta.confidence * 100)}% Match
-              </span>
-            </div>
-          )}
-
-          {/* Editable Extracted Details */}
+          {/* Global ID Badge Box */}
           <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))',
-              gap: 8,
-              marginTop: 2,
-            }}
-          >
-            <label style={{ display: 'flex', flexDirection: 'column', gap: 3, fontSize: 11, fontWeight: 700, color: 'var(--t3)' }}>
-              College Code
-              <input
-                className="form-input"
-                data-testid="input-college-code"
-                value={collegeCode}
-                onChange={(e) => setCollegeCode(e.target.value.toUpperCase())}
-                placeholder="e.g. BGS, RVCE"
-                style={{ padding: '6px 10px', fontSize: 12.5, fontFamily: 'var(--font-mono)', fontWeight: 800 }}
-              />
-            </label>
-
-            <label style={{ display: 'flex', flexDirection: 'column', gap: 3, fontSize: 11, fontWeight: 700, color: 'var(--t3)' }}>
-              Branch / Dept
-              <input
-                className="form-input"
-                data-testid="input-dept-code"
-                value={deptCode}
-                onChange={(e) => setDeptCode(e.target.value.toUpperCase())}
-                placeholder="e.g. BCA, CSE"
-                style={{ padding: '6px 10px', fontSize: 12.5, fontFamily: 'var(--font-mono)', fontWeight: 800 }}
-              />
-            </label>
-
-            <label style={{ display: 'flex', flexDirection: 'column', gap: 3, fontSize: 11, fontWeight: 700, color: 'var(--t3)' }}>
-              Roll Suffix / USN
-              <input
-                className="form-input"
-                data-testid="input-roll-suffix"
-                value={rollNumber}
-                onChange={(e) => setRollNumber(e.target.value.toUpperCase())}
-                placeholder="e.g. 726, 042"
-                style={{ padding: '6px 10px', fontSize: 12.5, fontFamily: 'var(--font-mono)', fontWeight: 800 }}
-              />
-            </label>
-          </div>
-
-          {/* Institutional Badge Preview */}
-          <div
-            data-testid="college-id-preview-badge"
+            data-testid="global-id-preview-box"
             style={{
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              padding: '12px 16px',
-              borderRadius: 12,
-              background: 'linear-gradient(135deg, rgba(16,185,129,0.12) 0%, rgba(10,14,23,0.7) 100%)',
-              border: '1.5px solid rgba(16,185,129,0.4)',
-              boxShadow: '0 4px 16px rgba(16,185,129,0.15)',
+              padding: '12px 14px',
+              borderRadius: 10,
+              background: 'rgba(99, 102, 241, 0.08)',
+              border: '1px dashed rgba(99, 102, 241, 0.3)',
             }}
           >
             <div>
-              <div style={{ fontSize: 9.5, fontWeight: 800, fontFamily: 'var(--font-mono)', color: '#10b981', letterSpacing: '0.8px' }}>
-                INSTITUTIONAL PINIT ID (VERIFIED)
+              <div style={{ fontSize: 11, color: 'var(--t2)', marginBottom: 2 }}>
+                Default Memorable Student Handle:
               </div>
               <div
-                data-testid="generated-college-pinit-id"
+                data-testid="generated-global-pinit-id"
                 style={{
-                  fontSize: 17,
+                  fontSize: 16,
                   fontWeight: 900,
-                  color: '#ffffff',
+                  color: 'var(--accent)',
                   fontFamily: 'var(--font-mono)',
-                  letterSpacing: '1px',
-                  marginTop: 2,
+                  letterSpacing: '0.8px',
                 }}
               >
-                {previewId || 'PIN-COLLEGE-DEPT-001'}
+                {globalId}
               </div>
             </div>
-            <div style={{ textAlign: 'right' }}>
-              <span style={{ fontSize: 11, padding: '3px 8px', borderRadius: 6, background: 'rgba(16,185,129,0.2)', color: '#10b981', fontFamily: 'var(--font-mono)', fontWeight: 800 }}>
-                Campus Linked
-              </span>
-            </div>
           </div>
+
+          {/* Prompt Button to Select College ID */}
+          <button
+            type="button"
+            data-testid="btn-select-college-mode"
+            onClick={switchToCollegeMode}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '12px 14px',
+              borderRadius: 10,
+              background: 'rgba(16, 185, 129, 0.06)',
+              border: '1.5px solid rgba(16, 185, 129, 0.28)',
+              color: 'var(--t1)',
+              cursor: 'pointer',
+              textAlign: 'left',
+              transition: 'all 0.2s ease',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <span style={{ fontSize: 22 }}>🏛️</span>
+              <div>
+                <div style={{ fontSize: 13, fontWeight: 800, color: '#10b981' }}>
+                  Are you enrolled in a College / University?
+                </div>
+                <div style={{ fontSize: 11, color: 'var(--t3)', marginTop: 2 }}>
+                  Click to upload College ID for campus verification & placement drives
+                </div>
+              </div>
+            </div>
+            <span style={{ fontSize: 12, fontWeight: 900, color: '#10b981' }}>
+              Link College ID &rarr;
+            </span>
+          </button>
+        </div>
+      )}
+
+      {/* ─── CASE 2: COLLEGE ID MODE (BUTTON PRESSED) ─── */}
+      {mode === 'college' && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {/* Header with Switch back to Global button */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <span style={{ fontSize: 10, fontWeight: 900, fontFamily: 'var(--font-mono)', color: '#10b981', letterSpacing: '1px', textTransform: 'uppercase' }}>
+                Institutional Verification
+              </span>
+              <h4 style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)', margin: '2px 0 0' }}>
+                Official College Student ID
+              </h4>
+            </div>
+
+            <button
+              type="button"
+              onClick={switchToGlobalMode}
+              style={{
+                fontSize: 11.5,
+                fontWeight: 700,
+                color: 'var(--t3)',
+                background: 'transparent',
+                border: 'none',
+                cursor: 'pointer',
+                textDecoration: 'underline',
+              }}
+            >
+              Use standard Global ID instead
+            </button>
+          </div>
+
+          {/* Sub-step 2A: Card NOT yet uploaded -> Ask to upload Student ID */}
+          {!uploadedFile && (
+            <div
+              onDragOver={handleDragOver}
+              onDrop={handleDrop}
+              onClick={() => fileInputRef.current?.click()}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: '24px 16px',
+                borderRadius: 12,
+                background: 'rgba(16, 185, 129, 0.04)',
+                border: '2px dashed rgba(16, 185, 129, 0.45)',
+                cursor: 'pointer',
+                textAlign: 'center',
+                transition: 'all 0.2s ease',
+              }}
+            >
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*,.pdf"
+                data-testid="college-id-file-input"
+                style={{ display: 'none' }}
+                onChange={handleFileChange}
+              />
+              <span style={{ fontSize: 32, marginBottom: 6 }}>🪪</span>
+              <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--t1)' }}>
+                Upload Your Student ID Card
+              </div>
+              <div style={{ fontSize: 11.5, color: 'var(--t3)', marginTop: 4, maxWidth: 320 }}>
+                Drop image here or click to browse. We will automatically extract your college name, your name, degree, and roll number.
+              </div>
+              <button
+                type="button"
+                style={{
+                  marginTop: 12,
+                  padding: '7px 16px',
+                  borderRadius: 8,
+                  background: '#10b981',
+                  color: '#000000',
+                  border: 'none',
+                  fontSize: 12,
+                  fontWeight: 800,
+                  cursor: 'pointer',
+                }}
+              >
+                Choose ID Card Photo
+              </button>
+            </div>
+          )}
+
+          {/* Scanner Progress Animation */}
+          {isScanning && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6, padding: '12px 14px', borderRadius: 10, background: 'var(--bg3)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11.5, fontFamily: 'var(--font-mono)', color: '#10b981', fontWeight: 800 }}>
+                <span>{scanStatus}</span>
+                <span>{scanProgress}%</span>
+              </div>
+              <div style={{ height: 4, width: '100%', background: 'rgba(255,255,255,0.1)', borderRadius: 2, overflow: 'hidden' }}>
+                <div style={{ height: '100%', width: `${scanProgress}%`, background: 'linear-gradient(90deg, #10b981, #059669)', transition: 'width 0.3s ease' }} />
+              </div>
+            </div>
+          )}
+
+          {/* Sub-step 2B: Card Uploaded & Details Extracted -> Fill All Details */}
+          {uploadedFile && !isScanning && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              {/* Verified Student Profile Card */}
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 10,
+                  padding: '14px',
+                  borderRadius: 12,
+                  background: 'rgba(16, 185, 129, 0.08)',
+                  border: '1.5px solid rgba(16, 185, 129, 0.4)',
+                }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ fontSize: 11.5, fontWeight: 800, color: '#10b981', display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <span>✓</span> Verified Student Credentials
+                  </span>
+                  <span style={{ fontSize: 10.5, padding: '2px 8px', borderRadius: 4, background: '#10b981', color: '#000000', fontWeight: 900 }}>
+                    {Math.round((collegeMeta?.confidence || 0.95) * 100)}% Match
+                  </span>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+                  {imagePreviewUrl && (
+                    <img
+                      src={imagePreviewUrl}
+                      alt="Student ID Preview"
+                      style={{
+                        width: 64,
+                        height: 64,
+                        borderRadius: 8,
+                        objectFit: 'cover',
+                        border: '1.5px solid rgba(16, 185, 129, 0.6)',
+                        flexShrink: 0,
+                      }}
+                    />
+                  )}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 3, fontSize: 12, color: 'var(--t1)' }}>
+                    <div>
+                      <span style={{ color: 'var(--t3)', fontWeight: 700 }}>Student: </span>
+                      <strong style={{ color: '#ffffff' }}>{collegeMeta?.studentName || displayName || 'Student'}</strong>
+                    </div>
+                    <div>
+                      <span style={{ color: 'var(--t3)', fontWeight: 700 }}>College: </span>
+                      <span>{collegeMeta?.collegeName || 'Accredited Institution'} ({collegeCode})</span>
+                    </div>
+                    <div>
+                      <span style={{ color: 'var(--t3)', fontWeight: 700 }}>Department: </span>
+                      <span>{deptCode} ({collegeMeta?.department || 'General Studies'})</span>
+                    </div>
+                    <div>
+                      <span style={{ color: 'var(--t3)', fontWeight: 700 }}>Roll / USN: </span>
+                      <span>{rollNumber}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Institutional PinIT ID Badge */}
+                <div
+                  data-testid="college-id-preview-badge"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: '10px 14px',
+                    borderRadius: 10,
+                    background: 'rgba(0,0,0,0.3)',
+                    border: '1px solid rgba(16, 185, 129, 0.3)',
+                    marginTop: 4,
+                  }}
+                >
+                  <div>
+                    <div style={{ fontSize: 9.5, fontWeight: 900, fontFamily: 'var(--font-mono)', color: '#10b981' }}>
+                      INSTITUTIONAL PINIT ID (AUTO-GENERATED)
+                    </div>
+                    <div
+                      data-testid="generated-college-pinit-id"
+                      style={{
+                        fontSize: 16,
+                        fontWeight: 900,
+                        color: '#ffffff',
+                        fontFamily: 'var(--font-mono)',
+                        letterSpacing: '1px',
+                        marginTop: 2,
+                      }}
+                    >
+                      {previewId || 'PIN-COLLEGE-DEPT-001'}
+                    </div>
+                  </div>
+                  <span style={{ fontSize: 10.5, padding: '3px 8px', borderRadius: 6, background: 'rgba(16,185,129,0.2)', color: '#10b981', fontFamily: 'var(--font-mono)', fontWeight: 800 }}>
+                    Campus Linked
+                  </span>
+                </div>
+              </div>
+
+              {/* Action Buttons: Replace Card or Toggle Manual Edit */}
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 11.5 }}>
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  style={{ background: 'transparent', border: 'none', color: '#10b981', cursor: 'pointer', fontWeight: 700, padding: 0 }}
+                >
+                  🔄 Replace Card Photo
+                </button>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*,.pdf"
+                  data-testid="college-id-file-input"
+                  style={{ display: 'none' }}
+                  onChange={handleFileChange}
+                />
+
+                <button
+                  type="button"
+                  onClick={() => setIsEditingDetails(!isEditingDetails)}
+                  style={{ background: 'transparent', border: 'none', color: 'var(--t3)', cursor: 'pointer', fontWeight: 600, padding: 0 }}
+                >
+                  {isEditingDetails ? '▲ Hide manual fields' : '✏️ Edit details manually'}
+                </button>
+              </div>
+
+              {/* Optional Manual Override Fields (only shown if user wants to customize) */}
+              {isEditingDetails && (
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))',
+                    gap: 8,
+                    padding: '10px',
+                    borderRadius: 8,
+                    background: 'rgba(0,0,0,0.25)',
+                    border: '1px solid rgba(255,255,255,0.06)',
+                  }}
+                >
+                  <label style={{ display: 'flex', flexDirection: 'column', gap: 3, fontSize: 11, fontWeight: 700, color: 'var(--t3)' }}>
+                    College Code
+                    <input
+                      className="form-input"
+                      data-testid="input-college-code"
+                      value={collegeCode}
+                      onChange={(e) => setCollegeCode(e.target.value.toUpperCase())}
+                      placeholder="e.g. BGS, RVCE"
+                      style={{ padding: '6px 10px', fontSize: 12.5, fontFamily: 'var(--font-mono)', fontWeight: 800 }}
+                    />
+                  </label>
+
+                  <label style={{ display: 'flex', flexDirection: 'column', gap: 3, fontSize: 11, fontWeight: 700, color: 'var(--t3)' }}>
+                    Branch / Dept
+                    <input
+                      className="form-input"
+                      data-testid="input-dept-code"
+                      value={deptCode}
+                      onChange={(e) => setDeptCode(e.target.value.toUpperCase())}
+                      placeholder="e.g. BCA, CSE"
+                      style={{ padding: '6px 10px', fontSize: 12.5, fontFamily: 'var(--font-mono)', fontWeight: 800 }}
+                    />
+                  </label>
+
+                  <label style={{ display: 'flex', flexDirection: 'column', gap: 3, fontSize: 11, fontWeight: 700, color: 'var(--t3)' }}>
+                    Roll Suffix / USN
+                    <input
+                      className="form-input"
+                      data-testid="input-roll-suffix"
+                      value={rollNumber}
+                      onChange={(e) => setRollNumber(e.target.value.toUpperCase())}
+                      placeholder="e.g. 726, 042"
+                      style={{ padding: '6px 10px', fontSize: 12.5, fontFamily: 'var(--font-mono)', fontWeight: 800 }}
+                    />
+                  </label>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       )}
     </div>

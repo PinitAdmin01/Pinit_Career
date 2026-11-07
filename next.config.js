@@ -23,7 +23,7 @@ const CSP = [
   // Audio worklets and the TTS worker are constructed from blob: URLs. worker-src
   // has no default of its own — it falls back to script-src, which does not allow
   // blob: — so it must be stated explicitly or every worker is refused.
-  "worker-src 'self' blob:",
+  "worker-src 'self' blob: https://cdn.jsdelivr.net",
   // Every origin the browser is allowed to call. Anything missing here fails
   // before the request leaves the page, with no network error to debug.
   [
@@ -42,6 +42,8 @@ const CSP = [
     'https://pinit-backend-v8pd.onrender.com',
     'https://api.github.com',
     'https://cdn.jsdelivr.net',
+    'https://tessdata.projectnaptha.com',
+    'https://*.projectnaptha.com',
   ].join(' '),
   "frame-src 'self' https://api.razorpay.com https://checkout.razorpay.com https://*.razorpay.com",
   "frame-ancestors 'self'",

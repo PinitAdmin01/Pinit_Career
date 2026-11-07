@@ -38,7 +38,7 @@ const CSP = [
 
   // scripts: allow inline + wasm + eval + Supabase + ALL Razorpay hosts
   // (added https://*.razorpay.com alongside the existing checkout.razorpay.com)
-  "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' 'unsafe-eval' https://*.supabase.co https://checkout.razorpay.com https://*.razorpay.com",
+  "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' 'unsafe-eval' https://*.supabase.co https://checkout.razorpay.com https://*.razorpay.com https://cdn.jsdelivr.net",
 
   // styles + fonts (unchanged)
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
@@ -51,7 +51,7 @@ const CSP = [
   "media-src 'self' blob: data: https://*.supabase.co https://pinit-voice-service.onrender.com",
 
   // workers: blob: URLs for AudioWorklet + TTS worker (unchanged)
-  "worker-src 'self' blob:",
+  "worker-src 'self' blob: https://cdn.jsdelivr.net",
 
   // ── UPDATED connect-src ──────────────────────────────────────────
   // Added: https://*.razorpay.com (wildcard for all razorpay subdomains)
@@ -73,6 +73,8 @@ const CSP = [
     'https://pinit-backend-v8pd.onrender.com',
     'https://api.github.com',
     'https://cdn.jsdelivr.net',
+    'https://tessdata.projectnaptha.com',
+    'https://*.projectnaptha.com',
     'https://openrouter.ai',
     'https://api.groq.com',
   ].join(' '),

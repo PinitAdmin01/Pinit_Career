@@ -30,13 +30,10 @@ export default function SignupPage() {
 
   const handleNameExtracted = useCallback((extractedName: string) => {
     if (extractedName && extractedName !== 'Student') {
-      setForm((prev) => {
-        // Auto-fill student display name if empty or default
-        if (!prev.displayName || prev.displayName.trim() === '' || prev.displayName === 'Student') {
-          return { ...prev, displayName: extractedName };
-        }
-        return prev;
-      });
+      setForm((prev) => ({
+        ...prev,
+        displayName: extractedName,
+      }));
     }
   }, []);
 
