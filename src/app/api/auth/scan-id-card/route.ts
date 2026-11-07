@@ -78,7 +78,7 @@ Return raw JSON only, no markdown formatting or backticks.`;
                 department: parsed.department || 'General Studies',
                 departmentCode: (parsed.departmentCode || 'GEN').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6),
                 rollNumber: (parsed.rollNumber || '001').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6),
-                studentName: parsed.studentName || fallbackName || 'Student',
+                studentName: parsed.studentName?.trim() || '',
                 rawExtractedText: rawReply.slice(0, 300),
                 confidence: Number(parsed.confidence) || 0.92,
               };
@@ -94,7 +94,7 @@ Return raw JSON only, no markdown formatting or backticks.`;
     // 2. Fallback: Parse card text heuristically if vision didn't run or failed
     if (!extractedMeta) {
       const cleanFileName = file.name.replace(/\.[^/.]+$/, '').replace(/[._-]/g, ' ');
-      extractedMeta = parseCollegeCardFromText(cleanFileName, fallbackName);
+      extractedMeta = parseCollegeCardFromText(cleanFileName, '');
     }
 
     // 3. Generate Canonical PinIT ID

@@ -479,9 +479,8 @@ export function parseCollegeCardFromText(
 
       // Reject if all words are tiny 1-2 letter syllables (e.g. "E EE", "ef es", "re ni")
       if (words.every(w => w.length <= 2)) continue;
-      // Must have at least 1 word with >= 4 letters (e.g. Vinay, Arjun, Seema, Dewangan) or 2 words each >= 2 letters
-      if (words.length === 1 && words[0].length < 4) continue;
-      if (!words.some(w => w.length >= 3)) continue;
+      // Must have at least 1 word with >= 4 letters (e.g. Vinay, Arjun, Seema, Dewangan, Abel, Smith)
+      if (!words.some(w => w.length >= 4)) continue;
       if (words.length > 4 || clean.length < 3 || clean.length > 32) continue;
 
       let score = 0;

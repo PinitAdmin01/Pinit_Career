@@ -183,7 +183,14 @@ export default function CollegeIdScanner({
   };
 
   const processUploadedFile = async (file: File) => {
+    // 0. Reset all previous card extraction state immediately to prevent state pollution
     setUploadedFile(file);
+    setCollegeMeta(null);
+    setEditableStudentName('');
+    setCollegeCode('');
+    setDeptCode('');
+    setRollNumber('');
+    setPreviewId('');
     setIsScanning(true);
     setScanProgress(20);
     setScanStatus('Reading student ID card image...');
@@ -229,7 +236,7 @@ export default function CollegeIdScanner({
       try {
         const ocrText = await runClientOcr(file);
         if (ocrText && ocrText.trim().length > 10) {
-          extracted = parseCollegeCardFromText(ocrText, displayName);
+          extracted = parseCollegeCardFromText(ocrText);
         }
       } catch (ocrErr) {
         console.warn('[CollegeIdScanner] Client OCR note:', ocrErr);
@@ -241,7 +248,7 @@ export default function CollegeIdScanner({
       setScanProgress(90);
       setScanStatus('Synthesizing institutional contours...');
       try {
-        extracted = await parseCollegeIdCard(file, displayName);
+        extracted = await parseCollegeIdCard(file);
       } catch (parseErr) {
         console.warn('[CollegeIdScanner] Heuristic parse note:', parseErr);
       }
@@ -256,12 +263,16 @@ export default function CollegeIdScanner({
       setCollegeCode(extracted.collegeCode);
       setDeptCode(extracted.departmentCode);
       setRollNumber(extracted.rollNumber);
-      const sName = (!displayName || displayName.trim() === '' || displayName === 'Student' ? extracted.studentName : displayName) || extracted.studentName || displayName || '';
-      setEditableStudentName(sName);
 
-      // Auto-populate student's name on signup form ONLY if user has not already entered their name
-      if ((!displayName || displayName.trim() === '' || displayName === 'Student') && extracted.studentName && extracted.studentName !== 'Student' && onNameExtractedRef.current) {
-        onNameExtractedRef.current(extracted.studentName);
+      const extractedName = extracted.studentName?.trim() || '';
+      if (extractedName && extractedName !== 'Student') {
+        setEditableStudentName(extractedName);
+        if (onNameExtractedRef.current) {
+          onNameExtractedRef.current(extractedName);
+        }
+      } else {
+        // Explicitly clear when name is not visible on card
+        setEditableStudentName('');
       }
 
       if (storagePath && onStoragePathExtractedRef.current) {
@@ -535,7 +546,11 @@ export default function CollegeIdScanner({
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 3, fontSize: 12, color: 'var(--t1)' }}>
                     <div>
                       <span style={{ color: 'var(--t3)', fontWeight: 700 }}>Student: </span>
-                      <strong style={{ color: '#ffffff' }}>{editableStudentName || collegeMeta?.studentName || displayName || 'Student'}</strong>
+                      {editableStudentName ? (
+                        <strong style={{ color: '#ffffff' }}>{editableStudentName}</strong>
+                      ) : (
+                        <span style={{ color: '#f59e0b', fontWeight: 800 }}>⚠️ User name is not visible on card</span>
+                      )}
                     </div>
                     <div>
                       <span style={{ color: 'var(--t3)', fontWeight: 700 }}>College: </span>
@@ -551,6 +566,26 @@ export default function CollegeIdScanner({
                     </div>
                   </div>
                 </div>
+
+                {/* Explicit Warning Notice if name is not legible on card */}
+                {!editableStudentName && (
+                  <div
+                    style={{
+                      padding: '8px 12px',
+                      borderRadius: 8,
+                      background: 'rgba(245, 158, 11, 0.12)',
+                      border: '1.5px solid rgba(245, 158, 11, 0.45)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 8,
+                      fontSize: 12,
+                      color: '#f59e0b',
+                      fontWeight: 700,
+                    }}
+                  >
+                    <span>⚠️ User name is not visible on card — please enter name below</span>
+                  </div>
+                )}
 
                 {/* Institutional PinIT ID Badge */}
                 <div
@@ -602,8 +637,10 @@ export default function CollegeIdScanner({
                   border: '1px solid rgba(16, 185, 129, 0.25)',
                 }}
               >
-                <label style={{ display: 'flex', flexDirection: 'column', gap: 4, fontSize: 11, fontWeight: 700, color: 'var(--t3)' }}>
-                  Student Name
+                <label style={{ display: 'flex', flexDirection: 'column', gap: 4, fontSize: 11, fontWeight: 700, color: !editableStudentName ? '#f59e0b' : 'var(--t3)' }}>
+                  <span>
+                    Student Name {!editableStudentName && <span style={{ color: '#f59e0b', fontWeight: 800 }}>(Required)</span>}
+                  </span>
                   <input
                     className="form-input"
                     data-testid="input-student-name"
@@ -613,8 +650,13 @@ export default function CollegeIdScanner({
                       setEditableStudentName(val);
                       if (onNameExtractedRef.current) onNameExtractedRef.current(val);
                     }}
-                    placeholder="e.g. Vinay N"
-                    style={{ padding: '6px 10px', fontSize: 12.5, fontWeight: 700 }}
+                    placeholder={!editableStudentName ? "User name not visible on card — enter name here" : "e.g. Vinay N"}
+                    style={{
+                      padding: '6px 10px',
+                      fontSize: 12.5,
+                      fontWeight: 700,
+                      border: !editableStudentName ? '1.5px solid #f59e0b' : undefined,
+                    }}
                   />
                 </label>
 

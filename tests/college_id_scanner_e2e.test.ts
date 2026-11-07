@@ -382,3 +382,74 @@ Division : C
   });
   assert.strictEqual(pinitId, 'PIN-ACC-BCOM-2443');
 });
+
+test('17. Correctly extracts Chittagong College, Mohammad Abdul Hamid, and roll 251', () => {
+  const chittagongText = `
+PF
+Chittagong College
+Ho |
+yl
+Mohammad Abdul Hamid
+Roll: 251
+  `.trim();
+
+  const result = parseCollegeCardFromText(chittagongText);
+  assert.strictEqual(result.collegeCode, 'CC');
+  assert.strictEqual(result.studentName, 'Mohammad Abdul Hamid');
+  assert.strictEqual(result.rollNumber, '251');
+  const pinitId = generateCollegePinItId({
+    collegeCode: result.collegeCode,
+    departmentCode: result.departmentCode,
+    rollNumber: result.rollNumber,
+  });
+  assert.strictEqual(pinitId, 'PIN-CC-GEN-251');
+});
+
+test('18. Correctly extracts Kareli School, Pradeep Kumar Dewangan, rejecting "— E ~ EE" noise', () => {
+  const kareliText = `
+K.R.B ADARSH ENG. HR.
+SEC. SCHOOL KARELI
+— E ~ EE
+PRADEEP KUMAR DEWANGAN
+Roll No: 793
+  `.trim();
+
+  const result = parseCollegeCardFromText(kareliText);
+  assert.strictEqual(result.collegeCode, 'SSK');
+  assert.strictEqual(result.studentName, 'Pradeep Kumar Dewangan');
+  assert.strictEqual(result.rollNumber, '793');
+  const pinitId = generateCollegePinItId({
+    collegeCode: result.collegeCode,
+    departmentCode: result.departmentCode,
+    rollNumber: result.rollNumber,
+  });
+  assert.strictEqual(pinitId, 'PIN-SSK-GEN-793');
+});
+
+test('19. Correctly extracts My University, A. Yogeshwaran, and ignores template boilerplate', () => {
+  const myUnivText = `
+ef MY UNIVERSITY es | MY UNIVERSITY
+PRS eee = |
+Jouname@uebsi.com
+www business.com
+Terms & Conditions
+Lorem psum dolor st ame, et a
+A.Yogeshwaran
+DNo : KVS25 56987 —
+Phone : +91 99999 99999
+  `.trim();
+
+  const result = parseCollegeCardFromText(myUnivText);
+  assert.strictEqual(result.collegeCode, 'UNIV');
+  assert.strictEqual(result.studentName, 'A. Yogeshwaran');
+});
+
+test('20. Returns empty studentName when card has no legible student name', () => {
+  const unreadableBadgeText = `
+STUDENT ID CARD
+oepsriment ot Finance
+  `.trim();
+
+  const result = parseCollegeCardFromText(unreadableBadgeText);
+  assert.strictEqual(result.studentName, '');
+});
