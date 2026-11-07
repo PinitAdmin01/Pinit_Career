@@ -57,7 +57,7 @@ export async function GET(req: NextRequest) {
 
         // Real Daily Missions lookup
         const { data: missionRows } = await admin
-          .from('daily_missions')
+          .from('missions')
           .select('id, status')
           .eq('student_id', studentId);
 
@@ -88,10 +88,9 @@ export async function GET(req: NextRequest) {
 
         // Real Interview Submissions lookup
         const { count: ivCount } = await admin
-          .from('assessment_submissions')
+          .from('interview_sessions')
           .select('id', { count: 'exact', head: true })
-          .eq('student_id', studentId);
-
+          .eq('user_id', studentId);
         if (typeof ivCount === 'number') {
           interviewsTotal = ivCount;
         }

@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
   if (admin) {
     try {
       const { data } = await admin
-        .from('face_enrollments')
+        .from('face_templates')
         .select('user_id')
         .eq('user_id', userId)
         .maybeSingle();
