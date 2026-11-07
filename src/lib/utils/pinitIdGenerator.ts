@@ -27,6 +27,10 @@ export interface PinItIdResult {
 
 // Known College/University Lexicon for intelligent recognition
 const COLLEGE_DICTIONARY: Array<{ patterns: RegExp[]; code: string; name: string }> = [
+  { patterns: [/bgs\s*inst/i, /\bbgs\b/i, /bimb/i], code: 'BGS', name: 'BGS Institute of Management' },
+  { patterns: [/shri\s*ram\s*college/i, /\bsrcc\b/i], code: 'SRCC', name: 'Shri Ram College of Commerce' },
+  { patterns: [/st\.?\s*joseph/i, /\bsjcc\b/i, /\bsjc\b/i], code: 'SJCC', name: "St. Joseph's College of Commerce" },
+  { patterns: [/dayananda\s*sagar/i, /\bdsce\b/i], code: 'DSCE', name: 'Dayananda Sagar College of Engineering' },
   { patterns: [/r\.?v\.?\s*college/i, /rvce/i, /rashtreeya\s*sikshana/i], code: 'RVCE', name: 'R.V. College of Engineering' },
   { patterns: [/pes\s*univ/i, /pes\s*institute/i, /pesit/i, /pesu/i], code: 'PES', name: 'PES University' },
   { patterns: [/b\.?\s*m\.?\s*s\.?\s*college/i, /bms\s*college/i, /bmsce/i, /bmsit/i], code: 'BMS', name: 'B.M.S. College of Engineering' },
@@ -178,6 +182,213 @@ function paramsOrCollege_dept(obj: any): string {
  * Analyzes uploaded image/document metadata and text content
  * to identify College Code, Department, Roll Number, and Student Name.
  */
+/**
+ * Intelligent Indian College ID Text Parser
+ * Extracts College Name, College Code, Department, Student Name, and Roll/USN
+ * from OCR-extracted text from ANY Indian university or college identity card.
+ */
+export function parseCollegeCardFromText(
+  rawText: string,
+  fallbackDisplayName = ''
+): CollegeMetadata {
+  if (!rawText || typeof rawText !== 'string') {
+    return {
+      collegeName: 'Institution',
+      collegeCode: 'COL',
+      department: 'General',
+      departmentCode: 'GEN',
+      rollNumber: '001',
+      studentName: fallbackDisplayName || 'Student',
+      rawExtractedText: '',
+      confidence: 0.3,
+    };
+  }
+
+  const lines = rawText.split('\n').map(l => l.trim()).filter(Boolean);
+
+  // 1. Identify College Name & Canonical Acronym
+  let collegeName = '';
+  let collegeCode = '';
+  let collegeFound = false;
+
+  // Look for the specific institutional line in the first 5 lines (header section)
+  const headerLines = lines.slice(0, 5);
+  const collegeLine = headerLines.find(l => 
+    /(?:institute|college|university|academy|vidyalaya|polytechnic|school\s+of)/i.test(l) &&
+    !/(?:near|opposite|opposit|cross|road|street|behind|temple|nagar|address)/i.test(l)
+  ) || lines.find(l => 
+    /(?:institute|college|university|academy|vidyalaya|polytechnic|school\s+of)/i.test(l) &&
+    !/(?:near|opposite|opposit|cross|road|street|behind|temple|nagar|address)/i.test(l)
+  );
+
+  if (collegeLine) {
+    collegeName = collegeLine.replace(/^[^a-zA-Z0-9]+|[^a-zA-Z0-9)]+$/g, '').trim();
+    // Check known college dictionary on the college line
+    for (const c of COLLEGE_DICTIONARY) {
+      if (c.patterns.some(p => p.test(collegeLine))) {
+        collegeCode = c.code;
+        collegeFound = true;
+        break;
+      }
+    }
+
+    if (!collegeFound) {
+      // Look for leading acronym like "BGS", "BMS", "RV", "PES", "JSS", "KLE", "NIT", "IIT"
+      const leadingAcronym = collegeName.match(/^([A-Z]{2,6})\b/);
+      const NON_ACRONYMS = new Set(['SHRI', 'SRI', 'SAINT', 'ST', 'THE', 'NEW', 'GOVT', 'DR', 'SMT']);
+      if (leadingAcronym && !NON_ACRONYMS.has(leadingAcronym[1].toUpperCase())) {
+        collegeCode = leadingAcronym[1];
+      } else {
+        // Build acronym from uppercase initials of significant words
+        const words = collegeName
+          .replace(/[^A-Za-z\s]/g, '')
+          .split(/\s+/)
+          .filter(w => !['of', 'and', 'the', 'for', 'in', 'to', 'at', 'an', 'affiliated'].includes(w.toLowerCase()));
+        collegeCode = words.map(w => w[0].toUpperCase()).join('').slice(0, 5);
+      }
+      collegeFound = true;
+    }
+  }
+
+  // Fallback: check whole text against dictionary if collegeLine didn't find one
+  if (!collegeFound) {
+    for (const c of COLLEGE_DICTIONARY) {
+      if (c.patterns.some(p => p.test(rawText))) {
+        collegeName = c.name;
+        collegeCode = c.code;
+        collegeFound = true;
+        break;
+      }
+    }
+  }
+
+  if (!collegeName) {
+    collegeName = 'Accredited Institution';
+    collegeCode = 'COL';
+  }
+
+  // 2. Identify Course / Department
+  let department = 'General Studies';
+  let departmentCode = 'GEN';
+  let deptFound = false;
+  let deptLineIdx = -1;
+
+  for (let i = 0; i < lines.length; i++) {
+    const l = lines[i];
+    // A college or university header line cannot be the student's department line
+    if (/(?:institute|college|university|polytechnic|school\s+of)/i.test(l)) {
+      continue;
+    }
+    for (const d of DEPARTMENT_DICTIONARY) {
+      if (d.patterns.some(p => p.test(l))) {
+        department = d.name;
+        departmentCode = d.code;
+        deptFound = true;
+        deptLineIdx = i;
+        break;
+      }
+    }
+    if (deptFound) break;
+  }
+
+  // Dynamic regex fallback for degrees: BCA, MCA, B.Tech, BE, B.Com, BBA, MBA, etc.
+  if (!deptFound) {
+    for (let i = 0; i < lines.length; i++) {
+      const l = lines[i];
+      if (/(?:institute|college|university|polytechnic|school\s+of)/i.test(l)) {
+        continue;
+      }
+      const match = l.match(/\b(BCA|MCA|B\.?TECH|BE|B\.?COM|BBA|MBA|B\.?SC|MSC|CSE|ISE|ECE|EEE|MECH|CIVIL|AIDS|AIML)\b/i);
+      if (match) {
+        departmentCode = match[1].toUpperCase().replace(/\./g, '');
+        department = departmentCode;
+        deptFound = true;
+        deptLineIdx = i;
+        break;
+      }
+    }
+  }
+
+  // 3. Identify Student Name
+  let studentName = '';
+  // Pattern A: Labeled name (e.g. "Name: Vinay N" or "Student Name: Rahul")
+  const nameLabelMatch = rawText.match(/\b(?:student\s*name|candidate\s*name|name)\s*[:#=-]?\s*([A-Za-z\s.]{3,35})/i);
+  if (nameLabelMatch && !/(?:college|institute|university|management|card|school)/i.test(nameLabelMatch[1])) {
+    studentName = nameLabelMatch[1].trim();
+  } else if (deptLineIdx > 0) {
+    // Pattern B: In 90% of Indian ID cards, student name is on the line right above degree/dept
+    for (let j = deptLineIdx - 1; j >= 0; j--) {
+      const candidate = lines[j].replace(/[^A-Za-z\s.]/g, '').trim();
+      const words = candidate.split(/\s+/).filter(Boolean);
+      const isHeader = /(?:gurudev|blore|bangalore|bengaluru|karnataka|delhi|mumbai|ph|phone|email|www|http|contact|valid|address|institute|college|university)/i.test(candidate);
+      if (words.length >= 1 && words.length <= 4 && candidate.length >= 3 && candidate.length <= 30 && !isHeader) {
+        studentName = candidate;
+        break;
+      }
+    }
+  }
+
+  // Format student name to Title Case if uppercase
+  if (studentName) {
+    studentName = studentName
+      .toLowerCase()
+      .split(/\s+/)
+      .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+      .join(' ');
+  } else {
+    studentName = fallbackDisplayName || 'Student';
+  }
+
+  // 4. Identify Roll Number / USN / Contact Suffix
+  let rollNumber = '';
+  // VTU USN (e.g. 1RV21CS042, 1BG22BCA01)
+  const usnRegex = /\b[0-9][A-Z]{2}[0-9]{2}[A-Z]{2,4}[0-9]{3}\b/i;
+  const usnMatch = rawText.match(usnRegex);
+  if (usnMatch) {
+    rollNumber = usnMatch[0].toUpperCase().slice(-3); // Last 3 digits: "042"
+  } else {
+    // Explicit roll/reg pattern - MUST USE WORD BOUNDARIES to prevent matching "Valid", "Vidya", etc.
+    const rollMatch = rawText.match(/\b(?:roll(?:\s*no|\s*number)?|usn|reg(?:istration)?(?:\s*no|\s*number)?|\bid\b(?:\s*no|\s*number)?)\s*[:#=-]?\s*([A-Za-z0-9/-]{2,20})/i);
+    if (rollMatch) {
+      const val = rollMatch[1].trim().toUpperCase();
+      if (!/(?:card|student|identity|valid|date)/i.test(val)) {
+        const trailingDigits = val.match(/(\d{3,4})$/);
+        if (trailingDigits) {
+          rollNumber = trailingDigits[1];
+        } else {
+          const parts = val.split(/[/_-]/).filter(Boolean);
+          const lastPart = parts[parts.length - 1];
+          rollNumber = lastPart.slice(-3);
+        }
+      }
+    }
+
+    if (!rollNumber) {
+      // Contact or Phone Suffix (e.g. Contact: 8618530726 -> 726)
+      const contactMatch = rawText.match(/\b(?:contact|mobile|cell|phone)\s*[:#=-]?\s*([0-9]{6,12})/i);
+      if (contactMatch) {
+        rollNumber = contactMatch[1].slice(-3);
+      } else {
+        // Fallback 3-digit hash
+        rollNumber = hashTo3Digits(`${collegeCode}_${departmentCode}_${studentName}`).slice(0, 3);
+      }
+    }
+  }
+
+  const confidence = (collegeFound ? 0.45 : 0.2) + (deptFound ? 0.35 : 0.2) + (usnMatch ? 0.2 : 0.15);
+
+  return {
+    collegeName,
+    collegeCode: cleanSlug(collegeCode || 'COL', 6),
+    department,
+    departmentCode: cleanSlug(departmentCode || 'GEN', 6),
+    rollNumber: cleanSlug(rollNumber || '001', 6),
+    studentName,
+    rawExtractedText: rawText.slice(0, 400),
+    confidence: Math.min(0.99, Math.max(0.65, confidence)),
+  };
+}
+
 export async function parseCollegeIdCard(
   input: File | { text?: string; name?: string; size?: number } | string,
   fallbackDisplayName = ''
@@ -189,7 +400,6 @@ export async function parseCollegeIdCard(
     extractedText = input;
     cleanFileName = fallbackDisplayName;
   } else if (input && typeof (input as any).text === 'function') {
-    // Standard browser File / Blob
     const file = input as File;
     cleanFileName = (file.name || '').replace(/\.(pdf|png|jpe?g|webp|gif|txt)$/i, '').replace(/[._-]/g, ' ');
     extractedText = cleanFileName;
@@ -205,68 +415,10 @@ export async function parseCollegeIdCard(
     extractedText = `${cleanFileName} ${obj.text || ''}`;
   }
 
-  // Check known college dictionary
-  let matchedCollege = COLLEGE_DICTIONARY[0]; // Default to RVCE for demo campus if none matched
-  let collegeFound = false;
-
-  for (const c of COLLEGE_DICTIONARY) {
-    if (c.patterns.some(p => p.test(extractedText))) {
-      matchedCollege = c;
-      collegeFound = true;
-      break;
-    }
-  }
-
-  // Check known department dictionary
-  let matchedDept = DEPARTMENT_DICTIONARY[0]; // Default to CSE
-  let deptFound = false;
-
-  for (const d of DEPARTMENT_DICTIONARY) {
-    if (d.patterns.some(p => p.test(extractedText))) {
-      matchedDept = d;
-      deptFound = true;
-      break;
-    }
-  }
-
-  // Roll Number / USN pattern extraction
-  // Common patterns: 1RV21CS042, 21BCE1042, USN: 042, ROLL: 123
-  let rollNumber = '';
-  const usnRegex = /\b[0-9][A-Z]{2}[0-9]{2}[A-Z]{2,4}[0-9]{3}\b/i;
-  const usnMatch = extractedText.match(usnRegex);
-
-  if (usnMatch) {
-    rollNumber = usnMatch[0].toUpperCase();
-  } else {
-    const rollRegex = /(?:roll(?:\s*no|\s*number)?|usn|reg(?:istration)?(?:\s*no|\s*number)?|\b(?:student\s*id|id)\s*[:#=-])\s*[:#=-]?\s*([A-Z0-9]{2,18})/i;
-    const rollMatch = extractedText.match(rollRegex);
-    if (rollMatch && !['IDENTITY', 'CARD', 'STUDENT', 'PDF', 'PNG', 'JPG', 'JPEG', 'WEBP'].includes(rollMatch[1].toUpperCase())) {
-      rollNumber = rollMatch[1].toUpperCase();
-    } else {
-      // Deterministic fallback based on file size and student name
-      const inputSize = (typeof input === 'object' && input && 'size' in input) ? Number(input.size) : 1024;
-      const seedNum = (inputSize % 900 + 100).toString().padStart(3, '0');
-      rollNumber = `${seedNum}`;
-    }
-  }
-
-  const confidence = (collegeFound ? 0.45 : 0.2) + (deptFound ? 0.35 : 0.2) + (usnMatch ? 0.2 : 0.1);
-
-  return {
-    collegeName: matchedCollege.name,
-    collegeCode: matchedCollege.code,
-    department: matchedDept.name,
-    departmentCode: matchedDept.code,
-    rollNumber: rollNumber,
-    studentName: fallbackDisplayName || 'Student',
-    rawExtractedText: extractedText.slice(0, 300),
-    confidence: Math.min(0.99, Math.max(0.65, confidence)),
-  };
+  return parseCollegeCardFromText(extractedText, fallbackDisplayName);
 }
 
-/**
- * Validate whether a string conforms to the PinIT ID format.
- */
+
 export function isValidPinItId(id: string): boolean {
   return validatePinItId(id).valid;
 }

@@ -17,6 +17,7 @@ export default function SignupPage() {
   const [idMode, setIdMode] = useState<'college' | 'global'>('global');
   const [collegeMeta, setCollegeMeta] = useState<CollegeMetadata | undefined>();
   const [uploadedCardFile, setUploadedCardFile] = useState<File | null>(null);
+  const [uploadedCardStoragePath, setUploadedCardStoragePath] = useState<string>('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -25,6 +26,18 @@ export default function SignupPage() {
     setIdMode(mode);
     setCollegeMeta(meta);
     if (file !== undefined) setUploadedCardFile(file);
+  }, []);
+
+  const handleNameExtracted = useCallback((extractedName: string) => {
+    if (extractedName && extractedName !== 'Student') {
+      setForm((prev) => {
+        // Auto-fill student display name if empty or default
+        if (!prev.displayName || prev.displayName.trim() === '' || prev.displayName === 'Student') {
+          return { ...prev, displayName: extractedName };
+        }
+        return prev;
+      });
+    }
   }, []);
 
   async function handleRegister(e: React.FormEvent) {
@@ -42,7 +55,7 @@ export default function SignupPage() {
     setError('');
 
     try {
-      // Signup creates student account with verified/memorable PinIT ID (Task 6 & Task 7)
+      // 1. Signup creates student account with verified/memorable PinIT ID
       await signup({
         username: form.username,
         displayName: form.displayName,
@@ -53,21 +66,44 @@ export default function SignupPage() {
         collegeInfo: collegeMeta,
       });
 
-            // Persist uploaded college ID card to Supabase storage bucket
-      if (uploadedCardFile && pinitId) {
-        try {
-          const fileExt = uploadedCardFile.name.split('.').pop() || 'png';
-          await supabase.storage
-            .from('student-id-cards')
-            .upload(`${pinitId}/card_${Date.now()}.${fileExt}`, uploadedCardFile, {
-              cacheControl: '3600',
-              upsert: true,
-            });
-        } catch (uploadErr) {
-          console.warn('[Signup] College ID card bucket upload notice:', uploadErr);
+      // 2. Persist uploaded college ID card & track in student_id_card_verifications
+      try {
+        const { data: sessionData } = await supabase.auth.getSession();
+        const currentUserId = sessionData?.session?.user?.id;
+        const finalPath = uploadedCardStoragePath || (uploadedCardFile && pinitId ? `${pinitId}/card_${Date.now()}.${uploadedCardFile.name.split('.').pop() || 'png'}` : '');
+
+        if (uploadedCardFile && pinitId && !uploadedCardStoragePath) {
+          try {
+            await supabase.storage
+              .from('student-id-cards')
+              .upload(finalPath, uploadedCardFile, {
+                cacheControl: '3600',
+                upsert: true,
+              });
+          } catch (uploadErr) {
+            console.warn('[Signup] College ID card bucket upload notice:', uploadErr);
+          }
         }
+
+        if (currentUserId && finalPath) {
+          try {
+            await supabase.from('student_id_card_verifications').insert({
+              user_id: currentUserId,
+              pinit_id: pinitId,
+              card_storage_path: finalPath,
+              verification_status: 'pending',
+              extracted_usn: collegeMeta?.rollNumber || '',
+              extracted_college: collegeMeta?.collegeName || '',
+            });
+          } catch (verifErr) {
+            console.warn('[Signup] Verification tracking notice:', verifErr);
+          }
+        }
+      } catch (postRegErr) {
+        console.warn('[Signup] Post-registration processing notice:', postRegErr);
       }
-      // Persist local identification for offline continuity
+
+      // 3. Persist local identification for offline continuity
       try {
         if (typeof window !== 'undefined') {
           if (pinitId) localStorage.setItem('pinit_student_id', pinitId);
@@ -161,6 +197,8 @@ export default function SignupPage() {
             displayName={form.displayName}
             username={form.username}
             onIdGenerated={handleIdGenerated}
+            onNameExtracted={handleNameExtracted}
+            onStoragePathExtracted={setUploadedCardStoragePath}
           />
 
           <p style={{ margin: 0, fontSize: 13, color: 'var(--t3)', lineHeight: 1.5 }}>
@@ -168,12 +206,15 @@ export default function SignupPage() {
           </p>
 
           <button type="submit" className="btn-primary" disabled={loading} style={{ width: '100%', marginTop: 4 }}>
-            {loading ? 'Creating account…' : 'Create student account'}
+            {loading ? 'Creating student profile...' : 'Create student account'}
           </button>
         </form>
 
-        <div style={{ marginTop: 18, textAlign: 'center', fontSize: 14.5, color: 'var(--t3)' }}>
-          Already have an account? <Link href="/login">Sign in</Link>
+        <div className="auth-links" style={{ textAlign: 'center', marginTop: 14 }}>
+          <span style={{ fontSize: 13.5, color: 'var(--t3)' }}>Already have an account? </span>
+          <Link href="/login" style={{ fontSize: 13.5, color: 'var(--accent)', fontWeight: 700 }}>
+            Sign in
+          </Link>
         </div>
       </div>
     </div>
