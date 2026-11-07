@@ -564,7 +564,7 @@ export default function MissionsPersonaSimulator({
                   {roleplayScenario.choices.map((c, idx) => (
                     <button
                       key={idx}
-                      disabled={selectedChoiceIdx !== null}
+                      disabled={selectedChoiceIdx !== null || roleplayLoading}
                       onClick={() => handleSelectChoice(idx)}
                       style={{
                         background: selectedChoiceIdx === idx ? 'rgba(var(--accent-teal-rgb), 0.08)' : theme.bgInside,
@@ -573,12 +573,12 @@ export default function MissionsPersonaSimulator({
                         padding: '10px 14px',
                         textAlign: 'left',
                         fontSize: 13,
-                        cursor: 'pointer',
+                        cursor: (selectedChoiceIdx !== null || roleplayLoading) ? 'not-allowed' : 'pointer',
                         color: theme.tPrimary,
                         display: 'flex',
                         alignItems: 'center',
                         gap: 10,
-                        opacity: selectedChoiceIdx !== null && selectedChoiceIdx !== idx ? 0.5 : 1,
+                        opacity: (selectedChoiceIdx !== null || roleplayLoading) && selectedChoiceIdx !== idx ? 0.5 : 1,
                         transition: 'all 0.2s',
                       }}
                       className="choice-card"

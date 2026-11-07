@@ -298,11 +298,10 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       const activeCall = (window.location.pathname.startsWith('/group-discussion') || (window.location.pathname.startsWith('/interview') && window.location.search.includes('tab=gd'))) && window.location.search.includes('call=true');
       setIsGdCall(activeCall);
 
-      const activeRoleplay = window.location.pathname.startsWith('/missions') && (
-        window.location.search.includes('roleplay=true') ||
-        Boolean((window as any).__pinitMissionsRoleplayActive) ||
-        Boolean(e?.detail?.active)
-      );
+      const isRoleplay = e?.detail !== undefined
+        ? Boolean(e.detail.active)
+        : (Boolean((window as any).__pinitMissionsRoleplayActive) || (window.location.search.includes('roleplay=true') && Boolean((window as any).__pinitMissionsRoleplayActive)));
+      const activeRoleplay = window.location.pathname.startsWith('/missions') && isRoleplay;
       setIsRoleplayParamActive(activeRoleplay);
     };
     checkCallAndRoleplay();

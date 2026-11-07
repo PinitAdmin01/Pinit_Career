@@ -83,6 +83,15 @@ export function useMissionsState(defaultRole: string = 'Software Developer') {
     }
   };
 
+  // Auto-cleanup stale URL param on page reload if no active roleplay session exists
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      if (!roleplayActive && isRoleplayParam && !(window as any).__pinitMissionsRoleplayActive) {
+        router.replace('/missions');
+      }
+    }
+  }, [isRoleplayParam, roleplayActive, router]);
+
   const [roleplayLoading, setRoleplayLoading] = useState(false);
   const [roleplayScenario, setScenario] = useState<RoleplayScenario | null>(null);
   const [roleplayHistory, setRoleplayHistory] = useState<RoleplayHistoryEntry[]>([]);
