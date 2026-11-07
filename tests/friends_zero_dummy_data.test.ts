@@ -16,13 +16,18 @@ test('Task 1: Friends Hub Zero Dummy Data & Role Isolation Audit', async (t) => 
   await t.test('2. /api/friends/suggestions excludes non-student roles and test recruiter personas', () => {
     assert.ok(suggestionsRoute.includes('nonStudentRoles'), 'Must define non-student roles to exclude');
     assert.ok(suggestionsRoute.includes('testNonStudentRegex'), 'Must filter test persona keywords');
+    assert.ok(suggestionsRoute.includes("nameLower === 'student'"), 'Must filter out generic Student placeholder names');
+    assert.ok(suggestionsRoute.includes('@pinit.in'), 'Must filter out demo domain emails');
     assert.strictEqual(suggestionsRoute.includes('candidates = (db.mockStudents as MatchStudentProfile[])'), false, 'Must not fallback to mockStudents');
+    assert.strictEqual(suggestionsRoute.includes('ob.skills'), false, 'Must not fallback to ob.skills boilerplate');
   });
 
   await t.test('3. /api/friends/search excludes non-student roles and test recruiter personas', () => {
     assert.ok(searchRoute.includes('nonStudentRoles'), 'Must define non-student roles to exclude in search');
     assert.ok(searchRoute.includes('testNonStudentRegex'), 'Must filter test persona keywords in search');
+    assert.ok(searchRoute.includes("nameLower === 'student'"), 'Must filter out generic Student placeholder names in search');
     assert.strictEqual(searchRoute.includes('students = (localData.mockStudents || [])'), false, 'Must not fallback to mockStudents in search');
+    assert.strictEqual(searchRoute.includes('ob.skills'), false, 'Must not fallback to ob.skills boilerplate in search');
   });
 
   await t.test('4. /api/friends/[id] returns 404 for non-students and does not fallback to mock data', () => {
