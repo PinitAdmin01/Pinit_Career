@@ -120,6 +120,7 @@ export default function CollegeIdScanner({
   const [collegeCode, setCollegeCode] = useState<string>('');
   const [deptCode, setDeptCode] = useState<string>('');
   const [rollNumber, setRollNumber] = useState<string>('');
+  const [editableStudentName, setEditableStudentName] = useState<string>('');
   const [previewId, setPreviewId] = useState<string>('');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -242,6 +243,8 @@ export default function CollegeIdScanner({
       setCollegeCode(extracted.collegeCode);
       setDeptCode(extracted.departmentCode);
       setRollNumber(extracted.rollNumber);
+      const sName = extracted.studentName || displayName || '';
+      setEditableStudentName(sName);
 
       // Auto-populate student's name on signup form
       if (extracted.studentName && extracted.studentName !== 'Student' && onNameExtractedRef.current) {
@@ -519,7 +522,7 @@ export default function CollegeIdScanner({
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 3, fontSize: 12, color: 'var(--t1)' }}>
                     <div>
                       <span style={{ color: 'var(--t3)', fontWeight: 700 }}>Student: </span>
-                      <strong style={{ color: '#ffffff' }}>{collegeMeta?.studentName || displayName || 'Student'}</strong>
+                      <strong style={{ color: '#ffffff' }}>{editableStudentName || collegeMeta?.studentName || displayName || 'Student'}</strong>
                     </div>
                     <div>
                       <span style={{ color: 'var(--t3)', fontWeight: 700 }}>College: </span>
@@ -574,8 +577,73 @@ export default function CollegeIdScanner({
                 </div>
               </div>
 
-              {/* Action Buttons: Replace Card or Toggle Manual Edit */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 11.5 }}>
+              {/* Editable Fields: Direct, Clean, and Real-Time Synchronized */}
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))',
+                  gap: 10,
+                  padding: '12px',
+                  borderRadius: 10,
+                  background: 'rgba(0,0,0,0.3)',
+                  border: '1px solid rgba(16, 185, 129, 0.25)',
+                }}
+              >
+                <label style={{ display: 'flex', flexDirection: 'column', gap: 4, fontSize: 11, fontWeight: 700, color: 'var(--t3)' }}>
+                  Student Name
+                  <input
+                    className="form-input"
+                    data-testid="input-student-name"
+                    value={editableStudentName}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      setEditableStudentName(val);
+                      if (onNameExtractedRef.current) onNameExtractedRef.current(val);
+                    }}
+                    placeholder="e.g. Vinay N"
+                    style={{ padding: '6px 10px', fontSize: 12.5, fontWeight: 700 }}
+                  />
+                </label>
+
+                <label style={{ display: 'flex', flexDirection: 'column', gap: 4, fontSize: 11, fontWeight: 700, color: 'var(--t3)' }}>
+                  College Code
+                  <input
+                    className="form-input"
+                    data-testid="input-college-code"
+                    value={collegeCode}
+                    onChange={(e) => setCollegeCode(e.target.value.toUpperCase())}
+                    placeholder="e.g. BGS, SVCE, RVCE"
+                    style={{ padding: '6px 10px', fontSize: 12.5, fontFamily: 'var(--font-mono)', fontWeight: 800 }}
+                  />
+                </label>
+
+                <label style={{ display: 'flex', flexDirection: 'column', gap: 4, fontSize: 11, fontWeight: 700, color: 'var(--t3)' }}>
+                  Branch / Dept
+                  <input
+                    className="form-input"
+                    data-testid="input-dept-code"
+                    value={deptCode}
+                    onChange={(e) => setDeptCode(e.target.value.toUpperCase())}
+                    placeholder="e.g. BCA, CSE"
+                    style={{ padding: '6px 10px', fontSize: 12.5, fontFamily: 'var(--font-mono)', fontWeight: 800 }}
+                  />
+                </label>
+
+                <label style={{ display: 'flex', flexDirection: 'column', gap: 4, fontSize: 11, fontWeight: 700, color: 'var(--t3)' }}>
+                  Roll Suffix / USN
+                  <input
+                    className="form-input"
+                    data-testid="input-roll-suffix"
+                    value={rollNumber}
+                    onChange={(e) => setRollNumber(e.target.value.toUpperCase())}
+                    placeholder="e.g. 726, 045"
+                    style={{ padding: '6px 10px', fontSize: 12.5, fontFamily: 'var(--font-mono)', fontWeight: 800 }}
+                  />
+                </label>
+              </div>
+
+              {/* Action Buttons: Replace Card */}
+              <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', fontSize: 11.5 }}>
                 <button
                   type="button"
                   onClick={() => fileInputRef.current?.click()}
@@ -591,66 +659,7 @@ export default function CollegeIdScanner({
                   style={{ display: 'none' }}
                   onChange={handleFileChange}
                 />
-
-                <button
-                  type="button"
-                  onClick={() => setIsEditingDetails(!isEditingDetails)}
-                  style={{ background: 'transparent', border: 'none', color: 'var(--t3)', cursor: 'pointer', fontWeight: 600, padding: 0 }}
-                >
-                  {isEditingDetails ? '▲ Hide manual fields' : '✏️ Edit details manually'}
-                </button>
               </div>
-
-              {/* Optional Manual Override Fields (only shown if user wants to customize) */}
-              {isEditingDetails && (
-                <div
-                  style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))',
-                    gap: 8,
-                    padding: '10px',
-                    borderRadius: 8,
-                    background: 'rgba(0,0,0,0.25)',
-                    border: '1px solid rgba(255,255,255,0.06)',
-                  }}
-                >
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 3, fontSize: 11, fontWeight: 700, color: 'var(--t3)' }}>
-                    College Code
-                    <input
-                      className="form-input"
-                      data-testid="input-college-code"
-                      value={collegeCode}
-                      onChange={(e) => setCollegeCode(e.target.value.toUpperCase())}
-                      placeholder="e.g. BGS, RVCE"
-                      style={{ padding: '6px 10px', fontSize: 12.5, fontFamily: 'var(--font-mono)', fontWeight: 800 }}
-                    />
-                  </label>
-
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 3, fontSize: 11, fontWeight: 700, color: 'var(--t3)' }}>
-                    Branch / Dept
-                    <input
-                      className="form-input"
-                      data-testid="input-dept-code"
-                      value={deptCode}
-                      onChange={(e) => setDeptCode(e.target.value.toUpperCase())}
-                      placeholder="e.g. BCA, CSE"
-                      style={{ padding: '6px 10px', fontSize: 12.5, fontFamily: 'var(--font-mono)', fontWeight: 800 }}
-                    />
-                  </label>
-
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 3, fontSize: 11, fontWeight: 700, color: 'var(--t3)' }}>
-                    Roll Suffix / USN
-                    <input
-                      className="form-input"
-                      data-testid="input-roll-suffix"
-                      value={rollNumber}
-                      onChange={(e) => setRollNumber(e.target.value.toUpperCase())}
-                      placeholder="e.g. 726, 042"
-                      style={{ padding: '6px 10px', fontSize: 12.5, fontFamily: 'var(--font-mono)', fontWeight: 800 }}
-                    />
-                  </label>
-                </div>
-              )}
             </div>
           )}
         </div>

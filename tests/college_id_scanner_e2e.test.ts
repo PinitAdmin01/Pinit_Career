@@ -165,13 +165,9 @@ Se LITTERS
 
   const result = parseCollegeCardFromText(chromeImageOcr);
 
-  // College: Sri Vivekananda College of Engineering -> SVCE
   assert.strictEqual(result.collegeCode, 'SVCE');
-  // Student Name: Arjun Prasad
   assert.strictEqual(result.studentName, 'Arjun Prasad');
-  // Department: Computer Science & Engineering (from 22csoss / CS branch) -> CSE
   assert.strictEqual(result.departmentCode, 'CSE');
-  // Roll Number: 045
   assert.strictEqual(result.rollNumber, '045');
 
   const pinitId = generateCollegePinItId({
@@ -215,4 +211,46 @@ Roll No: 2024BC102
   assert.strictEqual(result.studentName, 'Rakesh Shetty');
   assert.strictEqual(result.departmentCode, 'BCOM');
   assert.strictEqual(result.rollNumber, '102');
+});
+
+test('10. Correctly extracts Seema Sharma and ignores Father Name (Ram Kumar Sharma)', () => {
+  const seemaCardText = `
+of °F > MEHTAB
+COLLEGE OF BBA/BCA
+Affiliated to the University of Jammu
+Recognized by the Govt. of J&K
+SEEMA SHARMA
+Father's Name : Ram Kumar Sharma
+Course : BBA
+Roll No : 754
+  `.trim();
+
+  const result = parseCollegeCardFromText(seemaCardText);
+  assert.strictEqual(result.studentName, 'Seema Sharma');
+  assert.strictEqual(result.collegeCode, 'MC');
+  assert.strictEqual(result.departmentCode, 'BBA');
+  assert.strictEqual(result.rollNumber, '754');
+
+  const pinitId = generateCollegePinItId({
+    collegeCode: result.collegeCode,
+    departmentCode: result.departmentCode,
+    rollNumber: result.rollNumber,
+  });
+
+  assert.strictEqual(pinitId, 'PIN-MC-BBA-754');
+});
+
+test('11. Filters out Call/Office noise and single-letter artifacts from header', () => {
+  const noiseText = `
+7 1 SRI VIVEKANANDA M@
+COLLEGE OF ENGINEERING
+Call Out : 04288 283000
+ARJUN PRASAD
+22CS045
+  `.trim();
+
+  const result = parseCollegeCardFromText(noiseText);
+  assert.strictEqual(result.collegeCode, 'SVCE');
+  assert.strictEqual(result.studentName, 'Arjun Prasad');
+  assert.strictEqual(result.rollNumber, '045');
 });
