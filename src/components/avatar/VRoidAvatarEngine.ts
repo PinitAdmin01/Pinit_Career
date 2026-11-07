@@ -51,6 +51,24 @@ export const PERSONA_CONFIGS: Record<string, PersonaConfig> = {
   default:  { name: 'Mentor',             domain: 'Multidisciplinary Career Mentor', expressiveness: 0.75, blinkInterval: 3.8, swayAmp: 0.90, headTiltAmp: 0.90, gestureSpeed: 1.00, warmth: 0.16, gender: 'neutral' }
 };
 
+// High-precision delta timer replacing deprecated THREE.Clock in Three.js r163+
+export class PrecisionTimer {
+  private lastTime = typeof performance !== 'undefined' ? performance.now() : Date.now();
+  private startTime = typeof performance !== 'undefined' ? performance.now() : Date.now();
+
+  getDelta(): number {
+    const now = typeof performance !== 'undefined' ? performance.now() : Date.now();
+    const dt = Math.max(0, (now - this.lastTime) / 1000);
+    this.lastTime = now;
+    return dt;
+  }
+
+  getElapsedTime(): number {
+    const now = typeof performance !== 'undefined' ? performance.now() : Date.now();
+    return Math.max(0, (now - this.startTime) / 1000);
+  }
+}
+
 export class VRoidAvatarEngine {
   renderer!: THREE.WebGLRenderer;
   scene!: THREE.Scene;
@@ -91,7 +109,7 @@ export class VRoidAvatarEngine {
   }
 
   raf?: number;
-  clock = new THREE.Clock();
+  clock = new PrecisionTimer();
   disposed = false;
   private onVisibilityChange?: () => void;
 
@@ -415,7 +433,7 @@ export class VRoidAvatarEngine {
           settled = true;
           console.warn(`[VRoidAvatarEngine] Load timed out for "${resolvedPath}", trying next fallback.`);
           loadAttempt(idx + 1).then(resolve).catch(reject);
-        }, 4500);
+        }, 12000);
 
         console.log('[VRoidAvatarEngine] Attempting to load avatar GLB from:', resolvedPath);
         try {

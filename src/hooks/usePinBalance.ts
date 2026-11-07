@@ -212,7 +212,7 @@ export function usePinBalance(options: UsePinBalanceOptions = {}) {
 
     try {
       const channel = supabase
-        .channel(`user-pins-realtime-${effectiveUserId}`)
+        .channel(`user-pins-rt-${effectiveUserId}-${Math.random().toString(36).slice(2, 9)}`)
         .on(
           'postgres_changes',
           {
