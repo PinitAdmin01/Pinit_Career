@@ -59,7 +59,7 @@ async function tryGroqVision(mimeType: string, base64Image: string): Promise<Col
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'llama-3.2-11b-vision-preview',
+        model: 'qwen/qwen3.8-27b',
         messages: [
           {
             role: 'user',
@@ -75,6 +75,7 @@ async function tryGroqVision(mimeType: string, base64Image: string): Promise<Col
           },
         ],
         temperature: 0.1,
+        max_tokens: 500,
         response_format: { type: 'json_object' },
       }),
       signal: AbortSignal.timeout(8000),

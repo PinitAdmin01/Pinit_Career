@@ -1,7 +1,7 @@
 /**
  * Test Suite: Resilient Hybrid ID Scanner Engine (Architecture 5)
  * Verifies:
- * 1. Layer 1A: Groq Free Vision (llama-3.2-11b-vision-preview) payload & parser
+ * 1. Layer 1A: Groq Free Vision (qwen/qwen3.8-27b) payload & parser
  * 2. Layer 1B: Google Gemini 2.0 Flash Vision fallback payload & parser
  * 3. Layer 2: Client-side Option 2 deterministic spatial zoning fallback when AI is unavailable
  * 4. Negative filter invariants on AI hallucinations
