@@ -260,7 +260,7 @@ function generateInitializeNode(req: RoleplayRequest): RoleplayNode {
 function generateRespondNode(req: RoleplayRequest): RoleplayNode {
   const history = req.history || [];
   const nodeCount = history.filter(h => h.role === 'assistant').length;
-  const isFinal = nodeCount >= 8;
+  const isFinal = nodeCount >= 3;
   const seed = hashString(`${sessionSeed(req)}|${nodeCount}|${req.choice || ''}`);
   const rng = mulberry32(seed);
   const used = history
@@ -459,7 +459,7 @@ export async function executeRoleplayTurn(req: RoleplayRequest, llm: LlmFn): Pro
   if (action === 'respond') {
     const history = req.history || [];
     const nodeCount = history.filter(h => h.role === 'assistant').length;
-    const isFinal = nodeCount >= 8;
+    const isFinal = nodeCount >= 3;
     const generated = generateRespondNode(req);
     try {
       const text = await llm(

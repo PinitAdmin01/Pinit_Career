@@ -293,17 +293,23 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    const checkCallAndRoleplay = () => {
+    const checkCallAndRoleplay = (e?: any) => {
       const activeCall = (window.location.pathname.startsWith('/group-discussion') || (window.location.pathname.startsWith('/interview') && window.location.search.includes('tab=gd'))) && window.location.search.includes('call=true');
       setIsGdCall(activeCall);
 
-      const activeRoleplay = window.location.pathname.startsWith('/missions') && window.location.search.includes('roleplay=true');
+      const activeRoleplay = window.location.pathname.startsWith('/missions') && (
+        window.location.search.includes('roleplay=true') ||
+        Boolean((window as any).__pinitMissionsRoleplayActive) ||
+        Boolean(e?.detail?.active)
+      );
       setIsRoleplayParamActive(activeRoleplay);
     };
     checkCallAndRoleplay();
     window.addEventListener('popstate', checkCallAndRoleplay);
+    window.addEventListener('pinit-roleplay-toggle', checkCallAndRoleplay);
     return () => {
       window.removeEventListener('popstate', checkCallAndRoleplay);
+      window.removeEventListener('pinit-roleplay-toggle', checkCallAndRoleplay);
     };
   }, [pathname, searchParams]);
 
