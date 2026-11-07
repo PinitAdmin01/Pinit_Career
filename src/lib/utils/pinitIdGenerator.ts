@@ -25,6 +25,13 @@ export interface PinItIdResult {
   metadata?: Partial<CollegeMetadata>;
 }
 
+// Stopwords to discard when calculating college acronyms
+const STOPWORDS = new Set([
+  'of', 'and', 'the', 'for', 'in', 'to', 'at', 'an', 'a', 'by', 'with', 'from',
+  'affiliated', 'autonomous', 'approved', 'accredited', 'institution', 'institutions',
+  'trust', 'educational', 'education', 'society', 'foundation'
+]);
+
 // Known College/University Lexicon for intelligent recognition
 const COLLEGE_DICTIONARY: Array<{ patterns: RegExp[]; code: string; name: string }> = [
   { patterns: [/bgs\s*inst/i, /\bbgs\b/i, /bimb/i], code: 'BGS', name: 'BGS Institute of Management' },
@@ -51,11 +58,11 @@ const COLLEGE_DICTIONARY: Array<{ patterns: RegExp[]; code: string; name: string
   { patterns: [/visvesvaraya\s*tech/i, /\bvtu\b/i], code: 'VTU', name: 'VTU Belagavi' },
 ];
 
-// Department / Branch Lexicon (Strict: No ambiguous single/two-letter false positives)
+// Department / Branch Lexicon
 const DEPARTMENT_DICTIONARY: Array<{ patterns: RegExp[]; code: string; name: string }> = [
   { patterns: [/comp.*sci.*eng/i, /computer\s*science/i, /\bcse\b/i], code: 'CSE', name: 'Computer Science & Engineering' },
   { patterns: [/info.*sci/i, /information\s*technology/i, /\bise\b/i], code: 'ISE', name: 'Information Science & Engineering' },
-  { patterns: [/artif.*intel.*mach/i, /\baiml\b/i, /ai\s*&\s*ml/i], code: 'AIML', name: 'Artificial Intelligence & Machine Learning' },
+  { patterns: [/artif.*intel/i, /\baiml\b/i, /ai\s*&\s*ml/i], code: 'AIML', name: 'Artificial Intelligence & Machine Learning' },
   { patterns: [/data\s*sci/i, /\baids\b/i], code: 'AIDS', name: 'Data Science & AI' },
   { patterns: [/electron.*commun/i, /electronics\s*(?:&|and)\s*comm/i, /\bece\b/i], code: 'ECE', name: 'Electronics & Communication' },
   { patterns: [/electrical\s*(?:&|and)\s*electr/i, /\beee\b/i], code: 'EEE', name: 'Electrical & Electronics' },
@@ -68,6 +75,26 @@ const DEPARTMENT_DICTIONARY: Array<{ patterns: RegExp[]; code: string; name: str
   { patterns: [/computer\s*app/i, /\bbca\b/i, /\bmca\b/i], code: 'BCA', name: 'Computer Applications' },
 ];
 
+// 2-Letter branch acronyms embedded inside Indian USN / Roll numbers (e.g. 22CS045 -> CS -> CSE)
+const ROLL_BRANCH_MAP: Record<string, { code: string; name: string }> = {
+  CS: { code: 'CSE', name: 'Computer Science & Engineering' },
+  IS: { code: 'ISE', name: 'Information Science & Engineering' },
+  EC: { code: 'ECE', name: 'Electronics & Communication' },
+  EE: { code: 'EEE', name: 'Electrical & Electronics' },
+  ME: { code: 'MECH', name: 'Mechanical Engineering' },
+  CV: { code: 'CIVIL', name: 'Civil Engineering' },
+  AI: { code: 'AIML', name: 'Artificial Intelligence & ML' },
+  DS: { code: 'AIDS', name: 'Data Science' },
+  BT: { code: 'BIOTECH', name: 'Biotechnology' },
+};
+
+/**
+ * Identify boilerplate text common on the back of ID cards or in footer disclaimers.
+ */
+function isBoilerplateInstruction(line: string): boolean {
+  return /(?:property\s*of|non[-\s]*transferable|must\s*carry|carry\s*this|produced\s*on\s*demand|authorized\s*personnel|if\s*found|please\s*return|college\s*office|instructions|campus\s*rules|valid\s*in|rules\s*and\s*regulations|terms\s*and\s*conditions)/i.test(line);
+}
+
 /**
  * Generate a clean, 3-digit deterministic hash from a string.
  */
@@ -77,7 +104,7 @@ function hashTo3Digits(input: string): string {
     hash = (hash << 5) - hash + input.charCodeAt(i);
     hash |= 0;
   }
-  const positive = Math.abs(hash) % 900 + 100; // Guarantees 100-999
+  const positive = (Math.abs(hash) % 900) + 100;
   return positive.toString();
 }
 
@@ -89,7 +116,7 @@ function cleanSlug(text: string, maxLen = 8): string {
     .trim()
     .toUpperCase()
     .replace(/[^A-Z0-9]/g, '');
-  return (cleaned.slice(0, maxLen) || 'STUDENT');
+  return cleaned.slice(0, maxLen) || 'STUDENT';
 }
 
 /**
@@ -120,72 +147,29 @@ export function generateCollegePinItId(
   departmentCodeParam?: string,
   rollNumberParam?: string
 ): string {
-  let rawCollege = '';
-  let rawDept = '';
-  let rawRoll = '';
+  let collegeCode = 'COLLEGE';
+  let deptCode = 'GEN';
+  let roll = '001';
 
   if (typeof paramsOrCollege === 'object' && paramsOrCollege !== null) {
-    rawCollege = paramsOrCollege.collegeCode || '';
-    rawDept = paramsOrCollege_dept(paramsOrCollege);
-    rawRoll = paramsOrCollege.rollNumber || '';
+    collegeCode = (paramsOrCollege.collegeCode || 'COLLEGE').trim().toUpperCase();
+    deptCode = (paramsOrCollege.departmentCode || 'GEN').trim().toUpperCase();
+    roll = (paramsOrCollege.rollNumber || '001').trim().toUpperCase();
   } else if (typeof paramsOrCollege === 'string') {
-    rawCollege = paramsOrCollege;
-    rawDept = departmentCodeParam || '';
-    rawRoll = rollNumberParam || '';
+    collegeCode = paramsOrCollege.trim().toUpperCase();
+    if (departmentCodeParam) deptCode = departmentCodeParam.trim().toUpperCase();
+    if (rollNumberParam) roll = rollNumberParam.trim().toUpperCase();
   }
 
-  let collegeCode = rawCollege.trim().toUpperCase();
-  let deptCode = rawDept.trim().toUpperCase();
+  const cleanCollege = cleanSlug(collegeCode, 6);
+  const cleanDept = cleanSlug(deptCode, 6);
+  const cleanRoll = cleanSlug(roll, 6);
 
-  // If passed as descriptive string (has spaces or long), canonicalize via dictionary
-  if (typeof paramsOrCollege === 'string') {
-    if (rawCollege.includes(' ') || rawCollege.length > 6) {
-      for (const c of COLLEGE_DICTIONARY) {
-        if (c.patterns.some(p => p.test(rawCollege)) || c.code === collegeCode) {
-          collegeCode = c.code;
-          break;
-        }
-      }
-    }
-    if (rawDept.includes(' ') || rawDept.length > 5) {
-      for (const d of DEPARTMENT_DICTIONARY) {
-        if (d.patterns.some(p => p.test(rawDept)) || d.code === deptCode) {
-          deptCode = d.code;
-          break;
-        }
-      }
-    }
-  }
-
-  const college = cleanSlug(collegeCode || 'COLLEGE', 6);
-  const dept = cleanSlug(deptCode || 'GEN', 6);
-  
-  // Extract trailing digits or alphanumeric suffix for clean readability
-  let roll = (rawRoll || '').trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
-  if (roll.length > 4) {
-    // Take the last 3-4 chars (e.g. 1RV21CS042 -> 042, PES120220055 -> 055)
-    roll = roll.slice(-3);
-  }
-  if (!roll) {
-    roll = hashTo3Digits(`${collegeCode}_${deptCode}`).slice(0, 3);
-  }
-
-  return `PIN-${college}-${dept}-${roll}`;
-}
-
-function paramsOrCollege_dept(obj: any): string {
-  return obj.departmentCode || obj.deptCode || obj.department || '';
+  return `PIN-${cleanCollege}-${cleanDept}-${cleanRoll}`;
 }
 
 /**
- * Heuristic College ID Parser
- * Analyzes uploaded image/document metadata and text content
- * to identify College Code, Department, Roll Number, and Student Name.
- */
-/**
- * Intelligent Indian College ID Text Parser
- * Extracts College Name, College Code, Department, Student Name, and Roll/USN
- * from OCR-extracted text from ANY Indian university or college identity card.
+ * Parse raw extracted OCR text from a student ID card into structured metadata.
  */
 export function parseCollegeCardFromText(
   rawText: string,
@@ -204,28 +188,43 @@ export function parseCollegeCardFromText(
     };
   }
 
-  const lines = rawText.split('\n').map(l => l.trim()).filter(Boolean);
+  const rawLines = rawText.split('\n').map(l => l.trim()).filter(Boolean);
 
   // 1. Identify College Name & Canonical Acronym
   let collegeName = '';
   let collegeCode = '';
   let collegeFound = false;
 
-  // Look for the specific institutional line in the first 5 lines (header section)
-  const headerLines = lines.slice(0, 5);
-  const collegeLine = headerLines.find(l => 
+  // Search first 8 lines for institutional indicators
+  const headerLines = rawLines.slice(0, 8);
+  const collegeLineIdx = headerLines.findIndex(l =>
     /(?:institute|college|university|academy|vidyalaya|polytechnic|school\s+of)/i.test(l) &&
-    !/(?:near|opposite|opposit|cross|road|street|behind|temple|nagar|address)/i.test(l)
-  ) || lines.find(l => 
-    /(?:institute|college|university|academy|vidyalaya|polytechnic|school\s+of)/i.test(l) &&
-    !/(?:near|opposite|opposit|cross|road|street|behind|temple|nagar|address)/i.test(l)
+    !/(?:near|opposite|opposit|cross|road|street|behind|temple|nagar|address|property|instruction)/i.test(l)
   );
 
-  if (collegeLine) {
-    collegeName = collegeLine.replace(/^[^a-zA-Z0-9]+|[^a-zA-Z0-9)]+$/g, '').trim();
-    // Check known college dictionary on the college line
+  if (collegeLineIdx !== -1) {
+    const matchedLine = headerLines[collegeLineIdx];
+    let fullCollege = matchedLine;
+
+    // Check if line above is a title prefix (e.g. "Sri Vivekananda" + "College of Engineering")
+    if (collegeLineIdx > 0) {
+      const prevLine = headerLines[collegeLineIdx - 1];
+      const isPrevBoilerplate = /(?:gurudev|satyamev|welcome|om|ph|phone|email|www|http|contact|address|near|cross|road|property)/i.test(prevLine);
+      const prevWords = prevLine.replace(/[^A-Za-z\s]/g, ' ').trim().split(/\s+/).filter(Boolean);
+      if (!isPrevBoilerplate && prevWords.length >= 1 && prevWords.length <= 4) {
+        fullCollege = `${prevLine} ${matchedLine}`;
+      }
+    }
+
+    // Strip trailing stopwords or OCR artifacts like " an" or " ANd"
+    collegeName = fullCollege
+      .replace(/^[^a-zA-Z0-9]+|[^a-zA-Z0-9)]+$/g, '')
+      .replace(/\s+(?:an|and|the|a|of|to|in)\s*$/i, '')
+      .trim();
+
+    // Check known college dictionary
     for (const c of COLLEGE_DICTIONARY) {
-      if (c.patterns.some(p => p.test(collegeLine))) {
+      if (c.patterns.some(p => p.test(collegeName) || p.test(matchedLine))) {
         collegeCode = c.code;
         collegeFound = true;
         break;
@@ -239,18 +238,20 @@ export function parseCollegeCardFromText(
       if (leadingAcronym && !NON_ACRONYMS.has(leadingAcronym[1].toUpperCase())) {
         collegeCode = leadingAcronym[1];
       } else {
-        // Build acronym from uppercase initials of significant words
+        // Safe tokenization: never throws TypeError even on extra spaces
         const words = collegeName
-          .replace(/[^A-Za-z\s]/g, '')
+          .replace(/[^A-Za-z\s]/g, ' ')
           .split(/\s+/)
-          .filter(w => !['of', 'and', 'the', 'for', 'in', 'to', 'at', 'an', 'affiliated'].includes(w.toLowerCase()));
-        collegeCode = words.map(w => w[0].toUpperCase()).join('').slice(0, 5);
+          .map(w => w.trim())
+          .filter(w => w.length > 0 && !STOPWORDS.has(w.toLowerCase()));
+
+        collegeCode = words.map(w => w.charAt(0).toUpperCase()).join('').slice(0, 5);
       }
       collegeFound = true;
     }
   }
 
-  // Fallback: check whole text against dictionary if collegeLine didn't find one
+  // Fallback dictionary scan
   if (!collegeFound) {
     for (const c of COLLEGE_DICTIONARY) {
       if (c.patterns.some(p => p.test(rawText))) {
@@ -273,13 +274,15 @@ export function parseCollegeCardFromText(
   let deptFound = false;
   let deptLineIdx = -1;
 
-  for (let i = 0; i < lines.length; i++) {
-    const l = lines[i];
-    // Filter out non-degree lines (headers, addresses, contacts, web, dates)
-    const isNonDept = /(?:institute|college|university|polytechnic|school\s+of|address|cross|road|street|temple|opposit|near|behind|layout|ph:|phone|mobile|cell|contact|www\.|https?:\/\/|@|valid|date|till|principal|signature|dean|director|gurudev|b'lore|bangalore|bengaluru)/i.test(l);
+  // Filter out boilerplate instruction lines
+  const nonInstructionLines = rawLines.filter(l => !isBoilerplateInstruction(l));
+
+  // Step 2A: Check department dictionary on non-instruction lines
+  for (let i = 0; i < nonInstructionLines.length; i++) {
+    const l = nonInstructionLines[i];
+    const isNonDept = /(?:institute|college|university|polytechnic|address|cross|road|street|temple|near|behind|ph|phone|mobile|www|http|@|valid|date|signature|principal|dean)/i.test(l);
     if (isNonDept) continue;
 
-    // 1. Check branch/specialization first (Computer Science, Electronics, Civil, etc.)
     for (const d of DEPARTMENT_DICTIONARY) {
       if (d.patterns.some(p => p.test(l))) {
         department = d.name;
@@ -291,38 +294,86 @@ export function parseCollegeCardFromText(
     }
     if (deptFound) break;
 
-    // 2. Direct degree acronym detection fallback (BCA, MCA, B.Tech, BE, B.Com, BBA, MBA, etc.)
-    const directDegreeMatch = l.match(/\b(BCA|MCA|B\.?TECH|BE|B\.?COM|BBA|MBA|B\.?SC|MSC|CSE|ISE|ECE|EEE|MECH|CIVIL|AIDS|AIML)\b/i);
+    // Direct degree acronym detection (case-sensitive for 'BE', case-insensitive for 'BCA', 'BTECH', etc.)
+    const directDegreeMatch = l.match(/\b(BCA|MCA|B\.?TECH|B\.?COM|BBA|MBA|B\.?SC|MSC|CSE|ISE|ECE|EEE|MECH|CIVIL|AIDS|AIML)\b/i) ||
+                             l.match(/\b(BE|B\.E\.)\b/);
     if (directDegreeMatch) {
       departmentCode = directDegreeMatch[1].toUpperCase().replace(/\./g, '');
       const dictEntry = DEPARTMENT_DICTIONARY.find(d => d.code === departmentCode);
-      department = dictEntry ? dictEntry.name : departmentCode;
+      department = dictEntry ? dictEntry.name : (departmentCode === 'BE' ? 'Bachelor of Engineering' : departmentCode);
       deptFound = true;
       deptLineIdx = i;
       break;
     }
   }
 
-  // 3. Identify Student Name
-  let studentName = '';
-  // Pattern A: Labeled name (e.g. "Name: Vinay N" or "Student Name: Rahul")
-  const nameLabelMatch = rawText.match(/\b(?:student\s*name|candidate\s*name|name)\s*[:#=-]?\s*([A-Za-z\s.]{3,35})/i);
-  if (nameLabelMatch && !/(?:college|institute|university|management|card|school|address|road)/i.test(nameLabelMatch[1])) {
-    studentName = nameLabelMatch[1].trim();
-  } else if (deptLineIdx > 0) {
-    // Pattern B: In 90% of Indian ID cards, student name is on the line right above degree/dept
-    for (let j = deptLineIdx - 1; j >= 0; j--) {
-      const candidate = lines[j].replace(/[^A-Za-z\s.]/g, '').trim();
-      const words = candidate.split(/\s+/).filter(Boolean);
-      const isHeader = /(?:gurudev|blore|bangalore|bengaluru|karnataka|delhi|mumbai|ph|phone|email|www|http|contact|valid|address|cross|temple|institute|college|university|school|management)/i.test(candidate);
-      if (words.length >= 1 && words.length <= 4 && candidate.length >= 3 && candidate.length <= 30 && !isHeader) {
-        studentName = candidate;
-        break;
+  // Step 2B: Check Roll / USN for 2-letter branch code (e.g. 22CS045 -> CS -> CSE)
+  if (!deptFound) {
+    const rollBranchMatch = rawText.match(/\b(?:\d{2}|20\d{2})([A-Za-z]{2})[A-Za-z0-9]{2,4}\b/);
+    if (rollBranchMatch) {
+      const code = rollBranchMatch[1].toUpperCase();
+      if (ROLL_BRANCH_MAP[code]) {
+        departmentCode = ROLL_BRANCH_MAP[code].code;
+        department = ROLL_BRANCH_MAP[code].name;
+        deptFound = true;
       }
     }
   }
 
-  // Format student name to Title Case if uppercase
+  // Step 2C: If still not found but card text contains "ENGINEERING"
+  if (!deptFound && /engineering/i.test(rawText)) {
+    department = 'Engineering';
+    departmentCode = 'ENG';
+    deptFound = true;
+  }
+
+  // 3. Identify Student Name
+  let studentName = '';
+  // Pattern A: Labeled name
+  const nameLabelMatch = rawText.match(/\b(?:student\s*name|candidate\s*name|name\s*of\s*student|name)\s*[:#=-]?\s*([A-Za-z\s.]{3,35})/i);
+  if (nameLabelMatch && !/(?:college|institute|university|management|card|school|address|road|produced|carry)/i.test(nameLabelMatch[1])) {
+    studentName = nameLabelMatch[1].trim();
+  }
+
+  // Pattern B: Scored line search among clean candidates
+  if (!studentName) {
+    interface Candidate {
+      line: string;
+      score: number;
+    }
+    const candidates: Candidate[] = [];
+
+    for (let i = 0; i < rawLines.length; i++) {
+      const l = rawLines[i];
+      if (isBoilerplateInstruction(l)) continue;
+      // Skip the line(s) that formed the college name header
+      if (i === collegeLineIdx || (collegeLineIdx > 0 && i === collegeLineIdx - 1)) continue;
+
+      const isForbidden = /(?:college|institute|university|polytechnic|school|management|autonomous|approved|affiliated|address|cross|road|street|temple|near|behind|ph|phone|mobile|cell|contact|email|www|http|valid|date|birth|blood|group|roll|reg|usn|principal|signature|dean|director|student\s*id|identity\s*card)/i.test(l);
+      if (isForbidden) continue;
+
+      // Clean line: letters, periods, and spaces only
+      const clean = l.replace(/[^A-Za-z\s.]/g, '').trim();
+      const words = clean.split(/\s+/).filter(Boolean);
+
+      if (words.length >= 1 && words.length <= 4 && clean.length >= 3 && clean.length <= 32) {
+        let score = 0;
+        // Two or three words is typical for Indian student names (First + Last)
+        if (words.length === 2 || words.length === 3) score += 25;
+        if (clean === clean.toUpperCase()) score += 15;
+        if (words.every(w => w.length >= 2 || w.length === 1)) score += 10;
+        if (deptLineIdx !== -1 && i < deptLineIdx) score += 20;
+
+        candidates.push({ line: clean, score });
+      }
+    }
+
+    if (candidates.length > 0) {
+      candidates.sort((a, b) => b.score - a.score);
+      studentName = candidates[0].line;
+    }
+  }
+
   if (studentName) {
     studentName = studentName
       .toLowerCase()
@@ -339,9 +390,9 @@ export function parseCollegeCardFromText(
   const usnRegex = /\b[0-9][A-Z]{2}[0-9]{2}[A-Z]{2,4}[0-9]{3}\b/i;
   const usnMatch = rawText.match(usnRegex);
   if (usnMatch) {
-    rollNumber = usnMatch[0].toUpperCase().slice(-3); // Last 3 digits: "042"
+    rollNumber = usnMatch[0].toUpperCase().slice(-3);
   } else {
-    // Explicit roll/reg pattern - MUST USE WORD BOUNDARIES to prevent matching "Valid", "Vidya", etc.
+    // Explicit roll/reg pattern
     const rollMatch = rawText.match(/\b(?:roll(?:\s*no|\s*number)?|usn|reg(?:istration)?(?:\s*no|\s*number)?|\bid\b(?:\s*no|\s*number)?)\s*[:#=-]?\s*([A-Za-z0-9/-]{2,20})/i);
     if (rollMatch) {
       const val = rollMatch[1].trim().toUpperCase();
@@ -351,19 +402,33 @@ export function parseCollegeCardFromText(
           rollNumber = trailingDigits[1];
         } else {
           const parts = val.split(/[/_-]/).filter(Boolean);
-          const lastPart = parts[parts.length - 1];
-          rollNumber = lastPart.slice(-3);
+          rollNumber = parts[parts.length - 1].slice(-3);
         }
       }
     }
 
+    // Pattern C: Roll pattern like 22CS045 or 2022CS1045
     if (!rollNumber) {
-      // Contact or Phone Suffix (e.g. Contact: 8618530726 -> 726)
+      const rollPatternMatch = rawText.match(/\b(?:\d{2}|20\d{2})[A-Za-z]{2,4}(\d{3,4})\b/i);
+      if (rollPatternMatch) {
+        rollNumber = rollPatternMatch[1];
+      }
+    }
+
+    // Pattern D: University Enrollment / Long Registration numbers starting with year (e.g. 2022051045 -> 045)
+    if (!rollNumber) {
+      const longRegMatch = rawText.match(/\b20\d{2}[0-9]{5,8}\b/);
+      if (longRegMatch) {
+        rollNumber = longRegMatch[0].slice(-3);
+      }
+    }
+
+    // Pattern D: Contact or Phone Suffix (e.g. Contact: 8618530726 -> 726)
+    if (!rollNumber) {
       const contactMatch = rawText.match(/\b(?:contact|mobile|cell|phone)\s*[:#=-]?\s*([0-9]{6,12})/i);
       if (contactMatch) {
         rollNumber = contactMatch[1].slice(-3);
       } else {
-        // Fallback 3-digit hash
         rollNumber = hashTo3Digits(`${collegeCode}_${departmentCode}_${studentName}`).slice(0, 3);
       }
     }
@@ -412,7 +477,6 @@ export async function parseCollegeIdCard(
   return parseCollegeCardFromText(extractedText, fallbackDisplayName);
 }
 
-
 export function isValidPinItId(id: string): boolean {
   return validatePinItId(id).valid;
 }
@@ -438,7 +502,7 @@ export function validatePinItId(id: string): { valid: boolean; type: 'college' |
     return { valid: false, type: 'invalid', error: 'Global PinIT ID must end with 3 or 4 digits' };
   }
 
-  // College Pattern: PIN-[3-6 ALPHANUM]-[2-6 ALPHANUM]-[1-6 ALPHANUM]
+  // College Pattern: PIN-[2-6 ALPHANUM]-[2-6 ALPHANUM]-[1-6 ALPHANUM]
   const collegeRegex = /^PIN-[A-Z0-9]{2,6}-[A-Z0-9]{2,6}-[A-Z0-9]{1,6}$/;
   if (collegeRegex.test(trimmed)) {
     return { valid: true, type: 'college' };

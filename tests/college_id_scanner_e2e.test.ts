@@ -136,3 +136,83 @@ Valid : 2023-26
   assert.strictEqual(result.departmentCode, 'BCA');
   assert.strictEqual(result.rollNumber, '726');
 });
+
+test('7. Extracts Sri Vivekananda College of Engineering (Arjun Prasad) from Chrome test badge', () => {
+  const chromeImageOcr = `
+SRI VIVEKANANDA an
+COLLEGE OF ENGINEERING ANd
+Autonomous nsttion — ==
+Remi | —————
++ Thi ID cardi the property of
+-~ Si Vivkananda Coleg of Engineering
+i + This cards ron-vansfersl.
+: + Student must cary tis 1D card |
+b Stall times in the colege campus
+| + This cord must be produced on demend |
+| bythe sborizodparscrvel
+ARJUN PRASAD
+Fommteitinans + found, less retin to the
+AND ENGINEERING. oaoge fen.
+| 22csoss B
+At Ho. 2022051045 Q
+ONEOFBRTH © 15/08/2004 ar
+soooGawP ov orn
+VAUO PTO 0/06/2026 oa pe
+Pp——
+fois]
+Se LITTERS
+  `.trim();
+
+  const result = parseCollegeCardFromText(chromeImageOcr);
+
+  // College: Sri Vivekananda College of Engineering -> SVCE
+  assert.strictEqual(result.collegeCode, 'SVCE');
+  // Student Name: Arjun Prasad
+  assert.strictEqual(result.studentName, 'Arjun Prasad');
+  // Department: Computer Science & Engineering (from 22csoss / CS branch) -> CSE
+  assert.strictEqual(result.departmentCode, 'CSE');
+  // Roll Number: 045
+  assert.strictEqual(result.rollNumber, '045');
+
+  const pinitId = generateCollegePinItId({
+    collegeCode: result.collegeCode,
+    departmentCode: result.departmentCode,
+    rollNumber: result.rollNumber,
+  });
+
+  assert.strictEqual(pinitId, 'PIN-SVCE-CSE-045');
+  assert.strictEqual(isValidPinItId(pinitId), true);
+});
+
+test('8. Never throws TypeError: Cannot read properties of undefined on empty string tokens', () => {
+  const weirdSpacing = `
+      
+   SRI    VIVEKANANDA   
+   COLLEGE    OF   ENGINEERING   
+   ARJUN PRASAD
+   22CS045
+  `;
+
+  assert.doesNotThrow(() => {
+    const res = parseCollegeCardFromText(weirdSpacing);
+    assert.strictEqual(res.collegeCode, 'SVCE');
+    assert.strictEqual(res.studentName, 'Arjun Prasad');
+  });
+});
+
+test('9. Ignores card disclaimers and legal instructions from two-sided card mockups', () => {
+  const disclaimerText = `
+NATIONAL COLLEGE OF ARTS
+This card is the property of the institution.
+Student must carry this ID card at all times.
+This card must be produced on demand.
+RAKESH SHETTY
+B.COM HONOURS
+Roll No: 2024BC102
+  `.trim();
+
+  const result = parseCollegeCardFromText(disclaimerText);
+  assert.strictEqual(result.studentName, 'Rakesh Shetty');
+  assert.strictEqual(result.departmentCode, 'BCOM');
+  assert.strictEqual(result.rollNumber, '102');
+});

@@ -70,3 +70,4 @@ tests/*.txt
 audit/*.txt
 !raw_avatars_source/samples/
 !raw_avatars_source/old_backup/
+*.traineddata
