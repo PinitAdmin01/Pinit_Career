@@ -256,11 +256,11 @@ export default function CollegeIdScanner({
       setCollegeCode(extracted.collegeCode);
       setDeptCode(extracted.departmentCode);
       setRollNumber(extracted.rollNumber);
-      const sName = extracted.studentName || displayName || '';
+      const sName = (!displayName || displayName.trim() === '' || displayName === 'Student' ? extracted.studentName : displayName) || extracted.studentName || displayName || '';
       setEditableStudentName(sName);
 
-      // Auto-populate student's name on signup form
-      if (extracted.studentName && extracted.studentName !== 'Student' && onNameExtractedRef.current) {
+      // Auto-populate student's name on signup form ONLY if user has not already entered their name
+      if ((!displayName || displayName.trim() === '' || displayName === 'Student') && extracted.studentName && extracted.studentName !== 'Student' && onNameExtractedRef.current) {
         onNameExtractedRef.current(extracted.studentName);
       }
 
