@@ -45,4 +45,21 @@ test('Task 1: Friends Hub Zero Dummy Data & Role Isolation Audit', async (t) => 
     assert.strictEqual(matchingLib.includes('📍 Nearby Campus:'), false, 'matching.ts must not output Nearby Campus');
     assert.strictEqual(friendsPage.includes('className="suggested-match-reason"'), false, 'Suggested peer card must not render match reason line');
   });
+
+  await t.test('7. Task 3: Zero dummy squad projects in API and clean empty state in SquadProjectsView', () => {
+    const projectsRoute = fs.readFileSync(path.join(__dirname, '../src/app/api/friends/projects/route.ts'), 'utf8');
+    const squadView = fs.readFileSync(path.join(__dirname, '../src/components/friends/SquadProjectsView.tsx'), 'utf8');
+    const inviteModal = fs.readFileSync(path.join(__dirname, '../src/components/friends/ProjectInviteModal.tsx'), 'utf8');
+
+    // Zero hardcoded demo squads in API
+    assert.strictEqual(projectsRoute.includes('AI Resume Analyzer & ATS Benchmarker'), false, 'API must not hardcode AI Resume Analyzer');
+    assert.strictEqual(projectsRoute.includes('Campus Transit Realtime IoT Desk'), false, 'API must not hardcode Campus Transit Realtime IoT Desk');
+
+    // Zero hardcoded options in ProjectInviteModal
+    assert.strictEqual(inviteModal.includes('AI Resume Analyzer & ATS Benchmarker'), false, 'Modal must not hardcode AI Resume Analyzer option');
+
+    // SquadProjectsView renders empty state when zero squads exist
+    assert.ok(squadView.includes('squad-projects-empty-state'), 'SquadProjectsView must handle empty state when 0 squads exist');
+    assert.ok(squadView.includes('No Active Collaborative Squads'), 'Must display authentic empty title');
+  });
 });

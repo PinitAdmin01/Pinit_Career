@@ -134,42 +134,65 @@ export async function GET(req: NextRequest) {
       sentInvites = allProjectInvites.filter((inv: any) => inv.sender?.id === userId || inv.sender?.id === LEGACY_ID);
     }
 
-    const db = readDb();
-    const activePeers = (db.mockStudents || []).slice(0, 4);
-
-    // Dynamic active squad projects for collaboration
-    const squadProjects = [
-      {
-        id: 'squad-proj-01',
-        title: 'AI Resume Analyzer & ATS Benchmarker',
-        description: 'Next.js 14 + Python FastAPI tool evaluating resume match rates and generating gap reports.',
-        role: 'Squad Lead / Fullstack',
-        status: 'In Progress',
-        progress: 68,
-        repoUrl: 'https://github.com/pinit-campus/ai-resume-benchmarker',
-        members: [
-          { id: userId, name: auth.displayName || 'You', avatar: auth.avatarUrl || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100', role: 'Squad Lead' },
-          ...(activePeers.slice(0, 2).map((p: any) => ({ id: p.id, name: p.name, avatar: p.avatar, role: p.skills?.[0] ? `${p.skills[0]} Engineer` : 'Engineer' })))
-        ],
-        techStack: ['Next.js', 'FastAPI', 'PostgreSQL', 'TailwindCSS'],
-        deadline: 'Oct 15, 2026'
-      },
-      {
-        id: 'squad-proj-02',
-        title: 'Campus Transit Realtime IoT Desk',
-        description: 'Realtime GPS telemetry desk and IoT route optimization for campus shuttle buses.',
-        role: 'Collaborator',
-        status: 'Sprint 2',
-        progress: 42,
-        repoUrl: 'https://github.com/pinit-campus/transit-telemetry',
-        members: [
-          ...(activePeers.slice(2, 3).map((p: any) => ({ id: p.id, name: p.name, avatar: p.avatar, role: 'Cloud Architect' }))),
-          { id: userId, name: auth.displayName || 'You', avatar: auth.avatarUrl || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100', role: 'Frontend Lead' }
-        ],
-        techStack: ['React', 'WebSocket', 'Redis', 'Docker'],
-        deadline: 'Nov 02, 2026'
-      }
+    // ZERO DUMMY/DEMO DATA: Construct authentic active squads only from accepted invitations
+    const squadProjects: any[] = [];
+    const acceptedInvites = [
+      ...incomingInvites.filter((inv: any) => inv.status === 'accepted'),
+      ...sentInvites.filter((inv: any) => inv.status === 'accepted')
     ];
+
+    if (acceptedInvites.length > 0) {
+      const groupedByProject = new Map<string, any[]>();
+      for (const inv of acceptedInvites) {
+        const title = inv.title || 'Collaborative Engineering Project';
+        if (!groupedByProject.has(title)) {
+          groupedByProject.set(title, []);
+        }
+        groupedByProject.get(title)!.push(inv);
+      }
+
+      let pIdx = 1;
+      for (const [projectTitle, invs] of groupedByProject.entries()) {
+        const membersMap = new Map<string, { id: string; name: string; avatar: string; role: string }>();
+        membersMap.set(userId, {
+          id: userId,
+          name: auth.displayName || 'You',
+          avatar: auth.avatarUrl || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(auth.displayName || 'You')}`,
+          role: 'Collaborator'
+        });
+
+        for (const inv of invs) {
+          if (inv.sender?.id && inv.sender.id !== userId) {
+            membersMap.set(inv.sender.id, {
+              id: inv.sender.id,
+              name: inv.sender.name || 'Student Peer',
+              avatar: inv.sender.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(inv.sender.name || inv.sender.id)}`,
+              role: 'Squad Lead'
+            });
+          }
+          if (inv.receiverId && inv.receiverId !== userId) {
+            membersMap.set(inv.receiverId, {
+              id: inv.receiverId,
+              name: inv.receiverName || 'Student Peer',
+              avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(inv.receiverName || inv.receiverId)}`,
+              role: inv.role || 'Collaborator'
+            });
+          }
+        }
+
+        squadProjects.push({
+          id: `squad-proj-live-${pIdx++}`,
+          title: projectTitle,
+          description: `Collaborative student engineering squad for ${projectTitle}.`,
+          role: 'Collaborator',
+          status: 'In Progress',
+          progress: 50,
+          members: Array.from(membersMap.values()),
+          techStack: ['TypeScript', 'Fullstack', 'PinIT'],
+          deadline: 'Active Milestone'
+        });
+      }
+    }
 
     return NextResponse.json({
       ok: true,

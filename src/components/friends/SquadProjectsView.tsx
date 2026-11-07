@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState, useEffect } from 'react';
 import { toast } from '@/lib/store/useAppStore';
@@ -233,120 +233,149 @@ export const SquadProjectsView: React.FC<SquadProjectsViewProps> = ({ onOpenInvi
           <span style={{ fontSize: 13, color: '#94a3b8' }}>Synced with PinIT Projects</span>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: 16 }}>
-          {squadProjects.map((proj) => (
-            <div
-              key={proj.id}
-              style={{
-                padding: 20,
-                background: 'var(--bg2)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
-                borderRadius: 16,
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 16,
-                transition: 'all 0.2s ease'
-              }}
+        {squadProjects.length === 0 ? (
+          <div
+            data-testid="squad-projects-empty-state"
+            style={{
+              padding: '40px 24px',
+              textAlign: 'center',
+              background: 'var(--card)',
+              border: '1px dashed var(--border)',
+              borderRadius: 16,
+              boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
+            }}
+          >
+            <div style={{ fontSize: 36, marginBottom: 10 }}>🚀</div>
+            <h4 style={{ fontSize: 17.5, fontWeight: 800, color: 'var(--t1)', margin: '0 0 8px' }}>
+              No Active Collaborative Squads
+            </h4>
+            <p style={{ fontSize: 14, color: 'var(--t2)', maxWidth: 460, margin: '0 auto 18px', lineHeight: 1.5 }}>
+              You haven't formed or joined any collaborative engineering squads yet. Invite peers to work on a verified milestone build together!
+            </p>
+            <button
+              className="friends-btn friends-btn-primary"
+              style={{ padding: '8px 20px', fontSize: 13.5 }}
+              onClick={() => onOpenInviteModal?.()}
             >
-              {/* Top Row: Title & Status */}
-              <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
+              + Invite Friend to Squad
+            </button>
+          </div>
+        ) : (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: 16 }}>
+            {squadProjects.map((proj) => (
+              <div
+                key={proj.id}
+                style={{
+                  padding: 20,
+                  background: 'var(--bg2)',
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  borderRadius: 16,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 16,
+                  transition: 'all 0.2s ease'
+                }}
+              >
+                {/* Top Row: Title & Status */}
+                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
+                  <div>
+                    <h4 style={{ fontSize: 17.5, fontWeight: 700, color: '#ffffff', margin: '0 0 6px' }}>{proj.title}</h4>
+                    <p style={{ fontSize: 13, color: '#94a3b8', margin: 0, lineHeight: 1.4 }}>{proj.description}</p>
+                  </div>
+                  <span style={{
+                    padding: '4px 10px',
+                    borderRadius: 8,
+                    fontSize: 12,
+                    fontWeight: 700,
+                    background: 'rgba(99, 102, 241, 0.15)',
+                    color: '#818cf8',
+                    border: '1px solid rgba(99, 102, 241, 0.3)',
+                    whiteSpace: 'nowrap'
+                  }}>
+                    {proj.status}
+                  </span>
+                </div>
+
+                {/* Progress Bar */}
                 <div>
-                  <h4 style={{ fontSize: 17.5, fontWeight: 700, color: '#ffffff', margin: '0 0 6px' }}>{proj.title}</h4>
-                  <p style={{ fontSize: 13, color: '#94a3b8', margin: 0, lineHeight: 1.4 }}>{proj.description}</p>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12.5, marginBottom: 6 }}>
+                    <span style={{ color: '#94a3b8' }}>Milestone Progress</span>
+                    <span style={{ color: '#34d399', fontWeight: 700 }}>{proj.progress}%</span>
+                  </div>
+                  <div style={{ width: '100%', height: 6, background: 'rgba(255, 255, 255, 0.06)', borderRadius: 4, overflow: 'hidden' }}>
+                    <div style={{
+                      width: `${proj.progress}%`,
+                      height: '100%',
+                      background: 'linear-gradient(90deg, #10b981, #06b6d4)',
+                      borderRadius: 4
+                    }} />
+                  </div>
                 </div>
-                <span style={{
-                  padding: '4px 10px',
-                  borderRadius: 8,
-                  fontSize: 12,
-                  fontWeight: 700,
-                  background: 'rgba(99, 102, 241, 0.15)',
-                  color: '#818cf8',
-                  border: '1px solid rgba(99, 102, 241, 0.3)',
-                  whiteSpace: 'nowrap'
-                }}>
-                  {proj.status}
-                </span>
-              </div>
 
-              {/* Progress Bar */}
-              <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12.5, marginBottom: 6 }}>
-                  <span style={{ color: '#94a3b8' }}>Milestone Progress</span>
-                  <span style={{ color: '#34d399', fontWeight: 700 }}>{proj.progress}%</span>
-                </div>
-                <div style={{ width: '100%', height: 6, background: 'rgba(255, 255, 255, 0.06)', borderRadius: 4, overflow: 'hidden' }}>
-                  <div style={{
-                    width: `${proj.progress}%`,
-                    height: '100%',
-                    background: 'linear-gradient(90deg, #10b981, #06b6d4)',
-                    borderRadius: 4
-                  }} />
-                </div>
-              </div>
-
-              {/* Tech Stack Pills */}
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-                {proj.techStack.map((tech, idx) => (
-                  <span key={idx} className="mini-skill-pill" style={{ fontSize: 11.5 }}>{tech}</span>
-                ))}
-              </div>
-
-              {/* Squad Members Roster */}
-              <div style={{
-                padding: '12px 14px',
-                background: 'rgba(30, 41, 59, 0.4)',
-                borderRadius: 12,
-                border: '1px solid rgba(255, 255, 255, 0.05)'
-              }}>
-                <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: 8 }}>
-                  Squad Team ({proj.members.length})
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                  {proj.members.map((m) => (
-                    <div key={m.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                        <img src={m.avatar} alt={m.name} style={{ width: 26, height: 26, borderRadius: '50%', objectFit: 'cover' }} />
-                        <span style={{ fontSize: 13, fontWeight: 600, color: '#f1f5f9' }}>{m.name}</span>
-                      </div>
-                      <span style={{ fontSize: 12, color: '#38bdf8', background: 'rgba(56, 189, 248, 0.1)', padding: '2px 6px', borderRadius: 4 }}>
-                        {m.role}
-                      </span>
-                    </div>
+                {/* Tech Stack Pills */}
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                  {proj.techStack.map((tech, idx) => (
+                    <span key={idx} className="mini-skill-pill" style={{ fontSize: 11.5 }}>{tech}</span>
                   ))}
                 </div>
-              </div>
 
-              {/* Action Buttons */}
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: 6 }}>
-                <span style={{ fontSize: 12, color: '#64748b' }}>Target: {proj.deadline}</span>
-                <div style={{ display: 'flex', gap: 8 }}>
-                  <button
-                    className="friends-btn friends-btn-secondary"
-                    style={{ padding: '6px 12px', fontSize: 12.5 }}
-                    onClick={() => onOpenInviteModal?.(proj.title)}
-                  >
-                    + Add Peer
-                  </button>
-                  <a
-                    href="/projects"
-                    className="friends-btn friends-btn-primary"
-                    style={{
-                      padding: '6px 12px',
-                      fontSize: 12.5,
-                      textDecoration: 'none',
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: 4
-                    }}
-                  >
-                    Open Squad Workspace →
-                  </a>
+                {/* Squad Members Roster */}
+                <div style={{
+                  padding: '12px 14px',
+                  background: 'rgba(30, 41, 59, 0.4)',
+                  borderRadius: 12,
+                  border: '1px solid rgba(255, 255, 255, 0.05)'
+                }}>
+                  <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: 8 }}>
+                    Squad Team ({proj.members.length})
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                    {proj.members.map((m) => (
+                      <div key={m.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                          <img src={m.avatar} alt={m.name} style={{ width: 26, height: 26, borderRadius: '50%', objectFit: 'cover' }} />
+                          <span style={{ fontSize: 13, fontWeight: 600, color: '#f1f5f9' }}>{m.name}</span>
+                        </div>
+                        <span style={{ fontSize: 12, color: '#38bdf8', background: 'rgba(56, 189, 248, 0.1)', padding: '2px 6px', borderRadius: 4 }}>
+                          {m.role}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
 
-            </div>
-          ))}
-        </div>
+                {/* Action Buttons */}
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: 6 }}>
+                  <span style={{ fontSize: 12, color: '#64748b' }}>Target: {proj.deadline}</span>
+                  <div style={{ display: 'flex', gap: 8 }}>
+                    <button
+                      className="friends-btn friends-btn-secondary"
+                      style={{ padding: '6px 12px', fontSize: 12.5 }}
+                      onClick={() => onOpenInviteModal?.(proj.title)}
+                    >
+                      + Add Peer
+                    </button>
+                    <a
+                      href="/projects"
+                      className="friends-btn friends-btn-primary"
+                      style={{
+                        padding: '6px 12px',
+                        fontSize: 12.5,
+                        textDecoration: 'none',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: 4
+                      }}
+                    >
+                      Open Squad Workspace →
+                    </a>
+                  </div>
+                </div>
+
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
     </div>
