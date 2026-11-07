@@ -136,6 +136,28 @@ describe('BRUTAL VALIDATION — CAREER COMMUNICATION LAB (Task 2)', () => {
       assert.ok(json.rewrites.professional, 'Professional rewrite must exist');
       assert.ok(json.rewrites.native, 'Native rewrite must exist');
       assert.ok(json.feedback.positive, 'Positive feedback must exist');
+      assert.ok(!json.rewrites.executive.includes('(Aligned with candidate update:'), 'Must NOT contain fake concat string');
+    });
+
+    it('strictly catches "ask my friend to fix it" as deflection and gives low score', async () => {
+      const req = new NextRequest('http://localhost:3000/api/communication/evaluate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          submission: 'ask my friend to fix it',
+          scenario: 'Production System Outage',
+          track: 'Engineering / Tech',
+        }),
+      });
+
+      const res = await evaluateCommHandler(req);
+      assert.equal(res.status, 200);
+      const json = await res.json();
+
+      assert.equal(json.ok, true);
+      assert.ok(json.scores.average <= 25, `Deflecting to friend must score <= 25, got: ${json.scores.average}`);
+      assert.equal(json.ratingLabel, 'Unprofessional / Deflective');
+      assert.ok(!json.rewrites.executive.includes('(Aligned with candidate update:'), 'Must NOT concat user text');
     });
   });
 

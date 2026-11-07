@@ -496,17 +496,14 @@ export default function MissionsPersonaSimulator({
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                   <span
                     style={{
-                      fontSize: 11,
-                      fontWeight: 700,
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.8px',
-                      color: theme.tTertiary,
-                      fontFamily: 'var(--font-mono)',
+                      fontSize: 12,
+                      fontWeight: 800,
+                      color: theme.tPrimary,
                       display: 'block',
-                      marginBottom: 2,
+                      marginBottom: 4,
                     }}
                   >
-                    Select Tactical Response (System 2 check):
+                    👉 Choose how you would respond:
                   </span>
                   {roleplayScenario.choices.map((c, idx) => (
                     <button

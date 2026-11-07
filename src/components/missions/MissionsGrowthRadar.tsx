@@ -132,32 +132,33 @@ export const MissionsGrowthRadar: React.FC<MissionsGrowthRadarProps> = ({
   return (
     <div style={{
       background: theme.bgCard,
-      border: `1px solid ${theme.border}`,
+      border: `1.5px solid ${theme.border}`,
       borderRadius: 20,
-      padding: 20,
+      padding: 22,
       boxShadow: 'var(--shadow-sm)',
       display: 'flex',
       flexDirection: 'column',
-      gap: 14
+      gap: 16
     }}>
       <div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span style={{ fontSize: 11.5, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.2px', color: theme.tTertiary, fontFamily: 'var(--font-mono)' }}>
+          <span style={{ fontSize: 12.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1.2px', color: theme.tPrimary, fontFamily: 'var(--font-mono)' }}>
             🕸️ Mindset Growth Radar
           </span>
           <span style={{
             fontSize: 11,
             fontWeight: 800,
-            padding: '2px 7px',
-            borderRadius: 6,
-            background: isCalibrated ? 'rgba(168,85,247,0.1)' : 'rgba(156,163,175,0.1)',
-            color: isCalibrated ? 'var(--purple)' : theme.tTertiary,
-            border: `1px solid ${isCalibrated ? 'rgba(168,85,247,0.2)' : theme.border}`
+            padding: '3px 9px',
+            borderRadius: 7,
+            background: isCalibrated ? 'rgba(168,85,247,0.12)' : 'rgba(100,116,139,0.08)',
+            color: isCalibrated ? 'var(--purple)' : theme.tPrimary,
+            border: `1px solid ${isCalibrated ? 'rgba(168,85,247,0.3)' : theme.border}`,
+            fontFamily: 'var(--font-mono)',
           }}>
             📈 {isCalibrated ? `${overallGrowth}% Index` : 'null (Uncalibrated)'}
           </span>
         </div>
-        <p style={{ fontSize: 12, color: theme.tSecondary, margin: '4px 0 0', lineHeight: 1.4 }}>
+        <p style={{ fontSize: 12, color: theme.tSecondary, margin: '6px 0 0', lineHeight: 1.45 }}>
           {isCalibrated
             ? 'Hover over metric spokes or pills below to inspect dynamic competency growth.'
             : 'Complete your first daily mission or simulation to establish and calibrate dynamic competency.'}
@@ -174,11 +175,12 @@ export const MissionsGrowthRadar: React.FC<MissionsGrowthRadarProps> = ({
           justifyContent: 'center',
           alignItems: 'center',
           background: theme.bgInside,
-          borderRadius: 14,
-          border: `1px solid ${theme.border}`,
-          padding: '16px 8px',
+          borderRadius: 16,
+          border: `1.5px solid ${theme.border}`,
+          padding: '20px 8px',
           userSelect: 'none',
-          overflow: 'hidden'
+          overflow: 'hidden',
+          boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.04)',
         }}
       >
         <svg width="240" height="240" viewBox="0 0 240 240" style={{ overflow: 'visible' }}>
@@ -195,8 +197,8 @@ export const MissionsGrowthRadar: React.FC<MissionsGrowthRadarProps> = ({
                 fill="none"
                 stroke={theme.border}
                 strokeWidth={ringLevel === 1.0 ? "1.5" : "1"}
-                strokeDasharray={ringLevel === 1.0 ? "none" : "2 2"}
-                opacity={0.7}
+                strokeDasharray={ringLevel === 1.0 ? "none" : "3 3"}
+                opacity={ringLevel === 1.0 ? 0.95 : 0.65}
               />
             );
           })}
@@ -214,9 +216,18 @@ export const MissionsGrowthRadar: React.FC<MissionsGrowthRadarProps> = ({
                   x2={outer.x}
                   y2={outer.y}
                   stroke={isHovered ? m.color : theme.border}
-                  strokeWidth={isHovered ? "2.5" : "1"}
-                  opacity={isHovered ? 1 : 0.6}
+                  strokeWidth={isHovered ? "2.5" : "1.2"}
+                  opacity={isHovered ? 1 : 0.7}
                   style={{ transition: 'all 0.25s ease' }}
+                />
+                <circle
+                  cx={outer.x}
+                  cy={outer.y}
+                  r="3.5"
+                  fill={isHovered ? m.color : theme.border}
+                  stroke={theme.bgCard}
+                  strokeWidth="1.5"
+                  style={{ transition: 'all 0.2s ease' }}
                 />
               </g>
             );
@@ -234,14 +245,14 @@ export const MissionsGrowthRadar: React.FC<MissionsGrowthRadarProps> = ({
             />
           ) : (
             <g>
-              <circle cx={cx} cy={cy} r="26" fill="rgba(156,163,175,0.06)" stroke={theme.border} strokeDasharray="3 3" />
+              <circle cx={cx} cy={cy} r="32" fill={theme.bgCard} stroke={theme.border} strokeWidth="1.5" strokeDasharray="3 3" />
               <text
                 x={cx}
                 y={cy - 6}
                 textAnchor="middle"
                 dominantBaseline="central"
-                fill={theme.tTertiary}
-                fontSize="9"
+                fill={theme.tPrimary}
+                fontSize="9.5"
                 fontWeight="800"
                 style={{ fontFamily: 'var(--font-mono)' }}
               >
@@ -253,18 +264,20 @@ export const MissionsGrowthRadar: React.FC<MissionsGrowthRadarProps> = ({
                 textAnchor="middle"
                 dominantBaseline="central"
                 fill={theme.tSecondary}
-                fontSize="8"
+                fontSize="8.5"
+                fontWeight="700"
+                style={{ fontFamily: 'var(--font-mono)' }}
               >
                 0 Missions Done
               </text>
             </g>
           )}
 
-          {/* Axis Points & Glowing Interactive Dots */}
+          {/* Metric Spoke Outer Labels */}
           {metrics.map((m, i) => {
-            const pt = isCalibrated ? getCoordinates(i, m.value) : { x: cx, y: cy };
-            const outerPt = getCoordinates(i, 122);
+            const outerPt = getCoordinates(i, 126);
             const isHovered = hoveredRadarMetric === m.key;
+            const pt = getCoordinates(i, m.value);
 
             return (
               <g
@@ -301,7 +314,7 @@ export const MissionsGrowthRadar: React.FC<MissionsGrowthRadarProps> = ({
                   textAnchor="middle"
                   dominantBaseline="central"
                   fill={isHovered ? m.color : theme.tPrimary}
-                  fontSize={isHovered ? "10" : "9"}
+                  fontSize={isHovered ? "11" : "10"}
                   fontWeight="800"
                   style={{ fontFamily: 'var(--font-mono)', transition: 'all 0.2s ease' }}
                 >
@@ -313,31 +326,46 @@ export const MissionsGrowthRadar: React.FC<MissionsGrowthRadarProps> = ({
         </svg>
       </div>
 
-      {/* Metric Score Pills Breakdown */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 8 }}>
-        {metrics.map((m) => {
+      {/* Metric Score Pills Breakdown - Perfectly balanced 6-col grid (3 top, 2 bottom) */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 8 }}>
+        {metrics.map((m, idx) => {
           const isHovered = hoveredRadarMetric === m.key;
+          const colSpan = idx < 3 ? 'span 2' : 'span 3';
           return (
             <div
               key={m.key}
               onMouseEnter={() => isCalibrated && setHoveredRadarMetric(m.key)}
               onClick={() => setActiveTab(m.actionTab)}
               style={{
+                gridColumn: colSpan,
                 background: isHovered ? `${m.color}15` : theme.bgInside,
-                border: `1px solid ${isHovered ? m.color : theme.border}`,
+                border: `1.5px solid ${isHovered ? m.color : theme.border}`,
                 borderRadius: 10,
-                padding: '6px 10px',
+                padding: '8px 12px',
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 cursor: isCalibrated ? 'pointer' : 'default',
-                transition: 'all 0.2s ease'
+                transition: 'all 0.2s ease',
+                boxShadow: isHovered ? `0 2px 8px ${m.color}20` : 'var(--shadow-sm)',
               }}
             >
-              <span style={{ fontSize: 11.5, fontWeight: 700, color: isHovered ? m.color : theme.tSecondary }}>
-                {m.label}
-              </span>
-              <span style={{ fontSize: 11, fontWeight: 800, color: isCalibrated ? m.color : theme.tTertiary, fontFamily: 'var(--font-mono)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span style={{ width: 8, height: 8, borderRadius: '50%', background: m.color, flexShrink: 0 }} />
+                <span style={{ fontSize: 12, fontWeight: 700, color: isHovered ? m.color : theme.tPrimary }}>
+                  {m.label}
+                </span>
+              </div>
+              <span style={{
+                fontSize: 11,
+                fontWeight: 800,
+                color: isCalibrated ? m.color : theme.tSecondary,
+                fontFamily: 'var(--font-mono)',
+                background: isCalibrated ? `${m.color}18` : theme.bgCard,
+                padding: '2px 8px',
+                borderRadius: 6,
+                border: `1px solid ${isCalibrated ? `${m.color}35` : theme.border}`,
+              }}>
                 {isCalibrated ? `${m.value}%` : 'null'}
               </span>
             </div>
@@ -349,34 +377,36 @@ export const MissionsGrowthRadar: React.FC<MissionsGrowthRadarProps> = ({
       {!isCalibrated ? (
         <div style={{
           background: theme.bgInside,
-          border: `1px dashed ${theme.border}`,
-          borderRadius: 12,
-          padding: '10px 14px',
+          border: `1.5px dashed ${theme.border}`,
+          borderRadius: 14,
+          padding: '12px 16px',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          gap: 10,
+          gap: 12,
         }}>
           <div>
-            <div style={{ fontSize: 12, fontWeight: 800, color: theme.tPrimary }}>
-              Baseline Calibration Pending
+            <div style={{ fontSize: 13, fontWeight: 800, color: theme.tPrimary, display: 'flex', alignItems: 'center', gap: 6 }}>
+              <span>🚀</span> Baseline Calibration Pending
             </div>
-            <div style={{ fontSize: 11, color: theme.tSecondary }}>
+            <div style={{ fontSize: 11.5, color: theme.tSecondary, marginTop: 2, lineHeight: 1.4 }}>
               Complete your first daily mission or simulation to establish your live competency radar.
             </div>
           </div>
           <button
             onClick={() => setActiveTab('evolve')}
             style={{
-              fontSize: 11,
+              fontSize: 11.5,
               fontWeight: 800,
               background: 'var(--accent)',
               color: '#ffffff',
               border: 'none',
-              padding: '6px 12px',
+              padding: '8px 14px',
               borderRadius: 8,
               cursor: 'pointer',
               whiteSpace: 'nowrap',
+              boxShadow: '0 2px 8px rgba(99, 102, 241, 0.3)',
+              transition: 'transform 0.15s ease',
             }}
           >
             Start Mission ➔

@@ -288,19 +288,38 @@ function MissionsPageInner() {
       </div>
 
       {/* Downstairs Analysis Section ("rest analisis will be down") */}
-      <div style={{ marginTop: 28 }}>
+      <div style={{ marginTop: 32 }}>
         <div
           style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            marginBottom: 18,
-            paddingBottom: 10,
-            borderBottom: `1px solid ${theme.border}`,
+            marginBottom: 20,
+            padding: '16px 20px',
+            background: theme.bgCard,
+            border: `1.5px solid ${theme.border}`,
+            borderRadius: 16,
+            boxShadow: 'var(--shadow-sm)',
+            flexWrap: 'wrap',
+            gap: 12,
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <span style={{ fontSize: 20 }}>📊</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <div
+              style={{
+                width: 40,
+                height: 40,
+                borderRadius: 12,
+                background: 'rgba(99, 102, 241, 0.12)',
+                border: '1px solid rgba(99, 102, 241, 0.25)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 20,
+              }}
+            >
+              📊
+            </div>
             <div>
               <h3
                 style={{
@@ -314,20 +333,20 @@ function MissionsPageInner() {
               >
                 Cognitive Intelligence &amp; Performance Analysis
               </h3>
-              <span style={{ fontSize: 12.5, color: theme.tSecondary }}>
+              <span style={{ fontSize: 12.5, color: theme.tSecondary, display: 'block', marginTop: 2 }}>
                 Real-time mindset trajectory, competency radar, and archetype progression
               </span>
             </div>
           </div>
           <span
             style={{
-              fontSize: 11.5,
-              fontWeight: 700,
+              fontSize: 11,
+              fontWeight: 800,
               padding: '4px 10px',
               borderRadius: 8,
-              background: hasCompletedAnyMission ? 'rgba(20, 184, 166, 0.1)' : 'rgba(156, 163, 175, 0.1)',
-              color: hasCompletedAnyMission ? 'var(--teal)' : theme.tTertiary,
-              border: `1px solid ${hasCompletedAnyMission ? 'rgba(20, 184, 166, 0.25)' : theme.border}`,
+              background: hasCompletedAnyMission ? 'rgba(20, 184, 166, 0.12)' : 'rgba(100, 116, 139, 0.08)',
+              color: hasCompletedAnyMission ? 'var(--teal)' : theme.tPrimary,
+              border: `1px solid ${hasCompletedAnyMission ? 'rgba(20, 184, 166, 0.3)' : theme.border}`,
               fontFamily: 'var(--font-mono)',
               textTransform: 'uppercase',
             }}

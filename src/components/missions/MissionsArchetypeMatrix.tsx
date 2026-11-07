@@ -134,17 +134,17 @@ export const MissionsArchetypeMatrix: React.FC<MissionsArchetypeMatrixProps> = (
   return (
     <div style={{
       background: theme.bgCard,
-      border: `1px solid ${theme.border}`,
+      border: `1.5px solid ${theme.border}`,
       borderRadius: 20,
-      padding: 20,
+      padding: 22,
       boxShadow: 'var(--shadow-sm)',
       display: 'flex',
       flexDirection: 'column',
-      gap: 14
+      gap: 16
     }}>
       <div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span style={{ fontSize: 11.5, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.2px', color: theme.tTertiary, fontFamily: 'var(--font-mono)' }}>
+          <span style={{ fontSize: 12.5, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1.2px', color: theme.tPrimary, fontFamily: 'var(--font-mono)' }}>
             ➕ Dynamic Archetype Matrix
           </span>
           {selectedQuadrant ? (
@@ -153,11 +153,11 @@ export const MissionsArchetypeMatrix: React.FC<MissionsArchetypeMatrixProps> = (
               style={{
                 fontSize: 10.5,
                 fontWeight: 700,
-                padding: '2px 8px',
-                borderRadius: 6,
-                background: 'rgba(239,68,68,0.1)',
+                padding: '3px 9px',
+                borderRadius: 7,
+                background: 'rgba(239,68,68,0.12)',
                 color: '#ef4444',
-                border: '1px solid rgba(239,68,68,0.2)',
+                border: '1px solid rgba(239,68,68,0.25)',
                 cursor: 'pointer'
               }}
             >
@@ -165,19 +165,20 @@ export const MissionsArchetypeMatrix: React.FC<MissionsArchetypeMatrixProps> = (
             </button>
           ) : (
             <span style={{
-              fontSize: 10.5,
-              fontWeight: 700,
-              padding: '2px 7px',
-              borderRadius: 6,
-              background: isCalibrated ? 'rgba(20,184,166,0.1)' : 'rgba(156,163,175,0.1)',
-              color: isCalibrated ? 'var(--teal)' : theme.tTertiary,
-              border: `1px solid ${isCalibrated ? 'rgba(20,184,166,0.2)' : theme.border}`
+              fontSize: 11,
+              fontWeight: 800,
+              padding: '3px 9px',
+              borderRadius: 7,
+              background: isCalibrated ? 'rgba(20,184,166,0.12)' : 'rgba(100,116,139,0.08)',
+              color: isCalibrated ? 'var(--teal)' : theme.tPrimary,
+              border: `1px solid ${isCalibrated ? 'rgba(20,184,166,0.3)' : theme.border}`,
+              fontFamily: 'var(--font-mono)',
             }}>
               {isCalibrated ? '● Live Reactive' : 'Pending Baseline'}
             </span>
           )}
         </div>
-        <p style={{ fontSize: 12, color: theme.tSecondary, margin: '4px 0 0', lineHeight: 1.4 }}>
+        <p style={{ fontSize: 12, color: theme.tSecondary, margin: '6px 0 0', lineHeight: 1.45 }}>
           {isCalibrated
             ? 'Hover or click quadrants to inspect cognitive archetypes. Updates in real-time as you complete missions.'
             : 'Complete your first daily mission or crisis simulation to establish and calibrate your mindset archetype.'}
@@ -192,11 +193,12 @@ export const MissionsArchetypeMatrix: React.FC<MissionsArchetypeMatrixProps> = (
           width: '100%',
           height: 200,
           background: theme.bgInside,
-          borderRadius: 14,
-          border: `1px solid ${theme.border}`,
+          borderRadius: 16,
+          border: `1.5px solid ${theme.border}`,
           overflow: 'hidden',
           padding: 8,
-          userSelect: 'none'
+          userSelect: 'none',
+          boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.04)',
         }}
       >
         {/* Quadrant Background Glows */}
@@ -210,7 +212,7 @@ export const MissionsArchetypeMatrix: React.FC<MissionsArchetypeMatrixProps> = (
             left: 0,
             width: '50%',
             height: '50%',
-            background: activeKey === 'social' ? 'rgba(20,184,166,0.12)' : 'transparent',
+            background: activeKey === 'social' ? 'rgba(20,184,166,0.16)' : 'rgba(20,184,166,0.04)',
             borderRight: `1px dashed ${theme.border}`,
             borderBottom: `1px dashed ${theme.border}`,
             cursor: 'pointer',
@@ -229,7 +231,7 @@ export const MissionsArchetypeMatrix: React.FC<MissionsArchetypeMatrixProps> = (
             right: 0,
             width: '50%',
             height: '50%',
-            background: activeKey === 'pattern' ? 'rgba(139,92,246,0.12)' : 'transparent',
+            background: activeKey === 'pattern' ? 'rgba(139,92,246,0.16)' : 'rgba(139,92,246,0.04)',
             borderBottom: `1px dashed ${theme.border}`,
             cursor: 'pointer',
             transition: 'background 0.25s ease',
@@ -247,7 +249,7 @@ export const MissionsArchetypeMatrix: React.FC<MissionsArchetypeMatrixProps> = (
             left: 0,
             width: '50%',
             height: '50%',
-            background: activeKey === 'architect' ? 'rgba(59,130,246,0.12)' : 'transparent',
+            background: activeKey === 'architect' ? 'rgba(59,130,246,0.16)' : 'rgba(59,130,246,0.04)',
             borderRight: `1px dashed ${theme.border}`,
             cursor: 'pointer',
             transition: 'background 0.25s ease',
@@ -265,7 +267,7 @@ export const MissionsArchetypeMatrix: React.FC<MissionsArchetypeMatrixProps> = (
             right: 0,
             width: '50%',
             height: '50%',
-            background: activeKey === 'executor' ? 'rgba(245,158,11,0.12)' : 'transparent',
+            background: activeKey === 'executor' ? 'rgba(245,158,11,0.16)' : 'rgba(245,158,11,0.04)',
             cursor: 'pointer',
             transition: 'background 0.25s ease',
             zIndex: 2
@@ -278,8 +280,8 @@ export const MissionsArchetypeMatrix: React.FC<MissionsArchetypeMatrixProps> = (
           top: '50%',
           left: 0,
           right: 0,
-          height: 1,
-          background: 'rgba(99,102,241,0.25)',
+          height: 1.5,
+          background: theme.border,
           transform: 'translateY(-50%)',
           zIndex: 1,
           pointerEvents: 'none'
@@ -290,8 +292,8 @@ export const MissionsArchetypeMatrix: React.FC<MissionsArchetypeMatrixProps> = (
           left: '50%',
           top: 0,
           bottom: 0,
-          width: 1,
-          background: 'rgba(99,102,241,0.25)',
+          width: 1.5,
+          background: theme.border,
           transform: 'translateX(-50%)',
           zIndex: 1,
           pointerEvents: 'none'
@@ -302,58 +304,173 @@ export const MissionsArchetypeMatrix: React.FC<MissionsArchetypeMatrixProps> = (
           position: 'absolute',
           top: '50%',
           left: '50%',
-          width: 7,
-          height: 7,
+          width: 8,
+          height: 8,
           borderRadius: '50%',
           background: theme.tSecondary,
+          border: `1.5px solid ${theme.bgCard}`,
           transform: 'translate(-50%, -50%)',
           zIndex: 3,
           pointerEvents: 'none'
         }} />
 
-        {/* Axis Direction Labels */}
-        <span style={{ position: 'absolute', top: 5, left: '50%', transform: 'translateX(-50%)', fontSize: 9, fontWeight: 800, color: theme.tTertiary, textTransform: 'uppercase', letterSpacing: '0.5px', pointerEvents: 'none', zIndex: 4 }}>
+        {/* Axis Direction Labels - High-contrast readable chips */}
+        <span style={{
+          position: 'absolute',
+          top: 6,
+          left: '50%',
+          transform: 'translateX(-50%)',
+          fontSize: 9.5,
+          fontWeight: 800,
+          color: theme.tSecondary,
+          background: theme.bgCard,
+          border: `1px solid ${theme.border}`,
+          borderRadius: 4,
+          padding: '1px 6px',
+          textTransform: 'uppercase',
+          letterSpacing: '0.6px',
+          pointerEvents: 'none',
+          zIndex: 4,
+          fontFamily: 'var(--font-mono)',
+          boxShadow: '0 1px 2px rgba(0,0,0,0.03)'
+        }}>
           ▲ High Logic / EQ
         </span>
-        <span style={{ position: 'absolute', bottom: 5, left: '50%', transform: 'translateX(-50%)', fontSize: 9, fontWeight: 800, color: theme.tTertiary, textTransform: 'uppercase', letterSpacing: '0.5px', pointerEvents: 'none', zIndex: 4 }}>
+        <span style={{
+          position: 'absolute',
+          bottom: 6,
+          left: '50%',
+          transform: 'translateX(-50%)',
+          fontSize: 9.5,
+          fontWeight: 800,
+          color: theme.tSecondary,
+          background: theme.bgCard,
+          border: `1px solid ${theme.border}`,
+          borderRadius: 4,
+          padding: '1px 6px',
+          textTransform: 'uppercase',
+          letterSpacing: '0.6px',
+          pointerEvents: 'none',
+          zIndex: 4,
+          fontFamily: 'var(--font-mono)',
+          boxShadow: '0 1px 2px rgba(0,0,0,0.03)'
+        }}>
           ▼ High Execution
         </span>
-        <span style={{ position: 'absolute', left: 5, top: '50%', transform: 'translateY(-50%)', fontSize: 9, fontWeight: 800, color: theme.tTertiary, textTransform: 'uppercase', letterSpacing: '0.5px', pointerEvents: 'none', zIndex: 4 }}>
+        <span style={{
+          position: 'absolute',
+          left: 6,
+          top: '50%',
+          transform: 'translateY(-50%)',
+          fontSize: 9.5,
+          fontWeight: 800,
+          color: theme.tSecondary,
+          background: theme.bgCard,
+          border: `1px solid ${theme.border}`,
+          borderRadius: 4,
+          padding: '1px 6px',
+          textTransform: 'uppercase',
+          letterSpacing: '0.6px',
+          pointerEvents: 'none',
+          zIndex: 4,
+          fontFamily: 'var(--font-mono)',
+          boxShadow: '0 1px 2px rgba(0,0,0,0.03)'
+        }}>
           ◀ People
         </span>
-        <span style={{ position: 'absolute', right: 5, top: '50%', transform: 'translateY(-50%)', fontSize: 9, fontWeight: 800, color: theme.tTertiary, textTransform: 'uppercase', letterSpacing: '0.5px', pointerEvents: 'none', zIndex: 4 }}>
+        <span style={{
+          position: 'absolute',
+          right: 6,
+          top: '50%',
+          transform: 'translateY(-50%)',
+          fontSize: 9.5,
+          fontWeight: 800,
+          color: theme.tSecondary,
+          background: theme.bgCard,
+          border: `1px solid ${theme.border}`,
+          borderRadius: 4,
+          padding: '1px 6px',
+          textTransform: 'uppercase',
+          letterSpacing: '0.6px',
+          pointerEvents: 'none',
+          zIndex: 4,
+          fontFamily: 'var(--font-mono)',
+          boxShadow: '0 1px 2px rgba(0,0,0,0.03)'
+        }}>
           Systems ▶
         </span>
 
-        {/* 4 Quadrant Labels with dynamic highlighting (only checkmark when calibrated) */}
+        {/* 4 Quadrant Labels styled with clean contrast chips */}
         <div style={{
-          position: 'absolute', top: 22, left: 14, fontSize: 11, fontWeight: 800,
-          color: activeKey === 'social' ? '#14b8a6' : theme.tTertiary,
-          transition: 'color 0.2s', pointerEvents: 'none', zIndex: 4
+          position: 'absolute',
+          top: 24,
+          left: 14,
+          fontSize: 11,
+          fontWeight: 800,
+          color: activeKey === 'social' ? '#0d9488' : theme.tPrimary,
+          background: activeKey === 'social' ? 'rgba(20,184,166,0.12)' : theme.bgCard,
+          border: `1px solid ${activeKey === 'social' ? 'rgba(20,184,166,0.4)' : theme.border}`,
+          padding: '2px 8px',
+          borderRadius: 6,
+          transition: 'all 0.2s',
+          pointerEvents: 'none',
+          zIndex: 4
         }}>
           🤝 Social {isCalibrated && activeKey === 'social' && '✓'}
         </div>
 
         <div style={{
-          position: 'absolute', top: 22, right: 14, fontSize: 11, fontWeight: 800,
-          color: activeKey === 'pattern' ? '#8b5cf6' : theme.tTertiary,
-          textAlign: 'right', transition: 'color 0.2s', pointerEvents: 'none', zIndex: 4
+          position: 'absolute',
+          top: 24,
+          right: 14,
+          fontSize: 11,
+          fontWeight: 800,
+          color: activeKey === 'pattern' ? '#7c3aed' : theme.tPrimary,
+          background: activeKey === 'pattern' ? 'rgba(139,92,246,0.12)' : theme.bgCard,
+          border: `1px solid ${activeKey === 'pattern' ? 'rgba(139,92,246,0.4)' : theme.border}`,
+          padding: '2px 8px',
+          borderRadius: 6,
+          textAlign: 'right',
+          transition: 'all 0.2s',
+          pointerEvents: 'none',
+          zIndex: 4
         }}>
           🧩 Pattern Hunter {isCalibrated && activeKey === 'pattern' && '✓'}
         </div>
 
         <div style={{
-          position: 'absolute', bottom: 22, left: 14, fontSize: 11, fontWeight: 800,
-          color: activeKey === 'architect' ? '#3b82f6' : theme.tTertiary,
-          transition: 'color 0.2s', pointerEvents: 'none', zIndex: 4
+          position: 'absolute',
+          bottom: 24,
+          left: 14,
+          fontSize: 11,
+          fontWeight: 800,
+          color: activeKey === 'architect' ? '#2563eb' : theme.tPrimary,
+          background: activeKey === 'architect' ? 'rgba(59,130,246,0.12)' : theme.bgCard,
+          border: `1px solid ${activeKey === 'architect' ? 'rgba(59,130,246,0.4)' : theme.border}`,
+          padding: '2px 8px',
+          borderRadius: 6,
+          transition: 'all 0.2s',
+          pointerEvents: 'none',
+          zIndex: 4
         }}>
           🎯 Architect {isCalibrated && activeKey === 'architect' && '✓'}
         </div>
 
         <div style={{
-          position: 'absolute', bottom: 22, right: 14, fontSize: 11, fontWeight: 800,
-          color: activeKey === 'executor' ? '#f59e0b' : theme.tTertiary,
-          textAlign: 'right', transition: 'color 0.2s', pointerEvents: 'none', zIndex: 4
+          position: 'absolute',
+          bottom: 24,
+          right: 14,
+          fontSize: 11,
+          fontWeight: 800,
+          color: activeKey === 'executor' ? '#d97706' : theme.tPrimary,
+          background: activeKey === 'executor' ? 'rgba(245,158,11,0.12)' : theme.bgCard,
+          border: `1px solid ${activeKey === 'executor' ? 'rgba(245,158,11,0.4)' : theme.border}`,
+          padding: '2px 8px',
+          borderRadius: 6,
+          textAlign: 'right',
+          transition: 'all 0.2s',
+          pointerEvents: 'none',
+          zIndex: 4
         }}>
           ⚡ Executor {isCalibrated && activeKey === 'executor' && '✓'}
         </div>
@@ -372,29 +489,31 @@ export const MissionsArchetypeMatrix: React.FC<MissionsArchetypeMatrixProps> = (
           pointerEvents: 'none'
         }}>
           <div style={{
-            width: isCalibrated ? 20 : 14,
-            height: isCalibrated ? 20 : 14,
+            width: isCalibrated ? 22 : 18,
+            height: isCalibrated ? 22 : 18,
             borderRadius: '50%',
-            background: isCalibrated ? (ARCHETYPE_META[userArchKey]?.color || '#8b5cf6') : 'transparent',
-            boxShadow: isCalibrated ? `0 0 16px ${ARCHETYPE_META[userArchKey]?.color || '#8b5cf6'}` : 'none',
-            border: isCalibrated ? '2.5px solid #ffffff' : `2px dashed ${theme.tTertiary}`,
+            background: isCalibrated ? (ARCHETYPE_META[userArchKey]?.color || '#8b5cf6') : theme.bgCard,
+            boxShadow: isCalibrated ? `0 0 16px ${ARCHETYPE_META[userArchKey]?.color || '#8b5cf6'}` : '0 1px 4px rgba(0,0,0,0.1)',
+            border: isCalibrated ? '2.5px solid #ffffff' : `2px solid ${theme.border}`,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             fontSize: 10.5,
             color: '#ffffff'
           }}>
-            {isCalibrated ? '📍' : ''}
+            {isCalibrated ? '📍' : (
+              <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--accent)' }} />
+            )}
           </div>
           <span style={{
             fontSize: 9.5,
             fontWeight: 800,
-            color: isCalibrated ? theme.tPrimary : theme.tTertiary,
+            color: theme.tPrimary,
             background: theme.bgCard,
-            border: `1px solid ${theme.border}`,
-            padding: '1.5px 6px',
-            borderRadius: 5,
-            marginTop: 3,
+            border: `1.5px solid ${theme.border}`,
+            padding: '2px 8px',
+            borderRadius: 6,
+            marginTop: 4,
             whiteSpace: 'nowrap',
             boxShadow: 'var(--shadow-sm)',
             fontFamily: 'var(--font-mono)'
@@ -412,27 +531,28 @@ export const MissionsArchetypeMatrix: React.FC<MissionsArchetypeMatrixProps> = (
           background: theme.bgInside,
           border: `1.5px solid ${currentMeta.color}`,
           borderRadius: 14,
-          padding: '12px 14px',
+          padding: '14px 16px',
           display: 'flex',
           flexDirection: 'column',
           gap: 6,
-          transition: 'all 0.25s ease'
+          transition: 'all 0.25s ease',
+          boxShadow: 'var(--shadow-sm)',
         }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-              <span style={{ fontSize: 15.5 }}>{currentMeta.emoji}</span>
-              <span style={{ fontSize: 14, fontWeight: 800, color: theme.tPrimary }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <span style={{ fontSize: 18 }}>{currentMeta.emoji}</span>
+              <span style={{ fontSize: 14.5, fontWeight: 800, color: theme.tPrimary }}>
                 {currentMeta.label}
               </span>
             </div>
-            <span style={{ fontSize: 10.5, fontFamily: 'var(--font-mono)', color: currentMeta.color, fontWeight: 800, background: `${currentMeta.color}15`, padding: '2px 7px', borderRadius: 6 }}>
+            <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: currentMeta.color, fontWeight: 800, background: `${currentMeta.color}15`, padding: '3px 8px', borderRadius: 6, border: `1px solid ${currentMeta.color}35` }}>
               {isInspectMode ? 'INSPECTING' : `QT2: ${qt2Score ?? 'null'} pts`}
             </span>
           </div>
-          <p style={{ fontSize: 12, color: theme.tSecondary, margin: 0, lineHeight: 1.45 }}>
+          <p style={{ fontSize: 12, color: theme.tSecondary, margin: 0, lineHeight: 1.5 }}>
             {currentMeta.desc}
           </p>
-          <div style={{ fontSize: 10.5, fontFamily: 'var(--font-mono)', color: theme.tTertiary, marginTop: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: theme.tSecondary, marginTop: 4, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span>{currentMeta.focus}</span>
             <span>X: {userX.toFixed(0)}% • Y: {(100 - userY).toFixed(0)}%</span>
           </div>
@@ -440,25 +560,26 @@ export const MissionsArchetypeMatrix: React.FC<MissionsArchetypeMatrixProps> = (
       ) : (
         <div style={{
           background: theme.bgInside,
-          border: `1px dashed ${theme.border}`,
+          border: `1.5px dashed ${theme.border}`,
           borderRadius: 14,
-          padding: '12px 14px',
+          padding: '14px 16px',
           display: 'flex',
           flexDirection: 'column',
-          gap: 6
+          gap: 6,
+          boxShadow: 'var(--shadow-sm)',
         }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-              <span style={{ fontSize: 15.5 }}>🧬</span>
-              <span style={{ fontSize: 13.5, fontWeight: 800, color: theme.tPrimary }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <span style={{ fontSize: 18 }}>🧬</span>
+              <span style={{ fontSize: 14, fontWeight: 800, color: theme.tPrimary }}>
                 Mindset Archetype: null (Uncalibrated)
               </span>
             </div>
-            <span style={{ fontSize: 10.5, color: theme.tTertiary, fontFamily: 'var(--font-mono)' }}>
+            <span style={{ fontSize: 11, color: theme.tSecondary, fontFamily: 'var(--font-mono)', background: theme.bgCard, padding: '2px 8px', borderRadius: 6, border: `1px solid ${theme.border}` }}>
               QT2: null
             </span>
           </div>
-          <p style={{ fontSize: 12, color: theme.tSecondary, margin: 0, lineHeight: 1.45 }}>
+          <p style={{ fontSize: 12, color: theme.tSecondary, margin: 0, lineHeight: 1.5 }}>
             Complete your first daily mission or crisis simulation to map your dynamic cognitive archetype across Logic, People, Execution, and Architecture.
           </p>
         </div>
