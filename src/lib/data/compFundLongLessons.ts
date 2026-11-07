@@ -45,14 +45,15 @@ export const COMP_FUND_LONG_LESSONS: LongLesson[] = [
         ],
         "tryIt": "Add a command to create a config directory inside workspace/project.",
         "check": {
-          "question": "What distinguishes an absolute path from a relative path in POSIX systems?",
+          "question": "What distinguishes path resolution in a POSIX unified single-root Virtual File System (VFS) from drive-letter architectures?",
           "options": [
-            "An absolute path begins at the root directory with a forward slash",
-            "An absolute path only works for hidden files",
-            "A relative path can only refer to the home directory"
+            "POSIX path resolution traverses a single logical tree rooted at /, resolving intermediate directory inodes via namei() without coupling to physical partition identifiers",
+            "POSIX paths resolve directly via physical disk block sector offsets without consulting directory inode structures",
+            "POSIX paths require user applications to maintain explicit hardware driver mappings for each mounted volume",
+            "POSIX path traversal requires linear searches through the entire physical filesystem on every file open call"
           ],
           "answer": 0,
-          "why": "Absolute paths originate at the system root / and provide an unambiguous location regardless of the current working directory."
+          "why": "The POSIX VFS abstracts physical block devices behind a single root directory tree. The kernel resolves paths by traversing directory inodes in-memory via namei(), decoupling application logic from underlying storage geometry."
         }
       },
       {
@@ -88,14 +89,15 @@ export const COMP_FUND_LONG_LESSONS: LongLesson[] = [
         ],
         "tryIt": "Add another file named README.md and verify it appears in the regular ls listing.",
         "check": {
-          "question": "In UNIX file conventions, why does a configuration file like .env not appear in basic ls output?",
+          "question": "What kernel mechanism causes ls -l on a directory with millions of files to induce severe disk I/O latency?",
           "options": [
-            "Files starting with a dot are designated as hidden files by convention",
-            "The file has been encrypted by the kernel",
-            "The file size is zero bytes"
+            "Each file entry requires an independent stat() system call to query inode metadata blocks from storage, triggering random disk reads",
+            "The ls utility loads the entire binary content of every file into user-space heap memory before sorting",
+            "The kernel locks the global process table in uninterruptible sleep state D for the duration of the directory read",
+            "The directory entry buffer requires synchronous writeback to storage to update filesystem access timestamps"
           ],
           "answer": 0,
-          "why": "UNIX tools omit filenames starting with a dot unless explicitly requested with the -a or --all flag."
+          "why": "Executing ls -l forces a secondary stat() system call for every file in the directory to retrieve permission modes, timestamps, and link counts from disk inodes, causing massive random I/O when metadata is not cached in RAM."
         }
       },
       {
@@ -136,14 +138,15 @@ export const COMP_FUND_LONG_LESSONS: LongLesson[] = [
         ],
         "tryIt": "Append a third line with LOG_LEVEL=debug and run cat to verify.",
         "check": {
-          "question": "What happens if you use > instead of >> when writing to an existing configuration file?",
+          "question": "Why does the C runtime library switch standard output (stdout) from line-buffering to block-buffering when redirected to a file or pipe?",
           "options": [
-            "The existing file content is completely overwritten with the new output",
-            "The shell throws a permission denied error",
-            "The content is automatically merged at the top of the file"
+            "To minimize costly write() system calls and context switches by aggregating payloads into 4KB or 8KB buffer blocks",
+            "To enforce thread-safe mutual exclusion locks on the terminal device driver",
+            "Because the Linux page cache cannot store data unless submitted in exact 64KB chunks",
+            "To allow the operating system kernel to encrypt stream payloads prior to disk serialization"
           ],
           "answer": 0,
-          "why": "The single redirection operator > truncates the destination file before writing, whereas >> appends to the end."
+          "why": "Line-buffering flushes on newlines to provide immediate terminal interactivity, whereas block-buffering buffers several kilobytes into user space to minimize expensive system call transitions when writing bulk data to disk or pipes."
         }
       },
       {
@@ -179,14 +182,15 @@ export const COMP_FUND_LONG_LESSONS: LongLesson[] = [
         ],
         "tryIt": "Pipe grep \"INFO\" into wc -l to count the number of info log lines.",
         "check": {
-          "question": "What is the purpose of the pipe | operator in a POSIX command line?",
+          "question": "How does the Linux kernel enforce backpressure when a fast producer pipes data into a slow consumer via an anonymous pipe?",
           "options": [
-            "It routes stdout of the preceding command into stdin of the following command",
-            "It pauses execution of the shell for one second",
-            "It runs both commands in parallel on separate CPU cores"
+            "When the 64KB kernel ring buffer fills, the scheduler suspends the producer's write() call until the consumer reads data",
+            "The kernel spills excess stream bytes onto temporary disk storage in the /tmp partition",
+            "The kernel dynamically doubles the producer process nice priority to throttle CPU execution time",
+            "The kernel delivers an immediate SIGBUS signal that aborts the producer process without recovery"
           ],
           "answer": 0,
-          "why": "The pipe operator constructs an inter-process communication stream connecting stdout of the left command to stdin of the right command."
+          "why": "Anonymous pipes use a fixed-size kernel ring buffer (typically 65,536 bytes). When the buffer is full, subsequent write() calls block automatically, providing hardware-efficient backpressure that prevents memory exhaustion."
         }
       },
       {
@@ -219,14 +223,15 @@ export const COMP_FUND_LONG_LESSONS: LongLesson[] = [
         ],
         "tryIt": "Add another request to /api/v1/data and see the count change from 1 to 2.",
         "check": {
-          "question": "Why must input text usually be passed through sort before running uniq?",
+          "question": "Why does the POSIX uniq utility require input streams to be sorted beforehand to achieve complete deduplication?",
           "options": [
-            "Because uniq only collapses adjacent identical lines",
-            "Because sort decrypts binary log files",
-            "Because uniq requires sorted ASCII headers to compile"
+            "Because uniq operates as a single-pass streaming filter with O(1) memory, comparing each line only to its immediate predecessor",
+            "Because uniq requires input lines to be indexed by cryptographic SHA-256 hashes",
+            "Because the Linux Virtual File System rejects unsorted text buffers during pipe transmission",
+            "Because sort generates an in-memory B-tree index required by uniq to validate record schemas"
           ],
           "answer": 0,
-          "why": "The uniq utility operates on an in-memory streaming window and only detects duplicates if they appear consecutively."
+          "why": "The uniq utility maintains only the previous line in memory to achieve O(1) space efficiency. It cannot detect identical lines separated by intervening text; sorting establishes adjacent ordering so all duplicates are collapsed."
         }
       }
     ],
@@ -292,14 +297,15 @@ export const COMP_FUND_LONG_LESSONS: LongLesson[] = [
         ],
         "tryIt": "Add another file named private.key and run ls -l to inspect its permissions.",
         "check": {
-          "question": "In the POSIX permission string -rw-r--r--, what permissions are granted to the file owner?",
+          "question": "In POSIX file permissions, why is the execute (x) bit mandatory on a directory for a process to open files within it?",
           "options": [
-            "Read and Write access (octal mode 6)",
-            "Execute only",
-            "Full control including execute permissions"
+            "The execute bit grants traversal permission, allowing the kernel to resolve directory entries and access contained inodes",
+            "The execute bit instructs the CPU to load the directory into instruction cache as an ELF binary",
+            "Without the execute bit, directory file descriptors cannot be closed by user-space runtimes",
+            "The execute bit enables kernel copy-on-write page deduplication for directory data blocks"
           ],
           "answer": 0,
-          "why": "The first triad rw- corresponds to Read (4) and Write (2), giving the file owner read-write access without execute privileges."
+          "why": "On directories, the execute bit represents traversal privilege rather than program execution. Without 'x' permission, the kernel's namei() path resolver cannot search the directory to locate child inodes."
         }
       },
       {
@@ -335,14 +341,15 @@ export const COMP_FUND_LONG_LESSONS: LongLesson[] = [
         ],
         "tryIt": "Change the flag to head -n 3 to extract the first three endpoint routes.",
         "check": {
-          "question": "Why do systems administrators use the head utility instead of cat when inspecting high-volume production files?",
+          "question": "What kernel mechanism allows head -n 10 at the end of a long pipeline to terminate upstream producers early without reading the entire dataset?",
           "options": [
-            "head streams only the requested top lines without buffering the entire multi-gigabyte file into memory",
-            "head automatically translates binary files into Python code",
-            "head permanently deletes the remaining lines of the file"
+            "head exits and closes its stdin, causing the kernel to deliver a SIGPIPE signal to the upstream process on its next write()",
+            "head sends an asynchronous SIGKILL directly to the parent process group via the terminal driver",
+            "The kernel rewinds the storage device read head to the beginning of the block partition",
+            "The upstream process file descriptor table is immediately zeroed out in kernel task memory"
           ],
           "answer": 0,
-          "why": "head truncates the stream after the specified line count, providing instant feedback while consuming negligible memory regardless of how large the underlying file is."
+          "why": "When head completes its requested line count, it closes its file descriptor and exits. Any subsequent write() into the broken pipe by an upstream producer triggers an EPIPE error or SIGPIPE signal, cleanly halting computation."
         }
       },
       {
@@ -379,14 +386,15 @@ export const COMP_FUND_LONG_LESSONS: LongLesson[] = [
         ],
         "tryIt": "Add another INFO line and verify that it is excluded by the database filter.",
         "check": {
-          "question": "What does the -i flag instruct the grep utility to do during text pattern matching?",
+          "question": "Why does grep -F (fixed strings) significantly outperform standard regular expression grep during forensic log analysis?",
           "options": [
-            "Perform a case-insensitive search, matching both uppercase and lowercase variations of the pattern",
-            "Invert the search to only print lines that do not match the pattern",
-            "Install the software package over the internet"
+            "It bypasses regular expression finite automaton compilation and utilizes vectorized Aho-Corasick or Boyer-Moore string algorithms",
+            "It mounts the log file directly into CPU L1 cache using hardware virtualization instructions",
+            "It pre-compiles log files into compressed SQLite database tables before executing queries",
+            "It runs exclusively in kernel space via an eBPF filter injected into the storage controller"
           ],
           "answer": 0,
-          "why": "The -i flag makes grep case-insensitive, ensuring that patterns like \"database\" match \"Database\", \"DATABASE\", and \"database\" alike."
+          "why": "By treating search patterns as literal fixed strings rather than regular expressions, grep -F avoids NFA/DFA state machine evaluation overhead and leverages SIMD-accelerated string scanning algorithms."
         }
       },
       {
@@ -427,14 +435,15 @@ export const COMP_FUND_LONG_LESSONS: LongLesson[] = [
         ],
         "tryIt": "Count how many nodes are in DRAIN status by piping grep \"DRAIN\" into wc -l.",
         "check": {
-          "question": "What is the purpose of piping the output of grep into wc -l?",
+          "question": "Why might wc -l return a count that is one less than the number of visible lines rendered in a text editor?",
           "options": [
-            "To count the exact number of lines that matched the search filter",
-            "To sort the log file in descending order",
-            "To convert the text output into HTML format"
+            "Because wc -l counts ASCII newline bytes (0x0A); if the final line lacks a trailing newline, it is not counted",
+            "Because wc -l skips the first line assuming it contains column headers",
+            "Because the C standard library subtracts one from line counters to prevent buffer overflow",
+            "Because text editors automatically inject a synthetic carriage return at byte offset zero"
           ],
           "answer": 0,
-          "why": "grep streams only the lines that match the search criteria, and wc -l counts how many lines arrive over the pipe, delivering the total match count."
+          "why": "The wc utility strictly counts the recurrence of the newline character (0x0A). If an incomplete final line ends at EOF without a terminating newline byte, it does not trigger the line counter."
         }
       },
       {
@@ -470,14 +479,15 @@ export const COMP_FUND_LONG_LESSONS: LongLesson[] = [
         ],
         "tryIt": "Add an echo \"Artifact verified\" step chained to the end with &&.",
         "check": {
-          "question": "How does chaining commands with && differ from separating them with a semicolon ; in a shell script?",
+          "question": "How does the shell operator && prevent cascading failures in multi-stage deployment scripts compared to ;?",
           "options": [
-            "With &&, subsequent commands execute ONLY if the preceding command succeeded with exit status 0",
-            "With &&, all commands run simultaneously in background processes",
-            "With ;, subsequent commands are automatically encrypted"
+            "&& evaluates the preceding command's exit code ($?) and short-circuits execution if the status is non-zero",
+            "&& runs both commands in isolated background threads with synchronized memory barriers",
+            "&& rolls back all filesystem modifications if the secondary command encounters a runtime exception",
+            "; enforces atomic transactions across commands whereas && allows non-deterministic execution"
           ],
           "answer": 0,
-          "why": "The && operator enforces conditional short-circuit execution: if any command fails (non-zero exit code), the remainder of the chain is aborted, whereas semicolons execute unconditionally regardless of failure."
+          "why": "The double ampersand && implements boolean short-circuit evaluation: it checks $? after each command and executes the next command only if the preceding command returned exit code 0 (success)."
         }
       }
     ],
