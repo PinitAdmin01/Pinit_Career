@@ -68,15 +68,19 @@ export async function GET(req: NextRequest) {
             .select('requester_id, addressee_id')
             .or('requester_id.eq.' + userId + ',addressee_id.eq.' + userId);
           (connections || []).forEach((c: any) => {
-            if (c.requester_id) connectedIds.add(c.requester_id);
-            if (c.addressee_id) connectedIds.add(c.addressee_id);
+            if (c.status === 'accepted') {
+              if (c.requester_id) connectedIds.add(c.requester_id);
+              if (c.addressee_id) connectedIds.add(c.addressee_id);
+            }
           });
         } catch {}
       }
 
       (db.friendships || []).forEach((c: any) => {
-        if (c.requester_id === userId && c.addressee_id) connectedIds.add(c.addressee_id);
-        if (c.addressee_id === userId && c.requester_id) connectedIds.add(c.requester_id);
+        if (c.status === 'accepted') {
+          if (c.requester_id === userId && c.addressee_id) connectedIds.add(c.addressee_id);
+          if (c.addressee_id === userId && c.requester_id) connectedIds.add(c.requester_id);
+        }
       });
     }
 
@@ -87,32 +91,25 @@ export async function GET(req: NextRequest) {
       try {
         const { data: users, error: uErr } = await admin
           .from('users')
-          .select('id, username, display_name, email, role, onboarding_answers, target_role, career_goal, xp_total, career_dna_score, skill_tags, missions_completed, vault_count, league_tier')
+          .select('*')
           .limit(100);
 
         if (!uErr && users && users.length > 0) {
           const nonStudentRoles = new Set(['recruiter', 'consultant', 'parent', 'admin', 'teacher', 'faculty', 'institution_admin', 'super_admin']);
-          const testNonStudentRegex = /\b(test recruiter|live recruiter|live consultant|live parent|live admin|recruiter|consultant|tester)\b/i;
+          const testNonStudentRegex = /\b(test recruiter|live recruiter|live consultant|live parent|live admin|recruiter|consultant|faculty|institution_admin)\b/i;
 
           candidates = users
             .filter(u => {
               if (connectedIds.has(u.id) || blockedIds.has(u.id)) return false;
 
-              // Strict student role check: exclude recruiters, consultants, parents, admins, etc.
+              // Strict role check: exclude institutional staff (recruiters, consultants, parents, admins, teachers)
               const r = (u.role || '').toLowerCase().trim();
               if (r && nonStudentRoles.has(r)) return false;
-              if (r && r !== 'student') return false;
 
-              // Exclude test / demo recruiter & non-student profiles
+              // Exclude test recruiter & staff personas
               const nameLower = (u.display_name || u.username || '').toLowerCase().trim();
               const emailLower = (u.email || '').toLowerCase().trim();
               if (testNonStudentRegex.test(nameLower) || testNonStudentRegex.test(emailLower)) return false;
-
-              // ZERO DUMMY / DEMO DATA INVARIANT:
-              // Exclude uninitialized placeholder accounts with generic name 'student' or demo emails
-              if (!nameLower || nameLower === 'student' || nameLower === 'student peer' || nameLower === 'campus student') return false;
-              if (/\b(test|demo|dummy|sample|placeholder)\b/i.test(nameLower)) return false;
-              if (emailLower.includes('@pinit.in') || emailLower.includes('@example.com') || /\b(test|demo)\b/i.test(emailLower)) return false;
 
               return true;
             })
@@ -137,9 +134,9 @@ export async function GET(req: NextRequest) {
                 .filter((s: string, idx: number, arr: string[]) => arr.indexOf(s) === idx)
                 .slice(0, 4);
 
-              const collegeName = ob.education ? ob.education.split('(')[0].trim() : 'Campus Student';
-              const courseName = ob.education && ob.education.includes('(') ? ob.education.match(/\(([^)]+)\)/)?.[1] || 'Degree' : 'Undergraduate';
-              const name = u.display_name || u.username || 'Student Peer';
+              const collegeName = u.college_name || (ob.education ? ob.education.split('(')[0].trim() : (ob.college || 'Campus Student'));
+              const courseName = u.department || (ob.education && ob.education.includes('(') ? ob.education.match(/\(([^)]+)\)/)?.[1] || 'Degree' : (ob.course || 'Undergraduate'));
+              const name = u.display_name || u.username || (u.email ? u.email.split('@')[0] : 'Student');
 
               return {
                 id: u.id,

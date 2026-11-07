@@ -2008,6 +2008,73 @@
   font-weight: 600 !important;
 }
 
+/* ── Friends Empty State in Light Mode (Zero harsh dark blocks) ── */
+:root.light .friends-empty-state-card,
+[data-theme='light'] .friends-empty-state-card {
+  background: #ffffff !important;
+  border: 1.5px dashed #cbd5e1 !important;
+  border-radius: 16px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+}
+
+:root.light .empty-state-icon,
+[data-theme='light'] .empty-state-icon {
+  background: #f1f5f9 !important;
+  border: 1px solid #e2e8f0 !important;
+  width: 58px !important;
+  height: 58px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 50% !important;
+  font-size: 26px !important;
+  margin-bottom: 12px !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+}
+
+:root.light .empty-state-title,
+[data-theme='light'] .empty-state-title {
+  color: #0f172a !important;
+}
+
+:root.light .empty-state-desc,
+[data-theme='light'] .empty-state-desc {
+  color: #64748b !important;
+}
+
+:root.light .section-heading-sub,
+[data-theme='light'] .section-heading-sub {
+  color: #64748b !important;
+}
+
+:root.light .see-all-link,
+[data-theme='light'] .see-all-link {
+  color: #4f46e5 !important;
+}
+
+:root.light .suggested-peer-degree,
+[data-theme='light'] .suggested-peer-degree {
+  color: #64748b !important;
+}
+
+/* ── Inspiration Ribbon in Light Mode (Soft Lavender Gradient) ── */
+:root.light .inspiration-ribbon-card,
+[data-theme='light'] .inspiration-ribbon-card {
+  background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%) !important;
+  border: 1px solid #ddd6fe !important;
+  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.06) !important;
+}
+
+:root.light .inspiration-ribbon-card h4,
+[data-theme='light'] .inspiration-ribbon-card h4 {
+  color: #1e1b4b !important;
+}
+
+:root.light .inspiration-tagline,
+[data-theme='light'] .inspiration-tagline {
+  color: #7c3aed !important;
+}
+
 /* ==========================================================================
    TASK 4: LIGHT MODE FOR PROFILE VIEW MODAL
    ========================================================================== */
