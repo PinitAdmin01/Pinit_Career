@@ -8,7 +8,152 @@
     {
       "partTitle": "Unified Growth-Stage Capital Structure & Multi-Series Cap Table Architecture",
       "codeHash": "46a16041abc957286245c3c7c54eb71d51669cb0c0b64cc7e31aab987f7fca39",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Unified Growth-Stage Capital Structure & Multi-Series Cap Table Architecture Architecture",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Unified growth stage capital structures and multi-series capitalization tables.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Growth Cap Table",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Global ASC 606",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_3",
+                "label": "Down-Round Solver",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Unified growth stage capital structures govern institutional equity allocation.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Growth Cap Table",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Global ASC 606",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Down-Round Solver",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Airport expansions illustrate multi-series capital structures and financing.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Growth Cap Table",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Global ASC 606",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Down-Round Solver",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Observe how option pool refreshes impact founder dilution and ownership.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Growth Cap Table",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Global ASC 606",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Down-Round Solver",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Unified Growth-Stage Capital Structure & Multi-Series Cap Table Architecture Architecture",
@@ -159,7 +304,152 @@
     {
       "partTitle": "ASC 606 Deferred Revenue Waterfall & Multi-Currency Billing Matrix",
       "codeHash": "92d3f3c88ff98e66e69436d0a22977fe12902d8fdbf9172d7d243879ab51352d",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "ASC 606 Deferred Revenue Waterfall & Multi-Currency Billing Matrix Architecture",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Global deferred revenue waterfalls and multi-currency billing architectures.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Growth Cap Table",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Global ASC 606",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_3",
+                "label": "Down-Round Solver",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Global deferred revenue waterfalls track unearned liabilities under rules.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Growth Cap Table",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Global ASC 606",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Down-Round Solver",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Satellite consortia illustrate global revenue waterfalls and forward hedges.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Growth Cap Table",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Global ASC 606",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Down-Round Solver",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Evaluate how currency volatility and multi-year prepayments shift waterfalls.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Growth Cap Table",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Global ASC 606",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Down-Round Solver",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "ASC 606 Deferred Revenue Waterfall & Multi-Currency Billing Matrix Architecture",
@@ -310,7 +600,152 @@
     {
       "partTitle": "Series B Anti-Dilution, Pay-to-Play & Down-Round Dilution Solver",
       "codeHash": "83c6dd3454e3317f1a26e7abbe5a668239494bf33b7af1b30f46bcbe26ae4712",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Series B Anti-Dilution, Pay-to-Play & Down-Round Dilution Solver Architecture",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Down-round anti-dilution adjustments and pay-to-play syndicate solvers.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Growth Cap Table",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Global ASC 606",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_3",
+                "label": "Down-Round Solver",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Down-round mechanics govern capital restructuring during economic downturns.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Growth Cap Table",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Global ASC 606",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Down-Round Solver",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Maritime drydocks illustrate pay-to-play covenants and capital calls.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Growth Cap Table",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Global ASC 606",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Down-Round Solver",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Observe how pay-to-play provisions reclassify defaulting preferred shares.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Growth Cap Table",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Global ASC 606",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Down-Round Solver",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Series B Anti-Dilution, Pay-to-Play & Down-Round Dilution Solver Architecture",
@@ -461,7 +896,152 @@
     {
       "partTitle": "Enterprise SLA Performance & Channel Partner Revenue Waterfall",
       "codeHash": "88b3132c4263afa21be606452e9b50cd8a7c3bfb9f64316d7ce8603be2306f8b",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Enterprise SLA Performance & Channel Partner Revenue Waterfall Architecture",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Integrated service level agreements and channel partner revenue waterfalls.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Growth Cap Table",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Global ASC 606",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_3",
+                "label": "Down-Round Solver",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Integrated service level agreements align platform reliability with revenue.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Growth Cap Table",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Global ASC 606",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Down-Round Solver",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Pipeline networks illustrate integrated service level agreements and uptime.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Growth Cap Table",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Global ASC 606",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Down-Round Solver",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Observe how operational disruptions and partner margins interact dynamically.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Growth Cap Table",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Global ASC 606",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Down-Round Solver",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Enterprise SLA Performance & Channel Partner Revenue Waterfall Architecture",
@@ -612,7 +1192,152 @@
     {
       "partTitle": "Anti-Pattern Defense & Milestone 10 Control Tower Verification Suite",
       "codeHash": "641ab2713ddd8bb693a0216f291facedb1dd0e3916235243ce0d1d0e58764511",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Anti-Pattern Defense & Milestone 10 Control Tower Verification Suite Architecture",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Milestone control tower verification suite and growth governance systems.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Growth Cap Table",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Global ASC 606",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_3",
+                "label": "Down-Round Solver",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Milestone control tower verification ensures complete operational integrity.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Growth Cap Table",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Global ASC 606",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Down-Round Solver",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Aerospace launch centers illustrate milestone control tower verification.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Growth Cap Table",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Global ASC 606",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Down-Round Solver",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Test how corporate governance alarms trigger when growth metrics deteriorate.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Growth Cap Table",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Global ASC 606",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Down-Round Solver",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Anti-Pattern Defense & Milestone 10 Control Tower Verification Suite Architecture",

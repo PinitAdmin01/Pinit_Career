@@ -8,7 +8,152 @@
     {
       "partTitle": "Unified Tri-Jurisdictional Holding Topology & Capital Distribution Engine",
       "codeHash": "c572401f71049dfa40357ac17a24715949ae60014b0594e97b1863f0794763e7",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Unified Tri-Jurisdictional Holding Topology & Capital Distribution Engine Capstone",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Tri jurisdictional corporate holding topology and capital distribution loops.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Topology",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Transfer Pricing",
+                "value": 75,
+                "percentage": 75,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "GILTI FTC",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Corporate holding topologies integrate multi tiered cross border entities.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Topology",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Transfer Pricing",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "GILTI FTC",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Global consumer electronics conglomerates illustrate multi tier holding hubs.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Topology",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Transfer Pricing",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "GILTI FTC",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Evaluate capital allocation across holding tiers to calculate net cash yields.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Topology",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Transfer Pricing",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "GILTI FTC",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Unified Tri-Jurisdictional Holding Topology & Capital Distribution Engine Capstone",
@@ -159,7 +304,152 @@
     {
       "partTitle": "End-to-End Intercompany Transfer Pricing & Safe Harbour Invoicing Matrix",
       "codeHash": "50a5e326172509b589a0e8fad43e82f110b5814252e5a3673b3e5f517a9b6b00",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "End-to-End Intercompany Transfer Pricing & Safe Harbour Invoicing Matrix Capstone",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Transfer pricing invoicing matrix and safe harbour regulatory compliance.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Topology",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Transfer Pricing",
+                "value": 75,
+                "percentage": 75,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "GILTI FTC",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Intercompany invoicing engines generate certified cost plus billing digests.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Topology",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Transfer Pricing",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "GILTI FTC",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Telecommunications infrastructure providers illustrate intercompany billing.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Topology",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Transfer Pricing",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "GILTI FTC",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Model line item department expenses to compute compliant transfer invoices.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Topology",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Transfer Pricing",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "GILTI FTC",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "End-to-End Intercompany Transfer Pricing & Safe Harbour Invoicing Matrix Capstone",
@@ -310,7 +600,152 @@
     {
       "partTitle": "Algorithmic GILTI, QBAI & Foreign Tax Credit (FTC) Optimizer",
       "codeHash": "ba3611cc8b530a225e40bdb4f3d5682dcf6d7a27440e6a71fb2dd1583c0cdcb6",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Algorithmic GILTI, QBAI & Foreign Tax Credit (FTC) Optimizer Capstone",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Algorithmic GILTI and foreign tax credit optimization across tax years.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Topology",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Transfer Pricing",
+                "value": 75,
+                "percentage": 75,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "GILTI FTC",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "GILTI optimization engines model foreign tax credits and routine asset yields.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Topology",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Transfer Pricing",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "GILTI FTC",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Semiconductor foundry networks illustrate cross border tax credit offsets.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Topology",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Transfer Pricing",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "GILTI FTC",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adjust foreign income and tax rates to evaluate residual domestic tax impacts.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Topology",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Transfer Pricing",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "GILTI FTC",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Algorithmic GILTI, QBAI & Foreign Tax Credit (FTC) Optimizer Capstone",
@@ -461,7 +896,152 @@
     {
       "partTitle": "DEMPE-Compliant Cost Sharing Arrangement & Intangible Profit Allocator",
       "codeHash": "d95d769f4249e46c745da4bfe000dab4ebda32c3b43ef9bd18a30333f32d544c",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "DEMPE-Compliant Cost Sharing Arrangement & Intangible Profit Allocator Capstone",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "DEMPE compliant cost sharing arrangements and residual profit allocation.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Topology",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Transfer Pricing",
+                "value": 75,
+                "percentage": 75,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "GILTI FTC",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Cost sharing engines allocate intangible profits based on economic substance.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Topology",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Transfer Pricing",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "GILTI FTC",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Artificial intelligence research pools illustrate shared development costs.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Topology",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Transfer Pricing",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "GILTI FTC",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adjust DEMPE functional scores to observe changed enterprise profit splits.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Topology",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Transfer Pricing",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "GILTI FTC",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "DEMPE-Compliant Cost Sharing Arrangement & Intangible Profit Allocator Capstone",
@@ -610,12 +1190,157 @@
       }
     },
     {
-      "partTitle": "⭐ Milestone 9 Capstone Control Tower: Cross-Border Holding & Tax Defense Suite",
+      "partTitle": "\u2b50 Milestone 9 Capstone Control Tower: Cross-Border Holding & Tax Defense Suite",
       "codeHash": "33809f99edf30212e44e1dc7d89503788b88aea848ec6d4179f836bbdb3a0dad",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "\u2b50 Milestone 9 Capstone Control Tower: Cross-Border Holding & Tax Defense Suite Capstone",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Milestone nine control tower for cross border corporate and tax.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Topology",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Transfer Pricing",
+                "value": 75,
+                "percentage": 75,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "GILTI FTC",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Milestone nine control towers execute exhaustive multi jurisdictional.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Topology",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Transfer Pricing",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "GILTI FTC",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Sovereign mission control centers illustrate integrated telemetry verification.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Topology",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Transfer Pricing",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "GILTI FTC",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Execute the control tower test suite to verify cross border holding integrity.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Topology",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Transfer Pricing",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "GILTI FTC",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Control Tower",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
-        "title": "⭐ Milestone 9 Capstone Control Tower: Cross-Border Holding & Tax Defense Suite Capstone",
+        "title": "\u2b50 Milestone 9 Capstone Control Tower: Cross-Border Holding & Tax Defense Suite Capstone",
         "steps": [
           {
             "at": "intro",

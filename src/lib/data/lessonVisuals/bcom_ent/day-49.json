@@ -8,7 +8,152 @@
     {
       "partTitle": "Value-Based Enterprise Pricing Architecture: Packaging & Feature Gating",
       "codeHash": "7838777c3cce6e88a4bdea82d59810417303b6d17a7b3fff81393647d54b52d7",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Value-Based Enterprise Pricing Architecture: Packaging & Feature Gating System",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Value-based pricing architecture and enterprise feature gating matrices.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Value Pricing",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Multi-Currency",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_3",
+                "label": "Enterprise SLAs",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_4",
+                "label": "Channel Economics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Value-based pricing aligns commercial contracts with economic value.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Value Pricing",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Multi-Currency",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Enterprise SLAs",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Channel Economics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Electric utilities illustrate value-based pricing and commercial tariffs.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Value Pricing",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Multi-Currency",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Enterprise SLAs",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Channel Economics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Evaluate how pricing architecture shifts customer distribution tiers.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Value Pricing",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Multi-Currency",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Enterprise SLAs",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Channel Economics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Value-Based Enterprise Pricing Architecture: Packaging & Feature Gating System",
@@ -159,7 +304,152 @@
     {
       "partTitle": "Multi-Currency Billing & Foreign Exchange (FX) Hedging Mechanics",
       "codeHash": "14e0ca770a91c565d4922da2660e31b4985c8415f53b5e9643ca1c4804b15707",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Multi-Currency Billing & Foreign Exchange (FX) Hedging Mechanics System",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Multi-currency billing systems and foreign exchange hedging frameworks.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Value Pricing",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Multi-Currency",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_3",
+                "label": "Enterprise SLAs",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_4",
+                "label": "Channel Economics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Multi-currency billing systems require robust treasury risk management.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Value Pricing",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Multi-Currency",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Enterprise SLAs",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Channel Economics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Airlines illustrate foreign exchange risk hedging and forward contracts.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Value Pricing",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Multi-Currency",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Enterprise SLAs",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Channel Economics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Simulate how currency devaluations impact unhedged international billings.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Value Pricing",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Multi-Currency",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Enterprise SLAs",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Channel Economics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Multi-Currency Billing & Foreign Exchange (FX) Hedging Mechanics System",
@@ -310,7 +600,152 @@
     {
       "partTitle": "Enterprise Service Level Agreements (SLAs), Penalties & Uptime Guarantees",
       "codeHash": "dabe2526a9eb6b2dfde83e1ebeca41a10253bafb6efd7c5b4c66e81e487a38ba",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Enterprise Service Level Agreements (SLAs), Penalties & Uptime Guarantees System",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Service level agreements and tiered uptime penalty credit structures.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Value Pricing",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Multi-Currency",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_3",
+                "label": "Enterprise SLAs",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_4",
+                "label": "Channel Economics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Service level agreements establish legally binding availability commitments.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Value Pricing",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Multi-Currency",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Enterprise SLAs",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Channel Economics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Municipal telecommunications illustrate service level agreements and uptime.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Value Pricing",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Multi-Currency",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Enterprise SLAs",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Channel Economics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Observe how tiered service credit penalties trigger across outages.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Value Pricing",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Multi-Currency",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Enterprise SLAs",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Channel Economics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Enterprise Service Level Agreements (SLAs), Penalties & Uptime Guarantees System",
@@ -461,7 +896,152 @@
     {
       "partTitle": "Channel Partner Ecosystems, Reseller Margins & Revenue Sharing Architecture",
       "codeHash": "a42776800a6140b3becc3bc7413f8ac55bb382a90f2f56b841256f744f36319c",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Channel Partner Ecosystems, Reseller Margins & Revenue Sharing Architecture System",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Channel partner ecosystems and cloud marketplace revenue sharing models.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Value Pricing",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Multi-Currency",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_3",
+                "label": "Enterprise SLAs",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_4",
+                "label": "Channel Economics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Channel partner ecosystems accelerate indirect market expansion globally.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Value Pricing",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Multi-Currency",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Enterprise SLAs",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Channel Economics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Dealership franchises illustrate indirect channel partner ecosystems.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Value Pricing",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Multi-Currency",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Enterprise SLAs",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Channel Economics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Evaluate how channel partner arrangements impact reported GAAP revenue.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Value Pricing",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Multi-Currency",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Enterprise SLAs",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Channel Economics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Channel Partner Ecosystems, Reseller Margins & Revenue Sharing Architecture System",
@@ -612,7 +1192,152 @@
     {
       "partTitle": "Anti-Pattern Defense: Custom Enterprise Feature Bloat & Multi-Tenant Architecture Outage",
       "codeHash": "c1cde55fe4c0a104f3571af2918fa7c224c842325ccfae8c315b31571e89e325",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Anti-Pattern Defense: Custom Enterprise Feature Bloat & Multi-Tenant Architecture Outage System",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Defense against custom feature bloat and single tenant software forks.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Value Pricing",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Multi-Currency",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_3",
+                "label": "Enterprise SLAs",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_4",
+                "label": "Channel Economics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Custom feature bloat diverts engineering teams into technical debt traps.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Value Pricing",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Multi-Currency",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Enterprise SLAs",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Channel Economics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Commercial jetliners illustrate custom feature bloat and assembly delays.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Value Pricing",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Multi-Currency",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Enterprise SLAs",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Channel Economics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Observe how bespoke single-tenant forks erode contract profitability.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Value Pricing",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Multi-Currency",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Enterprise SLAs",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Channel Economics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Anti-Pattern Defense: Custom Enterprise Feature Bloat & Multi-Tenant Architecture Outage System",

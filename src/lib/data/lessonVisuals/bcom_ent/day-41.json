@@ -8,7 +8,152 @@
     {
       "partTitle": "Rationale of the Corporate Flip: Global VC Capital Accessibility & US/Singapore Jurisdictions",
       "codeHash": "5de8e680b65ac3706587e8aeaf396545dd6176a7891dccd8a8d8238eb3808f81",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Rationale of the Corporate Flip: Global VC Capital Accessibility & US/Singapore Jurisdictions Flip Architecture",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Delaware and Singapore corporate flip architectures and investment rationale.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Holding Flip",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Share Swap",
+                "value": 75,
+                "percentage": 75,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Tax Review",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Cross Border",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Corporate flips provide access to institutional international venture capital.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Holding Flip",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Share Swap",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Tax Review",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Cross Border",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Automobile assembly factories illustrate multi country corporate structures.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Holding Flip",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Share Swap",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Tax Review",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Cross Border",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Evaluate jurisdiction scores when institutional weight parameters are shifted.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Holding Flip",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Share Swap",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Tax Review",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Cross Border",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Rationale of the Corporate Flip: Global VC Capital Accessibility & US/Singapore Jurisdictions Flip Architecture",
@@ -159,7 +304,152 @@
     {
       "partTitle": "Share-Swap Mechanics & Fair Market Value Share Exchanges under Indian FEMA & Companies Act",
       "codeHash": "e6a1179623d6ed66e9b0de3770f041202272d77be1186d7964e51d1384ae239a",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Share-Swap Mechanics & Fair Market Value Share Exchanges under Indian FEMA & Companies Act Flip Architecture",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Cross border share swap mechanics and mirror capitalization table modeling.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Holding Flip",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Share Swap",
+                "value": 75,
+                "percentage": 75,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Tax Review",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Cross Border",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Share swaps establish proportional ownership in parent holding companies.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Holding Flip",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Share Swap",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Tax Review",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Cross Border",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Commercial shipping logistics networks illustrate mirror share swap mechanics.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Holding Flip",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Share Swap",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Tax Review",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Cross Border",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Model mirror capitalization tables to calculate cross border share parity.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Holding Flip",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Share Swap",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Tax Review",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Cross Border",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Share-Swap Mechanics & Fair Market Value Share Exchanges under Indian FEMA & Companies Act Flip Architecture",
@@ -310,7 +600,152 @@
     {
       "partTitle": "Section 56(2)(viib) 'Angel Tax' & Section 9 Indirect Transfer Tax Exposure in Corporate Inversions",
       "codeHash": "b95f8fe33d62653acb16c106af6ce3f4109fdf744245fcaa41e3c25eaf2b3e86",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Section 56(2)(viib) 'Angel Tax' & Section 9 Indirect Transfer Tax Exposure in Corporate Inversions Flip Architecture",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Statutory indirect transfer taxes and substantial asset value thresholds.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Holding Flip",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Share Swap",
+                "value": 75,
+                "percentage": 75,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Tax Review",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Cross Border",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Indirect transfer tax rules evaluate underlying domestic asset value.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Holding Flip",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Share Swap",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Tax Review",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Cross Border",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Shipping container leases illustrate indirect asset taxation across borders.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Holding Flip",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Share Swap",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Tax Review",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Cross Border",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Evaluate indirect transfer exposure when international asset ratios shift.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Holding Flip",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Share Swap",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Tax Review",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Cross Border",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Section 56(2)(viib) 'Angel Tax' & Section 9 Indirect Transfer Tax Exposure in Corporate Inversions Flip Architecture",
@@ -461,7 +896,152 @@
     {
       "partTitle": "Overseas Direct Investment (ODI) vs Foreign Direct Investment (FDI) Regulatory Approvals (RBI & FEMA Rules)",
       "codeHash": "40a6fb428b2617d1dc2f6dfd3430d4f78903b63de221fcbff84d541bfab1990c",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Overseas Direct Investment (ODI) vs Foreign Direct Investment (FDI) Regulatory Approvals (RBI & FEMA Rules) Flip Architecture",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Overseas direct investment frameworks and central bank remittance guidelines.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Holding Flip",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Share Swap",
+                "value": 75,
+                "percentage": 75,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Tax Review",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Cross Border",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Regulatory rules govern overseas investment and individual remittance caps.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Holding Flip",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Share Swap",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Tax Review",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Cross Border",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Banking currency corridors illustrate regulated foreign capital flows.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Holding Flip",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Share Swap",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Tax Review",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Cross Border",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Check regulatory limits to verify overseas direct investment compliance.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Holding Flip",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Share Swap",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Tax Review",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Cross Border",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Overseas Direct Investment (ODI) vs Foreign Direct Investment (FDI) Regulatory Approvals (RBI & FEMA Rules) Flip Architecture",
@@ -612,7 +1192,152 @@
     {
       "partTitle": "Anti-Pattern Defense: The Accidental Inversion & Round-Tripping Tax Penalty Outage",
       "codeHash": "d15eb4f626e4853bebade4d9f4f886361e26e854c928d20517ab7b19a0ef0620",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Anti-Pattern Defense: The Accidental Inversion & Round-Tripping Tax Penalty Outage Flip Architecture",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Defense against unauthorized round tripping and statutory exchange penalties.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Holding Flip",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Share Swap",
+                "value": 75,
+                "percentage": 75,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Tax Review",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Cross Border",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Accidental inversions and round tripping create catastrophic regulatory outages.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Holding Flip",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Share Swap",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Tax Review",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Cross Border",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Airport customs checkpoints illustrate strict foreign exchange scrutiny.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Holding Flip",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Share Swap",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Tax Review",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Cross Border",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Observe regulatory penalties when foreign exchange rules are violated.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Holding Flip",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Share Swap",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Tax Review",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Cross Border",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Anti-Pattern Defense: The Accidental Inversion & Round-Tripping Tax Penalty Outage Flip Architecture",

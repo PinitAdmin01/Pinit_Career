@@ -8,7 +8,152 @@
     {
       "partTitle": "Post-Money SAFE Architecture & Structural Contrast with Pre-Money SAFEs & Debt Notes",
       "codeHash": "db63688372f451cdf783392fe59790b0d9b070029b2d8555d582170236fad787",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Post-Money SAFE Architecture & Structural Contrast with Pre-Money SAFEs & Debt Notes Architecture Pipeline",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Post-money safe valuation cap and ownership certainty framework.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAFE Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Cap Calculus",
+                "value": 75,
+                "percentage": 75,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Shadow Preferred",
+                "value": 60,
+                "percentage": 60,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Series A Close",
+                "value": 45,
+                "percentage": 45,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Post-money safes guarantee investor ownership percentages upfront.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAFE Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Cap Calculus",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Shadow Preferred",
+                "value": 60,
+                "percentage": 60,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Series A Close",
+                "value": 45,
+                "percentage": 45,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Notarized deeds guarantee exact property ownership fractions.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAFE Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Cap Calculus",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Shadow Preferred",
+                "value": 60,
+                "percentage": 60,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Series A Close",
+                "value": 45,
+                "percentage": 45,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Expand venture check amounts to inspect aggregate safe ownership.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAFE Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Cap Calculus",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Shadow Preferred",
+                "value": 60,
+                "percentage": 60,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Series A Close",
+                "value": 45,
+                "percentage": 45,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Post-Money SAFE Architecture & Structural Contrast with Pre-Money SAFEs & Debt Notes Architecture Pipeline",
@@ -159,7 +304,152 @@
     {
       "partTitle": "Valuation Cap vs Discount Only SAFEs & Safe Price Calculus",
       "codeHash": "c1a44b8ed48f1125d017fe314b766673b3531cc1aea3e35e6e4c5199f8fb5ad5",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Valuation Cap vs Discount Only SAFEs & Safe Price Calculus Architecture Pipeline",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Valuation cap and discount pricing conversion engine.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAFE Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Cap Calculus",
+                "value": 75,
+                "percentage": 75,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Shadow Preferred",
+                "value": 60,
+                "percentage": 60,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Series A Close",
+                "value": 45,
+                "percentage": 45,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Safe conversion calculates price per preferred share.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAFE Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Cap Calculus",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Shadow Preferred",
+                "value": 60,
+                "percentage": 60,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Series A Close",
+                "value": 45,
+                "percentage": 45,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Season pass vouchers protect fans against ticket price surges.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAFE Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Cap Calculus",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Shadow Preferred",
+                "value": 60,
+                "percentage": 60,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Series A Close",
+                "value": 45,
+                "percentage": 45,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adjust benchmark prices to toggle between cap and discount pricing.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAFE Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Cap Calculus",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Shadow Preferred",
+                "value": 60,
+                "percentage": 60,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Series A Close",
+                "value": 45,
+                "percentage": 45,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Valuation Cap vs Discount Only SAFEs & Safe Price Calculus Architecture Pipeline",
@@ -310,7 +600,152 @@
     {
       "partTitle": "Post-Closing Pro-Rata Rights Agreement & Super-Pro-Rata Anti-Dilution Covenants",
       "codeHash": "3164981dd62a91a56f96814555a3d207f52f135c6defb06769e1b46e9a7e53ec",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Post-Closing Pro-Rata Rights Agreement & Super-Pro-Rata Anti-Dilution Covenants Architecture Pipeline",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Major investor pro-rata rights allocation and round sizing.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAFE Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Cap Calculus",
+                "value": 75,
+                "percentage": 75,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Shadow Preferred",
+                "value": 60,
+                "percentage": 60,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Series A Close",
+                "value": 45,
+                "percentage": 45,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Pro-rata rights enable seed investors to maintain equity percentages.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAFE Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Cap Calculus",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Shadow Preferred",
+                "value": 60,
+                "percentage": 60,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Series A Close",
+                "value": 45,
+                "percentage": 45,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Shipping syndicate partners contribute capital to preserve ownership.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAFE Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Cap Calculus",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Shadow Preferred",
+                "value": 60,
+                "percentage": 60,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Series A Close",
+                "value": 45,
+                "percentage": 45,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Modify investor eligibility status to evaluate pro-rata capacity.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAFE Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Cap Calculus",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Shadow Preferred",
+                "value": 60,
+                "percentage": 60,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Series A Close",
+                "value": 45,
+                "percentage": 45,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Post-Closing Pro-Rata Rights Agreement & Super-Pro-Rata Anti-Dilution Covenants Architecture Pipeline",
@@ -461,7 +896,152 @@
     {
       "partTitle": "Multi-SAFE Stacking Dynamics & Capitalization Table Integration",
       "codeHash": "6ddf9d45486c920d17308f8b1c89420a5c220771a95d286dfaa3fc89e44309c1",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Multi-SAFE Stacking Dynamics & Capitalization Table Integration Architecture Pipeline",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Multi-tranche safe stacking dynamics and founder equity dilution.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAFE Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Cap Calculus",
+                "value": 75,
+                "percentage": 75,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Shadow Preferred",
+                "value": 60,
+                "percentage": 60,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Series A Close",
+                "value": 45,
+                "percentage": 45,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Sequential safe tranches dilute common founder holdings exclusively.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAFE Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Cap Calculus",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Shadow Preferred",
+                "value": 60,
+                "percentage": 60,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Series A Close",
+                "value": 45,
+                "percentage": 45,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Commercial airplanes allocate fixed cargo space to forwarders.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAFE Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Cap Calculus",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Shadow Preferred",
+                "value": 60,
+                "percentage": 60,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Series A Close",
+                "value": 45,
+                "percentage": 45,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Append additional tranches to evaluate founder equity retention.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAFE Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Cap Calculus",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Shadow Preferred",
+                "value": 60,
+                "percentage": 60,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Series A Close",
+                "value": 45,
+                "percentage": 45,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Multi-SAFE Stacking Dynamics & Capitalization Table Integration Architecture Pipeline",
@@ -612,7 +1192,152 @@
     {
       "partTitle": "Anti-Pattern Defense: The Phantom Option Pool & Post-Money SAFE Wipeout",
       "codeHash": "274ba38839876056596ebebe88e7fcec3a56df2c0fd876c8f5529100d622d39a",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Anti-Pattern Defense: The Phantom Option Pool & Post-Money SAFE Wipeout Architecture Pipeline",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Defense against option pool wipeouts and founder dilution.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAFE Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Cap Calculus",
+                "value": 75,
+                "percentage": 75,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Shadow Preferred",
+                "value": 60,
+                "percentage": 60,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Series A Close",
+                "value": 45,
+                "percentage": 45,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Option pool shuffles compress common founder equity into minority.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAFE Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Cap Calculus",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Shadow Preferred",
+                "value": 60,
+                "percentage": 60,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Series A Close",
+                "value": 45,
+                "percentage": 45,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Subcontractors and escrow accounts absorb residential home equity.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAFE Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Cap Calculus",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Shadow Preferred",
+                "value": 60,
+                "percentage": 60,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Series A Close",
+                "value": 45,
+                "percentage": 45,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Calibrate option pool parameters to restore founder governance balance.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAFE Ingestion",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Cap Calculus",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Shadow Preferred",
+                "value": 60,
+                "percentage": 60,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Series A Close",
+                "value": 45,
+                "percentage": 45,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Anti-Pattern Defense: The Phantom Option Pool & Post-Money SAFE Wipeout Architecture Pipeline",

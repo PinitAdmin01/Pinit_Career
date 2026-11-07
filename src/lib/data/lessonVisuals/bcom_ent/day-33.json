@@ -8,7 +8,152 @@
     {
       "partTitle": "Cap Table Algebra: Authorized, Issued, Outstanding & Fully Diluted Capitalization",
       "codeHash": "72ad915337c7edd647b6a2fa44eba75e2b4d4e0a32565248f3b8c39b04887cb3",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Cap Table Algebra: Authorized, Issued, Outstanding & Fully Diluted Capitalization Ledger Architecture",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Institutional capitalization structure and fully diluted share accounting.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Common Stock",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Option Reserves",
+                "value": 85,
+                "percentage": 85,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Seed Conversions",
+                "value": 70,
+                "percentage": 70,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Fully Diluted Close",
+                "value": 55,
+                "percentage": 55,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Capitalization tables govern equity ownership and voting power.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Common Stock",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Option Reserves",
+                "value": 85,
+                "percentage": 85,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Seed Conversions",
+                "value": 70,
+                "percentage": 70,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Fully Diluted Close",
+                "value": 55,
+                "percentage": 55,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Reservoir water volumes illustrate authorized and outstanding shares.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Common Stock",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Option Reserves",
+                "value": 85,
+                "percentage": 85,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Seed Conversions",
+                "value": 70,
+                "percentage": 70,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Fully Diluted Close",
+                "value": 55,
+                "percentage": 55,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Expand option pool reserves to inspect fully diluted capitalization.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Common Stock",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Option Reserves",
+                "value": 85,
+                "percentage": 85,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Seed Conversions",
+                "value": 70,
+                "percentage": 70,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Fully Diluted Close",
+                "value": 55,
+                "percentage": 55,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Cap Table Algebra: Authorized, Issued, Outstanding & Fully Diluted Capitalization Ledger Architecture",
@@ -159,7 +304,152 @@
     {
       "partTitle": "The Option Pool Shuffle: Pre-Money vs Post-Money Pool Expansion",
       "codeHash": "58d9ec7b4b65aede917982ac967da266923d6641fc9ea873780c414b1b2df3d9",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "The Option Pool Shuffle: Pre-Money vs Post-Money Pool Expansion Ledger Architecture",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Mathematical analysis of pre-money option pool shuffle dynamics.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Common Stock",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Option Reserves",
+                "value": 85,
+                "percentage": 85,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Seed Conversions",
+                "value": 70,
+                "percentage": 70,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Fully Diluted Close",
+                "value": 55,
+                "percentage": 55,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Pre-money option pool shuffles dilute existing common founders.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Common Stock",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Option Reserves",
+                "value": 85,
+                "percentage": 85,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Seed Conversions",
+                "value": 70,
+                "percentage": 70,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Fully Diluted Close",
+                "value": 55,
+                "percentage": 55,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Commercial bakery pantries illustrate pre-money reserve commitments.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Common Stock",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Option Reserves",
+                "value": 85,
+                "percentage": 85,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Seed Conversions",
+                "value": 70,
+                "percentage": 70,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Fully Diluted Close",
+                "value": 55,
+                "percentage": 55,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adjust option pool percentages to model rightsized hiring plans.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Common Stock",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Option Reserves",
+                "value": 85,
+                "percentage": 85,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Seed Conversions",
+                "value": 70,
+                "percentage": 70,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Fully Diluted Close",
+                "value": 55,
+                "percentage": 55,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "The Option Pool Shuffle: Pre-Money vs Post-Money Pool Expansion Ledger Architecture",
@@ -310,7 +600,152 @@
     {
       "partTitle": "Vesting Schedules, Cliff Physics & 83(b) Tax Elections",
       "codeHash": "bb69ae2fbdbd0446b50a918b85b78173037402a7ac786be8a893351411937228",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Vesting Schedules, Cliff Physics & 83(b) Tax Elections Ledger Architecture",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Founder reverse vesting schedules and tax election mechanics.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Common Stock",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Option Reserves",
+                "value": 85,
+                "percentage": 85,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Seed Conversions",
+                "value": 70,
+                "percentage": 70,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Fully Diluted Close",
+                "value": 55,
+                "percentage": 55,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Reverse vesting agreements protect enterprises against premature departures.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Common Stock",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Option Reserves",
+                "value": 85,
+                "percentage": 85,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Seed Conversions",
+                "value": 70,
+                "percentage": 70,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Fully Diluted Close",
+                "value": 55,
+                "percentage": 55,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Diamond cutting apprentices earn gems across multi-year milestones.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Common Stock",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Option Reserves",
+                "value": 85,
+                "percentage": 85,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Seed Conversions",
+                "value": 70,
+                "percentage": 70,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Fully Diluted Close",
+                "value": 55,
+                "percentage": 55,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Simulate early departure dates to observe unvested share forfeiture.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Common Stock",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Option Reserves",
+                "value": 85,
+                "percentage": 85,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Seed Conversions",
+                "value": 70,
+                "percentage": 70,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Fully Diluted Close",
+                "value": 55,
+                "percentage": 55,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Vesting Schedules, Cliff Physics & 83(b) Tax Elections Ledger Architecture",
@@ -461,7 +896,152 @@
     {
       "partTitle": "Pro-Forma Round Modeling & Circular Share Price Resolution",
       "codeHash": "84a44d1dafbf6a177c97610b7025dc3b09a764090f3137e6ca9c16281c567be4",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Pro-Forma Round Modeling & Circular Share Price Resolution Ledger Architecture",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Iterative numerical solver resolving circular series A cap tables.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Common Stock",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Option Reserves",
+                "value": 85,
+                "percentage": 85,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Seed Conversions",
+                "value": 70,
+                "percentage": 70,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Fully Diluted Close",
+                "value": 55,
+                "percentage": 55,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Simultaneous equations reconcile share price and option pool reserves.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Common Stock",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Option Reserves",
+                "value": 85,
+                "percentage": 85,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Seed Conversions",
+                "value": 70,
+                "percentage": 70,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Fully Diluted Close",
+                "value": 55,
+                "percentage": 55,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Marine balancing scales illustrate automated equilibrium convergence.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Common Stock",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Option Reserves",
+                "value": 85,
+                "percentage": 85,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Seed Conversions",
+                "value": 70,
+                "percentage": 70,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Fully Diluted Close",
+                "value": 55,
+                "percentage": 55,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Increase target pool ratios to inspect iterative price convergence.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Common Stock",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Option Reserves",
+                "value": 85,
+                "percentage": 85,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Seed Conversions",
+                "value": 70,
+                "percentage": 70,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Fully Diluted Close",
+                "value": 55,
+                "percentage": 55,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Pro-Forma Round Modeling & Circular Share Price Resolution Ledger Architecture",
@@ -612,7 +1192,152 @@
     {
       "partTitle": "Anti-Pattern Defense: The Unvested Founder Departure & Dead Equity Trap",
       "codeHash": "110bad9d6baa726bf850e8198918f1088399f3d2f759fa730617796c6bb91622",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Anti-Pattern Defense: The Unvested Founder Departure & Dead Equity Trap Ledger Architecture",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Defense against dead equity overhang and unvested founder exits.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Common Stock",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Option Reserves",
+                "value": 85,
+                "percentage": 85,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Seed Conversions",
+                "value": 70,
+                "percentage": 70,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Fully Diluted Close",
+                "value": 55,
+                "percentage": 55,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Dead equity anchors paralyze institutional venture capital financings.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Common Stock",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Option Reserves",
+                "value": 85,
+                "percentage": 85,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Seed Conversions",
+                "value": 70,
+                "percentage": 70,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Fully Diluted Close",
+                "value": 55,
+                "percentage": 55,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Expedition explorers illustrate unvested labor abandonment dilemmas.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Common Stock",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Option Reserves",
+                "value": 85,
+                "percentage": 85,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Seed Conversions",
+                "value": 70,
+                "percentage": 70,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Fully Diluted Close",
+                "value": 55,
+                "percentage": 55,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Calibrate founder tenure to observe corporate stock repurchase rights.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Common Stock",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Option Reserves",
+                "value": 85,
+                "percentage": 85,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Seed Conversions",
+                "value": 70,
+                "percentage": 70,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Fully Diluted Close",
+                "value": 55,
+                "percentage": 55,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Anti-Pattern Defense: The Unvested Founder Departure & Dead Equity Trap Ledger Architecture",

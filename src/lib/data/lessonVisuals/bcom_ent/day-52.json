@@ -8,7 +8,152 @@
     {
       "partTitle": "Anatomy of the Prospectus: SEBI ICDR Schedule VI & SEC Form S-1 Architecture",
       "codeHash": "abbe094aacc0caf8d4d786f23c4c9208442789d58803f0165e4b9b4913cd7660",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Anatomy of the Prospectus: SEBI ICDR Schedule VI & SEC Form S-1 Architecture Governance",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Prospectus filing architectures and statutory promoter contribution rules.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Prospectus Architecture",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Risk Factors",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_3",
+                "label": "Objects of Issue",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_4",
+                "label": "MD&A Metrics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Prospectus filing architectures establish public capital market disclosures.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Prospectus Architecture",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Risk Factors",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Objects of Issue",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "MD&A Metrics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Skyscrapers illustrate municipal engineering blueprints and filing structures.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Prospectus Architecture",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Risk Factors",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Objects of Issue",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "MD&A Metrics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Observe how capitalization expands and evaluate promoter contributions.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Prospectus Architecture",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Risk Factors",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Objects of Issue",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "MD&A Metrics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Anatomy of the Prospectus: SEBI ICDR Schedule VI & SEC Form S-1 Architecture Governance",
@@ -159,7 +304,152 @@
     {
       "partTitle": "Risk Factors Architecture: Internal Operational Vulnerabilities vs Macro Contagions",
       "codeHash": "db0bf9ce18bdf44e6d242f20bad30f290400e94205424a26c39ab1dbbe56f87a",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Risk Factors Architecture: Internal Operational Vulnerabilities vs Macro Contagions Governance",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Risk factors architectures across internal and external corporate hazards.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Prospectus Architecture",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Risk Factors",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_3",
+                "label": "Objects of Issue",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_4",
+                "label": "MD&A Metrics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Risk factors architectures provide statutory liability shields for issuers.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Prospectus Architecture",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Risk Factors",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Objects of Issue",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "MD&A Metrics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Offshore platforms illustrate maritime hazard manuals and risk disclosures.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Prospectus Architecture",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Risk Factors",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Objects of Issue",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "MD&A Metrics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Observe how risk severity classifications shift into mandatory disclosures.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Prospectus Architecture",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Risk Factors",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Objects of Issue",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "MD&A Metrics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Risk Factors Architecture: Internal Operational Vulnerabilities vs Macro Contagions Governance",
@@ -310,7 +600,152 @@
     {
       "partTitle": "Objects of the Issue: Fresh Issue Capital Allocation vs Offer for Sale (OFS) Dynamics",
       "codeHash": "4f44c65cdfe73c6157d98d47f6a8b91d595a22dbe94f15800328b2ccf0ad2c7a",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Objects of the Issue: Fresh Issue Capital Allocation vs Offer for Sale (OFS) Dynamics Governance",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Objects of the issue capital allocations and escrow account deployment rules.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Prospectus Architecture",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Risk Factors",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_3",
+                "label": "Objects of Issue",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_4",
+                "label": "MD&A Metrics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Objects of the issue capital allocations govern primary and secondary funds.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Prospectus Architecture",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Risk Factors",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Objects of Issue",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "MD&A Metrics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Municipal utilities illustrate infrastructure bonds and objects of the issue.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Prospectus Architecture",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Risk Factors",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Objects of Issue",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "MD&A Metrics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Observe whether capital allocation breaches statutory ceiling limits.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Prospectus Architecture",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Risk Factors",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Objects of Issue",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "MD&A Metrics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Objects of the Issue: Fresh Issue Capital Allocation vs Offer for Sale (OFS) Dynamics Governance",
@@ -461,7 +896,152 @@
     {
       "partTitle": "Management Discussion & Analysis (MD&A) & Non-GAAP Metric Reconciliations",
       "codeHash": "eebc9afe8f406c277e209a0f385ee9c3d7865dce3056c65c50d2ea797dd71049",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Management Discussion & Analysis (MD&A) & Non-GAAP Metric Reconciliations Governance",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Management discussion analysis and financial metric reconciliation standards.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Prospectus Architecture",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Risk Factors",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_3",
+                "label": "Objects of Issue",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_4",
+                "label": "MD&A Metrics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Management discussion analysis explains operational results and cash cycles.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Prospectus Architecture",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Risk Factors",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Objects of Issue",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "MD&A Metrics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Aircraft cockpits illustrate instrumentation panels and metric disclosures.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Prospectus Architecture",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Risk Factors",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Objects of Issue",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "MD&A Metrics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Observe how adjusted margins expand while maintaining reconciliation.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Prospectus Architecture",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Risk Factors",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Objects of Issue",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "MD&A Metrics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Management Discussion & Analysis (MD&A) & Non-GAAP Metric Reconciliations Governance",
@@ -612,7 +1192,152 @@
     {
       "partTitle": "Anti-Pattern Defense: The Material Omission & Prospectus Misstatement Outage",
       "codeHash": "51ed3ca956e11b4a7c5d4162598c88812a512ce5fb068f4363e7b35e28f65aa4",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Anti-Pattern Defense: The Material Omission & Prospectus Misstatement Outage Governance",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Defense against material omissions and prospectus misstatement liabilities.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Prospectus Architecture",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Risk Factors",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_3",
+                "label": "Objects of Issue",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_4",
+                "label": "MD&A Metrics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Material omissions trigger regulatory show cause notices and offer halts.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Prospectus Architecture",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Risk Factors",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Objects of Issue",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "MD&A Metrics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Aircraft manufacturers illustrate flight certification and material omissions.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Prospectus Architecture",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Risk Factors",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Objects of Issue",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "MD&A Metrics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Test automated detection of material omissions and evaluate regulatory risks.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Prospectus Architecture",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Risk Factors",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Objects of Issue",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "MD&A Metrics",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Anti-Pattern Defense: The Material Omission & Prospectus Misstatement Outage Governance",

@@ -8,7 +8,152 @@
     {
       "partTitle": "Sovereign Wealth Fund (SWF) Co-Investment Syndicates & Geopolitical Due Diligence",
       "codeHash": "616ec44e1be9a25218fab367993ea7c9faf0ec91ac78cca937e67aa1f57e24ab",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Sovereign Wealth Fund (SWF) Co-Investment Syndicates & Geopolitical Due Diligence System",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Sovereign wealth funds provide patient long term growth capital.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SWF Syndication",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Crossover Ratchet",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_3",
+                "label": "Strategic CVC",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_4",
+                "label": "Observer Governance",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Sovereign wealth fund syndicates require geopolitical due diligence.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SWF Syndication",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Crossover Ratchet",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Strategic CVC",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Observer Governance",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Geothermal drilling wellheads illustrate deep sovereign capital anchoring.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SWF Syndication",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Crossover Ratchet",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Strategic CVC",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Observer Governance",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Observe how jurisdictional clearances govern sovereign investor syndicates.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SWF Syndication",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Crossover Ratchet",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Strategic CVC",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Observer Governance",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Sovereign Wealth Fund (SWF) Co-Investment Syndicates & Geopolitical Due Diligence System",
@@ -159,7 +304,152 @@
     {
       "partTitle": "Pre-IPO Crossover Rounds, Mezzanine Rights & Downside IPO Ratchets",
       "codeHash": "f7a806f653004be93ffda565d3a107e847266ae81474ffdc7b6a98519ce0af5d",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Pre-IPO Crossover Rounds, Mezzanine Rights & Downside IPO Ratchets System",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Pre public crossover rounds bridge late stage venture growth.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SWF Syndication",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Crossover Ratchet",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_3",
+                "label": "Strategic CVC",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_4",
+                "label": "Observer Governance",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Crossover investors negotiate downside public offering protections.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SWF Syndication",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Crossover Ratchet",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Strategic CVC",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Observer Governance",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Satellite booster launch clamps reflect structured downside ratchet covenants.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SWF Syndication",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Crossover Ratchet",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Strategic CVC",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Observer Governance",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Observe how public offering strike prices govern ratchet bonus share issuances.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SWF Syndication",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Crossover Ratchet",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Strategic CVC",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Observer Governance",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Pre-IPO Crossover Rounds, Mezzanine Rights & Downside IPO Ratchets System",
@@ -310,7 +600,152 @@
     {
       "partTitle": "Strategic Corporate Venture Capital (CVC) & Commercial Alliance Covenants",
       "codeHash": "3512f43c118bc6b9679b31182f61f6b62ce0de3e324cbc37ba57fb7b19cc4241",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Strategic Corporate Venture Capital (CVC) & Commercial Alliance Covenants System",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Corporate venture capital syndicates align strategic commercial partnerships.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SWF Syndication",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Crossover Ratchet",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_3",
+                "label": "Strategic CVC",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_4",
+                "label": "Observer Governance",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Strategic corporate venture capital combines funding with commercial alliances.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SWF Syndication",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Crossover Ratchet",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Strategic CVC",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Observer Governance",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Commercial jet engine alliances mirror corporate venture partnerships.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SWF Syndication",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Crossover Ratchet",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Strategic CVC",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Observer Governance",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Observe how negotiation windows govern strategic corporate acquisitions.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SWF Syndication",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Crossover Ratchet",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Strategic CVC",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Observer Governance",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Strategic Corporate Venture Capital (CVC) & Commercial Alliance Covenants System",
@@ -461,7 +896,152 @@
     {
       "partTitle": "Information Rights, Board Observer Seats & Competitor Conflict Firewalls",
       "codeHash": "f87a55e318cfd4d0851fe7a9f42575b8f820ca4442fbdd22b58d749d49912d70",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Information Rights, Board Observer Seats & Competitor Conflict Firewalls System",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Board observer agreements balance corporate transparency with ethical screens.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SWF Syndication",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Crossover Ratchet",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_3",
+                "label": "Strategic CVC",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_4",
+                "label": "Observer Governance",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Board observer rights provide strategic visibility without director liabilities.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SWF Syndication",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Crossover Ratchet",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Strategic CVC",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Observer Governance",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Diplomatic observer missions demonstrate selective executive exclusions.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SWF Syndication",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Crossover Ratchet",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Strategic CVC",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Observer Governance",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Observe how competitor conflict firewalls exclude strategic observers.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SWF Syndication",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Crossover Ratchet",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Strategic CVC",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Observer Governance",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Information Rights, Board Observer Seats & Competitor Conflict Firewalls System",
@@ -612,7 +1192,152 @@
     {
       "partTitle": "Anti-Pattern Defense: The Crossover Ratchet Trap, CVC Strategic Lock-in & Boardroom Gridlock Outage",
       "codeHash": "f993510f78671b7a380cab9c33c9537e222d6052e0a1821ac866559b1cb975e8",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Anti-Pattern Defense: The Crossover Ratchet Trap, CVC Strategic Lock-in & Boardroom Gridlock Outage System",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Forensic covenant audits intercept toxic late stage venture agreements.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SWF Syndication",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Crossover Ratchet",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_3",
+                "label": "Strategic CVC",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_4",
+                "label": "Observer Governance",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Defective mezzanine covenants trigger severe operational catastrophe.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SWF Syndication",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Crossover Ratchet",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Strategic CVC",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Observer Governance",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Supertanker rudder jams demonstrate the disaster of conflicting covenants.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SWF Syndication",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Crossover Ratchet",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Strategic CVC",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Observer Governance",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Observe how capped ratchet protections eliminate acute governance risks.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SWF Syndication",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Crossover Ratchet",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Strategic CVC",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Observer Governance",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Anti-Pattern Defense: The Crossover Ratchet Trap, CVC Strategic Lock-in & Boardroom Gridlock Outage System",

@@ -8,7 +8,152 @@
     {
       "partTitle": "SEBI SAST Takeover Code Architecture & Mandatory Open Offer Triggers",
       "codeHash": "1103fea2780c24ba306b22fb7132bb6cf860645c34ac567f01e96c9a9980f1f3",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "SEBI SAST Takeover Code Architecture & Mandatory Open Offer Triggers System",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Takeover codes govern mandatory public open offer thresholds.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAST Open Offer",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Creeping Acquisition",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_3",
+                "label": "Hostile Defense",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_4",
+                "label": "NCLT Merger Scheme",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Substantial acquisitions trigger mandatory public open offers.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAST Open Offer",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Creeping Acquisition",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Hostile Defense",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "NCLT Merger Scheme",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Coastal citadel alarms parallel statutory mandatory open offer triggers.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAST Open Offer",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Creeping Acquisition",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Hostile Defense",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "NCLT Merger Scheme",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Observe how acquisition stakes trigger mandatory open offer obligations.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAST Open Offer",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Creeping Acquisition",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Hostile Defense",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "NCLT Merger Scheme",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "SEBI SAST Takeover Code Architecture & Mandatory Open Offer Triggers System",
@@ -159,7 +304,152 @@
     {
       "partTitle": "Creeping Acquisitions, Voluntary Open Offers & Control Threshold Governance",
       "codeHash": "659c821b6efb0355cc6d8b121eccb49dc4d82ff09c70a5d4abaabdbaa5a9f11c",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Creeping Acquisitions, Voluntary Open Offers & Control Threshold Governance System",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Creeping acquisitions allow orderly consolidation of corporate voting power.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAST Open Offer",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Creeping Acquisition",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_3",
+                "label": "Hostile Defense",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_4",
+                "label": "NCLT Merger Scheme",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Promoters consolidate voting shares within annual statutory creeping limits.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAST Open Offer",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Creeping Acquisition",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Hostile Defense",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "NCLT Merger Scheme",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Pastoral boundary rules reflect statutory creeping acquisition allowances.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAST Open Offer",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Creeping Acquisition",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Hostile Defense",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "NCLT Merger Scheme",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Observe how annual purchase thresholds govern creeping acquisition rules.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAST Open Offer",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Creeping Acquisition",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Hostile Defense",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "NCLT Merger Scheme",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Creeping Acquisitions, Voluntary Open Offers & Control Threshold Governance System",
@@ -310,7 +600,152 @@
     {
       "partTitle": "Hostile Takeover Defense: Poison Pills, White Knights, Pac-Man & Crown Jewel Architecture",
       "codeHash": "2871b3df35eeba244ce7097a451dc20c7b9594facce52fc4bec71c197e7a4ea4",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Hostile Takeover Defense: Poison Pills, White Knights, Pac-Man & Crown Jewel Architecture System",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Hostile takeover defenses protect enterprise sovereignty and continuity.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAST Open Offer",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Creeping Acquisition",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_3",
+                "label": "Hostile Defense",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_4",
+                "label": "NCLT Merger Scheme",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Corporate boards deploy structural defenses against unsolicited hostile bids.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAST Open Offer",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Creeping Acquisition",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Hostile Defense",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "NCLT Merger Scheme",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Castle counter siege defenses reflect corporate white knight alliances.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAST Open Offer",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Creeping Acquisition",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Hostile Defense",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "NCLT Merger Scheme",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Observe how competing tender offer valuations govern takeover outcomes.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAST Open Offer",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Creeping Acquisition",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Hostile Defense",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "NCLT Merger Scheme",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Hostile Takeover Defense: Poison Pills, White Knights, Pac-Man & Crown Jewel Architecture System",
@@ -461,7 +896,152 @@
     {
       "partTitle": "Scheme of Arrangement, Court-Approved Mergers & NCLT Delisting Mechanics",
       "codeHash": "c92745fba77f13d23c287560444a26c569e6f8f07228f1f7ce0f48ad194c58c3",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Scheme of Arrangement, Court-Approved Mergers & NCLT Delisting Mechanics System",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Court approved schemes of arrangement execute binding corporate mergers.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAST Open Offer",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Creeping Acquisition",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_3",
+                "label": "Hostile Defense",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_4",
+                "label": "NCLT Merger Scheme",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Statutory schemes of arrangement require dual key stakeholder approvals.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAST Open Offer",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Creeping Acquisition",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Hostile Defense",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "NCLT Merger Scheme",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Railway gauge treaties parallel dual key judicial scheme approvals.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAST Open Offer",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Creeping Acquisition",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Hostile Defense",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "NCLT Merger Scheme",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Observe how stakeholder voting tallies govern judicial scheme approvals.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAST Open Offer",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Creeping Acquisition",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Hostile Defense",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "NCLT Merger Scheme",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Scheme of Arrangement, Court-Approved Mergers & NCLT Delisting Mechanics System",
@@ -612,7 +1192,152 @@
     {
       "partTitle": "Anti-Pattern Defense: The Creeping Threshold Breach, Hostile Dawn Raid & SEBI Takeover Penalties",
       "codeHash": "a46dcc732fc7922d8d9cff9c4b18024ba9378a04626abfa0c641a87e36a5520b",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Anti-Pattern Defense: The Creeping Threshold Breach, Hostile Dawn Raid & SEBI Takeover Penalties System",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Exchange surveillance algorithms intercept stealth creeping takeovers.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAST Open Offer",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Creeping Acquisition",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_3",
+                "label": "Hostile Defense",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              },
+              {
+                "id": "stage_4",
+                "label": "NCLT Merger Scheme",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Stealth accumulation breaches trigger severe statutory financial penalties.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAST Open Offer",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Creeping Acquisition",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Hostile Defense",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "NCLT Merger Scheme",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Military radar locks mirror automated takeover surveillance systems.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAST Open Offer",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Creeping Acquisition",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Hostile Defense",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "NCLT Merger Scheme",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Observe how stealth voting accumulations trigger statutory penalties.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "SAST Open Offer",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Creeping Acquisition",
+                "value": 75,
+                "percentage": 75,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Hostile Defense",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "NCLT Merger Scheme",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Anti-Pattern Defense: The Creeping Threshold Breach, Hostile Dawn Raid & SEBI Takeover Penalties System",

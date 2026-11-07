@@ -8,7 +8,152 @@
     {
       "partTitle": "Fiduciary Duties: The Duty of Care, Duty of Loyalty & The Business Judgment Rule",
       "codeHash": "8743509fae01fc390a63c4ebc792f92bdbb1b60e98661430e0c1be2a5c7e5d3a",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Fiduciary Duties: The Duty of Care, Duty of Loyalty & The Business Judgment Rule Governance Model",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Delaware corporate governance fiduciary duty standards and safe harbors.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Board Governance",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Fiduciary Review",
+                "value": 80,
+                "percentage": 80,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Vote Gateway",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Ratification",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Directors owe fiduciary duties of care and loyalty to the corporation.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Board Governance",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Fiduciary Review",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Vote Gateway",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Ratification",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Hospital trustee boards illustrate disinterested conflict cleansing.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Board Governance",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Fiduciary Review",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Vote Gateway",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Ratification",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Observe how safe harbor fails by increasing interested directors.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Board Governance",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Fiduciary Review",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Vote Gateway",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Ratification",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Fiduciary Duties: The Duty of Care, Duty of Loyalty & The Business Judgment Rule Governance Model",
@@ -159,7 +304,152 @@
     {
       "partTitle": "Protective Provisions & Class Voting Veto Mechanics",
       "codeHash": "0d11112d231da69bf1f48188c44c152ed65a7419fc5bd4437d957f131c006e5d",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Protective Provisions & Class Voting Veto Mechanics Governance Model",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Preferred class voting protective provisions and corporate charter covenants.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Board Governance",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Fiduciary Review",
+                "value": 80,
+                "percentage": 80,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Vote Gateway",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Ratification",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Protective provisions establish an independent class veto for investors.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Board Governance",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Fiduciary Review",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Vote Gateway",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Ratification",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Penthouse deed covenants illustrate separate class veto rights.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Board Governance",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Fiduciary Review",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Vote Gateway",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Ratification",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Verify that the debt facility is legally ratified by preferred votes.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Board Governance",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Fiduciary Review",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Vote Gateway",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Ratification",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Protective Provisions & Class Voting Veto Mechanics Governance Model",
@@ -310,7 +600,152 @@
     {
       "partTitle": "Board Composition Engineering & Independent Director Deadlock Arbiters",
       "codeHash": "a5296620072d2702aa2d9681f1dd3fbe819055d2fd406ec88a088de587e752f0",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Board Composition Engineering & Independent Director Deadlock Arbiters Governance Model",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Board composition architectures and independent director deadlock resolution.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Board Governance",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Fiduciary Review",
+                "value": 80,
+                "percentage": 80,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Vote Gateway",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Ratification",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "A two-two-one board balances founder and investor representation.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Board Governance",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Fiduciary Review",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Vote Gateway",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Ratification",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Transatlantic joint ventures illustrate independent swing arbiters.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Board Governance",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Fiduciary Review",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Vote Gateway",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Ratification",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Observe how the contested corporate pivot resolution is defeated.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Board Governance",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Fiduciary Review",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Vote Gateway",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Ratification",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Board Composition Engineering & Independent Director Deadlock Arbiters Governance Model",
@@ -461,7 +896,152 @@
     {
       "partTitle": "Drag-Along & Tag-Along Voting Agreements: Minority Squeeze-Out Enforcement",
       "codeHash": "3973cccd86c076ad1ffb1310b43d13464880cc6dfacbd75169471a78d9cde452",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Drag-Along & Tag-Along Voting Agreements: Minority Squeeze-Out Enforcement Governance Model",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Investor drag along agreements and statutory appraisal rights waivers.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Board Governance",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Fiduciary Review",
+                "value": 80,
+                "percentage": 80,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Vote Gateway",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Ratification",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Drag along voting agreements eliminate minority holdout risks during sales.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Board Governance",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Fiduciary Review",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Vote Gateway",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Ratification",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Family winery mergers illustrate majority drag along enforcement.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Board Governance",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Fiduciary Review",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Vote Gateway",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Ratification",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Observe how the drag along fails leaving the transaction exposed.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Board Governance",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Fiduciary Review",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Vote Gateway",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Ratification",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Drag-Along & Tag-Along Voting Agreements: Minority Squeeze-Out Enforcement Governance Model",
@@ -612,7 +1192,152 @@
     {
       "partTitle": "Anti-Pattern Defense: The Trados Doctrine & Common Stockholder Freezeout Outage",
       "codeHash": "25a821568f732a9374945ae7bee0714386b21ea17f0ddbf81e6aa9216051c31e",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Anti-Pattern Defense: The Trados Doctrine & Common Stockholder Freezeout Outage Governance Model",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "The Trados doctrine and defense against common stockholder freezeouts.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Board Governance",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Fiduciary Review",
+                "value": 80,
+                "percentage": 80,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Vote Gateway",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Ratification",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Common stockholder freezeouts destroy residual equity in distressed sales.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Board Governance",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Fiduciary Review",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Vote Gateway",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Ratification",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Distressed cargo ships illustrate conflicting merchant priorities.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Board Governance",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Fiduciary Review",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Vote Gateway",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Ratification",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Observe how Trados fiduciary liability is successfully cleansed.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Board Governance",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Fiduciary Review",
+                "value": 80,
+                "percentage": 80,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Vote Gateway",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Ratification",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Anti-Pattern Defense: The Trados Doctrine & Common Stockholder Freezeout Outage Governance Model",

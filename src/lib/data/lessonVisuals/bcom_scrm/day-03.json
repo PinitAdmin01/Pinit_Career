@@ -10,7 +10,7 @@
       "codeHash": "ff50cba19840b7b6dd4d7b63f62d066c84919ca61bdd57bb48930dd749c1e478",
       "spec": {
         "template": "funnel",
-        "title": "Sales Pipeline Velocity Equation & Funnel Sta... — Conversion Pipeline",
+        "title": "Sales Pipeline Velocity Equation & Funnel Sta... \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
@@ -168,11 +168,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Sales Pipeline Velocity Equation & Funnel Sta... — Conversion Pipeline",
+        "title": "Sales Pipeline Velocity Equation & Funnel Sta... \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
-            "caption": "Top-of-funnel acquisition baseline (10,750 prospects).",
+            "caption": "Top-of-funnel acquisition baseline (ten,multiple prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -210,7 +210,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filter retains 45% high-intent cohort (4,838).",
+            "caption": "Qualification filter retains multiple% high-intent cohort (four,multiple).",
             "activeStageId": "qual",
             "stages": [
               {
@@ -248,7 +248,7 @@
           },
           {
             "at": "example",
-            "caption": "Active pipeline evaluation stage (1,935 engaged accounts).",
+            "caption": "Active pipeline evaluation stage (one,multiple engaged accounts).",
             "activeStageId": "target",
             "stages": [
               {
@@ -286,7 +286,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Closed-won & retained customer cohort verified (774).",
+            "caption": "Closed-won & retained customer cohort verified (multiple).",
             "activeStageId": "final",
             "stages": [
               {
@@ -330,7 +330,7 @@
       "codeHash": "ffdee0da5003c04ab49ae6c3fa2d1ec93550a4f3248b029f929b4e48aa63b624",
       "spec": {
         "template": "funnel",
-        "title": "Predictive Lead Scoring & Algorithmic Routing... — Conversion Pipeline",
+        "title": "Predictive Lead Scoring & Algorithmic Routing... \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
@@ -488,11 +488,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Predictive Lead Scoring & Algorithmic Routing... — Conversion Pipeline",
+        "title": "Predictive Lead Scoring & Algorithmic Routing... \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
-            "caption": "Top-of-funnel acquisition baseline (10,750 prospects).",
+            "caption": "Top-of-funnel acquisition baseline (ten,multiple prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -530,7 +530,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filter retains 45% high-intent cohort (4,838).",
+            "caption": "Qualification filter retains multiple% high-intent cohort (four,multiple).",
             "activeStageId": "qual",
             "stages": [
               {
@@ -568,7 +568,7 @@
           },
           {
             "at": "example",
-            "caption": "Active pipeline evaluation stage (1,935 engaged accounts).",
+            "caption": "Active pipeline evaluation stage (one,multiple engaged accounts).",
             "activeStageId": "target",
             "stages": [
               {
@@ -606,7 +606,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Closed-won & retained customer cohort verified (774).",
+            "caption": "Closed-won & retained customer cohort verified (multiple).",
             "activeStageId": "final",
             "stages": [
               {
@@ -650,7 +650,7 @@
       "codeHash": "94310ef9b21402d3b9513c6adb5be131853298f83eb947f624a26cbd7b410aa3",
       "spec": {
         "template": "funnel",
-        "title": "Multi-Touch Revenue Attribution Modeling (Lin... — Conversion Pipeline",
+        "title": "Multi-Touch Revenue Attribution Modeling (Lin... \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
@@ -808,11 +808,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Multi-Touch Revenue Attribution Modeling (Lin... — Conversion Pipeline",
+        "title": "Multi-Touch Revenue Attribution Modeling (Lin... \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
-            "caption": "Top-of-funnel acquisition baseline (10,750 prospects).",
+            "caption": "Top-of-funnel acquisition baseline (ten,multiple prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -850,7 +850,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filter retains 45% high-intent cohort (4,838).",
+            "caption": "Qualification filter retains multiple% high-intent cohort (four,multiple).",
             "activeStageId": "qual",
             "stages": [
               {
@@ -888,7 +888,7 @@
           },
           {
             "at": "example",
-            "caption": "Active pipeline evaluation stage (1,935 engaged accounts).",
+            "caption": "Active pipeline evaluation stage (one,multiple engaged accounts).",
             "activeStageId": "target",
             "stages": [
               {
@@ -926,7 +926,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Closed-won & retained customer cohort verified (774).",
+            "caption": "Closed-won & retained customer cohort verified (multiple).",
             "activeStageId": "final",
             "stages": [
               {
@@ -970,7 +970,7 @@
       "codeHash": "4158c28b5804bc9d810bbe1cac1a445a5e8ada68801741d40f786e05b30ca694",
       "spec": {
         "template": "funnel",
-        "title": "Sales Capacity Planning, AE Quota Ramp & Pipe... — Conversion Pipeline",
+        "title": "Sales Capacity Planning, AE Quota Ramp & Pipe... \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
@@ -1128,11 +1128,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Sales Capacity Planning, AE Quota Ramp & Pipe... — Conversion Pipeline",
+        "title": "Sales Capacity Planning, AE Quota Ramp & Pipe... \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
-            "caption": "Top-of-funnel acquisition baseline (10,750 prospects).",
+            "caption": "Top-of-funnel acquisition baseline (ten,multiple prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -1170,7 +1170,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filter retains 45% high-intent cohort (4,838).",
+            "caption": "Qualification filter retains multiple% high-intent cohort (four,multiple).",
             "activeStageId": "qual",
             "stages": [
               {
@@ -1208,7 +1208,7 @@
           },
           {
             "at": "example",
-            "caption": "Active pipeline evaluation stage (1,935 engaged accounts).",
+            "caption": "Active pipeline evaluation stage (one,multiple engaged accounts).",
             "activeStageId": "target",
             "stages": [
               {
@@ -1246,7 +1246,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Closed-won & retained customer cohort verified (774).",
+            "caption": "Closed-won & retained customer cohort verified (multiple).",
             "activeStageId": "final",
             "stages": [
               {
@@ -1290,7 +1290,7 @@
       "codeHash": "88ceab143fc16703d2ee2edb653a17dbcc082c7a533a5a86687f4541df93c0af",
       "spec": {
         "template": "funnel",
-        "title": "Deploy the Enterprise Sales Operations Contro... — Conversion Pipeline",
+        "title": "Deploy the Enterprise Sales Operations Contro... \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
@@ -1448,11 +1448,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Deploy the Enterprise Sales Operations Contro... — Conversion Pipeline",
+        "title": "Deploy the Enterprise Sales Operations Contro... \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
-            "caption": "Top-of-funnel acquisition baseline (10,750 prospects).",
+            "caption": "Top-of-funnel acquisition baseline (ten,multiple prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -1490,7 +1490,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filter retains 45% high-intent cohort (4,838).",
+            "caption": "Qualification filter retains multiple% high-intent cohort (four,multiple).",
             "activeStageId": "qual",
             "stages": [
               {
@@ -1528,7 +1528,7 @@
           },
           {
             "at": "example",
-            "caption": "Active pipeline evaluation stage (1,935 engaged accounts).",
+            "caption": "Active pipeline evaluation stage (one,multiple engaged accounts).",
             "activeStageId": "target",
             "stages": [
               {
@@ -1566,7 +1566,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Closed-won & retained customer cohort verified (774).",
+            "caption": "Closed-won & retained customer cohort verified (multiple).",
             "activeStageId": "final",
             "stages": [
               {

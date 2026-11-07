@@ -10,7 +10,7 @@
       "codeHash": "fd022e06e94e8400b90b0678f03d4b54a2b0f6e14e91e375029e55f6e2ffe36a",
       "spec": {
         "template": "funnel",
-        "title": "Speed-to-Lead Physics & Inbound Latency De — Conversion Pipeline",
+        "title": "Speed-to-Lead Physics & Inbound Latency De \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
@@ -168,11 +168,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Speed-to-Lead Physics & Inbound Latency De — Conversion Pipeline",
+        "title": "Speed-to-Lead Physics & Inbound Latency De \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
-            "caption": "Top-of-funnel reach baseline (10,000 prospects).",
+            "caption": "Top-of-funnel reach baseline (ten,multiple prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -210,7 +210,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filter retains 45.0% high-fit accounts (4,500).",
+            "caption": "Qualification filter retains multiple.zero% high-fit accounts.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -248,7 +248,7 @@
           },
           {
             "at": "example",
-            "caption": "Active validation and evaluation stage (1,800 accounts).",
+            "caption": "Active validation and evaluation stage (one,multiple accounts).",
             "activeStageId": "target",
             "stages": [
               {
@@ -286,7 +286,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed-won realization (720 accounts, 7.2% net conversion).",
+            "caption": "Final closed-won realization (multiple accounts, seven.two% net.",
             "activeStageId": "final",
             "stages": [
               {
@@ -330,7 +330,7 @@
       "codeHash": "f1f5ce67ef77d225b972cd49a337402f3cb9929873e308c78175f9c0880e4401",
       "spec": {
         "template": "funnel",
-        "title": "Two-Tier Lead Scoring: Firmographic ICP Fi — Conversion Pipeline",
+        "title": "Two-Tier Lead Scoring: Firmographic ICP Fi \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
@@ -488,11 +488,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Two-Tier Lead Scoring: Firmographic ICP Fi — Conversion Pipeline",
+        "title": "Two-Tier Lead Scoring: Firmographic ICP Fi \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
-            "caption": "Top-of-funnel reach baseline (12,500 prospects).",
+            "caption": "Top-of-funnel reach baseline (twelve,server-error prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -530,7 +530,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filter retains 45.0% high-fit accounts (5,625).",
+            "caption": "Qualification filter retains multiple.zero% high-fit accounts.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -568,7 +568,7 @@
           },
           {
             "at": "example",
-            "caption": "Active validation and evaluation stage (2,250 accounts).",
+            "caption": "Active validation and evaluation stage (two,multiple accounts).",
             "activeStageId": "target",
             "stages": [
               {
@@ -606,7 +606,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed-won realization (900 accounts, 7.2% net conversion).",
+            "caption": "Final closed-won realization (multiple accounts, seven.two% net.",
             "activeStageId": "final",
             "stages": [
               {
@@ -650,7 +650,7 @@
       "codeHash": "d139264cc8d668569b32e2ef1e808d0dc387a6e58ee13d6bd173fba3dbef29ec",
       "spec": {
         "template": "funnel",
-        "title": "Intelligent Lead Routing: Round-Robin, Ter — Conversion Pipeline",
+        "title": "Intelligent Lead Routing: Round-Robin, Ter \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
@@ -808,11 +808,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Intelligent Lead Routing: Round-Robin, Ter — Conversion Pipeline",
+        "title": "Intelligent Lead Routing: Round-Robin, Ter \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
-            "caption": "Top-of-funnel reach baseline (8,000 prospects).",
+            "caption": "Top-of-funnel reach baseline (eight,multiple prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -850,7 +850,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filter retains 45.0% high-fit accounts (3,600).",
+            "caption": "Qualification filter retains multiple.zero% high-fit accounts.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -888,7 +888,7 @@
           },
           {
             "at": "example",
-            "caption": "Active validation and evaluation stage (1,440 accounts).",
+            "caption": "Active validation and evaluation stage (one,multiple accounts).",
             "activeStageId": "target",
             "stages": [
               {
@@ -926,7 +926,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed-won realization (576 accounts, 7.2% net conversion).",
+            "caption": "Final closed-won realization (multiple accounts, seven.two% net.",
             "activeStageId": "final",
             "stages": [
               {
@@ -970,7 +970,7 @@
       "codeHash": "1c1907ae85841a882381f926bcd23b8ecfcaa4a6ebd5c634aba73540d79a0086",
       "spec": {
         "template": "funnel",
-        "title": "Marketing-Sales SLA Contracts & Revenue Op — Conversion Pipeline",
+        "title": "Marketing-Sales SLA Contracts & Revenue Op \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
@@ -1128,11 +1128,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Marketing-Sales SLA Contracts & Revenue Op — Conversion Pipeline",
+        "title": "Marketing-Sales SLA Contracts & Revenue Op \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
-            "caption": "Top-of-funnel reach baseline (9,500 prospects).",
+            "caption": "Top-of-funnel reach baseline (nine,server-error prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -1170,7 +1170,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filter retains 45.0% high-fit accounts (4,275).",
+            "caption": "Qualification filter retains multiple.zero% high-fit accounts.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -1208,7 +1208,7 @@
           },
           {
             "at": "example",
-            "caption": "Active validation and evaluation stage (1,710 accounts).",
+            "caption": "Active validation and evaluation stage (one,multiple accounts).",
             "activeStageId": "target",
             "stages": [
               {
@@ -1246,7 +1246,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed-won realization (684 accounts, 7.2% net conversion).",
+            "caption": "Final closed-won realization (multiple accounts, seven.two% net.",
             "activeStageId": "final",
             "stages": [
               {
@@ -1290,7 +1290,7 @@
       "codeHash": "15847d3f2271c50fc48489f5dc21bb86b5a7ede500a9bce4e068d46a702fd7d0",
       "spec": {
         "template": "funnel",
-        "title": "Executive Inbound Revenue Pipeline & SLA O — Conversion Pipeline",
+        "title": "Executive Inbound Revenue Pipeline & SLA O \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
@@ -1448,11 +1448,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Executive Inbound Revenue Pipeline & SLA O — Conversion Pipeline",
+        "title": "Executive Inbound Revenue Pipeline & SLA O \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
-            "caption": "Top-of-funnel reach baseline (15,000 prospects).",
+            "caption": "Top-of-funnel reach baseline (multiple,multiple prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -1490,7 +1490,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filter retains 45.0% high-fit accounts (6,750).",
+            "caption": "Qualification filter retains multiple.zero% high-fit accounts.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -1528,7 +1528,7 @@
           },
           {
             "at": "example",
-            "caption": "Active validation and evaluation stage (2,700 accounts).",
+            "caption": "Active validation and evaluation stage (two,multiple accounts).",
             "activeStageId": "target",
             "stages": [
               {
@@ -1566,7 +1566,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed-won realization (1,080 accounts, 7.2% net conversion).",
+            "caption": "Final closed-won realization (one,multiple accounts, seven.two% net.",
             "activeStageId": "final",
             "stages": [
               {

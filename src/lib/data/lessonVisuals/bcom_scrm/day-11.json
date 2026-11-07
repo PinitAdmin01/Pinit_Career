@@ -10,7 +10,7 @@
       "codeHash": "501e46b8dac06692d8cf62a0e221ace84e7499e583d525d8bfc2e486d1e0e0b3",
       "spec": {
         "template": "funnel",
-        "title": "Multidimensional Health Telemetry: Feature — Retention Pipeline",
+        "title": "Multidimensional Health Telemetry: Feature \u2014 Retention Pipeline",
         "steps": [
           {
             "at": "intro",
@@ -168,11 +168,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Multidimensional Health Telemetry: Feature — Retention Pipeline",
+        "title": "Multidimensional Health Telemetry: Feature \u2014 Retention Pipeline",
         "steps": [
           {
             "at": "intro",
-            "caption": "Portfolio account base (10,000 accounts).",
+            "caption": "Portfolio account base (ten,multiple accounts).",
             "activeStageId": "top",
             "stages": [
               {
@@ -210,7 +210,7 @@
           },
           {
             "at": "say1",
-            "caption": "Health qualification isolates 45.0% expansion candidates (4,500).",
+            "caption": "Health qualification isolates multiple.zero% expansion candidates.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -248,7 +248,7 @@
           },
           {
             "at": "example",
-            "caption": "Targeted whitespace cross-sell campaigns (1,800 accounts).",
+            "caption": "Targeted whitespace cross-sell campaigns (one,multiple accounts).",
             "activeStageId": "target",
             "stages": [
               {
@@ -286,7 +286,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final net retention realization (720 accounts, 7.2% net cohort yield).",
+            "caption": "Final net retention realization (multiple accounts, seven.two% net cohort.",
             "activeStageId": "final",
             "stages": [
               {
@@ -330,7 +330,7 @@
       "codeHash": "4a51c41fa74413fdd4b23b3d3102e7ea6c11cb1083e926a2883476c1f86a28fa",
       "spec": {
         "template": "funnel",
-        "title": "Operational Support Sentiment: Ticket Velo — Retention Pipeline",
+        "title": "Operational Support Sentiment: Ticket Velo \u2014 Retention Pipeline",
         "steps": [
           {
             "at": "intro",
@@ -488,11 +488,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Operational Support Sentiment: Ticket Velo — Retention Pipeline",
+        "title": "Operational Support Sentiment: Ticket Velo \u2014 Retention Pipeline",
         "steps": [
           {
             "at": "intro",
-            "caption": "Portfolio account base (12,500 accounts).",
+            "caption": "Portfolio account base (twelve,server-error accounts).",
             "activeStageId": "top",
             "stages": [
               {
@@ -530,7 +530,7 @@
           },
           {
             "at": "say1",
-            "caption": "Health qualification isolates 45.0% expansion candidates (5,625).",
+            "caption": "Health qualification isolates multiple.zero% expansion candidates.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -568,7 +568,7 @@
           },
           {
             "at": "example",
-            "caption": "Targeted whitespace cross-sell campaigns (2,250 accounts).",
+            "caption": "Targeted whitespace cross-sell campaigns (two,multiple accounts).",
             "activeStageId": "target",
             "stages": [
               {
@@ -606,7 +606,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final net retention realization (900 accounts, 7.2% net cohort yield).",
+            "caption": "Final net retention realization (multiple accounts, seven.two% net cohort.",
             "activeStageId": "final",
             "stages": [
               {
@@ -650,7 +650,7 @@
       "codeHash": "1191fdfe5adfd572f41307dd9770641c3aec8328bb6680137bd57ad150dd567e",
       "spec": {
         "template": "funnel",
-        "title": "Executive Stakeholder Sponsorship & Champi — Retention Pipeline",
+        "title": "Executive Stakeholder Sponsorship & Champi \u2014 Retention Pipeline",
         "steps": [
           {
             "at": "intro",
@@ -808,11 +808,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Executive Stakeholder Sponsorship & Champi — Retention Pipeline",
+        "title": "Executive Stakeholder Sponsorship & Champi \u2014 Retention Pipeline",
         "steps": [
           {
             "at": "intro",
-            "caption": "Portfolio account base (8,000 accounts).",
+            "caption": "Portfolio account base (eight,multiple accounts).",
             "activeStageId": "top",
             "stages": [
               {
@@ -850,7 +850,7 @@
           },
           {
             "at": "say1",
-            "caption": "Health qualification isolates 45.0% expansion candidates (3,600).",
+            "caption": "Health qualification isolates multiple.zero% expansion candidates.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -888,7 +888,7 @@
           },
           {
             "at": "example",
-            "caption": "Targeted whitespace cross-sell campaigns (1,440 accounts).",
+            "caption": "Targeted whitespace cross-sell campaigns (one,multiple accounts).",
             "activeStageId": "target",
             "stages": [
               {
@@ -926,7 +926,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final net retention realization (576 accounts, 7.2% net cohort yield).",
+            "caption": "Final net retention realization (multiple accounts, seven.two% net cohort.",
             "activeStageId": "final",
             "stages": [
               {
@@ -970,7 +970,7 @@
       "codeHash": "a9d63d4249f3203af9fae5bc903d830dc4abde0d8a8d46ce179581085af4bb35",
       "spec": {
         "template": "funnel",
-        "title": "Red Flag Early Warning Triggers & Automate — Retention Pipeline",
+        "title": "Red Flag Early Warning Triggers & Automate \u2014 Retention Pipeline",
         "steps": [
           {
             "at": "intro",
@@ -1128,11 +1128,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Red Flag Early Warning Triggers & Automate — Retention Pipeline",
+        "title": "Red Flag Early Warning Triggers & Automate \u2014 Retention Pipeline",
         "steps": [
           {
             "at": "intro",
-            "caption": "Portfolio account base (9,500 accounts).",
+            "caption": "Portfolio account base (nine,server-error accounts).",
             "activeStageId": "top",
             "stages": [
               {
@@ -1170,7 +1170,7 @@
           },
           {
             "at": "say1",
-            "caption": "Health qualification isolates 45.0% expansion candidates (4,275).",
+            "caption": "Health qualification isolates multiple.zero% expansion candidates.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -1208,7 +1208,7 @@
           },
           {
             "at": "example",
-            "caption": "Targeted whitespace cross-sell campaigns (1,710 accounts).",
+            "caption": "Targeted whitespace cross-sell campaigns (one,multiple accounts).",
             "activeStageId": "target",
             "stages": [
               {
@@ -1246,7 +1246,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final net retention realization (684 accounts, 7.2% net cohort yield).",
+            "caption": "Final net retention realization (multiple accounts, seven.two% net cohort.",
             "activeStageId": "final",
             "stages": [
               {
@@ -1290,7 +1290,7 @@
       "codeHash": "061b9b826321f1eeb833a1303b2c90f4b7cb922687811f3419d8fe38b5ea0532",
       "spec": {
         "template": "funnel",
-        "title": "Master Customer Health Score (CHS) & Churn — Retention Pipeline",
+        "title": "Master Customer Health Score (CHS) & Churn \u2014 Retention Pipeline",
         "steps": [
           {
             "at": "intro",
@@ -1448,11 +1448,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Master Customer Health Score (CHS) & Churn — Retention Pipeline",
+        "title": "Master Customer Health Score (CHS) & Churn \u2014 Retention Pipeline",
         "steps": [
           {
             "at": "intro",
-            "caption": "Portfolio account base (15,000 accounts).",
+            "caption": "Portfolio account base (multiple,multiple accounts).",
             "activeStageId": "top",
             "stages": [
               {
@@ -1490,7 +1490,7 @@
           },
           {
             "at": "say1",
-            "caption": "Health qualification isolates 45.0% expansion candidates (6,750).",
+            "caption": "Health qualification isolates multiple.zero% expansion candidates.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -1528,7 +1528,7 @@
           },
           {
             "at": "example",
-            "caption": "Targeted whitespace cross-sell campaigns (2,700 accounts).",
+            "caption": "Targeted whitespace cross-sell campaigns (two,multiple accounts).",
             "activeStageId": "target",
             "stages": [
               {
@@ -1566,7 +1566,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final net retention realization (1,080 accounts, 7.2% net cohort yield).",
+            "caption": "Final net retention realization (one,multiple accounts, seven.two% net.",
             "activeStageId": "final",
             "stages": [
               {

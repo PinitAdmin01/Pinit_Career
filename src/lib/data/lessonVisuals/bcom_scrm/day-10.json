@@ -10,7 +10,7 @@
       "codeHash": "bb1c5d30cbe9545784758add4133bd7b1c1cc84484f6725a79309299e62cafd8",
       "spec": {
         "template": "funnel",
-        "title": "The Sales Pipeline Velocity Equation & Rev — Conversion Pipeline",
+        "title": "The Sales Pipeline Velocity Equation & Rev \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
@@ -168,11 +168,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "The Sales Pipeline Velocity Equation & Rev — Conversion Pipeline",
+        "title": "The Sales Pipeline Velocity Equation & Rev \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
-            "caption": "Top-of-funnel reach baseline (10,000 prospects).",
+            "caption": "Top-of-funnel reach baseline (ten,multiple prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -210,7 +210,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filter retains 45.0% high-fit accounts (4,500).",
+            "caption": "Qualification filter retains multiple.zero% high-fit accounts.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -248,7 +248,7 @@
           },
           {
             "at": "example",
-            "caption": "Active validation and evaluation stage (1,800 accounts).",
+            "caption": "Active validation and evaluation stage (one,multiple accounts).",
             "activeStageId": "target",
             "stages": [
               {
@@ -286,7 +286,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed-won realization (720 accounts, 7.2% net conversion).",
+            "caption": "Final closed-won realization (multiple accounts, seven.two% net.",
             "activeStageId": "final",
             "stages": [
               {
@@ -330,7 +330,7 @@
       "codeHash": "6dffcbfe15482d13769f3a8388478587eaa65f1c9cf0e93ed14b7b4e4ceba460",
       "spec": {
         "template": "funnel",
-        "title": "Stage-by-Stage Conversion Funnel Telemetry — Conversion Pipeline",
+        "title": "Stage-by-Stage Conversion Funnel Telemetry \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
@@ -488,11 +488,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Stage-by-Stage Conversion Funnel Telemetry — Conversion Pipeline",
+        "title": "Stage-by-Stage Conversion Funnel Telemetry \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
-            "caption": "Top-of-funnel reach baseline (12,500 prospects).",
+            "caption": "Top-of-funnel reach baseline (twelve,server-error prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -530,7 +530,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filter retains 45.0% high-fit accounts (5,625).",
+            "caption": "Qualification filter retains multiple.zero% high-fit accounts.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -568,7 +568,7 @@
           },
           {
             "at": "example",
-            "caption": "Active validation and evaluation stage (2,250 accounts).",
+            "caption": "Active validation and evaluation stage (two,multiple accounts).",
             "activeStageId": "target",
             "stages": [
               {
@@ -606,7 +606,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed-won realization (900 accounts, 7.2% net conversion).",
+            "caption": "Final closed-won realization (multiple accounts, seven.two% net.",
             "activeStageId": "final",
             "stages": [
               {
@@ -650,7 +650,7 @@
       "codeHash": "652c86d8478f1d326a1fb41e70a5d83d464d81c55087958b54b580038881d98e",
       "spec": {
         "template": "funnel",
-        "title": "Rep Quota Capacity, Ramp Curves & Attainme — Conversion Pipeline",
+        "title": "Rep Quota Capacity, Ramp Curves & Attainme \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
@@ -808,11 +808,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Rep Quota Capacity, Ramp Curves & Attainme — Conversion Pipeline",
+        "title": "Rep Quota Capacity, Ramp Curves & Attainme \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
-            "caption": "Top-of-funnel reach baseline (8,000 prospects).",
+            "caption": "Top-of-funnel reach baseline (eight,multiple prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -850,7 +850,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filter retains 45.0% high-fit accounts (3,600).",
+            "caption": "Qualification filter retains multiple.zero% high-fit accounts.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -888,7 +888,7 @@
           },
           {
             "at": "example",
-            "caption": "Active validation and evaluation stage (1,440 accounts).",
+            "caption": "Active validation and evaluation stage (one,multiple accounts).",
             "activeStageId": "target",
             "stages": [
               {
@@ -926,7 +926,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed-won realization (576 accounts, 7.2% net conversion).",
+            "caption": "Final closed-won realization (multiple accounts, seven.two% net.",
             "activeStageId": "final",
             "stages": [
               {
@@ -970,7 +970,7 @@
       "codeHash": "abb1ae36f4d75e5931d94f2bc7216f06145db4eb87104f2fe4d4db1941aa9660",
       "spec": {
         "template": "funnel",
-        "title": "Multi-Vector Revenue Orchestration & Forec — Conversion Pipeline",
+        "title": "Multi-Vector Revenue Orchestration & Forec \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
@@ -1128,11 +1128,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Multi-Vector Revenue Orchestration & Forec — Conversion Pipeline",
+        "title": "Multi-Vector Revenue Orchestration & Forec \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
-            "caption": "Top-of-funnel reach baseline (9,500 prospects).",
+            "caption": "Top-of-funnel reach baseline (nine,server-error prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -1170,7 +1170,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filter retains 45.0% high-fit accounts (4,275).",
+            "caption": "Qualification filter retains multiple.zero% high-fit accounts.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -1208,7 +1208,7 @@
           },
           {
             "at": "example",
-            "caption": "Active validation and evaluation stage (1,710 accounts).",
+            "caption": "Active validation and evaluation stage (one,multiple accounts).",
             "activeStageId": "target",
             "stages": [
               {
@@ -1246,7 +1246,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed-won realization (684 accounts, 7.2% net conversion).",
+            "caption": "Final closed-won realization (multiple accounts, seven.two% net.",
             "activeStageId": "final",
             "stages": [
               {
@@ -1290,7 +1290,7 @@
       "codeHash": "64030d0c514b3d50e33de876bcab1d5e573594aeda4227a5dc04956761368f96",
       "spec": {
         "template": "funnel",
-        "title": "Milestone 2 Capstone: The Pipeline Velocit — Conversion Pipeline",
+        "title": "Milestone 2 Capstone: The Pipeline Velocit \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
@@ -1448,11 +1448,11 @@
       },
       "filled": {
         "template": "funnel",
-        "title": "Milestone 2 Capstone: The Pipeline Velocit — Conversion Pipeline",
+        "title": "Milestone 2 Capstone: The Pipeline Velocit \u2014 Conversion Pipeline",
         "steps": [
           {
             "at": "intro",
-            "caption": "Top-of-funnel reach baseline (15,000 prospects).",
+            "caption": "Top-of-funnel reach baseline (multiple,multiple prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -1490,7 +1490,7 @@
           },
           {
             "at": "say1",
-            "caption": "Qualification filter retains 45.0% high-fit accounts (6,750).",
+            "caption": "Qualification filter retains multiple.zero% high-fit accounts.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -1528,7 +1528,7 @@
           },
           {
             "at": "example",
-            "caption": "Active validation and evaluation stage (2,700 accounts).",
+            "caption": "Active validation and evaluation stage (two,multiple accounts).",
             "activeStageId": "target",
             "stages": [
               {
@@ -1566,7 +1566,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Final closed-won realization (1,080 accounts, 7.2% net conversion).",
+            "caption": "Final closed-won realization (one,multiple accounts, seven.two% net.",
             "activeStageId": "final",
             "stages": [
               {

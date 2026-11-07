@@ -172,7 +172,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Global pipeline evaluation (20,000 prospects).",
+            "caption": "Global pipeline evaluation (twenty,multiple prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -210,7 +210,7 @@
           },
           {
             "at": "say1",
-            "caption": "Rigorous screening qualifies 45.0% of targets (9,000).",
+            "caption": "Rigorous screening qualifies multiple.zero% of targets (nine,multiple).",
             "activeStageId": "qual",
             "stages": [
               {
@@ -248,7 +248,7 @@
           },
           {
             "at": "example",
-            "caption": "Quantitative valuation confirms (3,600 high-conviction positions).",
+            "caption": "Quantitative valuation confirms (three,multiple high-conviction positions).",
             "activeStageId": "target",
             "stages": [
               {
@@ -286,7 +286,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Sovereign execution locks capital (1,440 institutional stakeholders).",
+            "caption": "Sovereign execution locks capital (one,multiple institutional.",
             "activeStageId": "final",
             "stages": [
               {
@@ -492,7 +492,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Global pipeline evaluation (25,000 prospects).",
+            "caption": "Global pipeline evaluation (multiple,multiple prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -530,7 +530,7 @@
           },
           {
             "at": "say1",
-            "caption": "Rigorous screening qualifies 45.0% of targets (11,250).",
+            "caption": "Rigorous screening qualifies multiple.zero% of targets (eleven,multiple).",
             "activeStageId": "qual",
             "stages": [
               {
@@ -568,7 +568,7 @@
           },
           {
             "at": "example",
-            "caption": "Quantitative valuation confirms (4,500 high-conviction positions).",
+            "caption": "Quantitative valuation confirms (four,server-error high-conviction.",
             "activeStageId": "target",
             "stages": [
               {
@@ -606,7 +606,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Sovereign execution locks capital (1,800 institutional stakeholders).",
+            "caption": "Sovereign execution locks capital (one,multiple institutional.",
             "activeStageId": "final",
             "stages": [
               {
@@ -812,7 +812,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Global pipeline evaluation (18,000 prospects).",
+            "caption": "Global pipeline evaluation (multiple,multiple prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -850,7 +850,7 @@
           },
           {
             "at": "say1",
-            "caption": "Rigorous screening qualifies 45.0% of targets (8,100).",
+            "caption": "Rigorous screening qualifies multiple.zero% of targets (eight,one hundred).",
             "activeStageId": "qual",
             "stages": [
               {
@@ -888,7 +888,7 @@
           },
           {
             "at": "example",
-            "caption": "Quantitative valuation confirms (3,240 high-conviction positions).",
+            "caption": "Quantitative valuation confirms (three,multiple high-conviction positions).",
             "activeStageId": "target",
             "stages": [
               {
@@ -926,7 +926,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Sovereign execution locks capital (1,296 institutional stakeholders).",
+            "caption": "Sovereign execution locks capital (one,multiple institutional.",
             "activeStageId": "final",
             "stages": [
               {
@@ -1132,7 +1132,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Global pipeline evaluation (30,000 prospects).",
+            "caption": "Global pipeline evaluation (multiple,multiple prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -1170,7 +1170,7 @@
           },
           {
             "at": "say1",
-            "caption": "Rigorous screening qualifies 45.0% of targets (13,500).",
+            "caption": "Rigorous screening qualifies multiple.zero% of targets.",
             "activeStageId": "qual",
             "stages": [
               {
@@ -1208,7 +1208,7 @@
           },
           {
             "at": "example",
-            "caption": "Quantitative valuation confirms (5,400 high-conviction positions).",
+            "caption": "Quantitative valuation confirms (five,bad-request high-conviction.",
             "activeStageId": "target",
             "stages": [
               {
@@ -1246,7 +1246,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Sovereign execution locks capital (2,160 institutional stakeholders).",
+            "caption": "Sovereign execution locks capital (two,multiple institutional.",
             "activeStageId": "final",
             "stages": [
               {
@@ -1452,7 +1452,7 @@
         "steps": [
           {
             "at": "intro",
-            "caption": "Global pipeline evaluation (50,000 prospects).",
+            "caption": "Global pipeline evaluation (multiple,multiple prospects).",
             "activeStageId": "top",
             "stages": [
               {
@@ -1490,7 +1490,7 @@
           },
           {
             "at": "say1",
-            "caption": "Rigorous screening qualifies 50.0% of targets (25,000).",
+            "caption": "Rigorous screening qualifies multiple.zero% of targets (multiple,multiple).",
             "activeStageId": "qual",
             "stages": [
               {
@@ -1528,7 +1528,7 @@
           },
           {
             "at": "example",
-            "caption": "Quantitative valuation confirms (10,000 high-conviction positions).",
+            "caption": "Quantitative valuation confirms (ten,multiple high-conviction positions).",
             "activeStageId": "target",
             "stages": [
               {
@@ -1566,7 +1566,7 @@
           },
           {
             "at": "tryIt",
-            "caption": "Sovereign execution locks capital (4,000 institutional stakeholders).",
+            "caption": "Sovereign execution locks capital (four,multiple institutional.",
             "activeStageId": "final",
             "stages": [
               {

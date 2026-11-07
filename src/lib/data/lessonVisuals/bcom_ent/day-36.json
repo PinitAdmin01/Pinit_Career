@@ -8,7 +8,152 @@
     {
       "partTitle": "Term Sheet Structure & The Senior Secured Amortization Engine",
       "codeHash": "20fd9a1937ca77a94116597f94c7503d2897c14bd38b3fff5e5dd89f6a2c5505",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Term Sheet Structure & The Senior Secured Amortization Engine Debt Engineering",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Venture debt facility structure and amortization repayment lifecycle.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Facility",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Only",
+                "value": 85,
+                "percentage": 85,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Amortization",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Loan Maturity",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Venture loans provide growth capital without immediate equity dilution.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Facility",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Only",
+                "value": 85,
+                "percentage": 85,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Amortization",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Loan Maturity",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Commercial airline fleet expansions illustrate debt leverage mechanics.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Facility",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Only",
+                "value": 85,
+                "percentage": 85,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Amortization",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Loan Maturity",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Extend interest periods to calculate additional financing charges.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Facility",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Only",
+                "value": 85,
+                "percentage": 85,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Amortization",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Loan Maturity",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Term Sheet Structure & The Senior Secured Amortization Engine Debt Engineering",
@@ -159,7 +304,152 @@
     {
       "partTitle": "Warrant Coverage Calculus & Effective Equity Dilution",
       "codeHash": "dfbfde9277a359040e6971f16e888eb13012ba7a93e51d63cbb0f8986bc3b384",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Warrant Coverage Calculus & Effective Equity Dilution Debt Engineering",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Warrant coverage percentage calculus and equity upside participation.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Facility",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Only",
+                "value": 85,
+                "percentage": 85,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Amortization",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Loan Maturity",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Warrant coverage grants lenders long-term equity purchase rights.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Facility",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Only",
+                "value": 85,
+                "percentage": 85,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Amortization",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Loan Maturity",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Residential lease coupons illustrate commercial upside participation.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Facility",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Only",
+                "value": 85,
+                "percentage": 85,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Amortization",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Loan Maturity",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Adjust warrant coverage ratios to evaluate total share issuances.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Facility",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Only",
+                "value": 85,
+                "percentage": 85,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Amortization",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Loan Maturity",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Warrant Coverage Calculus & Effective Equity Dilution Debt Engineering",
@@ -310,7 +600,152 @@
     {
       "partTitle": "Financial Covenants, Cash Floors & The Borrowing Base Formula",
       "codeHash": "84de832d2488ca4766f02536de2f04f66efa5f2a3ea0e8da3b284c0616644d5c",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Financial Covenants, Cash Floors & The Borrowing Base Formula Debt Engineering",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Financial covenant monitoring and borrowing base calculation models.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Facility",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Only",
+                "value": 85,
+                "percentage": 85,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Amortization",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Loan Maturity",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Liquidity covenants mandate minimum cash reserves in operating accounts.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Facility",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Only",
+                "value": 85,
+                "percentage": 85,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Amortization",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Loan Maturity",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Scuba diving pressure gauges illustrate reserve safety thresholds.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Facility",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Only",
+                "value": 85,
+                "percentage": 85,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Amortization",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Loan Maturity",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Increase monthly cash burn rates to observe covenant breach warnings.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Facility",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Only",
+                "value": 85,
+                "percentage": 85,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Amortization",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Loan Maturity",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Financial Covenants, Cash Floors & The Borrowing Base Formula Debt Engineering",
@@ -461,7 +896,152 @@
     {
       "partTitle": "UCC-1 Article 9 Blanket Liens vs IP Negative Pledges",
       "codeHash": "dd43b0cb4f8fa8390b5e2c5d85e6d1ee9fe4c507d2fbde047a6af78be706f3da",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "UCC-1 Article 9 Blanket Liens vs IP Negative Pledges Debt Engineering",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Uniform commercial code blanket liens and negative pledge covenants.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Facility",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Only",
+                "value": 85,
+                "percentage": 85,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Amortization",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Loan Maturity",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Negative pledges prevent third-party liens on proprietary software code.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Facility",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Only",
+                "value": 85,
+                "percentage": 85,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Amortization",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Loan Maturity",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Commercial publishers preserve author copyright ownership during loans.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Facility",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Only",
+                "value": 85,
+                "percentage": 85,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Amortization",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Loan Maturity",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Observe how the lender forecloses on proprietary software code.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Facility",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Only",
+                "value": 85,
+                "percentage": 85,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Amortization",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Loan Maturity",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "UCC-1 Article 9 Blanket Liens vs IP Negative Pledges Debt Engineering",
@@ -612,7 +1192,152 @@
     {
       "partTitle": "Anti-Pattern Defense: The Venture Debt Death Spiral & Foreclosure Outage",
       "codeHash": "74c4d98e2305415cb48f3c8be61e0a16b36f1ad054d3d3c8417689a08656a6e0",
-      "filled": {},
+      "filled": {
+        "template": "funnel",
+        "title": "Anti-Pattern Defense: The Venture Debt Death Spiral & Foreclosure Outage Debt Engineering",
+        "steps": [
+          {
+            "at": "intro",
+            "caption": "Defense against debt death spirals and technical default sweeps.",
+            "activeStageId": "stage_1",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Facility",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Only",
+                "value": 85,
+                "percentage": 85,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_3",
+                "label": "Amortization",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Loan Maturity",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "say1",
+            "caption": "Venture debt can transform into a lethal weapon during market downturns.",
+            "activeStageId": "stage_2",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Facility",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Only",
+                "value": 85,
+                "percentage": 85,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Amortization",
+                "value": 50,
+                "percentage": 50,
+                "tone": "ok"
+              },
+              {
+                "id": "stage_4",
+                "label": "Loan Maturity",
+                "value": 0,
+                "percentage": 0,
+                "tone": "idle"
+              }
+            ]
+          },
+          {
+            "at": "example",
+            "caption": "Mountaineering expeditions illustrate heavy borrowed gear burdens.",
+            "activeStageId": "stage_3",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Facility",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Only",
+                "value": 85,
+                "percentage": 85,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Amortization",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Loan Maturity",
+                "value": 0,
+                "percentage": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "tryIt",
+            "caption": "Model initial cash reserves to evaluate survival runway duration.",
+            "activeStageId": "stage_4",
+            "stages": [
+              {
+                "id": "stage_1",
+                "label": "Debt Facility",
+                "value": 100,
+                "percentage": 100,
+                "tone": "data"
+              },
+              {
+                "id": "stage_2",
+                "label": "Interest Only",
+                "value": 85,
+                "percentage": 85,
+                "tone": "data"
+              },
+              {
+                "id": "stage_3",
+                "label": "Amortization",
+                "value": 50,
+                "percentage": 50,
+                "tone": "data"
+              },
+              {
+                "id": "stage_4",
+                "label": "Loan Maturity",
+                "value": 0,
+                "percentage": 0,
+                "tone": "data"
+              }
+            ]
+          }
+        ]
+      },
       "spec": {
         "template": "funnel",
         "title": "Anti-Pattern Defense: The Venture Debt Death Spiral & Foreclosure Outage Debt Engineering",
