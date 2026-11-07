@@ -201,3 +201,33 @@ test('ADVERSARIAL 11: PinIT ID validation under boundary attacks', () => {
     assert.strictEqual(val.valid, true, `ID "${id}" must be accepted as valid`);
   }
 });
+
+test('ADVERSARIAL 12: Option 2 Spatial & Locality Invariants (The Adarsh Model, Ashok Nagar, Gow Recognised, Aanyadas)', () => {
+  const cards = [
+    {
+      name: 'Adarsh Model School card',
+      text: 'THE ADARSH MODEL\nSENIOR SECONDARY SCHOOL\nCLASS: X\nROLL: 231',
+    },
+    {
+      name: 'Ashok Nagar Locality card',
+      text: 'ST. XAVIER SCHOOL\nAshok Nagar, New Delhi\nContact: 9812345675',
+    },
+    {
+      name: 'Govt Recognised school header',
+      text: 'Gow. Recognised\nSchool Name\nSession: 2023-24\nRoll: 861',
+    },
+    {
+      name: 'Sunrise Public School low-res noise',
+      text: 'SUNRISE PUBLIC SCHOOL\nAanyadas Ig Ii\nPh: 9999999266',
+    },
+  ];
+
+  for (const c of cards) {
+    const res = parseCollegeCardFromText(c.text);
+    assert.strictEqual(
+      res.studentName,
+      '',
+      `Card "${c.name}" must NOT accept address/header/noise as student name (got "${res.studentName}")`
+    );
+  }
+});

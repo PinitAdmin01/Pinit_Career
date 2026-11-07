@@ -428,7 +428,7 @@ export function parseCollegeCardFromText(
         .replace(/[^A-Za-z\s.]/g, ' ')
         .trim();
       const words = cleanCandidate.split(/\s+/).filter(Boolean);
-      const isForbidden = /(?:college|institute|university|polytechnic|school|management|autonomous|approved|affiliated|recognized|address|cross|road|street|temple|near|behind|ph|phone|mobile|cell|contact|call|tel|help|email|www|http|valid|issued|expiry|expires|exp|date|birth|blood|group|roll|reg|usn|principal|signature|dean|director|teacher|lecturer|professor|instructor|staff|hod|head\s*of|officer|guard|assistant|librarian|employee|holder|\bstudent\b|\bcandidate\b|identity\s*card|father|mother|parent|guardian|husband|course|branch|dept|department|oepsriment|faculty|discipline|\bsem\b|\bsemester\b|\byear\b|\bclass\b|\bsec\b|\bsection\b|\bdiv\b|\bdivision\b|\bbatch\b|\bsession\b|bba|bca|btech|be|mba|mca|bcom|mbbs|llb|\bnurse\b|nursing|finance|f\/hr)/i.test(cleanCandidate);
+      const isForbidden = /(?:college|institute|university|polytechnic|school|academy|vidyalaya|vidyapeeth|shishu|mandir|kendra|management|autonomous|approved|affiliated|recogni[sz]ed?|accredited|society|trust|foundation|mission|parishad|sangh|board|cbse|icse|state\s*board|council|education|educational|government|govt|gow|state|national|international|public|model|senior|secondary|primary|grammar|campus|office|admin|admission|address|nagar|road|street|cross|lane|gali|mohalla|colony|vihar|sector|layout|complex|building|opp|opposite|near|behind|beside|dist|district|post|pin|pincode|taluk|tehsil|state|city|india|ph|phone|mobile|cell|contact|tel|emergency|help|email|www|http|website|web|valid|issued|issue|expiry|expires|exp|date|birth|dob|blood|group|roll|reg|usn|idno|card|identity|student|candidate|father|mother|parent|guardian|husband|teacher|lecturer|professor|instructor|staff|hod|principal|headmaster|headmistress|director|dean|officer|guard|assistant|librarian|employee|holder|signature|sign|course|branch|dept|department|oepsriment|faculty|discipline|semester|sem|year|class|sec|section|div|division|batch|session|bba|bca|btech|be|mba|mca|bcom|mbbs|llb|\bnurse\b|\bnursing\b|finance|f\/hr)/i.test(cleanCandidate);
 
       if (!isForbidden && words.length >= 1 && words.length <= 4 && cleanCandidate.length >= 3) {
         studentName = cleanCandidate;
@@ -437,22 +437,33 @@ export function parseCollegeCardFromText(
     }
   }
 
-  // Pattern D: Scored candidate line search
+  // Pattern D: Scored candidate line search with Strict Spatial Zoning & Locality Filtering
   if (!studentName) {
     interface Candidate {
       line: string;
       score: number;
     }
     const candidates: Candidate[] = [];
-    const isForbidden = /(?:college|institute|university|polytechnic|school|management|autonomous|approved|affiliated|recognized|address|cross|road|street|temple|near|behind|ph|phone|mobile|cell|contact|call|tel|help|email|www|http|valid|issued|expiry|expires|exp|date|birth|blood|group|roll|reg|usn|principal|signature|dean|director|teacher|lecturer|professor|instructor|staff|hod|head\s*of|officer|guard|assistant|librarian|employee|holder|\bstudent\b|\bcandidate\b|identity\s*card|father|mother|parent|guardian|husband|course|branch|dept|department|oepsriment|faculty|discipline|\bsem\b|\bsemester\b|\byear\b|\bclass\b|\bsec\b|\bsection\b|\bdiv\b|\bdivision\b|\bbatch\b|\bsession\b|bba|bca|btech|be|mba|mca|bcom|mbbs|llb|\bnurse\b|nursing|finance|f\/hr)/i;
+    const isForbidden = /(?:college|institute|university|polytechnic|school|academy|vidyalaya|vidyapeeth|shishu|mandir|kendra|management|autonomous|approved|affiliated|recogni[sz]ed?|accredited|society|trust|foundation|mission|parishad|sangh|board|cbse|icse|state\s*board|council|education|educational|government|govt|gow|state|national|international|public|model|senior|secondary|primary|grammar|campus|office|admin|admission|address|nagar|road|street|cross|lane|gali|mohalla|colony|vihar|sector|layout|complex|building|opp|opposite|near|behind|beside|dist|district|post|pin|pincode|taluk|tehsil|state|city|india|ph|phone|mobile|cell|contact|call|out|tel|emergency|help|email|www|http|website|web|valid|issued|issue|expiry|expires|exp|date|birth|dob|blood|group|roll|reg|usn|idno|card|identity|student|candidate|father|mother|parent|guardian|husband|teacher|lecturer|professor|instructor|staff|hod|principal|headmaster|headmistress|director|dean|officer|guard|assistant|librarian|employee|holder|signature|sign|course|branch|dept|department|oepsriment|faculty|discipline|semester|sem|year|class|sec|section|div|division|batch|session|bba|bca|btech|be|mba|mca|bcom|mbbs|llb|\bnurse\b|\bnursing\b|finance|f\/hr)/i;
+
+    const totalLines = rawLines.length;
+    // Spatial Zoning: Header cutoff (top 28%) and Footer cutoff (bottom 28%)
+    const headerCutoff = Math.max(2, Math.floor(totalLines * 0.28));
+    const footerCutoff = Math.max(headerCutoff + 1, Math.floor(totalLines * 0.72));
 
     for (let i = 0; i < rawLines.length; i++) {
       const l = rawLines[i];
       if (isBoilerplateInstruction(l)) continue;
       if (/@|\.com\b|\.org\b|\.edu\b|\.net\b|\.in\b|www\.|lorem|ipsum|dolor/i.test(l)) continue;
       if (isForbidden.test(l)) continue;
-      // In all ID cards, student name is NEVER positioned above or at the college header
+
+      // In all ID cards, unlabeled student name is NEVER positioned in the institution header zone
       if (collegeLineIdx !== -1 && i <= collegeLineIdx) continue;
+      if (collegeLineIdx === -1 && i < headerCutoff && totalLines >= 4) continue;
+
+      // In all ID cards, unlabeled student name is NEVER in the footer address / validity zone unless followed by credentials
+      const isPrecedingCredentials = i + 1 < rawLines.length && /(?:roll|reg|usn|idno|id\s*no|dno|dob|class|course|branch|dept)/i.test(rawLines[i + 1]);
+      if (i >= footerCutoff && totalLines >= 8 && !isPrecedingCredentials) continue;
 
       let clean = l
         .replace(/<[^>]*>/g, ' ')
@@ -481,21 +492,32 @@ export function parseCollegeCardFromText(
 
       // Reject if all words are tiny 1-2 letter syllables (e.g. "E EE", "ef es", "re ni")
       if (words.every(w => w.length <= 2)) continue;
+      // In multi-word names, reject if 2 or more words are tiny <= 2 letter tokens without initials dot (e.g. "Aanyadas Ig Ii", "Class 1g II")
+      const shortNonInitials = words.filter(w => w.length <= 2 && !w.includes('.'));
+      if (shortNonInitials.length >= 2) continue;
       // Must have at least 1 word with >= 4 letters (e.g. Vinay, Arjun, Seema, Dewangan, Abel, Smith)
       if (!words.some(w => w.length >= 4)) continue;
       if (words.length > 4 || clean.length < 3 || clean.length > 32) continue;
 
       let score = 0;
       if (words.length === 2 || words.length === 3) score += 40;
-      if (clean === clean.toUpperCase()) score += 20;
+      // All-caps OR Proper Title Case (+20)
+      if (clean === clean.toUpperCase() || words.every(w => /^[A-Z][a-z]*/.test(w))) score += 20;
       if (deptLineIdx !== -1 && i < deptLineIdx) score += 30;
+      // Bonus if directly adjacent to roll / reg / class line (+25)
+      if (i + 1 < rawLines.length && /(?:roll|reg|usn|idno|id\s*no|class|dob)/i.test(rawLines[i + 1])) {
+        score += 25;
+      }
 
       candidates.push({ line: clean, score });
     }
 
     if (candidates.length > 0) {
       candidates.sort((a, b) => b.score - a.score);
-      studentName = candidates[0].line;
+      // High-Confidence Threshold: Must score >= 60 to be accepted, otherwise flag as not detected
+      if (candidates[0].score >= 60) {
+        studentName = candidates[0].line;
+      }
     }
   }
 
