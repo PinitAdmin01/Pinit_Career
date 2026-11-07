@@ -18,11 +18,13 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'INVALID_JSON', message: 'Invalid JSON body' }, { status: 400 });
   }
 
-  const submission = String(body.submission || body.text || '').trim();
-  const scenarioTitle = String(body.scenario || 'Production System Outage').trim();
-  const track = String(body.track || 'Engineering / Tech').trim();
-  const situation = String(body.situation || '').trim();
-  const prompt = String(body.prompt || '').trim();
+  const rawSubmission = String(body.submission || body.text || '').trim();
+  // Strip malicious HTML/script tags and clamp to safe max length (3,000 chars)
+  const submission = rawSubmission.replace(/<[^>]*>?/gm, '').slice(0, 3000).trim();
+  const scenarioTitle = String(body.scenario || 'Production System Outage').trim().slice(0, 200);
+  const track = String(body.track || 'Engineering / Tech').trim().slice(0, 100);
+  const situation = String(body.situation || '').trim().slice(0, 500);
+  const prompt = String(body.prompt || '').trim().slice(0, 500);
 
   if (!submission) {
     return NextResponse.json({ error: 'EMPTY_SUBMISSION', message: 'Submission text is required.' }, { status: 400 });

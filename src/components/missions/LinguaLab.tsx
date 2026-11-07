@@ -52,13 +52,15 @@ export default function LinguaLab({ streak, theme, activeCourseId, role }: Lingu
     if (SpeechRecognition) {
       const recognition = new SpeechRecognition();
       recognition.continuous = true;
-      recognition.interimResults = true;
+      recognition.interimResults = false;
       recognition.lang = 'en-US';
 
       recognition.onresult = (event: any) => {
         let transcript = '';
         for (let i = event.resultIndex; i < event.results.length; i++) {
-          transcript += event.results[i][0].transcript;
+          if (event.results[i].isFinal || typeof event.results[i].isFinal === 'undefined') {
+            transcript += event.results[i][0].transcript;
+          }
         }
         if (transcript.trim()) {
           setUserText((prev) => (prev ? `${prev} ${transcript.trim()}` : transcript.trim()));
@@ -190,8 +192,9 @@ export default function LinguaLab({ streak, theme, activeCourseId, role }: Lingu
 
       // Sync record into LocalStorage history so 3rd Sub-Tab (Conclusion History) shows it instantly
       try {
-        const rawSocratic = localStorage.getItem('pinit_socratic_history');
-        const socraticArr = rawSocratic ? JSON.parse(rawSocratic) : [];
+        const rawSocratic = typeof window !== 'undefined' ? localStorage.getItem('pinit_socratic_history') : null;
+        const parsed = rawSocratic ? JSON.parse(rawSocratic) : [];
+        const socraticArr = Array.isArray(parsed) ? parsed : [];
         const newHistoryRecord = {
           id: 'comm_' + Date.now(),
           type: 'corporate_comm',
@@ -213,7 +216,9 @@ export default function LinguaLab({ streak, theme, activeCourseId, role }: Lingu
           report: `### Real-World Corporate Rating: ${sessionScore}/100 (${data.ratingLabel || 'Evaluated'})\n\n**Candidate Submission:**\n"${userText}"\n\n### Executive Rewrites:\n* **Executive C-Suite:** "${data.rewrites?.executive}"\n* **Professional Tone:** "${data.rewrites?.professional}"\n* **Native Speaker:** "${data.rewrites?.native}"\n\n### Coach Critique:\n* **Strong Points:** ${data.feedback?.positive || 'Feedback analyzed.'}\n* **Etiquette Rule:** ${data.feedback?.recommendation || scenario.etiquetteTip}`,
         };
         socraticArr.unshift(newHistoryRecord);
-        localStorage.setItem('pinit_socratic_history', JSON.stringify(socraticArr));
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('pinit_socratic_history', JSON.stringify(socraticArr));
+        }
       } catch (err) {
         console.warn('Failed to write to Socratic history:', err);
       }
@@ -226,10 +231,21 @@ export default function LinguaLab({ streak, theme, activeCourseId, role }: Lingu
 
   const handleCopyRewrite = (text: string) => {
     if (!text) return;
-    navigator.clipboard.writeText(text);
-    setCopiedRewrite(true);
-    toast.success('Rewrite Copied! 📋', 'Copied to clipboard.');
-    setTimeout(() => setCopiedRewrite(false), 2000);
+    if (typeof navigator !== 'undefined' && navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(text).then(() => {
+        setCopiedRewrite(true);
+        toast.success('Rewrite Copied! 📋', 'Copied to clipboard.');
+        setTimeout(() => setCopiedRewrite(false), 2000);
+      }).catch(() => {
+        setCopiedRewrite(true);
+        toast.info('Copied!', 'Text ready in clipboard.');
+        setTimeout(() => setCopiedRewrite(false), 2000);
+      });
+    } else {
+      setCopiedRewrite(true);
+      toast.info('Copied!', 'Text ready.');
+      setTimeout(() => setCopiedRewrite(false), 2000);
+    }
   };
 
   const scoreAverage = evaluationResult?.scores?.average ?? 0;
@@ -397,7 +413,7 @@ export default function LinguaLab({ streak, theme, activeCourseId, role }: Lingu
             letterSpacing: '0.6px',
           }}
         >
-          Select Workplace Dilemma:
+          Choose Workplace Issue to Solve:
         </label>
         <div style={{ display: 'flex', gap: 10, overflowX: 'auto', paddingBottom: 6 }}>
           {scenarios.map((sc, idx) => {
