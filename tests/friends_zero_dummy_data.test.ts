@@ -30,4 +30,19 @@ test('Task 1: Friends Hub Zero Dummy Data & Role Isolation Audit', async (t) => 
     assert.strictEqual(idRoute.includes('mockStudent = (db.mockStudents || [])'), false, 'Must not fallback to mockStudents on [id]');
     assert.ok(idRoute.includes("error: 'NOT_FOUND'"), 'Must return 404 when student not found');
   });
+
+  await t.test('5. Task 2: Suggestions, Search, and [id] routes have zero fallback dummy skills', () => {
+    assert.strictEqual(suggestionsRoute.includes("['Problem Solving', 'Engineering']"), false, 'Must not fallback to Problem Solving in suggestions');
+    assert.strictEqual(suggestionsRoute.includes("['React', 'TypeScript', 'Node.js']"), false, 'Must not fallback to React/TypeScript in suggestions');
+    assert.strictEqual(searchRoute.includes("['React', 'TypeScript', 'Node.js']"), false, 'Must not fallback to React/TypeScript in search');
+    assert.strictEqual(idRoute.includes("['React', 'TypeScript', 'Node.js', 'System Design']"), false, 'Must not fallback to mock skills in [id]');
+  });
+
+  await t.test('6. Task 2: Purged "Nearby Campus" from matching engine and suggested peer cards', () => {
+    const matchingLib = fs.readFileSync(path.join(__dirname, '../src/lib/friends/matching.ts'), 'utf8');
+    const friendsPage = fs.readFileSync(path.join(__dirname, '../src/app/friends/page.tsx'), 'utf8');
+
+    assert.strictEqual(matchingLib.includes('📍 Nearby Campus:'), false, 'matching.ts must not output Nearby Campus');
+    assert.strictEqual(friendsPage.includes('className="suggested-match-reason"'), false, 'Suggested peer card must not render match reason line');
+  });
 });

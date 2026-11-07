@@ -117,16 +117,23 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
       }
 
       const ob = user.onboarding_answers || {};
-      const rawSkills = Array.isArray(user.skill_tags) && user.skill_tags.length > 0
+      const rawSkills: any[] = Array.isArray(user.skill_tags) && user.skill_tags.length > 0
         ? user.skill_tags
-        : (typeof ob.skills === 'string'
-            ? ob.skills.split(',').map((s: string) => s.trim().replace(/^Skills:\s*/i, ''))
-            : ['React', 'TypeScript', 'Node.js', 'System Design']);
+        : (typeof ob.skills === 'string' && ob.skills.trim().length > 0
+            ? [ob.skills]
+            : []);
 
+      // Sanitize skills: strip "Skills:" prefix, split on comma/semicolon/newline (preserve Next.js, Node.js)
       const cleanSkills = rawSkills
-        .flatMap((s: string) => s.split(/[,.]/))
-        .map((s: string) => s.trim())
-        .filter((s: string) => s.length > 1 && s.length < 30)
+        .flatMap((item: any) => {
+          if (typeof item !== 'string') return [];
+          return item
+            .replace(/^skills?[\s:-]+/i, '')
+            .split(/[,;\n]+/)
+            .map((s: string) => s.replace(/^skills?[\s:-]+/i, '').trim())
+            .filter((s: string) => s.length > 1 && s.length < 35);
+        })
+        .filter((s: string, idx: number, arr: string[]) => arr.indexOf(s) === idx)
         .slice(0, 8);
 
       const name = user.display_name || user.username || 'Student Peer';

@@ -112,16 +112,23 @@ export async function GET(req: NextRequest) {
             })
             .map(u => {
               const ob = u.onboarding_answers || {};
-              const rawSkills = Array.isArray(u.skill_tags) && u.skill_tags.length > 0
+              const rawSkills: any[] = Array.isArray(u.skill_tags) && u.skill_tags.length > 0
                 ? u.skill_tags
-                : (typeof ob.skills === 'string'
-                    ? ob.skills.split(',').map((s: string) => s.trim().replace(/^Skills:\s*/i, ''))
-                    : ['React', 'TypeScript', 'Node.js']);
+                : (typeof ob.skills === 'string' && ob.skills.trim().length > 0
+                    ? [ob.skills]
+                    : []);
 
+              // Sanitize skills: strip "Skills:" prefix, split on comma/semicolon/newline (preserve Next.js, Node.js)
               const cleanSkills = rawSkills
-                .flatMap((s: string) => s.split(/[,.]/))
-                .map((s: string) => s.trim())
-                .filter((s: string) => s.length > 1 && s.length < 25)
+                .flatMap((item: any) => {
+                  if (typeof item !== 'string') return [];
+                  return item
+                    .replace(/^skills?[\s:-]+/i, '')
+                    .split(/[,;\n]+/)
+                    .map((s: string) => s.replace(/^skills?[\s:-]+/i, '').trim())
+                    .filter((s: string) => s.length > 1 && s.length < 35);
+                })
+                .filter((s: string, idx: number, arr: string[]) => arr.indexOf(s) === idx)
                 .slice(0, 4);
 
               const collegeName = ob.education ? ob.education.split('(')[0].trim() : 'Campus Student';
@@ -135,7 +142,7 @@ export async function GET(req: NextRequest) {
                 avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + encodeURIComponent(name),
                 college: collegeName,
                 course: courseName,
-                skills: cleanSkills.length > 0 ? cleanSkills : ['Problem Solving', 'Engineering'],
+                skills: cleanSkills, // ZERO DUMMY SKILLS: If user has no skills, return empty array []
                 careerGoal: u.career_goal || u.target_role || ob.role || 'Aspiring Professional',
                 online: true,
                 careerScore: u.career_dna_score || 0,

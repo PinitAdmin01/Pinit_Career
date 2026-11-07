@@ -88,7 +88,7 @@ export const StudentCard: React.FC<StudentCardProps> = ({
       </div>
 
       <div className="friends-card-body">
-        {student.matchReason && (
+        {student.matchReason && !student.matchReason.includes('Nearby Campus') && (
           <div className="match-reason-badge" style={{ marginBottom: 10 }}>
             <span>{student.matchReason}</span>
           </div>
@@ -96,20 +96,21 @@ export const StudentCard: React.FC<StudentCardProps> = ({
 
         {student.careerGoal && (
           <div className="friends-career-goal">
-            
             <div>
               <strong>Target:</strong> {student.careerGoal}
             </div>
           </div>
         )}
 
-        <div className="friends-skills-list">
-          {student.skills.slice(0, 4).map((skill, idx) => (
-            <span key={idx} className="friends-skill-pill match-highlight">
-              {skill}
-            </span>
-          ))}
-          {student.skills.length > 4 && (
+        <div className="friends-skills-list" style={{ minHeight: 28 }}>
+          {Array.isArray(student.skills) && student.skills.length > 0
+            ? student.skills.slice(0, 4).map((skill, idx) => (
+                <span key={idx} className="friends-skill-pill match-highlight">
+                  {skill.replace(/^skills?[\s:-]+/i, '')}
+                </span>
+              ))
+            : null}
+          {Array.isArray(student.skills) && student.skills.length > 4 && (
             <span className="friends-skill-pill">+{student.skills.length - 4}</span>
           )}
         </div>

@@ -389,19 +389,25 @@ export const FriendProfileDrawer: React.FC<FriendProfileDrawerProps> = ({
             <div className="drawer-section">
               <div className="drawer-section-heading">Skill Mastery Ledger</div>
               <div className="drawer-section-card" style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                {(student.skills || []).map((skill, idx) => (
-                  <div key={idx} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <span className="drawer-skill-name">{skill}</span>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <div className="drawer-skill-bar-track">
-                        <div style={{ width: `${80 + (idx * 5) % 20}%`, height: '100%', background: 'linear-gradient(90deg, #6366f1, #38bdf8)' }} />
+                {(!student.skills || student.skills.length === 0) ? (
+                  <span style={{ fontSize: 13, color: 'var(--text-muted, #94a3b8)', fontStyle: 'italic' }}>
+                    No technical competencies listed.
+                  </span>
+                ) : (
+                  student.skills.map((skill, idx) => (
+                    <div key={idx} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                      <span className="drawer-skill-name">{skill.replace(/^skills?[\s:-]+/i, '')}</span>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                        <div className="drawer-skill-bar-track">
+                          <div style={{ width: `${80 + (idx * 5) % 20}%`, height: '100%', background: 'linear-gradient(90deg, #6366f1, #38bdf8)' }} />
+                        </div>
+                        <span className="drawer-skill-val">
+                          {80 + ((idx * 5) % 20)}%
+                        </span>
                       </div>
-                      <span className="drawer-skill-val">
-                        {80 + ((idx * 5) % 20)}%
-                      </span>
                     </div>
-                  </div>
-                ))}
+                  ))
+                )}
               </div>
             </div>
           )}

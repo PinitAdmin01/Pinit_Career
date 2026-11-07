@@ -408,15 +408,20 @@ export default function StudentProfilePage() {
       {activeTab === 'skills' && (
         <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 16, padding: 24 }}>
           <h3 style={{ fontSize: 16.5, fontWeight: 800, color: 'var(--t1)', margin: '0 0 16px' }}>Demonstrated Technical Competencies</h3>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
-            {student.skills.map((skill, i) => (
-              <div key={i} style={{ background: 'rgba(99, 102, 241, 0.12)', border: '1px solid rgba(129, 140, 248, 0.3)', borderRadius: 10, padding: '8px 16px', display: 'flex', alignItems: 'center', gap: 8 }}>
-                
-                <span style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--t1)' }}>{skill}</span>
-                <span style={{ fontSize: 11, background: '#22c55e', color: '#000', padding: '1px 5px', borderRadius: 4, fontWeight: 800 }}>VERIFIED</span>
-              </div>
-            ))}
-          </div>
+          {student.skills.length > 0 ? (
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
+              {student.skills.map((skill, i) => (
+                <div key={i} style={{ background: 'rgba(99, 102, 241, 0.12)', border: '1px solid rgba(129, 140, 248, 0.3)', borderRadius: 10, padding: '8px 16px', display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <span style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--t1)' }}>{skill}</span>
+                  <span style={{ fontSize: 11, background: '#22c55e', color: '#000', padding: '1px 5px', borderRadius: 4, fontWeight: 800 }}>VERIFIED</span>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div style={{ color: 'var(--t3)', fontSize: 14.5, fontStyle: 'italic', padding: '8px 0' }}>
+              No technical competencies specified.
+            </div>
+          )}
         </div>
       )}
 
