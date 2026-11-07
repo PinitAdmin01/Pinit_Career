@@ -257,7 +257,12 @@ function MissionsPageInner() {
             hasCompletedAnyMission={hasCompletedAnyMission}
           />
         ) : activeTab === 'language' ? (
-          <MissionsLinguaLabWrapper streak={missionOnlyStreak} theme={theme} />
+          <MissionsLinguaLabWrapper
+            streak={missionOnlyStreak}
+            theme={theme}
+            activeCourseId={cOS.activeCourseId}
+            role={onboardingAnswers?.role}
+          />
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
             {selectedHistoryRecord ? (

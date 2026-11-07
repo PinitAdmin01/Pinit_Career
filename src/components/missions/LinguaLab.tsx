@@ -1,68 +1,27 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { api } from '@/lib/api/client';
 import { toast } from '@/lib/store/useAppStore';
 import { useCareerOS } from '@/lib/context/CareerOSContext';
 import { stopSpeaking } from '@/lib/tts';
+import {
+  DYNAMIC_SCENARIO_CATALOG,
+  CommunicationScenario,
+  getScenariosForContext,
+} from '@/lib/missions/communicationScenarios';
 
 interface LinguaLabProps {
   streak: number;
   theme: any;
+  activeCourseId?: string;
+  role?: string;
 }
 
-// Real-world corporate situations faced in actual tech & business jobs
-const REAL_WORLD_SCENARIOS = [
-  {
-    id: 'outage',
-    title: '🚨 Production System Outage',
-    role: 'Engineering / Tech',
-    badge: 'Critical Incident',
-    situation: 'The primary database collapsed during peak traffic. Your Tech Lead and Manager want an immediate status update on Slack.',
-    prompt: 'How would you inform your lead about what went wrong, what you are doing to fix it, and when service will be restored?',
-    placeholder: 'e.g. Hi team, we experienced a DB connection pool exhaustion at 2 PM. I have initiated a rollback and hotfix deployment...'
-  },
-  {
-    id: 'delay',
-    title: '⏳ Project Deadline & Scope Delay',
-    role: 'Product / Management',
-    badge: 'Timeline Risk',
-    situation: 'You realized a key API requirement was missing, making it impossible to finish the sprint deliverables by Friday.',
-    prompt: 'How would you communicate this delay to your Product Manager while maintaining confidence and offering realistic solutions?',
-    placeholder: 'e.g. Hi Sarah, due to an unannounced API schema update, completing feature X by Friday will risk code instability. I recommend...'
-  },
-  {
-    id: 'pr_review',
-    title: '💬 Code Review / PR Pushback',
-    role: 'Software Developer',
-    badge: 'Technical Debate',
-    situation: 'A Senior Architect left harsh feedback on your Pull Request, calling your nested loop design inefficient.',
-    prompt: 'How do you respond professionally without taking it personally, explaining your initial constraints while accepting valid feedback?',
-    placeholder: 'e.g. Thanks for reviewing the PR! I used nested loops due to legacy payload format constraints, but I agree a hash map lookup is better...'
-  },
-  {
-    id: 'client_apology',
-    title: '🤝 Client Escalation & SLA Breach',
-    role: 'Client / Business Advisory',
-    badge: 'Executive Advisory',
-    situation: 'An enterprise client is furious because your software was offline for 3 hours during their business pitch.',
-    prompt: 'Draft an email to the client CEO explaining the issue, taking ownership without making weak excuses, and reassuring them of SLA terms.',
-    placeholder: 'e.g. Dear Mark, I am writing to sincerely apologize for the service disruption today. Our infrastructure team identified the root cause...'
-  },
-  {
-    id: 'negotiation',
-    title: '💼 Salary & Level Negotiation',
-    role: 'Career Readiness',
-    badge: 'Offer Negotiation',
-    situation: 'The recruiter offered $80,000 for a role, but based on market data and your technical skills, your target is $95,000.',
-    prompt: 'How do you professionally counter-offer via email or call without sounding greedy or risking the job offer?',
-    placeholder: 'e.g. Thank you for extending this offer! I am very excited about joining the team. Based on my experience with cloud architecture...'
-  }
-];
-
-export default function LinguaLab({ streak, theme }: LinguaLabProps) {
+export default function LinguaLab({ streak, theme, activeCourseId, role }: LinguaLabProps) {
   const { onboardingAnswers, setOnboarding, addXp, earnPins } = useCareerOS();
 
+  const [domainFilter, setDomainFilter] = useState<'all' | 'tech' | 'product' | 'client' | 'commerce' | 'career'>('all');
   const [selectedScenarioIdx, setSelectedScenarioIdx] = useState(0);
   const [userText, setUserText] = useState('');
   const [isEvaluating, setIsEvaluating] = useState(false);
@@ -70,45 +29,104 @@ export default function LinguaLab({ streak, theme }: LinguaLabProps) {
   const [activeRewriteTab, setActiveRewriteTab] = useState<'executive' | 'professional' | 'native'>('executive');
   const [copiedRewrite, setCopiedRewrite] = useState(false);
 
-  // Dictation Recording simulation
-  const [isRecording, setIsRecording] = useState(false);
-  const [recordingTimer, setRecordingTimer] = useState(3);
-  const recordingIntervalRef = useRef<any>(null);
+  // Real Web Speech API Dictation
+  const [isListening, setIsListening] = useState(false);
+  const recognitionRef = useRef<any>(null);
 
-  const scenario = REAL_WORLD_SCENARIOS[selectedScenarioIdx];
+  // Dynamically resolve scenarios matching course and domain filter
+  const scenarios = useMemo(() => {
+    return getScenariosForContext(activeCourseId || onboardingAnswers?.activeCourseId, domainFilter);
+  }, [activeCourseId, onboardingAnswers?.activeCourseId, domainFilter]);
 
-  const handleStartDictation = () => {
-    setIsRecording(true);
-    setRecordingTimer(3);
-    recordingIntervalRef.current = setInterval(() => {
-      setRecordingTimer((prev) => {
-        if (prev <= 1) {
-          clearInterval(recordingIntervalRef.current);
-          setIsRecording(false);
-          const realWorldVoiceSamples: Record<string, string> = {
-            outage: "Basically, the server crashed because of DB locks around 2 PM. I did a quick rollback and we are deploying the hotfix right now.",
-            delay: "Hi Sarah, actually we hit a blocker with the third-party API. I think we need to delay the sprint release by two days to ensure stability.",
-            pr_review: "Thanks for checking my code. Basically, I wrote nested loops because of the old schema, but I can refactor it to a hash map lookup today.",
-            client_apology: "Dear Mark, I am writing to apologize for the downtime today. Our team fixed the issue and we are upgrading our failover servers.",
-            negotiation: "Thank you for the offer letter! I am excited about the role. Based on my cloud certification and market standards, I was hoping for $95k."
-          };
-          setUserText(realWorldVoiceSamples[scenario.id] || realWorldVoiceSamples.outage);
-          toast.success("Voice dictation transcribed!");
-          return 0;
+  // Keep scenario index in bounds
+  const safeIdx = Math.min(selectedScenarioIdx, scenarios.length - 1);
+  const scenario: CommunicationScenario = scenarios[safeIdx] || DYNAMIC_SCENARIO_CATALOG[0];
+
+  // Initialize SpeechRecognition on mount
+  useEffect(() => {
+    const SpeechRecognition =
+      typeof window !== 'undefined'
+        ? (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition
+        : null;
+
+    if (SpeechRecognition) {
+      const recognition = new SpeechRecognition();
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.lang = 'en-US';
+
+      recognition.onresult = (event: any) => {
+        let transcript = '';
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          transcript += event.results[i][0].transcript;
         }
-        return prev - 1;
-      });
-    }, 1000);
+        if (transcript.trim()) {
+          setUserText((prev) => (prev ? `${prev} ${transcript.trim()}` : transcript.trim()));
+        }
+      };
+
+      recognition.onerror = (err: any) => {
+        console.warn('SpeechRecognition error:', err?.error);
+        setIsListening(false);
+        if (err?.error === 'not-allowed') {
+          toast.error('Microphone Denied', 'Please grant microphone access to dictate your response.');
+        }
+      };
+
+      recognition.onend = () => {
+        setIsListening(false);
+      };
+
+      recognitionRef.current = recognition;
+    }
+
+    return () => {
+      if (recognitionRef.current) {
+        try {
+          recognitionRef.current.abort();
+        } catch {}
+      }
+    };
+  }, []);
+
+  const toggleSpeechRecognition = () => {
+    if (!recognitionRef.current) {
+      toast.error('Browser Unsupported', 'Web Speech recognition is not supported in this browser. Please type your response.');
+      return;
+    }
+
+    if (isListening) {
+      recognitionRef.current.stop();
+      setIsListening(false);
+      toast.success('Voice dictation saved!');
+    } else {
+      try {
+        recognitionRef.current.start();
+        setIsListening(true);
+        toast.info('Listening...', 'Speak clearly into your microphone.');
+      } catch (err) {
+        console.warn('Recognition start failed:', err);
+      }
+    }
   };
 
-  useEffect(() => {
-    return () => clearInterval(recordingIntervalRef.current);
-  }, []);
+  const handleNextRandomScenario = () => {
+    stopSpeaking();
+    setUserText('');
+    setEvaluationResult(null);
+    const nextIdx = (safeIdx + 1) % scenarios.length;
+    setSelectedScenarioIdx(nextIdx);
+  };
 
   const handleEvaluateCorporateComm = async () => {
     if (!userText.trim()) {
-      toast.error("Input Required", "Please type or speak your response first.");
+      toast.error('Input Required', 'Please type or dictate your response first.');
       return;
+    }
+
+    if (isListening && recognitionRef.current) {
+      recognitionRef.current.stop();
+      setIsListening(false);
     }
 
     setIsEvaluating(true);
@@ -119,47 +137,55 @@ export default function LinguaLab({ streak, theme }: LinguaLabProps) {
       const data = await api.post<any>('/api/communication/evaluate', {
         submission: userText,
         scenario: scenario.title,
+        situation: scenario.situation,
+        prompt: scenario.prompt,
         category: 'speaking',
-        difficulty: 'Corporate',
-        track: scenario.role
+        difficulty: scenario.difficulty,
+        track: scenario.role,
       });
 
       setEvaluationResult(data);
-      toast.success("Corporate Evaluation Complete! 💼", "+50 XP & +10 Pins awarded.");
 
-      // Reward XP & Pins
-      addXp(50, "Real-World Corporate Communication Session");
-      earnPins('communication_session', 10, "Corporate Communication Practice");
+      const sessionScore = data.scores?.average ?? 70;
+      const isDeflective = data.ratingLabel?.includes('Deflective');
 
-      const sessionScore = data.scores?.average || 85;
+      if (isDeflective) {
+        toast.warning('Unprofessional Communication', 'Evasive responses damage executive credibility. Review the coach critique.');
+      } else {
+        toast.success('Corporate Evaluation Complete! 💼', '+50 XP & +10 Pins awarded.');
+        addXp(50, 'Real-World Corporate Communication Session');
+        earnPins('communication_session', 10, 'Corporate Communication Practice');
+      }
 
-      // ── Supabase & Context Data Persistence ──
-      const history = onboardingAnswers.communication_history || [];
+      // Save to CareerOS context history
+      const history = onboardingAnswers?.communication_history || [];
       const newSession = {
         id: `sess_${Date.now()}`,
         scenario: scenario.title,
         category: 'speaking' as const,
         score: sessionScore,
-        timestamp: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
+        timestamp: new Date().toLocaleDateString('en-US', {
+          month: 'short',
+          day: 'numeric',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+        }),
         userSubmission: userText,
         scores: data.scores,
         rewrites: data.rewrites,
-        feedback: data.feedback
+        feedback: data.feedback,
       };
 
       const updatedHistory = [newSession, ...history];
-      const latestTen = updatedHistory.slice(0, 10);
-      const movingAvgScore = Math.round(latestTen.reduce((sum, item) => sum + item.score, 0) / latestTen.length);
-
-      // Save to CareerOS context
       setOnboarding({
         ...onboardingAnswers,
-        communication_history: updatedHistory
+        communication_history: updatedHistory,
       });
 
       // Patch score to Supabase database profile
       api.patch('/api/auth/profile', {
-        communication_score: movingAvgScore
+        communication_score: sessionScore,
       }).catch(() => {});
 
       // Sync record into LocalStorage history so 3rd Sub-Tab (Conclusion History) shows it instantly
@@ -170,24 +196,29 @@ export default function LinguaLab({ streak, theme }: LinguaLabProps) {
           id: 'comm_' + Date.now(),
           type: 'corporate_comm',
           title: `Corporate Comm: ${scenario.title}`,
-          date: new Date().toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
+          date: new Date().toLocaleDateString(undefined, {
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+          }),
           avatar: 'priya',
           avatarName: 'Ms. Priya (Comm Coach)',
-          qt2Delta: sessionScore >= 85 ? 5 : 2,
-          mindsetArchetype: 'Corporate Diplomat',
+          qt2Delta: sessionScore >= 85 ? 5 : sessionScore >= 60 ? 2 : -2,
+          mindsetArchetype: isDeflective ? 'Reactive Escapist' : sessionScore >= 85 ? 'Executive Diplomat' : 'Emerging Communicator',
           score: sessionScore,
           userSubmission: userText,
           rewrites: data.rewrites,
-          report: `### Real-World Corporate Rating: ${sessionScore}/100\n\n**Candidate Submission:**\n"${userText}"\n\n### Executive Rewrites:\n* **Executive Level:** "${data.rewrites?.executive}"\n* **Professional Tone:** "${data.rewrites?.professional}"\n* **Native Speaker:** "${data.rewrites?.native}"\n\n### Feedback & Rules:\n* **Strong Points:** ${data.feedback?.positive || 'Good direct ownership.'}\n* **Workplace Tip:** ${data.feedback?.recommendation || 'Eliminate filler words to project authority.'}`
+          report: `### Real-World Corporate Rating: ${sessionScore}/100 (${data.ratingLabel || 'Evaluated'})\n\n**Candidate Submission:**\n"${userText}"\n\n### Executive Rewrites:\n* **Executive C-Suite:** "${data.rewrites?.executive}"\n* **Professional Tone:** "${data.rewrites?.professional}"\n* **Native Speaker:** "${data.rewrites?.native}"\n\n### Coach Critique:\n* **Strong Points:** ${data.feedback?.positive || 'Feedback analyzed.'}\n* **Etiquette Rule:** ${data.feedback?.recommendation || scenario.etiquetteTip}`,
         };
         socraticArr.unshift(newHistoryRecord);
         localStorage.setItem('pinit_socratic_history', JSON.stringify(socraticArr));
       } catch (err) {
-        console.warn("Failed to write to Socratic history:", err);
+        console.warn('Failed to write to Socratic history:', err);
       }
-
     } catch (err: any) {
-      toast.error("Evaluation Failed", err.message || "Could not evaluate corporate communication.");
+      toast.error('Evaluation Failed', err.message || 'Could not evaluate corporate communication.');
     } finally {
       setIsEvaluating(false);
     }
@@ -197,49 +228,76 @@ export default function LinguaLab({ streak, theme }: LinguaLabProps) {
     if (!text) return;
     navigator.clipboard.writeText(text);
     setCopiedRewrite(true);
-    toast.success("Rewrite Copied! 📋", "Copied Executive Rewrite to clipboard.");
+    toast.success('Rewrite Copied! 📋', 'Copied to clipboard.');
     setTimeout(() => setCopiedRewrite(false), 2000);
   };
 
+  const scoreAverage = evaluationResult?.scores?.average ?? 0;
+  const scoreColor =
+    scoreAverage >= 85 ? 'var(--teal)' : scoreAverage >= 70 ? 'var(--accent)' : scoreAverage >= 50 ? 'var(--amber)' : 'var(--red)';
+
   return (
-    <div style={{
-      background: theme.bgCard,
-      border: `1.5px solid ${theme.border}`,
-      borderRadius: 24,
-      padding: '28px',
-      boxShadow: 'var(--shadow-lg)',
-      display: 'flex',
-      flexDirection: 'column',
-      gap: 22,
-      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
-    }} className="animate-fade-in">
-      
-      {/* Header Banner */}
-      <div style={{
+    <div
+      style={{
+        background: theme.bgCard,
+        border: `1.5px solid ${theme.border}`,
+        borderRadius: 24,
+        padding: '28px',
+        boxShadow: 'var(--shadow-lg)',
         display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        borderBottom: `1px solid ${theme.border}`,
-        paddingBottom: 16,
-        flexWrap: 'wrap',
-        gap: 12
-      }}>
+        flexDirection: 'column',
+        gap: 22,
+        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+      }}
+      className="animate-fade-in"
+    >
+      {/* Header Banner */}
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          borderBottom: `1px solid ${theme.border}`,
+          paddingBottom: 16,
+          flexWrap: 'wrap',
+          gap: 12,
+        }}
+      >
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span style={{
-              fontSize: 11,
-              fontFamily: 'var(--font-mono)',
-              fontWeight: 800,
-              color: 'var(--accent)',
-              letterSpacing: '1px',
-              textTransform: 'uppercase',
-              background: 'rgba(var(--brand-rgb), 0.1)',
-              padding: '3px 9px',
-              borderRadius: 6,
-              border: '1px solid rgba(var(--brand-rgb), 0.2)'
-            }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+            <span
+              style={{
+                fontSize: 11,
+                fontFamily: 'var(--font-mono)',
+                fontWeight: 800,
+                color: 'var(--accent)',
+                letterSpacing: '1px',
+                textTransform: 'uppercase',
+                background: 'rgba(var(--brand-rgb), 0.1)',
+                padding: '3px 9px',
+                borderRadius: 6,
+                border: '1px solid rgba(var(--brand-rgb), 0.2)',
+              }}
+            >
               ✨ Real-World Corporate Communication Lab
             </span>
+            {activeCourseId && (
+              <span
+                style={{
+                  fontSize: 10.5,
+                  fontFamily: 'var(--font-mono)',
+                  fontWeight: 800,
+                  color: 'var(--teal)',
+                  background: 'rgba(20,184,166,0.1)',
+                  padding: '3px 8px',
+                  borderRadius: 6,
+                  border: '1px solid rgba(20,184,166,0.25)',
+                  textTransform: 'uppercase',
+                }}
+              >
+                Track: {activeCourseId}
+              </span>
+            )}
           </div>
           <h2 style={{ fontSize: 22, fontWeight: 900, color: theme.tPrimary, margin: '6px 0 0', fontFamily: 'var(--font-display)' }}>
             Workplace Communication Simulator 🎙️
@@ -247,16 +305,18 @@ export default function LinguaLab({ streak, theme }: LinguaLabProps) {
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <div style={{
-            background: 'linear-gradient(135deg, rgba(var(--warning-rgb), 0.1) 0%, rgba(var(--warning-rgb), 0.03) 100%)',
-            border: '1px solid rgba(var(--warning-rgb), 0.25)',
-            padding: '8px 16px',
-            borderRadius: 12,
-            display: 'flex',
-            alignItems: 'center',
-            gap: 8,
-            boxShadow: '0 2px 8px rgba(var(--warning-rgb), 0.1)'
-          }}>
+          <div
+            style={{
+              background: 'linear-gradient(135deg, rgba(var(--warning-rgb), 0.1) 0%, rgba(var(--warning-rgb), 0.03) 100%)',
+              border: '1px solid rgba(var(--warning-rgb), 0.25)',
+              padding: '8px 16px',
+              borderRadius: 12,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              boxShadow: '0 2px 8px rgba(var(--warning-rgb), 0.1)',
+            }}
+          >
             <span style={{ fontSize: 17.5 }}>🔥</span>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <span style={{ fontSize: 10, fontFamily: 'var(--font-mono)', color: 'var(--amber)', fontWeight: 800 }}>STREAK</span>
@@ -266,14 +326,82 @@ export default function LinguaLab({ streak, theme }: LinguaLabProps) {
         </div>
       </div>
 
-      {/* Real-World Scenario Pills */}
+      {/* Domain Category Filter Tabs & Next Scenario Button */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
+        <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+          {[
+            { id: 'all', label: '🌐 All' },
+            { id: 'tech', label: '💻 Tech & Engineering' },
+            { id: 'product', label: '⏱️ Scope & Delivery' },
+            { id: 'client', label: '🤝 Stakeholders' },
+            { id: 'commerce', label: '📊 Commerce & Audit' },
+            { id: 'career', label: '💼 Career & Growth' },
+          ].map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => {
+                setDomainFilter(cat.id as any);
+                setSelectedScenarioIdx(0);
+                setUserText('');
+                setEvaluationResult(null);
+              }}
+              style={{
+                padding: '6px 12px',
+                borderRadius: 10,
+                border: `1px solid ${domainFilter === cat.id ? 'var(--accent)' : theme.border}`,
+                background: domainFilter === cat.id ? 'rgba(var(--brand-rgb), 0.14)' : theme.bgInside,
+                color: domainFilter === cat.id ? 'var(--accent)' : theme.tSecondary,
+                fontSize: 12,
+                fontWeight: 700,
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+              }}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
+
+        <button
+          onClick={handleNextRandomScenario}
+          style={{
+            background: 'rgba(20,184,166,0.1)',
+            border: '1px solid rgba(20,184,166,0.25)',
+            color: 'var(--teal)',
+            padding: '7px 14px',
+            borderRadius: 10,
+            fontSize: 12.5,
+            fontWeight: 800,
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 6,
+          }}
+        >
+          <span>🎲 Next Scenario</span>
+          <span style={{ fontSize: 11, opacity: 0.7 }}>({safeIdx + 1}/{scenarios.length})</span>
+        </button>
+      </div>
+
+      {/* Dynamic Scenario Carousel Pills */}
       <div>
-        <label style={{ fontSize: 11.5, fontWeight: 800, textTransform: 'uppercase', color: theme.tTertiary, fontFamily: 'var(--font-mono)', display: 'block', marginBottom: 10, letterSpacing: '0.6px' }}>
-          Choose Workplace Issue to Solve:
+        <label
+          style={{
+            fontSize: 11.5,
+            fontWeight: 800,
+            textTransform: 'uppercase',
+            color: theme.tTertiary,
+            fontFamily: 'var(--font-mono)',
+            display: 'block',
+            marginBottom: 10,
+            letterSpacing: '0.6px',
+          }}
+        >
+          Select Workplace Dilemma:
         </label>
         <div style={{ display: 'flex', gap: 10, overflowX: 'auto', paddingBottom: 6 }}>
-          {REAL_WORLD_SCENARIOS.map((sc, idx) => {
-            const isSelected = selectedScenarioIdx === idx;
+          {scenarios.map((sc, idx) => {
+            const isSelected = safeIdx === idx;
             return (
               <button
                 key={sc.id}
@@ -287,14 +415,16 @@ export default function LinguaLab({ streak, theme }: LinguaLabProps) {
                   padding: '10px 16px',
                   borderRadius: 14,
                   border: `1.5px solid ${isSelected ? 'var(--accent)' : theme.border}`,
-                  background: isSelected ? 'linear-gradient(135deg, rgba(var(--brand-rgb), 0.12) 0%, rgba(var(--brand-rgb), 0.04) 100%)' : theme.bgInside,
+                  background: isSelected
+                    ? 'linear-gradient(135deg, rgba(var(--brand-rgb), 0.12) 0%, rgba(var(--brand-rgb), 0.04) 100%)'
+                    : theme.bgInside,
                   color: isSelected ? 'var(--accent)' : theme.tSecondary,
                   fontSize: 13,
                   fontWeight: isSelected ? 800 : 600,
                   cursor: 'pointer',
                   whiteSpace: 'nowrap',
                   boxShadow: isSelected ? '0 4px 12px rgba(var(--brand-rgb), 0.15)' : 'none',
-                  transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)'
+                  transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
                 }}
               >
                 {sc.title}
@@ -305,42 +435,83 @@ export default function LinguaLab({ streak, theme }: LinguaLabProps) {
       </div>
 
       {/* Active Situation Glassmorphic Card */}
-      <div style={{
-        background: theme.bgInside,
-        border: `1.5px solid ${theme.border}`,
-        borderRadius: 18,
-        padding: 20,
-        boxShadow: 'var(--shadow-sm)',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 10
-      }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--accent)', fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.8px' }}>
-            Domain Context: {scenario.role}
-          </span>
-          <span style={{ fontSize: 10.5, fontWeight: 800, background: 'rgba(var(--accent-teal-rgb), 0.1)', color: 'var(--teal)', border: '1px solid rgba(var(--accent-teal-rgb), 0.2)', padding: '2px 8px', borderRadius: 6, fontFamily: 'var(--font-mono)' }}>
+      <div
+        style={{
+          background: theme.bgInside,
+          border: `1.5px solid ${theme.border}`,
+          borderRadius: 18,
+          padding: 20,
+          boxShadow: 'var(--shadow-sm)',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 10,
+        }}
+      >
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <span
+              style={{
+                fontSize: 11,
+                fontWeight: 800,
+                color: 'var(--accent)',
+                fontFamily: 'var(--font-mono)',
+                textTransform: 'uppercase',
+                letterSpacing: '0.8px',
+              }}
+            >
+              Domain Context: {scenario.role}
+            </span>
+            <span
+              style={{
+                fontSize: 10,
+                fontWeight: 800,
+                color: theme.tTertiary,
+                fontFamily: 'var(--font-mono)',
+                border: `1px solid ${theme.border}`,
+                padding: '2px 6px',
+                borderRadius: 4,
+              }}
+            >
+              {scenario.difficulty}
+            </span>
+          </div>
+          <span
+            style={{
+              fontSize: 10.5,
+              fontWeight: 800,
+              background: 'rgba(var(--accent-teal-rgb), 0.1)',
+              color: 'var(--teal)',
+              border: '1px solid rgba(var(--accent-teal-rgb), 0.2)',
+              padding: '2px 8px',
+              borderRadius: 6,
+              fontFamily: 'var(--font-mono)',
+            }}
+          >
             {scenario.badge}
           </span>
         </div>
         <h3 style={{ fontSize: 17.5, fontWeight: 800, color: theme.tPrimary, margin: 0 }}>{scenario.title}</h3>
         <p style={{ fontSize: 14.5, color: theme.tSecondary, margin: 0, lineHeight: 1.55 }}>{scenario.situation}</p>
-        
-        <div style={{
-          fontSize: 14,
-          fontWeight: 700,
-          color: 'var(--teal)',
-          background: 'rgba(var(--accent-teal-rgb), 0.06)',
-          padding: '10px 14px',
-          borderRadius: 12,
-          border: '1px solid rgba(var(--accent-teal-rgb), 0.18)',
-          marginTop: 4,
-          display: 'flex',
-          alignItems: 'center',
-          gap: 6
-        }}>
+
+        <div
+          style={{
+            fontSize: 14,
+            fontWeight: 700,
+            color: 'var(--teal)',
+            background: 'rgba(var(--accent-teal-rgb), 0.06)',
+            padding: '10px 14px',
+            borderRadius: 12,
+            border: '1px solid rgba(var(--accent-teal-rgb), 0.18)',
+            marginTop: 4,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 6,
+          }}
+        >
           <span>👉</span>
-          <span><strong>Your Objective:</strong> {scenario.prompt}</span>
+          <span>
+            <strong>Your Objective:</strong> {scenario.prompt}
+          </span>
         </div>
       </div>
 
@@ -352,12 +523,11 @@ export default function LinguaLab({ streak, theme }: LinguaLabProps) {
           </label>
 
           <button
-            onClick={handleStartDictation}
-            disabled={isRecording}
+            onClick={toggleSpeechRecognition}
             style={{
-              background: 'rgba(var(--brand-rgb), 0.06)',
-              border: '1px solid rgba(var(--brand-rgb), 0.2)',
-              color: isRecording ? 'var(--red)' : 'var(--accent)',
+              background: isListening ? 'rgba(239, 68, 68, 0.12)' : 'rgba(var(--brand-rgb), 0.06)',
+              border: `1px solid ${isListening ? 'var(--red)' : 'rgba(var(--brand-rgb), 0.2)'}`,
+              color: isListening ? 'var(--red)' : 'var(--accent)',
               fontSize: 12.5,
               fontWeight: 800,
               padding: '6px 14px',
@@ -366,16 +536,37 @@ export default function LinguaLab({ streak, theme }: LinguaLabProps) {
               display: 'flex',
               alignItems: 'center',
               gap: 6,
-              transition: 'all 0.2s'
+              transition: 'all 0.2s',
             }}
           >
-            🎙️ {isRecording ? `Recording... (${recordingTimer}s)` : 'Speak Your Answer (Voice Dictation)'}
+            🎙️ {isListening ? 'Listening (Click to Stop)' : 'Speak Your Answer (Voice Dictation)'}
           </button>
         </div>
 
-        {isRecording && (
-          <div style={{ background: 'rgba(var(--danger-rgb), 0.06)', border: '1px solid rgba(var(--danger-rgb), 0.2)', borderRadius: 14, padding: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12 }}>
-            <span style={{ fontSize: 12.5, fontWeight: 800, color: 'var(--red)', fontFamily: 'var(--font-mono)' }}>🔴 AUDIO WAVE TRANSCRIPTION ACTIVE</span>
+        {isListening && (
+          <div
+            style={{
+              background: 'rgba(239, 68, 68, 0.08)',
+              border: '1px solid rgba(239, 68, 68, 0.25)',
+              borderRadius: 14,
+              padding: 12,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 12,
+            }}
+          >
+            <span
+              style={{
+                fontSize: 12.5,
+                fontWeight: 800,
+                color: 'var(--red)',
+                fontFamily: 'var(--font-mono)',
+                animation: 'pulse 1.5s infinite',
+              }}
+            >
+              🔴 MICROPHONE STREAMING ACTIVE — SPEAK FREELY
+            </span>
           </div>
         )}
 
@@ -396,7 +587,7 @@ export default function LinguaLab({ streak, theme }: LinguaLabProps) {
             resize: 'vertical',
             lineHeight: 1.6,
             boxSizing: 'border-box',
-            fontFamily: 'inherit'
+            fontFamily: 'inherit',
           }}
         />
       </div>
@@ -420,43 +611,100 @@ export default function LinguaLab({ streak, theme }: LinguaLabProps) {
           alignItems: 'center',
           justifyContent: 'center',
           gap: 10,
-          transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)'
+          transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
         }}
       >
-        {isEvaluating ? '🤖 Analyzing Real-World Impact & Generating Executive Rewrites...' : '💼 Check Corporate Communication & Get Executive Rewrites ➔'}
+        {isEvaluating
+          ? '🤖 Analyzing Real-World Impact & Generating Executive Rewrites...'
+          : '💼 Check Corporate Communication & Get Executive Rewrites ➔'}
       </button>
 
       {/* AI Evaluation Results Card */}
       {evaluationResult && (
-        <div style={{
-          background: 'linear-gradient(135deg, rgba(var(--accent-teal-rgb), 0.04) 0%, rgba(var(--brand-rgb), 0.02) 100%)',
-          border: '1.5px solid rgba(var(--accent-teal-rgb), 0.22)',
-          borderRadius: 20,
-          padding: 24,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 20,
-          boxShadow: 'var(--shadow-md)'
-        }} className="animate-fade-in">
-          
+        <div
+          style={{
+            background:
+              scoreAverage < 50
+                ? 'rgba(239, 68, 68, 0.04)'
+                : 'linear-gradient(135deg, rgba(var(--accent-teal-rgb), 0.04) 0%, rgba(var(--brand-rgb), 0.02) 100%)',
+            border: `1.5px solid ${scoreAverage < 50 ? 'rgba(239, 68, 68, 0.3)' : 'rgba(var(--accent-teal-rgb), 0.22)'}`,
+            borderRadius: 20,
+            padding: 24,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 20,
+            boxShadow: 'var(--shadow-md)',
+          }}
+          className="animate-fade-in"
+        >
           {/* Rating Header */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: `1px solid ${theme.border}`, paddingBottom: 14 }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              borderBottom: `1px solid ${theme.border}`,
+              paddingBottom: 14,
+            }}
+          >
             <div>
-              <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--teal)', fontFamily: 'var(--font-mono)', textTransform: 'uppercase', letterSpacing: '0.8px' }}>
+              <span
+                style={{
+                  fontSize: 11,
+                  fontWeight: 800,
+                  color: scoreColor,
+                  fontFamily: 'var(--font-mono)',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.8px',
+                }}
+              >
                 Real-World Corporate Rating
               </span>
               <h3 style={{ fontSize: 18.5, fontWeight: 900, color: theme.tPrimary, margin: '2px 0 0' }}>
-                {evaluationResult.scores?.average >= 88 ? '🌟 Executive C-Suite Ready' : evaluationResult.scores?.average >= 75 ? '👍 Corporate Ready' : '✏️ Needs Professional Polish'}
+                {evaluationResult.ratingLabel ||
+                  (scoreAverage >= 88
+                    ? '🌟 Executive C-Suite Ready'
+                    : scoreAverage >= 72
+                    ? '👍 Corporate Ready'
+                    : scoreAverage >= 50
+                    ? '✏️ Needs Professional Polish'
+                    : '🛑 Unprofessional / Deflective')}
               </h3>
             </div>
-            <div style={{ background: 'rgba(var(--accent-teal-rgb), 0.12)', border: '2.5px solid var(--teal)', width: 58, height: 58, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, fontWeight: 900, color: 'var(--teal)', boxShadow: '0 0 16px rgba(var(--accent-teal-rgb), 0.2)' }}>
-              {evaluationResult.scores?.average || 85}
+            <div
+              style={{
+                background: `${scoreColor}18`,
+                border: `2.5px solid ${scoreColor}`,
+                width: 58,
+                height: 58,
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 20,
+                fontWeight: 900,
+                color: scoreColor,
+                boxShadow: `0 0 16px ${scoreColor}33`,
+              }}
+            >
+              {scoreAverage}
             </div>
           </div>
 
           {/* Multi-Tier Executive Rewording System */}
           <div style={{ background: theme.bgInside, border: `1px solid ${theme.border}`, borderRadius: 16, padding: 18 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: `1px solid ${theme.border}`, paddingBottom: 10, marginBottom: 12, flexWrap: 'wrap', gap: 8 }}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                borderBottom: `1px solid ${theme.border}`,
+                paddingBottom: 10,
+                marginBottom: 12,
+                flexWrap: 'wrap',
+                gap: 8,
+              }}
+            >
               <div style={{ display: 'flex', gap: 6 }}>
                 <button
                   onClick={() => setActiveRewriteTab('executive')}
@@ -468,7 +716,7 @@ export default function LinguaLab({ streak, theme }: LinguaLabProps) {
                     color: activeRewriteTab === 'executive' ? '#fff' : theme.tSecondary,
                     fontSize: 12,
                     fontWeight: 800,
-                    cursor: 'pointer'
+                    cursor: 'pointer',
                   }}
                 >
                   👑 EXECUTIVE C-SUITE
@@ -483,7 +731,7 @@ export default function LinguaLab({ streak, theme }: LinguaLabProps) {
                     color: activeRewriteTab === 'professional' ? '#fff' : theme.tSecondary,
                     fontSize: 12,
                     fontWeight: 800,
-                    cursor: 'pointer'
+                    cursor: 'pointer',
                   }}
                 >
                   💼 PROFESSIONAL
@@ -498,7 +746,7 @@ export default function LinguaLab({ streak, theme }: LinguaLabProps) {
                     color: activeRewriteTab === 'native' ? '#fff' : theme.tSecondary,
                     fontSize: 12,
                     fontWeight: 800,
-                    cursor: 'pointer'
+                    cursor: 'pointer',
                   }}
                 >
                   🗣️ NATIVE SPEAKER
@@ -507,10 +755,12 @@ export default function LinguaLab({ streak, theme }: LinguaLabProps) {
 
               <button
                 onClick={() => {
-                  const targetText = 
-                    activeRewriteTab === 'executive' ? evaluationResult.rewrites?.executive :
-                    activeRewriteTab === 'professional' ? evaluationResult.rewrites?.professional :
-                    evaluationResult.rewrites?.native;
+                  const targetText =
+                    activeRewriteTab === 'executive'
+                      ? evaluationResult.rewrites?.executive
+                      : activeRewriteTab === 'professional'
+                      ? evaluationResult.rewrites?.professional
+                      : evaluationResult.rewrites?.native;
                   handleCopyRewrite(targetText);
                 }}
                 style={{
@@ -524,7 +774,7 @@ export default function LinguaLab({ streak, theme }: LinguaLabProps) {
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: 4
+                  gap: 4,
                 }}
               >
                 {copiedRewrite ? '✓ Copied to Clipboard!' : '📋 Copy Rewrite'}
@@ -532,24 +782,69 @@ export default function LinguaLab({ streak, theme }: LinguaLabProps) {
             </div>
 
             <p style={{ fontSize: 15, color: theme.tPrimary, fontWeight: 600, fontStyle: 'italic', margin: 0, lineHeight: 1.6 }}>
-              "{activeRewriteTab === 'executive' ? evaluationResult.rewrites?.executive : activeRewriteTab === 'professional' ? evaluationResult.rewrites?.professional : evaluationResult.rewrites?.native}"
+              &ldquo;
+              {activeRewriteTab === 'executive'
+                ? evaluationResult.rewrites?.executive
+                : activeRewriteTab === 'professional'
+                ? evaluationResult.rewrites?.professional
+                : evaluationResult.rewrites?.native}
+              &rdquo;
             </p>
           </div>
 
           {/* Feedback & Etiquette Cards */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
-            <div style={{ background: 'rgba(var(--success-rgb), 0.06)', border: '1px solid rgba(var(--success-rgb), 0.2)', padding: 14, borderRadius: 14 }}>
-              <strong style={{ color: 'var(--success)', fontSize: 12, textTransform: 'uppercase', fontFamily: 'var(--font-mono)', display: 'block', marginBottom: 4 }}>✓ Strong Points</strong>
-              <p style={{ fontSize: 13, color: theme.tPrimary, margin: 0, lineHeight: 1.5 }}>{evaluationResult.feedback?.positive || "Direct ownership and clear problem breakdown."}</p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 14 }}>
+            <div
+              style={{
+                background: scoreAverage < 50 ? 'rgba(239, 68, 68, 0.06)' : 'rgba(var(--success-rgb), 0.06)',
+                border: `1px solid ${scoreAverage < 50 ? 'rgba(239, 68, 68, 0.25)' : 'rgba(var(--success-rgb), 0.2)'}`,
+                padding: 14,
+                borderRadius: 14,
+              }}
+            >
+              <strong
+                style={{
+                  color: scoreAverage < 50 ? 'var(--red)' : 'var(--success)',
+                  fontSize: 12,
+                  textTransform: 'uppercase',
+                  fontFamily: 'var(--font-mono)',
+                  display: 'block',
+                  marginBottom: 4,
+                }}
+              >
+                {scoreAverage < 50 ? '⚠️ Critical Critique' : '✓ Strong Points'}
+              </strong>
+              <p style={{ fontSize: 13, color: theme.tPrimary, margin: 0, lineHeight: 1.5 }}>
+                {evaluationResult.feedback?.positive || 'Feedback analyzed.'}
+              </p>
             </div>
-            <div style={{ background: 'rgba(var(--warning-rgb), 0.06)', border: '1px solid rgba(var(--warning-rgb), 0.2)', padding: 14, borderRadius: 14 }}>
-              <strong style={{ color: 'var(--amber)', fontSize: 12, textTransform: 'uppercase', fontFamily: 'var(--font-mono)', display: 'block', marginBottom: 4 }}>⚠️ Real-World Etiquette Rule</strong>
-              <p style={{ fontSize: 13, color: theme.tPrimary, margin: 0, lineHeight: 1.5 }}>{evaluationResult.feedback?.recommendation || "Eliminate filler words to project executive authority."}</p>
+            <div
+              style={{
+                background: 'rgba(var(--warning-rgb), 0.06)',
+                border: '1px solid rgba(var(--warning-rgb), 0.2)',
+                padding: 14,
+                borderRadius: 14,
+              }}
+            >
+              <strong
+                style={{
+                  color: 'var(--amber)',
+                  fontSize: 12,
+                  textTransform: 'uppercase',
+                  fontFamily: 'var(--font-mono)',
+                  display: 'block',
+                  marginBottom: 4,
+                }}
+              >
+                💡 Real-World Corporate Etiquette Rule
+              </strong>
+              <p style={{ fontSize: 13, color: theme.tPrimary, margin: 0, lineHeight: 1.5 }}>
+                {evaluationResult.feedback?.recommendation || scenario.etiquetteTip}
+              </p>
             </div>
           </div>
         </div>
       )}
-
     </div>
   );
 }

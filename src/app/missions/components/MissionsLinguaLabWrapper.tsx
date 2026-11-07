@@ -15,8 +15,15 @@ interface MissionsLinguaLabWrapperProps {
     tTertiary: string;
     accentLight: string;
   };
+  activeCourseId?: string;
+  role?: string;
 }
 
-export default function MissionsLinguaLabWrapper({ streak, theme }: MissionsLinguaLabWrapperProps) {
-  return <LinguaLab streak={streak} theme={theme} />;
+export default function MissionsLinguaLabWrapper({
+  streak,
+  theme,
+  activeCourseId,
+  role,
+}: MissionsLinguaLabWrapperProps) {
+  return <LinguaLab streak={streak} theme={theme} activeCourseId={activeCourseId} role={role} />;
 }
