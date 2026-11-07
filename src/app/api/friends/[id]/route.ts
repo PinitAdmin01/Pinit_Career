@@ -106,6 +106,16 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
     }
 
     if (user) {
+      const nonStudentRoles = new Set(['recruiter', 'consultant', 'parent', 'admin', 'teacher', 'faculty', 'institution_admin', 'super_admin']);
+      const testNonStudentRegex = /\b(test recruiter|live recruiter|live consultant|live parent|live admin|recruiter|consultant|tester)\b/i;
+      const r = (user.role || '').toLowerCase().trim();
+      const nameLower = (user.display_name || user.username || '').toLowerCase();
+      const emailLower = (user.email || '').toLowerCase();
+
+      if ((r && nonStudentRoles.has(r)) || (r && r !== 'student') || testNonStudentRegex.test(nameLower) || testNonStudentRegex.test(emailLower)) {
+        return NextResponse.json({ ok: false, error: 'NOT_FOUND', message: 'Student profile not found' }, { status: 404 });
+      }
+
       const ob = user.onboarding_answers || {};
       const rawSkills = Array.isArray(user.skill_tags) && user.skill_tags.length > 0
         ? user.skill_tags
@@ -120,25 +130,25 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
         .slice(0, 8);
 
       const name = user.display_name || user.username || 'Student Peer';
-      const college = ob.education ? ob.education.split('(')[0].trim() : 'Engineering Campus';
-      const course = ob.education && ob.education.includes('(') ? ob.education.match(/\(([^)]+)\)/)?.[1] || 'B.Tech' : 'B.Tech CS';
+      const college = ob.education ? ob.education.split('(')[0].trim() : 'Campus Student';
+      const course = ob.education && ob.education.includes('(') ? ob.education.match(/\(([^)]+)\)/)?.[1] || 'Degree' : 'Undergraduate';
 
       return NextResponse.json({
         ok: true,
         student: {
           id: user.id,
           name,
-          headline: user.target_role || ob.role || 'Software Engineering Student',
+          headline: user.target_role || ob.role || 'CareerOS Student',
           avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + encodeURIComponent(name),
           college,
           course,
-          careerGoal: user.career_goal || user.target_role || ob.role || 'Full Stack Software Engineer',
+          careerGoal: user.career_goal || user.target_role || ob.role || 'Aspiring Professional',
           skills: cleanSkills,
-          careerScore: user.career_dna_score || 85,
-          xp: user.xp_total || 2100,
-          arenaWins: user.missions_completed || 14,
-          projectsCount: user.vault_count || 3,
-          leagueTier: user.league_tier || 'Silver Sprint',
+          careerScore: user.career_dna_score || 0,
+          xp: user.xp_total || 0,
+          arenaWins: user.missions_completed || 0,
+          projectsCount: user.vault_count || 0,
+          leagueTier: user.league_tier || 'Bronze',
           online: true,
           relationship,
           isSelf,
@@ -147,23 +157,8 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
       });
     }
 
-    // Fallback to local mockStudents in friends_db.json
-    const db = readDb();
-    const mockStudent = (db.mockStudents || []).find((s: any) => s.id === studentId);
-    if (mockStudent) {
-      return NextResponse.json({
-        ok: true,
-        student: {
-          ...mockStudent,
-          leagueTier: mockStudent.leagueTier || 'Silver Sprint',
-          relationship,
-          isSelf,
-          memberSince: mockStudent.memberSince || '2026'
-        }
-      });
-    }
-
-    return NextResponse.json({ ok: false, error: 'Student not found' }, { status: 404 });
+    // ZERO MOCK / DEMO DATA INVARIANT: Return 404 if student does not exist
+    return NextResponse.json({ ok: false, error: 'NOT_FOUND', message: 'Student profile not found' }, { status: 404 });
   } catch (err: any) {
     console.error('Error fetching student profile:', err);
     return NextResponse.json({ ok: false, error: err?.message || 'Failed to fetch student' }, { status: 500 });

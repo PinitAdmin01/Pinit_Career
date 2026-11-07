@@ -107,40 +107,53 @@ export async function GET(req: NextRequest) {
 
         const { data: users, error } = await queryBuilder;
         if (!error && users && users.length > 0) {
-          students = users.map(u => {
-            const ob = u.onboarding_answers || {};
-            const rawSkills = Array.isArray(u.skill_tags) && u.skill_tags.length > 0
-              ? u.skill_tags
-              : (typeof ob.skills === 'string'
-                  ? ob.skills.split(',').map((s: string) => s.trim())
-                  : ['React', 'TypeScript', 'Node.js']);
+          const nonStudentRoles = new Set(['recruiter', 'consultant', 'parent', 'admin', 'teacher', 'faculty', 'institution_admin', 'super_admin']);
+          const testNonStudentRegex = /\b(test recruiter|live recruiter|live consultant|live parent|live admin|recruiter|consultant|tester)\b/i;
 
-            const name = u.display_name || u.username || 'Student Peer';
-            return {
-              id: u.id,
-              name,
-              headline: u.target_role || ob.role || 'Software Engineering Student',
-              avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(name)}`,
-              college: ob.education ? ob.education.split('(')[0].trim() : 'Engineering Campus',
-              course: ob.education && ob.education.includes('(') ? ob.education.match(/\(([^)]+)\)/)?.[1] || 'B.Tech' : 'B.Tech CS',
-              careerGoal: u.career_goal || u.target_role || ob.role || 'Full Stack Engineer',
-              skills: rawSkills.slice(0, 5),
-              careerScore: u.career_dna_score || 85,
-              xp: u.xp_total || 1800,
-              arenaWins: u.missions_completed || 12,
-              projectsCount: u.vault_count || 3,
-              online: true
-            };
-          });
+          students = users
+            .filter(u => {
+              const r = (u.role || '').toLowerCase().trim();
+              if (r && nonStudentRoles.has(r)) return false;
+              if (r && r !== 'student') return false;
+
+              const nameLower = (u.display_name || u.username || '').toLowerCase();
+              const emailLower = (u.email || '').toLowerCase();
+              if (testNonStudentRegex.test(nameLower) || testNonStudentRegex.test(emailLower)) return false;
+
+              return true;
+            })
+            .map(u => {
+              const ob = u.onboarding_answers || {};
+              const rawSkills = Array.isArray(u.skill_tags) && u.skill_tags.length > 0
+                ? u.skill_tags
+                : (typeof ob.skills === 'string'
+                    ? ob.skills.split(',').map((s: string) => s.trim())
+                    : ['React', 'TypeScript', 'Node.js']);
+
+              const name = u.display_name || u.username || 'Student Peer';
+              return {
+                id: u.id,
+                name,
+                headline: u.target_role || ob.role || 'CareerOS Student',
+                avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + encodeURIComponent(name),
+                college: ob.education ? ob.education.split('(')[0].trim() : 'Campus Student',
+                course: ob.education && ob.education.includes('(') ? ob.education.match(/\(([^)]+)\)/)?.[1] || 'Degree' : 'Undergraduate',
+                careerGoal: u.career_goal || u.target_role || ob.role || 'Aspiring Professional',
+                skills: rawSkills.slice(0, 5),
+                careerScore: u.career_dna_score || 0,
+                xp: u.xp_total || 0,
+                arenaWins: u.missions_completed || 0,
+                projectsCount: u.vault_count || 0,
+                online: true
+              };
+            });
         }
       } catch (err) {
-        console.warn('Supabase search users failed, falling back to local:', err);
+        console.warn('Supabase search users failed:', err);
       }
     }
 
-    if (students.length === 0) {
-      students = (localData.mockStudents || []).filter((s: any) => s.id !== userId);
-    }
+    // ZERO MOCK / DEMO DATA INVARIANT: Do not fallback to mockStudents
 
     if (query) {
       students = students.filter((s: any) => {

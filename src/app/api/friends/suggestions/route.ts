@@ -82,17 +82,34 @@ export async function GET(req: NextRequest) {
 
     let candidates: MatchStudentProfile[] = [];
 
-    // 2. Fetch real users from Supabase users table if available
+    // 2. Fetch real student users from Supabase users table if available
     if (admin) {
       try {
         const { data: users, error: uErr } = await admin
           .from('users')
           .select('id, username, display_name, email, role, onboarding_answers, target_role, career_goal, xp_total, career_dna_score, skill_tags, missions_completed, vault_count, league_tier')
-          .limit(60);
+          .limit(100);
 
         if (!uErr && users && users.length > 0) {
+          const nonStudentRoles = new Set(['recruiter', 'consultant', 'parent', 'admin', 'teacher', 'faculty', 'institution_admin', 'super_admin']);
+          const testNonStudentRegex = /\b(test recruiter|live recruiter|live consultant|live parent|live admin|recruiter|consultant|tester)\b/i;
+
           candidates = users
-            .filter(u => !connectedIds.has(u.id) && !blockedIds.has(u.id))
+            .filter(u => {
+              if (connectedIds.has(u.id) || blockedIds.has(u.id)) return false;
+
+              // Strict student role check: exclude recruiters, consultants, parents, admins, etc.
+              const r = (u.role || '').toLowerCase().trim();
+              if (r && nonStudentRoles.has(r)) return false;
+              if (r && r !== 'student') return false;
+
+              // Exclude test / demo recruiter & non-student profiles
+              const nameLower = (u.display_name || u.username || '').toLowerCase();
+              const emailLower = (u.email || '').toLowerCase();
+              if (testNonStudentRegex.test(nameLower) || testNonStudentRegex.test(emailLower)) return false;
+
+              return true;
+            })
             .map(u => {
               const ob = u.onboarding_answers || {};
               const rawSkills = Array.isArray(u.skill_tags) && u.skill_tags.length > 0
@@ -107,38 +124,34 @@ export async function GET(req: NextRequest) {
                 .filter((s: string) => s.length > 1 && s.length < 25)
                 .slice(0, 4);
 
-              const collegeName = ob.education ? ob.education.split('(')[0].trim() : 'Bangalore University';
-              const courseName = ob.education && ob.education.includes('(') ? ob.education.match(/\(([^)]+)\)/)?.[1] || 'B.Tech' : 'B.Tech CS';
+              const collegeName = ob.education ? ob.education.split('(')[0].trim() : 'Campus Student';
+              const courseName = ob.education && ob.education.includes('(') ? ob.education.match(/\(([^)]+)\)/)?.[1] || 'Degree' : 'Undergraduate';
               const name = u.display_name || u.username || 'Student Peer';
 
               return {
                 id: u.id,
                 name,
-                headline: u.target_role || ob.role || 'Software Engineering Student',
+                headline: u.target_role || ob.role || 'CareerOS Student',
                 avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + encodeURIComponent(name),
                 college: collegeName,
                 course: courseName,
-                skills: cleanSkills.length > 0 ? cleanSkills : ['React', 'Algorithms', 'TypeScript'],
-                careerGoal: u.career_goal || u.target_role || ob.role || 'Full Stack Engineer',
+                skills: cleanSkills.length > 0 ? cleanSkills : ['Problem Solving', 'Engineering'],
+                careerGoal: u.career_goal || u.target_role || ob.role || 'Aspiring Professional',
                 online: true,
-                careerScore: u.career_dna_score || 84,
-                xp: u.xp_total || 1850,
-                arenaWins: u.missions_completed || 12,
-                projectsCount: u.vault_count || 3
+                careerScore: u.career_dna_score || 0,
+                xp: u.xp_total || 0,
+                arenaWins: u.missions_completed || 0,
+                projectsCount: u.vault_count || 0
               };
             });
         }
       } catch (err) {
-        console.warn('Supabase suggestions fetch failed, using local mock students:', err);
+        console.warn('Supabase suggestions fetch failed:', err);
       }
     }
 
-    // 3. Fallback to db.mockStudents if no candidates from Supabase
-    if (candidates.length === 0 && db.mockStudents) {
-      candidates = (db.mockStudents as MatchStudentProfile[])
-        .filter(s => !connectedIds.has(s.id) && !blockedIds.has(s.id));
-    }
-
+    // 3. ZERO MOCK / DEMO DATA INVARIANT: If no live registered student peers exist, return empty array.
+    // Do NOT fall back to db.mockStudents.
     // 4. Rank candidates by affinity
     const ranked = rankAndFilterStudents(CURRENT_STUDENT_PROFILE, candidates, filter);
 
