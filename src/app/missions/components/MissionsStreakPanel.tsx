@@ -30,6 +30,7 @@ interface MissionsStreakPanelProps {
   setHoveredRadarMetric: (m: string | null) => void;
   setActiveTab: (tab: 'evolve' | 'language' | 'history') => void;
   teacher: { name: string; emoji: string };
+  hasCompletedAnyMission?: boolean;
 }
 
 export default function MissionsStreakPanel({
@@ -48,7 +49,13 @@ export default function MissionsStreakPanel({
   setHoveredRadarMetric,
   setActiveTab,
   teacher,
+  hasCompletedAnyMission,
 }: MissionsStreakPanelProps) {
+  const isCalibrated =
+    typeof hasCompletedAnyMission === 'boolean'
+      ? hasCompletedAnyMission
+      : Boolean((completedCount && completedCount > 0) || (user?.missions_completed && user.missions_completed > 0));
+
   return (
     <div
       style={{
@@ -66,6 +73,7 @@ export default function MissionsStreakPanel({
         hoveredRadarMetric={hoveredRadarMetric}
         setHoveredRadarMetric={setHoveredRadarMetric}
         setActiveTab={setActiveTab}
+        hasCompletedAnyMission={isCalibrated}
       />
 
       {/* 2. Plus Shape Human Archetype Matrix Chart Component */}
@@ -77,6 +85,7 @@ export default function MissionsStreakPanel({
         setHoveredQuadrant={setHoveredQuadrant}
         selectedQuadrant={selectedQuadrant}
         setSelectedQuadrant={setSelectedQuadrant}
+        hasCompletedAnyMission={isCalibrated}
       />
 
       {/* 3. Mission Insights panel */}

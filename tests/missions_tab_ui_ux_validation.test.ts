@@ -45,6 +45,7 @@ describe('BRUTAL VALIDATION — MISSIONS TAB UI/UX & DYNAMIC DATA (Tasks 1 & 2)'
           setCustomSkill: () => {},
           handleGenerateCustomQuests: () => {},
           generatingSkill: false,
+          hasCompletedAnyMission: true,
         })
       );
 
@@ -125,6 +126,7 @@ describe('BRUTAL VALIDATION — MISSIONS TAB UI/UX & DYNAMIC DATA (Tasks 1 & 2)'
           setCustomSkill: () => {},
           handleGenerateCustomQuests: () => {},
           generatingSkill: false,
+          hasCompletedAnyMission: true,
         })
       );
 
@@ -165,6 +167,118 @@ describe('BRUTAL VALIDATION — MISSIONS TAB UI/UX & DYNAMIC DATA (Tasks 1 & 2)'
         !headerHtml.includes('Adaptive challenges dynamically generated'),
         'Must NOT contain partial banned subtitle'
       );
+    });
+  });
+
+  describe('New Task 1: Zero Missions Completed Dynamic Null / Uncalibrated State', () => {
+    it('MissionsGrowthRadar renders null and uncalibrated state when user has completed 0 missions', async () => {
+      const { MissionsGrowthRadar } = await import('../src/components/missions/MissionsGrowthRadar');
+      const uncalibratedHtml = ReactDOMServer.renderToStaticMarkup(
+        React.createElement(MissionsGrowthRadar, {
+          theme,
+          onboardingAnswers: null,
+          user: { missions_completed: 0 },
+          hoveredRadarMetric: null,
+          setHoveredRadarMetric: () => {},
+          setActiveTab: () => {},
+          hasCompletedAnyMission: false,
+        })
+      );
+
+      // Must render null uncalibrated indicators
+      assert.ok(uncalibratedHtml.includes('null (Uncalibrated)'), 'Overall index must show null (Uncalibrated)');
+      assert.ok(uncalibratedHtml.includes('UNCALIBRATED'), 'Center text must say UNCALIBRATED');
+      assert.ok(uncalibratedHtml.includes('0 Missions Done'), 'Must indicate 0 Missions Done');
+      assert.ok(uncalibratedHtml.includes('Baseline Calibration Pending'), 'Must prompt for baseline calibration');
+
+      // Must NOT contain fabricated baseline percentages
+      assert.ok(!uncalibratedHtml.includes('>75%<'), 'Must not display fake 75% logic');
+      assert.ok(!uncalibratedHtml.includes('>59% Index<'), 'Must not display fake 59% index badge');
+      assert.ok(!uncalibratedHtml.includes('>46% Index<'), 'Must not display fake 46% index badge');
+    });
+
+    it('MissionsArchetypeMatrix renders null and uncalibrated state when user has completed 0 missions', async () => {
+      const MissionsArchetypeMatrix = (await import('../src/components/missions/MissionsArchetypeMatrix')).default;
+      const uncalibratedHtml = ReactDOMServer.renderToStaticMarkup(
+        React.createElement(MissionsArchetypeMatrix, {
+          theme,
+          onboardingAnswers: null,
+          user: { missions_completed: 0 },
+          hoveredQuadrant: null,
+          setHoveredQuadrant: () => {},
+          selectedQuadrant: null,
+          setSelectedQuadrant: () => {},
+          hasCompletedAnyMission: false,
+        })
+      );
+
+      // Must render null uncalibrated indicators
+      assert.ok(uncalibratedHtml.includes('Pending Baseline'), 'Status badge must show Pending Baseline');
+      assert.ok(uncalibratedHtml.includes('CALIBRATION PENDING'), 'User pin label must state CALIBRATION PENDING');
+      assert.ok(uncalibratedHtml.includes('Mindset Archetype: null (Uncalibrated)'), 'Archetype must be null');
+      assert.ok(uncalibratedHtml.includes('QT2: null'), 'QT2 score must be null');
+
+      // Quadrants must not show active checkmarks
+      assert.ok(!uncalibratedHtml.includes('Pattern Hunter ✓'), 'Must not check Pattern Hunter by default');
+    });
+
+    it('MissionsEvolveBanner renders null Archetype and QT2 when user has completed 0 missions', () => {
+      const uncalibratedHtml = ReactDOMServer.renderToStaticMarkup(
+        React.createElement(MissionsEvolveBanner, {
+          theme,
+          onboardingAnswers: null,
+          roleplayLoading: false,
+          isUnlocking: false,
+          initiateRoleplay: () => {},
+          showTraditionalMissions: false,
+          setShowTraditionalMissions: () => {},
+          tab: 'today',
+          setTab: () => {},
+          generating: false,
+          handleTriggerRegenerate: () => {},
+          pending: [],
+          completedMissions: [],
+          allTodayMissions: [],
+          pastCompleted: [],
+          completeMission: () => {},
+          customSkill: '',
+          setCustomSkill: () => {},
+          handleGenerateCustomQuests: () => {},
+          generatingSkill: false,
+          hasCompletedAnyMission: false,
+        })
+      );
+
+      assert.ok(uncalibratedHtml.includes('Pending Baseline'), 'Must render Pending Baseline badge');
+      assert.ok(uncalibratedHtml.includes('null (Uncalibrated)'), 'Must render null (Uncalibrated) Archetype');
+      assert.ok(uncalibratedHtml.includes('🧠 null'), 'Must render 🧠 null for QT2 score');
+    });
+
+    it('MissionsStreakPanel propagates uncalibrated state to child components', () => {
+      const panelHtml = ReactDOMServer.renderToStaticMarkup(
+        React.createElement(MissionsStreakPanel, {
+          theme,
+          xp: 0,
+          missionOnlyStreak: 0,
+          completedCount: 0,
+          gapClosurePct: 0,
+          onboardingAnswers: null,
+          user: { missions_completed: 0 },
+          hoveredQuadrant: null,
+          setHoveredQuadrant: () => {},
+          selectedQuadrant: null,
+          setSelectedQuadrant: () => {},
+          hoveredRadarMetric: null,
+          setHoveredRadarMetric: () => {},
+          setActiveTab: () => {},
+          teacher: sampleTeacher,
+          hasCompletedAnyMission: false,
+        })
+      );
+
+      assert.ok(panelHtml.includes('null (Uncalibrated)'), 'Radar inside panel must be uncalibrated');
+      assert.ok(panelHtml.includes('Pending Baseline'), 'Matrix inside panel must be uncalibrated');
+      assert.ok(panelHtml.includes('CALIBRATION PENDING'), 'Pin inside panel must show CALIBRATION PENDING');
     });
   });
 });

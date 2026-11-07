@@ -99,6 +99,14 @@ function MissionsPageInner() {
     onboardingAnswers?.weakAreas
   );
 
+  const totalCompletedCount =
+    (completed?.length || 0) +
+    (pastCompleted?.length || 0) +
+    (completedMissions?.length || 0) +
+    (socraticHistory?.length || 0) +
+    (user?.missions_completed || 0);
+  const hasCompletedAnyMission = totalCompletedCount > 0;
+
   const theme = {
     bg: 'var(--bg)',
     bgCard: 'var(--bg2)',
@@ -246,6 +254,7 @@ function MissionsPageInner() {
             setCustomSkill={setCustomSkill}
             handleGenerateCustomQuests={handleGenerateCustomQuests}
             generatingSkill={generatingSkill}
+            hasCompletedAnyMission={hasCompletedAnyMission}
           />
         ) : activeTab === 'language' ? (
           <MissionsLinguaLabWrapper streak={missionOnlyStreak} theme={theme} />
@@ -311,14 +320,14 @@ function MissionsPageInner() {
               fontWeight: 700,
               padding: '4px 10px',
               borderRadius: 8,
-              background: 'rgba(20, 184, 166, 0.1)',
-              color: 'var(--teal)',
-              border: '1px solid rgba(20, 184, 166, 0.25)',
+              background: hasCompletedAnyMission ? 'rgba(20, 184, 166, 0.1)' : 'rgba(156, 163, 175, 0.1)',
+              color: hasCompletedAnyMission ? 'var(--teal)' : theme.tTertiary,
+              border: `1px solid ${hasCompletedAnyMission ? 'rgba(20, 184, 166, 0.25)' : theme.border}`,
               fontFamily: 'var(--font-mono)',
               textTransform: 'uppercase',
             }}
           >
-            ● Live Reactive
+            {hasCompletedAnyMission ? '● Live Reactive' : 'Pending Baseline Calibration'}
           </span>
         </div>
 
@@ -338,6 +347,7 @@ function MissionsPageInner() {
           setHoveredRadarMetric={setHoveredRadarMetric}
           setActiveTab={setActiveTab}
           teacher={teacher}
+          hasCompletedAnyMission={hasCompletedAnyMission}
         />
       </div>
     </div>
