@@ -511,7 +511,7 @@ export function parseCollegeCardFromText(
         if (!/(?:card|student|identity|valid|date|manipal)/i.test(val) && /\d/.test(val)) {
           const trailingDigits = val.match(/(\d{3,4})$/);
           if (trailingDigits) {
-            rollNumber = /^\d{6,}$/.test(val) ? val.slice(-3) : trailingDigits[1];
+            rollNumber = trailingDigits[1];
             break;
           } else {
             const parts = val.split(/[/_-]/).filter(Boolean);
