@@ -561,8 +561,8 @@ export const AppSidebar: React.FC<AppSidebarProps> = ({
           : mobileOpen
             ? 272
             : isCompact
-              ? 'var(--sidebar-collapsed-w, 68px)'
-              : 'var(--sidebar-w, clamp(232px, 16.5vw, 260px))',
+              ? 'var(--sidebar-collapsed-w, 64px)'
+              : 'var(--sidebar-w, clamp(220px, 15.7vw, 247px))',
         borderRight: isHiddenByRoute ? 'none' : '1px solid var(--border)',
         transition: 'width 0.22s cubic-bezier(0.4, 0, 0.2, 1), border 0.22s',
         overflow: 'hidden',

@@ -53,9 +53,10 @@
   --primary:     var(--accent);
 
   /* Layout */
-  --sidebar-w: clamp(232px, 16.5vw, 260px);
-  --sidebar-collapsed-w: 68px;
-  --topbar-h:  58px;
+  --sidebar-w: clamp(220px, 15.7vw, 247px);
+  --sidebar-collapsed-w: 64px;
+  --sidebar-right-w: 228px;
+    --topbar-h:  58px;
   --radius:    8px;
   --radius-lg: 12px;
   --radius-xl: 16px;
@@ -164,7 +165,7 @@ body {
   transition: width 0.22s cubic-bezier(0.4,0,0.2,1);
   overflow: hidden;
 }
-.sidebar.collapsed { width: var(--sidebar-collapsed-w, 68px); }
+.sidebar.collapsed { width: var(--sidebar-collapsed-w, 64px); }
 .sidebar.collapsed .sidebar-logo { justify-content: center; padding: 12px 8px; }
 .sidebar.collapsed .nav-item {
   justify-content: center;

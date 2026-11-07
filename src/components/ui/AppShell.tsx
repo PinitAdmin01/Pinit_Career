@@ -698,7 +698,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         <aside
           className={`sidebar right-sidebar${rightCollapsed ? ' collapsed' : ''}`}
           style={{
-            width: rightCollapsed ? 'var(--sidebar-collapsed-w, 68px)' : 'var(--sidebar-w, 240px)',
+            width: rightCollapsed ? 'var(--sidebar-collapsed-w, 64px)' : 'var(--sidebar-right-w, 228px)',
             background: 'linear-gradient(180deg, rgba(99, 102, 241, 0.05) 0%, color-mix(in srgb, var(--bg-sidebar) 94%, transparent) 100%)',
             backdropFilter: 'blur(20px)',
             WebkitBackdropFilter: 'blur(20px)',
