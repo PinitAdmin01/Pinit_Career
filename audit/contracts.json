@@ -1,7 +1,7 @@
 {
   "summary": {
-    "generated": "2026-11-06T21:16:19.989Z",
-    "appCodeFiles": 1047,
+    "generated": "2026-11-07T09:21:03.170Z",
+    "appCodeFiles": 1056,
     "verticals": 73,
     "verticalsWithDefects": 1,
     "clientCalledPaths": 233,
@@ -10,7 +10,7 @@
     "brokenOnSomeMethods": 0,
     "defectsInDeadCode": 20,
     "unbuiltPages": 15,
-    "reachableSourceFiles": 935,
+    "reachableSourceFiles": 938,
     "guardBranches": 0,
     "unreachableOrDynamicGuards": 0,
     "campusSwitchCases": 0,
@@ -9744,12 +9744,12 @@
       "callSites": [
         {
           "file": "src/app/interview/page.tsx",
-          "line": 463,
+          "line": 487,
           "live": true
         },
         {
           "file": "src/app/interview/page.tsx",
-          "line": 463,
+          "line": 487,
           "live": true
         }
       ],
@@ -9819,32 +9819,32 @@
       "callSites": [
         {
           "file": "src/app/interview/page.tsx",
-          "line": 369,
+          "line": 393,
           "live": true
         },
         {
           "file": "src/app/interview/page.tsx",
-          "line": 697,
+          "line": 721,
           "live": true
         },
         {
           "file": "src/app/interview/page.tsx",
-          "line": 803,
+          "line": 827,
           "live": true
         },
         {
           "file": "src/app/interview/page.tsx",
-          "line": 369,
+          "line": 393,
           "live": true
         },
         {
           "file": "src/app/interview/page.tsx",
-          "line": 697,
+          "line": 721,
           "live": true
         },
         {
           "file": "src/app/interview/page.tsx",
-          "line": 803,
+          "line": 827,
           "live": true
         }
       ],
@@ -9916,22 +9916,22 @@
       "callSites": [
         {
           "file": "src/app/interview/page.tsx",
-          "line": 928,
+          "line": 952,
           "live": true
         },
         {
           "file": "src/app/interview/page.tsx",
-          "line": 982,
+          "line": 1006,
           "live": true
         },
         {
           "file": "src/app/interview/page.tsx",
-          "line": 928,
+          "line": 952,
           "live": true
         },
         {
           "file": "src/app/interview/page.tsx",
-          "line": 982,
+          "line": 1006,
           "live": true
         }
       ],
@@ -10006,12 +10006,12 @@
       "callSites": [
         {
           "file": "src/app/interview/page.tsx",
-          "line": 292,
+          "line": 316,
           "live": true
         },
         {
           "file": "src/app/interview/page.tsx",
-          "line": 292,
+          "line": 316,
           "live": true
         }
       ],
@@ -10170,32 +10170,32 @@
       "callSites": [
         {
           "file": "src/app/interview/page.tsx",
-          "line": 528,
+          "line": 552,
           "live": true
         },
         {
           "file": "src/app/interview/page.tsx",
-          "line": 597,
+          "line": 621,
           "live": true
         },
         {
           "file": "src/app/interview/page.tsx",
-          "line": 633,
+          "line": 657,
           "live": true
         },
         {
           "file": "src/app/interview/page.tsx",
-          "line": 528,
+          "line": 552,
           "live": true
         },
         {
           "file": "src/app/interview/page.tsx",
-          "line": 597,
+          "line": 621,
           "live": true
         },
         {
           "file": "src/app/interview/page.tsx",
-          "line": 633,
+          "line": 657,
           "live": true
         }
       ],
@@ -13910,12 +13910,12 @@
       "callSites": [
         {
           "file": "src/app/interview/page.tsx",
-          "line": 1036,
+          "line": 1060,
           "live": true
         },
         {
           "file": "src/app/interview/page.tsx",
-          "line": 1036,
+          "line": 1060,
           "live": true
         },
         {

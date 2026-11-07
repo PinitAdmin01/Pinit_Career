@@ -2,8 +2,8 @@
 
 Regenerate: `node audit/extract-contracts.mjs`
 
-- **generated**: 2026-11-06T21:16:19.989Z
-- **appCodeFiles**: 1047
+- **generated**: 2026-11-07T09:21:03.170Z
+- **appCodeFiles**: 1056
 - **verticals**: 73
 - **verticalsWithDefects**: 1
 - **clientCalledPaths**: 233
@@ -12,7 +12,7 @@ Regenerate: `node audit/extract-contracts.mjs`
 - **brokenOnSomeMethods**: 0
 - **defectsInDeadCode**: 20
 - **unbuiltPages**: 15
-- **reachableSourceFiles**: 935
+- **reachableSourceFiles**: 938
 - **guardBranches**: 0
 - **unreachableOrDynamicGuards**: 0
 - **campusSwitchCases**: 0
