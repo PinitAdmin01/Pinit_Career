@@ -148,16 +148,19 @@ body {
   overflow: hidden;
 }
 
-/* == SIDEBAR == */
+/* == SIDEBAR (With Atmospheric Bioluminescent & Radial Mesh Shade) == */
 .sidebar {
   width: var(--sidebar-w);
   flex-shrink: 0;
   height: 100vh;
-  background: linear-gradient(180deg, rgba(99, 102, 241, 0.05) 0%, color-mix(in srgb, var(--bg2) 94%, transparent) 100%);
+  background:
+    radial-gradient(ellipse 180% 60% at 0% 0%, rgba(99, 102, 241, 0.14) 0%, transparent 65%),
+    linear-gradient(90deg, transparent 0%, transparent 90%, rgba(99, 102, 241, 0.08) 100%),
+    linear-gradient(180deg, rgba(99, 102, 241, 0.05) 0%, color-mix(in srgb, var(--bg2) 94%, transparent) 100%);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-right: 1.5px solid rgba(99, 102, 241, 0.18);
-  box-shadow: 4px 0 24px -4px rgba(99, 102, 241, 0.08);
+  box-shadow: 4px 0 24px -4px rgba(99, 102, 241, 0.08), inset -1px 0 0 rgba(255, 255, 255, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.08);
   display: flex;
   flex-direction: column;
   position: relative;
@@ -1596,4 +1599,30 @@ body[data-interview-active="true"] .main-content-area {
   .card, .score-card, .metric-card, .portal-hero, .dashboard-cockpit-hero {
     background: var(--bg3) !important;
   }
+}
+
+
+/* == TASK 5: RIGHT SIDEBAR CREATIVE INNER HIGHLIGHT & LIGHT SHADE == */
+.right-sidebar {
+  box-shadow: -4px 0 24px -4px rgba(99, 102, 241, 0.08), inset 1px 0 0 rgba(255, 255, 255, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+}
+
+:root.light .sidebar:not(.right-sidebar),
+[data-theme='light'] .sidebar:not(.right-sidebar) {
+  background:
+    radial-gradient(ellipse 140% 50% at 0% 0%, rgba(99, 102, 241, 0.09) 0%, transparent 60%),
+    linear-gradient(90deg, transparent 0%, transparent 92%, rgba(99, 102, 241, 0.05) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(246, 248, 252, 0.96) 100%) !important;
+  border-right: 1.5px solid rgba(99, 102, 241, 0.14) !important;
+  box-shadow: 4px 0 20px -4px rgba(99, 102, 241, 0.06), inset -1px 0 0 rgba(99, 102, 241, 0.04) !important;
+}
+
+:root.light .right-sidebar,
+[data-theme='light'] .right-sidebar {
+  background:
+    radial-gradient(ellipse 140% 50% at 100% 0%, rgba(168, 85, 247, 0.09) 0%, transparent 60%),
+    linear-gradient(270deg, transparent 0%, transparent 92%, rgba(168, 85, 247, 0.05) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(246, 248, 252, 0.96) 100%) !important;
+  border-left: 1.5px solid rgba(168, 85, 247, 0.16) !important;
+  box-shadow: -4px 0 20px -4px rgba(168, 85, 247, 0.06), inset 1px 0 0 rgba(168, 85, 247, 0.04) !important;
 }
