@@ -367,14 +367,12 @@ function FriendsContent() {
           {/* Navigation Tabs Bar */}
           <div className="friends-tabs-bar-ref">
             <button
-              className={`friends-tab-pill ${activeTab === 'discover' ? 'active' : ''}`}
-              onClick={() => setActiveTab('discover')}
+              className={`friends-tab-pill ${activeTab === 'discover' ? 'active' : ''}`} onClick={() => setActiveTab('discover')}
             >
               <span>🔍</span> Discover
             </button>
             <button
-              className={`friends-tab-pill ${activeTab === 'network' ? 'active' : ''}`}
-              onClick={() => setActiveTab('network')}
+              className={`friends-tab-pill ${activeTab === 'network' ? 'active' : ''}`} onClick={() => setActiveTab('network')}
             >
               My Network
               {networkStats.friendsCount > 0 && (
@@ -382,8 +380,7 @@ function FriendsContent() {
               )}
             </button>
             <button
-              className={`friends-tab-pill ${activeTab === 'requests' ? 'active' : ''}`}
-              onClick={() => setActiveTab('requests')}
+              className={`friends-tab-pill ${activeTab === 'requests' ? 'active' : ''}`} onClick={() => setActiveTab('requests')}
             >
               <span>👤+</span> Requests
               {networkStats.pendingCount > 0 && (
@@ -391,28 +388,24 @@ function FriendsContent() {
               )}
             </button>
             <button
-              className={`friends-tab-pill ${activeTab === 'messages' ? 'active' : ''}`}
-              onClick={() => setActiveTab('messages')}
+              className={`friends-tab-pill ${activeTab === 'messages' ? 'active' : ''}`} onClick={() => setActiveTab('messages')}
             >
               Messages
             </button>
             <button
-              className={`friends-tab-pill ${activeTab === 'challenges' ? 'active' : ''}`}
-              onClick={() => setActiveTab('challenges')}
+              className={`friends-tab-pill ${activeTab === 'challenges' ? 'active' : ''}`} onClick={() => setActiveTab('challenges')}
             >
               Challenges
             </button>
             <button
-              className={`friends-tab-pill ${activeTab === 'projects' ? 'active' : ''}`}
-              onClick={() => setActiveTab('projects')}
+              className={`friends-tab-pill ${activeTab === 'projects' ? 'active' : ''}`} onClick={() => setActiveTab('projects')}
             >
               Group Projects
             </button>
             <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', paddingRight: 4 }}>
               <button
                 className="friends-icon-btn"
-                title="Privacy Settings"
-                onClick={() => setShowPrivacyModal(true)}
+                title="Privacy Settings" onClick={() => setShowPrivacyModal(true)}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -452,8 +445,7 @@ function FriendsContent() {
                 />
                 {searchQuery && (
                   <button
-                    className="friends-live-search-clear"
-                    onClick={() => {
+                    className="friends-live-search-clear" onClick={() => {
                       setSearchQuery('');
                       searchInputRef.current?.focus();
                     }}
@@ -490,8 +482,7 @@ function FriendsContent() {
                   </div>
                   {activeSuggested.length > 0 && (
                     <div
-                      className="see-all-link"
-                      onClick={() => handleOpenSmartMatch(activeSuggested[0])}
+                      className="see-all-link" onClick={() => handleOpenSmartMatch(activeSuggested[0])}
                     >
                       AI Match Breakdown →
                     </div>
@@ -515,22 +506,20 @@ function FriendsContent() {
                     {searchQuery && (
                       <button
                         className="friends-btn friends-btn-primary"
-                        style={{ marginTop: 8 }}
-                        onClick={() => setSearchQuery('')}
+                        style={{ marginTop: 8 }} onClick={() => setSearchQuery('')}
                       >
                         Clear Search
                       </button>
                     )}
                   </div>
                 ) : (
-                  <div className="suggested-cards-grid" style={{ marginTop: 14 }}>
+                  <div className="suggested-cards-grid">
                     {activeSuggested.slice(0, 6).map((peer) => (
                       <div key={peer.id} className="suggested-peer-card">
                         <div className="suggested-card-top">
                           <div
                             className="suggested-avatar-box"
-                            style={{ cursor: 'pointer' }}
-                            onClick={() => handleNavigateToProfile(peer.id)}
+                            style={{ cursor: 'pointer' }} onClick={() => handleNavigateToProfile(peer.id)}
                             title={`View ${peer.name}'s Profile`}
                           >
                             <img src={peer.avatar} alt={peer.name} />
@@ -539,8 +528,7 @@ function FriendsContent() {
                           <div
                             className="match-percentage-badge"
                             style={{ cursor: 'pointer' }}
-                            title="Click for AI Affinity Breakdown"
-                            onClick={() => handleOpenSmartMatch(peer)}
+                            title="Click for AI Affinity Breakdown" onClick={() => handleOpenSmartMatch(peer)}
                           >
                             <span className="match-percentage-val">{peer.matchPct}%</span>
                             <span className="match-percentage-label">Match</span>
@@ -550,8 +538,7 @@ function FriendsContent() {
                         <div
                           className="suggested-peer-name"
                           title={peer.name}
-                          style={{ cursor: 'pointer' }}
-                          onClick={() => handleNavigateToProfile(peer.id)}
+                          style={{ cursor: 'pointer' }} onClick={() => handleNavigateToProfile(peer.id)}
                         >
                           {peer.name}
                         </div>
@@ -569,25 +556,20 @@ function FriendsContent() {
 
                         <div className="suggested-card-btn-row">
                           <button
-                            className="friends-btn friends-btn-secondary"
-                            onClick={() => setSelectedStudent(peer)}
-                            style={{ padding: '7px 12px', fontSize: 13 }}
+                            className="friends-btn friends-btn-secondary" onClick={() => setSelectedStudent(peer)}
+                            
                           >
                             View Profile
                           </button>
                           {sentRequests[peer.id] ? (
                             <button
-                              className="friends-btn friends-btn-pending"
-                              style={{ padding: '7px 12px', fontSize: 13 }}
-                              disabled
-                            >
+                              className="friends-btn friends-btn-pending" disabled>
                               ✓ Sent
                             </button>
                           ) : (
                             <button
-                              className="friends-btn friends-btn-primary"
-                              onClick={() => handleAddFriend(peer.id, peer.name)}
-                              style={{ padding: '7px 12px', fontSize: 13 }}
+                              className="friends-btn friends-btn-primary" onClick={() => handleAddFriend(peer.id, peer.name)}
+                              
                             >
                               + Add Friend
                             </button>
@@ -607,15 +589,13 @@ function FriendsContent() {
                     <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                       <div className="view-mode-toggle-group">
                         <button
-                          className={`view-mode-btn ${viewMode === 'grid' ? 'active' : ''}`}
-                          onClick={() => setViewMode('grid')}
+                          className={`view-mode-btn ${viewMode === 'grid' ? 'active' : ''}`} onClick={() => setViewMode('grid')}
                           title="Grid View"
                         >
                           ⊞
                         </button>
                         <button
-                          className={`view-mode-btn ${viewMode === 'list' ? 'active' : ''}`}
-                          onClick={() => setViewMode('list')}
+                          className={`view-mode-btn ${viewMode === 'list' ? 'active' : ''}`} onClick={() => setViewMode('list')}
                           title="List View"
                         >
                           ☰
@@ -630,8 +610,7 @@ function FriendsContent() {
                         <div key={student.id} className="student-list-item-row">
                           <div
                             className="student-list-identity"
-                            style={{ cursor: 'pointer' }}
-                            onClick={() => handleNavigateToProfile(student.id)}
+                            style={{ cursor: 'pointer' }} onClick={() => handleNavigateToProfile(student.id)}
                           >
                             <div className="student-list-avatar">
                               <img src={student.avatar} alt={student.name} />
@@ -651,8 +630,7 @@ function FriendsContent() {
 
                           <div className="student-list-actions">
                             <button
-                              className="friends-btn friends-btn-secondary"
-                              onClick={() => setSelectedStudent(student)}
+                              className="friends-btn friends-btn-secondary" onClick={() => setSelectedStudent(student)}
                             >
                               View Profile
                             </button>
@@ -662,8 +640,7 @@ function FriendsContent() {
                               </button>
                             ) : (
                               <button
-                                className="friends-btn friends-btn-primary"
-                                onClick={() => handleAddFriend(student.id, student.name)}
+                                className="friends-btn friends-btn-primary" onClick={() => handleAddFriend(student.id, student.name)}
                               >
                                 + Add Friend
                               </button>
@@ -673,14 +650,13 @@ function FriendsContent() {
                       ))}
                     </div>
                   ) : (
-                    <div className="suggested-cards-grid" style={{ marginTop: 14 }}>
+                    <div className="suggested-cards-grid">
                       {activeSuggested.slice(6).map((student) => (
                         <div key={student.id} className="suggested-peer-card">
                           <div className="suggested-card-top">
                             <div
                               className="suggested-avatar-box"
-                              style={{ cursor: 'pointer' }}
-                              onClick={() => handleNavigateToProfile(student.id)}
+                              style={{ cursor: 'pointer' }} onClick={() => handleNavigateToProfile(student.id)}
                             >
                               <img src={student.avatar} alt={student.name} />
                               {student.online && <span className="online-beacon" />}
@@ -691,8 +667,7 @@ function FriendsContent() {
                           </div>
                           <div
                             className="suggested-peer-name"
-                            style={{ cursor: 'pointer' }}
-                            onClick={() => handleNavigateToProfile(student.id)}
+                            style={{ cursor: 'pointer' }} onClick={() => handleNavigateToProfile(student.id)}
                           >
                             {student.name}
                           </div>
@@ -704,21 +679,19 @@ function FriendsContent() {
                           </div>
                           <div className="suggested-card-btn-row">
                             <button
-                              className="friends-btn friends-btn-secondary"
-                              onClick={() => setSelectedStudent(student)}
-                              style={{ padding: '7px 12px', fontSize: 13 }}
+                              className="friends-btn friends-btn-secondary" onClick={() => setSelectedStudent(student)}
+                              
                             >
                               View Profile
                             </button>
                             {sentRequests[student.id] ? (
-                              <button className="friends-btn friends-btn-pending" disabled style={{ padding: '7px 12px', fontSize: 13 }}>
+                              <button className="friends-btn friends-btn-pending" disabled>
                                 ✓ Sent
                               </button>
                             ) : (
                               <button
-                                className="friends-btn friends-btn-primary"
-                                onClick={() => handleAddFriend(student.id, student.name)}
-                                style={{ padding: '7px 12px', fontSize: 13 }}
+                                className="friends-btn friends-btn-primary" onClick={() => handleAddFriend(student.id, student.name)}
+                                
                               >
                                 + Add Friend
                               </button>
@@ -759,8 +732,7 @@ function FriendsContent() {
                   </p>
                   <button
                     className="friends-btn friends-btn-primary"
-                    style={{ marginTop: 12 }}
-                    onClick={() => setActiveTab('discover')}
+                    style={{ marginTop: 12 }} onClick={() => setActiveTab('discover')}
                   >
                     Browse Students
                   </button>
@@ -771,16 +743,14 @@ function FriendsContent() {
                     <div key={friend.id} className="friends-network-card">
                       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                         <div
-                          style={{ position: 'relative', width: 44, height: 44, flexShrink: 0, cursor: 'pointer' }}
-                          onClick={() => handleNavigateToProfile(friend.id)}
+                          style={{ position: 'relative', width: 44, height: 44, flexShrink: 0, cursor: 'pointer' }} onClick={() => handleNavigateToProfile(friend.id)}
                         >
                           <img src={friend.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100'} alt={friend.name} style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }} />
                           {friend.online && <span className="online-beacon" />}
                         </div>
                         <div style={{ minWidth: 0, flex: 1 }}>
                           <div
-                            className="network-card-name" style={{ cursor: 'pointer' }}
-                            onClick={() => handleNavigateToProfile(friend.id)}
+                            className="network-card-name" style={{ cursor: 'pointer' }} onClick={() => handleNavigateToProfile(friend.id)}
                           >
                             {friend.name}
                           </div>
@@ -797,29 +767,25 @@ function FriendsContent() {
                       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, paddingTop: 4 }}>
                         <button
                           className="friends-btn friends-btn-secondary"
-                          style={{ fontSize: 12.5, padding: '7px' }}
-                          onClick={() => { setActiveChatFriendId(friend.id); setActiveTab('messages'); }}
+                          style={{ fontSize: 12.5, padding: '7px' }} onClick={() => { setActiveChatFriendId(friend.id); setActiveTab('messages'); }}
                         >
                           Chat
                         </button>
                         <button
                           className="friends-btn friends-btn-secondary"
-                          style={{ fontSize: 12.5, padding: '7px' }}
-                          onClick={() => setChallengeStudent(friend)}
+                          style={{ fontSize: 12.5, padding: '7px' }} onClick={() => setChallengeStudent(friend)}
                         >
                           Duel
                         </button>
                         <button
                           className="friends-btn friends-btn-secondary"
-                          style={{ fontSize: 12.5, padding: '7px' }}
-                          onClick={() => setProjectStudent(friend)}
+                          style={{ fontSize: 12.5, padding: '7px' }} onClick={() => setProjectStudent(friend)}
                         >
                           Project
                         </button>
                         <button
                           className="friends-btn friends-btn-secondary"
-                          style={{ fontSize: 12.5, padding: '7px' }}
-                          onClick={() => setSelectedStudent(friend)}
+                          style={{ fontSize: 12.5, padding: '7px' }} onClick={() => setSelectedStudent(friend)}
                         >
                           Profile
                         </button>
@@ -854,13 +820,11 @@ function FriendsContent() {
                           <img
                             src={req.avatar}
                             alt={req.name}
-                            style={{ width: 40, height: 40, borderRadius: '50%', cursor: 'pointer' }}
-                            onClick={() => handleNavigateToProfile(req.studentId)}
+                            style={{ width: 40, height: 40, borderRadius: '50%', cursor: 'pointer' }} onClick={() => handleNavigateToProfile(req.studentId)}
                           />
                           <div>
                             <div
-                              style={{ fontSize: 15.5, fontWeight: 700, color: 'var(--t1, #ffffff)', cursor: 'pointer' }}
-                              onClick={() => handleNavigateToProfile(req.studentId)}
+                              style={{ fontSize: 15.5, fontWeight: 700, color: 'var(--t1, #ffffff)', cursor: 'pointer' }} onClick={() => handleNavigateToProfile(req.studentId)}
                             >
                               {req.name}
                             </div>
@@ -877,15 +841,13 @@ function FriendsContent() {
                         <div style={{ display: 'flex', gap: 8 }}>
                           <button
                             className="friends-btn friends-btn-primary"
-                            style={{ flex: 1, fontSize: 13, padding: '8px' }}
-                            onClick={() => handleAcceptRequest(req.id, req.name)}
+                            style={{ flex: 1, fontSize: 13, padding: '8px' }} onClick={() => handleAcceptRequest(req.id, req.name)}
                           >
                             ✓ Accept
                           </button>
                           <button
                             className="friends-btn friends-btn-secondary"
-                            style={{ flex: 1, fontSize: 13, padding: '8px' }}
-                            onClick={() => handleDeclineRequest(req.id)}
+                            style={{ flex: 1, fontSize: 13, padding: '8px' }} onClick={() => handleDeclineRequest(req.id)}
                           >
                             Decline
                           </button>
@@ -936,8 +898,7 @@ function FriendsContent() {
             <div className="ref-sidebar-header">
               <span>Your Network</span>
               <span
-                style={{ fontSize: 14.5, color: '#818cf8', cursor: 'pointer', fontWeight: 600 }}
-                onClick={() => setActiveTab('network')}
+                style={{ fontSize: 14.5, color: '#818cf8', cursor: 'pointer', fontWeight: 600 }} onClick={() => setActiveTab('network')}
               >
                 View all ›
               </span>
@@ -946,8 +907,7 @@ function FriendsContent() {
             <div className="network-stats-row">
               <div
                 className="network-stat-box"
-                style={{ cursor: 'pointer' }}
-                onClick={() => setActiveTab('network')}
+                style={{ cursor: 'pointer' }} onClick={() => setActiveTab('network')}
               >
                 
                 <div>
@@ -958,8 +918,7 @@ function FriendsContent() {
 
               <div
                 className="network-stat-box"
-                style={{ cursor: 'pointer' }}
-                onClick={() => setActiveTab('requests')}
+                style={{ cursor: 'pointer' }} onClick={() => setActiveTab('requests')}
               >
                 
                 <div>
@@ -989,8 +948,7 @@ function FriendsContent() {
                 {friendsNetwork.slice(0, 4).map((friend) => (
                   <div
                     key={friend.id}
-                    className="recent-msg-item"
-                    onClick={() => {
+                    className="recent-msg-item" onClick={() => {
                       setActiveChatFriendId(friend.id);
                       setActiveTab('messages');
                     }}
@@ -1018,8 +976,7 @@ function FriendsContent() {
 
             <div className="quick-actions-grid">
               <div
-                className="quick-action-tile purple"
-                onClick={() => setChallengeStudent(suggestedStudents[0] || null)}
+                className="quick-action-tile purple" onClick={() => setChallengeStudent(suggestedStudents[0] || null)}
               >
                 <div className="tile-icon-title">
                   
@@ -1029,8 +986,7 @@ function FriendsContent() {
               </div>
 
               <div
-                className="quick-action-tile green"
-                onClick={() => setProjectStudent(suggestedStudents[0] || null)}
+                className="quick-action-tile green" onClick={() => setProjectStudent(suggestedStudents[0] || null)}
               >
                 <div className="tile-icon-title">
                   
@@ -1040,8 +996,7 @@ function FriendsContent() {
               </div>
 
               <div
-                className="quick-action-tile blue"
-                onClick={() => {
+                className="quick-action-tile blue" onClick={() => {
                   setActiveTab('discover');
                   searchInputRef.current?.focus();
                 }}
@@ -1054,8 +1009,7 @@ function FriendsContent() {
               </div>
 
               <div
-                className="quick-action-tile amber"
-                onClick={() => setActiveTab('network')}
+                className="quick-action-tile amber" onClick={() => setActiveTab('network')}
               >
                 <div className="tile-icon-title">
                   
