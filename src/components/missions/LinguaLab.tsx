@@ -812,49 +812,51 @@ export default function LinguaLab({ streak, theme, activeCourseId, role }: Lingu
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 14 }}>
             <div
               style={{
-                background: scoreAverage < 50 ? 'rgba(239, 68, 68, 0.06)' : 'rgba(var(--success-rgb), 0.06)',
-                border: `1px solid ${scoreAverage < 50 ? 'rgba(239, 68, 68, 0.25)' : 'rgba(var(--success-rgb), 0.2)'}`,
-                padding: 14,
+                background: scoreAverage < 70 ? 'rgba(239, 68, 68, 0.06)' : 'rgba(var(--success-rgb), 0.06)',
+                border: `1.5px solid ${scoreAverage < 70 ? 'rgba(239, 68, 68, 0.25)' : 'rgba(var(--success-rgb), 0.2)'}`,
+                padding: 16,
                 borderRadius: 14,
               }}
             >
               <strong
                 style={{
-                  color: scoreAverage < 50 ? 'var(--red)' : 'var(--success)',
-                  fontSize: 12,
-                  textTransform: 'uppercase',
-                  fontFamily: 'var(--font-mono)',
-                  display: 'block',
-                  marginBottom: 4,
+                  color: scoreAverage < 70 ? 'var(--red)' : 'var(--success)',
+                  fontSize: 12.5,
+                  fontWeight: 800,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  marginBottom: 6,
                 }}
               >
-                {scoreAverage < 50 ? '⚠️ Critical Critique' : '✓ Strong Points'}
+                {scoreAverage < 70 ? '⚠️ What needs fixing' : '👍 What you did well'}
               </strong>
-              <p style={{ fontSize: 13, color: theme.tPrimary, margin: 0, lineHeight: 1.5 }}>
+              <p style={{ fontSize: 13.5, color: theme.tPrimary, margin: 0, lineHeight: 1.55 }}>
                 {evaluationResult.feedback?.positive || 'Feedback analyzed.'}
               </p>
             </div>
             <div
               style={{
                 background: 'rgba(var(--warning-rgb), 0.06)',
-                border: '1px solid rgba(var(--warning-rgb), 0.2)',
-                padding: 14,
+                border: '1.5px solid rgba(var(--warning-rgb), 0.25)',
+                padding: 16,
                 borderRadius: 14,
               }}
             >
               <strong
                 style={{
                   color: 'var(--amber)',
-                  fontSize: 12,
-                  textTransform: 'uppercase',
-                  fontFamily: 'var(--font-mono)',
-                  display: 'block',
-                  marginBottom: 4,
+                  fontSize: 12.5,
+                  fontWeight: 800,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  marginBottom: 6,
                 }}
               >
-                💡 Real-World Corporate Etiquette Rule
+                💡 How to say it in simple words
               </strong>
-              <p style={{ fontSize: 13, color: theme.tPrimary, margin: 0, lineHeight: 1.5 }}>
+              <p style={{ fontSize: 13.5, color: theme.tPrimary, margin: 0, lineHeight: 1.55 }}>
                 {evaluationResult.feedback?.recommendation || scenario.etiquetteTip}
               </p>
             </div>

@@ -281,4 +281,49 @@ describe('BRUTAL VALIDATION — MISSIONS TAB UI/UX & DYNAMIC DATA (Tasks 1 & 2)'
       assert.ok(panelHtml.includes('CALIBRATION PENDING'), 'Pin inside panel must show CALIBRATION PENDING');
     });
   });
+
+  describe('Task 1 CSS & Visual Contrast Polish (Light & Dark Mode)', () => {
+    it('MissionsGrowthRadar uses balanced 6-column grid and color dot badges', async () => {
+      const { MissionsGrowthRadar } = await import('../src/components/missions/MissionsGrowthRadar');
+      const radarHtml = ReactDOMServer.renderToStaticMarkup(
+        React.createElement(MissionsGrowthRadar, {
+          theme,
+          onboardingAnswers: { qt2_score: 85 },
+          user: { missions_completed: 3, communication_score: 80, execution_score: 90, leadership_score: 75, mission_streak: 4 },
+          hoveredRadarMetric: null,
+          setHoveredRadarMetric: () => {},
+          setActiveTab: () => {},
+          hasCompletedAnyMission: true,
+        })
+      );
+
+      // Verify balanced 6-column grid
+      assert.ok(radarHtml.includes('grid-template-columns:repeat(6, 1fr)') || radarHtml.includes('grid-template-columns:repeat(6,1fr)'), 'Must use 6-column balanced grid');
+      assert.ok(radarHtml.includes('grid-column:span 2'), 'Top 3 pills must span 2 columns');
+      assert.ok(radarHtml.includes('grid-column:span 3'), 'Bottom 2 pills must span 3 columns');
+      assert.ok(!radarHtml.includes('repeat(2, 1fr)'), 'Must not have unbalanced 2-column grid leaving 5th item stranded');
+    });
+
+    it('MissionsArchetypeMatrix renders high-contrast axis chips and quadrant cards', async () => {
+      const MissionsArchetypeMatrix = (await import('../src/components/missions/MissionsArchetypeMatrix')).default;
+      const matrixHtml = ReactDOMServer.renderToStaticMarkup(
+        React.createElement(MissionsArchetypeMatrix, {
+          theme,
+          onboardingAnswers: { mindset_archetype: 'Pattern Hunter', qt2_score: 88 },
+          user: { missions_completed: 5, communication_score: 82, execution_score: 85, leadership_score: 80 },
+          hoveredQuadrant: null,
+          setHoveredQuadrant: () => {},
+          selectedQuadrant: null,
+          setSelectedQuadrant: () => {},
+          hasCompletedAnyMission: true,
+        })
+      );
+
+      assert.ok(matrixHtml.includes('High Logic / EQ'), 'Must render high logic axis label');
+      assert.ok(matrixHtml.includes('High Execution'), 'Must render high execution axis label');
+      assert.ok(matrixHtml.includes('People'), 'Must render people axis label');
+      assert.ok(matrixHtml.includes('Systems'), 'Must render systems axis label');
+      assert.ok(matrixHtml.includes('Pattern Hunter ✓'), 'Active calibrated archetype must have checkmark');
+    });
+  });
 });

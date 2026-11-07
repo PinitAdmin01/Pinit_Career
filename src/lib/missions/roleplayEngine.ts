@@ -47,10 +47,10 @@ type LlmFn = (
 ) => Promise<string>;
 
 const CAST: Record<string, { name: string; role: string }> = {
-  rajesh: { name: 'Mr. Rajesh', role: 'Panicky teammate shifting blame' },
-  abhijit: { name: 'Mr. Abhijit', role: 'Impatient executive demanding metrics' },
-  sneha: { name: 'Ms. Sneha', role: 'Polite colleague offering shortcut traps' },
-  rohan: { name: 'Mr. Rohan', role: 'Strict tech lead grilling ownership' },
+  rajesh: { name: 'Mr. Rajesh', role: 'Teammate looking for shortcuts' },
+  abhijit: { name: 'Mr. Abhijit', role: 'Impatient manager demanding quick answers' },
+  sneha: { name: 'Ms. Sneha', role: 'Teammate offering risky quick fixes' },
+  rohan: { name: 'Mr. Rohan', role: 'Strict team lead asking for accountability' },
 };
 
 const AVATAR_IDS = Object.keys(CAST);
@@ -66,18 +66,18 @@ const MINDSET_BOOKS = [
 ];
 
 const INCIDENTS = [
-  { id: 'payments-cascade', title: 'UPI Settlement Cascade', system: 'payments ledger', pressure: 'RBI audit window closes in 40 minutes', hook: 'settlement jobs are double-posting credits' },
-  { id: 'auth-lockout', title: 'Campus SSO Lockout', system: 'identity gateway', pressure: 'mid-term exam hall starts in 12 minutes', hook: 'refresh tokens are being revoked in a loop' },
-  { id: 'pii-leak', title: 'Student PII in Public Bucket', system: 'object storage', pressure: 'a journalist already has a screenshot', hook: 'an intern made the admissions bucket public' },
-  { id: 'cost-spike', title: 'GPU Bill Shock', system: 'inference cluster', pressure: 'CFO is on the board call now', hook: 'a forgotten training job burned the monthly cloud budget overnight' },
-  { id: 'oncall-page', title: '3AM Shard Split-Brain', system: 'primary database', pressure: 'SLA credits trigger at 99.9%', hook: 'two primaries are accepting writes' },
-  { id: 'model-drift', title: 'Placement Ranker Drift', system: 'matching model', pressure: 'recruiter day is live on campus', hook: 'top candidates are being ranked to the bottom' },
-  { id: 'vendor-outage', title: 'SMS Gateway Blackout', system: 'OTP vendor', pressure: 'parents cannot receive hall-ticket OTPs', hook: 'the vendor status page still says green' },
-  { id: 'scope-creep', title: 'Demo Feature Ambush', system: 'student app', pressure: 'the client wants a live change during the walkthrough', hook: 'they asked to hide failed payments from the dashboard' },
-  { id: 'secret-commit', title: 'API Key in Git History', system: 'CI pipeline', pressure: 'the key is already being used from an unknown IP', hook: 'someone force-pushed after pasting a production secret' },
-  { id: 'attendance-spoof', title: 'Face-Scan Spoof Wave', system: 'biometric attendance', pressure: 'the principal wants numbers before assembly', hook: 'photos of ID cards are passing liveness' },
-  { id: 'hostel-iot', title: 'Access Panel Brick', system: 'hostel door controllers', pressure: 'night curfew starts in 8 minutes', hook: 'a firmware push bricked an entire wing' },
-  { id: 'grade-swap', title: 'Transcript Checksum Mismatch', system: 'exam cell database', pressure: 'offer letters go out tonight', hook: 'two students have swapped internal marks after a bulk import' },
+  { id: 'payments-cascade', title: 'Student Fees Payment Glitch', system: 'college payment portal', pressure: 'late-fee deadline closes in 30 minutes', hook: 'students are seeing double-deduction errors on their screen' },
+  { id: 'auth-lockout', title: 'Campus Portal Login Outage', system: 'student login portal', pressure: 'online mid-term exam starts in 15 minutes', hook: 'students are getting locked out of their accounts' },
+  { id: 'pii-leak', title: 'Student Records Privacy Leak', system: 'college file storage', pressure: 'department head was just alerted', hook: 'a folder containing private student phone numbers was set to public' },
+  { id: 'cost-spike', title: 'Cloud Server Bill Shock', system: 'cloud server account', pressure: 'project advisor is demanding an answer', hook: 'a test server left running overnight caused unexpected charges' },
+  { id: 'oncall-page', title: 'Project Database Crash', system: 'team database', pressure: 'project submission deadline is tonight', hook: 'the database stopped saving student project submissions' },
+  { id: 'model-drift', title: 'Placement Portal Ranking Issue', system: 'campus placement portal', pressure: 'recruiter interviews start in 15 minutes', hook: 'student test scores and rankings are displaying in reverse order' },
+  { id: 'vendor-outage', title: 'SMS Verification Service Down', system: 'SMS OTP service', pressure: 'exam hall ticket downloads start right now', hook: 'students cannot receive their verification codes' },
+  { id: 'scope-creep', title: 'Sudden Demo Feature Request', system: 'team project app', pressure: 'faculty evaluation starts in 10 minutes', hook: 'the evaluator suddenly asks to remove a key project requirement' },
+  { id: 'secret-commit', title: 'Password Leaked in Code Repository', system: 'shared project repository', pressure: 'the repository is visible to other teams', hook: 'someone accidentally committed a private password in the code' },
+  { id: 'attendance-spoof', title: 'Attendance Scanner Glitch', system: 'classroom attendance scanner', pressure: 'professor is taking attendance right now', hook: 'the scanner is marking absent students as present' },
+  { id: 'hostel-iot', title: 'Hostel Door Scanner Error', system: 'hostel door scanner', pressure: 'night curfew starts in 15 minutes', hook: 'student ID cards are being rejected at the door' },
+  { id: 'grade-swap', title: 'Exam Marks Upload Error', system: 'grade report sheet', pressure: 'semester grades are being emailed tonight', hook: 'two student grades were accidentally swapped during upload' },
 ];
 
 const BANNED_PHRASES = [
@@ -87,6 +87,11 @@ const BANNED_PHRASES = [
   'force a bypass check',
   'git hooks',
   'critical branch sync failure',
+  'blast radius onto',
+  'skip the postmortem',
+  'freeze writes on matching model',
+  'algo drift',
+  'fifo fallback',
 ];
 
 function hashString(input: string): number {
@@ -161,7 +166,7 @@ function normalizeChoices(raw: unknown): RoleplayChoice[] {
       delta: Number.isFinite(Number(row.delta)) ? Number(row.delta) : deltas[i] ?? -2,
       rationale: row.rationale ? String(row.rationale) : undefined,
     };
-  }).filter(c => c.text.length > 12);
+  }).filter(c => c.text.length > 10);
 }
 
 function normalizeAvatar(id: unknown): string {
@@ -172,7 +177,7 @@ function normalizeAvatar(id: unknown): string {
 function nodeFromParsed(parsed: Record<string, unknown>, fallbackId: string, ended: boolean): RoleplayNode | null {
   const message = String(parsed.message || '').trim();
   const choices = ended ? [] : normalizeChoices(parsed.choices);
-  if (message.length < 40) return null;
+  if (message.length < 30) return null;
   if (!ended && choices.length < 2) return null;
   const avatar = normalizeAvatar(parsed.activeAvatar);
   const cast = CAST[avatar];
@@ -214,14 +219,12 @@ function generateInitializeNode(req: RoleplayRequest): RoleplayNode {
   const role = req.role || 'Software Developer';
   const cast = CAST[avatar];
   const other = CAST[second];
-  const qt2 = Number(req.qt2 ?? 75);
-  const heat = qt2 >= 85 ? 'They are already twisting facts to make you look like the owner of a mess you just walked into.' : 'The room is tense but the facts are still recoverable if you slow down.';
 
   const lines: Record<string, string> = {
-    rajesh: `${name}, I did not touch ${incident.system}. Someone on your side pushed it. ${incident.hook}. ${other.name} is already looping ${incident.pressure}. I can mask the error in the client so nobody sees it — just say yes.`,
-    abhijit: `${name}, skip the postmortem. I need a number for ${incident.system} in the next two minutes. ${incident.hook}. ${incident.pressure}. If you cannot promise green, I will tell the board you owned the outage.`,
-    sneha: `${name}, breathe. I already have a workaround for ${incident.system}. ${incident.hook}. We can hide the symptom until after ${incident.pressure}. Nobody has to write an incident. Want me to apply it?`,
-    rohan: `${name}, you are the ${role} on the hook. ${incident.hook} on ${incident.system}. ${incident.pressure}. Walk me through your first command, and do not tell me you need to "look into it."`,
+    rajesh: `Hey ${name}, I did not touch the ${incident.system}! Someone on your side did. ${incident.hook}, and ${incident.pressure}. I can quickly hide the error on the screen so nobody notices — should I do it?`,
+    abhijit: `${name}, we have a serious issue with the ${incident.system}! ${incident.hook}, and ${incident.pressure}. I need an answer right now: can you guarantee this is fixed in 2 minutes, or should I tell everyone you caused this outage?`,
+    sneha: `${name}, don't panic. I found a quick shortcut for the ${incident.system}. ${incident.hook}. We can cover up the error so it looks fine during ${incident.pressure}. Want me to apply it?`,
+    rohan: `${name}, you are responsible for the ${incident.system}. Here is the issue: ${incident.hook}, and ${incident.pressure}. Tell me your exact plan right now. How are you going to solve this without making excuses?`,
   };
 
   return {
@@ -231,22 +234,22 @@ function generateInitializeNode(req: RoleplayRequest): RoleplayNode {
     activeAvatar: avatar,
     avatarName: cast.name,
     avatarRole: cast.role,
-    message: `${lines[avatar]} ${heat}`,
+    message: lines[avatar],
     choices: [
       {
-        text: `Own the clock: freeze writes on ${incident.system}, page the on-call with evidence, and tell ${cast.name} we will not hide symptoms.`,
+        text: `Be honest and take ownership: calmly explain what broke, do not hide errors with quick fake patches, and give an honest time estimate to fix it safely.`,
         delta: 4,
-        rationale: 'System 2 ownership under pressure',
+        rationale: 'Honest ownership under pressure',
       },
       {
-        text: `Buy time with a cosmetic patch so ${incident.pressure} looks green, then investigate after the meeting.`,
+        text: `Apply a quick cosmetic patch to hide the error message so the screen looks normal for now, and investigate the real problem later.`,
         delta: -2,
-        rationale: 'Plausible authority/scarcity trap',
+        rationale: 'Risky shortcut trap',
       },
       {
-        text: `Push the blast radius onto ${other.name} and refuse to touch ${incident.system} until someone else admits fault.`,
+        text: `Blame ${other.name} for the mistake and refuse to help until someone else admits fault.`,
         delta: -4,
-        rationale: 'Blame shift / accountability collapse',
+        rationale: 'Blaming others and avoiding responsibility',
       },
     ],
     isEnded: false,
@@ -268,7 +271,7 @@ function generateRespondNode(req: RoleplayRequest): RoleplayNode {
   const avatar = pick(rng, unusedAvatars.length ? unusedAvatars : AVATAR_IDS);
   const cast = CAST[avatar];
   const name = firstName(req.studentName);
-  const choice = (req.choice || 'that move').slice(0, 180);
+  const choice = (req.choice || 'that move').slice(0, 160);
   const incident = pick(rng, INCIDENTS);
   const scenarioId = `sc_step_${seed.toString(16)}`;
 
@@ -279,7 +282,7 @@ function generateRespondNode(req: RoleplayRequest): RoleplayNode {
       activeAvatar: avatar,
       avatarName: cast.name,
       avatarRole: cast.role,
-      message: `${name}, we are out of runway. ${incident.pressure}. Your last call — "${choice}" — is now the official story. I am closing the war room. Write the decision log as if a regulator will read it tomorrow.`,
+      message: `${name}, the session has concluded. ${incident.pressure}. Your final choice — "${choice}" — determined how the team handled this challenge. Let's review your mindset and leadership results.`,
       choices: [],
       isEnded: true,
       source: 'generated',
@@ -287,10 +290,10 @@ function generateRespondNode(req: RoleplayRequest): RoleplayNode {
   }
 
   const beats: Record<string, string> = {
-    rajesh: `${name}, I heard you choose "${choice}". Fine. Then you own the rollback. I already told ${CAST.abhijit.name} that you green-lit a shortcut on ${incident.system}. If this blows, it is your name on the ticket.`,
-    abhijit: `${name}, I do not want a lecture. You picked "${choice}". Give me a yes/no: do we ship a visible fix for ${incident.system} before ${incident.pressure}, or do I cancel and bill the delay to your team?`,
-    sneha: `${name}, I can still save you. Your choice "${choice}" is already leaking in the group chat. I have a silent config overlay for ${incident.system}. One paste and the dashboard looks healthy. Say the word.`,
-    rohan: `${name}, "${choice}" is not a plan. Show me the blast radius on ${incident.system}. What is the rollback command, who verifies it, and what lie are we not going to tell ${CAST.abhijit.name}?`,
+    rajesh: `${name}, you chose to: "${choice}". Fine! But if anything breaks, you take full responsibility. I already told ${CAST.abhijit.name} what you said, so be ready to defend your choice.`,
+    abhijit: `${name}, we don't have time for long explanations. You chose: "${choice}". Can you guarantee this works before ${incident.pressure}, or will you delay the whole project?`,
+    sneha: `${name}, people are asking questions in the team chat about your choice: "${choice}". I still have that quick patch ready. Are you sure you want to do it the hard way?`,
+    rohan: `${name}, you decided to: "${choice}". That sounds like a start, but explain the exact details. What is step one, who is double-checking your work, and how do we prevent this from breaking again?`,
   };
 
   return {
@@ -302,16 +305,19 @@ function generateRespondNode(req: RoleplayRequest): RoleplayNode {
     message: beats[avatar],
     choices: [
       {
-        text: `State facts, assign a verifier, and refuse any hidden overlay on ${incident.system}.`,
+        text: `Stay focused and transparent: outline the concrete steps to fix the issue, and provide an honest progress update in 15 minutes.`,
         delta: 4,
+        rationale: 'Calm, transparent problem solving',
       },
       {
-        text: `Agree to a temporary cosmetic fix so the meeting survives, then promise a real patch tonight.`,
+        text: `Rush a temporary bypass to silence complaints and promise it will never happen again.`,
         delta: -2,
+        rationale: 'Panicked over-promising trap',
       },
       {
-        text: `Deny involvement, quote "${choice}" as someone else's idea, and stall until the pressure passes.`,
+        text: `Argue with ${cast.name} in front of the team and insist the expectations are unfair.`,
         delta: -4,
+        rationale: 'Emotional confrontation and defensiveness',
       },
     ],
     isEnded: false,
@@ -348,10 +354,10 @@ function generateEvaluate(req: RoleplayRequest): RoleplayEval {
   const quotes = history.filter(h => h.role === 'user').slice(0, 3).map(h => `- "${h.content.slice(0, 140)}"`).join('\n') || '- (no recorded choice)';
   return {
     ok: true,
-    report: `### Socratic Persona Evolution Summary\n\n**Candidate:** ${name}  \n**Net agency delta:** ${stats.finalDelta}  \n**Archetype:** ${stats.mindset_archetype}\n\n#### Decisions logged\n${quotes}\n\n#### Read\n- **Decisiveness:** ${owned ? 'System 2 checks appeared under time pressure.' : 'System 1 shortcuts showed up when authority or scarcity spiked.'}\n- **Accountability:** ${owned ? 'Ownership language stayed with the candidate.' : 'Blame and delay showed up as the default shield.'}\n- **Persuasion resistance:** Shortcut offers and metric threats were ${owned ? 'refused with a verifier.' : 'accepted to keep the room calm.'}\n\n> Replay the session. The next crisis will not reuse this incident.`,
+    report: `### Socratic Persona Evolution Summary\n\n**Candidate:** ${name}  \n**Mindset Score Delta:** ${stats.finalDelta >= 0 ? '+' : ''}${stats.finalDelta} pts  \n**Mindset Archetype:** ${stats.mindset_archetype}\n\n#### Decisions You Made\n${quotes}\n\n#### How You Handled It\n- **Honesty & Ownership:** ${owned ? 'You stayed calm and took personal ownership instead of blaming others.' : 'You looked for quick shortcuts or tried to avoid blame under pressure.'}\n- **Dealing with Stress:** ${owned ? 'You communicated realistic timelines and refused unsafe cover-ups.' : 'You were tempted by quick patches that could cause bigger problems later.'}\n- **Clear Communication:** ${owned ? 'You kept the team informed with truthful, clear updates.' : 'You hesitated or argued when asked for status.'}\n\n> Ready for another challenge? Each session tests a new real-world scenario.`,
     spokenConclusion: owned
-      ? `${name}, you kept the facts visible and did not hide the blast radius. That is Extreme Ownership under noise. Review the report, then run another crisis — it will be a different incident.`
-      : `${name}, the room pulled you toward a cosmetic fix. That is the trap. Read where the delta dropped, then take a new scenario. It will not be the same story.`,
+      ? `${name}, great job! You stayed calm, told the truth, and took full ownership. That is how real professionals solve problems under pressure.`
+      : `${name}, you fell for a quick shortcut when the pressure rose. In a real job, always be honest, stay calm, and don't try to hide problems.`,
     ...stats,
     source: 'generated',
   };
@@ -360,52 +366,63 @@ function generateEvaluate(req: RoleplayRequest): RoleplayEval {
 function initializePrompt(req: RoleplayRequest, books: string, nonce: string): string {
   const name = firstName(req.studentName);
   const banned = [...BANNED_PHRASES, ...(req.recentTitles || [])].join('; ');
-  return `You are the PinIT Mindset Orchestrator.
-Invent a NEW high-stakes workplace crisis for ${name}, a ${req.role || 'Software Developer'} (QT2 ${req.qt2 ?? 75}).
-Session nonce (must shape unique details): ${nonce}.
-Today: ${new Date().toISOString()}.
+  return `You are the PinIT Mindset Orchestrator creating a real-world scenario for ${name}, a college student / junior ${req.role || 'Software Developer'} (QT2 score ${req.qt2 ?? 75}).
+Session nonce: ${nonce}.
 
-Cast (pick 2, start with one speaking in first person to ${name}):
-- rajesh, abhijit, sneha, rohan
+Cast (pick 2 avatars, one speaks first):
+- rajesh (Teammate looking for shortcuts)
+- abhijit (Impatient manager demanding quick answers)
+- sneha (Teammate offering risky quick fixes)
+- rohan (Strict team lead asking for accountability)
 
-Literature to weaponize:
-${books}
+CRITICAL INSTRUCTION - SIMPLE ENGLISH:
+- Write in SIMPLE, CLEAR, EVERYDAY ENGLISH that any college student can easily understand (Grade 6-8 reading level).
+- NEVER use obscure corporate techno-jargon like "blast radius", "freeze writes", "postmortem", "algo drift", "FIFO fallback".
+- Create a relatable student or junior workplace situation (e.g., website login broken before exam, project database stopped saving, student grades showing in reverse order, cloud bill spike).
+- Provide 3 distinct, crystal-clear choices:
+  Choice 1: Calm, honest, responsible ownership (+4 delta)
+  Choice 2: Quick, rushed visual patch to hide the error (-2 delta)
+  Choice 3: Blaming someone else or refusing to help (-4 delta)
 
-HARD RULES:
-- Do NOT reuse these plots/phrases: ${banned}
-- Do NOT use git branch sync, client demo in 5 minutes, or bypassing checks.
-- Invent a specific system, metric, and deadline unique to this nonce.
-- Every choice is a hard trade-off. No obvious "good vs evil".
+Do NOT reuse these plots or phrases: ${banned}
 
-Return ONLY JSON:
+Return ONLY valid JSON with no markdown:
 {
-  "scenarioTitle": "unique title",
+  "scenarioTitle": "Simple Title (e.g. Campus Login Outage)",
   "activeAvatar": "rajesh|abhijit|sneha|rohan",
   "avatarName": "Full name",
   "avatarRole": "Role in this scene",
-  "message": "Spoken opening, 3-5 sentences, address ${name} by name.",
+  "message": "Clear spoken opening in simple English, 2-4 sentences, addressing ${name} by name.",
   "choices": [
-    {"text": "System 2 ownership option", "delta": 4, "rationale": "..."},
-    {"text": "Plausible trap", "delta": -2, "rationale": "..."},
-    {"text": "Blame/cover-up", "delta": -4, "rationale": "..."}
+    {"text": "Honest, calm ownership choice in simple words", "delta": 4, "rationale": "..."},
+    {"text": "Quick cosmetic shortcut trap in simple words", "delta": -2, "rationale": "..."},
+    {"text": "Blame someone else choice in simple words", "delta": -4, "rationale": "..."}
   ]
 }`;
 }
 
 function respondPrompt(req: RoleplayRequest, isFinal: boolean): string {
   const name = firstName(req.studentName);
-  return `Continue the PinIT crisis roleplay for ${name}.
+  return `Continue the PinIT workplace scenario for ${name}.
 User just chose: "${req.choice || ''}".
 isFinalNode: ${isFinal}.
-Switch to a different cast member (rajesh, abhijit, sneha, rohan) and escalate with a NEW complication (regulator, customer, data loss, SLA, budget) — never git-bypass / 5-minute client demo.
-If isFinalNode, choices must be [] and isEnded true.
-Return ONLY JSON:
+
+CRITICAL INSTRUCTION - SIMPLE ENGLISH:
+- Write in SIMPLE, NATURAL, EVERYDAY ENGLISH.
+- Keep the dialogue direct, clear, and easy to understand.
+- If isFinalNode, choices must be [] and isEnded true.
+
+Return ONLY valid JSON with no markdown:
 {
   "activeAvatar": "rajesh|abhijit|sneha|rohan",
   "avatarName": "Full name",
   "avatarRole": "Role",
-  "message": "Spoken reply to ${name}",
-  "choices": [{"text": "...", "delta": 4}, {"text": "...", "delta": -2}, {"text": "...", "delta": -4}],
+  "message": "Spoken reply to ${name} in simple English",
+  "choices": [
+    {"text": "Calm, responsible next step", "delta": 4},
+    {"text": "Rushed temporary patch", "delta": -2},
+    {"text": "Defensive or blaming response", "delta": -4}
+  ],
   "isEnded": ${isFinal}
 }`;
 }
@@ -421,7 +438,7 @@ export async function executeRoleplayTurn(req: RoleplayRequest, llm: LlmFn): Pro
   if (action === 'initialize') {
     try {
       const text = await llm(
-        [{ role: 'user', content: `Invent crisis ${nonce} for ${firstName(req.studentName)}. Forbidden titles: ${(req.recentTitles || []).join(' | ') || 'none'}` }],
+        [{ role: 'user', content: `Create simple English scenario ${nonce} for ${firstName(req.studentName)}. Avoid: ${(req.recentTitles || []).join(' | ') || 'none'}` }],
         initializePrompt(req, booksText, nonce),
         700
       );
@@ -470,17 +487,18 @@ export async function executeRoleplayTurn(req: RoleplayRequest, llm: LlmFn): Pro
     const fallback = generateEvaluate(req);
     try {
       const text = await llm(
-        [{ role: 'user', content: 'Return evaluation JSON only.' }],
+        [{ role: 'user', content: 'Return evaluation JSON only in simple English.' }],
         `You are the PinIT Mindset Evaluator for ${firstName(req.studentName)}.
 History: ${JSON.stringify(req.history || []).slice(0, 6000)}
+Evaluate in simple, encouraging English that any student can understand.
 Return ONLY JSON:
-{"report": "markdown report quoting their choices", "spokenConclusion": "3-4 spoken sentences, max 80 words"}`,
+{"report": "markdown report quoting choices", "spokenConclusion": "2-3 simple spoken sentences, max 60 words"}`,
         800
       );
       const parsed = extractJson(text);
       const report = parsed?.report ? String(parsed.report) : '';
       const spoken = parsed?.spokenConclusion ? String(parsed.spokenConclusion) : '';
-      if (report.length > 80) {
+      if (report.length > 50) {
         return {
           ok: true,
           report,

@@ -1,12 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { DYNAMIC_SCENARIO_CATALOG } from '@/lib/missions/communicationScenarios';
 
-// Heuristic pattern to identify evasive, low-effort, or dismissive responses
+// Heuristic pattern to identify evasive, low-effort, passing-the-buck, or dismissive responses
 const EVASIVE_PATTERNS = [
-  /\bask\s+(claude|chatgpt|gpt|ai|google|someone\s+else)\b/i,
+  /\b(ask|tell|get|let)\s+(my\s+)?(friend|bro|buddy|dude|pal|guy|someone|anyone|claude|chatgpt|gpt|ai|google|bot)\b/i,
+  /\b(friend|someone|anyone|bot)\s+(to\s+)?(fix|do|handle|solve|look|check)\b/i,
   /\b(idk|dunno|idc|whatever|whatev|idgaf|dont\s+care)\b/i,
-  /\b(not\s+my\s+job|not\s+my\s+problem|deal\s+with\s+it)\b/i,
+  /\b(not\s+my\s+(job|problem)|deal\s+with\s+it)\b/i,
   /\b(figure\s+it\s+out|who\s+cares|google\s+it)\b/i,
+  /\b(pass\s+(it\s+)?to|delegate\s+to\s+someone)\b/i,
   /\b(blah\s+blah|asdf|qwerty|testing|test\s+123)\b/i,
 ];
 
@@ -38,18 +40,18 @@ export async function POST(req: NextRequest) {
   const words = submission.split(/\s+/).filter(Boolean);
   const wordCount = words.length;
 
-  // 2. Check for Low-Effort / Evasive / Slang Responses (e.g. "Hi team ask claude for it")
+  // 2. Check for Low-Effort / Evasive / Passing-the-buck Responses (e.g. "ask my friend to fix it")
   const isEvasive = EVASIVE_PATTERNS.some((p) => p.test(submission)) || wordCount < 3;
 
   if (isEvasive) {
     return NextResponse.json({
       ok: true,
       scores: {
-        clarity: 28,
-        tone: 25,
-        structure: 20,
-        impact: 22,
-        average: 24,
+        clarity: 15,
+        tone: 18,
+        structure: 15,
+        impact: 16,
+        average: 16,
       },
       ratingLabel: 'Unprofessional / Deflective',
       rewrites: {
@@ -58,8 +60,8 @@ export async function POST(req: NextRequest) {
         native: matchedScenario.defaultRewrites.native,
       },
       feedback: {
-        positive: 'You responded to the communication thread, but casual deflection violates corporate communication standards.',
-        recommendation: `Never dismiss a critical workplace scenario with evasive phrasing like "${submission}". In a high-stakes corporate environment, stakeholders expect immediate accountability, current status triage, and an explicit time for the next checkpoint.`,
+        positive: 'You responded to the message, but delegating your work onto a friend or an AI tool during an issue is not acceptable.',
+        recommendation: `Never dismiss a workplace issue with words like "${submission}". Take ownership yourself: tell your team what is broken, what you are doing right now to fix it, and when you will give the next update.`,
       },
     });
   }
@@ -69,30 +71,35 @@ export async function POST(req: NextRequest) {
   const groqKeys = groqKeysStr.split(',').map((k) => k.trim()).filter(Boolean);
   const geminiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
 
-  const systemInstructions = `You are an Executive Corporate Communications Coach evaluating a candidate's workplace communication in PinIT Career OS.
+  const systemInstructions = `You are a helpful, encouraging workplace communication coach for college students and junior professionals.
 Scenario: "${scenarioTitle}"
-Context: "${situation || matchedScenario.situation}"
-Objective: "${prompt || matchedScenario.prompt}"
+Situation: "${situation || matchedScenario.situation}"
+Goal: "${prompt || matchedScenario.prompt}"
 Student Track: "${track}"
 
-Student's Submitted Response:
+Student's Written Response:
 "${submission}"
 
-Provide an objective corporate rating and 3 DISTINCT, HIGH-QUALITY model rewrites that show how a seasoned leader addresses this exact situation:
-- "executive": Concise, C-suite briefing focused on business impact, risk mitigation, and ownership (1-2 sentences).
-- "professional": Clear, courteous, accountable communication tailored for peers, tech leads, or managers (2-3 sentences).
-- "native": Natural, idiomatic corporate American/British English tone with natural workplace phrasing (2-3 sentences).
+TASK:
+1. Evaluate the student's response. Grade realistically (0-100). If the answer avoids responsibility or passes blame, give a low score (under 40). If it takes ownership, explains the issue, and gives a timeline, give a good score (75-95).
+2. Write 3 model rewrites in SIMPLE, CLEAR, EVERYDAY ENGLISH that any student can understand:
+   - "executive": Short, confident update for a manager or lead (1-2 sentences).
+   - "professional": Clear, polite, and cooperative message for teammates (2-3 sentences).
+   - "native": Natural, friendly workplace English that sounds like a native speaker (2-3 sentences).
+3. In "feedback":
+   - "positive": 1 simple sentence explaining what was good (or what went wrong if the score is low).
+   - "recommendation": 1 simple, practical tip in plain English explaining how to say it better. Do NOT use complicated corporate buzzwords.
 
-Format your response STRICTLY as valid JSON with no markdown fences, matching this schema:
+Return STRICTLY valid JSON with no markdown formatting:
 {
   "scores": {
-    "clarity": number (0-100),
-    "tone": number (0-100),
-    "structure": number (0-100),
-    "impact": number (0-100),
-    "average": number (0-100)
+    "clarity": number,
+    "tone": number,
+    "structure": number,
+    "impact": number,
+    "average": number
   },
-  "ratingLabel": string ("Executive C-Suite Ready" | "Corporate Ready" | "Needs Professional Polish"),
+  "ratingLabel": string ("Executive Ready" | "Professional" | "Needs Work" | "Unprofessional / Deflective"),
   "rewrites": {
     "executive": string,
     "professional": string,
@@ -116,7 +123,7 @@ Format your response STRICTLY as valid JSON with no markdown fences, matching th
         body: JSON.stringify({
           model: 'llama-3.1-8b-instant',
           messages: [{ role: 'system', content: systemInstructions }],
-          temperature: 0.4,
+          temperature: 0.3,
           max_tokens: 500,
           response_format: { type: 'json_object' },
         }),
@@ -130,11 +137,11 @@ Format your response STRICTLY as valid JSON with no markdown fences, matching th
           return NextResponse.json({
             ok: true,
             scores: parsed.scores,
-            ratingLabel: parsed.ratingLabel || (parsed.scores.average >= 85 ? 'Executive C-Suite Ready' : 'Corporate Ready'),
+            ratingLabel: parsed.ratingLabel || (parsed.scores.average >= 85 ? 'Executive Ready' : 'Professional'),
             rewrites: parsed.rewrites,
             feedback: parsed.feedback || {
-              positive: 'Clear problem framing and professional tone.',
-              recommendation: matchedScenario.etiquetteTip,
+              positive: 'Good job communicating clearly and taking responsibility.',
+              recommendation: 'Always let your team know what you are doing right now and what time you will update them.',
             },
           });
         }
@@ -156,7 +163,7 @@ Format your response STRICTLY as valid JSON with no markdown fences, matching th
             contents: [{ role: 'user', parts: [{ text: systemInstructions }] }],
             generationConfig: {
               responseMimeType: 'application/json',
-              temperature: 0.4,
+              temperature: 0.3,
               maxOutputTokens: 600,
             },
           }),
@@ -172,11 +179,11 @@ Format your response STRICTLY as valid JSON with no markdown fences, matching th
           return NextResponse.json({
             ok: true,
             scores: parsed.scores,
-            ratingLabel: parsed.ratingLabel || (parsed.scores.average >= 85 ? 'Executive C-Suite Ready' : 'Corporate Ready'),
+            ratingLabel: parsed.ratingLabel || (parsed.scores.average >= 85 ? 'Executive Ready' : 'Professional'),
             rewrites: parsed.rewrites,
             feedback: parsed.feedback || {
-              positive: 'Well-structured response with constructive accountability.',
-              recommendation: matchedScenario.etiquetteTip,
+              positive: 'Good job communicating clearly and taking responsibility.',
+              recommendation: 'Always let your team know what you are doing right now and what time you will update them.',
             },
           });
         }
@@ -187,20 +194,19 @@ Format your response STRICTLY as valid JSON with no markdown fences, matching th
   }
 
   // 4. Intelligent Linguistic Synthesizer (Zero-Network Deterministic Fallback)
-  const hasActionPlan = /\b(will|plan|propose|schedule|resolve|prioritize|deliver|mitigate|align|update|investigate|deploy|rollback|patch|clear)\b/i.test(submission);
-  const hasOwnership = /\b(i|we|our|my|team|ownership|accountable|ensure|commit|responsible)\b/i.test(submission);
-  const hasTimeline = /\b(by|at|eod|today|minutes|hours|pm|am|friday|monday|checkpoint|eta)\b/i.test(submission);
+  const hasActionPlan = /\b(will|plan|propose|schedule|resolve|fix|prioritize|deliver|mitigate|align|update|investigate|deploy|rollback|patch|clear)\b/i.test(submission);
+  const hasOwnership = /\b(i am|we are|i will|we will|i have|we have|my team|our team|i took|responsible)\b/i.test(submission);
+  const hasTimeline = /\b(by|at|eod|today|minutes|hours|pm|am|friday|monday|checkpoint|eta|soon)\b/i.test(submission);
   const hasFiller = /\b(um|uh|maybe|sort of|kind of|guess|probably|i think)\b/i.test(submission);
 
   let clarity = Math.min(95, Math.max(50, 60 + Math.min(25, wordCount * 1.5) + (hasActionPlan ? 8 : -6)));
-  let tone = Math.min(96, Math.max(52, 70 + (hasOwnership ? 12 : -4) - (hasFiller ? 12 : 0)));
+  let tone = Math.min(96, Math.max(52, 68 + (hasOwnership ? 12 : -4) - (hasFiller ? 12 : 0)));
   let structure = Math.min(95, Math.max(50, 65 + (hasTimeline ? 12 : -4) + (wordCount >= 15 ? 10 : -4)));
   let impact = Math.min(96, Math.round((clarity + tone + structure) / 3) + (hasActionPlan && hasTimeline ? 6 : -4));
   let average = Math.round((clarity + tone + structure + impact) / 4);
 
-  // Generate scenario-aligned rewrites that incorporate student core content smoothly
-  const cleanSubmission = submission.replace(/[.!?]+$/, '').trim();
-  const executiveRewrite = `${matchedScenario.defaultRewrites.executive} (Aligned with candidate update: "${cleanSubmission.slice(0, 80)}...")`;
+  // Return clean, authentic model rewrites without string concatenation leaks
+  const executiveRewrite = matchedScenario.defaultRewrites.executive;
   const professionalRewrite = matchedScenario.defaultRewrites.professional;
   const nativeRewrite = matchedScenario.defaultRewrites.native;
 
@@ -213,7 +219,7 @@ Format your response STRICTLY as valid JSON with no markdown fences, matching th
       impact,
       average,
     },
-    ratingLabel: average >= 86 ? 'Executive C-Suite Ready' : average >= 72 ? 'Corporate Ready' : 'Needs Professional Polish',
+    ratingLabel: average >= 86 ? 'Executive Ready' : average >= 72 ? 'Professional' : 'Needs Work',
     rewrites: {
       executive: executiveRewrite,
       professional: professionalRewrite,
@@ -221,9 +227,9 @@ Format your response STRICTLY as valid JSON with no markdown fences, matching th
     },
     feedback: {
       positive: hasOwnership && hasActionPlan
-        ? `Strong accountability demonstrated for ${scenarioTitle}; explicit mitigation steps establish stakeholder trust.`
-        : `Clear initial communication intent; incorporating concrete completion timelines will elevate executive authority.`,
-      recommendation: matchedScenario.etiquetteTip,
+        ? `Great job taking direct responsibility for the issue and explaining your next steps.`
+        : `You explained the situation, but you need to give a specific time for when you will update the team.`,
+      recommendation: `In a real job, always tell your team 3 simple things: (1) what is wrong, (2) what you are doing right now to fix it, and (3) what time you will update them.`,
     },
   });
 }
