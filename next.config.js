@@ -29,6 +29,7 @@ const CSP = [
   [
     "connect-src 'self'",
     'blob:',
+    'data:',
     'http://127.0.0.1:*',
     'ws://127.0.0.1:*',
     'http://localhost:*',

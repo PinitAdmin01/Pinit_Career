@@ -51,17 +51,17 @@ const COLLEGE_DICTIONARY: Array<{ patterns: RegExp[]; code: string; name: string
   { patterns: [/visvesvaraya\s*tech/i, /\bvtu\b/i], code: 'VTU', name: 'VTU Belagavi' },
 ];
 
-// Department / Branch Lexicon
+// Department / Branch Lexicon (Strict: No ambiguous single/two-letter false positives)
 const DEPARTMENT_DICTIONARY: Array<{ patterns: RegExp[]; code: string; name: string }> = [
-  { patterns: [/comp.*sci.*eng/i, /computer\s*science/i, /\bcse\b/i, /\bcs\b/i], code: 'CSE', name: 'Computer Science & Engineering' },
-  { patterns: [/info.*sci/i, /information\s*technology/i, /\bise\b/i, /\bit\b/i], code: 'ISE', name: 'Information Science & Engineering' },
+  { patterns: [/comp.*sci.*eng/i, /computer\s*science/i, /\bcse\b/i], code: 'CSE', name: 'Computer Science & Engineering' },
+  { patterns: [/info.*sci/i, /information\s*technology/i, /\bise\b/i], code: 'ISE', name: 'Information Science & Engineering' },
   { patterns: [/artif.*intel.*mach/i, /\baiml\b/i, /ai\s*&\s*ml/i], code: 'AIML', name: 'Artificial Intelligence & Machine Learning' },
-  { patterns: [/data\s*sci/i, /\baids\b/i, /\bds\b/i], code: 'AIDS', name: 'Data Science & AI' },
-  { patterns: [/electron.*commun/i, /electronics/i, /\bece\b/i, /\bec\b/i], code: 'ECE', name: 'Electronics & Communication' },
-  { patterns: [/electrical/i, /electr.*electron/i, /\beee\b/i, /\bee\b/i], code: 'EEE', name: 'Electrical & Electronics' },
-  { patterns: [/mechanic/i, /\bmech\b/i, /\bme\b/i], code: 'MECH', name: 'Mechanical Engineering' },
-  { patterns: [/civil/i, /\bce\b/i], code: 'CIVIL', name: 'Civil Engineering' },
-  { patterns: [/biotech/i, /\bbt\b/i], code: 'BIOTECH', name: 'Biotechnology' },
+  { patterns: [/data\s*sci/i, /\baids\b/i], code: 'AIDS', name: 'Data Science & AI' },
+  { patterns: [/electron.*commun/i, /electronics\s*(?:&|and)\s*comm/i, /\bece\b/i], code: 'ECE', name: 'Electronics & Communication' },
+  { patterns: [/electrical\s*(?:&|and)\s*electr/i, /\beee\b/i], code: 'EEE', name: 'Electrical & Electronics' },
+  { patterns: [/mechanical/i, /\bmech\b/i], code: 'MECH', name: 'Mechanical Engineering' },
+  { patterns: [/civil\s*eng/i, /\bcivil\b/i], code: 'CIVIL', name: 'Civil Engineering' },
+  { patterns: [/biotech/i, /\bbiotech\b/i], code: 'BIOTECH', name: 'Biotechnology' },
   { patterns: [/internet\s*of\s*things/i, /\biot\b/i], code: 'IOT', name: 'Internet of Things' },
   { patterns: [/commerce/i, /\bb\.?com\b/i], code: 'BCOM', name: 'Bachelor of Commerce' },
   { patterns: [/business\s*admin/i, /\bbba\b/i, /\bmba\b/i], code: 'BBA', name: 'Business Administration' },
@@ -275,10 +275,11 @@ export function parseCollegeCardFromText(
 
   for (let i = 0; i < lines.length; i++) {
     const l = lines[i];
-    // A college or university header line cannot be the student's department line
-    if (/(?:institute|college|university|polytechnic|school\s+of)/i.test(l)) {
-      continue;
-    }
+    // Filter out non-degree lines (headers, addresses, contacts, web, dates)
+    const isNonDept = /(?:institute|college|university|polytechnic|school\s+of|address|cross|road|street|temple|opposit|near|behind|layout|ph:|phone|mobile|cell|contact|www\.|https?:\/\/|@|valid|date|till|principal|signature|dean|director|gurudev|b'lore|bangalore|bengaluru)/i.test(l);
+    if (isNonDept) continue;
+
+    // 1. Check branch/specialization first (Computer Science, Electronics, Civil, etc.)
     for (const d of DEPARTMENT_DICTIONARY) {
       if (d.patterns.some(p => p.test(l))) {
         department = d.name;
@@ -289,23 +290,16 @@ export function parseCollegeCardFromText(
       }
     }
     if (deptFound) break;
-  }
 
-  // Dynamic regex fallback for degrees: BCA, MCA, B.Tech, BE, B.Com, BBA, MBA, etc.
-  if (!deptFound) {
-    for (let i = 0; i < lines.length; i++) {
-      const l = lines[i];
-      if (/(?:institute|college|university|polytechnic|school\s+of)/i.test(l)) {
-        continue;
-      }
-      const match = l.match(/\b(BCA|MCA|B\.?TECH|BE|B\.?COM|BBA|MBA|B\.?SC|MSC|CSE|ISE|ECE|EEE|MECH|CIVIL|AIDS|AIML)\b/i);
-      if (match) {
-        departmentCode = match[1].toUpperCase().replace(/\./g, '');
-        department = departmentCode;
-        deptFound = true;
-        deptLineIdx = i;
-        break;
-      }
+    // 2. Direct degree acronym detection fallback (BCA, MCA, B.Tech, BE, B.Com, BBA, MBA, etc.)
+    const directDegreeMatch = l.match(/\b(BCA|MCA|B\.?TECH|BE|B\.?COM|BBA|MBA|B\.?SC|MSC|CSE|ISE|ECE|EEE|MECH|CIVIL|AIDS|AIML)\b/i);
+    if (directDegreeMatch) {
+      departmentCode = directDegreeMatch[1].toUpperCase().replace(/\./g, '');
+      const dictEntry = DEPARTMENT_DICTIONARY.find(d => d.code === departmentCode);
+      department = dictEntry ? dictEntry.name : departmentCode;
+      deptFound = true;
+      deptLineIdx = i;
+      break;
     }
   }
 
@@ -313,14 +307,14 @@ export function parseCollegeCardFromText(
   let studentName = '';
   // Pattern A: Labeled name (e.g. "Name: Vinay N" or "Student Name: Rahul")
   const nameLabelMatch = rawText.match(/\b(?:student\s*name|candidate\s*name|name)\s*[:#=-]?\s*([A-Za-z\s.]{3,35})/i);
-  if (nameLabelMatch && !/(?:college|institute|university|management|card|school)/i.test(nameLabelMatch[1])) {
+  if (nameLabelMatch && !/(?:college|institute|university|management|card|school|address|road)/i.test(nameLabelMatch[1])) {
     studentName = nameLabelMatch[1].trim();
   } else if (deptLineIdx > 0) {
     // Pattern B: In 90% of Indian ID cards, student name is on the line right above degree/dept
     for (let j = deptLineIdx - 1; j >= 0; j--) {
       const candidate = lines[j].replace(/[^A-Za-z\s.]/g, '').trim();
       const words = candidate.split(/\s+/).filter(Boolean);
-      const isHeader = /(?:gurudev|blore|bangalore|bengaluru|karnataka|delhi|mumbai|ph|phone|email|www|http|contact|valid|address|institute|college|university)/i.test(candidate);
+      const isHeader = /(?:gurudev|blore|bangalore|bengaluru|karnataka|delhi|mumbai|ph|phone|email|www|http|contact|valid|address|cross|temple|institute|college|university|school|management)/i.test(candidate);
       if (words.length >= 1 && words.length <= 4 && candidate.length >= 3 && candidate.length <= 30 && !isHeader) {
         studentName = candidate;
         break;
