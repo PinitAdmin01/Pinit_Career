@@ -241,13 +241,17 @@ export function parseCollegeCardFromText(
           .trim();
 
         const words = prevLine.split(/\s+/).filter(w => w.length >= 1);
-        if (words.length >= 1 && words.length <= 6) {
+        const hasCollegePrefix = /\b(?:sri|shri|dr|saint|st|govt|government|state|national|international|royal|central)\b/i.test(prevLine);
+        const isMultiWordTitle = words.length >= 2 && words.every(w => w.length >= 2);
+        const isSingleTitleWord = words.length === 1 && words[0].length >= 4 && !STOPWORDS.has(words[0].toLowerCase());
+        if (hasCollegePrefix || isMultiWordTitle || isSingleTitleWord) {
           fullCollege = `${prevLine} ${matchedLine}`;
         }
       }
     }
 
     collegeName = fullCollege
+      .replace(/^(?:ee|br|sy|i|\W)+\s*/i, '')
       .replace(/\s+(?:an|and|the|a|of|to|in)\s*$/i, '')
       .trim();
 
@@ -348,6 +352,26 @@ export function parseCollegeCardFromText(
   if (!deptFound && /engineering/i.test(rawText)) {
     department = 'Engineering';
     departmentCode = 'ENG';
+    deptFound = true;
+  }
+  if (!deptFound && /(?:commerc|commerec)/i.test(rawText)) {
+    department = 'Bachelor of Commerce';
+    departmentCode = 'BCOM';
+    deptFound = true;
+  }
+  if (!deptFound && /nursing/i.test(rawText)) {
+    department = 'Nursing';
+    departmentCode = 'NURS';
+    deptFound = true;
+  }
+  if (!deptFound && /\b(?:b\.?a|arts|bangla|bengali|history|english)\b/i.test(rawText)) {
+    department = 'Bachelor of Arts';
+    departmentCode = 'BA';
+    deptFound = true;
+  }
+  if (!deptFound && /finance/i.test(rawText)) {
+    department = 'Finance & Accounts';
+    departmentCode = 'FIN';
     deptFound = true;
   }
 
@@ -487,7 +511,7 @@ export function parseCollegeCardFromText(
         if (!/(?:card|student|identity|valid|date|manipal)/i.test(val) && /\d/.test(val)) {
           const trailingDigits = val.match(/(\d{3,4})$/);
           if (trailingDigits) {
-            rollNumber = trailingDigits[1];
+            rollNumber = /^\d{6,}$/.test(val) ? val.slice(-3) : trailingDigits[1];
             break;
           } else {
             const parts = val.split(/[/_-]/).filter(Boolean);

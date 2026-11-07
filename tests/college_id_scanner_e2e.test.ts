@@ -306,3 +306,79 @@ Branch : LLB (Hons.)
   });
   assert.strictEqual(pinitId, 'PIN-MGR-LLB-6002');
 });
+
+test('14. Correctly extracts Gateway Community College, David Smith, and Nursing', () => {
+  const gatewayText = `
+GATEWAY
+COMMUNITY COLLEGE
+MARICOPA COMMUNITY COLLEGE
+ISSUED: 08/01/2021
+David
+Smith
+Nursing Student
+DAVI23456
+STUDENT
+  `.trim();
+
+  const result = parseCollegeCardFromText(gatewayText);
+  assert.strictEqual(result.collegeCode, 'GCC');
+  assert.strictEqual(result.studentName, 'David Smith');
+  assert.strictEqual(result.departmentCode, 'NURS');
+  assert.strictEqual(result.rollNumber, '456');
+
+  const pinitId = generateCollegePinItId({
+    collegeCode: result.collegeCode,
+    departmentCode: result.departmentCode,
+    rollNumber: result.rollNumber,
+  });
+  assert.strictEqual(pinitId, 'PIN-GCC-NURS-456');
+});
+
+test('15. Correctly extracts Govt Keshab Chandra College, Md. Ekramul Islam, and BA', () => {
+  const keshabText = `
+EE —
+GOVT. KESHAB CHANDRA COLLEGE
+Student ID Card
+MD. EKRAMUL ISLAM
+Department of Bangla
+B.A (Hon's)
+1D. 11113312916
+Session :2021-2022
+  `.trim();
+
+  const result = parseCollegeCardFromText(keshabText);
+  assert.strictEqual(result.collegeCode, 'GKCC');
+  assert.strictEqual(result.studentName, 'Md. Ekramul Islam');
+  assert.strictEqual(result.departmentCode, 'BA');
+  assert.strictEqual(result.rollNumber, '2916');
+
+  const pinitId = generateCollegePinItId({
+    collegeCode: result.collegeCode,
+    departmentCode: result.departmentCode,
+    rollNumber: result.rollNumber,
+  });
+  assert.strictEqual(pinitId, 'PIN-GKCC-BA-2916');
+});
+
+test('16. Correctly extracts Aroma College of Commerce, Blanki Darshit, and ignores Sem III', () => {
+  const aromaText = `
+AROMA COLLEGE OF COMMERECE
+Sem : lll / 1%
+blanki Darshit Bhavinbhai
+Roll No. : 2443
+Division : C
+  `.trim();
+
+  const result = parseCollegeCardFromText(aromaText);
+  assert.strictEqual(result.collegeCode, 'ACC');
+  assert.strictEqual(result.studentName, 'Blanki Darshit Bhavinbhai');
+  assert.strictEqual(result.departmentCode, 'BCOM');
+  assert.strictEqual(result.rollNumber, '2443');
+
+  const pinitId = generateCollegePinItId({
+    collegeCode: result.collegeCode,
+    departmentCode: result.departmentCode,
+    rollNumber: result.rollNumber,
+  });
+  assert.strictEqual(pinitId, 'PIN-ACC-BCOM-2443');
+});
