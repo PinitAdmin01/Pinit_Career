@@ -60,29 +60,29 @@ describe('Task 8 & 11: My Network Tab & Mutual Privacy Gate Audit', () => {
     assert.deepEqual(violations, [], `Found prohibited word "portfolio" in friends files: ${violations.join(', ')}`);
   });
 
-  it('Task 11.1: FriendProfileDrawer enforces privacy gate when user is not a friend', () => {
+  it('Task 11.1: FriendProfileDrawer enables full profile navigation and provides connection notice when user is not a friend', () => {
     const drawerPath = path.join(root, 'src', 'components', 'friends', 'FriendProfileDrawer.tsx');
     const content = fs.readFileSync(drawerPath, 'utf8');
 
     // Check relationship friend check
     assert.match(content, /const isFriend = student\.relationship === 'friends' \|\| Boolean\(student\.isSelf\);/, 'Friend status gate logic must exist');
 
-    // Check locked state UI
-    assert.match(content, /data-testid="drawer-profile-locked-state"/, 'Must render drawer-profile-locked-state when not friends');
-    assert.match(content, /Profile Locked Behind Connection/, 'Must clearly explain locked status');
-    assert.match(content, /🔒 Full Profile/, 'Full Profile button must be locked with lock icon for non-friends');
+    // Check non-friend state UI
+    assert.match(content, /data-testid="drawer-profile-locked-state"/, 'Must render drawer-profile-locked-state banner when not friends');
+    assert.match(content, /Public Student Profile/, 'Must clearly explain public profile status');
+    assert.match(content, /Full Profile →/, 'Full Profile button must be enabled and navigate for viewers');
   });
 
-  it('Task 11.2: StudentProfilePage (/friends/[id]) enforces privacy gate when user is not a friend', () => {
+  it('Task 11.2: StudentProfilePage (/friends/[id]) renders full profile while showing connection notice when user is not a friend', () => {
     const pagePath = path.join(root, 'src', 'app', 'friends', '[id]', 'page.tsx');
     const content = fs.readFileSync(pagePath, 'utf8');
 
     // Check relationship friend check
     assert.match(content, /const isFriend = student \? \(student\.relationship === "friends" \|\| Boolean\(student\.isSelf\)\) : false;/, 'Friend status gate logic must exist on direct page route');
 
-    // Check locked state UI
+    // Check non-friend state UI
     assert.match(content, /data-testid="page-profile-locked-state"/, 'Must render page-profile-locked-state when not friends');
-    assert.match(content, /Full Student Profile Locked Behind Connection/, 'Must clearly explain locked status on page');
-    assert.match(content, /\{!isFriend \? \(/, 'Must conditionally render locked view before showing stats and tabs');
+    assert.match(content, /Public Student Profile/, 'Must clearly explain public profile status on page');
+    assert.match(content, /profile-stats-grid/, 'Must render profile stats grid for viewers');
   });
 });

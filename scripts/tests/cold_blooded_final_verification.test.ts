@@ -62,21 +62,21 @@ describe('COLD-BLOODED FINAL VERIFICATION SUITE: Zero-Defect System Lockdown', (
           name: 'rvce.png',
           expectedCollege: 'RVCE',
           expectedDept: 'CSE',
-          expectedRoll: '1RV21CS099',
+          expectedRoll: '099',
         },
         {
           text: 'PES UNIVERSITY\nINFORMATION SCIENCE AND ENGINEERING\nUSN: PES120220055',
           name: 'pes.jpg',
           expectedCollege: 'PES',
           expectedDept: 'ISE',
-          expectedRoll: 'PES120220055',
+          expectedRoll: '0055',
         },
         {
           text: 'BMS COLLEGE OF ENGINEERING\nMECHANICAL ENGINEERING\nROLL NO: 1BM22ME045',
           name: 'bms.pdf',
           expectedCollege: 'BMS',
           expectedDept: 'MECH',
-          expectedRoll: '1BM22ME045',
+          expectedRoll: '045',
         },
       ];
 

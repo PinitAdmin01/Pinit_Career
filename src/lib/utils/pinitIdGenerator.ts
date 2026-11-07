@@ -401,7 +401,7 @@ export function parseCollegeCardFromText(
         .replace(/[^A-Za-z\s.]/g, ' ')
         .trim();
       const words = cleanCandidate.split(/\s+/).filter(Boolean);
-      const isForbidden = /(?:college|institute|university|school|management|autonomous|approved|affiliated|address|cross|road|street|temple|near|behind|ph|phone|mobile|cell|contact|call|email|www|http|valid|date|signature|principal|dean)/i.test(cleanCandidate);
+      const isForbidden = /(?:college|institute|university|polytechnic|school|management|autonomous|approved|affiliated|recognized|address|cross|road|street|temple|near|behind|ph|phone|mobile|cell|contact|call|tel|help|email|www|http|valid|issued|expiry|expires|exp|date|birth|blood|group|roll|reg|usn|principal|signature|dean|director|\bstudent\b|\bcandidate\b|identity\s*card|father|mother|parent|guardian|husband|course|branch|dept|department|oepsriment|faculty|discipline|\bsem\b|\bsemester\b|\byear\b|\bclass\b|\bsec\b|\bsection\b|\bdiv\b|\bdivision\b|\bbatch\b|\bsession\b|bba|bca|btech|be|mba|mca|bcom|mbbs|llb|nursing|finance|f\/hr)/i.test(cleanCandidate);
 
       if (!isForbidden && words.length >= 1 && words.length <= 4 && cleanCandidate.length >= 3) {
         studentName = cleanCandidate;
@@ -417,7 +417,7 @@ export function parseCollegeCardFromText(
       score: number;
     }
     const candidates: Candidate[] = [];
-    const isForbidden = /(?:college|institute|university|polytechnic|school|management|autonomous|approved|affiliated|recognized|address|cross|road|street|temple|near|behind|ph|phone|mobile|cell|contact|call|tel|help|email|www|http|valid|date|birth|blood|group|roll|reg|usn|principal|signature|dean|director|student\s*id|identity\s*card|father|mother|parent|guardian|husband|course|branch|dept|department|bba|bca|btech|be|mba|mca|bcom|f\/hr)/i;
+    const isForbidden = /(?:college|institute|university|polytechnic|school|management|autonomous|approved|affiliated|recognized|address|cross|road|street|temple|near|behind|ph|phone|mobile|cell|contact|call|tel|help|email|www|http|valid|issued|expiry|expires|exp|date|birth|blood|group|roll|reg|usn|principal|signature|dean|director|\bstudent\b|\bcandidate\b|identity\s*card|father|mother|parent|guardian|husband|course|branch|dept|department|oepsriment|faculty|discipline|\bsem\b|\bsemester\b|\byear\b|\bclass\b|\bsec\b|\bsection\b|\bdiv\b|\bdivision\b|\bbatch\b|\bsession\b|bba|bca|btech|be|mba|mca|bcom|mbbs|llb|nursing|finance|f\/hr)/i;
 
     for (let i = 0; i < rawLines.length; i++) {
       const l = rawLines[i];
@@ -428,6 +428,19 @@ export function parseCollegeCardFromText(
 
       const clean = l.replace(/^[^a-zA-Z]+|[^a-zA-Z.]+$/g, '').replace(/[^A-Za-z\s.]/g, ' ').trim();
       const words = clean.split(/\s+/).filter(Boolean);
+
+      // Check if consecutive single-word lines form a complete First + Last name (e.g. "David" + "Smith")
+      if (words.length === 1 && words[0].length >= 3 && i + 1 < rawLines.length) {
+        const nextL = rawLines[i + 1];
+        if (!isBoilerplateInstruction(nextL) && !isForbidden.test(nextL)) {
+          const nextClean = nextL.replace(/^[^a-zA-Z]+|[^a-zA-Z.]+$/g, '').replace(/[^A-Za-z\s.]/g, ' ').trim();
+          const nextWords = nextClean.split(/\s+/).filter(Boolean);
+          if (nextWords.length === 1 && nextWords[0].length >= 3) {
+            const combined = `${words[0]} ${nextWords[0]}`;
+            candidates.push({ line: combined, score: 75 });
+          }
+        }
+      }
 
       // Must have at least 1 word with >= 4 letters (e.g. Vinay, Arjun, Seema) or 2 words (Y. Abel)
       if (words.length === 1 && words[0].length < 4) continue;
@@ -468,10 +481,10 @@ export function parseCollegeCardFromText(
     // Explicit roll/reg/id pattern (Matches IDNO, ID NO, Roll No, Reg. No., etc.)
     for (const l of rawLines) {
       if (isBoilerplateInstruction(l)) continue;
-      const rollMatch = l.match(/(?:roll\.?\s*(?:no|number)?\.?|usn|reg(?:istration)?\.?\s*(?:no|number)?\.?|\bid\b(?:\s*no|\s*number)?|\bidno\b)\s*[:#=\-]?\s*([A-Za-z0-9/-]{2,20})/i);
+      const rollMatch = l.match(/(?:roll\.?\s*(?:no|number)?\.?|usn|reg(?:istration)?\.?\s*(?:no|number)?\.?|\b(?:id|1d|ld)\b(?:\s*no|\s*number)?\.?|\bidno\b)\s*[:#=\-.]?\s*([A-Za-z0-9/-]{2,20})/i);
       if (rollMatch) {
         const val = rollMatch[1].trim().toUpperCase();
-        if (!/(?:card|student|identity|valid|date)/i.test(val)) {
+        if (!/(?:card|student|identity|valid|date|manipal)/i.test(val) && /\d/.test(val)) {
           const trailingDigits = val.match(/(\d{3,4})$/);
           if (trailingDigits) {
             rollNumber = trailingDigits[1];
@@ -482,6 +495,13 @@ export function parseCollegeCardFromText(
             break;
           }
         }
+      }
+    }
+
+    if (!rollNumber) {
+      const alphaNumIdMatch = rawText.match(/\b[A-Za-z]{3,6}(\d{3,6})\b/);
+      if (alphaNumIdMatch) {
+        rollNumber = alphaNumIdMatch[1].slice(-3);
       }
     }
 

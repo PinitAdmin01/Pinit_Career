@@ -124,11 +124,24 @@ export async function GET(req: NextRequest) {
             })
             .map(u => {
               const ob = u.onboarding_answers || {};
-              const rawSkills = Array.isArray(u.skill_tags) && u.skill_tags.length > 0
+              const rawSkills: any[] = Array.isArray(u.skill_tags) && u.skill_tags.length > 0
                 ? u.skill_tags
-                : (typeof ob.skills === 'string'
-                    ? ob.skills.split(',').map((s: string) => s.trim())
-                    : ['React', 'TypeScript', 'Node.js']);
+                : (typeof ob.skills === 'string' && ob.skills.trim().length > 0
+                    ? [ob.skills]
+                    : []);
+
+              // Sanitize skills: strip "Skills:" prefix, split on comma/semicolon/newline (preserve Next.js, Node.js)
+              const cleanSkills = rawSkills
+                .flatMap((item: any) => {
+                  if (typeof item !== 'string') return [];
+                  return item
+                    .replace(/^skills?[\s:-]+/i, '')
+                    .split(/[,;\n]+/)
+                    .map((s: string) => s.replace(/^skills?[\s:-]+/i, '').trim())
+                    .filter((s: string) => s.length > 1 && s.length < 35);
+                })
+                .filter((s: string, idx: number, arr: string[]) => arr.indexOf(s) === idx)
+                .slice(0, 5);
 
               const name = u.display_name || u.username || 'Student Peer';
               return {
@@ -139,7 +152,7 @@ export async function GET(req: NextRequest) {
                 college: ob.education ? ob.education.split('(')[0].trim() : 'Campus Student',
                 course: ob.education && ob.education.includes('(') ? ob.education.match(/\(([^)]+)\)/)?.[1] || 'Degree' : 'Undergraduate',
                 careerGoal: u.career_goal || u.target_role || ob.role || 'Aspiring Professional',
-                skills: rawSkills.slice(0, 5),
+                skills: cleanSkills, // ZERO DUMMY SKILLS: If empty, returns []
                 careerScore: u.career_dna_score || 0,
                 xp: u.xp_total || 0,
                 arenaWins: u.missions_completed || 0,

@@ -544,14 +544,14 @@ function FriendsContent() {
                         </div>
                         <div className="suggested-peer-degree">{peer.course} • {peer.college}</div>
 
-                        <div className="suggested-skills-pills">
-                          {peer.skills.map((s, i) => (
-                            <span key={i} className="mini-skill-pill">{s}</span>
-                          ))}
-                        </div>
-
-                        <div className="suggested-match-reason">
-                          <span>{peer.matchDetails || 'High skill synergy'}</span>
+                        <div className="suggested-skills-pills" style={{ minHeight: 28 }}>
+                          {Array.isArray(peer.skills) && peer.skills.length > 0
+                            ? peer.skills.map((s, i) => (
+                                <span key={i} className="mini-skill-pill">
+                                  {typeof s === 'string' ? s.replace(/^skills?[\s:-]+/i, '') : s}
+                                </span>
+                              ))
+                            : null}
                         </div>
 
                         <div className="suggested-card-btn-row">

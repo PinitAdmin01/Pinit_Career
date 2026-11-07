@@ -30,4 +30,36 @@ test('Task 1: Friends Hub Zero Dummy Data & Role Isolation Audit', async (t) => 
     assert.strictEqual(idRoute.includes('mockStudent = (db.mockStudents || [])'), false, 'Must not fallback to mockStudents on [id]');
     assert.ok(idRoute.includes("error: 'NOT_FOUND'"), 'Must return 404 when student not found');
   });
+
+  await t.test('5. Task 2: Suggestions, Search, and [id] routes have zero fallback dummy skills', () => {
+    assert.strictEqual(suggestionsRoute.includes("['Problem Solving', 'Engineering']"), false, 'Must not fallback to Problem Solving in suggestions');
+    assert.strictEqual(suggestionsRoute.includes("['React', 'TypeScript', 'Node.js']"), false, 'Must not fallback to React/TypeScript in suggestions');
+    assert.strictEqual(searchRoute.includes("['React', 'TypeScript', 'Node.js']"), false, 'Must not fallback to React/TypeScript in search');
+    assert.strictEqual(idRoute.includes("['React', 'TypeScript', 'Node.js', 'System Design']"), false, 'Must not fallback to mock skills in [id]');
+  });
+
+  await t.test('6. Task 2: Purged "Nearby Campus" from matching engine and suggested peer cards', () => {
+    const matchingLib = fs.readFileSync(path.join(__dirname, '../src/lib/friends/matching.ts'), 'utf8');
+    const friendsPage = fs.readFileSync(path.join(__dirname, '../src/app/friends/page.tsx'), 'utf8');
+
+    assert.strictEqual(matchingLib.includes('📍 Nearby Campus:'), false, 'matching.ts must not output Nearby Campus');
+    assert.strictEqual(friendsPage.includes('className="suggested-match-reason"'), false, 'Suggested peer card must not render match reason line');
+  });
+
+  await t.test('7. Task 3: Zero dummy squad projects in API and clean empty state in SquadProjectsView', () => {
+    const projectsRoute = fs.readFileSync(path.join(__dirname, '../src/app/api/friends/projects/route.ts'), 'utf8');
+    const squadView = fs.readFileSync(path.join(__dirname, '../src/components/friends/SquadProjectsView.tsx'), 'utf8');
+    const inviteModal = fs.readFileSync(path.join(__dirname, '../src/components/friends/ProjectInviteModal.tsx'), 'utf8');
+
+    // Zero hardcoded demo squads in API
+    assert.strictEqual(projectsRoute.includes('AI Resume Analyzer & ATS Benchmarker'), false, 'API must not hardcode AI Resume Analyzer');
+    assert.strictEqual(projectsRoute.includes('Campus Transit Realtime IoT Desk'), false, 'API must not hardcode Campus Transit Realtime IoT Desk');
+
+    // Zero hardcoded options in ProjectInviteModal
+    assert.strictEqual(inviteModal.includes('AI Resume Analyzer & ATS Benchmarker'), false, 'Modal must not hardcode AI Resume Analyzer option');
+
+    // SquadProjectsView renders empty state when zero squads exist
+    assert.ok(squadView.includes('squad-projects-empty-state'), 'SquadProjectsView must handle empty state when 0 squads exist');
+    assert.ok(squadView.includes('No Active Collaborative Squads'), 'Must display authentic empty title');
+  });
 });

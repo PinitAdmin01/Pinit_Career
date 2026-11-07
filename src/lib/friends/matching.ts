@@ -146,12 +146,13 @@ export function computeStudentMatch(
   } else if (courseScore >= 90 && commonSkills.length > 0) {
     reasonTag = `🏫 Same Course • ${commonSkills.length} common skills`;
   } else if (complementarySkills.length > 0) {
-    const myFirstSkill = Array.isArray(current.skills) && current.skills[0] ? current.skills[0] : 'Engineering';
-    reasonTag = `🤝 Complementary Skills: ${complementarySkills[0]} & ${myFirstSkill}`;
-  } else if (goalScore >= 85) {
-    reasonTag = `🎯 Shared Goal: ${target.careerGoal || 'Software Leadership'}`;
-  } else if (collegeScore >= 80 && target.college) {
-    reasonTag = `📍 Nearby Campus: ${target.college}`;
+    const cleanComp = (complementarySkills[0] || '').replace(/^skills?[\s:-]+/i, '').trim();
+    const myFirstSkill = Array.isArray(current.skills) && current.skills[0] ? current.skills[0].replace(/^skills?[\s:-]+/i, '').trim() : 'Core Stack';
+    reasonTag = cleanComp ? `🤝 Complementary Skills: ${cleanComp} & ${myFirstSkill}` : '🤝 Collaborative Skill Affinity';
+  } else if (goalScore >= 85 && target.careerGoal) {
+    reasonTag = `🎯 Shared Goal: ${target.careerGoal}`;
+  } else if (collegeScore >= 80) {
+    reasonTag = `🏫 Academic Peer Synergy`;
   }
 
   // 9. Conversational Icebreakers

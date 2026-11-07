@@ -17,7 +17,7 @@ export const ProjectInviteModal: React.FC<ProjectInviteModalProps> = ({
   onClose,
   onSendInvite,
 }) => {
-  const [projectName, setProjectName] = useState(initialProjectName || 'AI Resume Analyzer & ATS Benchmarker');
+  const [projectName, setProjectName] = useState(initialProjectName || '');
   const [role, setRole] = useState('Frontend Architecture & Performance');
   const [commitmentHours, setCommitmentHours] = useState(6);
   const [message, setMessage] = useState("We are scaling our core architecture and your skills would be a huge boost to the squad!");
@@ -116,12 +116,15 @@ export const ProjectInviteModal: React.FC<ProjectInviteModalProps> = ({
             {/* Target Squad Project */}
             <div className="modal-form-group">
               <label className="modal-form-label">Target Squad Project</label>
-              <select className="modal-select-input" value={projectName} onChange={(e) => setProjectName(e.target.value)}>
-                <option value="AI Resume Analyzer & ATS Benchmarker">AI Resume Analyzer & ATS Benchmarker</option>
-                <option value="Campus Transit Telemetry & Shuttle Tracker">Campus Transit Telemetry & Shuttle Tracker</option>
-                <option value="Distributed Interview Evaluator Engine">Distributed Interview Evaluator Engine</option>
-                <option value="PinIT Career DNA Matching Service">PinIT Career DNA Matching Service</option>
-              </select>
+              <input
+                type="text"
+                className="modal-select-input"
+                style={{ width: '100%', boxSizing: 'border-box' }}
+                placeholder="Enter squad project name (e.g. Distributed Cloud Platform)"
+                value={projectName}
+                onChange={(e) => setProjectName(e.target.value)}
+                required
+              />
             </div>
 
             {/* Role in Squad */}
