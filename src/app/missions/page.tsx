@@ -94,7 +94,9 @@ function MissionsPageInner() {
     onboardingAnswers?.role || 'Software Developer',
     extraMissions,
     setExtraMissions,
-    completedMissions
+    completedMissions,
+    cOS.activeCourseId,
+    onboardingAnswers?.weakAreas
   );
 
   const theme = {
