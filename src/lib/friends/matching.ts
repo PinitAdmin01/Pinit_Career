@@ -140,7 +140,7 @@ export function computeStudentMatch(
   const overallMatch = Math.max(68, Math.min(96, weighted));
 
   // 8. Generate Dynamic Reason Tag
-  let reasonTag = '⚡ Common Engineering Interests';
+  let reasonTag = '🌱 Campus Peer Synergy';
   if (collegeScore === 100 && commonSkills.length > 0) {
     reasonTag = `🏫 Same College • ${commonSkills.length} shared skill${commonSkills.length > 1 ? 's' : ''}`;
   } else if (courseScore >= 90 && commonSkills.length > 0) {
@@ -157,10 +157,10 @@ export function computeStudentMatch(
 
   // 9. Conversational Icebreakers
   const safeTargetName = (target.name || 'Student Peer').split(' ')[0];
-  const targetFirstSkill = (Array.isArray(target.skills) && target.skills[0]) || 'software engineering';
+  const targetFirstSkill = (Array.isArray(target.skills) && target.skills[0]) || '';
   const icebreakers: string[] = [
-    `Hey ${safeTargetName}, I noticed you're exploring ${targetFirstSkill}. Want to collaborate?`,
-    `Would you be up for a 1v1 Arena challenge on ${commonSkills[0] || targetFirstSkill || 'algorithms'}?`
+    targetFirstSkill ? `Hey ${safeTargetName}, I noticed you're exploring ${targetFirstSkill}. Want to collaborate?` : `Hey ${safeTargetName}, great to connect with you on Campus Network!`,
+    `Would you be up for a friendly 1v1 Arena challenge or study session?`
   ];
   if (commonSkills.length > 0) {
     icebreakers.push(`Saw your experience in ${commonSkills.join(' & ')}! Are you building any squad projects right now?`);

@@ -427,40 +427,55 @@ export default function StudentProfilePage() {
 
       {activeTab === 'projects' && (
         <div className="profile-projects-grid">
-          {[
-            { title: 'Fullstack Microservices Platform', desc: 'Collaborative cloud architecture with automated CI/CD and Redis caching.', stack: 'React • Node.js • PostgreSQL' },
-            { title: 'Real-Time WebSocket Arena Engine', desc: 'Low-latency multiplayer code duel server with socket state management.', stack: 'TypeScript • WebSockets • Docker' }
-          ].map((proj, idx) => (
-            <div key={idx} style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 16, padding: 20 }}>
-              <div style={{ fontSize: 15.5, fontWeight: 800, color: 'var(--t1)', marginBottom: 6 }}>{proj.title}</div>
-              <p style={{ fontSize: 14, color: 'var(--t2)', lineHeight: 1.5, margin: '0 0 12px' }}>{proj.desc}</p>
-              <div style={{ fontSize: 12, color: '#38bdf8', fontFamily: 'var(--font-mono)' }}>{proj.stack}</div>
+          {Array.isArray((student as any).projects) && (student as any).projects.length > 0 ? (
+            (student as any).projects.map((proj: any, idx: number) => (
+              <div key={idx} style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 16, padding: 20 }}>
+                <div style={{ fontSize: 15.5, fontWeight: 800, color: 'var(--t1)', marginBottom: 6 }}>{proj.title}</div>
+                <p style={{ fontSize: 14, color: 'var(--t2)', lineHeight: 1.5, margin: '0 0 12px' }}>{proj.desc || proj.description}</p>
+                {proj.stack && (
+                  <div style={{ fontSize: 12, color: '#38bdf8', fontFamily: 'var(--font-mono)' }}>{proj.stack}</div>
+                )}
+              </div>
+            ))
+          ) : (
+            <div style={{ background: 'var(--card)', border: '1px dashed var(--border)', borderRadius: 16, padding: '36px 20px', textAlign: 'center', gridColumn: '1 / -1' }}>
+              <div style={{ fontSize: 32, marginBottom: 10 }}>📂</div>
+              <div style={{ fontSize: 16, fontWeight: 800, color: 'var(--t1)', marginBottom: 6 }}>No Capstone Proofs Submitted Yet</div>
+              <div style={{ fontSize: 13.5, color: 'var(--t2)', maxWidth: 440, margin: '0 auto', lineHeight: 1.5 }}>
+                Candidate has not published public milestone repositories yet. Verified capstone artifacts will appear here upon review.
+              </div>
             </div>
-          ))}
+          )}
         </div>
       )}
 
       {activeTab === 'battles' && (
         <div style={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 16, padding: 24 }}>
           <h3 style={{ fontSize: 16.5, fontWeight: 800, color: 'var(--t1)', margin: '0 0 16px' }}>Recent 1v1 Arena Matches</h3>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-            {[
-              { opponent: 'Algorithmic Duelist #12', topic: 'Dynamic Programming - Longest Substring', result: 'VICTORY', xp: '+120 XP' },
-              { opponent: 'Systems Master #04', topic: 'Binary Search Tree Balancing', result: 'VICTORY', xp: '+95 XP' },
-              { opponent: 'Campus Peer #88', topic: 'Two Pointer Sliding Window', result: 'VICTORY', xp: '+110 XP' }
-            ].map((duel, i) => (
-              <div key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', background: 'var(--bg3)', borderRadius: 10, border: '1px solid var(--border)' }}>
-                <div>
-                  <div style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--t1)' }}>{duel.topic}</div>
-                  <div style={{ fontSize: 12, color: 'var(--t3)' }}>vs. {duel.opponent}</div>
+          {Array.isArray((student as any).recentBattles) && (student as any).recentBattles.length > 0 ? (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {(student as any).recentBattles.map((duel: any, i: number) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', background: 'var(--bg3)', borderRadius: 10, border: '1px solid var(--border)' }}>
+                  <div>
+                    <div style={{ fontSize: 14.5, fontWeight: 700, color: 'var(--t1)' }}>{duel.topic}</div>
+                    <div style={{ fontSize: 12, color: 'var(--t3)' }}>vs. {duel.opponent}</div>
+                  </div>
+                  <div style={{ textAlign: 'right' }}>
+                    <span style={{ fontSize: 12, fontWeight: 800, color: '#22c55e', background: 'rgba(34, 197, 94, 0.15)', padding: '2px 8px', borderRadius: 6 }}>{duel.result}</span>
+                    <div style={{ fontSize: 12, color: '#a855f7', fontWeight: 700, marginTop: 2 }}>{duel.xp}</div>
+                  </div>
                 </div>
-                <div style={{ textAlign: 'right' }}>
-                  <span style={{ fontSize: 12, fontWeight: 800, color: '#22c55e', background: 'rgba(34, 197, 94, 0.15)', padding: '2px 8px', borderRadius: 6 }}>{duel.result}</span>
-                  <div style={{ fontSize: 12, color: '#a855f7', fontWeight: 700, marginTop: 2 }}>{duel.xp}</div>
-                </div>
+              ))}
+            </div>
+          ) : (
+            <div style={{ textAlign: 'center', padding: '32px 16px', color: 'var(--t2)' }}>
+              <div style={{ fontSize: 32, marginBottom: 8 }}>⚔️</div>
+              <div style={{ fontSize: 16, fontWeight: 800, color: 'var(--t1)', marginBottom: 4 }}>No Arena Duels Recorded Yet</div>
+              <div style={{ fontSize: 13.5, color: 'var(--t2)' }}>
+                {student.name} has not participated in any competitive 1v1 algorithmic duels yet.
               </div>
-            ))}
-          </div>
+            </div>
+          )}
         </div>
       )}
 

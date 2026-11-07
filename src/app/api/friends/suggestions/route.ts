@@ -120,7 +120,8 @@ export async function GET(req: NextRequest) {
               return true;
             })
             .map(u => {
-              const ob = u.onboarding_answers || {};
+              let ob = u.onboarding_answers || {};
+              if (typeof ob === 'string') { try { ob = JSON.parse(ob); } catch { ob = {}; } }
               // ZERO DUMMY SKILLS INVARIANT:
               // Only display authentic skills explicitly added by the student to skill_tags or skills.
               // Never fall back to onboarding track template strings (onboardingSkillsBoilerplate). If empty, returns [].
@@ -145,7 +146,7 @@ export async function GET(req: NextRequest) {
 
               const collegeName = u.college_name || (ob.education ? ob.education.split('(')[0].trim() : (ob.college || 'Campus Student'));
               const courseName = u.department || (ob.education && ob.education.includes('(') ? ob.education.match(/\(([^)]+)\)/)?.[1] || 'Degree' : (ob.course || 'Undergraduate'));
-              const name = u.display_name || u.username || (u.email ? u.email.split('@')[0] : 'Student');
+              const name = u.display_name || u.username || (u.email ? u.email.split('@')[0] : 'Campus Peer');
 
               return {
                 id: u.id,

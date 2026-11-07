@@ -128,7 +128,8 @@ export async function GET(req: NextRequest) {
               return true;
             })
             .map(u => {
-              const ob = u.onboarding_answers || {};
+              let ob = u.onboarding_answers || {};
+              if (typeof ob === 'string') { try { ob = JSON.parse(ob); } catch { ob = {}; } }
               // ZERO DUMMY SKILLS INVARIANT:
               const rawSkills: any[] = Array.isArray(u.skill_tags) && u.skill_tags.length > 0
                 ? u.skill_tags
@@ -149,7 +150,7 @@ export async function GET(req: NextRequest) {
                 .filter((s: string, idx: number, arr: string[]) => arr.indexOf(s) === idx)
                 .slice(0, 5);
 
-              const name = u.display_name || u.username || (u.email ? u.email.split('@')[0] : 'Student');
+              const name = u.display_name || u.username || (u.email ? u.email.split('@')[0] : 'Campus Peer');
               return {
                 id: u.id,
                 name,
