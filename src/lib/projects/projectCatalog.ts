@@ -31,15 +31,22 @@ export function getDomainFallback(
   const c = courseId.toLowerCase();
   const primarySkills = skills.length > 0 ? skills.slice(0, 3).join(', ') : '';
 
+  // Domain & Course Discriminator Flags (Strict matching prevents false positives like 'blockchain' matching 'ai')
+  const isPython = c.includes('python') || g.includes('python') || g.includes('fastapi') || g.includes('django') || g.includes('flask');
+  const isJava = c.includes('java') || g.includes('java') || g.includes('spring');
+  const isBlockchain = c.includes('blockchain') || c.includes('web3') || c.includes('crypto') || c.includes('solidity') || g.includes('blockchain') || g.includes('web3');
+  const isCommerce = c.includes('bcom') || c.includes('accounting') || c.includes('finance') || c.includes('commerce') || c.includes('taxation') || c.includes('business') || c.includes('marketing') || c.includes('ecommerce') || c.includes('entrepreneurship') || c.includes('sales') || c.includes('supplychain') || g.includes('commerce') || g.includes('accounting') || g.includes('finance') || g.includes('marketing') || g.includes('business');
+  const isIot = c.includes('iot') || c.includes('embedded') || c.includes('firmware') || c.includes('hardware') || g.includes('iot') || g.includes('embedded');
+  const isCyber = c.includes('cyber') || c.includes('security') || g.includes('cyber') || g.includes('security') || g.includes('infosec') || g.includes('appsec') || g.includes('soc');
+  const isDevops = c.includes('cloud') || c.includes('devops') || c.includes('cicd') || g.includes('devops') || g.includes('cloud') || g.includes('aws') || g.includes('kubernetes');
+  const isFrontend = c.includes('react') || c.includes('frontend') || c.includes('design') || c.includes('vue') || c.includes('angular') || c.includes('course-react-web') || g.includes('frontend') || g.includes('ui') || g.includes('react') || g.includes('next.js');
+  const isMobile = c.includes('mobile') || c.includes('flutter') || c.includes('android') || c.includes('ios') || g.includes('mobile') || g.includes('flutter') || g.includes('react native') || g.includes('android') || g.includes('ios');
+  const isDataEng = c.includes('database') || c.includes('dsa') || c.includes('delta') || c.includes('spark') || c.includes('lakehouse') || g.includes('data engineer') || g.includes('data engineering') || g.includes('big data') || g.includes('database');
+  const isAi = (c.includes('ai-') || c.includes('-ai') || c.includes('course-ai') || c.includes('nlp') || c.includes('prompt') || c.includes('machine-learning')) || (!isBlockchain && (g.includes('ai') || g.includes('machine learning') || g.includes('deep learning') || g.includes('nlp') || g.includes('llm')));
+
+
   // 0. Python Programming & Backend Systems (course-python-backend or Python track)
-  if (
-    c.includes('course-python-backend') ||
-    c.includes('python') ||
-    g.includes('python') ||
-    g.includes('fastapi') ||
-    g.includes('django') ||
-    g.includes('flask')
-  ) {
+  if (isPython) {
     const stack1 = primarySkills ? `Python 3, ${primarySkills}, Pydantic, Pytest` : 'Python 3, Pydantic, Click, Pytest';
     const stack2 = primarySkills ? `FastAPI, ${primarySkills}, SQLAlchemy, PostgreSQL` : 'Python 3, FastAPI, SQLAlchemy, PostgreSQL / SQLite, Docker';
     const stack3 = primarySkills ? `Python, ${primarySkills}, Celery, Redis, Docker` : 'Python 3, FastAPI, Celery, Redis, Docker Compose, Pytest';
@@ -176,12 +183,7 @@ export function getDomainFallback(
   }
 
   // 0.1 Java Fundamentals & Enterprise Core Logic (course-java-logic or Java track)
-  if (
-    c.includes('course-java-logic') ||
-    c.includes('java') ||
-    g.includes('java') ||
-    g.includes('spring')
-  ) {
+  if (isJava) {
     const stack1 = primarySkills ? `Java 17, ${primarySkills}, JUnit 5, Maven` : 'Java 17, JUnit 5, Maven, OOP Patterns';
     const stack2 = primarySkills ? `Java, Spring Boot, ${primarySkills}, PostgreSQL` : 'Java 21, Spring Boot 3, Hibernate JPA, PostgreSQL, Docker';
     const stack3 = primarySkills ? `Java, Spring Cloud, ${primarySkills}, Redis` : 'Java, Spring Cloud, Redis, Resilience4j, Docker Compose';
@@ -318,15 +320,7 @@ export function getDomainFallback(
   }
 
   // 1. AI & Machine Learning / Data Science
-  if (
-    g.includes('ai') ||
-    g.includes('machine learning') ||
-    g.includes('ml') ||
-    g.includes('deep learning') ||
-    g.includes('nlp') ||
-    g.includes('vision') ||
-    g.includes('llm')
-  ) {
+  if (isAi) {
     const stack1 = primarySkills ? `Python, ${primarySkills}, PyTorch, HuggingFace` : 'Python, PyTorch, HuggingFace Transformers, FastAPI';
     const stack2 = primarySkills ? `Python, ${primarySkills}, LangChain, Qdrant` : 'Python, LangChain, Qdrant, OpenAI / Ollama, FastAPI';
     const stack3 = primarySkills ? `Python, ${primarySkills}, CrewAI, vLLM, Docker` : 'Python, CrewAI, vLLM, Docker, Redis';
@@ -463,15 +457,7 @@ export function getDomainFallback(
   }
 
   // 2. Mobile Engineering (Flutter, React Native, iOS, Android)
-  if (
-    g.includes('mobile') ||
-    g.includes('android') ||
-    g.includes('ios') ||
-    g.includes('flutter') ||
-    g.includes('react native') ||
-    g.includes('swift') ||
-    g.includes('kotlin')
-  ) {
+  if (isMobile) {
     const stack1 = primarySkills ? `React Native / Flutter, ${primarySkills}, SQLite` : 'React Native, TypeScript, SQLite, MMKV, Tailwind';
     const stack2 = primarySkills ? `Flutter / React Native, ${primarySkills}, Mapbox, WebSockets` : 'Flutter, Dart, Mapbox SDK, WebSockets, Background Services';
     const stack3 = primarySkills ? `React Native, ${primarySkills}, Libsodium, Signal Protocol` : 'React Native, Libsodium, SQLite Cipher, WebSockets';
@@ -608,15 +594,7 @@ export function getDomainFallback(
   }
 
   // 3. Frontend & UI Engineering
-  if (
-    g.includes('frontend') ||
-    g.includes('ui') ||
-    g.includes('react') ||
-    g.includes('web') ||
-    g.includes('next.js') ||
-    g.includes('vue') ||
-    g.includes('angular')
-  ) {
+  if (isFrontend) {
     const stack1 = primarySkills ? `React, TypeScript, ${primarySkills}, Storybook` : 'React, TypeScript, Tailwind CSS, Storybook, Radix UI';
     const stack2 = primarySkills ? `Next.js, TypeScript, ${primarySkills}, Zustand` : 'Next.js, TypeScript, Zustand, dnd-kit, Supabase Realtime';
     const stack3 = primarySkills ? `React, ${primarySkills}, TanStack Virtual, Web Workers` : 'React, TanStack Virtual, Web Workers, Chart.js, TypeScript';
@@ -753,14 +731,7 @@ export function getDomainFallback(
   }
 
   // 4. Cybersecurity & AppSec
-  if (
-    g.includes('cyber') ||
-    g.includes('security') ||
-    g.includes('infosec') ||
-    g.includes('pen') ||
-    g.includes('appsec') ||
-    g.includes('soc')
-  ) {
+  if (isCyber) {
     const stack1 = primarySkills ? `Node.js, ${primarySkills}, Argon2, Redis` : 'Node.js, Express, Argon2, Redis, TypeScript';
     const stack2 = primarySkills ? `TypeScript, ${primarySkills}, Jose, PostgreSQL` : 'TypeScript, Jose, PostgreSQL, Docker';
     const stack3 = primarySkills ? `Go, ${primarySkills}, Redis, Lua, Nginx` : 'Go, Nginx, Redis, Lua, Scapy';
@@ -897,15 +868,7 @@ export function getDomainFallback(
   }
 
   // 5. DevOps / Cloud & Infrastructure
-  if (
-    g.includes('devops') ||
-    g.includes('cloud') ||
-    g.includes('sre') ||
-    g.includes('infrastructure') ||
-    g.includes('platform') ||
-    g.includes('kubernetes') ||
-    g.includes('terraform')
-  ) {
+  if (isDevops) {
     const stack1 = primarySkills ? `Docker, ${primarySkills}, GitHub Actions, Trivy` : 'Docker, GitHub Actions, Trivy, Make, Bash';
     const stack2 = primarySkills ? `Terraform, ${primarySkills}, AWS/LocalStack, TFLint` : 'Terraform, AWS/LocalStack, TFLint, Terratest';
     const stack3 = primarySkills ? `Kubernetes, ${primarySkills}, Helm, ArgoCD` : 'Kubernetes, ArgoCD, Helm, Argo Rollouts, Prometheus';
@@ -1042,15 +1005,7 @@ export function getDomainFallback(
   }
 
   // 6. Data Engineering & Big Data
-  if (
-    g.includes('data engineer') ||
-    g.includes('big data') ||
-    g.includes('etl') ||
-    g.includes('lakehouse') ||
-    g.includes('spark') ||
-    g.includes('kafka') ||
-    g.includes('analytics engineer')
-  ) {
+  if (isDataEng) {
     const stack1 = primarySkills ? `Python, ${primarySkills}, DuckDB, dbt` : 'Python, DuckDB, dbt-core, PostgreSQL, ClickHouse';
     const stack2 = primarySkills ? `Apache Spark / PySpark, ${primarySkills}, Delta Lake` : 'PySpark, Delta Lake, MinIO, Docker, Parquet';
     const stack3 = primarySkills ? `Apache Kafka, ${primarySkills}, Flink, PostgreSQL` : 'Apache Kafka, Apache Flink, PostgreSQL, Redis, Docker';
@@ -1181,6 +1136,408 @@ export function getDomainFallback(
         verificationReqs: ['Rust WASM compiled query module', 'HTTP range request Parquet reader', 'Vectorized SIMD query benchmark', 'Interactive in-browser SQL playground'],
         minScore: 80,
         isTemplate: true,
+        source: 'curated_template'
+      }
+    ];
+  }
+
+
+  // 6.1 Commerce, Accounting, Finance & Business (B.Com / BBA / MBA)
+  if (isCommerce) {
+    const stack1 = primarySkills ? `Python, Excel, ${primarySkills}, SQLite` : 'Python 3, OpenPyXL, Pandas, SQLite, Pytest';
+    const stack2 = primarySkills ? `FastAPI, ${primarySkills}, PostgreSQL, ReportLab` : 'FastAPI, PostgreSQL, ReportLab, React, Docker';
+    const stack3 = primarySkills ? `Python, ${primarySkills}, NumPy, Streamlit` : 'Python, NumPy, Scikit-learn, Streamlit, Pandas';
+    const stack4 = primarySkills ? `Python, ${primarySkills}, FastAPI, Chart.js` : 'Python 3, FastAPI, SQLAlchemy, Chart.js, PostgreSQL';
+    const stack5 = primarySkills ? `Python, LangChain, ${primarySkills}, SQLite` : 'Python 3.12, LangChain, Ollama / Gemini API, SQLite, Streamlit';
+
+    return [
+      {
+        id: 'proj-bcom-1',
+        name: 'Automated Forensic Double-Entry Ledger & Reconciliation Engine',
+        level: 'Beginner',
+        description: 'Command-line and spreadsheet automated bookkeeping pipeline with strict double-entry debits/credits balance validation, duplicate invoice detection, and bank reconciliation statements.',
+        techStack: stack1,
+        problem: 'Manual bookkeeping errors, unrecorded bank fees, and timing differences cause balance sheet imbalances and audit compliance penalties.',
+        deliverable: 'Auditable Python CLI engine parsing bank CSV/Excel statements, auto-generating reconciliation variance logs and verified journal entries.',
+        xpReward: 250,
+        status: 'Not Started',
+        guideSteps: [
+          'Model Chart of Accounts and enforce Debit = Credit double-entry equation across every transaction.',
+          'Build Bank CSV & Excel parser handling heterogeneous date formats, cleared checks, and pending transfers.',
+          'Implement automated matching engine detecting cleared checks, bank service charges, and NSF bounce fees.',
+          'Generate formatted Bank Reconciliation Statement and export sanitized closing trial balance.',
+          'Author 100% test coverage verifying zero-variance accounting proofs.'
+        ],
+        tips: [
+          'Use Python decimal.Decimal instead of float to prevent IEEE 754 precision rounding errors in monetary cents.',
+          'Enforce strict ISO 4217 currency formats and write-ahead transaction journal logs.'
+        ],
+        verificationReqs: [
+          'Must implement double-entry balance check asserting Sum(Debits) === Sum(Credits).',
+          'Must parse bank CSV files and produce automated reconciliation variance reports.',
+          'Must include unit tests covering mismatched balances, timing differences, and duplicate transactions.'
+        ],
+        minScore: 80,
+        source: 'curated_template'
+      },
+      {
+        id: 'proj-bcom-2',
+        name: 'GST Statutory E-Invoicing & Automated Tax Reconciliation Portal',
+        level: 'Intermediate',
+        description: 'Production-ready web portal generating compliant B2B electronic invoices with QR verification hashes, GSTR-1/GSTR-2B automated reconciliation, and ITC eligibility classification.',
+        techStack: stack2,
+        problem: 'Input Tax Credit (ITC) leakage and mismatched supplier filings trigger expensive statutory tax notices and working capital lockup.',
+        deliverable: 'FastAPI and PostgreSQL service verifying supplier GSTIN format, computing CGST/SGST/IGST tax splits, and detecting mismatching 2B credits.',
+        xpReward: 350,
+        status: 'Not Started',
+        guideSteps: [
+          'Implement GSTIN Luhn checksum validator and HSN/SAC rate mapping data dictionary.',
+          'Create invoice schema with cryptographic IRN (Invoice Reference Number) generation logic.',
+          'Build automated 2B reconciliation algorithm comparing purchase register with government filing data.',
+          'Generate compliant PDF tax invoices with digital signature metadata and QR verification code.',
+          'Deploy with Docker container and automated schema migrations via Alembic.'
+        ],
+        tips: [
+          'Index GSTIN and taxPeriod columns to support rapid reconciliation searches over hundreds of thousands of invoices.',
+          'Store tax calculations with integer millicents to eliminate rounding discrepancies.'
+        ],
+        verificationReqs: [
+          'Must validate GSTIN checksum and correctly bifurcate intra-state vs inter-state tax liabilities.',
+          'Must detect supplier invoice omissions and generate an Input Tax Credit variance report.',
+          'Must provide an automated PDF invoice generator containing required statutory disclosures.'
+        ],
+        minScore: 85,
+        source: 'curated_template'
+      },
+      {
+        id: 'proj-bcom-3',
+        name: 'Corporate Treasury Liquidity & Working Capital Risk Simulator',
+        level: 'Advanced',
+        description: 'Quantitative corporate treasury model simulating 90-day cash flow runways, accounts receivable DSO aging buckets, debt service coverage ratios (DSCR), and currency hedging.',
+        techStack: stack3,
+        problem: 'Volatile sales cycles and sudden customer payment delays trigger severe corporate cash shortages and debt default covenants.',
+        deliverable: 'Interactive Streamlit & Python analytical dashboard executing Monte Carlo liquidity stress-tests and dynamic aging waterfall analytics.',
+        xpReward: 450,
+        status: 'Not Started',
+        guideSteps: [
+          'Build accounts receivable and payable aging pipeline categorizing 0-30, 31-60, 61-90, and 90+ day buckets.',
+          'Implement rolling 13-week direct cash flow forecasting model calculating operating cash burns.',
+          'Simulate interest rate and FX fluctuation shocks on debt servicing coverage ratios.',
+          'Develop interactive risk simulation dashboard using Streamlit and Plotly charts.',
+          'Package model with reproducible seed data and enterprise sensitivity scenarios.'
+        ],
+        tips: [
+          'Structure cash forecasts into Operating, Investing, and Financing flows adhering to IAS 7.',
+          'Implement Value at Risk (VaR) calculations to quantify 95% confidence worst-case weekly drawdowns.'
+        ],
+        verificationReqs: [
+          'Must calculate DSO (Days Sales Outstanding) and aging schedule across simulated invoice sets.',
+          'Must execute sensitivity shock tests on cash balance under delayed collections scenarios.',
+          'Must provide an interactive dashboard displaying liquidity runway and debt covenant warnings.'
+        ],
+        minScore: 85,
+        source: 'curated_template'
+      },
+      {
+        id: 'proj-bcom-4',
+        name: 'Multi-Entity Enterprise Financial Consolidation Suite',
+        level: 'Enterprise',
+        description: 'Multi-subsidiary corporate financial consolidation engine eliminating inter-company balances, applying foreign currency translation adjustments (CTA), and generating consolidated P&L and Balance Sheet statements.',
+        techStack: stack4,
+        problem: 'Multi-subsidiary corporate groups waste hundreds of audit hours manually reconciling inter-company transactions, creating severe audit reporting delays.',
+        deliverable: 'Consolidated reporting backend with automated elimination entry journal generator, minority interest attribution, and IFRS/GAAP compliant exports.',
+        xpReward: 600,
+        status: 'Not Started',
+        guideSteps: [
+          'Design multi-entity schema supporting holding parent, domestic subsidiaries, and foreign subsidiaries.',
+          'Implement inter-company transaction identification and automated matching engine.',
+          'Build automated journal entry engine creating elimination entries for inter-company sales, debt, and dividend flows.',
+          'Calculate Cumulative Translation Adjustments (CTA) for foreign subsidiaries following closing rate rules.',
+          'Generate consolidated Balance Sheet, Profit & Loss, and Cash Flow statements with drill-down audit trails.'
+        ],
+        tips: [
+          'Enforce immutable audit logs for every intercompany elimination entry with before/after trial balances.',
+          'Model minority interest (Non-Controlling Interest) calculations with automated equity attribution.'
+        ],
+        verificationReqs: [
+          'Must automatically detect and eliminate 100% of inter-company sales and receivables.',
+          'Must calculate accurate foreign currency translation adjustments across simulated foreign subsidiaries.',
+          'Must provide consolidated financial statements reconciling precisely to parent entity trial balances.'
+        ],
+        minScore: 90,
+        source: 'curated_template'
+      },
+      {
+        id: 'proj-bcom-5',
+        name: 'Autonomous AI Forensic Audit Agent for General Ledger Anomaly Detection',
+        level: 'Future-Tech',
+        description: 'Multi-agent LLM and statistical forensic auditor that scans enterprise ERP general ledgers, flags Benford Law frequency violations, identifies round-sum suspicious payments, and generates formal audit risk memorandums.',
+        techStack: stack5,
+        problem: 'Corporate fraud, fictitious vendor payments, and weekend authorization bypasses slip through periodic sampling audits, causing catastrophic compliance loss.',
+        deliverable: 'Autonomous forensic agent pipeline executing statistical anomaly detection, vendor collision analysis, and generating structured audit defense reports.',
+        xpReward: 800,
+        status: 'Not Started',
+        guideSteps: [
+          'Build first-digit Benford Law statistical distribution analyzer flagging anomalous transaction clusters.',
+          'Implement heuristic anomaly detectors for round-number payments, weekend journal entries, and just-below-threshold approval splits.',
+          'Deploy autonomous agent (LangChain / Gemini API) providing socratic reasoning and citation of specific GAAP/IFRS risk standards.',
+          'Generate executive-ready Forensic Audit Memorandum highlighting high-risk general ledger anomalies with verifiable transaction IDs.',
+          'Package with synthetic corporate ledger dataset and zero-hallucination verification tests.'
+        ],
+        tips: [
+          'Ground AI auditor conclusions strictly in transaction numbers and mathematical statistical deviation metrics.',
+          'Combine statistical Z-score outliers with LLM qualitative rationale generation.'
+        ],
+        verificationReqs: [
+          'Must calculate Benford Law first-digit distribution and compute Chi-squared goodness-of-fit.',
+          'Must flag simulated fictitious vendor invoices and threshold-splitting transactions.',
+          'Must output structured forensic audit report quoting exact anomalous journal entry IDs.'
+        ],
+        minScore: 90,
+        source: 'curated_template'
+      }
+    ];
+  }
+
+  // 6.2 IoT, Firmware & Embedded Systems (course-iot-embedded, course-iot-network, course-iot-edge-ai)
+  if (isIot) {
+    const stack1 = primarySkills ? `C/C++, FreeRTOS, ${primarySkills}, ESP32` : 'C/C++, FreeRTOS, ESP32, MQTT, I2C';
+    const stack2 = primarySkills ? `Go/Python, MQTT, ${primarySkills}, InfluxDB` : 'Go, MQTT Broker, InfluxDB, Grafana, Docker';
+    const stack3 = primarySkills ? `C++, ${primarySkills}, TensorFlow Lite Micro` : 'C++, TensorFlow Lite Micro, Edge Impulse, FreeRTOS, CMake';
+    const stack4 = primarySkills ? `Python, FastAPI, ${primarySkills}, Ed25519` : 'Python, FastAPI, Ed25519 Cryptography, Docker, PostgreSQL';
+    const stack5 = primarySkills ? `React, Three.js, ${primarySkills}, WebSockets` : 'React, Three.js, Redis Pub/Sub, WebSockets, TypeScript';
+
+    return [
+      {
+        id: 'proj-iot-1',
+        name: 'ESP32 / FreeRTOS Multi-Sensor Environmental Telemetry Node',
+        level: 'Beginner',
+        description: 'Robust firmware sensor node reading environmental data via I2C/SPI, queuing telemetry across FreeRTOS tasks, and publishing to an MQTT broker with automatic WiFi reconnect backoff.',
+        techStack: stack1,
+        problem: 'Embedded hardware sensor read blocking stalls CPU execution and drops critical telemetry during wireless network disconnections.',
+        deliverable: 'C/C++ firmware application with multi-task FreeRTOS queues, non-blocking sensor drivers, and exponential reconnect logic.',
+        xpReward: 250,
+        status: 'Not Started',
+        guideSteps: [
+          'Initialize ESP32 peripherals (I2C, SPI, GPIO) with error checking and sensor self-test.',
+          'Configure FreeRTOS sensor polling task and telemetry transmit queue.',
+          'Implement MQTT client with exponential backoff WiFi reconnection state machine.',
+          'Encode sensor payloads in compact JSON or CBOR format with timestamp and device ID.',
+          'Author unit tests with mock I2C bus and compile with zero compiler warnings.'
+        ],
+        tips: ['Use FreeRTOS task notifications for lightweight synchronization rather than heavy binary semaphores.'],
+        verificationReqs: ['Must implement non-blocking FreeRTOS queues.', 'Must demonstrate automatic reconnect state machine.', 'Must provide CMake or PlatformIO build configuration.'],
+        minScore: 80,
+        source: 'curated_template'
+      },
+      {
+        id: 'proj-iot-2',
+        name: 'Industrial Edge Gateway & High-Throughput Telemetry Ingestion Hub',
+        level: 'Intermediate',
+        description: 'Edge computing service ingesting tens of thousands of sensor readings per second from local industrial brokers, deduplicating packets, and streaming into InfluxDB time-series storage.',
+        techStack: stack2,
+        problem: 'High-frequency sensor burst traffic overwhelms cloud network links and causes severe data ingestion bottlenecks.',
+        deliverable: 'High-performance Go or Python edge gateway service with local buffering, batch writes to time-series DB, and Grafana dashboard.',
+        xpReward: 350,
+        status: 'Not Started',
+        guideSteps: [
+          'Create high-throughput MQTT subscription client with worker pool concurrency.',
+          'Implement in-memory ring buffer for packet smoothing and deduplication.',
+          'Batch write telemetry points into InfluxDB with gzip compression.',
+          'Build local web health status endpoint and Grafana operational dashboard.',
+          'Package gateway into multi-architecture Docker container (AMD64 + ARM64).'
+        ],
+        tips: ['Batch InfluxDB points in groups of 500-1000 to maximize disk write throughput.'],
+        verificationReqs: ['Must process simulated burst traffic without dropping packets.', 'Must persist sensor metrics into InfluxDB with timestamps.', 'Must provide Docker Compose setup.'],
+        minScore: 85,
+        source: 'curated_template'
+      },
+      {
+        id: 'proj-iot-3',
+        name: 'TinyML Vibration Anomaly Detector on Embedded Microcontroller',
+        level: 'Advanced',
+        description: 'On-device machine learning inference engine running a quantized neural network on ARM Cortex-M microcontrollers to detect industrial motor bearing failure from accelerometer data.',
+        techStack: stack3,
+        problem: 'Streaming raw vibration audio/telemetry to cloud consumes prohibitive network bandwidth and leaks proprietary factory telemetry.',
+        deliverable: 'Embedded C++ application running int8 quantized neural network inference with real-time FFT spectral preprocessing and anomaly score output.',
+        xpReward: 450,
+        status: 'Not Started',
+        guideSteps: [
+          'Implement Fast Fourier Transform (FFT) signal preprocessing on 3-axis accelerometer data.',
+          'Train autoencoder model on normal machine baseline vibration data and quantize to int8.',
+          'Integrate TensorFlow Lite Micro runtime and invoke model inference within FreeRTOS task.',
+          'Trigger local hardware warning LED and alert payload when anomaly reconstruction error exceeds threshold.',
+          'Benchmark inference latency and RAM usage (must remain < 64KB SRAM).'
+        ],
+        tips: ['Use CMSIS-NN optimized kernels for 4x speedup on ARM Cortex-M processors.'],
+        verificationReqs: ['Must execute inference on quantized model within target memory budget.', 'Must demonstrate signal preprocessing pipeline.', 'Must accurately distinguish normal from anomalous patterns.'],
+        minScore: 85,
+        source: 'curated_template'
+      },
+      {
+        id: 'proj-iot-4',
+        name: 'Cryptographically Signed Secure OTA Firmware Delivery Server',
+        level: 'Enterprise',
+        description: 'Zero-trust Over-The-Air (OTA) firmware distribution server verifying Ed25519 cryptographic signatures, managing staged canary fleet rollouts, and supporting automated firmware rollback.',
+        techStack: stack4,
+        problem: 'Malicious firmware injection or bricked OTA updates can destroy thousands of distributed physical hardware devices.',
+        deliverable: 'Production FastAPI server with signed binary verification, fleet version tracking, and fail-safe dual-partition boot logic.',
+        xpReward: 600,
+        status: 'Not Started',
+        guideSteps: [
+          'Implement Ed25519 cryptographic signature generation and public-key firmware verification.',
+          'Design device fleet state tracking database supporting canary rollout percentages (10%, 50%, 100%).',
+          'Build secure chunked HTTPS binary download endpoint with SHA-256 integrity verification.',
+          'Simulate client bootloader verification and automated rollback upon crash loop detection.',
+          'Author end-to-end integration tests simulating successful and tampered OTA binary updates.'
+        ],
+        tips: ['Always enforce anti-rollback version counters in bootloader headers to prevent downgrade attacks.'],
+        verificationReqs: ['Must reject unsigned or tampered firmware binaries.', 'Must support gradual canary deployment by device group.', 'Must provide comprehensive test coverage for rollback triggers.'],
+        minScore: 90,
+        source: 'curated_template'
+      },
+      {
+        id: 'proj-iot-5',
+        name: 'Industrial IoT Digital Twin with Real-Time 3D Interactive Telemetry',
+        level: 'Future-Tech',
+        description: 'High-fidelity WebGL / Three.js 3D digital twin of an automated robotic cell with live WebSocket telemetry synchronization, interactive component inspection, and heat-map sensor visualization.',
+        techStack: stack5,
+        problem: 'Operators monitoring complex robotic production lines struggle to visualize spatial relationships and root causes from 2D tabular dashboards.',
+        deliverable: 'Full-stack web application with Three.js 3D model rendering, real-time WebSocket state streaming, and sensor health overlays.',
+        xpReward: 800,
+        status: 'Not Started',
+        guideSteps: [
+          'Build Three.js 3D scene loader importing GLTF/GLB models with custom PBR materials.',
+          'Connect WebSocket client to real-time telemetry stream updating joint angles and thermal values.',
+          'Implement raycasting for interactive component inspection and historical sensor graphing modal.',
+          'Create thermal gradient shader visualizing real-time temperature stress across mechanical joints.',
+          'Optimize rendering pipeline to maintain 60 FPS under continuous telemetry updates.'
+        ],
+        tips: ['Use instanced meshes and buffer geometries to reduce draw calls when rendering hundreds of sensors.'],
+        verificationReqs: ['Must render interactive 3D model with camera controls.', 'Must dynamically update component state from live WebSocket messages.', 'Must include responsive UI overlays.'],
+        minScore: 90,
+        source: 'curated_template'
+      }
+    ];
+  }
+
+  // 6.3 Blockchain, Web3 & Smart Contracts (course-blockchain-web3)
+  if (isBlockchain) {
+    const stack1 = primarySkills ? `Solidity, Hardhat, ${primarySkills}, OpenZeppelin` : 'Solidity 0.8, Hardhat, OpenZeppelin, Ethers.js, TypeScript';
+    const stack2 = primarySkills ? `Solidity, ${primarySkills}, Uniswap V2 Architecture` : 'Solidity, Hardhat, Uniswap V2 Architecture, Ethers.js, TypeScript';
+    const stack3 = primarySkills ? `Solidity, Circom, ${primarySkills}, SnarkJS` : 'Solidity, Circom, SnarkJS, Ethers.js, TypeScript';
+    const stack4 = primarySkills ? `Solidity, Slither, ${primarySkills}, Next.js` : 'Solidity, Hardhat, Slither, Next.js, Wagmi';
+    const stack5 = primarySkills ? `Rust, ${primarySkills}, Ethers.js, WebSockets` : 'Rust / TypeScript, Ethers.js, WebSocket Mempool Listener, Tokio';
+
+    return [
+      {
+        id: 'proj-web3-1',
+        name: 'ERC-20 & ERC-721 Cryptographic Token & Governance Suite',
+        level: 'Beginner',
+        description: 'Audited smart contracts for token distribution, staking with linear reward accumulation, and NFT membership verification with permit signatures.',
+        techStack: stack1,
+        problem: 'Insecure custom token implementations introduce reentrancy and arbitrary transfer vulnerabilities leading to complete fund drains.',
+        deliverable: 'Solidity contracts with 100% test coverage in Hardhat, reentrancy guards, and gas optimization analysis.',
+        xpReward: 250,
+        status: 'Not Started',
+        guideSteps: [
+          'Implement ERC-20 token contract extending OpenZeppelin with capped supply and pausable transfers.',
+          'Create staking contract calculating linear time-weighted rewards.',
+          'Implement EIP-2612 gasless approval permit signatures.',
+          'Write extensive test suite covering happy paths and adversarial drain attempts.',
+          'Generate Slither static analysis and gas profiling report.'
+        ],
+        tips: ['Use OpenZeppelin SafeERC20 to prevent issues with non-standard tokens like USDT that do not return boolean on transfer.'],
+        verificationReqs: ['Must include reentrancy protection on staking withdrawals.', 'Must achieve 100% branch test coverage in Hardhat.', 'Must include zero high-severity Slither warnings.'],
+        minScore: 80,
+        source: 'curated_template'
+      },
+      {
+        id: 'proj-web3-2',
+        name: 'Automated Market Maker (AMM) Constant-Product Liquidity Pool',
+        level: 'Intermediate',
+        description: 'Decentralized exchange core implementing the x * y = k constant product invariant, LP minting/burning, slippage protection, and 0.3% protocol fee distribution.',
+        techStack: stack2,
+        problem: 'Order book exchanges require massive market maker capital that fails on low-liquidity long-tail decentralized assets.',
+        deliverable: 'Solidity AMM core and router contracts with swap calculation math and extensive multi-pool arbitrage simulation tests.',
+        xpReward: 350,
+        status: 'Not Started',
+        guideSteps: [
+          'Implement Pair contract with x * y = k invariant math and precision overflow guards.',
+          'Create LP token minting on addLiquidity and burning on removeLiquidity.',
+          'Implement Factory contract deploying new trading pairs with deterministic CREATE2 addresses.',
+          'Build Router contract handling slippage limits (amountOutMin) and deadline timestamps.',
+          'Write integration tests simulating price impact and liquidity provider fee accumulation.'
+        ],
+        tips: ['Use Babylonian square root algorithm for initial LP token minting to prevent precision attacks.'],
+        verificationReqs: ['Must enforce constant product formula with fee deduction.', 'Must reject swaps exceeding user slippage tolerance.', 'Must pass all automated swap test cases.'],
+        minScore: 85,
+        source: 'curated_template'
+      },
+      {
+        id: 'proj-web3-3',
+        name: 'Merkle Tree Airdrop & Zero-Knowledge Identity Verification Engine',
+        level: 'Advanced',
+        description: 'Cryptographically verifiable airdrop claiming system using Merkle tree inclusion proofs and Circom zero-knowledge proofs to allow private whitelist membership verification.',
+        techStack: stack3,
+        problem: 'Storing thousands of eligible recipient addresses on-chain costs thousands of dollars in gas fees and exposes user wallet identities.',
+        deliverable: 'Off-chain Merkle generator, Circom ZK circuit, and Solidity verifier contract enabling gas-efficient private claims.',
+        xpReward: 450,
+        status: 'Not Started',
+        guideSteps: [
+          'Generate Merkle tree from address/amount list using OpenZeppelin MerkleTree library.',
+          'Write Solidity contract verifying Merkle proofs and preventing double-claims via bit maps.',
+          'Author Circom zero-knowledge circuit proving knowledge of secret leaf without disclosing identity.',
+          'Compile circuit to generate Solidity verifier and prover keys via SnarkJS.',
+          'Test claiming flow with valid and spoofed proofs.'
+        ],
+        tips: ['Use bitmap storage instead of boolean mapping to save 15,000 gas per claim.'],
+        verificationReqs: ['Must verify Merkle proof against stored root.', 'Must prevent double-claims using bitmap.', 'Must include complete test suite.'],
+        minScore: 85,
+        source: 'curated_template'
+      },
+      {
+        id: 'proj-web3-4',
+        name: 'Multi-Signature Corporate Treasury Vault with Timelock Governance',
+        level: 'Enterprise',
+        description: 'Enterprise multi-sig treasury contract requiring M-of-N executive cryptographic signatures and an enforced timelock delay before executing high-value transactions.',
+        techStack: stack4,
+        problem: 'Single-key compromised admin wallets result in millions of dollars in catastrophic protocol treasury thefts.',
+        deliverable: 'Audited Solidity multi-sig contract with ECDSA signature verification, emergency pause mechanism, and React management interface.',
+        xpReward: 600,
+        status: 'Not Started',
+        guideSteps: [
+          'Implement proposal lifecycle: submitTransaction, confirmTransaction, executeTransaction.',
+          'Add timelock delay enforcement for transactions exceeding capital thresholds.',
+          'Support off-chain ECDSA signature packing for single-transaction batch execution.',
+          'Build full Next.js UI for proposal creation, signer approval tracking, and execution.',
+          'Perform rigorous security audit covering replay attacks, hash collision, and signer threshold changes.'
+        ],
+        tips: ['Always include chainId and contract address in signature hashes (EIP-712) to prevent cross-chain replay attacks.'],
+        verificationReqs: ['Must enforce M-of-N threshold before execution.', 'Must prevent execution before timelock expiry.', 'Must reject duplicate confirmations and unauthorized callers.'],
+        minScore: 90,
+        source: 'curated_template'
+      },
+      {
+        id: 'proj-web3-5',
+        name: 'Cross-DEX Arbitrage & Liquidation Engine Architecture',
+        level: 'Future-Tech',
+        description: 'Low-latency arbitrage and liquidation engine listening to pending mempool transactions via WebSocket, calculating triangular arbitrage cycles, and submitting atomic flash-swap bundles.',
+        techStack: stack5,
+        problem: 'Decentralized lending pools become insolvent if undercollateralized loans are not liquidated within seconds of collateral price drops.',
+        deliverable: 'High-speed Rust or TypeScript bot monitoring pool reserves, computing profitable liquidation paths, and executing atomic Solidity flash swaps.',
+        xpReward: 800,
+        status: 'Not Started',
+        guideSteps: [
+          'Establish low-latency WebSocket connection to Ethereum/Polygon node and parse new pending blocks.',
+          'Implement graph-based Bellman-Ford or triangular arbitrage discovery across liquidity pools.',
+          'Write Solidity Flash Loan receiver contract executing atomic borrow, swap, and repay within one transaction.',
+          'Simulate transaction execution using eth_call to verify profit before broadcasting.',
+          'Test with mock local Hardhat fork network simulating price divergence.'
+        ],
+        tips: ['Simulate transaction state locally using an archive node to eliminate wasteful gas spend on failing transactions.'],
+        verificationReqs: ['Must detect simulated price discrepancy across two DEX pools.', 'Must execute flash loan and repay in a single atomic transaction.', 'Must revert if net trade is unprofitable.'],
+        minScore: 90,
         source: 'curated_template'
       }
     ];

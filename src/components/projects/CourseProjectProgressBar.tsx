@@ -26,24 +26,41 @@ export const CourseProjectProgressBar: React.FC<CourseProjectProgressBarProps> =
   const completedCount = completedProjects.length;
   const projectProgressPct = Math.min(100, Math.round((completedCount / totalRequired) * 100));
 
-  const milestones = [
+  const stageList = projects.length > 0 ? projects.map((proj, idx) => ({
+    id: proj.id,
+    level: proj.level,
+    stageNum: idx + 1,
+    title: proj.name,
+    desc: proj.description,
+    status: proj.status || 'Not Started',
+    project: proj,
+  })) : [
     {
+      id: 'm1',
       level: 'Beginner',
+      stageNum: 1,
       title: 'Milestone 1: Foundation Capstone',
       desc: 'Architecture baseline, data contracts & core logic',
-      status: projects.find((p) => p.level === 'Beginner')?.status || 'Not Started',
+      status: 'Not Started',
+      project: null,
     },
     {
+      id: 'm2',
       level: 'Intermediate',
+      stageNum: 2,
       title: 'Milestone 2: Distributed Integration',
       desc: 'Microservices, database pool & API latency SLA',
-      status: projects.find((p) => p.level === 'Intermediate' || p.level === 'Advanced')?.status || 'Not Started',
+      status: 'Not Started',
+      project: null,
     },
     {
+      id: 'm3',
       level: 'Enterprise',
+      stageNum: 3,
       title: 'Milestone 3: Production Defense',
       desc: 'Live telemetry, zero-trust security & viva jury defense',
-      status: projects.find((p) => p.level === 'Enterprise' || p.level === 'Future-Tech')?.status || 'Not Started',
+      status: 'Not Started',
+      project: null,
     },
   ];
 
@@ -206,7 +223,7 @@ export const CourseProjectProgressBar: React.FC<CourseProjectProgressBarProps> =
         </div>
       </div>
 
-      {/* 3-Milestone Stage Cards */}
+      {/* Progressive Milestone Stage Cards */}
       <div
         style={{
           display: 'grid',
@@ -214,15 +231,15 @@ export const CourseProjectProgressBar: React.FC<CourseProjectProgressBarProps> =
           gap: 14,
         }}
       >
-        {milestones.map((m, idx) => {
+        {stageList.map((m, idx) => {
           const isDone = m.status === 'Completed';
           const isInProgress = m.status === 'In Progress';
-          const matchingProj = projects.find((p) => p.level === m.level || (idx === 1 && p.level === 'Advanced'));
 
           return (
             <div
-              key={idx}
-              onClick={() => matchingProj && onSelectProject?.(matchingProj)}
+              key={m.id || idx}
+              data-testid={`stage-milestone-card-${idx + 1}`}
+              onClick={() => m.project && onSelectProject?.(m.project)}
               style={{
                 background: isDone
                   ? 'rgba(34, 197, 94, 0.08)'
@@ -230,13 +247,13 @@ export const CourseProjectProgressBar: React.FC<CourseProjectProgressBarProps> =
                   ? 'rgba(56, 189, 248, 0.08)'
                   : 'var(--bg2)',
                 border: isDone
-                  ? '1px solid rgba(34, 197, 94, 0.35)'
+                  ? '1.5px solid rgba(34, 197, 94, 0.4)'
                   : isInProgress
                   ? '1.5px solid var(--accent)'
                   : '1px solid var(--border)',
                 borderRadius: 14,
                 padding: '16px 18px',
-                cursor: matchingProj ? 'pointer' : 'default',
+                cursor: m.project ? 'pointer' : 'default',
                 transition: 'all 0.2s ease',
                 boxShadow: 'var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.05))',
               }}
@@ -252,7 +269,7 @@ export const CourseProjectProgressBar: React.FC<CourseProjectProgressBarProps> =
                     fontFamily: 'var(--font-mono, monospace)',
                   }}
                 >
-                  Stage {idx + 1} • {m.level}
+                  Stage {m.stageNum} • {m.level}
                 </span>
 
                 <span
@@ -275,11 +292,11 @@ export const CourseProjectProgressBar: React.FC<CourseProjectProgressBarProps> =
               </div>
 
               <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--t1)', marginBottom: 5, lineHeight: 1.35 }}>
-                {matchingProj ? matchingProj.name : m.title}
+                {m.title}
               </div>
 
               <div style={{ fontSize: 13, color: 'var(--t2)', lineHeight: 1.45 }}>
-                {matchingProj ? matchingProj.description : m.desc}
+                {m.desc}
               </div>
             </div>
           );

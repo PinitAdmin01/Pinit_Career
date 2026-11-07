@@ -119,17 +119,36 @@ function ProjectsPageContent() {
         const viewRaw = localStorage.getItem(`pinit_${studentId}_quests_view`) || localStorage.getItem('pinit_quests_view');
         if (viewRaw) {
           const parsed = JSON.parse(viewRaw);
-          if (parsed?.courseId) {
-            const found = COURSES_CATALOG.find(c => c.id === parsed.courseId);
+          const targetId = parsed?.activeCourseId || parsed?.selectedStandaloneCourseId || parsed?.selectedCertTrackId || parsed?.courseId || parsed?.extraId;
+          if (targetId) {
+            const found = COURSES_CATALOG.find(c => c.id === targetId || c.id.toLowerCase() === String(targetId).toLowerCase());
+            if (found) return found;
+          }
+        }
+
+        const crashRaw = localStorage.getItem('pinit_active_crash_enrollment');
+        if (crashRaw) {
+          const parsed = JSON.parse(crashRaw);
+          const trackCourseMap: Record<string, string> = {
+            python: 'course-python-backend',
+            web_fullstack: 'course-react-web',
+            cloud: 'course-cloud-native',
+            data: 'course-database-eng',
+            ai: 'course-ai-eng',
+          };
+          const resolved = trackCourseMap[parsed?.track] || parsed?.courseId;
+          if (resolved) {
+            const found = COURSES_CATALOG.find(c => c.id === resolved);
             if (found) return found;
           }
         }
 
         const directActive = localStorage.getItem(`pinit_${studentId}_active_course_id`) ||
                              localStorage.getItem('pinit_active_course') ||
-                             localStorage.getItem(`pinit_${studentId}_selected_course`);
+                             localStorage.getItem(`pinit_${studentId}_selected_course`) ||
+                             localStorage.getItem('pinit_last_selected_course');
         if (directActive) {
-          const found = COURSES_CATALOG.find(c => c.id === directActive);
+          const found = COURSES_CATALOG.find(c => c.id === directActive || c.id.toLowerCase() === String(directActive).toLowerCase());
           if (found) return found;
         }
       } catch {}

@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { QRCodeSVG } from 'qrcode.react';
 import { toast } from '@/lib/store/useAppStore';
+import { parseAndValidateGithubUrl } from '@/lib/github/githubIngestion';
 import {
   TeamsApiService,
   HackathonSquad,
@@ -176,6 +177,14 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
     if (!newSquadName.trim()) {
       toast.error('Project Name Required', 'Please enter a name for your innovation project.');
       return;
+    }
+
+    if (newRepoUrl.trim()) {
+      const check = parseAndValidateGithubUrl(newRepoUrl.trim());
+      if (!check.valid) {
+        toast.error('Invalid Repository URL', check.error || 'Please enter a valid GitHub repository URL.');
+        return;
+      }
     }
 
     const created = TeamsApiService.createSquad({
@@ -1370,8 +1379,16 @@ export const InnovationHub: React.FC<InnovationHubProps> = ({
               />
               <button
                 onClick={() => {
-                  navigator.clipboard.writeText(inviteUrl);
-                  toast.success('Invite Link Copied! 📋', 'Share with classmates on WhatsApp or Discord.');
+                  try {
+                    if (typeof navigator !== 'undefined' && navigator.clipboard?.writeText) {
+                      navigator.clipboard.writeText(inviteUrl);
+                      toast.success('Invite Link Copied! 📋', 'Share with classmates on WhatsApp or Discord.');
+                    } else {
+                      window.prompt('Copy squad invite link:', inviteUrl);
+                    }
+                  } catch {
+                    window.prompt('Copy squad invite link:', inviteUrl);
+                  }
                 }}
                 data-testid="copy-invite-link-btn"
                 style={{
